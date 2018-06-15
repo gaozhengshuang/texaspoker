@@ -4,6 +4,8 @@ set -e
 cmd=$1
 case $cmd in
 svn)
+    git pull
+
     cd $JUMPGAME_ROOT
     svn up
 
