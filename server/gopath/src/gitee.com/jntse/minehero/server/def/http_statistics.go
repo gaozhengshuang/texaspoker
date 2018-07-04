@@ -762,7 +762,7 @@ func HttpRequestCheckWechatBound(charid uint64, token, tvmid string) {
 }
 
 // 企业微信支付到个人
-func HttpWechatCompanyPay(openid string) string {
+func HttpWechatCompanyPay(openid string, amount int64) string {
 
 	//
 	mapset := make(map[string]interface{})
@@ -774,7 +774,7 @@ func HttpWechatCompanyPay(openid string) string {
 	mapset["openid"] = openid
 	mapset["check_name"] = "NO_CHECK"
 	//mapset["re_user_name"] = ""
-	mapset["amount"] = int64(1)
+	mapset["amount"] = amount
 	mapset["desc"] = "巨枫用户奖励"
 	mapset["spbill_create_ip"] = "127.0.0.1"
 	mapset["sign"] = ""
@@ -850,9 +850,10 @@ func HttpWechatCompanyPay(openid string) string {
 
 	// post
 	url := "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers"
+	caCert := "../cert/wechat/cacert.pem"
 	certFile := "../cert/wechat/apiclient_cert.pem"
 	certKey := "../cert/wechat/apiclient_key.pem"
-	resp, posterr := network.HttpsPost(url, certFile, certKey, util.BytesToString(postbody))
+	resp, posterr := network.HttpsPost(url, caCert, certFile, certKey, util.BytesToString(postbody))
 	if posterr != nil {
 		log.Error("玩家[%s] 推送失败 error[%s] resp[%#v]", openid, posterr, resp)
 		return "HttpPost失败"
