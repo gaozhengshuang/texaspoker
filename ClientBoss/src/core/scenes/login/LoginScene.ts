@@ -1,25 +1,30 @@
 module game {
     export class LoginScene extends SceneComponent {
-        titleImage: eui.Image;
         nameLabel: eui.EditableText;
-        loginButton: LabelButton;
+        btn_register: eui.Label;
+        passwordLabel: eui.EditableText;
+        loginButton: IconButton;
 
         protected getSkinName() {
             return LoginSceneSkin;
         }
 
         protected init() {
-            this.titleImage.y = gameConfig.curHeight() * 0.1;
-            this.loginButton.label = "登陆";
+            this.loginButton.icon = "login/loginBtn";
         }
 
         protected beforeShow() {
             this._touchEvent = [
-                {target: this.loginButton, callBackFunc: this.loginHandle}
+                {target: this.loginButton, callBackFunc: this.loginHandle},
+                {target: this.btn_register, callBackFunc: this.registerHandle}
             ];
-            if (egret.localStorage.getItem("userName")) {
+            
+            if (egret.localStorage.getItem("userName") && egret.localStorage.getItem("password")) {
                 this.nameLabel.text = egret.localStorage.getItem("userName");
+                this.passwordLabel.text = egret.localStorage.getItem("password");
             }
+            this.passwordLabel.inputType = egret.TextFieldInputType.PASSWORD;
+            this.passwordLabel.displayAsPassword = true;
         }
 
         private async loginHandle() {
@@ -28,14 +33,19 @@ module game {
                 showTips("请输入您的用户名!", true);
                 return;
             }
-            let userInfo = DataManager.playerModel.userInfo;
-            userInfo.openid = realName;
-            userInfo.name = realName;
-            this.loginFinish();
+
+            loginUserInfo = {
+                account: this.nameLabel.text,
+                passwd: this.passwordLabel.text
+            };
+            LoginManager.getInstance().login();
+
+            egret.localStorage.setItem("userName", this.nameLabel.text);
+            egret.localStorage.setItem("password", this.passwordLabel.text);
         }
 
-        private loginFinish() {
-            SceneManager.changeScene(SceneType.main);
+        private registerHandle() {
+            openPanel(PanelType.register);
         }
 
         private static _instance: LoginScene;

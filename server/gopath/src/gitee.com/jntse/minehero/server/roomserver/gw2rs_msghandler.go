@@ -38,9 +38,8 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UserDisconnect{}, on_GW2RS_UserDisconnect)
 	this.msgparser.RegistProtoMsg(msg.BT_UploadGameUser{}, on_BT_UploadGameUser)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqJumpStep{}, on_BT_ReqJumpStep)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_JumpPreCheck{}, on_BT_JumpPreCheck)
+	this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 
 
 	// 发
@@ -50,9 +49,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
 	this.msgparser.RegistSendProto(msg.BT_GameStart{})
 	this.msgparser.RegistSendProto(msg.BT_GameEnd{})
-	this.msgparser.RegistSendProto(msg.BT_RetJumpStep{})
 	this.msgparser.RegistSendProto(msg.BT_PickItem{})
-	this.msgparser.RegistSendProto(msg.BT_RetJumpPreCheck{})
 
 	// 发Gate
 	this.msgparser.RegistSendProto(msg.GW2C_MsgNotify{})
@@ -109,7 +106,6 @@ func on_BT_UploadGameUser(session network.IBaseNetSession, message interface{}) 
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_ReqEnterRoom)
-	//log.Info(reflect.TypeOf(tmsg).String())
 	roomid, userid, token := tmsg.GetRoomid(), tmsg.GetUserid(), tmsg.GetToken()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
@@ -120,36 +116,8 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	room.UserEnter(userid, token)
 }
 
-func on_BT_JumpPreCheck(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_JumpPreCheck)
-	//log.Info(reflect.TypeOf(tmsg).String())
-
-	roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("BT_ReqJumpStep 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
-		return
-	}
-	//room.JumpPreCheck(tmsg.GetToken())
-	room.JumpPreCheck(tmsg.GetToken())
-}
-
-func on_BT_ReqJumpStep(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.BT_ReqJumpStep)
-
-	//roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
-	//room := RoomMgr().Find(roomid)
-	//if room == nil {
-	//	log.Error("BT_ReqJumpStep 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
-	//	return
-	//}
-	//room.JumpForward(tmsg.GetStepnum())
-}
-
 func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_ReqQuitGameRoom)
-	//log.Info(reflect.TypeOf(tmsg).String())
-
 	roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
@@ -157,5 +125,17 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 		return
 	}
 	room.UserLeave(userid)
+}
+
+func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UpdateMoney)
+	roomid, userid, money := tmsg.GetRoomid(), tmsg.GetUserid(), tmsg.GetMoney()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("BT_UpdateMoney 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		return
+	}
+
+	room.owner.SetMoney(uint32(money), "同步客户端")
 }
 

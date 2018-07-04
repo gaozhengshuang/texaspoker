@@ -1,6 +1,8 @@
 declare var platform;
 
 module game {
+    let inited = false;
+
     export function run() {
         // gameConfig.curStage().once(egret.TouchEvent.TOUCH_BEGIN, () => {
         //     initWebAudio();
@@ -16,28 +18,83 @@ module game {
         DataManager.init();
         SoundManager.init();
 
-        createMainScene();
+        //通讯初始化
+        ClientNet.getInstance().init();
+        //弹幕界面初始化
+        BarrageManager.getInstance().init();
+        //战斗数据初始化
+        BattleManager.getInstance().init();
+
+        //游戏初始化
+        gameInit();
     }
 
-    let inited = false;
-
-    export async function createMainScene() {
-        if (game.$isWx) {
-            WXLogin();
-            platform.showShareMenu();
-            SceneManager.changeScene(SceneType.main, false);
+    export function gameInit() {
+        wxCode = egret.getOption("code");
+        wxState = egret.getOption("state");
+        if(wxCode != "" && wxState != "") {
+            let userArray = wxState.split("-");
+            loginUserInfo = {
+                account: userArray[0],
+                passwd: userArray[1]
+            };
+            LoginManager.getInstance().login();
         } else {
-            SceneManager.changeScene(SceneType.login, false);
+            Login();
         }
     }
 
-    export async function WXLogin() {
-        const loginRes = await platform.login();
-        const playerInfo: WxUserInfo = await platform.getUserInfo();
-        let userInfo = DataManager.playerModel.userInfo;
-        userInfo.token = loginRes.code;
-        userInfo.name = playerInfo.nickName;
-        userInfo.face = playerInfo.avatarUrl;
+    export function createGameScene() {
+        SceneManager.changeScene(SceneType.main);
+
+        if (wxCode != "" && wxState != "" && DataManager.playerModel.getOpenId() == "") {
+            sendMessage("msg.C2GW_SendWechatAuthCode", msg.C2GW_SendWechatAuthCode.encode({
+                code: wxCode
+            }));
+            showTips("绑定微信成功!");
+        }
+
+        //登录完成关闭loading界面
+        NotificationCenter.postNotification("closeLoadingSkin");
+        NotificationCenter.once(this, connectFailed, ClientNet.SOCKET_CONNECT_CLOSE);
+        this.startHeart();
+        window.onbeforeunload = () => {
+            stopHeart();
+            ClientNet.getInstance().onConnectClose();
+            return;
+        }
+    }
+
+    export function connectFailed() {
+        stopHeart();
+        NetFailed.getInstance().show();
+    }
+
+    export var heartTimeout: number;
+
+    export function stopHeart() {
+        if (heartTimeout) {
+            clearTimeout(heartTimeout);
+            heartTimeout = null;
+        }
+    }
+
+    export async function startHeart() {
+        if (heartTimeout) return;
+        if (game.leaveTime) {
+            let now = new Date().getTime();
+            if ((now - game.leaveTime) >= 300000) {
+                stopHeart();
+                return;
+            }
+        }
+
+        sendMessage("msg.C2GW_HeartBeat", msg.C2GW_HeartBeat.encode({}));
+        heartTimeout = setTimeout(() => {
+            // showTips("测试心跳", true);
+            heartTimeout = null;
+            startHeart();
+        }, 3000);
     }
 }
 

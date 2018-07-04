@@ -32,7 +32,6 @@ type RoomBase struct {
 	roomid      int64
 	sid_room    int
 	kind        int32
-	gridnum     int32
 	tm_closing	int64		// 房间关闭超时
 	creating	bool
 }
@@ -41,7 +40,6 @@ func (this *RoomBase) Reset() {
 	this.roomid = 0
 	this.sid_room = 0
 	this.kind = 0
-	this.gridnum = 0
 	this.tm_closing = 0
 	this.creating = false
 }
@@ -65,6 +63,7 @@ type DBUserData struct {
 	addrlist	  []*msg.UserAddress
 	freestep	  int32
 	givestep	  int64
+	wechatopenid  string
 }
 
 // --------------------------------------------------------------------------
@@ -217,6 +216,14 @@ func (this *GateUser) IsRoomCloseTimeOut() bool {
 	return util.CURTIMEMS() > (this.roomdata.tm_closing + 10000)
 }
 
+func (this *GateUser) SetWechatOpenId(id string)  {
+	this.wechatopenid = id
+}
+
+func (this *GateUser) WechatOpenId() string {
+	return this.wechatopenid
+}
+
 func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
 }
@@ -286,6 +293,7 @@ func (this *GateUser) OnLoadDB(way string) {
 	// proto对象变量初始化
 	if this.bin.Base == nil { this.bin.Base = &msg.UserBase{} }
 	if this.bin.Base.Scounter == nil { this.bin.Base.Scounter = &msg.SimpleCounter{} }
+	if this.bin.Base.Wechat == nil { this.bin.Base.Wechat = &msg.UserWechat{} }
 
 	// 加载二进制
 	this.LoadBin()
@@ -304,7 +312,11 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	bin.Entity = pb.Clone(this.bin.GetEntity()).(*msg.EntityBase)
 
 	// 玩家信息
-	bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	//bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	bin.Base = &msg.UserBase{}
+	bin.Base.Scounter = &msg.SimpleCounter{}
+	bin.Base.Wechat = &msg.UserWechat{}
+
 	userbase := bin.GetBase()
 	userbase.Tmlogin = pb.Int64(this.tm_login)
 	userbase.Tmlogout = pb.Int64(this.tm_logout)
@@ -320,6 +332,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Addrlist = this.addrlist[:]
 	userbase.GetScounter().Freestep = pb.Int32(this.freestep)
 	userbase.GetScounter().Givestep = pb.Int64(this.givestep)
+	userbase.Wechat.Openid = pb.String(this.wechatopenid)
 
 	// 道具信息
 	this.bag.PackBin(bin)
@@ -347,8 +360,9 @@ func (this *GateUser) LoadBin() {
 	this.signreward = userbase.GetSignreward()
 	this.signtime	= userbase.GetSigntime()	
 	this.addrlist = userbase.GetAddrlist()[:]
-	this.freestep = userbase.GetScounter().GetFreestep();
-	this.givestep = userbase.GetScounter().GetGivestep();
+	this.freestep = userbase.GetScounter().GetFreestep()
+	this.givestep = userbase.GetScounter().GetGivestep()
+	this.wechatopenid = userbase.GetWechat().GetOpenid()
 
 	// 道具信息
 	this.bag.Clean()
@@ -409,7 +423,7 @@ func (this *GateUser) Syn(){
 	this.CheckGiveFreeStep(util.CURTIME(), "上线跨整点")
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
-	this.QueryPlatformCoins()
+	//this.QueryPlatformCoins()
 }
 
 // 断开连接回调
@@ -515,20 +529,14 @@ func (this *GateUser) ReplyStartGame(err string, roomid int64) {
 }
 
 // 请求开始游戏
-func (this *GateUser) ReqStartGame(gamekind int32, gridnum int32) (errcode string) {
+func (this *GateUser) ReqStartGame(gamekind int32) (errcode string) {
 
 	// 检查游戏类型是否有效
-	dunconfig , findid := tbl.DungeonsBase.TDungeonsById[gamekind]
-	if findid == false {
-		errcode = "无效的游戏类型"
-		return
-	}
-
-	// 最小格子数检查
-	if gridnum < (dunconfig.Size * 2 + 2) {
-		errcode = "格子数太少了"
-		return
-	}
+	//dunconfig , findid := tbl.DungeonsBase.TDungeonsById[gamekind]
+	//if findid == false {
+	//	errcode = "无效的游戏类型"
+	//	return
+	//}
 
 	if Match() == nil {
 		log.Error("玩家[%s %d] 匹配服务器未连接", this.Name(), this.Id())
@@ -559,14 +567,12 @@ func (this *GateUser) ReqStartGame(gamekind int32, gridnum int32) (errcode strin
 
 	// 请求创建房间
 	this.roomdata.kind = gamekind
-	this.roomdata.gridnum = gridnum
 	this.roomdata.creating = true
 
 	//
 	send := &msg.GW2MS_ReqCreateRoom{
 		Userid:   pb.Uint64(this.Id()),
 		Gamekind: pb.Int32(gamekind),
-		Gridnum:  pb.Int32(gridnum),
 	}
 	Match().SendCmd(send)
 	log.Info("玩家[%s %d] 请求创建房间类型:%d ts[%d]", this.Name(), this.Id(), gamekind, util.CURTIMEMS())
@@ -614,7 +620,7 @@ func (this *GateUser) GameEnd(bin *msg.Serialize, reason string) {
 			this.SendUserBase()
 			this.CheckGiveFreeStep(util.CURTIME(), "回大厅跨整点")
 			this.SyncBigRewardPickNum()
-			this.QueryPlatformCoins()
+			//this.QueryPlatformCoins()
 		}
 	}
 }
@@ -647,10 +653,10 @@ func (this *GateUser) AsynEventInsert(event eventque.IEvent) {
 }
 
 // 获取平台金币
-func (this *GateUser) QueryPlatformCoins() {
-	event := NewQueryPlatformCoinsEvent(this.SyncPlatformCoins)
-	this.AsynEventInsert(event)
-}
+//func (this *GateUser) QueryPlatformCoins() {
+//	event := NewQueryPlatformCoinsEvent(this.SyncPlatformCoins)
+//	this.AsynEventInsert(event)
+//}
 
 func (this *GateUser) SyncPlatformCoins () {
 	errcode, coins, _ := def.HttpRequestFinanceQuery(this.Id(), this.Token(), this.Account())
@@ -687,4 +693,5 @@ func (this *GateUser) PlatformPushUserOnlineTime() {
 	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserOnlineTimeArglist, nil)
 	this.AsynEventInsert(event)
 }
+
 

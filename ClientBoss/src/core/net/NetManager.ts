@@ -5,21 +5,31 @@ module game {
     export var $kaiIp: string = "http://192.168.30.206:30002";
     export var $isWx: boolean = false;
 
+    //外网IP
+    // export var $registIp: string = "http://210.73.214.67:18010";
+    // export var _netIp: string = "210.73.214.67";
+    // export var _netPort: string = "17020";
+
+    //内网IP
+    export var $registIp: string = "http://192.168.30.203:18010";
+    export var _netIp: string = "192.168.30.203";
+    export var _netPort: string = "17020";
+
     export interface IUpdateScore {
-        token: string;
         openid: string;
         face: string;
         name: string;
         score: number;
+        token: string;
     }
 
     export interface IGetRankList {
-        token: string;
         openid: string;
         face: string;
         name: string;
         start: number;
         stop: number;
+        token: string;
     }
 
     export interface IHttpRetInfo {
@@ -33,7 +43,7 @@ module game {
     }
 
     export interface IRankInfo {
-        openid: string;
+        userid: number|Long;
         face: string;
         name: string;
         score: number;
@@ -41,12 +51,12 @@ module game {
     }
 
     export interface IUserInfo {
-        openid: string;
+        userid: number|Long;
         face: string;
         name: string;
-        score: number;
         rank: number;
-        token: string;
+        money: number;
+        openid: string;
     }
 
     export var $uploadScore = "/score/uploadScore";

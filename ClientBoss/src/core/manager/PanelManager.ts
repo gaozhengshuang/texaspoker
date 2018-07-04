@@ -14,6 +14,12 @@ module game {
             case PanelType.bag:
                 panel = BattleBag.getInstance();
                 break;
+            case PanelType.register:
+                panel = RegisterPanel.getInstance();
+                break;
+            case PanelType.user:
+                panel = UserPanel.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -25,5 +31,7 @@ module game {
         rank,
         lucky,
         bag,
+        register,
+        user,
     }
 }

@@ -3,6 +3,7 @@ import (
 	"fmt"
 	_"reflect"
 	_"strconv"
+	"encoding/json"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
@@ -49,10 +50,7 @@ func (this* C2GWMsgHandler) Init() {
 
 	// 收
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
-	//this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserInfo{}, on_C2GW_ReqUserInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_HeartBeat{}, on_C2GW_HeartBeat)
-	//this.msgparser.RegistProtoMsg(msg.C2GW_ReqStartMatch{}, on_C2GW_ReqStartMatch)
-	//this.msgparser.RegistProtoMsg(msg.C2GW_ReqCancelMatch{}, on_C2GW_ReqCancelMatch)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqStartGame{}, on_C2GW_ReqStartGame)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
@@ -62,12 +60,12 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_SellBagItem{}, on_C2GW_SellBagItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryDiamond{}, on_C2GW_ReqDeliveryDiamond)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
+	this.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqJumpStep{}, on_BT_ReqJumpStep)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_JumpPreCheck{}, on_BT_JumpPreCheck)
+	this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
@@ -75,9 +73,6 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_MsgNotify{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetLogin{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserInfo{})
-	//this.msgparser.RegistSendProto(msg.GW2C_RetStartMatch{})
-	//this.msgparser.RegistSendProto(msg.GW2C_RetCancelMatch{})
-	//this.msgparser.RegistSendProto(msg.GW2C_MatchSuccess{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetStartGame{})
 	this.msgparser.RegistSendProto(msg.GW2C_AddPackageItem{})
 	this.msgparser.RegistSendProto(msg.GW2C_RemovePackageItem{})
@@ -89,15 +84,14 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateFreeStep{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
+	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
 	this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
 	this.msgparser.RegistSendProto(msg.BT_GameStart{})
 	this.msgparser.RegistSendProto(msg.BT_GameOver{})
-	this.msgparser.RegistSendProto(msg.BT_RetJumpStep{})
 	this.msgparser.RegistSendProto(msg.BT_PickItem{})
-	this.msgparser.RegistSendProto(msg.BT_RetJumpPreCheck{})
 }
 
 // 客户端心跳
@@ -145,8 +139,8 @@ func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	gamekind, girdnum := tmsg.GetGamekind(), tmsg.GetGridnum()
-	if errcode := user.ReqStartGame(gamekind, girdnum); errcode != "" {
+	gamekind := tmsg.GetGamekind()
+	if errcode := user.ReqStartGame(gamekind); errcode != "" {
 		user.ReplyStartGame(errcode, 0)
 	}
 }
@@ -180,40 +174,24 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	user.SendRoomMsg(tmsg)
 }
 
-func on_BT_JumpPreCheck(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_JumpPreCheck)
-	//log.Info(reflect.TypeOf(tmsg).String())
-
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
-	user.SendRoomMsg(tmsg)
-}
-
-func on_BT_ReqJumpStep(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqJumpStep)
-	//log.Info(reflect.TypeOf(tmsg).String())
-
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
-	user.SendRoomMsg(tmsg)
-}
-
 func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_ReqQuitGameRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	// 离开游戏房间
+	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	user.SendRoomMsg(tmsg)
+}
+
+func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UpdateMoney)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -414,7 +392,6 @@ func on_C2GW_SellBagItem(session network.IBaseNetSession, message interface{}) {
 
 // 玩家充值完成(大厅和房间都自己获取金币返回)
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_PlatformRechargeDone)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -422,6 +399,76 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 		return
 	}
 
-	user.QueryPlatformCoins()
+	//user.QueryPlatformCoins()
+}
+
+
+func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_SendWechatAuthCode)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	log.Info("玩家[%d] 获取access_token 微信授权code[%s]", user.Id(), tmsg.GetCode())
+
+	//获取用户access_token 和 openid
+	appid, secret, code := tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret, tmsg.GetCode()
+	url := fmt.Sprintf("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code",
+			appid, secret, code);
+	resp , errcode := network.HttpGet(url)
+	if errcode != nil || resp == nil {
+		log.Error("玩家[%d] 获取access_token失败 HttpGet失败[%s]", user.Id(), errcode)
+		return 
+	}
+
+	type RespFail struct {
+		Errcode int64
+		Errmsg string
+	}
+	var respfail RespFail
+	unerror := json.Unmarshal(resp.Body, &respfail)
+	if unerror != nil {
+		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", user.Id(), unerror)
+		return 
+	}
+
+	if respfail.Errcode != 0 && respfail.Errmsg != "" {
+		log.Error("玩家[%d] 获取access_token失败， resp.errcode=%d resp.errmsg=%s", user.Id(), respfail.Errcode, respfail.Errmsg)
+		return
+	}
+
+	type RespOk struct {
+		Access_token 	string
+		Expires_in 		float64
+		Refresh_token 	string
+		Openid 			string
+		Scope 			string
+		Unionid 		string
+	}
+	var respok RespOk
+	unerror = json.Unmarshal(resp.Body, &respok)
+	if unerror != nil {
+		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", user.Id(), unerror)
+		return 
+	}
+	log.Info("玩家[%d] 获取access_token成功, respok=%#v", user.Id(), respok)
+	
+	// 
+	if user.WechatOpenId() == "" {
+		if _, errset := Redis().Set(fmt.Sprintf("user_%d_wechat_openid", user.Id()), respok.Openid, 0).Result(); errset != nil {
+			log.Info("玩家[%d] 设置wechat openid到redis失败", user.Id())
+			return
+		}
+		user.SetWechatOpenId(respok.Openid)
+		send := &msg.GW2C_SendWechatInfo{ Openid:pb.String(respok.Openid)}
+		user.SendMsg(send)
+
+		// 转账给新用户
+		def.HttpWechatCompanyPay(respok.Openid)
+
+		log.Info("玩家[%d] 绑定wechat openid[%s]", user.Id(), respok.Openid)
+	}
 }
 

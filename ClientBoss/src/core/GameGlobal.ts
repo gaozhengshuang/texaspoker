@@ -4,8 +4,8 @@ module game {
     export var testP1: number;
     export var testP2: number;
     export var testSpeed: number;
-
-
+    export var wxCode: string = "";
+    export var wxState: string = "";
 
     //游戏内配置支持
     export var _buyLucky: number = 2000;    //转一次奖消耗金币数量
@@ -21,8 +21,9 @@ module game {
     export var _badBuffPro: number[] = [0.35, 0.35, 0.15, 0.10, 0.05];         //减益事件个数出现概率(总和为1即100%)
 
     //临时配置
-    export var _timeBoomTime: number[] = [60, 45, 30];         //炸弹
+    export var _eventCdByMoney: number[] = [0, 10000, 20000];  //Cd时间根据当前分数设置(分数和时间的内容长短要保持一致)
+    export var _timeBoomTime: number[] = [40, 30, 20];         //炸弹
     export var _blackHoleTime: number[] = [60, 45, 30];         //黑洞
     export var _fireWallTime: number[] = [60, 45, 30];         //火墙
-    export var _iceTime: number[] = [60, 45, 30];         //冰冻
+    export var _iceTime: number[] = [45, 35, 25];         //冰冻
 }
