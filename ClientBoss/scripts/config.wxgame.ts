@@ -44,6 +44,7 @@ const config: ResourceManagerConfig = {
                         },
                         groupSelector: p => "preload"
                     }),
+                    
 
                     new UglifyPlugin([{
                         sources: ["main.js"],
@@ -63,11 +64,12 @@ const config: ResourceManagerConfig = {
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     new WxgamePlugin(),
 
-                    new RenamePlugin({
-                        verbose: true, hash: "crc32", matchers: [
-                            { from: "resource/**/**", to: "[path][name]_[hash].[ext]" }
-                        ]
-                    }),
+                    // VL: FIXME：为了简单起见，暂时屏蔽资源crc32混淆
+                    // new RenamePlugin({
+                    //     verbose: true, hash: "crc32", matchers: [
+                    //         { from: "resource/**/**", to: "[path][name]_[hash].[ext]" }
+                    //     ]
+                    // }),
 
                     new ResSplitPlugin({
                         verbose: true, matchers: [
