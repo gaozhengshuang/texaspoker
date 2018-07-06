@@ -76,13 +76,18 @@ class Main extends eui.UILayer {
 
     private async loadResource() {
         try {
-            if (typeof (resUrl) != "undefined") {
-                game.$isWx = false;
-                await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
-            } else {
-                game.$isWx = true;
-                await RES.loadConfig(`default.res.json`, "resource/");
-            }
+            // try {
+            //     if (typeof (resUrl) != "undefined") {
+            //         game.$isWx = false;
+            //         await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
+            //     } else {
+            //         game.$isWx = true;
+            //         await RES.loadConfig(`default.res.json`, "resource/");
+            //     }
+            // } catch (e) {
+            //     console.log("load config 出错");
+            // }
+
             {
                 const remoteUrl = "http://jump.test.giantfun.cn/egret_remote/resource/"
 
@@ -91,14 +96,24 @@ class Main extends eui.UILayer {
                 RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, (e) => { console.log("加载资源成功"); }, this);
                 RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, (e) => { console.log("加载资源出错！", e); }, this);
                 RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, (e) => { console.log("加载资源项出错", e); }, this);
+                RES.addEventListener(RES.ResourceEvent.CONFIG_LOAD_ERROR, (e) => { console.log("配置项出错", e); }, this);
 
-                await RES.loadConfig("default.res.json", "resource/")
-
-                await RES.loadConfig("default.res.json", remoteUrl)
-
+                // VL: NOTE: 相同文件不可多次加载
+                await RES.loadConfig("default.res.json", "resource/");
+         
+                try {
+                    await RES.loadConfig("default.res.json", remoteUrl);
+                } catch (e) {
+                    console.warn("加载远端文件失败：", remoteUrl, "default.res.json", e);
+                }
             }
+
             await this.loadTheme();
-            await RES.loadGroup("loading");
+
+            // VL: loading组没什么意义，去掉。
+            // await RES.loadGroup("loading");
+
+
             //const loadingView = new game.LoadingUI();
             //GameLayer.loadLayer.addChild(loadingView);
             // if (document && document.getElementById("preloading")) {
