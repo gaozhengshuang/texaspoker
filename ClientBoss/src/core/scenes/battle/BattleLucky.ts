@@ -17,6 +17,12 @@ module game {
         gift_10: LuckyItem;
         gift_11: LuckyItem;
         gift_12: LuckyItem;
+        gift_13: LuckyItem;
+        gift_14: LuckyItem;
+        gift_15: LuckyItem;
+        gift_16: LuckyItem;
+        gift_17: LuckyItem;
+        gift_18: LuckyItem;
 
         private _playInterval: number;
         private _giftPro: number[];
@@ -48,6 +54,8 @@ module game {
                 {target: this.startButton, callBackFunc: this.startLuckyHandle},
                 {target: this.bagButton, callBackFunc: this.bagHandle},
             ];
+
+            this.registerEvent();
         }
 
         protected beforeRemove() {
@@ -55,6 +63,15 @@ module game {
                 egret.clearInterval(this._playInterval);
                 this._playInterval = null;
             }
+            this.removeEvent()
+        }
+
+        private registerEvent() {
+            NotificationCenter.addObserver(this, this.OnGW2C_LuckyDrawHit, "msg.GW2C_LuckyDrawHit");
+        }
+
+        private removeEvent() {
+            NotificationCenter.removeObserver(this, "msg.GW2C_LuckyDrawHit");
         }
 
         private initGift() {
@@ -70,22 +87,27 @@ module game {
             this.remove();
         }
 
+        private OnGW2C_LuckyDrawHit(data: msg.GW2C_LuckyDrawHit) {
+            this.showStartLucky(data.id);
+        }
+
         private startLuckyHandle() {
             if (this._isStart) {
                 return;
             }
 
             if (DataManager.playerModel.getScore() >= _buyLucky) {
-                DataManager.playerModel.useScore(_buyLucky);
-                this.showStartLucky();
+                sendMessage("msg.C2GW_StartLuckyDraw", msg.C2GW_StartLuckyDraw.encode({
+                    userid: DataManager.playerModel.getUserId()
+                }));
             } else {
                 showTips("需要消耗"+_buyLucky+"金币抽奖一次");
             }
         }
 
-        private showStartLucky() {
+        private showStartLucky(giftId: number) {
             let lastGiftIndex = this._giftIndex;
-            this._giftIndex = lootEvent(this._giftPro);
+            this._giftIndex = giftId;
             let posIndex = this._giftIndex + (this._giftPro.length * (Math.floor(Math.random() * 3) + 5)) + (this._giftPro.length - lastGiftIndex); 
             let _currentIndex = 0;
             
@@ -111,7 +133,7 @@ module game {
                         playEnd();
                     } else {
                         this._lightIndex++;
-                        if (this._lightIndex > 12) {
+                        if (this._lightIndex > this._giftPro.length) {
                             this._lightIndex = 1;
                         }
                         this.luckyLight.x = this["gift_"+this._lightIndex].x;
@@ -133,9 +155,6 @@ module game {
                 let giftInfo = table.TBallGiftById[this._giftIndex];
                 if (giftInfo) {
                     showTips("恭喜您获得: "+ giftInfo.Name);
-                    if (giftInfo.PushBag == 1) {
-                        DataManager.playerModel.addBag(giftInfo.Id);
-                    }
                 }
             }.bind(this);
 

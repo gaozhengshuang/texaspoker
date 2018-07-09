@@ -238,6 +238,7 @@ func (this *GateServer) InitMsgHandler() {
 	this.msghandlers = append(this.msghandlers, NewLS2GMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewMS2GWMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewRS2GWMsgHandler())
+
 }
 
 
@@ -255,7 +256,7 @@ func (this *GateServer) StartRedis() bool {
 		return false
 	}
 
-	log.Info("连接Redis成功")
+	log.Info("连接Redis[%s]成功", this.netconf.Redis.Host.String())
 	return true
 }
 
@@ -449,7 +450,6 @@ func UnBindingAccountGateWay(account string) {
 	key = fmt.Sprintf("%s_%s:%d", def.RedisKeyGateAccounts, ip, port)
 	Redis().SRem(key, account)
 }
-
 
 func ZeroHourClockCallback(now int64) {
 	log.Info("==========零点回调开始===========")

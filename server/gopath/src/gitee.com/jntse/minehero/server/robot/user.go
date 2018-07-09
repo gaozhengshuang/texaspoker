@@ -283,6 +283,20 @@ func (this *User) Recharge() {
 	this.SendGateMsg(send)
 }
 
+// 抽奖
+func (this *User) LuckyDraw() {
+	send := &msg.C2GW_StartLuckyDraw{ Userid:pb.Uint64(this.Id())}
+	this.SendGateMsg(send)
+}
+
+// 设置抽奖地址
+func (this *User) ChangeDeliveryAddress() {
+	addr := &msg.UserAddress{Receiver:pb.String("机器人"), Phone:pb.String("188888888"), Address:pb.String("中国上海闵行区新龙路1333弄28号31栋901")}
+	send := &msg.C2GW_ChangeDeliveryAddress{ Index:pb.Uint32(0), Info:addr }
+	this.SendGateMsg(send)
+}
+
+
 //func (this *User) ReqMatch() {
 //	this.SendGateMsg(this.NewReqMatchMsg(int(msg.GameMode_Normal_1v1)))
 //}
@@ -311,6 +325,10 @@ func (this *User) DoInputCmd(cmd string) {
 		this.Recharge()
 	case "heart":
 		this.do_heart = !this.do_heart
+	case "luckydraw":
+		this.LuckyDraw()
+	case "address":
+		this.ChangeDeliveryAddress()
 	}
 }
 
