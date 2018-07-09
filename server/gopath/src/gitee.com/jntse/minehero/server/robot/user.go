@@ -116,7 +116,7 @@ func (this *User) OnConnect(session network.IBaseNetSession)	{
 		//log.Trace("OnConnect loginsession:%+v", session)
 		session.SetUserDefData(this)
 		this.SetLoginSession(session)
-		//this.SendLogin()
+		this.SendLogin()
 		//this.RegistAccount()
 	case "GateConnector":
 		//log.Trace("OnConnect gatesession:%+v", session)
@@ -283,6 +283,13 @@ func (this *User) Recharge() {
 	this.SendGateMsg(send)
 }
 
+// 抽奖
+func (this *User) LuckyDraw() {
+	send := &msg.C2GW_StartLuckyDraw{Phone:pb.Int32(136816269), Text:pb.String("xiejian")}
+	this.SendGateMsg(send)
+}
+
+
 //func (this *User) ReqMatch() {
 //	this.SendGateMsg(this.NewReqMatchMsg(int(msg.GameMode_Normal_1v1)))
 //}
@@ -311,6 +318,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.Recharge()
 	case "heart":
 		this.do_heart = !this.do_heart
+	case "luckydraw":
+		this.LuckyDraw()
 	}
 }
 
