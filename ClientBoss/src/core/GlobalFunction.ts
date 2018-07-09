@@ -1,4 +1,9 @@
 module game {
+    //获取道具图片
+    export function getItemIconSource(id: number) {
+        return `item/${id}`;
+    }
+
     //显示等待界面
     export function showWaitPanel(type = 0) {
         gameConfig.curStage().touchChildren = false;
@@ -369,5 +374,9 @@ module game {
 
     export function clamp(x, min, max) {
         return x < min ? min : x > max ? max : x;
+    }
+
+    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null) {
+        CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func);
     }
 }

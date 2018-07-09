@@ -48,8 +48,10 @@ type RoomServer struct {
 	hredis			*redis.Client
 	gatemgr			GateManager
 	roommgr			RoomManager
+	usermgr			UserManager
 	//sessions		map[int]network.IBaseNetSession     // 及时删除，没有任何地方引用golang才会GC
 	msghandlers		[]network.IBaseMsgHandler
+	clienthandler	*ClientMsgHandler
 	tblloader		*tbl.TblLoader
 	//countmgr		  CountManager
 	rcounter		util.RedisCounter
@@ -86,8 +88,16 @@ func RoomMgr() *RoomManager {
 	return &RoomSvr().roommgr
 }
 
+func UserMgr() *UserManager {
+	return &RoomSvr().usermgr
+}
+
 func Redis() *redis.Client {
 	return RoomSvr().hredis
+}
+
+func CMHandler() *ClientMsgHandler {
+	return RoomSvr().clienthandler
 }
 
 //func CountMgr() *CountManager {
@@ -185,6 +195,7 @@ func (this *RoomServer) Init(fileconf string) bool {
 	//this.sessions = make(map[int]network.IBaseNetSession)
 	this.gatemgr.Init()
 	this.roommgr.Init()
+	this.usermgr.Init()
 
 	//this.countmgr.Init()
 	this.ticker1m = util.NewGameTicker(60 * time.Second, this.Handler1mTick)
@@ -225,6 +236,7 @@ func (this *RoomServer) InitMsgHandler() {
 	if this.tblloader == nil { panic("should init 'tblloader' first") }
 	this.msghandlers = append(this.msghandlers, NewC2GWMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewMS2RSMsgHandler())
+	this.clienthandler = NewClientMsgHandler()
 }
 
 // 启动redis
@@ -241,7 +253,7 @@ func (this *RoomServer) StartRedis() bool {
 		return false
 	}
 
-	log.Info("连接Redis成功")
+	log.Info("连接Redis[%s]成功", this.netconf.Redis.Host.String())
 	return true
 }
 
@@ -313,6 +325,7 @@ func (this *RoomServer) Run() {
 
 	//
 	this.roommgr.Tick(now)
+	this.usermgr.Tick(now)
 	tm_roomticker := util.CURTIMEMS()
 
 	//
