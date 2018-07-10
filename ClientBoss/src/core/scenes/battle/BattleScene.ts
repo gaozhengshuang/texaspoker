@@ -34,6 +34,7 @@ module game {
         topBg: eui.Image;
         mainGroup: eui.Group;
         moreFireImg: eui.Image;
+        badbuffPanel: BadBuff;
 
         private _nowSp: number = 0;
         private _spCool: number = 0;
@@ -79,6 +80,7 @@ module game {
         public hitCount: number;
         private curSpaceFire: number = 0;
         private curScoreTimeSp: number = 0;
+        private _breakBad: number;
 
         private buffLootList: Array<table.ITBirckItemDefine>;
         //private brickList: BattleBrick[];
@@ -125,6 +127,7 @@ module game {
                     this._badBuff.push({id: info.Id, pro: info.Pro/10000});
                 }
             }
+
             //this._noticeList = [];
             //this.brickList = [];
             this.buffLootList = table.TBirckItem;
@@ -309,6 +312,7 @@ module game {
             this._boomBrick = [];
             this._doubleTime = 0;
             this._currentFrame = 0;
+            this._breakBad = 0;
             //this.brickList = [];
             this._breakCount = 0;
             this._touchEvent = [
@@ -366,6 +370,9 @@ module game {
                 this.guideGroup.visible = true;
                 this.guideGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.finishGuide, this);
             }
+
+            //初始化消除事件进度条
+            this.badbuffPanel.initView();
         }
 
         private finishGuide() {
@@ -1157,9 +1164,6 @@ module game {
             let score = brick.getBreakScore();
             let type = brick.getBuffType();
             if (price) {
-                // if (this._doubleTime > 0) {
-                //     price *= 2;
-                // }
                 DataManager.playerModel.addGold(price);
                 let y = score ? -70 : -40;
                 this.showBattleText(price, brick, 1, y, this._rewardBallPool.createObject());
@@ -1205,13 +1209,11 @@ module game {
             if (brick.brickInfo.row == 0) {
                 this._topColumn.push(brick.brickInfo.column);
             }
-            // if (this._breakCount == this._missionMapData.length) {
-            //     this.gameEnd();
-            //     SceneManager.changeScene(SceneType.win);
-            // } else {
-            //     //let buff: any = loot(this.buffLootList);
-            //     //this.addBuff(brick, buff);
-            // }
+            
+            if (brick.isBadBuff()) {
+                this._breakBad += 1;
+                this.showBadPower();
+            }
         }
 
         private async playBreakAnim(brick: BattleBrick) {
@@ -1257,6 +1259,41 @@ module game {
             egret.Tween.get(blackHole2).to({x: end2X, y: end2Y}, 300);
         }
 
+        private showBadPower() {
+            if (this._breakBad > _breakBadBuffMax) {
+                this._breakBad = _breakBadBuffMax;
+            }
+            this.badbuffPanel.refreshView(this._breakBad);
+        }
+
+        public openBadBox(_score: number) {
+            // let goldImg = new eui.Image();
+            // goldImg.source = `lucky/goldAni/0000`;
+            // goldImg.anchorOffsetX = 350;
+            // goldImg.anchorOffsetY = 150;
+            // goldImg.x = gameConfig.curWidth() / 2;
+            // goldImg.y = gameConfig.curHeight() / 2;
+            // this.addChild(goldImg);
+            
+            // let _currentIndex = 0;
+            // let _playInterval = egret.setInterval(() => {
+            //     goldImg.source = `lucky/goldAni/000${_currentIndex}`;
+
+            //     _currentIndex++;
+            //     if (_currentIndex > 6) {
+            //         this.removeChild(goldImg);
+            //         egret.clearInterval(_playInterval);
+            //         _playInterval = null;
+            //     }
+            // }, this, 150);
+
+            showTips("奖励：" + _score + "金币", true, 40);
+        }
+
+        public setBadPower(power: number) {
+            this._breakBad = power;
+        }
+
         private userGoHandle() {
             openPanel(PanelType.user);
         }
@@ -1286,8 +1323,8 @@ module game {
                 SceneManager.changeScene(SceneType.main);
             }.bind(this);
 
-            if (this._nowSp >= _maxSp/2) {
-                showDialog("退出将不保存现有能量！", "确定", function () {
+            if (this._nowSp >= _maxSp/2 || this._breakBad >= _breakBadBuffMax) {
+                showDialog("现在退出游戏，能量将不保存哦！", "确定", function () {
                     backFunc();
                 });
             } else {

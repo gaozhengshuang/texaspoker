@@ -16,6 +16,7 @@ type IBaseExcel interface {
 var MusicBase = table.InsMusicBaseTable
 var RechargeBase = table.InsRechargeBaseTable
 var LevelBasee = table.InsLevelBaseeTable
+var TGiftProbase = table.InsTGiftProbaseTable
 var TBirckItembase = table.InsTBirckItembaseTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
 var SignBase = table.InsSignBaseTable
