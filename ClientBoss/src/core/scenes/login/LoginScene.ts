@@ -27,21 +27,43 @@ module game {
             this.passwordLabel.displayAsPassword = true;
         }
 
-        private async loginHandle() {
-            let realName = deleteBlank(this.nameLabel.text);
-            if (realName == "") {
-                showTips("请输入您的用户名!", true);
-                return;
+        private wxZhifu() {
+            wx.requestMidasPayment(
+            {
+                mode: "game", 
+                env: 1, 
+                offerId: "wx50a65298622b1651",
+                currencyType: "CNY", 
+                platform: egret.Capabilities.os,
+                buyQuantity: 1, 
+                zoneId: "1",
+                success: (res) => console.log("支付成功：", res),
+                fail: (res) => console.log("支付失败：", res),
+                complete: (res) => console.log("支付完成：", res)
             }
+        )
+        }
 
-            loginUserInfo = {
-                account: this.nameLabel.text,
-                passwd: this.passwordLabel.text
-            };
-            LoginManager.getInstance().login();
 
-            egret.localStorage.setItem("userName", this.nameLabel.text);
-            egret.localStorage.setItem("password", this.passwordLabel.text);
+        private async loginHandle() {
+        
+            
+
+
+            // let realName = deleteBlank(this.nameLabel.text);
+            // if (realName == "") {
+            //     showTips("请输入您的用户名!", true);
+            //     return;
+            // }
+
+            // loginUserInfo = {
+            //     account: this.nameLabel.text,
+            //     passwd: this.passwordLabel.text
+            // };
+            // LoginManager.getInstance().login();
+
+            // egret.localStorage.setItem("userName", this.nameLabel.text);
+            // egret.localStorage.setItem("password", this.passwordLabel.text);
         }
 
         private registerHandle() {

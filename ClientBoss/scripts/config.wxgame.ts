@@ -26,7 +26,6 @@ const config: ResourceManagerConfig = {
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     new WxgamePlugin(),
 
-<<<<<<< HEAD
                     new ResSplitPlugin({
                         verbose: true, matchers: [
                             { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
@@ -46,26 +45,6 @@ const config: ResourceManagerConfig = {
                         groupSelector: p => "preload"
                     }),
                     
-=======
-                    // new ResSplitPlugin({
-                    //     verbose: true, matchers: [
-                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
-                    //         { from: "resource/assets/!(ball|login)/**", to: `${remote}_alpha`},
-                    //     ]
-                    // }),
-
-                    // new EmitResConfigFilePlugin({
-                    //     output: "resource/default.res.json",
-                    //     typeSelector: config.typeSelector,
-                    //     nameSelector: (p: string) => {
-                    //         var b = p.lastIndexOf(".");
-                    //         var t = "assets/"
-                    //         var name = p.substring(p.indexOf(t) + t.length, b);
-                    //         return name;
-                    //     },
-                    //     groupSelector: p => "preload"
-                    // }),
->>>>>>> dev
 
                     new UglifyPlugin([{
                         sources: ["main.js"],
@@ -85,17 +64,13 @@ const config: ResourceManagerConfig = {
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     new WxgamePlugin(),
 
-<<<<<<< HEAD
                     // VL: FIXME：为了简单起见，暂时屏蔽资源crc32混淆
-=======
->>>>>>> dev
                     // new RenamePlugin({
                     //     verbose: true, hash: "crc32", matchers: [
                     //         { from: "resource/**/**", to: "[path][name]_[hash].[ext]" }
                     //     ]
                     // }),
 
-<<<<<<< HEAD
                     new ResSplitPlugin({
                         verbose: true, matchers: [
                             { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
@@ -114,26 +89,6 @@ const config: ResourceManagerConfig = {
                         },
                         groupSelector: p => "preload"
                     }),
-=======
-                    // new ResSplitPlugin({
-                    //     verbose: true, matchers: [
-                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
-                    //         { from: "resource/assets/!(ball|login)/**", to: remote },
-                    //     ]
-                    // }),
-
-                    // new EmitResConfigFilePlugin({
-                    //     output: "resource/default.res.json",
-                    //     typeSelector: config.typeSelector,
-                    //     nameSelector: (p: string) => {
-                    //         var b = p.lastIndexOf(".");
-                    //         var t = "assets/"
-                    //         var name = p.substring(p.indexOf(t) + t.length, b);
-                    //         return name;
-                    //     },
-                    //     groupSelector: p => "preload"
-                    // }),
->>>>>>> dev
 
                     new UglifyPlugin([{
                         sources: ["main.js"],

@@ -7,6 +7,9 @@ module game {
     export var wxCode: string = "";
     export var wxState: string = "";
 
+    export var openid:string;
+    export var session_key: string;
+
     //游戏内配置支持
     export var _buyLucky: number = 2000;    //转一次奖消耗金币数量
     export var _maxSp: number = 250;       //大招点击次数
