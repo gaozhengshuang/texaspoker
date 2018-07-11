@@ -67,6 +67,7 @@ type DBUserData struct {
 	presentcount  int32
 	presentrecord int64
 	invitationcode string
+	luckydraw	  []*msg.LuckyDrawItem
 }
 
 // --------------------------------------------------------------------------
@@ -352,6 +353,7 @@ func (this *GateUser) OnLoadDB(way string) {
 	if this.bin.Base.Addrlist == nil { this.bin.Base.Addrlist = make([]*msg.UserAddress,0) }
 	if this.bin.Base.Freepresent == nil { this.bin.Base.Freepresent = &msg.FreePresentMoney{} }
 	if this.bin.Base.Task == nil { this.bin.Base.Task = &msg.UserTask{} }
+	if this.bin.Base.Luckydraw == nil { this.bin.Base.Luckydraw = &msg.LuckyDrawHistory{ Drawlist:make([]*msg.LuckyDrawItem,0) } }
 
 	// 加载二进制
 	this.LoadBin()
@@ -397,6 +399,12 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.GetFreepresent().Tmrecord = pb.Int64(this.presentrecord)
 	userbase.Invitationcode = pb.String(this.invitationcode)
 
+	// 幸运抽奖
+	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem,0)
+	for _, v := range this.luckydraw {
+		userbase.Luckydraw.Drawlist = append(userbase.Luckydraw.Drawlist, v)
+	}
+
 	// 道具信息
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
@@ -431,6 +439,10 @@ func (this *GateUser) LoadBin() {
 	this.presentrecord = userbase.GetFreepresent().GetTmrecord()
 	this.invitationcode = userbase.GetInvitationcode()
 
+	// 幸运抽奖
+	for _, v := range userbase.Luckydraw.Drawlist {
+		this.luckydraw = append(this.luckydraw, v)
+	}
 
 	// 道具信息
 	this.bag.Clean()
