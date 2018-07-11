@@ -13,7 +13,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	//"gitee.com/jntse/minehero/server/def"
 	_"github.com/go-redis/redis"
-	_"strconv"
+	"strconv"
 	_"strings"
 	_"time"
 )
@@ -66,6 +66,7 @@ type DBUserData struct {
 	wechatopenid  string
 	presentcount  int32
 	presentrecord int64
+	invitationcode string
 }
 
 // --------------------------------------------------------------------------
@@ -238,6 +239,45 @@ func (this *GateUser) WechatOpenId() string {
 	return this.wechatopenid
 }
 
+// 自己邀请码
+func (this *GateUser) MyInvitationCode() string {
+	return fmt.Sprintf("TJ%d",this.Id())
+}
+
+// 邀请人邀请码
+func (this *GateUser) InvitationCode() string {
+	return this.invitationcode
+}
+
+// 邀请人
+func (this *GateUser) Inviter() uint64 {
+	if code := this.InvitationCode(); len(code) > 2 {
+		inviter , _ := strconv.ParseUint(code[2:], 10, 64)
+		return inviter
+	}
+	return 0
+}
+
+func (this *GateUser) GetMoneyCost() int64 {
+	userbase := this.UserBase()
+	return userbase.GetScounter().GetMoneyCost()
+}
+
+func (this *GateUser) GetMoneyCostReset() int64 {
+	userbase := this.UserBase()
+	return userbase.GetScounter().GetMoneyCostReset()
+}
+
+func (this *GateUser) SetMoneyCost(cost int64) {
+	userbase := this.UserBase()
+	userbase.GetScounter().MoneyCost = pb.Int64(cost)
+}
+
+func (this *GateUser) SetMoneyCostReset(reset int64) {
+	userbase := this.UserBase()
+	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
+}
+
 func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
 }
@@ -330,12 +370,12 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	bin.Entity = pb.Clone(this.bin.GetEntity()).(*msg.EntityBase)
 
 	// 玩家信息
-	//bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
-	bin.Base = &msg.UserBase{}
-	bin.Base.Scounter = &msg.SimpleCounter{}
-	bin.Base.Wechat = &msg.UserWechat{}
-	bin.Base.Addrlist = make([]*msg.UserAddress,0)
-	bin.Base.Freepresent = &msg.FreePresentMoney{}
+	bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	//bin.Base = &msg.UserBase{}
+	//bin.Base.Scounter = &msg.SimpleCounter{}
+	//bin.Base.Wechat = &msg.UserWechat{}
+	//bin.Base.Addrlist = make([]*msg.UserAddress,0)
+	//bin.Base.Freepresent = &msg.FreePresentMoney{}
 
 	userbase := bin.GetBase()
 	userbase.Tmlogin = pb.Int64(this.tm_login)
@@ -355,6 +395,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Wechat.Openid = pb.String(this.wechatopenid)
 	userbase.GetFreepresent().Count = pb.Int32(this.presentcount)
 	userbase.GetFreepresent().Tmrecord = pb.Int64(this.presentrecord)
+	userbase.Invitationcode = pb.String(this.invitationcode)
 
 	// 道具信息
 	this.bag.PackBin(bin)
@@ -388,6 +429,7 @@ func (this *GateUser) LoadBin() {
 	this.wechatopenid = userbase.GetWechat().GetOpenid()
 	this.presentcount = userbase.GetFreepresent().GetCount()
 	this.presentrecord = userbase.GetFreepresent().GetTmrecord()
+	this.invitationcode = userbase.GetInvitationcode()
 
 
 	// 道具信息
@@ -443,10 +485,8 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	// 免费赠送金币
 	this.CheckFreePresentMoney(false)
 
-	// 账户注册任务
-	if this.task.IsTaskFinish(int32(msg.TaskId_RegistAccount)) == false {
-		this.task.TaskFinish(int32(msg.TaskId_RegistAccount))
-	}
+	// 上线任务检查
+	this.OnlineTaskCheck()
 
 	// 同步数据到客户端
 	this.Syn()
@@ -684,116 +724,17 @@ func (this *GateUser) AsynEventInsert(event eventque.IEvent) {
 	this.asynev.Push(event)
 }
 
+// 上线任务检查
+func (this *GateUser) OnlineTaskCheck() {
+	// 账户注册任务
+	if this.task.IsTaskFinish(int32(msg.TaskId_RegistAccount)) == false {
+		this.task.TaskFinish(int32(msg.TaskId_RegistAccount))
+	}
 
-// 赠送每日免费次数，在房间中不要执行
-// 每小时赠送免费次数，在房间中不要执行，退出房间再执行
-//func (this *GateUser) CheckGiveFreeStep(now int64, reason string) {
-//	if this.IsInRoom() == true { return }           // 退出房间再执行
-//	floor_clock := util.FloorIntClock(now)
-//	if floor_clock == this.givestep {   // 同一个整点
-//		return
-//	}
-//	this.SetFreeStep(int32(tbl.Global.PresentFreeStep), reason)
-//	this.givestep = floor_clock
-//}
-//
-// 获取平台金币
-//func (this *GateUser) QueryPlatformCoins() {
-//	event := NewQueryPlatformCoinsEvent(this.SyncPlatformCoins)
-//	this.AsynEventInsert(event)
-//}
-//
-//func (this *GateUser) SyncPlatformCoins () {
-//	errcode, coins, _ := def.HttpRequestFinanceQuery(this.Id(), this.Token(), this.Account())
-//	if errcode != "" {
-//		return
-//	}
-//
-//	send := &msg.GW2C_SendUserPlatformMoney{Coins:pb.Int32(coins)}
-//	this.SendMsg(send)
-//}
-//
-//// 推送资源消耗
-//func (this *GateUser) PlatformPushConsumeMoney(yuanbao float32) {
-//	rmbcent := 100.0 * yuanbao / float32(tbl.Room.RmbToYuanbao)
-//	arglist := []interface{}{this.Account(), this.Token(), uint64(this.Id()), uint32(rmbcent)}
-//	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceConsumeArglist, nil)
-//	this.AsynEventInsert(event)
-//}
-//
-//// 推送资源获取
-//func (this *GateUser) PlatformPushLootMoney(yuanbao float32) {
-//	rmbcent := 100.0 * yuanbao / float32(tbl.Room.RmbToYuanbao)
-//	arglist := []interface{}{this.Account(), this.Token(), uint64(this.Id()), uint32(rmbcent)}
-//	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceEarnArglist, nil)
-//	this.AsynEventInsert(event)
-//}
-//
-//// 推送在线时长
-//func (this *GateUser) PlatformPushUserOnlineTime() {
-//	tm_onlinestay := (util.CURTIME() - this.tm_login) / 60
-//	if tm_onlinestay <= 0 { return }
-//
-//	arglist := []interface{}{this.Account(), this.Token(), uint64(this.Id()), int64(tm_onlinestay)}
-//	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserOnlineTimeArglist, nil)
-//	this.AsynEventInsert(event)
-//}
-
-type UserTask struct {
-	tasks map[int32]*msg.TaskData
-	owner *GateUser
-}
-
-func (this *UserTask) Init(owner *GateUser) {
-	this.owner = owner
-	this.tasks = make(map[int32]*msg.TaskData)
-}
-
-func (this *UserTask) LoadBin(bin *msg.Serialize) {
-	taskbin := bin.GetBase().GetTask();
-	if taskbin == nil { return }
-	for _, data := range taskbin.GetTasks() {
-		this.tasks[data.GetId()] = data
+	// 被自己邀请人达成积分任务
+	keyinviter := fmt.Sprintf("TaskInviteeTopScoreFinish_%d", this.Id())
+	sumfinish, _ := Redis().SCard(keyinviter).Result()
+	if sumfinish != 0 && this.task.IsTaskFinish(int32(msg.TaskId_InviteeTopScore)) == false {
+		this.task.TaskFinish(int32(msg.TaskId_InviteeTopScore))
 	}
 }
-
-func (this *UserTask) PackBin(bin *msg.Serialize) {
-	bin.GetBase().Task = &msg.UserTask{Tasks:make([]*msg.TaskData, 0)}
-	taskbin := bin.GetBase().GetTask();
-	for _, data := range this.tasks {
-		taskbin.Tasks = append(taskbin.Tasks, data)
-	}
-}
-
-func (this *UserTask) TaskFinish(id int32) {	
-	task, find := this.tasks[id]
-	if find == false {
-		task = &msg.TaskData{Id:pb.Int32(id), Progress:pb.Int32(0), Completed:pb.Int32(1)}
-		this.tasks[id] = task
-	}else {
-		if task.GetCompleted() == 1 {
-			log.Info("玩家[%s %d] 重复完成任务[%d]", this.owner.Name(), this.owner.Id(), id)
-			return
-		}
-		task.Completed = pb.Int32(1)
-	}
-	log.Info("玩家[%s %d] 完成任务[%d]", this.owner.Name(), this.owner.Id(), id)
-}
-
-func (this *UserTask) SendTaskList() {
-	send := &msg.GW2C_SendTaskList{Tasks:make([]*msg.TaskData, 0)}
-	for _, task := range this.tasks {
-		send.Tasks = append(send.Tasks, task)
-	}
-	this.owner.SendMsg(send)
-}
-
-func (this *UserTask) IsTaskFinish(id int32) bool {
-	task, find := this.tasks[id]
-	if find && task.GetCompleted() == 1 {
-		return true
-	}
-	return false
-}
-
-

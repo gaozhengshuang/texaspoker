@@ -18,7 +18,6 @@ module game {
     // export var $registIp: string = "http://192.168.30.203:7003";
     // export var _netIp: string = "192.168.30.203";
     // export var _netPort: string = "7002";
-    
 
     export interface IUpdateScore {
         openid: string;

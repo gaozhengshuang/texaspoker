@@ -2,6 +2,8 @@ module game {
     export class BattleBag extends PanelComponent {
         closeButton: IconButton;
         luckyButton: IconButton;
+        deliveryButton: IconButton;
+        historyMoneyButton: IconButton;
         bagScr: eui.Scroller;
         bagList: eui.List;
         nogiftTips: eui.Label;
@@ -15,6 +17,8 @@ module game {
         protected init() {
             this.closeButton.icon = "lucky/luckycloseBtn";
             this.luckyButton.icon = "lucky/luckyBtn";
+            this.deliveryButton.icon = "ui/deliveryBtn";
+            this.historyMoneyButton.icon = "ui/historyMoneyBtn";
 
             this._listProvider = new eui.ArrayCollection();
             this.bagList.dataProvider = this._listProvider;

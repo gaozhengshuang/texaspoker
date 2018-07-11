@@ -30,6 +30,8 @@
 
 
 		<game:IconButton id="luckyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="0.5" verticalCenter="454.5"/>
+		<game:IconButton id="deliveryButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="-241.5" verticalCenter="454.5"/>
+		<game:IconButton id="historyMoneyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="242.5" verticalCenter="454.5"/>
 		<e:Label text="返回抽奖" y="985" horizontalCenter="1" touchEnabled="false" x="301" scaleX="1" scaleY="1"/>
 		<e:Label id="nogiftTips" text="您还没有获得战利品!" touchEnabled="false" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
 		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" x="638" y="23"/>

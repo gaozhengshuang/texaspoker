@@ -152,8 +152,13 @@ func RegistAccountCheck(phone, passwd, invitationcode, authcode, nickname string
 		return
 	}
 
-	if util.ContainsSpecialCharacter(nickname) == true {
-		errcode = "昵称不能包含特殊字符"
+	if strings.Count(nickname, "") - 1 > 8 {
+		errcode = "昵称长度不能大于8个字符"
+		return
+	}
+
+	if issp, _ := util.ContainsSpecialCharacter(nickname); issp == true {
+		errcode = "昵称不能含有标点和特殊字符"
 		return
 	}
 
