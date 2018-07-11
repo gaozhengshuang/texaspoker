@@ -506,8 +506,8 @@ func (this *GateUser) LuckyDraw() {
 	}
 	this.RemoveMoney(cost, "幸运抽奖", true)
 
-	// 每周一重置
-	if this.GetMoneyCostReset() != 0 {
+	// 每周重置
+	if util.IsSameWeek(this.GetMoneyCostReset(), util.CURTIME()) != false {
 		this.SetMoneyCost(0)
 		this.SetMoneyCostReset(util.CURTIME())
 	}
