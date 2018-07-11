@@ -97,7 +97,9 @@ module game {
             }
 
             if (DataManager.playerModel.getScore() >= _buyLucky) {
-                sendMessage("msg.C2GW_StartLuckyDraw", msg.C2GW_StartLuckyDraw.encode({}));
+                sendMessage("msg.C2GW_StartLuckyDraw", msg.C2GW_StartLuckyDraw.encode({
+                    userid: DataManager.playerModel.getUserId()
+                }));
             } else {
                 showTips("需要消耗"+_buyLucky+"金币抽奖一次");
             }
@@ -106,7 +108,7 @@ module game {
         private showStartLucky(giftId: number) {
             let lastGiftIndex = this._giftIndex;
             this._giftIndex = giftId;
-            let posIndex = this._giftIndex + (this._giftPro.length * (Math.floor(Math.random() * 3) + 5)) + (this._giftPro.length - lastGiftIndex); 
+            let posIndex = this._giftIndex + (this._giftPro.length * (Math.floor(Math.random() * 2) + 2)) + (this._giftPro.length - lastGiftIndex); 
             let _currentIndex = 0;
             
             let space = 200;

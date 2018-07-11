@@ -9,6 +9,10 @@ module game {
         ballButton1: IconButton;
         ballButton2: IconButton;
         luckyButton: IconButton;
+        userButton: IconButton;
+        rechargeButton: IconButton;
+        bagButton: IconButton;
+        backButton: IconButton;
         scoreLabel: eui.Label;
         ball1Price: eui.Label;
         ball2Price: eui.Label;
@@ -30,6 +34,7 @@ module game {
         topBg: eui.Image;
         mainGroup: eui.Group;
         moreFireImg: eui.Image;
+        badbuffPanel: BadBuff;
 
         private _nowSp: number = 0;
         private _spCool: number = 0;
@@ -75,6 +80,7 @@ module game {
         public hitCount: number;
         private curSpaceFire: number = 0;
         private curScoreTimeSp: number = 0;
+        private _breakBad: number;
 
         private buffLootList: Array<table.ITBirckItemDefine>;
         //private brickList: BattleBrick[];
@@ -85,6 +91,7 @@ module game {
         //private _debugDraw: p2DebugDraw;
         debugGroup: eui.Group;
         private _currentFrame: number;
+        private _curMoney: number = 0;
         private _lootList;
         private _topColumn: number[];
         private _blackHoleList: BattleBlackHole[];
@@ -120,11 +127,16 @@ module game {
                     this._badBuff.push({id: info.Id, pro: info.Pro/10000});
                 }
             }
+
             //this._noticeList = [];
             //this.brickList = [];
             this.buffLootList = table.TBirckItem;
             this._buffList = [];
+            this.userButton.icon = "ui/userGo";
+            this.rechargeButton.icon = "ui/rechargeGo";
             this.luckyButton.icon = "lucky/luckyGo";
+            this.bagButton.icon = "ui/bagGo";
+            this.backButton.icon = "ui/gameBack";
             this.ballButton1.icon = "ball/1";
             this.ballButton2.icon = "ball/2";
             this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
@@ -269,7 +281,7 @@ module game {
         }
 
         protected beforeShow() {
-            this.curSpaceFire = _spaceFire;
+            this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
             let paddle = this._paddlePool.createObject();
             paddle.setData(1);
             paddle.resetPosition(this.mainGroup.y);
@@ -300,12 +312,17 @@ module game {
             this._boomBrick = [];
             this._doubleTime = 0;
             this._currentFrame = 0;
+            this._breakBad = 0;
             //this.brickList = [];
             this._breakCount = 0;
             this._touchEvent = [
                 {target: this.ballButton1, callBackFunc: this.ballHandle},
                 {target: this.ballButton2, callBackFunc: this.ballHandle},
+                {target: this.userButton, callBackFunc: this.userGoHandle},
                 {target: this.luckyButton, callBackFunc: this.luckyGoHandle},
+                {target: this.rechargeButton, callBackFunc: this.rechargeGoHandle},
+                {target: this.bagButton, callBackFunc: this.bagGoHandle},
+                {target: this.backButton, callBackFunc: this.backHandle},
             ];
             this._notify = [
                 {
@@ -353,6 +370,9 @@ module game {
                 this.guideGroup.visible = true;
                 this.guideGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.finishGuide, this);
             }
+
+            //初始化消除事件进度条
+            this.badbuffPanel.initView();
         }
 
         private finishGuide() {
@@ -397,7 +417,9 @@ module game {
             let y = event.stageY - 88;
             if (y >= this._paddle.y) return;
             if (DataManager.playerModel.getScore() < _paddlePrice) {
-                showTips("您的炮弹不足!", true);
+                showDialog("您的金币不足!", "充值", function () {
+                    showTips("暂未开放,敬请期待...", true);
+                });
                 return;
             }
             if(this._spCool == 0){ //无限火力不扣子弹
@@ -596,11 +618,14 @@ module game {
             this._moneySyn++;
             if (this._moneySyn > 100) {
                 this._moneySyn = 0;
-                sendMessage("msg.BT_UpdateMoney", msg.BT_UpdateMoney.encode({
-                    roomid: BattleManager.getInstance().getRoomId(),
-                    userid: DataManager.playerModel.getUserId(),
-                    money: DataManager.playerModel.getScore()
-                }));
+                if (this._curMoney != DataManager.playerModel.getScore()) {
+                    sendMessage("msg.BT_UpdateMoney", msg.BT_UpdateMoney.encode({
+                        roomid: BattleManager.getInstance().getRoomId(),
+                        userid: DataManager.playerModel.getUserId(),
+                        money: DataManager.playerModel.getScore()
+                    }));
+                    this._curMoney = DataManager.playerModel.getScore();
+                }
             }
 
             if (this._doubleTime > 0) {
@@ -1139,9 +1164,6 @@ module game {
             let score = brick.getBreakScore();
             let type = brick.getBuffType();
             if (price) {
-                // if (this._doubleTime > 0) {
-                //     price *= 2;
-                // }
                 DataManager.playerModel.addGold(price);
                 let y = score ? -70 : -40;
                 this.showBattleText(price, brick, 1, y, this._rewardBallPool.createObject());
@@ -1187,13 +1209,11 @@ module game {
             if (brick.brickInfo.row == 0) {
                 this._topColumn.push(brick.brickInfo.column);
             }
-            // if (this._breakCount == this._missionMapData.length) {
-            //     this.gameEnd();
-            //     SceneManager.changeScene(SceneType.win);
-            // } else {
-            //     //let buff: any = loot(this.buffLootList);
-            //     //this.addBuff(brick, buff);
-            // }
+            
+            if (brick.isBadBuff()) {
+                this._breakBad += 1;
+                this.showBadPower();
+            }
         }
 
         private async playBreakAnim(brick: BattleBrick) {
@@ -1239,8 +1259,98 @@ module game {
             egret.Tween.get(blackHole2).to({x: end2X, y: end2Y}, 300);
         }
 
+        private showBadPower() {
+            if (this._breakBad > _breakBadBuffMax) {
+                this._breakBad = _breakBadBuffMax;
+            }
+            this.badbuffPanel.refreshView(this._breakBad);
+        }
+
+        public openBadBox(_score: number) {
+            let goldImg = new eui.Image();
+            goldImg.source = `lucky/goldAni/0000`;
+            this.addChild(goldImg);
+
+            goldImg.anchorOffsetX = goldImg.width / 2;
+            goldImg.anchorOffsetY = goldImg.height / 2;
+            goldImg.x = gameConfig.curWidth() / 2;
+            goldImg.y = gameConfig.curHeight() / 2 - 150;
+
+            let goldTxt = new eui.Label();
+            goldTxt.text = `${_score}金币`;
+            goldTxt.textColor = 0xfffb83;
+            goldTxt.strokeColor = 0xf47606;
+            goldTxt.stroke = 3;
+            goldTxt.textAlign = egret.HorizontalAlign.CENTER;
+            goldTxt.size = 36;
+            goldTxt.bold = true;
+            this.addChild(goldTxt);
+            
+            goldTxt.anchorOffsetX = goldTxt.width / 2;
+            goldTxt.anchorOffsetY = goldTxt.height / 2;
+            goldTxt.x = gameConfig.curWidth() / 2;
+            goldTxt.y = gameConfig.curHeight() / 2 - 90;
+            goldTxt.scaleX = 0;
+            goldTxt.scaleY = 0;
+
+            let _currentIndex = 0;
+            let _playInterval = egret.setInterval(() => {
+                _currentIndex++;
+                if (_currentIndex > 7) {
+                    egret.setTimeout(() => {
+                        this.removeChild(goldImg);
+                        this.removeChild(goldTxt);
+                    }, this, 700);
+                    egret.clearInterval(_playInterval);
+                    _playInterval = null;
+                } else {
+                    goldImg.source = `lucky/goldAni/000${_currentIndex}`;
+                }
+            }, this, 150);
+
+            egret.Tween.get(goldTxt).to({scaleX: 1.2, scaleY: 1.2}, 500).to({scaleX: 1, scaleY:1}, 200);
+        }
+
+        public setBadPower(power: number) {
+            this._breakBad = power;
+        }
+
+        private userGoHandle() {
+            openPanel(PanelType.user);
+        }
+
         private luckyGoHandle() {
             openPanel(PanelType.lucky);
+        }
+
+        private rechargeGoHandle() {
+            showTips("暂未开放,敬请期待...", true);
+        }
+
+        private bagGoHandle() {
+            openPanel(PanelType.bag);
+        }
+
+        private backHandle() {
+            let backFunc : Function = function () {
+                egret.stopTick(this.updateView, this);
+                this._firewallPool.destroyAllObject();
+                
+                sendMessage("msg.BT_ReqQuitGameRoom", msg.BT_ReqQuitGameRoom.encode({
+                    roomid: BattleManager.getInstance().getRoomId(),
+                    userid: DataManager.playerModel.getUserId(),
+                }));
+
+                SceneManager.changeScene(SceneType.main);
+            }.bind(this);
+
+            if (this._nowSp >= _maxSp/2 || this._breakBad >= _breakBadBuffMax) {
+                showDialog("现在退出游戏，能量将不保存哦！", "确定", function () {
+                    backFunc();
+                });
+            } else {
+                backFunc();
+            }
         }
 
         private static _instance: BattleScene;
