@@ -157,7 +157,7 @@ func RegistAccountCheck(phone, passwd, invitationcode, authcode, nickname string
 		return
 	}
 
-	if util.ContainsSpecialCharacter(nickname) == true {
+	if issp, _ := util.ContainsSpecialCharacter(nickname); issp == true {
 		errcode = "昵称不能含有标点和特殊字符"
 		return
 	}

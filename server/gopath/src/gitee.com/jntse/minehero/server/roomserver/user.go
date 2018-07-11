@@ -80,49 +80,61 @@ func (this *RoomUser) WechatOpenId() string {
 	return userbase.GetWechat().GetOpenid()
 }
 
+// 邀请人邀请码
 func (this *RoomUser) InvitationCode() string {
 	userbase := this.UserBase()
 	return userbase.GetInvitationcode()
 }
 
+// 邀请人
 func (this *RoomUser) Inviter() uint64 {
 	if code := this.InvitationCode(); len(code) > 2 {
-		inviter , _ := strconv.ParseUint(code[1:], 10, 64)
+		inviter , _ := strconv.ParseUint(code[2:], 10, 64)
 		return inviter
 	}
 	return 0
 }
 
 
-func (this *RoomUser) DiamondRoomCost() int64 {
+func (this *RoomUser) GetMoneyCost() int64 {
 	userbase := this.UserBase()
-	return userbase.GetScounter().GetDiamondRoomCost();
+	return userbase.GetScounter().GetMoneyCost()
 }
 
-func (this *RoomUser) DiamondRoomIncome() int64 {
+func (this *RoomUser) GetMoneyCostReset() int64 {
 	userbase := this.UserBase()
-	return userbase.GetScounter().GetDiamondRoomIncome()
+	return userbase.GetScounter().GetMoneyCostReset()
 }
 
-func (this *RoomUser) DiamondRoomStep() int64 {
+func (this *RoomUser) SetMoneyCost(cost int64) {
 	userbase := this.UserBase()
-	return userbase.GetScounter().GetDiamondRoomStep()
+	userbase.GetScounter().MoneyCost = pb.Int64(cost)
 }
 
-func (this *RoomUser) SetDiamondRoomCost(d int64) {
+func (this *RoomUser) SetMoneyCostReset(reset int64) {
 	userbase := this.UserBase()
-	userbase.GetScounter().DiamondRoomCost = pb.Int64(d)
+	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
 }
-
-func (this *RoomUser) SetDiamondRoomIncome(d int64) {
-	userbase := this.UserBase()
-	userbase.GetScounter().DiamondRoomIncome = pb.Int64(d)
-}
-
-func (this *RoomUser) SetDiamondRoomStep(d int64) {
-	userbase := this.UserBase()
-	userbase.GetScounter().DiamondRoomStep = pb.Int64(d)
-}
+//
+//func (this *RoomUser) DiamondRoomStep() int64 {
+//	userbase := this.UserBase()
+//	return userbase.GetScounter().GetDiamondRoomStep()
+//}
+//
+//func (this *RoomUser) SetDiamondRoomCost(d int64) {
+//	userbase := this.UserBase()
+//	userbase.GetScounter().DiamondRoomCost = pb.Int64(d)
+//}
+//
+//func (this *RoomUser) SetDiamondRoomIncome(d int64) {
+//	userbase := this.UserBase()
+//	userbase.GetScounter().DiamondRoomIncome = pb.Int64(d)
+//}
+//
+//func (this *RoomUser) SetDiamondRoomStep(d int64) {
+//	userbase := this.UserBase()
+//	userbase.GetScounter().DiamondRoomStep = pb.Int64(d)
+//}
 
 func (this *RoomUser) Token() string {
 	return this.token
@@ -196,9 +208,6 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 
 	// 玩家信息
 	bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
-	userbase := bin.GetBase()
-	userbase.GetScounter().DiamondRoomCost = pb.Int64(this.DiamondRoomCost())
-	userbase.GetScounter().DiamondRoomIncome = pb.Int64(this.DiamondRoomIncome())
 
 	// 背包
 	this.bag.PackBin(bin)
@@ -210,8 +219,6 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 
 // 游戏结束，将数据回传Gate
 func (this *RoomUser) OnEnd(now int64) {
-	log.Info("房间[%d] 玩家[%s %d] 游戏结束, 钻石场收入:%d 支出:%d 序列化个人数据", this.roomid, this.Name(), this.Id(), 
-			this.DiamondRoomIncome(), this.DiamondRoomCost())
 	this.ticker1s.Stop()
 	this.ticker10ms.Stop()
 	this.asynev.Shutdown()
@@ -516,11 +523,39 @@ func (this *RoomUser) LuckyDraw() {
 	}
 	this.RemoveMoney(cost, "幸运抽奖", true)
 
-	//
-	giftweight := make([]util.WeightOdds, 0)
-	for k ,v := range tbl.TBallGiftbase.TBallGiftById {
-		giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
+	// 每周一重置
+	if this.GetMoneyCostReset() != 0 {
+		this.SetMoneyCost(0)
+		this.SetMoneyCostReset(util.CURTIME())
 	}
+
+	// 解析概率配置
+	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
+		for _ , strpro := range Pro {
+			slicepro := strings.Split(strpro, "-")
+			if len(slicepro) != 2 {
+				log.Error("[%d %s] 抽奖异常，解析概率配置异常 strpro=%s", this.Id(), this.Name(), strpro)
+				return false
+			}
+			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
+			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
+			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id)})
+		}
+		return true
+	}
+
+	giftweight := make([]util.WeightOdds, 0)
+	for _, v := range tbl.GiftProBase.TGiftProById {
+		if this.GetMoneyCost() <= int64(v.Limitmin) {
+			if ParseProString(&giftweight, v.Pro) == false { return }
+			break
+		}
+	}
+
+	//giftweight := make([]util.WeightOdds, 0)
+	//for k ,v := range tbl.TBallGiftbase.TBallGiftById {
+	//	giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
+	//}
 	index := util.SelectByWeightOdds(giftweight)
 	if index < 0 || index >= int32(len(giftweight)) {
 		log.Error("[%d %s] 抽奖异常，无法获取抽奖id", this.Id(), this.Name())
