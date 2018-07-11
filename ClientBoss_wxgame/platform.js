@@ -6,6 +6,10 @@ class WxgamePlatform {
 
     name = 'wxgame'
 
+  init(){
+    wx.showShareMenu();
+  }
+
     login() {
         return new Promise((resolve, reject) => {
             wx.login({
@@ -16,12 +20,12 @@ class WxgamePlatform {
         })
     }
 
-    pay(nonceStr,pkg,paySign) {
-      return new Promise((resolve, reject)=>{
+    miniPrgramPay(nonceStr, prepayId,paySign) {
+     return new Promise((resolve, reject)=>{
         wx.requestPayment({
           'timeStamp': Date.now().toString(),
           'nonceStr': nonceStr,
-          'package': pkg,
+          'package': `prepay_id=${prepayId}`,
           'signType': 'MD5',
           'paySign': paySign,
           'success':  function(res)  {
@@ -36,7 +40,7 @@ class WxgamePlatform {
                resolve(res); 
             }
         });
-      });
+     });
     }
 
     getUserInfo() {

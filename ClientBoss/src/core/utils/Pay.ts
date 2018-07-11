@@ -21,7 +21,7 @@ module Pay {
      * appsecret: $
      * jscode: 客户端login所返回的临时login code
      */
-    export async function get_open_id_and_session_key(jscode: string,callback) {
+    export async function get_open_id_and_session_key(jscode: string, callback) {
         var url = `https://api.weixin.qq.com/sns/jscode2session?appid=${kAppId}&secret=${kAppSecret}&js_code=${jscode}&grant_type=authorization_code`;
 
         console.log(url);
@@ -37,13 +37,13 @@ module Pay {
             success: (res) => {
                 openid = res.data.openid;
                 session_key = res.data.session_key;
-                callback && callback(openid,session_key);
+                callback && callback(openid, session_key);
             },
             fail: (res) => console.log("请求失败", res),
             complete: null
         });
 
-        
+
     }
 
 
@@ -62,8 +62,8 @@ module Pay {
 
     // 将订单信息转换成xml
     // 
-    function unify_order_parms( detail: string,
-        p: { appid, body, mch_id, notify_url, nonce_str, out_trade_no, spbill_create_ip, total_fee, trade_type, openid,session_key }) {
+    function unify_order_parms(detail: string,
+        p: { appid, body, mch_id, notify_url, nonce_str, out_trade_no, spbill_create_ip, total_fee, trade_type, openid, session_key }) {
 
         var t1 = `appid=${p.appid}&body=${p.body}`
         var t2 = "";
@@ -78,7 +78,7 @@ module Pay {
         }
         var t5 = `&out_trade_no=${p.out_trade_no}&spbill_create_ip=${p.spbill_create_ip}&total_fee=${p.total_fee}&trade_type=${p.trade_type}`;
         var t6 = `&key=${kSecKey}`;
-        var s = t1 + t2 +t3 + t4 + t5 + t6;
+        var s = t1 + t2 + t3 + t4 + t5 + t6;
 
         var sign = gen_sign(s);
 
@@ -100,7 +100,7 @@ module Pay {
     }
 
 
-    export function push_order(openid: string,session_key: string, total_fee: number, goods) {
+    export function push_order(openid: string, session_key: string, total_fee: number, goods) {
         let detail = gen_product_detail(goods);
         let out_trade_no = gen_trade_no();
         let notify_url = "http://bf.giantfun.cn";
@@ -124,18 +124,18 @@ module Pay {
         return xml;
     }
 
-    function parsexml(xmlstr,name) {
+    function parsexml(xmlstr, name) {
         let s = xmlstr.indexOf(`<${name}>`);
         let e = xmlstr.indexOf(`</${name}>`);
-        let str = xmlstr.substring(s+`<${name}>`.length,e);
-        
+        let str = xmlstr.substring(s + `<${name}>`.length, e);
+
         let ss = str.indexOf(`<![CDATA[`);
         let ee = str.lastIndexOf(`]]>`);
-        
-        return str.substring(ss +`<![CDATA[`.length, ee );
+
+        return str.substring(ss + `<![CDATA[`.length, ee);
     }
 
-    function gen_pay_sign(appid,nonceStr,prepay_id){
+    function gen_pay_sign(appid, nonceStr, prepay_id) {
         var s = 'appid=${appid}&nonceStr=${nonceStr}&prepay_id=${prepay_id}&signType=MD5&timeStamp=${Date.now()}&key=${kSecKey}'
         return gen_sign(s);
     }
@@ -148,25 +148,26 @@ module Pay {
             header: {},
             method: "POST",
             dataType: "application/json",
-            success: (res) =>{
+            success: (res) => {
                 console.log("支付统一下单成功:", res.data)
                 var xmldoc = egret.XML.parse(res.data);
 
-                let appid = parsexml(res.data,'appid');
-                let nonce_str = parsexml(res.data,"nonce_str");
-                let prepay_id = parsexml(res.data,"prepay_id");
+                let appid = parsexml(res.data, 'appid');
+                let nonce_str = parsexml(res.data, "nonce_str");
+                let prepay_id = parsexml(res.data, "prepay_id");
                 // let sign = parsexml(res.data,"sign");
 
-                console.log(nonce_str,prepay_id);
+                console.log(nonce_str, prepay_id);
 
-                let paySign = gen_pay_sign(appid,nonce_str,prepay_id);
+                let paySign = gen_pay_sign(appid, nonce_str, prepay_id);
 
                 console.log(paySign);
-                platform.pay(nonce_str,prepay_id,paySign);
+
+                // platform.pay(nonce_str,prepay_id,paySign);
                 // let nonce_str = "";
                 // let prepay_id = "";
                 // let sign = "";
-                
+
                 // for(let c of xmldoc.children) {
                 //     let ch = <egret.XML><any>c;
                 //     console.log(ch);
@@ -175,7 +176,7 @@ module Pay {
                 //     console.log('========================')
                 //     if (ch.localName == 'nonce_str') {
                 //         nonce_str = ch['$nonce_str']
-                    
+
                 //     }
                 //     if (ch.localName == 'prepay_id'){
                 //         prepay_id = ch['$prepay_id'];
@@ -184,14 +185,49 @@ module Pay {
                 //         sign = ch['$sign'];
                 //     }
                 // }
-                
-            } ,
+
+            },
             fail: (res) => console.log("支付统一下单失败:", res),
             complete: null
         });
     }
+    //---------------------------------------------------------------
+    //===============================================
+    // 米大师支付，针对于微信小游戏，只在ANDROID平台下有效
+    // 如果使用微信小程序支付，请调用platform.pay
+    // 如果米大师支付后台设置发生改变，必须重新发布沙箱
+    //=================================================
+    /**
+     * 米大师支付中，钻石价格为0.1元，因此必须10个起售
+     * NEED: cnt >= 10
+     * 数量设置取值表为：
+     *  10,30,60,80,120,180,250,300,400,450,500,600,680,
+     *  730,780,880,980,1080,1180,1280,1480,1680,1880,
+     *  1980,3280,6480
+     */
+    export function midasPay(cnt: number = 10, fnSuccess = null, fnFail = null) {
+        wx.requestMidasPayment({
+            mode: "game",
+            env: 1, // 沙箱
+            offerId: "1450016022",    // 米大师侧申请的应用ID    
+            currencyType: "CNY",
+            platform: "android",
+            buyQuantity: cnt,    // 这里的价格，必须1CNY起，钻石价格为0.1 x 10 = 1CNY
+            zoneId: "1",
+            success: (res) => {
+                console.log("米大师支付成功", res)
+                fnSuccess && fnSuccess(res);
+            },
+            fail: (res) => {
+                console.log("米大师支付失败", res);
+                fnFail && fnFail(res);
+            },
+            complete: (res) => { },
+        })
 
-  
+
+
+    }
 
 
 }

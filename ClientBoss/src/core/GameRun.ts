@@ -73,9 +73,11 @@ module game {
 
     }
 
+  
+
     export function gameInit() {
         wxlogin();
-
+        // platform.init();
         Login();
         
 
