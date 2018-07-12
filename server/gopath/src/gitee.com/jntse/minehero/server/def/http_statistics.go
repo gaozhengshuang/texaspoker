@@ -872,13 +872,43 @@ func HttpWechatCompanyPay(openid string, amount int64) string {
 }
 
 // 微信小游戏查询余额
+func HttpWechatAccessToken() (string) {
+	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
+		tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret)
+	resp, geterr := network.HttpGet(url)
+	if geterr != nil {
+		log.Error("获取微信 AccessToken失败 error[%s] resp[%#v]", geterr, resp)
+		return ""
+	}
+
+	type stAccessToken struct {
+		Token string
+		Expires int64
+	}
+
+	objResp := &stAccessToken{}
+	unerr := json.Unmarshal(resp.Body, objResp)
+	if unerr != nil {
+		log.Info("HttpWechatAccessToken json.Unmarshal Fail[%s] ", unerr)
+		return ""
+	}
+
+	return objResp.Token
+}
+
+
+// 微信小游戏查询余额
 func HttpWechatMiniGameGetBalance(openid string) (int64, string) {
 	if openid == "" {
 		return 0, "玩家微信openid是空"
 	}
 
 	//
-	access_token := ""
+	access_token := HttpWechatAccessToken()
+	if access_token == "" {
+		return 0, "无法获取 access_token"
+	}
+
 	mapset := make(map[string]interface{})
 	mapset["openid"] = openid
 	mapset["appid"] = tbl.Global.Wechat.AppID
@@ -966,7 +996,7 @@ func HttpWechatMiniGameGetBalance(openid string) (int64, string) {
 
 
 	// 序列化
-	url := tbl.Global.WechatMiniGame.MidasBalance
+	url := tbl.Global.WechatMiniGame.MidasBalance + access_token
 	postbody, jsonerr := json.Marshal(mapset)
 	if jsonerr != nil {
 		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)

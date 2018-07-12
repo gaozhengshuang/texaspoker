@@ -104,9 +104,9 @@
     "WechatMiniGame": {
         "MidasOfferID":"",
         "MidasSecret":"",
-        "MidasCancelPay":"https://api.weixin.qq.com/cgi-bin/midas/cancelpay?access_token=ACCESS_TOKEN",
-        "MidasBalance":"https://api.weixin.qq.com/cgi-bin/midas/getbalance?access_token=ACCESS_TOKEN",
-        "MidasPay":"https://api.weixin.qq.com/cgi-bin/midas/pay?access_token=ACCESS_TOKEN",
-        "MidasPresent":"https://api.weixin.qq.com/cgi-bin/midas/present?access_token=ACCESS_TOKEN"
+        "MidasCancelPay":"https://api.weixin.qq.com/cgi-bin/midas/cancelpay?access_token=",
+        "MidasBalance":"https://api.weixin.qq.com/cgi-bin/midas/getbalance?access_token=",
+        "MidasPay":"https://api.weixin.qq.com/cgi-bin/midas/pay?access_token=",
+        "MidasPresent":"https://api.weixin.qq.com/cgi-bin/midas/present?access_token="
     }
 }
