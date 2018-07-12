@@ -440,6 +440,7 @@ func (this *GateUser) LoadBin() {
 	this.invitationcode = userbase.GetInvitationcode()
 
 	// 幸运抽奖
+	this.luckydraw = make([]*msg.LuckyDrawItem,0)
 	for _, v := range userbase.Luckydraw.Drawlist {
 		this.luckydraw = append(this.luckydraw, v)
 	}

@@ -46,7 +46,8 @@ message LuckyDrawItem {
     optional int32 worth = 4;
 }
 message LuckyDrawRecord {
-    repeated LuckyDrawItem drawlist = 1;
+    repeated LuckyDrawItem drawlist = 1;    // 历史记录列表
+    repeated int64 totalvalue = 2;          // 总价值
 }
 
 message UserBase {
