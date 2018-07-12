@@ -557,6 +557,11 @@ func (this *GateUser) LuckyDraw() {
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
 
+	recordmsg := &msg.GW2C_SendLuckyDrawRecord{ Luckydraw:&msg.LuckyDrawRecord{ Drawlist:make([]*msg.LuckyDrawItem,0) } }
+	for _, v := range this.luckydraw {
+		recordmsg.Luckydraw.Drawlist = append(recordmsg.Luckydraw.Drawlist, v)
+	}
+
 	// feedback
 	send := &msg.GW2C_LuckyDrawHit{Id:pb.Int32(int32(uid))}
 	this.SendMsg(send)

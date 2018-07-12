@@ -90,6 +90,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateFreeStep{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
+	this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
