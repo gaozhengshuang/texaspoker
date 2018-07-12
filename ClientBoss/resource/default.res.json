@@ -1218,6 +1218,11 @@
 			"url":"assets/ui/win/xinjilu.png"
 		},
 		{
+			"name":"user/adrBg",
+			"type":"image",
+			"url":"assets/user/adrBg.png"
+		},
+		{
 			"name":"user/comeonBg",
 			"type":"image",
 			"url":"assets/user/comeonBg.png"
@@ -1231,6 +1236,16 @@
 			"name":"user/getMoneyImg",
 			"type":"image",
 			"url":"assets/user/getMoneyImg.png"
+		},
+		{
+			"name":"user/headBg",
+			"type":"image",
+			"url":"assets/user/headBg.png"
+		},
+		{
+			"name":"user/headBorder",
+			"type":"image",
+			"url":"assets/user/headBorder.png"
 		},
 		{
 			"name":"user/taskRewardImg",

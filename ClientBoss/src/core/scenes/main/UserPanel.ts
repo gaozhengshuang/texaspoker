@@ -14,13 +14,18 @@ module game {
         img_wxybd: eui.Image;
         labelName: eui.Label;
         labelId: eui.Label;
-        labelInvitationcode: eui.Label;
+        labelInvitationcode: eui.Label;public userGroup:eui.Group;
+
+        img_userhead:eui.Image;
+        img_mask:eui.Image;
+
 
         protected getSkinName() {
             return UserPanelSkin;
         }
 
         protected init() {
+            this.img_userhead.mask = this.img_mask;
             this.closeButton.icon = "lucky/luckycloseBtn";
             this.wxButton.icon = "login/wxwbd";
             this.btn_copy.icon = "user/copyButton";
@@ -51,6 +56,8 @@ module game {
             this.img_comeTask.visible = false;
             this.img_gameTask.visible = false;
             this.img_becomeonTask.visible = false;
+
+            this.img_userhead.source = userInfo.face;
         }
 
         private backHandle() {
