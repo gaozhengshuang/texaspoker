@@ -28,7 +28,7 @@ message TGiftProDefine
 	optional uint32 Limitmax = 3; // 消费最大值
 	
 	
-	repeated string Pro = 4; // 概率万分比 gift表物品ID-概率
+	repeated string Pro = 4; // 概率万分比gift表物品ID-概率
 
 }
 

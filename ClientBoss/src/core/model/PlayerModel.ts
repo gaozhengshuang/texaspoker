@@ -14,6 +14,7 @@ module game {
         private _gold: number = 50;
         public userInfo: IUserInfo = {face: "1", name: "", userid: 0, rank: 0, money: 0, openid: ""};
         public bagList: Array<msg.IItemData> = [];
+        public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -22,6 +23,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_RemovePackageItem, "msg.GW2C_RemovePackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_FreePresentNotify, "msg.GW2C_FreePresentNotify");
+            NotificationCenter.addObserver(this, this.OnLuckyDrawHistory, "msg.LuckyDrawHistory");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -53,6 +55,10 @@ module game {
 
         private OnGW2C_FreePresentNotify(data: msg.GW2C_FreePresentNotify) {
             LoginReward.getInstance().show();
+        }
+
+        private OnLuckyDrawHistory(data: msg.LuckyDrawHistory) {
+            this.historyMoneyList = data.drawlist;
         }
 
         public setScore(count: number) {
@@ -271,6 +277,10 @@ module game {
 
         public getOpenId() {
             return this.userInfo.openid;
+        }
+
+        public getHistoryMoney() {
+            return this.historyMoneyList;
         }
     }
 }
