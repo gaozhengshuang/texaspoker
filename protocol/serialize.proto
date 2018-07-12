@@ -41,9 +41,9 @@ message TaskData {
 // 抽奖历史记录
 message LuckyDrawItem {
     optional int64 time = 1;
-    optional int64 itemid = 2;
-    optional int64 num = 3;
-    optional int64 worth = 4;
+    optional int32 item = 2;
+    optional int32 num = 3;
+    optional int32 worth = 4;
 }
 message LuckyDrawHistory {
     repeated LuckyDrawItem drawlist = 1;

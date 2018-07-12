@@ -31,6 +31,7 @@ type RoomUser struct {
 	ticker10ms  *util.GameTicker
 	asynev      eventque.AsynEventQueue // 异步事件处理
 	invitationcode string
+	luckydraw	[]*msg.LuckyDrawItem
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
@@ -44,6 +45,9 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, room
 	user.bag.LoadBin(b)
 	user.task.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
+	for _, v := range user.UserBase().Luckydraw.Drawlist { 
+		user.luckydraw = append(user.luckydraw, v) 
+	}
 	return user
 }
 
@@ -208,6 +212,10 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 
 	// 玩家信息
 	bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	bin.Base.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem,0)
+	for _, v := range this.luckydraw {
+		bin.Base.Luckydraw.Drawlist = append(bin.Base.Luckydraw.Drawlist, v)
+	}
 
 	// 背包
 	this.bag.PackBin(bin)
@@ -524,7 +532,8 @@ func (this *RoomUser) LuckyDraw() {
 	this.RemoveMoney(cost, "幸运抽奖", true)
 
 	// 每周一重置
-	if util.IsSameWeek(this.GetMoneyCostReset(), util.CURTIME()) != false {
+	curtime := util.CURTIME()
+	if util.IsSameWeek(this.GetMoneyCostReset(), curtime) != false {
 		this.SetMoneyCost(0)
 		this.SetMoneyCostReset(util.CURTIME())
 	}
@@ -569,7 +578,9 @@ func (this *RoomUser) LuckyDraw() {
 		return
 	}
 
-	this.AddItem(gift.ItemId, gift.Num, "幸运抽奖")
+	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
+	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
+	this.luckydraw = append(this.luckydraw, drawitem)
 
 	// feedback
 	send := &msg.GW2C_LuckyDrawHit{Id:pb.Int32(int32(uid))}

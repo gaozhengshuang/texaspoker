@@ -904,6 +904,18 @@
 		{
 			"compress":false,
 			"key":"ui/main/userMainBtn"
+		},
+		{
+			"compress":false,
+			"key":"lucky/goldAni/0007"
+		},
+		{
+			"compress":false,
+			"key":"ui/deliveryBtn"
+		},
+		{
+			"compress":false,
+			"key":"ui/historyMoneyBtn"
 		}
 	]
 }

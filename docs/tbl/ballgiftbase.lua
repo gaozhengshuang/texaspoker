@@ -7,7 +7,7 @@ export var TBallGift : table.ITBallGiftDefine[] = [
 		{ Id : 2, Name : "50元京东卡", Num : 1, ItemId : 2006, Path : "item/2006", Pro : 50, PushBag : 1, Cost : 50 	},
 		{ Id : 3, Name : "10元电话卡", Num : 1, ItemId : 5004, Path : "item/5004", Pro : 100, PushBag : 1, Cost : 10 	},
 		{ Id : 4, Name : "1000金币", Num : 1000, ItemId : 6003, Path : "item/6003", Pro : 1000, PushBag : 1, Cost : 1000 	},
-		{ Id : 5, Name : "600金币", Num : 500, ItemId : 6003, Path : "item/6003", Pro : 1000, PushBag : 1, Cost : 3 	},
+		{ Id : 5, Name : "600金币", Num : 600, ItemId : 6003, Path : "item/6003", Pro : 1000, PushBag : 1, Cost : 3 	},
 		{ Id : 6, Name : "黄金吊坠", Num : 1, ItemId : 3018, Path : "item/3018", Pro : 5, PushBag : 1, Cost : 840 	},
 		{ Id : 7, Name : "2000金币", Num : 2000, ItemId : 6003, Path : "item/6003", Pro : 350, PushBag : 1, Cost : 2000 	},
 		{ Id : 8, Name : "200元京东卡", Num : 1, ItemId : 2004, Path : "item/2004", Pro : 10, PushBag : 1, Cost : 200 	},
@@ -19,7 +19,7 @@ export var TBallGift : table.ITBallGiftDefine[] = [
 		{ Id : 14, Name : "50元京东卡", Num : 1, ItemId : 2006, Path : "item/2006", Pro : 50, PushBag : 1, Cost : 50 	},
 		{ Id : 15, Name : "10元电话卡", Num : 1, ItemId : 5004, Path : "item/5004", Pro : 100, PushBag : 1, Cost : 10 	},
 		{ Id : 16, Name : "1000金币", Num : 1000, ItemId : 6003, Path : "item/6003", Pro : 1000, PushBag : 1, Cost : 1000 	},
-		{ Id : 17, Name : "600金币", Num : 500, ItemId : 6003, Path : "item/6003", Pro : 1000, PushBag : 1, Cost : 3 	},
+		{ Id : 17, Name : "600金币", Num : 600, ItemId : 6003, Path : "item/6003", Pro : 1000, PushBag : 1, Cost : 3 	},
 		{ Id : 18, Name : "400金币", Num : 400, ItemId : 6003, Path : "item/6003", Pro : 1200, PushBag : 1, Cost : 2 	}
 	]
 
