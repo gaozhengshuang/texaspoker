@@ -23,6 +23,9 @@ module game {
             case PanelType.history:
                 panel = HistoryMoneyPanel.getInstance();
                 break;
+            case PanelType.delivery:
+                panel = DeliveryPanel.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -37,5 +40,6 @@ module game {
         register,
         user,
         history,
+        delivery,
     }
 }
