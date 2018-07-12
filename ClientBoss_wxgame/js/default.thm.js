@@ -319,36 +319,6 @@ var egret = window.egret;
 		return t;
 	};
 	return NetFailedSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
-	__extends(AvatarSkin, _super);
-	function AvatarSkin() {
-		_super.call(this);
-		this.skinParts = ["selectImage","avatarImage"];
-		
-		this.height = 116;
-		this.width = 116;
-		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
-	}
-	var _proto = AvatarSkin.prototype;
-
-	_proto.selectImage_i = function () {
-		var t = new eui.Image();
-		this.selectImage = t;
-		t.horizontalCenter = 0;
-		t.source = "ui/win/touxiangkuang";
-		t.verticalCenter = 0;
-		t.visible = false;
-		return t;
-	};
-	_proto.avatarImage_i = function () {
-		var t = new eui.Image();
-		this.avatarImage = t;
-		t.height = 116;
-		t.source = "ui/win/again";
-		t.width = 116;
-		return t;
-	};
-	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattleBagItemSkin.exml'] = window.BattleBagItemSkin = (function (_super) {
 	__extends(BattleBagItemSkin, _super);
 	function BattleBagItemSkin() {
@@ -2437,6 +2407,36 @@ var egret = window.egret;
 		return t;
 	};
 	return BattleTimeBoomSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
+	__extends(AvatarSkin, _super);
+	function AvatarSkin() {
+		_super.call(this);
+		this.skinParts = ["selectImage","avatarImage"];
+		
+		this.height = 116;
+		this.width = 116;
+		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
+	}
+	var _proto = AvatarSkin.prototype;
+
+	_proto.selectImage_i = function () {
+		var t = new eui.Image();
+		this.selectImage = t;
+		t.horizontalCenter = 0;
+		t.source = "ui/win/touxiangkuang";
+		t.verticalCenter = 0;
+		t.visible = false;
+		return t;
+	};
+	_proto.avatarImage_i = function () {
+		var t = new eui.Image();
+		this.avatarImage = t;
+		t.height = 116;
+		t.source = "ui/win/again";
+		t.width = 116;
+		return t;
+	};
+	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
 	__extends(CloseButtonSkin, _super);
 	function CloseButtonSkin() {
@@ -3202,6 +3202,18 @@ var egret = window.egret;
 		return t;
 	};
 	return RegisterPanelSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/main/HistoryMoneyItemSkin.exml'] = window.HistoryMoneyItemSkin = (function (_super) {
+	__extends(HistoryMoneyItemSkin, _super);
+	function HistoryMoneyItemSkin() {
+		_super.call(this);
+		this.skinParts = [];
+		
+		this.height = 30;
+		this.width = 580;
+	}
+	var _proto = HistoryMoneyItemSkin.prototype;
+
+	return HistoryMoneyItemSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/main/HistoryMoneySkin.exml'] = window.HistoryMoneySkin = (function (_super) {
 	__extends(HistoryMoneySkin, _super);
 	function HistoryMoneySkin() {
@@ -3276,7 +3288,7 @@ var egret = window.egret;
 	_proto._Image3_i = function () {
 		var t = new eui.Image();
 		t.horizontalCenter = 0;
-		t.source = "ui/historyMoneyTitleBg";
+		t.source = "ui/bag/historyMoneyTitleBg";
 		t.verticalCenter = -314.5;
 		return t;
 	};
@@ -3285,7 +3297,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0;
 		t.scaleX = 1;
 		t.scaleY = 1;
-		t.source = "ui/historyMoneyTitle";
+		t.source = "ui/bag/historyMoneyTitle";
 		t.x = 222;
 		t.y = -10;
 		return t;
@@ -3532,7 +3544,7 @@ var egret = window.egret;
 	__extends(UserPanelSkin, _super);
 	function UserPanelSkin() {
 		_super.call(this);
-		this.skinParts = ["closeButton","labelName","labelId","labelInvitationcode","btn_copy","wxButton","img_wxybd","userGroup","img_comeTask","img_nocomeTask","taskGroup1","img_gameTask","img_nogameTask","taskGroup2","img_becomeonTask","img_nobecomeonTask","taskGroup3"];
+		this.skinParts = ["closeButton","labelName","labelId","labelInvitationcode","btn_copy","wxButton","img_wxybd","img_userhead","img_mask","userGroup","img_comeTask","img_nocomeTask","taskGroup1","img_gameTask","img_nogameTask","taskGroup2","img_becomeonTask","img_nobecomeonTask","taskGroup3"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -3557,7 +3569,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0;
 		t.verticalCenter = 0;
 		t.width = 720;
-		t.elementsContent = [this._Image1_i(),this._Image2_i(),this._Image3_i(),this.closeButton_i(),this.labelName_i(),this.labelId_i(),this._Label1_i(),this._Label2_i(),this.labelInvitationcode_i(),this.btn_copy_i(),this.wxButton_i(),this.img_wxybd_i(),this._Image4_i(),this._Label3_i(),this._Image5_i(),this._Label4_i()];
+		t.elementsContent = [this._Image1_i(),this._Image2_i(),this._Image3_i(),this.closeButton_i(),this.labelName_i(),this.labelId_i(),this._Label1_i(),this.labelInvitationcode_i(),this.btn_copy_i(),this.wxButton_i(),this.img_wxybd_i(),this._Image4_i(),this._Label2_i(),this._Image5_i(),this._Label3_i(),this.img_userhead_i(),this.img_mask_i(),this._Image6_i()];
 		return t;
 	};
 	_proto._Image1_i = function () {
@@ -3580,7 +3592,7 @@ var egret = window.egret;
 		var t = new eui.Image();
 		t.horizontalCenter = 0.5;
 		t.source = "user/comeonBg";
-		t.y = 310;
+		t.y = 380;
 		return t;
 	};
 	_proto.closeButton_i = function () {
@@ -3598,7 +3610,7 @@ var egret = window.egret;
 		var t = new eui.Label();
 		this.labelName = t;
 		t.bold = true;
-		t.horizontalCenter = 0;
+		t.horizontalCenter = 0.5;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.size = 36;
@@ -3606,14 +3618,14 @@ var egret = window.egret;
 		t.text = "未设置用户名";
 		t.textAlign = "center";
 		t.textColor = 0x8C5EDA;
-		t.y = 179;
+		t.y = 283;
 		return t;
 	};
 	_proto.labelId_i = function () {
 		var t = new eui.Label();
 		this.labelId = t;
 		t.bold = true;
-		t.horizontalCenter = 0;
+		t.horizontalCenter = 0.5;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.size = 24;
@@ -3621,7 +3633,7 @@ var egret = window.egret;
 		t.text = "ID:123456";
 		t.textAlign = "center";
 		t.textColor = 0x8C5EDA;
-		t.y = 237;
+		t.y = 341;
 		return t;
 	};
 	_proto._Label1_i = function () {
@@ -3634,20 +3646,7 @@ var egret = window.egret;
 		t.text = "邀请码";
 		t.textAlign = "center";
 		t.textColor = 0xffffff;
-		t.verticalCenter = -218;
-		return t;
-	};
-	_proto._Label2_i = function () {
-		var t = new eui.Label();
-		t.bold = true;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 28;
-		t.text = "暂无二维码";
-		t.textAlign = "center";
-		t.textColor = 0xff0000;
-		t.verticalCenter = -88;
+		t.verticalCenter = -148;
 		return t;
 	};
 	_proto.labelInvitationcode_i = function () {
@@ -3661,7 +3660,7 @@ var egret = window.egret;
 		t.text = "TJ1234";
 		t.textAlign = "center";
 		t.textColor = 0xffffff;
-		t.y = 318;
+		t.y = 388;
 		return t;
 	};
 	_proto.btn_copy_i = function () {
@@ -3672,18 +3671,18 @@ var egret = window.egret;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.verticalCenter = -217.5;
+		t.verticalCenter = -147.5;
 		return t;
 	};
 	_proto.wxButton_i = function () {
 		var t = new game.IconButton();
 		this.wxButton = t;
-		t.horizontalCenter = 0;
+		t.horizontalCenter = 0.5;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.verticalCenter = 36.5;
+		t.verticalCenter = 15.5;
 		return t;
 	};
 	_proto.img_wxybd_i = function () {
@@ -3691,43 +3690,69 @@ var egret = window.egret;
 		this.img_wxybd = t;
 		t.horizontalCenter = 0;
 		t.source = "login/wxyjbd";
-		t.verticalCenter = 43;
+		t.verticalCenter = 24;
 		return t;
 	};
 	_proto._Image4_i = function () {
 		var t = new eui.Image();
 		t.horizontalCenter = 116;
 		t.source = "user/getMoneyImg";
-		t.verticalCenter = 29;
+		t.verticalCenter = 10;
 		return t;
 	};
-	_proto._Label3_i = function () {
+	_proto._Label2_i = function () {
 		var t = new eui.Label();
 		t.horizontalCenter = 0;
 		t.size = 18;
 		t.text = "绑定微信立刻获得1元现金,现金直接转入微信账号。";
 		t.textColor = 0x4d4d4d;
-		t.verticalCenter = 91;
+		t.verticalCenter = 72;
 		return t;
 	};
 	_proto._Image5_i = function () {
 		var t = new eui.Image();
-		t.horizontalCenter = 0;
+		t.horizontalCenter = 0.5;
 		t.source = "user/taskRewardImg";
-		t.verticalCenter = 146;
+		t.verticalCenter = 127;
 		return t;
 	};
-	_proto._Label4_i = function () {
+	_proto._Label3_i = function () {
 		var t = new eui.Label();
 		t.bold = true;
-		t.horizontalCenter = 0;
+		t.horizontalCenter = 0.5;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.size = 28;
 		t.text = "任  务";
 		t.textAlign = "center";
 		t.textColor = 0xFFFFFF;
-		t.verticalCenter = 146;
+		t.verticalCenter = 125;
+		return t;
+	};
+	_proto.img_userhead_i = function () {
+		var t = new eui.Image();
+		this.img_userhead = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 160;
+		t.width = 160;
+		t.x = 280.5;
+		t.y = 103;
+		return t;
+	};
+	_proto.img_mask_i = function () {
+		var t = new eui.Image();
+		this.img_mask = t;
+		t.horizontalCenter = 0;
+		t.source = "user/headBg";
+		t.verticalCenter = -366.5;
+		return t;
+	};
+	_proto._Image6_i = function () {
+		var t = new eui.Image();
+		t.source = "user/headBorder";
+		t.x = 284;
+		t.y = 106;
 		return t;
 	};
 	_proto.taskGroup1_i = function () {
@@ -3736,12 +3761,12 @@ var egret = window.egret;
 		t.anchorOffsetY = 0;
 		t.height = 109.09;
 		t.horizontalCenter = 0;
-		t.verticalCenter = 244.5;
+		t.verticalCenter = 249.5;
 		t.width = 720;
-		t.elementsContent = [this._Image6_i(),this._Label5_i(),this._Label6_i(),this.img_comeTask_i(),this.img_nocomeTask_i()];
+		t.elementsContent = [this._Image7_i(),this._Label4_i(),this._Label5_i(),this.img_comeTask_i(),this.img_nocomeTask_i()];
 		return t;
 	};
-	_proto._Image6_i = function () {
+	_proto._Image7_i = function () {
 		var t = new eui.Image();
 		t.horizontalCenter = 0;
 		t.scaleX = 1;
@@ -3751,7 +3776,7 @@ var egret = window.egret;
 		t.y = -0.4699999999999136;
 		return t;
 	};
-	_proto._Label5_i = function () {
+	_proto._Label4_i = function () {
 		var t = new eui.Label();
 		t.left = 58;
 		t.scaleX = 1;
@@ -3763,7 +3788,7 @@ var egret = window.egret;
 		t.verticalCenter = -16.545;
 		return t;
 	};
-	_proto._Label6_i = function () {
+	_proto._Label5_i = function () {
 		var t = new eui.Label();
 		t.bold = true;
 		t.scaleX = 1;
@@ -3798,12 +3823,12 @@ var egret = window.egret;
 		t.anchorOffsetY = 0;
 		t.height = 109.09;
 		t.horizontalCenter = 0;
-		t.verticalCenter = 354.5;
+		t.verticalCenter = 359.5;
 		t.width = 720;
-		t.elementsContent = [this._Image7_i(),this._Label7_i(),this._Label8_i(),this.img_gameTask_i(),this.img_nogameTask_i()];
+		t.elementsContent = [this._Image8_i(),this._Label6_i(),this._Label7_i(),this.img_gameTask_i(),this.img_nogameTask_i()];
 		return t;
 	};
-	_proto._Image7_i = function () {
+	_proto._Image8_i = function () {
 		var t = new eui.Image();
 		t.horizontalCenter = 0;
 		t.scaleX = 1;
@@ -3813,7 +3838,7 @@ var egret = window.egret;
 		t.y = -0.4699999999999136;
 		return t;
 	};
-	_proto._Label7_i = function () {
+	_proto._Label6_i = function () {
 		var t = new eui.Label();
 		t.left = 58;
 		t.scaleX = 1;
@@ -3825,7 +3850,7 @@ var egret = window.egret;
 		t.verticalCenter = -16.545;
 		return t;
 	};
-	_proto._Label8_i = function () {
+	_proto._Label7_i = function () {
 		var t = new eui.Label();
 		t.bold = true;
 		t.scaleX = 1;
@@ -3867,12 +3892,12 @@ var egret = window.egret;
 		t.anchorOffsetY = 0;
 		t.height = 109.09;
 		t.horizontalCenter = 0;
-		t.verticalCenter = 464.5;
+		t.verticalCenter = 469.5;
 		t.width = 720;
-		t.elementsContent = [this._Image8_i(),this._Label9_i(),this._Label10_i(),this.img_becomeonTask_i(),this.img_nobecomeonTask_i()];
+		t.elementsContent = [this._Image9_i(),this._Label8_i(),this._Label9_i(),this.img_becomeonTask_i(),this.img_nobecomeonTask_i()];
 		return t;
 	};
-	_proto._Image8_i = function () {
+	_proto._Image9_i = function () {
 		var t = new eui.Image();
 		t.horizontalCenter = 0;
 		t.scaleX = 1;
@@ -3882,7 +3907,7 @@ var egret = window.egret;
 		t.y = -0.4699999999999136;
 		return t;
 	};
-	_proto._Label9_i = function () {
+	_proto._Label8_i = function () {
 		var t = new eui.Label();
 		t.left = 58;
 		t.scaleX = 1;
@@ -3894,7 +3919,7 @@ var egret = window.egret;
 		t.verticalCenter = -16.545;
 		return t;
 	};
-	_proto._Label10_i = function () {
+	_proto._Label9_i = function () {
 		var t = new eui.Label();
 		t.bold = true;
 		t.scaleX = 1;
