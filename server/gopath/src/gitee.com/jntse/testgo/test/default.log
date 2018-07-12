@@ -4778,3 +4778,18 @@ main.main()
 2018-07-11 17:19:06 [ERR] [keyboardinput.go:41] keyboard err=EOF
 2018-07-11 17:19:06 [ERR] [keyboardinput.go:41] keyboard err=EOF
 2018-07-11 17:19:06 [ERR] [keyboardinput.go:41] keyboard err=EOF
+2018-07-12 19:19:51 [INF] [main.go:39] 初始日志完成
+2018-07-12 19:19:51 [INF] [keyboardinput.go:21] starting keyboard controler...
+2018-07-12 19:19:51 [INF] [main.go:46] 初始键盘输入完成
+2018-07-12 19:19:56 [INF] [main.go:39] 初始日志完成
+2018-07-12 19:19:56 [INF] [keyboardinput.go:21] starting keyboard controler...
+2018-07-12 19:19:56 [INF] [main.go:46] 初始键盘输入完成
+2018-07-12 19:20:00 [INF] [main.go:39] 初始日志完成
+2018-07-12 19:20:00 [INF] [keyboardinput.go:21] starting keyboard controler...
+2018-07-12 19:20:00 [INF] [main.go:46] 初始键盘输入完成
+2018-07-12 19:20:01 [INF] [main.go:39] 初始日志完成
+2018-07-12 19:20:01 [INF] [keyboardinput.go:21] starting keyboard controler...
+2018-07-12 19:20:01 [INF] [main.go:46] 初始键盘输入完成
+2018-07-12 19:20:03 [INF] [main.go:39] 初始日志完成
+2018-07-12 19:20:03 [INF] [keyboardinput.go:21] starting keyboard controler...
+2018-07-12 19:20:03 [INF] [main.go:46] 初始键盘输入完成
