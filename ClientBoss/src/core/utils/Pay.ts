@@ -191,6 +191,44 @@ module Pay {
             complete: null
         });
     }
+
+    export function testWxMiniPrgmPay() {
+        console.log("启动选项： ", wx.getLaunchOptionsSync());
+        wx.getSystemInfo({
+            success: (res) => console.log("获取系统信息成功：", res),
+            fail: (res) => console.log("获取系统信息失败：", res),
+            complete: null,
+        });
+        wx.onError(() => console.error("小程序出现错误"));
+
+        wx.login({
+            success: (res) => {
+                console.log("微信登录成功", res);
+                // 获取到openid和sessionkey
+                Pay.get_open_id_and_session_key(res.code, (openid, session_key) => {
+                    
+                    console.log(openid, session_key)
+
+                    let xml = Pay.push_order(openid,session_key, 1, [
+                        { "goods_id": "iphone6s_16G", "wxpay_goods_id": "0001", "goods_name": "iPhone6s 16G", "quantity": 1, "price": 528800, "goods_category": "123456", "body": "苹果手机" },
+                         { "goods_id": "iphone6s_32G", "wxpay_goods_id": "1002", "goods_name": "iPhone6s 32G", "quantity": 1, "price": 608800, "goods_category": "123789", "body": "苹果手机" }
+                    ]
+                    );
+                    console.log(xml);
+                });
+
+            },
+            fail: (res) => console.log("微信登陆失败", res),
+            complete: null,
+        });
+        wx.getSetting({
+            success: (res) => console.log("获取设置成功", res),
+            fail: (res) => console.log("获取设置失败", res),
+            complete: null,
+        });
+
+
+    }
     //---------------------------------------------------------------
     //===============================================
     // 米大师支付，针对于微信小游戏，只在ANDROID平台下有效

@@ -2,7 +2,7 @@
 	"groups": [
 		{
 			"name": "preload",
-			"keys": "ce/default.thm,ce/gameEui,1,test,font/goldGame_fnt,font/goldGame_png,login/loginbg,login/loginBtn,login/loginInput,login/loginstar,login/loginTitle,login/passwdicon,login/phoneicon,login/registerBtn,login/wxwbd,login/wxyjbd,login/yqmicon,login/yzmbutton,login/yzmicon,item/1001,item/2004,item/2006,item/3018,item/5003,item/5004,item/6003,lucky/bagBtn,lucky/bagget,lucky/bagline,lucky/bagshopbg,lucky/bagtitle,lucky/itemNameBg,lucky/itemNumBg,lucky/luckyBg,lucky/luckyBtn,lucky/luckycloseBtn,lucky/luckyGo,lucky/luckyIMG,lucky/luckyItemBg,lucky/luckyLight,lucky/luckyTitle,lucky/shopbg,lucky/shoplight,lucky/shopnumbg,ball/1,ball/2,ball/3,cube/2,cube/3,cube/4,cube/5,cube/6,cube/7,cube/8,cube/crack1,cube/crack2,cube/crack3,cube/fire,cube/frozen,map/1,map/2,map/3,map/4,music/bingqiang,music/dazhao,music/fashe,music/heidong,music/huoqiangloop,music/jiesuan,music/pengzhuang,music/play,music/posui,music/zhadan,paddle/1,paddle/bg,paddle/bg2,paddle/di,paddle/guanchuan,paddle/light,paddle/pao,paddle/pao2,paddle/paota,paddle/wuxianpao,paddle/wuxianpaobg,ui/bg,ui/dialogBg,ui/duanxian,ui/gold,ui/moreFire,ui/sp,ui/spBar,ui/spBg,ui/spGray,ui/topBg,ui/yindao,user/comeonBg,user/copyButton,user/getMoneyImg,user/taskRewardImg,user/userBg,user/userButton,user/userOk,user/userTitle,ball/break/00000,ball/break/00001,ball/break/00002,ball/break/00003,ball/break/00004,ball/break/00005,ball/break/00006,ball/break/00007,cube/1/1,cube/1/2,cube/1/3,cube/1/4,cube/1/5,cube/1/6,cube/blackHole/00000,cube/blackHole/00001,cube/blackHole/00002,cube/blackHole/00003,cube/blackHole/00004,cube/blackHole/00005,cube/blackHole/00006,cube/blackHole/00007,cube/blueBoom/00000,cube/blueBoom/00001,cube/blueBoom/00002,cube/blueBoom/00003,cube/blueBoom/00004,cube/blueBoom/00005,cube/boom/00000,cube/boom/00001,cube/boom/00002,cube/boom/00003,cube/boom/00004,cube/boom/00005,cube/boom/00006,cube/boom/00007,cube/break/1,cube/break/2,cube/break/3,cube/break/4,cube/break/5,cube/break/6,cube/break/posui,cube/goldShark/00000,cube/goldShark/00001,cube/goldShark/00002,cube/goldShark/00003,cube/goldShark/00004,cube/goldShark/00005,cube/redBoom/00000,cube/redBoom/00001,cube/redBoom/00002,cube/redBoom/00003,cube/redBoom/00004,cube/redBoom/00005,cube/redBoom/00006,cube/redBoom/00007,cube/sharkPop/00001,cube/sharkPop/00002,cube/sharkPop/00003,cube/sharkPop/00004,cube/sharkPop/00005,cube/sharkPop/00006,cube/timeBoom/00000,cube/timeBoom/00001,cube/timeBoom/00002,cube/timeBoom/00003,cube/timeBoom/00004,paddle/sp/00000,paddle/sp/00001,paddle/sp/00002,paddle/sp/00003,paddle/sp/00004,paddle/sp/00005,paddle/sp/00006,paddle/sp/00007,paddle/wave/00000,paddle/wave/00001,paddle/wave/00002,paddle/wave/00003,paddle/wave/00004,paddle/wave/00005,paddle/wave/00006,paddle/wave/00007,paddle/wave/00008,paddle/wave/00009,ui/main/guangquan,ui/main/paihang,ui/main/play,ui/main/tantanle,ui/main/tou,ui/rank/bg,ui/rank/haoyou,ui/rank/rankitembg,ui/rank/shijie,ui/win/again,ui/win/anniudi,ui/win/back,ui/win/fenxiang,ui/win/jiesuan,ui/win/rankBg,ui/win/touxiangkuang,ui/win/xinjilu"
+			"keys": "ce/default.thm,ce/gameEui,1,test,ball/1,ball/2,ball/3,cube/2,cube/3,cube/4,cube/5,cube/6,cube/7,cube/8,cube/crack1,cube/crack2,cube/crack3,cube/fire,cube/frozen,font/goldGame_fnt,font/goldGame_png,item/1001,item/2004,item/2006,item/3018,item/5003,item/5004,item/6003,login/loginbg,login/loginBtn,login/loginInput,login/loginstar,login/loginTitle,login/nicknameImg,login/notreachImg,login/passwdicon,login/phoneicon,login/registerBtn,login/wxwbd,login/wxyjbd,login/yqmicon,login/yzmbutton,login/yzmicon,lucky/bagBtn,lucky/bagget,lucky/bagline,lucky/bagshopbg,lucky/bagtitle,lucky/itemNameBg,lucky/itemNumBg,lucky/loginrewardBtn,lucky/luckyBg,lucky/luckyBtn,lucky/luckycloseBtn,lucky/luckyGo,lucky/luckyIMG,lucky/luckyItemBg,lucky/luckyLight,lucky/luckyTitle,lucky/shopbg,lucky/shoplight,lucky/shopnumbg,map/1,map/2,map/3,map/4,music/bingqiang,music/dazhao,music/fashe,music/heidong,music/huoqiangloop,music/jiesuan,music/pengzhuang,music/play,music/posui,music/zhadan,paddle/1,paddle/bg,paddle/bg2,paddle/di,paddle/guanchuan,paddle/light,paddle/pao,paddle/pao2,paddle/paota,paddle/wuxianpao,paddle/wuxianpaobg,ui/badBuffProgress,ui/badBuffProgressBg,ui/bagGo,ui/bg,ui/boxBuff1,ui/boxBuff2.png,ui/boxBuff3,ui/boxBuffBg,ui/deliveryBtn,ui/dialogBg,ui/dialogMBg,ui/duanxian,ui/gameBack,ui/gameBtnBg,ui/gold,ui/historyMoneyBtn,ui/loginRewardGold,ui/moreFire,ui/rechargeGo,ui/sp,ui/spBar,ui/spBg,ui/spGray,ui/topBg,ui/userGo,ui/yindao,user/comeonBg,user/copyButton,user/getMoneyImg,user/taskRewardImg,user/userBg,user/userButton,user/userOk,user/userTitle,ball/break/00000,ball/break/00001,ball/break/00002,ball/break/00003,ball/break/00004,ball/break/00005,ball/break/00006,ball/break/00007,cube/1/1,cube/1/2,cube/1/3,cube/1/4,cube/1/5,cube/1/6,cube/blackHole/00000,cube/blackHole/00001,cube/blackHole/00002,cube/blackHole/00003,cube/blackHole/00004,cube/blackHole/00005,cube/blackHole/00006,cube/blackHole/00007,cube/blueBoom/00000,cube/blueBoom/00001,cube/blueBoom/00002,cube/blueBoom/00003,cube/blueBoom/00004,cube/blueBoom/00005,cube/boom/00000,cube/boom/00001,cube/boom/00002,cube/boom/00003,cube/boom/00004,cube/boom/00005,cube/boom/00006,cube/boom/00007,cube/break/1,cube/break/2,cube/break/3,cube/break/4,cube/break/5,cube/break/6,cube/break/posui,cube/goldShark/00000,cube/goldShark/00001,cube/goldShark/00002,cube/goldShark/00003,cube/goldShark/00004,cube/goldShark/00005,cube/redBoom/00000,cube/redBoom/00001,cube/redBoom/00002,cube/redBoom/00003,cube/redBoom/00004,cube/redBoom/00005,cube/redBoom/00006,cube/redBoom/00007,cube/sharkPop/00001,cube/sharkPop/00002,cube/sharkPop/00003,cube/sharkPop/00004,cube/sharkPop/00005,cube/sharkPop/00006,cube/timeBoom/00000,cube/timeBoom/00001,cube/timeBoom/00002,cube/timeBoom/00003,cube/timeBoom/00004,lucky/badBox/0000,lucky/badBox/0001,lucky/badBox/0002,lucky/badBox/0003,lucky/badBox/0004,lucky/badBox/0005,lucky/badBox/0006,lucky/goldAni/0000,lucky/goldAni/0001,lucky/goldAni/0002,lucky/goldAni/0003,lucky/goldAni/0004,lucky/goldAni/0005,lucky/goldAni/0006,lucky/goldAni/0007,paddle/sp/00000,paddle/sp/00001,paddle/sp/00002,paddle/sp/00003,paddle/sp/00004,paddle/sp/00005,paddle/sp/00006,paddle/sp/00007,paddle/wave/00000,paddle/wave/00001,paddle/wave/00002,paddle/wave/00003,paddle/wave/00004,paddle/wave/00005,paddle/wave/00006,paddle/wave/00007,paddle/wave/00008,paddle/wave/00009,ui/main/common_luckyBtnBg,ui/main/common_userBtnBg,ui/main/guangquan,ui/main/luckMainBtn,ui/main/paihang,ui/main/play,ui/main/tantanle,ui/main/tou,ui/main/userMainBtn,ui/rank/bg,ui/rank/haoyou,ui/rank/rankitembg,ui/rank/shijie,ui/win/again,ui/win/anniudi,ui/win/back,ui/win/fenxiang,ui/win/jiesuan,ui/win/rankBg,ui/win/touxiangkuang,ui/win/xinjilu"
 		}
 	],
 	"resources": [
@@ -25,71 +25,6 @@
 			"url": "assets/test.json",
 			"type": "json",
 			"name": "test"
-		},
-		{
-			"url": "assets/login/loginbg.png",
-			"type": "image",
-			"name": "login/loginbg"
-		},
-		{
-			"url": "assets/login/loginBtn.png",
-			"type": "image",
-			"name": "login/loginBtn"
-		},
-		{
-			"url": "assets/login/loginInput.png",
-			"type": "image",
-			"name": "login/loginInput"
-		},
-		{
-			"url": "assets/login/loginstar.png",
-			"type": "image",
-			"name": "login/loginstar"
-		},
-		{
-			"url": "assets/login/loginTitle.png",
-			"type": "image",
-			"name": "login/loginTitle"
-		},
-		{
-			"url": "assets/login/passwdicon.png",
-			"type": "image",
-			"name": "login/passwdicon"
-		},
-		{
-			"url": "assets/login/phoneicon.png",
-			"type": "image",
-			"name": "login/phoneicon"
-		},
-		{
-			"url": "assets/login/registerBtn.png",
-			"type": "image",
-			"name": "login/registerBtn"
-		},
-		{
-			"url": "assets/login/wxwbd.png",
-			"type": "image",
-			"name": "login/wxwbd"
-		},
-		{
-			"url": "assets/login/wxyjbd.png",
-			"type": "image",
-			"name": "login/wxyjbd"
-		},
-		{
-			"url": "assets/login/yqmicon.png",
-			"type": "image",
-			"name": "login/yqmicon"
-		},
-		{
-			"url": "assets/login/yzmbutton.png",
-			"type": "image",
-			"name": "login/yzmbutton"
-		},
-		{
-			"url": "assets/login/yzmicon.png",
-			"type": "image",
-			"name": "login/yzmicon"
 		},
 		{
 			"url": "assets/ball/1.png",
@@ -145,6 +80,81 @@
 			"url": "assets/ball/break/00007.png",
 			"type": "image",
 			"name": "ball/break/00007"
+		},
+		{
+			"url": "assets/login/loginbg.png",
+			"type": "image",
+			"name": "login/loginbg"
+		},
+		{
+			"url": "assets/login/loginBtn.png",
+			"type": "image",
+			"name": "login/loginBtn"
+		},
+		{
+			"url": "assets/login/loginInput.png",
+			"type": "image",
+			"name": "login/loginInput"
+		},
+		{
+			"url": "assets/login/loginstar.png",
+			"type": "image",
+			"name": "login/loginstar"
+		},
+		{
+			"url": "assets/login/loginTitle.png",
+			"type": "image",
+			"name": "login/loginTitle"
+		},
+		{
+			"url": "assets/login/nicknameImg.png",
+			"type": "image",
+			"name": "login/nicknameImg"
+		},
+		{
+			"url": "assets/login/notreachImg.png",
+			"type": "image",
+			"name": "login/notreachImg"
+		},
+		{
+			"url": "assets/login/passwdicon.png",
+			"type": "image",
+			"name": "login/passwdicon"
+		},
+		{
+			"url": "assets/login/phoneicon.png",
+			"type": "image",
+			"name": "login/phoneicon"
+		},
+		{
+			"url": "assets/login/registerBtn.png",
+			"type": "image",
+			"name": "login/registerBtn"
+		},
+		{
+			"url": "assets/login/wxwbd.png",
+			"type": "image",
+			"name": "login/wxwbd"
+		},
+		{
+			"url": "assets/login/wxyjbd.png",
+			"type": "image",
+			"name": "login/wxyjbd"
+		},
+		{
+			"url": "assets/login/yqmicon.png",
+			"type": "image",
+			"name": "login/yqmicon"
+		},
+		{
+			"url": "assets/login/yzmbutton.png",
+			"type": "image",
+			"name": "login/yzmbutton"
+		},
+		{
+			"url": "assets/login/yzmicon.png",
+			"type": "image",
+			"name": "login/yzmicon"
 		}
 	]
 }
