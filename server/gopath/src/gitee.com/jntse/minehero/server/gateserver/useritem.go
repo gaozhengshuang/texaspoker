@@ -556,6 +556,7 @@ func (this *GateUser) LuckyDraw() {
 	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
+	this.luckydrawtotal += int64(gift.Cost)
 	if len(this.luckydraw) > int(tbl.Game.LuckDrawHistroyLimlit) { this.luckydraw = this.luckydraw[1:] }
 
 	// 同步抽奖历史列表
