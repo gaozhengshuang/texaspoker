@@ -105,6 +105,7 @@
 		"bin-debug/table/proto_index.js",
 		"bin-debug/table/recharge.js",
 		"bin-debug/table/shopbase.js",
-		"bin-debug/table/signbase.js"
+		"bin-debug/table/signbase.js",
+		"bin-debug/table/taskbase.js"
 	]
 }

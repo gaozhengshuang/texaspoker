@@ -943,6 +943,11 @@
 			"url":"assets/paddle/wave/00009.png"
 		},
 		{
+			"name":"ui/backBagBtn",
+			"type":"image",
+			"url":"assets/ui/backBagBtn.png"
+		},
+		{
 			"name":"ui/badBuffProgress",
 			"type":"image",
 			"url":"assets/ui/badBuffProgress.png"
@@ -1021,6 +1026,16 @@
 			"name":"ui/historyMoneyBtn",
 			"type":"image",
 			"url":"assets/ui/historyMoneyBtn.png"
+		},
+		{
+			"name":"ui/historyMoneyTitle",
+			"type":"image",
+			"url":"assets/ui/historyMoneyTitle.png"
+		},
+		{
+			"name":"ui/historyMoneyTitleBg",
+			"type":"image",
+			"url":"assets/ui/historyMoneyTitleBg.png"
 		},
 		{
 			"name":"ui/loginRewardGold",

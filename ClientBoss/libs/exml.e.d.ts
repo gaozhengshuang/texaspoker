@@ -64,6 +64,8 @@ declare class LoginSceneSkin extends eui.Skin{
 }
 declare class RegisterPanelSkin extends eui.Skin{
 }
+declare class HistoryMoneySkin extends eui.Skin{
+}
 declare class MainSceneSkin extends eui.Skin{
 }
 declare class UserPanelSkin extends eui.Skin{
