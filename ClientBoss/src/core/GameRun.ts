@@ -50,12 +50,16 @@ module game {
                     //TODO:使用这些获取的数据
                     console.log("openid: ", openid)
 
-                    sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode({
-                        openid: openid,
+                    // sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode({
+                    //     openid: openid,
+                    //     face: avatarUrl,
+                    //     nickname: nickName
+                    // }));
+                    LoginManager.getInstance().wxlogin({
+                         openid: openid,
                         face: avatarUrl,
                         nickname: nickName
-                    }));
-                    
+                    })
                 })
             });
         });

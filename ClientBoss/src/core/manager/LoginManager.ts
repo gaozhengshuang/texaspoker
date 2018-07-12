@@ -24,6 +24,28 @@ module game {
             }
         }
 
+        public async wxlogin(msg) {
+            let gwResult: msg.IL2C_RetLogin;
+            gwResult = await this.connectWxLoginGW(msg);
+            if (gwResult.result == 1) {
+                NotificationCenter.once(this, () => {
+                    NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
+                    createGameScene();
+                }, "msg.GW2C_SendUserInfo");
+                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult);
+                if (loginResult.errcode == "") {
+
+                } else {
+                    NotificationCenter.removeObserver(this, "msg.GW2C_SendUserInfo");
+                    NetFailed.getInstance().show(loginResult.errcode);
+                    NotificationCenter.postNotification(LoginManager.LOGIN_STATE, false);
+                }
+            } else {
+                NetFailed.getInstance().show(gwResult.reason);
+                NotificationCenter.postNotification(LoginManager.LOGIN_STATE, false);
+            }
+        }
+
         private async reqLoginFunc(verifykey: string){
             
         }
@@ -52,6 +74,18 @@ module game {
             ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
             NotificationCenter.once(this, () => {
                 sendMessage("msg.C2L_ReqLogin", msg.C2L_ReqLogin.encode(loginUserInfo));
+                NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
+                    d.resolve(data);
+                }, "msg.L2C_RetLogin");
+            }, ClientNet.SOCKET_CONNECT_SUCCESS);
+            return d.promise();
+        }
+
+         private connectWxLoginGW(msg) {
+            let d = defer();
+            ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
+            NotificationCenter.once(this, () => {
+                sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode(msg));
                 NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
                     d.resolve(data);
                 }, "msg.L2C_RetLogin");
