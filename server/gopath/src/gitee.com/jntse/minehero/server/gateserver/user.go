@@ -258,6 +258,26 @@ func (this *GateUser) Inviter() uint64 {
 	return 0
 }
 
+func (this *GateUser) GetMoneyCost() int64 {
+	userbase := this.UserBase()
+	return userbase.GetScounter().GetMoneyCost()
+}
+
+func (this *GateUser) GetMoneyCostReset() int64 {
+	userbase := this.UserBase()
+	return userbase.GetScounter().GetMoneyCostReset()
+}
+
+func (this *GateUser) SetMoneyCost(cost int64) {
+	userbase := this.UserBase()
+	userbase.GetScounter().MoneyCost = pb.Int64(cost)
+}
+
+func (this *GateUser) SetMoneyCostReset(reset int64) {
+	userbase := this.UserBase()
+	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
+}
+
 func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
 }
@@ -350,12 +370,12 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	bin.Entity = pb.Clone(this.bin.GetEntity()).(*msg.EntityBase)
 
 	// 玩家信息
-	//bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
-	bin.Base = &msg.UserBase{}
-	bin.Base.Scounter = &msg.SimpleCounter{}
-	bin.Base.Wechat = &msg.UserWechat{}
-	bin.Base.Addrlist = make([]*msg.UserAddress,0)
-	bin.Base.Freepresent = &msg.FreePresentMoney{}
+	bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	//bin.Base = &msg.UserBase{}
+	//bin.Base.Scounter = &msg.SimpleCounter{}
+	//bin.Base.Wechat = &msg.UserWechat{}
+	//bin.Base.Addrlist = make([]*msg.UserAddress,0)
+	//bin.Base.Freepresent = &msg.FreePresentMoney{}
 
 	userbase := bin.GetBase()
 	userbase.Tmlogin = pb.Int64(this.tm_login)

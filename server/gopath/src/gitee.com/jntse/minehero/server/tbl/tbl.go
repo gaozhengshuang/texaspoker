@@ -77,15 +77,15 @@ func (this *TblLoader) ReloadJson() {
 func (this *TblLoader) Init() {
 
 	// load excels
-    this.LoadExcel(MusicBase, "music.json")
+    this.LoadExcel(TaskBase, "taskbase.json")
+	this.LoadExcel(MusicBase, "music.json")
 	this.LoadExcel(RechargeBase, "recharge.json")
 	this.LoadExcel(LevelBasee, "levelbase.json")
-	this.LoadExcel(TGiftProbase, "giftprobase.json")
 	this.LoadExcel(TBirckItembase, "birckitem.json")
 	this.LoadExcel(TbirckInfobase, "birckinfobase.json")
 	this.LoadExcel(SignBase, "signbase.json")
 	this.LoadExcel(ProtoMsgIndex, "proto_index.json")
-	this.LoadExcel(TaskBase, "taskbase.json")
+	this.LoadExcel(GiftProBase, "giftprobase.json")
 	this.LoadExcel(NameBase, "namebase.json")
 	this.LoadExcel(TBirckBase, "birckbase.json")
 	this.LoadExcel(TBallGiftbase, "ballgiftbase.json")

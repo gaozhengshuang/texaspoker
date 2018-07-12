@@ -1,5 +1,6 @@
-{
-	"groups":[
+﻿{
+	"groups":
+	[
 		{
 			"keys":"ball/1,ball/2,1",
 			"name":"loading"
@@ -9,7 +10,8 @@
 			"name":"preload"
 		}
 	],
-	"resources":[
+	"resources":
+	[
 		{
 			"name":"1",
 			"type":"image",
@@ -981,6 +983,11 @@
 			"url":"assets/ui/boxBuffBg.png"
 		},
 		{
+			"name":"ui/deliveryBtn",
+			"type":"image",
+			"url":"assets/ui/deliveryBtn.png"
+		},
+		{
 			"name":"ui/dialogBg",
 			"type":"image",
 			"url":"assets/ui/dialogBg.png"
@@ -1009,6 +1016,11 @@
 			"name":"ui/gold",
 			"type":"image",
 			"url":"assets/ui/gold.png"
+		},
+		{
+			"name":"ui/historyMoneyBtn",
+			"type":"image",
+			"url":"assets/ui/historyMoneyBtn.png"
 		},
 		{
 			"name":"ui/loginRewardGold",

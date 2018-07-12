@@ -506,11 +506,39 @@ func (this *GateUser) LuckyDraw() {
 	}
 	this.RemoveMoney(cost, "幸运抽奖", true)
 
-	//
-	giftweight := make([]util.WeightOdds, 0)
-	for k ,v := range tbl.TBallGiftbase.TBallGiftById {
-		giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
+	// 每周重置
+	if util.IsSameWeek(this.GetMoneyCostReset(), util.CURTIME()) != false {
+		this.SetMoneyCost(0)
+		this.SetMoneyCostReset(util.CURTIME())
 	}
+
+	// 解析概率配置
+	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
+		for _ , strpro := range Pro {
+			slicepro := strings.Split(strpro, "-")
+			if len(slicepro) != 2 {
+				log.Error("[%d %s] 抽奖异常，解析概率配置异常 strpro=%s", this.Id(), this.Name(), strpro)
+				return false
+			}
+			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
+			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
+			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id)})
+		}
+		return true
+	}
+
+	giftweight := make([]util.WeightOdds, 0)
+	for _, v := range tbl.GiftProBase.TGiftProById {
+		if this.GetMoneyCost() <= int64(v.Limitmin) {
+			if ParseProString(&giftweight, v.Pro) == false { return }
+			break
+		}
+	}
+
+	//
+	//for k ,v := range tbl.TBallGiftbase.TBallGiftById {
+	//	giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
+	//}
 	index := util.SelectByWeightOdds(giftweight)
 	if index < 0 || index >= int32(len(giftweight)) {
 		log.Error("[%d %s] 抽奖异常，无法获取抽奖id", this.Id(), this.Name())
