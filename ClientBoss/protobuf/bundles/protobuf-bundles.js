@@ -3841,9 +3841,8 @@ $root.msg = (function() {
          * @interface ISimpleCounter
          * @property {number|null} [freestep] SimpleCounter freestep
          * @property {number|Long|null} [givestep] SimpleCounter givestep
-         * @property {number|Long|null} [diamondRoomCost] SimpleCounter diamondRoomCost
-         * @property {number|Long|null} [diamondRoomIncome] SimpleCounter diamondRoomIncome
-         * @property {number|Long|null} [diamondRoomStep] SimpleCounter diamondRoomStep
+         * @property {number|Long|null} [moneyCost] SimpleCounter moneyCost
+         * @property {number|Long|null} [moneyCostReset] SimpleCounter moneyCostReset
          */
 
         /**
@@ -3878,28 +3877,20 @@ $root.msg = (function() {
         SimpleCounter.prototype.givestep = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * SimpleCounter diamondRoomCost.
-         * @member {number|Long} diamondRoomCost
+         * SimpleCounter moneyCost.
+         * @member {number|Long} moneyCost
          * @memberof msg.SimpleCounter
          * @instance
          */
-        SimpleCounter.prototype.diamondRoomCost = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        SimpleCounter.prototype.moneyCost = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * SimpleCounter diamondRoomIncome.
-         * @member {number|Long} diamondRoomIncome
+         * SimpleCounter moneyCostReset.
+         * @member {number|Long} moneyCostReset
          * @memberof msg.SimpleCounter
          * @instance
          */
-        SimpleCounter.prototype.diamondRoomIncome = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * SimpleCounter diamondRoomStep.
-         * @member {number|Long} diamondRoomStep
-         * @memberof msg.SimpleCounter
-         * @instance
-         */
-        SimpleCounter.prototype.diamondRoomStep = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        SimpleCounter.prototype.moneyCostReset = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * Creates a new SimpleCounter instance using the specified properties.
@@ -3929,12 +3920,10 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.freestep);
             if (message.givestep != null && message.hasOwnProperty("givestep"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int64(message.givestep);
-            if (message.diamondRoomCost != null && message.hasOwnProperty("diamondRoomCost"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.diamondRoomCost);
-            if (message.diamondRoomIncome != null && message.hasOwnProperty("diamondRoomIncome"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.diamondRoomIncome);
-            if (message.diamondRoomStep != null && message.hasOwnProperty("diamondRoomStep"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int64(message.diamondRoomStep);
+            if (message.moneyCost != null && message.hasOwnProperty("moneyCost"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.moneyCost);
+            if (message.moneyCostReset != null && message.hasOwnProperty("moneyCostReset"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.moneyCostReset);
             return writer;
         };
 
@@ -3976,13 +3965,10 @@ $root.msg = (function() {
                     message.givestep = reader.int64();
                     break;
                 case 3:
-                    message.diamondRoomCost = reader.int64();
+                    message.moneyCost = reader.int64();
                     break;
                 case 4:
-                    message.diamondRoomIncome = reader.int64();
-                    break;
-                case 5:
-                    message.diamondRoomStep = reader.int64();
+                    message.moneyCostReset = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4025,15 +4011,12 @@ $root.msg = (function() {
             if (message.givestep != null && message.hasOwnProperty("givestep"))
                 if (!$util.isInteger(message.givestep) && !(message.givestep && $util.isInteger(message.givestep.low) && $util.isInteger(message.givestep.high)))
                     return "givestep: integer|Long expected";
-            if (message.diamondRoomCost != null && message.hasOwnProperty("diamondRoomCost"))
-                if (!$util.isInteger(message.diamondRoomCost) && !(message.diamondRoomCost && $util.isInteger(message.diamondRoomCost.low) && $util.isInteger(message.diamondRoomCost.high)))
-                    return "diamondRoomCost: integer|Long expected";
-            if (message.diamondRoomIncome != null && message.hasOwnProperty("diamondRoomIncome"))
-                if (!$util.isInteger(message.diamondRoomIncome) && !(message.diamondRoomIncome && $util.isInteger(message.diamondRoomIncome.low) && $util.isInteger(message.diamondRoomIncome.high)))
-                    return "diamondRoomIncome: integer|Long expected";
-            if (message.diamondRoomStep != null && message.hasOwnProperty("diamondRoomStep"))
-                if (!$util.isInteger(message.diamondRoomStep) && !(message.diamondRoomStep && $util.isInteger(message.diamondRoomStep.low) && $util.isInteger(message.diamondRoomStep.high)))
-                    return "diamondRoomStep: integer|Long expected";
+            if (message.moneyCost != null && message.hasOwnProperty("moneyCost"))
+                if (!$util.isInteger(message.moneyCost) && !(message.moneyCost && $util.isInteger(message.moneyCost.low) && $util.isInteger(message.moneyCost.high)))
+                    return "moneyCost: integer|Long expected";
+            if (message.moneyCostReset != null && message.hasOwnProperty("moneyCostReset"))
+                if (!$util.isInteger(message.moneyCostReset) && !(message.moneyCostReset && $util.isInteger(message.moneyCostReset.low) && $util.isInteger(message.moneyCostReset.high)))
+                    return "moneyCostReset: integer|Long expected";
             return null;
         };
 
@@ -4060,33 +4043,24 @@ $root.msg = (function() {
                     message.givestep = object.givestep;
                 else if (typeof object.givestep === "object")
                     message.givestep = new $util.LongBits(object.givestep.low >>> 0, object.givestep.high >>> 0).toNumber();
-            if (object.diamondRoomCost != null)
+            if (object.moneyCost != null)
                 if ($util.Long)
-                    (message.diamondRoomCost = $util.Long.fromValue(object.diamondRoomCost)).unsigned = false;
-                else if (typeof object.diamondRoomCost === "string")
-                    message.diamondRoomCost = parseInt(object.diamondRoomCost, 10);
-                else if (typeof object.diamondRoomCost === "number")
-                    message.diamondRoomCost = object.diamondRoomCost;
-                else if (typeof object.diamondRoomCost === "object")
-                    message.diamondRoomCost = new $util.LongBits(object.diamondRoomCost.low >>> 0, object.diamondRoomCost.high >>> 0).toNumber();
-            if (object.diamondRoomIncome != null)
+                    (message.moneyCost = $util.Long.fromValue(object.moneyCost)).unsigned = false;
+                else if (typeof object.moneyCost === "string")
+                    message.moneyCost = parseInt(object.moneyCost, 10);
+                else if (typeof object.moneyCost === "number")
+                    message.moneyCost = object.moneyCost;
+                else if (typeof object.moneyCost === "object")
+                    message.moneyCost = new $util.LongBits(object.moneyCost.low >>> 0, object.moneyCost.high >>> 0).toNumber();
+            if (object.moneyCostReset != null)
                 if ($util.Long)
-                    (message.diamondRoomIncome = $util.Long.fromValue(object.diamondRoomIncome)).unsigned = false;
-                else if (typeof object.diamondRoomIncome === "string")
-                    message.diamondRoomIncome = parseInt(object.diamondRoomIncome, 10);
-                else if (typeof object.diamondRoomIncome === "number")
-                    message.diamondRoomIncome = object.diamondRoomIncome;
-                else if (typeof object.diamondRoomIncome === "object")
-                    message.diamondRoomIncome = new $util.LongBits(object.diamondRoomIncome.low >>> 0, object.diamondRoomIncome.high >>> 0).toNumber();
-            if (object.diamondRoomStep != null)
-                if ($util.Long)
-                    (message.diamondRoomStep = $util.Long.fromValue(object.diamondRoomStep)).unsigned = false;
-                else if (typeof object.diamondRoomStep === "string")
-                    message.diamondRoomStep = parseInt(object.diamondRoomStep, 10);
-                else if (typeof object.diamondRoomStep === "number")
-                    message.diamondRoomStep = object.diamondRoomStep;
-                else if (typeof object.diamondRoomStep === "object")
-                    message.diamondRoomStep = new $util.LongBits(object.diamondRoomStep.low >>> 0, object.diamondRoomStep.high >>> 0).toNumber();
+                    (message.moneyCostReset = $util.Long.fromValue(object.moneyCostReset)).unsigned = false;
+                else if (typeof object.moneyCostReset === "string")
+                    message.moneyCostReset = parseInt(object.moneyCostReset, 10);
+                else if (typeof object.moneyCostReset === "number")
+                    message.moneyCostReset = object.moneyCostReset;
+                else if (typeof object.moneyCostReset === "object")
+                    message.moneyCostReset = new $util.LongBits(object.moneyCostReset.low >>> 0, object.moneyCostReset.high >>> 0).toNumber();
             return message;
         };
 
@@ -4112,19 +4086,14 @@ $root.msg = (function() {
                     object.givestep = options.longs === String ? "0" : 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
-                    object.diamondRoomCost = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    object.moneyCost = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
-                    object.diamondRoomCost = options.longs === String ? "0" : 0;
+                    object.moneyCost = options.longs === String ? "0" : 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
-                    object.diamondRoomIncome = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    object.moneyCostReset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
-                    object.diamondRoomIncome = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.diamondRoomStep = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.diamondRoomStep = options.longs === String ? "0" : 0;
+                    object.moneyCostReset = options.longs === String ? "0" : 0;
             }
             if (message.freestep != null && message.hasOwnProperty("freestep"))
                 object.freestep = message.freestep;
@@ -4133,21 +4102,16 @@ $root.msg = (function() {
                     object.givestep = options.longs === String ? String(message.givestep) : message.givestep;
                 else
                     object.givestep = options.longs === String ? $util.Long.prototype.toString.call(message.givestep) : options.longs === Number ? new $util.LongBits(message.givestep.low >>> 0, message.givestep.high >>> 0).toNumber() : message.givestep;
-            if (message.diamondRoomCost != null && message.hasOwnProperty("diamondRoomCost"))
-                if (typeof message.diamondRoomCost === "number")
-                    object.diamondRoomCost = options.longs === String ? String(message.diamondRoomCost) : message.diamondRoomCost;
+            if (message.moneyCost != null && message.hasOwnProperty("moneyCost"))
+                if (typeof message.moneyCost === "number")
+                    object.moneyCost = options.longs === String ? String(message.moneyCost) : message.moneyCost;
                 else
-                    object.diamondRoomCost = options.longs === String ? $util.Long.prototype.toString.call(message.diamondRoomCost) : options.longs === Number ? new $util.LongBits(message.diamondRoomCost.low >>> 0, message.diamondRoomCost.high >>> 0).toNumber() : message.diamondRoomCost;
-            if (message.diamondRoomIncome != null && message.hasOwnProperty("diamondRoomIncome"))
-                if (typeof message.diamondRoomIncome === "number")
-                    object.diamondRoomIncome = options.longs === String ? String(message.diamondRoomIncome) : message.diamondRoomIncome;
+                    object.moneyCost = options.longs === String ? $util.Long.prototype.toString.call(message.moneyCost) : options.longs === Number ? new $util.LongBits(message.moneyCost.low >>> 0, message.moneyCost.high >>> 0).toNumber() : message.moneyCost;
+            if (message.moneyCostReset != null && message.hasOwnProperty("moneyCostReset"))
+                if (typeof message.moneyCostReset === "number")
+                    object.moneyCostReset = options.longs === String ? String(message.moneyCostReset) : message.moneyCostReset;
                 else
-                    object.diamondRoomIncome = options.longs === String ? $util.Long.prototype.toString.call(message.diamondRoomIncome) : options.longs === Number ? new $util.LongBits(message.diamondRoomIncome.low >>> 0, message.diamondRoomIncome.high >>> 0).toNumber() : message.diamondRoomIncome;
-            if (message.diamondRoomStep != null && message.hasOwnProperty("diamondRoomStep"))
-                if (typeof message.diamondRoomStep === "number")
-                    object.diamondRoomStep = options.longs === String ? String(message.diamondRoomStep) : message.diamondRoomStep;
-                else
-                    object.diamondRoomStep = options.longs === String ? $util.Long.prototype.toString.call(message.diamondRoomStep) : options.longs === Number ? new $util.LongBits(message.diamondRoomStep.low >>> 0, message.diamondRoomStep.high >>> 0).toNumber() : message.diamondRoomStep;
+                    object.moneyCostReset = options.longs === String ? $util.Long.prototype.toString.call(message.moneyCostReset) : options.longs === Number ? new $util.LongBits(message.moneyCostReset.low >>> 0, message.moneyCostReset.high >>> 0).toNumber() : message.moneyCostReset;
             return object;
         };
 
@@ -5016,6 +4980,482 @@ $root.msg = (function() {
         return TaskData;
     })();
 
+    msg.LuckyDrawItem = (function() {
+
+        /**
+         * Properties of a LuckyDrawItem.
+         * @memberof msg
+         * @interface ILuckyDrawItem
+         * @property {number|Long|null} [time] LuckyDrawItem time
+         * @property {number|null} [item] LuckyDrawItem item
+         * @property {number|null} [num] LuckyDrawItem num
+         * @property {number|null} [worth] LuckyDrawItem worth
+         */
+
+        /**
+         * Constructs a new LuckyDrawItem.
+         * @memberof msg
+         * @classdesc Represents a LuckyDrawItem.
+         * @implements ILuckyDrawItem
+         * @constructor
+         * @param {msg.ILuckyDrawItem=} [properties] Properties to set
+         */
+        function LuckyDrawItem(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * LuckyDrawItem time.
+         * @member {number|Long} time
+         * @memberof msg.LuckyDrawItem
+         * @instance
+         */
+        LuckyDrawItem.prototype.time = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * LuckyDrawItem item.
+         * @member {number} item
+         * @memberof msg.LuckyDrawItem
+         * @instance
+         */
+        LuckyDrawItem.prototype.item = 0;
+
+        /**
+         * LuckyDrawItem num.
+         * @member {number} num
+         * @memberof msg.LuckyDrawItem
+         * @instance
+         */
+        LuckyDrawItem.prototype.num = 0;
+
+        /**
+         * LuckyDrawItem worth.
+         * @member {number} worth
+         * @memberof msg.LuckyDrawItem
+         * @instance
+         */
+        LuckyDrawItem.prototype.worth = 0;
+
+        /**
+         * Creates a new LuckyDrawItem instance using the specified properties.
+         * @function create
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {msg.ILuckyDrawItem=} [properties] Properties to set
+         * @returns {msg.LuckyDrawItem} LuckyDrawItem instance
+         */
+        LuckyDrawItem.create = function create(properties) {
+            return new LuckyDrawItem(properties);
+        };
+
+        /**
+         * Encodes the specified LuckyDrawItem message. Does not implicitly {@link msg.LuckyDrawItem.verify|verify} messages.
+         * @function encode
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {msg.ILuckyDrawItem} message LuckyDrawItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LuckyDrawItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.time != null && message.hasOwnProperty("time"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.time);
+            if (message.item != null && message.hasOwnProperty("item"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.item);
+            if (message.num != null && message.hasOwnProperty("num"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.num);
+            if (message.worth != null && message.hasOwnProperty("worth"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.worth);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified LuckyDrawItem message, length delimited. Does not implicitly {@link msg.LuckyDrawItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {msg.ILuckyDrawItem} message LuckyDrawItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LuckyDrawItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a LuckyDrawItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.LuckyDrawItem} LuckyDrawItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LuckyDrawItem.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.LuckyDrawItem();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.time = reader.int64();
+                    break;
+                case 2:
+                    message.item = reader.int32();
+                    break;
+                case 3:
+                    message.num = reader.int32();
+                    break;
+                case 4:
+                    message.worth = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a LuckyDrawItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.LuckyDrawItem} LuckyDrawItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LuckyDrawItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a LuckyDrawItem message.
+         * @function verify
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        LuckyDrawItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.time != null && message.hasOwnProperty("time"))
+                if (!$util.isInteger(message.time) && !(message.time && $util.isInteger(message.time.low) && $util.isInteger(message.time.high)))
+                    return "time: integer|Long expected";
+            if (message.item != null && message.hasOwnProperty("item"))
+                if (!$util.isInteger(message.item))
+                    return "item: integer expected";
+            if (message.num != null && message.hasOwnProperty("num"))
+                if (!$util.isInteger(message.num))
+                    return "num: integer expected";
+            if (message.worth != null && message.hasOwnProperty("worth"))
+                if (!$util.isInteger(message.worth))
+                    return "worth: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a LuckyDrawItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.LuckyDrawItem} LuckyDrawItem
+         */
+        LuckyDrawItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.LuckyDrawItem)
+                return object;
+            var message = new $root.msg.LuckyDrawItem();
+            if (object.time != null)
+                if ($util.Long)
+                    (message.time = $util.Long.fromValue(object.time)).unsigned = false;
+                else if (typeof object.time === "string")
+                    message.time = parseInt(object.time, 10);
+                else if (typeof object.time === "number")
+                    message.time = object.time;
+                else if (typeof object.time === "object")
+                    message.time = new $util.LongBits(object.time.low >>> 0, object.time.high >>> 0).toNumber();
+            if (object.item != null)
+                message.item = object.item | 0;
+            if (object.num != null)
+                message.num = object.num | 0;
+            if (object.worth != null)
+                message.worth = object.worth | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a LuckyDrawItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.LuckyDrawItem
+         * @static
+         * @param {msg.LuckyDrawItem} message LuckyDrawItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        LuckyDrawItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.time = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.time = options.longs === String ? "0" : 0;
+                object.item = 0;
+                object.num = 0;
+                object.worth = 0;
+            }
+            if (message.time != null && message.hasOwnProperty("time"))
+                if (typeof message.time === "number")
+                    object.time = options.longs === String ? String(message.time) : message.time;
+                else
+                    object.time = options.longs === String ? $util.Long.prototype.toString.call(message.time) : options.longs === Number ? new $util.LongBits(message.time.low >>> 0, message.time.high >>> 0).toNumber() : message.time;
+            if (message.item != null && message.hasOwnProperty("item"))
+                object.item = message.item;
+            if (message.num != null && message.hasOwnProperty("num"))
+                object.num = message.num;
+            if (message.worth != null && message.hasOwnProperty("worth"))
+                object.worth = message.worth;
+            return object;
+        };
+
+        /**
+         * Converts this LuckyDrawItem to JSON.
+         * @function toJSON
+         * @memberof msg.LuckyDrawItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        LuckyDrawItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return LuckyDrawItem;
+    })();
+
+    msg.LuckyDrawHistory = (function() {
+
+        /**
+         * Properties of a LuckyDrawHistory.
+         * @memberof msg
+         * @interface ILuckyDrawHistory
+         * @property {Array.<msg.ILuckyDrawItem>|null} [drawlist] LuckyDrawHistory drawlist
+         */
+
+        /**
+         * Constructs a new LuckyDrawHistory.
+         * @memberof msg
+         * @classdesc Represents a LuckyDrawHistory.
+         * @implements ILuckyDrawHistory
+         * @constructor
+         * @param {msg.ILuckyDrawHistory=} [properties] Properties to set
+         */
+        function LuckyDrawHistory(properties) {
+            this.drawlist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * LuckyDrawHistory drawlist.
+         * @member {Array.<msg.ILuckyDrawItem>} drawlist
+         * @memberof msg.LuckyDrawHistory
+         * @instance
+         */
+        LuckyDrawHistory.prototype.drawlist = $util.emptyArray;
+
+        /**
+         * Creates a new LuckyDrawHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {msg.ILuckyDrawHistory=} [properties] Properties to set
+         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory instance
+         */
+        LuckyDrawHistory.create = function create(properties) {
+            return new LuckyDrawHistory(properties);
+        };
+
+        /**
+         * Encodes the specified LuckyDrawHistory message. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {msg.ILuckyDrawHistory} message LuckyDrawHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LuckyDrawHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.drawlist != null && message.drawlist.length)
+                for (var i = 0; i < message.drawlist.length; ++i)
+                    $root.msg.LuckyDrawItem.encode(message.drawlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified LuckyDrawHistory message, length delimited. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {msg.ILuckyDrawHistory} message LuckyDrawHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LuckyDrawHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a LuckyDrawHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LuckyDrawHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.LuckyDrawHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.drawlist && message.drawlist.length))
+                        message.drawlist = [];
+                    message.drawlist.push($root.msg.LuckyDrawItem.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a LuckyDrawHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LuckyDrawHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a LuckyDrawHistory message.
+         * @function verify
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        LuckyDrawHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.drawlist != null && message.hasOwnProperty("drawlist")) {
+                if (!Array.isArray(message.drawlist))
+                    return "drawlist: array expected";
+                for (var i = 0; i < message.drawlist.length; ++i) {
+                    var error = $root.msg.LuckyDrawItem.verify(message.drawlist[i]);
+                    if (error)
+                        return "drawlist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a LuckyDrawHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory
+         */
+        LuckyDrawHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.LuckyDrawHistory)
+                return object;
+            var message = new $root.msg.LuckyDrawHistory();
+            if (object.drawlist) {
+                if (!Array.isArray(object.drawlist))
+                    throw TypeError(".msg.LuckyDrawHistory.drawlist: array expected");
+                message.drawlist = [];
+                for (var i = 0; i < object.drawlist.length; ++i) {
+                    if (typeof object.drawlist[i] !== "object")
+                        throw TypeError(".msg.LuckyDrawHistory.drawlist: object expected");
+                    message.drawlist[i] = $root.msg.LuckyDrawItem.fromObject(object.drawlist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a LuckyDrawHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.LuckyDrawHistory
+         * @static
+         * @param {msg.LuckyDrawHistory} message LuckyDrawHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        LuckyDrawHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.drawlist = [];
+            if (message.drawlist && message.drawlist.length) {
+                object.drawlist = [];
+                for (var j = 0; j < message.drawlist.length; ++j)
+                    object.drawlist[j] = $root.msg.LuckyDrawItem.toObject(message.drawlist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this LuckyDrawHistory to JSON.
+         * @function toJSON
+         * @memberof msg.LuckyDrawHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        LuckyDrawHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return LuckyDrawHistory;
+    })();
+
     msg.UserBase = (function() {
 
         /**
@@ -5039,6 +5479,7 @@ $root.msg = (function() {
          * @property {string|null} [invitationcode] UserBase invitationcode
          * @property {msg.IFreePresentMoney|null} [freepresent] UserBase freepresent
          * @property {msg.IUserTask|null} [task] UserBase task
+         * @property {msg.ILuckyDrawHistory|null} [luckydraw] UserBase luckydraw
          */
 
         /**
@@ -5194,6 +5635,14 @@ $root.msg = (function() {
         UserBase.prototype.task = null;
 
         /**
+         * UserBase luckydraw.
+         * @member {msg.ILuckyDrawHistory|null|undefined} luckydraw
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.luckydraw = null;
+
+        /**
          * Creates a new UserBase instance using the specified properties.
          * @function create
          * @memberof msg.UserBase
@@ -5252,6 +5701,8 @@ $root.msg = (function() {
                 $root.msg.FreePresentMoney.encode(message.freepresent, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
             if (message.task != null && message.hasOwnProperty("task"))
                 $root.msg.UserTask.encode(message.task, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
+            if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
+                $root.msg.LuckyDrawHistory.encode(message.luckydraw, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
             return writer;
         };
 
@@ -5338,6 +5789,9 @@ $root.msg = (function() {
                     break;
                 case 17:
                     message.task = $root.msg.UserTask.decode(reader, reader.uint32());
+                    break;
+                case 18:
+                    message.luckydraw = $root.msg.LuckyDrawHistory.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5439,6 +5893,11 @@ $root.msg = (function() {
                 if (error)
                     return "task." + error;
             }
+            if (message.luckydraw != null && message.hasOwnProperty("luckydraw")) {
+                var error = $root.msg.LuckyDrawHistory.verify(message.luckydraw);
+                if (error)
+                    return "luckydraw." + error;
+            }
             return null;
         };
 
@@ -5522,6 +5981,11 @@ $root.msg = (function() {
                     throw TypeError(".msg.UserBase.task: object expected");
                 message.task = $root.msg.UserTask.fromObject(object.task);
             }
+            if (object.luckydraw != null) {
+                if (typeof object.luckydraw !== "object")
+                    throw TypeError(".msg.UserBase.luckydraw: object expected");
+                message.luckydraw = $root.msg.LuckyDrawHistory.fromObject(object.luckydraw);
+            }
             return message;
         };
 
@@ -5565,6 +6029,7 @@ $root.msg = (function() {
                 object.invitationcode = "";
                 object.freepresent = null;
                 object.task = null;
+                object.luckydraw = null;
             }
             if (message.level != null && message.hasOwnProperty("level"))
                 object.level = message.level;
@@ -5609,6 +6074,8 @@ $root.msg = (function() {
                 object.freepresent = $root.msg.FreePresentMoney.toObject(message.freepresent, options);
             if (message.task != null && message.hasOwnProperty("task"))
                 object.task = $root.msg.UserTask.toObject(message.task, options);
+            if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
+                object.luckydraw = $root.msg.LuckyDrawHistory.toObject(message.luckydraw, options);
             return object;
         };
 
@@ -24399,9 +24866,9 @@ $root.table = (function() {
             if (message.Name != null && message.hasOwnProperty("Name"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.Name);
             if (message.Num != null && message.hasOwnProperty("Num"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Num);
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Num);
             if (message.ItemId != null && message.hasOwnProperty("ItemId"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ItemId);
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.ItemId);
             if (message.Path != null && message.hasOwnProperty("Path"))
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.Path);
             if (message.Pro != null && message.hasOwnProperty("Pro"))
@@ -24451,10 +24918,10 @@ $root.table = (function() {
                     message.Name = reader.string();
                     break;
                 case 3:
-                    message.Num = reader.uint32();
+                    message.Num = reader.int32();
                     break;
                 case 4:
-                    message.ItemId = reader.uint32();
+                    message.ItemId = reader.int32();
                     break;
                 case 5:
                     message.Path = reader.string();
@@ -24547,9 +25014,9 @@ $root.table = (function() {
             if (object.Name != null)
                 message.Name = String(object.Name);
             if (object.Num != null)
-                message.Num = object.Num >>> 0;
+                message.Num = object.Num | 0;
             if (object.ItemId != null)
-                message.ItemId = object.ItemId >>> 0;
+                message.ItemId = object.ItemId | 0;
             if (object.Path != null)
                 message.Path = String(object.Path);
             if (object.Pro != null)
@@ -26553,24 +27020,24 @@ $root.table = (function() {
         return TBirckRefreshDefine;
     })();
 
-    table.TGiftProbase = (function() {
+    table.GiftProBase = (function() {
 
         /**
-         * Properties of a TGiftProbase.
+         * Properties of a GiftProBase.
          * @memberof table
-         * @interface ITGiftProbase
-         * @property {Array.<table.ITGiftProDefine>|null} [TGiftPro] TGiftProbase TGiftPro
+         * @interface IGiftProBase
+         * @property {Array.<table.ITGiftProDefine>|null} [TGiftPro] GiftProBase TGiftPro
          */
 
         /**
-         * Constructs a new TGiftProbase.
+         * Constructs a new GiftProBase.
          * @memberof table
-         * @classdesc Represents a TGiftProbase.
-         * @implements ITGiftProbase
+         * @classdesc Represents a GiftProBase.
+         * @implements IGiftProBase
          * @constructor
-         * @param {table.ITGiftProbase=} [properties] Properties to set
+         * @param {table.IGiftProBase=} [properties] Properties to set
          */
-        function TGiftProbase(properties) {
+        function GiftProBase(properties) {
             this.TGiftPro = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -26579,35 +27046,35 @@ $root.table = (function() {
         }
 
         /**
-         * TGiftProbase TGiftPro.
+         * GiftProBase TGiftPro.
          * @member {Array.<table.ITGiftProDefine>} TGiftPro
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @instance
          */
-        TGiftProbase.prototype.TGiftPro = $util.emptyArray;
+        GiftProBase.prototype.TGiftPro = $util.emptyArray;
 
         /**
-         * Creates a new TGiftProbase instance using the specified properties.
+         * Creates a new GiftProBase instance using the specified properties.
          * @function create
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
-         * @param {table.ITGiftProbase=} [properties] Properties to set
-         * @returns {table.TGiftProbase} TGiftProbase instance
+         * @param {table.IGiftProBase=} [properties] Properties to set
+         * @returns {table.GiftProBase} GiftProBase instance
          */
-        TGiftProbase.create = function create(properties) {
-            return new TGiftProbase(properties);
+        GiftProBase.create = function create(properties) {
+            return new GiftProBase(properties);
         };
 
         /**
-         * Encodes the specified TGiftProbase message. Does not implicitly {@link table.TGiftProbase.verify|verify} messages.
+         * Encodes the specified GiftProBase message. Does not implicitly {@link table.GiftProBase.verify|verify} messages.
          * @function encode
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
-         * @param {table.ITGiftProbase} message TGiftProbase message or plain object to encode
+         * @param {table.IGiftProBase} message GiftProBase message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        TGiftProbase.encode = function encode(message, writer) {
+        GiftProBase.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.TGiftPro != null && message.TGiftPro.length)
@@ -26617,33 +27084,33 @@ $root.table = (function() {
         };
 
         /**
-         * Encodes the specified TGiftProbase message, length delimited. Does not implicitly {@link table.TGiftProbase.verify|verify} messages.
+         * Encodes the specified GiftProBase message, length delimited. Does not implicitly {@link table.GiftProBase.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
-         * @param {table.ITGiftProbase} message TGiftProbase message or plain object to encode
+         * @param {table.IGiftProBase} message GiftProBase message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        TGiftProbase.encodeDelimited = function encodeDelimited(message, writer) {
+        GiftProBase.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a TGiftProbase message from the specified reader or buffer.
+         * Decodes a GiftProBase message from the specified reader or buffer.
          * @function decode
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {table.TGiftProbase} TGiftProbase
+         * @returns {table.GiftProBase} GiftProBase
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TGiftProbase.decode = function decode(reader, length) {
+        GiftProBase.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TGiftProbase();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.GiftProBase();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -26661,30 +27128,30 @@ $root.table = (function() {
         };
 
         /**
-         * Decodes a TGiftProbase message from the specified reader or buffer, length delimited.
+         * Decodes a GiftProBase message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {table.TGiftProbase} TGiftProbase
+         * @returns {table.GiftProBase} GiftProBase
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TGiftProbase.decodeDelimited = function decodeDelimited(reader) {
+        GiftProBase.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a TGiftProbase message.
+         * Verifies a GiftProBase message.
          * @function verify
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        TGiftProbase.verify = function verify(message) {
+        GiftProBase.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.TGiftPro != null && message.hasOwnProperty("TGiftPro")) {
@@ -26700,24 +27167,24 @@ $root.table = (function() {
         };
 
         /**
-         * Creates a TGiftProbase message from a plain object. Also converts values to their respective internal types.
+         * Creates a GiftProBase message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {table.TGiftProbase} TGiftProbase
+         * @returns {table.GiftProBase} GiftProBase
          */
-        TGiftProbase.fromObject = function fromObject(object) {
-            if (object instanceof $root.table.TGiftProbase)
+        GiftProBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.GiftProBase)
                 return object;
-            var message = new $root.table.TGiftProbase();
+            var message = new $root.table.GiftProBase();
             if (object.TGiftPro) {
                 if (!Array.isArray(object.TGiftPro))
-                    throw TypeError(".table.TGiftProbase.TGiftPro: array expected");
+                    throw TypeError(".table.GiftProBase.TGiftPro: array expected");
                 message.TGiftPro = [];
                 for (var i = 0; i < object.TGiftPro.length; ++i) {
                     if (typeof object.TGiftPro[i] !== "object")
-                        throw TypeError(".table.TGiftProbase.TGiftPro: object expected");
+                        throw TypeError(".table.GiftProBase.TGiftPro: object expected");
                     message.TGiftPro[i] = $root.table.TGiftProDefine.fromObject(object.TGiftPro[i]);
                 }
             }
@@ -26725,15 +27192,15 @@ $root.table = (function() {
         };
 
         /**
-         * Creates a plain object from a TGiftProbase message. Also converts values to other types if specified.
+         * Creates a plain object from a GiftProBase message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @static
-         * @param {table.TGiftProbase} message TGiftProbase
+         * @param {table.GiftProBase} message GiftProBase
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        TGiftProbase.toObject = function toObject(message, options) {
+        GiftProBase.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -26748,17 +27215,17 @@ $root.table = (function() {
         };
 
         /**
-         * Converts this TGiftProbase to JSON.
+         * Converts this GiftProBase to JSON.
          * @function toJSON
-         * @memberof table.TGiftProbase
+         * @memberof table.GiftProBase
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        TGiftProbase.prototype.toJSON = function toJSON() {
+        GiftProBase.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return TGiftProbase;
+        return GiftProBase;
     })();
 
     table.TGiftProDefine = (function() {
@@ -31122,6 +31589,468 @@ $root.table = (function() {
         };
 
         return TSignDefine;
+    })();
+
+    table.TaskBase = (function() {
+
+        /**
+         * Properties of a TaskBase.
+         * @memberof table
+         * @interface ITaskBase
+         * @property {Array.<table.ITTaskDefine>|null} [TTask] TaskBase TTask
+         */
+
+        /**
+         * Constructs a new TaskBase.
+         * @memberof table
+         * @classdesc Represents a TaskBase.
+         * @implements ITaskBase
+         * @constructor
+         * @param {table.ITaskBase=} [properties] Properties to set
+         */
+        function TaskBase(properties) {
+            this.TTask = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TaskBase TTask.
+         * @member {Array.<table.ITTaskDefine>} TTask
+         * @memberof table.TaskBase
+         * @instance
+         */
+        TaskBase.prototype.TTask = $util.emptyArray;
+
+        /**
+         * Creates a new TaskBase instance using the specified properties.
+         * @function create
+         * @memberof table.TaskBase
+         * @static
+         * @param {table.ITaskBase=} [properties] Properties to set
+         * @returns {table.TaskBase} TaskBase instance
+         */
+        TaskBase.create = function create(properties) {
+            return new TaskBase(properties);
+        };
+
+        /**
+         * Encodes the specified TaskBase message. Does not implicitly {@link table.TaskBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TaskBase
+         * @static
+         * @param {table.ITaskBase} message TaskBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TaskBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TTask != null && message.TTask.length)
+                for (var i = 0; i < message.TTask.length; ++i)
+                    $root.table.TTaskDefine.encode(message.TTask[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TaskBase message, length delimited. Does not implicitly {@link table.TaskBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TaskBase
+         * @static
+         * @param {table.ITaskBase} message TaskBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TaskBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TaskBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TaskBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TaskBase} TaskBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TaskBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TaskBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TTask && message.TTask.length))
+                        message.TTask = [];
+                    message.TTask.push($root.table.TTaskDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TaskBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TaskBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TaskBase} TaskBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TaskBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TaskBase message.
+         * @function verify
+         * @memberof table.TaskBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TaskBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TTask != null && message.hasOwnProperty("TTask")) {
+                if (!Array.isArray(message.TTask))
+                    return "TTask: array expected";
+                for (var i = 0; i < message.TTask.length; ++i) {
+                    var error = $root.table.TTaskDefine.verify(message.TTask[i]);
+                    if (error)
+                        return "TTask." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TaskBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TaskBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TaskBase} TaskBase
+         */
+        TaskBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TaskBase)
+                return object;
+            var message = new $root.table.TaskBase();
+            if (object.TTask) {
+                if (!Array.isArray(object.TTask))
+                    throw TypeError(".table.TaskBase.TTask: array expected");
+                message.TTask = [];
+                for (var i = 0; i < object.TTask.length; ++i) {
+                    if (typeof object.TTask[i] !== "object")
+                        throw TypeError(".table.TaskBase.TTask: object expected");
+                    message.TTask[i] = $root.table.TTaskDefine.fromObject(object.TTask[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TaskBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TaskBase
+         * @static
+         * @param {table.TaskBase} message TaskBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TaskBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TTask = [];
+            if (message.TTask && message.TTask.length) {
+                object.TTask = [];
+                for (var j = 0; j < message.TTask.length; ++j)
+                    object.TTask[j] = $root.table.TTaskDefine.toObject(message.TTask[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TaskBase to JSON.
+         * @function toJSON
+         * @memberof table.TaskBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TaskBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TaskBase;
+    })();
+
+    table.TTaskDefine = (function() {
+
+        /**
+         * Properties of a TTaskDefine.
+         * @memberof table
+         * @interface ITTaskDefine
+         * @property {number|null} [Id] TTaskDefine Id
+         * @property {string|null} [Desc] TTaskDefine Desc
+         * @property {number|null} [Count] TTaskDefine Count
+         * @property {string|null} [Reward] TTaskDefine Reward
+         */
+
+        /**
+         * Constructs a new TTaskDefine.
+         * @memberof table
+         * @classdesc Represents a TTaskDefine.
+         * @implements ITTaskDefine
+         * @constructor
+         * @param {table.ITTaskDefine=} [properties] Properties to set
+         */
+        function TTaskDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TTaskDefine Id.
+         * @member {number} Id
+         * @memberof table.TTaskDefine
+         * @instance
+         */
+        TTaskDefine.prototype.Id = 0;
+
+        /**
+         * TTaskDefine Desc.
+         * @member {string} Desc
+         * @memberof table.TTaskDefine
+         * @instance
+         */
+        TTaskDefine.prototype.Desc = "";
+
+        /**
+         * TTaskDefine Count.
+         * @member {number} Count
+         * @memberof table.TTaskDefine
+         * @instance
+         */
+        TTaskDefine.prototype.Count = 0;
+
+        /**
+         * TTaskDefine Reward.
+         * @member {string} Reward
+         * @memberof table.TTaskDefine
+         * @instance
+         */
+        TTaskDefine.prototype.Reward = "";
+
+        /**
+         * Creates a new TTaskDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {table.ITTaskDefine=} [properties] Properties to set
+         * @returns {table.TTaskDefine} TTaskDefine instance
+         */
+        TTaskDefine.create = function create(properties) {
+            return new TTaskDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TTaskDefine message. Does not implicitly {@link table.TTaskDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {table.ITTaskDefine} message TTaskDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TTaskDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Desc);
+            if (message.Count != null && message.hasOwnProperty("Count"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Count);
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Reward);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TTaskDefine message, length delimited. Does not implicitly {@link table.TTaskDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {table.ITTaskDefine} message TTaskDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TTaskDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TTaskDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TTaskDefine} TTaskDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TTaskDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TTaskDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Desc = reader.string();
+                    break;
+                case 3:
+                    message.Count = reader.int32();
+                    break;
+                case 4:
+                    message.Reward = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TTaskDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TTaskDefine} TTaskDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TTaskDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TTaskDefine message.
+         * @function verify
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TTaskDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                if (!$util.isString(message.Desc))
+                    return "Desc: string expected";
+            if (message.Count != null && message.hasOwnProperty("Count"))
+                if (!$util.isInteger(message.Count))
+                    return "Count: integer expected";
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                if (!$util.isString(message.Reward))
+                    return "Reward: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TTaskDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TTaskDefine} TTaskDefine
+         */
+        TTaskDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TTaskDefine)
+                return object;
+            var message = new $root.table.TTaskDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Desc != null)
+                message.Desc = String(object.Desc);
+            if (object.Count != null)
+                message.Count = object.Count | 0;
+            if (object.Reward != null)
+                message.Reward = String(object.Reward);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TTaskDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TTaskDefine
+         * @static
+         * @param {table.TTaskDefine} message TTaskDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TTaskDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Desc = "";
+                object.Count = 0;
+                object.Reward = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                object.Desc = message.Desc;
+            if (message.Count != null && message.hasOwnProperty("Count"))
+                object.Count = message.Count;
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                object.Reward = message.Reward;
+            return object;
+        };
+
+        /**
+         * Converts this TTaskDefine to JSON.
+         * @function toJSON
+         * @memberof table.TTaskDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TTaskDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TTaskDefine;
     })();
 
     return table;

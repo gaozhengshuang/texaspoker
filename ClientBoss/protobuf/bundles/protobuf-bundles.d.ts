@@ -1554,14 +1554,11 @@ declare namespace msg {
         /** SimpleCounter givestep */
         givestep?: (number|Long|null);
 
-        /** SimpleCounter diamondRoomCost */
-        diamondRoomCost?: (number|Long|null);
+        /** SimpleCounter moneyCost */
+        moneyCost?: (number|Long|null);
 
-        /** SimpleCounter diamondRoomIncome */
-        diamondRoomIncome?: (number|Long|null);
-
-        /** SimpleCounter diamondRoomStep */
-        diamondRoomStep?: (number|Long|null);
+        /** SimpleCounter moneyCostReset */
+        moneyCostReset?: (number|Long|null);
     }
 
     /** Represents a SimpleCounter. */
@@ -1579,14 +1576,11 @@ declare namespace msg {
         /** SimpleCounter givestep. */
         public givestep: (number|Long);
 
-        /** SimpleCounter diamondRoomCost. */
-        public diamondRoomCost: (number|Long);
+        /** SimpleCounter moneyCost. */
+        public moneyCost: (number|Long);
 
-        /** SimpleCounter diamondRoomIncome. */
-        public diamondRoomIncome: (number|Long);
-
-        /** SimpleCounter diamondRoomStep. */
-        public diamondRoomStep: (number|Long);
+        /** SimpleCounter moneyCostReset. */
+        public moneyCostReset: (number|Long);
 
         /**
          * Creates a new SimpleCounter instance using the specified properties.
@@ -2037,6 +2031,204 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a LuckyDrawItem. */
+    interface ILuckyDrawItem {
+
+        /** LuckyDrawItem time */
+        time?: (number|Long|null);
+
+        /** LuckyDrawItem item */
+        item?: (number|null);
+
+        /** LuckyDrawItem num */
+        num?: (number|null);
+
+        /** LuckyDrawItem worth */
+        worth?: (number|null);
+    }
+
+    /** Represents a LuckyDrawItem. */
+    class LuckyDrawItem implements ILuckyDrawItem {
+
+        /**
+         * Constructs a new LuckyDrawItem.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ILuckyDrawItem);
+
+        /** LuckyDrawItem time. */
+        public time: (number|Long);
+
+        /** LuckyDrawItem item. */
+        public item: number;
+
+        /** LuckyDrawItem num. */
+        public num: number;
+
+        /** LuckyDrawItem worth. */
+        public worth: number;
+
+        /**
+         * Creates a new LuckyDrawItem instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LuckyDrawItem instance
+         */
+        public static create(properties?: msg.ILuckyDrawItem): msg.LuckyDrawItem;
+
+        /**
+         * Encodes the specified LuckyDrawItem message. Does not implicitly {@link msg.LuckyDrawItem.verify|verify} messages.
+         * @param message LuckyDrawItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ILuckyDrawItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified LuckyDrawItem message, length delimited. Does not implicitly {@link msg.LuckyDrawItem.verify|verify} messages.
+         * @param message LuckyDrawItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ILuckyDrawItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a LuckyDrawItem message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LuckyDrawItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.LuckyDrawItem;
+
+        /**
+         * Decodes a LuckyDrawItem message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LuckyDrawItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.LuckyDrawItem;
+
+        /**
+         * Verifies a LuckyDrawItem message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LuckyDrawItem message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LuckyDrawItem
+         */
+        public static fromObject(object: { [k: string]: any }): msg.LuckyDrawItem;
+
+        /**
+         * Creates a plain object from a LuckyDrawItem message. Also converts values to other types if specified.
+         * @param message LuckyDrawItem
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.LuckyDrawItem, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LuckyDrawItem to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a LuckyDrawHistory. */
+    interface ILuckyDrawHistory {
+
+        /** LuckyDrawHistory drawlist */
+        drawlist?: (msg.ILuckyDrawItem[]|null);
+    }
+
+    /** Represents a LuckyDrawHistory. */
+    class LuckyDrawHistory implements ILuckyDrawHistory {
+
+        /**
+         * Constructs a new LuckyDrawHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ILuckyDrawHistory);
+
+        /** LuckyDrawHistory drawlist. */
+        public drawlist: msg.ILuckyDrawItem[];
+
+        /**
+         * Creates a new LuckyDrawHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LuckyDrawHistory instance
+         */
+        public static create(properties?: msg.ILuckyDrawHistory): msg.LuckyDrawHistory;
+
+        /**
+         * Encodes the specified LuckyDrawHistory message. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
+         * @param message LuckyDrawHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ILuckyDrawHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified LuckyDrawHistory message, length delimited. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
+         * @param message LuckyDrawHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ILuckyDrawHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a LuckyDrawHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LuckyDrawHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.LuckyDrawHistory;
+
+        /**
+         * Decodes a LuckyDrawHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LuckyDrawHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.LuckyDrawHistory;
+
+        /**
+         * Verifies a LuckyDrawHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LuckyDrawHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LuckyDrawHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.LuckyDrawHistory;
+
+        /**
+         * Creates a plain object from a LuckyDrawHistory message. Also converts values to other types if specified.
+         * @param message LuckyDrawHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.LuckyDrawHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LuckyDrawHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a UserBase. */
     interface IUserBase {
 
@@ -2090,6 +2282,9 @@ declare namespace msg {
 
         /** UserBase task */
         task?: (msg.IUserTask|null);
+
+        /** UserBase luckydraw */
+        luckydraw?: (msg.ILuckyDrawHistory|null);
     }
 
     /** Represents a UserBase. */
@@ -2151,6 +2346,9 @@ declare namespace msg {
 
         /** UserBase task. */
         public task?: (msg.IUserTask|null);
+
+        /** UserBase luckydraw. */
+        public luckydraw?: (msg.ILuckyDrawHistory|null);
 
         /**
          * Creates a new UserBase instance using the specified properties.
@@ -11444,91 +11642,91 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a TGiftProbase. */
-    interface ITGiftProbase {
+    /** Properties of a GiftProBase. */
+    interface IGiftProBase {
 
-        /** TGiftProbase TGiftPro */
+        /** GiftProBase TGiftPro */
         TGiftPro?: (table.ITGiftProDefine[]|null);
     }
 
-    /** Represents a TGiftProbase. */
-    class TGiftProbase implements ITGiftProbase {
+    /** Represents a GiftProBase. */
+    class GiftProBase implements IGiftProBase {
 
         /**
-         * Constructs a new TGiftProbase.
+         * Constructs a new GiftProBase.
          * @param [properties] Properties to set
          */
-        constructor(properties?: table.ITGiftProbase);
+        constructor(properties?: table.IGiftProBase);
 
-        /** TGiftProbase TGiftPro. */
+        /** GiftProBase TGiftPro. */
         public TGiftPro: table.ITGiftProDefine[];
 
         /**
-         * Creates a new TGiftProbase instance using the specified properties.
+         * Creates a new GiftProBase instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns TGiftProbase instance
+         * @returns GiftProBase instance
          */
-        public static create(properties?: table.ITGiftProbase): table.TGiftProbase;
+        public static create(properties?: table.IGiftProBase): table.GiftProBase;
 
         /**
-         * Encodes the specified TGiftProbase message. Does not implicitly {@link table.TGiftProbase.verify|verify} messages.
-         * @param message TGiftProbase message or plain object to encode
+         * Encodes the specified GiftProBase message. Does not implicitly {@link table.GiftProBase.verify|verify} messages.
+         * @param message GiftProBase message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: table.ITGiftProbase, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: table.IGiftProBase, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified TGiftProbase message, length delimited. Does not implicitly {@link table.TGiftProbase.verify|verify} messages.
-         * @param message TGiftProbase message or plain object to encode
+         * Encodes the specified GiftProBase message, length delimited. Does not implicitly {@link table.GiftProBase.verify|verify} messages.
+         * @param message GiftProBase message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: table.ITGiftProbase, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: table.IGiftProBase, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a TGiftProbase message from the specified reader or buffer.
+         * Decodes a GiftProBase message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns TGiftProbase
+         * @returns GiftProBase
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TGiftProbase;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.GiftProBase;
 
         /**
-         * Decodes a TGiftProbase message from the specified reader or buffer, length delimited.
+         * Decodes a GiftProBase message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns TGiftProbase
+         * @returns GiftProBase
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TGiftProbase;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.GiftProBase;
 
         /**
-         * Verifies a TGiftProbase message.
+         * Verifies a GiftProBase message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a TGiftProbase message from a plain object. Also converts values to their respective internal types.
+         * Creates a GiftProBase message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns TGiftProbase
+         * @returns GiftProBase
          */
-        public static fromObject(object: { [k: string]: any }): table.TGiftProbase;
+        public static fromObject(object: { [k: string]: any }): table.GiftProBase;
 
         /**
-         * Creates a plain object from a TGiftProbase message. Also converts values to other types if specified.
-         * @param message TGiftProbase
+         * Creates a plain object from a GiftProBase message. Also converts values to other types if specified.
+         * @param message GiftProBase
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: table.TGiftProbase, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: table.GiftProBase, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this TGiftProbase to JSON.
+         * Converts this GiftProBase to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -13401,6 +13599,204 @@ declare namespace table {
 
         /**
          * Converts this TSignDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TaskBase. */
+    interface ITaskBase {
+
+        /** TaskBase TTask */
+        TTask?: (table.ITTaskDefine[]|null);
+    }
+
+    /** Represents a TaskBase. */
+    class TaskBase implements ITaskBase {
+
+        /**
+         * Constructs a new TaskBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITaskBase);
+
+        /** TaskBase TTask. */
+        public TTask: table.ITTaskDefine[];
+
+        /**
+         * Creates a new TaskBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TaskBase instance
+         */
+        public static create(properties?: table.ITaskBase): table.TaskBase;
+
+        /**
+         * Encodes the specified TaskBase message. Does not implicitly {@link table.TaskBase.verify|verify} messages.
+         * @param message TaskBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITaskBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TaskBase message, length delimited. Does not implicitly {@link table.TaskBase.verify|verify} messages.
+         * @param message TaskBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITaskBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TaskBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TaskBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TaskBase;
+
+        /**
+         * Decodes a TaskBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TaskBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TaskBase;
+
+        /**
+         * Verifies a TaskBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TaskBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TaskBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TaskBase;
+
+        /**
+         * Creates a plain object from a TaskBase message. Also converts values to other types if specified.
+         * @param message TaskBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TaskBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TaskBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TTaskDefine. */
+    interface ITTaskDefine {
+
+        /** TTaskDefine Id */
+        Id?: (number|null);
+
+        /** TTaskDefine Desc */
+        Desc?: (string|null);
+
+        /** TTaskDefine Count */
+        Count?: (number|null);
+
+        /** TTaskDefine Reward */
+        Reward?: (string|null);
+    }
+
+    /** Represents a TTaskDefine. */
+    class TTaskDefine implements ITTaskDefine {
+
+        /**
+         * Constructs a new TTaskDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITTaskDefine);
+
+        /** TTaskDefine Id. */
+        public Id: number;
+
+        /** TTaskDefine Desc. */
+        public Desc: string;
+
+        /** TTaskDefine Count. */
+        public Count: number;
+
+        /** TTaskDefine Reward. */
+        public Reward: string;
+
+        /**
+         * Creates a new TTaskDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TTaskDefine instance
+         */
+        public static create(properties?: table.ITTaskDefine): table.TTaskDefine;
+
+        /**
+         * Encodes the specified TTaskDefine message. Does not implicitly {@link table.TTaskDefine.verify|verify} messages.
+         * @param message TTaskDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITTaskDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TTaskDefine message, length delimited. Does not implicitly {@link table.TTaskDefine.verify|verify} messages.
+         * @param message TTaskDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITTaskDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TTaskDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TTaskDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TTaskDefine;
+
+        /**
+         * Decodes a TTaskDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TTaskDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TTaskDefine;
+
+        /**
+         * Verifies a TTaskDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TTaskDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TTaskDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TTaskDefine;
+
+        /**
+         * Creates a plain object from a TTaskDefine message. Also converts values to other types if specified.
+         * @param message TTaskDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TTaskDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TTaskDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

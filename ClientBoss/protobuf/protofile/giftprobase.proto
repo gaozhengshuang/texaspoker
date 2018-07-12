@@ -5,8 +5,8 @@
 package table;
 
 
-// Defined in table: TGiftProbase
-message TGiftProbase
+// Defined in table: GiftProBase
+message GiftProBase
 {	
 	
 	
