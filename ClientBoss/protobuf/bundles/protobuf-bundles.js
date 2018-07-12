@@ -5248,24 +5248,24 @@ $root.msg = (function() {
         return LuckyDrawItem;
     })();
 
-    msg.LuckyDrawHistory = (function() {
+    msg.LuckyDrawRecord = (function() {
 
         /**
-         * Properties of a LuckyDrawHistory.
+         * Properties of a LuckyDrawRecord.
          * @memberof msg
-         * @interface ILuckyDrawHistory
-         * @property {Array.<msg.ILuckyDrawItem>|null} [drawlist] LuckyDrawHistory drawlist
+         * @interface ILuckyDrawRecord
+         * @property {Array.<msg.ILuckyDrawItem>|null} [drawlist] LuckyDrawRecord drawlist
          */
 
         /**
-         * Constructs a new LuckyDrawHistory.
+         * Constructs a new LuckyDrawRecord.
          * @memberof msg
-         * @classdesc Represents a LuckyDrawHistory.
-         * @implements ILuckyDrawHistory
+         * @classdesc Represents a LuckyDrawRecord.
+         * @implements ILuckyDrawRecord
          * @constructor
-         * @param {msg.ILuckyDrawHistory=} [properties] Properties to set
+         * @param {msg.ILuckyDrawRecord=} [properties] Properties to set
          */
-        function LuckyDrawHistory(properties) {
+        function LuckyDrawRecord(properties) {
             this.drawlist = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -5274,35 +5274,35 @@ $root.msg = (function() {
         }
 
         /**
-         * LuckyDrawHistory drawlist.
+         * LuckyDrawRecord drawlist.
          * @member {Array.<msg.ILuckyDrawItem>} drawlist
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @instance
          */
-        LuckyDrawHistory.prototype.drawlist = $util.emptyArray;
+        LuckyDrawRecord.prototype.drawlist = $util.emptyArray;
 
         /**
-         * Creates a new LuckyDrawHistory instance using the specified properties.
+         * Creates a new LuckyDrawRecord instance using the specified properties.
          * @function create
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
-         * @param {msg.ILuckyDrawHistory=} [properties] Properties to set
-         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory instance
+         * @param {msg.ILuckyDrawRecord=} [properties] Properties to set
+         * @returns {msg.LuckyDrawRecord} LuckyDrawRecord instance
          */
-        LuckyDrawHistory.create = function create(properties) {
-            return new LuckyDrawHistory(properties);
+        LuckyDrawRecord.create = function create(properties) {
+            return new LuckyDrawRecord(properties);
         };
 
         /**
-         * Encodes the specified LuckyDrawHistory message. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
+         * Encodes the specified LuckyDrawRecord message. Does not implicitly {@link msg.LuckyDrawRecord.verify|verify} messages.
          * @function encode
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
-         * @param {msg.ILuckyDrawHistory} message LuckyDrawHistory message or plain object to encode
+         * @param {msg.ILuckyDrawRecord} message LuckyDrawRecord message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        LuckyDrawHistory.encode = function encode(message, writer) {
+        LuckyDrawRecord.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.drawlist != null && message.drawlist.length)
@@ -5312,33 +5312,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified LuckyDrawHistory message, length delimited. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
+         * Encodes the specified LuckyDrawRecord message, length delimited. Does not implicitly {@link msg.LuckyDrawRecord.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
-         * @param {msg.ILuckyDrawHistory} message LuckyDrawHistory message or plain object to encode
+         * @param {msg.ILuckyDrawRecord} message LuckyDrawRecord message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        LuckyDrawHistory.encodeDelimited = function encodeDelimited(message, writer) {
+        LuckyDrawRecord.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a LuckyDrawHistory message from the specified reader or buffer.
+         * Decodes a LuckyDrawRecord message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory
+         * @returns {msg.LuckyDrawRecord} LuckyDrawRecord
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        LuckyDrawHistory.decode = function decode(reader, length) {
+        LuckyDrawRecord.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.LuckyDrawHistory();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.LuckyDrawRecord();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -5356,30 +5356,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a LuckyDrawHistory message from the specified reader or buffer, length delimited.
+         * Decodes a LuckyDrawRecord message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory
+         * @returns {msg.LuckyDrawRecord} LuckyDrawRecord
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        LuckyDrawHistory.decodeDelimited = function decodeDelimited(reader) {
+        LuckyDrawRecord.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a LuckyDrawHistory message.
+         * Verifies a LuckyDrawRecord message.
          * @function verify
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        LuckyDrawHistory.verify = function verify(message) {
+        LuckyDrawRecord.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.drawlist != null && message.hasOwnProperty("drawlist")) {
@@ -5395,24 +5395,24 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a LuckyDrawHistory message from a plain object. Also converts values to their respective internal types.
+         * Creates a LuckyDrawRecord message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.LuckyDrawHistory} LuckyDrawHistory
+         * @returns {msg.LuckyDrawRecord} LuckyDrawRecord
          */
-        LuckyDrawHistory.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.LuckyDrawHistory)
+        LuckyDrawRecord.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.LuckyDrawRecord)
                 return object;
-            var message = new $root.msg.LuckyDrawHistory();
+            var message = new $root.msg.LuckyDrawRecord();
             if (object.drawlist) {
                 if (!Array.isArray(object.drawlist))
-                    throw TypeError(".msg.LuckyDrawHistory.drawlist: array expected");
+                    throw TypeError(".msg.LuckyDrawRecord.drawlist: array expected");
                 message.drawlist = [];
                 for (var i = 0; i < object.drawlist.length; ++i) {
                     if (typeof object.drawlist[i] !== "object")
-                        throw TypeError(".msg.LuckyDrawHistory.drawlist: object expected");
+                        throw TypeError(".msg.LuckyDrawRecord.drawlist: object expected");
                     message.drawlist[i] = $root.msg.LuckyDrawItem.fromObject(object.drawlist[i]);
                 }
             }
@@ -5420,15 +5420,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a LuckyDrawHistory message. Also converts values to other types if specified.
+         * Creates a plain object from a LuckyDrawRecord message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @static
-         * @param {msg.LuckyDrawHistory} message LuckyDrawHistory
+         * @param {msg.LuckyDrawRecord} message LuckyDrawRecord
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        LuckyDrawHistory.toObject = function toObject(message, options) {
+        LuckyDrawRecord.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -5443,17 +5443,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this LuckyDrawHistory to JSON.
+         * Converts this LuckyDrawRecord to JSON.
          * @function toJSON
-         * @memberof msg.LuckyDrawHistory
+         * @memberof msg.LuckyDrawRecord
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        LuckyDrawHistory.prototype.toJSON = function toJSON() {
+        LuckyDrawRecord.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return LuckyDrawHistory;
+        return LuckyDrawRecord;
     })();
 
     msg.UserBase = (function() {
@@ -5479,7 +5479,7 @@ $root.msg = (function() {
          * @property {string|null} [invitationcode] UserBase invitationcode
          * @property {msg.IFreePresentMoney|null} [freepresent] UserBase freepresent
          * @property {msg.IUserTask|null} [task] UserBase task
-         * @property {msg.ILuckyDrawHistory|null} [luckydraw] UserBase luckydraw
+         * @property {msg.ILuckyDrawRecord|null} [luckydraw] UserBase luckydraw
          */
 
         /**
@@ -5636,7 +5636,7 @@ $root.msg = (function() {
 
         /**
          * UserBase luckydraw.
-         * @member {msg.ILuckyDrawHistory|null|undefined} luckydraw
+         * @member {msg.ILuckyDrawRecord|null|undefined} luckydraw
          * @memberof msg.UserBase
          * @instance
          */
@@ -5702,7 +5702,7 @@ $root.msg = (function() {
             if (message.task != null && message.hasOwnProperty("task"))
                 $root.msg.UserTask.encode(message.task, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
             if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
-                $root.msg.LuckyDrawHistory.encode(message.luckydraw, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
+                $root.msg.LuckyDrawRecord.encode(message.luckydraw, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
             return writer;
         };
 
@@ -5791,7 +5791,7 @@ $root.msg = (function() {
                     message.task = $root.msg.UserTask.decode(reader, reader.uint32());
                     break;
                 case 18:
-                    message.luckydraw = $root.msg.LuckyDrawHistory.decode(reader, reader.uint32());
+                    message.luckydraw = $root.msg.LuckyDrawRecord.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5894,7 +5894,7 @@ $root.msg = (function() {
                     return "task." + error;
             }
             if (message.luckydraw != null && message.hasOwnProperty("luckydraw")) {
-                var error = $root.msg.LuckyDrawHistory.verify(message.luckydraw);
+                var error = $root.msg.LuckyDrawRecord.verify(message.luckydraw);
                 if (error)
                     return "luckydraw." + error;
             }
@@ -5984,7 +5984,7 @@ $root.msg = (function() {
             if (object.luckydraw != null) {
                 if (typeof object.luckydraw !== "object")
                     throw TypeError(".msg.UserBase.luckydraw: object expected");
-                message.luckydraw = $root.msg.LuckyDrawHistory.fromObject(object.luckydraw);
+                message.luckydraw = $root.msg.LuckyDrawRecord.fromObject(object.luckydraw);
             }
             return message;
         };
@@ -6075,7 +6075,7 @@ $root.msg = (function() {
             if (message.task != null && message.hasOwnProperty("task"))
                 object.task = $root.msg.UserTask.toObject(message.task, options);
             if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
-                object.luckydraw = $root.msg.LuckyDrawHistory.toObject(message.luckydraw, options);
+                object.luckydraw = $root.msg.LuckyDrawRecord.toObject(message.luckydraw, options);
             return object;
         };
 
@@ -24312,6 +24312,198 @@ $root.msg = (function() {
         };
 
         return GW2C_SendTaskList;
+    })();
+
+    msg.GW2C_SendLuckyDrawRecord = (function() {
+
+        /**
+         * Properties of a GW2C_SendLuckyDrawRecord.
+         * @memberof msg
+         * @interface IGW2C_SendLuckyDrawRecord
+         * @property {msg.ILuckyDrawRecord|null} [luckydraw] GW2C_SendLuckyDrawRecord luckydraw
+         */
+
+        /**
+         * Constructs a new GW2C_SendLuckyDrawRecord.
+         * @memberof msg
+         * @classdesc Represents a GW2C_SendLuckyDrawRecord.
+         * @implements IGW2C_SendLuckyDrawRecord
+         * @constructor
+         * @param {msg.IGW2C_SendLuckyDrawRecord=} [properties] Properties to set
+         */
+        function GW2C_SendLuckyDrawRecord(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_SendLuckyDrawRecord luckydraw.
+         * @member {msg.ILuckyDrawRecord|null|undefined} luckydraw
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @instance
+         */
+        GW2C_SendLuckyDrawRecord.prototype.luckydraw = null;
+
+        /**
+         * Creates a new GW2C_SendLuckyDrawRecord instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {msg.IGW2C_SendLuckyDrawRecord=} [properties] Properties to set
+         * @returns {msg.GW2C_SendLuckyDrawRecord} GW2C_SendLuckyDrawRecord instance
+         */
+        GW2C_SendLuckyDrawRecord.create = function create(properties) {
+            return new GW2C_SendLuckyDrawRecord(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_SendLuckyDrawRecord message. Does not implicitly {@link msg.GW2C_SendLuckyDrawRecord.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {msg.IGW2C_SendLuckyDrawRecord} message GW2C_SendLuckyDrawRecord message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendLuckyDrawRecord.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
+                $root.msg.LuckyDrawRecord.encode(message.luckydraw, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_SendLuckyDrawRecord message, length delimited. Does not implicitly {@link msg.GW2C_SendLuckyDrawRecord.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {msg.IGW2C_SendLuckyDrawRecord} message GW2C_SendLuckyDrawRecord message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendLuckyDrawRecord.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_SendLuckyDrawRecord message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_SendLuckyDrawRecord} GW2C_SendLuckyDrawRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendLuckyDrawRecord.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_SendLuckyDrawRecord();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.luckydraw = $root.msg.LuckyDrawRecord.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_SendLuckyDrawRecord message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_SendLuckyDrawRecord} GW2C_SendLuckyDrawRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendLuckyDrawRecord.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_SendLuckyDrawRecord message.
+         * @function verify
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_SendLuckyDrawRecord.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.luckydraw != null && message.hasOwnProperty("luckydraw")) {
+                var error = $root.msg.LuckyDrawRecord.verify(message.luckydraw);
+                if (error)
+                    return "luckydraw." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_SendLuckyDrawRecord message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_SendLuckyDrawRecord} GW2C_SendLuckyDrawRecord
+         */
+        GW2C_SendLuckyDrawRecord.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_SendLuckyDrawRecord)
+                return object;
+            var message = new $root.msg.GW2C_SendLuckyDrawRecord();
+            if (object.luckydraw != null) {
+                if (typeof object.luckydraw !== "object")
+                    throw TypeError(".msg.GW2C_SendLuckyDrawRecord.luckydraw: object expected");
+                message.luckydraw = $root.msg.LuckyDrawRecord.fromObject(object.luckydraw);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_SendLuckyDrawRecord message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @static
+         * @param {msg.GW2C_SendLuckyDrawRecord} message GW2C_SendLuckyDrawRecord
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_SendLuckyDrawRecord.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.luckydraw = null;
+            if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
+                object.luckydraw = $root.msg.LuckyDrawRecord.toObject(message.luckydraw, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_SendLuckyDrawRecord to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_SendLuckyDrawRecord
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_SendLuckyDrawRecord.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_SendLuckyDrawRecord;
     })();
 
     return msg;

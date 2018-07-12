@@ -23,7 +23,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_RemovePackageItem, "msg.GW2C_RemovePackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_FreePresentNotify, "msg.GW2C_FreePresentNotify");
-            NotificationCenter.addObserver(this, this.OnLuckyDrawHistory, "msg.LuckyDrawHistory");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendLuckyDrawRecord, "msg.GW2C_SendLuckyDrawRecord");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -32,6 +32,7 @@ module game {
             this.userInfo.userid = data.entity.id;
             this.userInfo.openid = data.base.wechat.openid;
             this.bagList = data.item.items;
+            this.historyMoneyList = data.base.luckydraw.drawlist;
         }
 
         private OnGW2C_SendWechatInfo(data: msg.GW2C_SendWechatInfo) {
@@ -57,8 +58,8 @@ module game {
             LoginReward.getInstance().show();
         }
 
-        private OnLuckyDrawHistory(data: msg.LuckyDrawHistory) {
-            this.historyMoneyList = data.drawlist;
+        private OnGW2C_SendLuckyDrawRecord(data: msg.GW2C_SendLuckyDrawRecord) {
+            this.historyMoneyList = data.luckydraw.drawlist;
         }
 
         public setScore(count: number) {

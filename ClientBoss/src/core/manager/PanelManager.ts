@@ -21,7 +21,7 @@ module game {
                 panel = UserPanel.getInstance();
                 break;
             case PanelType.history:
-                panel = HistoryMoney.getInstance();
+                panel = HistoryMoneyPanel.getInstance();
                 break;
         }
         if (panel) {
