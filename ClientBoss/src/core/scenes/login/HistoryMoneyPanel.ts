@@ -49,11 +49,10 @@ module game {
 
             this._listProvider.removeAll();
             for (let v of DataManager.playerModel.getHistoryMoney()) {
-                this.totalMoney += v.num;
+                this.totalMoney += v.worth;
                 this._listProvider.addItem(v);
             }
             this.historyScr.viewport.scrollV = 0;
-
             this.moneyTxt.text = `￥${this.totalMoney}`;
         }
 
