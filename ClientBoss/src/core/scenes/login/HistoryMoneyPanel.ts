@@ -1,10 +1,11 @@
 module game {
-    export class HistoryMoney extends PanelComponent {
+    export class HistoryMoneyPanel extends PanelComponent {
         closeButton: IconButton;
         bagButton: IconButton;
         historyScr: eui.Scroller;
         historyList: eui.List;
         moneyTxt: eui.Label;
+        totalMoney: number;
 
         private _listProvider: eui.ArrayCollection;
 
@@ -18,7 +19,7 @@ module game {
 
             this._listProvider = new eui.ArrayCollection();
             this.historyList.dataProvider = this._listProvider;
-            this.historyList.itemRenderer = BattleBagItem;
+            this.historyList.itemRenderer = HistoryMoneyItem;
         }
 
         protected beforeShow() {
@@ -44,11 +45,16 @@ module game {
         }
 
         public updateList() {
+            this.totalMoney = 0;
+
             this._listProvider.removeAll();
             for (let v of DataManager.playerModel.getHistoryMoney()) {
+                this.totalMoney += v.num;
                 this._listProvider.addItem(v);
             }
             this.historyScr.viewport.scrollV = 0;
+
+            this.moneyTxt.text = `￥${this.totalMoney}`;
         }
 
         private closeHandle() {
@@ -60,13 +66,13 @@ module game {
             openPanel(PanelType.bag);
         }
 
-        private static _instance: HistoryMoney;
+        private static _instance: HistoryMoneyPanel;
 
-        public static getInstance(): HistoryMoney {
-            if (!HistoryMoney._instance) {
-                HistoryMoney._instance = new HistoryMoney();
+        public static getInstance(): HistoryMoneyPanel {
+            if (!HistoryMoneyPanel._instance) {
+                HistoryMoneyPanel._instance = new HistoryMoneyPanel();
             }
-            return HistoryMoney._instance;
+            return HistoryMoneyPanel._instance;
         }
     }
 }

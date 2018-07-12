@@ -2139,91 +2139,91 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a LuckyDrawHistory. */
-    interface ILuckyDrawHistory {
+    /** Properties of a LuckyDrawRecord. */
+    interface ILuckyDrawRecord {
 
-        /** LuckyDrawHistory drawlist */
+        /** LuckyDrawRecord drawlist */
         drawlist?: (msg.ILuckyDrawItem[]|null);
     }
 
-    /** Represents a LuckyDrawHistory. */
-    class LuckyDrawHistory implements ILuckyDrawHistory {
+    /** Represents a LuckyDrawRecord. */
+    class LuckyDrawRecord implements ILuckyDrawRecord {
 
         /**
-         * Constructs a new LuckyDrawHistory.
+         * Constructs a new LuckyDrawRecord.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.ILuckyDrawHistory);
+        constructor(properties?: msg.ILuckyDrawRecord);
 
-        /** LuckyDrawHistory drawlist. */
+        /** LuckyDrawRecord drawlist. */
         public drawlist: msg.ILuckyDrawItem[];
 
         /**
-         * Creates a new LuckyDrawHistory instance using the specified properties.
+         * Creates a new LuckyDrawRecord instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns LuckyDrawHistory instance
+         * @returns LuckyDrawRecord instance
          */
-        public static create(properties?: msg.ILuckyDrawHistory): msg.LuckyDrawHistory;
+        public static create(properties?: msg.ILuckyDrawRecord): msg.LuckyDrawRecord;
 
         /**
-         * Encodes the specified LuckyDrawHistory message. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
-         * @param message LuckyDrawHistory message or plain object to encode
+         * Encodes the specified LuckyDrawRecord message. Does not implicitly {@link msg.LuckyDrawRecord.verify|verify} messages.
+         * @param message LuckyDrawRecord message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.ILuckyDrawHistory, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.ILuckyDrawRecord, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified LuckyDrawHistory message, length delimited. Does not implicitly {@link msg.LuckyDrawHistory.verify|verify} messages.
-         * @param message LuckyDrawHistory message or plain object to encode
+         * Encodes the specified LuckyDrawRecord message, length delimited. Does not implicitly {@link msg.LuckyDrawRecord.verify|verify} messages.
+         * @param message LuckyDrawRecord message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.ILuckyDrawHistory, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.ILuckyDrawRecord, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a LuckyDrawHistory message from the specified reader or buffer.
+         * Decodes a LuckyDrawRecord message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns LuckyDrawHistory
+         * @returns LuckyDrawRecord
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.LuckyDrawHistory;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.LuckyDrawRecord;
 
         /**
-         * Decodes a LuckyDrawHistory message from the specified reader or buffer, length delimited.
+         * Decodes a LuckyDrawRecord message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns LuckyDrawHistory
+         * @returns LuckyDrawRecord
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.LuckyDrawHistory;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.LuckyDrawRecord;
 
         /**
-         * Verifies a LuckyDrawHistory message.
+         * Verifies a LuckyDrawRecord message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a LuckyDrawHistory message from a plain object. Also converts values to their respective internal types.
+         * Creates a LuckyDrawRecord message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns LuckyDrawHistory
+         * @returns LuckyDrawRecord
          */
-        public static fromObject(object: { [k: string]: any }): msg.LuckyDrawHistory;
+        public static fromObject(object: { [k: string]: any }): msg.LuckyDrawRecord;
 
         /**
-         * Creates a plain object from a LuckyDrawHistory message. Also converts values to other types if specified.
-         * @param message LuckyDrawHistory
+         * Creates a plain object from a LuckyDrawRecord message. Also converts values to other types if specified.
+         * @param message LuckyDrawRecord
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.LuckyDrawHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.LuckyDrawRecord, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this LuckyDrawHistory to JSON.
+         * Converts this LuckyDrawRecord to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -2284,7 +2284,7 @@ declare namespace msg {
         task?: (msg.IUserTask|null);
 
         /** UserBase luckydraw */
-        luckydraw?: (msg.ILuckyDrawHistory|null);
+        luckydraw?: (msg.ILuckyDrawRecord|null);
     }
 
     /** Represents a UserBase. */
@@ -2348,7 +2348,7 @@ declare namespace msg {
         public task?: (msg.IUserTask|null);
 
         /** UserBase luckydraw. */
-        public luckydraw?: (msg.ILuckyDrawHistory|null);
+        public luckydraw?: (msg.ILuckyDrawRecord|null);
 
         /**
          * Creates a new UserBase instance using the specified properties.
@@ -10505,6 +10505,96 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_SendTaskList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_SendLuckyDrawRecord. */
+    interface IGW2C_SendLuckyDrawRecord {
+
+        /** GW2C_SendLuckyDrawRecord luckydraw */
+        luckydraw?: (msg.ILuckyDrawRecord|null);
+    }
+
+    /** Represents a GW2C_SendLuckyDrawRecord. */
+    class GW2C_SendLuckyDrawRecord implements IGW2C_SendLuckyDrawRecord {
+
+        /**
+         * Constructs a new GW2C_SendLuckyDrawRecord.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_SendLuckyDrawRecord);
+
+        /** GW2C_SendLuckyDrawRecord luckydraw. */
+        public luckydraw?: (msg.ILuckyDrawRecord|null);
+
+        /**
+         * Creates a new GW2C_SendLuckyDrawRecord instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_SendLuckyDrawRecord instance
+         */
+        public static create(properties?: msg.IGW2C_SendLuckyDrawRecord): msg.GW2C_SendLuckyDrawRecord;
+
+        /**
+         * Encodes the specified GW2C_SendLuckyDrawRecord message. Does not implicitly {@link msg.GW2C_SendLuckyDrawRecord.verify|verify} messages.
+         * @param message GW2C_SendLuckyDrawRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_SendLuckyDrawRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_SendLuckyDrawRecord message, length delimited. Does not implicitly {@link msg.GW2C_SendLuckyDrawRecord.verify|verify} messages.
+         * @param message GW2C_SendLuckyDrawRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_SendLuckyDrawRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_SendLuckyDrawRecord message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_SendLuckyDrawRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_SendLuckyDrawRecord;
+
+        /**
+         * Decodes a GW2C_SendLuckyDrawRecord message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_SendLuckyDrawRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_SendLuckyDrawRecord;
+
+        /**
+         * Verifies a GW2C_SendLuckyDrawRecord message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_SendLuckyDrawRecord message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_SendLuckyDrawRecord
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_SendLuckyDrawRecord;
+
+        /**
+         * Creates a plain object from a GW2C_SendLuckyDrawRecord message. Also converts values to other types if specified.
+         * @param message GW2C_SendLuckyDrawRecord
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_SendLuckyDrawRecord, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_SendLuckyDrawRecord to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
