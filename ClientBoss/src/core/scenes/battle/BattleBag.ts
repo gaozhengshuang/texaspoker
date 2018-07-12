@@ -17,8 +17,8 @@ module game {
         protected init() {
             this.closeButton.icon = "lucky/luckycloseBtn";
             this.luckyButton.icon = "lucky/luckyBtn";
-            this.deliveryButton.icon = "ui/deliveryBtn";
-            this.historyMoneyButton.icon = "ui/historyMoneyBtn";
+            this.deliveryButton.icon = "ui/bag/deliveryBtn";
+            this.historyMoneyButton.icon = "ui/bag/historyMoneyBtn";
 
             this._listProvider = new eui.ArrayCollection();
             this.bagList.dataProvider = this._listProvider;

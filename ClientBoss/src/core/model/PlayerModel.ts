@@ -15,6 +15,7 @@ module game {
         public userInfo: IUserInfo = {face: "1", name: "", userid: 0, rank: 0, money: 0, openid: ""};
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
+        public totalMoney: number|Long = 0;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -33,6 +34,7 @@ module game {
             this.userInfo.openid = data.base.wechat.openid;
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;
+            this.totalMoney = data.base.luckydraw.totalvalue;
         }
 
         private OnGW2C_SendWechatInfo(data: msg.GW2C_SendWechatInfo) {
@@ -60,6 +62,7 @@ module game {
 
         private OnGW2C_SendLuckyDrawRecord(data: msg.GW2C_SendLuckyDrawRecord) {
             this.historyMoneyList = data.luckydraw.drawlist;
+            this.totalMoney = data.luckydraw.totalvalue;
         }
 
         public setScore(count: number) {
@@ -282,6 +285,10 @@ module game {
 
         public getHistoryMoney() {
             return this.historyMoneyList;
+        }
+
+        public getTotalMoney() {
+            return this.totalMoney;
         }
     }
 }

@@ -36,8 +36,8 @@
 
 		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" x="638" y="23"/>
 		<e:Image anchorOffsetY="0" height="472" horizontalCenter="0" verticalCenter="122" source="lucky/bagshopbg" scale9Grid="80,71,486,40"/>
-		<e:Image source="ui/historyMoneyTitleBg" horizontalCenter="0" verticalCenter="-314.5"/>
-		<e:Image y="-10" horizontalCenter="0" x="222" scaleX="1" scaleY="1" source="ui/historyMoneyTitle"/>
+		<e:Image horizontalCenter="0" verticalCenter="-314.5" source="ui/bag/historyMoneyTitleBg"/>
+		<e:Image y="-10" horizontalCenter="0" x="222" scaleX="1" scaleY="1" source="ui/bag/historyMoneyTitle"/>
 		<e:Label id="moneyTxt" text="¥123456" size="100" textColor="0xff9f3b" horizontalCenter="1" textAlign="center" verticalCenter="-328"/>
 		<e:Label text="累计获得商品价值" textColor="0x808080" bold="true" textAlign="center" horizontalCenter="0.5" verticalCenter="-253"/>
 		<e:Label text="历史记录" textColor="0x808080" bold="true" textAlign="center" horizontalCenter="0.5" verticalCenter="-71"/>
