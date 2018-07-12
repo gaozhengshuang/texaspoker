@@ -172,7 +172,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 	default:
 		// 1. 多Gate时避免多客户端同时登陆
 		// 2. 已经登陆上的账户，在对应的Gate中要验证是否重复登陆
-		if account == "" || strings.Contains(account, " ") {
+		if account == "" {
 			errcode = "账户空字符串或包含空格"
 			break
 		}
