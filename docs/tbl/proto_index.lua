@@ -91,7 +91,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 86, Name : "msg.UserTask" 	},
 		{ Id : 87, Name : "msg.TaskData" 	},
 		{ Id : 88, Name : "msg.LuckyDrawItem" 	},
-		{ Id : 89, Name : "msg.LuckyDrawHistory" 	},
+		{ Id : 89, Name : "msg.LuckyDrawRecord" 	},
 		{ Id : 90, Name : "msg.UserBase" 	},
 		{ Id : 91, Name : "msg.UserAddress" 	},
 		{ Id : 92, Name : "msg.ItemData" 	},
@@ -109,7 +109,8 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 104, Name : "msg.C2GW_StartLuckyDraw" 	},
 		{ Id : 105, Name : "msg.GW2C_LuckyDrawHit" 	},
 		{ Id : 106, Name : "msg.GW2C_FreePresentNotify" 	},
-		{ Id : 107, Name : "msg.GW2C_SendTaskList" 	}
+		{ Id : 107, Name : "msg.GW2C_SendTaskList" 	},
+		{ Id : 108, Name : "msg.GW2C_SendLuckyDrawRecord" 	}
 	]
 
 

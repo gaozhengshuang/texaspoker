@@ -251,7 +251,8 @@ func (this *User) RegistAccount() {
 
 // 请求登陆验证
 func (this *User) SendLogin() {
-	this.SendLoginMsg(this.NewReqLoginMsg())
+	//this.SendLoginMsg(this.NewReqLoginMsg())
+	this.SendLoginMsg(this.NewReqLoginWechatMsg())
 }
 
 func (this *User) StartGame() {

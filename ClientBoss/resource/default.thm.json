@@ -34,6 +34,7 @@
 		"resource/eui_skins/login/LoginRewardSkin.exml",
 		"resource/eui_skins/login/LoginSceneSkin.exml",
 		"resource/eui_skins/login/RegisterPanelSkin.exml",
+		"resource/eui_skins/main/HistoryMoneyItemSkin.exml",
 		"resource/eui_skins/main/HistoryMoneySkin.exml",
 		"resource/eui_skins/main/MainSceneSkin.exml",
 		"resource/eui_skins/main/UserPanelSkin.exml",

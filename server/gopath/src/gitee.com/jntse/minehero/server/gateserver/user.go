@@ -353,7 +353,7 @@ func (this *GateUser) OnLoadDB(way string) {
 	if this.bin.Base.Addrlist == nil { this.bin.Base.Addrlist = make([]*msg.UserAddress,0) }
 	if this.bin.Base.Freepresent == nil { this.bin.Base.Freepresent = &msg.FreePresentMoney{} }
 	if this.bin.Base.Task == nil { this.bin.Base.Task = &msg.UserTask{} }
-	if this.bin.Base.Luckydraw == nil { this.bin.Base.Luckydraw = &msg.LuckyDrawHistory{ Drawlist:make([]*msg.LuckyDrawItem,0) } }
+	if this.bin.Base.Luckydraw == nil { this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{ Drawlist:make([]*msg.LuckyDrawItem,0) } }
 
 	// 加载二进制
 	this.LoadBin()
@@ -440,6 +440,7 @@ func (this *GateUser) LoadBin() {
 	this.invitationcode = userbase.GetInvitationcode()
 
 	// 幸运抽奖
+	this.luckydraw = make([]*msg.LuckyDrawItem,0)
 	for _, v := range userbase.Luckydraw.Drawlist {
 		this.luckydraw = append(this.luckydraw, v)
 	}

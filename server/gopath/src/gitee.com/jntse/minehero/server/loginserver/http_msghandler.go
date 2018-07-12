@@ -156,7 +156,7 @@ func HttpRegistAccount(body []byte) string {
 		}
 
 		// 验证通过
-		if errcode = RegistAccount(account, passwd, invitationcode, nickname, ""); errcode != "" {
+		if errcode = RegistAccount(account, passwd, invitationcode, nickname, "", ""); errcode != "" {
 			break
 		}
 	}

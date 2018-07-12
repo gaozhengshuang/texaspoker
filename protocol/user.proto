@@ -61,3 +61,10 @@ message GW2C_FreePresentNotify {
 message GW2C_SendTaskList {
     repeated msg.TaskData tasks = 1;
 }
+
+// 抽奖历史记录
+message GW2C_SendLuckyDrawRecord {
+    optional LuckyDrawRecord luckydraw = 1;
+}
+
+

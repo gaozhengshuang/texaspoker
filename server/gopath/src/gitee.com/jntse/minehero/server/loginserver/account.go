@@ -169,7 +169,7 @@ func RegistAccountFromWechatMiniGame(account, passwd, invitationcode, name, face
 		return ""
 	}
 
-	if errcode := RegistAccount(account, passwd, invitationcode, name, face); errcode != "" {
+	if errcode := RegistAccount(account, passwd, invitationcode, name, face, account); errcode != "" {
 		return fmt.Sprintf("注册账户失败 账户[%s] 错误[%s]", account, errcode)
 	}
 
@@ -307,7 +307,7 @@ func RegistAccountCheck(phone, passwd, invitationcode, authcode, nickname string
 ///
 /// @return 
 // --------------------------------------------------------------------------
-func RegistAccount(account, passwd, invitationcode, nickname, face string) (errcode string) {
+func RegistAccount(account, passwd, invitationcode, nickname, face, openid string) (errcode string) {
 	errcode = ""
 	switch {
 	default:
@@ -357,6 +357,8 @@ func RegistAccount(account, passwd, invitationcode, nickname, face string) (errc
 			Base : &msg.UserBase{Money: pb.Uint32(1000), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(Yuanbao), Level:pb.Uint32(1)},
 			Item : &msg.ItemBin{},
 		}
+		userinfo.Base.Wechat = &msg.UserWechat{ Openid:pb.String(openid) }
+
 		userkey := fmt.Sprintf("userbin_%d", userid)
 		log.Info("userinfo=%v",userinfo)
 		if err := utredis.SetProtoBin(Redis(), userkey, userinfo); err != nil {
