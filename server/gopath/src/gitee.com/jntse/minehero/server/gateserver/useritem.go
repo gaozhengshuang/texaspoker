@@ -556,11 +556,14 @@ func (this *GateUser) LuckyDraw() {
 	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
+	if len(this.luckydraw) > int(tbl.Game.LuckDrawHistroyLimlit) { this.luckydraw = this.luckydraw[1:] }
 
+	// 同步抽奖历史列表
 	recordmsg := &msg.GW2C_SendLuckyDrawRecord{ Luckydraw:&msg.LuckyDrawRecord{ Drawlist:make([]*msg.LuckyDrawItem,0) } }
 	for _, v := range this.luckydraw {
 		recordmsg.Luckydraw.Drawlist = append(recordmsg.Luckydraw.Drawlist, v)
 	}
+	this.SendMsg(recordmsg)
 
 	// feedback
 	send := &msg.GW2C_LuckyDrawHit{Id:pb.Int32(int32(uid))}
