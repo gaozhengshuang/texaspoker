@@ -98,5 +98,15 @@
         "AppSecret":"81e8f7d08b55f0f4a0ea3c4b15f558c6",
         "Mchid":"1500100872",
         "PaySecret":"80a8c4a9d76c71e1701c001e3a41583e"
+    },
+
+    "//":"微信小游戏",
+    "WechatMiniGame": {
+        "MidasOfferID":"",
+        "MidasSecret":"",
+        "MidasCancelPay":"https://api.weixin.qq.com/cgi-bin/midas/cancelpay?access_token=ACCESS_TOKEN",
+        "MidasBalance":"https://api.weixin.qq.com/cgi-bin/midas/getbalance?access_token=ACCESS_TOKEN",
+        "MidasPay":"https://api.weixin.qq.com/cgi-bin/midas/pay?access_token=ACCESS_TOKEN",
+        "MidasPresent":"https://api.weixin.qq.com/cgi-bin/midas/present?access_token=ACCESS_TOKEN"
     }
 }
