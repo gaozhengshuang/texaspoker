@@ -61,6 +61,7 @@ module game {
         rank: number;
         money: number;
         openid: string;
+        addrlist: msg.IUserAddress[];
     }
 
     export var $uploadScore = "/score/uploadScore";

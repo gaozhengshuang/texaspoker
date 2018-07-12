@@ -14,10 +14,10 @@
 
 		<e:Label id="labelInvitationcode" text="TJ1234" bold="true" scaleX="1" scaleY="1" textAlign="center" size="28" left="318" textColor="0xffffff" y="388"/>
 		<game:IconButton id="btn_copy" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" right="206" verticalCenter="-147.5"/>
-		<game:IconButton id="wxButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="15.5" horizontalCenter="0.5"/>
-		<e:Image id="img_wxybd" source="login/wxyjbd" verticalCenter="24" horizontalCenter="0"/>
-		<e:Image source="user/getMoneyImg" horizontalCenter="116" verticalCenter="10"/>
-		<e:Label text="绑定微信立刻获得1元现金,现金直接转入微信账号。" textColor="0x4d4d4d" size="18" horizontalCenter="0" verticalCenter="72"/>
+		<game:IconButton id="addressButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="15.5" horizontalCenter="0.5"/>
+
+
+
 		<e:Image source="user/taskRewardImg" horizontalCenter="0.5" verticalCenter="127"/>
 		<e:Label text="任  务" bold="true" scaleX="1" scaleY="1" textAlign="center" size="28" horizontalCenter="0.5" verticalCenter="125" textColor="0xFFFFFF"/>
 		<e:Image id="img_userhead" width="160" height="160" x="280.5" y="103" anchorOffsetX="0" anchorOffsetY="0"/>

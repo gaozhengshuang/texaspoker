@@ -36,6 +36,7 @@
 		"resource/eui_skins/login/RegisterPanelSkin.exml",
 		"resource/eui_skins/main/DeliveryItemSkin.exml",
 		"resource/eui_skins/main/DeliveryPanelSkin.exml",
+		"resource/eui_skins/main/DeliverySettingSkin.exml",
 		"resource/eui_skins/main/HistoryMoneyItemSkin.exml",
 		"resource/eui_skins/main/HistoryMoneySkin.exml",
 		"resource/eui_skins/main/MainSceneSkin.exml",

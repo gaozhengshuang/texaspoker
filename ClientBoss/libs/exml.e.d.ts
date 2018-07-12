@@ -68,6 +68,8 @@ declare class DeliveryItemSkin extends eui.Skin{
 }
 declare class DeliveryPanelSkin extends eui.Skin{
 }
+declare class DeliverySettingSkin extends eui.Skin{
+}
 declare class HistoryMoneyItemSkin extends eui.Skin{
 }
 declare class HistoryMoneySkin extends eui.Skin{

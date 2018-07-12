@@ -12,7 +12,7 @@ module game {
 
         public penetration: number = 0;
         private _gold: number = 50;
-        public userInfo: IUserInfo = {face: "1", name: "", userid: 0, rank: 0, money: 0, openid: ""};
+        public userInfo: IUserInfo = {face: "1", name: "", userid: 0, rank: 0, money: 0, openid: "", addrlist: []};
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
         public totalMoney: number|Long = 0;
@@ -25,6 +25,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_RemovePackageItem, "msg.GW2C_RemovePackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_FreePresentNotify, "msg.GW2C_FreePresentNotify");
             NotificationCenter.addObserver(this, this.OnGW2C_SendLuckyDrawRecord, "msg.GW2C_SendLuckyDrawRecord");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -32,6 +33,7 @@ module game {
             this.userInfo.name = data.entity.name;
             this.userInfo.userid = data.entity.id;
             this.userInfo.openid = data.base.wechat.openid;
+            this.userInfo.addrlist = data.base.addrlist;
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;
             this.totalMoney = data.base.luckydraw.totalvalue;
@@ -63,6 +65,10 @@ module game {
         private OnGW2C_SendLuckyDrawRecord(data: msg.GW2C_SendLuckyDrawRecord) {
             this.historyMoneyList = data.luckydraw.drawlist;
             this.totalMoney = data.luckydraw.totalvalue;
+        }
+
+        private OnGW2C_SendDeliveryAddressList(data: msg.GW2C_SendDeliveryAddressList) {
+            this.userInfo.addrlist = data.list;
         }
 
         public setScore(count: number) {
@@ -273,6 +279,10 @@ module game {
             } else {
                 return false;
             }
+        }
+
+        public getUserInfo() {
+            return this.userInfo;
         }
 
         public getUserId() {

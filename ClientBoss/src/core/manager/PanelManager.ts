@@ -26,6 +26,9 @@ module game {
             case PanelType.delivery:
                 panel = DeliveryPanel.getInstance();
                 break;
+            case PanelType.deliverySetting:
+                panel = DeliverySetting.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -41,5 +44,6 @@ module game {
         user,
         history,
         delivery,
+        deliverySetting,
     }
 }
