@@ -68,6 +68,7 @@ type DBUserData struct {
 	presentrecord int64
 	invitationcode string
 	luckydraw	  []*msg.LuckyDrawItem
+	luckydrawtotal int64
 }
 
 // --------------------------------------------------------------------------
@@ -401,6 +402,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem,0)
+	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
 	for _, v := range this.luckydraw {
 		userbase.Luckydraw.Drawlist = append(userbase.Luckydraw.Drawlist, v)
 	}
@@ -441,6 +443,7 @@ func (this *GateUser) LoadBin() {
 
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem,0)
+	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
 	for _, v := range userbase.Luckydraw.Drawlist {
 		this.luckydraw = append(this.luckydraw, v)
 	}

@@ -119,6 +119,17 @@ func (this *RoomUser) SetMoneyCostReset(reset int64) {
 	userbase := this.UserBase()
 	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
 }
+
+func (this *RoomUser) GetLuckyDrawTotalWroth() int64 {
+	userbase := this.UserBase()
+	return userbase.GetLuckydraw().GetTotalvalue()
+}
+
+func (this *RoomUser) SetLuckyDrawTotalWroth(w int64) {
+	userbase := this.UserBase()
+	userbase.GetLuckydraw().Totalvalue = pb.Int64(w)
+}
+
 //
 //func (this *RoomUser) DiamondRoomStep() int64 {
 //	userbase := this.UserBase()
@@ -581,6 +592,7 @@ func (this *RoomUser) LuckyDraw() {
 	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
+	this.SetLuckyDrawTotalWroth(this.GetLuckyDrawTotalWroth() + int64(gift.Cost))
 	if len(this.luckydraw) > int(tbl.Game.LuckDrawHistroyLimlit) { this.luckydraw = this.luckydraw[1:] }
 
 	// 同步抽奖列表
