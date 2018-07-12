@@ -38,6 +38,17 @@ message TaskData {
     optional int32 completed = 3;  // 完成标记
 }
 
+// 抽奖历史记录
+message LuckyDrawItem {
+    optional int64 time = 1;
+    optional int32 item = 2;
+    optional int32 num = 3;
+    optional int32 worth = 4;
+}
+message LuckyDrawHistory {
+    repeated LuckyDrawItem drawlist = 1;
+}
+
 message UserBase {
     optional uint32     level   = 1;
     optional uint32     exp     = 2;
@@ -56,6 +67,7 @@ message UserBase {
     optional string     invitationcode = 15;    // 邀请码
     optional FreePresentMoney freepresent = 16;
     optional UserTask   task = 17;      // 任务
+    optional LuckyDrawHistory luckydraw = 18;   // 抽奖
 }
 
 message UserAddress {

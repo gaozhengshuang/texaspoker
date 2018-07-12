@@ -507,7 +507,8 @@ func (this *GateUser) LuckyDraw() {
 	this.RemoveMoney(cost, "幸运抽奖", true)
 
 	// 每周重置
-	if util.IsSameWeek(this.GetMoneyCostReset(), util.CURTIME()) != false {
+	curtime := util.CURTIME()
+	if util.IsSameWeek(this.GetMoneyCostReset(), curtime) != false {
 		this.SetMoneyCost(0)
 		this.SetMoneyCostReset(util.CURTIME())
 	}
@@ -552,7 +553,9 @@ func (this *GateUser) LuckyDraw() {
 		return
 	}
 
-	this.AddItem(gift.ItemId, gift.Num, "幸运抽奖")
+	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
+	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
+	this.luckydraw = append(this.luckydraw, drawitem)
 
 	// feedback
 	send := &msg.GW2C_LuckyDrawHit{Id:pb.Int32(int32(uid))}
