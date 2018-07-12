@@ -1218,6 +1218,16 @@
 			"url":"assets/ui/win/xinjilu.png"
 		},
 		{
+			"name":"user/addressBg",
+			"type":"image",
+			"url":"assets/user/addressBg.png"
+		},
+		{
+			"name":"user/addressImg",
+			"type":"image",
+			"url":"assets/user/addressImg.png"
+		},
+		{
 			"name":"user/adrBg",
 			"type":"image",
 			"url":"assets/user/adrBg.png"
@@ -1231,6 +1241,11 @@
 			"name":"user/copyButton",
 			"type":"image",
 			"url":"assets/user/copyButton.png"
+		},
+		{
+			"name":"user/deliveryAdressBtn",
+			"type":"image",
+			"url":"assets/user/deliveryAdressBtn.png"
 		},
 		{
 			"name":"user/getMoneyImg",
@@ -1251,6 +1266,11 @@
 			"name":"user/taskRewardImg",
 			"type":"image",
 			"url":"assets/user/taskRewardImg.png"
+		},
+		{
+			"name":"user/updateBtn",
+			"type":"image",
+			"url":"assets/user/updateBtn.png"
 		},
 		{
 			"name":"user/userBg",
