@@ -10,9 +10,9 @@ message C2L_ReqLogin {
 
 // 微信小游戏登陆
 message C2L_ReqLoginWechat {
-    optional opendid = 1;
-    optional face = 2;
-    optional nickname = 3;
+    optional string opendid = 1;
+    optional string face = 2;
+    optional string nickname = 3;
 }
 
 
