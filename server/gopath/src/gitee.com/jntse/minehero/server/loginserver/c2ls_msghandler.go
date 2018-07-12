@@ -83,7 +83,7 @@ func on_C2L_ReqRegistAccount(session network.IBaseNetSession, message interface{
 			break
 		}
 
-		if errcode = RegistAccount(account, passwd, invitationcode, nickname, ""); errcode != "" {
+		if errcode = RegistAccount(account, passwd, invitationcode, nickname, "", ""); errcode != "" {
 			break
 		}
 	}

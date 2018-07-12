@@ -88,6 +88,16 @@ func (this *UserBase) NewReqLoginMsg() *msg.C2L_ReqLogin {
 	return msg
 }
 
+func (this *UserBase) NewReqLoginWechatMsg() *msg.C2L_ReqLoginWechat {
+	msg := &msg.C2L_ReqLoginWechat {
+		Openid:pb.String(this.account),
+		Nickname:pb.String(this.account),
+		Face:pb.String(""),
+	}
+	return msg
+}
+
+
 func (this *UserBase) NewReqLoginGateMsg() *msg.C2GW_ReqLogin {
 	msg := &msg.C2GW_ReqLogin {
 		Account : pb.String(this.account),
