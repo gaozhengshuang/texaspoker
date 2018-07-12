@@ -20,6 +20,9 @@ module game {
             case PanelType.user:
                 panel = UserPanel.getInstance();
                 break;
+            case PanelType.history:
+                panel = HistoryMoney.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -33,5 +36,6 @@ module game {
         bag,
         register,
         user,
+        history,
     }
 }
