@@ -2144,6 +2144,9 @@ declare namespace msg {
 
         /** LuckyDrawRecord drawlist */
         drawlist?: (msg.ILuckyDrawItem[]|null);
+
+        /** LuckyDrawRecord totalvalue */
+        totalvalue?: (number|Long|null);
     }
 
     /** Represents a LuckyDrawRecord. */
@@ -2157,6 +2160,9 @@ declare namespace msg {
 
         /** LuckyDrawRecord drawlist. */
         public drawlist: msg.ILuckyDrawItem[];
+
+        /** LuckyDrawRecord totalvalue. */
+        public totalvalue: (number|Long);
 
         /**
          * Creates a new LuckyDrawRecord instance using the specified properties.

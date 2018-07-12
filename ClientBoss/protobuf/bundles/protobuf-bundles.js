@@ -5255,6 +5255,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface ILuckyDrawRecord
          * @property {Array.<msg.ILuckyDrawItem>|null} [drawlist] LuckyDrawRecord drawlist
+         * @property {number|Long|null} [totalvalue] LuckyDrawRecord totalvalue
          */
 
         /**
@@ -5280,6 +5281,14 @@ $root.msg = (function() {
          * @instance
          */
         LuckyDrawRecord.prototype.drawlist = $util.emptyArray;
+
+        /**
+         * LuckyDrawRecord totalvalue.
+         * @member {number|Long} totalvalue
+         * @memberof msg.LuckyDrawRecord
+         * @instance
+         */
+        LuckyDrawRecord.prototype.totalvalue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * Creates a new LuckyDrawRecord instance using the specified properties.
@@ -5308,6 +5317,8 @@ $root.msg = (function() {
             if (message.drawlist != null && message.drawlist.length)
                 for (var i = 0; i < message.drawlist.length; ++i)
                     $root.msg.LuckyDrawItem.encode(message.drawlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.totalvalue != null && message.hasOwnProperty("totalvalue"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.totalvalue);
             return writer;
         };
 
@@ -5346,6 +5357,9 @@ $root.msg = (function() {
                     if (!(message.drawlist && message.drawlist.length))
                         message.drawlist = [];
                     message.drawlist.push($root.msg.LuckyDrawItem.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.totalvalue = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5391,6 +5405,9 @@ $root.msg = (function() {
                         return "drawlist." + error;
                 }
             }
+            if (message.totalvalue != null && message.hasOwnProperty("totalvalue"))
+                if (!$util.isInteger(message.totalvalue) && !(message.totalvalue && $util.isInteger(message.totalvalue.low) && $util.isInteger(message.totalvalue.high)))
+                    return "totalvalue: integer|Long expected";
             return null;
         };
 
@@ -5416,6 +5433,15 @@ $root.msg = (function() {
                     message.drawlist[i] = $root.msg.LuckyDrawItem.fromObject(object.drawlist[i]);
                 }
             }
+            if (object.totalvalue != null)
+                if ($util.Long)
+                    (message.totalvalue = $util.Long.fromValue(object.totalvalue)).unsigned = false;
+                else if (typeof object.totalvalue === "string")
+                    message.totalvalue = parseInt(object.totalvalue, 10);
+                else if (typeof object.totalvalue === "number")
+                    message.totalvalue = object.totalvalue;
+                else if (typeof object.totalvalue === "object")
+                    message.totalvalue = new $util.LongBits(object.totalvalue.low >>> 0, object.totalvalue.high >>> 0).toNumber();
             return message;
         };
 
@@ -5434,11 +5460,22 @@ $root.msg = (function() {
             var object = {};
             if (options.arrays || options.defaults)
                 object.drawlist = [];
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.totalvalue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.totalvalue = options.longs === String ? "0" : 0;
             if (message.drawlist && message.drawlist.length) {
                 object.drawlist = [];
                 for (var j = 0; j < message.drawlist.length; ++j)
                     object.drawlist[j] = $root.msg.LuckyDrawItem.toObject(message.drawlist[j], options);
             }
+            if (message.totalvalue != null && message.hasOwnProperty("totalvalue"))
+                if (typeof message.totalvalue === "number")
+                    object.totalvalue = options.longs === String ? String(message.totalvalue) : message.totalvalue;
+                else
+                    object.totalvalue = options.longs === String ? $util.Long.prototype.toString.call(message.totalvalue) : options.longs === Number ? new $util.LongBits(message.totalvalue.low >>> 0, message.totalvalue.high >>> 0).toNumber() : message.totalvalue;
             return object;
         };
 
