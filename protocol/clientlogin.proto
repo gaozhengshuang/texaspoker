@@ -2,10 +2,17 @@
 package msg;
 import "define.proto";
 
-// 客户端请求登陆
+// 账号密码登陆
 message C2L_ReqLogin {
     optional string account = 1;
     optional string passwd  = 2;
+}
+
+// 微信小游戏登陆
+message C2L_ReqLoginWechat {
+    optional opendid = 1;
+    optional face = 2;
+    optional nickname = 3;
 }
 
 
