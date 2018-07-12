@@ -10,7 +10,7 @@ module game {
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
                     createGameScene();
                 }, "msg.GW2C_SendUserInfo");
-                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult);
+                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult,loginUserInfo.account);
                 if (loginResult.errcode == "") {
 
                 } else {
@@ -32,7 +32,8 @@ module game {
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
                     createGameScene();
                 }, "msg.GW2C_SendUserInfo");
-                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult);
+
+                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult,msg.openid);
                 if (loginResult.errcode == "") {
 
                 } else {
@@ -50,7 +51,7 @@ module game {
             
         }
 
-        private connectLoginGate(gwResult: msg.IL2C_RetLogin) {
+        private connectLoginGate(gwResult: msg.IL2C_RetLogin,account:string = "") {
             let d = defer();
             ClientNet.getInstance().onConnectClose();
             NotificationCenter.once(this, () => {
@@ -59,9 +60,9 @@ module game {
                     NotificationCenter.once(this, (data: msg.IGW2C_RetLogin) => {
                         d.resolve(data);
                     }, "msg.GW2C_RetLogin");
-
+                    
                     sendMessage("msg.C2GW_ReqLogin", msg.C2GW_ReqLogin.encode({
-                        account: loginUserInfo.account,
+                        account: account,
                         verifykey: gwResult.verifykey,
                     }));
                 }, ClientNet.SOCKET_CONNECT_SUCCESS);
@@ -81,11 +82,11 @@ module game {
             return d.promise();
         }
 
-         private connectWxLoginGW(msg) {
+         private connectWxLoginGW(m:msg.C2L_ReqLoginWechat) {
             let d = defer();
             ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
             NotificationCenter.once(this, () => {
-                sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode(msg));
+                sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode(m));
                 NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
                     d.resolve(data);
                 }, "msg.L2C_RetLogin");

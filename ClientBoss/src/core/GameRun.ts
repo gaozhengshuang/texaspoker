@@ -46,17 +46,14 @@ module game {
                     let gender = res.gender;
                     let country = res.country;
                     let province = res.province
-                    
+
+                DataManager.playerModel.userInfo.face = avatarUrl;
+
                     //TODO:使用这些获取的数据
                     console.log("openid: ", openid)
 
-                    // sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode({
-                    //     openid: openid,
-                    //     face: avatarUrl,
-                    //     nickname: nickName
-                    // }));
                     LoginManager.getInstance().wxlogin({
-                         openid: openid,
+                        openid: openid,
                         face: avatarUrl,
                         nickname: nickName
                     })

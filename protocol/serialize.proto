@@ -47,7 +47,7 @@ message LuckyDrawItem {
 }
 message LuckyDrawRecord {
     repeated LuckyDrawItem drawlist = 1;    // 历史记录列表
-    repeated int64 totalvalue = 2;          // 总价值
+    optional int64 totalvalue = 2;          // 总价值
 }
 
 message UserBase {
