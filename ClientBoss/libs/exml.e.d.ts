@@ -62,12 +62,6 @@ declare class PayItemSkin extends eui.Skin{
 }
 declare class ToggleButtonSkin extends eui.Skin{
 }
-declare class LoginRewardSkin extends eui.Skin{
-}
-declare class LoginSceneSkin extends eui.Skin{
-}
-declare class RegisterPanelSkin extends eui.Skin{
-}
 declare class DeliveryItemSkin extends eui.Skin{
 }
 declare class DeliveryPanelSkin extends eui.Skin{
@@ -81,6 +75,12 @@ declare class HistoryMoneySkin extends eui.Skin{
 declare class MainSceneSkin extends eui.Skin{
 }
 declare class UserPanelSkin extends eui.Skin{
+}
+declare class LoginRewardSkin extends eui.Skin{
+}
+declare class LoginSceneSkin extends eui.Skin{
+}
+declare class RegisterPanelSkin extends eui.Skin{
 }
 declare class RankItemSkin extends eui.Skin{
 }

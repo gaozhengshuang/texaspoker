@@ -105,6 +105,7 @@ module game {
                 this.mainGroup.y = 86;
                 this.topBg.height = 172;
                 this.scoreLabel.y = 110;
+                this.backButton.y = 100;
             }
             this._lootList = {};
             for (let i = 0; i < table.TBirckRefresh.length; i++) {

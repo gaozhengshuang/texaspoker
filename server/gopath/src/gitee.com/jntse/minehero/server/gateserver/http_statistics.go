@@ -69,7 +69,7 @@ func TestHttpPostRedPacketPlatform(subcmd []string) {
 	case "diamond":
 		def.HttpRequestIncrDiamonds(uint64(charid), token, tvmid, 1, "跳跳测试添加")
 	case "balance":
-		def.HttpWechatMiniGameGetBalance("oYITD5MPbYAEtLtAD8T0-kkfiPQs")
+		def.HttpWechatMiniGameGetBalance(Redis(),"oYITD5MPbYAEtLtAD8T0-kkfiPQs")
 	default:
 		log.Warn("无效的测试指令 'post %s %d %s'", cmd, charid, token)
 	}
