@@ -70,6 +70,11 @@ module game {
             this.postNotification(PlayerModel.SCORE_UPDATE);
         }
 
+        public incScore(count: number) {
+            this.userInfo.money += count;
+            this.postNotification(PlayerModel.SCORE_UPDATE);
+        }
+
         public getScore() {
             return this.userInfo.money;
         }

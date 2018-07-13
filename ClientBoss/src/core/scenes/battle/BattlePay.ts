@@ -141,7 +141,11 @@ module game {
             console.warn("the os is:", os);
 
             if (os.match(/[Aa]ndroid/gi).length >= 1) {
-                Pay.midasPay(zuanshi)
+                Pay.midasPay(zuanshi,()=>{
+                    DataManager.playerModel.incScore(zuanshi);
+                },()=>{
+                    showDialog("支付失败，请重试", "确定",null);
+                })
             } else if (os.match(/[iOS|ios|IOS]/gi).length >= 1) {
                 showDialog("IOS暂时不支持内购，敬请期待...", "确定", null);
             }
