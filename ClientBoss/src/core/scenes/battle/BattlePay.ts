@@ -136,12 +136,14 @@ module game {
         private payHandle() {
             let g = this._gifts[this._checkedItemIndex - 1];
             let zuanshi = g.rmb * 10;
+            let os = egret.Capabilities.os;
 
-            console.log(g.rmb,zuanshi,this._checkedItemIndex)
-            if (egret.Capabilities.os.match(/[iOS|ios|IOS]/gi)) {
-                showDialog("IOS暂时不支持内购，敬请期待...", "确定", null);
-            } else if (egret.Capabilities.os.match(/[Aa]ndroid/gi)) {
+            console.warn("the os is:", os);
+
+            if (os.match(/[Aa]ndroid/gi).length >= 1) {
                 Pay.midasPay(zuanshi)
+            } else if (os.match(/[iOS|ios|IOS]/gi).length >= 1) {
+                showDialog("IOS暂时不支持内购，敬请期待...", "确定", null);
             }
         }
         private static _instance: BattlePay;
