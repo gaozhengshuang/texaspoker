@@ -847,10 +847,6 @@
 		},
 		{
 			"compress":false,
-			"key":"ui/bagGo"
-		},
-		{
-			"compress":false,
 			"key":"ui/boxBuff1"
 		},
 		{
@@ -911,11 +907,79 @@
 		},
 		{
 			"compress":false,
-			"key":"ui/deliveryBtn"
+			"key":"login/inviteFriendsImg"
 		},
 		{
 			"compress":false,
-			"key":"ui/historyMoneyBtn"
+			"key":"ui/bag/backBagBtn"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/bagGo"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/deliveryBtn"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/deliverybtnBg"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/deliveryNoTxt"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/deliveryOkTxt"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/deliverySel"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/deliveryTitle"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/historyMoneyBtn"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/historyMoneyTitle"
+		},
+		{
+			"compress":false,
+			"key":"ui/bag/historyMoneyTitleBg"
+		},
+		{
+			"compress":false,
+			"key":"user/addressBg"
+		},
+		{
+			"compress":false,
+			"key":"user/addressImg"
+		},
+		{
+			"compress":false,
+			"key":"user/adrBg"
+		},
+		{
+			"compress":false,
+			"key":"user/deliveryAdressBtn"
+		},
+		{
+			"compress":false,
+			"key":"user/headBg"
+		},
+		{
+			"compress":false,
+			"key":"user/headBorder"
+		},
+		{
+			"compress":false,
+			"key":"user/updateBtn"
 		}
 	]
 }

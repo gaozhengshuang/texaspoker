@@ -525,6 +525,7 @@ func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message inte
 	Addr := tmsg.GetInfo()
 	user.AddAddress(Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
 	user.SendAddress()
+	user.SendNotify("设置成功")
 	log.Info("玩家[%s %d] 修改收货地址，新地址[%s %s %s]", user.Name(), user.Id(), Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
 }
 

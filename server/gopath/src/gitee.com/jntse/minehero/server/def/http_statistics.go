@@ -871,4 +871,184 @@ func HttpWechatCompanyPay(openid string, amount int64) string {
 	return ""
 }
 
+// 获取微信AccessToken
+func HttpWechatAccessToken() (string) {
+	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
+		tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret)
+	resp, geterr := network.HttpGet(url)
+	if geterr != nil {
+		log.Error("获取微信 AccessToken失败 error[%s] resp[%#v]", geterr, resp)
+		return ""
+	}
+
+	if resp.Code != http.StatusOK { 
+		log.Info("推送失败 errcode[%d] status[%s]", resp.Code, resp.Status)
+		return ""
+	}
+
+	type stAccessToken struct {
+		Access_token string
+		Expires_in int64
+	}
+
+	objResp := &stAccessToken{}
+	unerr := json.Unmarshal(resp.Body, objResp)
+	if unerr != nil {
+		log.Info("HttpWechatAccessToken json.Unmarshal Fail[%s] ", unerr)
+		return ""
+	}
+	log.Trace("获取微信AccessToken成功[%#v]", objResp)
+	return objResp.Access_token
+}
+
+
+// 微信小游戏查询余额
+func HttpWechatMiniGameGetBalance(openid string) (int64, string) {
+	if openid == "" {
+		return 0, "玩家微信openid是空"
+	}
+
+	//
+	access_token := HttpWechatAccessToken()
+	if access_token == "" {
+		return 0, "无法获取 access_token"
+	}
+
+	mapset := make(map[string]interface{})
+	mapset["openid"] = openid
+	mapset["appid"] = tbl.Global.Wechat.AppID
+	mapset["offer_id"] = tbl.Global.WechatMiniGame.MidasOfferID
+	mapset["ts"] = util.CURTIME()
+	mapset["zone_id"] = "1"
+	mapset["pf"] = "android"
+	//mapset["user_ip"] = ""
+	mapset["sig"] = ""
+	mapset["access_token"] = access_token
+	mapset["mp_sig"] = ""
+
+	//
+	Sigin := func() string {
+		sortKeys := make(sort.StringSlice,0)
+		sortKeys = append(sortKeys, "openid")
+		sortKeys = append(sortKeys, "appid")
+		sortKeys = append(sortKeys, "offer_id")
+		sortKeys = append(sortKeys, "ts")
+		sortKeys = append(sortKeys, "zone_id")
+		sortKeys = append(sortKeys, "pf")
+		sortKeys.Sort()
+
+		sortVal := ""
+		for _, v := range sortKeys {
+			if sortVal != "" { sortVal += "&" }
+			if str, ok := mapset[v].(string); ok == true {
+				keypair := v + "=" + str
+				sortVal += keypair
+			}else if num, ok := mapset[v].(int64); ok == true {
+				keypair := v + "=" + strconv.FormatInt(num, 10)
+				sortVal += keypair
+			}else {
+				log.Error("签名拼接参数[%s]的类型不是int64或者string", v )
+				return "签名拼接参数失败"
+			}
+		}
+
+		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/getbalance&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
+		sign := util.HMAC_SHA256(tbl.Global.WechatMiniGame.MidasSecret, stringSignTemp)	// HMAC-SHA256签名方式
+		mapset["sig"] = sign
+		return ""
+	}
+	if errcode := Sigin(); errcode != "" {
+		return 0, errcode
+	}
+
+
+	MpSign := func() string {
+		sortKeys := make(sort.StringSlice,0)
+		sortKeys = append(sortKeys, "openid")
+		sortKeys = append(sortKeys, "appid")
+		sortKeys = append(sortKeys, "offer_id")
+		sortKeys = append(sortKeys, "ts")
+		sortKeys = append(sortKeys, "zone_id")
+		sortKeys = append(sortKeys, "pf")
+		sortKeys = append(sortKeys, "sig")
+		sortKeys = append(sortKeys, "access_token")
+		sortKeys.Sort()
+
+		sortVal := ""
+		for _, v := range sortKeys {
+			if sortVal != "" { sortVal += "&" }
+			if str, ok := mapset[v].(string); ok == true {
+				keypair := v + "=" + str
+				sortVal += keypair
+			}else if num, ok := mapset[v].(int64); ok == true {
+				keypair := v + "=" + strconv.FormatInt(num, 10)
+				sortVal += keypair
+			}else {
+				log.Error("签名拼接参数[%s]的类型不是int64或者string", v )
+				return "签名拼接参数失败"
+			}
+		}
+
+		session_key := "V7Q38/i2KXaqrQyl2Yx9Hg=="
+		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/getbalance&method=POST&session_key=" + session_key
+		sign := util.HMAC_SHA256(session_key, stringSignTemp)	// HMAC-SHA256签名方式
+		mapset["mp_sig"] = sign
+		return ""
+	}
+	if errcode := MpSign(); errcode != "" {
+		return 0, errcode
+	}
+
+
+	// 序列化
+	url := tbl.Global.WechatMiniGame.MidasBalance + access_token
+	postbody, jsonerr := json.Marshal(mapset)
+	if jsonerr != nil {
+		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)
+		return 0, "json.Marshal Fail"
+	}
+	log.Trace("玩家[%s] url[%s] postbody[%s]", openid, url, postbody)
+
+
+	// post
+	resp, posterr := network.HttpPost(url, util.BytesToString(postbody))
+	if posterr != nil {
+		log.Error("玩家[%s] 推送失败 error[%s] resp[%#v]", openid, posterr, resp)
+		return 0, "HttpPost失败"
+	}
+
+	// response
+	if resp.Code != http.StatusOK { 
+		log.Info("玩家[%s] 推送失败 errcode[%d] status[%s]", openid, resp.Code, resp.Status)
+		return 0, "HttpPost ErrorCode"
+	}
+	log.Trace("玩家[%s] 推送完成 resp.body=\n%s", openid, util.BytesToString(resp.Body))
+
+
+	// 解析
+	type stUserBalance struct {
+		Errcode	int64 	// 错误码
+		Errmsg	string  // 错误信息
+		Balance	int64 	// 游戏币个数（包含赠送）
+		Ben_balance	int64 	// 赠送游戏币数量（赠送游戏币数量）
+		First_save	bool 	// 是否满足历史首次充值
+		Save_amt	int64 	// 累计充值金额的游戏币数量
+		Save_sum	int64 	// 历史总游戏币金额
+		Cost_sum	int64 	// 历史总消费游戏币金额
+		Present_sum	int64 	// 历史累计收到赠送金额
+	}
+	objResp := &stUserBalance{}
+	unerr := json.Unmarshal(resp.Body, objResp)
+	if unerr != nil {
+		log.Info("HttpWechatAccessToken json.Unmarshal Fail[%s] ", unerr)
+		return 0, "json.Unmarsha失败"
+	}
+
+	if objResp.Errcode != 0 {
+		log.Error("微信端返回错误 errcode[%d] objResp[%#v]", objResp.Errcode, objResp)
+		return 0, "微信端返回错误"
+	}
+
+	return objResp.Balance, ""
+}
 

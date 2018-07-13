@@ -68,6 +68,7 @@
 		<game:IconButton id="userButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="-300.5" verticalCenter="493.5" x="557" y="1015"/>
 		<game:IconButton id="rechargeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="-174.5" verticalCenter="493.5" x="567" y="1025"/>
 		<game:IconButton id="bagButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="303.5" verticalCenter="495.5" x="577" y="1035"/>
+		<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="-319.5" verticalCenter="-507.5" x="14" y="16"/>
 	</e:Group>
 	<e:Group id="penetrationGroup" touchChildren="false" touchEnabled="false" left="5" bottom="30" height="100" width="100" visible="false">
 		<e:Image id="penetrationBallImage" source="ball/3" y="61" x="190"/>
@@ -82,7 +83,7 @@
 	</e:Group>
 	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff"/>
 
-	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="-319.5" verticalCenter="-507.5"/>
+
 	<e:Label id="hitLabel" text="" stroke="2" strokeColor="0xFFFFFF" right="20" top="20" textColor="0x898989" visible="false"/>
 	<e:Label id="noticeLabel" text="" y="92" textColor="0xff678e" horizontalCenter="0"/>
 	<e:Group id="guideGroup" width="720" height="100%" touchChildren="false" touchEnabled="true">

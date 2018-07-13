@@ -29,6 +29,7 @@ module game {
             this._touchEvent = [
                 {target: this.closeButton, callBackFunc: this.closeHandle},
                 {target: this.luckyButton, callBackFunc: this.luckyHandle},
+                {target: this.deliveryButton, callBackFunc: this.deliveryHandle},
                 {target: this.historyMoneyButton, callBackFunc: this.historyHandle},
             ];
             this.registerEvent();
@@ -65,6 +66,11 @@ module game {
         private luckyHandle() {
             this.closeHandle();
             openPanel(PanelType.lucky);
+        }
+
+        private deliveryHandle() {
+            this.closeHandle();
+            openPanel(PanelType.delivery);
         }
 
         private historyHandle() {

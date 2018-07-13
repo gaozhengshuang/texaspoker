@@ -379,4 +379,15 @@ module game {
     export function showDialog(contentTxt: string, btnTxt: string, func: Function = null) {
         CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func);
     }
+
+    export function TextCopy(message) {
+        var input = document.createElement("input");
+        input.value = message;
+        document.body.appendChild(input);
+        input.select();
+        input.setSelectionRange(0, input.value.length);
+        document.execCommand('Copy');
+        document.body.removeChild(input);
+        showTips("复制成功!");
+    }
 }

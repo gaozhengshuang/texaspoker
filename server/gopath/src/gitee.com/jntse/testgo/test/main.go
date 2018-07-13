@@ -51,6 +51,10 @@ func main() {
 	util.ContainsSpecialCharacter("[~!@#$%^&*()/\\|,.<>?\"'();:_+-={} ")
 	util.ContainsSpecialCharacter("①⑴㈠")
 
+	//
+	fmt.Println(util.MD5("md5测试"))
+	fmt.Println(util.SHA256("md5测试"))
+	fmt.Println(util.HMAC_SHA256("this is key","md5测试"))
 
 	//
 	var reflectvar interface{} = "reflect test"
