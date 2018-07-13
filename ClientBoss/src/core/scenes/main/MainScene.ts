@@ -9,10 +9,10 @@ module game {
         rankLabel: eui.Label;
 
         protected init() {
-                this.playButton.icon = "ui_json.main_play";
-            this.rankButton.icon = "ui_json.main_paihang";
-            this.userButton.icon = "ui_json.main_userMainBtn";
-            this.luckyButton.icon = "ui_json.main_luckMainBtn";
+                this.playButton.icon = "ui_json.play";
+            this.rankButton.icon = "ui_json.paihang";
+            this.userButton.icon = "ui_json.userMainBtn";
+            this.luckyButton.icon = "ui_json.luckMainBtn";
         this.titleImage.y = gameConfig.curHeight() * 0.1;
         }
 

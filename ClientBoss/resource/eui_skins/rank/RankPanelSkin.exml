@@ -2,9 +2,9 @@
 <e:Skin class="RankPanelSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect width="720" height="100%" fillColor="0xEEEEEE" fillAlpha="0.8" y="-1"/>
 	<e:Group id="titleGroup" width="720" height="1100" touchEnabled="false" horizontalCenter="0" verticalCenter="0">
-		<e:Image id="rankbg" y="129" scaleX="1" scaleY="1" horizontalCenter="0" source="ui/win/rankBg"/>
+		<e:Image id="rankbg" y="129" scaleX="1" scaleY="1" horizontalCenter="0" source="ui_json.rankBg"/>
 		<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="0.5" scaleY="0.5" y="951" horizontalCenter="0"/>
-		<e:Image source="ui/rank/bg" x="129" y="98.35999999999999" scaleX="1" scaleY="1"/>
+		<e:Image source="ui_json.bg" x="129" y="98.35999999999999" scaleX="1" scaleY="1"/>
 		<e:Label id="rankNameLabel" text="好友排行榜" touchEnabled="false" size="30" textColor="0xffffff" horizontalCenter="-132" verticalCenter="-417" x="153" y="118" scaleX="1" scaleY="1"/>
 		<game:IconButton id="friendButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" x="403" y="99.02" visible="false"/>
 		<game:IconButton id="worldButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" x="509.64" y="99.02"/>

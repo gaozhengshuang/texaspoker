@@ -27,7 +27,7 @@
 		</tween:TweenGroup>
 	</w:Declarations>
 	<e:Group id="group" width="720" height="1100" touchEnabled="false" horizontalCenter="0" verticalCenter="0">
-		<e:Image id="image" horizontalCenter="-3" verticalCenter="-61.5" anchorOffsetY="0" height="530" anchorOffsetX="0" width="720" source="ui/loginRewardGold"/>
+		<e:Image id="image" horizontalCenter="-3" verticalCenter="-61.5" anchorOffsetY="0" height="530" anchorOffsetX="0" width="720" source="ui_json.loginRewardGold"/>
 		<game:IconButton id="btn_ok" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="-55.5" horizontalCenter="-2.5"/>
 	</e:Group>
 </e:Skin>

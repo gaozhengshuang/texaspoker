@@ -26,24 +26,24 @@ const config: ResourceManagerConfig = {
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     new WxgamePlugin(),
 
-                    new ResSplitPlugin({
-                        verbose: true, matchers: [
-                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
-                            { from: "resource/assets/!(login)/**", to: `${remote}_alpha`},
-                        ]
-                    }),
+                    // new ResSplitPlugin({
+                    //     verbose: true, matchers: [
+                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
+                    //         { from: "resource/assets/!(login)/**", to: `${remote}_alpha`},
+                    //     ]
+                    // }),
 
-                    new EmitResConfigFilePlugin({
-                        output: "resource/default.res.json",
-                        typeSelector: config.typeSelector,
-                        nameSelector: (p: string) => {
-                            var b = p.lastIndexOf(".");
-                            var t = "assets/"
-                            var name = p.substring(p.indexOf(t) + t.length, b);
-                            return name;
-                        },
-                        groupSelector: p => "preload"
-                    }),
+                    // new EmitResConfigFilePlugin({
+                    //     output: "resource/default.res.json",
+                    //     typeSelector: config.typeSelector,
+                    //     nameSelector: (p: string) => {
+                    //         var b = p.lastIndexOf(".");
+                    //         var t = "assets/"
+                    //         var name = p.substring(p.indexOf(t) + t.length, b);
+                    //         return name;
+                    //     },
+                    //     groupSelector: p => "preload"
+                    // }),
                     
 
                     new UglifyPlugin([{
@@ -71,24 +71,24 @@ const config: ResourceManagerConfig = {
                     //     ]
                     // }),
 
-                    new ResSplitPlugin({
-                        verbose: true, matchers: [
-                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
-                            { from: "resource/assets/!(login)/**", to: remote },
-                        ]
-                    }),
+                    // new ResSplitPlugin({
+                    //     verbose: true, matchers: [
+                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
+                    //         { from: "resource/assets/!(login)/**", to: remote },
+                    //     ]
+                    // }),
 
-                    new EmitResConfigFilePlugin({
-                        output: "resource/default.res.json",
-                        typeSelector: config.typeSelector,
-                        nameSelector: (p: string) => {
-                            var b = p.lastIndexOf(".");
-                            var t = "assets/"
-                            var name = p.substring(p.indexOf(t) + t.length, b);
-                            return name;
-                        },
-                        groupSelector: p => "preload"
-                    }),
+                    // new EmitResConfigFilePlugin({
+                    //     output: "resource/default.res.json",
+                    //     typeSelector: config.typeSelector,
+                    //     nameSelector: (p: string) => {
+                    //         var b = p.lastIndexOf(".");
+                    //         var t = "assets/"
+                    //         var name = p.substring(p.indexOf(t) + t.length, b);
+                    //         return name;
+                    //     },
+                    //     groupSelector: p => "preload"
+                    // }),
 
                     new UglifyPlugin([{
                         sources: ["main.js"],
