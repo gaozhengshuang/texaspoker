@@ -55,10 +55,8 @@ def replace_exml(path)
             if line =~ /\bsource=\"*\"\b/
                 oripos = f.tell()
                 puts "lineA\t\t\t\t" + line
-                puts "lineB\t\t\t\t" + f.readline()
+                # puts "lineB\t\t\t\t" + f.readline()
                 pline = proc_line(line)
-                f.seek(oripos,IO::SEEK_SET)
-                f.write(pline)
                 puts "lineC\t\t\t\t" + line
                 puts "后来位置： " + f.tell().to_s
                 puts "lineE\t\t\t\t" + f.readline().to_s
