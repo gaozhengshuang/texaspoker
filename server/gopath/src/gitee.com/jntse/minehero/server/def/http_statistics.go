@@ -1,6 +1,7 @@
 package def
 import (
 	"net/http"
+	"net/url"
 	"strings"
 	"strconv"
 	"crypto/md5"
@@ -907,7 +908,136 @@ func HttpWechatAccessToken() (string) {
 }
 
 
-// 微信小游戏查询余额
+// --------------------------------------------------------------------------
+/// @brief 微信小游戏虚拟支付sig签名
+/// @brief 坑：这里面不需要 access_token !!!
+///
+/// @param map[string]interface{}
+///
+/// @return 
+// --------------------------------------------------------------------------
+func WechatMiniGameSign(dataset *map[string]interface{}, RequestURI string) (errmsg string) {
+	mapset := *dataset
+	sortKeys := make(sort.StringSlice,0)
+	sortKeys = append(sortKeys, "openid")
+	sortKeys = append(sortKeys, "appid")
+	sortKeys = append(sortKeys, "offer_id")
+	sortKeys = append(sortKeys, "ts")
+	sortKeys = append(sortKeys, "zone_id")
+	sortKeys = append(sortKeys, "pf")
+	sortKeys.Sort()
+
+	sortVal := ""
+	for _, v := range sortKeys {
+		if sortVal != "" { sortVal += "&" }
+		if str, ok := mapset[v].(string); ok == true {
+			keypair := v + "=" + str
+			sortVal += keypair
+		}else if num, ok := mapset[v].(int64); ok == true {
+			keypair := v + "=" + strconv.FormatInt(num, 10)
+			sortVal += keypair
+		}else {
+			log.Error("签名拼接参数[%s]的类型不是int64或者string", v )
+			return "签名拼接参数失败"
+		}
+	}
+
+	//stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
+	stringSignTemp := sortVal + "&org_loc=" + RequestURI + "&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
+	//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
+	sign := util.HMAC_SHA256(tbl.Global.WechatMiniGame.MidasSecret, stringSignTemp)	// HMAC-SHA256签名方式
+	mapset["sig"] = sign
+	return ""
+}
+
+
+// --------------------------------------------------------------------------
+/// @brief 微信小游戏虚拟支付mp_sig签名
+/// @brief 坑：这里面需要 access_token !!!
+///
+/// @param map[string]interface{}
+///
+/// @return 
+// --------------------------------------------------------------------------
+func WechatMiniGameSign_Mp(dataset *map[string]interface{}, redis *redis.Client, access_token, RequestURI string) (errmsg string) {
+	mapset := *dataset
+	sortKeys := make(sort.StringSlice,0)
+	sortKeys = append(sortKeys, "openid")
+	sortKeys = append(sortKeys, "appid")
+	sortKeys = append(sortKeys, "offer_id")
+	sortKeys = append(sortKeys, "ts")
+	sortKeys = append(sortKeys, "zone_id")
+	sortKeys = append(sortKeys, "pf")
+	sortKeys = append(sortKeys, "sig")
+	sortKeys = append(sortKeys, "access_token")
+	sortKeys.Sort()
+
+	sortVal := ""
+	for _, v := range sortKeys {
+		if sortVal != "" { sortVal += "&" }
+		if v == "access_token" {
+			keypair := v + "=" + access_token
+			sortVal += keypair
+		}else if str, ok := mapset[v].(string); ok == true {
+			keypair := v + "=" + str
+			sortVal += keypair
+		}else if num, ok := mapset[v].(int64); ok == true {
+			keypair := v + "=" + strconv.FormatInt(num, 10)
+			sortVal += keypair
+		}else {
+			log.Error("签名拼接参数[%s]的类型不是int64或者string", v )
+			return "签名拼接参数失败"
+		}
+	}
+
+	openid := mapset["openid"].(string)
+	session_key, _ := redis.Get(fmt.Sprintf("wechat_openid_%s_sessionkey", openid)).Result()
+	if session_key == "" {
+		log.Error("获取openid[%s]的SessionKey失败", openid)
+		return "找不到SessionKey"
+	}
+
+	//stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&session_key=" + session_key
+	stringSignTemp := sortVal + "&org_loc=" + RequestURI + "&method=POST&session_key=" + session_key
+	//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
+	sign := util.HMAC_SHA256(session_key, stringSignTemp)	// HMAC-SHA256签名方式
+	mapset["mp_sig"] = sign
+
+	return ""
+}
+
+
+// --------------------------------------------------------------------------
+/// @brief 微信小游戏获取请求连接的URI
+///
+/// @param string
+///
+/// @return 
+// --------------------------------------------------------------------------
+func WechatMiniGameGetRequestURI(rawurl string) (uri string, errmsg string) {
+	u, err := url.Parse(rawurl)
+	if err != nil {
+		return "", "解析请求连接URI失败"
+	}
+
+	fulluri := u.RequestURI()
+	index := strings.Index(fulluri, "?")
+	if index == -1 {
+		return "", "请求连接URI没有'?'符号"
+	}
+
+	return fulluri[:index], ""
+}
+
+// --------------------------------------------------------------------------
+/// @brief 微信小游戏虚拟支付查询余额
+///
+/// @param redis.Client
+/// @param 
+/// @param string
+///
+/// @return 
+// --------------------------------------------------------------------------
 func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, string) {
 	if openid == "" {
 		return 0, "玩家微信openid是空"
@@ -931,104 +1061,35 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, st
 	//mapset["access_token"] = access_token
 	mapset["mp_sig"] = ""
 
+	// 获取URI
+	rawurl := tbl.Global.WechatMiniGame.MidasBalance + access_token
+	RequestURI, errmsg := WechatMiniGameGetRequestURI(rawurl)
+	if errmsg != "" {
+		return 0, errmsg
+	}
+
+
 	// 坑：这里面不需要 access_token
-	Sigin := func() string {
-		sortKeys := make(sort.StringSlice,0)
-		sortKeys = append(sortKeys, "openid")
-		sortKeys = append(sortKeys, "appid")
-		sortKeys = append(sortKeys, "offer_id")
-		sortKeys = append(sortKeys, "ts")
-		sortKeys = append(sortKeys, "zone_id")
-		sortKeys = append(sortKeys, "pf")
-		sortKeys.Sort()
-
-		sortVal := ""
-		for _, v := range sortKeys {
-			if sortVal != "" { sortVal += "&" }
-			if str, ok := mapset[v].(string); ok == true {
-				keypair := v + "=" + str
-				sortVal += keypair
-			}else if num, ok := mapset[v].(int64); ok == true {
-				keypair := v + "=" + strconv.FormatInt(num, 10)
-				sortVal += keypair
-			}else {
-				log.Error("签名拼接参数[%s]的类型不是int64或者string", v )
-				return "签名拼接参数失败"
-			}
-		}
-
-		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
-		//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
-		sign := util.HMAC_SHA256(tbl.Global.WechatMiniGame.MidasSecret, stringSignTemp)	// HMAC-SHA256签名方式
-		mapset["sig"] = sign
-		return ""
+	if errmsg := WechatMiniGameSign(&mapset, RequestURI); errmsg != "" {
+		return 0, errmsg
 	}
-	if errcode := Sigin(); errcode != "" {
-		return 0, errcode
-	}
-
 
 	// 坑：这里面需要 access_token
-	MpSign := func() string {
-		sortKeys := make(sort.StringSlice,0)
-		sortKeys = append(sortKeys, "openid")
-		sortKeys = append(sortKeys, "appid")
-		sortKeys = append(sortKeys, "offer_id")
-		sortKeys = append(sortKeys, "ts")
-		sortKeys = append(sortKeys, "zone_id")
-		sortKeys = append(sortKeys, "pf")
-		sortKeys = append(sortKeys, "sig")
-		sortKeys = append(sortKeys, "access_token")
-		sortKeys.Sort()
-
-		sortVal := ""
-		for _, v := range sortKeys {
-			if sortVal != "" { sortVal += "&" }
-			if v == "access_token" {
-				keypair := v + "=" + access_token
-				sortVal += keypair
-			}else if str, ok := mapset[v].(string); ok == true {
-				keypair := v + "=" + str
-				sortVal += keypair
-			}else if num, ok := mapset[v].(int64); ok == true {
-				keypair := v + "=" + strconv.FormatInt(num, 10)
-				sortVal += keypair
-			}else {
-				log.Error("签名拼接参数[%s]的类型不是int64或者string", v )
-				return "签名拼接参数失败"
-			}
-		}
-
-		//session_key := "4PgcBL24PCc9H4Xcbm7FvA=="
-		session_key, _ := redis.Get(fmt.Sprintf("wechat_openid_%s_sessionkey",openid)).Result()
-		if session_key == "" {
-			log.Error("获取openid[%s]的SessionKey失败", openid)
-			return "找不到SessionKey"
-		}
-
-		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&session_key=" + session_key
-		//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
-		sign := util.HMAC_SHA256(session_key, stringSignTemp)	// HMAC-SHA256签名方式
-		mapset["mp_sig"] = sign
-		return ""
+	if errmsg := WechatMiniGameSign_Mp(&mapset, redis, access_token, RequestURI); errmsg != "" {
+		return 0, errmsg
 	}
-	if errcode := MpSign(); errcode != "" {
-		return 0, errcode
-	}
-
 
 	// 序列化
-	url := tbl.Global.WechatMiniGame.MidasBalance + access_token
 	postbody, jsonerr := json.Marshal(mapset)
 	if jsonerr != nil {
 		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)
 		return 0, "json.Marshal Fail"
 	}
-	log.Trace("玩家[%s] url[%s] postbody[%s]", openid, url, postbody)
+	log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
 
 
 	// post
-	resp, posterr := network.HttpPost(url, util.BytesToString(postbody))
+	resp, posterr := network.HttpPost(rawurl, util.BytesToString(postbody))
 	if posterr != nil {
 		log.Error("玩家[%s] 推送失败 error[%s] resp[%#v]", openid, posterr, resp)
 		return 0, "HttpPost失败"
