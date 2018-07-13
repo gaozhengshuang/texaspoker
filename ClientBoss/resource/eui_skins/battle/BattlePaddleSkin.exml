@@ -29,9 +29,9 @@
 	<e:Image source="paddle/paota" x="24.5" y="76"/>
 	<e:Image source="paddle/di" x="42" y="93" touchEnabled="false"/>
 	<e:Image id="waveMask" source="paddle/di" x="42" y="93" touchEnabled="false"/>
-	<e:Image id="waveImage" source="paddle/wave/00000" x="0" y="173" touchEnabled="true"/>
+	<e:Image id="waveImage" x="0" y="173" touchEnabled="true" source="paddle/wave/wave_00000"/>
 	<e:Label id="spLabel" text="能量" y="170.99" size="18" horizontalCenter="1.5" touchEnabled="false"/>
 	<e:Label id="costLabel" text="5" y="134.5" size="35" textAlign="center" width="227" anchorOffsetX="0" horizontalCenter="0" touchEnabled="false" fontFamily="DynoBold"/>
-	<e:Image id="spImage" scaleX="1.5" scaleY="1.5" verticalCenter="11.5" horizontalCenter="1.5" touchEnabled="false" source="paddle/sp/00000" visible="false"/>
-	<e:Image id="boomImage" source="cube/redBoom/00000" bottom="-91" touchEnabled="false" scaleX="2" scaleY="2" horizontalCenter="0" visible="false"/>
+	<e:Image id="spImage" scaleX="1.5" scaleY="1.5" verticalCenter="11.5" horizontalCenter="1.5" touchEnabled="false" source="paddle/sp/sp_00000" visible="false"/>
+	<e:Image id="boomImage" bottom="-91" touchEnabled="false" scaleX="2" scaleY="2" horizontalCenter="0" source="cube/redBoom/redBoom_00000" visible="false"/>
 </e:Skin>
