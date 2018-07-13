@@ -2,18 +2,17 @@ module game {
     export class UserPanel extends PanelComponent {
         closeButton: IconButton;
         addressButton: IconButton;
-        btn_copy: IconButton;
-        img_comeTask: eui.Image;
+        inviteFriendButton: IconButton;
+
         img_gameTask: eui.Image;
         img_becomeonTask: eui.Image;
 
-        img_nocomeTask: eui.Image;
         img_nogameTask: eui.Image;
         img_nobecomeonTask: eui.Image;
 
         labelName: eui.Label;
         labelId: eui.Label;
-        labelInvitationcode: eui.Label;
+        curMoneyTxt: eui.Label;
 
         img_userhead:eui.Image;
         img_mask:eui.Image;
@@ -26,14 +25,14 @@ module game {
             this.img_userhead.mask = this.img_mask;
             this.closeButton.icon = "lucky/luckycloseBtn";
             this.addressButton.icon = "user/deliveryAdressBtn";
-            this.btn_copy.icon = "user/copyButton";
+            this.inviteFriendButton.icon = "login/inviteFriendsImg";
         }
 
         protected beforeShow() {
             this._touchEvent = [
                 {target: this.closeButton, callBackFunc: this.backHandle},
                 {target: this.addressButton, callBackFunc: this.addressHandle},
-                {target: this.btn_copy, callBackFunc: this.copyHandle},
+                {target: this.inviteFriendButton, callBackFunc: this.inviteFriendHandle},
             ];
 
             this.initUser();
@@ -45,10 +44,8 @@ module game {
         private initUser() {
             let userInfo = DataManager.playerModel.userInfo;
             this.labelId.text = `ID  ${userInfo.userid}`;
-            this.labelInvitationcode.text = "TJ"+userInfo.userid;
             this.labelName.text = userInfo.name;
             
-            this.img_comeTask.visible = false;
             this.img_gameTask.visible = false;
             this.img_becomeonTask.visible = false;
 
@@ -73,6 +70,10 @@ module game {
 
         private copyHandle() {
             TextCopy("TJ"+DataManager.playerModel.userInfo.userid);
+        }
+
+        private inviteFriendHandle() {
+            showTips("功能暂未开放,敬请期待...", true);
         }
 
         private static _instance: UserPanel;
