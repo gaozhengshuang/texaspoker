@@ -886,24 +886,29 @@ func HttpWechatAccessToken() (string) {
 		return ""
 	}
 
-	type stAccessToken struct {
+	type RespAccessToken struct {
 		Access_token string
 		Expires_in int64
 	}
 
-	objResp := &stAccessToken{}
+	objResp := &RespAccessToken{}
 	unerr := json.Unmarshal(resp.Body, objResp)
 	if unerr != nil {
 		log.Info("HttpWechatAccessToken json.Unmarshal Fail[%s] ", unerr)
 		return ""
 	}
-	log.Trace("获取微信AccessToken成功[%#v]", objResp)
-	return objResp.Access_token
+	if objResp.Access_token != "" {
+		log.Trace("获取微信AccessToken成功[%#v]", objResp)
+		return objResp.Access_token
+	}
+
+	log.Error("获取AccessToken失败返回错误 %s", resp.Body)
+	return ""
 }
 
 
 // 微信小游戏查询余额
-func HttpWechatMiniGameGetBalance(openid string) (int64, string) {
+func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, string) {
 	if openid == "" {
 		return 0, "玩家微信openid是空"
 	}
@@ -989,7 +994,13 @@ func HttpWechatMiniGameGetBalance(openid string) (int64, string) {
 			}
 		}
 
-		session_key := "V7Q38/i2KXaqrQyl2Yx9Hg=="
+		//session_key := "4PgcBL24PCc9H4Xcbm7FvA=="
+		session_key, _ := redis.Get(fmt.Sprintf("wechat_openid_%s_sessionkey",openid)).Result()
+		if session_key == "" {
+			log.Error("获取openid[%s]的SessionKey失败", openid)
+			return "找不到SessionKey"
+		}
+
 		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/getbalance&method=POST&session_key=" + session_key
 		sign := util.HMAC_SHA256(session_key, stringSignTemp)	// HMAC-SHA256签名方式
 		mapset["mp_sig"] = sign
