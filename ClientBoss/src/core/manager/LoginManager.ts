@@ -10,7 +10,7 @@ module game {
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
                     createGameScene();
                 }, "msg.GW2C_SendUserInfo");
-                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult,loginUserInfo.account);
+                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult, loginUserInfo.account);
                 if (loginResult.errcode == "") {
 
                 } else {
@@ -33,7 +33,7 @@ module game {
                     createGameScene();
                 }, "msg.GW2C_SendUserInfo");
 
-                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult,msg.openid);
+                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult, msg.openid);
                 if (loginResult.errcode == "") {
 
                 } else {
@@ -47,11 +47,11 @@ module game {
             }
         }
 
-        private async reqLoginFunc(verifykey: string){
-            
+        private async reqLoginFunc(verifykey: string) {
+
         }
 
-        private connectLoginGate(gwResult: msg.IL2C_RetLogin,account:string = "") {
+        private connectLoginGate(gwResult: msg.IL2C_RetLogin, account: string = "") {
             let d = defer();
             ClientNet.getInstance().onConnectClose();
             NotificationCenter.once(this, () => {
@@ -60,7 +60,7 @@ module game {
                     NotificationCenter.once(this, (data: msg.IGW2C_RetLogin) => {
                         d.resolve(data);
                     }, "msg.GW2C_RetLogin");
-                    
+
                     sendMessage("msg.C2GW_ReqLogin", msg.C2GW_ReqLogin.encode({
                         account: account,
                         verifykey: gwResult.verifykey,
@@ -82,7 +82,7 @@ module game {
             return d.promise();
         }
 
-         private connectWxLoginGW(m:msg.C2L_ReqLoginWechat) {
+        private connectWxLoginGW(m: msg.C2L_ReqLoginWechat) {
             let d = defer();
             ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
             NotificationCenter.once(this, () => {
@@ -111,31 +111,53 @@ module game {
         SceneManager.changeScene(SceneType.login, false);
     }
 
-     export function wxAutoLogin() {
+    function wxTouchGw(openid) {
+        platform.getUserInfo().then((res) => {
+            console.log(res)
+            let nickName = res.nickName;
+            let avatarUrl = res.avatarUrl;
+            let gender = res.gender;
+            let country = res.country;
+            let province = res.province
+
+            DataManager.playerModel.userInfo.face = avatarUrl;
+
+            //TODO:使用这些获取的数据
+            console.log("openid: ", openid)
+
+            LoginManager.getInstance().wxlogin({
+                openid: openid,
+                face: avatarUrl,
+                nickname: nickName
+            })
+        })
+    }
+
+    export function wxAutoLogin() {
         platform.login().then((res) => {
             wxCode = res.code;
 
-            Pay.get_open_id_and_session_key(res.code, (openid, session_key) => {
-                platform.getUserInfo().then((res) => {
-                    console.log(res)
-                    let nickName = res.nickName;
-                    let avatarUrl = res.avatarUrl;
-                    let gender = res.gender;
-                    let country = res.country;
-                    let province = res.province
-
-                    DataManager.playerModel.userInfo.face = avatarUrl;
-
-                    //TODO:使用这些获取的数据
-                    console.log("openid: ", openid)
-
-                    LoginManager.getInstance().wxlogin({
-                        openid: openid,
-                        face: avatarUrl,
-                        nickname: nickName
-                    })
-                })
+            wx.request({
+                url: $registIp,
+                data: { "gmcmd": "wx_login", "tempauthcode": wxCode },
+                header: { 'content-type': 'application/json' },
+                method: "POST",
+                dataType: "",
+                success: (res) => {
+                    console.log('登录服务器返回：', res);
+                    if (res.data.status == 0) {
+                        wxTouchGw(res.data.msg);
+                    } else {
+                        showDialog("登陆失败 " + res.data.msg, "确定", null);
+                    }
+                },
+                fail: (res) => console.log("请求失败", res),
+                complete: null
             });
+
+            // Pay.get_open_id_and_session_key(res.code, (openid, session_key) => {
+            //    wxTouchGw(openid)
+            // });
         });
     }
 

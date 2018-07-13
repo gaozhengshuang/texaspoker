@@ -21,7 +21,7 @@ module game {
         private _lightIndex: number;
         private _giftIndex: number;
 
-        private _gifts=[];
+        private _gifts;
         private _checkedItemIndex: number = 1;
 
         protected getSkinName() {
@@ -31,7 +31,7 @@ module game {
         protected init() {
             this.closeButton && (this.closeButton.icon = "lucky/luckycloseBtn");
             this.startButton && (this.startButton.icon = "ui/b-recharge");
-            // this.bagButton.icon = "lucky/bagBtn";
+
             let testGifts = [
                 { rmb: 6, gold: 60 },
                 { rmb: 30, gold: 300 },
@@ -47,10 +47,8 @@ module game {
         }
 
         protected setGoldCnt(n) {
-            this.goldCnt && (this.goldCnt.text = `${n}金币`);
+            this.goldCnt && (this.goldCnt.text = `${n}枚`);
         }
-
-
 
         protected beforeShow() {
             this._isStart = false;
@@ -101,6 +99,7 @@ module game {
 
         private setGift(gifts, defaultCheck: number = 1) {
             this._gifts = gifts;
+
             let i = 0;
             for (let g of gifts) {
                 ++i;
@@ -134,8 +133,10 @@ module game {
         }
 
         private payHandle() {
+            // console.log(this._checkedItemIndex, this._gifts)
             let g = this._gifts[this._checkedItemIndex - 1];
-            let zuanshi = g.rmb * 10;
+
+            let zuanshi = g.rmb * 10 || 60;
             let os = egret.Capabilities.os;
 
             console.warn("the os is:", os);
