@@ -94,19 +94,28 @@
 
     "//":"微信开放平台",
     "Wechat": {
-        "AppId":"wx03789100061e5d6c",
-        "AppSecret":"81e8f7d08b55f0f4a0ea3c4b15f558c6",
-        "Mchid":"1500100872",
+        "AppId_RRWWJ":"wx03789100061e5d6c",
+        "AppSecret_RRWWJ":"81e8f7d08b55f0f4a0ea3c4b15f558c6",
+        "Mchid_RRWWJ":"1500100872",
+
+        "AppId":"wx50a65298622b1651",
+        "AppSecret":"6934870a36e3d0e3f02e32ef9bd013cb",
+        "Mchid":"1495077762",
         "PaySecret":"80a8c4a9d76c71e1701c001e3a41583e"
     },
 
     "//":"微信小游戏",
     "WechatMiniGame": {
-        "MidasOfferID":"",
-        "MidasSecret":"",
-        "MidasCancelPay":"https://api.weixin.qq.com/cgi-bin/midas/cancelpay?access_token=",
-        "MidasBalance":"https://api.weixin.qq.com/cgi-bin/midas/getbalance?access_token=",
-        "MidasPay":"https://api.weixin.qq.com/cgi-bin/midas/pay?access_token=",
-        "MidasPresent":"https://api.weixin.qq.com/cgi-bin/midas/present?access_token="
+        "MidasOfferID":"1450016022",
+        "MidasSecret":"80a8c4a9d76c71e1701c001e3a41583e",
+        "MidasCancelPay1":"https://api.weixin.qq.com/cgi-bin/midas/cancelpay?access_token=",
+        "MidasBalance1":"https://api.weixin.qq.com/cgi-bin/midas/getbalance?access_token=",
+        "MidasPay1":"https://api.weixin.qq.com/cgi-bin/midas/pay?access_token=",
+        "MidasPresent1":"https://api.weixin.qq.com/cgi-bin/midas/present?access_token=",
+
+        "MidasCancelPay":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/cancelpay?access_token=",
+        "MidasBalance":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/getbalance?access_token=",
+        "MidasPay":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/pay?access_token=",
+        "MidasPresent":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/present?access_token="
     }
 }
