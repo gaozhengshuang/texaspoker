@@ -251,7 +251,7 @@ module game {
                         this.brickColorNumber = gameConfig.TextColors.orangeYellow;
                         break;
                 }
-                this.brickImage.source = `cube/${this._brickData.Id}/${value}`;
+                this.brickImage.source = `cube/${this._brickData.Id}/${this._brickData.Id}_${value}`;
             } else if (this.buffType == BrickType.goldShark) {
                 this.brickImage.source = `cube/goldShark/goldShark_00001`;
 
