@@ -1,0 +1,158 @@
+module game {
+    export class BattlePay extends PanelComponent {
+
+        public luckyGroup: eui.Group;
+        public gift_1: PayItem;
+        public gift_2: PayItem;
+        public gift_3: PayItem;
+        public gift_4: PayItem;
+        public gift_5: PayItem;
+        public gift_6: PayItem;
+        public closeButton: IconButton;
+        public startButton: IconButton;
+        public bagButton: IconButton;
+
+        public goldCnt: eui.Label;
+
+
+        private _playInterval: number;
+        private _giftPro: number[];
+        private _isStart: boolean;
+        private _lightIndex: number;
+        private _giftIndex: number;
+
+        private _gifts;
+        private _checkedItemIndex: number;
+
+        protected getSkinName() {
+            return BattlePaySkin;
+        }
+
+        protected init() {
+            this.closeButton && (this.closeButton.icon = "lucky/luckycloseBtn");
+            this.startButton && (this.startButton.icon = "ui/b-recharge");
+            // this.bagButton.icon = "lucky/bagBtn";
+            let testGifts = [
+                { rmb: 6, gold: 60 },
+                { rmb: 30, gold: 300 },
+                { rmb: 98, gold: 980 },
+                { rmb: 128, gold: 2380 },
+                { rmb: 328, gold: 3280 },
+                { rmb: 648, gold: 6480 },
+            ]
+            let goldCnt = 0;
+            this.setGift(testGifts);
+
+            this.setGoldCnt(DataManager.playerModel.getScore());
+        }
+
+        protected setGoldCnt(n) {
+            this.goldCnt && (this.goldCnt.text = `${n}金币`);
+        }
+
+
+
+        protected beforeShow() {
+            this._isStart = false;
+            this._lightIndex = 0;
+            this._giftIndex = 0;
+
+            this._touchEvent = [
+                { target: this.closeButton, callBackFunc: this.backHandle },
+                { target: this.startButton, callBackFunc: this.payHandle },
+
+            ];
+            this.addTouchEvent();
+            this.registerEvent();
+
+        }
+        private addTouchEvent() {
+           this.gift_1.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle1,this);
+           this.gift_2.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle2,this);
+           this.gift_3.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle3,this);
+           this.gift_4.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle4,this);
+           this.gift_5.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle5,this);
+           this.gift_6.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle6,this);
+        }
+
+        private giftHandle1() { this.uncheckAllGifts(); this.checkGift(1); };
+        private giftHandle2() { this.uncheckAllGifts(); this.checkGift(2); };
+        private giftHandle3() { this.uncheckAllGifts(); this.checkGift(3); };
+        private giftHandle4() { this.uncheckAllGifts(); this.checkGift(4); };
+        private giftHandle5() { this.uncheckAllGifts(); this.checkGift(5); };
+        private giftHandle6() { this.uncheckAllGifts(); this.checkGift(6); };
+
+
+        // protected beforeRemove() {
+        //     if (this._playInterval) {
+        //         egret.clearInterval(this._playInterval);
+        //         this._playInterval = null;
+        //     }
+        //     this.removeEvent()
+        // }
+
+        private registerEvent() {
+            // NotificationCenter.addObserver(this, this.OnGW2C_LuckyDrawHit, "msg.GW2C_LuckyDrawHit");
+        }
+
+        // private removeEvent() {
+        //     NotificationCenter.removeObserver(this, "msg.GW2C_LuckyDrawHit");
+        // }
+
+        private setGift(gifts, defaultCheck: number = 1) {
+            this._gifts = gifts;
+            let i = 0;
+            for (let g of gifts) {
+                ++i;
+                // this[`gift_${i}`].regEvent(`giftHandle${i}`,this);
+                this[`gift_${i}`].setItem(g.rmb, g.gold);
+
+                if (i == defaultCheck) {
+                    this[`gift_${i}`].setChecked(true);
+                } else {
+                    this[`gift_${i}`].setChecked(false);
+                }
+
+            }
+        }
+
+        public uncheckAllGifts() {
+           this.gift_1.setChecked(false);
+           this.gift_2.setChecked(false);
+           this.gift_3.setChecked(false);
+           this.gift_4.setChecked(false);
+           this.gift_5.setChecked(false);
+           this.gift_6.setChecked(false);
+        }
+        public checkGift(i: number) {
+            this[`gift_${i}`].setChecked(true);
+            this._checkedItemIndex = i;
+        }
+
+        private backHandle() {
+            this.remove();
+        }
+
+        private payHandle() {
+            let g = this._gifts[this._checkedItemIndex - 1];
+            let zuanshi = g.rmb * 10;
+
+            console.log(g.rmb,zuanshi,this._checkedItemIndex)
+            if (egret.Capabilities.os.match(/[iOS|ios|IOS]/gi)) {
+                showDialog("IOS暂时不支持内购，敬请期待...", "确定", null);
+            } else if (egret.Capabilities.os.match(/[Aa]ndroid/gi)) {
+                Pay.midasPay(zuanshi)
+            }
+        }
+        private static _instance: BattlePay;
+
+        public static getInstance(): BattlePay {
+            if (!BattlePay._instance) {
+                BattlePay._instance = new BattlePay();
+            }
+            return BattlePay._instance;
+        }
+
+
+    }
+}

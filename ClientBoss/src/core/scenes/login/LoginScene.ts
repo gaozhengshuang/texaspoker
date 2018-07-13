@@ -29,10 +29,10 @@ module game {
 
    
 
-
+        //TODO:如果是微信小程序，则直接登陆
         private async loginHandle() {
         
-            Pay.midasPay();
+            // Pay.midasPay();
 
 
             // let realName = deleteBlank(this.nameLabel.text);

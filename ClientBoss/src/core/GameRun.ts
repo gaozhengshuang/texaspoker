@@ -47,7 +47,7 @@ module game {
                     let country = res.country;
                     let province = res.province
 
-                DataManager.playerModel.userInfo.face = avatarUrl;
+                    DataManager.playerModel.userInfo.face = avatarUrl;
 
                     //TODO:使用这些获取的数据
                     console.log("openid: ", openid)
@@ -60,8 +60,6 @@ module game {
                 })
             });
         });
-
-
         /*
         wxCode = egret.getOption("code");
         wxState = egret.getOption("state");

@@ -943,6 +943,11 @@
 			"url":"assets/paddle/wave/00009.png"
 		},
 		{
+			"name":"ui/b-recharge",
+			"type":"image",
+			"url":"assets/ui/b-recharge.png"
+		},
+		{
 			"name":"ui/badBuffProgress",
 			"type":"image",
 			"url":"assets/ui/badBuffProgress.png"
@@ -976,6 +981,16 @@
 			"name":"ui/boxBuffBg",
 			"type":"image",
 			"url":"assets/ui/boxBuffBg.png"
+		},
+		{
+			"name":"ui/chkPay",
+			"type":"image",
+			"url":"assets/ui/chkPay.png"
+		},
+		{
+			"name":"ui/chkPayBg",
+			"type":"image",
+			"url":"assets/ui/chkPayBg.png"
 		},
 		{
 			"name":"ui/dialogBg",

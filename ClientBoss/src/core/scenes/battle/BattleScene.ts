@@ -112,7 +112,7 @@ module game {
                 this._lootList[info.Max] = [];
                 let pros = splitStringToNumberArray(info.Pro, ";", "-");
                 for (let v of pros) {
-                    this._lootList[info.Max].push({Id: v[0], pro: v[1], limit: info.Limitnum});
+                    this._lootList[info.Max].push({ Id: v[0], pro: v[1], limit: info.Limitnum });
                 }
             }
 
@@ -121,10 +121,10 @@ module game {
             for (let i = 0; i < table.TBirckInfo.length; i++) {
                 let info = table.TBirckInfo[i];
                 if (info.Pro != 0 && info.kind == 1) {
-                    this._goodBuff.push({id: info.Id, pro: info.Pro/10000});
+                    this._goodBuff.push({ id: info.Id, pro: info.Pro / 10000 });
                 }
                 if (info.Pro != 0 && info.kind == 2) {
-                    this._badBuff.push({id: info.Id, pro: info.Pro/10000});
+                    this._badBuff.push({ id: info.Id, pro: info.Pro / 10000 });
                 }
             }
 
@@ -182,7 +182,7 @@ module game {
             const stageHeight = gameConfig.curHeight();
             this._halfWidth = stageWidth / 2;
 
-            this._world = new p2.World({gravity: [0, 0]});
+            this._world = new p2.World({ gravity: [0, 0] });
 
             this._wallTopShape = new p2.Plane();
             this._wallTopShape.collisionGroup = wallCollisionGroup;
@@ -248,7 +248,7 @@ module game {
             brick.countdownLabel.text = "alarm";
 
             this._world.removeBody(brick.body);
-            egret.Tween.get(brick).to({y: gameConfig.curHeight()}, 1000).call(() => {
+            egret.Tween.get(brick).to({ y: gameConfig.curHeight() }, 1000).call(() => {
                 this.showBoom(brick);
                 let cost = _boomUseScore;
                 DataManager.playerModel.useScore(cost);
@@ -316,13 +316,13 @@ module game {
             //this.brickList = [];
             this._breakCount = 0;
             this._touchEvent = [
-                {target: this.ballButton1, callBackFunc: this.ballHandle},
-                {target: this.ballButton2, callBackFunc: this.ballHandle},
-                {target: this.userButton, callBackFunc: this.userGoHandle},
-                {target: this.luckyButton, callBackFunc: this.luckyGoHandle},
-                {target: this.rechargeButton, callBackFunc: this.rechargeGoHandle},
-                {target: this.bagButton, callBackFunc: this.bagGoHandle},
-                {target: this.backButton, callBackFunc: this.backHandle},
+                { target: this.ballButton1, callBackFunc: this.ballHandle },
+                { target: this.ballButton2, callBackFunc: this.ballHandle },
+                { target: this.userButton, callBackFunc: this.userGoHandle },
+                { target: this.luckyButton, callBackFunc: this.luckyGoHandle },
+                { target: this.rechargeButton, callBackFunc: this.rechargeGoHandle },
+                { target: this.bagButton, callBackFunc: this.bagGoHandle },
+                { target: this.backButton, callBackFunc: this.backHandle },
             ];
             this._notify = [
                 {
@@ -382,7 +382,7 @@ module game {
         }
 
         public useSp() {
-            if (this._spCool>0) return;
+            if (this._spCool > 0) return;
             SoundManager.playEffect("dazhao", 0.5);
             this._paddle.playBoom();
             for (let b of this._brickPool.list) {
@@ -390,7 +390,7 @@ module game {
                     this._boomBrick.push(b);
                 }
             }
-            
+
             this._nowSp = 0;
             this.updateSp();
         }
@@ -402,8 +402,8 @@ module game {
             this.moreFireImg.scaleX = 2;
             this.moreFireImg.scaleY = 2;
             this.moreFireImg.visible = true;
-            egret.Tween.get(this.moreFireImg).to({scaleX: 0.5, scaleY: 0.5}, 300)
-                .to({scaleX: 1, scaleY: 1}, 400).wait(500).call(() => {
+            egret.Tween.get(this.moreFireImg).to({ scaleX: 0.5, scaleY: 0.5 }, 300)
+                .to({ scaleX: 1, scaleY: 1 }, 400).wait(500).call(() => {
                     this.moreFireImg.visible = false;
                 });
         }
@@ -422,7 +422,7 @@ module game {
                 });
                 return;
             }
-            if(this._spCool == 0){ //无限火力不扣子弹
+            if (this._spCool == 0) { //无限火力不扣子弹
                 DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
                 this.addSp();
             }
@@ -481,8 +481,8 @@ module game {
 
         private updateScore() {
             this.scoreLabel.textFlow = [
-                {text: "金币", style: {bold: true}},
-                {text: `:${DataManager.playerModel.getScore()}`, style: {fontFamily: "DynoBold"}},
+                { text: "金币", style: { bold: true } },
+                { text: `:${DataManager.playerModel.getScore()}`, style: { fontFamily: "DynoBold" } },
             ]
 
             if (DataManager.playerModel.getScore() >= this.curSpaceFire) {
@@ -576,9 +576,9 @@ module game {
             this.light2.y = 775;
             this.light3.y = 1550;
             let time = 15000;
-            egret.Tween.get(this.light1, {loop: true}).to({y: -775}, time).to({y: 1550}, 0).to({y: 775}, time).to({y: 0}, time);
-            egret.Tween.get(this.light2, {loop: true}).to({y: 0}, time).to({y: -775}, time).to({y: 1550}, 0).to({y: 775}, time);
-            egret.Tween.get(this.light3, {loop: true}).to({y: 775}, time).to({y: 0}, time).to({y: -775}, time).to({y: 1550}, 0);
+            egret.Tween.get(this.light1, { loop: true }).to({ y: -775 }, time).to({ y: 1550 }, 0).to({ y: 775 }, time).to({ y: 0 }, time);
+            egret.Tween.get(this.light2, { loop: true }).to({ y: 0 }, time).to({ y: -775 }, time).to({ y: 1550 }, 0).to({ y: 775 }, time);
+            egret.Tween.get(this.light3, { loop: true }).to({ y: 775 }, time).to({ y: 0 }, time).to({ y: -775 }, time).to({ y: 1550 }, 0);
         }
 
         private stopDouble() {
@@ -597,14 +597,14 @@ module game {
                     this.updateSp();
                     this._paddle.updateWuxianPao(false);
                 } else {
-                  this._paddle.setBigBoomTime(this._spCool);
+                    this._paddle.setBigBoomTime(this._spCool);
                 }
             }
 
             //临时代码
             for (let i = 0; i < _eventCdByMoney.length; i++) {
                 if (i < _eventCdByMoney.length - 1) {
-                    if (DataManager.playerModel.getScore() > _eventCdByMoney[i] && DataManager.playerModel.getScore() <= _eventCdByMoney[i+1]) {
+                    if (DataManager.playerModel.getScore() > _eventCdByMoney[i] && DataManager.playerModel.getScore() <= _eventCdByMoney[i + 1]) {
                         this.curScoreTimeSp = i;
                         break;
                     }
@@ -770,7 +770,7 @@ module game {
                 if (eventList.length > 0) {
                     for (let i = 0; i < eventList.length; i++) {
                         brickId = eventList[i];
-                        eventList.splice(i,1);
+                        eventList.splice(i, 1);
                         break;
                     }
                     if (eventList.length == 0) {
@@ -780,7 +780,7 @@ module game {
                     let brickInfo = loot(lootList);
                     brickId = brickInfo.Id;
                 }
-                
+
                 let infoData = table.TBirckInfoById[brickId];
                 let type = infoData.Type;
                 let mapGridInfo: MapGridInfo = {
@@ -827,7 +827,7 @@ module game {
                         x: 0,
                         y: id * gameConfig.perBrickSize,
                     }, 300);
-                    egret.Tween.get(firewall).wait(300).to({scaleY: 1}, 250);
+                    egret.Tween.get(firewall).wait(300).to({ scaleY: 1 }, 250);
                 }
             } else {
                 if (this._idleRightFirewall.length > 0) {
@@ -846,7 +846,7 @@ module game {
                         x: 698,
                         y: id * gameConfig.perBrickSize,
                     }, 300);
-                    egret.Tween.get(firewall).wait(300).to({scaleY: 1}, 250);
+                    egret.Tween.get(firewall).wait(300).to({ scaleY: 1 }, 250);
                 }
             }
         }
@@ -1002,7 +1002,7 @@ module game {
 
         private updateSp() {
             this._nowSp = Math.min(this._nowSp, _maxSp);
-            this._paddle.setSp(this._nowSp/_maxSp);
+            this._paddle.setSp(this._nowSp / _maxSp);
         }
 
         public addHit(brick: BattleBrick) {
@@ -1117,7 +1117,7 @@ module game {
             effectTips.visible = true;
             egret.Tween.get(effectTips).to({
                 alpha: 1
-            }, 300).to({alpha: 0}, 1000).call(onComplete2, this);
+            }, 300).to({ alpha: 0 }, 1000).call(onComplete2, this);
             egret.Tween.get(effectTips).to({
                 y: effectTips.y - 20,
             }, 1300, egret.Ease.backOut);
@@ -1192,7 +1192,7 @@ module game {
                     //             this._boomBrick.push(b);
                     //     }
                     // } 炸弹3*3范围
-                    
+
                     //炸弹全部范围破碎
                     for (let b of this._brickPool.list) {
                         if (b.buffType == BrickType.normal) {   //炸弹只对砖块有影响
@@ -1209,7 +1209,7 @@ module game {
             if (brick.brickInfo.row == 0) {
                 this._topColumn.push(brick.brickInfo.column);
             }
-            
+
             if (brick.isBadBuff()) {
                 this._breakBad += 1;
                 this.showBadPower();
@@ -1255,8 +1255,8 @@ module game {
             blackHole2.showAnim.play(0);
             this._blackHoleList.push(blackHole1, blackHole2);
             brick.blackHoleList.push(blackHole1, blackHole2);
-            egret.Tween.get(blackHole1).to({x: end1X, y: end1Y}, 300);
-            egret.Tween.get(blackHole2).to({x: end2X, y: end2Y}, 300);
+            egret.Tween.get(blackHole1).to({ x: end1X, y: end1Y }, 300);
+            egret.Tween.get(blackHole2).to({ x: end2X, y: end2Y }, 300);
         }
 
         private showBadPower() {
@@ -1285,7 +1285,7 @@ module game {
             goldTxt.size = 36;
             goldTxt.bold = true;
             this.addChild(goldTxt);
-            
+
             goldTxt.anchorOffsetX = goldTxt.width / 2;
             goldTxt.anchorOffsetY = goldTxt.height / 2;
             goldTxt.x = gameConfig.curWidth() / 2;
@@ -1308,7 +1308,7 @@ module game {
                 }
             }, this, 150);
 
-            egret.Tween.get(goldTxt).to({scaleX: 1.2, scaleY: 1.2}, 500).to({scaleX: 1, scaleY:1}, 200);
+            egret.Tween.get(goldTxt).to({ scaleX: 1.2, scaleY: 1.2 }, 500).to({ scaleX: 1, scaleY: 1 }, 200);
         }
 
         public setBadPower(power: number) {
@@ -1324,7 +1324,8 @@ module game {
         }
 
         private rechargeGoHandle() {
-            showTips("暂未开放,敬请期待...", true);
+            openPanel(PanelType.pay);
+
         }
 
         private bagGoHandle() {
@@ -1332,10 +1333,10 @@ module game {
         }
 
         private backHandle() {
-            let backFunc : Function = function () {
+            let backFunc: Function = function () {
                 egret.stopTick(this.updateView, this);
                 this._firewallPool.destroyAllObject();
-                
+
                 sendMessage("msg.BT_ReqQuitGameRoom", msg.BT_ReqQuitGameRoom.encode({
                     roomid: BattleManager.getInstance().getRoomId(),
                     userid: DataManager.playerModel.getUserId(),
@@ -1344,7 +1345,7 @@ module game {
                 SceneManager.changeScene(SceneType.main);
             }.bind(this);
 
-            if (this._nowSp >= _maxSp/2 || this._breakBad >= _breakBadBuffMax) {
+            if (this._nowSp >= _maxSp / 2 || this._breakBad >= _breakBadBuffMax) {
                 showDialog("现在退出游戏，能量将不保存哦！", "确定", function () {
                     backFunc();
                 });
