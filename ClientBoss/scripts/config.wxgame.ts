@@ -29,7 +29,7 @@ const config: ResourceManagerConfig = {
                     new ResSplitPlugin({
                         verbose: true, matchers: [
                             { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
-                            { from: "resource/assets/!(ball|login)/**", to: `${remote}_alpha`},
+                            { from: "resource/assets/!(login)/**", to: `${remote}_alpha`},
                         ]
                     }),
 
@@ -74,7 +74,7 @@ const config: ResourceManagerConfig = {
                     new ResSplitPlugin({
                         verbose: true, matchers: [
                             { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
-                            { from: "resource/assets/!(ball|login)/**", to: remote },
+                            { from: "resource/assets/!(login)/**", to: remote },
                         ]
                     }),
 

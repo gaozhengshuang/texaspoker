@@ -57,7 +57,7 @@ module game {
             this.img_gameTask.visible = false;
             this.img_becomeonTask.visible = false;
 
-            console.log("玩家的头像：" , userInfo.face);
+            // console.log("玩家的头像：" , userInfo.face);
             this.img_userhead.source = userInfo.face;
         }
 
