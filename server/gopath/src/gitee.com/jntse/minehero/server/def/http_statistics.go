@@ -871,7 +871,7 @@ func HttpWechatCompanyPay(openid string, amount int64) string {
 	return ""
 }
 
-// 微信小游戏查询余额
+// 获取微信AccessToken
 func HttpWechatAccessToken() (string) {
 	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
 		tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret)
@@ -881,9 +881,14 @@ func HttpWechatAccessToken() (string) {
 		return ""
 	}
 
+	if resp.Code != http.StatusOK { 
+		log.Info("推送失败 errcode[%d] status[%s]", resp.Code, resp.Status)
+		return ""
+	}
+
 	type stAccessToken struct {
-		Token string
-		Expires int64
+		Access_token string
+		Expires_in int64
 	}
 
 	objResp := &stAccessToken{}
@@ -892,8 +897,8 @@ func HttpWechatAccessToken() (string) {
 		log.Info("HttpWechatAccessToken json.Unmarshal Fail[%s] ", unerr)
 		return ""
 	}
-
-	return objResp.Token
+	log.Trace("获取微信AccessToken成功[%#v]", objResp)
+	return objResp.Access_token
 }
 
 
@@ -1018,6 +1023,32 @@ func HttpWechatMiniGameGetBalance(openid string) (int64, string) {
 		return 0, "HttpPost ErrorCode"
 	}
 	log.Trace("玩家[%s] 推送完成 resp.body=\n%s", openid, util.BytesToString(resp.Body))
-	return 0, ""
+
+
+	// 解析
+	type stUserBalance struct {
+		Errcode	int64 	// 错误码
+		Errmsg	string  // 错误信息
+		Balance	int64 	// 游戏币个数（包含赠送）
+		Ben_balance	int64 	// 赠送游戏币数量（赠送游戏币数量）
+		First_save	bool 	// 是否满足历史首次充值
+		Save_amt	int64 	// 累计充值金额的游戏币数量
+		Save_sum	int64 	// 历史总游戏币金额
+		Cost_sum	int64 	// 历史总消费游戏币金额
+		Present_sum	int64 	// 历史累计收到赠送金额
+	}
+	objResp := &stUserBalance{}
+	unerr := json.Unmarshal(resp.Body, objResp)
+	if unerr != nil {
+		log.Info("HttpWechatAccessToken json.Unmarshal Fail[%s] ", unerr)
+		return 0, "json.Unmarsha失败"
+	}
+
+	if objResp.Errcode != 0 {
+		log.Error("微信端返回错误 errcode[%d] objResp[%#v]", objResp.Errcode, objResp)
+		return 0, "微信端返回错误"
+	}
+
+	return objResp.Balance, ""
 }
 
