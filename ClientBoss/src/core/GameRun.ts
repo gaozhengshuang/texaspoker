@@ -29,37 +29,11 @@ module game {
         gameInit();
     }
 
-    function wxAutoLogin() {
-
-    }
+   
 
     export function gameInit() {
         // VL:微信小游戏登陆
-        platform.login().then((res) => {
-            wxCode = res.code;
-
-            Pay.get_open_id_and_session_key(res.code, (openid, session_key) => {
-                platform.getUserInfo().then((res) => {
-                    console.log(res)
-                    let nickName = res.nickName;
-                    let avatarUrl = res.avatarUrl;
-                    let gender = res.gender;
-                    let country = res.country;
-                    let province = res.province
-
-                    DataManager.playerModel.userInfo.face = avatarUrl;
-
-                    //TODO:使用这些获取的数据
-                    console.log("openid: ", openid)
-
-                    LoginManager.getInstance().wxlogin({
-                        openid: openid,
-                        face: avatarUrl,
-                        nickname: nickName
-                    })
-                })
-            });
-        });
+        wxAutoLogin();
         /*
         wxCode = egret.getOption("code");
         wxState = egret.getOption("state");

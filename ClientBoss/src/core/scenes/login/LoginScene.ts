@@ -27,12 +27,10 @@ module game {
             this.passwordLabel.displayAsPassword = true;
         }
 
-   
 
-        //TODO:如果是微信小程序，则直接登陆
         private async loginHandle() {
-        
-            // Pay.midasPay();
+            wxAutoLogin();
+            
 
 
             // let realName = deleteBlank(this.nameLabel.text);

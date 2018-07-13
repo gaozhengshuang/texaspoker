@@ -111,6 +111,34 @@ module game {
         SceneManager.changeScene(SceneType.login, false);
     }
 
+     export function wxAutoLogin() {
+        platform.login().then((res) => {
+            wxCode = res.code;
+
+            Pay.get_open_id_and_session_key(res.code, (openid, session_key) => {
+                platform.getUserInfo().then((res) => {
+                    console.log(res)
+                    let nickName = res.nickName;
+                    let avatarUrl = res.avatarUrl;
+                    let gender = res.gender;
+                    let country = res.country;
+                    let province = res.province
+
+                    DataManager.playerModel.userInfo.face = avatarUrl;
+
+                    //TODO:使用这些获取的数据
+                    console.log("openid: ", openid)
+
+                    LoginManager.getInstance().wxlogin({
+                        openid: openid,
+                        face: avatarUrl,
+                        nickname: nickName
+                    })
+                })
+            });
+        });
+    }
+
     export var loginUserInfo: msg.IC2L_ReqLogin;
     export var loginGwIp: string = game._netIp;
 }
