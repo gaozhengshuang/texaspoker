@@ -928,10 +928,10 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, st
 	mapset["pf"] = "android"
 	//mapset["user_ip"] = ""
 	mapset["sig"] = ""
-	mapset["access_token"] = access_token
+	//mapset["access_token"] = access_token
 	mapset["mp_sig"] = ""
 
-	//
+	// 坑：这里面不需要 access_token
 	Sigin := func() string {
 		sortKeys := make(sort.StringSlice,0)
 		sortKeys = append(sortKeys, "openid")
@@ -957,7 +957,8 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, st
 			}
 		}
 
-		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/getbalance&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
+		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
+		//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
 		sign := util.HMAC_SHA256(tbl.Global.WechatMiniGame.MidasSecret, stringSignTemp)	// HMAC-SHA256签名方式
 		mapset["sig"] = sign
 		return ""
@@ -967,6 +968,7 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, st
 	}
 
 
+	// 坑：这里面需要 access_token
 	MpSign := func() string {
 		sortKeys := make(sort.StringSlice,0)
 		sortKeys = append(sortKeys, "openid")
@@ -982,7 +984,10 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, st
 		sortVal := ""
 		for _, v := range sortKeys {
 			if sortVal != "" { sortVal += "&" }
-			if str, ok := mapset[v].(string); ok == true {
+			if v == "access_token" {
+				keypair := v + "=" + access_token
+				sortVal += keypair
+			}else if str, ok := mapset[v].(string); ok == true {
 				keypair := v + "=" + str
 				sortVal += keypair
 			}else if num, ok := mapset[v].(int64); ok == true {
@@ -1001,7 +1006,8 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, st
 			return "找不到SessionKey"
 		}
 
-		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/getbalance&method=POST&session_key=" + session_key
+		stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&session_key=" + session_key
+		//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
 		sign := util.HMAC_SHA256(session_key, stringSignTemp)	// HMAC-SHA256签名方式
 		mapset["mp_sig"] = sign
 		return ""
@@ -1042,7 +1048,7 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, st
 		Errmsg	string  // 错误信息
 		Balance	int64 	// 游戏币个数（包含赠送）
 		Ben_balance	int64 	// 赠送游戏币数量（赠送游戏币数量）
-		First_save	bool 	// 是否满足历史首次充值
+		First_save	int64 	// 是否满足历史首次充值
 		Save_amt	int64 	// 累计充值金额的游戏币数量
 		Save_sum	int64 	// 历史总游戏币金额
 		Cost_sum	int64 	// 历史总消费游戏币金额
