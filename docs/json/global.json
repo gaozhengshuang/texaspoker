@@ -107,15 +107,17 @@
     "//":"微信小游戏",
     "WechatMiniGame": {
         "MidasOfferID":"1450016022",
-        "MidasSecret":"80a8c4a9d76c71e1701c001e3a41583e",
+        "MidasSecret1":"80a8c4a9d76c71e1701c001e3a41583e",
         "MidasCancelPay1":"https://api.weixin.qq.com/cgi-bin/midas/cancelpay?access_token=",
         "MidasBalance1":"https://api.weixin.qq.com/cgi-bin/midas/getbalance?access_token=",
         "MidasPay1":"https://api.weixin.qq.com/cgi-bin/midas/pay?access_token=",
         "MidasPresent1":"https://api.weixin.qq.com/cgi-bin/midas/present?access_token=",
-
+        
+        "Jscode2Session":"https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
         "MidasCancelPay":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/cancelpay?access_token=",
         "MidasBalance":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/getbalance?access_token=",
         "MidasPay":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/pay?access_token=",
-        "MidasPresent":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/present?access_token="
+        "MidasPresent":"https://api.weixin.qq.com/cgi-bin/midas/sandbox/present?access_token=",
+        "MidasSecret":"XYXpkBu1iEzgu0W0WMHmuK8LGVLPRuma"
     }
 }
