@@ -253,7 +253,7 @@ module game {
                 }
                 this.brickImage.source = `cube/${this._brickData.Id}/${value}`;
             } else if (this.buffType == BrickType.goldShark) {
-                this.brickImage.source = `cube/goldShark/00001`;
+                this.brickImage.source = `cube_json.goldShark_00001`;
 
                 let _currentIndex = 0
                 this._playInterval = egret.setInterval(() => {
@@ -261,7 +261,7 @@ module game {
                     if (_currentIndex > 5) {
                         _currentIndex = 0;
                     }
-                    this.brickImage.source = `cube/goldShark/0000${_currentIndex}`;
+                    this.brickImage.source = `cube_json.goldShark_0000${_currentIndex}`;
                 }, this, 200);
             } else {
                 this.brickImage.source = `cube/${this.buffType}`;

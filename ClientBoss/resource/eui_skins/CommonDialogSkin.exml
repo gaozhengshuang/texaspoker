@@ -27,8 +27,8 @@
 		</tween:TweenGroup>
 	</w:Declarations>
 	<e:Group id="group" width="720" height="1100" touchEnabled="false" horizontalCenter="0" verticalCenter="0">
-		<e:Image id="image" horizontalCenter="-3" verticalCenter="-61.5" anchorOffsetY="0" height="463" anchorOffsetX="0" width="720" source="user/addressBg"/>
-		<e:Label id="txt_content" text="æˆ‘æ˜¯å†…å®¹" verticalCenter="-108" horizontalCenter="7" width="584.34" anchorOffsetX="0" anchorOffsetY="0" height="211.66" lineSpacing="10" stroke="2" strokeColor="0x206d99" textAlign="center" verticalAlign="middle" touchEnabled="false" size="24"/>
+		<e:Image id="image" horizontalCenter="-3" verticalCenter="-61.5" anchorOffsetY="0" height="463" anchorOffsetX="0" width="720" source="user_json.addressBg"/>
+		<e:Label id="txt_content" text="ÎÒÊÇÄÚÈÝ" verticalCenter="-108" horizontalCenter="7" width="584.34" anchorOffsetX="0" anchorOffsetY="0" height="211.66" lineSpacing="10" stroke="2" strokeColor="0x206d99" textAlign="center" verticalAlign="middle" touchEnabled="false" size="24"/>
 		<game:LabelButton id="btn_goPay" skinName="NormalLabelButtonSkin" verticalCenter="74" anchorOffsetX="0" width="174" anchorOffsetY="0" height="72" horizontalCenter="0" x="233" y="637" scaleX="1" scaleY="1"/>
 		<game:IconButton id="btn_close" horizontalCenter="311.5" verticalCenter="-266.5" skinName="IconButtonSkin"/>
 	</e:Group>

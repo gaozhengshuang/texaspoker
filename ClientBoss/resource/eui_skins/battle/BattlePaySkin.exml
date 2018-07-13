@@ -5,7 +5,7 @@
 		<e:Image verticalCenter="0" horizontalCenter="0" source="user_json.userBg"/>
 		<e:Image y="6" scaleX="1" scaleY="1" horizontalCenter="0.5" source="lucky/luckyBtn"/>
 		<e:Image source="ui/bag/historyMoneyTitleBg" x="-3" y="88"/>
-
+		<e:Image source="ui_json.historyMoneyTitleBg" x="-3" y="88"/>
 		<game:PayItem id="gift_1" width="226" height="210" anchorOffsetY="105" skinName="PayItemSkin" x="134" y="468" anchorOffsetX="113" touchEnabled="true" touchChildren="true"/>
 		<game:PayItem width="226" height="210" x="359" y="468" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_2" touchEnabled="true" touchChildren="true"/>
 		<game:PayItem width="226" height="210" x="579" y="468" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_3" touchEnabled="true" touchChildren="true"/>

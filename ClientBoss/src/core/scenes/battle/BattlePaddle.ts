@@ -45,7 +45,7 @@ module game {
         }
 
         public playWave() {
-            this.waveImage.source = `paddle/wave/0000${this._currentWave}`;
+            this.waveImage.source = `paddle_json.wave_0000${this._currentWave}`;
             this._currentWave++;
             if (this._currentWave > 9) {
                 this._currentWave = 0;
@@ -89,7 +89,7 @@ module game {
         public playBoom() {
             this.boomImage.visible = true;
             this._currentIndex = 0;
-            this.boomImage.source = `cube/redBoom/0000${this._currentIndex}`;
+            this.boomImage.source = `cube_json.redBoom_0000${this._currentIndex}`;
             this._playInterval = egret.setInterval(() => {
                 this._currentIndex++;
                 if (this._currentIndex > 7) {
@@ -98,7 +98,7 @@ module game {
                     this._playInterval = null;
                     return;
                 }
-                this.boomImage.source = `cube/redBoom/0000${this._currentIndex}`;
+                this.boomImage.source = `cube_json.redBoom_0000${this._currentIndex}`;
             }, this, 80);
         }
 
@@ -136,14 +136,14 @@ module game {
             if (this._spPlayInterval) return;
             this._spCurrentIndex = 0;
             this.spImage.visible = true;
-            this.spImage.source = `paddle/sp/0000${this._spCurrentIndex}`;
+            this.spImage.source = `paddle_json.sp_0000${this._spCurrentIndex}`;
             this._spPlayInterval = egret.setInterval(() => {
                 this._spCurrentIndex++;
                 if (this._spCurrentIndex > 7) {
                     this._spCurrentIndex = 0;
                     this.stopSpAnim();
                 }
-                this.spImage.source = `paddle/sp/0000${this._spCurrentIndex}`;
+                this.spImage.source = `paddle_json.sp_0000${this._spCurrentIndex}`;
             }, this, 60);
         }
 

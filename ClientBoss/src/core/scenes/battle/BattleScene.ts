@@ -1264,7 +1264,7 @@ module game {
 
         public openBadBox(_score: number) {
             let goldImg = new eui.Image();
-            goldImg.source = `lucky/goldAni/0000`;
+            goldImg.source = `lucky_json.goldAni_0000`;
             this.addChild(goldImg);
 
             goldImg.anchorOffsetX = goldImg.width / 2;
