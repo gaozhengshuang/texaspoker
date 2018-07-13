@@ -1618,6 +1618,306 @@ var egret = window.egret;
 		return t;
 	};
 	return BattlePaddleSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/PayItemSkin.exml'] = window.PayItemSkin = (function (_super) {
+	__extends(PayItemSkin, _super);
+	var PayItemSkin$Skin1 = 	(function (_super) {
+		__extends(PayItemSkin$Skin1, _super);
+		function PayItemSkin$Skin1() {
+			_super.call(this);
+			this.skinParts = ["labelDisplay"];
+			
+			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
+			this.states = [
+				new eui.State ("up",
+					[
+					])
+				,
+				new eui.State ("down",
+					[
+						new eui.SetProperty("_Image1","source","ui/chkPayBg")
+					])
+				,
+				new eui.State ("disabled",
+					[
+						new eui.SetProperty("_Image1","source","ui/chkPayBg")
+					])
+			];
+		}
+		var _proto = PayItemSkin$Skin1.prototype;
+
+		_proto._Image1_i = function () {
+			var t = new eui.Image();
+			this._Image1 = t;
+			t.percentHeight = 100;
+			t.source = "ui/chkPayBg";
+			t.percentWidth = 100;
+			return t;
+		};
+		_proto.labelDisplay_i = function () {
+			var t = new eui.Label();
+			this.labelDisplay = t;
+			t.horizontalCenter = 0;
+			t.verticalCenter = 0;
+			return t;
+		};
+		return PayItemSkin$Skin1;
+	})(eui.Skin);
+
+	function PayItemSkin() {
+		_super.call(this);
+		this.skinParts = ["itembg","itemGold","itemRmb","itemImg"];
+		
+		this.height = 210;
+		this.width = 226;
+		this.elementsContent = [this.itembg_i(),this.itemGold_i(),this.itemRmb_i(),this.itemImg_i()];
+	}
+	var _proto = PayItemSkin.prototype;
+
+	_proto.itembg_i = function () {
+		var t = new eui.Button();
+		this.itembg = t;
+		t.label = "";
+		t.x = 0;
+		t.y = 0;
+		t.skinName = PayItemSkin$Skin1;
+		return t;
+	};
+	_proto.itemGold_i = function () {
+		var t = new eui.Label();
+		this.itemGold = t;
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.horizontalCenter = -2;
+		t.size = 24;
+		t.text = "12345678金币";
+		t.textAlign = "center";
+		t.textColor = 0xff9f3b;
+		t.touchEnabled = false;
+		t.verticalCenter = 20;
+		return t;
+	};
+	_proto.itemRmb_i = function () {
+		var t = new eui.Label();
+		this.itemRmb = t;
+		t.bold = true;
+		t.size = 36;
+		t.text = "6元";
+		t.textColor = 0xff9f3b;
+		t.touchEnabled = false;
+		t.x = 84.5;
+		t.y = 67;
+		return t;
+	};
+	_proto.itemImg_i = function () {
+		var t = new eui.Image();
+		this.itemImg = t;
+		t.anchorOffsetX = 40;
+		t.anchorOffsetY = 40;
+		t.height = 206;
+		t.horizontalCenter = -2.5;
+		t.source = "ui/chkPay";
+		t.touchEnabled = false;
+		t.verticalCenter = -2;
+		t.width = 221;
+		return t;
+	};
+	return PayItemSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattlePaySkin.exml'] = window.BattlePaySkin = (function (_super) {
+	__extends(BattlePaySkin, _super);
+	function BattlePaySkin() {
+		_super.call(this);
+		this.skinParts = ["gift_1","gift_2","gift_3","gift_4","gift_5","gift_6","closeButton","startButton","goldCnt","luckyGroup"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.elementsContent = [this._Rect1_i(),this.luckyGroup_i()];
+	}
+	var _proto = BattlePaySkin.prototype;
+
+	_proto._Rect1_i = function () {
+		var t = new eui.Rect();
+		t.fillAlpha = 0;
+		t.fillColor = 0xEEEEEE;
+		t.percentHeight = 100;
+		t.strokeColor = 0xffffff;
+		t.width = 720;
+		t.y = 0;
+		return t;
+	};
+	_proto.luckyGroup_i = function () {
+		var t = new eui.Group();
+		this.luckyGroup = t;
+		t.height = 1100;
+		t.horizontalCenter = 0;
+		t.verticalCenter = 0;
+		t.width = 720;
+		t.elementsContent = [this._Image1_i(),this._Image2_i(),this._Image3_i(),this.gift_1_i(),this.gift_2_i(),this.gift_3_i(),this.gift_4_i(),this.gift_5_i(),this.gift_6_i(),this.closeButton_i(),this.startButton_i(),this.goldCnt_i(),this._Label1_i(),this._Label2_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0;
+		t.source = "user/userBg";
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "lucky/luckyBtn";
+		t.y = 6;
+		return t;
+	};
+	_proto._Image3_i = function () {
+		var t = new eui.Image();
+		t.source = "ui/bag/historyMoneyTitleBg";
+		t.x = -3;
+		t.y = 88;
+		return t;
+	};
+	_proto.gift_1_i = function () {
+		var t = new game.PayItem();
+		this.gift_1 = t;
+		t.anchorOffsetX = 113;
+		t.anchorOffsetY = 105;
+		t.height = 210;
+		t.skinName = "PayItemSkin";
+		t.touchChildren = true;
+		t.touchEnabled = true;
+		t.width = 226;
+		t.x = 134;
+		t.y = 468;
+		return t;
+	};
+	_proto.gift_2_i = function () {
+		var t = new game.PayItem();
+		this.gift_2 = t;
+		t.anchorOffsetX = 113;
+		t.anchorOffsetY = 105;
+		t.height = 210;
+		t.skinName = "PayItemSkin";
+		t.touchChildren = true;
+		t.touchEnabled = true;
+		t.width = 226;
+		t.x = 359;
+		t.y = 468;
+		return t;
+	};
+	_proto.gift_3_i = function () {
+		var t = new game.PayItem();
+		this.gift_3 = t;
+		t.anchorOffsetX = 113;
+		t.anchorOffsetY = 105;
+		t.height = 210;
+		t.skinName = "PayItemSkin";
+		t.touchChildren = true;
+		t.touchEnabled = true;
+		t.width = 226;
+		t.x = 579;
+		t.y = 468;
+		return t;
+	};
+	_proto.gift_4_i = function () {
+		var t = new game.PayItem();
+		this.gift_4 = t;
+		t.anchorOffsetX = 113;
+		t.anchorOffsetY = 105;
+		t.height = 210;
+		t.skinName = "PayItemSkin";
+		t.touchEnabled = true;
+		t.width = 226;
+		t.x = 134;
+		t.y = 678;
+		return t;
+	};
+	_proto.gift_5_i = function () {
+		var t = new game.PayItem();
+		this.gift_5 = t;
+		t.anchorOffsetX = 113;
+		t.anchorOffsetY = 105;
+		t.height = 210;
+		t.skinName = "PayItemSkin";
+		t.touchEnabled = true;
+		t.width = 226;
+		t.x = 359;
+		t.y = 678;
+		return t;
+	};
+	_proto.gift_6_i = function () {
+		var t = new game.PayItem();
+		this.gift_6 = t;
+		t.anchorOffsetX = 113;
+		t.anchorOffsetY = 105;
+		t.height = 210;
+		t.skinName = "PayItemSkin";
+		t.touchEnabled = true;
+		t.width = 226;
+		t.x = 579;
+		t.y = 678;
+		return t;
+	};
+	_proto.closeButton_i = function () {
+		var t = new game.IconButton();
+		this.closeButton = t;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.x = 638.68;
+		t.y = 23.67;
+		return t;
+	};
+	_proto.startButton_i = function () {
+		var t = new game.IconButton();
+		this.startButton = t;
+		t.horizontalCenter = 0.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.verticalCenter = 472.5;
+		return t;
+	};
+	_proto.goldCnt_i = function () {
+		var t = new eui.Label();
+		this.goldCnt = t;
+		t.anchorOffsetX = 134;
+		t.anchorOffsetY = 24;
+		t.bold = true;
+		t.horizontalCenter = -0.5;
+		t.size = 48;
+		t.text = "1234567890";
+		t.textAlign = "center";
+		t.textColor = 0xff9f3b;
+		t.verticalAlign = "middle";
+		t.verticalCenter = -312;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.anchorOffsetX = 89;
+		t.anchorOffsetY = 0;
+		t.bold = true;
+		t.horizontalCenter = 5.5;
+		t.size = 36;
+		t.text = "拥 有 金 币";
+		t.textColor = 0xff9f3b;
+		t.touchEnabled = false;
+		t.verticalCenter = -382;
+		return t;
+	};
+	_proto._Label2_i = function () {
+		var t = new eui.Label();
+		t.bold = true;
+		t.size = 36;
+		t.text = "充 值";
+		t.x = 317;
+		t.y = 32.17;
+		return t;
+	};
+	return BattlePaySkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattleRewardBallSkin.exml'] = window.BattleRewardBallSkin = (function (_super) {
 	__extends(BattleRewardBallSkin, _super);
 	function BattleRewardBallSkin() {
