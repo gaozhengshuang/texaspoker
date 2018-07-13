@@ -34,12 +34,8 @@ module game {
             return BattleLuckySkin;
         }
 
-        protected init() {
-            this.closeButton.icon = "lucky/luckycloseBtn";
-            this.startButton.icon = "lucky/luckyBtn";
-            this.bagButton.icon = "lucky/bagBtn";
-
-            this.initGift();
+        protected init() {            this.closeButton.icon = "lucky_json.luckycloseBtn";        this.startButton.icon = "lucky_json.luckyBtn";        this.bagButton.icon = "lucky_json.bagBtn";
+          this.initGift();
         }
 
         protected beforeShow() {

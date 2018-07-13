@@ -16,5 +16,5 @@
 			</tween:TweenItem>
 		</tween:TweenGroup>
 	</w:Declarations>
-	<e:Image id="holeImage" horizontalCenter="4" verticalCenter="0" source="cube/blackHole/00000"/>
+	<e:Image id="holeImage" horizontalCenter="4" verticalCenter="0" source="cube_json.blackHole_00000"/>
 </e:Skin>

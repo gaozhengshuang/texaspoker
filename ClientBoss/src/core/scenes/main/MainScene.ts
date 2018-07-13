@@ -9,11 +9,11 @@ module game {
         rankLabel: eui.Label;
 
         protected init() {
-            this.playButton.icon = "ui/main/play";
-            this.rankButton.icon = "ui/main/paihang";
-            this.userButton.icon = "ui/main/userMainBtn";
-            this.luckyButton.icon = "ui/main/luckMainBtn";
-            this.titleImage.y = gameConfig.curHeight() * 0.1;
+                this.playButton.icon = "ui_json.main_play";
+            this.rankButton.icon = "ui_json.main_paihang";
+            this.userButton.icon = "ui_json.main_userMainBtn";
+            this.luckyButton.icon = "ui_json.main_luckMainBtn";
+        this.titleImage.y = gameConfig.curHeight() * 0.1;
         }
 
         protected getSkinName() {

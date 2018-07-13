@@ -131,15 +131,9 @@ module game {
             //this._noticeList = [];
             //this.brickList = [];
             this.buffLootList = table.TBirckItem;
-            this._buffList = [];
-            this.userButton.icon = "ui/userGo";
-            this.rechargeButton.icon = "ui/rechargeGo";
-            this.luckyButton.icon = "lucky/luckyGo";
-            this.bagButton.icon = "ui/bag/bagGo";
-            this.backButton.icon = "ui/gameBack";
-            this.ballButton1.icon = "ball/1";
-            this.ballButton2.icon = "ball/2";
-            this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
+            this._buffList = [];            this.userButton.icon = "ui_json.userGo";        this.rechargeButton.icon = "ui_json.rechargeGo";        this.luckyButton.icon = "lucky_json.luckyGo";
+           this.bagButton.icon = "ui_json.bagGo";        this.backButton.icon = "ui_json.gameBack";        this.ballButton1.icon = "ball_json.1";        this.ballButton2.icon = "ball_json.2";
+        this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
             this.ball2Price.text = `价值:${table.TBallById[2].Price}炮弹`;
 
             this._brickPool = new ObjectPool<BattleBrick>(BattleBrick);

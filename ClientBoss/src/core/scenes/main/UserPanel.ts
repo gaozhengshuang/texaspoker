@@ -22,11 +22,8 @@ module game {
         }
 
         protected init() {
-            this.img_userhead.mask = this.img_mask;
-            this.closeButton.icon = "lucky/luckycloseBtn";
-            this.addressButton.icon = "user/deliveryAdressBtn";
-            this.inviteFriendButton.icon = "login/inviteFriendsImg";
-        }
+            this.img_userhead.mask = this.img_mask;            this.closeButton.icon = "lucky_json.luckycloseBtn";        this.addressButton.icon = "user_json.deliveryAdressBtn";        this.inviteFriendButton.icon = "login_json.inviteFriendsImg";
+    }
 
         protected beforeShow() {
             this._touchEvent = [

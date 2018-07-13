@@ -9,9 +9,8 @@ module game {
             return LoginSceneSkin;
         }
 
-        protected init() {
-            this.loginButton.icon = "login/loginBtn";
-        }
+        protected init() {            this.loginButton.icon = "login_json.loginBtn";
+    }
 
         protected beforeShow() {
             this._touchEvent = [

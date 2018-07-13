@@ -11,10 +11,8 @@ module game {
 
         constructor() {
             super();
-            this.skinName = BattleBagItemSkin;
-            this.getButton.icon = "lucky/bagget";
-
-            this.getButton.addEventListener(egret.TouchEvent.TOUCH_TAP, this.getHandle, this);
+            this.skinName = BattleBagItemSkin;            this.getButton.icon = "lucky_json.bagget";
+          this.getButton.addEventListener(egret.TouchEvent.TOUCH_TAP, this.getHandle, this);
 
             this.itemImg.mask = this.itemMask;
         }

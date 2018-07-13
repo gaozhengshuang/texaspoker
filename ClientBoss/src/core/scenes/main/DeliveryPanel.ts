@@ -23,11 +23,9 @@ module game {
             return DeliveryPanelSkin;
         }
 
-        protected init() {
-            this.closeButton.icon = "lucky/luckycloseBtn";
-            this.bagButton.icon = "ui/bag/backBagBtn";
-
-            this._listProvider = new eui.ArrayCollection();
+        protected init() {            this.closeButton.icon = "lucky_json.luckycloseBtn";
+           this.bagButton.icon = "ui_json.bag_backBagBtn";
+          this._listProvider = new eui.ArrayCollection();
             this.deliveryList.dataProvider = this._listProvider;
             this.deliveryList.itemRenderer = DeliveryItem;
         }

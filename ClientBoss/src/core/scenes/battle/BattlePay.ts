@@ -29,8 +29,8 @@ module game {
         }
 
         protected init() {
-            this.closeButton && (this.closeButton.icon = "lucky/luckycloseBtn");
-            this.startButton && (this.startButton.icon = "ui/b-recharge");
+            this.closeButton && (this.closeButton.icon = "lucky_json.luckycloseBtn");
+            this.startButton && (this.startButton.icon = "ui_json.b-recharge");
 
             let testGifts = [
                 { rmb: 6, gold: 60 },
@@ -65,12 +65,12 @@ module game {
 
         }
         private addTouchEvent() {
-           this.gift_1.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle1,this);
-           this.gift_2.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle2,this);
-           this.gift_3.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle3,this);
-           this.gift_4.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle4,this);
-           this.gift_5.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle5,this);
-           this.gift_6.addEventListener(egret.TouchEvent.TOUCH_TAP,this.giftHandle6,this);
+            this.gift_1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.giftHandle1, this);
+            this.gift_2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.giftHandle2, this);
+            this.gift_3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.giftHandle3, this);
+            this.gift_4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.giftHandle4, this);
+            this.gift_5.addEventListener(egret.TouchEvent.TOUCH_TAP, this.giftHandle5, this);
+            this.gift_6.addEventListener(egret.TouchEvent.TOUCH_TAP, this.giftHandle6, this);
         }
 
         private giftHandle1() { this.uncheckAllGifts(); this.checkGift(1); };
@@ -116,12 +116,12 @@ module game {
         }
 
         public uncheckAllGifts() {
-           this.gift_1.setChecked(false);
-           this.gift_2.setChecked(false);
-           this.gift_3.setChecked(false);
-           this.gift_4.setChecked(false);
-           this.gift_5.setChecked(false);
-           this.gift_6.setChecked(false);
+            this.gift_1.setChecked(false);
+            this.gift_2.setChecked(false);
+            this.gift_3.setChecked(false);
+            this.gift_4.setChecked(false);
+            this.gift_5.setChecked(false);
+            this.gift_6.setChecked(false);
         }
         public checkGift(i: number) {
             this[`gift_${i}`].setChecked(true);
@@ -142,10 +142,10 @@ module game {
             console.warn("the os is:", os);
 
             if (os.match(/[Aa]ndroid/gi)) {
-                Pay.midasPay(zuanshi,()=>{
+                Pay.midasPay(zuanshi, () => {
                     DataManager.playerModel.incScore(zuanshi);
-                },()=>{
-                    showDialog("支付失败，请重试", "确定",null);
+                }, () => {
+                    showDialog("支付失败，请重试", "确定", null);
                 })
             } else if (os.match(/[iOS|ios|IOS]/gi)) {
                 showDialog("IOS暂时不支持内购，敬请期待...", "确定", null);

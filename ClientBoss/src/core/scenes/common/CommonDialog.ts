@@ -11,9 +11,8 @@ module game {
         }
 
         protected init() {
-            this.btn_goPay.bg = "lucky/luckyBtn";
-            this.btn_close.icon = "lucky/luckycloseBtn";
-            this._touchEvent = [
+            this.btn_goPay.bg = "lucky/luckyBtn";            this.btn_close.icon = "lucky_json.luckycloseBtn";
+        this._touchEvent = [
                 {target: this.btn_close, callBackFunc: this.OnClosePanel},
                 {target: this.btn_goPay, callBackFunc: this.OnClickGo},
             ];

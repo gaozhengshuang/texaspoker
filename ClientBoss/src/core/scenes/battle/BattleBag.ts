@@ -14,13 +14,10 @@ module game {
             return BattleBagSkin;
         }
 
-        protected init() {
-            this.closeButton.icon = "lucky/luckycloseBtn";
-            this.luckyButton.icon = "lucky/luckyBtn";
-            this.deliveryButton.icon = "ui/bag/deliveryBtn";
-            this.historyMoneyButton.icon = "ui/bag/historyMoneyBtn";
-
-            this._listProvider = new eui.ArrayCollection();
+        protected init() {            this.closeButton.icon = "lucky_json.luckycloseBtn";        this.luckyButton.icon = "lucky_json.luckyBtn";
+           this.deliveryButton.icon = "ui_json.bag_deliveryBtn";
+           this.historyMoneyButton.icon = "ui_json.bag_historyMoneyBtn";
+          this._listProvider = new eui.ArrayCollection();
             this.bagList.dataProvider = this._listProvider;
             this.bagList.itemRenderer = BattleBagItem;
         }

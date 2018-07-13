@@ -18,10 +18,10 @@ module game {
         private _onload: boolean = false;
 
         protected init() {
-            this.friendButton.icon = "ui/rank/haoyou";
-            this.worldButton.icon = "ui/rank/shijie";
-            this.backButton.icon = "ui/win/back";
-            this._rankData = new eui.ArrayCollection();
+                this.friendButton.icon = "ui_json.rank_haoyou";
+            this.worldButton.icon = "ui_json.rank_shijie";
+           this.backButton.icon = "ui_json.win_back";
+        this._rankData = new eui.ArrayCollection();
             this.rankList.itemRenderer = RankItem;
             this.rankList.dataProvider = this._rankData;
 
