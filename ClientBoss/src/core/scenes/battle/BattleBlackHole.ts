@@ -13,13 +13,13 @@ module game {
         }
 
         private playAnim() {
-            this.holeImage.source = `cube/blackHole/0000${this._currentIndex}`;
+            this.holeImage.source = `cube/blackHole/blackHole_0000${this._currentIndex}`;
             this._playInterval = egret.setInterval(() => {
                 this._currentIndex++;
                 if (this._currentIndex > 7) {
                     this._currentIndex = 0;
                 }
-                this.holeImage.source = `cube/blackHole/0000${this._currentIndex}`;
+                this.holeImage.source = `cube/blackHole/blackHole_0000${this._currentIndex}`;
             }, this, 100);
         }
 
