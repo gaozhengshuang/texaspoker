@@ -4,7 +4,7 @@ import (     // import packages
 	"fmt"
 )
 
-import "testbuildlib"
+import "gitee.com/jntse/testgo/testbuildlib"
 
 
 func main() {

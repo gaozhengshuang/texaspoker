@@ -1,4 +1,5 @@
 package libjntse
+import "C"
 
 /*
 	1.	当标识符(包括常量、变量、类型、函数名、结构字段等等)
