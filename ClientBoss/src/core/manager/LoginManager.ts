@@ -55,7 +55,7 @@ module game {
             let d = defer();
             ClientNet.getInstance().onConnectClose();
             NotificationCenter.once(this, () => {
-                ClientNet.getInstance().onConnectByUrl(`ws://${gwResult.gatehost.ip}:${gwResult.gatehost.port}/ws_handler`);
+                ClientNet.getInstance().onConnectByUrl($gameNetIp.replace("{gamePort}", `${gwResult.gatehost.port}`));
                 NotificationCenter.once(this, async () => {
                     NotificationCenter.once(this, (data: msg.IGW2C_RetLogin) => {
                         d.resolve(data);
@@ -124,17 +124,29 @@ module game {
             DataManager.playerModel.userInfo.face = avatarUrl;
 
             //TODO:使用这些获取的数据
-            console.log("openid: ", DataManager.playerModel.getOpenId())
+            // console.log("openid: ", DataManager.playerModel.getOpenId())
+            var opt = wx.getLaunchOptionsSync();
+            console.log("启动参数为：", opt);
+            var inviteCode = opt.query['inviteCode'] || "";
+
 
             LoginManager.getInstance().wxlogin({
                 openid: DataManager.playerModel.getOpenId(),
                 face: avatarUrl,
-                nickname: nickName
+                nickname: nickName,
+                invitationcode: inviteCode,
             })
         })
     }
 
+    function sysinfo() {
+        var sys = wx.getSystemInfoSync();
+        loginOs = sys.system;
+
+
+    }
     export function wxAutoLogin() {
+        sysinfo();
         platform.login().then((res) => {
             wxCode = res.code;
 
@@ -164,4 +176,5 @@ module game {
     }
 
     export var loginUserInfo: msg.IC2L_ReqLogin;
+    export var loginOs: string = egret.Capabilities.os;
 }

@@ -9656,6 +9656,7 @@ $root.msg = (function() {
          * @property {string|null} [openid] C2L_ReqLoginWechat openid
          * @property {string|null} [face] C2L_ReqLoginWechat face
          * @property {string|null} [nickname] C2L_ReqLoginWechat nickname
+         * @property {string|null} [invitationcode] C2L_ReqLoginWechat invitationcode
          */
 
         /**
@@ -9698,6 +9699,14 @@ $root.msg = (function() {
         C2L_ReqLoginWechat.prototype.nickname = "";
 
         /**
+         * C2L_ReqLoginWechat invitationcode.
+         * @member {string} invitationcode
+         * @memberof msg.C2L_ReqLoginWechat
+         * @instance
+         */
+        C2L_ReqLoginWechat.prototype.invitationcode = "";
+
+        /**
          * Creates a new C2L_ReqLoginWechat instance using the specified properties.
          * @function create
          * @memberof msg.C2L_ReqLoginWechat
@@ -9727,6 +9736,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.face);
             if (message.nickname != null && message.hasOwnProperty("nickname"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.nickname);
+            if (message.invitationcode != null && message.hasOwnProperty("invitationcode"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.invitationcode);
             return writer;
         };
 
@@ -9769,6 +9780,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.nickname = reader.string();
+                    break;
+                case 4:
+                    message.invitationcode = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -9814,6 +9828,9 @@ $root.msg = (function() {
             if (message.nickname != null && message.hasOwnProperty("nickname"))
                 if (!$util.isString(message.nickname))
                     return "nickname: string expected";
+            if (message.invitationcode != null && message.hasOwnProperty("invitationcode"))
+                if (!$util.isString(message.invitationcode))
+                    return "invitationcode: string expected";
             return null;
         };
 
@@ -9835,6 +9852,8 @@ $root.msg = (function() {
                 message.face = String(object.face);
             if (object.nickname != null)
                 message.nickname = String(object.nickname);
+            if (object.invitationcode != null)
+                message.invitationcode = String(object.invitationcode);
             return message;
         };
 
@@ -9855,6 +9874,7 @@ $root.msg = (function() {
                 object.openid = "";
                 object.face = "";
                 object.nickname = "";
+                object.invitationcode = "";
             }
             if (message.openid != null && message.hasOwnProperty("openid"))
                 object.openid = message.openid;
@@ -9862,6 +9882,8 @@ $root.msg = (function() {
                 object.face = message.face;
             if (message.nickname != null && message.hasOwnProperty("nickname"))
                 object.nickname = message.nickname;
+            if (message.invitationcode != null && message.hasOwnProperty("invitationcode"))
+                object.invitationcode = message.invitationcode;
             return object;
         };
 

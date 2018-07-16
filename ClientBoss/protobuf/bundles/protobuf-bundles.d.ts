@@ -3980,6 +3980,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginWechat nickname */
         nickname?: (string|null);
+
+        /** C2L_ReqLoginWechat invitationcode */
+        invitationcode?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginWechat. */
@@ -3999,6 +4002,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginWechat nickname. */
         public nickname: string;
+
+        /** C2L_ReqLoginWechat invitationcode. */
+        public invitationcode: string;
 
         /**
          * Creates a new C2L_ReqLoginWechat instance using the specified properties.
