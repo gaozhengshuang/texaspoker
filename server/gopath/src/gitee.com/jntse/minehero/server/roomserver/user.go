@@ -2,7 +2,7 @@ package main
 import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	_"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
@@ -79,7 +79,7 @@ func (this *RoomUser) RoomId() int64 {
 	return this.roomid
 }
 
-func (this *RoomUser) WechatOpenId() string {
+func (this *RoomUser) OpenId() string {
 	userbase := this.UserBase()
 	return userbase.GetWechat().GetOpenid()
 }
@@ -302,6 +302,7 @@ func (this *RoomUser) GetMoney() uint32 {
 
 func (this *RoomUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 	if this.GetMoney() > gold {
+		this.SynRemoveMidsMoney(int64(gold), reason)
 		userbase := this.UserBase()
 		userbase.Money = pb.Uint32(this.GetMoney() - gold)
 		if syn {
@@ -605,5 +606,22 @@ func (this *RoomUser) LuckyDraw() {
 	// feedback
 	send := &msg.GW2C_LuckyDrawHit{Id:pb.Int32(int32(uid))}
 	this.SendClientMsg(send)
+}
+
+// 从midas服务器扣除金币
+func (this *RoomUser) SynRemoveMidsMoney(amount int64, reason string) {
+	event := NewRemovePlatformCoinsEvent(amount, this.DoRemoveMidasMoney, this.DoRemoveMidasMoneyResult)
+	this.AsynEventInsert(event)
+	log.Info("玩家[%s %d] 同步扣除midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
+}
+
+func (this* RoomUser) DoRemoveMidasMoney(amount int64) (balance int64, errmsg string) {
+	return def.HttpWechatMiniGamePayMoney(Redis(), this.OpenId(), amount)
+}
+
+func (this* RoomUser) DoRemoveMidasMoneyResult(balance int64, errmsg string, amount int64) {
+	if errmsg != "" {
+		log.Error("玩家[%s %d] midas扣钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
+	}
 }
 
