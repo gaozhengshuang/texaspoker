@@ -775,7 +775,23 @@ func (this *GateUser) SynMidasBalanceResult(balance int64, errmsg string) {
 	}else {
 		this.RemoveMoney(remain - money, "同步midas余额", true)
 	}
-	log.Info("玩家[%s %d %s] 同步midas余额成功，当前余额:%s", this.Name(), this.Id(), this.OpenId(), this.GetMoney())
+	log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%s", this.Name(), this.Id(), this.GetMoney())
 }
 
+// 从midas服务器扣除金币
+func (this *GateUser) SynRemoveMidsMoney(amount int64, reason string) {
+	event := NewRemovePlatformCoinsEvent(amount, this.DoRemoveMidasMoney, this.DoRemoveMidasMoneyResult)
+	this.AsynEventInsert(event)
+	log.Info("玩家[%s %d] 同步扣除midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
+}
+
+func (this* GateUser) DoRemoveMidasMoney(amount int64) (balance int64, errmsg string) {
+	return def.HttpWechatMiniGamePayMoney(Redis(), this.OpenId(), amount)
+}
+
+func (this* GateUser) DoRemoveMidasMoneyResult(balance int64, errmsg string, amount int64) {
+	if errmsg != "" {
+		log.Error("玩家[%s %d] midas扣钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
+	}
+}
 

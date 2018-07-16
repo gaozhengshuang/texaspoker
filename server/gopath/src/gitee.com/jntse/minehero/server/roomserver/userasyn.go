@@ -33,12 +33,20 @@ func (this *RechargeCheckEvent) Feedback() {
 }
 
 
-// 扣除平台金币
+// --------------------------------------------------------------------------
+/// @brief 扣除平台金币
+///
+/// @param 
+/// @param 
+/// @param string
+/// @param int64
+///
+/// @return 
+// --------------------------------------------------------------------------
 type RemovePlatformCoinsEventHandle func(amount int64) (balance int64, errmsg string)
 type RemovePlatformCoinsFeedback func(balance int64, errmsg string, amount int64)
 type RemovePlatformCoinsEvent struct {
 	handler RemovePlatformCoinsEventHandle
-	room *GameRoom
 	amount int64
 
 	feedback RemovePlatformCoinsFeedback
@@ -46,25 +54,31 @@ type RemovePlatformCoinsEvent struct {
 	errmsg string
 }
 
-func NewRemovePlatformCoinsEvent(room *GameRoom, 
-								 amount int64,
-								 handler RemovePlatformCoinsEventHandle, 
-								 feedback RemovePlatformCoinsFeedback) *RemovePlatformCoinsEvent {
-	return &RemovePlatformCoinsEvent{handler, room, amount, feedback, 0, ""}
+func NewRemovePlatformCoinsEvent(amount int64, h RemovePlatformCoinsEventHandle, fb RemovePlatformCoinsFeedback) *RemovePlatformCoinsEvent {
+	return &RemovePlatformCoinsEvent{h, amount, fb, 0, ""}
 }
 
 func (this *RemovePlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
 	this.balance, this.errmsg = this.handler(this.amount)
 	ch_fback <- this
-	log.Trace("[异步事件] 房间[%d] 玩家[%d] QueryPlatformCoinsEvent 本次消耗 %dms", this.room.Id(), this.room.ownerid, util.CURTIMEMS() - tm1)
+	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
 func (this *RemovePlatformCoinsEvent) Feedback() {
 	if this.feedback != nil { this.feedback(this.balance, this.errmsg, this.amount) }
 }
 
-// 同步平台金币
+
+// --------------------------------------------------------------------------
+/// @brief 同步平台金币
+///
+/// @param 
+/// @param 
+/// @param string
+///
+/// @return 
+// --------------------------------------------------------------------------
 type QueryPlatformCoinsEventHandle func() (balance int64, errmsg string)
 type QueryPlatformCoinsFeedback func(balance int64, errmsg string)
 type QueryPlatformCoinsEvent struct {

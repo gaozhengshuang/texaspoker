@@ -302,6 +302,7 @@ func (this *RoomUser) GetMoney() uint32 {
 
 func (this *RoomUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 	if this.GetMoney() > gold {
+		this.SynRemoveMidsMoney(int64(gold), reason)
 		userbase := this.UserBase()
 		userbase.Money = pb.Uint32(this.GetMoney() - gold)
 		if syn {
@@ -608,9 +609,10 @@ func (this *RoomUser) LuckyDraw() {
 }
 
 // 从midas服务器扣除金币
-func (this *RoomUser) SynRemoveMidsMoney(room *GameRoom, amount int64) {
-	event := NewRemovePlatformCoinsEvent(room, amount, this.DoRemoveMidasMoney, this.DoRemoveMidasMoneyResult)
+func (this *RoomUser) SynRemoveMidsMoney(amount int64, reason string) {
+	event := NewRemovePlatformCoinsEvent(amount, this.DoRemoveMidasMoney, this.DoRemoveMidasMoneyResult)
 	this.AsynEventInsert(event)
+	log.Info("玩家[%s %d] 同步扣除midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
 }
 
 func (this* RoomUser) DoRemoveMidasMoney(amount int64) (balance int64, errmsg string) {
