@@ -11,8 +11,7 @@
 		"protobuf/library/protobuf-library.js",
 		"protobuf/bundles/protobuf-bundles.js",
 		"libs/modules/physics/physics.js",
-		"libs/modules/particle/particle.js",
-		// "libs/modules/md5/md5.js"
+		"libs/modules/particle/particle.js"
 	],
 	"game": [
 		"bin-debug/core/scenes/component/GameComponent.js",
