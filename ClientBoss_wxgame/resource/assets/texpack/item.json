@@ -1,8 +1,0 @@
-{"file":"item.png","frames":{
-"1001":{"x":514,"y":514,"w":512,"h":512,"offX":0,"offY":0,"sourceW":512,"sourceH":512},
-"2004":{"x":0,"y":514,"w":512,"h":512,"offX":0,"offY":0,"sourceW":512,"sourceH":512},
-"2006":{"x":1542,"y":0,"w":238,"h":148,"offX":11,"offY":52,"sourceW":260,"sourceH":260},
-"3018":{"x":1028,"y":0,"w":512,"h":512,"offX":0,"offY":0,"sourceW":512,"sourceH":512},
-"5003":{"x":514,"y":0,"w":512,"h":512,"offX":0,"offY":0,"sourceW":512,"sourceH":512},
-"5004":{"x":0,"y":0,"w":512,"h":512,"offX":0,"offY":0,"sourceW":512,"sourceH":512},
-"6003":{"x":1782,"y":0,"w":109,"h":111,"offX":1,"offY":0,"sourceW":111,"sourceH":111}}}

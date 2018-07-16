@@ -28,7 +28,7 @@ module game {
             var grade = brick.getGrade();
             let texture = RES.getRes(`cube_json.break_${grade}`);
             if (!this._particle) {
-                let config = RES.getRes(`posui`);
+                let config = RES.getRes(`posui_json`);
                 this._particle = new particle.GravityParticleSystem(texture, config);
                 this.breakGroup.addChild(this._particle);
             }
