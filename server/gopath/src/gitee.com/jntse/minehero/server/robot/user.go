@@ -255,6 +255,31 @@ func (this *User) SendLogin() {
 	this.SendLoginMsg(this.NewReqLoginWechatMsg())
 }
 
+// 请求登陆验证
+func (this *User) HttpWetchatLogin() {
+
+	//
+	url := "http://192.168.30.203:7003"
+	//url := "http://210.73.214.68:7003"
+	body := fmt.Sprintf(`{"gmcmd":"wx_login", "tempauthcode":"%s"}`, this.Account())
+	resp, err := network.HttpPost(url, body)
+
+	//url := "https://tantanle-service7003.giantfun.cn/"
+	//body := fmt.Sprintf(`{"gmcmd":"wx_login", "tempauthcode":"%s"}`, this.Account())
+	//caCert := "../cert/wechat/cacert.pem"
+	//certFile := "../cert/https/https-server-214801457430415.pem"
+	//certKey := "../cert/https/https-server-214801457430415.key"
+	//resp, err := network.HttpsPost(url, caCert, certFile, certKey, body)
+
+	if err != nil {
+		log.Error("HttpWetchatLogin 接口返回报错 err[%s]", err)
+		return
+	}
+
+	log.Info("HttpWetchatLogin 服务器返回信息Code[%d] Body[%s]", resp.Code, resp.Body)
+}
+
+
 func (this *User) StartGame() {
 	this.SendGateMsg(&msg.C2GW_ReqStartGame{Gamekind:pb.Int32(30)})
 }
@@ -310,6 +335,8 @@ func (this *User) DoInputCmd(cmd string) {
 	switch cmd {
 	case "reg":
 		this.RegistAccount()
+	case "wxlogin":
+		this.HttpWetchatLogin()
 	case "login":
 		this.SendLogin()
 	case "start":
