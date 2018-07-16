@@ -88,7 +88,8 @@
 		<e:Label id="ball1Price" text="Label" y="541" size="20" horizontalCenter="-151" visible="false"/>
 		<e:Label id="ball2Price" text="Label" size="20" horizontalCenter="0.5" verticalCenter="121"/>
 	</e:Group>
-	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" y="12.67" horizontalCenter="-318.5"/>
+	
+	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" y="10" horizontalCenter="-319.5"/>
 	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff"/>
 
 
