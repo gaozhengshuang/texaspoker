@@ -127,6 +127,32 @@ func (this *QueryPlatformCoinsEvent) Feedback() {
 }
 
 // --------------------------------------------------------------------------
-/// @brief 
+/// @brief 扣除平台金币
 // --------------------------------------------------------------------------
+type RemovePlatformCoinsEventHandle func(amount int64) (balance int64, errmsg string)
+type RemovePlatformCoinsFeedback func(balance int64, errmsg string, amount int64)
+type RemovePlatformCoinsEvent struct {
+	handler RemovePlatformCoinsEventHandle
+	amount int64
+
+	feedback RemovePlatformCoinsFeedback
+	balance int64
+	errmsg string
+}
+
+func NewRemovePlatformCoinsEvent(amount int64, h RemovePlatformCoinsEventHandle, fb RemovePlatformCoinsFeedback) *RemovePlatformCoinsEvent {
+	return &RemovePlatformCoinsEvent{h, amount, fb, 0, ""}
+}
+
+func (this *RemovePlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
+	tm1 := util.CURTIMEMS()
+	this.balance, this.errmsg = this.handler(this.amount)
+	ch_fback <- this
+	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
+}
+
+func (this *RemovePlatformCoinsEvent) Feedback() {
+	if this.feedback != nil { this.feedback(this.balance, this.errmsg, this.amount) }
+}
+
 
