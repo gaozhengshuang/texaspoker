@@ -3,7 +3,7 @@
 	<e:Button id="itembg" label="" x="0" y="0">
 		<e:skinName>
 		<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="ui_json.chkPayBg" source.down="ui/chkPayBg" source.disabled="ui/chkPayBg"/>
+			<e:Image width="100%" height="100%" source="ui_json.chkPayBg"/>
 			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 		</e:Skin>
 		</e:skinName>

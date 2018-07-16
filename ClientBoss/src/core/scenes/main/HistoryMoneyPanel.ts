@@ -13,7 +13,7 @@ module game {
         }
 
         protected init() {            this.closeButton.icon = "lucky_json.luckycloseBtn";
-           this.bagButton.icon = "ui_json.bag_backBagBtn";
+           this.bagButton.icon = "ui_json.backBagBtn";
           this._listProvider = new eui.ArrayCollection();
             this.historyList.dataProvider = this._listProvider;
             this.historyList.itemRenderer = HistoryMoneyItem;

@@ -1,7 +1,7 @@
 module game {
     //获取道具图片
     export function getItemIconSource(id: number) {
-        return `item/${id}`;
+        return `item_json.${id}`;
     }
 
     //显示等待界面

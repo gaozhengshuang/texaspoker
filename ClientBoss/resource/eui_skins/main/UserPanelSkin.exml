@@ -51,7 +51,7 @@
 		<e:Image id="img_nobecomeonTask" horizontalCenter="260" verticalCenter="-0.045000000000001705" source="login_json.notreachImg" x="581" y="-448" scaleX="1" scaleY="1"/>
 
 	</e:Group>
-	<e:Image source="user/getMoneyImg" verticalCenter="-154" horizontalCenter="221"/>
+	<e:Image source="user_json.getMoneyImg" verticalCenter="-154" horizontalCenter="221"/>
 
 
 
