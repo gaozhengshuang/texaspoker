@@ -167,7 +167,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 	tmsg := message.(*msg.C2L_ReqLoginWechat)
 	tm1  := util.CURTIMEUS()
 	errcode, openid, face, nickname := "", tmsg.GetOpenid(), tmsg.GetFace(), tmsg.GetNickname()
-	account, passwd, invitationcode := openid, "", ""
+	account, passwd, invitationcode := openid, "", tmsg.GetInvitationcode()
 	switch {
 	default:
 		// 1. 多Gate时避免多客户端同时登陆
