@@ -13,6 +13,7 @@ message C2L_ReqLoginWechat {
     optional string openid = 1;
     optional string face = 2;
     optional string nickname = 3;
+    optional string invitationcode = 4;
 }
 
 
