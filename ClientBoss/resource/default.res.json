@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,test,posui_json",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,test,posui_json,zhadan,posui,play,pengzhuang,jiesuan,huoqiangloop,heidong,fashe,dazhao,bingqiang,goldGame_png,goldGame_fnt,1_png",
 			"name": "preload"
 		}
 	],
@@ -62,87 +62,72 @@
 		{
 			"url": "assets/font/goldGame_fnt.fnt",
 			"type": "font",
-			"name": "goldGame_fnt_fnt"
+			"name": "goldGame_fnt"
 		},
 		{
 			"url": "assets/font/goldGame_png.png",
 			"type": "image",
-			"name": "goldGame_png_png"
+			"name": "goldGame_png"
 		},
 		{
 			"url": "assets/music/bingqiang.mp3",
 			"type": "sound",
-			"name": "bingqiang_mp3"
+			"name": "bingqiang"
 		},
 		{
 			"url": "assets/music/dazhao.mp3",
 			"type": "sound",
-			"name": "dazhao_mp3"
+			"name": "dazhao"
 		},
 		{
 			"url": "assets/music/fashe.mp3",
 			"type": "sound",
-			"name": "fashe_mp3"
+			"name": "fashe"
 		},
 		{
 			"url": "assets/music/heidong.mp3",
 			"type": "sound",
-			"name": "heidong_mp3"
+			"name": "heidong"
 		},
 		{
 			"url": "assets/music/huoqiangloop.mp3",
 			"type": "sound",
-			"name": "huoqiangloop_mp3"
+			"name": "huoqiangloop"
 		},
 		{
 			"url": "assets/music/jiesuan.mp3",
 			"type": "sound",
-			"name": "jiesuan_mp3"
+			"name": "jiesuan"
 		},
 		{
 			"url": "assets/music/pengzhuang.mp3",
 			"type": "sound",
-			"name": "pengzhuang_mp3"
+			"name": "pengzhuang"
 		},
 		{
 			"url": "assets/music/play.mp3",
 			"type": "sound",
-			"name": "play_mp3"
+			"name": "play"
 		},
 		{
 			"url": "assets/music/posui.mp3",
 			"type": "sound",
-			"name": "posui_mp3"
+			"name": "posui"
 		},
 		{
 			"url": "assets/music/zhadan.mp3",
 			"type": "sound",
-			"name": "zhadan_mp3"
+			"name": "zhadan"
 		},
 		{
-			"url": "assets/map/1.json",
+			"url": "assets/posui.json",
 			"type": "json",
-			"name": "1_json"
+			"name": "posui_json"
 		},
 		{
-			"url": "assets/map/4.json",
-			"type": "json",
-			"name": "4_json"
-		},
-		{
-			"url": "assets/map/2.json",
-			"type": "json",
-			"name": "2_json"
-		},
-		{
-			"url": "assets/map/3.json",
-			"type": "json",
-			"name": "3_json"
-		},
-		{
-			"name": "posui_json",
-			"type": "json",
-			"url": "assets/posui.json"
+			"url": "assets/1.png",
+			"type": "image",
+			"name": "1_png"
 		}
 	]
 }
