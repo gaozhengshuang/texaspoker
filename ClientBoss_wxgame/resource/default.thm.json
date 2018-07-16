@@ -22,6 +22,7 @@
 		"resource/eui_skins/battle/BattleSceneSkin.exml",
 		"resource/eui_skins/battle/BattleSpBarSkin.exml",
 		"resource/eui_skins/battle/BattleTimeBoomSkin.exml",
+		"resource/eui_skins/common/AvatarSkin.exml",
 		"resource/eui_skins/component/BadBuffProgressBar.exml",
 		"resource/eui_skins/component/BadBuffSkin.exml",
 		"resource/eui_skins/component/CloseButtonSkin.exml",
@@ -45,8 +46,7 @@
 		"resource/eui_skins/rank/RankItemSkin.exml",
 		"resource/eui_skins/rank/RankPanelSkin.exml",
 		"resource/eui_skins/win/WinRankItemSkin.exml",
-		"resource/eui_skins/win/WinSceneSkin.exml",
-		"resource/eui_skins/common/AvatarSkin.exml"
+		"resource/eui_skins/win/WinSceneSkin.exml"
 	],
 	"path": "resource/default.thm.json"
 }
