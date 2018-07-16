@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json",
 			"name": "preload"
 		}
 	],
@@ -109,7 +109,7 @@
 			"url": "assets/texpack/lucky.json",
 			"type": "sheet",
 			"name": "lucky_json",
-			"subkeys": "badBox_0000,badBox_0001,badBox_0002,badBox_0003,badBox_0004,badBox_0005,badBox_0006,bagBtn,bagget,bagline,bagshopbg,bagtitle,goldAni_0000,goldAni_0001,goldAni_0002,goldAni_0003,goldAni_0004,goldAni_0005,goldAni_0006,goldAni_0007,itemNameBg,itemNumBg,loginrewardBtn,luckyBg,luckyBtn,luckyGo,luckyIMG,luckyItemBg,luckyLight,luckyTitle,luckycloseBtn,shopbg,shoplight,shopnumbg"
+			"subkeys": "bagBtn,bagget,bagline,bagshopbg,bagtitle,itemNameBg,itemNumBg,loginrewardBtn,luckyBg,luckyBtn,luckyGo,luckyIMG,luckyItemBg,luckyLight,luckyTitle,luckycloseBtn,shopbg,shoplight,shopnumbg"
 		},
 		{
 			"url": "assets/texpack/user.json",
@@ -121,13 +121,25 @@
 			"url": "assets/texpack/ui.json",
 			"type": "sheet",
 			"name": "ui_json",
-			"subkeys": "again,anniudi,b-recharge,back,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,duanxian,fenxiang,gameBack,gameBtnBg,gold,guangquan,haoyou,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,jiesuan,loginRewardGold,luckMainBtn,moreFire,paihang,play,rankBg,rank_bg,rankitembg,rechargeGo,shijie,sp,spBar,spBg,spGray,tantanle,topBg,tou,touxiangkuang,userGo,userMainBtn,xinjilu,yindao"
+			"subkeys": "b-recharge,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,duanxian,gameBack,gameBtnBg,gold,guangquan,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,loginRewardGold,luckMainBtn,moreFire,paihang,play,rechargeGo,sp,spBar,spBg,spGray,tantanle,topBg,tou,userGo,userMainBtn,yindao"
 		},
 		{
 			"url": "assets/texpack/paddle.json",
 			"type": "sheet",
 			"name": "paddle_json",
 			"subkeys": "1,bg,bg2,di,guanchuan,light,pao,pao2,paota,sp_00000,sp_00001,sp_00002,sp_00003,sp_00004,sp_00005,sp_00006,sp_00007,wave_00000,wave_00001,wave_00002,wave_00003,wave_00004,wave_00005,wave_00006,wave_00007,wave_00008,wave_00009,wuxianpao,wuxianpaobg"
+		},
+		{
+			"url": "assets/texpack/win.json",
+			"type": "sheet",
+			"name": "win_json",
+			"subkeys": "again,anniudi,back,fenxiang,haoyou,jiesuan,rankBg,rank_bg,rankitembg,shijie,touxiangkuang,xinjilu"
+		},
+		{
+			"url": "assets/texpack/lucky2.json",
+			"type": "sheet",
+			"name": "lucky2_json",
+			"subkeys": "badBox_0000,badBox_0001,badBox_0002,badBox_0003,badBox_0004,badBox_0005,badBox_0006,goldAni_0000,goldAni_0001,goldAni_0002,goldAni_0003,goldAni_0004,goldAni_0005,goldAni_0006,goldAni_0007"
 		}
 	]
 }

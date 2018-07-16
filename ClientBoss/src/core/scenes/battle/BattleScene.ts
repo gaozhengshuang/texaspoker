@@ -1270,7 +1270,7 @@ module game {
 
         public openBadBox(_score: number) {
             let goldImg = new eui.Image();
-            goldImg.source = `lucky_json.goldAni_0000`;
+            goldImg.source = `lucky2_json.goldAni_0000`;
             this.addChild(goldImg);
 
             goldImg.anchorOffsetX = goldImg.width / 2;
@@ -1306,7 +1306,7 @@ module game {
                     egret.clearInterval(_playInterval);
                     _playInterval = null;
                 } else {
-                    goldImg.source = `lucky_json.goldAni_000${_currentIndex}`;
+                    goldImg.source = `lucky2_json.goldAni_000${_currentIndex}`;
                 }
             }, this, 150);
 

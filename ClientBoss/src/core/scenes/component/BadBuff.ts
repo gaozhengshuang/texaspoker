@@ -31,7 +31,7 @@ module game {
                 if (_currentIndex > 6) {
                     _currentIndex = 0;
                 }
-                this.boxBuffImg.source = `lucky_json.badBox_000${_currentIndex}`;
+                this.boxBuffImg.source = `lucky2_json.badBox_000${_currentIndex}`;
             }, this, 150);
         }
 
