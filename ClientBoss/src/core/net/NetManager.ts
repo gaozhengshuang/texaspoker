@@ -10,14 +10,12 @@ module game {
     export var $goodsPath: string = "/v1/logistics/query";
 
     //外网IP
-    // export var $registIp: string = "http://210.73.214.68:7003";
-    // export var _netIp: string = "210.73.214.68";
-    // export var _netPort: string = "7002";
+    // export var $registIp: string = "https://tantanle-service7003.giantfun.cn/";
+    // export var $netIp: string = "https://tantanle-service7002.giantfun.cn/";
 
     //内网IP
     export var $registIp: string = "http://192.168.30.203:7003";
-    export var _netIp: string = "192.168.30.203";
-    export var _netPort: string = "7002";
+    export var $netIp: string = "ws://192.168.30.203:7002/ws_handler";
 
     export interface IUpdateScore {
         openid: string;

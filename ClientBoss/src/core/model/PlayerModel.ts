@@ -294,6 +294,10 @@ module game {
             return this.userInfo.userid;
         }
 
+        public setOpenId(openid: string) {
+            this.userInfo.openid = openid;
+        }
+
         public getOpenId() {
             return this.userInfo.openid;
         }

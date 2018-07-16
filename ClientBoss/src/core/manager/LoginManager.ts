@@ -72,7 +72,7 @@ module game {
 
         private connectLoginGW() {
             let d = defer();
-            ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
+            ClientNet.getInstance().onConnectByUrl($netIp);
             NotificationCenter.once(this, () => {
                 sendMessage("msg.C2L_ReqLogin", msg.C2L_ReqLogin.encode(loginUserInfo));
                 NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
@@ -84,7 +84,7 @@ module game {
 
         private connectWxLoginGW(m: msg.C2L_ReqLoginWechat) {
             let d = defer();
-            ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
+            ClientNet.getInstance().onConnectByUrl($netIp);
             NotificationCenter.once(this, () => {
                 sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode(m));
                 NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
@@ -111,7 +111,7 @@ module game {
         SceneManager.changeScene(SceneType.login, false);
     }
 
-    function wxTouchGw(openid) {
+    export function wxTouchGw() {
         platform.getUserInfo().then((res) => {
             console.log(res)
             let nickName = res.nickName;
@@ -120,13 +120,14 @@ module game {
             let country = res.country;
             let province = res.province
 
+            DataManager.playerModel.userInfo.name = nickName;
             DataManager.playerModel.userInfo.face = avatarUrl;
 
             //TODO:使用这些获取的数据
-            console.log("openid: ", openid)
+            console.log("openid: ", DataManager.playerModel.getOpenId())
 
             LoginManager.getInstance().wxlogin({
-                openid: openid,
+                openid: DataManager.playerModel.getOpenId(),
                 face: avatarUrl,
                 nickname: nickName
             })
@@ -146,7 +147,8 @@ module game {
                 success: (res) => {
                     console.log('登录服务器返回：', res);
                     if (res.data.status == 0) {
-                        wxTouchGw(res.data.msg);
+                        DataManager.playerModel.setOpenId(res.data.msg)
+                        wxTouchGw();
                     } else {
                         showDialog("登陆失败 " + res.data.msg, "确定", null);
                     }
@@ -156,11 +158,10 @@ module game {
             });
 
             // Pay.get_open_id_and_session_key(res.code, (openid, session_key) => {
-            //    wxTouchGw(openid)
+            //    wxTouchGw()
             // });
         });
     }
 
     export var loginUserInfo: msg.IC2L_ReqLogin;
-    export var loginGwIp: string = game._netIp;
 }
