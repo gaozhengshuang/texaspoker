@@ -54,7 +54,7 @@
 	</e:Group>
 	<e:Image id="topBg" source="ui/topBg" x="0" scale9Grid="90,10,540,45" y="0" touchEnabled="false"/>
 	<e:Group id="touchGroup" width="720" height="100%"/>
-	<e:Group id="bottomGroup" width="720" height="210" verticalCenter="445" horizontalCenter="0">
+	<e:Group id="bottomGroup" width="720" height="210" horizontalCenter="0" bottom="0">
 		<e:Image source="ui/gameBtnBg" horizontalCenter="0" verticalCenter="0"/>
 		<game:IconButton id="luckyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="181.5"/>
 		<game:IconButton id="userButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-300.5"/>
@@ -88,7 +88,7 @@
 		<e:Label id="ball1Price" text="Label" y="541" size="20" horizontalCenter="-151" visible="false"/>
 		<e:Label id="ball2Price" text="Label" size="20" horizontalCenter="0.5" verticalCenter="121"/>
 	</e:Group>
-	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="-319.5" verticalCenter="-507.5" x="14" y="16"/>
+	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" y="10" horizontalCenter="-319.5"/>
 	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff"/>
 
 
