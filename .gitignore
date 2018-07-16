@@ -26,7 +26,5 @@ git
 /ClientBoss/resource_Publish
 /ClientBoss/bin-release
 .wing
-/ClientBoss/resource/default.thm.json
-/ClientBoss/resource/default.thm.json
 /ClientBoss_wxgame/resource/default.thm.json
 /ClientBoss_wxgame/js/main.min.js
