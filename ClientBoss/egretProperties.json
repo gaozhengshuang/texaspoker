@@ -52,10 +52,6 @@
     {
       "name": "particle",
       "path": "../../tools/egret/particle/libsrc"
-    },
-    {
-      "name": "md5",
-      "path": "../../tools/egret-game-library/md5/libsrc"
     }
   ]
 }
