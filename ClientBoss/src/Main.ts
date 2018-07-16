@@ -42,10 +42,6 @@ class Main extends eui.UILayer {
 
         RES.setMaxLoadingThread(6);
 
-        // egret.lifecycle.addLifecycleListener((context) => {
-        //     // custom lifecycle plugin
-        // });
-        //
         egret.lifecycle.onPause = () => {
             //egret.ticker.pause();
             game.leaveTime = new Date().getTime();
@@ -70,16 +66,14 @@ class Main extends eui.UILayer {
     }
 
     private async runGame() {
-        await this.loadLoding();
+        
         await this.loadResource();
         game.run();
     }
 
     private async loadLoding() {
-        // let loding = await RES.getResAsync("loadingMain");
-        // egret.log("loding:", loding);
-        // const loadingView = new game.LoadingUI();
-        // GameLayer.loadLayer.addChild(loadingView);
+        const loadingView = new game.LoadingUI();
+        GameLayer.loadLayer.addChild(loadingView);
     }
 
     private async loadResource() {
@@ -98,9 +92,7 @@ class Main extends eui.UILayer {
 
             {
                 const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
-
             //     egret.ImageLoader.crossOrigin = "anonymous";
-
                 RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, (e) => { console.log("加载资源成功"); }, this);
                 RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, (e) => { console.log("加载资源出错！", e); }, this);
                 RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, (e) => { console.log("加载资源项出错", e); }, this);
@@ -108,7 +100,7 @@ class Main extends eui.UILayer {
 
                 // VL: NOTE: 相同文件不可多次加载
                 await RES.loadConfig("default.res.json", "resource/");
-         
+                await this.loadLoding();
                 try {
                     await RES.loadConfig("default.res.json", remoteUrl);
                 } catch (e) {
@@ -118,20 +110,10 @@ class Main extends eui.UILayer {
 
             await this.loadTheme();
 
-            // VL: loading组没什么意义，去掉。
-            // await RES.loadGroup("loading");
-
-
-            //const loadingView = new game.LoadingUI();
-            //GameLayer.loadLayer.addChild(loadingView);
-            // if (document && document.getElementById("preloading")) {
-            //     document.getElementById("preloading").style.display = "none";
-            // }
             await RES.loadGroup("preload", 0);
             if (document && document.getElementById("preloading")) {
                 document.getElementById("preloading").style.display = "none";
             }
-            //loadingView.removeFromParent();
         }
         catch (e) {
             console.error(e);
