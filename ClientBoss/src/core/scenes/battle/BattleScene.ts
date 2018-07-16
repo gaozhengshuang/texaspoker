@@ -419,7 +419,8 @@ module game {
             if (y >= this._paddle.y) return;
             if (DataManager.playerModel.getScore() < _paddlePrice) {
                 showDialog("您的金币不足!", "充值", function () {
-                    this.rechargeGoHandle();
+                    // this.rechargeGoHandle();
+                     openPanel(PanelType.pay);
                     // showTips("暂未开放,敬请期待...", true);
                 });
                 return;
