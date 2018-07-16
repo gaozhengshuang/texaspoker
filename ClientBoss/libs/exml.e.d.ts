@@ -42,26 +42,6 @@ declare class BattleTimeBoomSkin extends eui.Skin{
 }
 declare class AvatarSkin extends eui.Skin{
 }
-declare class BadBuffProgressBar extends eui.Skin{
-}
-declare class BadBuffSkin extends eui.Skin{
-}
-declare class CloseButtonSkin extends eui.Skin{
-}
-declare class IconButtonSkin extends eui.Skin{
-}
-declare class ImageButtonSkin extends eui.Skin{
-}
-declare class LoadProgressBar extends eui.Skin{
-}
-declare class LuckyItemSkin extends eui.Skin{
-}
-declare class NormalLabelButtonSkin extends eui.Skin{
-}
-declare class PayItemSkin extends eui.Skin{
-}
-declare class ToggleButtonSkin extends eui.Skin{
-}
 declare class DeliveryItemSkin extends eui.Skin{
 }
 declare class DeliveryPanelSkin extends eui.Skin{
@@ -85,6 +65,24 @@ declare class RegisterPanelSkin extends eui.Skin{
 declare class RankItemSkin extends eui.Skin{
 }
 declare class RankPanelSkin extends eui.Skin{
+}
+declare class BadBuffProgressBar extends eui.Skin{
+}
+declare class BadBuffSkin extends eui.Skin{
+}
+declare class CloseButtonSkin extends eui.Skin{
+}
+declare class IconButtonSkin extends eui.Skin{
+}
+declare class ImageButtonSkin extends eui.Skin{
+}
+declare class LoadProgressBar extends eui.Skin{
+}
+declare class LuckyItemSkin extends eui.Skin{
+}
+declare class NormalLabelButtonSkin extends eui.Skin{
+}
+declare class ToggleButtonSkin extends eui.Skin{
 }
 declare class WinRankItemSkin extends eui.Skin{
 }

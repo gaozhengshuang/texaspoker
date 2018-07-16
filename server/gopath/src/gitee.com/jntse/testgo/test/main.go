@@ -11,6 +11,7 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 	_"path/filepath"
 	_"os"
+	"net/url"
 )
 
 // --------------------------------------------------------------------------
@@ -44,6 +45,13 @@ func main() {
 	g_KeyBordInput.Init()
 	g_KeyBordInput.Start()
 	log.Info("初始键盘输入完成")
+
+	testurl := "https://api.weixin.qq.com/cgi-bin/midas/sandbox/pay?access_token="
+	u, err := url.Parse(testurl)
+	if err == nil { 
+		fmt.Println(u.Hostname())
+		fmt.Println(u.RequestURI())
+	}
 
 
 	// 特殊符合检查

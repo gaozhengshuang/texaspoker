@@ -102,30 +102,28 @@ func (this *GiveFreeStepEvent) Feedback() {
 // --------------------------------------------------------------------------
 /// @brief 同步平台金币
 // --------------------------------------------------------------------------
-type QueryPlatformCoinsEventHandle func()
-type QueryPlatformCoinsFeedback func()
+type QueryPlatformCoinsEventHandle func() (balance int64, errmsg string)
+type QueryPlatformCoinsFeedback func(balance int64, errmsg string)
 type QueryPlatformCoinsEvent struct {
 	handler QueryPlatformCoinsEventHandle
 	feedback QueryPlatformCoinsFeedback
-	//coins int32
-	//diamonds int32
-
-	//tm_done int64
-	//tm_start int64
-	//tm_processed int64
+	balance int64
+	errmsg string
 }
 
-func NewQueryPlatformCoinsEvent(handler QueryPlatformCoinsEventHandle) *QueryPlatformCoinsEvent {
-	return &QueryPlatformCoinsEvent{handler:handler, feedback:nil}
+func NewQueryPlatformCoinsEvent(handler QueryPlatformCoinsEventHandle, feedback QueryPlatformCoinsFeedback) *QueryPlatformCoinsEvent {
+	return &QueryPlatformCoinsEvent{handler:handler, feedback:feedback}
 }
 
 func (this *QueryPlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
-	this.handler()
+	this.balance, this.errmsg = this.handler()
+	ch_fback <- this
 	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
 func (this *QueryPlatformCoinsEvent) Feedback() {
+	if this.feedback != nil { this.feedback(this.balance, this.errmsg) }
 }
 
 // --------------------------------------------------------------------------

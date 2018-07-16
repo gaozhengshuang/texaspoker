@@ -130,6 +130,10 @@ func DoGMCmd(cmd map[string]string) (errcode int32, errmsg string) {
 		return DoWeChatPay(cmd)
 	case "wxbalance":
 		return DoWechatBalance(cmd)
+	case "wxpresentmoney":
+		return DoWechatPresentMoney(cmd)
+	case "wxpaymoney":
+		return DoWechatPayMoney(cmd)
 	}
 
 	return 1, "错误的cmd类型"
@@ -151,6 +155,20 @@ func DoWechatBalance(cmd map[string]string) (errcode int32, errmsg string) {
 	openid := cmd["openid"]
 	def.HttpWechatMiniGameGetBalance(Redis(), openid)
 	return 0, "DoWechatBalance OK"
+}
+
+func DoWechatPresentMoney(cmd map[string]string) (errcode int32, errmsg string) {
+	openid := cmd["openid"]
+	count, _ := strconv.ParseInt(cmd["count"], 10, 64)
+	def.HttpWechatMiniGamePresentMoney(Redis(), openid, count)
+	return 0, "DoWechatGetPresentMoney OK"
+}
+
+func DoWechatPayMoney(cmd map[string]string) (errcode int32, errmsg string) {
+	openid := cmd["openid"]
+	count, _ := strconv.ParseInt(cmd["count"], 10, 64)
+	def.HttpWechatMiniGamePayMoney(Redis(), openid, count)
+	return 0, "DoWechatPayMoney OK"
 }
 
 
