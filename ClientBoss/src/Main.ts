@@ -70,8 +70,16 @@ class Main extends eui.UILayer {
     }
 
     private async runGame() {
+        await this.loadLoding();
         await this.loadResource();
         game.run();
+    }
+
+    private async loadLoding() {
+        // let loding = await RES.getResAsync("loadingMain");
+        // egret.log("loding:", loding);
+        // const loadingView = new game.LoadingUI();
+        // GameLayer.loadLayer.addChild(loadingView);
     }
 
     private async loadResource() {
@@ -89,7 +97,7 @@ class Main extends eui.UILayer {
             // }
 
             {
-                const remoteUrl = "http://jump.test.giantfun.cn/egret_remote/resource/"
+                const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
 
             //     egret.ImageLoader.crossOrigin = "anonymous";
 

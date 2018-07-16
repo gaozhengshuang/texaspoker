@@ -29,8 +29,6 @@ module game {
         gameInit();
     }
 
-   
-
     export function gameInit() {
         // VL:微信小游戏登陆
         wxAutoLogin();
