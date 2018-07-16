@@ -42,7 +42,7 @@ module game {
                 DataManager.playerModel.addScore(_score);
 
                 if (this._playInterval) {
-                    this.boxBuffImg.source = "ui/boxBuff1";
+                    this.boxBuffImg.source = "ui_json.boxBuff1";
                     egret.clearInterval(this._playInterval);
                     this._playInterval = null;
                 }

@@ -30,7 +30,7 @@
 	<e:Image source="paddle_json.paota" x="24.5" y="76"/>
 	<e:Image source="paddle_json.di" x="42" y="93" touchEnabled="false"/>
 	<e:Image id="waveMask" source="paddle_json.di" x="42" y="93" touchEnabled="false"/>
-	<e:Image id="waveImage" source="paddle.wave_00000" x="0" y="173" touchEnabled="true"/>
+	<e:Image id="waveImage" source="paddle_json.wave_00000" x="0" y="173" touchEnabled="true"/>
 	<e:Label id="spLabel" text="能量" y="170.99" size="18" horizontalCenter="1.5" touchEnabled="false"/>
 	<e:Label id="costLabel" text="5" y="134.5" size="35" textAlign="center" width="227" anchorOffsetX="0" horizontalCenter="0" touchEnabled="false" fontFamily="DynoBold"/>
 	<e:Image id="spImage" scaleX="1.5" scaleY="1.5" verticalCenter="11.5" horizontalCenter="1.5" touchEnabled="false" source="paddle_json.sp_00000" visible="false"/>

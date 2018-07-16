@@ -40,9 +40,9 @@ module game {
             this.ballId = ballId;
             this._ballData = table.TBallById[ballId];
             if (isPenetration) {
-                this.ballImage.source = `ball/3`;
+                this.ballImage.source = `ball_json.3`;
             } else {
-                this.ballImage.source = `ball/${ballId}`;
+                this.ballImage.source = `ball_json.${ballId}`;
             }
             if (ballId == 1) {
                 this.width = this.height = 28;

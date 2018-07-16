@@ -26,12 +26,12 @@ const config: ResourceManagerConfig = {
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     new WxgamePlugin(),
 
-                    // new ResSplitPlugin({
-                    //     verbose: true, matchers: [
-                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
-                    //         { from: "resource/assets/!(login)/**", to: `${remote}_alpha`},
-                    //     ]
-                    // }),
+                    new ResSplitPlugin({
+                        verbose: true, matchers: [
+                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
+                            { from: "resource/assets/!(texpack)/**", to: `${remote}_alpha`},
+                        ]
+                    }),
 
                     // new EmitResConfigFilePlugin({
                     //     output: "resource/default.res.json",
@@ -71,12 +71,12 @@ const config: ResourceManagerConfig = {
                     //     ]
                     // }),
 
-                    // new ResSplitPlugin({
-                    //     verbose: true, matchers: [
-                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
-                    //         { from: "resource/assets/!(login)/**", to: remote },
-                    //     ]
-                    // }),
+                    new ResSplitPlugin({
+                        verbose: true, matchers: [
+                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
+                            { from: "resource/assets/!(texpack)/**", to: remote },
+                        ]
+                    }),
 
                     // new EmitResConfigFilePlugin({
                     //     output: "resource/default.res.json",

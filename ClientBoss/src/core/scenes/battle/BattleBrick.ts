@@ -264,7 +264,7 @@ module game {
                     this.brickImage.source = `cube_json.goldShark_0000${_currentIndex}`;
                 }, this, 200);
             } else {
-                this.brickImage.source = `cube/${this.buffType}`;
+                this.brickImage.source = `cube_json.${this.buffType}`;
             }
             this._grade = value;
         }
@@ -275,13 +275,13 @@ module game {
                 this.crackImage.visible = false;
             } else if (this._hp > this._31Hp) {
                 this.crackImage.visible = true;
-                this.crackImage.source = "cube/crack1";
+                this.crackImage.source = "cube_json.crack1";
             } else if (this._hp > 0) {
                 this.crackImage.visible = true;
-                this.crackImage.source = "cube/crack2";
+                this.crackImage.source = "cube_json.crack2";
             } else if (this._hp == 0) {
                 this.crackImage.visible = true;
-                this.crackImage.source = "cube/crack3";
+                this.crackImage.source = "cube_json.crack3";
             }
             if (value < 0) {
                 BattleScene.getInstance().destroyBrick(this);
@@ -342,7 +342,7 @@ module game {
                                 _playSharkPop = null;
                                 return;
                             }
-                            popImg.source = `cube/sharkPop/0000${_currentIndex}`;
+                            popImg.source = `cube_json.sharkPop_0000${_currentIndex}`;
                         }, this, 150);
                     } else {
                         if (Math.random() <= _goldSharkCrush) {
@@ -370,7 +370,7 @@ module game {
             this.frozenBrick = brick;
             this._frozen = true;
             this.crackImage.visible = true;
-            this.crackImage.source = `cube/frozen`;
+            this.crackImage.source = `cube_json.frozen`;
         }
 
         public unFrozen() {

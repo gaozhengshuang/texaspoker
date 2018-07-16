@@ -1,11 +1,7 @@
-﻿{
+{
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json",
-			"name": "loading"
-		},
-		{
-			"keys": "",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,test,posui_json",
 			"name": "preload"
 		}
 	],
@@ -44,7 +40,7 @@
 			"url": "assets/texpack/user.json",
 			"type": "sheet",
 			"name": "user_json",
-			"subkeys": "addressBg,addressImg,deliveryAdressBtn,updateBtn"
+			"subkeys": "addressBg,addressImg,adrBg,comeonBg,copyButton,deliveryAdressBtn,getMoneyImg,headBg,headBorder,taskRewardImg,updateBtn,userBg,userButton,userOk,userTitle"
 		},
 		{
 			"url": "assets/texpack/login.json",
@@ -56,7 +52,97 @@
 			"url": "assets/texpack/ui.json",
 			"type": "sheet",
 			"name": "ui_json",
-			"subkeys": "again,anniudi,b-recharge,back,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,duanxian,fenxiang,gameBack,gameBtnBg,gold,guangquan,haoyou,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,jiesuan,loginRewardGold,luckMainBtn,moreFire,paihang,play,rankBg,rankitembg,rechargeGo,shijie,sp,spBar,spBg,spGray,tantanle,topBg,tou,touxiangkuang,userGo,userMainBtn,xinjilu,yindao"
+			"subkeys": "again,anniudi,b-recharge,back,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,duanxian,fenxiang,gameBack,gameBtnBg,gold,guangquan,haoyou,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,jiesuan,loginRewardGold,luckMainBtn,moreFire,paihang,play,rankBg,rank_bg,rankitembg,rechargeGo,shijie,sp,spBar,spBg,spGray,tantanle,topBg,tou,touxiangkuang,userGo,userMainBtn,xinjilu,yindao"
+		},
+		{
+			"url": "assets/test.json",
+			"type": "json",
+			"name": "test"
+		},
+		{
+			"url": "assets/font/goldGame_fnt.fnt",
+			"type": "font",
+			"name": "goldGame_fnt_fnt"
+		},
+		{
+			"url": "assets/font/goldGame_png.png",
+			"type": "image",
+			"name": "goldGame_png_png"
+		},
+		{
+			"url": "assets/music/bingqiang.mp3",
+			"type": "sound",
+			"name": "bingqiang_mp3"
+		},
+		{
+			"url": "assets/music/dazhao.mp3",
+			"type": "sound",
+			"name": "dazhao_mp3"
+		},
+		{
+			"url": "assets/music/fashe.mp3",
+			"type": "sound",
+			"name": "fashe_mp3"
+		},
+		{
+			"url": "assets/music/heidong.mp3",
+			"type": "sound",
+			"name": "heidong_mp3"
+		},
+		{
+			"url": "assets/music/huoqiangloop.mp3",
+			"type": "sound",
+			"name": "huoqiangloop_mp3"
+		},
+		{
+			"url": "assets/music/jiesuan.mp3",
+			"type": "sound",
+			"name": "jiesuan_mp3"
+		},
+		{
+			"url": "assets/music/pengzhuang.mp3",
+			"type": "sound",
+			"name": "pengzhuang_mp3"
+		},
+		{
+			"url": "assets/music/play.mp3",
+			"type": "sound",
+			"name": "play_mp3"
+		},
+		{
+			"url": "assets/music/posui.mp3",
+			"type": "sound",
+			"name": "posui_mp3"
+		},
+		{
+			"url": "assets/music/zhadan.mp3",
+			"type": "sound",
+			"name": "zhadan_mp3"
+		},
+		{
+			"url": "assets/map/1.json",
+			"type": "json",
+			"name": "1_json"
+		},
+		{
+			"url": "assets/map/4.json",
+			"type": "json",
+			"name": "4_json"
+		},
+		{
+			"url": "assets/map/2.json",
+			"type": "json",
+			"name": "2_json"
+		},
+		{
+			"url": "assets/map/3.json",
+			"type": "json",
+			"name": "3_json"
+		},
+		{
+			"name": "posui_json",
+			"type": "json",
+			"url": "assets/posui.json"
 		}
 	]
 }

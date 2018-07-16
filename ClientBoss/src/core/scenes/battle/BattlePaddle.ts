@@ -156,11 +156,11 @@ module game {
 
         public updatePenetrationNum(num: number, force: boolean = false) {
             if (this.onChange && !force) return;
-            if (this.cannonImage.source == "paddle/pao2" && num <= 0) {
+            if (this.cannonImage.source == "paddle_json.pao2" && num <= 0) {
                 this.playChangeAnim();
             } else {
-                this.bg.source = num > 0 ? "paddle/bg2" : "paddle/bg";
-                this.cannonImage.source = num > 0 ? "paddle/pao2" : "paddle/pao";
+                this.bg.source = num > 0 ? "paddle_json.bg2" : "paddle_json.bg";
+                this.cannonImage.source = num > 0 ? "paddle_json.pao2" : "paddle_json.pao";
                 this.ball1.visible = num >= 1;
                 this.ball2.visible = num >= 2;
                 this.ball3.visible = num >= 3;
@@ -174,13 +174,13 @@ module game {
             this.onChange = true;
             egret.Tween.get(this.group).to({y: 81.5}, 250).call(() => {
                 let num = DataManager.playerModel.penetration;
-                if (num <= 0 && this.cannonImage.source == "paddle/pao2") {
+                if (num <= 0 && this.cannonImage.source == "paddle_json.pao2") {
                     if(this._isWuxian){
-                        this.cannonImage.source = "paddle/wuxianpao";
-                        this.bg.source = "paddle/wuxianpaobg";
+                        this.cannonImage.source = "paddle_json.wuxianpao";
+                        this.bg.source = "paddle_json.wuxianpaobg";
                     }else{
-                        this.cannonImage.source = "paddle/pao";
-                        this.cannonImage.source = "paddle/bg";
+                        this.cannonImage.source = "paddle_json.pao";
+                        this.cannonImage.source = "paddle_json.bg";
                     }
                 }
                 this.updatePenetrationNum(num, true);
@@ -193,11 +193,11 @@ module game {
         public updateWuxianPao(wuxian:boolean) {
             this._isWuxian = wuxian;
             if(wuxian){
-                this.cannonImage.source = "paddle/wuxianpao";
-                this.bg.source = "paddle/wuxianpaobg";
+                this.cannonImage.source = "paddle_json.wuxianpao";
+                this.bg.source = "paddle_json.wuxianpaobg";
             }else{
-                this.cannonImage.source = "paddle/pao";
-                this.bg.source = "paddle/bg";
+                this.cannonImage.source = "paddle_json.pao";
+                this.bg.source = "paddle_json.bg";
             }
         }
     }
