@@ -144,6 +144,7 @@ module game {
             if (os.match(/[Aa]ndroid/gi)) {
                 Pay.midasPay(zuanshi, () => {
                     DataManager.playerModel.incScore(zuanshi);
+                    sendMessage("msg.C2GW_PlatformRechargeDone",msg.C2GW_PlatformRechargeDone.encode({}));
                 }, () => {
                     showDialog("支付失败，请重试", "确定", null);
                 })
