@@ -416,6 +416,9 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 	}
 
 	//user.QueryPlatformCoins()
+	user.synbalance = true
+	event := NewQueryPlatformCoinsEvent(user.SynMidasBalance, user.SynMidasBalanceResult)
+	user.AsynEventInsert(event)
 }
 
 // 绑定微信openid
@@ -472,12 +475,12 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	log.Info("玩家[%d] 获取access_token成功, respok=%#v", user.Id(), respok)
 	
 	// 
-	if user.WechatOpenId() == "" {
+	if user.OpenId() == "" {
 		if _, errset := Redis().Set(fmt.Sprintf("user_%d_wechat_openid", user.Id()), respok.Openid, 0).Result(); errset != nil {
 			log.Info("玩家[%d] 设置wechat openid到redis失败", user.Id())
 			return
 		}
-		user.SetWechatOpenId(respok.Openid)
+		user.SetOpenId(respok.Openid)
 		send := &msg.GW2C_SendWechatInfo{ Openid:pb.String(respok.Openid)}
 		user.SendMsg(send)
 

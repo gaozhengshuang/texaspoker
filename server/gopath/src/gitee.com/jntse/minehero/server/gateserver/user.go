@@ -11,7 +11,7 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 	_"gitee.com/jntse/minehero/server/def"
 	pb "github.com/gogo/protobuf/proto"
-	//"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/def"
 	_"github.com/go-redis/redis"
 	"strconv"
 	_"strings"
@@ -92,6 +92,7 @@ type GateUser struct {
 	token			string		// token
 	asynev			eventque.AsynEventQueue	// 异步事件处理
 	broadcastbuffer []uint64	// 广播消息缓存
+	synbalance		bool		// 充值中
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -233,11 +234,11 @@ func (this *GateUser) IsRoomCloseTimeOut() bool {
 	return util.CURTIMEMS() > (this.roomdata.tm_closing + 10000)
 }
 
-func (this *GateUser) SetWechatOpenId(id string)  {
+func (this *GateUser) SetOpenId(id string)  {
 	this.wechatopenid = id
 }
 
-func (this *GateUser) WechatOpenId() string {
+func (this *GateUser) OpenId() string {
 	return this.wechatopenid
 }
 
@@ -754,3 +755,27 @@ func (this *GateUser) OnlineTaskCheck() {
 		this.task.TaskFinish(int32(msg.TaskId_InviteeTopScore))
 	}
 }
+
+// 同步midas余额
+func (this *GateUser) SynMidasBalance() (balance int64, errmsg string) {
+	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
+}
+
+// 同步midas余额
+func (this *GateUser) SynMidasBalanceResult(balance int64, errmsg string) {
+	this.synbalance = false
+	if errmsg != "" {
+		log.Error("玩家[%s %d %s] 同步midas余额失败,errmsg:%s", this.Name(), this.Id(), this.OpenId(), errmsg)
+		return
+	}
+
+	money, remain := uint32(balance), this.GetMoney()
+	if remain < money {
+		this.AddMoney(money - remain, "同步midas余额", true)
+	}else {
+		this.RemoveMoney(remain - money, "同步midas余额", true)
+	}
+	log.Info("玩家[%s %d %s] 同步midas余额成功，当前余额:%s", this.Name(), this.Id(), this.OpenId(), this.GetMoney())
+}
+
+
