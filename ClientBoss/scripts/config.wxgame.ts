@@ -28,8 +28,7 @@ const config: ResourceManagerConfig = {
 
                     new ResSplitPlugin({
                         verbose: true, matchers: [
-                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha` },
-                            { from: "resource/assets/!(texpack)/**", to: `${remote}_alpha` },
+                             { from: "resource/assets/@(texpack|font|music)/**", to: remote },
                         ]
                     }),
 
