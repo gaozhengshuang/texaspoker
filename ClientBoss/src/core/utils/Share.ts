@@ -1,11 +1,12 @@
 module game {
     export function shareAppMsg() {
         console.log("分享APP消息")
+         let sharecode = genShareCode();
         // return new Promise((resolve, reject)=>{
         wx.shareAppMessage({
             title: "一起来，弹弹乐",
             imageUrl: "http://jump.cdn.giantfun.cn/ttlshare.png",
-            query: "",
+             query: `inviteCode=${sharecode}`, 
             success: (res) => {
                 console.log("分享APP消息成功", res);
                 resolve(res);

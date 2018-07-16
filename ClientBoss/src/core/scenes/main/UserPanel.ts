@@ -74,7 +74,8 @@ module game {
 
         private inviteFriendHandle() {
             // showTips("功能暂未开放,敬请期待...", true);
-            showShareMenu();
+            // showShareMenu();
+            shareAppMsg();
         }
 
         private static _instance: UserPanel;
