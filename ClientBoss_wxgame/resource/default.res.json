@@ -11,7 +11,66 @@
 			"type": "image",
 			"name": "1_png"
 		},
-		
+		{
+			"url": "assets/font/goldGame_fnt.fnt",
+			"type": "font",
+			"name": "goldGame_fnt"
+		},
+		{
+			"url": "assets/font/goldGame_png.png",
+			"type": "image",
+			"name": "goldGame_png"
+		},
+		{
+			"url": "assets/music/bingqiang.mp3",
+			"type": "sound",
+			"name": "bingqiang_mp3"
+		},
+		{
+			"url": "assets/music/dazhao.mp3",
+			"type": "sound",
+			"name": "dazhao_mp3"
+		},
+		{
+			"url": "assets/music/fashe.mp3",
+			"type": "sound",
+			"name": "fashe_mp3"
+		},
+		{
+			"url": "assets/music/heidong.mp3",
+			"type": "sound",
+			"name": "heidong_mp3"
+		},
+		{
+			"url": "assets/music/huoqiangloop.mp3",
+			"type": "sound",
+			"name": "huoqiangloop_mp3"
+		},
+		{
+			"url": "assets/music/jiesuan.mp3",
+			"type": "sound",
+			"name": "jiesuan_mp3"
+		},
+		{
+			"url": "assets/music/pengzhuang.mp3",
+			"type": "sound",
+			"name": "pengzhuang_mp3"
+		},
+		{
+			"url": "assets/music/play.mp3",
+			"type": "sound",
+			"name": "play_mp3"
+		},
+		{
+			"url": "assets/music/posui.mp3",
+			"type": "sound",
+			"name": "posui_mp3"
+		},
+		{
+			"url": "assets/music/zhadan.mp3",
+			"type": "sound",
+			"name": "zhadan_mp3"
+		},
 		{
 			"url": "assets/posui.json",
 			"type": "json",

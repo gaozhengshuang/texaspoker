@@ -275,7 +275,7 @@ module game {
 
         async loadRes() {
             //this._missionMapData = await RES.getResAsync(`map/${this._missionId}`);
-            let test = await RES.getResAsync("test");
+            let test = await RES.getResAsync("test_json");
             testP1 = test.number.choushui;
             testP2 = test.number.fantan;
             testSpeed = test.speed.ballspd;

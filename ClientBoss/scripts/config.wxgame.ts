@@ -28,8 +28,8 @@ const config: ResourceManagerConfig = {
 
                     new ResSplitPlugin({
                         verbose: true, matchers: [
-                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
-                            { from: "resource/assets/!(texpack)/**", to: `${remote}_alpha`},
+                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha` },
+                            { from: "resource/assets/!(texpack)/**", to: `${remote}_alpha` },
                         ]
                     }),
 
@@ -44,7 +44,7 @@ const config: ResourceManagerConfig = {
                     //     },
                     //     groupSelector: p => "preload"
                     // }),
-                    
+
 
                     new UglifyPlugin([{
                         sources: ["main.js"],
@@ -73,7 +73,7 @@ const config: ResourceManagerConfig = {
 
                     new ResSplitPlugin({
                         verbose: true, matchers: [
-                            { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
+                            // { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
                             { from: "resource/assets/!(texpack)/**", to: remote },
                         ]
                     }),
@@ -81,11 +81,9 @@ const config: ResourceManagerConfig = {
                     // new EmitResConfigFilePlugin({
                     //     output: "resource/default.res.json",
                     //     typeSelector: config.typeSelector,
-                    //     nameSelector: (p: string) => {
-                    //         var b = p.lastIndexOf(".");
-                    //         var t = "assets/"
-                    //         var name = p.substring(p.indexOf(t) + t.length, b);
-                    //         return name;
+                    //     nameSelector: p => {
+                    //         
+                    //         return path.basename(p).replace(/\./gi, '_')
                     //     },
                     //     groupSelector: p => "preload"
                     // }),

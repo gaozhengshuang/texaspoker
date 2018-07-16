@@ -26,3 +26,5 @@ git
 /ClientBoss/resource_Publish
 /ClientBoss/bin-release
 .wing
+/ClientBoss/resource/default.thm.json
+/ClientBoss/resource/default.thm.json
