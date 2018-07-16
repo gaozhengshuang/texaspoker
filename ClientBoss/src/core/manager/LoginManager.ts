@@ -55,7 +55,7 @@ module game {
             let d = defer();
             ClientNet.getInstance().onConnectClose();
             NotificationCenter.once(this, () => {
-                ClientNet.getInstance().onConnectByUrl(`ws://${gwResult.gatehost.ip}:${gwResult.gatehost.port}/ws_handler`);
+                ClientNet.getInstance().onConnectByUrl($gameNetIp.replace("{gamePort}", `${gwResult.gatehost.port}`));
                 NotificationCenter.once(this, async () => {
                     NotificationCenter.once(this, (data: msg.IGW2C_RetLogin) => {
                         d.resolve(data);
