@@ -137,18 +137,18 @@ module game {
             let g = this._gifts[this._checkedItemIndex - 1];
 
             let zuanshi = g.rmb * 10 || 60;
-            let os = egret.Capabilities.os;
+            let os = loginOs;
 
             console.warn("the os is:", os);
 
-            if (os.match(/[Aa]ndroid/gi)) {
+            if (os.match(/android/gi)) {
                 Pay.midasPay(zuanshi, () => {
                     DataManager.playerModel.incScore(zuanshi);
                     sendMessage("msg.C2GW_PlatformRechargeDone",msg.C2GW_PlatformRechargeDone.encode({}));
                 }, () => {
                     showDialog("支付失败，请重试", "确定", null);
                 })
-            } else if (os.match(/[iOS|ios|IOS]/gi)) {
+            } else if (os.match(/ios/gi)) {
                 showDialog("IOS暂时不支持内购，敬请期待...", "确定", null);
             }
         }

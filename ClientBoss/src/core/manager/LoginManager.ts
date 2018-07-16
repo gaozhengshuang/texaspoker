@@ -132,8 +132,12 @@ module game {
             })
         })
     }
-
+    function sysinfo() {
+        var sys = wx.getSystemInfoSync();
+        loginOs = sys.system;
+    }
     export function wxAutoLogin() {
+        sysinfo();
         platform.login().then((res) => {
             wxCode = res.code;
 
@@ -163,4 +167,5 @@ module game {
 
     export var loginUserInfo: msg.IC2L_ReqLogin;
     export var loginGwIp: string = game._netIp;
+    export var loginOs: string = egret.Capabilities.os;
 }
