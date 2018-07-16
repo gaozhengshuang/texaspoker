@@ -72,7 +72,7 @@ module game {
 
         private connectLoginGW() {
             let d = defer();
-            ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
+            ClientNet.getInstance().onConnectByUrl($netIp);
             NotificationCenter.once(this, () => {
                 sendMessage("msg.C2L_ReqLogin", msg.C2L_ReqLogin.encode(loginUserInfo));
                 NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
@@ -84,7 +84,7 @@ module game {
 
         private connectWxLoginGW(m: msg.C2L_ReqLoginWechat) {
             let d = defer();
-            ClientNet.getInstance().onConnectByUrl(`ws://${loginGwIp}:${game._netPort}/ws_handler`);
+            ClientNet.getInstance().onConnectByUrl($netIp);
             NotificationCenter.once(this, () => {
                 sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode(m));
                 NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
@@ -162,5 +162,4 @@ module game {
     }
 
     export var loginUserInfo: msg.IC2L_ReqLogin;
-    export var loginGwIp: string = game._netIp;
 }
