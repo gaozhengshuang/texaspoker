@@ -10,7 +10,8 @@ module game {
     export var $goodsPath: string = "/v1/logistics/query";
 
     //外网IP
-    // export var $registIp: string = "http://210.73.214.68:7003";
+    // export var $registIp: string = "https://tantanle-service7003.giantfun.cn/";
+    // export var $wxIp: string = "https://tantanle-service7002.giantfun.cn/";
     // export var _netIp: string = "210.73.214.68";
     // export var _netPort: string = "7002";
 
