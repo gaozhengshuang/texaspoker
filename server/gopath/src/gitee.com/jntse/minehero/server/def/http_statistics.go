@@ -1048,7 +1048,7 @@ func WechatMiniGameGetRequestURI(rawurl string) (uri string, errmsg string) {
 ///
 /// @return 
 // --------------------------------------------------------------------------
-func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (int64, string) {
+func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance int64, errmsg string) {
 	if openid == "" {
 		return 0, "玩家微信openid是空"
 	}
@@ -1223,6 +1223,108 @@ func HttpWechatMiniGamePresentMoney(redis *redis.Client, openid string, count in
 		Errmsg	string  // 错误信息
 		Balance	int64 	// 游戏币个数（包含赠送）
 		Bill_no string 	// 赠送游戏币数量（赠送游戏币数量）
+	}
+	objResp := &RespPresent{}
+	unerr := json.Unmarshal(resp.Body, objResp)
+	if unerr != nil {
+		log.Info("HttpWechatMiniGamePresentMoney json.Unmarshal Fail[%s] ", unerr)
+		return 0, "json.Unmarsha失败"
+	}
+
+	if objResp.Errcode != 0 {
+		log.Error("微信端返回错误 errcode[%d] objResp[%+v]", objResp.Errcode, *objResp)
+		return 0, "微信端返回错误"
+	}
+
+	return objResp.Balance, ""
+}
+
+
+// --------------------------------------------------------------------------
+/// @brief 微信小游戏虚拟支付扣除金币 
+///
+/// @param redis.Client
+/// @param 
+/// @param string
+///
+/// @return 
+// --------------------------------------------------------------------------
+func HttpWechatMiniGamePayMoney(redis *redis.Client, openid string, count int64) (balance int64, errmsg string) {
+	if openid == "" {
+		return 0, "玩家微信openid是空"
+	}
+
+	//
+	access_token := HttpWechatAccessToken()
+	if access_token == "" {
+		return 0, "无法获取 access_token"
+	}
+
+	mapset := make(map[string]interface{})
+	mapset["openid"] = openid
+	mapset["appid"] = tbl.Global.Wechat.AppID
+	mapset["offer_id"] = tbl.Global.WechatMiniGame.MidasOfferID
+	mapset["ts"] = util.CURTIME()
+	mapset["zone_id"] = "1"
+	mapset["pf"] = "android"
+	//mapset["user_ip"] = ""
+	mapset["sig"] = ""
+	//mapset["access_token"] = access_token		// 不需要！
+	mapset["mp_sig"] = ""
+	mapset["bill_no"] = "pay_bill_no_" + strconv.FormatInt(util.CURTIMEUS(), 10)
+	mapset["amt"] = count
+	//mapset["pay_item"] = ""
+	//mapset["app_remark"] = ""
+
+	// 获取URI
+	rawurl := tbl.Global.WechatMiniGame.MidasPay + access_token
+	RequestURI, errmsg := WechatMiniGameGetRequestURI(rawurl)
+	if errmsg != "" {
+		return 0, errmsg
+	}
+
+
+	// 坑：这里面不需要 access_token
+	if errmsg := WechatMiniGameSign(&mapset, RequestURI); errmsg != "" {
+		return 0, errmsg
+	}
+
+	// 坑：这里面需要 access_token
+	if errmsg := WechatMiniGameSign_Mp(&mapset, redis, access_token, RequestURI); errmsg != "" {
+		return 0, errmsg
+	}
+
+	// 序列化
+	postbody, jsonerr := json.Marshal(mapset)
+	if jsonerr != nil {
+		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)
+		return 0, "json.Marshal Fail"
+	}
+	log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
+
+
+	// post
+	resp, posterr := network.HttpPost(rawurl, util.BytesToString(postbody))
+	if posterr != nil {
+		log.Error("玩家[%s] 推送失败 error[%s] resp[%#v]", openid, posterr, resp)
+		return 0, "HttpPost失败"
+	}
+
+	// response
+	if resp.Code != http.StatusOK { 
+		log.Info("玩家[%s] 推送失败 errcode[%d] status[%s]", openid, resp.Code, resp.Status)
+		return 0, "HttpPost ErrorCode"
+	}
+	log.Trace("玩家[%s] 推送完成 resp.body=\n%s", openid, util.BytesToString(resp.Body))
+
+
+	// 解析
+	type RespPresent struct {
+		Errcode	int64 	// 错误码
+		Errmsg	string  // 错误信息
+		Bill_no string 	// 赠送游戏币数量（赠送游戏币数量）
+		Balance	int64 	// 游戏币个数（包含赠送）
+		used_gen_balance int64	// 本次扣的赠送币的余额
 	}
 	objResp := &RespPresent{}
 	unerr := json.Unmarshal(resp.Body, objResp)
