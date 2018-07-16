@@ -22,7 +22,10 @@ module game {
         }
 
         protected init() {
-            this.img_userhead.mask = this.img_mask;            this.closeButton.icon = "lucky_json.luckycloseBtn";        this.addressButton.icon = "user_json.deliveryAdressBtn";        this.inviteFriendButton.icon = "login_json.inviteFriendsImg";
+            this.img_userhead.mask = this.img_mask;
+            this.closeButton.icon = "lucky_json.luckycloseBtn";
+        this.addressButton.icon = "user_json.deliveryAdressBtn";
+        this.inviteFriendButton.icon = "login_json.inviteFriendsImg";
     }
 
         protected beforeShow() {
@@ -70,7 +73,8 @@ module game {
         }
 
         private inviteFriendHandle() {
-            showTips("功能暂未开放,敬请期待...", true);
+            // showTips("功能暂未开放,敬请期待...", true);
+            showShareMenu();
         }
 
         private static _instance: UserPanel;

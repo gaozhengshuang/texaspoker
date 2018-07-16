@@ -124,18 +124,26 @@ module game {
             DataManager.playerModel.userInfo.face = avatarUrl;
 
             //TODO:使用这些获取的数据
-            console.log("openid: ", DataManager.playerModel.getOpenId())
+            // console.log("openid: ", DataManager.playerModel.getOpenId())
+            var opt = wx.getLaunchOptionsSync();
+            console.log("启动参数为：", opt);
+            var inviteCode = opt.query['inviteCode'] || "";
+
 
             LoginManager.getInstance().wxlogin({
                 openid: DataManager.playerModel.getOpenId(),
                 face: avatarUrl,
-                nickname: nickName
+                nickname: nickName,
+                invitationcode: inviteCode,
             })
         })
     }
+
     function sysinfo() {
         var sys = wx.getSystemInfoSync();
         loginOs = sys.system;
+
+
     }
     export function wxAutoLogin() {
         sysinfo();
