@@ -87,7 +87,7 @@ func (this *UserTask) GiveTaskReward(id int32) {
 
 	// 
 	if id == int32(msg.TaskId_RegistAccount) || id == int32(msg.TaskId_RegisterTopScore) || id == int32(msg.TaskId_InviteeTopScore) {
-		def.HttpWechatCompanyPay(this.owner.OpenId(), count)
+		def.HttpWechatCompanyPay(this.owner.OpenId(), count, taskbase.Desc)
 	}
 }
 
