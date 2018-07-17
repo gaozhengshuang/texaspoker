@@ -11289,12 +11289,14 @@ $root.msg = (function() {
      * @property {number} RegistAccount=1001 RegistAccount value
      * @property {number} RegisterTopScore=1002 RegisterTopScore value
      * @property {number} InviteeTopScore=1003 InviteeTopScore value
+     * @property {number} InviteRegist=1004 InviteRegist value
      */
     msg.TaskId = (function() {
         var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[1001] = "RegistAccount"] = 1001;
         values[valuesById[1002] = "RegisterTopScore"] = 1002;
         values[valuesById[1003] = "InviteeTopScore"] = 1003;
+        values[valuesById[1004] = "InviteRegist"] = 1004;
         return values;
     })();
 

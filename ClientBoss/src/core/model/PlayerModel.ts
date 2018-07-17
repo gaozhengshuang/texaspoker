@@ -328,9 +328,6 @@ module game {
             return null;
         }
 
-        public getTaskByIndex(index: number) {
-            return this._tasks[index];
-        }
         
     }
 }
