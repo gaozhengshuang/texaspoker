@@ -16,8 +16,10 @@ module game {
             return RegisterPanelSkin;
         }
 
-        protected init() {            this.registerButton.icon = "login_json.registerBtn";        this.btn_authCode.icon = "login_json.yzmbutton";
-    }
+        protected init() {
+            this.registerButton.icon = "login_json.registerBtn";
+            this.btn_authCode.icon = "login_json.yzmbutton";
+        }
 
         protected beforeShow() {
             this._touchEvent = [
