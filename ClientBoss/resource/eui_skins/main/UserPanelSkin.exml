@@ -29,8 +29,9 @@
 	<e:Group id="taskGroup1" width="720" height="109.09" horizontalCenter="0" anchorOffsetY="0" verticalCenter="187.5">
 		<e:Image source="lucky_json.bagline" y="-0.4699999999999136" horizontalCenter="0" x="65" scaleX="1" scaleY="1"/>
 		<e:Label text="任务：邀请好友成功注册，将获得现金奖励" size="22" textColor="0x808080" scaleX="1" scaleY="1" verticalCenter="-16.545" textAlign="left" left="58"/>
-		<e:Label id="curMoneyTxt" text="累计获得现金：0" size="22" scaleX="1" scaleY="1" textAlign="left" left="483" verticalCenter="28.455" bold="true" textColor="0xff0000"/>
+		<e:Label text="累计获得现金：" size="22" scaleX="1" scaleY="1" textAlign="left" bold="true" textColor="0xff0000" x="467" y="68"/>
 		<e:Label text="奖励：立刻获得1元现金" size="24" textColor="0xff8b26" bold="true" scaleX="1" scaleY="1" verticalCenter="23.455" x="58" textAlign="left"/>
+		<e:Label id="curMoneyTxt" text="0" x="625" y="64" textColor="0xff0000"/>
 
 
 

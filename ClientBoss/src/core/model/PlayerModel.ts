@@ -16,6 +16,7 @@ module game {
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
         public totalMoney: number|Long = 0;
+        private _tasks;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -26,6 +27,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_FreePresentNotify, "msg.GW2C_FreePresentNotify");
             NotificationCenter.addObserver(this, this.OnGW2C_SendLuckyDrawRecord, "msg.GW2C_SendLuckyDrawRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -37,6 +39,11 @@ module game {
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;
             this.totalMoney = data.base.luckydraw.totalvalue;
+            this._tasks = data.base.task.tasks;
+        }
+
+        private OnGW2C_SendTaskList(data: msg.IGW2C_SendTaskList) {
+            this._tasks = data.tasks;
         }
 
         private OnGW2C_SendWechatInfo(data: msg.GW2C_SendWechatInfo) {
@@ -309,5 +316,19 @@ module game {
         public getTotalMoney() {
             return this.totalMoney;
         }
+
+        public getTask(taskId: number) {
+            for(let t of this._tasks) {
+                if (t.id == taskId) {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+        public getTaskByIndex(index: number) {
+            return this._tasks[index];
+        }
+        
     }
 }

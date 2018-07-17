@@ -14,8 +14,8 @@ module game {
         labelId: eui.Label;
         curMoneyTxt: eui.Label;
 
-        img_userhead:eui.Image;
-        img_mask:eui.Image;
+        img_userhead: eui.Image;
+        img_mask: eui.Image;
 
         protected getSkinName() {
             return UserPanelSkin;
@@ -24,15 +24,15 @@ module game {
         protected init() {
             this.img_userhead.mask = this.img_mask;
             this.closeButton.icon = "lucky_json.luckycloseBtn";
-        this.addressButton.icon = "user_json.deliveryAdressBtn";
-        this.inviteFriendButton.icon = "login_json.inviteFriendsImg";
-    }
+            this.addressButton.icon = "user_json.deliveryAdressBtn";
+            this.inviteFriendButton.icon = "login_json.inviteFriendsImg";
+        }
 
         protected beforeShow() {
             this._touchEvent = [
-                {target: this.closeButton, callBackFunc: this.backHandle},
-                {target: this.addressButton, callBackFunc: this.addressHandle},
-                {target: this.inviteFriendButton, callBackFunc: this.inviteFriendHandle},
+                { target: this.closeButton, callBackFunc: this.backHandle },
+                { target: this.addressButton, callBackFunc: this.addressHandle },
+                { target: this.inviteFriendButton, callBackFunc: this.inviteFriendHandle },
             ];
 
             this.initUser();
@@ -45,11 +45,12 @@ module game {
             let userInfo = DataManager.playerModel.userInfo;
             this.labelId.text = `ID  ${userInfo.userid}`;
             this.labelName.text = userInfo.name;
-            
+
             this.img_gameTask.visible = false;
             this.img_becomeonTask.visible = false;
 
             this.img_userhead.source = userInfo.face;
+            this.initTask();
         }
 
         private backHandle() {
@@ -59,8 +60,8 @@ module game {
         private wxHandle() {
             let appid = "wx03789100061e5d6c";
             let redirect_uri = "http%3a%2f%2fjump.test.giantfun.cn%2ftantanle";
-            let state = egret.localStorage.getItem("userName")+"-"+egret.localStorage.getItem("password");
-            let wxUrl = "https://open.weixin.qq.com/connect/qrconnect?appid="+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope=snsapi_login&state="+state;
+            let state = egret.localStorage.getItem("userName") + "-" + egret.localStorage.getItem("password");
+            let wxUrl = "https://open.weixin.qq.com/connect/qrconnect?appid=" + appid + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_login&state=" + state;
             window.location.href = wxUrl;
         }
 
@@ -69,7 +70,29 @@ module game {
         }
 
         private copyHandle() {
-            TextCopy("TJ"+DataManager.playerModel.userInfo.userid);
+            TextCopy("TJ" + DataManager.playerModel.userInfo.userid);
+        }
+
+        private initTask() {
+            for(let i = 0; i < 3; ++i) {
+                this.setTask(i);
+            }
+        }
+
+        private setTask(idx: number) {
+            let task = DataManager.playerModel.getTaskByIndex(idx);
+            if (!task) {return;}
+            let isDone = task.completed;
+            let progress = task.progress;
+            if (idx == 0) {
+                this.curMoneyTxt.text = `${progress}`;
+            }else if (idx == 1) {
+                this.img_gameTask.visible = isDone;
+                this.img_nogameTask.visible = !isDone;
+            }else if (idx == 2) {
+                this.img_becomeonTask.visible = isDone;
+                this.img_nobecomeonTask.visible = !isDone;
+            }
         }
 
         private inviteFriendHandle() {
