@@ -1431,6 +1431,480 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a BT_ReqLaunchBullet. */
+    interface IBT_ReqLaunchBullet {
+
+        /** BT_ReqLaunchBullet userid */
+        userid?: (number|Long|null);
+    }
+
+    /** Represents a BT_ReqLaunchBullet. */
+    class BT_ReqLaunchBullet implements IBT_ReqLaunchBullet {
+
+        /**
+         * Constructs a new BT_ReqLaunchBullet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_ReqLaunchBullet);
+
+        /** BT_ReqLaunchBullet userid. */
+        public userid: (number|Long);
+
+        /**
+         * Creates a new BT_ReqLaunchBullet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_ReqLaunchBullet instance
+         */
+        public static create(properties?: msg.IBT_ReqLaunchBullet): msg.BT_ReqLaunchBullet;
+
+        /**
+         * Encodes the specified BT_ReqLaunchBullet message. Does not implicitly {@link msg.BT_ReqLaunchBullet.verify|verify} messages.
+         * @param message BT_ReqLaunchBullet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_ReqLaunchBullet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_ReqLaunchBullet message, length delimited. Does not implicitly {@link msg.BT_ReqLaunchBullet.verify|verify} messages.
+         * @param message BT_ReqLaunchBullet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_ReqLaunchBullet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_ReqLaunchBullet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_ReqLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_ReqLaunchBullet;
+
+        /**
+         * Decodes a BT_ReqLaunchBullet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_ReqLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_ReqLaunchBullet;
+
+        /**
+         * Verifies a BT_ReqLaunchBullet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_ReqLaunchBullet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_ReqLaunchBullet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_ReqLaunchBullet;
+
+        /**
+         * Creates a plain object from a BT_ReqLaunchBullet message. Also converts values to other types if specified.
+         * @param message BT_ReqLaunchBullet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_ReqLaunchBullet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_ReqLaunchBullet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_RetLaunchBullet. */
+    interface IBT_RetLaunchBullet {
+
+        /** BT_RetLaunchBullet bulletid */
+        bulletid?: (number|Long|null);
+
+        /** BT_RetLaunchBullet errmsg */
+        errmsg?: (string|null);
+    }
+
+    /** Represents a BT_RetLaunchBullet. */
+    class BT_RetLaunchBullet implements IBT_RetLaunchBullet {
+
+        /**
+         * Constructs a new BT_RetLaunchBullet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_RetLaunchBullet);
+
+        /** BT_RetLaunchBullet bulletid. */
+        public bulletid: (number|Long);
+
+        /** BT_RetLaunchBullet errmsg. */
+        public errmsg: string;
+
+        /**
+         * Creates a new BT_RetLaunchBullet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_RetLaunchBullet instance
+         */
+        public static create(properties?: msg.IBT_RetLaunchBullet): msg.BT_RetLaunchBullet;
+
+        /**
+         * Encodes the specified BT_RetLaunchBullet message. Does not implicitly {@link msg.BT_RetLaunchBullet.verify|verify} messages.
+         * @param message BT_RetLaunchBullet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_RetLaunchBullet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_RetLaunchBullet message, length delimited. Does not implicitly {@link msg.BT_RetLaunchBullet.verify|verify} messages.
+         * @param message BT_RetLaunchBullet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_RetLaunchBullet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_RetLaunchBullet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_RetLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_RetLaunchBullet;
+
+        /**
+         * Decodes a BT_RetLaunchBullet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_RetLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_RetLaunchBullet;
+
+        /**
+         * Verifies a BT_RetLaunchBullet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_RetLaunchBullet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_RetLaunchBullet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_RetLaunchBullet;
+
+        /**
+         * Creates a plain object from a BT_RetLaunchBullet message. Also converts values to other types if specified.
+         * @param message BT_RetLaunchBullet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_RetLaunchBullet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_RetLaunchBullet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_StepOnBomb. */
+    interface IBT_StepOnBomb {
+
+        /** BT_StepOnBomb userid */
+        userid?: (number|Long|null);
+    }
+
+    /** Represents a BT_StepOnBomb. */
+    class BT_StepOnBomb implements IBT_StepOnBomb {
+
+        /**
+         * Constructs a new BT_StepOnBomb.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_StepOnBomb);
+
+        /** BT_StepOnBomb userid. */
+        public userid: (number|Long);
+
+        /**
+         * Creates a new BT_StepOnBomb instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_StepOnBomb instance
+         */
+        public static create(properties?: msg.IBT_StepOnBomb): msg.BT_StepOnBomb;
+
+        /**
+         * Encodes the specified BT_StepOnBomb message. Does not implicitly {@link msg.BT_StepOnBomb.verify|verify} messages.
+         * @param message BT_StepOnBomb message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_StepOnBomb, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_StepOnBomb message, length delimited. Does not implicitly {@link msg.BT_StepOnBomb.verify|verify} messages.
+         * @param message BT_StepOnBomb message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_StepOnBomb, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_StepOnBomb message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_StepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_StepOnBomb;
+
+        /**
+         * Decodes a BT_StepOnBomb message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_StepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_StepOnBomb;
+
+        /**
+         * Verifies a BT_StepOnBomb message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_StepOnBomb message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_StepOnBomb
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_StepOnBomb;
+
+        /**
+         * Creates a plain object from a BT_StepOnBomb message. Also converts values to other types if specified.
+         * @param message BT_StepOnBomb
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_StepOnBomb, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_StepOnBomb to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_BulletEarnMoney. */
+    interface IBT_BulletEarnMoney {
+
+        /** BT_BulletEarnMoney userid */
+        userid?: (number|Long|null);
+
+        /** BT_BulletEarnMoney bulletid */
+        bulletid?: (number|Long|null);
+
+        /** BT_BulletEarnMoney money */
+        money?: (number|null);
+    }
+
+    /** Represents a BT_BulletEarnMoney. */
+    class BT_BulletEarnMoney implements IBT_BulletEarnMoney {
+
+        /**
+         * Constructs a new BT_BulletEarnMoney.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_BulletEarnMoney);
+
+        /** BT_BulletEarnMoney userid. */
+        public userid: (number|Long);
+
+        /** BT_BulletEarnMoney bulletid. */
+        public bulletid: (number|Long);
+
+        /** BT_BulletEarnMoney money. */
+        public money: number;
+
+        /**
+         * Creates a new BT_BulletEarnMoney instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_BulletEarnMoney instance
+         */
+        public static create(properties?: msg.IBT_BulletEarnMoney): msg.BT_BulletEarnMoney;
+
+        /**
+         * Encodes the specified BT_BulletEarnMoney message. Does not implicitly {@link msg.BT_BulletEarnMoney.verify|verify} messages.
+         * @param message BT_BulletEarnMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_BulletEarnMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_BulletEarnMoney message, length delimited. Does not implicitly {@link msg.BT_BulletEarnMoney.verify|verify} messages.
+         * @param message BT_BulletEarnMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_BulletEarnMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_BulletEarnMoney message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_BulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_BulletEarnMoney;
+
+        /**
+         * Decodes a BT_BulletEarnMoney message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_BulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_BulletEarnMoney;
+
+        /**
+         * Verifies a BT_BulletEarnMoney message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_BulletEarnMoney message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_BulletEarnMoney
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_BulletEarnMoney;
+
+        /**
+         * Creates a plain object from a BT_BulletEarnMoney message. Also converts values to other types if specified.
+         * @param message BT_BulletEarnMoney
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_BulletEarnMoney, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_BulletEarnMoney to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_UseUltimateSkil. */
+    interface IBT_UseUltimateSkil {
+
+        /** BT_UseUltimateSkil userid */
+        userid?: (number|Long|null);
+
+        /** BT_UseUltimateSkil money */
+        money?: (number|Long|null);
+    }
+
+    /** Represents a BT_UseUltimateSkil. */
+    class BT_UseUltimateSkil implements IBT_UseUltimateSkil {
+
+        /**
+         * Constructs a new BT_UseUltimateSkil.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_UseUltimateSkil);
+
+        /** BT_UseUltimateSkil userid. */
+        public userid: (number|Long);
+
+        /** BT_UseUltimateSkil money. */
+        public money: (number|Long);
+
+        /**
+         * Creates a new BT_UseUltimateSkil instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_UseUltimateSkil instance
+         */
+        public static create(properties?: msg.IBT_UseUltimateSkil): msg.BT_UseUltimateSkil;
+
+        /**
+         * Encodes the specified BT_UseUltimateSkil message. Does not implicitly {@link msg.BT_UseUltimateSkil.verify|verify} messages.
+         * @param message BT_UseUltimateSkil message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_UseUltimateSkil, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_UseUltimateSkil message, length delimited. Does not implicitly {@link msg.BT_UseUltimateSkil.verify|verify} messages.
+         * @param message BT_UseUltimateSkil message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_UseUltimateSkil, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_UseUltimateSkil message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_UseUltimateSkil
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_UseUltimateSkil;
+
+        /**
+         * Decodes a BT_UseUltimateSkil message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_UseUltimateSkil
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_UseUltimateSkil;
+
+        /**
+         * Verifies a BT_UseUltimateSkil message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_UseUltimateSkil message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_UseUltimateSkil
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_UseUltimateSkil;
+
+        /**
+         * Creates a plain object from a BT_UseUltimateSkil message. Also converts values to other types if specified.
+         * @param message BT_UseUltimateSkil
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_UseUltimateSkil, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_UseUltimateSkil to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an EntityBase. */
     interface IEntityBase {
 
