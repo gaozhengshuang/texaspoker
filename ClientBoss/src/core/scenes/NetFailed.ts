@@ -9,6 +9,10 @@ module game {
             return NetFailedSkin;
         }
 
+        protected init() {
+            this.height = gameConfig.curHeight();
+        }
+
         public show(reason: string = null) {
             if (!this._isShow) {
                 this._isShow = true;
