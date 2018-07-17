@@ -4549,7 +4549,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0;
 		t.verticalCenter = 187.5;
 		t.width = 720;
-		t.elementsContent = [this._Image5_i(),this._Label3_i(),this.curMoneyTxt_i(),this._Label4_i()];
+		t.elementsContent = [this._Image5_i(),this._Label3_i(),this._Label4_i(),this._Label5_i(),this.curMoneyTxt_i()];
 		return t;
 	};
 	_proto._Image5_i = function () {
@@ -4574,21 +4574,20 @@ var egret = window.egret;
 		t.verticalCenter = -16.545;
 		return t;
 	};
-	_proto.curMoneyTxt_i = function () {
+	_proto._Label4_i = function () {
 		var t = new eui.Label();
-		this.curMoneyTxt = t;
 		t.bold = true;
-		t.left = 483;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.size = 22;
-		t.text = "累计获得现金：0";
+		t.text = "累计获得现金：";
 		t.textAlign = "left";
 		t.textColor = 0xff0000;
-		t.verticalCenter = 28.455;
+		t.x = 467;
+		t.y = 68;
 		return t;
 	};
-	_proto._Label4_i = function () {
+	_proto._Label5_i = function () {
 		var t = new eui.Label();
 		t.bold = true;
 		t.scaleX = 1;
@@ -4601,6 +4600,15 @@ var egret = window.egret;
 		t.x = 58;
 		return t;
 	};
+	_proto.curMoneyTxt_i = function () {
+		var t = new eui.Label();
+		this.curMoneyTxt = t;
+		t.text = "0";
+		t.textColor = 0xff0000;
+		t.x = 625;
+		t.y = 64;
+		return t;
+	};
 	_proto.taskGroup2_i = function () {
 		var t = new eui.Group();
 		this.taskGroup2 = t;
@@ -4609,7 +4617,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0;
 		t.verticalCenter = 297.5;
 		t.width = 720;
-		t.elementsContent = [this._Image6_i(),this._Label5_i(),this._Label6_i(),this.img_gameTask_i(),this.img_nogameTask_i()];
+		t.elementsContent = [this._Image6_i(),this._Label6_i(),this._Label7_i(),this.img_gameTask_i(),this.img_nogameTask_i()];
 		return t;
 	};
 	_proto._Image6_i = function () {
@@ -4622,7 +4630,7 @@ var egret = window.egret;
 		t.y = -0.4699999999999136;
 		return t;
 	};
-	_proto._Label5_i = function () {
+	_proto._Label6_i = function () {
 		var t = new eui.Label();
 		t.left = 58;
 		t.scaleX = 1;
@@ -4634,7 +4642,7 @@ var egret = window.egret;
 		t.verticalCenter = -16.545;
 		return t;
 	};
-	_proto._Label6_i = function () {
+	_proto._Label7_i = function () {
 		var t = new eui.Label();
 		t.bold = true;
 		t.scaleX = 1;
@@ -4678,7 +4686,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0;
 		t.verticalCenter = 407.5;
 		t.width = 720;
-		t.elementsContent = [this._Image7_i(),this._Label7_i(),this._Label8_i(),this.img_becomeonTask_i(),this.img_nobecomeonTask_i()];
+		t.elementsContent = [this._Image7_i(),this._Label8_i(),this._Label9_i(),this.img_becomeonTask_i(),this.img_nobecomeonTask_i()];
 		return t;
 	};
 	_proto._Image7_i = function () {
@@ -4691,7 +4699,7 @@ var egret = window.egret;
 		t.y = -0.4699999999999136;
 		return t;
 	};
-	_proto._Label7_i = function () {
+	_proto._Label8_i = function () {
 		var t = new eui.Label();
 		t.left = 58;
 		t.scaleX = 1;
@@ -4703,7 +4711,7 @@ var egret = window.egret;
 		t.verticalCenter = -16.545;
 		return t;
 	};
-	_proto._Label8_i = function () {
+	_proto._Label9_i = function () {
 		var t = new eui.Label();
 		t.bold = true;
 		t.scaleX = 1;
