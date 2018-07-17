@@ -98,7 +98,7 @@ module game {
 
             switch (id) {
                 case msg.TaskId.InviteRegist:
-                    this.curMoneyTxt.text = `${progress}`;
+                    this.curMoneyTxt.text = `${progress}元`;
                     break;
                 case msg.TaskId.RegisterTopScore:
                     this.img_gameTask.visible = isDone;
