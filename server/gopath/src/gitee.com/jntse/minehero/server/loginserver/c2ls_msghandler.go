@@ -181,6 +181,8 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 		//if errcode = Authenticate(session, account, passwd); errcode != "" {
 		//	break
 		//}
+
+		// 微信小游戏注册
 		if errcode = RegistAccountFromWechatMiniGame(account, passwd, invitationcode, nickname, face); errcode != "" {
 			break
 		}
@@ -191,7 +193,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 		}
 
 		// TODO: 从Redis获取账户缓存Gate信息，实现快速登陆
-		log.Info("账户[%s]登陆Login ", account)
+		log.Info("账户[%s] 使用邀请码[%s] 登陆Login", account, invitationcode)
 		if ok := QuickLogin(session, account); ok == true {
 			return
 		}
@@ -221,7 +223,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 		agent.SendMsg(sendmsg)
 		Login().AddAuthenAccount(account, session)		// 避免同时登陆
 		tm5 := util.CURTIMEUS()
-		log.Info("登陆验证通过，请求注册玩家到Gate sid[%d] account[%s] host[%s] 登陆耗时%dus", session.Id(), account, agent.Host(), tm5-tm1)
+		log.Info("登陆验证通过，请求注册玩家到Gate sid[%d] account[%s] host[%s] 登陆耗时%dus",session.Id(), account, agent.Host(), tm5-tm1)
 		return
 	}
 

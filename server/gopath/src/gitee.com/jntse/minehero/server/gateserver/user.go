@@ -762,7 +762,7 @@ func (this *GateUser) OnlineTaskCheck() {
 		log.Error("玩家[%s %d] 上线获取邀请注册任务计数失败 redis err[%s]", this.Name(), this.Id(), errget)
 	}
 	if invite_count != 0 {
-		this.task.SetTaskProgress(int32(msg.TaskId_RegistAccount), int32(invite_count))
+		this.task.SetTaskProgress(int32(msg.TaskId_InviteRegist), int32(invite_count))
 	}
 
 }
@@ -786,14 +786,14 @@ func (this *GateUser) SynMidasBalanceResult(balance int64, errmsg string) {
 	}else {
 		this.RemoveMoney(remain - money, "同步midas余额", true)
 	}
-	log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%s", this.Name(), this.Id(), this.GetMoney())
+	log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%d", this.Name(), this.Id(), this.GetMoney())
 }
 
 // 从midas服务器扣除金币
 func (this *GateUser) SynRemoveMidsMoney(amount int64, reason string) {
 	event := NewRemovePlatformCoinsEvent(amount, this.DoRemoveMidasMoney, this.DoRemoveMidasMoneyResult)
 	this.AsynEventInsert(event)
-	log.Info("玩家[%s %d] 同步扣除midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
+	log.Info("玩家[%s %d] 推送同步扣除midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
 }
 
 func (this* GateUser) DoRemoveMidasMoney(amount int64) (balance int64, errmsg string) {

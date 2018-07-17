@@ -949,7 +949,7 @@ func WechatMiniGameSign(dataset *map[string]interface{}, RequestURI string) (err
 
 	//stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
 	stringSignTemp := sortVal + "&org_loc=" + RequestURI + "&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
-	log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
+	//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
 	sign := util.HMAC_SHA256(tbl.Global.WechatMiniGame.MidasSecret, stringSignTemp)	// HMAC-SHA256签名方式
 	mapset["sig"] = sign
 	return ""
@@ -1009,7 +1009,7 @@ func WechatMiniGameSign_Mp(dataset *map[string]interface{}, redis *redis.Client,
 
 	//stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&session_key=" + session_key
 	stringSignTemp := sortVal + "&org_loc=" + RequestURI + "&method=POST&session_key=" + session_key
-	log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
+	//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
 	sign := util.HMAC_SHA256(session_key, stringSignTemp)	// HMAC-SHA256签名方式
 	mapset["mp_sig"] = sign
 
