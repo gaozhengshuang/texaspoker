@@ -101,12 +101,12 @@ module game {
                     this.curMoneyTxt.text = `${progress}`;
                     break;
                 case msg.TaskId.RegisterTopScore:
-                    this.img_becomeonTask.visible = isDone;
-                    this.img_nobecomeonTask.visible = !isDone;
-                    break;
-                case msg.TaskId.InviteeTopScore:
                     this.img_gameTask.visible = isDone;
                     this.img_nogameTask.visible = !isDone;
+                    break;
+                case msg.TaskId.InviteeTopScore:
+                    this.img_becomeonTask.visible = isDone;
+                    this.img_nobecomeonTask.visible = !isDone;
                     break;
                 default:
                     break;
