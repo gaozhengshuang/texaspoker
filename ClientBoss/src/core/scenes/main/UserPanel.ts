@@ -35,6 +35,16 @@ module game {
                 { target: this.inviteFriendButton, callBackFunc: this.inviteFriendHandle },
             ];
 
+            this._notify = [
+                {
+                    source: DataManager.playerModel,
+                    target: this,
+                    callBackFunc: this.initTask,
+                    notifyName: PlayerModel.TASK_UPDATE,
+                    execute: true
+                },
+             ]
+
             this.initUser();
         }
 

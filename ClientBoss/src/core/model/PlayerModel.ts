@@ -9,6 +9,7 @@ module game {
         static PENETRATION_UPDATE = "PlayerModel_PENETRATION_UPDATE";
         static TOP_UPDATE = "PlayerModel_TOP_UPDATE";
         static BAG_UPDATE = "PlayerModel_BAG_UPDATE";
+        static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
 
         public penetration: number = 0;
         private _gold: number = 50;
@@ -44,6 +45,7 @@ module game {
 
         private OnGW2C_SendTaskList(data: msg.IGW2C_SendTaskList) {
             this._tasks = data.tasks;
+            this.postNotification(PlayerModel.TASK_UPDATE);
         }
 
         private OnGW2C_SendWechatInfo(data: msg.GW2C_SendWechatInfo) {
