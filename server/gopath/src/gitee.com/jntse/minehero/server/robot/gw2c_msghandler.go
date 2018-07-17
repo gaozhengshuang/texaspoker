@@ -65,6 +65,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
 	this.msgparser.RegistSendProto(msg.C2GW_ReqDeliveryGoods{})
 	this.msgparser.RegistSendProto(msg.C2GW_ChangeDeliveryAddress{})
+	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
 
 	// 发room消息
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})

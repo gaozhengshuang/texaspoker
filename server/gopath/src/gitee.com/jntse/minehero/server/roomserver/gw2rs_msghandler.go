@@ -42,6 +42,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
+	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 
 
 	// 发
@@ -169,5 +170,14 @@ func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}
 		return 
 	}
 	user.LuckyDraw()
+}
+
+func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_PlatformRechargeDone)
+	//user := UserMgr().FindUser(tmsg.GetUserid())
+	//if user == nil { 
+	//	log.Error("C2GW_StartLuckyDraw 玩家[%d]没有在Room中", tmsg.GetUserid())
+	//	return 
+	//}
 }
 
