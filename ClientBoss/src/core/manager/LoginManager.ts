@@ -147,6 +147,7 @@ module game {
     }
     export function wxAutoLogin() {
         sysinfo();
+        showShareMenu();
         platform.login().then((res) => {
             wxCode = res.code;
 
