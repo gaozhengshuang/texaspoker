@@ -152,7 +152,7 @@ func ProcessInvitationUser(charid uint64, invitationcode string) {
 	if geterror != nil {
 		return
 	}
-	def.HttpWechatCompanyPay(invitation_openid, 1)
+	def.HttpWechatCompanyPay(invitation_openid, 1, "邀请新玩家注册")
 
 	// 邀请人任务计数
 	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", invitation_user)

@@ -147,7 +147,7 @@ func DoReload(cmd map[string]string) (errcode int32, errmsg string) {
 func DoWeChatPay(cmd map[string]string) (errcode int32, errmsg string) {
 	openid , amount := cmd["openid"], cmd["amount"]
 	num , _:= strconv.ParseInt(amount, 10, 32)
-	def.HttpWechatCompanyPay(openid, num)
+	def.HttpWechatCompanyPay(openid, num, "测试企业转账零钱")
 	return 0, "DoWeChatPay OK"
 }
 

@@ -763,7 +763,7 @@ func HttpRequestCheckWechatBound(charid uint64, token, tvmid string) {
 }
 
 // 企业微信支付到个人
-func HttpWechatCompanyPay(openid string, amount int64) string {
+func HttpWechatCompanyPay(openid string, amount int64, reason string) string {
 	if openid == "" {
 		return "玩家微信openid是空"
 	}
@@ -779,7 +779,7 @@ func HttpWechatCompanyPay(openid string, amount int64) string {
 	mapset["check_name"] = "NO_CHECK"
 	//mapset["re_user_name"] = ""
 	mapset["amount"] = amount
-	mapset["desc"] = "巨枫用户奖励"
+	mapset["desc"] = reason
 	mapset["spbill_create_ip"] = "127.0.0.1"
 	mapset["sign"] = ""
 

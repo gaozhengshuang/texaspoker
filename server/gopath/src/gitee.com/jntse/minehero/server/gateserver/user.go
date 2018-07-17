@@ -12,7 +12,7 @@ import (
 	_"gitee.com/jntse/minehero/server/def"
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/minehero/server/def"
-	_"github.com/go-redis/redis"
+	"github.com/go-redis/redis"
 	"strconv"
 	_"strings"
 	_"time"
@@ -758,7 +758,7 @@ func (this *GateUser) OnlineTaskCheck() {
 	// 邀请注册任务
 	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", this.Id())
 	invite_count, errget := Redis().Get(invite_count_key).Int64()
-	if errget != nil {
+	if errget != nil && errget != redis.Nil {
 		log.Error("玩家[%s %d] 上线获取邀请注册任务计数失败 redis err[%s]", this.Name(), this.Id(), errget)
 	}
 	if invite_count != 0 {
