@@ -53,6 +53,10 @@ func (this* RS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.BT_ReqQuitGameRoom{})
 	this.msgparser.RegistSendProto(msg.BT_UpdateMoney{})
 	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
+	this.msgparser.RegistSendProto(msg.BT_ReqLaunchBullet{})
+	this.msgparser.RegistSendProto(msg.BT_StepOnBomb{})
+	this.msgparser.RegistSendProto(msg.BT_CollectMoney{})
+	this.msgparser.RegistSendProto(msg.BT_UseUltimateSkil{})
 }
 
 func on_RS2GW_ReqRegist(session network.IBaseNetSession, message interface{}) {

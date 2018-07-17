@@ -48,15 +48,15 @@ ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/runserver.sh /h
 ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 
 ## 正式环境版本
-#ssh webgame@210.73.214.68 "scp -r /home/webgame/version/${waibuildDirName} webgame@210.73.214.75:/home/webgame/version/"
-#ssh webgame@210.73.214.68 "scp -r /home/webgame/version/${waibuildDirName} webgame@210.73.214.76:/home/webgame/version/"
-#ssh webgame@210.73.214.68 "scp -r /home/webgame/version/${waibuildDirName} webgame@210.73.214.77:/home/webgame/version/"
+ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.71:/home/brickcrush/version/"
+#ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.76:/home/brickcrush/version/"
+#ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.77:/home/brickcrush/version/"
 
-#ssh webgame@210.73.214.75 "cd /home/webgame/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
-#ssh webgame@210.73.214.75 "rm /home/webgame/version/${waibuildDirName}/release/conf -rf"
-#ssh webgame@210.73.214.75 "cp /home/webgame/version/config/conf /home/webgame/version/${waibuildDirName}/release/ -rvf"
-#ssh webgame@210.73.214.75 "cp /home/webgame/version/config/runserver.sh /home/webgame/version/${waibuildDirName}/release/ -rvf"
-#ssh webgame@210.73.214.75 "cp /home/webgame/version/config/watch.sh /home/webgame/version/${waibuildDirName}/release/ -rvf"
+ssh brickcrush@210.73.214.71 "cd /home/brickcrush/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
+ssh brickcrush@210.73.214.71 "rm /home/brickcrush/version/${waibuildDirName}/release/conf -rf"
+ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/conf /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/runserver.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 
 #ssh webgame@210.73.214.76 "cd /home/webgame/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
 #ssh webgame@210.73.214.76 "rm /home/webgame/version/${waibuildDirName}/release/conf -rf"
