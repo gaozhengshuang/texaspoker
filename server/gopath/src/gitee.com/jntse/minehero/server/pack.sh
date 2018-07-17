@@ -13,6 +13,7 @@ mkdir -p ./release/conf
 mkdir -p ./release/bin
 mkdir -p ./release/tbl/excel
 mkdir -p ./release/tbl/json
+mkdir -p ./release/cert
 
 cp -v gateserver/gateserver ./release/bin/
 cp -v loginserver/loginserver ./release/bin/
@@ -25,6 +26,7 @@ cp -v version.txt ./release/
 cp -r conf/* ./release/conf/
 cp -r tbl/excel/* ./release/tbl/excel
 cp -r tbl/json/* ./release/tbl/json
+cp -r cert/* ./release/cert/
 find ./release/conf/ -iname "*.example" | xargs rm -f
 
 filename=webgame-release-`date +%Y%m%d%H%M`.`uname -m`.tar.gz
