@@ -743,17 +743,28 @@ func (this *GateUser) AsynEventInsert(event eventque.IEvent) {
 
 // 上线任务检查
 func (this *GateUser) OnlineTaskCheck() {
-	// 账户注册任务
+	// 自己注册任务
 	if this.task.IsTaskFinish(int32(msg.TaskId_RegistAccount)) == false {
 		this.task.TaskFinish(int32(msg.TaskId_RegistAccount))
 	}
 
 	// 被自己邀请人达成积分任务
-	keyinviter := fmt.Sprintf("TaskInviteeTopScoreFinish_%d", this.Id())
-	sumfinish, _ := Redis().SCard(keyinviter).Result()
+	key_inviter := fmt.Sprintf("task_invitee_topscorefinish_%d", this.Id())
+	sumfinish, _ := Redis().SCard(key_inviter).Result()
 	if sumfinish != 0 && this.task.IsTaskFinish(int32(msg.TaskId_InviteeTopScore)) == false {
 		this.task.TaskFinish(int32(msg.TaskId_InviteeTopScore))
 	}
+
+	// 邀请注册任务
+	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", this.Id())
+	invite_count, errget := Redis().Get(invite_count_key).Int64()
+	if errget != nil {
+		log.Error("玩家[%s %d] 上线获取邀请注册任务计数失败 redis err[%s]", this.Name(), this.Id(), errget)
+	}
+	if invite_count != 0 {
+		this.task.SetTaskProgress(int32(msg.TaskId_RegistAccount), int32(invite_count))
+	}
+
 }
 
 // 同步midas余额
