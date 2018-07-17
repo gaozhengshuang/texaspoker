@@ -134,13 +134,13 @@ module game {
             this.buffLootList = table.TBirckItem;
             this._buffList = [];
             this.userButton.icon = "ui_json.userGo";
-        this.rechargeButton.icon = "ui_json.rechargeGo";
-        this.luckyButton.icon = "lucky_json.luckyGo";
-           this.bagButton.icon = "ui_json.bagGo";
-        this.backButton.icon = "ui_json.gameBack";
-        this.ballButton1.icon = "ball_json.1";
-        this.ballButton2.icon = "ball_json.2";
-        this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
+            this.rechargeButton.icon = "ui_json.rechargeGo";
+            this.luckyButton.icon = "lucky_json.luckyGo";
+            this.bagButton.icon = "ui_json.bagGo";
+            this.backButton.icon = "ui_json.gameBack";
+            this.ballButton1.icon = "ball_json.1";
+            this.ballButton2.icon = "ball_json.2";
+            this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
             this.ball2Price.text = `价值:${table.TBallById[2].Price}炮弹`;
 
             this._brickPool = new ObjectPool<BattleBrick>(BattleBrick);
@@ -420,7 +420,7 @@ module game {
             if (DataManager.playerModel.getScore() < _paddlePrice) {
                 showDialog("您的金币不足!", "充值", function () {
                     // this.rechargeGoHandle();
-                     openPanel(PanelType.pay);
+                    openPanel(PanelType.pay);
                     // showTips("暂未开放,敬请期待...", true);
                 });
                 return;
@@ -1008,7 +1008,7 @@ module game {
             this._paddle.setSp(this._nowSp / _maxSp);
         }
 
-        public addHit(brick: BattleBrick) {
+        public addHit(brick: BattleBrick, ball: BattleBall) {
             SoundManager.playEffect("pengzhuang", 0.8);
             let score = brick.getScore();
             if (score) {
@@ -1019,6 +1019,7 @@ module game {
                 DataManager.playerModel.addScore(score);
                 this._nowEvent += score;
             }
+            ball.incLifeValue(score);
             this.hitCount++;
             this.hitLabel.text = `连击数:${this.hitCount}`;
         }
@@ -1126,7 +1127,7 @@ module game {
             }, 1300, egret.Ease.backOut);
         }
 
-        public destroyBrick(brick: BattleBrick) {
+        public destroyBrick(brick: BattleBrick,ball:BattleBall = null) {
             if (brick.getBuffType() == BrickType.ice) {
                 for (let b of this._brickPool.list) {
                     if (b.frozenBrick && b.frozenBrick == brick) {

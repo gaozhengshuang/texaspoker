@@ -12,6 +12,7 @@ module game {
         private _shape: p2.Circle;
 
         public ballId: number;
+        public lifeValue: number;// 生命周期产生的总价值
         private _ballData: table.ITBallDefine;
 
         public battleBodyType: BattleBodyType;
@@ -31,7 +32,18 @@ module game {
             this._shape.collisionGroup = ballCollisionGroup;
             this._shape.collisionMask = wallCollisionGroup | paddleCollisionGroup | brickCollisionGroup;
             this.body.addShape(this._shape);
+            this.lifeValue = 0;
         }
+
+        public incLifeValue(n:number) {
+            this.lifeValue += n;
+        }
+
+        //TODO:使用lifeValue
+        public preDestroy() {
+            console.log("生命总产值： ",this.ballId, this.lifeValue);
+        }
+
 
         public setData(ballId: number, material: p2.Material, isPenetration: boolean) {
             this.meetFire = false;
@@ -104,6 +116,7 @@ module game {
         }
 
         onDestroy() {
+            this.preDestroy();
             egret.Tween.removeTweens(this.ballImage);
             if (this.body.world) {
                 this.body.world.removeBody(this.body);
@@ -112,6 +125,7 @@ module game {
             this._hitCount = 0;
             this.meetFire = false;
             this.y = 800;
+            this.lifeValue = 0;
         }
 
         public getDamage() {
