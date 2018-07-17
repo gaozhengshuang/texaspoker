@@ -32,6 +32,9 @@ type RoomUser struct {
 	asynev      eventque.AsynEventQueue // 异步事件处理
 	invitationcode string
 	luckydraw	[]*msg.LuckyDrawItem
+	synbalance	bool
+	bulletid 	int64
+
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
@@ -305,10 +308,7 @@ func (this *RoomUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 		this.SynRemoveMidsMoney(int64(gold), reason)
 		userbase := this.UserBase()
 		userbase.Money = pb.Uint32(this.GetMoney() - gold)
-		if syn {
-			send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
-			this.SendClientMsg(send)
-		}
+		if syn { this.SendMoney() }
 		log.Info("玩家[%d] 扣除金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetMoney(), reason)
 
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Gold), gold)
@@ -321,23 +321,21 @@ func (this *RoomUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 func (this *RoomUser) AddMoney(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Money = pb.Uint32(this.GetMoney() + gold)
-	if syn {
-		send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
-		this.SendClientMsg(send)
-	}
+	if syn { this.SendMoney() }
 	log.Info("玩家[%d] 添加金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetMoney(), reason)
 }
 
 func (this *RoomUser) SetMoney(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Money = pb.Uint32(gold)
-	if syn {
-		send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
-		this.SendClientMsg(send)
-	}
+	if syn { this.SendMoney() }
 	log.Info("玩家[%d] 设置金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetMoney(), reason)
 }
 
+func (this *RoomUser) SendMoney() {
+	send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
+	this.SendClientMsg(send)
+}
 
 // 元宝
 func (this *RoomUser) GetYuanbao() uint32 {
@@ -608,6 +606,28 @@ func (this *RoomUser) LuckyDraw() {
 	this.SendClientMsg(send)
 }
 
+// 同步midas余额
+func (this *RoomUser) SynMidasBalance() (balance int64, errmsg string) {
+	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
+}
+
+// 同步midas余额
+func (this *RoomUser) SynMidasBalanceResult(balance int64, errmsg string) {
+	this.synbalance = false
+	if errmsg != "" {
+		log.Error("玩家[%s %d %s] 同步midas余额失败,errmsg:%s", this.Name(), this.Id(), this.OpenId(), errmsg)
+		return
+	}
+
+	money, remain := uint32(balance), this.GetMoney()
+	if remain < money {
+		this.AddMoney(money - remain, "同步midas余额", true)
+	}else {
+		this.RemoveMoney(remain - money, "同步midas余额", true)
+	}
+	log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%d", this.Name(), this.Id(), this.GetMoney())
+}
+
 // 从midas服务器扣除金币
 func (this *RoomUser) SynRemoveMidsMoney(amount int64, reason string) {
 	event := NewRemovePlatformCoinsEvent(amount, this.DoRemoveMidasMoney, this.DoRemoveMidasMoneyResult)
@@ -624,4 +644,38 @@ func (this* RoomUser) DoRemoveMidasMoneyResult(balance int64, errmsg string, amo
 		log.Error("玩家[%s %d] midas扣钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
 	}
 }
+
+// 请求发送子弹
+func (this *RoomUser) ReqLaunchBullet() {
+	bulletid, errmsg := int64(0), ""
+	switch {
+	default:
+		// 检查余额
+		if uint32(tbl.Game.BulletPrice) > this.GetMoney() {
+			errmsg = "金币不足"
+			break
+		}
+
+		// 充值同步中
+		if this.synbalance == true {
+			errmsg = "充值中"
+			break
+		}
+
+
+		this.RemoveMoney(uint32(tbl.Game.BulletPrice), "发射子弹", true)
+
+		bulletid = this.bulletid + 1
+		this.bulletid += 1
+	}
+
+	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg) }
+	this.SendClientMsg(send)
+}
+
+// 踩到炸弹
+func (this *RoomUser) StepOnBomb() {
+	this.RemoveMoney(uint32(tbl.Game.BombDeductMoney), "踩到炸弹", true)
+}
+
 

@@ -10,5 +10,11 @@
         "Count":3,
         "FloorTrigger":500,
         "Money":1000
-    }
+    },
+
+    "//":"游戏内规则",
+    "BulletPrice":20,
+
+    "//":"踩炸弹扣除",
+    "BombDeductMoney":500
 }

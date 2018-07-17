@@ -43,17 +43,15 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
+	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
+	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
 
 
 	// 发
 	this.msgparser.RegistSendProto(msg.RS2GW_ReqRegist{})
 	this.msgparser.RegistSendProto(msg.RS2GW_RetUserDisconnect{})
 	this.msgparser.RegistSendProto(msg.RS2GW_MsgTransfer{})
-	//this.msgparser.RegistSendProto(msg.BT_GameInit{})
-	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
-	//this.msgparser.RegistSendProto(msg.BT_GameStart{})
 	this.msgparser.RegistSendProto(msg.BT_GameEnd{})
-	//this.msgparser.RegistSendProto(msg.BT_PickItem{})
 
 	// 发Gate
 	this.msgparser.RegistSendProto(msg.GW2C_MsgNotify{})
@@ -151,15 +149,15 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 }
 
 func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UpdateMoney)
-	roomid, userid, money := tmsg.GetRoomid(), tmsg.GetUserid(), tmsg.GetMoney()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("BT_UpdateMoney 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
-		return
-	}
-	
-	room.UpdateMoneyByClient(money)
+	//tmsg := message.(*msg.BT_UpdateMoney)
+	//roomid, userid, money := tmsg.GetRoomid(), tmsg.GetUserid(), tmsg.GetMoney()
+	//room := RoomMgr().Find(roomid)
+	//if room == nil {
+	//	log.Error("BT_UpdateMoney 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+	//	return
+	//}
+	//
+	//room.UpdateMoneyByClient(money)
 }
 
 func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}) {
@@ -173,11 +171,41 @@ func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}
 }
 
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_PlatformRechargeDone)
-	//user := UserMgr().FindUser(tmsg.GetUserid())
-	//if user == nil { 
-	//	log.Error("C2GW_StartLuckyDraw 玩家[%d]没有在Room中", tmsg.GetUserid())
-	//	return 
-	//}
+	tmsg := message.(*msg.C2GW_PlatformRechargeDone)
+	user := UserMgr().FindUser(tmsg.GetUserid())
+	if user == nil { 
+		log.Error("C2GW_PlatformRechargeDone 玩家[%d]没有在Room中", tmsg.GetUserid())
+		return 
+	}
+
+	//
+	//user.synbalance = true
+	event := NewQueryPlatformCoinsEvent(user.SynMidasBalance, user.SynMidasBalanceResult)
+	user.AsynEventInsert(event)
+}
+
+// 发射子弹
+func on_BT_ReqLaunchBullet(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_ReqLaunchBullet)
+	user := UserMgr().FindUser(tmsg.GetUserid())
+	if user == nil { 
+		log.Error("BT_ReqLaunchBullet 玩家[%d]没有在Room中", tmsg.GetUserid())
+		return 
+	}
+
+	user.ReqLaunchBullet()
+}
+
+// 踩到炸弹
+func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_StepOnBomb)
+	user := UserMgr().FindUser(tmsg.GetUserid())
+	if user == nil { 
+		log.Error("BT_StepOnBomb 玩家[%d]没有在Room中", tmsg.GetUserid())
+		return 
+	}
+
+	//
+	user.StepOnBomb()
 }
 

@@ -372,6 +372,9 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			break
 		}
 
+		// 初始赠送金币
+		//def.HttpWechatMiniGamePresentMoney(Redis(), account, Yuanbao)
+
 		// 关联userid和openid
 		setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)
 		Redis().Set(setopenidkey, openid, 0).Result()

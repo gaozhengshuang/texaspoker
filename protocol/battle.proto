@@ -93,4 +93,32 @@ message BT_UpdateMoney {
     optional uint64 money  = 3;
 }
 
+// C2R 请求发送子弹
+message BT_ReqLaunchBullet {
+    optional uint64 userid = 1;
+}
+
+// R2C 返回
+message BT_RetLaunchBullet {
+    optional int64 bulletid = 1;
+    optional string errmsg = 2;
+}
+
+// C2R 客户端通知踩到炸弹
+message BT_StepOnBomb {
+    optional uint64 userid = 1;
+}
+
+// C2R 子弹获取金币
+message BT_BulletEarnMoney {
+    optional uint64 userid = 1;
+    optional int64 bulletid = 2;
+    optional uint32 money = 3;
+}
+
+// C2R 使用大招
+message BT_UseUltimateSkil {
+    optional uint64 userid = 1;
+    optional int64 money = 2;
+}
 

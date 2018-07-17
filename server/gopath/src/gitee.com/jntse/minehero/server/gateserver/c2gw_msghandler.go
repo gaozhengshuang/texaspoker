@@ -71,6 +71,10 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
+	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
+	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
+	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
+	this.msgparser.RegistProtoMsg(msg.BT_UseUltimateSkil{}, on_BT_UseUltimateSkil)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
@@ -206,19 +210,6 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 	user.SendRoomMsg(tmsg)
 }
 
-func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UpdateMoney)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	// 离开游戏房间
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
-	user.SendRoomMsg(tmsg)
-}
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLogin)
@@ -539,3 +530,61 @@ func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message inte
 }
 
 
+func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UpdateMoney)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	// 离开游戏房间
+	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	user.SendRoomMsg(tmsg)
+}
+
+/*
+func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UpdateMoney)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	// 离开游戏房间
+	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	user.SendRoomMsg(tmsg)
+}
+
+func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UpdateMoney)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	// 离开游戏房间
+	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	user.SendRoomMsg(tmsg)
+}
+
+func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UpdateMoney)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	// 离开游戏房间
+	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	user.SendRoomMsg(tmsg)
+}
+
+*/
