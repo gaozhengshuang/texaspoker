@@ -43,7 +43,7 @@ module game {
                     notifyName: PlayerModel.TASK_UPDATE,
                     execute: true
                 },
-             ]
+            ]
 
             this.initUser();
         }
@@ -84,24 +84,32 @@ module game {
         }
 
         private initTask() {
-            for(let i = 0; i < 3; ++i) {
+            for (let i = msg.TaskId.RegistAccount; i <= msg.TaskId.InviteRegist; ++i) {
                 this.setTask(i);
             }
         }
 
-        private setTask(idx: number) {
-            let task = DataManager.playerModel.getTaskByIndex(idx);
-            if (!task) {return;}
+        private setTask(id: number) {
+
+            let task = DataManager.playerModel.getTask(id);
+            if (!task) { return; }
             let isDone = task.completed;
             let progress = task.progress;
-            if (idx == 0) {
-                this.curMoneyTxt.text = `${progress}`;
-            }else if (idx == 1) {
-                this.img_gameTask.visible = isDone;
-                this.img_nogameTask.visible = !isDone;
-            }else if (idx == 2) {
-                this.img_becomeonTask.visible = isDone;
-                this.img_nobecomeonTask.visible = !isDone;
+
+            switch (id) {
+                case msg.TaskId.InviteRegist:
+                    this.curMoneyTxt.text = `${progress}`;
+                    break;
+                case msg.TaskId.RegisterTopScore:
+                    this.img_becomeonTask.visible = isDone;
+                    this.img_nobecomeonTask.visible = !isDone;
+                    break;
+                case msg.TaskId.InviteeTopScore:
+                    this.img_gameTask.visible = isDone;
+                    this.img_nogameTask.visible = !isDone;
+                    break;
+                default:
+                    break;
             }
         }
 

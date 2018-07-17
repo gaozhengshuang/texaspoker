@@ -4699,7 +4699,8 @@ declare namespace msg {
     enum TaskId {
         RegistAccount = 1001,
         RegisterTopScore = 1002,
-        InviteeTopScore = 1003
+        InviteeTopScore = 1003,
+        InviteRegist = 1004
     }
 
     /** Properties of a GW2L_ReqRegist. */
