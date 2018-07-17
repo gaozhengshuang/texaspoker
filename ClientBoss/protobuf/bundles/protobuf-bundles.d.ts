@@ -9991,6 +9991,9 @@ declare namespace msg {
 
     /** Properties of a C2GW_PlatformRechargeDone. */
     interface IC2GW_PlatformRechargeDone {
+
+        /** C2GW_PlatformRechargeDone userid */
+        userid?: (number|Long|null);
     }
 
     /** Represents a C2GW_PlatformRechargeDone. */
@@ -10001,6 +10004,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_PlatformRechargeDone);
+
+        /** C2GW_PlatformRechargeDone userid. */
+        public userid: (number|Long);
 
         /**
          * Creates a new C2GW_PlatformRechargeDone instance using the specified properties.
