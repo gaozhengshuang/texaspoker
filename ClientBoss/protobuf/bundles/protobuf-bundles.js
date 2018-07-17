@@ -23251,6 +23251,7 @@ $root.msg = (function() {
          * Properties of a C2GW_PlatformRechargeDone.
          * @memberof msg
          * @interface IC2GW_PlatformRechargeDone
+         * @property {number|Long|null} [userid] C2GW_PlatformRechargeDone userid
          */
 
         /**
@@ -23267,6 +23268,14 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * C2GW_PlatformRechargeDone userid.
+         * @member {number|Long} userid
+         * @memberof msg.C2GW_PlatformRechargeDone
+         * @instance
+         */
+        C2GW_PlatformRechargeDone.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_PlatformRechargeDone instance using the specified properties.
@@ -23292,6 +23301,8 @@ $root.msg = (function() {
         C2GW_PlatformRechargeDone.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
             return writer;
         };
 
@@ -23326,6 +23337,9 @@ $root.msg = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -23361,6 +23375,9 @@ $root.msg = (function() {
         C2GW_PlatformRechargeDone.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
             return null;
         };
 
@@ -23375,7 +23392,17 @@ $root.msg = (function() {
         C2GW_PlatformRechargeDone.fromObject = function fromObject(object) {
             if (object instanceof $root.msg.C2GW_PlatformRechargeDone)
                 return object;
-            return new $root.msg.C2GW_PlatformRechargeDone();
+            var message = new $root.msg.C2GW_PlatformRechargeDone();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            return message;
         };
 
         /**
@@ -23387,8 +23414,22 @@ $root.msg = (function() {
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2GW_PlatformRechargeDone.toObject = function toObject() {
-            return {};
+        C2GW_PlatformRechargeDone.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            return object;
         };
 
         /**

@@ -36,6 +36,7 @@ message GW2C_RetRechargeMoney {
 
 // 红包平台充值完成通知
 message C2GW_PlatformRechargeDone {
+    optional uint64 userid = 1;
 }
 
 // 同步玩家绑定微信信息

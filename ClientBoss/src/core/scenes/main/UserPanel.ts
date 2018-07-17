@@ -98,15 +98,15 @@ module game {
 
             switch (id) {
                 case msg.TaskId.InviteRegist:
-                    this.curMoneyTxt.text = `${progress}`;
+                    this.curMoneyTxt.text = `${progress}元`;
                     break;
                 case msg.TaskId.RegisterTopScore:
-                    this.img_becomeonTask.visible = isDone;
-                    this.img_nobecomeonTask.visible = !isDone;
-                    break;
-                case msg.TaskId.InviteeTopScore:
                     this.img_gameTask.visible = isDone;
                     this.img_nogameTask.visible = !isDone;
+                    break;
+                case msg.TaskId.InviteeTopScore:
+                    this.img_becomeonTask.visible = isDone;
+                    this.img_nobecomeonTask.visible = !isDone;
                     break;
                 default:
                     break;

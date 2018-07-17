@@ -408,10 +408,17 @@ func on_C2GW_SellBagItem(session network.IBaseNetSession, message interface{}) {
 
 // 玩家充值完成(大厅和房间都自己获取金币返回)
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_PlatformRechargeDone)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
+		return
+	}
+
+	// 游戏中
+	if user.IsInRoom() {
+		user.SendRoomMsg(tmsg)
 		return
 	}
 
