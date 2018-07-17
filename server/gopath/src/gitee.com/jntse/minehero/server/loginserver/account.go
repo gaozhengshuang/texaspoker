@@ -154,6 +154,9 @@ func ProcessInvitationUser(charid uint64, invitationcode string) {
 	}
 	def.HttpWechatCompanyPay(invitation_openid, 1)
 
+	// 邀请人任务计数
+	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", invitation_user)
+	Redis().Incr(invite_count_key).Result()
 }
 
 // 微信小游戏，直接注册账户
