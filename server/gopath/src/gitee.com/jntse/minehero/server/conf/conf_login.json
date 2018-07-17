@@ -33,7 +33,10 @@
 			"name": "TestHttpListener1",
 			"host": {
 				"ip": "192.168.30.203", "port": 7003
-			}
+			},
+            "https": false,
+            "cert":"../cert/https/https-server-214801457430415.pem",
+            "certkey":"../cert/https/https-server-214801457430415.key"
 		}
     ],
     "redis": {

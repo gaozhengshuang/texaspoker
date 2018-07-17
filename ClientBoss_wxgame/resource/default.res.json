@@ -142,9 +142,9 @@
 			"subkeys": "badBox_0000,badBox_0001,badBox_0002,badBox_0003,badBox_0004,badBox_0005,badBox_0006,goldAni_0000,goldAni_0001,goldAni_0002,goldAni_0003,goldAni_0004,goldAni_0005,goldAni_0006,goldAni_0007"
 		},
 		{
-			"name": "loadingMain_png",
+			"url": "assets/loadingMain.png",
 			"type": "image",
-			"url": "assets/loadingMain.png"
+			"name": "loadingMain_png"
 		}
 	]
 }

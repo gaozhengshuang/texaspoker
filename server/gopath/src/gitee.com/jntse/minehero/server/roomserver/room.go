@@ -24,7 +24,7 @@ func (this *GameRoom) UpdateMoneyByClient(money uint64) {
 
 		// 邀请人
 		if this.owner.Inviter() != 0 {
-			Redis().SAdd(fmt.Sprintf("TaskInviteeTopScoreFinish_%d", this.owner.Inviter()), this.owner.Id())
+			Redis().SAdd(fmt.Sprintf("task_invitee_topscorefinish_%d", this.owner.Inviter()), this.owner.Id())
 		}
 	}
 
