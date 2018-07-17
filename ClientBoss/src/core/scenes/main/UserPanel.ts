@@ -26,6 +26,16 @@ module game {
             this.closeButton.icon = "lucky_json.luckycloseBtn";
             this.addressButton.icon = "user_json.deliveryAdressBtn";
             this.inviteFriendButton.icon = "login_json.inviteFriendsImg";
+
+             this._notify = [
+                {
+                    source: DataManager.playerModel,
+                    target: this,
+                    callBackFunc: this.initTask,
+                    notifyName: PlayerModel.TASK_UPDATE,
+                    execute: true
+                },
+             ]
         }
 
         protected beforeShow() {
