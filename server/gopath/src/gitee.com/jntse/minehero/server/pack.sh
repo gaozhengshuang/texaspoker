@@ -48,7 +48,7 @@ ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/runserver.sh /h
 ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 
 ## 正式环境版本
-ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.71:/home/brickcrush/version/"
+ssh brickcrush@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.71:/home/brickcrush/version/"
 #ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.76:/home/brickcrush/version/"
 #ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.77:/home/brickcrush/version/"
 
