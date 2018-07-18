@@ -393,7 +393,7 @@ module game {
         private sendSpMsg(totalMoney: number|Long = 0) {
             sendMessage("msg.BT_UseUltimateSkil",msg.BT_UseUltimateSkil.encode({
                 userid: DataManager.playerModel.getUserId(),
-                money:totalMoney
+                money:<number>totalMoney
             }))
         }
 
@@ -441,6 +441,7 @@ module game {
             let x = this._curStage.x;
             let y = this._curStage.y;
             if (y >= this._paddle.y) return;
+            this._nowSp = <number>data.energy;
             if (DataManager.playerModel.getScore() < _paddlePrice) {
                 showDialog("您的金币不足!", "充值", function () {
                     // this.rechargeGoHandle();
@@ -559,7 +560,7 @@ module game {
             }
             let ball = this._ballPool.createObject();
             ball.setData(ballType, this.ballMaterial, isPenetration);
-            id && ball.setId(id);
+            id && (ball.id = id);
             ball.resetPosition(info);
             this.showGroup.addChild(ball);
             this._world.addBody(ball.body);
@@ -1377,6 +1378,7 @@ module game {
                 sendMessage("msg.BT_ReqQuitGameRoom", msg.BT_ReqQuitGameRoom.encode({
                     roomid: BattleManager.getInstance().getRoomId(),
                     userid: DataManager.playerModel.getUserId(),
+                    money: DataManager.playerModel.getScore(),
                 }));
 
                 SceneManager.changeScene(SceneType.main);

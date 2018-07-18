@@ -1145,6 +1145,9 @@ declare namespace msg {
 
         /** BT_ReqQuitGameRoom userid */
         userid?: (number|Long|null);
+
+        /** BT_ReqQuitGameRoom money */
+        money?: (number|null);
     }
 
     /** Represents a BT_ReqQuitGameRoom. */
@@ -1161,6 +1164,9 @@ declare namespace msg {
 
         /** BT_ReqQuitGameRoom userid. */
         public userid: (number|Long);
+
+        /** BT_ReqQuitGameRoom money. */
+        public money: number;
 
         /**
          * Creates a new BT_ReqQuitGameRoom instance using the specified properties.
@@ -1527,6 +1533,9 @@ declare namespace msg {
         /** BT_RetLaunchBullet bulletid */
         bulletid?: (number|Long|null);
 
+        /** BT_RetLaunchBullet energy */
+        energy?: (number|Long|null);
+
         /** BT_RetLaunchBullet errmsg */
         errmsg?: (string|null);
     }
@@ -1542,6 +1551,9 @@ declare namespace msg {
 
         /** BT_RetLaunchBullet bulletid. */
         public bulletid: (number|Long);
+
+        /** BT_RetLaunchBullet energy. */
+        public energy: (number|Long);
 
         /** BT_RetLaunchBullet errmsg. */
         public errmsg: string;
@@ -1816,7 +1828,7 @@ declare namespace msg {
         userid?: (number|Long|null);
 
         /** BT_UseUltimateSkil money */
-        money?: (number|Long|null);
+        money?: (number|null);
     }
 
     /** Represents a BT_UseUltimateSkil. */
@@ -1832,7 +1844,7 @@ declare namespace msg {
         public userid: (number|Long);
 
         /** BT_UseUltimateSkil money. */
-        public money: (number|Long);
+        public money: number;
 
         /**
          * Creates a new BT_UseUltimateSkil instance using the specified properties.
@@ -1900,6 +1912,102 @@ declare namespace msg {
 
         /**
          * Converts this BT_UseUltimateSkil to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_SynUserRechargeMoney. */
+    interface IBT_SynUserRechargeMoney {
+
+        /** BT_SynUserRechargeMoney userid */
+        userid?: (number|Long|null);
+
+        /** BT_SynUserRechargeMoney money */
+        money?: (number|null);
+    }
+
+    /** Represents a BT_SynUserRechargeMoney. */
+    class BT_SynUserRechargeMoney implements IBT_SynUserRechargeMoney {
+
+        /**
+         * Constructs a new BT_SynUserRechargeMoney.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_SynUserRechargeMoney);
+
+        /** BT_SynUserRechargeMoney userid. */
+        public userid: (number|Long);
+
+        /** BT_SynUserRechargeMoney money. */
+        public money: number;
+
+        /**
+         * Creates a new BT_SynUserRechargeMoney instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_SynUserRechargeMoney instance
+         */
+        public static create(properties?: msg.IBT_SynUserRechargeMoney): msg.BT_SynUserRechargeMoney;
+
+        /**
+         * Encodes the specified BT_SynUserRechargeMoney message. Does not implicitly {@link msg.BT_SynUserRechargeMoney.verify|verify} messages.
+         * @param message BT_SynUserRechargeMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_SynUserRechargeMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_SynUserRechargeMoney message, length delimited. Does not implicitly {@link msg.BT_SynUserRechargeMoney.verify|verify} messages.
+         * @param message BT_SynUserRechargeMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_SynUserRechargeMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_SynUserRechargeMoney message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_SynUserRechargeMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_SynUserRechargeMoney;
+
+        /**
+         * Decodes a BT_SynUserRechargeMoney message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_SynUserRechargeMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_SynUserRechargeMoney;
+
+        /**
+         * Verifies a BT_SynUserRechargeMoney message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_SynUserRechargeMoney message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_SynUserRechargeMoney
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_SynUserRechargeMoney;
+
+        /**
+         * Creates a plain object from a BT_SynUserRechargeMoney message. Also converts values to other types if specified.
+         * @param message BT_SynUserRechargeMoney
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_SynUserRechargeMoney, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_SynUserRechargeMoney to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

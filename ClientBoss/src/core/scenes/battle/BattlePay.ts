@@ -143,7 +143,8 @@ module game {
 
             if (os.match(/android/gi)) {
                 Pay.midasPay(zuanshi, () => {
-                    DataManager.playerModel.incScore(zuanshi);
+                    // DataManager.playerModel.incScore(zuanshi);
+
                     sendMessage("msg.C2GW_PlatformRechargeDone",msg.C2GW_PlatformRechargeDone.encode({userid:DataManager.playerModel.getUserId()}));
                 }, () => {
                     showDialog("支付失败，请重试", "确定", null);

@@ -2810,6 +2810,7 @@ $root.msg = (function() {
          * @interface IBT_ReqQuitGameRoom
          * @property {number|Long|null} [roomid] BT_ReqQuitGameRoom roomid
          * @property {number|Long|null} [userid] BT_ReqQuitGameRoom userid
+         * @property {number|null} [money] BT_ReqQuitGameRoom money
          */
 
         /**
@@ -2844,6 +2845,14 @@ $root.msg = (function() {
         BT_ReqQuitGameRoom.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
+         * BT_ReqQuitGameRoom money.
+         * @member {number} money
+         * @memberof msg.BT_ReqQuitGameRoom
+         * @instance
+         */
+        BT_ReqQuitGameRoom.prototype.money = 0;
+
+        /**
          * Creates a new BT_ReqQuitGameRoom instance using the specified properties.
          * @function create
          * @memberof msg.BT_ReqQuitGameRoom
@@ -2871,6 +2880,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roomid);
             if (message.userid != null && message.hasOwnProperty("userid"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.userid);
+            if (message.money != null && message.hasOwnProperty("money"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.money);
             return writer;
         };
 
@@ -2910,6 +2921,9 @@ $root.msg = (function() {
                     break;
                 case 2:
                     message.userid = reader.uint64();
+                    break;
+                case 3:
+                    message.money = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2952,6 +2966,9 @@ $root.msg = (function() {
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
                     return "userid: integer|Long expected";
+            if (message.money != null && message.hasOwnProperty("money"))
+                if (!$util.isInteger(message.money))
+                    return "money: integer expected";
             return null;
         };
 
@@ -2985,6 +3002,8 @@ $root.msg = (function() {
                     message.userid = object.userid;
                 else if (typeof object.userid === "object")
                     message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.money != null)
+                message.money = object.money >>> 0;
             return message;
         };
 
@@ -3012,6 +3031,7 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.userid = options.longs === String ? "0" : 0;
+                object.money = 0;
             }
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
@@ -3023,6 +3043,8 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? String(message.userid) : message.userid;
                 else
                     object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.money != null && message.hasOwnProperty("money"))
+                object.money = message.money;
             return object;
         };
 
@@ -3751,6 +3773,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IBT_RetLaunchBullet
          * @property {number|Long|null} [bulletid] BT_RetLaunchBullet bulletid
+         * @property {number|Long|null} [energy] BT_RetLaunchBullet energy
          * @property {string|null} [errmsg] BT_RetLaunchBullet errmsg
          */
 
@@ -3776,6 +3799,14 @@ $root.msg = (function() {
          * @instance
          */
         BT_RetLaunchBullet.prototype.bulletid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * BT_RetLaunchBullet energy.
+         * @member {number|Long} energy
+         * @memberof msg.BT_RetLaunchBullet
+         * @instance
+         */
+        BT_RetLaunchBullet.prototype.energy = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * BT_RetLaunchBullet errmsg.
@@ -3811,8 +3842,10 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.bulletid != null && message.hasOwnProperty("bulletid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int64(message.bulletid);
+            if (message.energy != null && message.hasOwnProperty("energy"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.energy);
             if (message.errmsg != null && message.hasOwnProperty("errmsg"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errmsg);
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.errmsg);
             return writer;
         };
 
@@ -3851,6 +3884,9 @@ $root.msg = (function() {
                     message.bulletid = reader.int64();
                     break;
                 case 2:
+                    message.energy = reader.int64();
+                    break;
+                case 3:
                     message.errmsg = reader.string();
                     break;
                 default:
@@ -3891,6 +3927,9 @@ $root.msg = (function() {
             if (message.bulletid != null && message.hasOwnProperty("bulletid"))
                 if (!$util.isInteger(message.bulletid) && !(message.bulletid && $util.isInteger(message.bulletid.low) && $util.isInteger(message.bulletid.high)))
                     return "bulletid: integer|Long expected";
+            if (message.energy != null && message.hasOwnProperty("energy"))
+                if (!$util.isInteger(message.energy) && !(message.energy && $util.isInteger(message.energy.low) && $util.isInteger(message.energy.high)))
+                    return "energy: integer|Long expected";
             if (message.errmsg != null && message.hasOwnProperty("errmsg"))
                 if (!$util.isString(message.errmsg))
                     return "errmsg: string expected";
@@ -3918,6 +3957,15 @@ $root.msg = (function() {
                     message.bulletid = object.bulletid;
                 else if (typeof object.bulletid === "object")
                     message.bulletid = new $util.LongBits(object.bulletid.low >>> 0, object.bulletid.high >>> 0).toNumber();
+            if (object.energy != null)
+                if ($util.Long)
+                    (message.energy = $util.Long.fromValue(object.energy)).unsigned = false;
+                else if (typeof object.energy === "string")
+                    message.energy = parseInt(object.energy, 10);
+                else if (typeof object.energy === "number")
+                    message.energy = object.energy;
+                else if (typeof object.energy === "object")
+                    message.energy = new $util.LongBits(object.energy.low >>> 0, object.energy.high >>> 0).toNumber();
             if (object.errmsg != null)
                 message.errmsg = String(object.errmsg);
             return message;
@@ -3942,6 +3990,11 @@ $root.msg = (function() {
                     object.bulletid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.bulletid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.energy = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.energy = options.longs === String ? "0" : 0;
                 object.errmsg = "";
             }
             if (message.bulletid != null && message.hasOwnProperty("bulletid"))
@@ -3949,6 +4002,11 @@ $root.msg = (function() {
                     object.bulletid = options.longs === String ? String(message.bulletid) : message.bulletid;
                 else
                     object.bulletid = options.longs === String ? $util.Long.prototype.toString.call(message.bulletid) : options.longs === Number ? new $util.LongBits(message.bulletid.low >>> 0, message.bulletid.high >>> 0).toNumber() : message.bulletid;
+            if (message.energy != null && message.hasOwnProperty("energy"))
+                if (typeof message.energy === "number")
+                    object.energy = options.longs === String ? String(message.energy) : message.energy;
+                else
+                    object.energy = options.longs === String ? $util.Long.prototype.toString.call(message.energy) : options.longs === Number ? new $util.LongBits(message.energy.low >>> 0, message.energy.high >>> 0).toNumber() : message.energy;
             if (message.errmsg != null && message.hasOwnProperty("errmsg"))
                 object.errmsg = message.errmsg;
             return object;
@@ -4436,7 +4494,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IBT_UseUltimateSkil
          * @property {number|Long|null} [userid] BT_UseUltimateSkil userid
-         * @property {number|Long|null} [money] BT_UseUltimateSkil money
+         * @property {number|null} [money] BT_UseUltimateSkil money
          */
 
         /**
@@ -4464,11 +4522,11 @@ $root.msg = (function() {
 
         /**
          * BT_UseUltimateSkil money.
-         * @member {number|Long} money
+         * @member {number} money
          * @memberof msg.BT_UseUltimateSkil
          * @instance
          */
-        BT_UseUltimateSkil.prototype.money = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        BT_UseUltimateSkil.prototype.money = 0;
 
         /**
          * Creates a new BT_UseUltimateSkil instance using the specified properties.
@@ -4497,7 +4555,7 @@ $root.msg = (function() {
             if (message.userid != null && message.hasOwnProperty("userid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
             if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.money);
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.money);
             return writer;
         };
 
@@ -4536,7 +4594,7 @@ $root.msg = (function() {
                     message.userid = reader.uint64();
                     break;
                 case 2:
-                    message.money = reader.int64();
+                    message.money = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4577,8 +4635,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
                     return "userid: integer|Long expected";
             if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money) && !(message.money && $util.isInteger(message.money.low) && $util.isInteger(message.money.high)))
-                    return "money: integer|Long expected";
+                if (!$util.isInteger(message.money))
+                    return "money: integer expected";
             return null;
         };
 
@@ -4604,14 +4662,7 @@ $root.msg = (function() {
                 else if (typeof object.userid === "object")
                     message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
             if (object.money != null)
-                if ($util.Long)
-                    (message.money = $util.Long.fromValue(object.money)).unsigned = false;
-                else if (typeof object.money === "string")
-                    message.money = parseInt(object.money, 10);
-                else if (typeof object.money === "number")
-                    message.money = object.money;
-                else if (typeof object.money === "object")
-                    message.money = new $util.LongBits(object.money.low >>> 0, object.money.high >>> 0).toNumber();
+                message.money = object.money >>> 0;
             return message;
         };
 
@@ -4634,11 +4685,7 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.userid = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.money = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.money = options.longs === String ? "0" : 0;
+                object.money = 0;
             }
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
@@ -4646,10 +4693,7 @@ $root.msg = (function() {
                 else
                     object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
             if (message.money != null && message.hasOwnProperty("money"))
-                if (typeof message.money === "number")
-                    object.money = options.longs === String ? String(message.money) : message.money;
-                else
-                    object.money = options.longs === String ? $util.Long.prototype.toString.call(message.money) : options.longs === Number ? new $util.LongBits(message.money.low >>> 0, message.money.high >>> 0).toNumber() : message.money;
+                object.money = message.money;
             return object;
         };
 
@@ -4665,6 +4709,230 @@ $root.msg = (function() {
         };
 
         return BT_UseUltimateSkil;
+    })();
+
+    msg.BT_SynUserRechargeMoney = (function() {
+
+        /**
+         * Properties of a BT_SynUserRechargeMoney.
+         * @memberof msg
+         * @interface IBT_SynUserRechargeMoney
+         * @property {number|Long|null} [userid] BT_SynUserRechargeMoney userid
+         * @property {number|null} [money] BT_SynUserRechargeMoney money
+         */
+
+        /**
+         * Constructs a new BT_SynUserRechargeMoney.
+         * @memberof msg
+         * @classdesc Represents a BT_SynUserRechargeMoney.
+         * @implements IBT_SynUserRechargeMoney
+         * @constructor
+         * @param {msg.IBT_SynUserRechargeMoney=} [properties] Properties to set
+         */
+        function BT_SynUserRechargeMoney(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_SynUserRechargeMoney userid.
+         * @member {number|Long} userid
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @instance
+         */
+        BT_SynUserRechargeMoney.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * BT_SynUserRechargeMoney money.
+         * @member {number} money
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @instance
+         */
+        BT_SynUserRechargeMoney.prototype.money = 0;
+
+        /**
+         * Creates a new BT_SynUserRechargeMoney instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {msg.IBT_SynUserRechargeMoney=} [properties] Properties to set
+         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney instance
+         */
+        BT_SynUserRechargeMoney.create = function create(properties) {
+            return new BT_SynUserRechargeMoney(properties);
+        };
+
+        /**
+         * Encodes the specified BT_SynUserRechargeMoney message. Does not implicitly {@link msg.BT_SynUserRechargeMoney.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {msg.IBT_SynUserRechargeMoney} message BT_SynUserRechargeMoney message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_SynUserRechargeMoney.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.money != null && message.hasOwnProperty("money"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.money);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_SynUserRechargeMoney message, length delimited. Does not implicitly {@link msg.BT_SynUserRechargeMoney.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {msg.IBT_SynUserRechargeMoney} message BT_SynUserRechargeMoney message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_SynUserRechargeMoney.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_SynUserRechargeMoney message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_SynUserRechargeMoney.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_SynUserRechargeMoney();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.money = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_SynUserRechargeMoney message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_SynUserRechargeMoney.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_SynUserRechargeMoney message.
+         * @function verify
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_SynUserRechargeMoney.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.money != null && message.hasOwnProperty("money"))
+                if (!$util.isInteger(message.money))
+                    return "money: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_SynUserRechargeMoney message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney
+         */
+        BT_SynUserRechargeMoney.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_SynUserRechargeMoney)
+                return object;
+            var message = new $root.msg.BT_SynUserRechargeMoney();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.money != null)
+                message.money = object.money >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_SynUserRechargeMoney message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @static
+         * @param {msg.BT_SynUserRechargeMoney} message BT_SynUserRechargeMoney
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_SynUserRechargeMoney.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                object.money = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.money != null && message.hasOwnProperty("money"))
+                object.money = message.money;
+            return object;
+        };
+
+        /**
+         * Converts this BT_SynUserRechargeMoney to JSON.
+         * @function toJSON
+         * @memberof msg.BT_SynUserRechargeMoney
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_SynUserRechargeMoney.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_SynUserRechargeMoney;
     })();
 
     msg.EntityBase = (function() {

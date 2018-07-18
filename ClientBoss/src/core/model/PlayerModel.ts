@@ -29,6 +29,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendLuckyDrawRecord, "msg.GW2C_SendLuckyDrawRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
+            NotificationCenter.addObserver(this, this.OnBT_SynUserRechargeMoney, "msg.BT_SynUserRechargeMoney");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -78,6 +79,10 @@ module game {
 
         private OnGW2C_SendDeliveryAddressList(data: msg.GW2C_SendDeliveryAddressList) {
             this.userInfo.addrlist = data.list;
+        }
+
+        private OnBT_SynUserRechargeMoney(data: msg.BT_SynUserRechargeMoney) {
+            this.incScore(<number>data.money);
         }
 
         public setScore(count: number) {

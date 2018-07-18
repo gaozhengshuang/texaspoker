@@ -46,13 +46,16 @@ module game {
             console.log("生命总产值： ",this.ballId, this.lifeValue);
             sendMessage("msg.BT_BulletEarnMoney",msg.BT_BulletEarnMoney.encode({
                 userid: DataManager.playerModel.getUserId(),
-                bulletid: this.getId(),
+                bulletid: this.id,
                 money: this.lifeValue,
             }))
         }
 
-        public getId() {return this._id;}
-        public setId(id) {this._id = id;}
+        public get id() {return this._id;}
+        public set id(n) {this._id = n;}
+        
+
+        
 
 
         public setData(ballId: number, material: p2.Material, isPenetration: boolean) {
