@@ -100,6 +100,8 @@ module game {
         private _leftFirewall: number[];
         private _rightFirewall: number[];
 
+        private _curStage;
+
         protected init() {
             if (gameConfig.isIphoneX()) {
                 this.mainGroup.y = 86;
@@ -134,13 +136,13 @@ module game {
             this.buffLootList = table.TBirckItem;
             this._buffList = [];
             this.userButton.icon = "ui_json.userGo";
-        this.rechargeButton.icon = "ui_json.rechargeGo";
-        this.luckyButton.icon = "lucky_json.luckyGo";
-           this.bagButton.icon = "ui_json.bagGo";
-        this.backButton.icon = "ui_json.gameBack";
-        this.ballButton1.icon = "ball_json.1";
-        this.ballButton2.icon = "ball_json.2";
-        this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
+            this.rechargeButton.icon = "ui_json.rechargeGo";
+            this.luckyButton.icon = "lucky_json.luckyGo";
+            this.bagButton.icon = "ui_json.bagGo";
+            this.backButton.icon = "ui_json.gameBack";
+            this.ballButton1.icon = "ball_json.1";
+            this.ballButton2.icon = "ball_json.2";
+            this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
             this.ball2Price.text = `价值:${table.TBallById[2].Price}炮弹`;
 
             this._brickPool = new ObjectPool<BattleBrick>(BattleBrick);
@@ -167,8 +169,12 @@ module game {
             }
 
             this.initWorld();
-
+            this.initNetHandle();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
+        }
+
+        private initNetHandle() {
+            NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
         }
 
         protected getSkinName() {
@@ -243,6 +249,7 @@ module game {
             //this.debugGroup.addChild(sprite);
         }
 
+        // 定时炸弹
         public showTimeBoom(brick: BattleBrick) {
             brick.needCountdown = false;
             brick.countdownLabel.visible = true;
@@ -256,6 +263,7 @@ module game {
                 this.destroyBrick(brick);
                 this.playTimeBoom(brick.x);
                 this.showBattleText(-cost, brick, 1, -10, this._rewardBallPool.createObject(), true);
+                sendMessage("msg.BT_StepOnBomb",msg.BT_StepOnBomb.encode({userid: DataManager.playerModel.getUserId()}));
             })
         }
 
@@ -382,6 +390,14 @@ module game {
             this.startGame();
         }
 
+        private sendSpMsg(totalMoney: number|Long = 0) {
+            sendMessage("msg.BT_UseUltimateSkil",msg.BT_UseUltimateSkil.encode({
+                userid: DataManager.playerModel.getUserId(),
+                money:totalMoney
+            }))
+        }
+
+        // 大招
         public useSp() {
             if (this._spCool > 0) return;
             SoundManager.playEffect("dazhao", 0.5);
@@ -414,13 +430,21 @@ module game {
         }
 
         private touchHandle(event: egret.TouchEvent) {
-            let x = event.stageX;
-            let y = event.stageY - 88;
+            this._curStage ={x: event.stageX, y:  event.stageY - 88}
+            this.sendLaunchBulletMsg();
+
+        }
+
+        private OnBT_RetLaunchBullet(data: msg.BT_RetLaunchBullet) {
+            // let x = event.stageX;
+            // let y = event.stageY - 88;
+            let x = this._curStage.x;
+            let y = this._curStage.y;
             if (y >= this._paddle.y) return;
             if (DataManager.playerModel.getScore() < _paddlePrice) {
                 showDialog("您的金币不足!", "充值", function () {
                     // this.rechargeGoHandle();
-                     openPanel(PanelType.pay);
+                    openPanel(PanelType.pay);
                     // showTips("暂未开放,敬请期待...", true);
                 });
                 return;
@@ -439,9 +463,13 @@ module game {
             let vX = sin * v;
             let vY = -cos * v;
             this._paddle.setImageRotation(rotation);
-            this.addBall(2, [newX, newY, vX, vY]);
+            this.addBall(2, [newX, newY, vX, vY],data.bulletid);
             SoundManager.playEffect("fashe", 0.6);
             this._paddle.playShot();
+        }
+
+        private sendLaunchBulletMsg() {
+            sendMessage("msg.BT_ReqLaunchBullet", msg.BT_ReqLaunchBullet.encode({userid: DataManager.playerModel.getUserId()}));
         }
 
         private noticeFinish() {
@@ -523,7 +551,7 @@ module game {
             // this.startGame();
         }
 
-        private addBall(ballType: number, info: number[]) {
+        private addBall(ballType: number, info: number[],id:number|Long = 0) {
             let isPenetration: boolean = false;
             if (DataManager.playerModel.penetration > 0) {
                 isPenetration = true;
@@ -531,6 +559,7 @@ module game {
             }
             let ball = this._ballPool.createObject();
             ball.setData(ballType, this.ballMaterial, isPenetration);
+            id && ball.setId(id);
             ball.resetPosition(info);
             this.showGroup.addChild(ball);
             this._world.addBody(ball.body);
@@ -618,18 +647,18 @@ module game {
             //临时代码
 
             //每秒同步一次金币
-            this._moneySyn++;
-            if (this._moneySyn > 100) {
-                this._moneySyn = 0;
-                if (this._curMoney != DataManager.playerModel.getScore()) {
-                    sendMessage("msg.BT_UpdateMoney", msg.BT_UpdateMoney.encode({
-                        roomid: BattleManager.getInstance().getRoomId(),
-                        userid: DataManager.playerModel.getUserId(),
-                        money: DataManager.playerModel.getScore()
-                    }));
-                    this._curMoney = DataManager.playerModel.getScore();
-                }
-            }
+            // this._moneySyn++;
+            // if (this._moneySyn > 100) {
+            //     this._moneySyn = 0;
+            //     if (this._curMoney != DataManager.playerModel.getScore()) {
+            //         sendMessage("msg.BT_UpdateMoney", msg.BT_UpdateMoney.encode({
+            //             roomid: BattleManager.getInstance().getRoomId(),
+            //             userid: DataManager.playerModel.getUserId(),
+            //             money: DataManager.playerModel.getScore()
+            //         }));
+            //         this._curMoney = DataManager.playerModel.getScore();
+            //     }
+            // }
 
             if (this._doubleTime > 0) {
                 this._doubleTime--;
@@ -642,13 +671,16 @@ module game {
             } else {
                 this.stopDouble();
             }
-
+            
             if (this._boomBrick.length > 0) {
+                let totalMoney = 0;
                 for (let i = this._boomBrick.length - 1; i >= 0; i--) {
                     let b = this._boomBrick[i];
                     this._boomBrick.splice(i, 1);
-                    this.destroyBrick(b);
+                    totalMoney += this.destroyBrick(b);
                 }
+                console.log(" 总金币值： ", totalMoney)
+                this.sendSpMsg(totalMoney);
             }
 
             this._currentFrame++;
@@ -1008,7 +1040,7 @@ module game {
             this._paddle.setSp(this._nowSp / _maxSp);
         }
 
-        public addHit(brick: BattleBrick) {
+        public addHit(brick: BattleBrick, ball: BattleBall) {
             SoundManager.playEffect("pengzhuang", 0.8);
             let score = brick.getScore();
             if (score) {
@@ -1019,6 +1051,7 @@ module game {
                 DataManager.playerModel.addScore(score);
                 this._nowEvent += score;
             }
+            ball.incLifeValue(score);
             this.hitCount++;
             this.hitLabel.text = `连击数:${this.hitCount}`;
         }
@@ -1126,7 +1159,7 @@ module game {
             }, 1300, egret.Ease.backOut);
         }
 
-        public destroyBrick(brick: BattleBrick) {
+        public destroyBrick(brick: BattleBrick, ball: BattleBall = null) {
             if (brick.getBuffType() == BrickType.ice) {
                 for (let b of this._brickPool.list) {
                     if (b.frozenBrick && b.frozenBrick == brick) {
@@ -1217,6 +1250,7 @@ module game {
                 this._breakBad += 1;
                 this.showBadPower();
             }
+            return score;
         }
 
         private async playBreakAnim(brick: BattleBrick) {

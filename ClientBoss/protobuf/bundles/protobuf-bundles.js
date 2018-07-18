@@ -3543,6 +3543,1130 @@ $root.msg = (function() {
         return BT_UpdateMoney;
     })();
 
+    msg.BT_ReqLaunchBullet = (function() {
+
+        /**
+         * Properties of a BT_ReqLaunchBullet.
+         * @memberof msg
+         * @interface IBT_ReqLaunchBullet
+         * @property {number|Long|null} [userid] BT_ReqLaunchBullet userid
+         */
+
+        /**
+         * Constructs a new BT_ReqLaunchBullet.
+         * @memberof msg
+         * @classdesc Represents a BT_ReqLaunchBullet.
+         * @implements IBT_ReqLaunchBullet
+         * @constructor
+         * @param {msg.IBT_ReqLaunchBullet=} [properties] Properties to set
+         */
+        function BT_ReqLaunchBullet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_ReqLaunchBullet userid.
+         * @member {number|Long} userid
+         * @memberof msg.BT_ReqLaunchBullet
+         * @instance
+         */
+        BT_ReqLaunchBullet.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new BT_ReqLaunchBullet instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {msg.IBT_ReqLaunchBullet=} [properties] Properties to set
+         * @returns {msg.BT_ReqLaunchBullet} BT_ReqLaunchBullet instance
+         */
+        BT_ReqLaunchBullet.create = function create(properties) {
+            return new BT_ReqLaunchBullet(properties);
+        };
+
+        /**
+         * Encodes the specified BT_ReqLaunchBullet message. Does not implicitly {@link msg.BT_ReqLaunchBullet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {msg.IBT_ReqLaunchBullet} message BT_ReqLaunchBullet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_ReqLaunchBullet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_ReqLaunchBullet message, length delimited. Does not implicitly {@link msg.BT_ReqLaunchBullet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {msg.IBT_ReqLaunchBullet} message BT_ReqLaunchBullet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_ReqLaunchBullet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_ReqLaunchBullet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_ReqLaunchBullet} BT_ReqLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_ReqLaunchBullet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_ReqLaunchBullet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_ReqLaunchBullet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_ReqLaunchBullet} BT_ReqLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_ReqLaunchBullet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_ReqLaunchBullet message.
+         * @function verify
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_ReqLaunchBullet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_ReqLaunchBullet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_ReqLaunchBullet} BT_ReqLaunchBullet
+         */
+        BT_ReqLaunchBullet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_ReqLaunchBullet)
+                return object;
+            var message = new $root.msg.BT_ReqLaunchBullet();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_ReqLaunchBullet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_ReqLaunchBullet
+         * @static
+         * @param {msg.BT_ReqLaunchBullet} message BT_ReqLaunchBullet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_ReqLaunchBullet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            return object;
+        };
+
+        /**
+         * Converts this BT_ReqLaunchBullet to JSON.
+         * @function toJSON
+         * @memberof msg.BT_ReqLaunchBullet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_ReqLaunchBullet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_ReqLaunchBullet;
+    })();
+
+    msg.BT_RetLaunchBullet = (function() {
+
+        /**
+         * Properties of a BT_RetLaunchBullet.
+         * @memberof msg
+         * @interface IBT_RetLaunchBullet
+         * @property {number|Long|null} [bulletid] BT_RetLaunchBullet bulletid
+         * @property {string|null} [errmsg] BT_RetLaunchBullet errmsg
+         */
+
+        /**
+         * Constructs a new BT_RetLaunchBullet.
+         * @memberof msg
+         * @classdesc Represents a BT_RetLaunchBullet.
+         * @implements IBT_RetLaunchBullet
+         * @constructor
+         * @param {msg.IBT_RetLaunchBullet=} [properties] Properties to set
+         */
+        function BT_RetLaunchBullet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_RetLaunchBullet bulletid.
+         * @member {number|Long} bulletid
+         * @memberof msg.BT_RetLaunchBullet
+         * @instance
+         */
+        BT_RetLaunchBullet.prototype.bulletid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * BT_RetLaunchBullet errmsg.
+         * @member {string} errmsg
+         * @memberof msg.BT_RetLaunchBullet
+         * @instance
+         */
+        BT_RetLaunchBullet.prototype.errmsg = "";
+
+        /**
+         * Creates a new BT_RetLaunchBullet instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {msg.IBT_RetLaunchBullet=} [properties] Properties to set
+         * @returns {msg.BT_RetLaunchBullet} BT_RetLaunchBullet instance
+         */
+        BT_RetLaunchBullet.create = function create(properties) {
+            return new BT_RetLaunchBullet(properties);
+        };
+
+        /**
+         * Encodes the specified BT_RetLaunchBullet message. Does not implicitly {@link msg.BT_RetLaunchBullet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {msg.IBT_RetLaunchBullet} message BT_RetLaunchBullet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_RetLaunchBullet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.bulletid != null && message.hasOwnProperty("bulletid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.bulletid);
+            if (message.errmsg != null && message.hasOwnProperty("errmsg"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errmsg);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_RetLaunchBullet message, length delimited. Does not implicitly {@link msg.BT_RetLaunchBullet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {msg.IBT_RetLaunchBullet} message BT_RetLaunchBullet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_RetLaunchBullet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_RetLaunchBullet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_RetLaunchBullet} BT_RetLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_RetLaunchBullet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_RetLaunchBullet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.bulletid = reader.int64();
+                    break;
+                case 2:
+                    message.errmsg = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_RetLaunchBullet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_RetLaunchBullet} BT_RetLaunchBullet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_RetLaunchBullet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_RetLaunchBullet message.
+         * @function verify
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_RetLaunchBullet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.bulletid != null && message.hasOwnProperty("bulletid"))
+                if (!$util.isInteger(message.bulletid) && !(message.bulletid && $util.isInteger(message.bulletid.low) && $util.isInteger(message.bulletid.high)))
+                    return "bulletid: integer|Long expected";
+            if (message.errmsg != null && message.hasOwnProperty("errmsg"))
+                if (!$util.isString(message.errmsg))
+                    return "errmsg: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_RetLaunchBullet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_RetLaunchBullet} BT_RetLaunchBullet
+         */
+        BT_RetLaunchBullet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_RetLaunchBullet)
+                return object;
+            var message = new $root.msg.BT_RetLaunchBullet();
+            if (object.bulletid != null)
+                if ($util.Long)
+                    (message.bulletid = $util.Long.fromValue(object.bulletid)).unsigned = false;
+                else if (typeof object.bulletid === "string")
+                    message.bulletid = parseInt(object.bulletid, 10);
+                else if (typeof object.bulletid === "number")
+                    message.bulletid = object.bulletid;
+                else if (typeof object.bulletid === "object")
+                    message.bulletid = new $util.LongBits(object.bulletid.low >>> 0, object.bulletid.high >>> 0).toNumber();
+            if (object.errmsg != null)
+                message.errmsg = String(object.errmsg);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_RetLaunchBullet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_RetLaunchBullet
+         * @static
+         * @param {msg.BT_RetLaunchBullet} message BT_RetLaunchBullet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_RetLaunchBullet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.bulletid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.bulletid = options.longs === String ? "0" : 0;
+                object.errmsg = "";
+            }
+            if (message.bulletid != null && message.hasOwnProperty("bulletid"))
+                if (typeof message.bulletid === "number")
+                    object.bulletid = options.longs === String ? String(message.bulletid) : message.bulletid;
+                else
+                    object.bulletid = options.longs === String ? $util.Long.prototype.toString.call(message.bulletid) : options.longs === Number ? new $util.LongBits(message.bulletid.low >>> 0, message.bulletid.high >>> 0).toNumber() : message.bulletid;
+            if (message.errmsg != null && message.hasOwnProperty("errmsg"))
+                object.errmsg = message.errmsg;
+            return object;
+        };
+
+        /**
+         * Converts this BT_RetLaunchBullet to JSON.
+         * @function toJSON
+         * @memberof msg.BT_RetLaunchBullet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_RetLaunchBullet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_RetLaunchBullet;
+    })();
+
+    msg.BT_StepOnBomb = (function() {
+
+        /**
+         * Properties of a BT_StepOnBomb.
+         * @memberof msg
+         * @interface IBT_StepOnBomb
+         * @property {number|Long|null} [userid] BT_StepOnBomb userid
+         */
+
+        /**
+         * Constructs a new BT_StepOnBomb.
+         * @memberof msg
+         * @classdesc Represents a BT_StepOnBomb.
+         * @implements IBT_StepOnBomb
+         * @constructor
+         * @param {msg.IBT_StepOnBomb=} [properties] Properties to set
+         */
+        function BT_StepOnBomb(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_StepOnBomb userid.
+         * @member {number|Long} userid
+         * @memberof msg.BT_StepOnBomb
+         * @instance
+         */
+        BT_StepOnBomb.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new BT_StepOnBomb instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {msg.IBT_StepOnBomb=} [properties] Properties to set
+         * @returns {msg.BT_StepOnBomb} BT_StepOnBomb instance
+         */
+        BT_StepOnBomb.create = function create(properties) {
+            return new BT_StepOnBomb(properties);
+        };
+
+        /**
+         * Encodes the specified BT_StepOnBomb message. Does not implicitly {@link msg.BT_StepOnBomb.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {msg.IBT_StepOnBomb} message BT_StepOnBomb message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_StepOnBomb.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_StepOnBomb message, length delimited. Does not implicitly {@link msg.BT_StepOnBomb.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {msg.IBT_StepOnBomb} message BT_StepOnBomb message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_StepOnBomb.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_StepOnBomb message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_StepOnBomb} BT_StepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_StepOnBomb.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_StepOnBomb();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_StepOnBomb message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_StepOnBomb} BT_StepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_StepOnBomb.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_StepOnBomb message.
+         * @function verify
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_StepOnBomb.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_StepOnBomb message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_StepOnBomb} BT_StepOnBomb
+         */
+        BT_StepOnBomb.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_StepOnBomb)
+                return object;
+            var message = new $root.msg.BT_StepOnBomb();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_StepOnBomb message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_StepOnBomb
+         * @static
+         * @param {msg.BT_StepOnBomb} message BT_StepOnBomb
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_StepOnBomb.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            return object;
+        };
+
+        /**
+         * Converts this BT_StepOnBomb to JSON.
+         * @function toJSON
+         * @memberof msg.BT_StepOnBomb
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_StepOnBomb.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_StepOnBomb;
+    })();
+
+    msg.BT_BulletEarnMoney = (function() {
+
+        /**
+         * Properties of a BT_BulletEarnMoney.
+         * @memberof msg
+         * @interface IBT_BulletEarnMoney
+         * @property {number|Long|null} [userid] BT_BulletEarnMoney userid
+         * @property {number|Long|null} [bulletid] BT_BulletEarnMoney bulletid
+         * @property {number|null} [money] BT_BulletEarnMoney money
+         */
+
+        /**
+         * Constructs a new BT_BulletEarnMoney.
+         * @memberof msg
+         * @classdesc Represents a BT_BulletEarnMoney.
+         * @implements IBT_BulletEarnMoney
+         * @constructor
+         * @param {msg.IBT_BulletEarnMoney=} [properties] Properties to set
+         */
+        function BT_BulletEarnMoney(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_BulletEarnMoney userid.
+         * @member {number|Long} userid
+         * @memberof msg.BT_BulletEarnMoney
+         * @instance
+         */
+        BT_BulletEarnMoney.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * BT_BulletEarnMoney bulletid.
+         * @member {number|Long} bulletid
+         * @memberof msg.BT_BulletEarnMoney
+         * @instance
+         */
+        BT_BulletEarnMoney.prototype.bulletid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * BT_BulletEarnMoney money.
+         * @member {number} money
+         * @memberof msg.BT_BulletEarnMoney
+         * @instance
+         */
+        BT_BulletEarnMoney.prototype.money = 0;
+
+        /**
+         * Creates a new BT_BulletEarnMoney instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {msg.IBT_BulletEarnMoney=} [properties] Properties to set
+         * @returns {msg.BT_BulletEarnMoney} BT_BulletEarnMoney instance
+         */
+        BT_BulletEarnMoney.create = function create(properties) {
+            return new BT_BulletEarnMoney(properties);
+        };
+
+        /**
+         * Encodes the specified BT_BulletEarnMoney message. Does not implicitly {@link msg.BT_BulletEarnMoney.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {msg.IBT_BulletEarnMoney} message BT_BulletEarnMoney message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_BulletEarnMoney.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.bulletid != null && message.hasOwnProperty("bulletid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.bulletid);
+            if (message.money != null && message.hasOwnProperty("money"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.money);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_BulletEarnMoney message, length delimited. Does not implicitly {@link msg.BT_BulletEarnMoney.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {msg.IBT_BulletEarnMoney} message BT_BulletEarnMoney message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_BulletEarnMoney.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_BulletEarnMoney message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_BulletEarnMoney} BT_BulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_BulletEarnMoney.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_BulletEarnMoney();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.bulletid = reader.int64();
+                    break;
+                case 3:
+                    message.money = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_BulletEarnMoney message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_BulletEarnMoney} BT_BulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_BulletEarnMoney.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_BulletEarnMoney message.
+         * @function verify
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_BulletEarnMoney.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.bulletid != null && message.hasOwnProperty("bulletid"))
+                if (!$util.isInteger(message.bulletid) && !(message.bulletid && $util.isInteger(message.bulletid.low) && $util.isInteger(message.bulletid.high)))
+                    return "bulletid: integer|Long expected";
+            if (message.money != null && message.hasOwnProperty("money"))
+                if (!$util.isInteger(message.money))
+                    return "money: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_BulletEarnMoney message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_BulletEarnMoney} BT_BulletEarnMoney
+         */
+        BT_BulletEarnMoney.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_BulletEarnMoney)
+                return object;
+            var message = new $root.msg.BT_BulletEarnMoney();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.bulletid != null)
+                if ($util.Long)
+                    (message.bulletid = $util.Long.fromValue(object.bulletid)).unsigned = false;
+                else if (typeof object.bulletid === "string")
+                    message.bulletid = parseInt(object.bulletid, 10);
+                else if (typeof object.bulletid === "number")
+                    message.bulletid = object.bulletid;
+                else if (typeof object.bulletid === "object")
+                    message.bulletid = new $util.LongBits(object.bulletid.low >>> 0, object.bulletid.high >>> 0).toNumber();
+            if (object.money != null)
+                message.money = object.money >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_BulletEarnMoney message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_BulletEarnMoney
+         * @static
+         * @param {msg.BT_BulletEarnMoney} message BT_BulletEarnMoney
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_BulletEarnMoney.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.bulletid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.bulletid = options.longs === String ? "0" : 0;
+                object.money = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.bulletid != null && message.hasOwnProperty("bulletid"))
+                if (typeof message.bulletid === "number")
+                    object.bulletid = options.longs === String ? String(message.bulletid) : message.bulletid;
+                else
+                    object.bulletid = options.longs === String ? $util.Long.prototype.toString.call(message.bulletid) : options.longs === Number ? new $util.LongBits(message.bulletid.low >>> 0, message.bulletid.high >>> 0).toNumber() : message.bulletid;
+            if (message.money != null && message.hasOwnProperty("money"))
+                object.money = message.money;
+            return object;
+        };
+
+        /**
+         * Converts this BT_BulletEarnMoney to JSON.
+         * @function toJSON
+         * @memberof msg.BT_BulletEarnMoney
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_BulletEarnMoney.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_BulletEarnMoney;
+    })();
+
+    msg.BT_UseUltimateSkil = (function() {
+
+        /**
+         * Properties of a BT_UseUltimateSkil.
+         * @memberof msg
+         * @interface IBT_UseUltimateSkil
+         * @property {number|Long|null} [userid] BT_UseUltimateSkil userid
+         * @property {number|Long|null} [money] BT_UseUltimateSkil money
+         */
+
+        /**
+         * Constructs a new BT_UseUltimateSkil.
+         * @memberof msg
+         * @classdesc Represents a BT_UseUltimateSkil.
+         * @implements IBT_UseUltimateSkil
+         * @constructor
+         * @param {msg.IBT_UseUltimateSkil=} [properties] Properties to set
+         */
+        function BT_UseUltimateSkil(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_UseUltimateSkil userid.
+         * @member {number|Long} userid
+         * @memberof msg.BT_UseUltimateSkil
+         * @instance
+         */
+        BT_UseUltimateSkil.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * BT_UseUltimateSkil money.
+         * @member {number|Long} money
+         * @memberof msg.BT_UseUltimateSkil
+         * @instance
+         */
+        BT_UseUltimateSkil.prototype.money = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new BT_UseUltimateSkil instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {msg.IBT_UseUltimateSkil=} [properties] Properties to set
+         * @returns {msg.BT_UseUltimateSkil} BT_UseUltimateSkil instance
+         */
+        BT_UseUltimateSkil.create = function create(properties) {
+            return new BT_UseUltimateSkil(properties);
+        };
+
+        /**
+         * Encodes the specified BT_UseUltimateSkil message. Does not implicitly {@link msg.BT_UseUltimateSkil.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {msg.IBT_UseUltimateSkil} message BT_UseUltimateSkil message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_UseUltimateSkil.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.money != null && message.hasOwnProperty("money"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.money);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_UseUltimateSkil message, length delimited. Does not implicitly {@link msg.BT_UseUltimateSkil.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {msg.IBT_UseUltimateSkil} message BT_UseUltimateSkil message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_UseUltimateSkil.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_UseUltimateSkil message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_UseUltimateSkil} BT_UseUltimateSkil
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_UseUltimateSkil.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_UseUltimateSkil();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.money = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_UseUltimateSkil message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_UseUltimateSkil} BT_UseUltimateSkil
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_UseUltimateSkil.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_UseUltimateSkil message.
+         * @function verify
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_UseUltimateSkil.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.money != null && message.hasOwnProperty("money"))
+                if (!$util.isInteger(message.money) && !(message.money && $util.isInteger(message.money.low) && $util.isInteger(message.money.high)))
+                    return "money: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_UseUltimateSkil message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_UseUltimateSkil} BT_UseUltimateSkil
+         */
+        BT_UseUltimateSkil.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_UseUltimateSkil)
+                return object;
+            var message = new $root.msg.BT_UseUltimateSkil();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.money != null)
+                if ($util.Long)
+                    (message.money = $util.Long.fromValue(object.money)).unsigned = false;
+                else if (typeof object.money === "string")
+                    message.money = parseInt(object.money, 10);
+                else if (typeof object.money === "number")
+                    message.money = object.money;
+                else if (typeof object.money === "object")
+                    message.money = new $util.LongBits(object.money.low >>> 0, object.money.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_UseUltimateSkil message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_UseUltimateSkil
+         * @static
+         * @param {msg.BT_UseUltimateSkil} message BT_UseUltimateSkil
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_UseUltimateSkil.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.money = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.money = options.longs === String ? "0" : 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.money != null && message.hasOwnProperty("money"))
+                if (typeof message.money === "number")
+                    object.money = options.longs === String ? String(message.money) : message.money;
+                else
+                    object.money = options.longs === String ? $util.Long.prototype.toString.call(message.money) : options.longs === Number ? new $util.LongBits(message.money.low >>> 0, message.money.high >>> 0).toNumber() : message.money;
+            return object;
+        };
+
+        /**
+         * Converts this BT_UseUltimateSkil to JSON.
+         * @function toJSON
+         * @memberof msg.BT_UseUltimateSkil
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_UseUltimateSkil.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_UseUltimateSkil;
+    })();
+
     msg.EntityBase = (function() {
 
         /**

@@ -314,7 +314,7 @@ module game {
             let now = time;
             if (this._hitTime == now) return;
             if (!this._frozen) {
-                BattleScene.getInstance().addHit(this);
+                BattleScene.getInstance().addHit(this,ball);
             }
             this.shakeAnim.play(0);
             this._hitTime = now;
