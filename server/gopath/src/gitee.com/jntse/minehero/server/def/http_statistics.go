@@ -1095,7 +1095,7 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance, 
 		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)
 		return 0, 0, "json.Marshal Fail"
 	}
-	log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
+	//log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
 
 
 	// post
