@@ -199,7 +199,7 @@ func (this *GameRoom) OnStart() {
 		return
 	}
 
-	log.Info("房间[%d] 游戏开始，模式[%d]", this.Id(), this.Kind())
+	log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetMoney())
 	this.tm_start = util.CURTIME()
 
 
@@ -208,6 +208,7 @@ func (this *GameRoom) OnStart() {
 		Roomid:pb.Int64(this.Id()), 
 		Ownerid:pb.Uint64(this.ownerid),
 		Gamekind:pb.Int32(this.Kind()), 
+		Money:pb.Uint32(this.owner.GetMoney()),
 	}
 	this.SendClientMsg(msginit)
 
