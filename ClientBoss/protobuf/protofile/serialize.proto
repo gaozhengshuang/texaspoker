@@ -69,6 +69,7 @@ message UserBase {
     optional FreePresentMoney freepresent = 16;
     optional UserTask   task = 17;      // 任务
     optional LuckyDrawRecord luckydraw = 18;   // 抽奖
+    optional uint32     total_recharge = 19; // 总充值
 }
 
 message UserAddress {

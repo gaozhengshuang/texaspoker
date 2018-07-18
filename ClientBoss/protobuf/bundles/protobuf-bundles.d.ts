@@ -2843,6 +2843,9 @@ declare namespace msg {
 
         /** UserBase luckydraw */
         luckydraw?: (msg.ILuckyDrawRecord|null);
+
+        /** UserBase totalRecharge */
+        totalRecharge?: (number|null);
     }
 
     /** Represents a UserBase. */
@@ -2907,6 +2910,9 @@ declare namespace msg {
 
         /** UserBase luckydraw. */
         public luckydraw?: (msg.ILuckyDrawRecord|null);
+
+        /** UserBase totalRecharge. */
+        public totalRecharge: number;
 
         /**
          * Creates a new UserBase instance using the specified properties.
