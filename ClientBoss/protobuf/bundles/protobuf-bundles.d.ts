@@ -632,6 +632,9 @@ declare namespace msg {
 
         /** BT_GameInit gamekind */
         gamekind?: (number|null);
+
+        /** BT_GameInit money */
+        money?: (number|null);
     }
 
     /** Represents a BT_GameInit. */
@@ -651,6 +654,9 @@ declare namespace msg {
 
         /** BT_GameInit gamekind. */
         public gamekind: number;
+
+        /** BT_GameInit money. */
+        public money: number;
 
         /**
          * Creates a new BT_GameInit instance using the specified properties.
@@ -1594,6 +1600,90 @@ declare namespace msg {
 
         /**
          * Converts this BT_StepOnBomb to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_RetStepOnBomb. */
+    interface IBT_RetStepOnBomb {
+    }
+
+    /** Represents a BT_RetStepOnBomb. */
+    class BT_RetStepOnBomb implements IBT_RetStepOnBomb {
+
+        /**
+         * Constructs a new BT_RetStepOnBomb.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_RetStepOnBomb);
+
+        /**
+         * Creates a new BT_RetStepOnBomb instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_RetStepOnBomb instance
+         */
+        public static create(properties?: msg.IBT_RetStepOnBomb): msg.BT_RetStepOnBomb;
+
+        /**
+         * Encodes the specified BT_RetStepOnBomb message. Does not implicitly {@link msg.BT_RetStepOnBomb.verify|verify} messages.
+         * @param message BT_RetStepOnBomb message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_RetStepOnBomb, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_RetStepOnBomb message, length delimited. Does not implicitly {@link msg.BT_RetStepOnBomb.verify|verify} messages.
+         * @param message BT_RetStepOnBomb message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_RetStepOnBomb, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_RetStepOnBomb message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_RetStepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_RetStepOnBomb;
+
+        /**
+         * Decodes a BT_RetStepOnBomb message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_RetStepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_RetStepOnBomb;
+
+        /**
+         * Verifies a BT_RetStepOnBomb message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_RetStepOnBomb message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_RetStepOnBomb
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_RetStepOnBomb;
+
+        /**
+         * Creates a plain object from a BT_RetStepOnBomb message. Also converts values to other types if specified.
+         * @param message BT_RetStepOnBomb
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_RetStepOnBomb, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_RetStepOnBomb to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

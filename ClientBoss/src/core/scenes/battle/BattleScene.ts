@@ -101,6 +101,7 @@ module game {
         private _rightFirewall: number[];
 
         private _curStage;
+        private _curBoomInfo;
 
         protected init() {
             if (gameConfig.isIphoneX()) {
@@ -175,6 +176,7 @@ module game {
 
         private initNetHandle() {
             NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
+            NotificationCenter.addObserver(this, this.onBT_RetStepOnBomb, "msg.BT_RetStepOnBomb");  // 定时炸弹
         }
 
         protected getSkinName() {
@@ -257,14 +259,22 @@ module game {
 
             this._world.removeBody(brick.body);
             egret.Tween.get(brick).to({ y: gameConfig.curHeight() }, 1000).call(() => {
-                this.showBoom(brick);
                 let cost = _boomUseScore;
-                // DataManager.playerModel.useScore(cost);
-                this.destroyBrick(brick);
-                this.playTimeBoom(brick.x);
-                this.showBattleText(-cost, brick, 1, -10, this._rewardBallPool.createObject(), true);
-                sendMessage("msg.BT_StepOnBomb",msg.BT_StepOnBomb.encode({userid: DataManager.playerModel.getUserId()}));
+                this._curBoomInfo = { brick: brick, cost: cost };
+
+                sendMessage("msg.BT_StepOnBomb", msg.BT_StepOnBomb.encode({ userid: DataManager.playerModel.getUserId() }));
             })
+        }
+
+        private onBT_RetStepOnBomb() {
+            let brick = this._curBoomInfo.brick;
+            let cost = this._curBoomInfo.cost;
+
+            this.showBoom(brick);
+            DataManager.playerModel.useScore(cost);
+            this.destroyBrick(brick);
+            this.playTimeBoom(brick.x);
+            this.showBattleText(-cost, brick, 1, -10, this._rewardBallPool.createObject(), true);
         }
 
         private async playTimeBoom(x: number) {
@@ -390,10 +400,10 @@ module game {
             this.startGame();
         }
 
-        private sendSpMsg(totalMoney: number|Long = 0) {
-            sendMessage("msg.BT_UseUltimateSkil",msg.BT_UseUltimateSkil.encode({
+        private sendSpMsg(totalMoney: number | Long = 0) {
+            sendMessage("msg.BT_UseUltimateSkil", msg.BT_UseUltimateSkil.encode({
                 userid: DataManager.playerModel.getUserId(),
-                money:<number>totalMoney
+                money: <number>totalMoney
             }))
         }
 
@@ -430,7 +440,7 @@ module game {
         }
 
         private touchHandle(event: egret.TouchEvent) {
-            this._curStage ={x: event.stageX, y:  event.stageY - 88}
+            this._curStage = { x: event.stageX, y: event.stageY - 88 }
             this.sendLaunchBulletMsg();
 
         }
@@ -451,7 +461,7 @@ module game {
                 return;
             }
             if (this._spCool == 0) { //无限火力不扣子弹
-                // DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
+                DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
                 this.addSp();
             }
             let angle = Math.atan2(x - this._paddle.x, this._paddle.y - y);
@@ -464,13 +474,13 @@ module game {
             let vX = sin * v;
             let vY = -cos * v;
             this._paddle.setImageRotation(rotation);
-            this.addBall(2, [newX, newY, vX, vY],data.bulletid);
+            this.addBall(2, [newX, newY, vX, vY], data.bulletid);
             SoundManager.playEffect("fashe", 0.6);
             this._paddle.playShot();
         }
 
         private sendLaunchBulletMsg() {
-            sendMessage("msg.BT_ReqLaunchBullet", msg.BT_ReqLaunchBullet.encode({userid: DataManager.playerModel.getUserId()}));
+            sendMessage("msg.BT_ReqLaunchBullet", msg.BT_ReqLaunchBullet.encode({ userid: DataManager.playerModel.getUserId() }));
         }
 
         private noticeFinish() {
@@ -513,7 +523,7 @@ module game {
 
         private updateScore() {
             let money = DataManager.playerModel.getScore();
-            console.log("更新金币", money)
+            // console.log("更新金币", money)
             this.scoreLabel.textFlow = [
                 { text: "金币", style: { bold: true } },
                 { text: `:${money}`, style: { fontFamily: "DynoBold" } },
@@ -554,7 +564,7 @@ module game {
             // this.startGame();
         }
 
-        private addBall(ballType: number, info: number[],id:number|Long = 0) {
+        private addBall(ballType: number, info: number[], id: number | Long = 0) {
             let isPenetration: boolean = false;
             if (DataManager.playerModel.penetration > 0) {
                 isPenetration = true;
@@ -674,7 +684,7 @@ module game {
             } else {
                 this.stopDouble();
             }
-            
+
             if (this._boomBrick.length > 0) {
                 let totalMoney = 0;
                 for (let i = this._boomBrick.length - 1; i >= 0; i--) {
@@ -1360,7 +1370,17 @@ module game {
         }
 
         private luckyGoHandle() {
-            openPanel(PanelType.lucky);
+            if (this.canOpenLuckyPanel()) {
+                openPanel(PanelType.lucky);
+            }else {
+                showTips("游戏状态中，无法进行抽奖！",true);
+            }
+
+            // egret.stopTick(this.updateView,this)
+        }
+
+        private canOpenLuckyPanel() {
+            return  this._ballPool.list.length > 0;
         }
 
         private rechargeGoHandle() {

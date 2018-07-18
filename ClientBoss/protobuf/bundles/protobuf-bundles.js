@@ -1513,6 +1513,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [roomid] BT_GameInit roomid
          * @property {number|Long|null} [ownerid] BT_GameInit ownerid
          * @property {number|null} [gamekind] BT_GameInit gamekind
+         * @property {number|null} [money] BT_GameInit money
          */
 
         /**
@@ -1555,6 +1556,14 @@ $root.msg = (function() {
         BT_GameInit.prototype.gamekind = 0;
 
         /**
+         * BT_GameInit money.
+         * @member {number} money
+         * @memberof msg.BT_GameInit
+         * @instance
+         */
+        BT_GameInit.prototype.money = 0;
+
+        /**
          * Creates a new BT_GameInit instance using the specified properties.
          * @function create
          * @memberof msg.BT_GameInit
@@ -1584,6 +1593,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.ownerid);
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 writer.uint32(/* id 3, wireType 0 =*/24).int32(message.gamekind);
+            if (message.money != null && message.hasOwnProperty("money"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.money);
             return writer;
         };
 
@@ -1626,6 +1637,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.gamekind = reader.int32();
+                    break;
+                case 4:
+                    message.money = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1671,6 +1685,9 @@ $root.msg = (function() {
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 if (!$util.isInteger(message.gamekind))
                     return "gamekind: integer expected";
+            if (message.money != null && message.hasOwnProperty("money"))
+                if (!$util.isInteger(message.money))
+                    return "money: integer expected";
             return null;
         };
 
@@ -1706,6 +1723,8 @@ $root.msg = (function() {
                     message.ownerid = new $util.LongBits(object.ownerid.low >>> 0, object.ownerid.high >>> 0).toNumber(true);
             if (object.gamekind != null)
                 message.gamekind = object.gamekind | 0;
+            if (object.money != null)
+                message.money = object.money >>> 0;
             return message;
         };
 
@@ -1734,6 +1753,7 @@ $root.msg = (function() {
                 } else
                     object.ownerid = options.longs === String ? "0" : 0;
                 object.gamekind = 0;
+                object.money = 0;
             }
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
@@ -1747,6 +1767,8 @@ $root.msg = (function() {
                     object.ownerid = options.longs === String ? $util.Long.prototype.toString.call(message.ownerid) : options.longs === Number ? new $util.LongBits(message.ownerid.low >>> 0, message.ownerid.high >>> 0).toNumber(true) : message.ownerid;
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 object.gamekind = message.gamekind;
+            if (message.money != null && message.hasOwnProperty("money"))
+                object.money = message.money;
             return object;
         };
 
@@ -3913,6 +3935,166 @@ $root.msg = (function() {
         };
 
         return BT_StepOnBomb;
+    })();
+
+    msg.BT_RetStepOnBomb = (function() {
+
+        /**
+         * Properties of a BT_RetStepOnBomb.
+         * @memberof msg
+         * @interface IBT_RetStepOnBomb
+         */
+
+        /**
+         * Constructs a new BT_RetStepOnBomb.
+         * @memberof msg
+         * @classdesc Represents a BT_RetStepOnBomb.
+         * @implements IBT_RetStepOnBomb
+         * @constructor
+         * @param {msg.IBT_RetStepOnBomb=} [properties] Properties to set
+         */
+        function BT_RetStepOnBomb(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new BT_RetStepOnBomb instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {msg.IBT_RetStepOnBomb=} [properties] Properties to set
+         * @returns {msg.BT_RetStepOnBomb} BT_RetStepOnBomb instance
+         */
+        BT_RetStepOnBomb.create = function create(properties) {
+            return new BT_RetStepOnBomb(properties);
+        };
+
+        /**
+         * Encodes the specified BT_RetStepOnBomb message. Does not implicitly {@link msg.BT_RetStepOnBomb.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {msg.IBT_RetStepOnBomb} message BT_RetStepOnBomb message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_RetStepOnBomb.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_RetStepOnBomb message, length delimited. Does not implicitly {@link msg.BT_RetStepOnBomb.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {msg.IBT_RetStepOnBomb} message BT_RetStepOnBomb message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_RetStepOnBomb.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_RetStepOnBomb message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_RetStepOnBomb} BT_RetStepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_RetStepOnBomb.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_RetStepOnBomb();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_RetStepOnBomb message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_RetStepOnBomb} BT_RetStepOnBomb
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_RetStepOnBomb.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_RetStepOnBomb message.
+         * @function verify
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_RetStepOnBomb.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_RetStepOnBomb message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_RetStepOnBomb} BT_RetStepOnBomb
+         */
+        BT_RetStepOnBomb.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_RetStepOnBomb)
+                return object;
+            return new $root.msg.BT_RetStepOnBomb();
+        };
+
+        /**
+         * Creates a plain object from a BT_RetStepOnBomb message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_RetStepOnBomb
+         * @static
+         * @param {msg.BT_RetStepOnBomb} message BT_RetStepOnBomb
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_RetStepOnBomb.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this BT_RetStepOnBomb to JSON.
+         * @function toJSON
+         * @memberof msg.BT_RetStepOnBomb
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_RetStepOnBomb.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_RetStepOnBomb;
     })();
 
     msg.BT_BulletEarnMoney = (function() {

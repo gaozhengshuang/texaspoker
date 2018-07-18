@@ -34,8 +34,11 @@ module game {
             return BattleLuckySkin;
         }
 
-        protected init() {            this.closeButton.icon = "lucky_json.luckycloseBtn";        this.startButton.icon = "lucky_json.luckyBtn";        this.bagButton.icon = "lucky_json.bagBtn";
-          this.initGift();
+        protected init() {
+            this.closeButton.icon = "lucky_json.luckycloseBtn";
+            this.startButton.icon = "lucky_json.luckyBtn";
+            this.bagButton.icon = "lucky_json.bagBtn";
+            this.initGift();
         }
 
         protected beforeShow() {
@@ -46,9 +49,9 @@ module game {
             this.luckyLight.y = this.gift_1.y;
 
             this._touchEvent = [
-                {target: this.closeButton, callBackFunc: this.backHandle},
-                {target: this.startButton, callBackFunc: this.startLuckyHandle},
-                {target: this.bagButton, callBackFunc: this.bagHandle},
+                { target: this.closeButton, callBackFunc: this.backHandle },
+                { target: this.startButton, callBackFunc: this.startLuckyHandle },
+                { target: this.bagButton, callBackFunc: this.bagHandle },
             ];
 
             this.registerEvent();
@@ -74,8 +77,8 @@ module game {
             this._giftPro = [];
             for (let i = 0; i < table.TBallGift.length; i++) {
                 let giftInfo = table.TBallGift[i];
-                this["gift_"+(i+1)].setItem(giftInfo.Path, giftInfo.Name);
-                this._giftPro.push(giftInfo.Pro/10000);
+                this["gift_" + (i + 1)].setItem(giftInfo.Path, giftInfo.Name);
+                this._giftPro.push(giftInfo.Pro / 10000);
             }
         }
 
@@ -97,22 +100,22 @@ module game {
                     userid: DataManager.playerModel.getUserId()
                 }));
             } else {
-                showTips("需要消耗"+_buyLucky+"金币抽奖一次");
+                showTips("需要消耗" + _buyLucky + "金币抽奖一次");
             }
         }
 
         private showStartLucky(giftId: number) {
             let lastGiftIndex = this._giftIndex;
             this._giftIndex = giftId;
-            let posIndex = this._giftIndex + (this._giftPro.length * (Math.floor(Math.random() * 2) + 2)) + (this._giftPro.length - lastGiftIndex); 
+            let posIndex = this._giftIndex + (this._giftPro.length * (Math.floor(Math.random() * 2) + 2)) + (this._giftPro.length - lastGiftIndex);
             let _currentIndex = 0;
-            
+
             let space = 200;
-            let interval: Function = function() {
+            let interval: Function = function () {
                 if (_currentIndex > posIndex - 10) {
                     space += 20;
                 } else {
-                    space -= _currentIndex*10;
+                    space -= _currentIndex * 10;
                     if (space < 30) {
                         space = 30;
                     }
@@ -120,7 +123,7 @@ module game {
                 return space;
             }.bind(this);
 
-            let playStart: Function = function() {
+            let playStart: Function = function () {
                 this._isStart = true;
 
                 this._playInterval = egret.setInterval(() => {
@@ -132,8 +135,8 @@ module game {
                         if (this._lightIndex > this._giftPro.length) {
                             this._lightIndex = 1;
                         }
-                        this.luckyLight.x = this["gift_"+this._lightIndex].x;
-                        this.luckyLight.y = this["gift_"+this._lightIndex].y;
+                        this.luckyLight.x = this["gift_" + this._lightIndex].x;
+                        this.luckyLight.y = this["gift_" + this._lightIndex].y;
                     }
 
                     if (this._playInterval) {
@@ -146,11 +149,11 @@ module game {
                 }, this, interval());
             }.bind(this);
 
-            let playEnd: Function = function() {
+            let playEnd: Function = function () {
                 this._isStart = false;
                 let giftInfo = table.TBallGiftById[this._giftIndex];
                 if (giftInfo) {
-                    showTips("恭喜您获得: "+ giftInfo.Name);
+                    showTips("恭喜您获得: " + giftInfo.Name);
                 }
             }.bind(this);
 
