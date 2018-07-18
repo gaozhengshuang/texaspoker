@@ -259,7 +259,7 @@ module game {
             egret.Tween.get(brick).to({ y: gameConfig.curHeight() }, 1000).call(() => {
                 this.showBoom(brick);
                 let cost = _boomUseScore;
-                DataManager.playerModel.useScore(cost);
+                // DataManager.playerModel.useScore(cost);
                 this.destroyBrick(brick);
                 this.playTimeBoom(brick.x);
                 this.showBattleText(-cost, brick, 1, -10, this._rewardBallPool.createObject(), true);
@@ -451,7 +451,7 @@ module game {
                 return;
             }
             if (this._spCool == 0) { //无限火力不扣子弹
-                DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
+                // DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
                 this.addSp();
             }
             let angle = Math.atan2(x - this._paddle.x, this._paddle.y - y);
@@ -512,12 +512,14 @@ module game {
         }
 
         private updateScore() {
+            let money = DataManager.playerModel.getScore();
+            console.log("更新金币", money)
             this.scoreLabel.textFlow = [
                 { text: "金币", style: { bold: true } },
-                { text: `:${DataManager.playerModel.getScore()}`, style: { fontFamily: "DynoBold" } },
+                { text: `:${money}`, style: { fontFamily: "DynoBold" } },
             ]
 
-            if (DataManager.playerModel.getScore() >= this.curSpaceFire) {
+            if (money >= this.curSpaceFire) {
                 this.curSpaceFire += _spaceFire;
                 this._paddle.updateWuxianPao(true);
                 this.showBigFire();

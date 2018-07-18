@@ -56,6 +56,7 @@ module game {
         private OnGW2C_UpdateGold(data: msg.GW2C_UpdateGold) {
             this.userInfo.money = data.num;
             this.setScore(data.num);
+            console.log("同步金币" , data);
         }
 
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
