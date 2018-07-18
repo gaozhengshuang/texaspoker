@@ -414,10 +414,9 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 		return
 	}
 
-	//user.QueryPlatformCoins()
-	user.synbalance = true
-	event := NewQueryPlatformCoinsEvent(user.SynMidasBalance, user.SynMidasBalanceResult)
-	user.AsynEventInsert(event)
+	//user.synbalance = true
+	//event := NewQueryPlatformCoinsEvent(user.SynMidasBalance, user.SynMidasBalanceResult)
+	//user.AsynEventInsert(event)
 }
 
 // 绑定微信openid

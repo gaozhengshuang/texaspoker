@@ -16,5 +16,9 @@
     "BulletPrice":20,
 
     "//":"踩炸弹扣除",
-    "BombDeductMoney":500
+    "BombDeductMoney":500,
+
+    "//":"能量值满",
+    "MaxEnergy":250
+
 }
