@@ -208,7 +208,11 @@ func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
 	}
 
 	//
-	user.StepOnBomb()
+	user.RemoveMoney(uint32(tbl.Game.BombDeductMoney), "踩到炸弹", false)
+
+	// 回复
+	send := &msg.BT_RetStepOnBomb{}
+	user.SendClientMsg(send)
 }
 
 // 子弹获得金币

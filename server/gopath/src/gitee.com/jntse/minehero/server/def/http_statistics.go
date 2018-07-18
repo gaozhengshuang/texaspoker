@@ -899,7 +899,7 @@ func HttpWechatAccessToken() (string) {
 		return ""
 	}
 	if objResp.Access_token != "" {
-		log.Trace("获取微信AccessToken成功[%#v]", objResp)
+		//log.Trace("获取微信AccessToken成功[%#v]", objResp)
 		return objResp.Access_token
 	}
 
@@ -1048,15 +1048,15 @@ func WechatMiniGameGetRequestURI(rawurl string) (uri string, errmsg string) {
 ///
 /// @return 
 // --------------------------------------------------------------------------
-func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance int64, errmsg string) {
+func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance, save_amt int64, errmsg string) {
 	if openid == "" {
-		return 0, "玩家微信openid是空"
+		return 0, 0, "玩家微信openid是空"
 	}
 
 	//
 	access_token := HttpWechatAccessToken()
 	if access_token == "" {
-		return 0, "无法获取 access_token"
+		return 0, 0, "无法获取 access_token"
 	}
 
 	mapset := make(map[string]interface{})
@@ -1075,25 +1075,25 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance i
 	rawurl := tbl.Global.WechatMiniGame.MidasBalance + access_token
 	RequestURI, errmsg := WechatMiniGameGetRequestURI(rawurl)
 	if errmsg != "" {
-		return 0, errmsg
+		return 0, 0, errmsg
 	}
 
 
 	// 坑：这里面不需要 access_token
 	if errmsg := WechatMiniGameSign(&mapset, RequestURI); errmsg != "" {
-		return 0, errmsg
+		return 0, 0, errmsg
 	}
 
 	// 坑：这里面需要 access_token
 	if errmsg := WechatMiniGameSign_Mp(&mapset, redis, access_token, RequestURI); errmsg != "" {
-		return 0, errmsg
+		return 0, 0, errmsg
 	}
 
 	// 序列化
 	postbody, jsonerr := json.Marshal(mapset)
 	if jsonerr != nil {
 		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)
-		return 0, "json.Marshal Fail"
+		return 0, 0, "json.Marshal Fail"
 	}
 	log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
 
@@ -1102,13 +1102,13 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance i
 	resp, posterr := network.HttpPost(rawurl, util.BytesToString(postbody))
 	if posterr != nil {
 		log.Error("玩家[%s] 推送失败 error[%s] resp[%#v]", openid, posterr, resp)
-		return 0, "HttpPost失败"
+		return 0, 0, "HttpPost失败"
 	}
 
 	// response
 	if resp.Code != http.StatusOK { 
 		log.Info("玩家[%s] 推送失败 errcode[%d] status[%s]", openid, resp.Code, resp.Status)
-		return 0, "HttpPost ErrorCode"
+		return 0, 0, "HttpPost ErrorCode"
 	}
 	log.Trace("玩家[%s] 推送完成 resp.body=\n%s", openid, util.BytesToString(resp.Body))
 
@@ -1129,15 +1129,15 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance i
 	unerr := json.Unmarshal(resp.Body, objResp)
 	if unerr != nil {
 		log.Info("HttpWechatAccessToken json.Unmarshal Fail[%s] ", unerr)
-		return 0, "json.Unmarsha失败"
+		return 0, 0, "json.Unmarsha失败"
 	}
 
 	if objResp.Errcode != 0 {
 		log.Error("微信端返回错误 errcode[%d] objResp[%#v]", objResp.Errcode, objResp)
-		return 0, "微信端返回错误"
+		return 0, 0, "微信端返回错误"
 	}
 
-	return objResp.Balance, ""
+	return objResp.Balance, objResp.Save_amt, ""
 }
 
 
@@ -1315,7 +1315,7 @@ func HttpWechatMiniGamePayMoney(redis *redis.Client, openid string, count int64)
 		log.Info("玩家[%s] 推送失败 errcode[%d] status[%s]", openid, resp.Code, resp.Status)
 		return 0, "HttpPost ErrorCode"
 	}
-	log.Trace("玩家[%s] 推送完成 resp.body=\n%s", openid, util.BytesToString(resp.Body))
+	//log.Trace("玩家[%s] 推送完成 resp.body=\n%s", openid, util.BytesToString(resp.Body))
 
 
 	// 解析

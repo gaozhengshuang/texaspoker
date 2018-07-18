@@ -668,8 +668,8 @@ func (this *RoomUser) ReqLaunchBullet() {
 			break
 		}
 
-
-		this.RemoveMoney(uint32(tbl.Game.BulletPrice), "发射子弹", true)
+		// 不同步
+		this.RemoveMoney(uint32(tbl.Game.BulletPrice), "发射子弹", false)
 
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
@@ -682,7 +682,6 @@ func (this *RoomUser) ReqLaunchBullet() {
 
 // 踩到炸弹
 func (this *RoomUser) StepOnBomb() {
-	this.RemoveMoney(uint32(tbl.Game.BombDeductMoney), "踩到炸弹", true)
 }
 
 
