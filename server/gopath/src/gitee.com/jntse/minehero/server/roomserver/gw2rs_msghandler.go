@@ -228,6 +228,15 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 	}
 
 	user.AddMoney(tmsg.GetMoney(), "子弹获得金币", false)
+
+	// 检查任务
+	taskid := int32(msg.TaskId_RegisterTopScore)
+	task, find := tbl.TaskBase.TTaskById[uint32(taskid)]
+	if user.task.IsTaskFinish(taskid) == false && find && user.GetMoney() >= uint32(task.Count) {
+		user.task.TaskFinish(taskid) 
+		inviter := user.Inviter()
+		if inviter != 0 { Redis().SAdd(fmt.Sprintf("task_invitee_topscorefinish_%d", inviter), user.Id()) }
+	}
 }
 
 // 使用大招
@@ -237,6 +246,11 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 	if user == nil { 
 		log.Error("BT_UseUltimateSkil 玩家[%d]没有在Room中", tmsg.GetUserid())
 		return 
+	}
+
+	if user.energy < tbl.Game.MaxEnergy {
+		log.Error("玩家[%s %d]使用大招能量未满 %d", user.energy)
+		return
 	}
 
 	user.AddMoney(tmsg.GetMoney(), "使用大招", true)
