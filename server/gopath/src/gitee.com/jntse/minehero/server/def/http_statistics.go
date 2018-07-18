@@ -1199,7 +1199,7 @@ func HttpWechatMiniGamePresentMoney(redis *redis.Client, openid string, count in
 		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)
 		return 0, "json.Marshal Fail"
 	}
-	log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
+	//log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
 
 
 	// post
@@ -1330,7 +1330,7 @@ func HttpWechatMiniGamePayMoney(redis *redis.Client, openid string, count int64)
 	objResp := &RespPresent{}
 	unerr := json.Unmarshal(resp.Body, objResp)
 	if unerr != nil {
-		log.Info("HttpWechatMiniGamePresentMoney json.Unmarshal Fail[%s] ", unerr)
+		log.Info("HttpWechatMiniGamePayMoney json.Unmarshal Fail[%s] ", unerr)
 		return 0, "json.Unmarsha失败"
 	}
 

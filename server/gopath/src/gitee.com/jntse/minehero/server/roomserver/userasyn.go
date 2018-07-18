@@ -105,3 +105,32 @@ func (this *QueryPlatformCoinsEvent) Feedback() {
 }
 
 
+// --------------------------------------------------------------------------
+/// @brief 添加平台金币
+// --------------------------------------------------------------------------
+type AddPlatformCoinsEventHandle func(amount int64) (balance int64, errmsg string)
+type AddPlatformCoinsFeedback func(balance int64, errmsg string, amount int64)
+type AddPlatformCoinsEvent struct {
+	handler AddPlatformCoinsEventHandle
+	amount int64
+
+	feedback AddPlatformCoinsFeedback
+	balance int64
+	errmsg string
+}
+
+func NewAddPlatformCoinsEvent(amount int64, h AddPlatformCoinsEventHandle, fb AddPlatformCoinsFeedback) *AddPlatformCoinsEvent {
+	return &AddPlatformCoinsEvent{h, amount, fb, 0, ""}
+}
+
+func (this *AddPlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
+	tm1 := util.CURTIMEMS()
+	this.balance, this.errmsg = this.handler(this.amount)
+	ch_fback <- this
+	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
+}
+
+func (this *AddPlatformCoinsEvent) Feedback() {
+	if this.feedback != nil { this.feedback(this.balance, this.errmsg, this.amount) }
+}
+

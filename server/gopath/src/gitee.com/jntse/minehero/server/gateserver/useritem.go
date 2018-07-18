@@ -44,6 +44,7 @@ func (this *GateUser) RemoveItem(item uint32, num uint32, reason string) bool{
 func (this *GateUser) GetMoney() uint32   { return this.money }
 func (this *GateUser) AddMoney(gold uint32, reason string, syn bool) {
 	this.money = this.GetMoney() + gold
+	this.SynAddMidsMoney(int64(gold), reason)
 	if syn {
 		send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
 		this.SendMsg(send)

@@ -88,6 +88,17 @@ func (this *RoomUser) OpenId() string {
 	return userbase.GetWechat().GetOpenid()
 }
 
+func (this *RoomUser) TotalRecharge() uint32 {
+	userbase := this.UserBase()
+	return userbase.GetTotalRecharge()
+}
+
+func (this *RoomUser) SetTotalRecharge(r uint32) {
+	userbase := this.UserBase()
+	userbase.TotalRecharge = pb.Uint32(r)
+}
+
+
 // 邀请人邀请码
 func (this *RoomUser) InvitationCode() string {
 	userbase := this.UserBase()
@@ -322,6 +333,7 @@ func (this *RoomUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 func (this *RoomUser) AddMoney(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Money = pb.Uint32(this.GetMoney() + gold)
+	this.SynAddMidsMoney(int64(gold), reason)
 	if syn { this.SendMoney() }
 	log.Info("玩家[%d] 添加金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetMoney(), reason)
 }
@@ -620,17 +632,16 @@ func (this *RoomUser) SynMidasBalanceResult(balance, amt_save int64, errmsg stri
 		return
 	}
 
-	//amt_new := amt_save
-	//send := msg.BT_SynUserRechargeMoney{ Userid:pb.UInt64(this.Id()), Money:pb.Uint32(uint32(amt_new)) }
-	//this.SendClientMsg(send)
+	// 同步客户端本次充值金额,增量
+	if uint32(amt_save) > this.TotalRecharge()  {
+		recharge := uint32(amt_save) - this.TotalRecharge()
+		this.SetTotalRecharge(uint32(amt_save))
 
-	//money, remain := uint32(balance), this.GetMoney()
-	//if remain < money {
-	//	this.AddMoney(money - remain, "同步midas余额", true)
-	//}else {
-	//	this.RemoveMoney(remain - money, "同步midas余额", true)
-	//}
-	//log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%d", this.Name(), this.Id(), this.GetMoney())
+		send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Uint64(this.Id()), Money:pb.Uint32(recharge) }
+		this.SendClientMsg(send)
+	}
+
+	//log.Info("玩家[%s %d] 同步midas余额[%d]成功", this.Name(), this.Id(), this.GetMoney())
 }
 
 // 从midas服务器扣除金币
@@ -649,6 +660,24 @@ func (this* RoomUser) DoRemoveMidasMoneyResult(balance int64, errmsg string, amo
 		log.Error("玩家[%s %d] midas扣钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
 	}
 }
+
+// 从midas服务器添加金币
+func (this *RoomUser) SynAddMidsMoney(amount int64, reason string) {
+	event := NewAddPlatformCoinsEvent(amount, this.DoAddMidasMoney, this.DoAddMidasMoneyResult)
+	this.AsynEventInsert(event)
+	log.Info("玩家[%s %d] 推送同步添加midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
+}
+
+func (this *RoomUser) DoAddMidasMoney(amount int64) (balance int64, errmsg string) {
+	return def.HttpWechatMiniGamePresentMoney(Redis(), this.OpenId(), amount)
+}
+
+func (this *RoomUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount int64) {
+	if errmsg != "" {
+		log.Error("玩家[%s %d] midas加钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
+	}
+}
+
 
 // 请求发送子弹
 func (this *RoomUser) ReqLaunchBullet() {
@@ -677,10 +706,6 @@ func (this *RoomUser) ReqLaunchBullet() {
 
 	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg), Energy:pb.Int64(this.energy) }
 	this.SendClientMsg(send)
-}
-
-// 踩到炸弹
-func (this *RoomUser) StepOnBomb() {
 }
 
 

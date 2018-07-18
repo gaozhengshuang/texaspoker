@@ -69,6 +69,7 @@ type DBUserData struct {
 	invitationcode string
 	luckydraw	  []*msg.LuckyDrawItem
 	luckydrawtotal int64
+	totalrecharge	uint32		// 总充值
 }
 
 // --------------------------------------------------------------------------
@@ -93,7 +94,6 @@ type GateUser struct {
 	asynev			eventque.AsynEventQueue	// 异步事件处理
 	broadcastbuffer []uint64	// 广播消息缓存
 	synbalance		bool		// 充值中
-	totalrecharge	uint32		// 总充值
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -806,6 +806,23 @@ func (this* GateUser) DoRemoveMidasMoney(amount int64) (balance int64, errmsg st
 func (this* GateUser) DoRemoveMidasMoneyResult(balance int64, errmsg string, amount int64) {
 	if errmsg != "" {
 		log.Error("玩家[%s %d] midas扣钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
+	}
+}
+
+// 从midas服务器添加金币
+func (this *GateUser) SynAddMidsMoney(amount int64, reason string) {
+	event := NewAddPlatformCoinsEvent(amount, this.DoAddMidasMoney, this.DoAddMidasMoneyResult)
+	this.AsynEventInsert(event)
+	log.Info("玩家[%s %d] 推送同步添加midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
+}
+
+func (this* GateUser) DoAddMidasMoney(amount int64) (balance int64, errmsg string) {
+	return def.HttpWechatMiniGamePresentMoney(Redis(), this.OpenId(), amount)
+}
+
+func (this* GateUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount int64) {
+	if errmsg != "" {
+		log.Error("玩家[%s %d] midas加钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
 	}
 }
 
