@@ -120,13 +120,13 @@ message BT_BulletEarnMoney {
 // C2R 使用大招
 message BT_UseUltimateSkil {
     optional uint64 userid = 1;
-    optional int64 money = 2;
+    optional uint32 money = 2;
 }
 
 // R2C 通知客户端充钱到账
 message BT_SynUserRechargeMoney {
     optional uint64 userid = 1;
-    optional int64 money = 2;       // 增量
+    optional uint32 money = 2;       // 增量
 }
 
 
