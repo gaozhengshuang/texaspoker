@@ -107,6 +107,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.BT_GameStart{})
 	this.msgparser.RegistSendProto(msg.BT_GameOver{})
 	this.msgparser.RegistSendProto(msg.BT_PickItem{})
+	this.msgparser.RegistSendProto(msg.BT_SynUserRechargeMoney{})
 }
 
 // 客户端心跳
@@ -538,53 +539,50 @@ func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
 		session.Close()
 		return
 	}
-
-	// 离开游戏房间
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
 	user.SendRoomMsg(tmsg)
 }
 
-/*
-func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UpdateMoney)
+func on_BT_ReqLaunchBullet(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_ReqLaunchBullet)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-
-	// 离开游戏房间
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
 	user.SendRoomMsg(tmsg)
 }
 
-func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UpdateMoney)
+func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_StepOnBomb)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-
-	// 离开游戏房间
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
 	user.SendRoomMsg(tmsg)
 }
 
-func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UpdateMoney)
+func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_BulletEarnMoney)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-
-	// 离开游戏房间
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
 	user.SendRoomMsg(tmsg)
 }
 
-*/
+func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UseUltimateSkil)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.SendRoomMsg(tmsg)
+}
+

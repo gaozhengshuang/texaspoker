@@ -45,6 +45,8 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
 	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
+	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
+	this.msgparser.RegistProtoMsg(msg.BT_UseUltimateSkil{}, on_BT_UseUltimateSkil)
 
 
 	// 发
@@ -207,5 +209,25 @@ func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
 
 	//
 	user.StepOnBomb()
+}
+
+func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_BulletEarnMoney)
+	user := UserMgr().FindUser(tmsg.GetUserid())
+	if user == nil { 
+		log.Error("BT_BulletEarnMoney 玩家[%d]没有在Room中", tmsg.GetUserid())
+		return 
+	}
+
+}
+
+func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_UseUltimateSkil)
+	user := UserMgr().FindUser(tmsg.GetUserid())
+	if user == nil { 
+		log.Error("BT_UseUltimateSkil 玩家[%d]没有在Room中", tmsg.GetUserid())
+		return 
+	}
+
 }
 

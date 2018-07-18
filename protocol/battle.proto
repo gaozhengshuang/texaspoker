@@ -101,7 +101,8 @@ message BT_ReqLaunchBullet {
 // R2C 返回
 message BT_RetLaunchBullet {
     optional int64 bulletid = 1;
-    optional string errmsg = 2;
+    optional int64 energy = 2;
+    optional string errmsg = 3;
 }
 
 // C2R 客户端通知踩到炸弹
@@ -121,4 +122,11 @@ message BT_UseUltimateSkil {
     optional uint64 userid = 1;
     optional int64 money = 2;
 }
+
+// R2C 通知客户端充钱到账
+message BT_SynUserRechargeMoney {
+    optional uint64 userid = 1;
+    optional int64 money = 2;       // 增量
+}
+
 
