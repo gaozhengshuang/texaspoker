@@ -78,6 +78,7 @@ message BT_GameOver {
 message BT_ReqQuitGameRoom {
     optional int64 roomid = 1;
     optional uint64 userid = 2;
+    optional uint32 money = 3;
 }
 
 // R2C 获得道具
