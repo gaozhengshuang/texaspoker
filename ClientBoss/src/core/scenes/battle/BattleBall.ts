@@ -43,7 +43,7 @@ module game {
 
         //TODO:使用lifeValue
         public preDestroy() {
-            console.log("生命总产值： ",this.ballId, this.lifeValue);
+            // console.log("生命总产值： ",this.ballId, this.lifeValue);
             sendMessage("msg.BT_BulletEarnMoney",msg.BT_BulletEarnMoney.encode({
                 userid: DataManager.playerModel.getUserId(),
                 bulletid: this.id,

@@ -456,6 +456,7 @@ module game {
             let y = this._curStage.y;
             if (y >= this._paddle.y) return;
             this._nowSp = <number>data.energy;
+            // console.log('服务器返回的能量数据：',data,this);
             if (DataManager.playerModel.getScore() < _paddlePrice) {
                 showDialog("您的金币不足!", "充值", function () {
                     // this.rechargeGoHandle();
@@ -468,6 +469,7 @@ module game {
                 DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
                 this.addSp();
             }
+            this.updateSp();
             let angle = Math.atan2(x - this._paddle.x, this._paddle.y - y);
             let rotation = angle * 180 / Math.PI;
             let sin = Math.sin(angle);
@@ -1054,6 +1056,7 @@ module game {
 
         private updateSp() {
             this._nowSp = Math.min(this._nowSp, _maxSp);
+            // console.log('更新SP：', this._nowSp,_maxSp, this._nowSp/_maxSp,this);
             this._paddle.setSp(this._nowSp / _maxSp);
         }
 
