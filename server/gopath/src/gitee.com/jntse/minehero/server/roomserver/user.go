@@ -317,7 +317,7 @@ func (this *RoomUser) GetMoney() uint32 {
 
 func (this *RoomUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 	if this.GetMoney() > gold {
-		this.SynRemoveMidsMoney(int64(gold), reason)
+		//this.SynRemoveMidsMoney(int64(gold), reason)
 		userbase := this.UserBase()
 		userbase.Money = pb.Uint32(this.GetMoney() - gold)
 		if syn { this.SendMoney() }
@@ -333,7 +333,7 @@ func (this *RoomUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 func (this *RoomUser) AddMoney(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Money = pb.Uint32(this.GetMoney() + gold)
-	this.SynAddMidsMoney(int64(gold), reason)
+	//this.SynAddMidsMoney(int64(gold), reason)
 	if syn { this.SendMoney() }
 	log.Info("玩家[%d] 添加金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetMoney(), reason)
 }
