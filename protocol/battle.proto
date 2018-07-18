@@ -44,15 +44,14 @@ message BT_GameInit {
 
 
 // 同步玩家数据
-message BT_SendBattleUser {
-    //optional int64  roomid = 1;
-    optional uint64 ownerid = 2;
-    optional uint32 gold = 3;           // 红包金币
-    optional uint32 coupon = 4;         // 代金卷
-    optional uint32 yuanbao = 5;        // 元宝
-    optional uint32 level = 6;          // 等级
-    optional int32 freestep = 7;        // 免费步数，免费场
-}
+//message BT_SendBattleUser {
+//    optional uint64 ownerid = 2;
+//    optional uint32 gold = 3;           // 红包金币
+//    optional uint32 coupon = 4;         // 代金卷
+//    optional uint32 yuanbao = 5;        // 元宝
+//    optional uint32 level = 6;          // 等级
+//    optional int32 freestep = 7;        // 免费步数，免费场
+//}
 
 
 // 游戏开始

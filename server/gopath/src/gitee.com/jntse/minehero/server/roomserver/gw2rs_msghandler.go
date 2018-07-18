@@ -147,7 +147,7 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 		log.Error("on_BT_ReqQuitGameRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
-	room.UserLeave(userid)
+	room.UserLeave(userid, tmsg.GetMoney())
 }
 
 func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
@@ -181,7 +181,7 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 	}
 
 	//
-	//user.synbalance = true
+	user.synbalance = true
 	event := NewQueryPlatformCoinsEvent(user.SynMidasBalance, user.SynMidasBalanceResult)
 	user.AsynEventInsert(event)
 }
@@ -211,6 +211,7 @@ func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
 	user.StepOnBomb()
 }
 
+// 子弹获得金币
 func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_BulletEarnMoney)
 	user := UserMgr().FindUser(tmsg.GetUserid())
@@ -218,9 +219,14 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 		log.Error("BT_BulletEarnMoney 玩家[%d]没有在Room中", tmsg.GetUserid())
 		return 
 	}
+	if tmsg.GetMoney() > 1000 {
+		log.Warn("玩家[%s %d] 子弹获得金币过多警告[%d]", user.Name(), user.Id(), tmsg.GetMoney())
+	}
 
+	user.AddMoney(tmsg.GetMoney(), "子弹获得金币", false)
 }
 
+// 使用大招
 func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_UseUltimateSkil)
 	user := UserMgr().FindUser(tmsg.GetUserid())
@@ -229,5 +235,6 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 		return 
 	}
 
+	user.AddMoney(tmsg.GetMoney(), "使用大招", true)
 }
 

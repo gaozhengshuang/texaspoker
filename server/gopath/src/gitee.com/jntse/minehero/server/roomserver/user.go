@@ -34,6 +34,7 @@ type RoomUser struct {
 	luckydraw	[]*msg.LuckyDrawItem
 	synbalance	bool
 	bulletid 	int64
+	energy		int64
 
 }
 
@@ -198,7 +199,7 @@ func (this *RoomUser) AddExp(num uint32, reason string, syn bool) {
 		this.OnLevelUp()
 	}
 	this.SetExp(exp)
-	if syn == true { this.SendBattleUser() }
+	//if syn == true { this.SendBattleUser() }
 
 	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", this.Id(), num, old, this.Level(), this.Exp(), reason)
 }
@@ -431,16 +432,16 @@ func (this *RoomUser) AddFreeStep(num uint32, reason string) {
 	//log.Trace("玩家[%d] 添加免费步数[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetFreeStep(), reason)
 }
 
-func (this *RoomUser) SendBattleUser() {
-	send := &msg.BT_SendBattleUser	{ 
-		Ownerid:pb.Uint64(this.Id()),
-		Yuanbao:pb.Uint32(this.GetYuanbao()),
-		Level:pb.Uint32(this.Level()),
-		Freestep:pb.Int32(this.GetFreeStep()),
-		Gold:pb.Uint32(this.GetMoney()),
-	}
-	this.SendClientMsg(send)
-}
+//func (this *RoomUser) SendBattleUser() {
+//	send := &msg.BT_SendBattleUser	{ 
+//		Ownerid:pb.Uint64(this.Id()),
+//		Yuanbao:pb.Uint32(this.GetYuanbao()),
+//		Level:pb.Uint32(this.Level()),
+//		Freestep:pb.Int32(this.GetFreeStep()),
+//		Gold:pb.Uint32(this.GetMoney()),
+//	}
+//	this.SendClientMsg(send)
+//}
 
 
 func (this *RoomUser) SendNotify(text string) {
@@ -469,32 +470,32 @@ func (this *RoomUser) Handler1sTick(now int64) {
 }
 
 // 处理充值订单
-func (this *RoomUser) CheckRechargeOrders() {
-	keyorder := fmt.Sprintf("%d_verified_recharge_orders", this.Id())
-	order_amount, err := Redis().SPop(keyorder).Result()
-	if err == redis.Nil {
-		return
-	} else if err != nil {
-		log.Error("[充值] 从Redis Spop 验证订单失败 err:%s", err)
-		return
-	}
-
-	// 字符串格式 recharge_order_userid_timestamp_amount_number
-	orderparts := strings.Split(order_amount, "_")
-	if len(orderparts) != 5 {
-		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
-		return
-	}
-
-	amount, perr := strconv.ParseInt(orderparts[4], 10, 32)
-	if perr != nil {
-		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
-		return
-	}
-
-	this.AddYuanbao(uint32(amount), "充值获得")
-	this.SendBattleUser()
-}
+//func (this *RoomUser) CheckRechargeOrders() {
+//	keyorder := fmt.Sprintf("%d_verified_recharge_orders", this.Id())
+//	order_amount, err := Redis().SPop(keyorder).Result()
+//	if err == redis.Nil {
+//		return
+//	} else if err != nil {
+//		log.Error("[充值] 从Redis Spop 验证订单失败 err:%s", err)
+//		return
+//	}
+//
+//	// 字符串格式 recharge_order_userid_timestamp_amount_number
+//	orderparts := strings.Split(order_amount, "_")
+//	if len(orderparts) != 5 {
+//		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
+//		return
+//	}
+//
+//	amount, perr := strconv.ParseInt(orderparts[4], 10, 32)
+//	if perr != nil {
+//		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
+//		return
+//	}
+//
+//	this.AddYuanbao(uint32(amount), "充值获得")
+//	//this.SendBattleUser()
+//}
 
 // 检查是否有充值订单
 func (this *RoomUser) HaveRechargeOrders() bool {
@@ -667,9 +668,10 @@ func (this *RoomUser) ReqLaunchBullet() {
 
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
+		if this.energy < tbl.Game.MaxEnergy { this.energy += 1 }
 	}
 
-	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg) }
+	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg), Energy:pb.Int64(this.energy) }
 	this.SendClientMsg(send)
 }
 

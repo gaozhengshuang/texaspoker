@@ -213,7 +213,7 @@ func (this *GameRoom) OnStart() {
 
 
 	// 同步玩家数据
-	this.owner.SendBattleUser()
+	//this.owner.SendBattleUser()
 
 	// 游戏开始
 	msgstart := &msg.BT_GameStart{Roomid:pb.Int64(this.Id()), Ownerid:pb.Uint64(this.ownerid)}
@@ -253,10 +253,20 @@ func (this *GameRoom) UserEnter(userid uint64, token string) {
 }
 
 // 玩家正常离开
-func (this *GameRoom) UserLeave(userid uint64) {
+func (this *GameRoom) UserLeave(userid uint64, money uint32) {
 	this.tm_end = util.CURTIME()
 	this.close_reason = "玩家退出房间"
-	log.Info("房间[%d] 玩家[%d]退出房间，准备删除房间", this.id, userid)
+	if owner := this.owner; owner != nil {
+		if money > owner.GetMoney() + 10000 {
+			log.Warn("[玩家[%s %d] 退出房间同步金币差距过大 old[%d] new[%d]", owner.Name(), owner.Id(), owner.GetMoney(), money)
+		}else {
+			if owner.GetMoney() < money {
+				addmoney := money - owner.GetMoney()
+				owner.AddMoney(addmoney, "退出房间同步", false)
+			}
+		}
+	}
+	log.Info("房间[%d] 玩家[%d]退出房间，同步money[%d]，准备删除房间", this.id, userid, money)
 }
 
 // 玩家断开连接
