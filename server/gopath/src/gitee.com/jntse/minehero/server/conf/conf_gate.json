@@ -47,7 +47,10 @@
 				"ip": "192.168.30.203", "port": 6101
 			},
             "verify": 1,
-            "svrchannel":false
+            "svrchannel":false,
+            "https": false,
+            "cert":"../cert/https/https-server-214801457430415.pem",
+            "certkey":"../cert/https/https-server-214801457430415.key"
 		}
     ],
     "redis": {
