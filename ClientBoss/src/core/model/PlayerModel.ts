@@ -22,7 +22,7 @@ module game {
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SendWechatInfo, "msg.GW2C_SendWechatInfo")
-            // NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
+            NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_RemovePackageItem, "msg.GW2C_RemovePackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_FreePresentNotify, "msg.GW2C_FreePresentNotify");
@@ -53,11 +53,11 @@ module game {
             this.userInfo.openid = data.openid;
         }
 
-        // private OnGW2C_UpdateGold(data: msg.GW2C_UpdateGold) {
-        //     this.userInfo.money = data.num;
-        //     this.setScore(data.num);
-        //     // console.log("同步金币" , data);
-        // }
+        private OnGW2C_UpdateGold(data: msg.GW2C_UpdateGold) {
+            this.userInfo.money = data.num;
+            this.setScore(data.num);
+            // console.log("同步金币" , data);
+        }
 
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             this.addBag(data.itemid, data.num);

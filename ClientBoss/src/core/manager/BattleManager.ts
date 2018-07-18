@@ -7,7 +7,7 @@ module game {
             //添加系统消息监听
             NotificationCenter.addObserver(this, this.OnGW2C_RetStartGame, "msg.GW2C_RetStartGame");
             NotificationCenter.addObserver(this, this.OnBT_GameInit, "msg.BT_GameInit");
-            // NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
+            NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
             NotificationCenter.addObserver(this, this.OnBT_GameStart, "msg.BT_GameStart");
         }
 
@@ -28,10 +28,10 @@ module game {
             DataManager.playerModel.setScore(data.money);
         }
 
-        // private OnGW2C_UpdateGold(data: msg.GW2C_UpdateGold) {
-        //     console.log(" 服务器同步金币", data)
-        //     DataManager.playerModel.setScore(data.num);
-        // }
+        private OnGW2C_UpdateGold(data: msg.GW2C_UpdateGold) {
+            // console.log(" 服务器同步金币", data)
+            DataManager.playerModel.setScore(data.num);
+        }
 
         private OnBT_GameStart(data: msg.BT_GameStart) {
             DataManager.playerModel.battleStart();
