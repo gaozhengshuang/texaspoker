@@ -6779,6 +6779,7 @@ $root.msg = (function() {
          * @property {msg.IFreePresentMoney|null} [freepresent] UserBase freepresent
          * @property {msg.IUserTask|null} [task] UserBase task
          * @property {msg.ILuckyDrawRecord|null} [luckydraw] UserBase luckydraw
+         * @property {number|null} [totalRecharge] UserBase totalRecharge
          */
 
         /**
@@ -6942,6 +6943,14 @@ $root.msg = (function() {
         UserBase.prototype.luckydraw = null;
 
         /**
+         * UserBase totalRecharge.
+         * @member {number} totalRecharge
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.totalRecharge = 0;
+
+        /**
          * Creates a new UserBase instance using the specified properties.
          * @function create
          * @memberof msg.UserBase
@@ -7002,6 +7011,8 @@ $root.msg = (function() {
                 $root.msg.UserTask.encode(message.task, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
             if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
                 $root.msg.LuckyDrawRecord.encode(message.luckydraw, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
+            if (message.totalRecharge != null && message.hasOwnProperty("totalRecharge"))
+                writer.uint32(/* id 19, wireType 0 =*/152).uint32(message.totalRecharge);
             return writer;
         };
 
@@ -7091,6 +7102,9 @@ $root.msg = (function() {
                     break;
                 case 18:
                     message.luckydraw = $root.msg.LuckyDrawRecord.decode(reader, reader.uint32());
+                    break;
+                case 19:
+                    message.totalRecharge = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7197,6 +7211,9 @@ $root.msg = (function() {
                 if (error)
                     return "luckydraw." + error;
             }
+            if (message.totalRecharge != null && message.hasOwnProperty("totalRecharge"))
+                if (!$util.isInteger(message.totalRecharge))
+                    return "totalRecharge: integer expected";
             return null;
         };
 
@@ -7285,6 +7302,8 @@ $root.msg = (function() {
                     throw TypeError(".msg.UserBase.luckydraw: object expected");
                 message.luckydraw = $root.msg.LuckyDrawRecord.fromObject(object.luckydraw);
             }
+            if (object.totalRecharge != null)
+                message.totalRecharge = object.totalRecharge >>> 0;
             return message;
         };
 
@@ -7329,6 +7348,7 @@ $root.msg = (function() {
                 object.freepresent = null;
                 object.task = null;
                 object.luckydraw = null;
+                object.totalRecharge = 0;
             }
             if (message.level != null && message.hasOwnProperty("level"))
                 object.level = message.level;
@@ -7375,6 +7395,8 @@ $root.msg = (function() {
                 object.task = $root.msg.UserTask.toObject(message.task, options);
             if (message.luckydraw != null && message.hasOwnProperty("luckydraw"))
                 object.luckydraw = $root.msg.LuckyDrawRecord.toObject(message.luckydraw, options);
+            if (message.totalRecharge != null && message.hasOwnProperty("totalRecharge"))
+                object.totalRecharge = message.totalRecharge;
             return object;
         };
 

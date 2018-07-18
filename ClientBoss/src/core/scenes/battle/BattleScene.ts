@@ -100,7 +100,8 @@ module game {
         private _leftFirewall: number[];
         private _rightFirewall: number[];
 
-        private _curStage;
+        // 缓存同步金币时的状态
+        private _curStage;     
         private _curBoomInfo;
 
         protected init() {
@@ -277,6 +278,8 @@ module game {
             this.showBattleText(-cost, brick, 1, -10, this._rewardBallPool.createObject(), true);
         }
 
+        
+
         private async playTimeBoom(x: number) {
             SoundManager.playEffect("zhadan", 0.5);
             let timeBoom = this._timeBoomPool.createObject();
@@ -407,6 +410,7 @@ module game {
             }))
         }
 
+       
         // 大招
         public useSp() {
             if (this._spCool > 0) return;
@@ -1221,8 +1225,8 @@ module game {
                 if (this._doubleTime > 0) {
                     score *= 2;
                 }
-                DataManager.playerModel.addScore(score);
-                this.showBattleText(score, brick, 1, -40);
+                // DataManager.playerModel.addScore(score);
+                // this.showBattleText(score, brick, 1, -40);
             }
             this.playBreakAnim(brick);
             this.cleanBrick(brick);
