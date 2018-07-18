@@ -608,25 +608,30 @@ func (this *RoomUser) LuckyDraw() {
 }
 
 // 同步midas余额
-func (this *RoomUser) SynMidasBalance() (balance int64, errmsg string) {
-	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
+func (this *RoomUser) SynMidasBalance() (balance, amt_save int64, errmsg string) {
+	//return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
+	return 0, 0, ""
 }
 
 // 同步midas余额
-func (this *RoomUser) SynMidasBalanceResult(balance int64, errmsg string) {
+func (this *RoomUser) SynMidasBalanceResult(balance, amt_save int64, errmsg string) {
 	this.synbalance = false
 	if errmsg != "" {
 		log.Error("玩家[%s %d %s] 同步midas余额失败,errmsg:%s", this.Name(), this.Id(), this.OpenId(), errmsg)
 		return
 	}
 
-	money, remain := uint32(balance), this.GetMoney()
-	if remain < money {
-		this.AddMoney(money - remain, "同步midas余额", true)
-	}else {
-		this.RemoveMoney(remain - money, "同步midas余额", true)
-	}
-	log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%d", this.Name(), this.Id(), this.GetMoney())
+	//amt_new := amt_save
+	//send := msg.BT_SynUserRechargeMoney{ Userid:pb.UInt64(this.Id()), Money:pb.Uint32(uint32(amt_new)) }
+	//this.SendClientMsg(send)
+
+	//money, remain := uint32(balance), this.GetMoney()
+	//if remain < money {
+	//	this.AddMoney(money - remain, "同步midas余额", true)
+	//}else {
+	//	this.RemoveMoney(remain - money, "同步midas余额", true)
+	//}
+	//log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%d", this.Name(), this.Id(), this.GetMoney())
 }
 
 // 从midas服务器扣除金币
