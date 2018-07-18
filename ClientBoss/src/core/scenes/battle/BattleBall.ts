@@ -131,13 +131,13 @@ module game {
         onDestroy() {
             this.preDestroy();
             egret.Tween.removeTweens(this.ballImage);
-            if (this.body.world) {
-                this.body.world.removeBody(this.body);
-            }
-            this.removeFromParent();
+            // if (this.body.world) {
+            //     this.body.world.removeBody(this.body);
+            // }
+            // this.removeFromParent();
+            this.onMoveout();
             this._hitCount = 0;
             this.meetFire = false;
-            this.y = 800;
             this.lifeValue = 0;
         }
 

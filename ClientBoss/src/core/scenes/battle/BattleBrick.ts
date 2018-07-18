@@ -295,9 +295,9 @@ module game {
         }
 
         onDestroy() {
-            if (this.body.world) {
-                this.body.world.removeBody(this.body);
-            }
+            // if (this.body.world) {
+            //     this.body.world.removeBody(this.body);
+            // }
             if (this.body.shapes.length > 0) {
                 for (let shape of this.body.shapes) {
                     this.body.removeShape(shape);
@@ -307,7 +307,8 @@ module game {
                 egret.clearInterval(this._playInterval);
                 this._playInterval = null;
             }
-            this.removeFromParent();
+            // this.removeFromParent();
+            this.onMoveout();
         }
 
         public hitByBall(ball: BattleBall, time: number, over: boolean = false) {

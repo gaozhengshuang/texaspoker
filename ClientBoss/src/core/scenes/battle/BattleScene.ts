@@ -243,6 +243,8 @@ module game {
             contact.friction = 0;
             this._world.addContactMaterial(contact);
 
+            this._world.sleepMode = p2.World.BODY_SLEEPING;
+
             this._wallTopShape.material = this._paddleMaterial;
             this._wallLeftShape.material = this._paddleMaterial;
             this._wallRightShape.material = this._paddleMaterial;
