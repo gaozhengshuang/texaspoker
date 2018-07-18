@@ -53,8 +53,7 @@ func (this *GateUser) AddMoney(gold uint32, reason string, syn bool) {
 func (this *GateUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
 	if this.GetMoney() > gold {
 		this.SynRemoveMidsMoney(int64(gold), reason)
-		userbase := this.UserBase()
-		userbase.Money = pb.Uint32(this.GetMoney() - gold)
+		this.money = this.GetMoney() - gold
 		if syn {
 			send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
 			this.SendMsg(send)
