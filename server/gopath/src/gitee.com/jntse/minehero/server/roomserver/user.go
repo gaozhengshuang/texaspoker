@@ -35,7 +35,7 @@ type RoomUser struct {
 	synbalance	bool
 	bulletid 	int64
 	energy		int64
-
+	save_amt	int64
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
@@ -609,8 +609,7 @@ func (this *RoomUser) LuckyDraw() {
 
 // 同步midas余额
 func (this *RoomUser) SynMidasBalance() (balance, amt_save int64, errmsg string) {
-	//return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
-	return 0, 0, ""
+	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
 }
 
 // 同步midas余额

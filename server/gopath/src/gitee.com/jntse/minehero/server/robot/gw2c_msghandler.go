@@ -51,7 +51,7 @@ func (this* GW2CMsgHandler) Init() {
 
 	// 收room消息
 	this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
-	this.msgparser.RegistProtoMsg(msg.BT_SendBattleUser{}, on_BT_SendBattleUser)
+	//this.msgparser.RegistProtoMsg(msg.BT_SendBattleUser{}, on_BT_SendBattleUser)
 	this.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
 	this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
 	this.msgparser.RegistProtoMsg(msg.BT_PickItem{}, on_BT_PickItem)

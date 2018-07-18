@@ -1300,7 +1300,8 @@ func HttpWechatMiniGamePayMoney(redis *redis.Client, openid string, count int64)
 		log.Error("玩家[%s] json.Marshal err[%s]", openid, jsonerr)
 		return 0, "json.Marshal Fail"
 	}
-	log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
+	//log.Trace("玩家[%s] rawurl[%s] postbody[%s]", openid, rawurl, postbody)
+	log.Trace("玩家[%s] 微信小游戏虚拟支付扣除金币", openid)
 
 
 	// post
