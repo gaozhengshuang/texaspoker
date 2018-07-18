@@ -632,16 +632,19 @@ func (this *RoomUser) SynMidasBalanceResult(balance, amt_save int64, errmsg stri
 		return
 	}
 
+	log.Info("玩家[%s %d] 同步midas支付数据成功 当前充值[%d] 累计充值[%d]", this.Name(), this.Id(), this.TotalRecharge(), amt_save)
+
 	// 同步客户端本次充值金额,增量
+	//this.SetTotalRecharge(0)
 	if uint32(amt_save) > this.TotalRecharge()  {
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
+		this.AddMoney(recharge, "充值获得", false)
 
 		send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Uint64(this.Id()), Money:pb.Uint32(recharge) }
 		this.SendClientMsg(send)
 	}
 
-	//log.Info("玩家[%s %d] 同步midas余额[%d]成功", this.Name(), this.Id(), this.GetMoney())
 }
 
 // 从midas服务器扣除金币
@@ -691,10 +694,10 @@ func (this *RoomUser) ReqLaunchBullet() {
 		}
 
 		// 充值同步中
-		if this.synbalance == true {
-			errmsg = "充值中"
-			break
-		}
+		//if this.synbalance == true {
+		//	errmsg = "充值中"
+		//	break
+		//}
 
 		// 不同步
 		this.RemoveMoney(uint32(tbl.Game.BulletPrice), "发射子弹", false)
@@ -702,6 +705,7 @@ func (this *RoomUser) ReqLaunchBullet() {
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
 		if this.energy < tbl.Game.MaxEnergy { this.energy += 1 }
+		log.Info("玩家[%s %d] 发射子弹[%d]成功 当前能量值[%d]", this.Name(), this.Id(), this.bulletid, this.energy)
 	}
 
 	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg), Energy:pb.Int64(this.energy) }
