@@ -79,12 +79,13 @@ func (this *RemovePlatformCoinsEvent) Feedback() {
 ///
 /// @return 
 // --------------------------------------------------------------------------
-type QueryPlatformCoinsEventHandle func() (balance int64, errmsg string)
-type QueryPlatformCoinsFeedback func(balance int64, errmsg string)
+type QueryPlatformCoinsEventHandle func() (balance, amt_save int64, errmsg string)
+type QueryPlatformCoinsFeedback func(balance, amt_save int64, errmsg string)
 type QueryPlatformCoinsEvent struct {
 	handler QueryPlatformCoinsEventHandle
 	feedback QueryPlatformCoinsFeedback
 	balance int64
+	amt_save int64
 	errmsg string
 }
 
@@ -94,13 +95,13 @@ func NewQueryPlatformCoinsEvent(handler QueryPlatformCoinsEventHandle, feedback 
 
 func (this *QueryPlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
-	this.balance, this.errmsg = this.handler()
+	this.balance, this.amt_save,  this.errmsg = this.handler()
 	ch_fback <- this
 	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
 func (this *QueryPlatformCoinsEvent) Feedback() {
-	if this.feedback != nil { this.feedback(this.balance, this.errmsg) }
+	if this.feedback != nil { this.feedback(this.balance, this.amt_save, this.errmsg) }
 }
 
 

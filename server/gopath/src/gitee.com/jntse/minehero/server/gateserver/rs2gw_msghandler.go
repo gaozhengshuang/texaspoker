@@ -92,15 +92,15 @@ func on_BT_GameInit(session network.IBaseNetSession, message interface{}) {
 	user.SendMsg(tmsg)
 }
 
-func on_BT_SendBattleUser(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_SendBattleUser)
-	user := UserMgr().FindById(tmsg.GetOwnerid())
-	if user == nil {
-		log.Error("BT_SendBattleUser 找不到玩家[%d]", tmsg.GetOwnerid())
-		return
-	}
-	user.SendMsg(tmsg)
-}
+//func on_BT_SendBattleUser(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.BT_SendBattleUser)
+//	user := UserMgr().FindById(tmsg.GetOwnerid())
+//	if user == nil {
+//		log.Error("BT_SendBattleUser 找不到玩家[%d]", tmsg.GetOwnerid())
+//		return
+//	}
+//	user.SendMsg(tmsg)
+//}
 
 func on_BT_GameStart(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_GameStart)

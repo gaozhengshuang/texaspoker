@@ -103,7 +103,7 @@ func (this* C2GWMsgHandler) Init() {
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
-	this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
+	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
 	this.msgparser.RegistSendProto(msg.BT_GameStart{})
 	this.msgparser.RegistSendProto(msg.BT_GameOver{})
 	this.msgparser.RegistSendProto(msg.BT_PickItem{})
