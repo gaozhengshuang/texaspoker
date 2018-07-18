@@ -93,6 +93,7 @@ type GateUser struct {
 	asynev			eventque.AsynEventQueue	// 异步事件处理
 	broadcastbuffer []uint64	// 广播消息缓存
 	synbalance		bool		// 充值中
+	totalrecharge	uint32		// 总充值
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -400,6 +401,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.GetFreepresent().Count = pb.Int32(this.presentcount)
 	userbase.GetFreepresent().Tmrecord = pb.Int64(this.presentrecord)
 	userbase.Invitationcode = pb.String(this.invitationcode)
+	userbase.TotalRecharge =  pb.Uint32(this.totalrecharge)
 
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem,0)
@@ -441,6 +443,7 @@ func (this *GateUser) LoadBin() {
 	this.presentcount = userbase.GetFreepresent().GetCount()
 	this.presentrecord = userbase.GetFreepresent().GetTmrecord()
 	this.invitationcode = userbase.GetInvitationcode()
+	this.totalrecharge = userbase.GetTotalRecharge()
 
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem,0)
