@@ -1380,12 +1380,11 @@ module game {
         }
 
         private canOpenLuckyPanel() {
-            return  this._ballPool.list.length > 0;
+            return  this._ballPool.list.length <= 0;
         }
 
         private rechargeGoHandle() {
             openPanel(PanelType.pay);
-
         }
 
         private bagGoHandle() {
