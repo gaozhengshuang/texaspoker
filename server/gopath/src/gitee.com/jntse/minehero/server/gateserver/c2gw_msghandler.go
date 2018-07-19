@@ -75,6 +75,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
 	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
 	this.msgparser.RegistProtoMsg(msg.BT_UseUltimateSkil{}, on_BT_UseUltimateSkil)
+	this.msgparser.RegistProtoMsg(msg.BT_HitSuperBrick{}, on_BT_HitSuperBrick)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
