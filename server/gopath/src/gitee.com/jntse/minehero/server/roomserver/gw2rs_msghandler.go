@@ -268,7 +268,7 @@ func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface
 
 	user.AddMoney(uint32(tbl.Game.SuperBrickReward), "超级砖块奖励", false)
 
-	send := &msg.BT_RetCrushSuperBrick{}
+	send := &msg.BT_RetCrushSuperBrick{Errmsg:pb.String("")}
 	user.SendClientMsg(send)
 }
 
