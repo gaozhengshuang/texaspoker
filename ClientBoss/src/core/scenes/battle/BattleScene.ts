@@ -103,7 +103,7 @@ module game {
         // 缓存同步金币时的状态
         private _curStage;
         private _curBoomInfo;
-        private _curGoldSharkInfo;
+        private _curGoldSharkScore;
 
         protected init() {
             if (gameConfig.isIphoneX()) {
@@ -1236,8 +1236,7 @@ module game {
                 // DataManager.playerModel.addScore(score);
                 // this.showBattleText(score, brick, 1, -40);
             }
-            this.playBreakAnim(brick);
-            this.cleanBrick(brick);
+
             switch (type) {
                 case BrickType.doubleScore:
                     this._doubleTime = 60 * 15;
@@ -1267,8 +1266,9 @@ module game {
                     DataManager.playerModel.addPenetration(3);
                     break;
                 case BrickType.goldShark:
-                    this._curGoldSharkInfo = { score: score, brick: brick };
+                    this._curGoldSharkScore = score;
                     this.sendGoldSharkStats(score);
+                    this.showBattleText(score, brick, 1, -40);
                     break;
 
             }
@@ -1280,20 +1280,23 @@ module game {
                 this._breakBad += 1;
                 this.showBadPower();
             }
+
+            this.playBreakAnim(brick);
+            this.cleanBrick(brick);
+
             return score;
         }
         //TODO: 发送黄金鲨分数统计到服务器
         private sendGoldSharkStats(score) {
+            // console.log('发送黄金鲨消息', score)
             sendMessage("msg.BT_ReqCrushSuperBrick", msg.BT_ReqCrushSuperBrick.encode({
                 userid: DataManager.playerModel.getUserId()
             }));
         }
         // 接收服务器返回消息
         private onBT_RetCrushSuperBrick(data: msg.BT_RetCrushSuperBrick) {
-            let score = this._curGoldSharkInfo.score;
-            let brick = this._curGoldSharkInfo.brick;
+            let score = this._curGoldSharkScore;
             DataManager.playerModel.addScore(score);
-            this.showBattleText(score, brick, 1, -40);
         }
 
         private async playBreakAnim(brick: BattleBrick) {
