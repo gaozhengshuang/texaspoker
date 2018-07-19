@@ -96,13 +96,13 @@
     "Wechat": {
         "AppId_RRWWJ":"wx03789100061e5d6c",
         "AppSecret_RRWWJ":"81e8f7d08b55f0f4a0ea3c4b15f558c6",
-        "Mchid_RRWWJ":"1500100872",
-        "PaySecret_RRWWJ":"RMEqvgecHWoa4Fkv5Q1gaBT82iuBl4hw",
+        "Mchid":"1500100872",
+        "PaySecret":"RMEqvgecHWoa4Fkv5Q1gaBT82iuBl4hw",
 
         "AppId":"wx50a65298622b1651",
         "AppSecret":"6934870a36e3d0e3f02e32ef9bd013cb",
-        "Mchid":"1495077762",
-        "PaySecret":"80a8c4a9d76c71e1701c001e3a41583e"
+        "Mchid1":"1495077762",
+        "PaySecret1":"80a8c4a9d76c71e1701c001e3a41583e"
     },
 
     "//":"微信小游戏",
