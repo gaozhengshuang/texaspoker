@@ -1,5 +1,5 @@
 module game {
-    export class BattleFirewall extends GameComponent implements PoolItem {
+    export class BattleFirewall extends BattleBody {
         public wallIndex: number;
         public channel: egret.SoundChannel;
 

@@ -1,5 +1,5 @@
 module game {
-    export class BattleTimeBoom extends GameComponent implements PoolItem {
+    export class BattleTimeBoom extends BattleBody {
         boomImage: eui.Image;
         private _currentIndex: number = 0;
         private _playInterval: number;

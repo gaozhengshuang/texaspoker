@@ -8,6 +8,9 @@ module game {
         onDestroy() {
         }
 
+        onRecycle() {
+        }
+
         onMoveout(){
             this.x = -1000;
             this.y = -1000;

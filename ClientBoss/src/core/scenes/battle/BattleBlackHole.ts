@@ -1,5 +1,5 @@
 module game {
-    export class BattleBlackHole extends GameComponent implements PoolItem {
+    export class BattleBlackHole extends BattleBody {
         showAnim: egret.tween.TweenGroup;
         holeImage: eui.Image;
         private _currentIndex: number = 0;

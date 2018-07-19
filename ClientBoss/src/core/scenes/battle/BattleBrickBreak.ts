@@ -1,5 +1,5 @@
 module game {
-    export class BattleBrickBreak extends GameComponent implements PoolItem {
+    export class BattleBrickBreak extends BattleBody {
         breakGroup: eui.Group;
         private _timeout: number;
         private _particle: particle.GravityParticleSystem;

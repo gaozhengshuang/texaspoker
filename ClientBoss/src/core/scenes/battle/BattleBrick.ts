@@ -2,7 +2,7 @@ module game {
     import brickCollisionGroup = gameConfig.brickCollisionGroup;
     import ballCollisionGroup = gameConfig.ballCollisionGroup;
 
-    export class BattleBrick extends BattleBody implements PoolItem, BattleBody {
+    export class BattleBrick extends BattleBody {
         brickImage: eui.Image;
         crackImage: eui.Image;
         shakeAnim: egret.tween.TweenGroup;
@@ -295,9 +295,9 @@ module game {
         }
 
         onDestroy() {
-            // if (this.body.world) {
-            //     this.body.world.removeBody(this.body);
-            // }
+            if (this.body.world) {
+                this.body.world.removeBody(this.body);
+            }
             if (this.body.shapes.length > 0) {
                 for (let shape of this.body.shapes) {
                     this.body.removeShape(shape);
@@ -307,7 +307,19 @@ module game {
                 egret.clearInterval(this._playInterval);
                 this._playInterval = null;
             }
-            // this.removeFromParent();
+            this.removeFromParent();
+        }
+
+        onRecycle() {
+            if (this.body.shapes.length > 0) {
+                for (let shape of this.body.shapes) {
+                    this.body.removeShape(shape);
+                }
+            }
+            if (this._playInterval) {
+                egret.clearInterval(this._playInterval);
+                this._playInterval = null;
+            }
             this.onMoveout();
         }
 
