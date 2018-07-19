@@ -4805,6 +4805,394 @@ $root.msg = (function() {
         return BT_SynUserRechargeMoney;
     })();
 
+    msg.BT_ReqCrushSuperBrick = (function() {
+
+        /**
+         * Properties of a BT_ReqCrushSuperBrick.
+         * @memberof msg
+         * @interface IBT_ReqCrushSuperBrick
+         * @property {number|Long|null} [userid] BT_ReqCrushSuperBrick userid
+         */
+
+        /**
+         * Constructs a new BT_ReqCrushSuperBrick.
+         * @memberof msg
+         * @classdesc Represents a BT_ReqCrushSuperBrick.
+         * @implements IBT_ReqCrushSuperBrick
+         * @constructor
+         * @param {msg.IBT_ReqCrushSuperBrick=} [properties] Properties to set
+         */
+        function BT_ReqCrushSuperBrick(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_ReqCrushSuperBrick userid.
+         * @member {number|Long} userid
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @instance
+         */
+        BT_ReqCrushSuperBrick.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new BT_ReqCrushSuperBrick instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {msg.IBT_ReqCrushSuperBrick=} [properties] Properties to set
+         * @returns {msg.BT_ReqCrushSuperBrick} BT_ReqCrushSuperBrick instance
+         */
+        BT_ReqCrushSuperBrick.create = function create(properties) {
+            return new BT_ReqCrushSuperBrick(properties);
+        };
+
+        /**
+         * Encodes the specified BT_ReqCrushSuperBrick message. Does not implicitly {@link msg.BT_ReqCrushSuperBrick.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {msg.IBT_ReqCrushSuperBrick} message BT_ReqCrushSuperBrick message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_ReqCrushSuperBrick.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_ReqCrushSuperBrick message, length delimited. Does not implicitly {@link msg.BT_ReqCrushSuperBrick.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {msg.IBT_ReqCrushSuperBrick} message BT_ReqCrushSuperBrick message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_ReqCrushSuperBrick.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_ReqCrushSuperBrick message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_ReqCrushSuperBrick} BT_ReqCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_ReqCrushSuperBrick.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_ReqCrushSuperBrick();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_ReqCrushSuperBrick message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_ReqCrushSuperBrick} BT_ReqCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_ReqCrushSuperBrick.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_ReqCrushSuperBrick message.
+         * @function verify
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_ReqCrushSuperBrick.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_ReqCrushSuperBrick message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_ReqCrushSuperBrick} BT_ReqCrushSuperBrick
+         */
+        BT_ReqCrushSuperBrick.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_ReqCrushSuperBrick)
+                return object;
+            var message = new $root.msg.BT_ReqCrushSuperBrick();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_ReqCrushSuperBrick message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @static
+         * @param {msg.BT_ReqCrushSuperBrick} message BT_ReqCrushSuperBrick
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_ReqCrushSuperBrick.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            return object;
+        };
+
+        /**
+         * Converts this BT_ReqCrushSuperBrick to JSON.
+         * @function toJSON
+         * @memberof msg.BT_ReqCrushSuperBrick
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_ReqCrushSuperBrick.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_ReqCrushSuperBrick;
+    })();
+
+    msg.BT_RetCrushSuperBrick = (function() {
+
+        /**
+         * Properties of a BT_RetCrushSuperBrick.
+         * @memberof msg
+         * @interface IBT_RetCrushSuperBrick
+         * @property {string|null} [errmsg] BT_RetCrushSuperBrick errmsg
+         */
+
+        /**
+         * Constructs a new BT_RetCrushSuperBrick.
+         * @memberof msg
+         * @classdesc Represents a BT_RetCrushSuperBrick.
+         * @implements IBT_RetCrushSuperBrick
+         * @constructor
+         * @param {msg.IBT_RetCrushSuperBrick=} [properties] Properties to set
+         */
+        function BT_RetCrushSuperBrick(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BT_RetCrushSuperBrick errmsg.
+         * @member {string} errmsg
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @instance
+         */
+        BT_RetCrushSuperBrick.prototype.errmsg = "";
+
+        /**
+         * Creates a new BT_RetCrushSuperBrick instance using the specified properties.
+         * @function create
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {msg.IBT_RetCrushSuperBrick=} [properties] Properties to set
+         * @returns {msg.BT_RetCrushSuperBrick} BT_RetCrushSuperBrick instance
+         */
+        BT_RetCrushSuperBrick.create = function create(properties) {
+            return new BT_RetCrushSuperBrick(properties);
+        };
+
+        /**
+         * Encodes the specified BT_RetCrushSuperBrick message. Does not implicitly {@link msg.BT_RetCrushSuperBrick.verify|verify} messages.
+         * @function encode
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {msg.IBT_RetCrushSuperBrick} message BT_RetCrushSuperBrick message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_RetCrushSuperBrick.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.errmsg != null && message.hasOwnProperty("errmsg"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.errmsg);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BT_RetCrushSuperBrick message, length delimited. Does not implicitly {@link msg.BT_RetCrushSuperBrick.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {msg.IBT_RetCrushSuperBrick} message BT_RetCrushSuperBrick message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BT_RetCrushSuperBrick.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BT_RetCrushSuperBrick message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.BT_RetCrushSuperBrick} BT_RetCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_RetCrushSuperBrick.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_RetCrushSuperBrick();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.errmsg = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BT_RetCrushSuperBrick message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.BT_RetCrushSuperBrick} BT_RetCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BT_RetCrushSuperBrick.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BT_RetCrushSuperBrick message.
+         * @function verify
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BT_RetCrushSuperBrick.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.errmsg != null && message.hasOwnProperty("errmsg"))
+                if (!$util.isString(message.errmsg))
+                    return "errmsg: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a BT_RetCrushSuperBrick message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.BT_RetCrushSuperBrick} BT_RetCrushSuperBrick
+         */
+        BT_RetCrushSuperBrick.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.BT_RetCrushSuperBrick)
+                return object;
+            var message = new $root.msg.BT_RetCrushSuperBrick();
+            if (object.errmsg != null)
+                message.errmsg = String(object.errmsg);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BT_RetCrushSuperBrick message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @static
+         * @param {msg.BT_RetCrushSuperBrick} message BT_RetCrushSuperBrick
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BT_RetCrushSuperBrick.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.errmsg = "";
+            if (message.errmsg != null && message.hasOwnProperty("errmsg"))
+                object.errmsg = message.errmsg;
+            return object;
+        };
+
+        /**
+         * Converts this BT_RetCrushSuperBrick to JSON.
+         * @function toJSON
+         * @memberof msg.BT_RetCrushSuperBrick
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BT_RetCrushSuperBrick.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BT_RetCrushSuperBrick;
+    })();
+
     msg.EntityBase = (function() {
 
         /**

@@ -221,20 +221,46 @@ var egret = window.egret;
 	__extends(LoadingSkin, _super);
 	function LoadingSkin() {
 		_super.call(this);
-		this.skinParts = ["lodingImg"];
+		this.skinParts = ["lodingImg","lodingGroup"];
 		
 		this.height = 1100;
 		this.width = 720;
-		this.elementsContent = [this.lodingImg_i()];
+		this.elementsContent = [this.lodingGroup_i()];
 	}
 	var _proto = LoadingSkin.prototype;
 
+	_proto.lodingGroup_i = function () {
+		var t = new eui.Group();
+		this.lodingGroup = t;
+		t.percentHeight = 100;
+		t.width = 720;
+		t.x = 0;
+		t.y = 0;
+		t.elementsContent = [this.lodingImg_i(),this._Image1_i()];
+		return t;
+	};
 	_proto.lodingImg_i = function () {
 		var t = new eui.Image();
 		this.lodingImg = t;
 		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(72,137,579,787);
+		t.scaleX = 1;
+		t.scaleY = 1;
 		t.source = "loadingMain_png";
 		t.percentWidth = 100;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "loadingMainYs_png";
+		t.verticalCenter = -117.5;
+		t.x = 0;
+		t.y = 120;
 		return t;
 	};
 	return LoadingSkin;

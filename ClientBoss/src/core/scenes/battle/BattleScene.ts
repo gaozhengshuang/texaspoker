@@ -101,8 +101,9 @@ module game {
         private _rightFirewall: number[];
 
         // 缓存同步金币时的状态
-        private _curStage;     
+        private _curStage;
         private _curBoomInfo;
+        private _curGoldSharkScore;
 
         protected init() {
             if (gameConfig.isIphoneX()) {
@@ -178,6 +179,7 @@ module game {
         private initNetHandle() {
             NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
             NotificationCenter.addObserver(this, this.onBT_RetStepOnBomb, "msg.BT_RetStepOnBomb");  // 定时炸弹
+            NotificationCenter.addObserver(this, this.onBT_RetCrushSuperBrick, "msg.BT_RetCrushSuperBrick");  // 定时炸弹
         }
 
         protected getSkinName() {
@@ -280,7 +282,7 @@ module game {
             this.showBattleText(-cost, brick, 1, -10, this._rewardBallPool.createObject(), true);
         }
 
-        
+
 
         private async playTimeBoom(x: number) {
             SoundManager.playEffect("zhadan", 0.5);
@@ -412,7 +414,7 @@ module game {
             }))
         }
 
-       
+
         // 大招
         public useSp() {
             if (this._spCool > 0) return;
@@ -1230,11 +1232,11 @@ module game {
                 if (this._doubleTime > 0) {
                     score *= 2;
                 }
+                //TODO: 发送黄金鲨统计
                 // DataManager.playerModel.addScore(score);
                 // this.showBattleText(score, brick, 1, -40);
             }
-            this.playBreakAnim(brick);
-            this.cleanBrick(brick);
+
             switch (type) {
                 case BrickType.doubleScore:
                     this._doubleTime = 60 * 15;
@@ -1263,6 +1265,12 @@ module game {
                     this._paddle.playChangeAnim();
                     DataManager.playerModel.addPenetration(3);
                     break;
+                case BrickType.goldShark:
+                    this._curGoldSharkScore = score;
+                    this.sendGoldSharkStats(score);
+                    this.showBattleText(score, brick, 1, -40);
+                    break;
+
             }
             if (brick.brickInfo.row == 0) {
                 this._topColumn.push(brick.brickInfo.column);
@@ -1272,7 +1280,23 @@ module game {
                 this._breakBad += 1;
                 this.showBadPower();
             }
+
+            this.playBreakAnim(brick);
+            this.cleanBrick(brick);
+
             return score;
+        }
+        //TODO: 发送黄金鲨分数统计到服务器
+        private sendGoldSharkStats(score) {
+            // console.log('发送黄金鲨消息', score)
+            sendMessage("msg.BT_ReqCrushSuperBrick", msg.BT_ReqCrushSuperBrick.encode({
+                userid: DataManager.playerModel.getUserId()
+            }));
+        }
+        // 接收服务器返回消息
+        private onBT_RetCrushSuperBrick(data: msg.BT_RetCrushSuperBrick) {
+            let score = this._curGoldSharkScore;
+            DataManager.playerModel.addScore(score);
         }
 
         private async playBreakAnim(brick: BattleBrick) {
@@ -1381,15 +1405,15 @@ module game {
         private luckyGoHandle() {
             if (this.canOpenLuckyPanel()) {
                 openPanel(PanelType.lucky);
-            }else {
-                showTips("游戏状态中，无法进行抽奖！",true);
+            } else {
+                showTips("游戏状态中，无法进行抽奖！", true);
             }
 
             // egret.stopTick(this.updateView,this)
         }
 
         private canOpenLuckyPanel() {
-            return  this._ballPool.list.length <= 0;
+            return this._ballPool.list.length <= 0;
         }
 
         private rechargeGoHandle() {
