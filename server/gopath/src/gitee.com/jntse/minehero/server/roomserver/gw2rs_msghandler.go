@@ -183,8 +183,7 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 
 	//
 	user.synbalance = true
-	event := NewQueryPlatformCoinsEvent(user.SynMidasBalance, user.SynMidasBalanceResult)
-	user.AsynEventInsert(event)
+	user.SynMidasBalance()
 }
 
 // 发射子弹

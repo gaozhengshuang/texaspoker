@@ -293,24 +293,6 @@ func (this *RoomUser) UpdateCoins(amount uint32) {
 	this.coins = amount
 }
 
-// 获取平台金币
-//func (this *RoomUser) QueryPlatformCoins() {
-//	event := NewQueryPlatformCoinsEvent(this, this.SyncPlatformCoins)
-//	this.AsynEventInsert(event)
-//}
-
-// 同步平台金币
-//func (this *RoomUser) SyncPlatformCoins() {
-//	//
-//	tvmid := this.Account()
-//	errcode, coins, _ := def.HttpRequestFinanceQuery(this.Id(), this.Token(), tvmid)
-//	if errcode != "" {
-//		return
-//	}
-//	this.UpdateCoins(uint32(coins))
-//	this.SendBattleUser()	// 同步玩家数据
-//}
-
 func (this *RoomUser) GetMoney() uint32 {
 	return this.UserBase().GetMoney()
 }
@@ -619,13 +601,19 @@ func (this *RoomUser) LuckyDraw() {
 	this.SendClientMsg(send)
 }
 
+// 获取平台金币
+func (this *RoomUser) SynMidasBalance() {
+	event := NewQueryPlatformCoinsEvent(this.DoSynMidasBalance, this.DoSynMidasBalanceResult)
+	this.AsynEventInsert(event)
+}
+
 // 同步midas余额
-func (this *RoomUser) SynMidasBalance() (balance, amt_save int64, errmsg string) {
+func (this *RoomUser) DoSynMidasBalance() (balance, amt_save int64, errmsg string) {
 	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
 }
 
 // 同步midas余额
-func (this *RoomUser) SynMidasBalanceResult(balance, amt_save int64, errmsg string) {
+func (this *RoomUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg string) {
 	this.synbalance = false
 	if errmsg != "" {
 		log.Error("玩家[%s %d %s] 同步midas余额失败,errmsg:%s", this.Name(), this.Id(), this.OpenId(), errmsg)

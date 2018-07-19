@@ -419,9 +419,7 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 	}
 
 	log.Error("玩家[%s %d]收到充值完成通知但玩家不在房间中")
-	//user.synbalance = true
-	//event := NewQueryPlatformCoinsEvent(user.SynMidasBalance, user.SynMidasBalanceResult)
-	//user.AsynEventInsert(event)
+	//user.SynMidasBalance()
 }
 
 // 绑定微信openid

@@ -282,6 +282,15 @@ func (this *GateUser) SetMoneyCostReset(reset int64) {
 	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
 }
 
+func (this *GateUser) TotalRecharge() uint32 {
+	return this.totalrecharge
+}
+
+func (this *GateUser) SetTotalRecharge(r uint32) {
+	this.totalrecharge = r
+}
+
+
 func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
 }
@@ -510,6 +519,9 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 
 	// 同步数据到客户端
 	this.Syn()
+
+	// 同步midas平台充值金额
+	this.SynMidasBalance()
 
 	return true
 }
@@ -770,27 +782,35 @@ func (this *GateUser) OnlineTaskCheck() {
 
 }
 
-//// 同步midas余额
-//func (this *GateUser) SynMidasBalance() (balance int64, errmsg string) {
-//	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
-//}
-//
-//// 同步midas余额
-//func (this *GateUser) SynMidasBalanceResult(balance int64, errmsg string) {
-//	this.synbalance = false
-//	if errmsg != "" {
-//		log.Error("玩家[%s %d %s] 同步midas余额失败,errmsg:%s", this.Name(), this.Id(), this.OpenId(), errmsg)
-//		return
-//	}
-//
-//	money, remain := uint32(balance), this.GetMoney()
-//	if remain < money {
-//		this.AddMoney(money - remain, "同步midas余额", true)
-//	}else {
-//		this.RemoveMoney(remain - money, "同步midas余额", true)
-//	}
-//	log.Info("玩家[%s %d] 同步midas余额成功，当前余额:%d", this.Name(), this.Id(), this.GetMoney())
-//}
+// 获取平台金币
+func (this *GateUser) SynMidasBalance() {
+  event := NewQueryPlatformCoinsEvent(this.DoSynMidasBalance, this.DoSynMidasBalanceResult)
+  this.AsynEventInsert(event)
+}
+
+// 同步midas余额
+func (this *GateUser) DoSynMidasBalance() (balance, amt_save int64, errmsg string) {
+	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
+}
+
+// 同步midas余额
+func (this *GateUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg string) {
+	this.synbalance = false
+	if errmsg != "" {
+		log.Error("玩家[%s %d %s] 同步midas余额失败,errmsg:%s", this.Name(), this.Id(), this.OpenId(), errmsg)
+		return
+	}
+
+	log.Info("玩家[%s %d] 同步midas支付数据成功 当前充值[%d] 累计充值[%d]", this.Name(), this.Id(), this.TotalRecharge(), amt_save)
+
+	// 同步客户端本次充值金额,增量
+	//this.SetTotalRecharge(0)
+	if uint32(amt_save) > this.TotalRecharge()  {
+		recharge := uint32(amt_save) - this.TotalRecharge()
+		this.SetTotalRecharge(uint32(amt_save))
+		this.AddMoney(recharge, "充值获得", true)
+	}
+}
 
 // 从midas服务器扣除金币
 func (this *GateUser) SynRemoveMidsMoney(amount int64, reason string) {
