@@ -75,7 +75,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
 	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
 	this.msgparser.RegistProtoMsg(msg.BT_UseUltimateSkil{}, on_BT_UseUltimateSkil)
-	this.msgparser.RegistProtoMsg(msg.BT_HitSuperBrick{}, on_BT_HitSuperBrick)
+	this.msgparser.RegistProtoMsg(msg.BT_ReqCrushSuperBrick{}, on_BT_ReqCrushSuperBrick)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
@@ -579,6 +579,17 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 
 func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_UseUltimateSkil)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.SendRoomMsg(tmsg)
+}
+
+func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_ReqCrushSuperBrick)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))

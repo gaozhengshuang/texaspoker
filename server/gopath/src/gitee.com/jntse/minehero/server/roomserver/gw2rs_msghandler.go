@@ -47,7 +47,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
 	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
 	this.msgparser.RegistProtoMsg(msg.BT_UseUltimateSkil{}, on_BT_UseUltimateSkil)
-	this.msgparser.RegistProtoMsg(msg.BT_HitSuperBrick{}, on_BT_HitSuperBrick)
+	this.msgparser.RegistProtoMsg(msg.BT_ReqCrushSuperBrick{}, on_BT_ReqCrushSuperBrick)
 
 
 	// 发
@@ -258,14 +258,17 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 }
 
 // 击中超级砖块
-func on_BT_HitSuperBrick(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_HitSuperBrick)
+func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_ReqCrushSuperBrick)
 	user := UserMgr().FindUser(tmsg.GetUserid())
 	if user == nil { 
 		log.Error("BT_HitSuperBrick 玩家[%d]没有在Room中", tmsg.GetUserid())
 		return 
 	}
 
-	user.AddMoney(tbl.Game.SuperBrickReward, "超级砖块奖励", false)
+	user.AddMoney(uint32(tbl.Game.SuperBrickReward), "超级砖块奖励", false)
+
+	send := &msg.BT_RetCrushSuperBrick{Errmsg:pb.String("")}
+	user.SendClientMsg(send)
 }
 

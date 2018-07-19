@@ -131,10 +131,19 @@ module game {
         onDestroy() {
             this.preDestroy();
             egret.Tween.removeTweens(this.ballImage);
-            // if (this.body.world) {
-            //     this.body.world.removeBody(this.body);
-            // }
-            // this.removeFromParent();
+            if (this.body.world) {
+                this.body.world.removeBody(this.body);
+            }
+            this.removeFromParent();
+            this._hitCount = 0;
+            this.meetFire = false;
+            this.lifeValue = 0;
+        }
+
+        onRecycle() {
+            this.preDestroy();
+            egret.Tween.removeTweens(this.ballImage);
+
             this.onMoveout();
             this._hitCount = 0;
             this.meetFire = false;

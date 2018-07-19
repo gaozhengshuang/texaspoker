@@ -732,7 +732,7 @@ module game {
                     }
                 }
                 if (ball.y >= this._diedY || ball.meetFire/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
-                    this._ballPool.destroyObject(ball);
+                    this._ballPool.recycleObject(ball);
                 }
             }
             for (let buff of this._buffList) {
@@ -1314,7 +1314,7 @@ module game {
         }
 
         private cleanBrick(brick: BattleBrick) {
-            this._brickPool.destroyObject(brick);
+            this._brickPool.recycleObject(brick);
         }
 
         public addBlackHole(brick: BattleBrick) {
@@ -1424,7 +1424,6 @@ module game {
         private backHandle() {
             let backFunc: Function = function () {
                 egret.stopTick(this.updateView, this);
-                this._firewallPool.destroyAllObject();
 
                 sendMessage("msg.BT_ReqQuitGameRoom", msg.BT_ReqQuitGameRoom.encode({
                     roomid: BattleManager.getInstance().getRoomId(),
