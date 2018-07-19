@@ -1983,6 +1983,186 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a BT_ReqCrushSuperBrick. */
+    interface IBT_ReqCrushSuperBrick {
+
+        /** BT_ReqCrushSuperBrick userid */
+        userid?: (number|Long|null);
+    }
+
+    /** Represents a BT_ReqCrushSuperBrick. */
+    class BT_ReqCrushSuperBrick implements IBT_ReqCrushSuperBrick {
+
+        /**
+         * Constructs a new BT_ReqCrushSuperBrick.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_ReqCrushSuperBrick);
+
+        /** BT_ReqCrushSuperBrick userid. */
+        public userid: (number|Long);
+
+        /**
+         * Creates a new BT_ReqCrushSuperBrick instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_ReqCrushSuperBrick instance
+         */
+        public static create(properties?: msg.IBT_ReqCrushSuperBrick): msg.BT_ReqCrushSuperBrick;
+
+        /**
+         * Encodes the specified BT_ReqCrushSuperBrick message. Does not implicitly {@link msg.BT_ReqCrushSuperBrick.verify|verify} messages.
+         * @param message BT_ReqCrushSuperBrick message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_ReqCrushSuperBrick, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_ReqCrushSuperBrick message, length delimited. Does not implicitly {@link msg.BT_ReqCrushSuperBrick.verify|verify} messages.
+         * @param message BT_ReqCrushSuperBrick message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_ReqCrushSuperBrick, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_ReqCrushSuperBrick message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_ReqCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_ReqCrushSuperBrick;
+
+        /**
+         * Decodes a BT_ReqCrushSuperBrick message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_ReqCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_ReqCrushSuperBrick;
+
+        /**
+         * Verifies a BT_ReqCrushSuperBrick message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_ReqCrushSuperBrick message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_ReqCrushSuperBrick
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_ReqCrushSuperBrick;
+
+        /**
+         * Creates a plain object from a BT_ReqCrushSuperBrick message. Also converts values to other types if specified.
+         * @param message BT_ReqCrushSuperBrick
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_ReqCrushSuperBrick, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_ReqCrushSuperBrick to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_RetCrushSuperBrick. */
+    interface IBT_RetCrushSuperBrick {
+
+        /** BT_RetCrushSuperBrick errmsg */
+        errmsg?: (string|null);
+    }
+
+    /** Represents a BT_RetCrushSuperBrick. */
+    class BT_RetCrushSuperBrick implements IBT_RetCrushSuperBrick {
+
+        /**
+         * Constructs a new BT_RetCrushSuperBrick.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_RetCrushSuperBrick);
+
+        /** BT_RetCrushSuperBrick errmsg. */
+        public errmsg: string;
+
+        /**
+         * Creates a new BT_RetCrushSuperBrick instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_RetCrushSuperBrick instance
+         */
+        public static create(properties?: msg.IBT_RetCrushSuperBrick): msg.BT_RetCrushSuperBrick;
+
+        /**
+         * Encodes the specified BT_RetCrushSuperBrick message. Does not implicitly {@link msg.BT_RetCrushSuperBrick.verify|verify} messages.
+         * @param message BT_RetCrushSuperBrick message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_RetCrushSuperBrick, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_RetCrushSuperBrick message, length delimited. Does not implicitly {@link msg.BT_RetCrushSuperBrick.verify|verify} messages.
+         * @param message BT_RetCrushSuperBrick message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_RetCrushSuperBrick, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_RetCrushSuperBrick message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_RetCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_RetCrushSuperBrick;
+
+        /**
+         * Decodes a BT_RetCrushSuperBrick message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_RetCrushSuperBrick
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_RetCrushSuperBrick;
+
+        /**
+         * Verifies a BT_RetCrushSuperBrick message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_RetCrushSuperBrick message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_RetCrushSuperBrick
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_RetCrushSuperBrick;
+
+        /**
+         * Creates a plain object from a BT_RetCrushSuperBrick message. Also converts values to other types if specified.
+         * @param message BT_RetCrushSuperBrick
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_RetCrushSuperBrick, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_RetCrushSuperBrick to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an EntityBase. */
     interface IEntityBase {
 
