@@ -7,7 +7,6 @@ module game {
 
     export class ObjectPool<T> {
         private _classFactory;
-
         constructor(classFactory: any) {
             this._classFactory = classFactory;
         }
@@ -22,8 +21,7 @@ module game {
             let arr = self._pool;
             if (arr.length > 0) {
                 result = arr.pop();
-            }
-            else {
+            } else {
                 result = new self._classFactory();
             }
             if (result.onCreate) {
