@@ -18,7 +18,7 @@ module game {
     export var _eventAddMin: number = 100;     //前多少金币出现增益
     export var _spaceFire: number = 5000;       //无限火力金币数
     export var _boomUseScore: number = 500;     //炸弹扣除金币数
-    export var _goldSharkCrush: number = 0.01;     //击碎黄金鲨的概率 1=100%
+    export var _goldSharkCrush: number = 1;     //击碎黄金鲨的概率 1=100%
     export var _eventDifferent: number = 0.5;   //出现增益事件的概率 1=100%
     export var _goodBuffPro: number[] = [0.8, 0.2, 0, 0, 0];        //增益事件个数出现概率(总和为1即100%)
     export var _badBuffPro: number[] = [0.35, 0.35, 0.15, 0.10, 0.05];         //减益事件个数出现概率(总和为1即100%)

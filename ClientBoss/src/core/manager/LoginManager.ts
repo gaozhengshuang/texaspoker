@@ -166,7 +166,10 @@ module game {
                         showDialog("登陆失败 " + res.data.msg, "确定", null);
                     }
                 },
-                fail: (res) => console.log("请求失败", res),
+                fail: (res) => {
+                    console.log("请求失败", res);
+                    showTips("网络连接失败");
+                },
                 complete: null
             });
 
