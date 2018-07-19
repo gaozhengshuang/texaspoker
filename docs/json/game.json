@@ -19,6 +19,9 @@
     "BombDeductMoney":500,
 
     "//":"能量值满",
-    "MaxEnergy":250
+    "MaxEnergy":250,
+
+    "//":"超级砖块获得奖励",
+    "SuperBrickReward":3000
 
 }

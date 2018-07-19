@@ -134,4 +134,14 @@ message BT_SynUserRechargeMoney {
     optional uint32 money = 2;       // 增量
 }
 
+// C2R 击中超级砖块
+message BT_ReqCrushSuperBrick {
+    optional uint64 userid = 1;
+}
+
+// C2R 击中超级砖块
+message BT_RetCrushSuperBrick {
+    optional string errmsg = 1;
+}
+
 
