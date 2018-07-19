@@ -1,5 +1,5 @@
 module game {
-    export class BattlePaddle extends BattleBody implements PoolItem {
+    export class BattlePaddle extends BattleBody {
         paddleGroup: eui.Group;
         costLabel: eui.Label;
         cannonImage: eui.Image;

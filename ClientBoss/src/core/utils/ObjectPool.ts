@@ -1,8 +1,8 @@
 module game {
     export interface PoolItem {
         onCreate(),
-
         onDestroy(),
+        onRecycle(),
     }
 
     export class ObjectPool<T> {
@@ -39,6 +39,17 @@ module game {
             this._pool.push(obj);
             if ((<any>obj).onDestroy) {
                 (<any>obj).onDestroy();
+            }
+        }
+
+        public recycleObject(obj: T) {
+            let index = this.list.indexOf(obj);
+            if (index != -1) {
+                this.list.splice(index, 1);
+            }
+            this._pool.push(obj);
+            if ((<any>obj).onRecycle) {
+                (<any>obj).onRecycle();
             }
         }
 
