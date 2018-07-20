@@ -111,7 +111,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.BT_PickItem{})
 	this.msgparser.RegistSendProto(msg.BT_RetLaunchBullet{})
 	this.msgparser.RegistSendProto(msg.BT_RetStepOnBomb{})
-	this.msgparser.RegistSendProto(msg.BT_SynUserRechargeMoney{})
+	//this.msgparser.RegistSendProto(msg.BT_SynUserRechargeMoney{})
 	this.msgparser.RegistSendProto(msg.BT_RetCrushSuperBrick{})
 }
 

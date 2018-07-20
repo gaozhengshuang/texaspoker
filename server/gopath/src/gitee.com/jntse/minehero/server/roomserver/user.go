@@ -542,7 +542,6 @@ func (this *RoomUser) LuckyDraw() {
 		this.SendNotify("金币不足")
 		return
 	}
-	this.RemoveGold(cost, "幸运抽奖", true)
 
 	// 每周一重置
 	curtime := util.CURTIME()
@@ -568,8 +567,10 @@ func (this *RoomUser) LuckyDraw() {
 
 	giftweight := make([]util.WeightOdds, 0)
 	for _, v := range tbl.GiftProBase.TGiftProById {
-		if this.GetDiamondCost() <= int64(v.Limitmin) {
-			if ParseProString(&giftweight, v.Pro) == false { return }
+		if this.GetDiamondCost() >= int64(v.Limitmin) && this.GetDiamondCost() < int64(v.Limitmax) {
+			if ParseProString(&giftweight, v.Pro) == false {
+				return
+			}
 			break
 		}
 	}
@@ -591,6 +592,7 @@ func (this *RoomUser) LuckyDraw() {
 		return
 	}
 
+	this.RemoveGold(cost, "幸运抽奖", true)
 	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
