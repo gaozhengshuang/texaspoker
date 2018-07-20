@@ -53,9 +53,9 @@ message LuckyDrawRecord {
 message UserBase {
     optional uint32     level   = 1;
     optional uint32     exp     = 2;
-    optional uint32     money   = 3;    // 
+    optional uint32     gold    = 3;    // 金币
     optional uint32     coupon  = 4;    // 代金卷
-    optional uint32     yuanbao = 5;    // 元宝
+    optional uint32     diamond = 5;    // 元宝/金币
     optional int64      tmlogin  = 6;   // 登陆时间
     optional int64      tmlogout = 7;   // 离线时间
     optional uint32     continuelogin = 8;  // 连续登陆
