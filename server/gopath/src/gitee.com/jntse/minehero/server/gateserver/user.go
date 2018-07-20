@@ -48,27 +48,27 @@ func (this *RoomBase) Reset() {
 /// @brief db数据管理
 // --------------------------------------------------------------------------
 type DBUserData struct {
-	bin           *msg.Serialize // db二进制数据
-	tm_login      int64
-	tm_logout     int64
-	money         uint32
-	coupon        uint32
-	yuanbao		  uint32
-	level		  uint32
-	exp			  uint32
-	continuelogin uint32
-	nocountlogin  uint32
-	signreward	  uint32
-	signtime	  uint32
-	addrlist	  []*msg.UserAddress
-	freestep	  int32
-	givestep	  int64
-	wechatopenid  string
-	presentcount  int32
-	presentrecord int64
-	invitationcode string
-	luckydraw	  []*msg.LuckyDrawItem
-	luckydrawtotal int64
+	bin           	*msg.Serialize // db二进制数据
+	tm_login      	int64
+	tm_logout     	int64
+	gold		  	uint32
+	diamond			uint32
+	yuanbao			uint32
+	level		  	uint32
+	exp			  	uint32
+	continuelogin 	uint32
+	nocountlogin  	uint32
+	signreward	  	uint32
+	signtime	  	uint32
+	addrlist	  	[]*msg.UserAddress
+	freestep	  	int32
+	givestep	  	int64
+	wechatopenid  	string
+	presentcount  	int32
+	presentrecord 	int64
+	invitationcode 	string
+	luckydraw	  	[]*msg.LuckyDrawItem
+	luckydrawtotal 	int64
 	totalrecharge	uint32		// 总充值
 }
 
@@ -394,8 +394,8 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase := bin.GetBase()
 	userbase.Tmlogin = pb.Int64(this.tm_login)
 	userbase.Tmlogout = pb.Int64(this.tm_logout)
-	userbase.Money = pb.Uint32(this.money)
-	userbase.Coupon = pb.Uint32(this.coupon)
+	userbase.Gold = pb.Uint32(this.gold)
+	userbase.Diamond = pb.Uint32(this.diamond)
 	userbase.Yuanbao = pb.Uint32(this.yuanbao)
 	userbase.Level = pb.Uint32(this.level)
 	userbase.Exp = pb.Uint32(this.exp)
@@ -436,8 +436,8 @@ func (this *GateUser) LoadBin() {
 	userbase := this.bin.GetBase()
 	this.tm_login = userbase.GetTmlogin()
 	this.tm_logout = userbase.GetTmlogout()
-	this.money = userbase.GetMoney()
-	this.coupon = userbase.GetCoupon()
+	this.gold = userbase.GetGold()
+	this.diamond = userbase.GetDiamond()
 	this.yuanbao = userbase.GetYuanbao()
 	this.level = userbase.GetLevel()
 	this.exp  = userbase.GetExp()

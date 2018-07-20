@@ -58,7 +58,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_UseBagItem{}, on_C2GW_UseBagItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
 	this.msgparser.RegistProtoMsg(msg.C2GW_SellBagItem{}, on_C2GW_SellBagItem)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryDiamond{}, on_C2GW_ReqDeliveryDiamond)
+	//this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryDiamond{}, on_C2GW_ReqDeliveryDiamond)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
@@ -70,7 +70,7 @@ func (this* C2GWMsgHandler) Init() {
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
+	//this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
 	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
 	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
@@ -87,14 +87,14 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AddPackageItem{})
 	this.msgparser.RegistSendProto(msg.GW2C_RemovePackageItem{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateYuanbao{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateCoupon{})
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateDiamond{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateGold{})
 	this.msgparser.RegistSendProto(msg.GW2C_Ret7DayReward{})
 	this.msgparser.RegistSendProto(msg.Sync_BigRewardPickNum{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetRechargeMoney{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateFreeStep{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
@@ -330,31 +330,31 @@ func on_C2GW_ReqDeliveryGoods(session network.IBaseNetSession, message interface
 	}
 }
 
-func on_C2GW_ReqDeliveryDiamond(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_ReqDeliveryDiamond)
-
-	//user := ExtractSessionUser(session)
-	//if user == nil {
-	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-	//	session.Close()
-	//	return
-	//}
-
-	//if user.IsOnline() == false {
-	//	log.Error("玩家[%s %d]没有登陆Gate成功", user.Name(), user.Id())
-	//	session.Close()
-	//	return
-	//}
-
-	//// 提钻石
-	//if tbl.Global.IntranetFlag {
-	//	user.SendNotify("本版本暂不可用")
-	//	return
-	//}else {
-	//	event := NewDeliveryGoodsEvent(tmsg.GetList(), tmsg.GetToken(), user.DeliveryDiamond)
-	//	user.AsynEventInsert(event)
-	//}
-}
+//func on_C2GW_ReqDeliveryDiamond(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.C2GW_ReqDeliveryDiamond)
+//
+//	user := ExtractSessionUser(session)
+//	if user == nil {
+//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+//		session.Close()
+//		return
+//	}
+//
+//	if user.IsOnline() == false {
+//		log.Error("玩家[%s %d]没有登陆Gate成功", user.Name(), user.Id())
+//		session.Close()
+//		return
+//	}
+//
+//	// 提钻石
+//	if tbl.Global.IntranetFlag {
+//		user.SendNotify("本版本暂不可用")
+//		return
+//	}else {
+//		event := NewDeliveryGoodsEvent(tmsg.GetList(), tmsg.GetToken(), user.DeliveryDiamond)
+//		user.AsynEventInsert(event)
+//	}
+//}
 
 func on_C2GW_UseBagItem(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_UseBagItem)
@@ -533,16 +533,16 @@ func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message inte
 }
 
 
-func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UpdateMoney)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	user.SendRoomMsg(tmsg)
-}
+//func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.BT_UpdateMoney)
+//	user := ExtractSessionUser(session)
+//	if user == nil {
+//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+//		session.Close()
+//		return
+//	}
+//	user.SendRoomMsg(tmsg)
+//}
 
 func on_BT_ReqLaunchBullet(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_ReqLaunchBullet)

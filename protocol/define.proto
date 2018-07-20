@@ -13,12 +13,12 @@ message IpHost {
 
 // 道具id规则 = 类型 * 1000 + id
 enum ItemId {
-    YuanBao = 6001;         // 元宝/钻石
-    Coupon = 6002;          // 人民币
+    YuanBao = 6001;         // 元宝
+    Diamond = 6002;         // 钻石
     Gold = 6003;            // 金币
     FreeStep = 6005;        // 免费步数
-    Diamond = 10001;        // 红包钻石
-    DiamondParts = 10002;   // 红包钻石碎片
+    RedDiamond = 10001;        // 红包钻石
+    RedDiamondParts = 10002;   // 红包钻石碎片
 }
 
 enum ItemType {
