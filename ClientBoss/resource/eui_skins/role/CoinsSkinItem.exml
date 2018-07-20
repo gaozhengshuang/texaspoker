@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CoinsSkin" width="195" height="55" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="164b1f043f6" ></w:Config>
+	<e:Image source="dreess_01_json.dress_01_30" x="0" y="0" width="195" height="53"/>
+	<e:Label id="num" text="Label" x="81" y="11"/>
+</e:Skin>

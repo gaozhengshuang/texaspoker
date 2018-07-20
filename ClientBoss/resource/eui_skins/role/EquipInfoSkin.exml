@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="EquipInfoSkin" width="220" height="280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*" >
+	<e:Image left="0" right="0" top="0" bottom="0" source="dreess_01_json.dress_01_28" alpha="0.8"/>
+	<e:Group id="stars" width="151" height="26" x="47" y="15" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Image id="star1" width="20" height="20" x="61" y="17" scaleX="1" scaleY="1"/>
+		<e:Image id="star2" width="20" height="20" x="111" y="18"/>
+		<e:Image id="star3" width="20" height="20" x="147" y="18"/>
+		<e:Image id="star4" width="20" height="20" x="19" y="21"/>
+		<e:Image id="star5" width="20" height="20" x="122" y="3"/>
+		<e:layout>
+			<e:HorizontalLayout/>
+		</e:layout>
+	</e:Group>
+	<e:Label id="name" text="翡翠青衫" y="46" horizontalCenter="0"/>
+	<e:Label text="总加成" y="77" horizontalCenter="0"/>
+	<e:Group width="206" height="84" x="5" y="113" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Label text="分数加成" y="0" horizontalCenter="0"/>
+		<e:Label text="6%" x="38" y="42"/>
+		<e:Label text="（+4%）" x="82" y="42"/>
+	</e:Group>
+	<e:Group width="202" height="75" x="7" y="199" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Label text="金币加成" y="3" horizontalCenter="0"/>
+		<e:Label text="88%" x="25" y="39"/>
+		<e:Label text="(+12%)" x="93" y="39"/>
+	</e:Group>
+	
+</e:Skin>
