@@ -25,7 +25,7 @@
 		{ "Id": 7018, "Name": "汽车U盘带音乐", "Desc": "名称:车载mp3汽车U盘带音乐 特征:32g 描述:金色 类型:固定发货", "Sort": 85, "Type": 7, "Sold": 59, "RealPrice": 590 },
 		{ "Id": 7019, "Name": "汽车收纳箱", "Desc": "名称:汽车收纳箱储物箱 特征:40升 描述:PP树脂 类型:固定发货", "Sort": 90, "Type": 7, "Sold": 129, "RealPrice": 1290 },
 		{ "Id": 6001, "Name": "元宝", "Type": 6, "Sold": 0, "RealPrice": 0 },
-		{ "Id": 6002, "Name": "人民币", "Type": 6, "Sold": 0, "RealPrice": 0 },
+		{ "Id": 6002, "Name": "钻石", "Type": 6, "Sold": 0, "RealPrice": 0 },
 		{ "Id": 6003, "Name": "金币", "Type": 6, "Sold": 0, "RealPrice": 0 },
 		{ "Id": 6004, "Name": "作废货币", "Type": 6, "Sold": 0, "RealPrice": 0 },
 		{ "Id": 6005, "Name": "免费次数", "Type": 6, "Sold": 0, "RealPrice": 0 },
