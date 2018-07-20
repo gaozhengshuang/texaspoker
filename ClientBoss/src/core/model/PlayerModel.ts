@@ -2,8 +2,8 @@ module game {
     export class PlayerModel extends BaseModel {
         static MUSIC_CHANGE = "PlayerModel_MUSIC_CHANGE";
         static SOUND_CHANGE = "PlayerModel_SOUND_CHANGE";
-        static GOLD_UPDATE = "PlayerModel_GOLD_UPDATE";
         static SCORE_UPDATE = "PlayerModel_SCORE_UPDATE";
+        static DIAMOND_UPDATE = "PlayerModel_DIAMOND_UPDATE";
         static ADD_OR_USE_GOLD = "PlayerModel_ADD_OR_USE_GOLD";
         static GOLD_NOT_ENOUGH = "PlayerModel_GOLD_NOT_ENOUGH";
         static PENETRATION_UPDATE = "PlayerModel_PENETRATION_UPDATE";
@@ -12,8 +12,7 @@ module game {
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
 
         public penetration: number = 0;
-        private _gold: number = 50;
-        public userInfo: IUserInfo = {face: "1", name: "", userid: 0, rank: 0, money: 0, openid: "", addrlist: []};
+        public userInfo: IUserInfo = {face: "1", name: "", userid: 0, rank: 0, gold:0, diamond: 0, openid: "", addrlist: []};
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
         public totalMoney: number|Long = 0;
@@ -23,17 +22,19 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SendWechatInfo, "msg.GW2C_SendWechatInfo")
             NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
+            NotificationCenter.addObserver(this, this.OnGW2C_UpdateDiamond, "msg.GW2C_UpdateDiamond");
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_RemovePackageItem, "msg.GW2C_RemovePackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_FreePresentNotify, "msg.GW2C_FreePresentNotify");
             NotificationCenter.addObserver(this, this.OnGW2C_SendLuckyDrawRecord, "msg.GW2C_SendLuckyDrawRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
-            NotificationCenter.addObserver(this, this.OnBT_SynUserRechargeMoney, "msg.BT_SynUserRechargeMoney");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
-            this.userInfo.money = data.base.money;
+            this.userInfo.gold = data.base.gold;
+            this.userInfo.diamond = data.base.diamond;
             this.userInfo.name = data.entity.name;
             this.userInfo.userid = data.entity.id;
             this.userInfo.openid = data.base.wechat.openid;
@@ -54,9 +55,11 @@ module game {
         }
 
         private OnGW2C_UpdateGold(data: msg.GW2C_UpdateGold) {
-            this.userInfo.money = data.num;
             this.setScore(data.num);
-            // console.log("同步金币" , data);
+        }
+
+        private OnGW2C_UpdateDiamond(data: msg.GW2C_UpdateDiamond) {
+            this.setDiamond(data.num);
         }
 
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
@@ -82,56 +85,39 @@ module game {
             this.userInfo.addrlist = data.list;
         }
 
-        private OnBT_SynUserRechargeMoney(data: msg.BT_SynUserRechargeMoney) {
-            this.incScore(<number>data.money);
+        private OnGW2C_RetGoldExchange(data: msg.GW2C_RetGoldExchange) {
+            this.addScore(data.gold);
         }
 
         public setScore(count: number) {
-            this.userInfo.money = count;
-            this.postNotification(PlayerModel.SCORE_UPDATE);
-        }
-
-        public incScore(count: number) {
-            this.userInfo.money += count;
+            this.userInfo.gold = count;
             this.postNotification(PlayerModel.SCORE_UPDATE);
         }
 
         public getScore() {
-            return this.userInfo.money;
+            return this.userInfo.gold;
         }
 
         public useScore(count: number) {
-            this.userInfo.money -= count;
-            if (this.userInfo.money < 0) {
-                this.userInfo.money = 0;
+            this.userInfo.gold -= count;
+            if (this.userInfo.gold < 0) {
+                this.userInfo.gold = 0;
             }
             this.postNotification(PlayerModel.SCORE_UPDATE);
         }
 
         public addScore(count: number) {
-            this.userInfo.money += count;
+            this.userInfo.gold += count;
             this.postNotification(PlayerModel.SCORE_UPDATE);
         }
 
-        public getGold() {
-            return this._gold;
+        public setDiamond(count: number) {
+            this.userInfo.diamond = count;
+            this.postNotification(PlayerModel.DIAMOND_UPDATE);
         }
 
-        public useGold(count: number, reason: Array<egret.ITextElement> = null) {
-            this._gold -= count;
-            if (this._gold < 0) {
-                this._gold = 0;
-            }
-            this.postNotification(PlayerModel.GOLD_UPDATE);
-            if (reason)
-                this.postNotification(PlayerModel.ADD_OR_USE_GOLD, reason);
-        }
-
-        public addGold(count: number, reason: Array<egret.ITextElement> = null) {
-            this._gold += count;
-            this.postNotification(PlayerModel.GOLD_UPDATE);
-            if (reason)
-                this.postNotification(PlayerModel.ADD_OR_USE_GOLD, reason);
+        public getDiamond() {
+            return this.userInfo.diamond;
         }
 
         public addBag(itemId: number, itemNum: number) {
@@ -280,7 +266,7 @@ module game {
             this.userInfo.name = info.name;
             this.userInfo.face = info.face;
             this.userInfo.rank = info.rank;
-            this.userInfo.money = info.score;
+            this.userInfo.gold = info.score;
             this.postNotification(PlayerModel.TOP_UPDATE);
         }
 

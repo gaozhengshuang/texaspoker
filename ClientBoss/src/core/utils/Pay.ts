@@ -243,7 +243,7 @@ module Pay {
      *  730,780,880,980,1080,1180,1280,1480,1680,1880,
      *  1980,3280,6480
      */
-    export function midasPay(cnt: number = 10, fnSuccess = null, fnFail = null) {
+    export function midasPay(cnt: number = 100, fnSuccess = null, fnFail = null) {
         wx.requestMidasPayment({
             mode: "game",
             env: 1, // 沙箱

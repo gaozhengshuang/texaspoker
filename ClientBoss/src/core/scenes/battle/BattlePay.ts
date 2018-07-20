@@ -33,12 +33,12 @@ module game {
             this.startButton && (this.startButton.icon = "ui_json.b-recharge");
 
             let testGifts = [
-                { rmb: 6, gold: 60 },
-                { rmb: 30, gold: 300 },
-                { rmb: 98, gold: 980 },
-                { rmb: 128, gold: 2380 },
-                { rmb: 328, gold: 3280 },
-                { rmb: 648, gold: 6480 },
+                { rmb: 6, gold: 600 },
+                { rmb: 30, gold: 3000 },
+                { rmb: 98, gold: 9800 },
+                { rmb: 128, gold: 23800 },
+                { rmb: 328, gold: 32800 },
+                { rmb: 648, gold: 64800 },
             ]
             let goldCnt = 0;
             this.setGift(testGifts);

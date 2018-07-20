@@ -493,252 +493,6 @@ $root.msg = (function() {
         return AccountGateInfo;
     })();
 
-    msg.BattleUser = (function() {
-
-        /**
-         * Properties of a BattleUser.
-         * @memberof msg
-         * @interface IBattleUser
-         * @property {number|Long|null} [userid] BattleUser userid
-         * @property {number|null} [gold] BattleUser gold
-         * @property {number|null} [stepindex] BattleUser stepindex
-         */
-
-        /**
-         * Constructs a new BattleUser.
-         * @memberof msg
-         * @classdesc Represents a BattleUser.
-         * @implements IBattleUser
-         * @constructor
-         * @param {msg.IBattleUser=} [properties] Properties to set
-         */
-        function BattleUser(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * BattleUser userid.
-         * @member {number|Long} userid
-         * @memberof msg.BattleUser
-         * @instance
-         */
-        BattleUser.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * BattleUser gold.
-         * @member {number} gold
-         * @memberof msg.BattleUser
-         * @instance
-         */
-        BattleUser.prototype.gold = 0;
-
-        /**
-         * BattleUser stepindex.
-         * @member {number} stepindex
-         * @memberof msg.BattleUser
-         * @instance
-         */
-        BattleUser.prototype.stepindex = 0;
-
-        /**
-         * Creates a new BattleUser instance using the specified properties.
-         * @function create
-         * @memberof msg.BattleUser
-         * @static
-         * @param {msg.IBattleUser=} [properties] Properties to set
-         * @returns {msg.BattleUser} BattleUser instance
-         */
-        BattleUser.create = function create(properties) {
-            return new BattleUser(properties);
-        };
-
-        /**
-         * Encodes the specified BattleUser message. Does not implicitly {@link msg.BattleUser.verify|verify} messages.
-         * @function encode
-         * @memberof msg.BattleUser
-         * @static
-         * @param {msg.IBattleUser} message BattleUser message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        BattleUser.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
-            if (message.gold != null && message.hasOwnProperty("gold"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.gold);
-            if (message.stepindex != null && message.hasOwnProperty("stepindex"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.stepindex);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified BattleUser message, length delimited. Does not implicitly {@link msg.BattleUser.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.BattleUser
-         * @static
-         * @param {msg.IBattleUser} message BattleUser message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        BattleUser.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a BattleUser message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.BattleUser
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.BattleUser} BattleUser
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        BattleUser.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BattleUser();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.userid = reader.uint64();
-                    break;
-                case 2:
-                    message.gold = reader.int32();
-                    break;
-                case 3:
-                    message.stepindex = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a BattleUser message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.BattleUser
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.BattleUser} BattleUser
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        BattleUser.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a BattleUser message.
-         * @function verify
-         * @memberof msg.BattleUser
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        BattleUser.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
-                    return "userid: integer|Long expected";
-            if (message.gold != null && message.hasOwnProperty("gold"))
-                if (!$util.isInteger(message.gold))
-                    return "gold: integer expected";
-            if (message.stepindex != null && message.hasOwnProperty("stepindex"))
-                if (!$util.isInteger(message.stepindex))
-                    return "stepindex: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a BattleUser message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.BattleUser
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.BattleUser} BattleUser
-         */
-        BattleUser.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.BattleUser)
-                return object;
-            var message = new $root.msg.BattleUser();
-            if (object.userid != null)
-                if ($util.Long)
-                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
-                else if (typeof object.userid === "string")
-                    message.userid = parseInt(object.userid, 10);
-                else if (typeof object.userid === "number")
-                    message.userid = object.userid;
-                else if (typeof object.userid === "object")
-                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
-            if (object.gold != null)
-                message.gold = object.gold | 0;
-            if (object.stepindex != null)
-                message.stepindex = object.stepindex | 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a BattleUser message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.BattleUser
-         * @static
-         * @param {msg.BattleUser} message BattleUser
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        BattleUser.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.userid = options.longs === String ? "0" : 0;
-                object.gold = 0;
-                object.stepindex = 0;
-            }
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (typeof message.userid === "number")
-                    object.userid = options.longs === String ? String(message.userid) : message.userid;
-                else
-                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
-            if (message.gold != null && message.hasOwnProperty("gold"))
-                object.gold = message.gold;
-            if (message.stepindex != null && message.hasOwnProperty("stepindex"))
-                object.stepindex = message.stepindex;
-            return object;
-        };
-
-        /**
-         * Converts this BattleUser to JSON.
-         * @function toJSON
-         * @memberof msg.BattleUser
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        BattleUser.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return BattleUser;
-    })();
-
     msg.GridItem = (function() {
 
         /**
@@ -1513,7 +1267,8 @@ $root.msg = (function() {
          * @property {number|Long|null} [roomid] BT_GameInit roomid
          * @property {number|Long|null} [ownerid] BT_GameInit ownerid
          * @property {number|null} [gamekind] BT_GameInit gamekind
-         * @property {number|null} [money] BT_GameInit money
+         * @property {number|null} [diamond] BT_GameInit diamond
+         * @property {number|null} [gold] BT_GameInit gold
          */
 
         /**
@@ -1556,12 +1311,20 @@ $root.msg = (function() {
         BT_GameInit.prototype.gamekind = 0;
 
         /**
-         * BT_GameInit money.
-         * @member {number} money
+         * BT_GameInit diamond.
+         * @member {number} diamond
          * @memberof msg.BT_GameInit
          * @instance
          */
-        BT_GameInit.prototype.money = 0;
+        BT_GameInit.prototype.diamond = 0;
+
+        /**
+         * BT_GameInit gold.
+         * @member {number} gold
+         * @memberof msg.BT_GameInit
+         * @instance
+         */
+        BT_GameInit.prototype.gold = 0;
 
         /**
          * Creates a new BT_GameInit instance using the specified properties.
@@ -1593,8 +1356,10 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.ownerid);
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 writer.uint32(/* id 3, wireType 0 =*/24).int32(message.gamekind);
-            if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.money);
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.diamond);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.gold);
             return writer;
         };
 
@@ -1639,7 +1404,10 @@ $root.msg = (function() {
                     message.gamekind = reader.int32();
                     break;
                 case 4:
-                    message.money = reader.uint32();
+                    message.diamond = reader.uint32();
+                    break;
+                case 5:
+                    message.gold = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1685,9 +1453,12 @@ $root.msg = (function() {
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 if (!$util.isInteger(message.gamekind))
                     return "gamekind: integer expected";
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money))
-                    return "money: integer expected";
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                if (!$util.isInteger(message.diamond))
+                    return "diamond: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
             return null;
         };
 
@@ -1723,8 +1494,10 @@ $root.msg = (function() {
                     message.ownerid = new $util.LongBits(object.ownerid.low >>> 0, object.ownerid.high >>> 0).toNumber(true);
             if (object.gamekind != null)
                 message.gamekind = object.gamekind | 0;
-            if (object.money != null)
-                message.money = object.money >>> 0;
+            if (object.diamond != null)
+                message.diamond = object.diamond >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
             return message;
         };
 
@@ -1753,7 +1526,8 @@ $root.msg = (function() {
                 } else
                     object.ownerid = options.longs === String ? "0" : 0;
                 object.gamekind = 0;
-                object.money = 0;
+                object.diamond = 0;
+                object.gold = 0;
             }
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
@@ -1767,8 +1541,10 @@ $root.msg = (function() {
                     object.ownerid = options.longs === String ? $util.Long.prototype.toString.call(message.ownerid) : options.longs === Number ? new $util.LongBits(message.ownerid.low >>> 0, message.ownerid.high >>> 0).toNumber(true) : message.ownerid;
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 object.gamekind = message.gamekind;
-            if (message.money != null && message.hasOwnProperty("money"))
-                object.money = message.money;
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                object.diamond = message.diamond;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
             return object;
         };
 
@@ -2520,7 +2296,7 @@ $root.msg = (function() {
          * @interface IBT_ReqQuitGameRoom
          * @property {number|Long|null} [roomid] BT_ReqQuitGameRoom roomid
          * @property {number|Long|null} [userid] BT_ReqQuitGameRoom userid
-         * @property {number|null} [money] BT_ReqQuitGameRoom money
+         * @property {number|null} [gold] BT_ReqQuitGameRoom gold
          */
 
         /**
@@ -2555,12 +2331,12 @@ $root.msg = (function() {
         BT_ReqQuitGameRoom.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
-         * BT_ReqQuitGameRoom money.
-         * @member {number} money
+         * BT_ReqQuitGameRoom gold.
+         * @member {number} gold
          * @memberof msg.BT_ReqQuitGameRoom
          * @instance
          */
-        BT_ReqQuitGameRoom.prototype.money = 0;
+        BT_ReqQuitGameRoom.prototype.gold = 0;
 
         /**
          * Creates a new BT_ReqQuitGameRoom instance using the specified properties.
@@ -2590,8 +2366,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roomid);
             if (message.userid != null && message.hasOwnProperty("userid"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.userid);
-            if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.money);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
             return writer;
         };
 
@@ -2633,7 +2409,7 @@ $root.msg = (function() {
                     message.userid = reader.uint64();
                     break;
                 case 3:
-                    message.money = reader.uint32();
+                    message.gold = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2676,9 +2452,9 @@ $root.msg = (function() {
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
                     return "userid: integer|Long expected";
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money))
-                    return "money: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
             return null;
         };
 
@@ -2712,8 +2488,8 @@ $root.msg = (function() {
                     message.userid = object.userid;
                 else if (typeof object.userid === "object")
                     message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
-            if (object.money != null)
-                message.money = object.money >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
             return message;
         };
 
@@ -2741,7 +2517,7 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.userid = options.longs === String ? "0" : 0;
-                object.money = 0;
+                object.gold = 0;
             }
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
@@ -2753,8 +2529,8 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? String(message.userid) : message.userid;
                 else
                     object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
-            if (message.money != null && message.hasOwnProperty("money"))
-                object.money = message.money;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
             return object;
         };
 
@@ -2999,280 +2775,6 @@ $root.msg = (function() {
         };
 
         return BT_PickItem;
-    })();
-
-    msg.BT_UpdateMoney = (function() {
-
-        /**
-         * Properties of a BT_UpdateMoney.
-         * @memberof msg
-         * @interface IBT_UpdateMoney
-         * @property {number|Long|null} [userid] BT_UpdateMoney userid
-         * @property {number|Long|null} [roomid] BT_UpdateMoney roomid
-         * @property {number|Long|null} [money] BT_UpdateMoney money
-         */
-
-        /**
-         * Constructs a new BT_UpdateMoney.
-         * @memberof msg
-         * @classdesc Represents a BT_UpdateMoney.
-         * @implements IBT_UpdateMoney
-         * @constructor
-         * @param {msg.IBT_UpdateMoney=} [properties] Properties to set
-         */
-        function BT_UpdateMoney(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * BT_UpdateMoney userid.
-         * @member {number|Long} userid
-         * @memberof msg.BT_UpdateMoney
-         * @instance
-         */
-        BT_UpdateMoney.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * BT_UpdateMoney roomid.
-         * @member {number|Long} roomid
-         * @memberof msg.BT_UpdateMoney
-         * @instance
-         */
-        BT_UpdateMoney.prototype.roomid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * BT_UpdateMoney money.
-         * @member {number|Long} money
-         * @memberof msg.BT_UpdateMoney
-         * @instance
-         */
-        BT_UpdateMoney.prototype.money = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * Creates a new BT_UpdateMoney instance using the specified properties.
-         * @function create
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {msg.IBT_UpdateMoney=} [properties] Properties to set
-         * @returns {msg.BT_UpdateMoney} BT_UpdateMoney instance
-         */
-        BT_UpdateMoney.create = function create(properties) {
-            return new BT_UpdateMoney(properties);
-        };
-
-        /**
-         * Encodes the specified BT_UpdateMoney message. Does not implicitly {@link msg.BT_UpdateMoney.verify|verify} messages.
-         * @function encode
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {msg.IBT_UpdateMoney} message BT_UpdateMoney message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        BT_UpdateMoney.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.roomid);
-            if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.money);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified BT_UpdateMoney message, length delimited. Does not implicitly {@link msg.BT_UpdateMoney.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {msg.IBT_UpdateMoney} message BT_UpdateMoney message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        BT_UpdateMoney.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a BT_UpdateMoney message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.BT_UpdateMoney} BT_UpdateMoney
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        BT_UpdateMoney.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_UpdateMoney();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.userid = reader.uint64();
-                    break;
-                case 2:
-                    message.roomid = reader.int64();
-                    break;
-                case 3:
-                    message.money = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a BT_UpdateMoney message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.BT_UpdateMoney} BT_UpdateMoney
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        BT_UpdateMoney.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a BT_UpdateMoney message.
-         * @function verify
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        BT_UpdateMoney.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
-                    return "userid: integer|Long expected";
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (!$util.isInteger(message.roomid) && !(message.roomid && $util.isInteger(message.roomid.low) && $util.isInteger(message.roomid.high)))
-                    return "roomid: integer|Long expected";
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money) && !(message.money && $util.isInteger(message.money.low) && $util.isInteger(message.money.high)))
-                    return "money: integer|Long expected";
-            return null;
-        };
-
-        /**
-         * Creates a BT_UpdateMoney message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.BT_UpdateMoney} BT_UpdateMoney
-         */
-        BT_UpdateMoney.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.BT_UpdateMoney)
-                return object;
-            var message = new $root.msg.BT_UpdateMoney();
-            if (object.userid != null)
-                if ($util.Long)
-                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
-                else if (typeof object.userid === "string")
-                    message.userid = parseInt(object.userid, 10);
-                else if (typeof object.userid === "number")
-                    message.userid = object.userid;
-                else if (typeof object.userid === "object")
-                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
-            if (object.roomid != null)
-                if ($util.Long)
-                    (message.roomid = $util.Long.fromValue(object.roomid)).unsigned = false;
-                else if (typeof object.roomid === "string")
-                    message.roomid = parseInt(object.roomid, 10);
-                else if (typeof object.roomid === "number")
-                    message.roomid = object.roomid;
-                else if (typeof object.roomid === "object")
-                    message.roomid = new $util.LongBits(object.roomid.low >>> 0, object.roomid.high >>> 0).toNumber();
-            if (object.money != null)
-                if ($util.Long)
-                    (message.money = $util.Long.fromValue(object.money)).unsigned = true;
-                else if (typeof object.money === "string")
-                    message.money = parseInt(object.money, 10);
-                else if (typeof object.money === "number")
-                    message.money = object.money;
-                else if (typeof object.money === "object")
-                    message.money = new $util.LongBits(object.money.low >>> 0, object.money.high >>> 0).toNumber(true);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a BT_UpdateMoney message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.BT_UpdateMoney
-         * @static
-         * @param {msg.BT_UpdateMoney} message BT_UpdateMoney
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        BT_UpdateMoney.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.userid = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.roomid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.roomid = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.money = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.money = options.longs === String ? "0" : 0;
-            }
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (typeof message.userid === "number")
-                    object.userid = options.longs === String ? String(message.userid) : message.userid;
-                else
-                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (typeof message.roomid === "number")
-                    object.roomid = options.longs === String ? String(message.roomid) : message.roomid;
-                else
-                    object.roomid = options.longs === String ? $util.Long.prototype.toString.call(message.roomid) : options.longs === Number ? new $util.LongBits(message.roomid.low >>> 0, message.roomid.high >>> 0).toNumber() : message.roomid;
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (typeof message.money === "number")
-                    object.money = options.longs === String ? String(message.money) : message.money;
-                else
-                    object.money = options.longs === String ? $util.Long.prototype.toString.call(message.money) : options.longs === Number ? new $util.LongBits(message.money.low >>> 0, message.money.high >>> 0).toNumber(true) : message.money;
-            return object;
-        };
-
-        /**
-         * Converts this BT_UpdateMoney to JSON.
-         * @function toJSON
-         * @memberof msg.BT_UpdateMoney
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        BT_UpdateMoney.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return BT_UpdateMoney;
     })();
 
     msg.BT_ReqLaunchBullet = (function() {
@@ -4105,7 +3607,7 @@ $root.msg = (function() {
          * @interface IBT_BulletEarnMoney
          * @property {number|Long|null} [userid] BT_BulletEarnMoney userid
          * @property {number|Long|null} [bulletid] BT_BulletEarnMoney bulletid
-         * @property {number|null} [money] BT_BulletEarnMoney money
+         * @property {number|null} [gold] BT_BulletEarnMoney gold
          */
 
         /**
@@ -4140,12 +3642,12 @@ $root.msg = (function() {
         BT_BulletEarnMoney.prototype.bulletid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * BT_BulletEarnMoney money.
-         * @member {number} money
+         * BT_BulletEarnMoney gold.
+         * @member {number} gold
          * @memberof msg.BT_BulletEarnMoney
          * @instance
          */
-        BT_BulletEarnMoney.prototype.money = 0;
+        BT_BulletEarnMoney.prototype.gold = 0;
 
         /**
          * Creates a new BT_BulletEarnMoney instance using the specified properties.
@@ -4175,8 +3677,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
             if (message.bulletid != null && message.hasOwnProperty("bulletid"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int64(message.bulletid);
-            if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.money);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
             return writer;
         };
 
@@ -4218,7 +3720,7 @@ $root.msg = (function() {
                     message.bulletid = reader.int64();
                     break;
                 case 3:
-                    message.money = reader.uint32();
+                    message.gold = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4261,9 +3763,9 @@ $root.msg = (function() {
             if (message.bulletid != null && message.hasOwnProperty("bulletid"))
                 if (!$util.isInteger(message.bulletid) && !(message.bulletid && $util.isInteger(message.bulletid.low) && $util.isInteger(message.bulletid.high)))
                     return "bulletid: integer|Long expected";
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money))
-                    return "money: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
             return null;
         };
 
@@ -4297,8 +3799,8 @@ $root.msg = (function() {
                     message.bulletid = object.bulletid;
                 else if (typeof object.bulletid === "object")
                     message.bulletid = new $util.LongBits(object.bulletid.low >>> 0, object.bulletid.high >>> 0).toNumber();
-            if (object.money != null)
-                message.money = object.money >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
             return message;
         };
 
@@ -4326,7 +3828,7 @@ $root.msg = (function() {
                     object.bulletid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.bulletid = options.longs === String ? "0" : 0;
-                object.money = 0;
+                object.gold = 0;
             }
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
@@ -4338,8 +3840,8 @@ $root.msg = (function() {
                     object.bulletid = options.longs === String ? String(message.bulletid) : message.bulletid;
                 else
                     object.bulletid = options.longs === String ? $util.Long.prototype.toString.call(message.bulletid) : options.longs === Number ? new $util.LongBits(message.bulletid.low >>> 0, message.bulletid.high >>> 0).toNumber() : message.bulletid;
-            if (message.money != null && message.hasOwnProperty("money"))
-                object.money = message.money;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
             return object;
         };
 
@@ -4364,7 +3866,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IBT_UseUltimateSkil
          * @property {number|Long|null} [userid] BT_UseUltimateSkil userid
-         * @property {number|null} [money] BT_UseUltimateSkil money
+         * @property {number|null} [gold] BT_UseUltimateSkil gold
          */
 
         /**
@@ -4391,12 +3893,12 @@ $root.msg = (function() {
         BT_UseUltimateSkil.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
-         * BT_UseUltimateSkil money.
-         * @member {number} money
+         * BT_UseUltimateSkil gold.
+         * @member {number} gold
          * @memberof msg.BT_UseUltimateSkil
          * @instance
          */
-        BT_UseUltimateSkil.prototype.money = 0;
+        BT_UseUltimateSkil.prototype.gold = 0;
 
         /**
          * Creates a new BT_UseUltimateSkil instance using the specified properties.
@@ -4424,8 +3926,8 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.userid != null && message.hasOwnProperty("userid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
-            if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.money);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.gold);
             return writer;
         };
 
@@ -4464,7 +3966,7 @@ $root.msg = (function() {
                     message.userid = reader.uint64();
                     break;
                 case 2:
-                    message.money = reader.uint32();
+                    message.gold = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4504,9 +4006,9 @@ $root.msg = (function() {
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
                     return "userid: integer|Long expected";
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money))
-                    return "money: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
             return null;
         };
 
@@ -4531,8 +4033,8 @@ $root.msg = (function() {
                     message.userid = object.userid;
                 else if (typeof object.userid === "object")
                     message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
-            if (object.money != null)
-                message.money = object.money >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
             return message;
         };
 
@@ -4555,15 +4057,15 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.userid = options.longs === String ? "0" : 0;
-                object.money = 0;
+                object.gold = 0;
             }
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
                     object.userid = options.longs === String ? String(message.userid) : message.userid;
                 else
                     object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
-            if (message.money != null && message.hasOwnProperty("money"))
-                object.money = message.money;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
             return object;
         };
 
@@ -4579,230 +4081,6 @@ $root.msg = (function() {
         };
 
         return BT_UseUltimateSkil;
-    })();
-
-    msg.BT_SynUserRechargeMoney = (function() {
-
-        /**
-         * Properties of a BT_SynUserRechargeMoney.
-         * @memberof msg
-         * @interface IBT_SynUserRechargeMoney
-         * @property {number|Long|null} [userid] BT_SynUserRechargeMoney userid
-         * @property {number|null} [money] BT_SynUserRechargeMoney money
-         */
-
-        /**
-         * Constructs a new BT_SynUserRechargeMoney.
-         * @memberof msg
-         * @classdesc Represents a BT_SynUserRechargeMoney.
-         * @implements IBT_SynUserRechargeMoney
-         * @constructor
-         * @param {msg.IBT_SynUserRechargeMoney=} [properties] Properties to set
-         */
-        function BT_SynUserRechargeMoney(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * BT_SynUserRechargeMoney userid.
-         * @member {number|Long} userid
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @instance
-         */
-        BT_SynUserRechargeMoney.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * BT_SynUserRechargeMoney money.
-         * @member {number} money
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @instance
-         */
-        BT_SynUserRechargeMoney.prototype.money = 0;
-
-        /**
-         * Creates a new BT_SynUserRechargeMoney instance using the specified properties.
-         * @function create
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {msg.IBT_SynUserRechargeMoney=} [properties] Properties to set
-         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney instance
-         */
-        BT_SynUserRechargeMoney.create = function create(properties) {
-            return new BT_SynUserRechargeMoney(properties);
-        };
-
-        /**
-         * Encodes the specified BT_SynUserRechargeMoney message. Does not implicitly {@link msg.BT_SynUserRechargeMoney.verify|verify} messages.
-         * @function encode
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {msg.IBT_SynUserRechargeMoney} message BT_SynUserRechargeMoney message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        BT_SynUserRechargeMoney.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
-            if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.money);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified BT_SynUserRechargeMoney message, length delimited. Does not implicitly {@link msg.BT_SynUserRechargeMoney.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {msg.IBT_SynUserRechargeMoney} message BT_SynUserRechargeMoney message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        BT_SynUserRechargeMoney.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a BT_SynUserRechargeMoney message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        BT_SynUserRechargeMoney.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.BT_SynUserRechargeMoney();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.userid = reader.uint64();
-                    break;
-                case 2:
-                    message.money = reader.uint32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a BT_SynUserRechargeMoney message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        BT_SynUserRechargeMoney.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a BT_SynUserRechargeMoney message.
-         * @function verify
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        BT_SynUserRechargeMoney.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
-                    return "userid: integer|Long expected";
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money))
-                    return "money: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a BT_SynUserRechargeMoney message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.BT_SynUserRechargeMoney} BT_SynUserRechargeMoney
-         */
-        BT_SynUserRechargeMoney.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.BT_SynUserRechargeMoney)
-                return object;
-            var message = new $root.msg.BT_SynUserRechargeMoney();
-            if (object.userid != null)
-                if ($util.Long)
-                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
-                else if (typeof object.userid === "string")
-                    message.userid = parseInt(object.userid, 10);
-                else if (typeof object.userid === "number")
-                    message.userid = object.userid;
-                else if (typeof object.userid === "object")
-                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
-            if (object.money != null)
-                message.money = object.money >>> 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a BT_SynUserRechargeMoney message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @static
-         * @param {msg.BT_SynUserRechargeMoney} message BT_SynUserRechargeMoney
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        BT_SynUserRechargeMoney.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.userid = options.longs === String ? "0" : 0;
-                object.money = 0;
-            }
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (typeof message.userid === "number")
-                    object.userid = options.longs === String ? String(message.userid) : message.userid;
-                else
-                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
-            if (message.money != null && message.hasOwnProperty("money"))
-                object.money = message.money;
-            return object;
-        };
-
-        /**
-         * Converts this BT_SynUserRechargeMoney to JSON.
-         * @function toJSON
-         * @memberof msg.BT_SynUserRechargeMoney
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        BT_SynUserRechargeMoney.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return BT_SynUserRechargeMoney;
     })();
 
     msg.BT_ReqCrushSuperBrick = (function() {
@@ -7151,8 +6429,8 @@ $root.msg = (function() {
          * @interface IUserBase
          * @property {number|null} [level] UserBase level
          * @property {number|null} [exp] UserBase exp
-         * @property {number|null} [money] UserBase money
-         * @property {number|null} [coupon] UserBase coupon
+         * @property {number|null} [gold] UserBase gold
+         * @property {number|null} [diamond] UserBase diamond
          * @property {number|null} [yuanbao] UserBase yuanbao
          * @property {number|Long|null} [tmlogin] UserBase tmlogin
          * @property {number|Long|null} [tmlogout] UserBase tmlogout
@@ -7203,20 +6481,20 @@ $root.msg = (function() {
         UserBase.prototype.exp = 0;
 
         /**
-         * UserBase money.
-         * @member {number} money
+         * UserBase gold.
+         * @member {number} gold
          * @memberof msg.UserBase
          * @instance
          */
-        UserBase.prototype.money = 0;
+        UserBase.prototype.gold = 0;
 
         /**
-         * UserBase coupon.
-         * @member {number} coupon
+         * UserBase diamond.
+         * @member {number} diamond
          * @memberof msg.UserBase
          * @instance
          */
-        UserBase.prototype.coupon = 0;
+        UserBase.prototype.diamond = 0;
 
         /**
          * UserBase yuanbao.
@@ -7366,10 +6644,10 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.level);
             if (message.exp != null && message.hasOwnProperty("exp"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.exp);
-            if (message.money != null && message.hasOwnProperty("money"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.money);
-            if (message.coupon != null && message.hasOwnProperty("coupon"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.coupon);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.diamond);
             if (message.yuanbao != null && message.hasOwnProperty("yuanbao"))
                 writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.yuanbao);
             if (message.tmlogin != null && message.hasOwnProperty("tmlogin"))
@@ -7442,10 +6720,10 @@ $root.msg = (function() {
                     message.exp = reader.uint32();
                     break;
                 case 3:
-                    message.money = reader.uint32();
+                    message.gold = reader.uint32();
                     break;
                 case 4:
-                    message.coupon = reader.uint32();
+                    message.diamond = reader.uint32();
                     break;
                 case 5:
                     message.yuanbao = reader.uint32();
@@ -7535,12 +6813,12 @@ $root.msg = (function() {
             if (message.exp != null && message.hasOwnProperty("exp"))
                 if (!$util.isInteger(message.exp))
                     return "exp: integer expected";
-            if (message.money != null && message.hasOwnProperty("money"))
-                if (!$util.isInteger(message.money))
-                    return "money: integer expected";
-            if (message.coupon != null && message.hasOwnProperty("coupon"))
-                if (!$util.isInteger(message.coupon))
-                    return "coupon: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                if (!$util.isInteger(message.diamond))
+                    return "diamond: integer expected";
             if (message.yuanbao != null && message.hasOwnProperty("yuanbao"))
                 if (!$util.isInteger(message.yuanbao))
                     return "yuanbao: integer expected";
@@ -7621,10 +6899,10 @@ $root.msg = (function() {
                 message.level = object.level >>> 0;
             if (object.exp != null)
                 message.exp = object.exp >>> 0;
-            if (object.money != null)
-                message.money = object.money >>> 0;
-            if (object.coupon != null)
-                message.coupon = object.coupon >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
+            if (object.diamond != null)
+                message.diamond = object.diamond >>> 0;
             if (object.yuanbao != null)
                 message.yuanbao = object.yuanbao >>> 0;
             if (object.tmlogin != null)
@@ -7713,8 +6991,8 @@ $root.msg = (function() {
             if (options.defaults) {
                 object.level = 0;
                 object.exp = 0;
-                object.money = 0;
-                object.coupon = 0;
+                object.gold = 0;
+                object.diamond = 0;
                 object.yuanbao = 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
@@ -7742,10 +7020,10 @@ $root.msg = (function() {
                 object.level = message.level;
             if (message.exp != null && message.hasOwnProperty("exp"))
                 object.exp = message.exp;
-            if (message.money != null && message.hasOwnProperty("money"))
-                object.money = message.money;
-            if (message.coupon != null && message.hasOwnProperty("coupon"))
-                object.coupon = message.coupon;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                object.diamond = message.diamond;
             if (message.yuanbao != null && message.hasOwnProperty("yuanbao"))
                 object.yuanbao = message.yuanbao;
             if (message.tmlogin != null && message.hasOwnProperty("tmlogin"))
@@ -11109,6 +10387,417 @@ $root.msg = (function() {
         return C2GW_SendWechatAuthCode;
     })();
 
+    msg.C2GW_GoldExchange = (function() {
+
+        /**
+         * Properties of a C2GW_GoldExchange.
+         * @memberof msg
+         * @interface IC2GW_GoldExchange
+         * @property {number|Long|null} [userid] C2GW_GoldExchange userid
+         * @property {number|null} [diamonds] C2GW_GoldExchange diamonds
+         */
+
+        /**
+         * Constructs a new C2GW_GoldExchange.
+         * @memberof msg
+         * @classdesc Represents a C2GW_GoldExchange.
+         * @implements IC2GW_GoldExchange
+         * @constructor
+         * @param {msg.IC2GW_GoldExchange=} [properties] Properties to set
+         */
+        function C2GW_GoldExchange(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_GoldExchange userid.
+         * @member {number|Long} userid
+         * @memberof msg.C2GW_GoldExchange
+         * @instance
+         */
+        C2GW_GoldExchange.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_GoldExchange diamonds.
+         * @member {number} diamonds
+         * @memberof msg.C2GW_GoldExchange
+         * @instance
+         */
+        C2GW_GoldExchange.prototype.diamonds = 0;
+
+        /**
+         * Creates a new C2GW_GoldExchange instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.IC2GW_GoldExchange=} [properties] Properties to set
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange instance
+         */
+        C2GW_GoldExchange.create = function create(properties) {
+            return new C2GW_GoldExchange(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_GoldExchange message. Does not implicitly {@link msg.C2GW_GoldExchange.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.IC2GW_GoldExchange} message C2GW_GoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GoldExchange.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.diamonds != null && message.hasOwnProperty("diamonds"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.diamonds);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_GoldExchange message, length delimited. Does not implicitly {@link msg.C2GW_GoldExchange.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.IC2GW_GoldExchange} message C2GW_GoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GoldExchange.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_GoldExchange message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GoldExchange.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_GoldExchange();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.diamonds = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_GoldExchange message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GoldExchange.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_GoldExchange message.
+         * @function verify
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_GoldExchange.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.diamonds != null && message.hasOwnProperty("diamonds"))
+                if (!$util.isInteger(message.diamonds))
+                    return "diamonds: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_GoldExchange message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange
+         */
+        C2GW_GoldExchange.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_GoldExchange)
+                return object;
+            var message = new $root.msg.C2GW_GoldExchange();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.diamonds != null)
+                message.diamonds = object.diamonds >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_GoldExchange message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.C2GW_GoldExchange} message C2GW_GoldExchange
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_GoldExchange.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                object.diamonds = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.diamonds != null && message.hasOwnProperty("diamonds"))
+                object.diamonds = message.diamonds;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_GoldExchange to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_GoldExchange
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_GoldExchange.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_GoldExchange;
+    })();
+
+    msg.GW2C_RetGoldExchange = (function() {
+
+        /**
+         * Properties of a GW2C_RetGoldExchange.
+         * @memberof msg
+         * @interface IGW2C_RetGoldExchange
+         * @property {number|null} [gold] GW2C_RetGoldExchange gold
+         */
+
+        /**
+         * Constructs a new GW2C_RetGoldExchange.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetGoldExchange.
+         * @implements IGW2C_RetGoldExchange
+         * @constructor
+         * @param {msg.IGW2C_RetGoldExchange=} [properties] Properties to set
+         */
+        function GW2C_RetGoldExchange(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetGoldExchange gold.
+         * @member {number} gold
+         * @memberof msg.GW2C_RetGoldExchange
+         * @instance
+         */
+        GW2C_RetGoldExchange.prototype.gold = 0;
+
+        /**
+         * Creates a new GW2C_RetGoldExchange instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.IGW2C_RetGoldExchange=} [properties] Properties to set
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange instance
+         */
+        GW2C_RetGoldExchange.create = function create(properties) {
+            return new GW2C_RetGoldExchange(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGoldExchange message. Does not implicitly {@link msg.GW2C_RetGoldExchange.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.IGW2C_RetGoldExchange} message GW2C_RetGoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGoldExchange.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.gold);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGoldExchange message, length delimited. Does not implicitly {@link msg.GW2C_RetGoldExchange.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.IGW2C_RetGoldExchange} message GW2C_RetGoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGoldExchange.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetGoldExchange message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGoldExchange.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetGoldExchange();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.gold = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetGoldExchange message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGoldExchange.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetGoldExchange message.
+         * @function verify
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetGoldExchange.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetGoldExchange message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange
+         */
+        GW2C_RetGoldExchange.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetGoldExchange)
+                return object;
+            var message = new $root.msg.GW2C_RetGoldExchange();
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetGoldExchange message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.GW2C_RetGoldExchange} message GW2C_RetGoldExchange
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetGoldExchange.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.gold = 0;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetGoldExchange to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetGoldExchange
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetGoldExchange.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetGoldExchange;
+    })();
+
     msg.C2L_ReqLogin = (function() {
 
         /**
@@ -12697,20 +12386,20 @@ $root.msg = (function() {
      * @name msg.ItemId
      * @enum {string}
      * @property {number} YuanBao=6001 YuanBao value
-     * @property {number} Coupon=6002 Coupon value
+     * @property {number} Diamond=6002 Diamond value
      * @property {number} Gold=6003 Gold value
      * @property {number} FreeStep=6005 FreeStep value
-     * @property {number} Diamond=10001 Diamond value
-     * @property {number} DiamondParts=10002 DiamondParts value
+     * @property {number} RedDiamond=10001 RedDiamond value
+     * @property {number} RedDiamondParts=10002 RedDiamondParts value
      */
     msg.ItemId = (function() {
         var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[6001] = "YuanBao"] = 6001;
-        values[valuesById[6002] = "Coupon"] = 6002;
+        values[valuesById[6002] = "Diamond"] = 6002;
         values[valuesById[6003] = "Gold"] = 6003;
         values[valuesById[6005] = "FreeStep"] = 6005;
-        values[valuesById[10001] = "Diamond"] = 10001;
-        values[valuesById[10002] = "DiamondParts"] = 10002;
+        values[valuesById[10001] = "RedDiamond"] = 10001;
+        values[valuesById[10002] = "RedDiamondParts"] = 10002;
         return values;
     })();
 
@@ -18110,24 +17799,24 @@ $root.msg = (function() {
         return GW2C_UpdateYuanbao;
     })();
 
-    msg.GW2C_UpdateCoupon = (function() {
+    msg.GW2C_UpdateDiamond = (function() {
 
         /**
-         * Properties of a GW2C_UpdateCoupon.
+         * Properties of a GW2C_UpdateDiamond.
          * @memberof msg
-         * @interface IGW2C_UpdateCoupon
-         * @property {number|null} [num] GW2C_UpdateCoupon num
+         * @interface IGW2C_UpdateDiamond
+         * @property {number|null} [num] GW2C_UpdateDiamond num
          */
 
         /**
-         * Constructs a new GW2C_UpdateCoupon.
+         * Constructs a new GW2C_UpdateDiamond.
          * @memberof msg
-         * @classdesc Represents a GW2C_UpdateCoupon.
-         * @implements IGW2C_UpdateCoupon
+         * @classdesc Represents a GW2C_UpdateDiamond.
+         * @implements IGW2C_UpdateDiamond
          * @constructor
-         * @param {msg.IGW2C_UpdateCoupon=} [properties] Properties to set
+         * @param {msg.IGW2C_UpdateDiamond=} [properties] Properties to set
          */
-        function GW2C_UpdateCoupon(properties) {
+        function GW2C_UpdateDiamond(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -18135,35 +17824,35 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2C_UpdateCoupon num.
+         * GW2C_UpdateDiamond num.
          * @member {number} num
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @instance
          */
-        GW2C_UpdateCoupon.prototype.num = 0;
+        GW2C_UpdateDiamond.prototype.num = 0;
 
         /**
-         * Creates a new GW2C_UpdateCoupon instance using the specified properties.
+         * Creates a new GW2C_UpdateDiamond instance using the specified properties.
          * @function create
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
-         * @param {msg.IGW2C_UpdateCoupon=} [properties] Properties to set
-         * @returns {msg.GW2C_UpdateCoupon} GW2C_UpdateCoupon instance
+         * @param {msg.IGW2C_UpdateDiamond=} [properties] Properties to set
+         * @returns {msg.GW2C_UpdateDiamond} GW2C_UpdateDiamond instance
          */
-        GW2C_UpdateCoupon.create = function create(properties) {
-            return new GW2C_UpdateCoupon(properties);
+        GW2C_UpdateDiamond.create = function create(properties) {
+            return new GW2C_UpdateDiamond(properties);
         };
 
         /**
-         * Encodes the specified GW2C_UpdateCoupon message. Does not implicitly {@link msg.GW2C_UpdateCoupon.verify|verify} messages.
+         * Encodes the specified GW2C_UpdateDiamond message. Does not implicitly {@link msg.GW2C_UpdateDiamond.verify|verify} messages.
          * @function encode
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
-         * @param {msg.IGW2C_UpdateCoupon} message GW2C_UpdateCoupon message or plain object to encode
+         * @param {msg.IGW2C_UpdateDiamond} message GW2C_UpdateDiamond message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_UpdateCoupon.encode = function encode(message, writer) {
+        GW2C_UpdateDiamond.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.num != null && message.hasOwnProperty("num"))
@@ -18172,33 +17861,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified GW2C_UpdateCoupon message, length delimited. Does not implicitly {@link msg.GW2C_UpdateCoupon.verify|verify} messages.
+         * Encodes the specified GW2C_UpdateDiamond message, length delimited. Does not implicitly {@link msg.GW2C_UpdateDiamond.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
-         * @param {msg.IGW2C_UpdateCoupon} message GW2C_UpdateCoupon message or plain object to encode
+         * @param {msg.IGW2C_UpdateDiamond} message GW2C_UpdateDiamond message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_UpdateCoupon.encodeDelimited = function encodeDelimited(message, writer) {
+        GW2C_UpdateDiamond.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GW2C_UpdateCoupon message from the specified reader or buffer.
+         * Decodes a GW2C_UpdateDiamond message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_UpdateCoupon} GW2C_UpdateCoupon
+         * @returns {msg.GW2C_UpdateDiamond} GW2C_UpdateDiamond
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_UpdateCoupon.decode = function decode(reader, length) {
+        GW2C_UpdateDiamond.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_UpdateCoupon();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_UpdateDiamond();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -18214,30 +17903,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a GW2C_UpdateCoupon message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_UpdateDiamond message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_UpdateCoupon} GW2C_UpdateCoupon
+         * @returns {msg.GW2C_UpdateDiamond} GW2C_UpdateDiamond
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_UpdateCoupon.decodeDelimited = function decodeDelimited(reader) {
+        GW2C_UpdateDiamond.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GW2C_UpdateCoupon message.
+         * Verifies a GW2C_UpdateDiamond message.
          * @function verify
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GW2C_UpdateCoupon.verify = function verify(message) {
+        GW2C_UpdateDiamond.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.num != null && message.hasOwnProperty("num"))
@@ -18247,32 +17936,32 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a GW2C_UpdateCoupon message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_UpdateDiamond message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_UpdateCoupon} GW2C_UpdateCoupon
+         * @returns {msg.GW2C_UpdateDiamond} GW2C_UpdateDiamond
          */
-        GW2C_UpdateCoupon.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_UpdateCoupon)
+        GW2C_UpdateDiamond.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_UpdateDiamond)
                 return object;
-            var message = new $root.msg.GW2C_UpdateCoupon();
+            var message = new $root.msg.GW2C_UpdateDiamond();
             if (object.num != null)
                 message.num = object.num >>> 0;
             return message;
         };
 
         /**
-         * Creates a plain object from a GW2C_UpdateCoupon message. Also converts values to other types if specified.
+         * Creates a plain object from a GW2C_UpdateDiamond message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @static
-         * @param {msg.GW2C_UpdateCoupon} message GW2C_UpdateCoupon
+         * @param {msg.GW2C_UpdateDiamond} message GW2C_UpdateDiamond
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_UpdateCoupon.toObject = function toObject(message, options) {
+        GW2C_UpdateDiamond.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -18284,17 +17973,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this GW2C_UpdateCoupon to JSON.
+         * Converts this GW2C_UpdateDiamond to JSON.
          * @function toJSON
-         * @memberof msg.GW2C_UpdateCoupon
+         * @memberof msg.GW2C_UpdateDiamond
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GW2C_UpdateCoupon.prototype.toJSON = function toJSON() {
+        GW2C_UpdateDiamond.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GW2C_UpdateCoupon;
+        return GW2C_UpdateDiamond;
     })();
 
     msg.GW2C_UpdateFreeStep = (function() {
@@ -18923,469 +18612,6 @@ $root.msg = (function() {
         };
 
         return C2GW_ReqDeliveryGoods;
-    })();
-
-    msg.C2GW_ReqDeliveryDiamond = (function() {
-
-        /**
-         * Properties of a C2GW_ReqDeliveryDiamond.
-         * @memberof msg
-         * @interface IC2GW_ReqDeliveryDiamond
-         * @property {Array.<msg.IDeliveryGoods>|null} [list] C2GW_ReqDeliveryDiamond list
-         * @property {string|null} [token] C2GW_ReqDeliveryDiamond token
-         */
-
-        /**
-         * Constructs a new C2GW_ReqDeliveryDiamond.
-         * @memberof msg
-         * @classdesc Represents a C2GW_ReqDeliveryDiamond.
-         * @implements IC2GW_ReqDeliveryDiamond
-         * @constructor
-         * @param {msg.IC2GW_ReqDeliveryDiamond=} [properties] Properties to set
-         */
-        function C2GW_ReqDeliveryDiamond(properties) {
-            this.list = [];
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_ReqDeliveryDiamond list.
-         * @member {Array.<msg.IDeliveryGoods>} list
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @instance
-         */
-        C2GW_ReqDeliveryDiamond.prototype.list = $util.emptyArray;
-
-        /**
-         * C2GW_ReqDeliveryDiamond token.
-         * @member {string} token
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @instance
-         */
-        C2GW_ReqDeliveryDiamond.prototype.token = "";
-
-        /**
-         * Creates a new C2GW_ReqDeliveryDiamond instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {msg.IC2GW_ReqDeliveryDiamond=} [properties] Properties to set
-         * @returns {msg.C2GW_ReqDeliveryDiamond} C2GW_ReqDeliveryDiamond instance
-         */
-        C2GW_ReqDeliveryDiamond.create = function create(properties) {
-            return new C2GW_ReqDeliveryDiamond(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqDeliveryDiamond message. Does not implicitly {@link msg.C2GW_ReqDeliveryDiamond.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {msg.IC2GW_ReqDeliveryDiamond} message C2GW_ReqDeliveryDiamond message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqDeliveryDiamond.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.list != null && message.list.length)
-                for (var i = 0; i < message.list.length; ++i)
-                    $root.msg.DeliveryGoods.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            if (message.token != null && message.hasOwnProperty("token"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.token);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqDeliveryDiamond message, length delimited. Does not implicitly {@link msg.C2GW_ReqDeliveryDiamond.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {msg.IC2GW_ReqDeliveryDiamond} message C2GW_ReqDeliveryDiamond message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqDeliveryDiamond.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_ReqDeliveryDiamond message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_ReqDeliveryDiamond} C2GW_ReqDeliveryDiamond
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqDeliveryDiamond.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqDeliveryDiamond();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    if (!(message.list && message.list.length))
-                        message.list = [];
-                    message.list.push($root.msg.DeliveryGoods.decode(reader, reader.uint32()));
-                    break;
-                case 2:
-                    message.token = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_ReqDeliveryDiamond message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_ReqDeliveryDiamond} C2GW_ReqDeliveryDiamond
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqDeliveryDiamond.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_ReqDeliveryDiamond message.
-         * @function verify
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_ReqDeliveryDiamond.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.list != null && message.hasOwnProperty("list")) {
-                if (!Array.isArray(message.list))
-                    return "list: array expected";
-                for (var i = 0; i < message.list.length; ++i) {
-                    var error = $root.msg.DeliveryGoods.verify(message.list[i]);
-                    if (error)
-                        return "list." + error;
-                }
-            }
-            if (message.token != null && message.hasOwnProperty("token"))
-                if (!$util.isString(message.token))
-                    return "token: string expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_ReqDeliveryDiamond message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_ReqDeliveryDiamond} C2GW_ReqDeliveryDiamond
-         */
-        C2GW_ReqDeliveryDiamond.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_ReqDeliveryDiamond)
-                return object;
-            var message = new $root.msg.C2GW_ReqDeliveryDiamond();
-            if (object.list) {
-                if (!Array.isArray(object.list))
-                    throw TypeError(".msg.C2GW_ReqDeliveryDiamond.list: array expected");
-                message.list = [];
-                for (var i = 0; i < object.list.length; ++i) {
-                    if (typeof object.list[i] !== "object")
-                        throw TypeError(".msg.C2GW_ReqDeliveryDiamond.list: object expected");
-                    message.list[i] = $root.msg.DeliveryGoods.fromObject(object.list[i]);
-                }
-            }
-            if (object.token != null)
-                message.token = String(object.token);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_ReqDeliveryDiamond message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @static
-         * @param {msg.C2GW_ReqDeliveryDiamond} message C2GW_ReqDeliveryDiamond
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_ReqDeliveryDiamond.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.arrays || options.defaults)
-                object.list = [];
-            if (options.defaults)
-                object.token = "";
-            if (message.list && message.list.length) {
-                object.list = [];
-                for (var j = 0; j < message.list.length; ++j)
-                    object.list[j] = $root.msg.DeliveryGoods.toObject(message.list[j], options);
-            }
-            if (message.token != null && message.hasOwnProperty("token"))
-                object.token = message.token;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_ReqDeliveryDiamond to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_ReqDeliveryDiamond
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_ReqDeliveryDiamond.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_ReqDeliveryDiamond;
-    })();
-
-    msg.GW2C_RetDeliveryDiamond = (function() {
-
-        /**
-         * Properties of a GW2C_RetDeliveryDiamond.
-         * @memberof msg
-         * @interface IGW2C_RetDeliveryDiamond
-         * @property {number|null} [diamond] GW2C_RetDeliveryDiamond diamond
-         * @property {number|null} [diamondparts] GW2C_RetDeliveryDiamond diamondparts
-         * @property {number|null} [total] GW2C_RetDeliveryDiamond total
-         */
-
-        /**
-         * Constructs a new GW2C_RetDeliveryDiamond.
-         * @memberof msg
-         * @classdesc Represents a GW2C_RetDeliveryDiamond.
-         * @implements IGW2C_RetDeliveryDiamond
-         * @constructor
-         * @param {msg.IGW2C_RetDeliveryDiamond=} [properties] Properties to set
-         */
-        function GW2C_RetDeliveryDiamond(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * GW2C_RetDeliveryDiamond diamond.
-         * @member {number} diamond
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @instance
-         */
-        GW2C_RetDeliveryDiamond.prototype.diamond = 0;
-
-        /**
-         * GW2C_RetDeliveryDiamond diamondparts.
-         * @member {number} diamondparts
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @instance
-         */
-        GW2C_RetDeliveryDiamond.prototype.diamondparts = 0;
-
-        /**
-         * GW2C_RetDeliveryDiamond total.
-         * @member {number} total
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @instance
-         */
-        GW2C_RetDeliveryDiamond.prototype.total = 0;
-
-        /**
-         * Creates a new GW2C_RetDeliveryDiamond instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {msg.IGW2C_RetDeliveryDiamond=} [properties] Properties to set
-         * @returns {msg.GW2C_RetDeliveryDiamond} GW2C_RetDeliveryDiamond instance
-         */
-        GW2C_RetDeliveryDiamond.create = function create(properties) {
-            return new GW2C_RetDeliveryDiamond(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_RetDeliveryDiamond message. Does not implicitly {@link msg.GW2C_RetDeliveryDiamond.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {msg.IGW2C_RetDeliveryDiamond} message GW2C_RetDeliveryDiamond message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetDeliveryDiamond.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.diamond != null && message.hasOwnProperty("diamond"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.diamond);
-            if (message.diamondparts != null && message.hasOwnProperty("diamondparts"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.diamondparts);
-            if (message.total != null && message.hasOwnProperty("total"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.total);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_RetDeliveryDiamond message, length delimited. Does not implicitly {@link msg.GW2C_RetDeliveryDiamond.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {msg.IGW2C_RetDeliveryDiamond} message GW2C_RetDeliveryDiamond message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetDeliveryDiamond.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_RetDeliveryDiamond message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_RetDeliveryDiamond} GW2C_RetDeliveryDiamond
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetDeliveryDiamond.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetDeliveryDiamond();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.diamond = reader.int32();
-                    break;
-                case 2:
-                    message.diamondparts = reader.int32();
-                    break;
-                case 3:
-                    message.total = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_RetDeliveryDiamond message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_RetDeliveryDiamond} GW2C_RetDeliveryDiamond
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetDeliveryDiamond.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_RetDeliveryDiamond message.
-         * @function verify
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_RetDeliveryDiamond.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.diamond != null && message.hasOwnProperty("diamond"))
-                if (!$util.isInteger(message.diamond))
-                    return "diamond: integer expected";
-            if (message.diamondparts != null && message.hasOwnProperty("diamondparts"))
-                if (!$util.isInteger(message.diamondparts))
-                    return "diamondparts: integer expected";
-            if (message.total != null && message.hasOwnProperty("total"))
-                if (!$util.isInteger(message.total))
-                    return "total: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_RetDeliveryDiamond message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_RetDeliveryDiamond} GW2C_RetDeliveryDiamond
-         */
-        GW2C_RetDeliveryDiamond.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_RetDeliveryDiamond)
-                return object;
-            var message = new $root.msg.GW2C_RetDeliveryDiamond();
-            if (object.diamond != null)
-                message.diamond = object.diamond | 0;
-            if (object.diamondparts != null)
-                message.diamondparts = object.diamondparts | 0;
-            if (object.total != null)
-                message.total = object.total | 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a GW2C_RetDeliveryDiamond message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @static
-         * @param {msg.GW2C_RetDeliveryDiamond} message GW2C_RetDeliveryDiamond
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_RetDeliveryDiamond.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                object.diamond = 0;
-                object.diamondparts = 0;
-                object.total = 0;
-            }
-            if (message.diamond != null && message.hasOwnProperty("diamond"))
-                object.diamond = message.diamond;
-            if (message.diamondparts != null && message.hasOwnProperty("diamondparts"))
-                object.diamondparts = message.diamondparts;
-            if (message.total != null && message.hasOwnProperty("total"))
-                object.total = message.total;
-            return object;
-        };
-
-        /**
-         * Converts this GW2C_RetDeliveryDiamond to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_RetDeliveryDiamond
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_RetDeliveryDiamond.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_RetDeliveryDiamond;
     })();
 
     msg.BigRewardItem = (function() {
