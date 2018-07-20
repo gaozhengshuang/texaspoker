@@ -1,7 +1,7 @@
 module game {
 
     class ItemInfo {
-        constructor(imgPath,price,priceUnit = 1) {
+        constructor(imgPath, price, priceUnit = 1) {
             this.imgPath = imgPath;
             this.price = price;
             this.priceUnit = priceUnit;
@@ -56,9 +56,17 @@ module game {
             this.btn_close.icon = "dress_01_json.dress_01_16"
 
             this.initTouchEvent();
-            
-            this.ls_dress. = new eui.ArrayCollection();
+            this.initCoins();
+            this.grilIconHandle();
+            this.ls_dress.init_list();
+            // this.ls_dress. = new eui.ArrayCollection();
 
+
+        }
+
+        private initCoins() {
+            this.coin_gold.coins = DataManager.playerModel.getGold();
+            this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
         }
 
         private initTouchEvent() {
@@ -72,8 +80,16 @@ module game {
             this.part_foot.addEventListener("touchBegin", this.partHandle_foot, this);
             this.part_waist.addEventListener("touchBegin", this.partHandle_waist, this);
             this.part_hand.addEventListener("touchBegin", this.partHandle_hand, this);
+            
+            this.btn_cart.addEventListener("touchEnd", this.cartHandle, this);
+            this.btn_close.addEventListener("touchEnd", this.closeHandle, this);
+        }
 
-
+        private closeHandle() {
+            this.remove();
+        }
+        private cartHandle(){
+            console.warn("购物车界面尚未实现");
         }
 
         private boyIconHandle() {
@@ -127,10 +143,10 @@ module game {
 
         //TODO: 显示默认的装备
         public useGrilShelf(b: boolean) {
-            
+
         }
 
-        
+
 
         //=======================================
         //TODO: 设置装备信息
@@ -143,96 +159,95 @@ module game {
         }
 
         // 设置装备列表
-        private setShelf(items:ItemInfo[]) {
+        private setShelf(items: ItemInfo[]) {
+            this.ls_dress.rm_items();
             for (let i = 0; i < items.length; ++i) {
                 let dressItem = new game.ItemPrice();
                 this.ls_dress.add_item(dressItem);
-                this.setShelfItem(dressItem,items[i]);
+                this.setShelfItem(dressItem, items[i]);
             }
         }
 
-        private setShelfItem(item: game.ItemPrice, itemInfo:ItemInfo) {
-            item.icon = itemInfo.imgPath;
+        private setShelfItem(item: game.ItemPrice, itemInfo: ItemInfo) {
+            item.setIcon(itemInfo.imgPath);
             if (itemInfo.isObtained) {
                 itemInfo.price = 0;
             }
-            item.price = itemInfo.price;
+            item.setPrice(itemInfo.price);
         }
-
 
 
         // 显示装备列表
         public showShelf_back() {
-            let items = [
-                new ItemInfo("dress_02_json.dress_02_01",2000),
-                new ItemInfo("dress_02_json.dress_02_02",2000),
-                new ItemInfo("dress_02_json.dress_02_03",2000),
-                new ItemInfo("dress_02_json.dress_02_04",2000),
-                new ItemInfo("dress_02_json.dress_02_05",2000),
-            ];
-            
+            let items = [];
+
+            items.push(new ItemInfo("dress_02_json.dress_02_01", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_02", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_03", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_04", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_05", 2000));
+
+
             this.setShelf(items);
 
         }
-        public showShelf_head() {   
-            let items = [
-                new ItemInfo("dress_02_json.dress_02_05",2000),
-                new ItemInfo("dress_02_json.dress_02_06",2000),
-                new ItemInfo("dress_02_json.dress_02_07",2000),
-                new ItemInfo("dress_02_json.dress_02_08",2000),
-                new ItemInfo("dress_02_json.dress_02_09",2000),
-            ];
-            
-            this.setShelf(items);}
-        public showShelf_body() { 
-              let items = [
-                new ItemInfo("dress_02_json.dress_02_10",2000),
-                new ItemInfo("dress_02_json.dress_02_11",2000),
-                new ItemInfo("dress_02_json.dress_02_12",2000),
-                new ItemInfo("dress_02_json.dress_02_13",2000),
-                new ItemInfo("dress_02_json.dress_02_14",2000),
-            ];
-            
+        public showShelf_head() {
+            let items = [];
+            items.push(new ItemInfo("dress_02_json.dress_02_05", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_06", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_07", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_08", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_09", 2000));
+
+
             this.setShelf(items);
-        
+        }
+        public showShelf_body() {
+            let items = []
+            items.push(new ItemInfo("dress_02_json.dress_02_10", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_11", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_12", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_13", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_14", 2000));
+
+
+            this.setShelf(items);
+
         }
         public showShelf_leg() {
 
-              let items = [
-                new ItemInfo("dress_02_json.dress_02_15",2000),
-                new ItemInfo("dress_02_json.dress_02_16",2000),
-                new ItemInfo("dress_02_json.dress_02_17",2000),
-                new ItemInfo("dress_02_json.dress_02_18",2000),
-                new ItemInfo("dress_02_json.dress_02_19",2000),
-            ];
-            
-            this.setShelf(items);
-         }
-        public showShelf_foot() { 
+            let items = [];
+            items.push(new ItemInfo("dress_02_json.dress_02_15", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_16", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_17", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_18", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_19", 2000));
 
-              let items = [
-                new ItemInfo("dress_02_json.dress_02_20",2000),
-                new ItemInfo("dress_02_json.dress_02_21",2000),
-                new ItemInfo("dress_02_json.dress_02_22",2000),
-                new ItemInfo("dress_02_json.dress_02_23",2000),
-                
-            ];
-            
             this.setShelf(items);
         }
-        public showShelf_waist() { 
-              let items = [
-                new ItemInfo("dress_02_json.dress_02_26",2000),
-            ];
-            
+        public showShelf_foot() {
+
+            let items = [];
+            items.push(new ItemInfo("dress_02_json.dress_02_20", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_21", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_22", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_23", 2000));
+
             this.setShelf(items);
         }
-        public showShelf_hand() { 
-            let items = [
-                new ItemInfo("dress_02_json.dress_02_24",2000),
-                new ItemInfo("dress_02_json.dress_02_25",2000),
-            ];
-            
+        public showShelf_waist() {
+            let items = [];
+            items.push(new ItemInfo("dress_02_json.dress_02_26", 2000));
+
+
+            this.setShelf(items);
+        }
+        public showShelf_hand() {
+            let items = []
+            items.push(new ItemInfo("dress_02_json.dress_02_24", 2000));
+            items.push(new ItemInfo("dress_02_json.dress_02_25", 2000));
+
+
             this.setShelf(items);
         }
 

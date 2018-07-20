@@ -90,7 +90,7 @@ class Main extends eui.UILayer {
             //     console.log("load config 出错");
             // }
 
-            {// ftp://liulibo@210.73.214.68/html/egret_remote/resource/assets/texpack/ball.png
+            {
                 // const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
                 const remoteUrl = "https://210.73.214.68/egret_remote/resource/";
 

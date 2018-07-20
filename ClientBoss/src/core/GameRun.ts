@@ -68,6 +68,7 @@ module game {
             return;
         }
 
+        //TEST:
         openPanel(PanelType.dress)
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ItemPriceSkin" width="147" height="175" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:CheckBox id="chk_item" label="" x="0" y="0">
+	<e:CheckBox id="chk_item" label="" x="0" y="0" touchEnabled="true" enabled="true">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="dress_01_json.dress_01_31" source.down="dress_01_json.dress_01_23"/>
@@ -10,8 +10,11 @@
 	</e:CheckBox>
 	<e:Image id="img_equip" source="dress_02_json.dress_02_04" x="40" y="36"/>
 	<e:Image id="img_checked" source="dress_01_json.dress_01_22" x="101" y="0"/>
-	<game:Coins id="coin_price" width="201" height="45" x="18.2" y="142" skinName="CoinsSkin" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.6" scaleY="0.6"/>
 	<e:Label id="txt_obtained" text="已获得" x="33" y="142" bold="true" visible="false"/>
+	<e:Group id="grp_price" width="142.2" height="33.2" x="1.8" y="139.2" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7"/>
+		<e:Label id="txt_price" text="1000000" x="39.8" y="6" size="24"/>
+	</e:Group>
 
 
 </e:Skin>
