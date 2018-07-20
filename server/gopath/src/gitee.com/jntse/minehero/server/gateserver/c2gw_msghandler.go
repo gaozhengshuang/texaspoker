@@ -615,6 +615,23 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 	}
 
 	// 兑换
+	diamonds := tmsg.GetDiamonds()
+	if diamonds < 0 {
+		user.SendNotify("钻石数量不能是0")
+		return
+	}
+
+	if user.GetDiamond() < diamonds {
+		user.SendNotify("钻石不足")
+		return
+	}
+
+	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
+	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
+	user.AddGold(gold, "钻石兑换金币", true)
+
+	//send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
+	//user.SendMsg(send)
 
 }
 
