@@ -356,10 +356,10 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 		
 		// 初始元宝和金卷
-		Yuanbao := uint32(tbl.Global.Newuser.Yuanbao)
+		gold := uint32(tbl.Global.NewUser.Gold)
 		userinfo := &msg.Serialize {
 			Entity : &msg.EntityBase{ Id:pb.Uint64(userid), Name:pb.String(nickname), Face:pb.String(""), Account:pb.String(account) },
-			Base : &msg.UserBase{Money: pb.Uint32(1000), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(Yuanbao), Level:pb.Uint32(1)},
+			Base : &msg.UserBase{Gold: pb.Uint32(gold), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(0), Level:pb.Uint32(1)},
 			Item : &msg.ItemBin{},
 		}
 		userinfo.Base.Wechat = &msg.UserWechat{ Openid:pb.String(openid) }
@@ -371,9 +371,6 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			log.Error("新建账户%s插入玩家数据失败，err: %s", account, err)
 			break
 		}
-
-		// 初始赠送金币
-		//go def.HttpWechatMiniGamePresentMoney(Redis(), account, int64(Yuanbao))
 
 		// 关联userid和openid
 		setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)

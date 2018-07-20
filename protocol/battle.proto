@@ -132,7 +132,7 @@ message BT_UseUltimateSkil {
 // R2C 通知客户端充钱到账
 message BT_SynUserRechargeMoney {
     optional uint64 userid = 1;
-    optional uint32 gold = 2;       // 增量
+    optional uint32 diamond = 2;    // 增量
 }
 
 // C2R 击中超级砖块

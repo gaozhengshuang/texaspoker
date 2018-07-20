@@ -262,22 +262,22 @@ func (this *GateUser) Inviter() uint64 {
 	return 0
 }
 
-func (this *GateUser) GetMoneyCost() int64 {
+func (this *GateUser) GetDiamondCost() int64 {
 	userbase := this.UserBase()
 	return userbase.GetScounter().GetMoneyCost()
 }
 
-func (this *GateUser) GetMoneyCostReset() int64 {
+func (this *GateUser) GetDiamondCostReset() int64 {
 	userbase := this.UserBase()
 	return userbase.GetScounter().GetMoneyCostReset()
 }
 
-func (this *GateUser) SetMoneyCost(cost int64) {
+func (this *GateUser) SetDiamondCost(cost int64) {
 	userbase := this.UserBase()
 	userbase.GetScounter().MoneyCost = pb.Int64(cost)
 }
 
-func (this *GateUser) SetMoneyCostReset(reset int64) {
+func (this *GateUser) SetDiamondCostReset(reset int64) {
 	userbase := this.UserBase()
 	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
 }
@@ -512,7 +512,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功", this.Sid(), this.account, this.Id(), this.Name())
 
 	// 免费赠送金币
-	this.CheckFreePresentMoney(false)
+	this.CheckFreePresentGold(false)
 
 	// 上线任务检查
 	this.OnlineTaskCheck()
@@ -808,7 +808,7 @@ func (this *GateUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 	if uint32(amt_save) > this.TotalRecharge()  {
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
-		this.AddMoney(recharge, "充值获得", true)
+		this.AddGold(recharge, "充值获得", true)
 	}
 }
 

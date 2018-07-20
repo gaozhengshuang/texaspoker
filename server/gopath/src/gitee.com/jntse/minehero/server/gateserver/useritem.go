@@ -23,7 +23,7 @@ func (this *GateUser) AddItem(item uint32, num uint32, reason string) {
 	if item == uint32(msg.ItemId_YuanBao) {
 		this.AddYuanbao(num, reason)
 	}else if item == uint32(msg.ItemId_Gold) {
-		this.AddMoney(num, reason, true)
+		this.AddGold(num, reason, true)
 	}else if item == uint32(msg.ItemId_Diamond) {
 		this.AddDiamond(num, reason)
 	}else if item == uint32(msg.ItemId_FreeStep) {
@@ -41,23 +41,23 @@ func (this *GateUser) RemoveItem(item uint32, num uint32, reason string) bool{
 }
 
 // 金币
-func (this *GateUser) GetMoney() uint32   { return this.gold }
-func (this *GateUser) AddMoney(gold uint32, reason string, syn bool) {
-	this.gold = this.GetMoney() + gold
+func (this *GateUser) GetGold() uint32   { return this.gold }
+func (this *GateUser) AddGold(gold uint32, reason string, syn bool) {
+	this.gold = this.GetGold() + gold
 	if syn {
-		send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
+		send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetGold())}
 		this.SendMsg(send)
 	}
-	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetMoney(), reason)
+	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
-func (this *GateUser) RemoveMoney(gold uint32, reason string, syn bool) bool {
-	if this.GetMoney() > gold {
-		this.gold = this.GetMoney() - gold
+func (this *GateUser) RemoveGold(gold uint32, reason string, syn bool) bool {
+	if this.GetGold() > gold {
+		this.gold = this.GetGold() - gold
 		if syn {
-			send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetMoney())}
+			send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetGold())}
 			this.SendMsg(send)
 		}
-		log.Info("玩家[%d] 扣除金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetMoney(), reason)
+		log.Info("玩家[%d] 扣除金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Gold), gold)
 		return true
 	}
@@ -500,17 +500,17 @@ func (this *GateUser) LuckyDraw() {
 
 	// 检查消耗
 	cost := uint32(tbl.Game.LuckDrawPrice)
-	if this.GetMoney() < cost {
+	if this.GetGold() < cost {
 		this.SendNotify("金币不足")
 		return
 	}
-	this.RemoveMoney(cost, "幸运抽奖", true)
+	this.RemoveGold(cost, "幸运抽奖", true)
 
 	// 每周重置
 	curtime := util.CURTIME()
-	if util.IsSameWeek(this.GetMoneyCostReset(), curtime) != false {
-		this.SetMoneyCost(0)
-		this.SetMoneyCostReset(util.CURTIME())
+	if util.IsSameWeek(this.GetDiamondCostReset(), curtime) != false {
+		this.SetDiamondCost(0)
+		this.SetDiamondCostReset(util.CURTIME())
 	}
 
 	// 解析概率配置
@@ -530,7 +530,7 @@ func (this *GateUser) LuckyDraw() {
 
 	giftweight := make([]util.WeightOdds, 0)
 	for _, v := range tbl.GiftProBase.TGiftProById {
-		if this.GetMoneyCost() <= int64(v.Limitmin) {
+		if this.GetDiamondCost() <= int64(v.Limitmin) {
 			if ParseProString(&giftweight, v.Pro) == false { return }
 			break
 		}
@@ -571,8 +571,8 @@ func (this *GateUser) LuckyDraw() {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) CheckFreePresentMoney(syn bool) {
-	if this.GetMoney() >= uint32(tbl.Game.FreePresentRule.FloorTrigger) {
+func (this *GateUser) CheckFreePresentGold(syn bool) {
+	if this.GetGold() >= uint32(tbl.Game.FreePresentRule.FloorTrigger) {
 		return
 	}
 
@@ -586,7 +586,7 @@ func (this *GateUser) CheckFreePresentMoney(syn bool) {
 	}
 
 	gold := tbl.Game.FreePresentRule.Money
-	this.AddMoney(uint32(gold), "每日免费赠送", syn)
+	this.AddGold(uint32(gold), "每日免费赠送", syn)
 	this.presentcount += 1
 	this.presentrecord = curtime
 

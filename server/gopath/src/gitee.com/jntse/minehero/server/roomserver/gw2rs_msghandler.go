@@ -40,7 +40,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_UploadGameUser{}, on_BT_UploadGameUser)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
+	//this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
@@ -148,20 +148,20 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 		log.Error("on_BT_ReqQuitGameRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
-	room.UserLeave(userid, tmsg.GetMoney())
+	room.UserLeave(userid, tmsg.GetGold())
 }
 
-func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.BT_UpdateMoney)
-	//roomid, userid, money := tmsg.GetRoomid(), tmsg.GetUserid(), tmsg.GetMoney()
-	//room := RoomMgr().Find(roomid)
-	//if room == nil {
-	//	log.Error("BT_UpdateMoney 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
-	//	return
-	//}
-	//
-	//room.UpdateMoneyByClient(money)
-}
+//func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.BT_UpdateMoney)
+//	roomid, userid, money := tmsg.GetRoomid(), tmsg.GetUserid(), tmsg.GetGold()
+//	room := RoomMgr().Find(roomid)
+//	if room == nil {
+//		log.Error("BT_UpdateMoney 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+//		return
+//	}
+//	
+//	room.UpdateMoneyByClient(money)
+//}
 
 func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_StartLuckyDraw)
@@ -208,7 +208,7 @@ func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
 	}
 
 	//
-	user.RemoveMoney(uint32(tbl.Game.BombDeductMoney), "踩到炸弹", false)
+	user.RemoveGold(uint32(tbl.Game.BombDeductMoney), "踩到炸弹", false)
 
 	// 回复
 	send := &msg.BT_RetStepOnBomb{}
@@ -223,16 +223,16 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 		log.Error("BT_BulletEarnMoney 玩家[%d]没有在Room中", tmsg.GetUserid())
 		return 
 	}
-	if tmsg.GetMoney() > 1000 {
-		log.Warn("玩家[%s %d] 子弹获得金币过多警告[%d]", user.Name(), user.Id(), tmsg.GetMoney())
+	if tmsg.GetGold() > 1000 {
+		log.Warn("玩家[%s %d] 子弹获得金币过多警告[%d]", user.Name(), user.Id(), tmsg.GetGold())
 	}
 
-	user.AddMoney(tmsg.GetMoney(), "子弹获得金币", false)
+	user.AddGold(tmsg.GetGold(), "子弹获得金币", false)
 
 	// 检查任务
 	taskid := int32(msg.TaskId_RegisterTopScore)
 	task, find := tbl.TaskBase.TTaskById[uint32(taskid)]
-	if user.task.IsTaskFinish(taskid) == false && find && user.GetMoney() >= uint32(task.Count) {
+	if user.task.IsTaskFinish(taskid) == false && find && user.GetGold() >= uint32(task.Count) {
 		user.task.TaskFinish(taskid) 
 		inviter := user.Inviter()
 		if inviter != 0 { Redis().SAdd(fmt.Sprintf("task_invitee_topscorefinish_%d", inviter), user.Id()) }
@@ -253,7 +253,7 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 		return
 	}
 
-	user.AddMoney(tmsg.GetMoney(), "使用大招", true)
+	user.AddGold(tmsg.GetGold(), "使用大招", true)
 }
 
 // 击中超级砖块
@@ -265,7 +265,7 @@ func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface
 		return 
 	}
 
-	user.AddMoney(uint32(tbl.Game.SuperBrickReward), "超级砖块奖励", false)
+	user.AddGold(uint32(tbl.Game.SuperBrickReward), "超级砖块奖励", false)
 
 	send := &msg.BT_RetCrushSuperBrick{Errmsg:pb.String("")}
 	user.SendClientMsg(send)
