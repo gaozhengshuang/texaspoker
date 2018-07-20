@@ -67,6 +67,8 @@ module game {
             ClientNet.getInstance().onConnectClose();
             return;
         }
+
+        openPanel(PanelType.dress)
     }
 
     export function connectFailed() {

@@ -129,9 +129,9 @@
 			"subkeys": "badBox_0000,badBox_0001,badBox_0002,badBox_0003,badBox_0004,badBox_0005,badBox_0006,goldAni_0000,goldAni_0001,goldAni_0002,goldAni_0003,goldAni_0004,goldAni_0005,goldAni_0006,goldAni_0007"
 		} ,
 		{
-			"url": "assets/texpack/dreess_01.json",
+			"url": "assets/texpack/dress_01.json",
 			"type": "sheet",
-			"name": "dreess_01_json",
+			"name": "dress_01_json",
 			"subkeys": "dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31"
 		},
 		{

@@ -1,12 +1,8 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,dress_02_json,dreess_01_json",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,dress_02_json,shopbg_png,grilbg_png,boybg_png,dress_01_json",
 			"name": "preload"
-		},
-		{
-			"keys": "shopbg_png,grilbg_png,boybg_png",
-			"name": "role"
 		}
 	],
 	"resources": [
@@ -171,16 +167,16 @@
 			"name": "shopbg_png"
 		},
 		{
-			"url": "assets/texpack/dreess_01.json",
-			"type": "sheet",
-			"name": "dreess_01_json",
-			"subkeys": "dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31"
-		},
-		{
 			"url": "assets/texpack/dress_02.json",
 			"type": "sheet",
 			"name": "dress_02_json",
 			"subkeys": "dress_02_01,dress_02_02,dress_02_03,dress_02_04,dress_02_05,dress_02_06,dress_02_07,dress_02_08,dress_02_09,dress_02_10,dress_02_11,dress_02_12,dress_02_13,dress_02_14,dress_02_15,dress_02_16,dress_02_17,dress_02_18,dress_02_19,dress_02_20,dress_02_21,dress_02_22,dress_02_23,dress_02_24,dress_02_25,dress_02_26"
+		},
+		{
+			"url": "assets/texpack/dress_01.json",
+			"type": "sheet",
+			"name": "dress_01_json",
+			"subkeys": "dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31"
 		}
 	]
 }

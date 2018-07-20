@@ -42,30 +42,6 @@ declare class BattleTimeBoomSkin extends eui.Skin{
 }
 declare class AvatarSkin extends eui.Skin{
 }
-declare class DeliveryItemSkin extends eui.Skin{
-}
-declare class DeliveryPanelSkin extends eui.Skin{
-}
-declare class DeliverySettingSkin extends eui.Skin{
-}
-declare class HistoryMoneyItemSkin extends eui.Skin{
-}
-declare class HistoryMoneySkin extends eui.Skin{
-}
-declare class MainSceneSkin extends eui.Skin{
-}
-declare class UserPanelSkin extends eui.Skin{
-}
-declare class LoginRewardSkin extends eui.Skin{
-}
-declare class LoginSceneSkin extends eui.Skin{
-}
-declare class RegisterPanelSkin extends eui.Skin{
-}
-declare class RankItemSkin extends eui.Skin{
-}
-declare class RankPanelSkin extends eui.Skin{
-}
 declare class BadBuffProgressBar extends eui.Skin{
 }
 declare class BadBuffSkin extends eui.Skin{
@@ -82,9 +58,47 @@ declare class LuckyItemSkin extends eui.Skin{
 }
 declare class NormalLabelButtonSkin extends eui.Skin{
 }
+declare class PayItemSkin extends eui.Skin{
+}
 declare class ToggleButtonSkin extends eui.Skin{
+}
+declare class LoginRewardSkin extends eui.Skin{
+}
+declare class LoginSceneSkin extends eui.Skin{
+}
+declare class RegisterPanelSkin extends eui.Skin{
+}
+declare class DeliveryItemSkin extends eui.Skin{
+}
+declare class DeliveryPanelSkin extends eui.Skin{
+}
+declare class DeliverySettingSkin extends eui.Skin{
+}
+declare class HistoryMoneyItemSkin extends eui.Skin{
+}
+declare class HistoryMoneySkin extends eui.Skin{
+}
+declare class MainSceneSkin extends eui.Skin{
+}
+declare class UserPanelSkin extends eui.Skin{
+}
+declare class RankItemSkin extends eui.Skin{
+}
+declare class RankPanelSkin extends eui.Skin{
 }
 declare class WinRankItemSkin extends eui.Skin{
 }
 declare class WinSceneSkin extends eui.Skin{
+}
+declare class ChooseIconSkin extends eui.Skin{
+}
+declare class CoinsSkin extends eui.Skin{
+}
+declare class EquipInfoSkin extends eui.Skin{
+}
+declare class ItemListSkin extends eui.Skin{
+}
+declare class ItemPriceSkin extends eui.Skin{
+}
+declare class RoleDressSkin extends eui.Skin{
 }

@@ -1,5 +1,7 @@
 module game {
 	export class Coins extends eui.Component{
+		public num:eui.Label;
+
 		public constructor() {
 			super();
 		}
@@ -15,6 +17,11 @@ module game {
 			super.childrenCreated();
 		}
 	
-	 	window["game.Coins"] = game.Coins;
+	 	
+		public set coins(n:number) {
+			this.num.text = `${n}`;
+		}
+
 	}
+	window["game.Coins"] = game.Coins;
 }

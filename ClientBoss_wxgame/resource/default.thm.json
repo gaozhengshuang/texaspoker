@@ -36,17 +36,27 @@
 		"resource/eui_skins/login/LoginRewardSkin.exml",
 		"resource/eui_skins/login/LoginSceneSkin.exml",
 		"resource/eui_skins/login/RegisterPanelSkin.exml",
+		"resource/eui_skins/rank/RankItemSkin.exml",
+		"resource/eui_skins/rank/RankPanelSkin.exml",
+		"resource/eui_skins/role/ChooseIconSkin.exml",
+		"resource/eui_skins/role/CoinsSkinItem.exml",
+		"resource/eui_skins/role/EquipInfoSkin.exml",
+		"resource/eui_skins/role/ItemListSkin.exml",
+		"resource/eui_skins/role/ItemPriceSkin.exml",
+		"resource/eui_skins/role/RoleDressSkin.exml",
+		"resource/eui_skins/win/WinRankItemSkin.exml",
+		"resource/eui_skins/win/WinSceneSkin.exml",
 		"resource/eui_skins/main/DeliveryItemSkin.exml",
 		"resource/eui_skins/main/DeliveryPanelSkin.exml",
 		"resource/eui_skins/main/DeliverySettingSkin.exml",
 		"resource/eui_skins/main/HistoryMoneyItemSkin.exml",
 		"resource/eui_skins/main/HistoryMoneySkin.exml",
 		"resource/eui_skins/main/MainSceneSkin.exml",
-		"resource/eui_skins/main/UserPanelSkin.exml",
-		"resource/eui_skins/rank/RankItemSkin.exml",
-		"resource/eui_skins/rank/RankPanelSkin.exml",
-		"resource/eui_skins/win/WinRankItemSkin.exml",
-		"resource/eui_skins/win/WinSceneSkin.exml"
+		"resource/eui_skins/main/UserPanelSkin.exml"
 	],
-	"path": "resource/default.thm.json"
+	"path": "resource/default.thm.json",
+	"skins": {
+		"Coins": "resource/eui_skins/Coins.exml",
+		"game.Choose": "resource/eui_skins/Choose.exml"
+	}
 }

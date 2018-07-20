@@ -18,6 +18,7 @@
 		<e:Image source="user_json.getMoneyImg" verticalCenter="145" horizontalCenter="-189"/>
 		<game:IconButton id="rankButton" skinName="IconButtonSkin" verticalCenter="388" y="430.00000000000006" horizontalCenter="0" visible="false"/>
 		<e:Label id="rankLabel" text="排行榜&gt;&gt;" y="971" textColor="0x504D5E" touchEnabled="true" anchorOffsetX="0" width="224" anchorOffsetY="0" height="58" horizontalCenter="-148" verticalAlign="middle" textAlign="center" visible="false"/>
+		<game:IconButton id="btn_dress" width="20" height="20" x="351" y="974" skinName="IconButtonSkin"/>
 
 
 	</e:Group>

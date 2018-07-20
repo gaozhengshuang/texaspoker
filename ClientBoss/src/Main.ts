@@ -90,8 +90,10 @@ class Main extends eui.UILayer {
             //     console.log("load config 出错");
             // }
 
-            {
-                const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
+            {// ftp://liulibo@210.73.214.68/html/egret_remote/resource/assets/texpack/ball.png
+                // const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
+                const remoteUrl = "https://210.73.214.68/egret_remote/resource/";
+
             //     egret.ImageLoader.crossOrigin = "anonymous";
                 RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, (e) => { console.log("加载资源成功"); }, this);
                 RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, (e) => { console.log("加载资源出错！", e); }, this);
