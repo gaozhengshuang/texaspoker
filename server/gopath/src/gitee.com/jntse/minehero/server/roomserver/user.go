@@ -117,12 +117,12 @@ func (this *RoomUser) Inviter() uint64 {
 
 func (this *RoomUser) GetDiamondCost() int64 {
 	userbase := this.UserBase()
-	return userbase.GetScounter().GetDiamondCost()
+	return userbase.GetScounter().GetMoneyCost()
 }
 
 func (this *RoomUser) GetDiamondCostReset() int64 {
 	userbase := this.UserBase()
-	return userbase.GetScounter().GetDiamondCostReset()
+	return userbase.GetScounter().GetMoneyCostReset()
 }
 
 func (this *RoomUser) SetDiamondCost(cost int64) {
@@ -359,28 +359,28 @@ func (this *RoomUser) RemoveYuanbao(yuanbao uint32, reason string) bool {
 	return false
 }
 
-func (this *RoomUser) GetCoupon() uint32 {
-	return this.UserBase().GetCoupon()
+func (this *RoomUser) GetDiamond() uint32 {
+	return this.UserBase().GetDiamond()
 }
 
 // 移除金卷
-func (this *RoomUser) RemoveCoupon(num uint32, reason string) bool {
+func (this *RoomUser) RemoveDiamond(num uint32, reason string) bool {
 	userbase := this.bin.GetBase()
-	if ( userbase.GetCoupon() >= num ) {
-		userbase.Coupon = pb.Uint32(userbase.GetCoupon() - num)
-		log.Info("玩家[%d] 扣除金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetCoupon(), reason)
-		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Coupon), num)
+	if ( userbase.GetDiamond() >= num ) {
+		userbase.Diamond = pb.Uint32(userbase.GetDiamond() - num)
+		log.Info("玩家[%d] 扣除金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
+		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Diamond), num)
 		return true
 	}
-	log.Info("玩家[%d] 扣除金卷[%d]失败 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetCoupon(), reason)
+	log.Info("玩家[%d] 扣除金卷[%d]失败 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 	return false
 }
 
 // 添加金卷
-func (this *RoomUser) AddCoupon(num uint32, reason string) {
+func (this *RoomUser) AddDiamond(num uint32, reason string) {
 	userbase := this.bin.GetBase()
-	userbase.Coupon = pb.Uint32(userbase.GetCoupon() + num)
-	log.Info("玩家[%d] 添加金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetCoupon(), reason)
+	userbase.Diamond = pb.Uint32(userbase.GetDiamond() + num)
+	log.Info("玩家[%d] 添加金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 }
 
 // 添加道具
@@ -390,8 +390,8 @@ func (this *RoomUser) AddItem(item uint32, num uint32, reason string) {
         this.AddYuanbao(num, reason)
     }else if item == uint32(msg.ItemId_Gold) {
         this.AddGold(num, reason, true)
-    }else if item == uint32(msg.ItemId_Coupon) {
-		this.AddCoupon(num, reason)
+    }else if item == uint32(msg.ItemId_Diamond) {
+		this.AddDiamond(num, reason)
 	}else if item == uint32(msg.ItemId_FreeStep) {
 		this.AddFreeStep(num, reason)
 	}else{
