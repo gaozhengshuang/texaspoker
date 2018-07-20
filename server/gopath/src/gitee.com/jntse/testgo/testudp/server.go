@@ -1,5 +1,6 @@
 package main
 import (
+	"time"
 	"fmt"
 	"net"
 	"gitee.com/jntse/gotoolkit/log"
@@ -9,6 +10,7 @@ type UdpServer struct {
 	ip string
 	port int32
 	listener *net.UDPConn
+	running bool
 }
 
 func NewUdpServer() *UdpServer {
@@ -20,9 +22,17 @@ func (this *UdpServer) Host() string {
 }
 
 func (this *UdpServer) Read() {
+	data := make([]byte, 2048)
+	n, err := this.listener.Read(data)
+	if err != nil {
+		fmt.Printf("error during read: %s", err)
+	}
+	fmt.Printf("receive %s from \n", data[:n])
 }
 
 func (this *UdpServer) Write() {
+	//sendbuf := []byte("123123")
+	//this.listener.Write(sendbuf)
 }
 
 func (this *UdpServer) Init(ip string, port int32) {
@@ -43,10 +53,23 @@ func (this *UdpServer) Start() {
 		return
 	}
 	this.listener = conn
+	log.Info("listen[%s] ok", this.Host())
+
+	go this.run()
 }
 
-func (this *UdpServer) Run() {
+func (this *UdpServer) Shutdown() {
+	this.running = true
+	this.listener.Close()
+}
+
+func (this *UdpServer) run() {
 	for ;; {
+		if this.running == false {
+			break
+		}
+		this.Read()
+		time.Sleep(time.Second)
 	}
 }
 
