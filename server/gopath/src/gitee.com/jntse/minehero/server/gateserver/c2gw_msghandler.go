@@ -66,7 +66,7 @@ func (this* C2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.C2GW_AddDeliveryAddress{}, on_C2GW_AddDeliveryAddress)
 	//this.msgparser.RegistProtoMsg(msg.C2GW_DelDeliveryAddress{}, on_C2GW_DelDeliveryAddress)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeDeliveryAddress{}, on_C2GW_ChangeDeliveryAddress)
-	this.msgparser.RegistProtoMsg(msg.GW2C_GoldExchange{}, on_GW2C_GoldExchange)
+	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -598,5 +598,23 @@ func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface
 		return
 	}
 	user.SendRoomMsg(tmsg)
+}
+
+func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_GoldExchange)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	if user.IsInRoom() {
+		user.SendRoomMsg(tmsg)
+		return
+	}
+
+	// 兑换
+
 }
 

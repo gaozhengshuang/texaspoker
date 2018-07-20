@@ -43,6 +43,7 @@ func (this* C2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
+	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
 	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
 	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
@@ -185,6 +186,16 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 	user.synbalance = true
 	user.SynMidasBalance()
 }
+
+func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_GoldExchange)
+	user := UserMgr().FindUser(tmsg.GetUserid())
+	if user == nil { 
+		log.Error("C2GW_GoldExchange 玩家[%d]没有在Room中", tmsg.GetUserid())
+		return 
+	}
+}
+
 
 // 发射子弹
 func on_BT_ReqLaunchBullet(session network.IBaseNetSession, message interface{}) {
