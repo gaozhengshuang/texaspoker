@@ -187,6 +187,7 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 	user.SynMidasBalance()
 }
 
+// 钻石兑换金币
 func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_GoldExchange)
 	user := UserMgr().FindUser(tmsg.GetUserid())
@@ -194,6 +195,25 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 		log.Error("C2GW_GoldExchange 玩家[%d]没有在Room中", tmsg.GetUserid())
 		return 
 	}
+
+	//
+	diamonds := tmsg.GetDiamonds()
+	if diamonds < 0 {
+		user.SendNotify("钻石数量不能是0")
+		return
+	}
+
+	if user.GetDiamond() < diamonds {
+		user.SendNotify("钻石不足")
+		return
+	}
+	
+	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
+	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
+	user.AddGold(gold, "钻石兑换金币", false)
+
+	send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
+	user.SendClientMsg(send)
 }
 
 

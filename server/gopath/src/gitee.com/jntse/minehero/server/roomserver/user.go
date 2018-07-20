@@ -299,7 +299,6 @@ func (this *RoomUser) GetGold() uint32 {
 
 func (this *RoomUser) RemoveGold(gold uint32, reason string, syn bool) bool {
 	if this.GetGold() > gold {
-		//this.SynRemoveMidsMoney(int64(gold), reason)
 		userbase := this.UserBase()
 		userbase.Gold = pb.Uint32(this.GetGold() - gold)
 		if syn { this.SendGold() }
@@ -315,12 +314,11 @@ func (this *RoomUser) RemoveGold(gold uint32, reason string, syn bool) bool {
 func (this *RoomUser) AddGold(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Gold = pb.Uint32(this.GetGold() + gold)
-	//this.SynAddMidsMoney(int64(gold), reason)
 	if syn { this.SendGold() }
 	log.Info("玩家[%d] 添加金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
 
-func (this *RoomUser) SetMoney(gold uint32, reason string, syn bool) {
+func (this *RoomUser) SetGold(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Gold = pb.Uint32(gold)
 	if syn { this.SendGold() }
@@ -331,6 +329,12 @@ func (this *RoomUser) SendGold() {
 	send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetGold())}
 	this.SendClientMsg(send)
 }
+
+func (this *RoomUser) SendDiamond() {
+	send := &msg.GW2C_UpdateDiamond{Num:pb.Uint32(this.GetDiamond())}
+	this.SendClientMsg(send)
+}
+
 
 // 元宝
 func (this *RoomUser) GetYuanbao() uint32 {
@@ -364,10 +368,12 @@ func (this *RoomUser) GetDiamond() uint32 {
 }
 
 // 移除金卷
-func (this *RoomUser) RemoveDiamond(num uint32, reason string) bool {
+func (this *RoomUser) RemoveDiamond(num uint32, reason string, syn bool) bool {
 	userbase := this.bin.GetBase()
 	if ( userbase.GetDiamond() >= num ) {
+		//this.SynRemoveMidsMoney(int64(num), reason)
 		userbase.Diamond = pb.Uint32(userbase.GetDiamond() - num)
+		if syn { this.SendDiamond() }
 		log.Info("玩家[%d] 扣除金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Diamond), num)
 		return true
@@ -377,9 +383,11 @@ func (this *RoomUser) RemoveDiamond(num uint32, reason string) bool {
 }
 
 // 添加金卷
-func (this *RoomUser) AddDiamond(num uint32, reason string) {
+func (this *RoomUser) AddDiamond(num uint32, reason string, syn bool) {
 	userbase := this.bin.GetBase()
 	userbase.Diamond = pb.Uint32(userbase.GetDiamond() + num)
+	//this.SynAddMidsMoney(int64(num), reason)
+	if syn { this.SendDiamond() }
 	log.Info("玩家[%d] 添加金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 }
 
@@ -389,9 +397,9 @@ func (this *RoomUser) AddItem(item uint32, num uint32, reason string) {
     if item == uint32(msg.ItemId_YuanBao) {
         this.AddYuanbao(num, reason)
     }else if item == uint32(msg.ItemId_Gold) {
-        this.AddGold(num, reason, true)
+        this.AddGold(num, reason, false)
     }else if item == uint32(msg.ItemId_Diamond) {
-		this.AddDiamond(num, reason)
+		this.AddDiamond(num, reason, true)
 	}else if item == uint32(msg.ItemId_FreeStep) {
 		this.AddFreeStep(num, reason)
 	}else{
@@ -627,10 +635,10 @@ func (this *RoomUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 	if uint32(amt_save) > this.TotalRecharge()  {
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
-		this.AddGold(recharge, "充值获得", false)
+		this.AddDiamond(recharge, "充值获得", false)
 
-		send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Uint64(this.Id()), Diamond:pb.Uint32(recharge) }
-		this.SendClientMsg(send)
+		//send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Uint64(this.Id()), Diamond:pb.Uint32(recharge) }
+		//this.SendClientMsg(send)
 	}
 
 }

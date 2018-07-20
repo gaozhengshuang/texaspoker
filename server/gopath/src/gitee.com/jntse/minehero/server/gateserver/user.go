@@ -808,7 +808,7 @@ func (this *GateUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 	if uint32(amt_save) > this.TotalRecharge()  {
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
-		this.AddGold(recharge, "充值获得", true)
+		this.AddDiamond(recharge, "充值获得", true)
 	}
 }
 
