@@ -102,6 +102,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendDeliveryAddressList{})
 	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
