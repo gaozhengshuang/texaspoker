@@ -284,6 +284,7 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 		return
 	}
 
+	user.energy = 0
 	user.AddGold(tmsg.GetGold(), "使用大招", true)
 }
 
