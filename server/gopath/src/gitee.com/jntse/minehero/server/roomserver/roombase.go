@@ -209,6 +209,7 @@ func (this *GameRoom) OnStart() {
 		Ownerid:pb.Uint64(this.ownerid),
 		Gamekind:pb.Int32(this.Kind()), 
 		Gold:pb.Uint32(this.owner.GetGold()),
+		Diamond:pb.Uint32(this.owner.GetDiamond()),
 	}
 	this.SendClientMsg(msginit)
 
