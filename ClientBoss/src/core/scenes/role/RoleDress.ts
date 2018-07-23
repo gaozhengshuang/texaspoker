@@ -1,18 +1,34 @@
 module game {
 
-    
-    class ItemInfo {
-        constructor(imgPath, price, priceUnit = 1) {
-            this.imgPath = imgPath;
-            this.price = price;
-            this.priceUnit = priceUnit;
-            this.isObtained = false;
-        }
-        public imgPath: string;
-        public price: number;
-        public priceUnit: number; // 1表示现金流，2 表示金币，3 表示元宝等等
-        public isObtained: boolean;
-    }
+    let dressItems = [
+        {img: "dress_02_01",price: 2000, priceUnit: 1},
+        {img: "dress_02_02",price: 2000, priceUnit: 1},
+        {img: "dress_02_03",price: 2000, priceUnit: 1},
+        {img: "dress_02_04",price: 2000, priceUnit: 1},
+        {img: "dress_02_05",price: 2000, priceUnit: 1},
+        {img: "dress_02_06",price: 2000, priceUnit: 1},
+        {img: "dress_02_07",price: 2000, priceUnit: 1},
+        {img: "dress_02_08",price: 2000, priceUnit: 1},
+        {img: "dress_02_09",price: 2000, priceUnit: 1},
+        {img: "dress_02_10",price: 2000, priceUnit: 1},
+        {img: "dress_02_11",price: 2000, priceUnit: 1},
+        {img: "dress_02_12",price: 2000, priceUnit: 1},
+        {img: "dress_02_13",price: 2000, priceUnit: 1},
+        {img: "dress_02_14",price: 2000, priceUnit: 1},
+        {img: "dress_02_15",price: 2000, priceUnit: 1},
+        {img: "dress_02_16",price: 2000, priceUnit: 1},
+        {img: "dress_02_17",price: 2000, priceUnit: 1},
+        {img: "dress_02_18",price: 2000, priceUnit: 1},
+        {img: "dress_02_19",price: 2000, priceUnit: 1},
+        {img: "dress_02_20",price: 2000, priceUnit: 1},
+        {img: "dress_02_21",price: 2000, priceUnit: 1},
+        {img: "dress_02_22",price: 2000, priceUnit: 1},
+        {img: "dress_02_23",price: 2000, priceUnit: 1},
+        {img: "dress_02_24",price: 2000, priceUnit: 1},
+        {img: "dress_02_25",price: 2000, priceUnit: 1},
+        {img: "dress_02_26",price: 2000, priceUnit: 1},
+    ]
+  
 
     export class RoleDress extends PanelComponent {
         img_girlbg: eui.Image;
@@ -35,8 +51,11 @@ module game {
         part_foot: game.ChooseIcon;
         part_waist: game.ChooseIcon;
         part_hand: game.ChooseIcon;
-        ls_dress: game.ItemList;
-        test_itemprice: game.ItemPrice
+        sr_item: eui.Scroller;
+        ls_items: eui.List;
+        test_itemprice: game.ItemPrice;
+
+        private _dataProv: eui.ArrayCollection;
 
 
         protected getSkinName() {
@@ -59,13 +78,27 @@ module game {
 
             this.initTouchEvent();
             this.initCoins();
-            this.ls_dress.init_list();
+            this.initItemList();
             this.switchToGril();
 
             this.partHandle_body();
 
-            this.setItemPrice(this.test_itemprice,(new ItemInfo("dress_02_json.dress_02_14", 5000) ))
-            // this.ls_dress. = new eui.ArrayCollection();
+            // this.initTest();
+        }
+
+        // private initTest() {
+        //     this.setItemPrice(this.test_itemprice,new ItemInfo("dress_02_json.dress_02_08", 68593));
+        // }
+
+        private initItemList() {
+            this._dataProv = new eui.ArrayCollection();
+            this.ls_items.dataProvider = this._dataProv;
+            this.ls_items.itemRenderer = game.ItemPrice;
+            this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
+        }
+        //TODO: 改变选择项
+        private onChange() {
+
         }
 
         private initTypeIcons() {
@@ -105,7 +138,7 @@ module game {
             this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
         }
         //TODO: 更新货币
-        private updateCoins(){}
+        private updateCoins() { }
 
         private initTouchEvent() {
             this.icon_boy.addEventListener("touchBegin", this.switchToGril, this);
@@ -199,98 +232,37 @@ module game {
         }
 
         // 设置装备列表
-        private setShelf(items: ItemInfo[]) {
-            this.ls_dress.rm_items();
-            for (let i = 0; i < items.length; ++i) {
-                let dressItem = new game.ItemPrice();
-                this.setItemPrice(dressItem, items[i]);
-                this.ls_dress.add_item(dressItem);
-
+        private setShelf(s: number,e: number) {
+            this._dataProv.removeAll();
+            for (let i = s; i < e; ++i) {
+                this._dataProv.addItem(dressItems[i]);
             }
-        }
-
-        private setItemPrice(item: game.ItemPrice, itemInfo: ItemInfo) {
-            let info = {
-                icon: itemInfo.imgPath,
-                price: (itemInfo.isObtained ? 0 : itemInfo.price),
-                priceUnit: itemInfo.priceUnit,
-            }
-            item.setup(info);
         }
 
 
         // 显示装备列表
         public showShelf_back() {
-            let items = [];
-
-            items.push(new ItemInfo("dress_02_json.dress_02_01", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_02", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_03", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_04", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_05", 2000));
-
-
-            this.setShelf(items);
+            this.setShelf(23,25);
 
         }
         public showShelf_head() {
-            let items = [];
-            items.push(new ItemInfo("dress_02_json.dress_02_05", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_06", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_07", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_08", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_09", 2000));
-
-
-            this.setShelf(items);
+            this.setShelf(0,3);
         }
         public showShelf_body() {
-            let items = []
-            items.push(new ItemInfo("dress_02_json.dress_02_10", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_11", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_12", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_13", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_14", 2000));
-
-
-            this.setShelf(items);
+            this.setShelf(3,9);
 
         }
         public showShelf_leg() {
-
-            let items = [];
-            items.push(new ItemInfo("dress_02_json.dress_02_15", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_16", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_17", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_18", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_19", 2000));
-
-            this.setShelf(items);
+            this.setShelf(6,10);
         }
         public showShelf_foot() {
-
-            let items = [];
-            items.push(new ItemInfo("dress_02_json.dress_02_20", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_21", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_22", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_23", 2000));
-
-            this.setShelf(items);
+            this.setShelf(10,14);
         }
         public showShelf_waist() {
-            let items = [];
-            items.push(new ItemInfo("dress_02_json.dress_02_26", 2000));
-
-
-            this.setShelf(items);
+            this.setShelf(14,19);
         }
         public showShelf_hand() {
-            let items = []
-            items.push(new ItemInfo("dress_02_json.dress_02_24", 2000));
-            items.push(new ItemInfo("dress_02_json.dress_02_25", 2000));
-
-
-            this.setShelf(items);
+            this.setShelf(19,23);
         }
 
 

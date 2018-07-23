@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="RoleDressSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
-	<e:Image id="img_girlbg" source="grilbg_png" x="0" y="0" width="720" height="1100"/>
-	<e:Image id="img_boybg" source="boybg_png" x="0" y="0" width="720" height="1100" visible="false"/>
-	<e:Group id="grp_coins" width="593" height="58" x="23" y="8" anchorOffsetX="0" anchorOffsetY="0">
+	<e:Image id="img_girlbg" source="grilbg_png" left="0" right="0" top="0" bottom="0" locked="true"/>
+	<e:Image id="img_boybg" source="boybg_png" left="0" right="0" top="0" bottom="0" visible="false" locked="true"/>
+	<e:Group width="721.21" height="581.82" y="-2" anchorOffsetX="0" anchorOffsetY="0" locked="true">
+		<e:Group id="grp_coins" width="593" height="58" x="23.000000000000004" y="10" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
 		<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
 		<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
 		<e:layout>
 			<e:HorizontalLayout gap="30"/>
 		</e:layout>
-		
-	</e:Group>
-	<e:Group id="grp_dressinfo" width="220" height="280" x="498" y="79">
+		</e:Group>
+		<e:Group id="grp_dressinfo" width="220" height="280" x="498" y="81" scaleX="1" scaleY="1">
 		<game:EquipInfo skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0"/>
-	</e:Group>
-
-	<e:Group id="grp_role" width="200" height="200" x="291" y="345"/>
-	<e:Group id="grp_misc" width="101" height="61" x="75" y="506" anchorOffsetX="0" anchorOffsetY="0">
+		</e:Group>
+		<e:Group id="grp_role" width="200" height="200" x="291" y="347" scaleX="1" scaleY="1"/>
+		<e:Group id="grp_misc" width="101" height="61" x="75" y="508.00000000000006" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
 		<e:Image source="dress_01_json.dress_01_26" x="-4" y="3"/>
 		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="53" y="14" touchEnabled="true"/>
 		<e:Image id="icon_gril" source="dress_01_json.dress_01_20" x="18.5" y="13" touchEnabled="true"/>
+		</e:Group>
+		<game:IconButton id="btn_close" width="20" height="20" x="675" y="21" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
 	</e:Group>
-	<game:IconButton id="btn_cart" width="20" height="20" x="342" y="1055" skinName="IconButtonSkin"/>
-	<game:IconButton id="btn_close" width="20" height="20" x="675" y="19" skinName="IconButtonSkin"/>
-	<e:Scroller width="720" height="71" y="584" anchorOffsetY="0" x="0">
-		<e:Group>
-	
+
+
+
+
+
+
+	<e:Group width="718.18" height="74.24" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="1" verticalCenter="77" locked="true">
+		<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" left="0" right="0" top="0" bottom="0">
+			<e:Group>
 			<e:layout>
 				<e:HorizontalLayout gap="30"/>
 			</e:layout>
@@ -35,12 +40,21 @@
 			<game:ChooseIcon id="part_foot" width="80" height="80" x="245" y="21" skinName="ChooseIconSkin" touchEnabled="true"/>
 			<game:ChooseIcon id="part_waist" width="80" height="80" x="279" y="24" skinName="ChooseIconSkin" touchEnabled="true"/>
 			<game:ChooseIcon id="part_hand" width="80" height="80" x="334" y="18" skinName="ChooseIconSkin" touchEnabled="true"/>
-		</e:Group>
-	</e:Scroller>
-	<e:Group width="717" height="322" x="0" y="659" anchorOffsetX="0" anchorOffsetY="0">
-		<game:ItemList id="ls_dress" width="720" height="361" x="0" y="0" skinName="ItemListSkin" anchorOffsetX="0" anchorOffsetY="0" enabled="true"/>
+			</e:Group>
+		</e:Scroller>
 	</e:Group>
-	<game:ItemPrice id="test_itemprice" width="144" height="137" x="321" y="129" anchorOffsetX="0" anchorOffsetY="0"/>
+
+
+	<e:Group width="720" height="357.57" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="298" horizontalCenter="0" locked="true">
+		<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" height="360" width="720" verticalCenter="10.215000000000003" horizontalCenter="0" x="5" y="586" scaleX="1" scaleY="1">
+			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="662">
+			<e:layout>
+				<e:TileLayout horizontalGap="30" paddingLeft="20" paddingRight="20" paddingTop="0" paddingBottom="0"/>
+			</e:layout>
+			</e:List>
+		</e:Scroller>
+		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" verticalCenter="225.215" horizontalCenter="-8" x="347" y="977" scaleX="1" scaleY="1"/>
+	</e:Group>
 
 
 </e:Skin>

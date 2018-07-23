@@ -96,8 +96,7 @@ declare class CoinsSkin extends eui.Skin{
 }
 declare class EquipInfoSkin extends eui.Skin{
 }
-declare class ItemListSkin extends eui.Skin{
-}
+
 declare class ItemPriceSkin extends eui.Skin{
 }
 declare class RoleDressSkin extends eui.Skin{

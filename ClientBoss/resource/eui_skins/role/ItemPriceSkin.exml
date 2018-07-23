@@ -8,7 +8,7 @@
 			</e:Skin>
 		</e:skinName>
 	</e:CheckBox>
-	<e:Image id="img_equip" x="40" y="36" source="" anchorOffsetX="0" width="73" anchorOffsetY="0" height="81"/>
+	<e:Image id="img_equip" x="27" y="25" source="" anchorOffsetX="0" width="100" anchorOffsetY="0" height="100"/>
 	<e:Image id="img_checked" source="dress_01_json.dress_01_22" x="101" y="0"/>
 	<e:Label id="txt_obtained" text="已获得" x="33" y="142" bold="true" visible="false"/>
 	<e:Group id="grp_price" width="142.2" height="33.2" x="1.8" y="139.2" anchorOffsetX="0" anchorOffsetY="0">
