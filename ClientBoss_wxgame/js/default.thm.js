@@ -2806,109 +2806,6 @@ var egret = window.egret;
 		return t;
 	};
 	return AvatarSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
-	__extends(CloseButtonSkin, _super);
-	function CloseButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.height = 75;
-		this.width = 75;
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = CloseButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.source = "ui_json.ca";
-		return t;
-	};
-	return CloseButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
-	__extends(ImageButtonSkin, _super);
-	function ImageButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["bgDisplay","imageDisplay"];
-		
-		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
-	}
-	var _proto = ImageButtonSkin.prototype;
-
-	_proto.bgDisplay_i = function () {
-		var t = new eui.Image();
-		this.bgDisplay = t;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(43,19,39,11);
-		t.source = "ui_json.an4";
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.imageDisplay_i = function () {
-		var t = new eui.Image();
-		this.imageDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.tijiao";
-		t.verticalCenter = -0.5;
-		return t;
-	};
-	return ImageButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
-	__extends(LoadProgressBar, _super);
-	function LoadProgressBar() {
-		_super.call(this);
-		this.skinParts = ["thumb"];
-		
-		this.minHeight = 18;
-		this.minWidth = 30;
-		this.elementsContent = [this._Image1_i(),this.thumb_i()];
-	}
-	var _proto = LoadProgressBar.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.percentHeight = 100;
-		t.horizontalCenter = 0;
-		t.scale9Grid = new egret.Rectangle(1,1,4,4);
-		t.source = "ui_json.loadProgressBg";
-		t.verticalCenter = 0;
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.thumb_i = function () {
-		var t = new eui.Image();
-		this.thumb = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(3,77,20,464);
-		t.source = "ui_json.loadProgress";
-		t.percentWidth = 100;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	return LoadProgressBar;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
-	__extends(ToggleButtonSkin, _super);
-	function ToggleButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = ToggleButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.kaishi";
-		t.verticalCenter = 0;
-		return t;
-	};
-	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginRewardSkin.exml'] = window.LoginRewardSkin = (function (_super) {
 	__extends(LoginRewardSkin, _super);
 	function LoginRewardSkin() {
@@ -3571,6 +3468,109 @@ var egret = window.egret;
 		return t;
 	};
 	return RegisterPanelSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
+	__extends(CloseButtonSkin, _super);
+	function CloseButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.height = 75;
+		this.width = 75;
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = CloseButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.source = "ui_json.ca";
+		return t;
+	};
+	return CloseButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
+	__extends(ImageButtonSkin, _super);
+	function ImageButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["bgDisplay","imageDisplay"];
+		
+		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
+	}
+	var _proto = ImageButtonSkin.prototype;
+
+	_proto.bgDisplay_i = function () {
+		var t = new eui.Image();
+		this.bgDisplay = t;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(43,19,39,11);
+		t.source = "ui_json.an4";
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.imageDisplay_i = function () {
+		var t = new eui.Image();
+		this.imageDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.tijiao";
+		t.verticalCenter = -0.5;
+		return t;
+	};
+	return ImageButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
+	__extends(LoadProgressBar, _super);
+	function LoadProgressBar() {
+		_super.call(this);
+		this.skinParts = ["thumb"];
+		
+		this.minHeight = 18;
+		this.minWidth = 30;
+		this.elementsContent = [this._Image1_i(),this.thumb_i()];
+	}
+	var _proto = LoadProgressBar.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.percentHeight = 100;
+		t.horizontalCenter = 0;
+		t.scale9Grid = new egret.Rectangle(1,1,4,4);
+		t.source = "ui_json.loadProgressBg";
+		t.verticalCenter = 0;
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.thumb_i = function () {
+		var t = new eui.Image();
+		this.thumb = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(3,77,20,464);
+		t.source = "ui_json.loadProgress";
+		t.percentWidth = 100;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return LoadProgressBar;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
+	__extends(ToggleButtonSkin, _super);
+	function ToggleButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = ToggleButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.kaishi";
+		t.verticalCenter = 0;
+		return t;
+	};
+	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/main/DeliveryItemSkin.exml'] = window.DeliveryItemSkin = (function (_super) {
 	__extends(DeliveryItemSkin, _super);
 	function DeliveryItemSkin() {
@@ -5366,6 +5366,16 @@ var egret = window.egret;
 	};
 	_proto._TileLayout1_i = function () {
 		var t = new eui.TileLayout();
+		t.columnAlign = "justifyUsingGap";
+		t.horizontalAlign = "center";
+		t.horizontalGap = 20;
+		t.paddingBottom = 0;
+		t.paddingLeft = 20;
+		t.paddingRight = 20;
+		t.paddingTop = 0;
+		t.rowAlign = "justifyUsingGap";
+		t.verticalAlign = "contentJustify";
+		t.verticalGap = 10;
 		return t;
 	};
 	return ItemListSkin;
@@ -5437,7 +5447,11 @@ var egret = window.egret;
 	_proto.img_equip_i = function () {
 		var t = new eui.Image();
 		this.img_equip = t;
-		t.source = "dress_02_json.dress_02_04";
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 81;
+		t.source = "";
+		t.width = 73;
 		t.x = 40;
 		t.y = 36;
 		return t;
@@ -5496,11 +5510,11 @@ var egret = window.egret;
 	__extends(RoleDressSkin, _super);
 	function RoleDressSkin() {
 		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","grp_dressinfo","grp_role","icon_boy","icon_gril","grp_misc","btn_cart","btn_close","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","ls_dress"];
+		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","grp_dressinfo","grp_role","icon_boy","icon_gril","grp_misc","btn_cart","btn_close","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","ls_dress","test_itemprice"];
 		
 		this.height = 1100;
 		this.width = 720;
-		this.elementsContent = [this.img_girlbg_i(),this.img_boybg_i(),this.grp_coins_i(),this.grp_dressinfo_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_cart_i(),this.btn_close_i(),this._Scroller1_i(),this._Group2_i()];
+		this.elementsContent = [this.img_girlbg_i(),this.img_boybg_i(),this.grp_coins_i(),this.grp_dressinfo_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_cart_i(),this.btn_close_i(),this._Scroller1_i(),this._Group2_i(),this.test_itemprice_i()];
 	}
 	var _proto = RoleDressSkin.prototype;
 
@@ -5639,7 +5653,7 @@ var egret = window.egret;
 		t.skinName = "IconButtonSkin";
 		t.width = 20;
 		t.x = 342;
-		t.y = 1048;
+		t.y = 1055;
 		return t;
 	};
 	_proto.btn_close_i = function () {
@@ -5676,6 +5690,7 @@ var egret = window.egret;
 	_proto.part_back_i = function () {
 		var t = new game.ChooseIcon();
 		this.part_back = t;
+		t.enabled = true;
 		t.height = 80;
 		t.skinName = "ChooseIconSkin";
 		t.touchEnabled = true;
@@ -5766,11 +5781,23 @@ var egret = window.egret;
 		this.ls_dress = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 345;
+		t.enabled = true;
+		t.height = 361;
 		t.skinName = "ItemListSkin";
 		t.width = 720;
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto.test_itemprice_i = function () {
+		var t = new game.ItemPrice();
+		this.test_itemprice = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 137;
+		t.width = 144;
+		t.x = 321;
+		t.y = 129;
 		return t;
 	};
 	return RoleDressSkin;

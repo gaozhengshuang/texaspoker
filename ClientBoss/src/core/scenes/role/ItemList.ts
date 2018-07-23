@@ -1,7 +1,7 @@
 module game {
 	export class ItemList extends eui.Component {
 		itemScroller: eui.Scroller;
-		itemList: eui.List;
+		public itemList: eui.List;
 
 
 
@@ -19,7 +19,7 @@ module game {
 		public init_list() {
 			console.log("初始化")
 			this.itemList.dataProvider = new eui.ArrayCollection();
-			this.itemList.itemRenderer = ItemPrice;
+			this.itemList.itemRenderer = game.ItemPrice;
 			this.itemList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
 			this.itemList.selectedIndex = 1;
 		}

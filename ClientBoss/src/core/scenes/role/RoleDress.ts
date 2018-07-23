@@ -1,5 +1,6 @@
 module game {
 
+    
     class ItemInfo {
         constructor(imgPath, price, priceUnit = 1) {
             this.imgPath = imgPath;
@@ -14,27 +15,28 @@ module game {
     }
 
     export class RoleDress extends PanelComponent {
-        public img_girlbg: eui.Image;
-        public img_boybg: eui.Image;
-        public grp_coins: eui.Group;
-        public coin_money: game.Coins;
-        public coin_gold: game.Coins;
-        public grp_dressinfo: eui.Group;
-        public grp_role: eui.Group;
-        public grp_misc: eui.Group;
-        public icon_boy: eui.Image;
-        public icon_gril: eui.Image;
+        img_girlbg: eui.Image;
+        img_boybg: eui.Image;
+        grp_coins: eui.Group;
+        coin_money: game.Coins;
+        coin_gold: game.Coins;
+        grp_dressinfo: eui.Group;
+        grp_role: eui.Group;
+        grp_misc: eui.Group;
+        icon_boy: eui.Image;
+        icon_gril: eui.Image;
 
-        public btn_cart: game.IconButton;
-        public btn_close: game.IconButton;
-        public part_back: game.ChooseIcon;
-        public part_head: game.ChooseIcon;
-        public part_body: game.ChooseIcon;
-        public part_leg: game.ChooseIcon;
-        public part_foot: game.ChooseIcon;
-        public part_waist: game.ChooseIcon;
-        public part_hand: game.ChooseIcon;
-        public ls_dress: game.ItemList;
+        btn_cart: game.IconButton;
+        btn_close: game.IconButton;
+        part_back: game.ChooseIcon;
+        part_head: game.ChooseIcon;
+        part_body: game.ChooseIcon;
+        part_leg: game.ChooseIcon;
+        part_foot: game.ChooseIcon;
+        part_waist: game.ChooseIcon;
+        part_hand: game.ChooseIcon;
+        ls_dress: game.ItemList;
+        test_itemprice: game.ItemPrice
 
 
         protected getSkinName() {
@@ -61,6 +63,8 @@ module game {
             this.switchToGril();
 
             this.partHandle_body();
+
+            this.setItemPrice(this.test_itemprice,(new ItemInfo("dress_02_json.dress_02_14", 5000) ))
             // this.ls_dress. = new eui.ArrayCollection();
         }
 
@@ -97,7 +101,7 @@ module game {
         }
 
         private initCoins() {
-            this.coin_gold.coins = DataManager.playerModel.getGold();
+            this.coin_gold.coins = DataManager.playerModel.getScore();
             this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
         }
         //TODO: 更新货币
@@ -199,13 +203,13 @@ module game {
             this.ls_dress.rm_items();
             for (let i = 0; i < items.length; ++i) {
                 let dressItem = new game.ItemPrice();
-                this.setShelfItem(dressItem, items[i]);
+                this.setItemPrice(dressItem, items[i]);
                 this.ls_dress.add_item(dressItem);
 
             }
         }
 
-        private setShelfItem(item: game.ItemPrice, itemInfo: ItemInfo) {
+        private setItemPrice(item: game.ItemPrice, itemInfo: ItemInfo) {
             let info = {
                 icon: itemInfo.imgPath,
                 price: (itemInfo.isObtained ? 0 : itemInfo.price),
