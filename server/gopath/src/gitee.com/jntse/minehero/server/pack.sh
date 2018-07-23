@@ -39,6 +39,36 @@ wainum=$((wainum + 1))
 waibuildDirName=${today}R${wainum}_PP
 echo $waibuildDirName
 
+cmd=$1
+case $cmd in
+
+test)
+## 测试环境
+echo "测试环境版本生成中..."
+ssh brickcrush@210.73.214.68 "mkdir -p /home/brickcrush/version/${waibuildDirName}"
+scp pack/$filename brickcrush@210.73.214.68:/home/brickcrush/version/${waibuildDirName}
+ssh brickcrush@210.73.214.68 "cd /home/brickcrush/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
+ssh brickcrush@210.73.214.68 "rm /home/brickcrush/version/${waibuildDirName}/release/conf -rf"
+ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/conf /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/runserver.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+;;
+
+banshu)
+## 版署版本
+echo "版署版本版本生成中..."
+ssh brickbanshu@210.73.214.68 "mkdir -p /home/brickbanshu/version/${waibuildDirName}"
+scp pack/$filename brickbanshu@210.73.214.68:/home/brickbanshu/version/${waibuildDirName}
+ssh brickbanshu@210.73.214.68 "cd /home/brickbanshu/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
+ssh brickbanshu@210.73.214.68 "rm /home/brickbanshu/version/${waibuildDirName}/release/conf -rf"
+ssh brickbanshu@210.73.214.68 "cp /home/brickbanshu/version/config/conf /home/brickbanshu/version/${waibuildDirName}/release/ -rvf"
+ssh brickbanshu@210.73.214.68 "cp /home/brickbanshu/version/config/runserver.sh /home/brickbanshu/version/${waibuildDirName}/release/ -rvf"
+ssh brickbanshu@210.73.214.68 "cp /home/brickbanshu/version/config/watch.sh /home/brickbanshu/version/${waibuildDirName}/release/ -rvf"
+;;
+
+release)
+## 正式环境版本
+echo "正式环境版本生成中..."
 ssh brickcrush@210.73.214.68 "mkdir -p /home/brickcrush/version/${waibuildDirName}"
 scp pack/$filename brickcrush@210.73.214.68:/home/brickcrush/version/${waibuildDirName}
 ssh brickcrush@210.73.214.68 "cd /home/brickcrush/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
@@ -47,7 +77,6 @@ ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/conf /home/bric
 ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/runserver.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 ssh brickcrush@210.73.214.68 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 
-## 正式环境版本
 ssh brickcrush@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.71:/home/brickcrush/version/"
 #ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.76:/home/brickcrush/version/"
 #ssh webgame@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.77:/home/brickcrush/version/"
@@ -57,16 +86,6 @@ ssh brickcrush@210.73.214.71 "rm /home/brickcrush/version/${waibuildDirName}/rel
 ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/conf /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/runserver.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+;;
 
-#ssh webgame@210.73.214.76 "cd /home/webgame/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
-#ssh webgame@210.73.214.76 "rm /home/webgame/version/${waibuildDirName}/release/conf -rf"
-#ssh webgame@210.73.214.76 "cp /home/webgame/version/config/conf /home/webgame/version/${waibuildDirName}/release/ -rvf"
-#ssh webgame@210.73.214.76 "cp /home/webgame/version/config/runserver.sh /home/webgame/version/${waibuildDirName}/release/ -rvf"
-#ssh webgame@210.73.214.76 "cp /home/webgame/version/config/watch.sh /home/webgame/version/${waibuildDirName}/release/ -rvf"
-#
-#ssh webgame@210.73.214.77 "cd /home/webgame/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
-#ssh webgame@210.73.214.77 "rm /home/webgame/version/${waibuildDirName}/release/conf -rf"
-#ssh webgame@210.73.214.77 "cp /home/webgame/version/config/conf /home/webgame/version/${waibuildDirName}/release/ -rvf"
-#ssh webgame@210.73.214.77 "cp /home/webgame/version/config/runserver.sh /home/webgame/version/${waibuildDirName}/release/ -rvf"
-#ssh webgame@210.73.214.77 "cp /home/webgame/version/config/watch.sh /home/webgame/version/${waibuildDirName}/release/ -rvf"
-
+esac
