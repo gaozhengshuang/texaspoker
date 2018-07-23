@@ -8,10 +8,31 @@ import (
 
 var g_Quit bool = false
 var g_KeyBordInput util.KeyBordInput
+var g_CmdArgs CmdlineArgument
+
+type CmdlineArgument struct {
+	Conf        string
+	Logname     string
+	Logpath     string
+	Loglvl      string
+	Daemon      bool
+	EventStat   bool
+	PProf       int64
+	Ver         string
+}
+
+// 命令行参数解析
+func init() {
+	util.DoCmdLineParse(&g_CmdArgs)
+	//if g_CmdArgs.Conf == ""         { panic("-----input '-conf' cmdline argu-----")     }
+	//if g_CmdArgs.Logname == ""      { panic("-----input '-logname' cmdline argu-----")  }
+	//if g_CmdArgs.Logpath == ""      { panic("-----input '-logpath' cmdline argu-----")  }
+	//if g_CmdArgs.Loglvl == ""       { panic("-----input '-loglvl' cmdline argu-----")   }
+	//if g_CmdArgs.PProf == 0         { panic("-----input '-pprof' cmdline argu-----")   }
+
+}
 
 func main() {
-	fmt.Println("vim-go")
-
 	log.Init("","","trace")
 	log.Info("初始日志完成")
 
