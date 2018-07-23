@@ -21,19 +21,31 @@ func (this *UdpServer) Host() string {
 	return fmt.Sprintf("%s:%d", this.ip, this.port)
 }
 
-func (this *UdpServer) Read() {
+func (this *UdpServer) Read() bool {
+	this.listener.SetReadDeadline(time.Now().Add(time.Millisecond* 10))
 	data := make([]byte, 2048)
-	n, err := this.listener.Read(data)
+	n, raddr, err := this.listener.ReadFromUDP(data)
 	if err != nil {
-		fmt.Printf("error during read: %s", err)
+		if nerr, convertok := err.(net.Error); convertok && nerr.Timeout() {
+			return true 
+		}
+		fmt.Printf("error during read: %s\n", err)
+		return false
 	}
-	fmt.Printf("receive %s from %s\n", data[:n], this.listener.RemoteAddr())
-	this.Write()
+	fmt.Printf("receive %s from %s\n", data[:n], raddr)
+	this.Write(raddr)
+	return true
 }
 
-func (this *UdpServer) Write() {
+func (this *UdpServer) Write(addr *net.UDPAddr) {
 	sendbuf := []byte("server msg")
-	this.listener.Write(sendbuf)
+	n, err := this.listener.WriteToUDP(sendbuf, addr)
+	if err != nil {
+		fmt.Printf("error during write:%s\n", err)
+		return
+	}
+	fmt.Printf("send %d bytes ok\n", n)
+
 }
 
 func (this *UdpServer) Init(ip string, port int32) {

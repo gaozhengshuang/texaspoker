@@ -1,6 +1,6 @@
 package main
 import (
-	_"time"
+	"time"
 	"fmt"
 	"net"
 	"gitee.com/jntse/gotoolkit/log"
@@ -22,18 +22,31 @@ func (this *UdpClient) Host() string {
 	return fmt.Sprintf("%s:%d", this.ip, this.port)
 }
 
-func (this *UdpClient) Read() {
+func (this *UdpClient) Read() bool {
+	this.dialer.SetReadDeadline(time.Now().Add(time.Millisecond* 10))
 	data := make([]byte, 2048)
 	n, err := this.dialer.Read(data)
 	if err != nil {
-		fmt.Printf("error during read: %s", err)
+		if nerr, convertok := err.(net.Error); convertok && nerr.Timeout() {
+			return true 
+		}
+		fmt.Printf("error during read: %s\n", err)
+		return false
 	}
-	fmt.Printf("receive %s from \n", data[:n])
+	fmt.Printf("receive %s from %v\n", data[:n], this.dialer.RemoteAddr())
+	return true
 }
 
-func (this *UdpClient) Write() {
+func (this *UdpClient) Write() bool {
 	sendbuf := []byte("client msg")
-	this.dialer.Write(sendbuf)
+	n, err := this.dialer.Write(sendbuf)
+	if err != nil {
+		fmt.Printf("error during write:%s\n", err)
+		return false
+	}
+
+	fmt.Printf("send %d bytes ok\n", n)
+	return true
 }
 
 func (this *UdpClient) Init(ip string, port int32) {
@@ -59,7 +72,21 @@ func (this *UdpClient) Start() {
 		panic(err)
 	}
 	this.dialer = conn
-	this.Write()
-	this.Read()
+	this.running = true
+
+	go this.run()
 }
+
+func (this *UdpClient) run() {
+	for ;; {
+		if this.running == false {
+			break
+		}
+
+		this.Read()
+		this.Write()
+		time.Sleep(time.Second)
+	}
+}
+
 
