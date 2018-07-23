@@ -89,7 +89,7 @@ class Main extends eui.UILayer {
             // } catch (e) {
             //     console.log("load config 出错");
             // }
-
+            // console.log(dragonBones.DragonBones.VERSION)
             {
                 // const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
                 const remoteUrl = "https://210.73.214.68/egret_remote/resource/";

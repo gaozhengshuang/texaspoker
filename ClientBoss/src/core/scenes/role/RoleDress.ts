@@ -1,34 +1,34 @@
 module game {
 
     let dressItems = [
-        {img: "dress_02_01",price: 2000, priceUnit: 1},
-        {img: "dress_02_02",price: 2000, priceUnit: 1},
-        {img: "dress_02_03",price: 2000, priceUnit: 1},
-        {img: "dress_02_04",price: 2000, priceUnit: 1},
-        {img: "dress_02_05",price: 2000, priceUnit: 1},
-        {img: "dress_02_06",price: 2000, priceUnit: 1},
-        {img: "dress_02_07",price: 2000, priceUnit: 1},
-        {img: "dress_02_08",price: 2000, priceUnit: 1},
-        {img: "dress_02_09",price: 2000, priceUnit: 1},
-        {img: "dress_02_10",price: 2000, priceUnit: 1},
-        {img: "dress_02_11",price: 2000, priceUnit: 1},
-        {img: "dress_02_12",price: 2000, priceUnit: 1},
-        {img: "dress_02_13",price: 2000, priceUnit: 1},
-        {img: "dress_02_14",price: 2000, priceUnit: 1},
-        {img: "dress_02_15",price: 2000, priceUnit: 1},
-        {img: "dress_02_16",price: 2000, priceUnit: 1},
-        {img: "dress_02_17",price: 2000, priceUnit: 1},
-        {img: "dress_02_18",price: 2000, priceUnit: 1},
-        {img: "dress_02_19",price: 2000, priceUnit: 1},
-        {img: "dress_02_20",price: 2000, priceUnit: 1},
-        {img: "dress_02_21",price: 2000, priceUnit: 1},
-        {img: "dress_02_22",price: 2000, priceUnit: 1},
-        {img: "dress_02_23",price: 2000, priceUnit: 1},
-        {img: "dress_02_24",price: 2000, priceUnit: 1},
-        {img: "dress_02_25",price: 2000, priceUnit: 1},
-        {img: "dress_02_26",price: 2000, priceUnit: 1},
+        { img: "dress_02_01", price: 2000, priceUnit: 1 },
+        { img: "dress_02_02", price: 2000, priceUnit: 1 },
+        { img: "dress_02_03", price: 2000, priceUnit: 1 },
+        { img: "dress_02_04", price: 2000, priceUnit: 1 },
+        { img: "dress_02_05", price: 2000, priceUnit: 1 },
+        { img: "dress_02_06", price: 2000, priceUnit: 1 },
+        { img: "dress_02_07", price: 2000, priceUnit: 1 },
+        { img: "dress_02_08", price: 2000, priceUnit: 1 },
+        { img: "dress_02_09", price: 2000, priceUnit: 1 },
+        { img: "dress_02_10", price: 2000, priceUnit: 1 },
+        { img: "dress_02_11", price: 2000, priceUnit: 1 },
+        { img: "dress_02_12", price: 2000, priceUnit: 1 },
+        { img: "dress_02_13", price: 2000, priceUnit: 1 },
+        { img: "dress_02_14", price: 2000, priceUnit: 1 },
+        { img: "dress_02_15", price: 2000, priceUnit: 1 },
+        { img: "dress_02_16", price: 2000, priceUnit: 1 },
+        { img: "dress_02_17", price: 2000, priceUnit: 1 },
+        { img: "dress_02_18", price: 2000, priceUnit: 1 },
+        { img: "dress_02_19", price: 2000, priceUnit: 1 },
+        { img: "dress_02_20", price: 2000, priceUnit: 1 },
+        { img: "dress_02_21", price: 2000, priceUnit: 1 },
+        { img: "dress_02_22", price: 2000, priceUnit: 1 },
+        { img: "dress_02_23", price: 2000, priceUnit: 1 },
+        { img: "dress_02_24", price: 2000, priceUnit: 1 },
+        { img: "dress_02_25", price: 2000, priceUnit: 1 },
+        { img: "dress_02_26", price: 2000, priceUnit: 1 },
     ]
-  
+
 
     export class RoleDress extends PanelComponent {
         img_girlbg: eui.Image;
@@ -82,13 +82,7 @@ module game {
             this.switchToGril();
 
             this.partHandle_body();
-
-            // this.initTest();
         }
-
-        // private initTest() {
-        //     this.setItemPrice(this.test_itemprice,new ItemInfo("dress_02_json.dress_02_08", 68593));
-        // }
 
         private initItemList() {
             this._dataProv = new eui.ArrayCollection();
@@ -211,7 +205,11 @@ module game {
 
         //TODO: 切换模型骨骼
         public useGirlSpine(b: boolean) {
-
+            // if (DataManager.boyDbones.isReady){
+                console.log(DataManager.boyDbones.display);
+                
+                this.grp_role.addChild(DataManager.boyDbones.display);
+            // }
         }
 
         //TODO: 显示默认的装备
@@ -232,7 +230,7 @@ module game {
         }
 
         // 设置装备列表
-        private setShelf(s: number,e: number) {
+        private setShelf(s: number, e: number) {
             this._dataProv.removeAll();
             for (let i = s; i < e; ++i) {
                 this._dataProv.addItem(dressItems[i]);
@@ -242,32 +240,28 @@ module game {
 
         // 显示装备列表
         public showShelf_back() {
-            this.setShelf(23,25);
+            this.setShelf(23, 25);
 
         }
         public showShelf_head() {
-            this.setShelf(0,3);
+            this.setShelf(0, 3);
         }
         public showShelf_body() {
-            this.setShelf(3,9);
+            this.setShelf(3, 9);
 
         }
         public showShelf_leg() {
-            this.setShelf(6,10);
+            this.setShelf(6, 10);
         }
         public showShelf_foot() {
-            this.setShelf(10,14);
+            this.setShelf(10, 14);
         }
         public showShelf_waist() {
-            this.setShelf(14,19);
+            this.setShelf(14, 19);
         }
         public showShelf_hand() {
-            this.setShelf(19,23);
+            this.setShelf(19, 23);
         }
-
-
-
-
 
     }
 }

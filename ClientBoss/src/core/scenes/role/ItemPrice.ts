@@ -16,10 +16,12 @@ module game {
             this.img_checked.visible = false;
 
             this.img_equip.addEventListener('touchEnd',this.onTouch,this);
+            this.chk_item.addEventListener('touchEnd',this.onTouch,this);
         }
 
         private onTouch() {
             this.img_checked.visible = !this.img_checked.visible;
+            this.chk_item.selected = !this.chk_item.selected;
         }
 
         protected getSkinName() {
