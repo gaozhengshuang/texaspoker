@@ -13,7 +13,7 @@
 		<e:Group id="grp_dressinfo" width="220" height="280" x="498" y="81" scaleX="1" scaleY="1" locked="true">
 		<game:EquipInfo skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0"/>
 		</e:Group>
-		<e:Group id="grp_role" width="311" height="278" x="224" y="281" scaleX="1" scaleY="1" anchorOffsetY="0" anchorOffsetX="0"/>
+		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="25.894999999999982" verticalCenter="155.08999999999997"/>
 		<e:Group id="grp_misc" width="101" height="61" x="75" y="508.00000000000006" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" locked="true">
 		<e:Image source="dress_01_json.dress_01_26" x="-4" y="3"/>
 		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="53" y="14" touchEnabled="true"/>

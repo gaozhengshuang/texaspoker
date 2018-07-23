@@ -40,11 +40,16 @@ module game {
 
             var arm: dragonBones.Armature = dbf.buildArmature(skeName);
 
-            arm.animation.play(testAnim,1);
+            arm.animation.play(testAnim,0);
             dragonBones.WorldClock.clock.add(arm);
 
             this._armature = arm;
             egret.startTick(this.dbrun, this);
+        }
+
+        public  adjust(e: egret.DisplayObjectContainer) {
+            this.display.x = e.width * .5;
+            this.display.y = e.height;
         }
 
         //由tick驱动，刷新DragonBones世界时钟

@@ -24,5 +24,6 @@ module game {
             await DataManager.boyDbones.loadDbones();
             // await DataManager.girlDbones.loadDbones();
         }
+
     }
 }

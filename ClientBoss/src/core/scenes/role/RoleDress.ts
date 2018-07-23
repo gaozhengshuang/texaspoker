@@ -206,8 +206,7 @@ module game {
         //TODO: 切换模型骨骼
         public useGirlSpine(b: boolean) {
             // if (DataManager.boyDbones.isReady){
-                console.log(DataManager.boyDbones.display);
-                
+                DataManager.boyDbones.adjust(this.grp_role);
                 this.grp_role.addChild(DataManager.boyDbones.display);
             // }
         }

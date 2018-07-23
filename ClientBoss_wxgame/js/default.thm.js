@@ -5571,12 +5571,14 @@ var egret = window.egret;
 	_proto.grp_role_i = function () {
 		var t = new eui.Group();
 		this.grp_role = t;
-		t.height = 200;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 278;
+		t.horizontalCenter = 25.894999999999982;
 		t.scaleX = 1;
 		t.scaleY = 1;
-		t.width = 200;
-		t.x = 291;
-		t.y = 347;
+		t.verticalCenter = 155.08999999999997;
+		t.width = 311;
 		return t;
 	};
 	_proto.grp_misc_i = function () {

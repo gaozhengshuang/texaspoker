@@ -67,7 +67,7 @@ module game {
         effectTips.visible = true;
         egret.Tween.get(effectTips).to({
             alpha: 1
-        }, 500).wait(500).to({alpha: 1}, 500).call(onComplete2, this);
+        }, 500).wait(500).to({ alpha: 1 }, 500).call(onComplete2, this);
         egret.Tween.get(effectTips).to({
             y: effectTips.y - moveY,
         }, 800, egret.Ease.backOut);
@@ -96,7 +96,7 @@ module game {
         effectTips.visible = true;
         egret.Tween.get(effectTips).to({
             alpha: 1
-        }, 500).wait(500).to({alpha: 0}, 500).call(onComplete2, this);
+        }, 500).wait(500).to({ alpha: 0 }, 500).call(onComplete2, this);
         egret.Tween.get(effectTips).to({
             y: effectTips.y - 220,
         }, 800, egret.Ease.backOut);
@@ -163,7 +163,7 @@ module game {
                 d.resolve(data);
             }
             else {
-                d.reject({message: "IOError:" + _url});
+                d.reject({ message: "IOError:" + _url });
             }
         }, this, type);
 
@@ -176,7 +176,7 @@ module game {
             if (data) {
                 d.resolve(data);
             } else {
-                d.reject({message: "IOError:" + res})
+                d.reject({ message: "IOError:" + res })
             }
         }, this);
         return d.promise();
@@ -225,7 +225,7 @@ module game {
 
     export function lootPro(event: ProInfo[]): number {
         let randomNum = Math.random();
-        let info = {id:6, pro:0.33};
+        let info = { id: 6, pro: 0.33 };
         let value = 0;
         for (let i = 0; i < event.length; i++) {
             value += event[i].pro;
@@ -327,11 +327,11 @@ module game {
                 colorArray[i] = colorArray[i].substr(1, colorArray[i].length - 2);
             }
             for (let i = 1; i < textArray.length; i++) {
-                resultArray.push({text: textArray[i], style: {textColor: parse16Color(colorArray[i - 1])}});
+                resultArray.push({ text: textArray[i], style: { textColor: parse16Color(colorArray[i - 1]) } });
             }
         } else {
             for (let i = 0; i < textArray.length; i++) {
-                resultArray.push({text: textArray[i], color: 0x000000});
+                resultArray.push({ text: textArray[i], color: 0x000000 });
             }
         }
         return resultArray;
@@ -390,4 +390,30 @@ module game {
         document.body.removeChild(input);
         showTips("复制成功!");
     }
+
+    export let BonesDictionary: Dictionary<Array<SkeletonBase>> = {};
+    
+    export async function getBone(resourceName: string) {
+        if (!BonesDictionary[resourceName]) {
+            BonesDictionary[resourceName] = [];
+        }
+        for (let i = 0; i < BonesDictionary[resourceName].length; i++) {
+            let bone = BonesDictionary[resourceName][i];
+            if (!bone.isUsed) {
+                bone.isUsed = true;
+                return bone;
+            }
+        }
+        let bone = new SkeletonBase();
+        bone.isUsed = true;
+        await bone.createBones(resourceName);
+        BonesDictionary[resourceName].push(bone);
+        return bone;
+    }
+
+    export function destroyBone(bone: SkeletonBase) {
+        bone.removeFromParent();
+        bone.isUsed = false;
+    }
+
 }
