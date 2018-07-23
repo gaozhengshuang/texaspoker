@@ -90,6 +90,7 @@ module game {
         //private _debugDraw: p2DebugDraw;
         debugGroup: eui.Group;
         private _currentFrame: number;
+        private _badbuffDeltaTime:number;
         private _lootList;
         private _topColumn: number[];
         private _blackHoleList: BattleBlackHole[];
@@ -168,7 +169,8 @@ module game {
                     this.brickInfoGroup.addChild(info);
                 }
             }
-
+        
+            SkillManager.getInstance().init();
             this.initWorld();
             this.initNetHandle();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
@@ -470,7 +472,11 @@ module game {
                 DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
                 this.addSp();
             }
-            this.updateSp();
+            //更新能量
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
+            if (this._nowSp < maxSp) {
+                this.updateSp();
+            }
             let angle = Math.atan2(x - this._paddle.x, this._paddle.y - y);
             let rotation = angle * 180 / Math.PI;
             let sin = Math.sin(angle);
@@ -687,7 +693,11 @@ module game {
                 }
                 this.sendSpMsg(totalGold);
             }
-
+            if(this._badbuffDeltaTime>0)
+            {
+                this._badbuffDeltaTime--;
+            }
+            
             this._currentFrame++;
             this.moveBrick();
             if (this._currentFrame == 120) {
@@ -713,8 +723,11 @@ module game {
                         }
                     }
                 }
-                if (ball.y >= this._diedY || ball.meetFire/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
+                if (ball.y >= this._diedY/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
                     this._ballPool.recycleObject(ball);
+                }
+                if (ball.meetFire) {
+                    this._ballPool.destroyObject(ball);
                 }
             }
             for (let buff of this._buffList) {
@@ -834,11 +847,13 @@ module game {
                     case BrickType.blackHole:
                     case BrickType.fireWall:
                     case BrickType.ice:
+                        if(this._badbuffDeltaTime>0) return;
                         if (this._topColumn.length <= (10 - limitNum)) return;
                         mapGridInfo.row = 0;
                         let index = Math.floor(Math.random() * this._topColumn.length);
                         mapGridInfo.column = this._topColumn[index];
                         this._topColumn.splice(index, 1);
+                        this._badbuffDeltaTime = _eventBadBuffDeltaTime * SkillManager.getInstance().SkillAddition(SkillType.BadBuffDeltaTime);
                         break;
                 }
 
@@ -994,8 +1009,9 @@ module game {
         }
 
         private addSp() {
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));        
             if (this._spCool > 0) return;
-            if (this._nowSp < _maxSp) {
+            if (this._nowSp < maxSp) {
                 this._nowSp += 1;
                 this.updateSp();
             }
@@ -1041,9 +1057,10 @@ module game {
         }
 
         private updateSp() {
-            this._nowSp = Math.min(this._nowSp, _maxSp);
-            // console.log('更新SP：', this._nowSp,_maxSp, this._nowSp/_maxSp,this);
-            this._paddle.setSp(this._nowSp / _maxSp);
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));        
+            this._nowSp = Math.min(this._nowSp, maxSp);
+            //console.log('更新SP：', this._nowSp,maxSp, this._nowSp/maxSp,this);
+            this._paddle.setSp(this._nowSp / maxSp);
         }
 
         public addHit(brick: BattleBrick, ball: BattleBall) {
@@ -1221,7 +1238,7 @@ module game {
 
             switch (type) {
                 case BrickType.doubleScore:
-                    this._doubleTime = 60 * 15;
+                    this._doubleTime = 60 * 15 + SkillManager.getInstance().SkillAddition(SkillType.DoubleScore);
                     break;
                 case BrickType.boom:
                     // let minX = brick.x - brick.width * 3;
@@ -1245,7 +1262,7 @@ module game {
                     break;
                 case BrickType.penetration:
                     this._paddle.playChangeAnim();
-                    DataManager.playerModel.addPenetration(3);
+                    DataManager.playerModel.addPenetration(SkillManager.getInstance().SkillAddition(SkillType.Penetration));
                     break;
                 case BrickType.goldShark:
                     this._curGoldSharkScore = score;
@@ -1266,6 +1283,7 @@ module game {
             this.playBreakAnim(brick);
             this.cleanBrick(brick);
 
+            score =  Math.floor(score*SkillManager.getInstance().SkillAddition(SkillType.BreakGoldGet)) ;
             return score;
         }
         //TODO: 发送黄金鲨分数统计到服务器
@@ -1418,8 +1436,8 @@ module game {
 
                 SceneManager.changeScene(SceneType.main);
             }.bind(this);
-
-            if (this._nowSp >= _maxSp / 2 || this._breakBad >= _breakBadBuffMax) {
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));            
+            if (this._nowSp >= maxSp / 2 || this._breakBad >= _breakBadBuffMax) {
                 showDialog("现在退出游戏，能量将不保存哦！", "确定", function () {
                     backFunc();
                 });

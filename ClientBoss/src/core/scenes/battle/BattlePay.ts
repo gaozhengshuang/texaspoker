@@ -11,9 +11,10 @@ module game {
         public closeButton: IconButton;
         public startButton: IconButton;
         public bagButton: IconButton;
+        public allChangeButton: IconButton;
 
         public goldCnt: eui.Label;
-
+        public curDiamond_txt: eui.Label;
 
         private _playInterval: number;
         private _giftPro: number[];
@@ -31,6 +32,7 @@ module game {
         protected init() {
             this.closeButton && (this.closeButton.icon = "lucky_json.luckycloseBtn");
             this.startButton && (this.startButton.icon = "ui_json.b-recharge");
+            this.allChangeButton && (this.allChangeButton.icon = "ui_json.changeMoneyAll");
 
             let testGifts = [
                 { rmb: 6, gold: 600 },
@@ -51,13 +53,25 @@ module game {
                     notifyName: PlayerModel.SCORE_UPDATE,
                     execute: true
                 },
+                {
+                    source: DataManager.playerModel,
+                    target: this,
+                    callBackFunc: this.updateDiamond,
+                    notifyName: PlayerModel.DIAMOND_UPDATE,
+                    execute: true
+                },
             ]
 
             this.setGoldCnt(DataManager.playerModel.getScore());
+            this.updateDiamond();
         }
 
         private updateScore() {
             this.setGoldCnt(DataManager.playerModel.getScore());
+        }
+
+        private updateDiamond() {
+            this.curDiamond_txt.text = `拥有：${DataManager.playerModel.getDiamond()}钻石`;
         }
 
         protected setGoldCnt(n) {
@@ -72,7 +86,7 @@ module game {
             this._touchEvent = [
                 { target: this.closeButton, callBackFunc: this.backHandle },
                 { target: this.startButton, callBackFunc: this.payHandle },
-
+                { target: this.allChangeButton, callBackFunc: this.changeHandle },
             ];
             this.addTouchEvent();
             this.registerEvent();
@@ -167,6 +181,11 @@ module game {
                 showDialog("IOS暂时不支持内购，敬请期待...", "确定", null);
             }
         }
+
+        private changeHandle() {
+            sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+        }
+
         private static _instance: BattlePay;
 
         public static getInstance(): BattlePay {

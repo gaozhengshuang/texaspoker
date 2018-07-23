@@ -91,7 +91,9 @@ class Main extends eui.UILayer {
             // }
 
             {
-                const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
+                // const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
+                const remoteUrl = "https://210.73.214.68/egret_remote/resource/";
+
             //     egret.ImageLoader.crossOrigin = "anonymous";
                 RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, (e) => { console.log("加载资源成功"); }, this);
                 RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, (e) => { console.log("加载资源出错！", e); }, this);

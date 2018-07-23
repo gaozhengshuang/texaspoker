@@ -15,7 +15,7 @@ module game {
         // }
 
        public setItem(rmb: number, gold: number) {
-            this.itemGold && (this.itemGold.text = `${gold}金币`);
+            this.itemGold && (this.itemGold.text = `${gold}钻石`);
             this.itemRmb && (this.itemRmb.text = `${rmb}元`);
         }
 

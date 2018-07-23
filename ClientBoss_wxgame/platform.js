@@ -16,30 +16,6 @@ class WxgamePlatform {
         })
     }
 
-    miniPrgramPay(nonceStr, prepayId,paySign) {
-        return new Promise((resolve, reject)=>{
-           wx.requestPayment({
-             'timeStamp': Date.now().toString(),
-             'nonceStr': nonceStr,
-             'package': `prepay_id=${prepayId}`,
-             'signType': 'MD5',
-             'paySign': paySign,
-             'success':  function(res)  {
-                 console.log("pay successful!",res);
-                 resolve(res); 
-               },
-             'fail': function(res)  { 
-                 console.log("pay failed!",res);
-                 resolve(res); 
-               },
-             'complete': function (res) {
-                  console.log("pay complete!",res);
-                  resolve(res); 
-               }
-           });
-        });
-       }
-
     getUserInfo() {
         return new Promise((resolve, reject) => {
             wx.getUserInfo({

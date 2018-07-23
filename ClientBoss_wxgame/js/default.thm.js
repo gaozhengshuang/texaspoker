@@ -10,7 +10,7 @@ var egret = window.egret;
                 window.generateEUI = {};
                 generateEUI.paths = {};
                 generateEUI.styles = undefined;
-                generateEUI.skins = undefined;generateEUI.paths['resource/eui_skins/component/NormalLabelButtonSkin.exml'] = window.NormalLabelButtonSkin = (function (_super) {
+                generateEUI.skins = {"Coins":"resource/eui_skins/Coins.exml","game.Choose":"resource/eui_skins/Choose.exml"};generateEUI.paths['resource/eui_skins/component/NormalLabelButtonSkin.exml'] = window.NormalLabelButtonSkin = (function (_super) {
 	__extends(NormalLabelButtonSkin, _super);
 	function NormalLabelButtonSkin() {
 		_super.call(this);
@@ -1707,7 +1707,7 @@ var egret = window.egret;
 		t.bold = true;
 		t.horizontalCenter = -2;
 		t.size = 24;
-		t.text = "12345678金币";
+		t.text = "12345678钻石";
 		t.textAlign = "center";
 		t.textColor = 0xff9f3b;
 		t.touchEnabled = false;
@@ -1718,12 +1718,13 @@ var egret = window.egret;
 		var t = new eui.Label();
 		this.itemRmb = t;
 		t.bold = true;
+		t.horizontalCenter = 0.5;
 		t.size = 36;
 		t.text = "6元";
+		t.textAlign = "center";
 		t.textColor = 0xff9f3b;
 		t.touchEnabled = false;
-		t.x = 84.5;
-		t.y = 67;
+		t.verticalCenter = -20;
 		return t;
 	};
 	_proto.itemImg_i = function () {
@@ -1744,7 +1745,7 @@ var egret = window.egret;
 	__extends(BattlePaySkin, _super);
 	function BattlePaySkin() {
 		_super.call(this);
-		this.skinParts = ["gift_1","gift_2","gift_3","gift_4","gift_5","gift_6","closeButton","startButton","goldCnt","luckyGroup"];
+		this.skinParts = ["gift_1","gift_2","gift_3","gift_4","gift_5","gift_6","closeButton","startButton","goldCnt","allChangeButton","curDiamond_txt","luckyGroup"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -1769,7 +1770,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0;
 		t.verticalCenter = 0;
 		t.width = 720;
-		t.elementsContent = [this._Image1_i(),this._Image2_i(),this._Image3_i(),this._Image4_i(),this.gift_1_i(),this.gift_2_i(),this.gift_3_i(),this.gift_4_i(),this.gift_5_i(),this.gift_6_i(),this.closeButton_i(),this.startButton_i(),this.goldCnt_i(),this._Label1_i(),this._Label2_i()];
+		t.elementsContent = [this._Image1_i(),this._Image2_i(),this._Image3_i(),this._Image4_i(),this.gift_1_i(),this.gift_2_i(),this.gift_3_i(),this.gift_4_i(),this.gift_5_i(),this.gift_6_i(),this.closeButton_i(),this.startButton_i(),this.goldCnt_i(),this._Label1_i(),this._Label2_i(),this._Image5_i(),this.allChangeButton_i(),this.curDiamond_txt_i(),this._Label3_i()];
 		return t;
 	};
 	_proto._Image1_i = function () {
@@ -1902,7 +1903,7 @@ var egret = window.egret;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.verticalCenter = 472.5;
+		t.verticalCenter = 352.5;
 		return t;
 	};
 	_proto.goldCnt_i = function () {
@@ -1940,6 +1941,47 @@ var egret = window.egret;
 		t.text = "充 值";
 		t.x = 317;
 		t.y = 32.17;
+		return t;
+	};
+	_proto._Image5_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0.5;
+		t.source = "ui_json.diamondChangeBg";
+		t.y = 983;
+		return t;
+	};
+	_proto.allChangeButton_i = function () {
+		var t = new game.IconButton();
+		this.allChangeButton = t;
+		t.horizontalCenter = 147.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.verticalCenter = 455.5;
+		return t;
+	};
+	_proto.curDiamond_txt_i = function () {
+		var t = new eui.Label();
+		this.curDiamond_txt = t;
+		t.bold = true;
+		t.left = 168;
+		t.size = 24;
+		t.text = "拥有：3000钻石";
+		t.textAlign = "left";
+		t.verticalCenter = 458;
+		return t;
+	};
+	_proto._Label3_i = function () {
+		var t = new eui.Label();
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 20;
+		t.text = "钻石兑换金币比例(1:1)";
+		t.textColor = 0xdb4c55;
+		t.touchEnabled = false;
+		t.y = 1041;
 		return t;
 	};
 	return BattlePaySkin;
@@ -4232,7 +4274,7 @@ var egret = window.egret;
 	__extends(MainSceneSkin, _super);
 	function MainSceneSkin() {
 		_super.call(this);
-		this.skinParts = ["titleImage","lightImage","playButton","luckyButton","userButton","rankButton","rankLabel","costLabel"];
+		this.skinParts = ["titleImage","lightImage","playButton","luckyButton","userButton","rankButton","rankLabel","btn_dress","costLabel"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -4275,7 +4317,7 @@ var egret = window.egret;
 		t.touchChildren = true;
 		t.touchEnabled = false;
 		t.width = 720;
-		t.elementsContent = [this.lightImage_i(),this._Image2_i(),this._Image3_i(),this.playButton_i(),this.luckyButton_i(),this.userButton_i(),this._Label1_i(),this._Label2_i(),this._Image4_i(),this.rankButton_i(),this.rankLabel_i()];
+		t.elementsContent = [this.lightImage_i(),this._Image2_i(),this._Image3_i(),this.playButton_i(),this.luckyButton_i(),this.userButton_i(),this._Label1_i(),this._Label2_i(),this._Image4_i(),this.rankButton_i(),this.rankLabel_i(),this.btn_dress_i()];
 		return t;
 	};
 	_proto.lightImage_i = function () {
@@ -4383,6 +4425,16 @@ var egret = window.egret;
 		t.visible = false;
 		t.width = 224;
 		t.y = 971;
+		return t;
+	};
+	_proto.btn_dress_i = function () {
+		var t = new game.IconButton();
+		this.btn_dress = t;
+		t.height = 20;
+		t.skinName = "IconButtonSkin";
+		t.width = 20;
+		t.x = 351;
+		t.y = 974;
 		return t;
 	};
 	_proto.costLabel_i = function () {
@@ -5037,6 +5089,721 @@ var egret = window.egret;
 		return t;
 	};
 	return RankPanelSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ChooseIconSkin.exml'] = window.ChooseIconSkin = (function (_super) {
+	__extends(ChooseIconSkin, _super);
+	function ChooseIconSkin() {
+		_super.call(this);
+		this.skinParts = ["bg","chose","icon"];
+		
+		this.height = 80;
+		this.width = 80;
+		this.elementsContent = [this.bg_i(),this.chose_i(),this.icon_i()];
+	}
+	var _proto = ChooseIconSkin.prototype;
+
+	_proto.bg_i = function () {
+		var t = new eui.Image();
+		this.bg = t;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.top = 0;
+		return t;
+	};
+	_proto.chose_i = function () {
+		var t = new eui.Image();
+		this.chose = t;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.height = 92;
+		t.horizontalCenter = 0.5;
+		t.source = "dress_01_json.dress_01_24";
+		t.visible = false;
+		return t;
+	};
+	_proto.icon_i = function () {
+		var t = new eui.Image();
+		this.icon = t;
+		t.height = 64;
+		t.horizontalCenter = -2;
+		t.source = "dress_01_json.dress_01_01";
+		t.verticalCenter = -7;
+		t.width = 64;
+		return t;
+	};
+	return ChooseIconSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/CoinsSkin.exml'] = window.CoinsSkin = (function (_super) {
+	__extends(CoinsSkin, _super);
+	function CoinsSkin() {
+		_super.call(this);
+		this.skinParts = ["img_bg","txt_num"];
+		
+		this.height = 55;
+		this.width = 195;
+		this.elementsContent = [this.img_bg_i(),this.txt_num_i()];
+	}
+	var _proto = CoinsSkin.prototype;
+
+	_proto.img_bg_i = function () {
+		var t = new eui.Image();
+		this.img_bg = t;
+		t.height = 53;
+		t.source = "dress_01_json.dress_01_30";
+		t.width = 195;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.txt_num_i = function () {
+		var t = new eui.Label();
+		this.txt_num = t;
+		t.text = "Label";
+		t.x = 81;
+		t.y = 11;
+		return t;
+	};
+	return CoinsSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/EquipInfoSkin.exml'] = window.EquipInfoSkin = (function (_super) {
+	__extends(EquipInfoSkin, _super);
+	function EquipInfoSkin() {
+		_super.call(this);
+		this.skinParts = ["img_star1","img_star2","img_star3","img_star4","img_star5","stars","txt_name"];
+		
+		this.height = 280;
+		this.width = 220;
+		this.elementsContent = [this._Image1_i(),this.stars_i(),this.txt_name_i(),this._Label1_i(),this._Group1_i(),this._Group2_i()];
+	}
+	var _proto = EquipInfoSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.alpha = 0.8;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.source = "dress_01_json.dress_01_28";
+		t.top = 0;
+		return t;
+	};
+	_proto.stars_i = function () {
+		var t = new eui.Group();
+		this.stars = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 26;
+		t.width = 151;
+		t.x = 47;
+		t.y = 15;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.img_star1_i(),this.img_star2_i(),this.img_star3_i(),this.img_star4_i(),this.img_star5_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		return t;
+	};
+	_proto.img_star1_i = function () {
+		var t = new eui.Image();
+		this.img_star1 = t;
+		t.height = 20;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 20;
+		t.x = 61;
+		t.y = 17;
+		return t;
+	};
+	_proto.img_star2_i = function () {
+		var t = new eui.Image();
+		this.img_star2 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 111;
+		t.y = 18;
+		return t;
+	};
+	_proto.img_star3_i = function () {
+		var t = new eui.Image();
+		this.img_star3 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 147;
+		t.y = 18;
+		return t;
+	};
+	_proto.img_star4_i = function () {
+		var t = new eui.Image();
+		this.img_star4 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 19;
+		t.y = 21;
+		return t;
+	};
+	_proto.img_star5_i = function () {
+		var t = new eui.Image();
+		this.img_star5 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 122;
+		t.y = 3;
+		return t;
+	};
+	_proto.txt_name_i = function () {
+		var t = new eui.Label();
+		this.txt_name = t;
+		t.horizontalCenter = 0;
+		t.text = "翡翠青衫";
+		t.y = 46;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.horizontalCenter = 0;
+		t.text = "总加成";
+		t.y = 77;
+		return t;
+	};
+	_proto._Group1_i = function () {
+		var t = new eui.Group();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 84;
+		t.width = 206;
+		t.x = 5;
+		t.y = 113;
+		t.elementsContent = [this._Label2_i(),this._Label3_i(),this._Label4_i()];
+		return t;
+	};
+	_proto._Label2_i = function () {
+		var t = new eui.Label();
+		t.horizontalCenter = 0;
+		t.text = "分数加成";
+		t.y = 0;
+		return t;
+	};
+	_proto._Label3_i = function () {
+		var t = new eui.Label();
+		t.text = "6%";
+		t.x = 38;
+		t.y = 42;
+		return t;
+	};
+	_proto._Label4_i = function () {
+		var t = new eui.Label();
+		t.text = "（+4%）";
+		t.x = 82;
+		t.y = 42;
+		return t;
+	};
+	_proto._Group2_i = function () {
+		var t = new eui.Group();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 75;
+		t.width = 202;
+		t.x = 7;
+		t.y = 199;
+		t.elementsContent = [this._Label5_i(),this._Label6_i(),this._Label7_i()];
+		return t;
+	};
+	_proto._Label5_i = function () {
+		var t = new eui.Label();
+		t.horizontalCenter = 0;
+		t.text = "金币加成";
+		t.y = 3;
+		return t;
+	};
+	_proto._Label6_i = function () {
+		var t = new eui.Label();
+		t.text = "88%";
+		t.x = 25;
+		t.y = 39;
+		return t;
+	};
+	_proto._Label7_i = function () {
+		var t = new eui.Label();
+		t.text = "(+12%)";
+		t.x = 93;
+		t.y = 39;
+		return t;
+	};
+	return EquipInfoSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ItemPriceSkin.exml'] = window.ItemPriceSkin = (function (_super) {
+	__extends(ItemPriceSkin, _super);
+	var ItemPriceSkin$Skin2 = 	(function (_super) {
+		__extends(ItemPriceSkin$Skin2, _super);
+		function ItemPriceSkin$Skin2() {
+			_super.call(this);
+			this.skinParts = ["labelDisplay"];
+			
+			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
+			this.states = [
+				new eui.State ("up",
+					[
+					])
+				,
+				new eui.State ("down",
+					[
+						new eui.SetProperty("_Image1","source","dress_01_json.dress_01_23")
+					])
+				,
+				new eui.State ("disabled",
+					[
+					])
+			];
+		}
+		var _proto = ItemPriceSkin$Skin2.prototype;
+
+		_proto._Image1_i = function () {
+			var t = new eui.Image();
+			this._Image1 = t;
+			t.percentHeight = 100;
+			t.source = "dress_01_json.dress_01_31";
+			t.percentWidth = 100;
+			return t;
+		};
+		_proto.labelDisplay_i = function () {
+			var t = new eui.Label();
+			this.labelDisplay = t;
+			t.horizontalCenter = 0;
+			t.verticalCenter = 0;
+			return t;
+		};
+		return ItemPriceSkin$Skin2;
+	})(eui.Skin);
+
+	function ItemPriceSkin() {
+		_super.call(this);
+		this.skinParts = ["chk_item","img_equip","img_checked","txt_obtained","img_price","txt_price","grp_price"];
+		
+		this.height = 175;
+		this.width = 147;
+		this.elementsContent = [this.chk_item_i(),this.img_equip_i(),this.img_checked_i(),this.txt_obtained_i(),this.grp_price_i()];
+	}
+	var _proto = ItemPriceSkin.prototype;
+
+	_proto.chk_item_i = function () {
+		var t = new eui.CheckBox();
+		this.chk_item = t;
+		t.enabled = true;
+		t.label = "";
+		t.touchEnabled = true;
+		t.x = 0;
+		t.y = 0;
+		t.skinName = ItemPriceSkin$Skin2;
+		return t;
+	};
+	_proto.img_equip_i = function () {
+		var t = new eui.Image();
+		this.img_equip = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 100;
+		t.source = "";
+		t.width = 100;
+		t.x = 27;
+		t.y = 25;
+		return t;
+	};
+	_proto.img_checked_i = function () {
+		var t = new eui.Image();
+		this.img_checked = t;
+		t.source = "dress_01_json.dress_01_22";
+		t.x = 101;
+		t.y = 0;
+		return t;
+	};
+	_proto.txt_obtained_i = function () {
+		var t = new eui.Label();
+		this.txt_obtained = t;
+		t.bold = true;
+		t.text = "已获得";
+		t.visible = false;
+		t.x = 33;
+		t.y = 142;
+		return t;
+	};
+	_proto.grp_price_i = function () {
+		var t = new eui.Group();
+		this.grp_price = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 33.2;
+		t.width = 142.2;
+		t.x = 1.8;
+		t.y = 139.2;
+		t.elementsContent = [this.img_price_i(),this.txt_price_i()];
+		return t;
+	};
+	_proto.img_price_i = function () {
+		var t = new eui.Image();
+		this.img_price = t;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "dress_01_json.dress_01_30";
+		t.x = 4.2;
+		t.y = -1;
+		return t;
+	};
+	_proto.txt_price_i = function () {
+		var t = new eui.Label();
+		this.txt_price = t;
+		t.size = 24;
+		t.text = "1000000";
+		t.x = 39.8;
+		t.y = 6;
+		return t;
+	};
+	return ItemPriceSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/RoleDressSkin.exml'] = window.RoleDressSkin = (function (_super) {
+	__extends(RoleDressSkin, _super);
+	function RoleDressSkin() {
+		_super.call(this);
+		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","grp_dressinfo","grp_role","icon_boy","icon_gril","grp_misc","btn_close","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","ls_items","sr_item","btn_cart"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.elementsContent = [this.img_girlbg_i(),this.img_boybg_i(),this._Group1_i(),this._Group3_i(),this._Group4_i()];
+	}
+	var _proto = RoleDressSkin.prototype;
+
+	_proto.img_girlbg_i = function () {
+		var t = new eui.Image();
+		this.img_girlbg = t;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.source = "grilbg_png";
+		t.top = 0;
+		return t;
+	};
+	_proto.img_boybg_i = function () {
+		var t = new eui.Image();
+		this.img_boybg = t;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.source = "boybg_png";
+		t.top = 0;
+		t.visible = false;
+		return t;
+	};
+	_proto._Group1_i = function () {
+		var t = new eui.Group();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 581.82;
+		t.width = 721.21;
+		t.y = -2;
+		t.elementsContent = [this.grp_coins_i(),this.grp_dressinfo_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_close_i()];
+		return t;
+	};
+	_proto.grp_coins_i = function () {
+		var t = new eui.Group();
+		this.grp_coins = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 58;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 593;
+		t.x = 23.000000000000004;
+		t.y = 10;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.coin_money_i(),this.coin_gold_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.gap = 30;
+		return t;
+	};
+	_proto.coin_money_i = function () {
+		var t = new game.Coins();
+		this.coin_money = t;
+		t.height = 55;
+		t.skinName = "CoinsSkin";
+		t.width = 195;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.coin_gold_i = function () {
+		var t = new game.Coins();
+		this.coin_gold = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 55;
+		t.skinName = "CoinsSkin";
+		t.width = 195;
+		t.x = 237;
+		t.y = -14.5;
+		return t;
+	};
+	_proto.grp_dressinfo_i = function () {
+		var t = new eui.Group();
+		this.grp_dressinfo = t;
+		t.height = 280;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 220;
+		t.x = 498;
+		t.y = 81;
+		t.elementsContent = [this._EquipInfo1_i()];
+		return t;
+	};
+	_proto._EquipInfo1_i = function () {
+		var t = new game.EquipInfo();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.skinName = "EquipInfoSkin";
+		t.top = 0;
+		return t;
+	};
+	_proto.grp_role_i = function () {
+		var t = new eui.Group();
+		this.grp_role = t;
+		t.height = 200;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 200;
+		t.x = 291;
+		t.y = 347;
+		return t;
+	};
+	_proto.grp_misc_i = function () {
+		var t = new eui.Group();
+		this.grp_misc = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 61;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 101;
+		t.x = 75;
+		t.y = 508.00000000000006;
+		t.elementsContent = [this._Image1_i(),this.icon_boy_i(),this.icon_gril_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.source = "dress_01_json.dress_01_26";
+		t.x = -4;
+		t.y = 3;
+		return t;
+	};
+	_proto.icon_boy_i = function () {
+		var t = new eui.Image();
+		this.icon_boy = t;
+		t.source = "dress_01_json.dress_01_15";
+		t.touchEnabled = true;
+		t.x = 53;
+		t.y = 14;
+		return t;
+	};
+	_proto.icon_gril_i = function () {
+		var t = new eui.Image();
+		this.icon_gril = t;
+		t.source = "dress_01_json.dress_01_20";
+		t.touchEnabled = true;
+		t.x = 18.5;
+		t.y = 13;
+		return t;
+	};
+	_proto.btn_close_i = function () {
+		var t = new game.IconButton();
+		this.btn_close = t;
+		t.height = 20;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 20;
+		t.x = 675;
+		t.y = 21;
+		return t;
+	};
+	_proto._Group3_i = function () {
+		var t = new eui.Group();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 74.24;
+		t.horizontalCenter = 1;
+		t.verticalCenter = 77;
+		t.width = 718.18;
+		t.elementsContent = [this._Scroller1_i()];
+		return t;
+	};
+	_proto._Scroller1_i = function () {
+		var t = new eui.Scroller();
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.top = 0;
+		t.viewport = this._Group2_i();
+		return t;
+	};
+	_proto._Group2_i = function () {
+		var t = new eui.Group();
+		t.layout = this._HorizontalLayout2_i();
+		t.elementsContent = [this.part_back_i(),this.part_head_i(),this.part_body_i(),this.part_leg_i(),this.part_foot_i(),this.part_waist_i(),this.part_hand_i()];
+		return t;
+	};
+	_proto._HorizontalLayout2_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.gap = 30;
+		return t;
+	};
+	_proto.part_back_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_back = t;
+		t.enabled = true;
+		t.height = 80;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 80;
+		t.x = 43;
+		t.y = 31;
+		return t;
+	};
+	_proto.part_head_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_head = t;
+		t.height = 80;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 80;
+		t.x = 68;
+		t.y = 6;
+		return t;
+	};
+	_proto.part_body_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_body = t;
+		t.height = 80;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 80;
+		t.x = 115;
+		t.y = 6;
+		return t;
+	};
+	_proto.part_leg_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_leg = t;
+		t.height = 80;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 80;
+		t.x = 201;
+		t.y = 19;
+		return t;
+	};
+	_proto.part_foot_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_foot = t;
+		t.height = 80;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 80;
+		t.x = 245;
+		t.y = 21;
+		return t;
+	};
+	_proto.part_waist_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_waist = t;
+		t.height = 80;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 80;
+		t.x = 279;
+		t.y = 24;
+		return t;
+	};
+	_proto.part_hand_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_hand = t;
+		t.height = 80;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 80;
+		t.x = 334;
+		t.y = 18;
+		return t;
+	};
+	_proto._Group4_i = function () {
+		var t = new eui.Group();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 357.57;
+		t.horizontalCenter = 0;
+		t.verticalCenter = 298;
+		t.width = 720;
+		t.elementsContent = [this.sr_item_i(),this.btn_cart_i()];
+		return t;
+	};
+	_proto.sr_item_i = function () {
+		var t = new eui.Scroller();
+		this.sr_item = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 360;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.verticalCenter = 10.215000000000003;
+		t.width = 720;
+		t.x = 5;
+		t.y = 586;
+		t.viewport = this.ls_items_i();
+		return t;
+	};
+	_proto.ls_items_i = function () {
+		var t = new eui.List();
+		this.ls_items = t;
+		t.anchorOffsetY = 0;
+		t.height = 356;
+		t.itemRendererSkinName = ItemPriceSkin;
+		t.x = 0;
+		t.y = 662;
+		t.layout = this._TileLayout1_i();
+		return t;
+	};
+	_proto._TileLayout1_i = function () {
+		var t = new eui.TileLayout();
+		t.horizontalGap = 30;
+		t.paddingBottom = 0;
+		t.paddingLeft = 20;
+		t.paddingRight = 20;
+		t.paddingTop = 0;
+		return t;
+	};
+	_proto.btn_cart_i = function () {
+		var t = new game.IconButton();
+		this.btn_cart = t;
+		t.height = 20;
+		t.horizontalCenter = -8;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.verticalCenter = 225.215;
+		t.width = 20;
+		t.x = 347;
+		t.y = 977;
+		return t;
+	};
+	return RoleDressSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/win/WinRankItemSkin.exml'] = window.WinRankItemSkin = (function (_super) {
 	__extends(WinRankItemSkin, _super);
 	function WinRankItemSkin() {
