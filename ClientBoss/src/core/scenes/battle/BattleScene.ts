@@ -472,7 +472,11 @@ module game {
                 DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
                 this.addSp();
             }
-            this.updateSp();
+            //更新能量
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
+            if (this._nowSp < maxSp) {
+                this.updateSp();
+            }
             let angle = Math.atan2(x - this._paddle.x, this._paddle.y - y);
             let rotation = angle * 180 / Math.PI;
             let sin = Math.sin(angle);
