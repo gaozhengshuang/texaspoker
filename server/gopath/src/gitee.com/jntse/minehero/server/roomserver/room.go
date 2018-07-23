@@ -12,7 +12,7 @@ import (
 //	}
 //
 //	// 设置
-//	this.owner.SetMoney(uint32(money), "同步客户端", true)
+//	this.owner.SetGold(uint32(money), "同步客户端", true)
 //
 //	// 检查任务
 //	taskid := int32(msg.TaskId_RegisterTopScore)

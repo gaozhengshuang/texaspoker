@@ -6,8 +6,7 @@
 		} 
 	],
 	"resources": [
-		 
-		{
+		 		{
 			"url": "assets/font/goldGame_fnt.fnt",
 			"type": "font",
 			"name": "goldGame_fnt"
@@ -67,8 +66,7 @@
 			"type": "sound",
 			"name": "zhadan_mp3"
 		},
-		 
-		{
+		 		{
 			"url": "assets/texpack/ball.json",
 			"type": "sheet",
 			"name": "ball_json",
@@ -108,7 +106,7 @@
 			"url": "assets/texpack/ui.json",
 			"type": "sheet",
 			"name": "ui_json",
-			"subkeys": "b-recharge,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,duanxian,gameBack,gameBtnBg,gold,guangquan,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,loginRewardGold,luckMainBtn,moreFire,paihang,play,rechargeGo,sp,spBar,spBg,spGray,tantanle,topBg,tou,userGo,userMainBtn,yindao"
+			"subkeys": "b-recharge,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,changeMoneyAll,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,diamondChangeBg,duanxian,gameBack,gameBtnBg,gold,guangquan,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,loginRewardGold,luckMainBtn,moreFire,paihang,play,rechargeGo,sp,spBar,spBg,spGray,tantanle,topBg,tou,userGo,userMainBtn,yindao"
 		},
 		{
 			"url": "assets/texpack/paddle.json",

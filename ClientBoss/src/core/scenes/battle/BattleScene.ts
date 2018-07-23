@@ -38,7 +38,6 @@ module game {
 
         private _nowSp: number = 0;
         private _spCool: number = 0;
-        private _moneySyn: number = 0;
         private _nowEvent: number = 0;
         private _goodBuff: ProInfo[];
         private _badBuff: ProInfo[];
@@ -91,7 +90,6 @@ module game {
         //private _debugDraw: p2DebugDraw;
         debugGroup: eui.Group;
         private _currentFrame: number;
-        private _curMoney: number = 0;
         private _lootList;
         private _topColumn: number[];
         private _blackHoleList: BattleBlackHole[];
@@ -330,7 +328,6 @@ module game {
             }
             this._blackHoleList = [];
             this._spCool = 0;
-            this._moneySyn = 0;
             this._topColumn = [];
             for (let i = 0; i < 20; i += 2) {
                 this._topColumn.push(i);
@@ -407,10 +404,10 @@ module game {
             this.startGame();
         }
 
-        private sendSpMsg(totalMoney: number | Long = 0) {
+        private sendSpMsg(totalGold: number | Long = 0) {
             sendMessage("msg.BT_UseUltimateSkil", msg.BT_UseUltimateSkil.encode({
                 userid: DataManager.playerModel.getUserId(),
-                money: <number>totalMoney
+                gold: <number>totalGold
             }))
         }
 
@@ -532,14 +529,14 @@ module game {
         }
 
         private updateScore() {
-            let money = DataManager.playerModel.getScore();
-            // console.log("更新金币", money)
+            let gold = DataManager.playerModel.getScore();
+            // console.log("更新金币", gold)
             this.scoreLabel.textFlow = [
                 { text: "金币", style: { bold: true } },
-                { text: `:${money}`, style: { fontFamily: "DynoBold" } },
+                { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
             ]
 
-            if (money >= this.curSpaceFire) {
+            if (gold >= this.curSpaceFire) {
                 this.curSpaceFire += _spaceFire;
                 this._paddle.updateWuxianPao(true);
                 this.showBigFire();
@@ -669,20 +666,6 @@ module game {
             }
             //临时代码
 
-            //每秒同步一次金币
-            // this._moneySyn++;
-            // if (this._moneySyn > 100) {
-            //     this._moneySyn = 0;
-            //     if (this._curMoney != DataManager.playerModel.getScore()) {
-            //         sendMessage("msg.BT_UpdateMoney", msg.BT_UpdateMoney.encode({
-            //             roomid: BattleManager.getInstance().getRoomId(),
-            //             userid: DataManager.playerModel.getUserId(),
-            //             money: DataManager.playerModel.getScore()
-            //         }));
-            //         this._curMoney = DataManager.playerModel.getScore();
-            //     }
-            // }
-
             if (this._doubleTime > 0) {
                 this._doubleTime--;
                 if (this._doubleTime <= 180) {
@@ -696,14 +679,13 @@ module game {
             }
 
             if (this._boomBrick.length > 0) {
-                let totalMoney = 0;
+                let totalGold = 0;
                 for (let i = this._boomBrick.length - 1; i >= 0; i--) {
                     let b = this._boomBrick[i];
                     this._boomBrick.splice(i, 1);
-                    totalMoney += this.destroyBrick(b);
+                    totalGold += this.destroyBrick(b);
                 }
-                console.log(" 总金币值： ", totalMoney)
-                this.sendSpMsg(totalMoney);
+                this.sendSpMsg(totalGold);
             }
 
             this._currentFrame++;
@@ -731,8 +713,11 @@ module game {
                         }
                     }
                 }
-                if (ball.y >= this._diedY || ball.meetFire/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
+                if (ball.y >= this._diedY/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
                     this._ballPool.recycleObject(ball);
+                }
+                if (ball.meetFire) {
+                    this._ballPool.destroyObject(ball);
                 }
             }
             for (let buff of this._buffList) {
@@ -1224,9 +1209,9 @@ module game {
             let score = brick.getBreakScore();
             let type = brick.getBuffType();
             if (price) {
-                DataManager.playerModel.addGold(price);
-                let y = score ? -70 : -40;
-                this.showBattleText(price, brick, 1, y, this._rewardBallPool.createObject());
+                // DataManager.playerModel.addDiamond(price);   这是打碎砖块给奖励的地方(目前没有奖励)
+                // let y = score ? -70 : -40;
+                // this.showBattleText(price, brick, 1, y, this._rewardBallPool.createObject());
             }
             if (score) {
                 if (this._doubleTime > 0) {
@@ -1431,7 +1416,7 @@ module game {
                 sendMessage("msg.BT_ReqQuitGameRoom", msg.BT_ReqQuitGameRoom.encode({
                     roomid: BattleManager.getInstance().getRoomId(),
                     userid: DataManager.playerModel.getUserId(),
-                    money: DataManager.playerModel.getScore(),
+                    gold: DataManager.playerModel.getScore(),
                 }));
 
                 SceneManager.changeScene(SceneType.main);

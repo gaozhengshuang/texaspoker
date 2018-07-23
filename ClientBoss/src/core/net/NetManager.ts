@@ -59,7 +59,8 @@ module game {
         face: string;
         name: string;
         rank: number;
-        money: number;
+        gold: number;
+        diamond: number;
         openid: string;
         addrlist: msg.IUserAddress[];
     }
