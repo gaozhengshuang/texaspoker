@@ -713,8 +713,11 @@ module game {
                         }
                     }
                 }
-                if (ball.y >= this._diedY || ball.meetFire/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
+                if (ball.y >= this._diedY/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
                     this._ballPool.recycleObject(ball);
+                }
+                if (ball.meetFire) {
+                    this._ballPool.destroyObject(ball);
                 }
             }
             for (let buff of this._buffList) {
