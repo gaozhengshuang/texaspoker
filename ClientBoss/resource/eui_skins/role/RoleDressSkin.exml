@@ -20,7 +20,7 @@
 		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="53" y="14" touchEnabled="true"/>
 		<e:Image id="icon_gril" source="dress_01_json.dress_01_20" x="18.5" y="13" touchEnabled="true"/>
 	</e:Group>
-	<game:IconButton id="btn_cart" width="20" height="20" x="342" y="1048" skinName="IconButtonSkin"/>
+	<game:IconButton id="btn_cart" width="20" height="20" x="342" y="1055" skinName="IconButtonSkin"/>
 	<game:IconButton id="btn_close" width="20" height="20" x="675" y="19" skinName="IconButtonSkin"/>
 	<e:Scroller width="720" height="71" y="584" anchorOffsetY="0" x="0">
 		<e:Group>
@@ -38,7 +38,7 @@
 		</e:Group>
 	</e:Scroller>
 	<e:Group width="717" height="322" x="0" y="659" anchorOffsetX="0" anchorOffsetY="0">
-		<game:ItemList id="ls_dress" width="720" height="345" x="0" y="0" skinName="ItemListSkin" anchorOffsetX="0" anchorOffsetY="0"/>
+		<game:ItemList id="ls_dress" width="720" height="361" x="0" y="0" skinName="ItemListSkin" anchorOffsetX="0" anchorOffsetY="0" enabled="true"/>
 	</e:Group>
 
 

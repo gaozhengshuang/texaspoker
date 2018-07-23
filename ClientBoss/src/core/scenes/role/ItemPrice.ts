@@ -20,6 +20,27 @@ module game {
             return ItemPriceSkin;
         }
 
+        public setup(info:{icon,price,priceUnit}){
+            this.img_equip.source = info.icon;
+            if(info.price <= 0) {
+                this.grp_price.visible = false;
+                this.txt_obtained.visible = true;
+            }else {
+                this.txt_price.text = `${info.price}`;
+                this.grp_price.visible = true;
+                this.txt_obtained.visible = false;
+            }
+
+            this.setPriceUnit(info.priceUnit);
+
+        }
+
+        //TODO: 设置不同的价格单位底图
+        public setPriceUnit(n: number) {
+
+        }
+
+
         public set icon(src: string) {
             console.log("icon: ", src);
             this.img_equip.source = src;

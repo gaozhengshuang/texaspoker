@@ -3,7 +3,7 @@
 	<e:Scroller id="itemScroller" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0">
 		<e:List id="itemList" itemRendererSkinName="ItemPriceSkin">
 			<e:layout>
-				<e:TileLayout/>
+				<e:TileLayout horizontalGap="20" verticalGap="10" horizontalAlign="center" verticalAlign="contentJustify" rowAlign="justifyUsingGap" columnAlign="justifyUsingGap" paddingLeft="20" paddingRight="20" paddingTop="0" paddingBottom="0"/>
 			</e:layout>
 		</e:List>
 

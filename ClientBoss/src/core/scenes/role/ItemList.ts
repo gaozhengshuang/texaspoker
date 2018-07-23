@@ -17,13 +17,15 @@ module game {
 		}
 
 		public init_list() {
+			console.log("初始化")
 			this.itemList.dataProvider = new eui.ArrayCollection();
 			this.itemList.itemRenderer = ItemPrice;
 			this.itemList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
 			this.itemList.selectedIndex = 1;
 		}
 
-		public add_item(e: any) {
+		public add_item(e: ItemPrice) {
+			console.log(e);
 			(<eui.ArrayCollection>this.itemList.dataProvider).addItem(e);
 		}
 

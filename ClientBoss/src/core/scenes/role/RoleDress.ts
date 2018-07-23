@@ -36,12 +36,6 @@ module game {
         public part_hand: game.ChooseIcon;
         public ls_dress: game.ItemList;
 
-        // constructor() {
-        //     super();
-        //     console.log('yyyyyyyyyyyyyyyyyyyyyyyyyy')
-        //     this.skinName = RoleDressSkin;
-        //     this.init();
-        // }
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -58,15 +52,15 @@ module game {
 
 
         public init() {
-            console.log('xxxxxxxxxxxxxxxxx')
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
 
             this.initTouchEvent();
             this.initCoins();
-            this.switchToBoy();
             this.ls_dress.init_list();
-            this.initTypeIcons();
+            this.switchToGril();
+
+            this.partHandle_body();
             // this.ls_dress. = new eui.ArrayCollection();
         }
 
@@ -106,6 +100,8 @@ module game {
             this.coin_gold.coins = DataManager.playerModel.getGold();
             this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
         }
+        //TODO: 更新货币
+        private updateCoins(){}
 
         private initTouchEvent() {
             this.icon_boy.addEventListener("touchBegin", this.switchToGril, this);
@@ -210,12 +206,12 @@ module game {
         }
 
         private setShelfItem(item: game.ItemPrice, itemInfo: ItemInfo) {
-            // console.log("道具信息：",itemInfo)
-            item.icon = itemInfo.imgPath;
-            if (itemInfo.isObtained) {
-                itemInfo.price = 0;
+            let info = {
+                icon: itemInfo.imgPath,
+                price: (itemInfo.isObtained ? 0 : itemInfo.price),
+                priceUnit: itemInfo.priceUnit,
             }
-            item.setPrice(itemInfo.price);
+            item.setup(info);
         }
 
 
