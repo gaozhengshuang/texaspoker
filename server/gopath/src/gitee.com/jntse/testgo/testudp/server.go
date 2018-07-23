@@ -27,12 +27,13 @@ func (this *UdpServer) Read() {
 	if err != nil {
 		fmt.Printf("error during read: %s", err)
 	}
-	fmt.Printf("receive %s from \n", data[:n])
+	fmt.Printf("receive %s from %s\n", data[:n], this.listener.RemoteAddr())
+	this.Write()
 }
 
 func (this *UdpServer) Write() {
-	//sendbuf := []byte("123123")
-	//this.listener.Write(sendbuf)
+	sendbuf := []byte("server msg")
+	this.listener.Write(sendbuf)
 }
 
 func (this *UdpServer) Init(ip string, port int32) {
@@ -50,9 +51,11 @@ func (this *UdpServer) Start() {
 	conn, err := net.ListenUDP("udp", addr)
 	if err != nil {
 		fmt.Println(err)
+		panic(err)
 		return
 	}
 	this.listener = conn
+	this.running = true
 	log.Info("listen[%s] ok", this.Host())
 
 	go this.run()

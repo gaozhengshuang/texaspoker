@@ -1,6 +1,6 @@
 package main
 import (
-	"time"
+	_"time"
 	"fmt"
 	"net"
 	"gitee.com/jntse/gotoolkit/log"
@@ -10,7 +10,7 @@ import (
 type UdpClient struct {
 	ip string
 	port int32
-	listener *net.UDPConn
+	dialer *net.UDPConn
 	running bool
 }
 
@@ -24,7 +24,7 @@ func (this *UdpClient) Host() string {
 
 func (this *UdpClient) Read() {
 	data := make([]byte, 2048)
-	n, err := this.listener.Read(data)
+	n, err := this.dialer.Read(data)
 	if err != nil {
 		fmt.Printf("error during read: %s", err)
 	}
@@ -32,13 +32,18 @@ func (this *UdpClient) Read() {
 }
 
 func (this *UdpClient) Write() {
-	//sendbuf := []byte("123123")
-	//this.listener.Write(sendbuf)
+	sendbuf := []byte("client msg")
+	this.dialer.Write(sendbuf)
 }
 
 func (this *UdpClient) Init(ip string, port int32) {
 	this.ip = ip
 	this.port = port
+}
+
+func (this *UdpClient) Shutdown() {
+	this.running = true
+	this.dialer.Close()
 }
 
 func (this *UdpClient) Start() {
@@ -48,29 +53,13 @@ func (this *UdpClient) Start() {
 		return
 	}
 
-	conn, err := net.ListenUDP("udp", addr)
+	conn, err := net.DialUDP("udp", nil, addr)
 	if err != nil {
 		fmt.Println(err)
-		return
+		panic(err)
 	}
-	this.listener = conn
-	log.Info("listen[%s] ok", this.Host())
-
-	go this.run()
-}
-
-func (this *UdpClient) Shutdown() {
-	this.running = true
-	this.listener.Close()
-}
-
-func (this *UdpClient) run() {
-	for ;; {
-		if this.running == false {
-			break
-		}
-		this.Read()
-		time.Sleep(time.Second)
-	}
+	this.dialer = conn
+	this.Write()
+	this.Read()
 }
 
