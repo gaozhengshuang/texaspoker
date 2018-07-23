@@ -6,6 +6,12 @@ module game {
 
 		public constructor() {
 			super();
+			this.skinName = ChooseIconSkin;
+		}
+
+		public setIcon(src:string) {
+			console.log(src)
+			this.icon.source = src;
 		}
 
 		protected partAdded(partName: string, instance: any): void {

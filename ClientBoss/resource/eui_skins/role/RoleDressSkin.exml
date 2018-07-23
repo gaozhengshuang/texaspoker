@@ -28,7 +28,7 @@
 			<e:layout>
 				<e:HorizontalLayout gap="30"/>
 			</e:layout>
-			<game:ChooseIcon id="part_back" width="80" height="80" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true"/>
+			<game:ChooseIcon id="part_back" width="80" height="80" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true"/>
 			<game:ChooseIcon id="part_head" width="80" height="80" x="68" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
 			<game:ChooseIcon id="part_body" width="80" height="80" x="115" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
 			<game:ChooseIcon id="part_leg" width="80" height="80" x="201" y="19" skinName="ChooseIconSkin" touchEnabled="true"/>

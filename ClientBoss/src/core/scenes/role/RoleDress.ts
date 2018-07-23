@@ -36,6 +36,12 @@ module game {
         public part_hand: game.ChooseIcon;
         public ls_dress: game.ItemList;
 
+        // constructor() {
+        //     super();
+        //     console.log('yyyyyyyyyyyyyyyyyyyyyyyyyy')
+        //     this.skinName = RoleDressSkin;
+        //     this.init();
+        // }
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -52,16 +58,48 @@ module game {
 
 
         public init() {
+            console.log('xxxxxxxxxxxxxxxxx')
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
 
             this.initTouchEvent();
             this.initCoins();
-            this.grilIconHandle();
+            this.switchToBoy();
             this.ls_dress.init_list();
+            this.initTypeIcons();
             // this.ls_dress. = new eui.ArrayCollection();
+        }
 
+        private initTypeIcons() {
+            this.useGrilTypeIcons(true);
 
+        }
+        private useGrilTypeIcons(b: boolean) {
+            let girlIcons = [
+                "dress_01_08", "dress_01_09", "dress_01_10", "dress_01_11", "dress_01_12", "dress_01_13", "dress_01_14"
+            ]
+            let boyIcons = [
+                "dress_01_01", "dress_01_02", "dress_01_03", "dress_01_04", "dress_01_05", "dress_01_06", "dress_01_07"
+            ]
+            let prefix = "dress_01_json.";
+            if (b) {
+                this.part_back.setIcon(prefix + girlIcons[0])
+                this.part_head.setIcon(prefix + girlIcons[1])
+                this.part_body.setIcon(prefix + girlIcons[2])
+                this.part_leg.setIcon(prefix + girlIcons[3])
+                this.part_foot.setIcon(prefix + girlIcons[4])
+                this.part_waist.setIcon(prefix + girlIcons[5])
+                this.part_hand.setIcon(prefix + girlIcons[6])
+
+            } else {
+                this.part_back.setIcon(prefix + boyIcons[0])
+                this.part_head.setIcon(prefix + boyIcons[1])
+                this.part_body.setIcon(prefix + boyIcons[2])
+                this.part_leg.setIcon(prefix + boyIcons[3])
+                this.part_foot.setIcon(prefix + boyIcons[4])
+                this.part_waist.setIcon(prefix + boyIcons[5])
+                this.part_hand.setIcon(prefix + boyIcons[6])
+            }
         }
 
         private initCoins() {
@@ -70,8 +108,8 @@ module game {
         }
 
         private initTouchEvent() {
-            this.icon_boy.addEventListener("touchBegin", this.boyIconHandle, this);
-            this.icon_gril.addEventListener("touchBegin", this.grilIconHandle, this);
+            this.icon_boy.addEventListener("touchBegin", this.switchToGril, this);
+            this.icon_gril.addEventListener("touchBegin", this.switchToBoy, this);
 
             this.part_back.addEventListener("touchBegin", this.partHandle_back, this);
             this.part_head.addEventListener("touchBegin", this.partHandle_head, this);
@@ -80,7 +118,7 @@ module game {
             this.part_foot.addEventListener("touchBegin", this.partHandle_foot, this);
             this.part_waist.addEventListener("touchBegin", this.partHandle_waist, this);
             this.part_hand.addEventListener("touchBegin", this.partHandle_hand, this);
-            
+
             this.btn_cart.addEventListener("touchEnd", this.cartHandle, this);
             this.btn_close.addEventListener("touchEnd", this.closeHandle, this);
         }
@@ -88,22 +126,24 @@ module game {
         private closeHandle() {
             this.remove();
         }
-        private cartHandle(){
+        private cartHandle() {
             console.warn("购物车界面尚未实现");
         }
 
-        private boyIconHandle() {
-            this.useGirlSpine(false);
-            this.useGrilBg(false);
-            this.useGrilIcon(false);
-            this.useGrilShelf(false);
-        }
-
-        private grilIconHandle() {
+        private switchToGril() {
             this.useGirlSpine(true);
             this.useGrilBg(true);
             this.useGrilIcon(true);
             this.useGrilShelf(true);
+            this.useGrilTypeIcons(true);
+        }
+
+        private switchToBoy() {
+            this.useGirlSpine(false);
+            this.useGrilBg(false);
+            this.useGrilIcon(false);
+            this.useGrilShelf(false);
+            this.useGrilTypeIcons(false);
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -163,13 +203,15 @@ module game {
             this.ls_dress.rm_items();
             for (let i = 0; i < items.length; ++i) {
                 let dressItem = new game.ItemPrice();
-                this.ls_dress.add_item(dressItem);
                 this.setShelfItem(dressItem, items[i]);
+                this.ls_dress.add_item(dressItem);
+
             }
         }
 
         private setShelfItem(item: game.ItemPrice, itemInfo: ItemInfo) {
-            item.setIcon(itemInfo.imgPath);
+            // console.log("道具信息：",itemInfo)
+            item.icon = itemInfo.imgPath;
             if (itemInfo.isObtained) {
                 itemInfo.price = 0;
             }

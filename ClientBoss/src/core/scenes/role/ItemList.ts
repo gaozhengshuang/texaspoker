@@ -6,12 +6,14 @@ module game {
 
 
 		public constructor() {
+			console.log("itemList constructor")
 			super();
 
 		}
 
 		private onChange(e: eui.PropertyEvent) {
 			console.log("点击列表项：", this.itemList.selectedItem, this.itemList.selectedIndex);
+			this.itemList.selectedItem.checked = true
 		}
 
 		public init_list() {

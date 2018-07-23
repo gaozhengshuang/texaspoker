@@ -11,30 +11,39 @@ module game {
 
         public constructor() {
             super();
+            this.skinName = ItemPriceSkin;
 
-            // this.skinName = ItemPriceSkin;
-
+            this.img_checked.visible = false;
         }
 
-        public setIcon(src: string) {
-            this.img_equip && (this.img_equip.source = src);
+        protected getSkinName() {
+            return ItemPriceSkin;
         }
 
-        public setChecked(b: boolean) {
-            this.img_checked && (this.img_checked.visible = b);
+        public set icon(src: string) {
+            console.log("icon: ", src);
+            this.img_equip.source = src;
         }
-        public getChecked() {
-            return this.img_checked && (this.img_checked.visible);
+
+        public set checked(b: boolean) {
+            console.log("checked: ", b);
+            this.img_checked.visible = b;
+        }
+        public get checked() {
+            return this.img_checked.visible;
         }
 
         private vis_obtained(b) {
-            this.txt_obtained && (this.txt_obtained.visible = b);
+           this.txt_obtained.visible = b;
         }
         private vis_price(b) {
-            this.grp_price && (this.grp_price.visible = b);
+            this.grp_price.visible = b;
         }
         private set_price_text(n: number) {
-            this.txt_price && (this.txt_price.text = `${n}`);
+            console.log("price: ", n, this.txt_price.text);
+            console.log(`${n}`)
+            this.txt_price.$setText("${n}")
+            this.txt_price.text = `${n}`;
         }
 
         public setPrice(n: number) {
