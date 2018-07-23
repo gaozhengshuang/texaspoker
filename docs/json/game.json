@@ -20,8 +20,12 @@
 
     "//":"能量值满",
     "MaxEnergy":250,
+	
+	"//":"钻石转金币",
+    "Diamond_To_Coins" : 1,
 
     "//":"超级砖块获得奖励",
     "SuperBrickReward":3000
+
 
 }

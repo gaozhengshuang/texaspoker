@@ -41,7 +41,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_RemovePackageItem{}, on_GW2C_RemovePackageItem)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateYuanbao{}, on_GW2C_UpdateYuanbao)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateGold{}, on_GW2C_UpdateGold)
-	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateCoupon{}, on_GW2C_UpdateCoupon)
+	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateDiamond{}, on_GW2C_UpdateDiamond)
 	this.msgparser.RegistProtoMsg(msg.Sync_BigRewardPickNum{}, on_Sync_BigRewardPickNum)
 	this.msgparser.RegistProtoMsg(msg.GW2C_Ret7DayReward{}, on_GW2C_Ret7DayReward)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateFreeStep{}, on_GW2C_UpdateFreeStep)
@@ -73,8 +73,8 @@ func (this* GW2CMsgHandler) Init() {
 
 }
 
-func on_GW2C_UpdateCoupon(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_UpdateCoupon)
+func on_GW2C_UpdateDiamond(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_UpdateDiamond)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%#v", tmsg)
 }

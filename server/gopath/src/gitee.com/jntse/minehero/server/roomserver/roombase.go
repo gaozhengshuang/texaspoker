@@ -199,7 +199,7 @@ func (this *GameRoom) OnStart() {
 		return
 	}
 
-	log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetMoney())
+	log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetGold())
 	this.tm_start = util.CURTIME()
 
 
@@ -208,7 +208,7 @@ func (this *GameRoom) OnStart() {
 		Roomid:pb.Int64(this.Id()), 
 		Ownerid:pb.Uint64(this.ownerid),
 		Gamekind:pb.Int32(this.Kind()), 
-		Money:pb.Uint32(this.owner.GetMoney()),
+		Gold:pb.Uint32(this.owner.GetGold()),
 	}
 	this.SendClientMsg(msginit)
 
@@ -258,12 +258,12 @@ func (this *GameRoom) UserLeave(userid uint64, money uint32) {
 	this.tm_end = util.CURTIME()
 	this.close_reason = "玩家退出房间"
 	if owner := this.owner; owner != nil {
-		if money > owner.GetMoney() + 10000 {
-			log.Warn("[玩家[%s %d] 退出房间同步金币差距过大 old[%d] new[%d]", owner.Name(), owner.Id(), owner.GetMoney(), money)
+		if money > owner.GetGold() + 10000 {
+			log.Warn("[玩家[%s %d] 退出房间同步金币差距过大 old[%d] new[%d]", owner.Name(), owner.Id(), owner.GetGold(), money)
 		}else {
-			if owner.GetMoney() < money {
-				addmoney := money - owner.GetMoney()
-				owner.AddMoney(addmoney, "退出房间同步", false)
+			if owner.GetGold() < money {
+				addmoney := money - owner.GetGold()
+				owner.AddGold(addmoney, "退出房间同步", false)
 			}
 		}
 	}

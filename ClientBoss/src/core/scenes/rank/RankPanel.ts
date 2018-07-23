@@ -76,7 +76,7 @@ module game {
                 }
                 this._selfRankItem.setData({
                     rank: info.rank,
-                    score: info.money,
+                    score: info.gold,
                     name: info.name,
                     userid: info.userid,
                     face: info.face
