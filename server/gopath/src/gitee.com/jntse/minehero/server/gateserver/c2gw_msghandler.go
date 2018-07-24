@@ -654,37 +654,7 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	// 检查是否已经购买过，计算总价
-	totalprice := int32(0)
-	for _, id := range tmsg.ItemList {
-		if item := user.bag.FindById(uint32(id)); item != nil {
-			user.SendNotify("购物车添加了已经购买过的服装")
-			log.Error("玩家[%s %d] 已经购买过服装[%s %d]", user.Name(), user.Id(), item.Name(), item.Id())
-			return
-		}
-		equip, find := tbl.TEquipBase.EquipById[id]
-		if find == false {
-			user.SendNotify("购买无效的服装")
-			log.Error("玩家[%s %d] 购买无效的服装[%d]", user.Name(), user.Id(), id)
-			return
-		}
-		totalprice += equip.Price
-	}
-
-	// 
-	if int32(user.GetGold()) < totalprice {
-		user.SendNotify("余额不足")
-		return
-	}
-
-	//
-	for _, id := range tmsg.ItemList {
-		equip, _ := tbl.TEquipBase.EquipById[id]
-		user.RemoveGold(uint32(equip.Price), "购买服装", true)
-		user.AddItem(uint32(id), 1, "购买服装")
-	}
-
-	user.SendNotify("购买成功")
+	user.BuyClothes(tmsg.ItemList)
 }
 
 

@@ -34,16 +34,22 @@ message EquipDefine
 	optional int32 SuitId = 5; // 套装id
 	
 	
-	optional string Path = 6; // 图片路径
+	optional int32 Sex = 6; // 0女1男2全部
 	
 	
-	repeated string Skill = 7; // 技能id
+	repeated string LoadPoint = 7; // 挂载点
 	
 	
-	optional int32 Price = 8; // 价格
+	optional string Path = 8; // 图片路径
 	
 	
-	optional int32 CoinType = 9; // 货币类型:1金币2钻石
+	repeated string Skill = 9; // 技能id
+	
+	
+	optional int32 Price = 10; // 价格
+	
+	
+	optional int32 CoinType = 11; // 货币类型:1金币2钻石
 
 }
 

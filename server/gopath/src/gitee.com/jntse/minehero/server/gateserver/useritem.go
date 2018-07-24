@@ -158,6 +158,51 @@ func (this* GateUser) BuyItem(productid uint32, num uint32) {
 	;
 }
 
+// 购买服装
+func (this *GateUser) BuyClothes(ItemList []int32) {
+
+	// 检查是否已经购买过，计算总价
+	totalprice := int32(0)
+	for _, id := range ItemList {
+		if item := this.bag.FindById(uint32(id)); item != nil {
+			this.SendNotify("购物车添加了已经购买过的服装")
+			log.Error("玩家[%s %d] 已经购买过服装[%s %d]", this.Name(), this.Id(), item.Name(), item.Id())
+			return
+		}
+		equip, find := tbl.TEquipBase.EquipById[id]
+		if find == false {
+			this.SendNotify("购买无效的服装")
+			log.Error("玩家[%s %d] 购买无效的服装[%d]", this.Name(), this.Id(), id)
+			return
+		}
+
+		//
+		if equip.Pos != int32(msg.ItemPos_Suit) && equip.SuitId != 0 {
+			this.SendNotify("套装配件不能单独购买")
+			return
+		}
+
+		totalprice += equip.Price
+	}
+
+	// 
+	if int32(this.GetGold()) < totalprice {
+		this.SendNotify("余额不足")
+		return
+	}
+
+	//
+	for _, id := range ItemList {
+		equip, _ := tbl.TEquipBase.EquipById[id]
+		this.RemoveGold(uint32(equip.Price), "购买服装", true)
+		this.AddItem(uint32(id), 1, "购买服装")
+	}
+
+	this.SendNotify("购买成功")
+
+}
+
+
 // 道具换元宝
 func (this *GateUser) SellBagItem(itemid, num uint32) {
 	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]

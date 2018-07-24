@@ -46,6 +46,7 @@ enum TaskId {
     InviteRegist        = 1004; // 邀请注册
 }
 
+// 道具位置定义
 enum ItemPos {
     Bag = 0;        // 默认背包
     Helmet = 1;     // 头部
@@ -55,7 +56,7 @@ enum ItemPos {
     Hand = 5;       // 手持装饰
     Wing = 6;       // 翅膀
     Suit = 7;       // 套装
-    Skirt = 8;      // 裙子
+    LongClothes = 8;    // 裙子/长衣
 }
 
 
