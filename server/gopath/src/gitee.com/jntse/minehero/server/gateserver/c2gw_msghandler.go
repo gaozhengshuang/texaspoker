@@ -706,34 +706,14 @@ func on_C2GW_DressOn(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if tmsg.GetPos() == msg.ItemPos_Suit {
+	// 套装
+	if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
+		user.bag.UnDressAll()
 	}else {
-
-		// 脱下
-		oldEquip := user.bag.FindByPos(tmsg.GetPos())
-		if oldEquip != nil {
-			oldEquip.SetPos(msg.ItemPos_Bag)
-		}
-
-		// 穿戴
-		newEquip := user.bag.FindById(tmsg.GetItemid())
-		if newEquip != nil {
-			user.SendNotify("找不到穿戴的服装")
-			return
-		}
-
-		equip, find := tbl.TEquipBase.EquipById[tmsg.GetItemid()]
-		if find == false {
-			user.SendNotify("无效的服装类型")
-			return
-		}
-
-		if equip.Pos != tmsg.GetPos() {
-			return
-		}
-
-		newEquip.SetPos(tmsg.GetPos())
+		user.bag.UnDressEquip(tmsg.GetPos())
 	}
+
+	user.bag.DressEquip(tmsg.GetPos(), tmsg.GetItemid())
 }
 
 func on_C2GW_UnDress(session network.IBaseNetSession, message interface{}) {
@@ -749,6 +729,9 @@ func on_C2GW_UnDress(session network.IBaseNetSession, message interface{}) {
 		user.SendRoomMsg(tmsg)
 		return
 	}
+
+	// 脱下
+	user.bag.UnDressEquip(tmsg.GetPos())
 }
 
 

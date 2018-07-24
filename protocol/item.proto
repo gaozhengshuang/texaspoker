@@ -3,6 +3,7 @@
 // --------------------------------------------------------------------------
 package msg;
 import "define.proto";
+import "serialize.proto";
 
 // 购买道具
 message C2GW_BuyItem {
@@ -106,7 +107,6 @@ message GW2C_RetDressOn {
 // 脱下服饰
 message C2GW_UnDress {
     optional int32 pos = 1;
-    optional int32 itemid = 2;
 }
 
 message GW2C_RetUnDress {
@@ -114,4 +114,6 @@ message GW2C_RetUnDress {
     optional int32 itemid = 2;
 }
 
-
+message GW2C_UpdateItemPos {
+    repeated msg.ItemData items = 1;
+}
