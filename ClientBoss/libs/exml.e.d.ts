@@ -99,5 +99,9 @@ declare class EquipInfoSkin extends eui.Skin{
 
 declare class ItemPriceSkin extends eui.Skin{
 }
-declare class RoleDressSkin extends eui.Skin{
+declare class RoleDressSkin extends eui.Skin{   
+}
+declare class ShopItemSkin extends eui.Skin{   
+}
+declare class ShoppingCartSkin extends eui.Skin{   
 }
