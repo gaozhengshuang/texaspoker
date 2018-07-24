@@ -5,7 +5,6 @@ import pb "github.com/gogo/protobuf/proto"
 import "gitee.com/jntse/minehero/server/tbl"
 import "gitee.com/jntse/minehero/server/tbl/excel"
 
-
 // --------------------------------------------------------------------------
 /// @brief 道具
 // --------------------------------------------------------------------------
@@ -41,6 +40,10 @@ func (t *Item) Inc(num uint32) {
 func (t *Item) Dec(num uint32) {
 	if t.Num() < num { num = t.Num() }
 	t.bin.Num = pb.Uint32(t.Num() - num)
+}
+
+func (t *Item) SetPos(pos int32) {
+	t.bin.Pos = pb.Int32(pos)
 }
 
 func NewItem(data *msg.ItemData) *Item {
@@ -104,6 +107,13 @@ func (this *UserBag) FindById(id uint32) *Item {
 
 func (this *UserBag) FindByName(name string) *Item {
 	return this.names[name]
+}
+
+func (this *UserBag) FindByPos(pos int32) *Item {
+	for _, item := range this.items {
+		if item.Pos() == pos { return item }
+	}
+	return nil
 }
 
 func (this *UserBag) LoadItemObj(item *Item) {
@@ -171,3 +181,5 @@ func (this *UserBag) Clean() {
 	this.items = make(map[uint32]*Item)
 	this.names = make(map[string]*Item)
 }
+
+

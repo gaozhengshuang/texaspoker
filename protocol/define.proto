@@ -31,7 +31,7 @@ enum ItemType {
     CarAccessory    = 7;    // 汽车用品
     Advertisement   = 8;    // 广告
     Smallware       = 9;    // 小商品
-    DiamondItem     = 10;  // 钻石道具
+    DiamondItem     = 10;   // 钻石道具
 }
 
 message PairNumItem {
@@ -46,9 +46,10 @@ enum TaskId {
     InviteRegist        = 1004; // 邀请注册
 }
 
-enum Clothes {
-    Head = 1;       // 头部
-    Body = 2;       // 身体
+enum ItemPos {
+    Bag = 0;        // 默认背包
+    Helmet = 1;     // 头部
+    Clothes = 2;    // 衣服
     Pants = 3;      // 裤子
     Shoe = 4;       // 鞋子
     Hand = 5;       // 手持装饰
@@ -56,3 +57,5 @@ enum Clothes {
     Suit = 7;       // 套装
     Skirt = 8;      // 裙子
 }
+
+

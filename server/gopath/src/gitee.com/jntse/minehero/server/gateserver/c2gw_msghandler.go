@@ -656,8 +656,9 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 	// 检查是否已经购买过，计算总价
 	totalprice := int32(0)
 	for _, id := range tmsg.ItemList {
-		if user.bag.FindById(uint32(id)) != nil {
-			user.SendNotify("存在已经购买过的服装")
+		if item := user.bag.FindById(uint32(id)); item != nil {
+			user.SendNotify("购物车添加了已经购买过的服装")
+			log.Error("玩家[%s %d] 已经购买过服装[%s %d]", user.Name(), user.Id(), item.Name(), item.Id())
 			return
 		}
 		equip, find := tbl.TEquipBase.EquipById[id]
@@ -681,6 +682,8 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 		user.RemoveGold(uint32(equip.Price), "购买服装", true)
 		user.AddItem(uint32(id), 1, "购买服装")
 	}
+
+	user.SendNotify("购买成功")
 }
 
 
@@ -696,6 +699,40 @@ func on_C2GW_DressOn(session network.IBaseNetSession, message interface{}) {
 	if user.IsInRoom() {
 		user.SendRoomMsg(tmsg)
 		return
+	}
+
+	if def.IsValidEquipPos(tmsg.GetPos()) == false {
+		user.SendNotify("无效的穿戴部位")
+		return
+	}
+
+	if tmsg.GetPos() == msg.ItemPos_Suit {
+	}else {
+
+		// 脱下
+		oldEquip := user.bag.FindByPos(tmsg.GetPos())
+		if oldEquip != nil {
+			oldEquip.SetPos(msg.ItemPos_Bag)
+		}
+
+		// 穿戴
+		newEquip := user.bag.FindById(tmsg.GetItemid())
+		if newEquip != nil {
+			user.SendNotify("找不到穿戴的服装")
+			return
+		}
+
+		equip, find := tbl.TEquipBase.EquipById[tmsg.GetItemid()]
+		if find == false {
+			user.SendNotify("无效的服装类型")
+			return
+		}
+
+		if equip.Pos != tmsg.GetPos() {
+			return
+		}
+
+		newEquip.SetPos(tmsg.GetPos())
 	}
 }
 

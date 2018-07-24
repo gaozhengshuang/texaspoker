@@ -78,12 +78,6 @@ message UserAddress {
     optional string address = 3;
 }
 
-// 道具位置
-enum ItemPos {
-    Bag = 0;     // 背包
-    Storage = 1; // 仓库
-}
-
 message ItemData {
     optional uint32 id = 1;     // 目前id就是道具baseid
     optional uint32 num = 2;
