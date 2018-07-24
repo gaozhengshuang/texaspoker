@@ -56,7 +56,6 @@ module game {
                 { target: this.btn_buy, callBackFunc: this.OnConfirmBuy },
             ];
 
-            this.ShopItemViewScroller.viewport = this.listGroup;
             this._shopItemCarts = [];
             this.totalCosts = [0,0,0];
 
@@ -86,6 +85,10 @@ module game {
                 this.listGroup.addChild(item);
                 ShopItems.push({ id: i, lv: Math.floor(Math.random() * 4 + 1), name: "item" + i });
             }
+           
+            this.ShopItemViewScroller.viewport = this.listGroup;
+            this.ShopItemViewScroller.stopAnimation();
+            this.ShopItemViewScroller.viewport.scrollV = 0;
         }
 
         public OnChooseItem(choose: boolean, data: ShopItem) {
