@@ -39,11 +39,11 @@ func main() {
 
 	if g_CmdArgs.Client == false {
 		server := NewUdpServer()
-		server.Init("127.0.0.1", 7004)
+		server.Init("192.168.30.203", 7004)
 		server.Start()
 	}else {
 		client := NewUdpClient()
-		client.Init("127.0.0.1", 7004)
+		client.Init("192.168.30.203", 7004)
 		client.Start()
 	}
 

@@ -33,7 +33,7 @@ func (this *UdpClient) Read() bool {
 		fmt.Printf("error during read: %s\n", err)
 		return false
 	}
-	fmt.Printf("receive %s from %v\n", data[:n], this.dialer.RemoteAddr())
+	fmt.Printf("receive %s from %v\n", data[:n], this.dialer.RemoteAddr().String())
 	return true
 }
 

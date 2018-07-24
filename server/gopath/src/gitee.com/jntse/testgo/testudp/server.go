@@ -32,7 +32,7 @@ func (this *UdpServer) Read() bool {
 		fmt.Printf("error during read: %s\n", err)
 		return false
 	}
-	fmt.Printf("receive %s from %s\n", data[:n], raddr)
+	fmt.Printf("receive %s from %s\n", data[:n], raddr.String())
 	this.Write(raddr)
 	return true
 }
