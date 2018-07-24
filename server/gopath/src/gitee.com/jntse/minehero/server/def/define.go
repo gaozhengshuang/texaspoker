@@ -79,7 +79,7 @@ func SendSms(phone string) (authcode string) {
 
 // 有效的装备位置
 func IsValidEquipPos(pos int32) bool {
-	if pos >= int32(msg.ItemPos_Helmet) && pos <= int32(msg.ItemPos_Skirt) {
+	if pos >= int32(msg.ItemPos_Helmet) && pos <= int32(msg.ItemPos_LongClothes) {
 		return true
 	}
 	return false
