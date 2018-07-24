@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,dress_02_json,shopbg_png,grilbg_png,boybg_png,dress_01_json,texture_png,skin_json,ele_json,man_json,texture_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,dress_02_json,shopbg_png,grilbg_png,boybg_png,dress_01_json,texture_png,skin_json,ele_json,man_json,texture_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,ele2_json,man2_json,skin2_json,texture2_json,texture2_png,boy_ske2_json,boy_tex2_json,boy_tex2_png,girl_ske2_json,girl_tex2_json,girl_tex2_png,numBg_png,shopItemButtonBg_png,star_png",
 			"name": "preload"
 		}
 	],
@@ -238,6 +238,77 @@
 			"url": "bones/boy/boy_ske.json",
 			"type": "json",
 			"name": "boy_ske_json"
+		},
+		{
+			"name": "ele2_json",
+			"type": "json",
+			"url": "assets/role/ele.json"
+		},
+		{
+			"name": "man2_json",
+			"type": "json",
+			"url": "assets/role/man.json"
+		},
+		{
+			"name": "skin2_json",
+			"type": "sheet",
+			"url": "assets/role/skin.json",
+			"subkeys": "m_116002_png,m_122002_png,m_131002_png,m_106002_F_F_png,m_116002_F_L_png,m_116002_F_R_png,m_122002_F_L1_png,m_122002_F_R1_png,m_122002_F_S_png,m_131002_F_ASS_png,m_131002_F_L1_png,m_131002_F_L2_png,m_131002_F_R1_png,m_131002_F_R2_png,m_116003_png,m_122003_png,m_132003_png,m_106003_F_F_png,m_116003_F_L_png,m_116003_F_R_png,m_122003_F_L1_png,m_122003_F_R1_png,m_122003_F_S_png,mm_131003_F_ASS_png,mm_131003_F_L1_png,mm_131003_F_L2_png,mm_131003_F_R1_png,mm_131003_F_R2_png,m_116004_png,m_121004_png,m_131004_png,m_106004_F_F_png,m_116004_F_L_png,m_116004_F_R_png,m_121004_F_L1_png,m_121004_F_L2_png,m_121004_F_R1_png,m_121004_F_R2_png,m_121004_F_S_png,m_131004_F_ASS_png,m_131004_F_L1_png,m_131004_F_L2_png,m_131004_F_R1_png,m_131004_F_R2_png,item_m_121005_png,m_116005_png,m_106005_F_F_png,m_116005_F_L_png,m_116005_F_R_png,m_121005_F_L1_png,m_121005_F_L2_png,m_121005_F_R1_png,m_121005_F_R2_png,m_121005_F_S_png,m_131005_F_ASS_png,m_131005_F_L1_png,m_131005_F_L2_png,m_131005_F_R1_png,m_131005_F_R2_png,m_116011_png,m_121011_png,m_131011_png,m_106011_F_F_png,m_116011_F_L_png,m_116011_F_R_png,m_121011_F_L1_png,m_121011_F_L2_png,m_121011_F_R1_png,m_121011_F_R2_png,m_121011_F_S_png,m_131011_F_ASS_png,m_131011_F_L1_png,m_131011_F_L2_png,m_131011_F_R1_png,m_131011_F_R2_png,m_116012_png,m_122012_png,m_132012_png,m_106012_F_F_png,m_116012_F_L_png,m_116012_F_R_png,m_122012_F_L1_png,m_122012_F_R1_png,m_122012_F_S_png,m_132012_F_ASS_png,m_132012_F_L1_png,m_132012_F_L2_png,m_132012_F_R1_png,m_132012_F_R2_png,fanhui_png,fuzhuangge_png,gouwu_png,kuzi_png,shangyi_png,shuzidiban_png,taozhuang_png,toufa_2_png,tubiaoxuanzhong_png,wupinge_png,xiezi_png,xitongtubiaodiban_png,xuanzhong_png,xuanzhong2_png,zuanshi_png,gouwu_0_png,fanhui_0_png"
+		},
+		{
+			"name": "texture2_json",
+			"type": "json",
+			"url": "assets/role/texture.json"
+		},
+		{
+			"name": "texture2_png",
+			"type": "image",
+			"url": "assets/role/texture.png"
+		},
+		{
+			"name": "boy_ske2_json",
+			"type": "json",
+			"url": "bones/boy/boy_ske.json"
+		},
+		{
+			"name": "boy_tex2_json",
+			"type": "json",
+			"url": "bones/boy/boy_tex.json"
+		},
+		{
+			"name": "boy_tex2_png",
+			"type": "image",
+			"url": "bones/boy/boy_tex.png"
+		},
+		{
+			"name": "girl_ske2_json",
+			"type": "json",
+			"url": "bones/girl/girl_ske.json"
+		},
+		{
+			"name": "girl_tex2_json",
+			"type": "json",
+			"url": "bones/girl/girl_tex.json"
+		},
+		{
+			"name": "girl_tex2_png",
+			"type": "image",
+			"url": "bones/girl/girl_tex.png"
+		},
+		{
+			"name": "numBg_png",
+			"type": "image",
+			"url": "assets/role/numBg.png"
+		},
+		{
+			"name": "shopItemButtonBg_png",
+			"type": "image",
+			"url": "assets/role/shopItemButtonBg.png"
+		},
+		{
+			"name": "star_png",
+			"type": "image",
+			"url": "assets/role/star.png"
 		}
 	]
 }
