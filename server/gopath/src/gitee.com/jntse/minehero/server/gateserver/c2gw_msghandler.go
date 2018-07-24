@@ -68,8 +68,8 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeDeliveryAddress{}, on_C2GW_ChangeDeliveryAddress)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
-	this.msgparser.RegistProtoMsg(msg.C2GW_DressOn{}, on_C2GW_DressOn)
-	this.msgparser.RegistProtoMsg(msg.C2GW_UnDress{}, on_C2GW_UnDress)
+	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
+	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -687,8 +687,8 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 }
 
 
-func on_C2GW_DressOn(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_DressOn)
+func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_DressClothes)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -710,14 +710,14 @@ func on_C2GW_DressOn(session network.IBaseNetSession, message interface{}) {
 	if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
 		user.bag.UnDressAll()
 	}else {
-		user.bag.UnDressEquip(tmsg.GetPos())
+		user.bag.UnDressClothes(tmsg.GetPos())
 	}
 
-	user.bag.DressEquip(tmsg.GetPos(), tmsg.GetItemid())
+	user.bag.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
 }
 
-func on_C2GW_UnDress(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_UnDress)
+func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_UnDressClothes)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -731,7 +731,7 @@ func on_C2GW_UnDress(session network.IBaseNetSession, message interface{}) {
 	}
 
 	// 脱下
-	user.bag.UnDressEquip(tmsg.GetPos())
+	user.bag.UnDressClothes(tmsg.GetPos())
 }
 
 

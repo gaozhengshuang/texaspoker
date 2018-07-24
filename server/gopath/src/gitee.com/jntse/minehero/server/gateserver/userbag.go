@@ -198,7 +198,7 @@ func (this *UserBag) Clean() {
 }
 
 // 穿戴服装
-func (this *UserBag) DressEquip(pos int32, itemid int32) {
+func (this *UserBag) DressClothes(pos int32, itemid int32) {
 	newEquip := this.FindById(uint32(itemid))
 	if newEquip != nil {
 		this.owner.SendNotify("找不到穿戴的服装")
@@ -225,7 +225,7 @@ func (this *UserBag) DressEquip(pos int32, itemid int32) {
 }
 
 // 脱下服装
-func (this *UserBag) UnDressEquip(pos int32) {
+func (this *UserBag) UnDressClothes(pos int32) {
 	item := this.FindByPos(pos)
 	if item != nil { 
 		item.SetPos(int32(msg.ItemPos_Bag)) 
