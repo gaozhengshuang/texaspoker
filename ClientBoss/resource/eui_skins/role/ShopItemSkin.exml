@@ -5,10 +5,10 @@
 	<e:Image id="img_shopItemSelect" x="25" y="53" anchorOffsetX="0" width="52" anchorOffsetY="0" height="37" source="dress_01_json.dress_01_25" visible="false"/>
 
 	<e:Label id="shopItemName" text="宫廷大头" x="200" y="58.2" bold="true" textAlign="left"/>
-	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒" x="200" y="95.3" bold="true" size="16" textAlign="left"/>
+	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒" x="200" y="95.3" bold="true" size="20" textAlign="left" width="309" height="20"/>
 	<e:Group id="grp_price" width="0" height="0" x="521.8" y="59.2" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7"/>
-		<e:Label id="txt_price" text="1000000" x="39.8" y="6" size="24"/>
+		<e:Label id="txt_price" text="10000" x="39.8" y="6" size="24" textAlign="center" width="97"/>
 	</e:Group>
 	<e:Group id="star" width="0" height="0" x="191" y="28" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image id="img_star_0" x="0" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="star_png" visible="false"/>
