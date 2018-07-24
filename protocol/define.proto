@@ -46,4 +46,13 @@ enum TaskId {
     InviteRegist        = 1004; // 邀请注册
 }
 
-
+enum Clothes {
+    Head = 1;       // 头部
+    Body = 2;       // 身体
+    Pants = 3;      // 裤子
+    Shoe = 4;       // 鞋子
+    Hand = 5;       // 手持装饰
+    Wing = 6;       // 翅膀
+    Suit = 7;       // 套装
+    Skirt = 8;      // 裙子
+}
