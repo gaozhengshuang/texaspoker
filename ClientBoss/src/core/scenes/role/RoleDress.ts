@@ -161,7 +161,7 @@ module game {
             this.remove();
         }
         private cartHandle() {
-            console.warn("购物车界面尚未实现");
+            openPanel(PanelType.dressShopCarts);
         }
 
         private switchToGirl() {

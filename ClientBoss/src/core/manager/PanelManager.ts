@@ -35,6 +35,9 @@ module game {
             case PanelType.dress:
                 panel = RoleDress.getInstance();
                 break;
+            case PanelType.dressShopCarts:
+                panel = RoleDressShopCart.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -52,6 +55,7 @@ module game {
         delivery,
         deliverySetting,
         pay,
-        dress
+        dress,
+        dressShopCarts
     }
 }
