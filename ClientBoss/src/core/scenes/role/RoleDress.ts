@@ -40,7 +40,9 @@ module game {
         grp_role: eui.Group;
         grp_misc: eui.Group;
         icon_boy: eui.Image;
-        icon_gril: eui.Image;
+        icon_girl: eui.Image;
+
+        img_iconmask: eui.Image;
 
         btn_cart: game.IconButton;
         btn_close: game.IconButton;
@@ -57,6 +59,7 @@ module game {
 
         private _dataProv: eui.ArrayCollection;
 
+        public gender: number = 0;
         private _girlBone: SkeletonBase;
         private _boyBone: SkeletonBase;
 
@@ -82,7 +85,7 @@ module game {
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
-            this.switchToGril();
+            this.switchGender();
 
             this.partHandle_body();
         }
@@ -99,10 +102,10 @@ module game {
         }
 
         private initTypeIcons() {
-            this.useGrilTypeIcons(true);
+            this.useGirlTypeIcons(true);
 
         }
-        private useGrilTypeIcons(b: boolean) {
+        private useGirlTypeIcons(b: boolean) {
             let girlIcons = [
                 "dress_01_08", "dress_01_09", "dress_01_10", "dress_01_11", "dress_01_12", "dress_01_13", "dress_01_14"
             ]
@@ -138,8 +141,9 @@ module game {
         private updateCoins() { }
 
         private initTouchEvent() {
-            this.icon_boy.addEventListener("touchBegin", this.switchToGril, this);
-            this.icon_gril.addEventListener("touchBegin", this.switchToBoy, this);
+            this.icon_boy.addEventListener("touchBegin", this.switchToGirl, this);
+            this.icon_girl.addEventListener("touchBegin", this.switchToBoy, this);
+            this.img_iconmask.addEventListener("touchBegin", this.switchGender, this);
 
             this.part_back.addEventListener("touchBegin", this.partHandle_back, this);
             this.part_head.addEventListener("touchBegin", this.partHandle_head, this);
@@ -160,20 +164,30 @@ module game {
             console.warn("购物车界面尚未实现");
         }
 
-        private switchToGril() {
+        private switchToGirl() {
             this.useGirlSpine(true);
-            this.useGrilBg(true);
-            this.useGrilIcon(true);
-            this.useGrilShelf(true);
-            this.useGrilTypeIcons(true);
+            this.useGirlBg(true);
+            this.useGirlIcon(true);
+            this.useGirlShelf(true);
+            this.useGirlTypeIcons(true);
+            this.gender = 0;
+        }
+
+        private switchGender() {
+            if (this.gender == 0) {
+                this.switchToGirl();
+            }else {
+                this.switchToBoy();
+            }
         }
 
         private switchToBoy() {
             this.useGirlSpine(false);
-            this.useGrilBg(false);
-            this.useGrilIcon(false);
-            this.useGrilShelf(false);
-            this.useGrilTypeIcons(false);
+            this.useGirlBg(false);
+            this.useGirlIcon(false);
+            this.useGirlShelf(false);
+            this.useGirlTypeIcons(false);
+            this.gender = 1;
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -197,13 +211,14 @@ module game {
         //======================================================
         // 性别切换
         //======================================================
-        public useGrilBg(b: boolean) {
+        public useGirlBg(b: boolean) {
             this.img_boybg.visible = !b;
             this.img_girlbg.visible = b;
         }
 
-        public useGrilIcon(b: boolean) {
+        public useGirlIcon(b: boolean) {
             this.icon_boy.visible = !b;
+            this.icon_girl.visible = b;
         }
 
         //TODO: 切换模型骨骼
@@ -235,7 +250,7 @@ module game {
         }
 
         //TODO: 显示默认的装备
-        public useGrilShelf(b: boolean) {
+        public useGirlShelf(b: boolean) {
 
         }
 
