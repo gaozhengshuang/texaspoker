@@ -1,5 +1,13 @@
 module game {
-    
+
+    //暂定数值
+    var SkillDataAdd = {
+        PenetrationAdd:1,
+        DoubleScoreAdd:1,
+        BigBoomPercent:0.05,
+        BreakGoldGetPercent:0.1,
+        BadBuffDeltaTimeGetPercent:0.1,        
+    };
     export const enum SkillType {
         Penetration = 1,        // 头部---- 贯穿弹
         DoubleScore = 2,        // 身体---- 双倍积分
@@ -11,6 +19,7 @@ module game {
         public Type :   SkillType;
         public Lv   :   number;
     }    
+
     export class SkillManager {
 
         private _equipSkills : SkillData[];
@@ -20,6 +29,7 @@ module game {
             this._equipSkills = [{Type:SkillType.Penetration,Lv:0},{Type:SkillType.DoubleScore,Lv:0},{Type:SkillType.BigBoom,Lv:0},{Type:SkillType.BreakGoldGet,Lv:0},{Type:SkillType.BadBuffDeltaTime,Lv:0}];
         }
 
+        //装备
         public checkEquipSkill(ItemSoltSkill:SkillType,lv:number)
         {
             let data :SkillData =  new SkillData();
@@ -44,16 +54,31 @@ module game {
             this._equipSkills.push(data);
         }
 
+        //装备后返回技能加成后的数值
         public SkillAddition(type:SkillType) 
         {
             let data  = this._equipSkills.filter(item=>{return item && item.Type===type;})[0];
+            let _skillAdditionNum = this.getSkillAdditionNum(type,data.Lv);
             switch(type)
             {
-                case SkillType.Penetration      :  return 1 + data.Lv;
-                case SkillType.DoubleScore      :  return data.Lv*100;
-                case SkillType.BreakGoldGet     :  return 1 + data.Lv*0.1;
-                case SkillType.BigBoom          :  return 1 - data.Lv*0.05;
-                case SkillType.BadBuffDeltaTime :  return 1 + data.Lv*0.1;   
+                case SkillType.Penetration      :  return 1 + _skillAdditionNum;
+                case SkillType.DoubleScore      :  return _skillAdditionNum;
+                case SkillType.BreakGoldGet     :  return 1 + _skillAdditionNum;
+                case SkillType.BigBoom          :  return 1 - _skillAdditionNum;
+                case SkillType.BadBuffDeltaTime :  return 1 + _skillAdditionNum;   
+            }
+        }
+
+        //技能加成数值
+        public getSkillAdditionNum(type:SkillType,lv:number)
+        {        
+            switch(type)
+            {
+                case SkillType.Penetration      :  return lv * SkillDataAdd.PenetrationAdd;
+                case SkillType.DoubleScore      :  return lv * SkillDataAdd.DoubleScoreAdd;
+                case SkillType.BreakGoldGet     :  return lv * SkillDataAdd.BreakGoldGetPercent;
+                case SkillType.BigBoom          :  return lv * SkillDataAdd.BigBoomPercent;
+                case SkillType.BadBuffDeltaTime :  return lv * SkillDataAdd.BadBuffDeltaTimeGetPercent;
             }
         }
 
