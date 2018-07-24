@@ -21,6 +21,10 @@ module game {
             await this.loadBones();
         }
 
+        public get animNum() {
+            return this.armatureDisplay.animation.animationNames.length;
+        }
+
         private loadBones() {
             let d = defer();
             if (!this._dragonbonesFactory) {
@@ -31,7 +35,7 @@ module game {
                 this.initArmature();
                 d.resolve(null);
             } else {
-                let t = [loadRes(`${this.bonesName}/${this.bonesName}_ske_json`), loadRes(`${this.bonesName}/${this.bonesName}_tex_json`), loadRes(`${this.bonesName}/${this.bonesName}_tex_image`)];
+                let t = [loadRes(`${this.bonesName}_ske_json`), loadRes(`${this.bonesName}_tex_json`), loadRes(`${this.bonesName}_tex_png`)];
                 when(t).always((value) => {
                     if (value) {
                         let dragonbonesData = value[0];

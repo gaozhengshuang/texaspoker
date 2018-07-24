@@ -371,6 +371,9 @@ module game {
     export function randomRange(min, max) {
         return min + (max - min) * Math.random();
     }
+    export function randRange(min, max) {
+        return Math.floor(randomRange(min, max));
+    }
 
     export function clamp(x, min, max) {
         return x < min ? min : x > max ? max : x;
@@ -392,7 +395,7 @@ module game {
     }
 
     export let BonesDictionary: Dictionary<Array<SkeletonBase>> = {};
-    
+
     export async function getBone(resourceName: string) {
         if (!BonesDictionary[resourceName]) {
             BonesDictionary[resourceName] = [];
@@ -414,6 +417,17 @@ module game {
     export function destroyBone(bone: SkeletonBase) {
         bone.removeFromParent();
         bone.isUsed = false;
+    }
+
+    export function adjustBone(o: egret.DisplayObject, e: egret.DisplayObjectContainer) {
+        o.x = e.width * .5;
+        o.y = e.height;
+    }
+
+    export function hideAllChildren(e: egret.DisplayObjectContainer) {
+        for (let i = 0; i < e.numChildren; ++i) {
+            e.$children[i].visible = false;
+        }
     }
 
 }

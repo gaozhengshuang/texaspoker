@@ -10,7 +10,6 @@ module game {
 		}
 
 		public setIcon(src:string) {
-			console.log(src)
 			this.icon.source = src;
 		}
 

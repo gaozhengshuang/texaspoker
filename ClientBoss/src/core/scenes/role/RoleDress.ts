@@ -57,6 +57,9 @@ module game {
 
         private _dataProv: eui.ArrayCollection;
 
+        private _girlBone: SkeletonBase;
+        private _boyBone: SkeletonBase;
+
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -204,11 +207,31 @@ module game {
         }
 
         //TODO: 切换模型骨骼
-        public useGirlSpine(b: boolean) {
-            // if (DataManager.boyDbones.isReady){
-                DataManager.boyDbones.adjust(this.grp_role);
-                this.grp_role.addChild(DataManager.boyDbones.display);
-            // }
+        public async useGirlSpine(b: boolean) {
+            hideAllChildren(this.grp_role);
+            if (b) {
+                if (!this._girlBone) {
+                    this._girlBone = await game.getBone("girl");
+                    this.grp_role.addChild(this._girlBone);
+                    adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
+                    let r = randRange(1, this._girlBone.animNum);
+                    this._girlBone.play(`Idle${r}`, 0);
+                }
+                this._boyBone && (this._boyBone.visible = false);
+                this._girlBone && (this._girlBone.visible = true);
+            } else {
+
+                if (!this._boyBone) {
+                    this._boyBone = await game.getBone("boy");
+                    this.grp_role.addChild(this._boyBone);
+                    adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role);
+                    let r = randRange(1, this._boyBone.animNum);
+                    this._boyBone.play(`Idle${r}`, 0);
+                }
+                this._boyBone && (this._boyBone.visible = true);
+                this._girlBone && (this._girlBone.visible = false);
+            }
+
         }
 
         //TODO: 显示默认的装备

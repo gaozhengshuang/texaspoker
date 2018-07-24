@@ -113,7 +113,7 @@ module game {
 
     export function wxTouchGw() {
         platform.getUserInfo().then((res) => {
-            console.log(res)
+            // console.log(res)
             let nickName = res.nickName;
             let avatarUrl = res.avatarUrl;
             let gender = res.gender;
@@ -126,7 +126,7 @@ module game {
             //TODO:使用这些获取的数据
             // console.log("openid: ", DataManager.playerModel.getOpenId())
             var opt = wx.getLaunchOptionsSync();
-            console.log("启动参数为：", opt);
+            // console.log("启动参数为：", opt);
             var inviteCode = opt.query['inviteCode'] || "";
 
 
