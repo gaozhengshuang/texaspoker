@@ -19,7 +19,7 @@ message EquipDefine
 {	
 	
 	
-	optional uint32 Id = 1; // 道具ID
+	optional int32 Id = 1; // 道具ID
 	
 	
 	optional string Name = 2; // 装备名
