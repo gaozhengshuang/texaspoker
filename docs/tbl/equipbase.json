@@ -1,0 +1,18 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"Equip":[
+		{ "Id": 101, "Name": "头盔", "Desc": "装备获得效果", "Type": 1, "Path": "item_json.101", "Skill":[ "1", "2" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 201, "Name": "上衣", "Desc": "装备获得效果", "Type": 2, "Path": "item_json.201", "Skill":[ "1", "3" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 301, "Name": "裤子", "Desc": "装备获得效果", "Type": 3, "Path": "item_json.301", "Skill":[ "1", "4" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 401, "Name": "鞋子", "Desc": "装备获得效果", "Type": 4, "Path": "item_json.401", "Skill":[ "1", "5" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 501, "Name": "棒棒", "Desc": "装备获得效果", "Type": 5, "Path": "item_json.501", "Skill":[ "1", "6" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 601, "Name": "翅膀", "Desc": "装备获得效果", "Type": 6, "Path": "item_json.601", "Skill":[ "1", "7" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 701, "Name": "套装1", "Desc": "装备获得效果", "Type": 7, "SuitId": 1, "Path": "item_json.701", "Skill":[ "1", "8" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 702, "Name": "套装2", "Desc": "装备获得效果", "Type": 7, "SuitId": 1, "Path": "item_json.702", "Skill":[ "1", "9" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 703, "Name": "套装3", "Desc": "装备获得效果", "Type": 7, "SuitId": 1, "Path": "item_json.703", "Skill":[ "1", "10" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 704, "Name": "套装4", "Desc": "装备获得效果", "Type": 7, "SuitId": 1, "Path": "item_json.704", "Skill":[ "1", "11" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 705, "Name": "套装5", "Desc": "装备获得效果", "Type": 7, "SuitId": 1, "Path": "item_json.705", "Skill":[ "1", "12" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 706, "Name": "套装6", "Desc": "装备获得效果", "Type": 7, "SuitId": 1, "Path": "item_json.706", "Skill":[ "1", "13" ], "Price": 10, "CoinType": 1 },
+		{ "Id": 707, "Name": "套装7", "Desc": "装备获得效果", "Type": 7, "SuitId": 1, "Path": "item_json.707", "Skill":[ "1", "14" ], "Price": 10, "CoinType": 1 }
+	]}
