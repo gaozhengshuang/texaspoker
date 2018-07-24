@@ -29,6 +29,7 @@ module game {
 
         _shopItemCarts      : ShopItem[];
         totalCosts          : number[];
+
         protected getSkinName() {
             return ShoppingCartSkin;
         }
@@ -68,7 +69,7 @@ module game {
         {
             this.listGroup.removeChildren();
 
-            let ShopItems = [];
+            //let ShopItems = [];
             this._dataProvider = new eui.ArrayCollection();
 
             for (let i = 0; i < 70; i++) {
@@ -83,7 +84,7 @@ module game {
                 data.init(i, Math.floor(Math.random() * 4 + 1), Math.floor(Math.random() * 400 + 100), "item" + i, "", "双倍积分时间增加1秒");
                 item.setData(data);
                 this.listGroup.addChild(item);
-                ShopItems.push({ id: i, lv: Math.floor(Math.random() * 4 + 1), name: "item" + i });
+               //ShopItems.push({ id: i, lv: Math.floor(Math.random() * 4 + 1), name: "item" + i });
             }
            
             this.ShopItemViewScroller.viewport = this.listGroup;
