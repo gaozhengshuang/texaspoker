@@ -28,7 +28,7 @@ message EquipDefine
 	optional string Desc = 3; // 装备简介
 	
 	
-	optional int32 Pos = 4; // 装备类型：1.头部2.上身3.下身4.鞋子5.手持6.翅膀7.套装8长衣
+	optional int32 Pos = 4; // 装备类型：1.头部2.上身3.下身4.鞋子5.翅膀6.手持7.套装8长衣
 	
 	
 	optional int32 SuitId = 5; // 套装id
