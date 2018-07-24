@@ -678,13 +678,13 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	}
 
 	// 套装
-	if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
-		user.bag.UnDressAll()
-	}else {
-		user.bag.UnDressClothes(tmsg.GetPos())
-	}
+	//if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
+	//	user.bag.UnDressAll()
+	//}else {
+	//	user.bag.UnDressClothes(tmsg.GetPos())
+	//}
 
-	user.bag.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
+	//user.bag.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
 }
 
 func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
@@ -702,7 +702,7 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 	}
 
 	// 脱下
-	user.bag.UnDressClothes(tmsg.GetPos())
+	//user.bag.UnDressClothes(tmsg.GetPos())
 }
 
 

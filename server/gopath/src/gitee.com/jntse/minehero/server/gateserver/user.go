@@ -82,7 +82,8 @@ type GateUser struct {
 	verifykey		string
 	online			bool
 	tickers			UserTicker
-	bag				UserBag // 背包
+	bag				UserBag 	// 背包
+	image			UserImage	// 换装
 	task			UserTask
 	tm_disconnect	int64
 	tm_heartbeat	int64    	// 心跳时间
@@ -100,6 +101,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u := &GateUser{account: account, verifykey: key}
 	u.bag.Init(u)
 	u.task.Init(u)
+	u.image.Init(u)
 	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
 	u.cleanup = false
 	u.tm_disconnect = 0
@@ -137,6 +139,14 @@ func (this *GateUser) Face() string {
 
 func (this *GateUser) SetFace(f string) {
 	this.EntityBase().Face = pb.String(f)
+}
+
+func (this *GateUser) Sex() int32 {
+	return this.EntityBase().GetSex()
+}
+
+func (this *GateUser) SetSex(sex int32) {
+	this.EntityBase().Sex = pb.Int32(sex)
 }
 
 func (this *GateUser) Sid() int {
@@ -366,6 +376,7 @@ func (this *GateUser) OnLoadDB(way string) {
 	if this.bin.Base.Freepresent == nil { this.bin.Base.Freepresent = &msg.FreePresentMoney{} }
 	if this.bin.Base.Task == nil { this.bin.Base.Task = &msg.UserTask{} }
 	if this.bin.Base.Luckydraw == nil { this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{ Drawlist:make([]*msg.LuckyDrawItem,0) } }
+	if this.bin.Base.Images == nil { this.bin.Base.Images = &msg.PersonalImage{ Lists:make([]*msg.ImageData,0) } }
 
 	// 加载二进制
 	this.LoadBin()
@@ -422,6 +433,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	// 道具信息
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
+	this.image.PackBin(bin)
 
 	//
 	return bin
@@ -468,6 +480,9 @@ func (this *GateUser) LoadBin() {
 	// 任务
 	this.task.LoadBin(this.bin)
 
+	// 换装信息
+	this.image.Clean()
+	this.image.LoadBin(this.bin)
 }
 
 // TODO: 存盘可以单独协程

@@ -197,6 +197,7 @@ func (this *UserBag) Clean() {
 	this.names = make(map[string]*Item)
 }
 
+/*
 // 穿戴服装
 func (this *UserBag) DressClothes(pos int32, itemid int32) {
 	newEquip := this.FindById(uint32(itemid))
@@ -248,3 +249,5 @@ func (this *UserBag) UnDressAll() {
 	}
 	this.owner.SendMsg(send)
 }
+*/
+

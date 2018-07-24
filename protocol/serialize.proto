@@ -50,6 +50,17 @@ message LuckyDrawRecord {
     optional int64 totalvalue = 2;          // 总价值
 }
 
+// 形象信息
+message ImageData {
+    optional int32 sex = 1;
+    repeated ItemData clothes = 2;
+}
+
+// 个人形象
+message PersonalImage {
+    repeated ImageData lists = 2;
+}
+
 message UserBase {
     optional uint32     level   = 1;
     optional uint32     exp     = 2;
@@ -67,9 +78,10 @@ message UserBase {
     optional UserWechat wechat = 14;
     optional string     invitationcode = 15;    // 邀请码
     optional FreePresentMoney freepresent = 16;
-    optional UserTask   task = 17;      // 任务
+    optional UserTask   task = 17;          // 任务
     optional LuckyDrawRecord luckydraw = 18;   // 抽奖
     optional uint32     total_recharge = 19; // 总充值
+    optional PersonalImage images = 20;     // 个人形象
 }
 
 message UserAddress {

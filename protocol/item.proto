@@ -104,8 +104,13 @@ message C2GW_UnDressClothes {
     optional int32 pos = 1;
 }
 
+// 更新道具位置信息
 message GW2C_UpdateItemPos {
     repeated msg.ItemData items = 1;
 }
 
+// 玩家形象数据
+message GW2C_SendPersonalImage {
+    repeated ImageData images = 1;
+}
 

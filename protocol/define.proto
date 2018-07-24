@@ -60,3 +60,8 @@ enum ItemPos {
 }
 
 
+enum Sex {
+    Female = 0;
+    Male = 1;
+    Neutral = 2;
+}
