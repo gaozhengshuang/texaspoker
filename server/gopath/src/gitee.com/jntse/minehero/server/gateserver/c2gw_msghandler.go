@@ -68,8 +68,8 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeDeliveryAddress{}, on_C2GW_ChangeDeliveryAddress)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
-	this.msgparser.RegistProtoMsg(msg.C2GW_DressOn{}, on_C2GW_DressOn)
-	this.msgparser.RegistProtoMsg(msg.C2GW_UnDress{}, on_C2GW_UnDress)
+	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
+	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -106,6 +106,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendDeliveryAddressList{})
 	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
@@ -656,8 +657,9 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 	// 检查是否已经购买过，计算总价
 	totalprice := int32(0)
 	for _, id := range tmsg.ItemList {
-		if user.bag.FindById(uint32(id)) != nil {
-			user.SendNotify("存在已经购买过的服装")
+		if item := user.bag.FindById(uint32(id)); item != nil {
+			user.SendNotify("购物车添加了已经购买过的服装")
+			log.Error("玩家[%s %d] 已经购买过服装[%s %d]", user.Name(), user.Id(), item.Name(), item.Id())
 			return
 		}
 		equip, find := tbl.TEquipBase.EquipById[id]
@@ -681,11 +683,13 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 		user.RemoveGold(uint32(equip.Price), "购买服装", true)
 		user.AddItem(uint32(id), 1, "购买服装")
 	}
+
+	user.SendNotify("购买成功")
 }
 
 
-func on_C2GW_DressOn(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_DressOn)
+func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_DressClothes)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -697,10 +701,24 @@ func on_C2GW_DressOn(session network.IBaseNetSession, message interface{}) {
 		user.SendRoomMsg(tmsg)
 		return
 	}
+
+	if def.IsValidEquipPos(tmsg.GetPos()) == false {
+		user.SendNotify("无效的穿戴部位")
+		return
+	}
+
+	// 套装
+	if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
+		user.bag.UnDressAll()
+	}else {
+		user.bag.UnDressClothes(tmsg.GetPos())
+	}
+
+	user.bag.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
 }
 
-func on_C2GW_UnDress(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_UnDress)
+func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_UnDressClothes)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -712,6 +730,9 @@ func on_C2GW_UnDress(session network.IBaseNetSession, message interface{}) {
 		user.SendRoomMsg(tmsg)
 		return
 	}
+
+	// 脱下
+	user.bag.UnDressClothes(tmsg.GetPos())
 }
 
 
