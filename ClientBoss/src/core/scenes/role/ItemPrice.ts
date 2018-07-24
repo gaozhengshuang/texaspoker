@@ -7,19 +7,31 @@ module game {
         grp_price: eui.Group;
         img_price: eui.Image;
         txt_price: eui.Label;
+        img_mask: eui.Image;
+        img_checkedbg: eui.Image;
 
+        public fnSelected = null;
 
         public constructor() {
             super();
             this.skinName = ItemPriceSkin;
 
-            this.img_checked.visible = false;
+            this.selected = false;
 
-            this.img_equip.addEventListener('touchEnd',this.onTouch,this);
+            // this.img_equip.addEventListener('touchBegin',this.onTouch,this);
+            // this.chk_item.addEventListener('touchBegin',this.onTouch,this);
+            this.img_mask.addEventListener('touchBegin', this.onTouch, this);
         }
 
+        public set selected(b: boolean) {
+            this.img_checked.visible = b;
+            this.img_checkedbg.visible = b;
+        }
+
+
         private onTouch() {
-            this.img_checked.visible = !this.img_checked.visible;
+            this.selected = true;
+            this.fnSelected && this.fnSelected(this);
         }
 
         protected getSkinName() {

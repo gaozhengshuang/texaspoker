@@ -1,34 +1,34 @@
 module game {
 
     let dressItems = [
-        {img: "dress_02_01",price: 2000, priceUnit: 1},
-        {img: "dress_02_02",price: 2000, priceUnit: 1},
-        {img: "dress_02_03",price: 2000, priceUnit: 1},
-        {img: "dress_02_04",price: 2000, priceUnit: 1},
-        {img: "dress_02_05",price: 2000, priceUnit: 1},
-        {img: "dress_02_06",price: 2000, priceUnit: 1},
-        {img: "dress_02_07",price: 2000, priceUnit: 1},
-        {img: "dress_02_08",price: 2000, priceUnit: 1},
-        {img: "dress_02_09",price: 2000, priceUnit: 1},
-        {img: "dress_02_10",price: 2000, priceUnit: 1},
-        {img: "dress_02_11",price: 2000, priceUnit: 1},
-        {img: "dress_02_12",price: 2000, priceUnit: 1},
-        {img: "dress_02_13",price: 2000, priceUnit: 1},
-        {img: "dress_02_14",price: 2000, priceUnit: 1},
-        {img: "dress_02_15",price: 2000, priceUnit: 1},
-        {img: "dress_02_16",price: 2000, priceUnit: 1},
-        {img: "dress_02_17",price: 2000, priceUnit: 1},
-        {img: "dress_02_18",price: 2000, priceUnit: 1},
-        {img: "dress_02_19",price: 2000, priceUnit: 1},
-        {img: "dress_02_20",price: 2000, priceUnit: 1},
-        {img: "dress_02_21",price: 2000, priceUnit: 1},
-        {img: "dress_02_22",price: 2000, priceUnit: 1},
-        {img: "dress_02_23",price: 2000, priceUnit: 1},
-        {img: "dress_02_24",price: 2000, priceUnit: 1},
-        {img: "dress_02_25",price: 2000, priceUnit: 1},
-        {img: "dress_02_26",price: 2000, priceUnit: 1},
+        { img: "dress_02_01", price: 2000, priceUnit: 1 },
+        { img: "dress_02_02", price: 2000, priceUnit: 1 },
+        { img: "dress_02_03", price: 2000, priceUnit: 1 },
+        { img: "dress_02_04", price: 2000, priceUnit: 1 },
+        { img: "dress_02_05", price: 2000, priceUnit: 1 },
+        { img: "dress_02_06", price: 2000, priceUnit: 1 },
+        { img: "dress_02_07", price: 2000, priceUnit: 1 },
+        { img: "dress_02_08", price: 2000, priceUnit: 1 },
+        { img: "dress_02_09", price: 2000, priceUnit: 1 },
+        { img: "dress_02_10", price: 2000, priceUnit: 1 },
+        { img: "dress_02_11", price: 2000, priceUnit: 1 },
+        { img: "dress_02_12", price: 2000, priceUnit: 1 },
+        { img: "dress_02_13", price: 2000, priceUnit: 1 },
+        { img: "dress_02_14", price: 2000, priceUnit: 1 },
+        { img: "dress_02_15", price: 2000, priceUnit: 1 },
+        { img: "dress_02_16", price: 2000, priceUnit: 1 },
+        { img: "dress_02_17", price: 2000, priceUnit: 1 },
+        { img: "dress_02_18", price: 2000, priceUnit: 1 },
+        { img: "dress_02_19", price: 2000, priceUnit: 1 },
+        { img: "dress_02_20", price: 2000, priceUnit: 1 },
+        { img: "dress_02_21", price: 2000, priceUnit: 1 },
+        { img: "dress_02_22", price: 2000, priceUnit: 1 },
+        { img: "dress_02_23", price: 2000, priceUnit: 1 },
+        { img: "dress_02_24", price: 2000, priceUnit: 1 },
+        { img: "dress_02_25", price: 2000, priceUnit: 1 },
+        { img: "dress_02_26", price: 2000, priceUnit: 1 },
     ]
-  
+
 
     export class RoleDress extends PanelComponent {
         img_girlbg: eui.Image;
@@ -40,7 +40,9 @@ module game {
         grp_role: eui.Group;
         grp_misc: eui.Group;
         icon_boy: eui.Image;
-        icon_gril: eui.Image;
+        icon_girl: eui.Image;
+
+        img_iconmask: eui.Image;
 
         btn_cart: game.IconButton;
         btn_close: game.IconButton;
@@ -56,6 +58,10 @@ module game {
         test_itemprice: game.ItemPrice;
 
         private _dataProv: eui.ArrayCollection;
+
+        public gender: number = 0;
+        private _girlBone: SkeletonBase;
+        private _boyBone: SkeletonBase;
 
 
         protected getSkinName() {
@@ -79,16 +85,10 @@ module game {
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
-            this.switchToGril();
+            this.switchGender();
 
             this.partHandle_body();
-
-            // this.initTest();
         }
-
-        // private initTest() {
-        //     this.setItemPrice(this.test_itemprice,new ItemInfo("dress_02_json.dress_02_08", 68593));
-        // }
 
         private initItemList() {
             this._dataProv = new eui.ArrayCollection();
@@ -102,10 +102,10 @@ module game {
         }
 
         private initTypeIcons() {
-            this.useGrilTypeIcons(true);
+            this.useGirlTypeIcons(true);
 
         }
-        private useGrilTypeIcons(b: boolean) {
+        private useGirlTypeIcons(b: boolean) {
             let girlIcons = [
                 "dress_01_08", "dress_01_09", "dress_01_10", "dress_01_11", "dress_01_12", "dress_01_13", "dress_01_14"
             ]
@@ -141,8 +141,9 @@ module game {
         private updateCoins() { }
 
         private initTouchEvent() {
-            this.icon_boy.addEventListener("touchBegin", this.switchToGril, this);
-            this.icon_gril.addEventListener("touchBegin", this.switchToBoy, this);
+            this.icon_boy.addEventListener("touchBegin", this.switchToGirl, this);
+            this.icon_girl.addEventListener("touchBegin", this.switchToBoy, this);
+            this.img_iconmask.addEventListener("touchBegin", this.switchGender, this);
 
             this.part_back.addEventListener("touchBegin", this.partHandle_back, this);
             this.part_head.addEventListener("touchBegin", this.partHandle_head, this);
@@ -163,20 +164,30 @@ module game {
             console.warn("购物车界面尚未实现");
         }
 
-        private switchToGril() {
+        private switchToGirl() {
             this.useGirlSpine(true);
-            this.useGrilBg(true);
-            this.useGrilIcon(true);
-            this.useGrilShelf(true);
-            this.useGrilTypeIcons(true);
+            this.useGirlBg(true);
+            this.useGirlIcon(true);
+            this.useGirlShelf(true);
+            this.useGirlTypeIcons(true);
+            this.gender = 0;
+        }
+
+        private switchGender() {
+            if (this.gender == 0) {
+                this.switchToGirl();
+            }else {
+                this.switchToBoy();
+            }
         }
 
         private switchToBoy() {
             this.useGirlSpine(false);
-            this.useGrilBg(false);
-            this.useGrilIcon(false);
-            this.useGrilShelf(false);
-            this.useGrilTypeIcons(false);
+            this.useGirlBg(false);
+            this.useGirlIcon(false);
+            this.useGirlShelf(false);
+            this.useGirlTypeIcons(false);
+            this.gender = 1;
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -200,22 +211,46 @@ module game {
         //======================================================
         // 性别切换
         //======================================================
-        public useGrilBg(b: boolean) {
+        public useGirlBg(b: boolean) {
             this.img_boybg.visible = !b;
             this.img_girlbg.visible = b;
         }
 
-        public useGrilIcon(b: boolean) {
+        public useGirlIcon(b: boolean) {
             this.icon_boy.visible = !b;
+            this.icon_girl.visible = b;
         }
 
         //TODO: 切换模型骨骼
-        public useGirlSpine(b: boolean) {
+        public async useGirlSpine(b: boolean) {
+            hideAllChildren(this.grp_role);
+            if (b) {
+                if (!this._girlBone) {
+                    this._girlBone = await game.getBone("girl");
+                    this.grp_role.addChild(this._girlBone);
+                    adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
+                    let r = randRange(1, this._girlBone.animNum);
+                    this._girlBone.play(`Idle${r}`, 0);
+                }
+                this._boyBone && (this._boyBone.visible = false);
+                this._girlBone && (this._girlBone.visible = true);
+            } else {
+
+                if (!this._boyBone) {
+                    this._boyBone = await game.getBone("boy");
+                    this.grp_role.addChild(this._boyBone);
+                    adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role);
+                    let r = randRange(1, this._boyBone.animNum);
+                    this._boyBone.play(`Idle${r}`, 0);
+                }
+                this._boyBone && (this._boyBone.visible = true);
+                this._girlBone && (this._girlBone.visible = false);
+            }
 
         }
 
         //TODO: 显示默认的装备
-        public useGrilShelf(b: boolean) {
+        public useGirlShelf(b: boolean) {
 
         }
 
@@ -232,7 +267,7 @@ module game {
         }
 
         // 设置装备列表
-        private setShelf(s: number,e: number) {
+        private setShelf(s: number, e: number) {
             this._dataProv.removeAll();
             for (let i = s; i < e; ++i) {
                 this._dataProv.addItem(dressItems[i]);
@@ -242,32 +277,28 @@ module game {
 
         // 显示装备列表
         public showShelf_back() {
-            this.setShelf(23,25);
+            this.setShelf(23, 25);
 
         }
         public showShelf_head() {
-            this.setShelf(0,3);
+            this.setShelf(0, 3);
         }
         public showShelf_body() {
-            this.setShelf(3,9);
+            this.setShelf(3, 9);
 
         }
         public showShelf_leg() {
-            this.setShelf(6,10);
+            this.setShelf(6, 10);
         }
         public showShelf_foot() {
-            this.setShelf(10,14);
+            this.setShelf(10, 14);
         }
         public showShelf_waist() {
-            this.setShelf(14,19);
+            this.setShelf(14, 19);
         }
         public showShelf_hand() {
-            this.setShelf(19,23);
+            this.setShelf(19, 23);
         }
-
-
-
-
 
     }
 }

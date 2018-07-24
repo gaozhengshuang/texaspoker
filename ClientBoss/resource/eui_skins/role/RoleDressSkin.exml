@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="RoleDressSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
-	<e:Image id="img_girlbg" source="grilbg_png" left="0" right="0" top="0" bottom="0" locked="true"/>
-	<e:Image id="img_boybg" source="boybg_png" left="0" right="0" top="0" bottom="0" visible="false" locked="true"/>
-	<e:Group width="721.21" height="581.82" y="-2" anchorOffsetX="0" anchorOffsetY="0" locked="true">
-		<e:Group id="grp_coins" width="593" height="58" x="23.000000000000004" y="10" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
+	<e:Image id="img_girlbg" source="grilbg_png" left="0" right="0" top="0" bottom="0"/>
+	<e:Image id="img_boybg" source="boybg_png" left="0" right="0" top="0" bottom="0" visible="false"/>
+	<e:Group width="721.21" height="581.82" y="-2" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Group id="grp_coins" width="593" height="58" x="23.000000000000004" y="10" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" locked="true">
 		<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
 		<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
 		<e:layout>
 			<e:HorizontalLayout gap="30"/>
 		</e:layout>
 		</e:Group>
-		<e:Group id="grp_dressinfo" width="220" height="280" x="498" y="81" scaleX="1" scaleY="1">
+		<e:Group id="grp_dressinfo" width="220" height="280" x="498" y="81" scaleX="1" scaleY="1" locked="true">
 		<game:EquipInfo skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0"/>
 		</e:Group>
-		<e:Group id="grp_role" width="200" height="200" x="291" y="347" scaleX="1" scaleY="1"/>
+		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="25.894999999999982" verticalCenter="155.08999999999997"/>
 		<e:Group id="grp_misc" width="101" height="61" x="75" y="508.00000000000006" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
 		<e:Image source="dress_01_json.dress_01_26" x="-4" y="3"/>
 		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="53" y="14" touchEnabled="true"/>
-		<e:Image id="icon_gril" source="dress_01_json.dress_01_20" x="18.5" y="13" touchEnabled="true"/>
+		<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="18.5" y="13" touchEnabled="true"/>
+			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" left="0" right="0" top="0" bottom="0"/>
 		</e:Group>
-		<game:IconButton id="btn_close" width="20" height="20" x="675" y="21" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btn_close" width="20" height="20" x="675" y="21" skinName="IconButtonSkin" scaleX="1" scaleY="1" locked="true"/>
 	</e:Group>
 
 

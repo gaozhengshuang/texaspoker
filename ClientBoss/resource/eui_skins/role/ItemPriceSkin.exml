@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ItemPriceSkin" width="147" height="175" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:CheckBox id="chk_item" label="" x="0" y="0" touchEnabled="true" enabled="true">
-		<e:skinName>
-			<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="dress_01_json.dress_01_31" source.down="dress_01_json.dress_01_23"/>
-			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-			</e:Skin>
-		</e:skinName>
-	</e:CheckBox>
-	<e:Image id="img_equip" x="27" y="25" source="" anchorOffsetX="0" width="100" anchorOffsetY="0" height="100"/>
-	<e:Image id="img_checked" source="dress_01_json.dress_01_22" x="101" y="0"/>
+	<e:Image source="dress_01_json.dress_01_31" y="-1"/>
+
+	<e:Image id="img_checkedbg" source="dress_01_json.dress_01_23" x="-1" y="-1" visible="false"/>
+	<e:Image id="img_equip" x="27" y="25" anchorOffsetX="0" width="100" anchorOffsetY="0" height="100" source="dress_01_json.dress_01_17"/>
+	<e:Image id="img_checked" source="dress_01_json.dress_01_22" x="101" y="0" visible="false"/>
 	<e:Label id="txt_obtained" text="已获得" x="33" y="142" bold="true" visible="false"/>
 	<e:Group id="grp_price" width="142.2" height="33.2" x="1.8" y="139.2" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7"/>
 		<e:Label id="txt_price" text="1000000" x="39.8" y="6" size="24"/>
 	</e:Group>
+	<e:Image id="img_mask" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0" touchEnabled="true"/>
 
 
 </e:Skin>
