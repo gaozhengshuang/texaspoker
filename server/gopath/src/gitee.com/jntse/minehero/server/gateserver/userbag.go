@@ -200,7 +200,7 @@ func (this *UserBag) Clean() {
 // 穿戴服装
 func (this *UserBag) DressClothes(pos int32, itemid int32) {
 	newEquip := this.FindById(uint32(itemid))
-	if newEquip != nil {
+	if newEquip == nil {
 		this.owner.SendNotify("找不到穿戴的服装")
 		return
 	}
@@ -220,7 +220,8 @@ func (this *UserBag) DressClothes(pos int32, itemid int32) {
 	newEquip.SetPos(pos)
 
 	send := &msg.GW2C_UpdateItemPos{Items:make([]*msg.ItemData,0)}
-	send.Items = append(send.Items, newEquip.Bin())
+	//send.Items = append(send.Items, newEquip.Bin())
+	send.Items = append(send.Items, pb.Clone(newEquip.Bin()).(*msg.ItemData))
 	this.owner.SendMsg(send)
 }
 
@@ -231,7 +232,8 @@ func (this *UserBag) UnDressClothes(pos int32) {
 		item.SetPos(int32(msg.ItemPos_Bag)) 
 
 		send := &msg.GW2C_UpdateItemPos{Items:make([]*msg.ItemData,0)}
-		send.Items = append(send.Items, item.Bin())
+		//send.Items = append(send.Items, item.Bin())
+		send.Items = append(send.Items, pb.Clone(item.Bin()).(*msg.ItemData))
 		this.owner.SendMsg(send)
 	}
 }
@@ -241,7 +243,8 @@ func (this *UserBag) UnDressAll() {
 	for _, item := range this.items {
 		if item.Pos() == int32(msg.ItemPos_Bag) { continue }
 		item.SetPos(int32(msg.ItemPos_Bag)) 
-		send.Items = append(send.Items, item.Bin())
+		//send.Items = append(send.Items, item.Bin())
+		send.Items = append(send.Items, pb.Clone(item.Bin()).(*msg.ItemData))
 	}
 	this.owner.SendMsg(send)
 }

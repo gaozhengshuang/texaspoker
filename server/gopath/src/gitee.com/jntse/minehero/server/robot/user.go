@@ -326,7 +326,8 @@ func (this *User) ChangeDeliveryAddress() {
 func (this *User) BuyClothes() {
 	send := &msg.C2GW_BuyClothes{ItemList:make([]int32, 0)}
 	send.ItemList = append(send.ItemList, 101)
-	send.ItemList = append(send.ItemList, 701)
+	//send.ItemList = append(send.ItemList, 201)
+	//send.ItemList = append(send.ItemList, 701)
 	this.SendGateMsg(send)
 }
 
@@ -338,7 +339,7 @@ func (this *User) DressClothes() {
 
 // 脱下
 func (this *User) UnDressClothes() {
-	send := &msg.C2GW_DressClothes{Pos:pb.Int32(1)}
+	send := &msg.C2GW_UnDressClothes{Pos:pb.Int32(1)}
 	this.SendGateMsg(send)
 }
 

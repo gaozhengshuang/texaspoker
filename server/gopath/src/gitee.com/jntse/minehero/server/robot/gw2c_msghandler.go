@@ -48,6 +48,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
+	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateItemPos{}, on_GW2C_UpdateItemPos)
 
 	// 收room消息
 	this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
@@ -81,31 +82,31 @@ func (this* GW2CMsgHandler) Init() {
 func on_GW2C_UpdateDiamond(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_UpdateDiamond)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	log.Info("%#v", tmsg)
+	log.Info("%+v", tmsg)
 }
 
 func on_GW2C_UpdateYuanbao(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_UpdateYuanbao)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	log.Info("%#v", tmsg)
+	log.Info("%+v", tmsg)
 }
 
 func on_GW2C_UpdateGold(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_UpdateGold)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	log.Info("%#v", tmsg)
+	log.Info("%+v", tmsg)
 }
 
 func on_GW2C_RemovePackageItem(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RemovePackageItem)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	log.Info("%#v", tmsg)
+	log.Info("%+v", tmsg)
 }
 
 func on_GW2C_AddPackageItem(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_AddPackageItem)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	log.Info("%#v", tmsg)
+	log.Info("%+v", tmsg)
 }
 
 func on_GW2C_MsgNotify(session network.IBaseNetSession, message interface{}) {
@@ -214,18 +215,24 @@ func on_Sync_BigRewardPickNum(session network.IBaseNetSession, message interface
 func on_GW2C_LuckyDrawHit(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_LuckyDrawHit)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	log.Info("%#v", tmsg)
+	log.Info("%+v", tmsg)
 }
 
 func on_GW2C_SendDeliveryAddressList(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_SendDeliveryAddressList)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	log.Info("%#v", tmsg)
+	log.Info("%+v", tmsg)
 }
 
 func on_GW2C_SendLuckyDrawRecord(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_SendLuckyDrawRecord)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%#v", tmsg)
+}
+
+func on_GW2C_UpdateItemPos(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_UpdateItemPos)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
 }
 
