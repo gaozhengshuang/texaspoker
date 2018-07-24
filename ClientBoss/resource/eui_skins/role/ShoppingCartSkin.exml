@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShoppingCartSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
+	<e:Image id="BG" left="0" right="0" top="0" bottom="0" source="shopbg_png"/>
+	<e:Image id="BG2" x="0" y="1135" source="dress_01_json.dress_01_28" height="100" width="720" anchorOffsetY="0"/>
+	<e:Group width="680" height="900" x="19" y="221" scaleX="1" scaleY="1">
+		<e:Scroller id="ShopItemViewScroller" width="680" height="907.31" x="0" y="0" scaleX="1" scaleY="1" anchorOffsetY="0">
+			<e:Group id="listGroup">
+			</e:Group>
+		</e:Scroller>
+	</e:Group>
+
+	<e:Group id="other" width="0" height="0" y="-2" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Group id="userCoin" width="200" height="50" x="24" y="153" scaleX="1" scaleY="1">
+			<game:Coins id="coin_gold" width="200" height="0" x="0" y="8" skinName="CoinsSkin"/>
+		</e:Group>
+		<e:Image id="coinGoldImage" x="73" y="1175" height="51" width="51" anchorOffsetY="0" source="dress_01_json.dress_01_19"/>
+		<e:Label id="totalCost" text="0" x="41" y="1230" fontFamily="Arial" size="27" width="115" textAlign="center"/>
+		<e:Group id="userDiamond" width="200" height="50" x="262" y="154" scaleX="1" scaleY="1" visible="false">
+			<game:Coins width="200" height="0" x="0" y="8" skinName="CoinsSkin" id="coin_gold0"/>
+		</e:Group>
+		<game:IconButton id="btn_close" width="20" height="20" x="675" y="21" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
+		<e:Group width="0" height="0" x="600" y="987" scaleX="1" scaleY="1">
+			<game:IconButton id="btn_buy" width="20" height="20" x="-6" y="201" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
+			<e:Image id="shopNumBg" x="69" y="161" height="51" width="51" anchorOffsetY="0" source="numBg_png" scaleX="1" scaleY="1"/>
+			<e:Label id="shopNum" text="0" x="75" y="171" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1"/>
+		</e:Group>
+	</e:Group>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>
