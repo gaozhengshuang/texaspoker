@@ -67,6 +67,9 @@ func (this* C2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.C2GW_DelDeliveryAddress{}, on_C2GW_DelDeliveryAddress)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeDeliveryAddress{}, on_C2GW_ChangeDeliveryAddress)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
+	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
+	this.msgparser.RegistProtoMsg(msg.C2GW_DressOn{}, on_C2GW_DressOn)
+	this.msgparser.RegistProtoMsg(msg.C2GW_UnDress{}, on_C2GW_UnDress)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -635,4 +638,80 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 	//user.SendMsg(send)
 
 }
+
+func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_BuyClothes)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	if user.IsInRoom() {
+		user.SendRoomMsg(tmsg)
+		return
+	}
+
+	// 检查是否已经购买过，计算总价
+	totalprice := int32(0)
+	for _, id := range tmsg.ItemList {
+		if user.bag.FindById(uint32(id)) != nil {
+			user.SendNotify("存在已经购买过的服装")
+			return
+		}
+		equip, find := tbl.TEquipBase.EquipById[id]
+		if find == false {
+			user.SendNotify("购买无效的服装")
+			log.Error("玩家[%s %d] 购买无效的服装[%d]", user.Name(), user.Id(), id)
+			return
+		}
+		totalprice += equip.Price
+	}
+
+	// 
+	if int32(user.GetGold()) < totalprice {
+		user.SendNotify("余额不足")
+		return
+	}
+
+	//
+	for _, id := range tmsg.ItemList {
+		equip, _ := tbl.TEquipBase.EquipById[id]
+		user.RemoveGold(uint32(equip.Price), "购买服装", true)
+		user.AddItem(uint32(id), 1, "购买服装")
+	}
+}
+
+
+func on_C2GW_DressOn(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_DressOn)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	if user.IsInRoom() {
+		user.SendRoomMsg(tmsg)
+		return
+	}
+}
+
+func on_C2GW_UnDress(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_UnDress)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	if user.IsInRoom() {
+		user.SendRoomMsg(tmsg)
+		return
+	}
+}
+
 

@@ -87,4 +87,31 @@ message C2GW_SellBagItem {
     repeated msg.PairNumItem list = 1;
 }
 
+// 购买服饰
+message C2GW_BuyClothes {
+    repeated int32 item_list = 1;
+}
+
+// 穿戴服饰
+message C2GW_DressOn {
+    optional int32 pos = 1;
+    optional int32 itemid = 2;
+}
+
+message GW2C_RetDressOn {
+    optional int32 dress = 1;       // 穿上
+    optional int32 undress = 2;     // 脱下
+}
+
+// 脱下服饰
+message C2GW_UnDress {
+    optional int32 pos = 1;
+    optional int32 itemid = 2;
+}
+
+message GW2C_RetUnDress {
+    optional int32 pos = 1;
+    optional int32 itemid = 2;
+}
+
 
