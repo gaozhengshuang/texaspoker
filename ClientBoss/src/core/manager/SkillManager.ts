@@ -1,11 +1,11 @@
 module game {
     
     export const enum SkillType {
-        Penetration = 1,
-        DoubleScore = 2,
-        BigBoom = 3,
-        BreakGoldGet =4,
-        BadBuffDeltaTime = 5,
+        Penetration = 1,        // 头部---- 贯穿弹
+        DoubleScore = 2,        // 身体---- 双倍积分
+        BigBoom = 3,            // 脚 ----  大招累计
+        BreakGoldGet =4,        // 下身---- 击碎砖块获得金币
+        BadBuffDeltaTime = 5,   // 手持---- 减益事件出现间隔
     }
     export class SkillData {
         public Type :   SkillType;
