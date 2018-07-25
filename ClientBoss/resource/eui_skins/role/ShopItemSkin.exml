@@ -4,18 +4,18 @@
 	<e:Image id="img_shopItemIcon" x="101" y="25" anchorOffsetX="0" width="85" anchorOffsetY="0" height="93" source=""/>
 	<e:Image id="img_shopItemSelect" x="25" y="53" anchorOffsetX="0" width="52" anchorOffsetY="0" height="37" source="dress_01_json.dress_01_25" visible="false"/>
 
-	<e:Label id="shopItemName" text="宫廷大头" x="200" y="58.2" bold="true" textAlign="left"/>
-	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒" x="200" y="95.3" bold="true" size="20" textAlign="left" width="309" height="20"/>
+	<e:Label id="shopItemName" text="宫廷大头" x="240" y="38.2" bold="true" textAlign="left" textColor="0x5076f4"/>
+	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒" x="240" y="75.3" bold="true" size="20" textAlign="left" width="292" height="66" anchorOffsetY="0" anchorOffsetX="0"/>
 	<e:Group id="grp_price" width="0" height="0" x="521.8" y="59.2" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7"/>
 		<e:Label id="txt_price" text="10000" x="39.8" y="6" size="24" textAlign="center" width="97"/>
 	</e:Group>
 	<e:Group id="star" width="0" height="0" x="191" y="28" anchorOffsetX="0" anchorOffsetY="0">
-		<e:Image id="img_star_0" x="0" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="star_png" visible="false"/>
-		<e:Image id="img_star_1" x="26" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="star_png" visible="false"/>
-		<e:Image id="img_star_2" x="52" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="star_png" visible="false"/>
-		<e:Image id="img_star_3" x="78" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="star_png" visible="false"/>
-		<e:Image id="img_star_4" x="104" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="star_png" visible="false"/>
+		<e:Image id="img_star_0" x="0" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="" visible="false"/>
+		<e:Image id="img_star_1" x="26" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="" visible="false"/>
+		<e:Image id="img_star_2" x="52" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="" visible="false"/>
+		<e:Image id="img_star_3" x="78" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="" visible="false"/>
+		<e:Image id="img_star_4" x="104" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="" visible="false"/>
 	</e:Group>
 	<game:IconButton id="btn_select" width="680" height="143" x="0" y="0" skinName="IconButtonSkin" scaleX="1" scaleY="1" enabled="true" visible="false"/>
 	<game:IconButton id="btn_select0" width="86.06" height="115.73" x="0" y="9.13" skinName="IconButtonSkin" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0"/>
