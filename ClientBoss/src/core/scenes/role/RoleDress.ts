@@ -27,10 +27,11 @@ module game {
         ls_items: eui.List;
         test_itemprice: game.ItemPrice;
         dress_info: game.EquipInfo;
-        public btn_test: eui.Button;
-        public btn_test2: eui.Button;
+        btn_test: eui.Button;
+        btn_test2: eui.Button;
 
-
+        topGroup: eui.Group;
+        roleGroup: eui.Group;
 
         private _dataProv: eui.ArrayCollection;
 
@@ -56,9 +57,8 @@ module game {
 
         public init() {
             if (gameConfig.isIphoneX()) {
-                this.grp_coins.y = 90;
-                this.btn_close.y = 100;
-                this.grp_dressinfo.y = 150;
+                this.topGroup.y = this.topGroup.y + 50;
+                this.roleGroup.y = this.roleGroup.y + 120;
             }
             this.height = gameConfig.curHeight();
 
