@@ -20,12 +20,14 @@ module game {
         ShopItemList        : eui.List;
         listGroup           : eui.Group;
         
-        btn_close           : IconButton;
-        btn_buy             : IconButton;
-        goldNumTxt          : eui.Label;
-        shopNum             : eui.Label;
-        totalCost           : eui.Label;
-    
+        btn_close                   : IconButton;
+        btn_buy                     : IconButton;
+        goldNumTxt                  : eui.Label;
+        diamondNumTxt               : eui.Label;
+        shopNum                     : eui.Label;
+        totalCost_gold              : eui.Label;
+        totalCost_diamond           : eui.Label;
+        
         _dataProvider       : eui.ArrayCollection;
 
         _allShopItemIds     : number[];
@@ -52,6 +54,11 @@ module game {
         }
 
         public init() {
+
+            if (gameConfig.isIphoneX()) {
+                this.btn_close.y += 50;
+            }
+
             this._shopItemCarts = [];
             this.totalCosts = [0,0,0];
             this.btn_close.icon = "dress_01_json.dress_01_16"
@@ -62,6 +69,7 @@ module game {
             
             console.log("goldNum:",goldNum,"moneyNum:",moneyNum);
             this.goldNumTxt.text = goldNum.toString();
+            this.diamondNumTxt.text = moneyNum.toString();
 
             this.UpdateData([101,201,301,401,501,601,701]);
         }
@@ -76,7 +84,8 @@ module game {
             this.totalCosts = [0,0,0];
 
             this.shopNum.text = "0";
-            this.totalCost.text = "0";
+            this.totalCost_gold.text = "0";
+            this.totalCost_diamond.text = "0";
             this.UpdateList();
         }
 
@@ -115,8 +124,13 @@ module game {
 
             let curgold = DataManager.playerModel.getScore();
             let textColor = curgold < this.totalCosts[0] ? 0xFF0026 : 0xFFFFFF;
-            this.totalCost.textFlow = [
+            this.totalCost_gold.textFlow = [
                 {text:this.totalCosts[0].toString(), style:{"textColor": textColor,"bold": true}}]
+
+            curgold = <number>DataManager.playerModel.getTotalMoney();
+            textColor = curgold < this.totalCosts[1] ? 0xFF0026 : 0xFFFFFF;
+            this.totalCost_diamond.textFlow = [
+                {text:this.totalCosts[1].toString(), style:{"textColor": textColor,"bold": true}}]
                 
         }
 
@@ -126,7 +140,10 @@ module game {
             }
             else {
                 this._shopItemCarts.push(data);
-                this.totalCosts[0] += data.Price;
+                switch (data.CoinType) {
+                    case 1: this.totalCosts[0] += data.Price; break;
+                    case 2: this.totalCosts[1] += data.Price; break;
+                }
             }
         }
 
@@ -141,7 +158,11 @@ module game {
                 }
                 let index = this._shopItemCarts.indexOf(_carts[0]);
                 this._shopItemCarts.splice(index, 1);
-                this.totalCosts[0] -= _carts[0].Price;
+                switch (data.CoinType) {
+                    case 1: this.totalCosts[0] -= _carts[0].Price; break;
+                    case 2: this.totalCosts[1] -= _carts[0].Price;; break;
+                }
+                
             }
         }
 

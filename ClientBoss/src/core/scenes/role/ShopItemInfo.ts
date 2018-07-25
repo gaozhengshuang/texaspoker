@@ -4,6 +4,7 @@ module game {
 
         img_shopItemIcon   : eui.Image;
         img_shopItemSelect : eui.Image;
+        img_gold           : eui.Image;
 
         //星级image
         img_star_0: eui.Image;
@@ -80,6 +81,7 @@ module game {
             );
 
             //价格
+            this.img_gold.visible  =  this.itemData.CoinType==1;
             this.txt_price.text = this.itemData.Price.toString();
         }
 
