@@ -5486,11 +5486,11 @@ var egret = window.egret;
 
 	function RoleDressSkin() {
 		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","dress_info","grp_dressinfo","icon_boy","icon_girl","img_iconmask","grp_misc","btn_cart","grp_role","btn_close","btn_test","btn_test2","ls_items","sr_item","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back"];
+		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","dress_info","grp_dressinfo","icon_boy","icon_girl","img_iconmask","grp_misc","btn_cart","grp_role","btn_close","ls_items","sr_item","btn_test","btn_test2","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back"];
 		
 		this.height = 1100;
 		this.width = 720;
-		this.elementsContent = [this._Image1_i(),this.img_girlbg_i(),this.img_boybg_i(),this._Group1_i(),this._Group2_i(),this._Group4_i()];
+		this.elementsContent = [this._Image1_i(),this.img_girlbg_i(),this.img_boybg_i(),this._Group1_i(),this._Group2_i(),this.btn_test_i(),this.btn_test2_i(),this._Group4_i()];
 	}
 	var _proto = RoleDressSkin.prototype;
 
@@ -5498,7 +5498,7 @@ var egret = window.egret;
 		var t = new eui.Image();
 		t.percentHeight = 100;
 		t.scale9Grid = new egret.Rectangle(151,18,488,444);
-		t.source = "dress_01_json.taboard-bg";
+		t.source = "dress_01_json.taboard-bg2";
 		t.x = 0;
 		t.y = 0;
 		return t;
@@ -5531,7 +5531,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0.5;
 		t.top = 0;
 		t.width = 721.21;
-		t.elementsContent = [this.grp_coins_i(),this.grp_dressinfo_i(),this.grp_misc_i(),this.btn_cart_i(),this.grp_role_i(),this.btn_close_i(),this.btn_test_i(),this.btn_test2_i()];
+		t.elementsContent = [this.grp_coins_i(),this.grp_dressinfo_i(),this.grp_misc_i(),this.btn_cart_i(),this.grp_role_i(),this.btn_close_i()];
 		return t;
 	};
 	_proto.grp_coins_i = function () {
@@ -5605,38 +5605,38 @@ var egret = window.egret;
 		this.grp_misc = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 68;
+		t.height = 80;
 		t.horizontalCenter = -244.60500000000002;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.verticalCenter = 251.08999999999997;
-		t.width = 126;
+		t.width = 160;
 		t.elementsContent = [this._Image2_i(),this.icon_boy_i(),this.icon_girl_i(),this.img_iconmask_i()];
 		return t;
 	};
 	_proto._Image2_i = function () {
 		var t = new eui.Image();
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
 		t.source = "dress_01_json.dress_01_26";
-		t.x = -4;
-		t.y = 3;
+		t.top = 0;
 		return t;
 	};
 	_proto.icon_boy_i = function () {
 		var t = new eui.Image();
 		this.icon_boy = t;
 		t.source = "dress_01_json.dress_01_15";
-		t.touchEnabled = true;
-		t.x = 63;
-		t.y = 8;
+		t.x = 85.68;
+		t.y = 11.99;
 		return t;
 	};
 	_proto.icon_girl_i = function () {
 		var t = new eui.Image();
 		this.icon_girl = t;
 		t.source = "dress_01_json.dress_01_20";
-		t.touchEnabled = true;
-		t.x = 1.5;
-		t.y = 8;
+		t.x = 16.19;
+		t.y = 11.99;
 		return t;
 	};
 	_proto.img_iconmask_i = function () {
@@ -5644,11 +5644,13 @@ var egret = window.egret;
 		this.img_iconmask = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.top = 0;
+		t.fillMode = "scale";
+		t.height = 101;
+		t.source = "shopItemButtonBg_png";
 		t.touchEnabled = true;
+		t.width = 220;
+		t.x = -19;
+		t.y = -17;
 		return t;
 	};
 	_proto.btn_cart_i = function () {
@@ -5668,12 +5670,13 @@ var egret = window.egret;
 		this.grp_role = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
+		t.bottom = 5.82000000000005;
 		t.height = 278;
-		t.horizontalCenter = 25.894999999999982;
+		t.horizontalCenter = 3.394999999999982;
 		t.scaleX = 1;
 		t.scaleY = 1;
-		t.verticalCenter = 120.08999999999997;
-		t.width = 311;
+		t.verticalCenter = 146.08999999999997;
+		t.width = 328.33;
 		return t;
 	};
 	_proto.btn_close_i = function () {
@@ -5686,34 +5689,6 @@ var egret = window.egret;
 		t.skinName = "IconButtonSkin";
 		t.width = 20;
 		t.y = 27;
-		return t;
-	};
-	_proto.btn_test_i = function () {
-		var t = new eui.Button();
-		this.btn_test = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 42;
-		t.label = "换";
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 101;
-		t.x = 30;
-		t.y = 269;
-		t.skinName = RoleDressSkin$Skin2;
-		return t;
-	};
-	_proto.btn_test2_i = function () {
-		var t = new eui.Button();
-		this.btn_test2 = t;
-		t.height = 40;
-		t.label = "重设";
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 100;
-		t.x = 37;
-		t.y = 320;
-		t.skinName = RoleDressSkin$Skin3;
 		return t;
 	};
 	_proto._Group2_i = function () {
@@ -5761,6 +5736,34 @@ var egret = window.egret;
 		t.paddingLeft = 20;
 		t.paddingRight = 20;
 		t.paddingTop = 0;
+		return t;
+	};
+	_proto.btn_test_i = function () {
+		var t = new eui.Button();
+		this.btn_test = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 80;
+		t.label = "换";
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 140;
+		t.x = 30;
+		t.y = 253.01;
+		t.skinName = RoleDressSkin$Skin2;
+		return t;
+	};
+	_proto.btn_test2_i = function () {
+		var t = new eui.Button();
+		this.btn_test2 = t;
+		t.height = 80;
+		t.label = "重设";
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 140;
+		t.x = 30;
+		t.y = 345.33;
+		t.skinName = RoleDressSkin$Skin3;
 		return t;
 	};
 	_proto._Group4_i = function () {

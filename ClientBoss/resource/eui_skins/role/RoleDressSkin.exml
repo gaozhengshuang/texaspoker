@@ -15,32 +15,16 @@
 		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" width="220" height="280" horizontalCenter="0" y="0"/>
 		</e:Group>
 
-		<e:Group id="grp_misc" width="126" height="68" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-244.60500000000002" verticalCenter="251.08999999999997">
-		<e:Image source="dress_01_json.dress_01_26" x="-4" y="3"/>
-		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="63" y="8" touchEnabled="true"/>
-		<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="1.5" y="8" touchEnabled="true"/>
-			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" left="0" right="0" top="0" bottom="0"/>
+		<e:Group id="grp_misc" width="160" height="80" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-244.60500000000002" verticalCenter="251.08999999999997">
+		<e:Image source="dress_01_json.dress_01_26" left="0" right="0" top="0" bottom="0"/>
+		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="85.68" y="11.99"/>
+		<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="16.19" y="11.99"/>
+			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" fillMode="scale" source="shopItemButtonBg_png" width="220" height="101" x="-19" y="-17"/>
 		</e:Group>
 
 		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="262.395" verticalCenter="258.09"/>
-		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="25.894999999999982" verticalCenter="120.08999999999997"/>
+		<e:Group id="grp_role" width="328.33" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="3.394999999999982" verticalCenter="146.08999999999997" bottom="5.82000000000005"/>
 		<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-322.605" y="27"/>
-		<e:Button id="btn_test" label="换" x="30" y="269" anchorOffsetX="0" width="101" anchorOffsetY="0" height="42" scaleX="1" scaleY="1">
-			<e:skinName>
-			<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="cube_json.1_2"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-			</e:Skin>
-			</e:skinName>
-		</e:Button>
-		<e:Button id="btn_test2" label="重设" x="37" y="320" width="100" height="40" scaleX="1" scaleY="1">
-			<e:skinName>
-			<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="cube_json.1_4"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-			</e:Skin>
-			</e:skinName>
-		</e:Button>
 	</e:Group>
 
 
@@ -61,6 +45,22 @@
 		</e:Scroller>
 
 	</e:Group>
+	<e:Button id="btn_test" label="换" x="30" y="253.01" anchorOffsetX="0" width="140" anchorOffsetY="0" height="80" scaleX="1" scaleY="1">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="cube_json.1_2"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="btn_test2" label="重设" x="30" y="345.33" width="140" height="80" scaleX="1" scaleY="1">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="cube_json.1_4"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
 	<e:Group width="718.18" height="74.24" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="1" verticalCenter="77">
 		<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" width="718.18" height="74.24" horizontalCenter="0" verticalCenter="-0.11999999999999744">
 		<e:Group>

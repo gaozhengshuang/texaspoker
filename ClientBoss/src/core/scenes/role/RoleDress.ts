@@ -34,7 +34,7 @@ module game {
 
         private _dataProv: eui.ArrayCollection;
 
-        public gender: number = 0;
+        public gender: number;
         private _girlBone: SkeletonBase;
         private _boyBone: SkeletonBase;
         private _typeIdx: msg.ItemPos;
@@ -70,7 +70,7 @@ module game {
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
-            this.switchGender();
+            this.switchToGirl();
 
             this.partHandle_body();
         }
@@ -111,6 +111,7 @@ module game {
         private onChange() {
             let item = this.ls_items.selectedItem;
             this.setDressInfo(item);
+            this.changePart(item);
         }
 
         private initTypeIcons() {
@@ -153,8 +154,8 @@ module game {
         private updateCoins() { }
 
         private initTouchEvent() {
-            this.icon_boy.addEventListener("touchBegin", this.switchToGirl, this);
-            this.icon_girl.addEventListener("touchBegin", this.switchToBoy, this);
+            // this.icon_boy.addEventListener("touchBegin", this.switchToGirl, this);
+            // this.icon_girl.addEventListener("touchBegin", this.switchToBoy, this);
             this.img_iconmask.addEventListener("touchBegin", this.switchGender, this);
 
             this.part_back.addEventListener("touchBegin", this.partHandle_back, this);
@@ -168,8 +169,8 @@ module game {
             this.btn_cart.addEventListener("touchEnd", this.cartHandle, this);
             this.btn_close.addEventListener("touchEnd", this.closeHandle, this);
 
-            this.btn_test.addEventListener("touchEnd", this.setSuit, this);
-            this.btn_test2.addEventListener("touchEnd", this.resetSuit, this);
+            this.btn_test.addEventListener("touchEnd", this.setSuitHandle, this);
+            this.btn_test2.addEventListener("touchEnd", this.resetSuitHandle, this);
         }
 
         private closeHandle() {
@@ -345,8 +346,8 @@ module game {
             this.setShelf(601);
         }
 
-        //TODO:切换装备
-        public setSuit() {
+  
+        public setSuitHandle() {
             if (this.gender == 0) {
                 this.replaceParts(this._girlBone, "girl_suit2");
             } else {
@@ -361,15 +362,25 @@ module game {
 
             slots.forEach((slot) => {
                 let assetName = prefix + slot.name;
-                this._boyBone.setNewSlot(slot.name, prefix + slot.name);
+                bone.setNewSlot(slot.name, prefix + slot.name);
+            })
+        }
+        public resetSuitHandle() {
+            if (this.gender == 0) {
+                this.resetParts(this._girlBone);
+            } else {
+                this.resetParts(this._boyBone);
+            }
+        }
+        public resetParts(bone: SkeletonBase) {
+            let slots = bone.armature.getSlots();
+            slots.forEach((slot) => {
+                bone.resetSlot(slot.name);
             })
         }
 
-        public resetSuit() {
-            let slots = this._boyBone.armature.getSlots();
-            slots.forEach((slot) => {
-                this._boyBone.resetSlot(slot.name);
-            })
+        private changePart(e:table.IEquipDefine) {
+            
         }
 
     }
