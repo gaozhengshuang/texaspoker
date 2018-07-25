@@ -73,6 +73,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.C2GW_BuyClothes{})
 	this.msgparser.RegistSendProto(msg.C2GW_DressClothes{})
 	this.msgparser.RegistSendProto(msg.C2GW_UnDressClothes{})
+	this.msgparser.RegistSendProto(msg.C2GW_ChangeImageSex{})
 
 	// 发room消息
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})

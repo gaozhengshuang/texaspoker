@@ -707,4 +707,28 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 	user.image.UnDressClothes(tmsg.GetPos(), true)
 }
 
+func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ChangeImageSex)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
 
+	if user.IsInRoom() {
+		user.SendRoomMsg(tmsg)
+		return
+	}
+	
+	if user.Sex() == tmsg.GetSex() {
+		user.SendNotify("和当前性别一致，无需切换")
+		return
+	}
+
+	user.SetSex(tmsg.GetSex())
+	send := &msg.C2GW_RetChangeImageSex{Sex:pb.Int32(user.Sex())}
+	user.SendMsg(send)
+
+	user.image.SendShowImage()
+}
