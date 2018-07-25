@@ -8,7 +8,8 @@
 	<e:Label id="txt_obtained" text="已获得" x="33" y="142" bold="true"/>
 	<e:Group id="grp_price" width="142.2" height="33.2" x="1.8" y="139.2" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-7" scaleX="0.7" scaleY="0.7" anchorOffsetX="0" width="198.29" anchorOffsetY="0" height="57.57"/>
-		<e:Label id="txt_price" text="1000000" x="39.8" y="1" size="24"/>
+		<e:Label id="txt_price" text="1000000" x="43" y="1" size="24"/>
+		<e:Image id="img_gold" source="ui_json.gold" x="6.4" y="-6.8" anchorOffsetX="0" width="37.6" anchorOffsetY="0" height="35.2"/>
 	</e:Group>
 	<e:Image id="img_mask" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0" touchEnabled="true"/>
 

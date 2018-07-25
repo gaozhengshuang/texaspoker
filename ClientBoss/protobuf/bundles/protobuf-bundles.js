@@ -21138,6 +21138,193 @@ $root.msg = (function() {
         return C2GW_ChangeImageSex;
     })();
 
+    msg.GW2C_RetChangeImageSex = (function() {
+
+        /**
+         * Properties of a GW2C_RetChangeImageSex.
+         * @memberof msg
+         * @interface IGW2C_RetChangeImageSex
+         * @property {number|null} [sex] GW2C_RetChangeImageSex sex
+         */
+
+        /**
+         * Constructs a new GW2C_RetChangeImageSex.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetChangeImageSex.
+         * @implements IGW2C_RetChangeImageSex
+         * @constructor
+         * @param {msg.IGW2C_RetChangeImageSex=} [properties] Properties to set
+         */
+        function GW2C_RetChangeImageSex(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetChangeImageSex sex.
+         * @member {number} sex
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @instance
+         */
+        GW2C_RetChangeImageSex.prototype.sex = 0;
+
+        /**
+         * Creates a new GW2C_RetChangeImageSex instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {msg.IGW2C_RetChangeImageSex=} [properties] Properties to set
+         * @returns {msg.GW2C_RetChangeImageSex} GW2C_RetChangeImageSex instance
+         */
+        GW2C_RetChangeImageSex.create = function create(properties) {
+            return new GW2C_RetChangeImageSex(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetChangeImageSex message. Does not implicitly {@link msg.GW2C_RetChangeImageSex.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {msg.IGW2C_RetChangeImageSex} message GW2C_RetChangeImageSex message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetChangeImageSex.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sex);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetChangeImageSex message, length delimited. Does not implicitly {@link msg.GW2C_RetChangeImageSex.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {msg.IGW2C_RetChangeImageSex} message GW2C_RetChangeImageSex message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetChangeImageSex.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetChangeImageSex message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetChangeImageSex} GW2C_RetChangeImageSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetChangeImageSex.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetChangeImageSex();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.sex = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetChangeImageSex message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetChangeImageSex} GW2C_RetChangeImageSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetChangeImageSex.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetChangeImageSex message.
+         * @function verify
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetChangeImageSex.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetChangeImageSex message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetChangeImageSex} GW2C_RetChangeImageSex
+         */
+        GW2C_RetChangeImageSex.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetChangeImageSex)
+                return object;
+            var message = new $root.msg.GW2C_RetChangeImageSex();
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetChangeImageSex message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @static
+         * @param {msg.GW2C_RetChangeImageSex} message GW2C_RetChangeImageSex
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetChangeImageSex.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.sex = 0;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetChangeImageSex to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetChangeImageSex
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetChangeImageSex.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetChangeImageSex;
+    })();
+
     msg.RS2MS_ReqRegist = (function() {
 
         /**

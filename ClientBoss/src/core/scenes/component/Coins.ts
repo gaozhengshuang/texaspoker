@@ -2,6 +2,7 @@ module game {
 	export class Coins extends eui.Component {
 		img_bg: eui.Image;
 		txt_num: eui.Label;
+		img_gold: eui.Image;
 
 		public constructor() {
 			super();
@@ -24,6 +25,14 @@ module game {
 		public set visible(b: boolean) {
 			this.img_bg.visible = b;
 			this.txt_num.visible = b;
+		}
+
+		public setCoinType(n: number) {
+			if (n == 1) {
+				this.img_gold.visible = false;
+			} else {
+				this.img_gold.visible = true;
+			}
 		}
 
 	}

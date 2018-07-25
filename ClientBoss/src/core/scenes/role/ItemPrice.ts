@@ -9,6 +9,7 @@ module game {
         txt_price: eui.Label;
         img_mask: eui.Image;
         img_checkedbg: eui.Image;
+        img_gold: eui.Image;
 
         public fnSelected = null;
 
@@ -38,11 +39,22 @@ module game {
             return ItemPriceSkin;
         }
 
+        public isComingSoon(item: table.IEquipDefine) {
+            if (!item.LoadPoint || item.LoadPoint.length <= 0) {
+                return true;
+            }
+            return false;
+        }
+
         protected dataChanged() {
-            // console.log("数据改变：",this.data);
-            // let prefix = "dress_02_json.";
+
+            if (this.isComingSoon(this.data)) {
+                this.data['Path'] = "";
+                this.data['Price'] = "敬请期待";
+            }
+
             let info = {
-                icon: /*prefix +*/ this.data['Path'],
+                icon: this.data['Path'],
                 price: this.data['Price'],
                 priceUnit: this.data['CoinType'],
             }
@@ -67,9 +79,12 @@ module game {
 
         }
 
-        //TODO: 设置不同的价格单位底图
         public setPriceUnit(n: number) {
-
+            if (n == 1) {
+                this.img_gold.visible = false;
+            } else {
+                this.img_gold.visible = true;
+            }
         }
 
     }
