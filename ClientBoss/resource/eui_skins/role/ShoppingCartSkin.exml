@@ -20,7 +20,7 @@
 		<e:Group id="userDiamond" width="200" height="50" x="262" y="154" scaleX="1" scaleY="1" visible="false">
 			<game:Coins width="200" height="0" x="0" y="8" skinName="CoinsSkin" id="coin_gold0"/>
 		</e:Group>
-		<game:IconButton id="btn_close" width="20" height="20" x="675" y="21" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btn_close" width="20" height="20" x="25" y="30" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
 		<e:Group width="0" height="0" x="600.67" y="987" scaleX="1" scaleY="1">
 			<game:IconButton id="btn_buy" width="20" height="20" x="-6" y="221" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
 			<e:Image id="shopNumBg" x="69" y="181" height="51" width="51" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg"/>
