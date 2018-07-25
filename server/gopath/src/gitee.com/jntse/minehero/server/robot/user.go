@@ -343,6 +343,13 @@ func (this *User) UnDressClothes() {
 	this.SendGateMsg(send)
 }
 
+func (this *User) ChangeSex() {
+	newsex := int32(msg.Sex_Female)
+	if this.Sex() == int32(msg.Sex_Female) { newsex = int32(msg.Sex_Male) }
+	send := &msg.C2GW_ChangeImageSex{ Sex:pb.Int32(newsex) }
+	this.SendGateMsg(send)
+}
+
 
 //func (this *User) ReqMatch() {
 //	this.SendGateMsg(this.NewReqMatchMsg(int(msg.GameMode_Normal_1v1)))
@@ -384,6 +391,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.DressClothes()
 	case "undress":
 		this.UnDressClothes()
+	case "sex":
+		this.ChangeSex()
 	}
 }
 
