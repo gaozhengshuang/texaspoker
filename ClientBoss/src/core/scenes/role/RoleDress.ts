@@ -55,6 +55,8 @@ module game {
 
 
         public init() {
+            this.height = gameConfig.curHeight();
+            
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
             this.gender = 0;
