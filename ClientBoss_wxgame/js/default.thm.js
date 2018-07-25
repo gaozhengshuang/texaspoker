@@ -340,36 +340,6 @@ var egret = window.egret;
 		return t;
 	};
 	return NetFailedSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
-	__extends(AvatarSkin, _super);
-	function AvatarSkin() {
-		_super.call(this);
-		this.skinParts = ["selectImage","avatarImage"];
-		
-		this.height = 116;
-		this.width = 116;
-		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
-	}
-	var _proto = AvatarSkin.prototype;
-
-	_proto.selectImage_i = function () {
-		var t = new eui.Image();
-		this.selectImage = t;
-		t.horizontalCenter = 0;
-		t.source = "win_json.touxiangkuang";
-		t.verticalCenter = 0;
-		t.visible = false;
-		return t;
-	};
-	_proto.avatarImage_i = function () {
-		var t = new eui.Image();
-		this.avatarImage = t;
-		t.height = 116;
-		t.source = "win_json.again";
-		t.width = 116;
-		return t;
-	};
-	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattleBagItemSkin.exml'] = window.BattleBagItemSkin = (function (_super) {
 	__extends(BattleBagItemSkin, _super);
 	function BattleBagItemSkin() {
@@ -2806,6 +2776,36 @@ var egret = window.egret;
 		return t;
 	};
 	return BattleTimeBoomSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
+	__extends(AvatarSkin, _super);
+	function AvatarSkin() {
+		_super.call(this);
+		this.skinParts = ["selectImage","avatarImage"];
+		
+		this.height = 116;
+		this.width = 116;
+		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
+	}
+	var _proto = AvatarSkin.prototype;
+
+	_proto.selectImage_i = function () {
+		var t = new eui.Image();
+		this.selectImage = t;
+		t.horizontalCenter = 0;
+		t.source = "win_json.touxiangkuang";
+		t.verticalCenter = 0;
+		t.visible = false;
+		return t;
+	};
+	_proto.avatarImage_i = function () {
+		var t = new eui.Image();
+		this.avatarImage = t;
+		t.height = 116;
+		t.source = "win_json.again";
+		t.width = 116;
+		return t;
+	};
+	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
 	__extends(CloseButtonSkin, _super);
 	function CloseButtonSkin() {
@@ -4434,7 +4434,7 @@ var egret = window.egret;
 		t.skinName = "IconButtonSkin";
 		t.width = 20;
 		t.x = 351;
-		t.y = 955;
+		t.y = 974;
 		return t;
 	};
 	_proto.costLabel_i = function () {
