@@ -151,6 +151,8 @@ module game {
         }
 
         public setNewSlot(slotName:string,texName: string) {
+            slotName = slotName.toLowerCase();
+            texName = texName.toLowerCase();
             let slot = this.armature.getSlot(slotName);
             if (!slot) {
                 console.warn(`龙骨中不存在名为${slotName}的插槽`);

@@ -127,6 +127,21 @@
 			"subkeys": "badBox_0000,badBox_0001,badBox_0002,badBox_0003,badBox_0004,badBox_0005,badBox_0006,goldAni_0000,goldAni_0001,goldAni_0002,goldAni_0003,goldAni_0004,goldAni_0005,goldAni_0006,goldAni_0007"
 		},
 		{
+			"url": "assets/role/boybg.png",
+			"type": "image",
+			"name": "boybg_png"
+		},
+		{
+			"url": "assets/role/grilbg.png",
+			"type": "image",
+			"name": "grilbg_png"
+		},
+		{
+			"url": "assets/role/shopbg.png",
+			"type": "image",
+			"name": "shopbg_png"
+		},
+		{
 			"url": "assets/texpack/dress_01.json",
 			"type": "sheet",
 			"name": "dress_01_json",
@@ -161,6 +176,11 @@
 			"url": "bones/boy/boy_ske.json",
 			"type": "json",
 			"name": "boy_ske_json"
+		},
+		{
+			"url": "assets/role/shopItemButtonBg.png",
+			"type": "image",
+			"name": "shopItemButtonBg_png"
 		},
 		{
 			"url": "assets/texpack/equip.json",
