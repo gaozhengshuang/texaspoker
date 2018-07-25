@@ -32,14 +32,6 @@ module game {
             return this.armatureDisplay.armature.getSlot(slotName);
         }
 
-        public replaceSlotDiaplay(slotName:string,display) {
-            let slot = this.getSlot(slotName);
-            if (!slot) {
-                console.warn("不存在Slot名称 ",slotName);
-                return;
-            }
-            slot.display = display;
-        }
 
         private loadBones() {
             let d = defer();
