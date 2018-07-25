@@ -28,6 +28,8 @@ module game {
         test_itemprice: game.ItemPrice;
         dress_info: game.EquipInfo;
         public btn_test: eui.Button;
+        public btn_test2:eui.Button;
+
 
 
         private _dataProv: eui.ArrayCollection;
@@ -160,6 +162,7 @@ module game {
             this.btn_close.addEventListener("touchEnd", this.closeHandle, this);
 
             this.btn_test.addEventListener("touchEnd", this.setSuit, this);
+            this.btn_test2.addEventListener("touchEnd", this.resetSuit, this);
         }
 
         private closeHandle() {
@@ -346,16 +349,19 @@ module game {
 
         private replaceParts(c: egret.DisplayObjectContainer) {
             let slots = this._boyBone.armature.getSlots();
-            function adjust(o, c) {
-                o.x = -c.width * .5
-                o.y = -c.height
-            }
+           
             let prefix = "boy_suit2_json."
             slots.forEach((slot) => {
                 this._boyBone.setNewSlot(slot.name,prefix+slot.name);
             })
         }
 
+        public resetSuit() {
+            let slots = this._boyBone.armature.getSlots();
+            slots.forEach((slot)=>{
+                this._boyBone.resetSlot(slot.name);
+            })
+        }
 
     }
 }
