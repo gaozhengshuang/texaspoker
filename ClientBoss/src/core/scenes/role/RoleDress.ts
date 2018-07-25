@@ -26,7 +26,7 @@ module game {
         sr_item: eui.Scroller;
         ls_items: eui.List;
         test_itemprice: game.ItemPrice;
-        dress_info:game.EquipInfo;
+        dress_info: game.EquipInfo;
 
 
         private _dataProv: eui.ArrayCollection;
@@ -66,7 +66,30 @@ module game {
         }
 
         private initNetEvent() {
+            NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
+            NotificationCenter.addObserver(this, this.OnGW2C_UpdateItemPos, "msg.GW2C_UpdateItemPos");
+        }
 
+        // TODO: 添加包裹项
+        private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
+            console.log("添加包裹项：", data);
+        }
+        // TODO: 更新项位置
+        private OnGW2C_UpdateItemPos(data: msg.GW2C_UpdateItemPos) {
+            console.log("更新项位置", data);
+        }
+        // TODO: 穿上装备
+        private sendDressCloth(data) {
+            sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
+                pos: data.pos,
+                itemid: data.itemid
+            }));
+        }
+        // TODO: 脱下装备
+        private sendUnDressCloth(data) {
+            sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
+                pos: data.pos,
+            }));
         }
 
         private initItemList() {
@@ -167,7 +190,7 @@ module game {
             this.useGirlIcon(false);
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
-            
+
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -256,15 +279,15 @@ module game {
         }
 
         public updateShelf() {
-           switch(this._typeIdx) {
-               case msg.ItemPos.Helmet: this.showShelf_head();break;
-                case msg.ItemPos.Clothes:this.showShelf_body();break;
-                case msg.ItemPos.Pants :this.showShelf_leg();break;
-                case msg.ItemPos.Shoe :this.showShelf_foot();break;
-                case msg.ItemPos.Hand :this.showShelf_hand();break;
-                case msg.ItemPos.Wing :this.showShelf_waist();break;
-                case msg.ItemPos.Suit :this.showShelf_back();break;
-           }
+            switch (this._typeIdx) {
+                case msg.ItemPos.Helmet: this.showShelf_head(); break;
+                case msg.ItemPos.Clothes: this.showShelf_body(); break;
+                case msg.ItemPos.Pants: this.showShelf_leg(); break;
+                case msg.ItemPos.Shoe: this.showShelf_foot(); break;
+                case msg.ItemPos.Hand: this.showShelf_hand(); break;
+                case msg.ItemPos.Wing: this.showShelf_waist(); break;
+                case msg.ItemPos.Suit: this.showShelf_back(); break;
+            }
         }
         // 显示装备列表
         public showShelf_back() {
