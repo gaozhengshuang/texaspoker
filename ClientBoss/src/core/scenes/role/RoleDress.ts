@@ -111,6 +111,7 @@ module game {
             this.ls_items.itemRenderer = game.ItemPrice;
             this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
         }
+ 
 
         private saveSelected(typeIdx, itemIndex) {
             if (this._typeChecked[typeIdx] != null && this._typeChecked[typeIdx] == itemIndex) {
@@ -180,17 +181,13 @@ module game {
         }
 
         private initCoins() {
-            this.updateCoins();
+            this.coin_gold.coins = DataManager.playerModel.getScore();
+            this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
         }
 
-        private updateCoins() {
-            this.coin_gold.coins = DataManager.playerModel.getScore();
-            this.coin_gold.setCoinType(2);
-            this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
-            this.coin_money.setCoinType(1);
-        }
 
         private initTouchEvent() {
+
             this.img_iconmask.addEventListener("touchBegin", this.switchGender, this);
 
             this.part_back.addEventListener("touchBegin", this.partHandle_back, this);
@@ -242,7 +239,6 @@ module game {
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
         }
-
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
         private partHandle_head() { this.unchoseAllIcons(); this.part_head.checked = true; this.showShelf_head(); }
