@@ -62,7 +62,7 @@ module game {
             switch(type)
             {
                 case SkillType.Penetration      :  return 1 + _skillAdditionNum;
-                case SkillType.DoubleScore      :  return _skillAdditionNum;
+                case SkillType.DoubleScore      :  return     _skillAdditionNum;
                 case SkillType.BreakGoldGet     :  return 1 + _skillAdditionNum;
                 case SkillType.BigBoom          :  return 1 - _skillAdditionNum;
                 case SkillType.BadBuffDeltaTime :  return 1 + _skillAdditionNum;   
