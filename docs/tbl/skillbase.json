@@ -2,9 +2,9 @@
 	"Tool": "github.com/davyxu/tabtoy",
 	"Version": "2.8.10",
 	"TSkill":[
-		{ "Id": 1, "Type": 1, "Num": 1 },
-		{ "Id": 2, "Type": 2, "Num": 2 },
-		{ "Id": 3, "Type": 3, "NumPer": 2 },
-		{ "Id": 4, "Type": 4, "NumPer": 5 },
-		{ "Id": 5, "Type": 5, "NumPer": 10 }
+		{ "Id": 1, "Type": 1, "Num": 1, "Des": "贯穿弹+1" },
+		{ "Id": 2, "Type": 2, "Num": 2, "Des": "双倍时间+2秒" },
+		{ "Id": 3, "Type": 3, "NumPer": 2, "Des": "大招所需能量-2%" },
+		{ "Id": 4, "Type": 4, "NumPer": 5, "Des": "金币奖励+5%" },
+		{ "Id": 5, "Type": 5, "NumPer": 10, "Des": "事件间隔时间+10%" }
 	]}
