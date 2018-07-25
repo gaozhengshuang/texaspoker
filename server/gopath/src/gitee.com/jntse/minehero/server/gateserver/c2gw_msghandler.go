@@ -100,6 +100,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
 	//this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
+	this.msgparser.RegistSendProto(msg.GW2C_SendShowImage{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
@@ -678,13 +679,13 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	}
 
 	// 套装
-	//if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
-	//	user.bag.UnDressAll()
-	//}else {
-	//	user.bag.UnDressClothes(tmsg.GetPos())
-	//}
+	if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
+		user.image.UnDressAll(false)
+	}else {
+		user.image.UnDressClothes(tmsg.GetPos(), false)
+	}
 
-	//user.bag.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
+	user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
 }
 
 func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
@@ -702,7 +703,7 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 	}
 
 	// 脱下
-	//user.bag.UnDressClothes(tmsg.GetPos())
+	user.image.UnDressClothes(tmsg.GetPos(), true)
 }
 
 
