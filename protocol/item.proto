@@ -120,7 +120,7 @@ message C2GW_ChangeImageSex {
 }
 
 // 切换男女形象
-message C2GW_RetChangeImageSex {
+message GW2C_RetChangeImageSex {
     optional int32 sex = 1;
 }
 

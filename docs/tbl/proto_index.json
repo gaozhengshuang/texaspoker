@@ -79,7 +79,7 @@
 		{ "Id": 75, "Name": "msg.GW2C_UpdateItemPos" },
 		{ "Id": 76, "Name": "msg.GW2C_SendShowImage" },
 		{ "Id": 77, "Name": "msg.C2GW_ChangeImageSex" },
-		{ "Id": 78, "Name": "msg.C2GW_RetChangeImageSex" },
+		{ "Id": 78, "Name": "msg.GW2C_RetChangeImageSex" },
 		{ "Id": 79, "Name": "msg.RS2MS_ReqRegist" },
 		{ "Id": 80, "Name": "msg.MS2RS_RetRegist" },
 		{ "Id": 81, "Name": "msg.RS2MS_HeartBeat" },

@@ -109,6 +109,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
@@ -727,7 +728,7 @@ func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}
 	}
 
 	user.SetSex(tmsg.GetSex())
-	send := &msg.C2GW_RetChangeImageSex{Sex:pb.Int32(user.Sex())}
+	send := &msg.GW2C_RetChangeImageSex{Sex:pb.Int32(user.Sex())}
 	user.SendMsg(send)
 
 	user.image.SendShowImage()
