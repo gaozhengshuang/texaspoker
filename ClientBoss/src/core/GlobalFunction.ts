@@ -431,4 +431,15 @@ module game {
         }
     }
 
+    export function setAnchor(e: egret.DisplayObject,x = 0.0,y=0.0) {
+        e.anchorOffsetX = e.width*x;
+        e.anchorOffsetY = e.height * y;
+    }
+
+    export function copyAnchor(to:egret.DisplayObject,from:egret.DisplayObject) {
+        let xp = from.anchorOffsetX / from.width;
+        let yp = from.anchorOffsetY / from.height;
+        console.log(xp,yp)
+        setAnchor(to,xp,yp);
+    }
 }

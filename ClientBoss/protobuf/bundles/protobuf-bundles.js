@@ -20759,25 +20759,24 @@ $root.msg = (function() {
         return GW2C_UpdateItemPos;
     })();
 
-    msg.GW2C_SendPersonalImage = (function() {
+    msg.GW2C_SendShowImage = (function() {
 
         /**
-         * Properties of a GW2C_SendPersonalImage.
+         * Properties of a GW2C_SendShowImage.
          * @memberof msg
-         * @interface IGW2C_SendPersonalImage
-         * @property {Array.<msg.IImageData>|null} [images] GW2C_SendPersonalImage images
+         * @interface IGW2C_SendShowImage
+         * @property {msg.IImageData|null} [images] GW2C_SendShowImage images
          */
 
         /**
-         * Constructs a new GW2C_SendPersonalImage.
+         * Constructs a new GW2C_SendShowImage.
          * @memberof msg
-         * @classdesc Represents a GW2C_SendPersonalImage.
-         * @implements IGW2C_SendPersonalImage
+         * @classdesc Represents a GW2C_SendShowImage.
+         * @implements IGW2C_SendShowImage
          * @constructor
-         * @param {msg.IGW2C_SendPersonalImage=} [properties] Properties to set
+         * @param {msg.IGW2C_SendShowImage=} [properties] Properties to set
          */
-        function GW2C_SendPersonalImage(properties) {
-            this.images = [];
+        function GW2C_SendShowImage(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -20785,78 +20784,75 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2C_SendPersonalImage images.
-         * @member {Array.<msg.IImageData>} images
-         * @memberof msg.GW2C_SendPersonalImage
+         * GW2C_SendShowImage images.
+         * @member {msg.IImageData|null|undefined} images
+         * @memberof msg.GW2C_SendShowImage
          * @instance
          */
-        GW2C_SendPersonalImage.prototype.images = $util.emptyArray;
+        GW2C_SendShowImage.prototype.images = null;
 
         /**
-         * Creates a new GW2C_SendPersonalImage instance using the specified properties.
+         * Creates a new GW2C_SendShowImage instance using the specified properties.
          * @function create
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
-         * @param {msg.IGW2C_SendPersonalImage=} [properties] Properties to set
-         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage instance
+         * @param {msg.IGW2C_SendShowImage=} [properties] Properties to set
+         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage instance
          */
-        GW2C_SendPersonalImage.create = function create(properties) {
-            return new GW2C_SendPersonalImage(properties);
+        GW2C_SendShowImage.create = function create(properties) {
+            return new GW2C_SendShowImage(properties);
         };
 
         /**
-         * Encodes the specified GW2C_SendPersonalImage message. Does not implicitly {@link msg.GW2C_SendPersonalImage.verify|verify} messages.
+         * Encodes the specified GW2C_SendShowImage message. Does not implicitly {@link msg.GW2C_SendShowImage.verify|verify} messages.
          * @function encode
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
-         * @param {msg.IGW2C_SendPersonalImage} message GW2C_SendPersonalImage message or plain object to encode
+         * @param {msg.IGW2C_SendShowImage} message GW2C_SendShowImage message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_SendPersonalImage.encode = function encode(message, writer) {
+        GW2C_SendShowImage.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.images != null && message.images.length)
-                for (var i = 0; i < message.images.length; ++i)
-                    $root.msg.ImageData.encode(message.images[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.images != null && message.hasOwnProperty("images"))
+                $root.msg.ImageData.encode(message.images, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
         /**
-         * Encodes the specified GW2C_SendPersonalImage message, length delimited. Does not implicitly {@link msg.GW2C_SendPersonalImage.verify|verify} messages.
+         * Encodes the specified GW2C_SendShowImage message, length delimited. Does not implicitly {@link msg.GW2C_SendShowImage.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
-         * @param {msg.IGW2C_SendPersonalImage} message GW2C_SendPersonalImage message or plain object to encode
+         * @param {msg.IGW2C_SendShowImage} message GW2C_SendShowImage message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_SendPersonalImage.encodeDelimited = function encodeDelimited(message, writer) {
+        GW2C_SendShowImage.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GW2C_SendPersonalImage message from the specified reader or buffer.
+         * Decodes a GW2C_SendShowImage message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage
+         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_SendPersonalImage.decode = function decode(reader, length) {
+        GW2C_SendShowImage.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_SendPersonalImage();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_SendShowImage();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    if (!(message.images && message.images.length))
-                        message.images = [];
-                    message.images.push($root.msg.ImageData.decode(reader, reader.uint32()));
+                    message.images = $root.msg.ImageData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -20867,104 +20863,92 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a GW2C_SendPersonalImage message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_SendShowImage message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage
+         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_SendPersonalImage.decodeDelimited = function decodeDelimited(reader) {
+        GW2C_SendShowImage.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GW2C_SendPersonalImage message.
+         * Verifies a GW2C_SendShowImage message.
          * @function verify
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GW2C_SendPersonalImage.verify = function verify(message) {
+        GW2C_SendShowImage.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.images != null && message.hasOwnProperty("images")) {
-                if (!Array.isArray(message.images))
-                    return "images: array expected";
-                for (var i = 0; i < message.images.length; ++i) {
-                    var error = $root.msg.ImageData.verify(message.images[i]);
-                    if (error)
-                        return "images." + error;
-                }
+                var error = $root.msg.ImageData.verify(message.images);
+                if (error)
+                    return "images." + error;
             }
             return null;
         };
 
         /**
-         * Creates a GW2C_SendPersonalImage message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_SendShowImage message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage
+         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage
          */
-        GW2C_SendPersonalImage.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_SendPersonalImage)
+        GW2C_SendShowImage.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_SendShowImage)
                 return object;
-            var message = new $root.msg.GW2C_SendPersonalImage();
-            if (object.images) {
-                if (!Array.isArray(object.images))
-                    throw TypeError(".msg.GW2C_SendPersonalImage.images: array expected");
-                message.images = [];
-                for (var i = 0; i < object.images.length; ++i) {
-                    if (typeof object.images[i] !== "object")
-                        throw TypeError(".msg.GW2C_SendPersonalImage.images: object expected");
-                    message.images[i] = $root.msg.ImageData.fromObject(object.images[i]);
-                }
+            var message = new $root.msg.GW2C_SendShowImage();
+            if (object.images != null) {
+                if (typeof object.images !== "object")
+                    throw TypeError(".msg.GW2C_SendShowImage.images: object expected");
+                message.images = $root.msg.ImageData.fromObject(object.images);
             }
             return message;
         };
 
         /**
-         * Creates a plain object from a GW2C_SendPersonalImage message. Also converts values to other types if specified.
+         * Creates a plain object from a GW2C_SendShowImage message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @static
-         * @param {msg.GW2C_SendPersonalImage} message GW2C_SendPersonalImage
+         * @param {msg.GW2C_SendShowImage} message GW2C_SendShowImage
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_SendPersonalImage.toObject = function toObject(message, options) {
+        GW2C_SendShowImage.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
-            if (options.arrays || options.defaults)
-                object.images = [];
-            if (message.images && message.images.length) {
-                object.images = [];
-                for (var j = 0; j < message.images.length; ++j)
-                    object.images[j] = $root.msg.ImageData.toObject(message.images[j], options);
-            }
+            if (options.defaults)
+                object.images = null;
+            if (message.images != null && message.hasOwnProperty("images"))
+                object.images = $root.msg.ImageData.toObject(message.images, options);
             return object;
         };
 
         /**
-         * Converts this GW2C_SendPersonalImage to JSON.
+         * Converts this GW2C_SendShowImage to JSON.
          * @function toJSON
-         * @memberof msg.GW2C_SendPersonalImage
+         * @memberof msg.GW2C_SendShowImage
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GW2C_SendPersonalImage.prototype.toJSON = function toJSON() {
+        GW2C_SendShowImage.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GW2C_SendPersonalImage;
+        return GW2C_SendShowImage;
     })();
 
     msg.RS2MS_ReqRegist = (function() {
