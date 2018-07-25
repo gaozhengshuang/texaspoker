@@ -71,7 +71,7 @@ module game {
             this.goldNumTxt.text = goldNum.toString();
             this.diamondNumTxt.text = moneyNum.toString();
 
-            this.UpdateData([101,201,301,401,501,601,701]);
+            //this.UpdateData([101,201,301,401,501,601,701]);
         }
 
         protected beforeShow() {
