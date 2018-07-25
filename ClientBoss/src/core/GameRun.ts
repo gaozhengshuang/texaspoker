@@ -69,7 +69,7 @@ module game {
         }
 
         //TEST:
-        openPanel(PanelType.dress)
+        // openPanel(PanelType.dress)
     }
 
     export function connectFailed() {
