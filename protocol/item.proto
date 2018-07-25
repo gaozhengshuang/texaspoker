@@ -109,8 +109,8 @@ message GW2C_UpdateItemPos {
     repeated msg.ItemData items = 1;
 }
 
-// 玩家形象数据
-message GW2C_SendPersonalImage {
-    repeated ImageData images = 1;
+// 当前形象数据
+message GW2C_SendShowImage {
+    optional ImageData images = 1;
 }
 
