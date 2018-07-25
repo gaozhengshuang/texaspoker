@@ -340,6 +340,36 @@ var egret = window.egret;
 		return t;
 	};
 	return NetFailedSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
+	__extends(AvatarSkin, _super);
+	function AvatarSkin() {
+		_super.call(this);
+		this.skinParts = ["selectImage","avatarImage"];
+		
+		this.height = 116;
+		this.width = 116;
+		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
+	}
+	var _proto = AvatarSkin.prototype;
+
+	_proto.selectImage_i = function () {
+		var t = new eui.Image();
+		this.selectImage = t;
+		t.horizontalCenter = 0;
+		t.source = "win_json.touxiangkuang";
+		t.verticalCenter = 0;
+		t.visible = false;
+		return t;
+	};
+	_proto.avatarImage_i = function () {
+		var t = new eui.Image();
+		this.avatarImage = t;
+		t.height = 116;
+		t.source = "win_json.again";
+		t.width = 116;
+		return t;
+	};
+	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattleBagItemSkin.exml'] = window.BattleBagItemSkin = (function (_super) {
 	__extends(BattleBagItemSkin, _super);
 	function BattleBagItemSkin() {
@@ -2776,36 +2806,6 @@ var egret = window.egret;
 		return t;
 	};
 	return BattleTimeBoomSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
-	__extends(AvatarSkin, _super);
-	function AvatarSkin() {
-		_super.call(this);
-		this.skinParts = ["selectImage","avatarImage"];
-		
-		this.height = 116;
-		this.width = 116;
-		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
-	}
-	var _proto = AvatarSkin.prototype;
-
-	_proto.selectImage_i = function () {
-		var t = new eui.Image();
-		this.selectImage = t;
-		t.horizontalCenter = 0;
-		t.source = "win_json.touxiangkuang";
-		t.verticalCenter = 0;
-		t.visible = false;
-		return t;
-	};
-	_proto.avatarImage_i = function () {
-		var t = new eui.Image();
-		this.avatarImage = t;
-		t.height = 116;
-		t.source = "win_json.again";
-		t.width = 116;
-		return t;
-	};
-	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
 	__extends(CloseButtonSkin, _super);
 	function CloseButtonSkin() {
@@ -4434,7 +4434,7 @@ var egret = window.egret;
 		t.skinName = "IconButtonSkin";
 		t.width = 20;
 		t.x = 351;
-		t.y = 974;
+		t.y = 955;
 		return t;
 	};
 	_proto.costLabel_i = function () {
@@ -5511,7 +5511,7 @@ var egret = window.egret;
 
 	function RoleDressSkin() {
 		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","dress_info","grp_dressinfo","icon_boy","icon_girl","img_iconmask","grp_misc","btn_cart","grp_role","btn_test","btn_test2","roleGroup","coin_money","coin_gold","grp_coins","btn_close","topGroup","ls_items","sr_item","listGroup","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back","btnGroup","bmGroup"];
+		this.skinParts = ["img_girlbg","img_boybg","dress_info","grp_dressinfo","btn_cart","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_test","btn_test2","roleGroup","coin_money","coin_gold","grp_coins","btn_close","topGroup","ls_items","sr_item","listGroup","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back","btnGroup","bmGroup"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -5560,7 +5560,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0.5;
 		t.top = 0;
 		t.width = 721.21;
-		t.elementsContent = [this.grp_dressinfo_i(),this.grp_misc_i(),this.btn_cart_i(),this.grp_role_i(),this.btn_test_i(),this.btn_test2_i()];
+		t.elementsContent = [this.grp_dressinfo_i(),this.btn_cart_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_test_i(),this.btn_test2_i()];
 		return t;
 	};
 	_proto.grp_dressinfo_i = function () {
@@ -5587,6 +5587,32 @@ var egret = window.egret;
 		t.y = 0;
 		return t;
 	};
+	_proto.btn_cart_i = function () {
+		var t = new game.IconButton();
+		this.btn_cart = t;
+		t.bottom = 58;
+		t.height = 20;
+		t.horizontalCenter = 257.395;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 20;
+		return t;
+	};
+	_proto.grp_role_i = function () {
+		var t = new eui.Group();
+		this.grp_role = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 75;
+		t.height = 278;
+		t.horizontalCenter = -3.105000000000018;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.touchEnabled = false;
+		t.width = 311;
+		return t;
+	};
 	_proto.grp_misc_i = function () {
 		var t = new eui.Group();
 		this.grp_misc = t;
@@ -5594,9 +5620,9 @@ var egret = window.egret;
 		t.anchorOffsetY = 0;
 		t.bottom = 23;
 		t.height = 86;
-		t.horizontalCenter = -252.60500000000002;
-		t.scaleX = 1;
-		t.scaleY = 1;
+		t.horizontalCenter = -237.10500000000002;
+		t.scaleX = 1.5;
+		t.scaleY = 1.5;
 		t.width = 158;
 		t.elementsContent = [this._Image2_i(),this.icon_boy_i(),this.icon_girl_i(),this.img_iconmask_i()];
 		return t;
@@ -5639,31 +5665,6 @@ var egret = window.egret;
 		t.touchEnabled = true;
 		t.verticalCenter = -2.5;
 		t.width = 157;
-		return t;
-	};
-	_proto.btn_cart_i = function () {
-		var t = new game.IconButton();
-		this.btn_cart = t;
-		t.bottom = 58;
-		t.height = 20;
-		t.horizontalCenter = 257.395;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.width = 20;
-		return t;
-	};
-	_proto.grp_role_i = function () {
-		var t = new eui.Group();
-		this.grp_role = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bottom = 75;
-		t.height = 278;
-		t.horizontalCenter = -3.105000000000018;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 311;
 		return t;
 	};
 	_proto.btn_test_i = function () {
@@ -5955,7 +5956,7 @@ var egret = window.egret;
 	__extends(ShopItemSkin, _super);
 	function ShopItemSkin() {
 		_super.call(this);
-		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
+		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","img_gold","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
 		
 		this.height = 143;
 		this.width = 680;
@@ -6037,7 +6038,7 @@ var egret = window.egret;
 		t.width = 0;
 		t.x = 537.8;
 		t.y = 59.2;
-		t.elementsContent = [this.img_price_i(),this.txt_price_i()];
+		t.elementsContent = [this.img_price_i(),this.img_gold_i(),this.txt_price_i()];
 		return t;
 	};
 	_proto.img_price_i = function () {
@@ -6048,6 +6049,18 @@ var egret = window.egret;
 		t.source = "dress_01_json.dress_01_30";
 		t.x = 4.2;
 		t.y = -1;
+		return t;
+	};
+	_proto.img_gold_i = function () {
+		var t = new eui.Image();
+		this.img_gold = t;
+		t.height = 57;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "ui_json.gold";
+		t.width = 57;
+		t.x = 3.5;
+		t.y = -2;
 		return t;
 	};
 	_proto.txt_price_i = function () {
@@ -6172,7 +6185,7 @@ var egret = window.egret;
 	__extends(ShoppingCartSkin, _super);
 	function ShoppingCartSkin() {
 		_super.call(this);
-		this.skinParts = ["BG","BG2","listGroup","ShopItemViewScroller","goldNumTxt","coin_gold","userCoin","coinGoldImage","totalCost","coin_gold0","userDiamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
+		this.skinParts = ["BG","BG2","listGroup","ShopItemViewScroller","goldNumTxt","coin_gold","userCoin","diamondNumTxt","coin_gold1","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -6238,7 +6251,7 @@ var egret = window.egret;
 		t.height = 0;
 		t.width = 0;
 		t.y = -2;
-		t.elementsContent = [this.userCoin_i(),this.coinGoldImage_i(),this.totalCost_i(),this.userDiamond_i(),this.btn_close_i(),this._Group2_i()];
+		t.elementsContent = [this.userCoin_i(),this.userDiamond_i(),this.coinGoldImage_i(),this.coinDiamondImage_i(),this.totalCost_gold_i(),this.totalCost_diamond_i(),this.btn_close_i(),this._Group2_i()];
 		return t;
 	};
 	_proto.userCoin_i = function () {
@@ -6249,8 +6262,8 @@ var egret = window.egret;
 		t.scaleY = 1;
 		t.width = 200;
 		t.x = 24;
-		t.y = 153;
-		t.elementsContent = [this._Image1_i(),this.goldNumTxt_i(),this.coin_gold_i()];
+		t.y = 168;
+		t.elementsContent = [this._Image1_i(),this._Image2_i(),this.goldNumTxt_i(),this.coin_gold_i()];
 		return t;
 	};
 	_proto._Image1_i = function () {
@@ -6262,6 +6275,19 @@ var egret = window.egret;
 		t.width = 184;
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.bottom = -5;
+		t.horizontalCenter = -72.5;
+		t.left = 0;
+		t.right = 145;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "ui_json.gold";
+		t.top = 0;
+		t.verticalCenter = 2.5;
 		return t;
 	};
 	_proto.goldNumTxt_i = function () {
@@ -6287,20 +6313,77 @@ var egret = window.egret;
 		t.y = 8;
 		return t;
 	};
+	_proto.userDiamond_i = function () {
+		var t = new eui.Group();
+		this.userDiamond = t;
+		t.height = 50;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 200;
+		t.x = 242;
+		t.y = 168;
+		t.elementsContent = [this._Image3_i(),this.diamondNumTxt_i(),this.coin_gold1_i()];
+		return t;
+	};
+	_proto._Image3_i = function () {
+		var t = new eui.Image();
+		t.height = 59;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_30";
+		t.width = 184;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.diamondNumTxt_i = function () {
+		var t = new eui.Label();
+		this.diamondNumTxt = t;
+		t.fontFamily = "Arial";
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.width = 115;
+		t.x = 52;
+		t.y = 15;
+		return t;
+	};
+	_proto.coin_gold1_i = function () {
+		var t = new game.Coins();
+		this.coin_gold1 = t;
+		t.height = 0;
+		t.skinName = "CoinsSkin";
+		t.visible = false;
+		t.width = 200;
+		t.x = 0;
+		t.y = 8;
+		return t;
+	};
 	_proto.coinGoldImage_i = function () {
 		var t = new eui.Image();
 		this.coinGoldImage = t;
 		t.anchorOffsetY = 0;
 		t.height = 51;
-		t.source = "dress_01_json.dress_01_19";
+		t.source = "ui_json.gold";
 		t.width = 51;
 		t.x = 73;
 		t.y = 1175;
 		return t;
 	};
-	_proto.totalCost_i = function () {
+	_proto.coinDiamondImage_i = function () {
+		var t = new eui.Image();
+		this.coinDiamondImage = t;
+		t.anchorOffsetY = 0;
+		t.height = 51;
+		t.source = "dress_01_json.dress_01_19";
+		t.width = 51;
+		t.x = 217;
+		t.y = 1175;
+		return t;
+	};
+	_proto.totalCost_gold_i = function () {
 		var t = new eui.Label();
-		this.totalCost = t;
+		this.totalCost_gold = t;
 		t.fontFamily = "Arial";
 		t.size = 27;
 		t.text = "0";
@@ -6310,27 +6393,16 @@ var egret = window.egret;
 		t.y = 1230;
 		return t;
 	};
-	_proto.userDiamond_i = function () {
-		var t = new eui.Group();
-		this.userDiamond = t;
-		t.height = 50;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.visible = false;
-		t.width = 200;
-		t.x = 262;
-		t.y = 154;
-		t.elementsContent = [this.coin_gold0_i()];
-		return t;
-	};
-	_proto.coin_gold0_i = function () {
-		var t = new game.Coins();
-		this.coin_gold0 = t;
-		t.height = 0;
-		t.skinName = "CoinsSkin";
-		t.width = 200;
-		t.x = 0;
-		t.y = 8;
+	_proto.totalCost_diamond_i = function () {
+		var t = new eui.Label();
+		this.totalCost_diamond = t;
+		t.fontFamily = "Arial";
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.width = 115;
+		t.x = 185;
+		t.y = 1230;
 		return t;
 	};
 	_proto.btn_close_i = function () {

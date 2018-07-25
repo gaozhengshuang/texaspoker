@@ -28,7 +28,7 @@ module game {
             return this.armatureDisplay.armature;
         }
 
-        public getSlot(slotName:string) {
+        public getSlot(slotName: string) {
             return this.armatureDisplay.armature.getSlot(slotName);
         }
 
@@ -124,7 +124,7 @@ module game {
 
         hide() {
             let d = defer();
-            egret.Tween.get(this).to({alpha: 0}, 500).call(() => {
+            egret.Tween.get(this).to({ alpha: 0 }, 500).call(() => {
                 d.resolve(null);
             });
             return d.promise();
@@ -150,7 +150,7 @@ module game {
             this.initArmature();
         }
 
-        public setNewSlot(slotName:string,texName: string) {
+        public setNewSlot(slotName: string, texName: string) {
             slotName = slotName.toLowerCase();
             texName = texName.toLowerCase();
             let slot = this.armature.getSlot(slotName);
@@ -167,8 +167,13 @@ module game {
             slot.display = bmp;
         }
 
-        public resetSlot(slotName:string) {
+        public resetSlot(slotName: string) {
+            slotName = slotName.toLowerCase();
             let slot = this.armature.getSlot(slotName);
+            if (!slot || !slot.rawDisplay ) {
+                console.warn("不存在原本插槽数据",slotName);
+                return;
+            }
             slot.display = slot.rawDisplay;
         }
     }

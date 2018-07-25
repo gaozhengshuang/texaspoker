@@ -10,15 +10,16 @@
 		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" width="220" height="280" y="0" x="0"/>
 		</e:Group>
 
-		<e:Group id="grp_misc" width="158" height="86" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-252.60500000000002" bottom="23">
-		<e:Image source="dress_01_json.dress_01_26" x="-4" y="3" anchorOffsetX="0" width="162" anchorOffsetY="0" height="81"/>
-		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="82" y="15"/>
-		<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="13.5" y="15"/>
-			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" height="81" width="157" horizontalCenter="0.5" verticalCenter="-2.5" source="shopItemButtonBg_png"/>
-		</e:Group>
+
 
 		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="257.395" bottom="58"/>
-		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-3.105000000000018" bottom="75"/>
+		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-3.105000000000018" bottom="75" touchEnabled="false"/>
+		<e:Group id="grp_misc" width="158" height="86" anchorOffsetX="0" anchorOffsetY="0" scaleX="1.5" scaleY="1.5" horizontalCenter="-237.10500000000002" bottom="23">
+			<e:Image source="dress_01_json.dress_01_26" x="-4" y="3" anchorOffsetX="0" width="162" anchorOffsetY="0" height="81"/>
+			<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="82" y="15"/>
+			<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="13.5" y="15"/>
+			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" height="81" width="157" horizontalCenter="0.5" verticalCenter="-2.5" source="shopItemButtonBg_png"/>
+		</e:Group>
 
 		<e:Button id="btn_test" label="换" x="30" y="243" anchorOffsetX="0" width="130" anchorOffsetY="0" height="60" scaleX="1" scaleY="1" visible="false">
 			<e:skinName>

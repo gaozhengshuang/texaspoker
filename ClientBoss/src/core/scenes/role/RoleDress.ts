@@ -40,6 +40,7 @@ module game {
         private _boyBone: SkeletonBase;
         private _typeIdx: msg.ItemPos;
 
+        private _typeChecked;
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -65,12 +66,14 @@ module game {
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
             this.gender = 0;
+            this._typeChecked={};
 
             this.initNetEvent();
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
             this.switchToGirl();
+            this.hideDressInfo();
 
             this.partHandle_body();
         }
@@ -108,10 +111,40 @@ module game {
             this.ls_items.itemRenderer = game.ItemPrice;
             this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
         }
-        private onChange() {
+
+        private saveSelected(typeIdx, itemIndex) {
+            if (this._typeChecked[typeIdx] != null && this._typeChecked[typeIdx] == itemIndex) {
+                console.log('选择了同样的项', itemIndex);
+                return false;
+            }
+
+            this._typeChecked[typeIdx] = itemIndex;
+            return true;
+        }
+
+        private rmSelected(typeIdx) {
+            this._typeChecked[this._typeIdx] = null;
+            this.ls_items.selectedIndex = -1;
+            this.ls_items.selectedItem = null;
+        }
+
+        // 选择项改变
+        private onChange(e: eui.ItemTapEvent) {
+
+
             let item = this.ls_items.selectedItem;
-            this.setDressInfo(item);
-            this.changePart(item);
+            let idx = e.itemIndex;
+            let itemRender = <game.ItemPrice>e.itemRenderer;
+            if (!this.saveSelected(this._typeIdx, idx)) {
+                itemRender.selected = false;
+                this.rmSelected(this._typeIdx);
+                this.unwear(item);
+            } else {
+                this.setDressInfo(item);
+                this.changePart(item);
+            }
+
+
         }
 
         private initTypeIcons() {
@@ -149,7 +182,7 @@ module game {
         private initCoins() {
             this.updateCoins();
         }
-    
+
         private updateCoins() {
             this.coin_gold.coins = DataManager.playerModel.getScore();
             this.coin_gold.setCoinType(2);
@@ -158,8 +191,6 @@ module game {
         }
 
         private initTouchEvent() {
-            // this.icon_boy.addEventListener("touchBegin", this.switchToGirl, this);
-            // this.icon_girl.addEventListener("touchBegin", this.switchToBoy, this);
             this.img_iconmask.addEventListener("touchBegin", this.switchGender, this);
 
             this.part_back.addEventListener("touchBegin", this.partHandle_back, this);
@@ -178,6 +209,8 @@ module game {
         }
 
         private closeHandle() {
+            this.resetParts(this._boyBone);
+            this.resetParts(this._girlBone);
             this.remove();
         }
         private cartHandle() {
@@ -208,8 +241,8 @@ module game {
             this.useGirlIcon(false);
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
-
         }
+
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
         private partHandle_head() { this.unchoseAllIcons(); this.part_head.checked = true; this.showShelf_head(); }
@@ -279,6 +312,7 @@ module game {
         //=======================================
         //TODO: 设置装备信息
         public setDressInfo(dressInfo: table.IEquipDefine) {
+            this.showDressInfo();
             this.dress_info.equip_name = dressInfo.Name;
             //技能加成
             let skillDes = "";
@@ -293,17 +327,25 @@ module game {
             this.dress_info.skillAddition = skillDes;
         }
 
+        public hideDressInfo() {
+            this.dress_info.visible = false;
+        }
+        public showDressInfo() {
+            this.dress_info.visible = true;
+        }
+
         // 设置装备列表
         private setShelf(s: number) {
             this._dataProv.removeAll();
 
             let dressItem: table.IEquipDefine = null;
-
             while (!!(dressItem = table.EquipById[s++])) {
                 if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
                     this._dataProv.addItem(dressItem);
                 }
             }
+
+            this.reselectIndex(this._typeIdx);
         }
 
         public updateShelf() {
@@ -317,9 +359,26 @@ module game {
                 case msg.ItemPos.Suit: this.showShelf_back(); break;
             }
         }
+        private getSelectIndex(typeIndex) {
+            console.log("类型：", typeIndex,this._typeChecked )
+
+            if (!this._typeChecked || this._typeChecked[typeIndex] == null) return null;
+            console.log(this._typeChecked[typeIndex]);
+            return this._typeChecked[typeIndex];
+        }
+
+        private reselectIndex(typeIndex) {
+            console.log(this._typeChecked);
+            let selIndex = this.getSelectIndex(this._typeIdx);
+            console.log("选择项：", selIndex);
+            if (selIndex != null) {
+                this.ls_items.selectedIndex = selIndex;
+            }
+        }
         // 显示装备列表
         public showShelf_back() {
             this._typeIdx = msg.ItemPos.Suit;
+
             this.setShelf(701);
 
         }
@@ -376,6 +435,7 @@ module game {
             }
         }
         public resetParts(bone: SkeletonBase) {
+            if (!bone) return;
             let slots = bone.armature.getSlots();
             slots.forEach((slot) => {
                 bone.resetSlot(slot.name);
@@ -400,6 +460,23 @@ module game {
                 this.changeSlotsInSuit(this._boyBone, slotNames, "boy_suit2");
             }
         }
+
+        private resetSlots(bone:SkeletonBase, slotNames:string[]) {
+            slotNames.forEach((name) => bone.resetSlot(name));
+        }
+
+        private unwear(e: table.IEquipDefine) {
+            let sex = e.Sex;
+            let slotNames = e.LoadPoint;
+            if (slotNames.length <= 0) return;
+            if (sex == 0) {
+                this.resetSlots(this._girlBone, slotNames);
+            } else {
+                this.resetSlots(this._boyBone, slotNames);
+            }
+        }
+
+
 
     }
 }
