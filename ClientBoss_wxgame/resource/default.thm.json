@@ -50,6 +50,8 @@
 		"resource/eui_skins/role/EquipInfoSkin.exml",
 		"resource/eui_skins/role/ItemPriceSkin.exml",
 		"resource/eui_skins/role/RoleDressSkin.exml",
+		"resource/eui_skins/role/ShopItemSkin.exml",
+		"resource/eui_skins/role/ShoppingCartSkin.exml",
 		"resource/eui_skins/win/WinRankItemSkin.exml",
 		"resource/eui_skins/win/WinSceneSkin.exml"
 	],

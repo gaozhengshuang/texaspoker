@@ -419,9 +419,10 @@ module game {
         bone.isUsed = false;
     }
 
-    export function adjustBone(o: egret.DisplayObject, e: egret.DisplayObjectContainer) {
+    export function adjustBone(o: egret.DisplayObject, e: egret.DisplayObjectContainer, scale = 1.0) {
         o.x = e.width * .5;
         o.y = e.height;
+        o.scaleX = o.scaleY = scale;
     }
 
     export function hideAllChildren(e: egret.DisplayObjectContainer) {

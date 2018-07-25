@@ -39,18 +39,21 @@ module game {
         }
 
         protected dataChanged() {
-            let prefix = "dress_02_json.";
+            console.log("数据改变：",this.data);
+            // let prefix = "dress_02_json.";
             let info = {
-                icon: prefix + this.data['img'],
-                price: this.data['price'],
-                priceUnit: this.data['priceUnit'],
+                icon: /*prefix +*/ this.data['Path'],
+                price: this.data['Price'],
+                priceUnit: this.data['CoinType'],
             }
             this.setup(info);
         }
 
 
         public setup(info: { icon, price, priceUnit }) {
-            this.img_equip.source = info.icon;
+            if (info.icon) {
+                this.img_equip.source = info.icon;
+            }
             if (info.price <= 0) {
                 this.grp_price.visible = false;
                 this.txt_obtained.visible = true;
