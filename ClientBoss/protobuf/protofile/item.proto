@@ -3,6 +3,7 @@
 // --------------------------------------------------------------------------
 package msg;
 import "define.proto";
+import "serialize.proto";
 
 // 购买道具
 message C2GW_BuyItem {
@@ -87,4 +88,29 @@ message C2GW_SellBagItem {
     repeated msg.PairNumItem list = 1;
 }
 
+// 购买服饰
+message C2GW_BuyClothes {
+    repeated int32 item_list = 1;
+}
+
+// 穿戴服饰
+message C2GW_DressClothes {
+    optional int32 pos = 1;
+    optional int32 itemid = 2;
+}
+
+// 脱下服饰
+message C2GW_UnDressClothes {
+    optional int32 pos = 1;
+}
+
+// 更新道具位置信息
+message GW2C_UpdateItemPos {
+    repeated msg.ItemData items = 1;
+}
+
+// 玩家形象数据
+message GW2C_SendPersonalImage {
+    repeated ImageData images = 1;
+}
 

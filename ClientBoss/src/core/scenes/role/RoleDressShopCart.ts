@@ -140,6 +140,8 @@ module game {
         //确认购买
         private OnConfirmBuy() {
             console.log("购物车中有"+this._shopItemCarts.length+"个商品");
+            let list: number[]  = this._shopItemCarts.map(item =>{return item.id;});
+            sendMessage("msg.C2GW_BuyClothes", msg.C2GW_BuyClothes.encode({itemList:list}));
         }
 
         private OnCloseHandle() {
