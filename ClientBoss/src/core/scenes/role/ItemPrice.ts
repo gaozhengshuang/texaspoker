@@ -38,11 +38,22 @@ module game {
             return ItemPriceSkin;
         }
 
+        public isComingSoon(item: table.IEquipDefine) {
+            if (!item.LoadPoint || item.LoadPoint.length <= 0) {
+                return true;
+            }
+            return false;
+        }
+
         protected dataChanged() {
-            // console.log("数据改变：",this.data);
-            // let prefix = "dress_02_json.";
+
+            if (this.isComingSoon(this.data)) {
+                this.data['Path'] = "";
+                this.data['Price'] = "敬请期待";
+            }
+
             let info = {
-                icon: /*prefix +*/ this.data['Path'],
+                icon: this.data['Path'],
                 price: this.data['Price'],
                 priceUnit: this.data['CoinType'],
             }

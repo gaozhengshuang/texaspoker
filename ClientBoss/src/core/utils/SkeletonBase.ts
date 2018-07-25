@@ -152,6 +152,10 @@ module game {
 
         public setNewSlot(slotName:string,texName: string) {
             let slot = this.armature.getSlot(slotName);
+            if (!slot) {
+                console.warn(`龙骨中不存在名为${slotName}的插槽`);
+                return;
+            }
             let bmp = new egret.Bitmap();
             bmp.texture = RES.getRes(texName);
             bmp.x = slot.display.x;

@@ -300,7 +300,6 @@ module game {
                     this._dataProv.addItem(dressItem);
                 }
             }
-
         }
 
         public updateShelf() {
@@ -379,8 +378,23 @@ module game {
             })
         }
 
+        private changeSlotsInSuit(bone: SkeletonBase,slotNames:string[],suitName:string){
+            slotNames.forEach((name)=>{
+                let assetName = `${suitName}_json.${name}`;
+                bone.setNewSlot(name,assetName);
+            })
+        }
+
         private changePart(e:table.IEquipDefine) {
-            
+            let pos = e.Pos;
+            let sex = e.Sex;
+            let slotNames = e.LoadPoint;
+            if (slotNames.length <= 0) return;
+            if (sex == 0) {
+                this.changeSlotsInSuit(this._girlBone,slotNames,"girl_suit2" );
+            }else {
+                this.changeSlotsInSuit(this._boyBone,slotNames,"boy_suit2");
+            }
         }
 
     }
