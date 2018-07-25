@@ -70,6 +70,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
