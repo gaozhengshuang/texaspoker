@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="RoleDressSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
-	<e:Image id="img_girlbg" source="grilbg_png" width="720" height="100%" horizontalCenter="0" verticalCenter="0" scale9Grid="0,587,720,513"/>
-	<e:Image id="img_boybg" source="boybg_png" width="720" height="100%" horizontalCenter="0" verticalCenter="0" scale9Grid="0,590,720,510" visible="false"/>
+	<e:Image id="img_girlbg" source="grilbg_png" width="720" height="100%" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="img_boybg" source="boybg_png" width="720" height="100%" horizontalCenter="0" verticalCenter="0" visible="false"/>
 	<e:Group width="721.21" height="581.82" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5" top="0">
-		<e:Group id="grp_coins" width="593" height="58" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="15.894999999999982" verticalCenter="-250.91000000000003">
+		<e:Group id="grp_coins" width="593" height="58" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="15.894999999999982" y="11">
 		<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
 		<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
 		<e:layout>
 			<e:HorizontalLayout gap="30"/>
 		</e:layout>
 		</e:Group>
-		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" horizontalCenter="247.39499999999998" verticalCenter="-68.91000000000003">
-		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0"/>
+		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" horizontalCenter="247.39499999999998" y="100">
+		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" width="220" height="280" horizontalCenter="0" y="0"/>
 		</e:Group>
 
 		<e:Group id="grp_misc" width="126" height="68" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-244.60500000000002" verticalCenter="251.08999999999997">
@@ -23,7 +23,7 @@
 
 		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="262.395" verticalCenter="258.09"/>
 		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="25.894999999999982" verticalCenter="120.08999999999997"/>
-		<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-322.605" verticalCenter="-253.91000000000003"/>
+		<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-322.605" y="27"/>
 	</e:Group>
 
 
@@ -50,7 +50,7 @@
 	</e:Group>
 
 
-	<e:Group width="720" height="432" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="333" horizontalCenter="0">
+	<e:Group width="720" height="432" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" bottom="0">
 		<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" height="360" width="720" verticalCenter="10.215000000000003" horizontalCenter="0" x="5" y="586" scaleX="1" scaleY="1">
 			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="662">
 			<e:layout>

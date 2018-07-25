@@ -55,6 +55,11 @@ module game {
 
 
         public init() {
+            if (gameConfig.isIphoneX()) {
+                this.grp_coins.y = 90;
+                this.btn_close.y = 100;
+                this.grp_dressinfo.y = 150;
+            }
             this.height = gameConfig.curHeight();
             
             this.btn_cart.icon = "dress_01_json.dress_01_29";
