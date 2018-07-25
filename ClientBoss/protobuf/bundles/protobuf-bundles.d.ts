@@ -8899,91 +8899,91 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2C_SendPersonalImage. */
-    interface IGW2C_SendPersonalImage {
+    /** Properties of a GW2C_SendShowImage. */
+    interface IGW2C_SendShowImage {
 
-        /** GW2C_SendPersonalImage images */
-        images?: (msg.IImageData[]|null);
+        /** GW2C_SendShowImage images */
+        images?: (msg.IImageData|null);
     }
 
-    /** Represents a GW2C_SendPersonalImage. */
-    class GW2C_SendPersonalImage implements IGW2C_SendPersonalImage {
+    /** Represents a GW2C_SendShowImage. */
+    class GW2C_SendShowImage implements IGW2C_SendShowImage {
 
         /**
-         * Constructs a new GW2C_SendPersonalImage.
+         * Constructs a new GW2C_SendShowImage.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IGW2C_SendPersonalImage);
+        constructor(properties?: msg.IGW2C_SendShowImage);
 
-        /** GW2C_SendPersonalImage images. */
-        public images: msg.IImageData[];
+        /** GW2C_SendShowImage images. */
+        public images?: (msg.IImageData|null);
 
         /**
-         * Creates a new GW2C_SendPersonalImage instance using the specified properties.
+         * Creates a new GW2C_SendShowImage instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns GW2C_SendPersonalImage instance
+         * @returns GW2C_SendShowImage instance
          */
-        public static create(properties?: msg.IGW2C_SendPersonalImage): msg.GW2C_SendPersonalImage;
+        public static create(properties?: msg.IGW2C_SendShowImage): msg.GW2C_SendShowImage;
 
         /**
-         * Encodes the specified GW2C_SendPersonalImage message. Does not implicitly {@link msg.GW2C_SendPersonalImage.verify|verify} messages.
-         * @param message GW2C_SendPersonalImage message or plain object to encode
+         * Encodes the specified GW2C_SendShowImage message. Does not implicitly {@link msg.GW2C_SendShowImage.verify|verify} messages.
+         * @param message GW2C_SendShowImage message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IGW2C_SendPersonalImage, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IGW2C_SendShowImage, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified GW2C_SendPersonalImage message, length delimited. Does not implicitly {@link msg.GW2C_SendPersonalImage.verify|verify} messages.
-         * @param message GW2C_SendPersonalImage message or plain object to encode
+         * Encodes the specified GW2C_SendShowImage message, length delimited. Does not implicitly {@link msg.GW2C_SendShowImage.verify|verify} messages.
+         * @param message GW2C_SendShowImage message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IGW2C_SendPersonalImage, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IGW2C_SendShowImage, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a GW2C_SendPersonalImage message from the specified reader or buffer.
+         * Decodes a GW2C_SendShowImage message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns GW2C_SendPersonalImage
+         * @returns GW2C_SendShowImage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_SendPersonalImage;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_SendShowImage;
 
         /**
-         * Decodes a GW2C_SendPersonalImage message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_SendShowImage message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns GW2C_SendPersonalImage
+         * @returns GW2C_SendShowImage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_SendPersonalImage;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_SendShowImage;
 
         /**
-         * Verifies a GW2C_SendPersonalImage message.
+         * Verifies a GW2C_SendShowImage message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a GW2C_SendPersonalImage message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_SendShowImage message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns GW2C_SendPersonalImage
+         * @returns GW2C_SendShowImage
          */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_SendPersonalImage;
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_SendShowImage;
 
         /**
-         * Creates a plain object from a GW2C_SendPersonalImage message. Also converts values to other types if specified.
-         * @param message GW2C_SendPersonalImage
+         * Creates a plain object from a GW2C_SendShowImage message. Also converts values to other types if specified.
+         * @param message GW2C_SendShowImage
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.GW2C_SendPersonalImage, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.GW2C_SendShowImage, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this GW2C_SendPersonalImage to JSON.
+         * Converts this GW2C_SendShowImage to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

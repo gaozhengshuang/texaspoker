@@ -78,7 +78,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 73, Name : "msg.C2GW_DressClothes" 	},
 		{ Id : 74, Name : "msg.C2GW_UnDressClothes" 	},
 		{ Id : 75, Name : "msg.GW2C_UpdateItemPos" 	},
-		{ Id : 76, Name : "msg.GW2C_SendPersonalImage" 	},
+		{ Id : 76, Name : "msg.GW2C_SendShowImage" 	},
 		{ Id : 77, Name : "msg.RS2MS_ReqRegist" 	},
 		{ Id : 78, Name : "msg.MS2RS_RetRegist" 	},
 		{ Id : 79, Name : "msg.RS2MS_HeartBeat" 	},
