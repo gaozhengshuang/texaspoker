@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="RoleDressSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
-	<e:Image source="dress_01_json.taboard-bg" scale9Grid="151,18,488,444" x="0" y="0" height="100%"/>
+	<e:Image scale9Grid="151,18,488,444" x="0" y="0" height="100%" source="dress_01_json.taboard-bg2"/>
 	<e:Image id="img_girlbg" source="grilbg_png" width="720" horizontalCenter="0" anchorOffsetY="0" verticalCenter="-258.5"/>
 	<e:Image id="img_boybg" source="boybg_png" width="720" horizontalCenter="0" anchorOffsetY="0" verticalCenter="-258.5"/>
 	<e:Group width="721.21" height="581.82" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5" top="0">
