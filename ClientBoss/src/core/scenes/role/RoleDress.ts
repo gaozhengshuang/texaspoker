@@ -1,35 +1,5 @@
 module game {
 
-    let dressItems = [
-        { img: "dress_02_01", price: 2000, priceUnit: 1 },
-        { img: "dress_02_02", price: 2000, priceUnit: 1 },
-        { img: "dress_02_03", price: 2000, priceUnit: 1 },
-        { img: "dress_02_04", price: 2000, priceUnit: 1 },
-        { img: "dress_02_05", price: 2000, priceUnit: 1 },
-        { img: "dress_02_06", price: 2000, priceUnit: 1 },
-        { img: "dress_02_07", price: 2000, priceUnit: 1 },
-        { img: "dress_02_08", price: 2000, priceUnit: 1 },
-        { img: "dress_02_09", price: 2000, priceUnit: 1 },
-        { img: "dress_02_10", price: 2000, priceUnit: 1 },
-        { img: "dress_02_11", price: 2000, priceUnit: 1 },
-        { img: "dress_02_12", price: 2000, priceUnit: 1 },
-        { img: "dress_02_13", price: 2000, priceUnit: 1 },
-        { img: "dress_02_14", price: 2000, priceUnit: 1 },
-        { img: "dress_02_15", price: 2000, priceUnit: 1 },
-        { img: "dress_02_16", price: 2000, priceUnit: 1 },
-        { img: "dress_02_17", price: 2000, priceUnit: 1 },
-        { img: "dress_02_18", price: 2000, priceUnit: 1 },
-        { img: "dress_02_19", price: 2000, priceUnit: 1 },
-        { img: "dress_02_20", price: 2000, priceUnit: 1 },
-        { img: "dress_02_21", price: 2000, priceUnit: 1 },
-        { img: "dress_02_22", price: 2000, priceUnit: 1 },
-        { img: "dress_02_23", price: 2000, priceUnit: 1 },
-        { img: "dress_02_24", price: 2000, priceUnit: 1 },
-        { img: "dress_02_25", price: 2000, priceUnit: 1 },
-        { img: "dress_02_26", price: 2000, priceUnit: 1 },
-    ]
-
-
     export class RoleDress extends PanelComponent {
         img_girlbg: eui.Image;
         img_boybg: eui.Image;
@@ -62,6 +32,7 @@ module game {
         public gender: number = 0;
         private _girlBone: SkeletonBase;
         private _boyBone: SkeletonBase;
+        private _typeIdx: msg.ItemPos;
 
 
         protected getSkinName() {
@@ -81,13 +52,19 @@ module game {
         public init() {
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
+            this.gender = 0;
 
+            this.initNetEvent();
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
             this.switchGender();
 
             this.partHandle_body();
+        }
+
+        private initNetEvent() {
+
         }
 
         private initItemList() {
@@ -98,7 +75,8 @@ module game {
         }
         //TODO: 改变选择项
         private onChange() {
-
+            let item = this.ls_items.selectedItem;
+            console.warn("显示装备信息",item);
         }
 
         private initTypeIcons() {
@@ -175,9 +153,9 @@ module game {
 
         private switchGender() {
             if (this.gender == 0) {
-                this.switchToGirl();
-            }else {
                 this.switchToBoy();
+            } else {
+                this.switchToGirl();
             }
         }
 
@@ -228,7 +206,7 @@ module game {
                 if (!this._girlBone) {
                     this._girlBone = await game.getBone("girl");
                     this.grp_role.addChild(this._girlBone);
-                    adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
+                    adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role, 1.5);
                     let r = randRange(1, this._girlBone.animNum);
                     this._girlBone.play(`Idle${r}`, 0);
                 }
@@ -239,7 +217,7 @@ module game {
                 if (!this._boyBone) {
                     this._boyBone = await game.getBone("boy");
                     this.grp_role.addChild(this._boyBone);
-                    adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role);
+                    adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role, 1.5);
                     let r = randRange(1, this._boyBone.animNum);
                     this._boyBone.play(`Idle${r}`, 0);
                 }
@@ -251,7 +229,12 @@ module game {
 
         //TODO: 显示默认的装备
         public useGirlShelf(b: boolean) {
-
+            if (b) {
+                this.gender = 0
+            }else {
+                this.gender = 1;
+            }
+            this.updateShelf();
         }
 
 
@@ -267,37 +250,61 @@ module game {
         }
 
         // 设置装备列表
-        private setShelf(s: number, e: number) {
+        private setShelf(s: number) {
             this._dataProv.removeAll();
-            for (let i = s; i < e; ++i) {
-                this._dataProv.addItem(dressItems[i]);
+
+            let dressItem: table.IEquipDefine = null;
+
+            while (!!(dressItem = table.EquipById[s++])) {
+                console.log("xxxxxxxxxxx",dressItem)
+                if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
+                    this._dataProv.addItem(dressItem);
+                }
             }
+
         }
 
-
+        public updateShelf() {
+           switch(this._typeIdx) {
+               case msg.ItemPos.Helmet: this.showShelf_head();break;
+                case msg.ItemPos.Clothes:this.showShelf_body();break;
+                case msg.ItemPos.Pants :this.showShelf_leg();break;
+                case msg.ItemPos.Shoe :this.showShelf_foot();break;
+                case msg.ItemPos.Hand :this.showShelf_hand();break;
+                case msg.ItemPos.Wing :this.showShelf_waist();break;
+                case msg.ItemPos.Suit :this.showShelf_back();break;
+           }
+        }
         // 显示装备列表
         public showShelf_back() {
-            this.setShelf(23, 25);
+            this._typeIdx = msg.ItemPos.Suit;
+            this.setShelf(701);
 
         }
         public showShelf_head() {
-            this.setShelf(0, 3);
+            this._typeIdx = msg.ItemPos.Helmet;
+            this.setShelf(101);
         }
         public showShelf_body() {
-            this.setShelf(3, 9);
+            this._typeIdx = msg.ItemPos.Clothes;
+            this.setShelf(201);
 
         }
         public showShelf_leg() {
-            this.setShelf(6, 10);
+            this._typeIdx = msg.ItemPos.Pants;
+            this.setShelf(301);
         }
         public showShelf_foot() {
-            this.setShelf(10, 14);
+            this._typeIdx = msg.ItemPos.Shoe;
+            this.setShelf(401);
         }
         public showShelf_waist() {
-            this.setShelf(14, 19);
+            this._typeIdx = msg.ItemPos.Wing;
+            this.setShelf(501);
         }
         public showShelf_hand() {
-            this.setShelf(19, 23);
+            this._typeIdx = msg.ItemPos.Hand;
+            this.setShelf(601);
         }
 
     }

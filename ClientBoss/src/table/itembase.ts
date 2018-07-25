@@ -105,7 +105,20 @@ export var ItemBaseData : table.IItemBaseDataDefine[] = [
 		{ Id : 1013, Name : "小方智能摄像机", Desc : "名称:小方智能摄像机 特征:1080p 描述:白色 类型:固定发货", Sort : 26, Type : 1, Sold : 139, RealPrice : 1390 	},
 		{ Id : 1014, Name : "小米充电宝", Desc : "名称:小米充电宝 特征:移动电源 描述:10000毫安 类型:随机发货", Sort : 41, Type : 1, Sold : 1399, RealPrice : 13990 	},
 		{ Id : 1015, Name : "小米手环", Desc : "名称:小米手环 特征:手环 描述:京东自营店 类型:随机发货", Sort : 51, Type : 1, Sold : 149, RealPrice : 1490 	},
-		{ Id : 1016, Name : "智能水杯", Desc : "名称:麦开智能水杯 特征:智能水杯 描述:环保材料 类型:固定发货", Sort : 52, Type : 1, Sold : 349, RealPrice : 3490 	}
+		{ Id : 1016, Name : "智能水杯", Desc : "名称:麦开智能水杯 特征:智能水杯 描述:环保材料 类型:固定发货", Sort : 52, Type : 1, Sold : 349, RealPrice : 3490 	},
+		{ Id : 101, Name : "头盔", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 102, Name : "头盔", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 201, Name : "上衣", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 202, Name : "上衣", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 301, Name : "裤子", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 302, Name : "裤子", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 401, Name : "鞋子", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 402, Name : "鞋子", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 501, Name : "棒棒", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 502, Name : "棒棒", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 601, Name : "翅膀", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 602, Name : "翅膀", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 701, Name : "套装1", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	}
 	]
 
 

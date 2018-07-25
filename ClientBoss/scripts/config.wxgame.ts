@@ -74,6 +74,7 @@ const config: ResourceManagerConfig = {
                         verbose: true, matchers: [
                             // { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
                             { from: "resource/assets/@(texpack|font|music)/**", to: remote },
+                            { from: "resource/bones/**/**", to: remote },
                         ]
                     }),
 

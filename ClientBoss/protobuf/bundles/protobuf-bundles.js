@@ -6421,6 +6421,445 @@ $root.msg = (function() {
         return LuckyDrawRecord;
     })();
 
+    msg.ImageData = (function() {
+
+        /**
+         * Properties of an ImageData.
+         * @memberof msg
+         * @interface IImageData
+         * @property {number|null} [sex] ImageData sex
+         * @property {Array.<msg.IItemData>|null} [clothes] ImageData clothes
+         */
+
+        /**
+         * Constructs a new ImageData.
+         * @memberof msg
+         * @classdesc Represents an ImageData.
+         * @implements IImageData
+         * @constructor
+         * @param {msg.IImageData=} [properties] Properties to set
+         */
+        function ImageData(properties) {
+            this.clothes = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ImageData sex.
+         * @member {number} sex
+         * @memberof msg.ImageData
+         * @instance
+         */
+        ImageData.prototype.sex = 0;
+
+        /**
+         * ImageData clothes.
+         * @member {Array.<msg.IItemData>} clothes
+         * @memberof msg.ImageData
+         * @instance
+         */
+        ImageData.prototype.clothes = $util.emptyArray;
+
+        /**
+         * Creates a new ImageData instance using the specified properties.
+         * @function create
+         * @memberof msg.ImageData
+         * @static
+         * @param {msg.IImageData=} [properties] Properties to set
+         * @returns {msg.ImageData} ImageData instance
+         */
+        ImageData.create = function create(properties) {
+            return new ImageData(properties);
+        };
+
+        /**
+         * Encodes the specified ImageData message. Does not implicitly {@link msg.ImageData.verify|verify} messages.
+         * @function encode
+         * @memberof msg.ImageData
+         * @static
+         * @param {msg.IImageData} message ImageData message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ImageData.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sex);
+            if (message.clothes != null && message.clothes.length)
+                for (var i = 0; i < message.clothes.length; ++i)
+                    $root.msg.ItemData.encode(message.clothes[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ImageData message, length delimited. Does not implicitly {@link msg.ImageData.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.ImageData
+         * @static
+         * @param {msg.IImageData} message ImageData message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ImageData.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an ImageData message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.ImageData
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.ImageData} ImageData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ImageData.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.ImageData();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.sex = reader.int32();
+                    break;
+                case 2:
+                    if (!(message.clothes && message.clothes.length))
+                        message.clothes = [];
+                    message.clothes.push($root.msg.ItemData.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an ImageData message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.ImageData
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.ImageData} ImageData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ImageData.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an ImageData message.
+         * @function verify
+         * @memberof msg.ImageData
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ImageData.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            if (message.clothes != null && message.hasOwnProperty("clothes")) {
+                if (!Array.isArray(message.clothes))
+                    return "clothes: array expected";
+                for (var i = 0; i < message.clothes.length; ++i) {
+                    var error = $root.msg.ItemData.verify(message.clothes[i]);
+                    if (error)
+                        return "clothes." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an ImageData message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.ImageData
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.ImageData} ImageData
+         */
+        ImageData.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.ImageData)
+                return object;
+            var message = new $root.msg.ImageData();
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            if (object.clothes) {
+                if (!Array.isArray(object.clothes))
+                    throw TypeError(".msg.ImageData.clothes: array expected");
+                message.clothes = [];
+                for (var i = 0; i < object.clothes.length; ++i) {
+                    if (typeof object.clothes[i] !== "object")
+                        throw TypeError(".msg.ImageData.clothes: object expected");
+                    message.clothes[i] = $root.msg.ItemData.fromObject(object.clothes[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an ImageData message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.ImageData
+         * @static
+         * @param {msg.ImageData} message ImageData
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ImageData.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.clothes = [];
+            if (options.defaults)
+                object.sex = 0;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            if (message.clothes && message.clothes.length) {
+                object.clothes = [];
+                for (var j = 0; j < message.clothes.length; ++j)
+                    object.clothes[j] = $root.msg.ItemData.toObject(message.clothes[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this ImageData to JSON.
+         * @function toJSON
+         * @memberof msg.ImageData
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ImageData.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ImageData;
+    })();
+
+    msg.PersonalImage = (function() {
+
+        /**
+         * Properties of a PersonalImage.
+         * @memberof msg
+         * @interface IPersonalImage
+         * @property {Array.<msg.IImageData>|null} [lists] PersonalImage lists
+         */
+
+        /**
+         * Constructs a new PersonalImage.
+         * @memberof msg
+         * @classdesc Represents a PersonalImage.
+         * @implements IPersonalImage
+         * @constructor
+         * @param {msg.IPersonalImage=} [properties] Properties to set
+         */
+        function PersonalImage(properties) {
+            this.lists = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PersonalImage lists.
+         * @member {Array.<msg.IImageData>} lists
+         * @memberof msg.PersonalImage
+         * @instance
+         */
+        PersonalImage.prototype.lists = $util.emptyArray;
+
+        /**
+         * Creates a new PersonalImage instance using the specified properties.
+         * @function create
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {msg.IPersonalImage=} [properties] Properties to set
+         * @returns {msg.PersonalImage} PersonalImage instance
+         */
+        PersonalImage.create = function create(properties) {
+            return new PersonalImage(properties);
+        };
+
+        /**
+         * Encodes the specified PersonalImage message. Does not implicitly {@link msg.PersonalImage.verify|verify} messages.
+         * @function encode
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {msg.IPersonalImage} message PersonalImage message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PersonalImage.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.lists != null && message.lists.length)
+                for (var i = 0; i < message.lists.length; ++i)
+                    $root.msg.ImageData.encode(message.lists[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PersonalImage message, length delimited. Does not implicitly {@link msg.PersonalImage.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {msg.IPersonalImage} message PersonalImage message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PersonalImage.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PersonalImage message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.PersonalImage} PersonalImage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PersonalImage.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.PersonalImage();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 2:
+                    if (!(message.lists && message.lists.length))
+                        message.lists = [];
+                    message.lists.push($root.msg.ImageData.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PersonalImage message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.PersonalImage} PersonalImage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PersonalImage.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PersonalImage message.
+         * @function verify
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PersonalImage.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.lists != null && message.hasOwnProperty("lists")) {
+                if (!Array.isArray(message.lists))
+                    return "lists: array expected";
+                for (var i = 0; i < message.lists.length; ++i) {
+                    var error = $root.msg.ImageData.verify(message.lists[i]);
+                    if (error)
+                        return "lists." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a PersonalImage message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.PersonalImage} PersonalImage
+         */
+        PersonalImage.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.PersonalImage)
+                return object;
+            var message = new $root.msg.PersonalImage();
+            if (object.lists) {
+                if (!Array.isArray(object.lists))
+                    throw TypeError(".msg.PersonalImage.lists: array expected");
+                message.lists = [];
+                for (var i = 0; i < object.lists.length; ++i) {
+                    if (typeof object.lists[i] !== "object")
+                        throw TypeError(".msg.PersonalImage.lists: object expected");
+                    message.lists[i] = $root.msg.ImageData.fromObject(object.lists[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PersonalImage message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.PersonalImage
+         * @static
+         * @param {msg.PersonalImage} message PersonalImage
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PersonalImage.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.lists = [];
+            if (message.lists && message.lists.length) {
+                object.lists = [];
+                for (var j = 0; j < message.lists.length; ++j)
+                    object.lists[j] = $root.msg.ImageData.toObject(message.lists[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this PersonalImage to JSON.
+         * @function toJSON
+         * @memberof msg.PersonalImage
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PersonalImage.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return PersonalImage;
+    })();
+
     msg.UserBase = (function() {
 
         /**
@@ -6446,6 +6885,7 @@ $root.msg = (function() {
          * @property {msg.IUserTask|null} [task] UserBase task
          * @property {msg.ILuckyDrawRecord|null} [luckydraw] UserBase luckydraw
          * @property {number|null} [totalRecharge] UserBase totalRecharge
+         * @property {msg.IPersonalImage|null} [images] UserBase images
          */
 
         /**
@@ -6617,6 +7057,14 @@ $root.msg = (function() {
         UserBase.prototype.totalRecharge = 0;
 
         /**
+         * UserBase images.
+         * @member {msg.IPersonalImage|null|undefined} images
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.images = null;
+
+        /**
          * Creates a new UserBase instance using the specified properties.
          * @function create
          * @memberof msg.UserBase
@@ -6679,6 +7127,8 @@ $root.msg = (function() {
                 $root.msg.LuckyDrawRecord.encode(message.luckydraw, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
             if (message.totalRecharge != null && message.hasOwnProperty("totalRecharge"))
                 writer.uint32(/* id 19, wireType 0 =*/152).uint32(message.totalRecharge);
+            if (message.images != null && message.hasOwnProperty("images"))
+                $root.msg.PersonalImage.encode(message.images, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
             return writer;
         };
 
@@ -6771,6 +7221,9 @@ $root.msg = (function() {
                     break;
                 case 19:
                     message.totalRecharge = reader.uint32();
+                    break;
+                case 20:
+                    message.images = $root.msg.PersonalImage.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -6880,6 +7333,11 @@ $root.msg = (function() {
             if (message.totalRecharge != null && message.hasOwnProperty("totalRecharge"))
                 if (!$util.isInteger(message.totalRecharge))
                     return "totalRecharge: integer expected";
+            if (message.images != null && message.hasOwnProperty("images")) {
+                var error = $root.msg.PersonalImage.verify(message.images);
+                if (error)
+                    return "images." + error;
+            }
             return null;
         };
 
@@ -6970,6 +7428,11 @@ $root.msg = (function() {
             }
             if (object.totalRecharge != null)
                 message.totalRecharge = object.totalRecharge >>> 0;
+            if (object.images != null) {
+                if (typeof object.images !== "object")
+                    throw TypeError(".msg.UserBase.images: object expected");
+                message.images = $root.msg.PersonalImage.fromObject(object.images);
+            }
             return message;
         };
 
@@ -7015,6 +7478,7 @@ $root.msg = (function() {
                 object.task = null;
                 object.luckydraw = null;
                 object.totalRecharge = 0;
+                object.images = null;
             }
             if (message.level != null && message.hasOwnProperty("level"))
                 object.level = message.level;
@@ -7063,6 +7527,8 @@ $root.msg = (function() {
                 object.luckydraw = $root.msg.LuckyDrawRecord.toObject(message.luckydraw, options);
             if (message.totalRecharge != null && message.hasOwnProperty("totalRecharge"))
                 object.totalRecharge = message.totalRecharge;
+            if (message.images != null && message.hasOwnProperty("images"))
+                object.images = $root.msg.PersonalImage.toObject(message.images, options);
             return object;
         };
 
@@ -7310,20 +7776,6 @@ $root.msg = (function() {
         };
 
         return UserAddress;
-    })();
-
-    /**
-     * ItemPos enum.
-     * @name msg.ItemPos
-     * @enum {string}
-     * @property {number} Bag=0 Bag value
-     * @property {number} Storage=1 Storage value
-     */
-    msg.ItemPos = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[0] = "Bag"] = 0;
-        values[valuesById[1] = "Storage"] = 1;
-        return values;
     })();
 
     msg.ItemData = (function() {
@@ -12658,6 +13110,50 @@ $root.msg = (function() {
         values[valuesById[1002] = "RegisterTopScore"] = 1002;
         values[valuesById[1003] = "InviteeTopScore"] = 1003;
         values[valuesById[1004] = "InviteRegist"] = 1004;
+        return values;
+    })();
+
+    /**
+     * ItemPos enum.
+     * @name msg.ItemPos
+     * @enum {string}
+     * @property {number} Bag=0 Bag value
+     * @property {number} Helmet=1 Helmet value
+     * @property {number} Clothes=2 Clothes value
+     * @property {number} Pants=3 Pants value
+     * @property {number} Shoe=4 Shoe value
+     * @property {number} Hand=5 Hand value
+     * @property {number} Wing=6 Wing value
+     * @property {number} Suit=7 Suit value
+     * @property {number} LongClothes=8 LongClothes value
+     */
+    msg.ItemPos = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "Bag"] = 0;
+        values[valuesById[1] = "Helmet"] = 1;
+        values[valuesById[2] = "Clothes"] = 2;
+        values[valuesById[3] = "Pants"] = 3;
+        values[valuesById[4] = "Shoe"] = 4;
+        values[valuesById[5] = "Hand"] = 5;
+        values[valuesById[6] = "Wing"] = 6;
+        values[valuesById[7] = "Suit"] = 7;
+        values[valuesById[8] = "LongClothes"] = 8;
+        return values;
+    })();
+
+    /**
+     * Sex enum.
+     * @name msg.Sex
+     * @enum {string}
+     * @property {number} Female=0 Female value
+     * @property {number} Male=1 Male value
+     * @property {number} Neutral=2 Neutral value
+     */
+    msg.Sex = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "Female"] = 0;
+        values[valuesById[1] = "Male"] = 1;
+        values[valuesById[2] = "Neutral"] = 2;
         return values;
     })();
 
@@ -19448,6 +19944,1027 @@ $root.msg = (function() {
         };
 
         return C2GW_SellBagItem;
+    })();
+
+    msg.C2GW_BuyClothes = (function() {
+
+        /**
+         * Properties of a C2GW_BuyClothes.
+         * @memberof msg
+         * @interface IC2GW_BuyClothes
+         * @property {Array.<number>|null} [itemList] C2GW_BuyClothes itemList
+         */
+
+        /**
+         * Constructs a new C2GW_BuyClothes.
+         * @memberof msg
+         * @classdesc Represents a C2GW_BuyClothes.
+         * @implements IC2GW_BuyClothes
+         * @constructor
+         * @param {msg.IC2GW_BuyClothes=} [properties] Properties to set
+         */
+        function C2GW_BuyClothes(properties) {
+            this.itemList = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_BuyClothes itemList.
+         * @member {Array.<number>} itemList
+         * @memberof msg.C2GW_BuyClothes
+         * @instance
+         */
+        C2GW_BuyClothes.prototype.itemList = $util.emptyArray;
+
+        /**
+         * Creates a new C2GW_BuyClothes instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {msg.IC2GW_BuyClothes=} [properties] Properties to set
+         * @returns {msg.C2GW_BuyClothes} C2GW_BuyClothes instance
+         */
+        C2GW_BuyClothes.create = function create(properties) {
+            return new C2GW_BuyClothes(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_BuyClothes message. Does not implicitly {@link msg.C2GW_BuyClothes.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {msg.IC2GW_BuyClothes} message C2GW_BuyClothes message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_BuyClothes.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.itemList != null && message.itemList.length)
+                for (var i = 0; i < message.itemList.length; ++i)
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.itemList[i]);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_BuyClothes message, length delimited. Does not implicitly {@link msg.C2GW_BuyClothes.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {msg.IC2GW_BuyClothes} message C2GW_BuyClothes message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_BuyClothes.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_BuyClothes message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_BuyClothes} C2GW_BuyClothes
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_BuyClothes.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_BuyClothes();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.itemList && message.itemList.length))
+                        message.itemList = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.itemList.push(reader.int32());
+                    } else
+                        message.itemList.push(reader.int32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_BuyClothes message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_BuyClothes} C2GW_BuyClothes
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_BuyClothes.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_BuyClothes message.
+         * @function verify
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_BuyClothes.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.itemList != null && message.hasOwnProperty("itemList")) {
+                if (!Array.isArray(message.itemList))
+                    return "itemList: array expected";
+                for (var i = 0; i < message.itemList.length; ++i)
+                    if (!$util.isInteger(message.itemList[i]))
+                        return "itemList: integer[] expected";
+            }
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_BuyClothes message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_BuyClothes} C2GW_BuyClothes
+         */
+        C2GW_BuyClothes.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_BuyClothes)
+                return object;
+            var message = new $root.msg.C2GW_BuyClothes();
+            if (object.itemList) {
+                if (!Array.isArray(object.itemList))
+                    throw TypeError(".msg.C2GW_BuyClothes.itemList: array expected");
+                message.itemList = [];
+                for (var i = 0; i < object.itemList.length; ++i)
+                    message.itemList[i] = object.itemList[i] | 0;
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_BuyClothes message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_BuyClothes
+         * @static
+         * @param {msg.C2GW_BuyClothes} message C2GW_BuyClothes
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_BuyClothes.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.itemList = [];
+            if (message.itemList && message.itemList.length) {
+                object.itemList = [];
+                for (var j = 0; j < message.itemList.length; ++j)
+                    object.itemList[j] = message.itemList[j];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_BuyClothes to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_BuyClothes
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_BuyClothes.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_BuyClothes;
+    })();
+
+    msg.C2GW_DressClothes = (function() {
+
+        /**
+         * Properties of a C2GW_DressClothes.
+         * @memberof msg
+         * @interface IC2GW_DressClothes
+         * @property {number|null} [pos] C2GW_DressClothes pos
+         * @property {number|null} [itemid] C2GW_DressClothes itemid
+         */
+
+        /**
+         * Constructs a new C2GW_DressClothes.
+         * @memberof msg
+         * @classdesc Represents a C2GW_DressClothes.
+         * @implements IC2GW_DressClothes
+         * @constructor
+         * @param {msg.IC2GW_DressClothes=} [properties] Properties to set
+         */
+        function C2GW_DressClothes(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_DressClothes pos.
+         * @member {number} pos
+         * @memberof msg.C2GW_DressClothes
+         * @instance
+         */
+        C2GW_DressClothes.prototype.pos = 0;
+
+        /**
+         * C2GW_DressClothes itemid.
+         * @member {number} itemid
+         * @memberof msg.C2GW_DressClothes
+         * @instance
+         */
+        C2GW_DressClothes.prototype.itemid = 0;
+
+        /**
+         * Creates a new C2GW_DressClothes instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {msg.IC2GW_DressClothes=} [properties] Properties to set
+         * @returns {msg.C2GW_DressClothes} C2GW_DressClothes instance
+         */
+        C2GW_DressClothes.create = function create(properties) {
+            return new C2GW_DressClothes(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_DressClothes message. Does not implicitly {@link msg.C2GW_DressClothes.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {msg.IC2GW_DressClothes} message C2GW_DressClothes message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_DressClothes.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.pos != null && message.hasOwnProperty("pos"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.pos);
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.itemid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_DressClothes message, length delimited. Does not implicitly {@link msg.C2GW_DressClothes.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {msg.IC2GW_DressClothes} message C2GW_DressClothes message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_DressClothes.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_DressClothes message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_DressClothes} C2GW_DressClothes
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_DressClothes.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_DressClothes();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.pos = reader.int32();
+                    break;
+                case 2:
+                    message.itemid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_DressClothes message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_DressClothes} C2GW_DressClothes
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_DressClothes.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_DressClothes message.
+         * @function verify
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_DressClothes.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.pos != null && message.hasOwnProperty("pos"))
+                if (!$util.isInteger(message.pos))
+                    return "pos: integer expected";
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                if (!$util.isInteger(message.itemid))
+                    return "itemid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_DressClothes message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_DressClothes} C2GW_DressClothes
+         */
+        C2GW_DressClothes.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_DressClothes)
+                return object;
+            var message = new $root.msg.C2GW_DressClothes();
+            if (object.pos != null)
+                message.pos = object.pos | 0;
+            if (object.itemid != null)
+                message.itemid = object.itemid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_DressClothes message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_DressClothes
+         * @static
+         * @param {msg.C2GW_DressClothes} message C2GW_DressClothes
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_DressClothes.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.pos = 0;
+                object.itemid = 0;
+            }
+            if (message.pos != null && message.hasOwnProperty("pos"))
+                object.pos = message.pos;
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                object.itemid = message.itemid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_DressClothes to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_DressClothes
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_DressClothes.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_DressClothes;
+    })();
+
+    msg.C2GW_UnDressClothes = (function() {
+
+        /**
+         * Properties of a C2GW_UnDressClothes.
+         * @memberof msg
+         * @interface IC2GW_UnDressClothes
+         * @property {number|null} [pos] C2GW_UnDressClothes pos
+         */
+
+        /**
+         * Constructs a new C2GW_UnDressClothes.
+         * @memberof msg
+         * @classdesc Represents a C2GW_UnDressClothes.
+         * @implements IC2GW_UnDressClothes
+         * @constructor
+         * @param {msg.IC2GW_UnDressClothes=} [properties] Properties to set
+         */
+        function C2GW_UnDressClothes(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_UnDressClothes pos.
+         * @member {number} pos
+         * @memberof msg.C2GW_UnDressClothes
+         * @instance
+         */
+        C2GW_UnDressClothes.prototype.pos = 0;
+
+        /**
+         * Creates a new C2GW_UnDressClothes instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {msg.IC2GW_UnDressClothes=} [properties] Properties to set
+         * @returns {msg.C2GW_UnDressClothes} C2GW_UnDressClothes instance
+         */
+        C2GW_UnDressClothes.create = function create(properties) {
+            return new C2GW_UnDressClothes(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_UnDressClothes message. Does not implicitly {@link msg.C2GW_UnDressClothes.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {msg.IC2GW_UnDressClothes} message C2GW_UnDressClothes message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_UnDressClothes.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.pos != null && message.hasOwnProperty("pos"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.pos);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_UnDressClothes message, length delimited. Does not implicitly {@link msg.C2GW_UnDressClothes.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {msg.IC2GW_UnDressClothes} message C2GW_UnDressClothes message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_UnDressClothes.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_UnDressClothes message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_UnDressClothes} C2GW_UnDressClothes
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_UnDressClothes.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_UnDressClothes();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.pos = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_UnDressClothes message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_UnDressClothes} C2GW_UnDressClothes
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_UnDressClothes.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_UnDressClothes message.
+         * @function verify
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_UnDressClothes.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.pos != null && message.hasOwnProperty("pos"))
+                if (!$util.isInteger(message.pos))
+                    return "pos: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_UnDressClothes message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_UnDressClothes} C2GW_UnDressClothes
+         */
+        C2GW_UnDressClothes.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_UnDressClothes)
+                return object;
+            var message = new $root.msg.C2GW_UnDressClothes();
+            if (object.pos != null)
+                message.pos = object.pos | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_UnDressClothes message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_UnDressClothes
+         * @static
+         * @param {msg.C2GW_UnDressClothes} message C2GW_UnDressClothes
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_UnDressClothes.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.pos = 0;
+            if (message.pos != null && message.hasOwnProperty("pos"))
+                object.pos = message.pos;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_UnDressClothes to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_UnDressClothes
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_UnDressClothes.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_UnDressClothes;
+    })();
+
+    msg.GW2C_UpdateItemPos = (function() {
+
+        /**
+         * Properties of a GW2C_UpdateItemPos.
+         * @memberof msg
+         * @interface IGW2C_UpdateItemPos
+         * @property {Array.<msg.IItemData>|null} [items] GW2C_UpdateItemPos items
+         */
+
+        /**
+         * Constructs a new GW2C_UpdateItemPos.
+         * @memberof msg
+         * @classdesc Represents a GW2C_UpdateItemPos.
+         * @implements IGW2C_UpdateItemPos
+         * @constructor
+         * @param {msg.IGW2C_UpdateItemPos=} [properties] Properties to set
+         */
+        function GW2C_UpdateItemPos(properties) {
+            this.items = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_UpdateItemPos items.
+         * @member {Array.<msg.IItemData>} items
+         * @memberof msg.GW2C_UpdateItemPos
+         * @instance
+         */
+        GW2C_UpdateItemPos.prototype.items = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_UpdateItemPos instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {msg.IGW2C_UpdateItemPos=} [properties] Properties to set
+         * @returns {msg.GW2C_UpdateItemPos} GW2C_UpdateItemPos instance
+         */
+        GW2C_UpdateItemPos.create = function create(properties) {
+            return new GW2C_UpdateItemPos(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateItemPos message. Does not implicitly {@link msg.GW2C_UpdateItemPos.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {msg.IGW2C_UpdateItemPos} message GW2C_UpdateItemPos message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateItemPos.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.items != null && message.items.length)
+                for (var i = 0; i < message.items.length; ++i)
+                    $root.msg.ItemData.encode(message.items[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateItemPos message, length delimited. Does not implicitly {@link msg.GW2C_UpdateItemPos.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {msg.IGW2C_UpdateItemPos} message GW2C_UpdateItemPos message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateItemPos.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_UpdateItemPos message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_UpdateItemPos} GW2C_UpdateItemPos
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateItemPos.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_UpdateItemPos();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.items && message.items.length))
+                        message.items = [];
+                    message.items.push($root.msg.ItemData.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_UpdateItemPos message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_UpdateItemPos} GW2C_UpdateItemPos
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateItemPos.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_UpdateItemPos message.
+         * @function verify
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_UpdateItemPos.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.items != null && message.hasOwnProperty("items")) {
+                if (!Array.isArray(message.items))
+                    return "items: array expected";
+                for (var i = 0; i < message.items.length; ++i) {
+                    var error = $root.msg.ItemData.verify(message.items[i]);
+                    if (error)
+                        return "items." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_UpdateItemPos message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_UpdateItemPos} GW2C_UpdateItemPos
+         */
+        GW2C_UpdateItemPos.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_UpdateItemPos)
+                return object;
+            var message = new $root.msg.GW2C_UpdateItemPos();
+            if (object.items) {
+                if (!Array.isArray(object.items))
+                    throw TypeError(".msg.GW2C_UpdateItemPos.items: array expected");
+                message.items = [];
+                for (var i = 0; i < object.items.length; ++i) {
+                    if (typeof object.items[i] !== "object")
+                        throw TypeError(".msg.GW2C_UpdateItemPos.items: object expected");
+                    message.items[i] = $root.msg.ItemData.fromObject(object.items[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_UpdateItemPos message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_UpdateItemPos
+         * @static
+         * @param {msg.GW2C_UpdateItemPos} message GW2C_UpdateItemPos
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_UpdateItemPos.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.items = [];
+            if (message.items && message.items.length) {
+                object.items = [];
+                for (var j = 0; j < message.items.length; ++j)
+                    object.items[j] = $root.msg.ItemData.toObject(message.items[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_UpdateItemPos to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_UpdateItemPos
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_UpdateItemPos.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_UpdateItemPos;
+    })();
+
+    msg.GW2C_SendPersonalImage = (function() {
+
+        /**
+         * Properties of a GW2C_SendPersonalImage.
+         * @memberof msg
+         * @interface IGW2C_SendPersonalImage
+         * @property {Array.<msg.IImageData>|null} [images] GW2C_SendPersonalImage images
+         */
+
+        /**
+         * Constructs a new GW2C_SendPersonalImage.
+         * @memberof msg
+         * @classdesc Represents a GW2C_SendPersonalImage.
+         * @implements IGW2C_SendPersonalImage
+         * @constructor
+         * @param {msg.IGW2C_SendPersonalImage=} [properties] Properties to set
+         */
+        function GW2C_SendPersonalImage(properties) {
+            this.images = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_SendPersonalImage images.
+         * @member {Array.<msg.IImageData>} images
+         * @memberof msg.GW2C_SendPersonalImage
+         * @instance
+         */
+        GW2C_SendPersonalImage.prototype.images = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_SendPersonalImage instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {msg.IGW2C_SendPersonalImage=} [properties] Properties to set
+         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage instance
+         */
+        GW2C_SendPersonalImage.create = function create(properties) {
+            return new GW2C_SendPersonalImage(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_SendPersonalImage message. Does not implicitly {@link msg.GW2C_SendPersonalImage.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {msg.IGW2C_SendPersonalImage} message GW2C_SendPersonalImage message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendPersonalImage.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.images != null && message.images.length)
+                for (var i = 0; i < message.images.length; ++i)
+                    $root.msg.ImageData.encode(message.images[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_SendPersonalImage message, length delimited. Does not implicitly {@link msg.GW2C_SendPersonalImage.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {msg.IGW2C_SendPersonalImage} message GW2C_SendPersonalImage message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendPersonalImage.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_SendPersonalImage message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendPersonalImage.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_SendPersonalImage();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.images && message.images.length))
+                        message.images = [];
+                    message.images.push($root.msg.ImageData.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_SendPersonalImage message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendPersonalImage.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_SendPersonalImage message.
+         * @function verify
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_SendPersonalImage.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.images != null && message.hasOwnProperty("images")) {
+                if (!Array.isArray(message.images))
+                    return "images: array expected";
+                for (var i = 0; i < message.images.length; ++i) {
+                    var error = $root.msg.ImageData.verify(message.images[i]);
+                    if (error)
+                        return "images." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_SendPersonalImage message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_SendPersonalImage} GW2C_SendPersonalImage
+         */
+        GW2C_SendPersonalImage.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_SendPersonalImage)
+                return object;
+            var message = new $root.msg.GW2C_SendPersonalImage();
+            if (object.images) {
+                if (!Array.isArray(object.images))
+                    throw TypeError(".msg.GW2C_SendPersonalImage.images: array expected");
+                message.images = [];
+                for (var i = 0; i < object.images.length; ++i) {
+                    if (typeof object.images[i] !== "object")
+                        throw TypeError(".msg.GW2C_SendPersonalImage.images: object expected");
+                    message.images[i] = $root.msg.ImageData.fromObject(object.images[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_SendPersonalImage message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_SendPersonalImage
+         * @static
+         * @param {msg.GW2C_SendPersonalImage} message GW2C_SendPersonalImage
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_SendPersonalImage.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.images = [];
+            if (message.images && message.images.length) {
+                object.images = [];
+                for (var j = 0; j < message.images.length; ++j)
+                    object.images[j] = $root.msg.ImageData.toObject(message.images[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_SendPersonalImage to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_SendPersonalImage
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_SendPersonalImage.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_SendPersonalImage;
     })();
 
     msg.RS2MS_ReqRegist = (function() {
@@ -28444,6 +29961,656 @@ $root.table = (function() {
         return TBirckRefreshDefine;
     })();
 
+    table.TEquipBase = (function() {
+
+        /**
+         * Properties of a TEquipBase.
+         * @memberof table
+         * @interface ITEquipBase
+         * @property {Array.<table.IEquipDefine>|null} [Equip] TEquipBase Equip
+         */
+
+        /**
+         * Constructs a new TEquipBase.
+         * @memberof table
+         * @classdesc Represents a TEquipBase.
+         * @implements ITEquipBase
+         * @constructor
+         * @param {table.ITEquipBase=} [properties] Properties to set
+         */
+        function TEquipBase(properties) {
+            this.Equip = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TEquipBase Equip.
+         * @member {Array.<table.IEquipDefine>} Equip
+         * @memberof table.TEquipBase
+         * @instance
+         */
+        TEquipBase.prototype.Equip = $util.emptyArray;
+
+        /**
+         * Creates a new TEquipBase instance using the specified properties.
+         * @function create
+         * @memberof table.TEquipBase
+         * @static
+         * @param {table.ITEquipBase=} [properties] Properties to set
+         * @returns {table.TEquipBase} TEquipBase instance
+         */
+        TEquipBase.create = function create(properties) {
+            return new TEquipBase(properties);
+        };
+
+        /**
+         * Encodes the specified TEquipBase message. Does not implicitly {@link table.TEquipBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TEquipBase
+         * @static
+         * @param {table.ITEquipBase} message TEquipBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TEquipBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Equip != null && message.Equip.length)
+                for (var i = 0; i < message.Equip.length; ++i)
+                    $root.table.EquipDefine.encode(message.Equip[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TEquipBase message, length delimited. Does not implicitly {@link table.TEquipBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TEquipBase
+         * @static
+         * @param {table.ITEquipBase} message TEquipBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TEquipBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TEquipBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TEquipBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TEquipBase} TEquipBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TEquipBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TEquipBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Equip && message.Equip.length))
+                        message.Equip = [];
+                    message.Equip.push($root.table.EquipDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TEquipBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TEquipBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TEquipBase} TEquipBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TEquipBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TEquipBase message.
+         * @function verify
+         * @memberof table.TEquipBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TEquipBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Equip != null && message.hasOwnProperty("Equip")) {
+                if (!Array.isArray(message.Equip))
+                    return "Equip: array expected";
+                for (var i = 0; i < message.Equip.length; ++i) {
+                    var error = $root.table.EquipDefine.verify(message.Equip[i]);
+                    if (error)
+                        return "Equip." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TEquipBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TEquipBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TEquipBase} TEquipBase
+         */
+        TEquipBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TEquipBase)
+                return object;
+            var message = new $root.table.TEquipBase();
+            if (object.Equip) {
+                if (!Array.isArray(object.Equip))
+                    throw TypeError(".table.TEquipBase.Equip: array expected");
+                message.Equip = [];
+                for (var i = 0; i < object.Equip.length; ++i) {
+                    if (typeof object.Equip[i] !== "object")
+                        throw TypeError(".table.TEquipBase.Equip: object expected");
+                    message.Equip[i] = $root.table.EquipDefine.fromObject(object.Equip[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TEquipBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TEquipBase
+         * @static
+         * @param {table.TEquipBase} message TEquipBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TEquipBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Equip = [];
+            if (message.Equip && message.Equip.length) {
+                object.Equip = [];
+                for (var j = 0; j < message.Equip.length; ++j)
+                    object.Equip[j] = $root.table.EquipDefine.toObject(message.Equip[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TEquipBase to JSON.
+         * @function toJSON
+         * @memberof table.TEquipBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TEquipBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TEquipBase;
+    })();
+
+    table.EquipDefine = (function() {
+
+        /**
+         * Properties of an EquipDefine.
+         * @memberof table
+         * @interface IEquipDefine
+         * @property {number|null} [Id] EquipDefine Id
+         * @property {string|null} [Name] EquipDefine Name
+         * @property {string|null} [Desc] EquipDefine Desc
+         * @property {number|null} [Pos] EquipDefine Pos
+         * @property {number|null} [SuitId] EquipDefine SuitId
+         * @property {number|null} [Sex] EquipDefine Sex
+         * @property {Array.<string>|null} [LoadPoint] EquipDefine LoadPoint
+         * @property {string|null} [Path] EquipDefine Path
+         * @property {Array.<string>|null} [Skill] EquipDefine Skill
+         * @property {number|null} [Price] EquipDefine Price
+         * @property {number|null} [CoinType] EquipDefine CoinType
+         */
+
+        /**
+         * Constructs a new EquipDefine.
+         * @memberof table
+         * @classdesc Represents an EquipDefine.
+         * @implements IEquipDefine
+         * @constructor
+         * @param {table.IEquipDefine=} [properties] Properties to set
+         */
+        function EquipDefine(properties) {
+            this.LoadPoint = [];
+            this.Skill = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * EquipDefine Id.
+         * @member {number} Id
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Id = 0;
+
+        /**
+         * EquipDefine Name.
+         * @member {string} Name
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Name = "";
+
+        /**
+         * EquipDefine Desc.
+         * @member {string} Desc
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Desc = "";
+
+        /**
+         * EquipDefine Pos.
+         * @member {number} Pos
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Pos = 0;
+
+        /**
+         * EquipDefine SuitId.
+         * @member {number} SuitId
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.SuitId = 0;
+
+        /**
+         * EquipDefine Sex.
+         * @member {number} Sex
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Sex = 0;
+
+        /**
+         * EquipDefine LoadPoint.
+         * @member {Array.<string>} LoadPoint
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.LoadPoint = $util.emptyArray;
+
+        /**
+         * EquipDefine Path.
+         * @member {string} Path
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Path = "";
+
+        /**
+         * EquipDefine Skill.
+         * @member {Array.<string>} Skill
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Skill = $util.emptyArray;
+
+        /**
+         * EquipDefine Price.
+         * @member {number} Price
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Price = 0;
+
+        /**
+         * EquipDefine CoinType.
+         * @member {number} CoinType
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.CoinType = 0;
+
+        /**
+         * Creates a new EquipDefine instance using the specified properties.
+         * @function create
+         * @memberof table.EquipDefine
+         * @static
+         * @param {table.IEquipDefine=} [properties] Properties to set
+         * @returns {table.EquipDefine} EquipDefine instance
+         */
+        EquipDefine.create = function create(properties) {
+            return new EquipDefine(properties);
+        };
+
+        /**
+         * Encodes the specified EquipDefine message. Does not implicitly {@link table.EquipDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.EquipDefine
+         * @static
+         * @param {table.IEquipDefine} message EquipDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        EquipDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Name);
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.Desc);
+            if (message.Pos != null && message.hasOwnProperty("Pos"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.Pos);
+            if (message.SuitId != null && message.hasOwnProperty("SuitId"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.SuitId);
+            if (message.Sex != null && message.hasOwnProperty("Sex"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.Sex);
+            if (message.LoadPoint != null && message.LoadPoint.length)
+                for (var i = 0; i < message.LoadPoint.length; ++i)
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.LoadPoint[i]);
+            if (message.Path != null && message.hasOwnProperty("Path"))
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.Path);
+            if (message.Skill != null && message.Skill.length)
+                for (var i = 0; i < message.Skill.length; ++i)
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.Skill[i]);
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.Price);
+            if (message.CoinType != null && message.hasOwnProperty("CoinType"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.CoinType);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified EquipDefine message, length delimited. Does not implicitly {@link table.EquipDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.EquipDefine
+         * @static
+         * @param {table.IEquipDefine} message EquipDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        EquipDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an EquipDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.EquipDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.EquipDefine} EquipDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        EquipDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.EquipDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Name = reader.string();
+                    break;
+                case 3:
+                    message.Desc = reader.string();
+                    break;
+                case 4:
+                    message.Pos = reader.int32();
+                    break;
+                case 5:
+                    message.SuitId = reader.int32();
+                    break;
+                case 6:
+                    message.Sex = reader.int32();
+                    break;
+                case 7:
+                    if (!(message.LoadPoint && message.LoadPoint.length))
+                        message.LoadPoint = [];
+                    message.LoadPoint.push(reader.string());
+                    break;
+                case 8:
+                    message.Path = reader.string();
+                    break;
+                case 9:
+                    if (!(message.Skill && message.Skill.length))
+                        message.Skill = [];
+                    message.Skill.push(reader.string());
+                    break;
+                case 10:
+                    message.Price = reader.int32();
+                    break;
+                case 11:
+                    message.CoinType = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an EquipDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.EquipDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.EquipDefine} EquipDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        EquipDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an EquipDefine message.
+         * @function verify
+         * @memberof table.EquipDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        EquipDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                if (!$util.isString(message.Name))
+                    return "Name: string expected";
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                if (!$util.isString(message.Desc))
+                    return "Desc: string expected";
+            if (message.Pos != null && message.hasOwnProperty("Pos"))
+                if (!$util.isInteger(message.Pos))
+                    return "Pos: integer expected";
+            if (message.SuitId != null && message.hasOwnProperty("SuitId"))
+                if (!$util.isInteger(message.SuitId))
+                    return "SuitId: integer expected";
+            if (message.Sex != null && message.hasOwnProperty("Sex"))
+                if (!$util.isInteger(message.Sex))
+                    return "Sex: integer expected";
+            if (message.LoadPoint != null && message.hasOwnProperty("LoadPoint")) {
+                if (!Array.isArray(message.LoadPoint))
+                    return "LoadPoint: array expected";
+                for (var i = 0; i < message.LoadPoint.length; ++i)
+                    if (!$util.isString(message.LoadPoint[i]))
+                        return "LoadPoint: string[] expected";
+            }
+            if (message.Path != null && message.hasOwnProperty("Path"))
+                if (!$util.isString(message.Path))
+                    return "Path: string expected";
+            if (message.Skill != null && message.hasOwnProperty("Skill")) {
+                if (!Array.isArray(message.Skill))
+                    return "Skill: array expected";
+                for (var i = 0; i < message.Skill.length; ++i)
+                    if (!$util.isString(message.Skill[i]))
+                        return "Skill: string[] expected";
+            }
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                if (!$util.isInteger(message.Price))
+                    return "Price: integer expected";
+            if (message.CoinType != null && message.hasOwnProperty("CoinType"))
+                if (!$util.isInteger(message.CoinType))
+                    return "CoinType: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an EquipDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.EquipDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.EquipDefine} EquipDefine
+         */
+        EquipDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.EquipDefine)
+                return object;
+            var message = new $root.table.EquipDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Name != null)
+                message.Name = String(object.Name);
+            if (object.Desc != null)
+                message.Desc = String(object.Desc);
+            if (object.Pos != null)
+                message.Pos = object.Pos | 0;
+            if (object.SuitId != null)
+                message.SuitId = object.SuitId | 0;
+            if (object.Sex != null)
+                message.Sex = object.Sex | 0;
+            if (object.LoadPoint) {
+                if (!Array.isArray(object.LoadPoint))
+                    throw TypeError(".table.EquipDefine.LoadPoint: array expected");
+                message.LoadPoint = [];
+                for (var i = 0; i < object.LoadPoint.length; ++i)
+                    message.LoadPoint[i] = String(object.LoadPoint[i]);
+            }
+            if (object.Path != null)
+                message.Path = String(object.Path);
+            if (object.Skill) {
+                if (!Array.isArray(object.Skill))
+                    throw TypeError(".table.EquipDefine.Skill: array expected");
+                message.Skill = [];
+                for (var i = 0; i < object.Skill.length; ++i)
+                    message.Skill[i] = String(object.Skill[i]);
+            }
+            if (object.Price != null)
+                message.Price = object.Price | 0;
+            if (object.CoinType != null)
+                message.CoinType = object.CoinType | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an EquipDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.EquipDefine
+         * @static
+         * @param {table.EquipDefine} message EquipDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        EquipDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.LoadPoint = [];
+                object.Skill = [];
+            }
+            if (options.defaults) {
+                object.Id = 0;
+                object.Name = "";
+                object.Desc = "";
+                object.Pos = 0;
+                object.SuitId = 0;
+                object.Sex = 0;
+                object.Path = "";
+                object.Price = 0;
+                object.CoinType = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                object.Name = message.Name;
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                object.Desc = message.Desc;
+            if (message.Pos != null && message.hasOwnProperty("Pos"))
+                object.Pos = message.Pos;
+            if (message.SuitId != null && message.hasOwnProperty("SuitId"))
+                object.SuitId = message.SuitId;
+            if (message.Sex != null && message.hasOwnProperty("Sex"))
+                object.Sex = message.Sex;
+            if (message.LoadPoint && message.LoadPoint.length) {
+                object.LoadPoint = [];
+                for (var j = 0; j < message.LoadPoint.length; ++j)
+                    object.LoadPoint[j] = message.LoadPoint[j];
+            }
+            if (message.Path != null && message.hasOwnProperty("Path"))
+                object.Path = message.Path;
+            if (message.Skill && message.Skill.length) {
+                object.Skill = [];
+                for (var j = 0; j < message.Skill.length; ++j)
+                    object.Skill[j] = message.Skill[j];
+            }
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                object.Price = message.Price;
+            if (message.CoinType != null && message.hasOwnProperty("CoinType"))
+                object.CoinType = message.CoinType;
+            return object;
+        };
+
+        /**
+         * Converts this EquipDefine to JSON.
+         * @function toJSON
+         * @memberof table.EquipDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        EquipDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return EquipDefine;
+    })();
+
     table.GiftProBase = (function() {
 
         /**
@@ -33035,6 +35202,490 @@ $root.table = (function() {
         };
 
         return TSignDefine;
+    })();
+
+    table.TSkillpBase = (function() {
+
+        /**
+         * Properties of a TSkillpBase.
+         * @memberof table
+         * @interface ITSkillpBase
+         * @property {Array.<table.ITSkillDefine>|null} [TSkill] TSkillpBase TSkill
+         */
+
+        /**
+         * Constructs a new TSkillpBase.
+         * @memberof table
+         * @classdesc Represents a TSkillpBase.
+         * @implements ITSkillpBase
+         * @constructor
+         * @param {table.ITSkillpBase=} [properties] Properties to set
+         */
+        function TSkillpBase(properties) {
+            this.TSkill = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TSkillpBase TSkill.
+         * @member {Array.<table.ITSkillDefine>} TSkill
+         * @memberof table.TSkillpBase
+         * @instance
+         */
+        TSkillpBase.prototype.TSkill = $util.emptyArray;
+
+        /**
+         * Creates a new TSkillpBase instance using the specified properties.
+         * @function create
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {table.ITSkillpBase=} [properties] Properties to set
+         * @returns {table.TSkillpBase} TSkillpBase instance
+         */
+        TSkillpBase.create = function create(properties) {
+            return new TSkillpBase(properties);
+        };
+
+        /**
+         * Encodes the specified TSkillpBase message. Does not implicitly {@link table.TSkillpBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {table.ITSkillpBase} message TSkillpBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TSkillpBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TSkill != null && message.TSkill.length)
+                for (var i = 0; i < message.TSkill.length; ++i)
+                    $root.table.TSkillDefine.encode(message.TSkill[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TSkillpBase message, length delimited. Does not implicitly {@link table.TSkillpBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {table.ITSkillpBase} message TSkillpBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TSkillpBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TSkillpBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TSkillpBase} TSkillpBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TSkillpBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TSkillpBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TSkill && message.TSkill.length))
+                        message.TSkill = [];
+                    message.TSkill.push($root.table.TSkillDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TSkillpBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TSkillpBase} TSkillpBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TSkillpBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TSkillpBase message.
+         * @function verify
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TSkillpBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TSkill != null && message.hasOwnProperty("TSkill")) {
+                if (!Array.isArray(message.TSkill))
+                    return "TSkill: array expected";
+                for (var i = 0; i < message.TSkill.length; ++i) {
+                    var error = $root.table.TSkillDefine.verify(message.TSkill[i]);
+                    if (error)
+                        return "TSkill." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TSkillpBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TSkillpBase} TSkillpBase
+         */
+        TSkillpBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TSkillpBase)
+                return object;
+            var message = new $root.table.TSkillpBase();
+            if (object.TSkill) {
+                if (!Array.isArray(object.TSkill))
+                    throw TypeError(".table.TSkillpBase.TSkill: array expected");
+                message.TSkill = [];
+                for (var i = 0; i < object.TSkill.length; ++i) {
+                    if (typeof object.TSkill[i] !== "object")
+                        throw TypeError(".table.TSkillpBase.TSkill: object expected");
+                    message.TSkill[i] = $root.table.TSkillDefine.fromObject(object.TSkill[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TSkillpBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TSkillpBase
+         * @static
+         * @param {table.TSkillpBase} message TSkillpBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TSkillpBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TSkill = [];
+            if (message.TSkill && message.TSkill.length) {
+                object.TSkill = [];
+                for (var j = 0; j < message.TSkill.length; ++j)
+                    object.TSkill[j] = $root.table.TSkillDefine.toObject(message.TSkill[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TSkillpBase to JSON.
+         * @function toJSON
+         * @memberof table.TSkillpBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TSkillpBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TSkillpBase;
+    })();
+
+    table.TSkillDefine = (function() {
+
+        /**
+         * Properties of a TSkillDefine.
+         * @memberof table
+         * @interface ITSkillDefine
+         * @property {number|null} [Id] TSkillDefine Id
+         * @property {number|null} [Type] TSkillDefine Type
+         * @property {number|null} [Num] TSkillDefine Num
+         * @property {number|null} [NumPer] TSkillDefine NumPer
+         * @property {string|null} [Des] TSkillDefine Des
+         */
+
+        /**
+         * Constructs a new TSkillDefine.
+         * @memberof table
+         * @classdesc Represents a TSkillDefine.
+         * @implements ITSkillDefine
+         * @constructor
+         * @param {table.ITSkillDefine=} [properties] Properties to set
+         */
+        function TSkillDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TSkillDefine Id.
+         * @member {number} Id
+         * @memberof table.TSkillDefine
+         * @instance
+         */
+        TSkillDefine.prototype.Id = 0;
+
+        /**
+         * TSkillDefine Type.
+         * @member {number} Type
+         * @memberof table.TSkillDefine
+         * @instance
+         */
+        TSkillDefine.prototype.Type = 0;
+
+        /**
+         * TSkillDefine Num.
+         * @member {number} Num
+         * @memberof table.TSkillDefine
+         * @instance
+         */
+        TSkillDefine.prototype.Num = 0;
+
+        /**
+         * TSkillDefine NumPer.
+         * @member {number} NumPer
+         * @memberof table.TSkillDefine
+         * @instance
+         */
+        TSkillDefine.prototype.NumPer = 0;
+
+        /**
+         * TSkillDefine Des.
+         * @member {string} Des
+         * @memberof table.TSkillDefine
+         * @instance
+         */
+        TSkillDefine.prototype.Des = "";
+
+        /**
+         * Creates a new TSkillDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {table.ITSkillDefine=} [properties] Properties to set
+         * @returns {table.TSkillDefine} TSkillDefine instance
+         */
+        TSkillDefine.create = function create(properties) {
+            return new TSkillDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TSkillDefine message. Does not implicitly {@link table.TSkillDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {table.ITSkillDefine} message TSkillDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TSkillDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.Num != null && message.hasOwnProperty("Num"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Num);
+            if (message.NumPer != null && message.hasOwnProperty("NumPer"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.NumPer);
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Des);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TSkillDefine message, length delimited. Does not implicitly {@link table.TSkillDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {table.ITSkillDefine} message TSkillDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TSkillDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TSkillDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TSkillDefine} TSkillDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TSkillDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TSkillDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Type = reader.int32();
+                    break;
+                case 3:
+                    message.Num = reader.int32();
+                    break;
+                case 4:
+                    message.NumPer = reader.int32();
+                    break;
+                case 5:
+                    message.Des = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TSkillDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TSkillDefine} TSkillDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TSkillDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TSkillDefine message.
+         * @function verify
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TSkillDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Num != null && message.hasOwnProperty("Num"))
+                if (!$util.isInteger(message.Num))
+                    return "Num: integer expected";
+            if (message.NumPer != null && message.hasOwnProperty("NumPer"))
+                if (!$util.isInteger(message.NumPer))
+                    return "NumPer: integer expected";
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                if (!$util.isString(message.Des))
+                    return "Des: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TSkillDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TSkillDefine} TSkillDefine
+         */
+        TSkillDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TSkillDefine)
+                return object;
+            var message = new $root.table.TSkillDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.Num != null)
+                message.Num = object.Num | 0;
+            if (object.NumPer != null)
+                message.NumPer = object.NumPer | 0;
+            if (object.Des != null)
+                message.Des = String(object.Des);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TSkillDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TSkillDefine
+         * @static
+         * @param {table.TSkillDefine} message TSkillDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TSkillDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.Num = 0;
+                object.NumPer = 0;
+                object.Des = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Num != null && message.hasOwnProperty("Num"))
+                object.Num = message.Num;
+            if (message.NumPer != null && message.hasOwnProperty("NumPer"))
+                object.NumPer = message.NumPer;
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                object.Des = message.Des;
+            return object;
+        };
+
+        /**
+         * Converts this TSkillDefine to JSON.
+         * @function toJSON
+         * @memberof table.TSkillDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TSkillDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TSkillDefine;
     })();
 
     table.TaskBase = (function() {
