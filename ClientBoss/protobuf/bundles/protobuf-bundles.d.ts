@@ -9079,6 +9079,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2C_RetChangeImageSex. */
+    interface IGW2C_RetChangeImageSex {
+
+        /** GW2C_RetChangeImageSex sex */
+        sex?: (number|null);
+    }
+
+    /** Represents a GW2C_RetChangeImageSex. */
+    class GW2C_RetChangeImageSex implements IGW2C_RetChangeImageSex {
+
+        /**
+         * Constructs a new GW2C_RetChangeImageSex.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetChangeImageSex);
+
+        /** GW2C_RetChangeImageSex sex. */
+        public sex: number;
+
+        /**
+         * Creates a new GW2C_RetChangeImageSex instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetChangeImageSex instance
+         */
+        public static create(properties?: msg.IGW2C_RetChangeImageSex): msg.GW2C_RetChangeImageSex;
+
+        /**
+         * Encodes the specified GW2C_RetChangeImageSex message. Does not implicitly {@link msg.GW2C_RetChangeImageSex.verify|verify} messages.
+         * @param message GW2C_RetChangeImageSex message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetChangeImageSex, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetChangeImageSex message, length delimited. Does not implicitly {@link msg.GW2C_RetChangeImageSex.verify|verify} messages.
+         * @param message GW2C_RetChangeImageSex message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetChangeImageSex, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetChangeImageSex message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetChangeImageSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetChangeImageSex;
+
+        /**
+         * Decodes a GW2C_RetChangeImageSex message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetChangeImageSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetChangeImageSex;
+
+        /**
+         * Verifies a GW2C_RetChangeImageSex message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetChangeImageSex message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetChangeImageSex
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetChangeImageSex;
+
+        /**
+         * Creates a plain object from a GW2C_RetChangeImageSex message. Also converts values to other types if specified.
+         * @param message GW2C_RetChangeImageSex
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetChangeImageSex, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetChangeImageSex to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RS2MS_ReqRegist. */
     interface IRS2MS_ReqRegist {
 
