@@ -340,6 +340,36 @@ var egret = window.egret;
 		return t;
 	};
 	return NetFailedSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
+	__extends(AvatarSkin, _super);
+	function AvatarSkin() {
+		_super.call(this);
+		this.skinParts = ["selectImage","avatarImage"];
+		
+		this.height = 116;
+		this.width = 116;
+		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
+	}
+	var _proto = AvatarSkin.prototype;
+
+	_proto.selectImage_i = function () {
+		var t = new eui.Image();
+		this.selectImage = t;
+		t.horizontalCenter = 0;
+		t.source = "win_json.touxiangkuang";
+		t.verticalCenter = 0;
+		t.visible = false;
+		return t;
+	};
+	_proto.avatarImage_i = function () {
+		var t = new eui.Image();
+		this.avatarImage = t;
+		t.height = 116;
+		t.source = "win_json.again";
+		t.width = 116;
+		return t;
+	};
+	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattleBagItemSkin.exml'] = window.BattleBagItemSkin = (function (_super) {
 	__extends(BattleBagItemSkin, _super);
 	function BattleBagItemSkin() {
@@ -2776,36 +2806,6 @@ var egret = window.egret;
 		return t;
 	};
 	return BattleTimeBoomSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
-	__extends(AvatarSkin, _super);
-	function AvatarSkin() {
-		_super.call(this);
-		this.skinParts = ["selectImage","avatarImage"];
-		
-		this.height = 116;
-		this.width = 116;
-		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
-	}
-	var _proto = AvatarSkin.prototype;
-
-	_proto.selectImage_i = function () {
-		var t = new eui.Image();
-		this.selectImage = t;
-		t.horizontalCenter = 0;
-		t.source = "win_json.touxiangkuang";
-		t.verticalCenter = 0;
-		t.visible = false;
-		return t;
-	};
-	_proto.avatarImage_i = function () {
-		var t = new eui.Image();
-		this.avatarImage = t;
-		t.height = 116;
-		t.source = "win_json.again";
-		t.width = 116;
-		return t;
-	};
-	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
 	__extends(CloseButtonSkin, _super);
 	function CloseButtonSkin() {
@@ -4833,6 +4833,262 @@ var egret = window.egret;
 		return t;
 	};
 	return UserPanelSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/rank/RankItemSkin.exml'] = window.RankItemSkin = (function (_super) {
+	__extends(RankItemSkin, _super);
+	function RankItemSkin() {
+		_super.call(this);
+		this.skinParts = ["itemBg","avatar","rankLabel","nameLabel","scoreLabel"];
+		
+		this.height = 92;
+		this.width = 518;
+		this.elementsContent = [this.itemBg_i(),this.avatar_i(),this.rankLabel_i(),this.nameLabel_i(),this.scoreLabel_i()];
+	}
+	var _proto = RankItemSkin.prototype;
+
+	_proto.itemBg_i = function () {
+		var t = new eui.Image();
+		this.itemBg = t;
+		t.height = 92;
+		t.horizontalCenter = 0;
+		t.source = "win_json.rankitembg";
+		t.width = 486;
+		t.y = 0;
+		return t;
+	};
+	_proto.avatar_i = function () {
+		var t = new game.Avatar();
+		this.avatar = t;
+		t.anchorOffsetX = 58;
+		t.anchorOffsetY = 58;
+		t.height = 116;
+		t.scaleX = 0.6;
+		t.scaleY = 0.6;
+		t.skinName = "AvatarSkin";
+		t.touchChildren = false;
+		t.touchEnabled = false;
+		t.width = 116;
+		t.x = 92;
+		t.y = 44;
+		return t;
+	};
+	_proto.rankLabel_i = function () {
+		var t = new eui.Label();
+		this.rankLabel = t;
+		t.horizontalCenter = -235;
+		t.size = 24;
+		t.text = "1";
+		t.textAlign = "center";
+		t.touchEnabled = false;
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto.nameLabel_i = function () {
+		var t = new eui.Label();
+		this.nameLabel = t;
+		t.size = 24;
+		t.text = "玩家名";
+		t.textColor = 0x514e5f;
+		t.touchEnabled = false;
+		t.verticalCenter = 0;
+		t.width = 180;
+		t.x = 156.66;
+		return t;
+	};
+	_proto.scoreLabel_i = function () {
+		var t = new eui.Label();
+		this.scoreLabel = t;
+		t.horizontalCenter = 160.5;
+		t.size = 24;
+		t.text = "123456789";
+		t.textAlign = "right";
+		t.textColor = 0x5c8bf7;
+		t.touchEnabled = false;
+		t.verticalCenter = 0;
+		return t;
+	};
+	return RankItemSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/rank/RankPanelSkin.exml'] = window.RankPanelSkin = (function (_super) {
+	__extends(RankPanelSkin, _super);
+	function RankPanelSkin() {
+		_super.call(this);
+		this.skinParts = ["rankbg","backButton","rankNameLabel","friendButton","worldButton","titleGroup","selfWorldGroup","rankList","rankScroller","rankWorld","worldGroup","friendGroup"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.elementsContent = [this._Rect1_i(),this.titleGroup_i(),this.worldGroup_i(),this.friendGroup_i()];
+	}
+	var _proto = RankPanelSkin.prototype;
+
+	_proto._Rect1_i = function () {
+		var t = new eui.Rect();
+		t.fillAlpha = 0.8;
+		t.fillColor = 0xEEEEEE;
+		t.percentHeight = 100;
+		t.width = 720;
+		t.y = -1;
+		return t;
+	};
+	_proto.titleGroup_i = function () {
+		var t = new eui.Group();
+		this.titleGroup = t;
+		t.height = 1100;
+		t.horizontalCenter = 0;
+		t.touchEnabled = false;
+		t.verticalCenter = 0;
+		t.width = 720;
+		t.elementsContent = [this.rankbg_i(),this.backButton_i(),this._Image1_i(),this.rankNameLabel_i(),this.friendButton_i(),this.worldButton_i(),this._Label1_i()];
+		return t;
+	};
+	_proto.rankbg_i = function () {
+		var t = new eui.Image();
+		this.rankbg = t;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "win_json.rankBg";
+		t.y = 129;
+		return t;
+	};
+	_proto.backButton_i = function () {
+		var t = new game.IconButton();
+		this.backButton = t;
+		t.horizontalCenter = 0;
+		t.scaleX = 0.5;
+		t.scaleY = 0.5;
+		t.skinName = "IconButtonSkin";
+		t.y = 951;
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "win_json.rank_bg";
+		t.x = 129;
+		t.y = 98.35999999999999;
+		return t;
+	};
+	_proto.rankNameLabel_i = function () {
+		var t = new eui.Label();
+		this.rankNameLabel = t;
+		t.horizontalCenter = -132;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 30;
+		t.text = "好友排行榜";
+		t.textColor = 0xffffff;
+		t.touchEnabled = false;
+		t.verticalCenter = -417;
+		t.x = 153;
+		t.y = 118;
+		return t;
+	};
+	_proto.friendButton_i = function () {
+		var t = new game.IconButton();
+		this.friendButton = t;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.visible = false;
+		t.x = 403;
+		t.y = 99.02;
+		return t;
+	};
+	_proto.worldButton_i = function () {
+		var t = new game.IconButton();
+		this.worldButton = t;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.x = 509.64;
+		t.y = 99.02;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 20;
+		t.text = "每周一凌晨刷新";
+		t.textColor = 0xa25daa;
+		t.x = 450.69;
+		t.y = 924.03;
+		return t;
+	};
+	_proto.worldGroup_i = function () {
+		var t = new eui.Group();
+		this.worldGroup = t;
+		t.height = 1100;
+		t.horizontalCenter = 0;
+		t.touchChildren = true;
+		t.touchEnabled = false;
+		t.verticalCenter = 0;
+		t.width = 720;
+		t.elementsContent = [this.selfWorldGroup_i(),this.rankWorld_i()];
+		return t;
+	};
+	_proto.selfWorldGroup_i = function () {
+		var t = new eui.Group();
+		this.selfWorldGroup = t;
+		t.height = 92.8;
+		t.touchChildren = false;
+		t.touchEnabled = false;
+		t.width = 518;
+		t.x = 100;
+		t.y = 815.88;
+		return t;
+	};
+	_proto.rankWorld_i = function () {
+		var t = new eui.Group();
+		this.rankWorld = t;
+		t.height = 595;
+		t.horizontalCenter = 0;
+		t.touchChildren = true;
+		t.touchEnabled = false;
+		t.width = 518;
+		t.y = 182.67;
+		t.elementsContent = [this.rankScroller_i()];
+		return t;
+	};
+	_proto.rankScroller_i = function () {
+		var t = new eui.Scroller();
+		this.rankScroller = t;
+		t.anchorOffsetY = 0;
+		t.height = 595;
+		t.horizontalCenter = 0;
+		t.width = 518;
+		t.y = 0;
+		t.viewport = this.rankList_i();
+		return t;
+	};
+	_proto.rankList_i = function () {
+		var t = new eui.List();
+		this.rankList = t;
+		t.useVirtualLayout = true;
+		t.y = -17.33;
+		t.layout = this._VerticalLayout1_i();
+		return t;
+	};
+	_proto._VerticalLayout1_i = function () {
+		var t = new eui.VerticalLayout();
+		t.gap = 10;
+		return t;
+	};
+	_proto.friendGroup_i = function () {
+		var t = new eui.Group();
+		this.friendGroup = t;
+		t.height = 1100;
+		t.horizontalCenter = 0;
+		t.touchChildren = true;
+		t.touchEnabled = false;
+		t.verticalCenter = 0;
+		t.visible = false;
+		t.width = 720;
+		return t;
+	};
+	return RankPanelSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/role/ChooseIconSkin.exml'] = window.ChooseIconSkin = (function (_super) {
 	__extends(ChooseIconSkin, _super);
 	function ChooseIconSkin() {
@@ -4881,11 +5137,11 @@ var egret = window.egret;
 	__extends(CoinsSkin, _super);
 	function CoinsSkin() {
 		_super.call(this);
-		this.skinParts = ["img_bg","txt_num"];
+		this.skinParts = ["img_bg","txt_num","img_gold"];
 		
 		this.height = 55;
 		this.width = 195;
-		this.elementsContent = [this.img_bg_i(),this.txt_num_i()];
+		this.elementsContent = [this.img_bg_i(),this.txt_num_i(),this.img_gold_i()];
 	}
 	var _proto = CoinsSkin.prototype;
 
@@ -4909,6 +5165,19 @@ var egret = window.egret;
 		t.verticalAlign = "middle";
 		t.x = 65;
 		t.y = 14;
+		return t;
+	};
+	_proto.img_gold_i = function () {
+		var t = new eui.Image();
+		this.img_gold = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 52.8;
+		t.source = "ui_json.gold";
+		t.visible = false;
+		t.width = 55.2;
+		t.x = 1.6;
+		t.y = 1;
 		return t;
 	};
 	return CoinsSkin;
@@ -5042,7 +5311,7 @@ var egret = window.egret;
 	__extends(ItemPriceSkin, _super);
 	function ItemPriceSkin() {
 		_super.call(this);
-		this.skinParts = ["img_checkedbg","img_equip","img_checked","txt_obtained","img_price","txt_price","grp_price","img_mask"];
+		this.skinParts = ["img_checkedbg","img_equip","img_checked","txt_obtained","img_price","txt_price","img_gold","grp_price","img_mask"];
 		
 		this.height = 175;
 		this.width = 147;
@@ -5107,7 +5376,7 @@ var egret = window.egret;
 		t.width = 142.2;
 		t.x = 1.8;
 		t.y = 139.2;
-		t.elementsContent = [this.img_price_i(),this.txt_price_i()];
+		t.elementsContent = [this.img_price_i(),this.txt_price_i(),this.img_gold_i()];
 		return t;
 	};
 	_proto.img_price_i = function () {
@@ -5129,8 +5398,20 @@ var egret = window.egret;
 		this.txt_price = t;
 		t.size = 24;
 		t.text = "1000000";
-		t.x = 39.8;
+		t.x = 43;
 		t.y = 1;
+		return t;
+	};
+	_proto.img_gold_i = function () {
+		var t = new eui.Image();
+		this.img_gold = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 35.2;
+		t.source = "ui_json.gold";
+		t.width = 37.6;
+		t.x = 6.4;
+		t.y = -6.8;
 		return t;
 	};
 	_proto.img_mask_i = function () {
@@ -5230,11 +5511,11 @@ var egret = window.egret;
 
 	function RoleDressSkin() {
 		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","btn_close","topGroup","dress_info","grp_dressinfo","icon_boy","icon_girl","img_iconmask","grp_misc","btn_cart","grp_role","btn_test","btn_test2","roleGroup","ls_items","sr_item","listGroup","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back","btnGroup","bmGroup"];
+		this.skinParts = ["img_girlbg","img_boybg","dress_info","grp_dressinfo","icon_boy","icon_girl","img_iconmask","grp_misc","btn_cart","grp_role","btn_test","btn_test2","roleGroup","coin_money","coin_gold","grp_coins","btn_close","topGroup","ls_items","sr_item","listGroup","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back","btnGroup","bmGroup"];
 		
 		this.height = 1100;
 		this.width = 720;
-		this.elementsContent = [this._Image1_i(),this.img_girlbg_i(),this.img_boybg_i(),this.topGroup_i(),this.roleGroup_i(),this.bmGroup_i()];
+		this.elementsContent = [this._Image1_i(),this.img_girlbg_i(),this.img_boybg_i(),this.roleGroup_i(),this.topGroup_i(),this.bmGroup_i()];
 	}
 	var _proto = RoleDressSkin.prototype;
 
@@ -5268,74 +5549,6 @@ var egret = window.egret;
 		t.source = "boybg_png";
 		t.top = 0;
 		t.width = 720;
-		return t;
-	};
-	_proto.topGroup_i = function () {
-		var t = new eui.Group();
-		this.topGroup = t;
-		t.height = 100;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 720;
-		t.x = 0;
-		t.y = 0;
-		t.elementsContent = [this.grp_coins_i(),this.btn_close_i()];
-		return t;
-	};
-	_proto.grp_coins_i = function () {
-		var t = new eui.Group();
-		this.grp_coins = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 58;
-		t.horizontalCenter = 53.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 593;
-		t.x = 80;
-		t.y = 11;
-		t.layout = this._HorizontalLayout1_i();
-		t.elementsContent = [this.coin_money_i(),this.coin_gold_i()];
-		return t;
-	};
-	_proto._HorizontalLayout1_i = function () {
-		var t = new eui.HorizontalLayout();
-		t.gap = 30;
-		return t;
-	};
-	_proto.coin_money_i = function () {
-		var t = new game.Coins();
-		this.coin_money = t;
-		t.height = 55;
-		t.skinName = "CoinsSkin";
-		t.width = 195;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.coin_gold_i = function () {
-		var t = new game.Coins();
-		this.coin_gold = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 55;
-		t.skinName = "CoinsSkin";
-		t.width = 195;
-		t.x = 237;
-		t.y = -14.5;
-		return t;
-	};
-	_proto.btn_close_i = function () {
-		var t = new game.IconButton();
-		this.btn_close = t;
-		t.height = 20;
-		t.horizontalCenter = -322.605;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.width = 20;
-		t.x = 28;
-		t.y = 27;
 		return t;
 	};
 	_proto.roleGroup_i = function () {
@@ -5462,6 +5675,7 @@ var egret = window.egret;
 		t.label = "换";
 		t.scaleX = 1;
 		t.scaleY = 1;
+		t.visible = false;
 		t.width = 130;
 		t.x = 30;
 		t.y = 243;
@@ -5475,10 +5689,79 @@ var egret = window.egret;
 		t.label = "重设";
 		t.scaleX = 1;
 		t.scaleY = 1;
+		t.visible = false;
 		t.width = 130;
 		t.x = 30;
 		t.y = 320;
 		t.skinName = RoleDressSkin$Skin3;
+		return t;
+	};
+	_proto.topGroup_i = function () {
+		var t = new eui.Group();
+		this.topGroup = t;
+		t.height = 100;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 720;
+		t.x = 0;
+		t.y = 0;
+		t.elementsContent = [this.grp_coins_i(),this.btn_close_i()];
+		return t;
+	};
+	_proto.grp_coins_i = function () {
+		var t = new eui.Group();
+		this.grp_coins = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 58;
+		t.horizontalCenter = 53.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 593;
+		t.x = 80;
+		t.y = 11;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.coin_money_i(),this.coin_gold_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.gap = 30;
+		return t;
+	};
+	_proto.coin_money_i = function () {
+		var t = new game.Coins();
+		this.coin_money = t;
+		t.height = 55;
+		t.skinName = "CoinsSkin";
+		t.width = 195;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.coin_gold_i = function () {
+		var t = new game.Coins();
+		this.coin_gold = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 55;
+		t.skinName = "CoinsSkin";
+		t.width = 195;
+		t.x = 237;
+		t.y = -14.5;
+		return t;
+	};
+	_proto.btn_close_i = function () {
+		var t = new game.IconButton();
+		this.btn_close = t;
+		t.height = 20;
+		t.horizontalCenter = -322.605;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 20;
+		t.x = 28;
+		t.y = 27;
 		return t;
 	};
 	_proto.bmGroup_i = function () {
@@ -6413,260 +6696,4 @@ var egret = window.egret;
 		return t;
 	};
 	return WinSceneSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/rank/RankItemSkin.exml'] = window.RankItemSkin = (function (_super) {
-	__extends(RankItemSkin, _super);
-	function RankItemSkin() {
-		_super.call(this);
-		this.skinParts = ["itemBg","avatar","rankLabel","nameLabel","scoreLabel"];
-		
-		this.height = 92;
-		this.width = 518;
-		this.elementsContent = [this.itemBg_i(),this.avatar_i(),this.rankLabel_i(),this.nameLabel_i(),this.scoreLabel_i()];
-	}
-	var _proto = RankItemSkin.prototype;
-
-	_proto.itemBg_i = function () {
-		var t = new eui.Image();
-		this.itemBg = t;
-		t.height = 92;
-		t.horizontalCenter = 0;
-		t.source = "win_json.rankitembg";
-		t.width = 486;
-		t.y = 0;
-		return t;
-	};
-	_proto.avatar_i = function () {
-		var t = new game.Avatar();
-		this.avatar = t;
-		t.anchorOffsetX = 58;
-		t.anchorOffsetY = 58;
-		t.height = 116;
-		t.scaleX = 0.6;
-		t.scaleY = 0.6;
-		t.skinName = "AvatarSkin";
-		t.touchChildren = false;
-		t.touchEnabled = false;
-		t.width = 116;
-		t.x = 92;
-		t.y = 44;
-		return t;
-	};
-	_proto.rankLabel_i = function () {
-		var t = new eui.Label();
-		this.rankLabel = t;
-		t.horizontalCenter = -235;
-		t.size = 24;
-		t.text = "1";
-		t.textAlign = "center";
-		t.touchEnabled = false;
-		t.verticalCenter = 0;
-		return t;
-	};
-	_proto.nameLabel_i = function () {
-		var t = new eui.Label();
-		this.nameLabel = t;
-		t.size = 24;
-		t.text = "玩家名";
-		t.textColor = 0x514e5f;
-		t.touchEnabled = false;
-		t.verticalCenter = 0;
-		t.width = 180;
-		t.x = 156.66;
-		return t;
-	};
-	_proto.scoreLabel_i = function () {
-		var t = new eui.Label();
-		this.scoreLabel = t;
-		t.horizontalCenter = 160.5;
-		t.size = 24;
-		t.text = "123456789";
-		t.textAlign = "right";
-		t.textColor = 0x5c8bf7;
-		t.touchEnabled = false;
-		t.verticalCenter = 0;
-		return t;
-	};
-	return RankItemSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/rank/RankPanelSkin.exml'] = window.RankPanelSkin = (function (_super) {
-	__extends(RankPanelSkin, _super);
-	function RankPanelSkin() {
-		_super.call(this);
-		this.skinParts = ["rankbg","backButton","rankNameLabel","friendButton","worldButton","titleGroup","selfWorldGroup","rankList","rankScroller","rankWorld","worldGroup","friendGroup"];
-		
-		this.height = 1100;
-		this.width = 720;
-		this.elementsContent = [this._Rect1_i(),this.titleGroup_i(),this.worldGroup_i(),this.friendGroup_i()];
-	}
-	var _proto = RankPanelSkin.prototype;
-
-	_proto._Rect1_i = function () {
-		var t = new eui.Rect();
-		t.fillAlpha = 0.8;
-		t.fillColor = 0xEEEEEE;
-		t.percentHeight = 100;
-		t.width = 720;
-		t.y = -1;
-		return t;
-	};
-	_proto.titleGroup_i = function () {
-		var t = new eui.Group();
-		this.titleGroup = t;
-		t.height = 1100;
-		t.horizontalCenter = 0;
-		t.touchEnabled = false;
-		t.verticalCenter = 0;
-		t.width = 720;
-		t.elementsContent = [this.rankbg_i(),this.backButton_i(),this._Image1_i(),this.rankNameLabel_i(),this.friendButton_i(),this.worldButton_i(),this._Label1_i()];
-		return t;
-	};
-	_proto.rankbg_i = function () {
-		var t = new eui.Image();
-		this.rankbg = t;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "win_json.rankBg";
-		t.y = 129;
-		return t;
-	};
-	_proto.backButton_i = function () {
-		var t = new game.IconButton();
-		this.backButton = t;
-		t.horizontalCenter = 0;
-		t.scaleX = 0.5;
-		t.scaleY = 0.5;
-		t.skinName = "IconButtonSkin";
-		t.y = 951;
-		return t;
-	};
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "win_json.rank_bg";
-		t.x = 129;
-		t.y = 98.35999999999999;
-		return t;
-	};
-	_proto.rankNameLabel_i = function () {
-		var t = new eui.Label();
-		this.rankNameLabel = t;
-		t.horizontalCenter = -132;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 30;
-		t.text = "好友排行榜";
-		t.textColor = 0xffffff;
-		t.touchEnabled = false;
-		t.verticalCenter = -417;
-		t.x = 153;
-		t.y = 118;
-		return t;
-	};
-	_proto.friendButton_i = function () {
-		var t = new game.IconButton();
-		this.friendButton = t;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.touchEnabled = true;
-		t.visible = false;
-		t.x = 403;
-		t.y = 99.02;
-		return t;
-	};
-	_proto.worldButton_i = function () {
-		var t = new game.IconButton();
-		this.worldButton = t;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.touchEnabled = true;
-		t.x = 509.64;
-		t.y = 99.02;
-		return t;
-	};
-	_proto._Label1_i = function () {
-		var t = new eui.Label();
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 20;
-		t.text = "每周一凌晨刷新";
-		t.textColor = 0xa25daa;
-		t.x = 450.69;
-		t.y = 924.03;
-		return t;
-	};
-	_proto.worldGroup_i = function () {
-		var t = new eui.Group();
-		this.worldGroup = t;
-		t.height = 1100;
-		t.horizontalCenter = 0;
-		t.touchChildren = true;
-		t.touchEnabled = false;
-		t.verticalCenter = 0;
-		t.width = 720;
-		t.elementsContent = [this.selfWorldGroup_i(),this.rankWorld_i()];
-		return t;
-	};
-	_proto.selfWorldGroup_i = function () {
-		var t = new eui.Group();
-		this.selfWorldGroup = t;
-		t.height = 92.8;
-		t.touchChildren = false;
-		t.touchEnabled = false;
-		t.width = 518;
-		t.x = 100;
-		t.y = 815.88;
-		return t;
-	};
-	_proto.rankWorld_i = function () {
-		var t = new eui.Group();
-		this.rankWorld = t;
-		t.height = 595;
-		t.horizontalCenter = 0;
-		t.touchChildren = true;
-		t.touchEnabled = false;
-		t.width = 518;
-		t.y = 182.67;
-		t.elementsContent = [this.rankScroller_i()];
-		return t;
-	};
-	_proto.rankScroller_i = function () {
-		var t = new eui.Scroller();
-		this.rankScroller = t;
-		t.anchorOffsetY = 0;
-		t.height = 595;
-		t.horizontalCenter = 0;
-		t.width = 518;
-		t.y = 0;
-		t.viewport = this.rankList_i();
-		return t;
-	};
-	_proto.rankList_i = function () {
-		var t = new eui.List();
-		this.rankList = t;
-		t.useVirtualLayout = true;
-		t.y = -17.33;
-		t.layout = this._VerticalLayout1_i();
-		return t;
-	};
-	_proto._VerticalLayout1_i = function () {
-		var t = new eui.VerticalLayout();
-		t.gap = 10;
-		return t;
-	};
-	_proto.friendGroup_i = function () {
-		var t = new eui.Group();
-		this.friendGroup = t;
-		t.height = 1100;
-		t.horizontalCenter = 0;
-		t.touchChildren = true;
-		t.touchEnabled = false;
-		t.verticalCenter = 0;
-		t.visible = false;
-		t.width = 720;
-		return t;
-	};
-	return RankPanelSkin;
 })(eui.Skin);

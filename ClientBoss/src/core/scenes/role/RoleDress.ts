@@ -147,11 +147,15 @@ module game {
         }
 
         private initCoins() {
-            this.coin_gold.coins = DataManager.playerModel.getScore();
-            this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
+            this.updateCoins();
         }
-        //TODO: 更新货币
-        private updateCoins() { }
+    
+        private updateCoins() {
+            this.coin_gold.coins = DataManager.playerModel.getScore();
+            this.coin_gold.setCoinType(2);
+            this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
+            this.coin_money.setCoinType(1);
+        }
 
         private initTouchEvent() {
             // this.icon_boy.addEventListener("touchBegin", this.switchToGirl, this);
@@ -345,7 +349,7 @@ module game {
             this.setShelf(601);
         }
 
-  
+
         public setSuitHandle() {
             if (this.gender == 0) {
                 this.replaceParts(this._girlBone, "girl_suit2");
@@ -378,22 +382,22 @@ module game {
             })
         }
 
-        private changeSlotsInSuit(bone: SkeletonBase,slotNames:string[],suitName:string){
-            slotNames.forEach((name)=>{
+        private changeSlotsInSuit(bone: SkeletonBase, slotNames: string[], suitName: string) {
+            slotNames.forEach((name) => {
                 let assetName = `${suitName}_json.${name}`;
-                bone.setNewSlot(name,assetName);
+                bone.setNewSlot(name, assetName);
             })
         }
 
-        private changePart(e:table.IEquipDefine) {
+        private changePart(e: table.IEquipDefine) {
             let pos = e.Pos;
             let sex = e.Sex;
             let slotNames = e.LoadPoint;
             if (slotNames.length <= 0) return;
             if (sex == 0) {
-                this.changeSlotsInSuit(this._girlBone,slotNames,"girl_suit2" );
-            }else {
-                this.changeSlotsInSuit(this._boyBone,slotNames,"boy_suit2");
+                this.changeSlotsInSuit(this._girlBone, slotNames, "girl_suit2");
+            } else {
+                this.changeSlotsInSuit(this._boyBone, slotNames, "boy_suit2");
             }
         }
 
