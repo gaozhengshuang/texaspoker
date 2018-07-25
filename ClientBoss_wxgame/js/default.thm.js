@@ -340,36 +340,6 @@ var egret = window.egret;
 		return t;
 	};
 	return NetFailedSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
-	__extends(AvatarSkin, _super);
-	function AvatarSkin() {
-		_super.call(this);
-		this.skinParts = ["selectImage","avatarImage"];
-		
-		this.height = 116;
-		this.width = 116;
-		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
-	}
-	var _proto = AvatarSkin.prototype;
-
-	_proto.selectImage_i = function () {
-		var t = new eui.Image();
-		this.selectImage = t;
-		t.horizontalCenter = 0;
-		t.source = "win_json.touxiangkuang";
-		t.verticalCenter = 0;
-		t.visible = false;
-		return t;
-	};
-	_proto.avatarImage_i = function () {
-		var t = new eui.Image();
-		this.avatarImage = t;
-		t.height = 116;
-		t.source = "win_json.again";
-		t.width = 116;
-		return t;
-	};
-	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattleBagItemSkin.exml'] = window.BattleBagItemSkin = (function (_super) {
 	__extends(BattleBagItemSkin, _super);
 	function BattleBagItemSkin() {
@@ -2806,6 +2776,36 @@ var egret = window.egret;
 		return t;
 	};
 	return BattleTimeBoomSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
+	__extends(AvatarSkin, _super);
+	function AvatarSkin() {
+		_super.call(this);
+		this.skinParts = ["selectImage","avatarImage"];
+		
+		this.height = 116;
+		this.width = 116;
+		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
+	}
+	var _proto = AvatarSkin.prototype;
+
+	_proto.selectImage_i = function () {
+		var t = new eui.Image();
+		this.selectImage = t;
+		t.horizontalCenter = 0;
+		t.source = "win_json.touxiangkuang";
+		t.verticalCenter = 0;
+		t.visible = false;
+		return t;
+	};
+	_proto.avatarImage_i = function () {
+		var t = new eui.Image();
+		this.avatarImage = t;
+		t.height = 116;
+		t.source = "win_json.again";
+		t.width = 116;
+		return t;
+	};
+	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
 	__extends(CloseButtonSkin, _super);
 	function CloseButtonSkin() {
@@ -5113,21 +5113,22 @@ var egret = window.egret;
 	_proto.chose_i = function () {
 		var t = new eui.Image();
 		this.chose = t;
+		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.height = 92;
-		t.horizontalCenter = 0.5;
+		t.bottom = -7;
+		t.height = 88;
+		t.horizontalCenter = 3;
 		t.source = "dress_01_json.dress_01_24";
-		t.visible = false;
+		t.width = 86;
 		return t;
 	};
 	_proto.icon_i = function () {
 		var t = new eui.Image();
 		this.icon = t;
 		t.height = 64;
-		t.horizontalCenter = -2;
+		t.horizontalCenter = 0;
 		t.source = "dress_01_json.dress_01_01";
-		t.verticalCenter = -7;
+		t.verticalCenter = -4;
 		t.width = 64;
 		return t;
 	};
@@ -5147,19 +5148,23 @@ var egret = window.egret;
 	_proto.img_bg_i = function () {
 		var t = new eui.Image();
 		this.img_bg = t;
-		t.height = 53;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = -5;
+		t.height = 60;
 		t.source = "dress_01_json.dress_01_30";
 		t.width = 195;
 		t.x = 0;
-		t.y = 0;
 		return t;
 	};
 	_proto.txt_num_i = function () {
 		var t = new eui.Label();
 		this.txt_num = t;
-		t.text = "Label";
-		t.x = 81;
-		t.y = 11;
+		t.text = "0000000";
+		t.textAlign = "center";
+		t.verticalAlign = "middle";
+		t.x = 65;
+		t.y = 14;
 		return t;
 	};
 	return CoinsSkin;
@@ -5347,17 +5352,21 @@ var egret = window.egret;
 
 	_proto._Image1_i = function () {
 		var t = new eui.Image();
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
 		t.source = "dress_01_json.dress_01_31";
-		t.y = -1;
+		t.top = 0;
 		return t;
 	};
 	_proto.img_checkedbg_i = function () {
 		var t = new eui.Image();
 		this.img_checkedbg = t;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
 		t.source = "dress_01_json.dress_01_23";
-		t.visible = false;
-		t.x = -1;
-		t.y = -1;
+		t.top = 0;
 		return t;
 	};
 	_proto.img_equip_i = function () {
@@ -5376,9 +5385,8 @@ var egret = window.egret;
 		var t = new eui.Image();
 		this.img_checked = t;
 		t.source = "dress_01_json.dress_01_22";
-		t.visible = false;
-		t.x = 101;
-		t.y = 0;
+		t.x = 83;
+		t.y = -3;
 		return t;
 	};
 	_proto.txt_obtained_i = function () {
@@ -5386,7 +5394,6 @@ var egret = window.egret;
 		this.txt_obtained = t;
 		t.bold = true;
 		t.text = "已获得";
-		t.visible = false;
 		t.x = 33;
 		t.y = 142;
 		return t;
@@ -5406,11 +5413,15 @@ var egret = window.egret;
 	_proto.img_price_i = function () {
 		var t = new eui.Image();
 		this.img_price = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 57.57;
 		t.scaleX = 0.7;
 		t.scaleY = 0.7;
 		t.source = "dress_01_json.dress_01_30";
+		t.width = 198.29;
 		t.x = 4.2;
-		t.y = -1;
+		t.y = -7;
 		return t;
 	};
 	_proto.txt_price_i = function () {
@@ -5419,7 +5430,7 @@ var egret = window.egret;
 		t.size = 24;
 		t.text = "1000000";
 		t.x = 39.8;
-		t.y = 6;
+		t.y = 1;
 		return t;
 	};
 	_proto.img_mask_i = function () {
@@ -5439,7 +5450,7 @@ var egret = window.egret;
 	__extends(RoleDressSkin, _super);
 	function RoleDressSkin() {
 		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","dress_info","grp_dressinfo","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_close","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","ls_items","sr_item","btn_cart"];
+		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","dress_info","grp_dressinfo","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_close","btn_cart","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","ls_items","sr_item"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -5475,7 +5486,7 @@ var egret = window.egret;
 		t.height = 581.82;
 		t.width = 721.21;
 		t.y = -2;
-		t.elementsContent = [this.grp_coins_i(),this.grp_dressinfo_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_close_i()];
+		t.elementsContent = [this.grp_coins_i(),this.grp_dressinfo_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_close_i(),this.btn_cart_i()];
 		return t;
 	};
 	_proto.grp_coins_i = function () {
@@ -5583,8 +5594,8 @@ var egret = window.egret;
 		this.icon_boy = t;
 		t.source = "dress_01_json.dress_01_15";
 		t.touchEnabled = true;
-		t.x = 53;
-		t.y = 14;
+		t.x = 63;
+		t.y = 8;
 		return t;
 	};
 	_proto.icon_girl_i = function () {
@@ -5592,8 +5603,8 @@ var egret = window.egret;
 		this.icon_girl = t;
 		t.source = "dress_01_json.dress_01_20";
 		t.touchEnabled = true;
-		t.x = 18.5;
-		t.y = 13;
+		t.x = 1.5;
+		t.y = 8;
 		return t;
 	};
 	_proto.img_iconmask_i = function () {
@@ -5618,6 +5629,18 @@ var egret = window.egret;
 		t.width = 20;
 		t.x = 675;
 		t.y = 21;
+		return t;
+	};
+	_proto.btn_cart_i = function () {
+		var t = new game.IconButton();
+		this.btn_cart = t;
+		t.height = 20;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 20;
+		t.x = 647;
+		t.y = 538.5;
 		return t;
 	};
 	_proto._Group3_i = function () {
@@ -5740,7 +5763,7 @@ var egret = window.egret;
 		t.horizontalCenter = 0;
 		t.verticalCenter = 298;
 		t.width = 720;
-		t.elementsContent = [this.sr_item_i(),this.btn_cart_i()];
+		t.elementsContent = [this.sr_item_i()];
 		return t;
 	};
 	_proto.sr_item_i = function () {
@@ -5779,20 +5802,6 @@ var egret = window.egret;
 		t.paddingTop = 0;
 		return t;
 	};
-	_proto.btn_cart_i = function () {
-		var t = new game.IconButton();
-		this.btn_cart = t;
-		t.height = 20;
-		t.horizontalCenter = -8;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.verticalCenter = 225.215;
-		t.width = 20;
-		t.x = 347;
-		t.y = 977;
-		return t;
-	};
 	return RoleDressSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/role/ShopItemSkin.exml'] = window.ShopItemSkin = (function (_super) {
 	__extends(ShopItemSkin, _super);
@@ -5824,7 +5833,7 @@ var egret = window.egret;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 93;
-		t.source = "dress_02_json.dress_02_01";
+		t.source = "";
 		t.width = 85;
 		t.x = 101;
 		t.y = 25;

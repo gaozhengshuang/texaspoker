@@ -16,11 +16,12 @@
 		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="25.894999999999982" verticalCenter="155.08999999999997"/>
 		<e:Group id="grp_misc" width="101" height="61" x="75" y="508.00000000000006" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
 		<e:Image source="dress_01_json.dress_01_26" x="-4" y="3"/>
-		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="53" y="14" touchEnabled="true"/>
-		<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="18.5" y="13" touchEnabled="true"/>
+		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="63" y="8" touchEnabled="true"/>
+		<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="1.5" y="8" touchEnabled="true"/>
 			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" left="0" right="0" top="0" bottom="0"/>
 		</e:Group>
 		<game:IconButton id="btn_close" width="20" height="20" x="675" y="21" skinName="IconButtonSkin" scaleX="1" scaleY="1" locked="true"/>
+		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" x="647" y="538.5" scaleX="1" scaleY="1"/>
 	</e:Group>
 
 
@@ -46,7 +47,7 @@
 	</e:Group>
 
 
-	<e:Group width="720" height="357.57" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="298" horizontalCenter="0" locked="true">
+	<e:Group width="720" height="357.57" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="298" horizontalCenter="0">
 		<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" height="360" width="720" verticalCenter="10.215000000000003" horizontalCenter="0" x="5" y="586" scaleX="1" scaleY="1">
 			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="662">
 			<e:layout>
@@ -54,7 +55,7 @@
 			</e:layout>
 			</e:List>
 		</e:Scroller>
-		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" verticalCenter="225.215" horizontalCenter="-8" x="347" y="977" scaleX="1" scaleY="1"/>
+
 	</e:Group>
 
 
