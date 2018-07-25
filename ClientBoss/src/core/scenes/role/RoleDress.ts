@@ -28,7 +28,7 @@ module game {
         test_itemprice: game.ItemPrice;
         dress_info: game.EquipInfo;
         public btn_test: eui.Button;
-        public btn_test2:eui.Button;
+        public btn_test2: eui.Button;
 
 
 
@@ -61,7 +61,7 @@ module game {
                 this.grp_dressinfo.y = 150;
             }
             this.height = gameConfig.curHeight();
-            
+
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
             this.gender = 0;
@@ -244,7 +244,7 @@ module game {
                 if (!this._girlBone) {
                     this._girlBone = await game.getBone("girl");
                     this.grp_role.addChild(this._girlBone);
-                    adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role, 1.5);
+                    adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
                     let r = randRange(1, this._girlBone.animNum);
                     this._girlBone.play(`Idle${r}`, 0);
                 }
@@ -261,9 +261,6 @@ module game {
                 }
                 this._boyBone && (this._boyBone.visible = true);
                 this._girlBone && (this._girlBone.visible = false);
-
-                let slot = this._boyBone.getSlot("body1_1_00");
-                console.log("原衣服插槽：", slot.display);
             }
 
         }
@@ -281,10 +278,10 @@ module game {
             //技能加成
             let skillDes = "";
             dressInfo.Skill.forEach(
-                (item,index,array)=>{
-                    let skillData : table.ITSkillDefine = table.TSkillById[parseInt(item)];
-                    if(skillData){
-                        skillDes += (skillDes=="" ? skillData.Des : "\n"+skillData.Des);
+                (item, index, array) => {
+                    let skillData: table.ITSkillDefine = table.TSkillById[parseInt(item)];
+                    if (skillData) {
+                        skillDes += (skillDes == "" ? skillData.Des : "\n" + skillData.Des);
                     }
                 }
             );
@@ -349,23 +346,28 @@ module game {
         }
 
         //TODO:切换装备
-        public setSuit(part: string, texName: string) {
-
-            this.replaceParts(this.grp_role);
+        public setSuit() {
+            if (this.gender == 0) {
+                this.replaceParts(this._girlBone, "girl_suit2");
+            } else {
+                this.replaceParts(this._boyBone, "boy_suit2");
+            }
         }
 
-        private replaceParts(c: egret.DisplayObjectContainer) {
-            let slots = this._boyBone.armature.getSlots();
-           
-            let prefix = "boy_suit2_json."
+        private replaceParts(bone: SkeletonBase, suitName: string) {
+            let slots = bone.armature.getSlots();
+
+            let prefix = `${suitName}_json.`;
+
             slots.forEach((slot) => {
-                this._boyBone.setNewSlot(slot.name,prefix+slot.name);
+                let assetName = prefix + slot.name;
+                this._boyBone.setNewSlot(slot.name, prefix + slot.name);
             })
         }
 
         public resetSuit() {
             let slots = this._boyBone.armature.getSlots();
-            slots.forEach((slot)=>{
+            slots.forEach((slot) => {
                 this._boyBone.resetSlot(slot.name);
             })
         }

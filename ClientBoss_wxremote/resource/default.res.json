@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,boy_suit2_json",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,item_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,boy_suit2_json,girl_suit2_json",
 			"name": "preload"
 		}
 	],
@@ -130,7 +130,7 @@
 			"url": "assets/texpack/dress_01.json",
 			"type": "sheet",
 			"name": "dress_01_json",
-			"subkeys": "buy-bg,dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31,numBg,shoppingcart-txt,star,taboard-bg"
+			"subkeys": "buy-bg,dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31,numBg,shoppingcart-txt,star,taboard-bg1,taboard-bg2"
 		},
 		{
 			"url": "bones/girl/girl_tex.png",
@@ -172,7 +172,13 @@
 			"url": "assets/texpack/boy_suit2.json",
 			"type": "sheet",
 			"name": "boy_suit2_json",
-			"subkeys": "body2_0_00,body2_0_01,body2_0_02,body2_0_03,body2_0_04,head2_0_00,head2_0_01,head2_0_02,head2_0_03,head2_0_04,shoes2_0_00,shoes2_0_01,trousers2_0_00,trousers2_0_01,trousers2_0_02,trousers2_0_03"
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/girl_suit2.json",
+			"type": "sheet",
+			"name": "girl_suit2_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
 		}
 	]
 }
