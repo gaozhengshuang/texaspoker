@@ -3,11 +3,11 @@
 
 module table {
 export var TSkill : table.ITSkillDefine[] = [
-		{ Id : 1, Type : 1, Num : 1, NumPer : 0, Des : "" 	},
-		{ Id : 2, Type : 2, Num : 2, NumPer : 0, Des : "" 	},
-		{ Id : 3, Type : 3, Num : 0, NumPer : 2, Des : "" 	},
-		{ Id : 4, Type : 4, Num : 0, NumPer : 5, Des : "" 	},
-		{ Id : 5, Type : 5, Num : 0, NumPer : 10, Des : "" 	}
+		{ Id : 1, Type : 1, Num : 1, NumPer : 0, Des : "<font color=\"#0000ff\">贯穿弹</font><font color=\"#ff7f50\">+1</font>" 	},
+		{ Id : 2, Type : 2, Num : 2, NumPer : 0, Des : "<font color=\"#0000ff\">双倍时间</font><font color=\"#ff7f50\">+2s</font>" 	},
+		{ Id : 3, Type : 3, Num : 0, NumPer : 2, Des : "<font color=\"#0000ff\">大招所需能量</font><font color=\"#ff7f50\">-2%</font>" 	},
+		{ Id : 4, Type : 4, Num : 0, NumPer : 5, Des : "<font color=\"#0000ff\">金币奖励</font><font color=\"#ff7f50\">+5%</font>" 	},
+		{ Id : 5, Type : 5, Num : 0, NumPer : 10, Des : "<font color=\"#0000ff\">事件间隔时间</font><font color=\"#ff7f50\">+10%</font>" 	}
 	]
 
 

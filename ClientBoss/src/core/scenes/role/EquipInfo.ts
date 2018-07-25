@@ -1,13 +1,13 @@
 module game {
     export class EquipInfo extends eui.Component {
 
-        public img_star1: eui.Image;
-        public img_star2: eui.Image;
-        public img_star3: eui.Image;
-        public img_star4: eui.Image;
-        public img_star5: eui.Image;
-        public txt_name: eui.Label;
-
+        img_star1       : eui.Image;
+        img_star2       : eui.Image;
+        img_star3       : eui.Image;
+        img_star4       : eui.Image;
+        img_star5       : eui.Image;
+        txt_name        : eui.Label;
+        totalAddition   : eui.Label;  
 
         public constructor() {
             super();
@@ -30,7 +30,12 @@ module game {
         public set equip_name(name:string) {
             this.txt_name && (this.txt_name.text = name);
         }
-
+        
+        public set skillAddition (des:string)
+        {
+            this.totalAddition.lineSpacing = 5;
+            this.totalAddition.textFlow = (new egret.HtmlTextParser).parser(des);
+        }
     }
 
 

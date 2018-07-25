@@ -64,19 +64,21 @@ module game {
      
             //描述
             let skillDes = "";
-            for(let id_str of ShopItemData.Skill)
-            {
-                let skillData : table.ITSkillDefine = table.TSkillById[parseInt(id_str)];
-                if(skillData)
+            ShopItemData.Skill.forEach(
+                (item,index,array)=>
                 {
-                    skillDes += (skillDes=="" ? skillData.Des : ";"+skillData.Des);
+                    let skillData : table.ITSkillDefine = table.TSkillById[parseInt(item)];
+                    if(skillData)
+                    {
+                        skillDes += (skillDes=="" ? skillData.Des : (index%2== 1 ? ";"+skillData.Des : ";"+"\n"+skillData.Des));
+                    }
                 }
-            }
+            );
+            this.shopItemAddtion.lineSpacing = 5;
+            this.shopItemAddtion.textFlow = (new egret.HtmlTextParser).parser(
+                skillDes
+            );
 
-            this.shopItemAddtion.textFlow = [
-                {text:ShopItemData.Desc, style:{"textColor":0xff9f3b,"bold": true}},
-                {text:skillDes, style:{"textColor":0x808080, "size":20}},
-            ]
             //价格
             this.txt_price.text = this.itemData.Price.toString();
         }
