@@ -362,6 +362,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			Base : &msg.UserBase{Gold: pb.Uint32(gold), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(0), Level:pb.Uint32(1)},
 			Item : &msg.ItemBin{},
 		}
+		userinfo.Entity.Sex = pb.Int32(msg.Sex_Female)
 		userinfo.Base.Wechat = &msg.UserWechat{ Openid:pb.String(openid) }
 
 		userkey := fmt.Sprintf("userbin_%d", userid)
