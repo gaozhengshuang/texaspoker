@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ShopItemSkin" width="680" height="143" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
 	<e:Image id="img_shopItemBg" x="0" y="0" anchorOffsetX="0" width="680" anchorOffsetY="0" height="143" source="dress_01_json.dress_01_27"/>
-	<e:Image id="img_shopItemIcon" x="101" y="25" anchorOffsetX="0" width="85" anchorOffsetY="0" height="93" source="dress_02_json.dress_02_01"/>
+	<e:Image id="img_shopItemIcon" x="101" y="25" anchorOffsetX="0" width="85" anchorOffsetY="0" height="93" source=""/>
 	<e:Image id="img_shopItemSelect" x="25" y="53" anchorOffsetX="0" width="52" anchorOffsetY="0" height="37" source="dress_01_json.dress_01_25" visible="false"/>
 
 	<e:Label id="shopItemName" text="宫廷大头" x="200" y="58.2" bold="true" textAlign="left"/>
