@@ -26,6 +26,8 @@ module game {
         sr_item: eui.Scroller;
         ls_items: eui.List;
         test_itemprice: game.ItemPrice;
+        dress_info:game.EquipInfo;
+
 
         private _dataProv: eui.ArrayCollection;
 
@@ -73,10 +75,9 @@ module game {
             this.ls_items.itemRenderer = game.ItemPrice;
             this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
         }
-        //TODO: 改变选择项
         private onChange() {
             let item = this.ls_items.selectedItem;
-            console.warn("显示装备信息",item);
+            this.setDressInfo(item);
         }
 
         private initTypeIcons() {
@@ -143,12 +144,12 @@ module game {
         }
 
         private switchToGirl() {
+            this.gender = 0;
             this.useGirlSpine(true);
             this.useGirlBg(true);
             this.useGirlIcon(true);
             this.useGirlShelf(true);
             this.useGirlTypeIcons(true);
-            this.gender = 0;
         }
 
         private switchGender() {
@@ -160,12 +161,13 @@ module game {
         }
 
         private switchToBoy() {
+            this.gender = 1;
             this.useGirlSpine(false);
             this.useGirlBg(false);
             this.useGirlIcon(false);
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
-            this.gender = 1;
+            
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -227,13 +229,7 @@ module game {
 
         }
 
-        //TODO: 显示默认的装备
         public useGirlShelf(b: boolean) {
-            if (b) {
-                this.gender = 0
-            }else {
-                this.gender = 1;
-            }
             this.updateShelf();
         }
 
@@ -241,12 +237,8 @@ module game {
 
         //=======================================
         //TODO: 设置装备信息
-        public setDressInfo(dressInfo: { star, scoreAdd, scoreAddExt, goldAdd, goldAddExt }) {
-
-        }
-
-        //TODO: 加载装备配置表
-        private loadShelfByType() {
+        public setDressInfo(dressInfo: table.IEquipDefine) {
+            this.dress_info.equip_name = dressInfo.Name;
         }
 
         // 设置装备列表
@@ -256,7 +248,6 @@ module game {
             let dressItem: table.IEquipDefine = null;
 
             while (!!(dressItem = table.EquipById[s++])) {
-                console.log("xxxxxxxxxxx",dressItem)
                 if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
                     this._dataProv.addItem(dressItem);
                 }

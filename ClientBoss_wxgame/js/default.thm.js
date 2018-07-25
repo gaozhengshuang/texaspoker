@@ -340,6 +340,36 @@ var egret = window.egret;
 		return t;
 	};
 	return NetFailedSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
+	__extends(AvatarSkin, _super);
+	function AvatarSkin() {
+		_super.call(this);
+		this.skinParts = ["selectImage","avatarImage"];
+		
+		this.height = 116;
+		this.width = 116;
+		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
+	}
+	var _proto = AvatarSkin.prototype;
+
+	_proto.selectImage_i = function () {
+		var t = new eui.Image();
+		this.selectImage = t;
+		t.horizontalCenter = 0;
+		t.source = "win_json.touxiangkuang";
+		t.verticalCenter = 0;
+		t.visible = false;
+		return t;
+	};
+	_proto.avatarImage_i = function () {
+		var t = new eui.Image();
+		this.avatarImage = t;
+		t.height = 116;
+		t.source = "win_json.again";
+		t.width = 116;
+		return t;
+	};
+	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/battle/BattleBagItemSkin.exml'] = window.BattleBagItemSkin = (function (_super) {
 	__extends(BattleBagItemSkin, _super);
 	function BattleBagItemSkin() {
@@ -2776,36 +2806,6 @@ var egret = window.egret;
 		return t;
 	};
 	return BattleTimeBoomSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/common/AvatarSkin.exml'] = window.AvatarSkin = (function (_super) {
-	__extends(AvatarSkin, _super);
-	function AvatarSkin() {
-		_super.call(this);
-		this.skinParts = ["selectImage","avatarImage"];
-		
-		this.height = 116;
-		this.width = 116;
-		this.elementsContent = [this.selectImage_i(),this.avatarImage_i()];
-	}
-	var _proto = AvatarSkin.prototype;
-
-	_proto.selectImage_i = function () {
-		var t = new eui.Image();
-		this.selectImage = t;
-		t.horizontalCenter = 0;
-		t.source = "win_json.touxiangkuang";
-		t.verticalCenter = 0;
-		t.visible = false;
-		return t;
-	};
-	_proto.avatarImage_i = function () {
-		var t = new eui.Image();
-		this.avatarImage = t;
-		t.height = 116;
-		t.source = "win_json.again";
-		t.width = 116;
-		return t;
-	};
-	return AvatarSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
 	__extends(CloseButtonSkin, _super);
 	function CloseButtonSkin() {
@@ -5439,7 +5439,7 @@ var egret = window.egret;
 	__extends(RoleDressSkin, _super);
 	function RoleDressSkin() {
 		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","grp_dressinfo","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_close","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","ls_items","sr_item","btn_cart"];
+		this.skinParts = ["img_girlbg","img_boybg","coin_money","coin_gold","grp_coins","dress_info","grp_dressinfo","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_close","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","ls_items","sr_item","btn_cart"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -5529,11 +5529,12 @@ var egret = window.egret;
 		t.width = 220;
 		t.x = 498;
 		t.y = 81;
-		t.elementsContent = [this._EquipInfo1_i()];
+		t.elementsContent = [this.dress_info_i()];
 		return t;
 	};
-	_proto._EquipInfo1_i = function () {
+	_proto.dress_info_i = function () {
 		var t = new game.EquipInfo();
+		this.dress_info = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.bottom = 0;
