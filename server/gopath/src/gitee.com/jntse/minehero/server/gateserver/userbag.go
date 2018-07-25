@@ -102,7 +102,7 @@ func (this *UserBag) LoadBin(bin *msg.Serialize) {
 	itembin := bin.GetItem();
 	if itembin == nil { return }
 	for _, data := range itembin.GetItems() {
-		if data.GetPos() != int32(msg.ItemPos_Bag) { continue }
+		//if data.GetPos() != int32(msg.ItemPos_Bag) { continue }
 		item := NewItem(data)
 		if item != nil {  this.LoadItemObj(item) }
 	}

@@ -49,6 +49,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateItemPos{}, on_GW2C_UpdateItemPos)
+	this.msgparser.RegistProtoMsg(msg.GW2C_SendShowImage{}, on_GW2C_SendShowImage)
 
 	// 收room消息
 	this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
@@ -232,6 +233,12 @@ func on_GW2C_SendLuckyDrawRecord(session network.IBaseNetSession, message interf
 
 func on_GW2C_UpdateItemPos(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_UpdateItemPos)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
+}
+
+func on_GW2C_SendShowImage(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_SendShowImage)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }

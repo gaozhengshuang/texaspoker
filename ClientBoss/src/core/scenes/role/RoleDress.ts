@@ -268,6 +268,17 @@ module game {
         //TODO: 设置装备信息
         public setDressInfo(dressInfo: table.IEquipDefine) {
             this.dress_info.equip_name = dressInfo.Name;
+            //技能加成
+            let skillDes = "";
+            dressInfo.Skill.forEach(
+                (item,index,array)=>{
+                    let skillData : table.ITSkillDefine = table.TSkillById[parseInt(item)];
+                    if(skillData){
+                        skillDes += (skillDes=="" ? skillData.Des : "\n"+skillData.Des);
+                    }
+                }
+            );
+            this.dress_info.skillAddition = skillDes;
         }
 
         // 设置装备列表

@@ -19,7 +19,7 @@ module game {
         btn_select      : IconButton;
         btn_select0     : IconButton;
         
-        private itemData : ShopItem;
+        private itemData : table.IEquipDefine;
         private _select = false;
 
 
@@ -33,26 +33,54 @@ module game {
         }
 
     
-        public setData(ShopItemData: ShopItem) {
+        public setData(ShopItemData: table.IEquipDefine) {
             if(!ShopItemData) return;
             this.itemData = ShopItemData;
+            if(this.itemData.Pos==7)
+            {
+                this.img_shopItemIcon.x += 20;
+                this.img_shopItemIcon.y -= 20;
+            }
+            //Icon
+            let txtr:egret.Texture = RES.getRes(ShopItemData.Path);
+            if(txtr)
+            {
+                this.img_shopItemIcon.source    = txtr;
+                this.img_shopItemIcon.width     = txtr.textureWidth;
+                this.img_shopItemIcon.height    = txtr.textureHeight;
+            }
+            
             //名字
             this.shopItemName.textFlow = [
-                { text: ShopItemData.name, style: { bold: true } },
+                { text: ShopItemData.Name, style: { bold: true } },
                 //{ text: `:${gold}`, style: { fontFamily: "DynoBold" } },
             ]
          
-            //星级
+/*             //星级
             for (let i = 0; i < 5; ++i) {
                 this[`img_star_${i}`].visible = ShopItemData.lv >i;
-            }
-
+            } */
+         
+     
             //描述
-            this.shopItemAddtion.textFlow = [
-                { text: ShopItemData.des, style: { bold: true } },
-            ]
+            let skillDes = "";
+            ShopItemData.Skill.forEach(
+                (item,index,array)=>
+                {
+                    let skillData : table.ITSkillDefine = table.TSkillById[parseInt(item)];
+                    if(skillData)
+                    {
+                        skillDes += (skillDes=="" ? skillData.Des : (index%2== 1 ? ";"+skillData.Des : ";"+"\n"+skillData.Des));
+                    }
+                }
+            );
+            this.shopItemAddtion.lineSpacing = 5;
+            this.shopItemAddtion.textFlow = (new egret.HtmlTextParser).parser(
+                skillDes
+            );
+
             //价格
-            this.txt_price.text = this.itemData.price.toString();
+            this.txt_price.text = this.itemData.Price.toString();
         }
 
         protected partAdded(partName: string, instance: any): void {
