@@ -2,8 +2,8 @@
 <e:Skin class="RoleDressSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
 	<e:Image id="img_girlbg" source="grilbg_png" left="0" right="0" top="0" bottom="0"/>
 	<e:Image id="img_boybg" source="boybg_png" left="0" right="0" top="0" bottom="0" visible="false"/>
-	<e:Group width="721.21" height="581.82" y="-2" anchorOffsetX="0" anchorOffsetY="0">
-		<e:Group id="grp_coins" width="593" height="58" x="23.000000000000004" y="10" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" locked="true">
+	<e:Group width="721.21" height="581.82" y="-2" anchorOffsetX="0" anchorOffsetY="0" locked="true">
+		<e:Group id="grp_coins" width="593" height="58" x="80" y="10" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
 		<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
 		<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
 		<e:layout>
@@ -13,15 +13,17 @@
 		<e:Group id="grp_dressinfo" width="220" height="280" x="498" y="81" scaleX="1" scaleY="1">
 		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" left="0" right="0" top="0" bottom="0"/>
 		</e:Group>
-		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="25.894999999999982" verticalCenter="155.08999999999997"/>
-		<e:Group id="grp_misc" width="101" height="61" x="75" y="508.00000000000006" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
+
+		<e:Group id="grp_misc" width="126" height="68" x="53" y="508.00000000000006" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
 		<e:Image source="dress_01_json.dress_01_26" x="-4" y="3"/>
 		<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="63" y="8" touchEnabled="true"/>
 		<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="1.5" y="8" touchEnabled="true"/>
 			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" left="0" right="0" top="0" bottom="0"/>
 		</e:Group>
-		<game:IconButton id="btn_close" width="20" height="20" x="675" y="21" skinName="IconButtonSkin" scaleX="1" scaleY="1" locked="true"/>
-		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" x="647" y="538.5" scaleX="1" scaleY="1"/>
+
+		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" x="613" y="538.5" scaleX="1" scaleY="1"/>
+		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="25.894999999999982" verticalCenter="155.08999999999997"/>
+		<game:IconButton id="btn_close" width="20" height="20" x="28" y="26" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
 	</e:Group>
 
 
@@ -33,21 +35,22 @@
 		<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" left="0" right="0" top="0" bottom="0">
 			<e:Group>
 			<e:layout>
-				<e:HorizontalLayout gap="30"/>
+				<e:HorizontalLayout gap="30" horizontalAlign="left" verticalAlign="middle"/>
 			</e:layout>
-			<game:ChooseIcon id="part_back" width="80" height="80" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true"/>
+
 			<game:ChooseIcon id="part_head" width="80" height="80" x="68" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
 			<game:ChooseIcon id="part_body" width="80" height="80" x="115" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
 			<game:ChooseIcon id="part_leg" width="80" height="80" x="201" y="19" skinName="ChooseIconSkin" touchEnabled="true"/>
 			<game:ChooseIcon id="part_foot" width="80" height="80" x="245" y="21" skinName="ChooseIconSkin" touchEnabled="true"/>
-			<game:ChooseIcon id="part_waist" width="80" height="80" x="279" y="24" skinName="ChooseIconSkin" touchEnabled="true"/>
-			<game:ChooseIcon id="part_hand" width="80" height="80" x="334" y="18" skinName="ChooseIconSkin" touchEnabled="true"/>
+			<game:ChooseIcon id="part_waist" width="80" height="80" x="279" y="24" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
+			<game:ChooseIcon id="part_hand" width="80" height="80" x="334" y="18" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
+				<game:ChooseIcon id="part_back" width="80" height="80" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true" visible="false"/>
 			</e:Group>
 		</e:Scroller>
 	</e:Group>
 
 
-	<e:Group width="720" height="357.57" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="298" horizontalCenter="0">
+	<e:Group width="720" height="357.57" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="298" horizontalCenter="0" locked="true">
 		<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" height="360" width="720" verticalCenter="10.215000000000003" horizontalCenter="0" x="5" y="586" scaleX="1" scaleY="1">
 			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="662">
 			<e:layout>
@@ -57,6 +60,14 @@
 		</e:Scroller>
 
 	</e:Group>
+	<e:Button id="btn_test" label="换" x="30" y="269" anchorOffsetX="0" width="101" anchorOffsetY="0" height="42">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="cube_json.1_2"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
 
 
 </e:Skin>

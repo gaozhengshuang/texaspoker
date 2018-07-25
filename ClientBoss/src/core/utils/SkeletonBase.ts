@@ -24,6 +24,22 @@ module game {
         public get animNum() {
             return this.armatureDisplay.animation.animationNames.length;
         }
+        public get armature() {
+            return this.armatureDisplay.armature;
+        }
+
+        public getSlot(slotName:string) {
+            return this.armatureDisplay.armature.getSlot(slotName);
+        }
+
+        public replaceSlotDiaplay(slotName:string,display) {
+            let slot = this.getSlot(slotName);
+            if (!slot) {
+                console.warn("不存在Slot名称 ",slotName);
+                return;
+            }
+            slot.display = display;
+        }
 
         private loadBones() {
             let d = defer();
@@ -140,6 +156,22 @@ module game {
             t.renderTexture = texture;
             this.armatureDisplay = this._dragonbonesFactory.buildArmatureDisplay(this.bonesName);
             this.initArmature();
+        }
+
+        public setNewSlot(slotName:string,texName: string) {
+            let slot = this.armature.getSlot(slotName);
+            let bmp = new egret.Bitmap();
+            bmp.texture = RES.getRes(texName);
+            bmp.x = slot.display.x;
+            bmp.y = slot.display.y;
+            bmp.anchorOffsetX = bmp.width * .5;
+            bmp.anchorOffsetY = bmp.height * .5;
+            slot.display = bmp;
+        }
+
+        public resetSlot(slotName:string) {
+            let slot = this.armature.getSlot(slotName);
+            slot.display = slot.rawDisplay;
         }
     }
 }

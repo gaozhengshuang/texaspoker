@@ -27,6 +27,7 @@ module game {
         ls_items: eui.List;
         test_itemprice: game.ItemPrice;
         dress_info: game.EquipInfo;
+        public btn_test: eui.Button;
 
 
         private _dataProv: eui.ArrayCollection;
@@ -157,6 +158,8 @@ module game {
 
             this.btn_cart.addEventListener("touchEnd", this.cartHandle, this);
             this.btn_close.addEventListener("touchEnd", this.closeHandle, this);
+
+            this.btn_test.addEventListener("touchEnd", this.setSuit, this);
         }
 
         private closeHandle() {
@@ -242,12 +245,15 @@ module game {
                 if (!this._boyBone) {
                     this._boyBone = await game.getBone("boy");
                     this.grp_role.addChild(this._boyBone);
-                    adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role, 1.5);
+                    adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role);
                     let r = randRange(1, this._boyBone.animNum);
                     this._boyBone.play(`Idle${r}`, 0);
                 }
                 this._boyBone && (this._boyBone.visible = true);
                 this._girlBone && (this._girlBone.visible = false);
+
+                let slot = this._boyBone.getSlot("body1_1_00");
+                console.log("原衣服插槽：", slot.display);
             }
 
         }
@@ -320,6 +326,25 @@ module game {
             this._typeIdx = msg.ItemPos.Hand;
             this.setShelf(601);
         }
+
+        //TODO:切换装备
+        public setSuit(part: string, texName: string) {
+
+            this.replaceParts(this.grp_role);
+        }
+
+        private replaceParts(c: egret.DisplayObjectContainer) {
+            let slots = this._boyBone.armature.getSlots();
+            function adjust(o, c) {
+                o.x = -c.width * .5
+                o.y = -c.height
+            }
+            let prefix = "boy_suit2_json."
+            slots.forEach((slot) => {
+                this._boyBone.setNewSlot(slot.name,prefix+slot.name);
+            })
+        }
+
 
     }
 }
