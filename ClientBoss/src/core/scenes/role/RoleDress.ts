@@ -32,6 +32,7 @@ module game {
         public gender: number = 0;
         private _girlBone: SkeletonBase;
         private _boyBone: SkeletonBase;
+        private _typeIdx: msg.ItemPos;
 
 
         protected getSkinName() {
@@ -51,13 +52,19 @@ module game {
         public init() {
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
+            this.gender = 0;
 
+            this.initNetEvent();
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
             this.switchGender();
 
             this.partHandle_body();
+        }
+
+        private initNetEvent() {
+
         }
 
         private initItemList() {
@@ -68,7 +75,8 @@ module game {
         }
         //TODO: 改变选择项
         private onChange() {
-
+            let item = this.ls_items.selectedItem;
+            console.warn("显示装备信息",item);
         }
 
         private initTypeIcons() {
@@ -145,9 +153,9 @@ module game {
 
         private switchGender() {
             if (this.gender == 0) {
-                this.switchToGirl();
-            } else {
                 this.switchToBoy();
+            } else {
+                this.switchToGirl();
             }
         }
 
@@ -221,7 +229,12 @@ module game {
 
         //TODO: 显示默认的装备
         public useGirlShelf(b: boolean) {
-
+            if (b) {
+                this.gender = 0
+            }else {
+                this.gender = 1;
+            }
+            this.updateShelf();
         }
 
 
@@ -239,6 +252,7 @@ module game {
         // 设置装备列表
         private setShelf(s: number) {
             this._dataProv.removeAll();
+
             let dressItem: table.IEquipDefine = null;
 
             while (!!(dressItem = table.EquipById[s++])) {
@@ -250,29 +264,46 @@ module game {
 
         }
 
-
+        public updateShelf() {
+           switch(this._typeIdx) {
+               case msg.ItemPos.Helmet: this.showShelf_head();break;
+                case msg.ItemPos.Clothes:this.showShelf_body();break;
+                case msg.ItemPos.Pants :this.showShelf_leg();break;
+                case msg.ItemPos.Shoe :this.showShelf_foot();break;
+                case msg.ItemPos.Hand :this.showShelf_hand();break;
+                case msg.ItemPos.Wing :this.showShelf_waist();break;
+                case msg.ItemPos.Suit :this.showShelf_back();break;
+           }
+        }
         // 显示装备列表
         public showShelf_back() {
+            this._typeIdx = msg.ItemPos.Suit;
             this.setShelf(701);
 
         }
         public showShelf_head() {
+            this._typeIdx = msg.ItemPos.Helmet;
             this.setShelf(101);
         }
         public showShelf_body() {
+            this._typeIdx = msg.ItemPos.Clothes;
             this.setShelf(201);
 
         }
         public showShelf_leg() {
+            this._typeIdx = msg.ItemPos.Pants;
             this.setShelf(301);
         }
         public showShelf_foot() {
+            this._typeIdx = msg.ItemPos.Shoe;
             this.setShelf(401);
         }
         public showShelf_waist() {
+            this._typeIdx = msg.ItemPos.Wing;
             this.setShelf(501);
         }
         public showShelf_hand() {
+            this._typeIdx = msg.ItemPos.Hand;
             this.setShelf(601);
         }
 

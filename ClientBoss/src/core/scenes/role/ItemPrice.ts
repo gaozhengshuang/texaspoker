@@ -39,7 +39,7 @@ module game {
         }
 
         protected dataChanged() {
-            console.log("数据改变：",this.data);
+            // console.log("数据改变：",this.data);
             // let prefix = "dress_02_json.";
             let info = {
                 icon: /*prefix +*/ this.data['Path'],
