@@ -20951,6 +20951,193 @@ $root.msg = (function() {
         return GW2C_SendShowImage;
     })();
 
+    msg.C2GW_ChangeImageSex = (function() {
+
+        /**
+         * Properties of a C2GW_ChangeImageSex.
+         * @memberof msg
+         * @interface IC2GW_ChangeImageSex
+         * @property {number|null} [sex] C2GW_ChangeImageSex sex
+         */
+
+        /**
+         * Constructs a new C2GW_ChangeImageSex.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ChangeImageSex.
+         * @implements IC2GW_ChangeImageSex
+         * @constructor
+         * @param {msg.IC2GW_ChangeImageSex=} [properties] Properties to set
+         */
+        function C2GW_ChangeImageSex(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ChangeImageSex sex.
+         * @member {number} sex
+         * @memberof msg.C2GW_ChangeImageSex
+         * @instance
+         */
+        C2GW_ChangeImageSex.prototype.sex = 0;
+
+        /**
+         * Creates a new C2GW_ChangeImageSex instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {msg.IC2GW_ChangeImageSex=} [properties] Properties to set
+         * @returns {msg.C2GW_ChangeImageSex} C2GW_ChangeImageSex instance
+         */
+        C2GW_ChangeImageSex.create = function create(properties) {
+            return new C2GW_ChangeImageSex(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ChangeImageSex message. Does not implicitly {@link msg.C2GW_ChangeImageSex.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {msg.IC2GW_ChangeImageSex} message C2GW_ChangeImageSex message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ChangeImageSex.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sex);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ChangeImageSex message, length delimited. Does not implicitly {@link msg.C2GW_ChangeImageSex.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {msg.IC2GW_ChangeImageSex} message C2GW_ChangeImageSex message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ChangeImageSex.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ChangeImageSex message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ChangeImageSex} C2GW_ChangeImageSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ChangeImageSex.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ChangeImageSex();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.sex = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ChangeImageSex message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ChangeImageSex} C2GW_ChangeImageSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ChangeImageSex.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ChangeImageSex message.
+         * @function verify
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ChangeImageSex.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ChangeImageSex message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ChangeImageSex} C2GW_ChangeImageSex
+         */
+        C2GW_ChangeImageSex.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ChangeImageSex)
+                return object;
+            var message = new $root.msg.C2GW_ChangeImageSex();
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ChangeImageSex message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ChangeImageSex
+         * @static
+         * @param {msg.C2GW_ChangeImageSex} message C2GW_ChangeImageSex
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ChangeImageSex.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.sex = 0;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ChangeImageSex to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ChangeImageSex
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ChangeImageSex.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ChangeImageSex;
+    })();
+
     msg.RS2MS_ReqRegist = (function() {
 
         /**
