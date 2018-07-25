@@ -9,6 +9,7 @@ module game {
         txt_price: eui.Label;
         img_mask: eui.Image;
         img_checkedbg: eui.Image;
+        img_gold: eui.Image;
 
         public fnSelected = null;
 
@@ -78,9 +79,12 @@ module game {
 
         }
 
-        //TODO: 设置不同的价格单位底图
         public setPriceUnit(n: number) {
-
+            if (n == 1) {
+                this.img_gold.visible = false;
+            } else {
+                this.img_gold.visible = true;
+            }
         }
 
     }
