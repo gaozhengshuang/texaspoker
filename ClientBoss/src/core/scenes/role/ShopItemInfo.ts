@@ -5,7 +5,7 @@ module game {
         img_shopItemIcon   : eui.Image;
         img_shopItemSelect : eui.Image;
         img_gold           : eui.Image;
-
+        img_diamond        : eui.Image;
         //星级image
         img_star_0: eui.Image;
         img_star_1: eui.Image;
@@ -47,8 +47,8 @@ module game {
             if(txtr)
             {
                 this.img_shopItemIcon.source    = txtr;
-                this.img_shopItemIcon.width     = txtr.textureWidth;
-                this.img_shopItemIcon.height    = txtr.textureHeight;
+                this.img_shopItemIcon.width     = txtr.textureWidth*0.9;
+                this.img_shopItemIcon.height    = txtr.textureHeight*0.9;
             }
             
             //名字
@@ -82,6 +82,7 @@ module game {
 
             //价格
             this.img_gold.visible  =  this.itemData.CoinType==1;
+            this.img_diamond.visible = this.itemData.CoinType==2;
             this.txt_price.text = this.itemData.Price.toString();
         }
 

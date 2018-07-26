@@ -76,7 +76,7 @@ module game {
         public refreshShopCarts()
         {
             let goldNum = DataManager.playerModel.getScore();
-            let moneyNum = <number>DataManager.playerModel.getTotalMoney();
+            let moneyNum = DataManager.playerModel.getDiamond();
             
             this.goldNumTxt.text = goldNum.toString();
             this.diamondNumTxt.text = moneyNum.toString();
@@ -103,8 +103,6 @@ module game {
 
                 item.x = 0;
                 item.y = 150 * i;
-                item.width = 680;
-                item.height = 141;
                 item.setData(data);
                 this.listGroup.addChild(item);
             }
