@@ -162,7 +162,7 @@ func (this* GateUser) BuyItem(productid uint32, num uint32) {
 func (this *GateUser) BuyClothes(ItemList []int32) {
 
 	// 检查是否已经购买过，计算总价
-	totalprice := int32(0)
+	goldprice, diamondprice := int32(0), int32(0)
 	for _, id := range ItemList {
 		if item := this.bag.FindById(uint32(id)); item != nil {
 			this.SendNotify("购物车添加了已经购买过的服装")
@@ -182,12 +182,21 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 			return
 		}
 
-		totalprice += equip.Price
+		if equip.CoinType == msg.MoneyType__Gold {
+			goldprice += equip.Price
+		}else if equip.CoinType == msg.MoneyType__Diamond {
+			diamondprice += equip.Price
+		}
 	}
 
 	// 
-	if int32(this.GetGold()) < totalprice {
-		this.SendNotify("余额不足")
+	if int32(this.GetGold()) < goldprice {
+		this.SendNotify("金币不足")
+		return
+	}
+
+	if int32(this.GetDiamond()) < diamondprice {
+		this.SendNotify("钻石不足")
 		return
 	}
 
