@@ -182,9 +182,9 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 			return
 		}
 
-		if equip.CoinType == msg.MoneyType__Gold {
+		if equip.CoinType == int32(msg.MoneyType__Gold) {
 			goldprice += equip.Price
-		}else if equip.CoinType == msg.MoneyType__Diamond {
+		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
 			diamondprice += equip.Price
 		}
 	}
