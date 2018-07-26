@@ -156,6 +156,12 @@ module game {
             let item = this.ls_items.selectedItem;
             let idx = e.itemIndex;
             let itemRender = <game.ItemPrice>e.itemRenderer;
+            if (ItemPrice.isComingSoon(item)) {
+                console.log("COMMING SOON!");
+                itemRender.selected = false;
+                this.hideDressInfo();
+                return;
+            }
             let canSave = false;
 
             if (this.isGirl) {
