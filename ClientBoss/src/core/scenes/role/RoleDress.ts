@@ -218,8 +218,14 @@ module game {
         }
 
         private initCoins() {
+            this.updateCoins();
+        }
+        private updateCoins() {
             this.coin_gold.coins = DataManager.playerModel.getScore();
+            this.coin_gold.setCoinType(0);
+
             this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
+            this.coin_gold.setCoinType(1);
         }
 
 

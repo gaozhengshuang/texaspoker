@@ -62,7 +62,7 @@
 			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" height="434" width="720" scaleX="1" scaleY="1" top="0" horizontalCenter="0">
 			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="-32">
 				<e:layout>
-				<e:TileLayout paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" verticalGap="22" horizontalGap="6"/>
+				<e:TileLayout paddingLeft="30" paddingRight="30" paddingTop="10" paddingBottom="0" verticalGap="22" horizontalGap="6"/>
 				</e:layout>
 			</e:List>
 			</e:Scroller>
