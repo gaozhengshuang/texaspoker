@@ -2909,668 +2909,6 @@ var egret = window.egret;
 		return t;
 	};
 	return ToggleButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginRewardSkin.exml'] = window.LoginRewardSkin = (function (_super) {
-	__extends(LoginRewardSkin, _super);
-	function LoginRewardSkin() {
-		_super.call(this);
-		this.skinParts = ["open_tip","image","btn_ok","group"];
-		
-		this.height = 1100;
-		this.width = 720;
-		this.open_tip_i();
-		this.elementsContent = [this.group_i()];
-		
-		eui.Binding.$bindProperties(this, ["group"],[0],this._TweenItem1,"target");
-		eui.Binding.$bindProperties(this, [0],[],this._Object1,"scaleX");
-		eui.Binding.$bindProperties(this, [0],[],this._Object1,"scaleY");
-		eui.Binding.$bindProperties(this, [320],[],this._Object1,"x");
-		eui.Binding.$bindProperties(this, [572],[],this._Object1,"y");
-		eui.Binding.$bindProperties(this, [1],[],this._Object2,"scaleX");
-		eui.Binding.$bindProperties(this, [1],[],this._Object2,"scaleY");
-		eui.Binding.$bindProperties(this, [0],[],this._Object2,"x");
-		eui.Binding.$bindProperties(this, [0],[],this._Object2,"y");
-		eui.Binding.$bindProperties(this, [0.95],[],this._Object3,"scaleX");
-		eui.Binding.$bindProperties(this, [0.95],[],this._Object3,"scaleY");
-		eui.Binding.$bindProperties(this, [58],[],this._Object3,"x");
-		eui.Binding.$bindProperties(this, [119],[],this._Object3,"y");
-		eui.Binding.$bindProperties(this, [1],[],this._Object4,"scaleX");
-		eui.Binding.$bindProperties(this, [1],[],this._Object4,"scaleY");
-		eui.Binding.$bindProperties(this, [0],[],this._Object4,"x");
-		eui.Binding.$bindProperties(this, [0],[],this._Object4,"y");
-	}
-	var _proto = LoginRewardSkin.prototype;
-
-	_proto.open_tip_i = function () {
-		var t = new egret.tween.TweenGroup();
-		this.open_tip = t;
-		t.items = [this._TweenItem1_i()];
-		return t;
-	};
-	_proto._TweenItem1_i = function () {
-		var t = new egret.tween.TweenItem();
-		this._TweenItem1 = t;
-		t.paths = [this._Set1_i(),this._To1_i(),this._To2_i(),this._To3_i()];
-		return t;
-	};
-	_proto._Set1_i = function () {
-		var t = new egret.tween.Set();
-		t.props = this._Object1_i();
-		return t;
-	};
-	_proto._Object1_i = function () {
-		var t = {};
-		this._Object1 = t;
-		return t;
-	};
-	_proto._To1_i = function () {
-		var t = new egret.tween.To();
-		t.duration = 300;
-		t.props = this._Object2_i();
-		return t;
-	};
-	_proto._Object2_i = function () {
-		var t = {};
-		this._Object2 = t;
-		return t;
-	};
-	_proto._To2_i = function () {
-		var t = new egret.tween.To();
-		t.duration = 150;
-		t.props = this._Object3_i();
-		return t;
-	};
-	_proto._Object3_i = function () {
-		var t = {};
-		this._Object3 = t;
-		return t;
-	};
-	_proto._To3_i = function () {
-		var t = new egret.tween.To();
-		t.duration = 150;
-		t.props = this._Object4_i();
-		return t;
-	};
-	_proto._Object4_i = function () {
-		var t = {};
-		this._Object4 = t;
-		return t;
-	};
-	_proto.group_i = function () {
-		var t = new eui.Group();
-		this.group = t;
-		t.height = 1100;
-		t.horizontalCenter = 0;
-		t.touchEnabled = false;
-		t.verticalCenter = 0;
-		t.width = 720;
-		t.elementsContent = [this.image_i(),this.btn_ok_i()];
-		return t;
-	};
-	_proto.image_i = function () {
-		var t = new eui.Image();
-		this.image = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 530;
-		t.horizontalCenter = -3;
-		t.source = "ui_json.loginRewardGold";
-		t.verticalCenter = -61.5;
-		t.width = 720;
-		return t;
-	};
-	_proto.btn_ok_i = function () {
-		var t = new game.IconButton();
-		this.btn_ok = t;
-		t.horizontalCenter = -2.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.touchEnabled = true;
-		t.verticalCenter = -55.5;
-		return t;
-	};
-	return LoginRewardSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginSceneSkin.exml'] = window.LoginSceneSkin = (function (_super) {
-	__extends(LoginSceneSkin, _super);
-	function LoginSceneSkin() {
-		_super.call(this);
-		this.skinParts = ["titleImage","btn_register","loginButton","nameLabel","username","passwordLabel","passwd","registGroup"];
-		
-		this.height = 1100;
-		this.width = 720;
-		this.elementsContent = [this._Image1_i(),this.registGroup_i()];
-	}
-	var _proto = LoginSceneSkin.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.percentHeight = 100;
-		t.horizontalCenter = 0;
-		t.source = "login_json.loginbg";
-		t.verticalCenter = 0;
-		return t;
-	};
-	_proto.registGroup_i = function () {
-		var t = new eui.Group();
-		this.registGroup = t;
-		t.height = 1100;
-		t.horizontalCenter = 0;
-		t.width = 720;
-		t.y = 0;
-		t.elementsContent = [this.titleImage_i(),this.btn_register_i(),this.loginButton_i(),this.username_i(),this.passwd_i()];
-		return t;
-	};
-	_proto.titleImage_i = function () {
-		var t = new eui.Image();
-		this.titleImage = t;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "ui_json.tantanle";
-		t.touchEnabled = false;
-		t.y = 54;
-		return t;
-	};
-	_proto.btn_register_i = function () {
-		var t = new eui.Label();
-		this.btn_register = t;
-		t.bold = true;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 30;
-		t.text = "注册账号>>";
-		t.textColor = 0x8C5EDA;
-		t.touchEnabled = true;
-		t.verticalCenter = 485;
-		return t;
-	};
-	_proto.loginButton_i = function () {
-		var t = new game.IconButton();
-		this.loginButton = t;
-		t.horizontalCenter = 0.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.touchEnabled = true;
-		t.verticalCenter = 263.5;
-		return t;
-	};
-	_proto.username_i = function () {
-		var t = new eui.Group();
-		this.username = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = 0.5;
-		t.width = 517;
-		t.y = 428.97;
-		t.elementsContent = [this._Image2_i(),this._Image3_i(),this.nameLabel_i()];
-		return t;
-	};
-	_proto._Image2_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image3_i = function () {
-		var t = new eui.Image();
-		t.horizontalCenter = -211;
-		t.source = "login_json.phoneicon";
-		t.verticalCenter = 0;
-		return t;
-	};
-	_proto.nameLabel_i = function () {
-		var t = new eui.EditableText();
-		this.nameLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请输入手机号";
-		t.promptColor = 0x9A9A9A;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 360.61;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	_proto.passwd_i = function () {
-		var t = new eui.Group();
-		this.passwd = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = 0.5;
-		t.width = 517;
-		t.y = 535.03;
-		t.elementsContent = [this._Image4_i(),this._Image5_i(),this.passwordLabel_i()];
-		return t;
-	};
-	_proto._Image4_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image5_i = function () {
-		var t = new eui.Image();
-		t.source = "login_json.passwdicon";
-		t.verticalCenter = 0;
-		t.x = 24;
-		return t;
-	};
-	_proto.passwordLabel_i = function () {
-		var t = new eui.EditableText();
-		this.passwordLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请输入密码";
-		t.promptColor = 0x9A9A9A;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 356.06;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	return LoginSceneSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/login/RegisterPanelSkin.exml'] = window.RegisterPanelSkin = (function (_super) {
-	__extends(RegisterPanelSkin, _super);
-	function RegisterPanelSkin() {
-		_super.call(this);
-		this.skinParts = ["titleImage","btn_login","registerButton","phoneLabel","phone","btn_authCode","yzmbtnLabel","authCodeLabel","authCode","nameLabel","username","passwordLabel","password","passwordokLabel","passwordok","comeonLabel","comeon","registGroup"];
-		
-		this.height = 1100;
-		this.width = 720;
-		this.elementsContent = [this._Image1_i(),this.registGroup_i()];
-	}
-	var _proto = RegisterPanelSkin.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.percentHeight = 100;
-		t.horizontalCenter = 0;
-		t.source = "login_json.loginbg";
-		t.verticalCenter = 0;
-		return t;
-	};
-	_proto.registGroup_i = function () {
-		var t = new eui.Group();
-		this.registGroup = t;
-		t.height = 1100;
-		t.horizontalCenter = 0;
-		t.width = 720;
-		t.y = 0;
-		t.elementsContent = [this.titleImage_i(),this.btn_login_i(),this.registerButton_i(),this.phone_i(),this.authCode_i(),this.username_i(),this.password_i(),this.passwordok_i(),this.comeon_i()];
-		return t;
-	};
-	_proto.titleImage_i = function () {
-		var t = new eui.Image();
-		this.titleImage = t;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "ui_json.tantanle";
-		t.touchEnabled = false;
-		t.y = 54;
-		return t;
-	};
-	_proto.btn_login_i = function () {
-		var t = new eui.Label();
-		this.btn_login = t;
-		t.bold = true;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 30;
-		t.text = "<<登录账号";
-		t.textColor = 0x8c5eda;
-		t.touchEnabled = true;
-		t.verticalCenter = 501;
-		return t;
-	};
-	_proto.registerButton_i = function () {
-		var t = new game.IconButton();
-		this.registerButton = t;
-		t.horizontalCenter = 0.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.touchEnabled = true;
-		t.verticalCenter = 422.5;
-		return t;
-	};
-	_proto.phone_i = function () {
-		var t = new eui.Group();
-		this.phone = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = -1.5;
-		t.width = 517;
-		t.y = 315.32;
-		t.elementsContent = [this._Image2_i(),this._Image3_i(),this.phoneLabel_i()];
-		return t;
-	};
-	_proto._Image2_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image3_i = function () {
-		var t = new eui.Image();
-		t.source = "login_json.phoneicon";
-		t.verticalCenter = 0;
-		t.x = 24;
-		return t;
-	};
-	_proto.phoneLabel_i = function () {
-		var t = new eui.EditableText();
-		this.phoneLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请输入手机号";
-		t.promptColor = 0x9a9a9a;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 376;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	_proto.authCode_i = function () {
-		var t = new eui.Group();
-		this.authCode = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = 0.5;
-		t.width = 517;
-		t.y = 415.32;
-		t.elementsContent = [this._Image4_i(),this._Image5_i(),this.btn_authCode_i(),this.yzmbtnLabel_i(),this.authCodeLabel_i()];
-		return t;
-	};
-	_proto._Image4_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image5_i = function () {
-		var t = new eui.Image();
-		t.source = "login_json.yzmicon";
-		t.verticalCenter = 0;
-		t.x = 24;
-		return t;
-	};
-	_proto.btn_authCode_i = function () {
-		var t = new game.IconButton();
-		this.btn_authCode = t;
-		t.horizontalCenter = 150;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.touchEnabled = true;
-		t.verticalCenter = 0;
-		return t;
-	};
-	_proto.yzmbtnLabel_i = function () {
-		var t = new eui.Label();
-		this.yzmbtnLabel = t;
-		t.bold = true;
-		t.horizontalCenter = 149;
-		t.size = 24;
-		t.text = "获取验证码";
-		t.textAlign = "center";
-		t.touchEnabled = false;
-		t.verticalCenter = -1.5;
-		return t;
-	};
-	_proto.authCodeLabel_i = function () {
-		var t = new eui.EditableText();
-		this.authCodeLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请输入验证码";
-		t.promptColor = 0x9a9a9a;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 168;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	_proto.username_i = function () {
-		var t = new eui.Group();
-		this.username = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = 0.5;
-		t.width = 517;
-		t.y = 515.32;
-		t.elementsContent = [this._Image6_i(),this._Image7_i(),this.nameLabel_i()];
-		return t;
-	};
-	_proto._Image6_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image7_i = function () {
-		var t = new eui.Image();
-		t.source = "login_json.nicknameImg";
-		t.verticalCenter = 0;
-		t.x = 24;
-		return t;
-	};
-	_proto.nameLabel_i = function () {
-		var t = new eui.EditableText();
-		this.nameLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请输入昵称";
-		t.promptColor = 0x9A9A9A;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 376;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	_proto.password_i = function () {
-		var t = new eui.Group();
-		this.password = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = 0.5;
-		t.width = 517;
-		t.y = 615.32;
-		t.elementsContent = [this._Image8_i(),this._Image9_i(),this.passwordLabel_i()];
-		return t;
-	};
-	_proto._Image8_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image9_i = function () {
-		var t = new eui.Image();
-		t.source = "login_json.passwdicon";
-		t.verticalCenter = 0;
-		t.x = 24;
-		return t;
-	};
-	_proto.passwordLabel_i = function () {
-		var t = new eui.EditableText();
-		this.passwordLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请输入密码";
-		t.promptColor = 0x9a9a9a;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 368;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	_proto.passwordok_i = function () {
-		var t = new eui.Group();
-		this.passwordok = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = 0.5;
-		t.width = 517;
-		t.y = 715.32;
-		t.elementsContent = [this._Image10_i(),this._Image11_i(),this.passwordokLabel_i()];
-		return t;
-	};
-	_proto._Image10_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image11_i = function () {
-		var t = new eui.Image();
-		t.source = "login_json.passwdicon";
-		t.verticalCenter = 0;
-		t.x = 24;
-		return t;
-	};
-	_proto.passwordokLabel_i = function () {
-		var t = new eui.EditableText();
-		this.passwordokLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请确认密码";
-		t.promptColor = 0x9a9a9a;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 366;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	_proto.comeon_i = function () {
-		var t = new eui.Group();
-		this.comeon = t;
-		t.anchorOffsetX = 0;
-		t.height = 75;
-		t.horizontalCenter = 0.5;
-		t.width = 517;
-		t.y = 815.32;
-		t.elementsContent = [this._Image12_i(),this._Image13_i(),this.comeonLabel_i()];
-		return t;
-	};
-	_proto._Image12_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "login_json.loginInput";
-		t.width = 517;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image13_i = function () {
-		var t = new eui.Image();
-		t.source = "login_json.yqmicon";
-		t.verticalCenter = 0;
-		t.x = 24;
-		return t;
-	};
-	_proto.comeonLabel_i = function () {
-		var t = new eui.EditableText();
-		this.comeonLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.51;
-		t.prompt = "请输入邀请码 没有可不填写";
-		t.promptColor = 0x9a9a9a;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 24;
-		t.textAlign = "left";
-		t.textColor = 0x595959;
-		t.verticalAlign = "middle";
-		t.width = 366;
-		t.x = 93;
-		t.y = 9.75;
-		return t;
-	};
-	return RegisterPanelSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/main/DeliveryItemSkin.exml'] = window.DeliveryItemSkin = (function (_super) {
 	__extends(DeliveryItemSkin, _super);
 	function DeliveryItemSkin() {
@@ -4833,6 +4171,668 @@ var egret = window.egret;
 		return t;
 	};
 	return UserPanelSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginRewardSkin.exml'] = window.LoginRewardSkin = (function (_super) {
+	__extends(LoginRewardSkin, _super);
+	function LoginRewardSkin() {
+		_super.call(this);
+		this.skinParts = ["open_tip","image","btn_ok","group"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.open_tip_i();
+		this.elementsContent = [this.group_i()];
+		
+		eui.Binding.$bindProperties(this, ["group"],[0],this._TweenItem1,"target");
+		eui.Binding.$bindProperties(this, [0],[],this._Object1,"scaleX");
+		eui.Binding.$bindProperties(this, [0],[],this._Object1,"scaleY");
+		eui.Binding.$bindProperties(this, [320],[],this._Object1,"x");
+		eui.Binding.$bindProperties(this, [572],[],this._Object1,"y");
+		eui.Binding.$bindProperties(this, [1],[],this._Object2,"scaleX");
+		eui.Binding.$bindProperties(this, [1],[],this._Object2,"scaleY");
+		eui.Binding.$bindProperties(this, [0],[],this._Object2,"x");
+		eui.Binding.$bindProperties(this, [0],[],this._Object2,"y");
+		eui.Binding.$bindProperties(this, [0.95],[],this._Object3,"scaleX");
+		eui.Binding.$bindProperties(this, [0.95],[],this._Object3,"scaleY");
+		eui.Binding.$bindProperties(this, [58],[],this._Object3,"x");
+		eui.Binding.$bindProperties(this, [119],[],this._Object3,"y");
+		eui.Binding.$bindProperties(this, [1],[],this._Object4,"scaleX");
+		eui.Binding.$bindProperties(this, [1],[],this._Object4,"scaleY");
+		eui.Binding.$bindProperties(this, [0],[],this._Object4,"x");
+		eui.Binding.$bindProperties(this, [0],[],this._Object4,"y");
+	}
+	var _proto = LoginRewardSkin.prototype;
+
+	_proto.open_tip_i = function () {
+		var t = new egret.tween.TweenGroup();
+		this.open_tip = t;
+		t.items = [this._TweenItem1_i()];
+		return t;
+	};
+	_proto._TweenItem1_i = function () {
+		var t = new egret.tween.TweenItem();
+		this._TweenItem1 = t;
+		t.paths = [this._Set1_i(),this._To1_i(),this._To2_i(),this._To3_i()];
+		return t;
+	};
+	_proto._Set1_i = function () {
+		var t = new egret.tween.Set();
+		t.props = this._Object1_i();
+		return t;
+	};
+	_proto._Object1_i = function () {
+		var t = {};
+		this._Object1 = t;
+		return t;
+	};
+	_proto._To1_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 300;
+		t.props = this._Object2_i();
+		return t;
+	};
+	_proto._Object2_i = function () {
+		var t = {};
+		this._Object2 = t;
+		return t;
+	};
+	_proto._To2_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 150;
+		t.props = this._Object3_i();
+		return t;
+	};
+	_proto._Object3_i = function () {
+		var t = {};
+		this._Object3 = t;
+		return t;
+	};
+	_proto._To3_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 150;
+		t.props = this._Object4_i();
+		return t;
+	};
+	_proto._Object4_i = function () {
+		var t = {};
+		this._Object4 = t;
+		return t;
+	};
+	_proto.group_i = function () {
+		var t = new eui.Group();
+		this.group = t;
+		t.height = 1100;
+		t.horizontalCenter = 0;
+		t.touchEnabled = false;
+		t.verticalCenter = 0;
+		t.width = 720;
+		t.elementsContent = [this.image_i(),this.btn_ok_i()];
+		return t;
+	};
+	_proto.image_i = function () {
+		var t = new eui.Image();
+		this.image = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 530;
+		t.horizontalCenter = -3;
+		t.source = "ui_json.loginRewardGold";
+		t.verticalCenter = -61.5;
+		t.width = 720;
+		return t;
+	};
+	_proto.btn_ok_i = function () {
+		var t = new game.IconButton();
+		this.btn_ok = t;
+		t.horizontalCenter = -2.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.verticalCenter = -55.5;
+		return t;
+	};
+	return LoginRewardSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginSceneSkin.exml'] = window.LoginSceneSkin = (function (_super) {
+	__extends(LoginSceneSkin, _super);
+	function LoginSceneSkin() {
+		_super.call(this);
+		this.skinParts = ["titleImage","btn_register","loginButton","nameLabel","username","passwordLabel","passwd","registGroup"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.elementsContent = [this._Image1_i(),this.registGroup_i()];
+	}
+	var _proto = LoginSceneSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.percentHeight = 100;
+		t.horizontalCenter = 0;
+		t.source = "login_json.loginbg";
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto.registGroup_i = function () {
+		var t = new eui.Group();
+		this.registGroup = t;
+		t.height = 1100;
+		t.horizontalCenter = 0;
+		t.width = 720;
+		t.y = 0;
+		t.elementsContent = [this.titleImage_i(),this.btn_register_i(),this.loginButton_i(),this.username_i(),this.passwd_i()];
+		return t;
+	};
+	_proto.titleImage_i = function () {
+		var t = new eui.Image();
+		this.titleImage = t;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "ui_json.tantanle";
+		t.touchEnabled = false;
+		t.y = 54;
+		return t;
+	};
+	_proto.btn_register_i = function () {
+		var t = new eui.Label();
+		this.btn_register = t;
+		t.bold = true;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 30;
+		t.text = "注册账号>>";
+		t.textColor = 0x8C5EDA;
+		t.touchEnabled = true;
+		t.verticalCenter = 485;
+		return t;
+	};
+	_proto.loginButton_i = function () {
+		var t = new game.IconButton();
+		this.loginButton = t;
+		t.horizontalCenter = 0.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.verticalCenter = 263.5;
+		return t;
+	};
+	_proto.username_i = function () {
+		var t = new eui.Group();
+		this.username = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = 0.5;
+		t.width = 517;
+		t.y = 428.97;
+		t.elementsContent = [this._Image2_i(),this._Image3_i(),this.nameLabel_i()];
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image3_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = -211;
+		t.source = "login_json.phoneicon";
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto.nameLabel_i = function () {
+		var t = new eui.EditableText();
+		this.nameLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请输入手机号";
+		t.promptColor = 0x9A9A9A;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 360.61;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	_proto.passwd_i = function () {
+		var t = new eui.Group();
+		this.passwd = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = 0.5;
+		t.width = 517;
+		t.y = 535.03;
+		t.elementsContent = [this._Image4_i(),this._Image5_i(),this.passwordLabel_i()];
+		return t;
+	};
+	_proto._Image4_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image5_i = function () {
+		var t = new eui.Image();
+		t.source = "login_json.passwdicon";
+		t.verticalCenter = 0;
+		t.x = 24;
+		return t;
+	};
+	_proto.passwordLabel_i = function () {
+		var t = new eui.EditableText();
+		this.passwordLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请输入密码";
+		t.promptColor = 0x9A9A9A;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 356.06;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	return LoginSceneSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/login/RegisterPanelSkin.exml'] = window.RegisterPanelSkin = (function (_super) {
+	__extends(RegisterPanelSkin, _super);
+	function RegisterPanelSkin() {
+		_super.call(this);
+		this.skinParts = ["titleImage","btn_login","registerButton","phoneLabel","phone","btn_authCode","yzmbtnLabel","authCodeLabel","authCode","nameLabel","username","passwordLabel","password","passwordokLabel","passwordok","comeonLabel","comeon","registGroup"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.elementsContent = [this._Image1_i(),this.registGroup_i()];
+	}
+	var _proto = RegisterPanelSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.percentHeight = 100;
+		t.horizontalCenter = 0;
+		t.source = "login_json.loginbg";
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto.registGroup_i = function () {
+		var t = new eui.Group();
+		this.registGroup = t;
+		t.height = 1100;
+		t.horizontalCenter = 0;
+		t.width = 720;
+		t.y = 0;
+		t.elementsContent = [this.titleImage_i(),this.btn_login_i(),this.registerButton_i(),this.phone_i(),this.authCode_i(),this.username_i(),this.password_i(),this.passwordok_i(),this.comeon_i()];
+		return t;
+	};
+	_proto.titleImage_i = function () {
+		var t = new eui.Image();
+		this.titleImage = t;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "ui_json.tantanle";
+		t.touchEnabled = false;
+		t.y = 54;
+		return t;
+	};
+	_proto.btn_login_i = function () {
+		var t = new eui.Label();
+		this.btn_login = t;
+		t.bold = true;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 30;
+		t.text = "<<登录账号";
+		t.textColor = 0x8c5eda;
+		t.touchEnabled = true;
+		t.verticalCenter = 501;
+		return t;
+	};
+	_proto.registerButton_i = function () {
+		var t = new game.IconButton();
+		this.registerButton = t;
+		t.horizontalCenter = 0.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.verticalCenter = 422.5;
+		return t;
+	};
+	_proto.phone_i = function () {
+		var t = new eui.Group();
+		this.phone = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = -1.5;
+		t.width = 517;
+		t.y = 315.32;
+		t.elementsContent = [this._Image2_i(),this._Image3_i(),this.phoneLabel_i()];
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image3_i = function () {
+		var t = new eui.Image();
+		t.source = "login_json.phoneicon";
+		t.verticalCenter = 0;
+		t.x = 24;
+		return t;
+	};
+	_proto.phoneLabel_i = function () {
+		var t = new eui.EditableText();
+		this.phoneLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请输入手机号";
+		t.promptColor = 0x9a9a9a;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 376;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	_proto.authCode_i = function () {
+		var t = new eui.Group();
+		this.authCode = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = 0.5;
+		t.width = 517;
+		t.y = 415.32;
+		t.elementsContent = [this._Image4_i(),this._Image5_i(),this.btn_authCode_i(),this.yzmbtnLabel_i(),this.authCodeLabel_i()];
+		return t;
+	};
+	_proto._Image4_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image5_i = function () {
+		var t = new eui.Image();
+		t.source = "login_json.yzmicon";
+		t.verticalCenter = 0;
+		t.x = 24;
+		return t;
+	};
+	_proto.btn_authCode_i = function () {
+		var t = new game.IconButton();
+		this.btn_authCode = t;
+		t.horizontalCenter = 150;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.touchEnabled = true;
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto.yzmbtnLabel_i = function () {
+		var t = new eui.Label();
+		this.yzmbtnLabel = t;
+		t.bold = true;
+		t.horizontalCenter = 149;
+		t.size = 24;
+		t.text = "获取验证码";
+		t.textAlign = "center";
+		t.touchEnabled = false;
+		t.verticalCenter = -1.5;
+		return t;
+	};
+	_proto.authCodeLabel_i = function () {
+		var t = new eui.EditableText();
+		this.authCodeLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请输入验证码";
+		t.promptColor = 0x9a9a9a;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 168;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	_proto.username_i = function () {
+		var t = new eui.Group();
+		this.username = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = 0.5;
+		t.width = 517;
+		t.y = 515.32;
+		t.elementsContent = [this._Image6_i(),this._Image7_i(),this.nameLabel_i()];
+		return t;
+	};
+	_proto._Image6_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image7_i = function () {
+		var t = new eui.Image();
+		t.source = "login_json.nicknameImg";
+		t.verticalCenter = 0;
+		t.x = 24;
+		return t;
+	};
+	_proto.nameLabel_i = function () {
+		var t = new eui.EditableText();
+		this.nameLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请输入昵称";
+		t.promptColor = 0x9A9A9A;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 376;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	_proto.password_i = function () {
+		var t = new eui.Group();
+		this.password = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = 0.5;
+		t.width = 517;
+		t.y = 615.32;
+		t.elementsContent = [this._Image8_i(),this._Image9_i(),this.passwordLabel_i()];
+		return t;
+	};
+	_proto._Image8_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image9_i = function () {
+		var t = new eui.Image();
+		t.source = "login_json.passwdicon";
+		t.verticalCenter = 0;
+		t.x = 24;
+		return t;
+	};
+	_proto.passwordLabel_i = function () {
+		var t = new eui.EditableText();
+		this.passwordLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请输入密码";
+		t.promptColor = 0x9a9a9a;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 368;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	_proto.passwordok_i = function () {
+		var t = new eui.Group();
+		this.passwordok = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = 0.5;
+		t.width = 517;
+		t.y = 715.32;
+		t.elementsContent = [this._Image10_i(),this._Image11_i(),this.passwordokLabel_i()];
+		return t;
+	};
+	_proto._Image10_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image11_i = function () {
+		var t = new eui.Image();
+		t.source = "login_json.passwdicon";
+		t.verticalCenter = 0;
+		t.x = 24;
+		return t;
+	};
+	_proto.passwordokLabel_i = function () {
+		var t = new eui.EditableText();
+		this.passwordokLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请确认密码";
+		t.promptColor = 0x9a9a9a;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 366;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	_proto.comeon_i = function () {
+		var t = new eui.Group();
+		this.comeon = t;
+		t.anchorOffsetX = 0;
+		t.height = 75;
+		t.horizontalCenter = 0.5;
+		t.width = 517;
+		t.y = 815.32;
+		t.elementsContent = [this._Image12_i(),this._Image13_i(),this.comeonLabel_i()];
+		return t;
+	};
+	_proto._Image12_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "login_json.loginInput";
+		t.width = 517;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image13_i = function () {
+		var t = new eui.Image();
+		t.source = "login_json.yqmicon";
+		t.verticalCenter = 0;
+		t.x = 24;
+		return t;
+	};
+	_proto.comeonLabel_i = function () {
+		var t = new eui.EditableText();
+		this.comeonLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 51.51;
+		t.prompt = "请输入邀请码 没有可不填写";
+		t.promptColor = 0x9a9a9a;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 24;
+		t.textAlign = "left";
+		t.textColor = 0x595959;
+		t.verticalAlign = "middle";
+		t.width = 366;
+		t.x = 93;
+		t.y = 9.75;
+		return t;
+	};
+	return RegisterPanelSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/rank/RankItemSkin.exml'] = window.RankItemSkin = (function (_super) {
 	__extends(RankItemSkin, _super);
 	function RankItemSkin() {

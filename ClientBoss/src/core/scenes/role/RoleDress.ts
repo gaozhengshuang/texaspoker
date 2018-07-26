@@ -93,10 +93,10 @@ module game {
             console.log("添加包裹项：", data);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
         }
-     
+
         // TODO: 穿上装备
         private sendmsg_DressCloth(data: { pos, itemid }) {
-            console.log("发送穿上装备消息",data);
+            console.log("发送穿上装备消息", data);
             sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
                 pos: data.pos,
                 itemid: data.itemid
@@ -104,11 +104,11 @@ module game {
         }
 
         private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-            console.log("性别切换成功",data);
+            console.log("性别切换成功", data);
         }
         // TODO: 脱下装备
         private sendmsg_UnDressCloth(data: { pos }) {
-            console.log("发送脱下装备消息",data);
+            console.log("发送脱下装备消息", data);
             sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
                 pos: data.pos,
             }));
@@ -165,6 +165,8 @@ module game {
             this.ls_items.selectedIndex = -1;
             this.ls_items.selectedItem = null;
         }
+
+ 
 
         // 选择项改变
         private onChange(e: eui.ItemTapEvent) {
@@ -266,8 +268,6 @@ module game {
         }
 
         private closeHandle() {
-            this.resetParts(this._boyBone);
-            this.resetParts(this._girlBone);
             this.remove();
         }
         private cartHandle() {
@@ -307,7 +307,7 @@ module game {
             this.useGirlTypeIcons(false);
             this.setDressInfo();
 
-             this.sendmsg_SwitchGender({
+            this.sendmsg_SwitchGender({
                 sex: this.gender
             })
         }
