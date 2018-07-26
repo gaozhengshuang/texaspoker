@@ -2806,109 +2806,6 @@ var egret = window.egret;
 		return t;
 	};
 	return AvatarSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
-	__extends(CloseButtonSkin, _super);
-	function CloseButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.height = 75;
-		this.width = 75;
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = CloseButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.source = "ui_json.ca";
-		return t;
-	};
-	return CloseButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
-	__extends(ImageButtonSkin, _super);
-	function ImageButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["bgDisplay","imageDisplay"];
-		
-		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
-	}
-	var _proto = ImageButtonSkin.prototype;
-
-	_proto.bgDisplay_i = function () {
-		var t = new eui.Image();
-		this.bgDisplay = t;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(43,19,39,11);
-		t.source = "ui_json.an4";
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.imageDisplay_i = function () {
-		var t = new eui.Image();
-		this.imageDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.tijiao";
-		t.verticalCenter = -0.5;
-		return t;
-	};
-	return ImageButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
-	__extends(LoadProgressBar, _super);
-	function LoadProgressBar() {
-		_super.call(this);
-		this.skinParts = ["thumb"];
-		
-		this.minHeight = 18;
-		this.minWidth = 30;
-		this.elementsContent = [this._Image1_i(),this.thumb_i()];
-	}
-	var _proto = LoadProgressBar.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.percentHeight = 100;
-		t.horizontalCenter = 0;
-		t.scale9Grid = new egret.Rectangle(1,1,4,4);
-		t.source = "ui_json.loadProgressBg";
-		t.verticalCenter = 0;
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.thumb_i = function () {
-		var t = new eui.Image();
-		this.thumb = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(3,77,20,464);
-		t.source = "ui_json.loadProgress";
-		t.percentWidth = 100;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	return LoadProgressBar;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
-	__extends(ToggleButtonSkin, _super);
-	function ToggleButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = ToggleButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.kaishi";
-		t.verticalCenter = 0;
-		return t;
-	};
-	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginRewardSkin.exml'] = window.LoginRewardSkin = (function (_super) {
 	__extends(LoginRewardSkin, _super);
 	function LoginRewardSkin() {
@@ -3571,6 +3468,109 @@ var egret = window.egret;
 		return t;
 	};
 	return RegisterPanelSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
+	__extends(CloseButtonSkin, _super);
+	function CloseButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.height = 75;
+		this.width = 75;
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = CloseButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.source = "ui_json.ca";
+		return t;
+	};
+	return CloseButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
+	__extends(ImageButtonSkin, _super);
+	function ImageButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["bgDisplay","imageDisplay"];
+		
+		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
+	}
+	var _proto = ImageButtonSkin.prototype;
+
+	_proto.bgDisplay_i = function () {
+		var t = new eui.Image();
+		this.bgDisplay = t;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(43,19,39,11);
+		t.source = "ui_json.an4";
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.imageDisplay_i = function () {
+		var t = new eui.Image();
+		this.imageDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.tijiao";
+		t.verticalCenter = -0.5;
+		return t;
+	};
+	return ImageButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
+	__extends(LoadProgressBar, _super);
+	function LoadProgressBar() {
+		_super.call(this);
+		this.skinParts = ["thumb"];
+		
+		this.minHeight = 18;
+		this.minWidth = 30;
+		this.elementsContent = [this._Image1_i(),this.thumb_i()];
+	}
+	var _proto = LoadProgressBar.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.percentHeight = 100;
+		t.horizontalCenter = 0;
+		t.scale9Grid = new egret.Rectangle(1,1,4,4);
+		t.source = "ui_json.loadProgressBg";
+		t.verticalCenter = 0;
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.thumb_i = function () {
+		var t = new eui.Image();
+		this.thumb = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(3,77,20,464);
+		t.source = "ui_json.loadProgress";
+		t.percentWidth = 100;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return LoadProgressBar;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
+	__extends(ToggleButtonSkin, _super);
+	function ToggleButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = ToggleButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.kaishi";
+		t.verticalCenter = 0;
+		return t;
+	};
+	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/main/DeliveryItemSkin.exml'] = window.DeliveryItemSkin = (function (_super) {
 	__extends(DeliveryItemSkin, _super);
 	function DeliveryItemSkin() {
@@ -5779,12 +5779,12 @@ var egret = window.egret;
 		this.listGroup = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 435;
+		t.bottom = 0;
+		t.percentHeight = 85;
+		t.left = 0;
+		t.right = 0;
 		t.scaleX = 1;
 		t.scaleY = 1;
-		t.width = 720;
-		t.x = 0;
-		t.y = 81;
 		t.elementsContent = [this.sr_item_i()];
 		return t;
 	};
@@ -5793,12 +5793,12 @@ var egret = window.egret;
 		this.sr_item = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 434;
-		t.horizontalCenter = 0;
+		t.bottom = 0;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.top = 0;
 		t.width = 720;
+		t.x = 0;
 		t.viewport = this.ls_items_i();
 		return t;
 	};

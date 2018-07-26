@@ -58,8 +58,8 @@
 
 
 	<e:Group id="bmGroup" width="720" height="47%" bottom="0" horizontalCenter="0">
-		<e:Group id="listGroup" width="720" height="435" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" x="0" y="81">
-			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" height="434" width="720" scaleX="1" scaleY="1" top="0" horizontalCenter="0">
+		<e:Group id="listGroup" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" height="85%" bottom="0" left="0" right="0">
+			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" width="720" scaleX="1" scaleY="1" x="0" top="0" bottom="0">
 			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="-32">
 				<e:layout>
 				<e:TileLayout paddingLeft="30" paddingRight="30" paddingTop="10" paddingBottom="0" verticalGap="22" horizontalGap="18"/>
