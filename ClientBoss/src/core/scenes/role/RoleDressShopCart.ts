@@ -179,6 +179,7 @@ module game {
         //确认购买
         private OnConfirmBuy() {
             console.log("购物车中有"+this._shopItemCarts.length+"个商品");
+            if(this._shopItemCarts.length==0) return;
             let list: number[]  = this._shopItemCarts.map(item =>{return item.Id;});
             sendMessage("msg.C2GW_BuyClothes", msg.C2GW_BuyClothes.encode({itemList:list}));
         }
