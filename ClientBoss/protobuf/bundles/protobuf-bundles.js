@@ -30544,6 +30544,7 @@ $root.table = (function() {
          * @property {Array.<string>|null} [Skill] EquipDefine Skill
          * @property {number|null} [Price] EquipDefine Price
          * @property {number|null} [CoinType] EquipDefine CoinType
+         * @property {string|null} [Suit] EquipDefine Suit
          */
 
         /**
@@ -30652,6 +30653,14 @@ $root.table = (function() {
         EquipDefine.prototype.CoinType = 0;
 
         /**
+         * EquipDefine Suit.
+         * @member {string} Suit
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.Suit = "";
+
+        /**
          * Creates a new EquipDefine instance using the specified properties.
          * @function create
          * @memberof table.EquipDefine
@@ -30699,6 +30708,8 @@ $root.table = (function() {
                 writer.uint32(/* id 10, wireType 0 =*/80).int32(message.Price);
             if (message.CoinType != null && message.hasOwnProperty("CoinType"))
                 writer.uint32(/* id 11, wireType 0 =*/88).int32(message.CoinType);
+            if (message.Suit != null && message.hasOwnProperty("Suit"))
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Suit);
             return writer;
         };
 
@@ -30769,6 +30780,9 @@ $root.table = (function() {
                     break;
                 case 11:
                     message.CoinType = reader.int32();
+                    break;
+                case 12:
+                    message.Suit = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -30846,6 +30860,9 @@ $root.table = (function() {
             if (message.CoinType != null && message.hasOwnProperty("CoinType"))
                 if (!$util.isInteger(message.CoinType))
                     return "CoinType: integer expected";
+            if (message.Suit != null && message.hasOwnProperty("Suit"))
+                if (!$util.isString(message.Suit))
+                    return "Suit: string expected";
             return null;
         };
 
@@ -30893,6 +30910,8 @@ $root.table = (function() {
                 message.Price = object.Price | 0;
             if (object.CoinType != null)
                 message.CoinType = object.CoinType | 0;
+            if (object.Suit != null)
+                message.Suit = String(object.Suit);
             return message;
         };
 
@@ -30923,6 +30942,7 @@ $root.table = (function() {
                 object.Path = "";
                 object.Price = 0;
                 object.CoinType = 0;
+                object.Suit = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -30952,6 +30972,8 @@ $root.table = (function() {
                 object.Price = message.Price;
             if (message.CoinType != null && message.hasOwnProperty("CoinType"))
                 object.CoinType = message.CoinType;
+            if (message.Suit != null && message.hasOwnProperty("Suit"))
+                object.Suit = message.Suit;
             return object;
         };
 

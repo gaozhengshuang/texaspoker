@@ -13252,6 +13252,9 @@ declare namespace table {
 
         /** EquipDefine CoinType */
         CoinType?: (number|null);
+
+        /** EquipDefine Suit */
+        Suit?: (string|null);
     }
 
     /** Represents an EquipDefine. */
@@ -13295,6 +13298,9 @@ declare namespace table {
 
         /** EquipDefine CoinType. */
         public CoinType: number;
+
+        /** EquipDefine Suit. */
+        public Suit: string;
 
         /**
          * Creates a new EquipDefine instance using the specified properties.

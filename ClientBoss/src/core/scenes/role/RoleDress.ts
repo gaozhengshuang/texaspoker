@@ -544,6 +544,7 @@ module game {
         private changeSlotsInSuit(bone: SkeletonBase, slotNames: string[], suitName: string) {
             slotNames.forEach((name) => {
                 let assetName = `${suitName}_json.${name}`;
+                console.log("骨骼图集：", assetName);
                 bone.setNewSlot(name, assetName);
             })
         }
@@ -552,11 +553,14 @@ module game {
             let pos = e.Pos;
             let sex = e.Sex;
             let slotNames = e.LoadPoint;
+            let suit = e['Suit'];
             if (slotNames.length <= 0) return;
             if (sex == 0) {
-                this.changeSlotsInSuit(this._girlBone, slotNames, "girl_suit2");
+                suit = suit || "girl_suit2";
+                this.changeSlotsInSuit(this._girlBone, slotNames, suit);
             } else {
-                this.changeSlotsInSuit(this._boyBone, slotNames, "boy_suit2");
+                suit = suit || "boy_suit2";
+                this.changeSlotsInSuit(this._boyBone, slotNames, suit);
             }
             if (this.isInBagList(e)) {
                 this.sendmsg_DressCloth({
