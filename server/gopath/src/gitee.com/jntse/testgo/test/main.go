@@ -46,6 +46,8 @@ func main() {
 	g_KeyBordInput.Start()
 	log.Info("初始键盘输入完成")
 
+
+	// url 解析
 	testurl := "https://api.weixin.qq.com/cgi-bin/midas/sandbox/pay?access_token="
 	u, err := url.Parse(testurl)
 	if err == nil { 
