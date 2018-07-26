@@ -47,12 +47,6 @@ module game {
             return RoleDressShopCart._instance;
         }
 
-        //更新购物车商品列表
-        public UpdateData(ids:number[])
-        {
-            this._allShopItemIds = ids.map(id=>{return id});
-        }
-
         public init() {
 
             if (gameConfig.isIphoneX()) {
@@ -63,15 +57,6 @@ module game {
             this.totalCosts = [0,0,0];
             this.btn_close.icon = "dress_01_json.dress_01_16"
             this.btn_buy.icon = "dress_01_json.dress_01_21";
-
-            let goldNum = DataManager.playerModel.getScore();
-            let moneyNum = <number>DataManager.playerModel.getTotalMoney();
-            
-            console.log("goldNum:",goldNum,"moneyNum:",moneyNum);
-            this.goldNumTxt.text = goldNum.toString();
-            this.diamondNumTxt.text = moneyNum.toString();
-
-            //this.UpdateData([101,201,301,401,501,601,701]);
         }
 
         protected beforeShow() {
@@ -79,6 +64,22 @@ module game {
                 { target: this.btn_close, callBackFunc: this.OnCloseHandle },
                 { target: this.btn_buy, callBackFunc: this.OnConfirmBuy },
             ];
+        }
+
+        //更新购物车商品列表
+        public UpdateData(ids:number[])
+        {
+            this._allShopItemIds = ids.map(id=>{return id});
+            this.refreshShopCarts();
+        }
+
+        public refreshShopCarts()
+        {
+            let goldNum = DataManager.playerModel.getScore();
+            let moneyNum = <number>DataManager.playerModel.getTotalMoney();
+            
+            this.goldNumTxt.text = goldNum.toString();
+            this.diamondNumTxt.text = moneyNum.toString();
 
             this._shopItemCarts = [];
             this.totalCosts = [0,0,0];
@@ -91,9 +92,9 @@ module game {
 
         private UpdateList()
         {
-            if(!this._allShopItemIds || this._allShopItemIds.length==0) return;
             this.listGroup.removeChildren();
-            
+            if(!this._allShopItemIds || this._allShopItemIds.length==0) return;
+          
             this._dataProvider = new eui.ArrayCollection();
 
             for (let i = 0; i < this._allShopItemIds.length; i++) {

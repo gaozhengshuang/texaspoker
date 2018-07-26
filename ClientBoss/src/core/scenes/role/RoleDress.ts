@@ -90,6 +90,7 @@ module game {
         // TODO: 添加包裹项
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             console.log("添加包裹项：", data);
+            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item=>{return item.Id;}).filter(itemId=>{return !DataManager.playerModel.IsHaveItem(itemId);}));            
         }
         // TODO: 更新项位置
         private OnGW2C_UpdateItemPos(data: msg.GW2C_UpdateItemPos) {
@@ -177,12 +178,8 @@ module game {
                 this.changePart(item);
                 this._selItems.push(item);
             }
-          
-            let dressInfos : table.IEquipDefine[] = this._selItems.filter(item=>{return item.Sex==this.gender;});
-            this.setDressInfo(dressInfos);
-            if(dressInfos.length==0) {
-                this.hideDressInfo();
-            }
+        
+            this.setDressInfo();
         }
 
         private initTypeIcons() {
@@ -254,8 +251,8 @@ module game {
             this.remove();
         }
         private cartHandle() {
-            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item=>{return item.Id;}));
             openPanel(PanelType.dressShopCarts);
+            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item=>{return item.Id;}).filter(itemId=>{return !DataManager.playerModel.IsHaveItem(itemId);}));
         }
 
         private switchToGirl() {
@@ -265,6 +262,7 @@ module game {
             this.useGirlIcon(true);
             this.useGirlShelf(true);
             this.useGirlTypeIcons(true);
+            this.setDressInfo();            
         }
 
         private switchGender() {
@@ -283,6 +281,7 @@ module game {
             this.useGirlIcon(false);
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
+            this.setDressInfo();            
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -352,9 +351,8 @@ module game {
 
         //=======================================
         //TODO: 设置装备信息
-        public setDressInfo(dressInfos: table.IEquipDefine[]) {
-            this.showDressInfo();
-
+        public setDressInfo() {
+            let dressInfos : table.IEquipDefine[] = this._selItems.filter(item=>{return item.Sex==this.gender;});
             this.dress_info.equip_name = dressInfos[dressInfos.length-1] ? dressInfos[dressInfos.length-1].Name : "";
             //技能加成
             let skillDes = "";
@@ -369,6 +367,7 @@ module game {
                 );
             })
             this.dress_info.skillAddition = skillDes;
+            this.dress_info.visible = dressInfos.length > 0;
         }
 
         public hideDressInfo() {
