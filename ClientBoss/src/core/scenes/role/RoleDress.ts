@@ -68,7 +68,7 @@ module game {
 
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
-            this.gender = 0;
+            this.gender = DataManager.playerModel.sex;
 
             this.initTypeSelIdxs();
 
@@ -76,7 +76,12 @@ module game {
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
-            this.switchToGirl();
+            if (this.isGirl) {
+                this.switchToGirl();
+            } else {
+                this.switchToBoy();
+            }
+
             this.hideDressInfo();
 
             this.partHandle_body();
@@ -166,7 +171,7 @@ module game {
             this.ls_items.selectedItem = null;
         }
 
- 
+
 
         // 选择项改变
         private onChange(e: eui.ItemTapEvent) {
@@ -283,10 +288,6 @@ module game {
             this.useGirlShelf(true);
             this.useGirlTypeIcons(true);
             this.setDressInfo();
-
-            this.sendmsg_SwitchGender({
-                sex: this.gender
-            })
         }
 
         private switchGender() {
@@ -295,7 +296,10 @@ module game {
             } else {
                 this.switchToGirl();
             }
-
+            
+            this.sendmsg_SwitchGender({
+                sex: this.gender
+            })
         }
 
         private switchToBoy() {
@@ -306,10 +310,6 @@ module game {
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
             this.setDressInfo();
-
-            this.sendmsg_SwitchGender({
-                sex: this.gender
-            })
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
