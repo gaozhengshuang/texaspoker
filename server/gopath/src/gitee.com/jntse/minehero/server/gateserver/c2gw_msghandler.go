@@ -684,7 +684,9 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
 		user.image.UnDressAll(false)
 	}else {
-		user.image.UnDressClothes(tmsg.GetPos(), false)
+		if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
+			user.image.UnDressClothes(tmsg.GetPos(), false)
+		}
 	}
 
 	user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())

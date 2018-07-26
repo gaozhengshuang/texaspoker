@@ -96,6 +96,11 @@ func (this *UserImage) DressClothes(pos int32, itemid int32) {
 		return
 	}
 
+	if equipbase.Sex != int32(msg.Sex_Neutral) && equipbase.Sex != this.owner.Sex() {
+		this.owner.SendNotify("性别不符合")
+		return
+	}
+
 	copyItem := pb.Clone(newEquip.Bin()).(*msg.ItemData)
 	copyItem.Pos = pb.Int32(pos)
 	this.clothes[this.owner.Sex()][pos] = copyItem
