@@ -544,7 +544,7 @@ module game {
         private changeSlotsInSuit(bone: SkeletonBase, slotNames: string[], suitName: string) {
             slotNames.forEach((name) => {
                 let assetName = `${suitName}_json.${name}`;
-                console.log("骨骼图集：", assetName);
+                // console.log("骨骼图集：", assetName);
                 bone.setNewSlot(name, assetName);
             })
         }
