@@ -95,7 +95,7 @@ module game {
 
         // TODO: 添加包裹项
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
-            console.log("添加包裹项：", data);
+            // console.log("添加包裹项：", data);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
 
             this.updateShelf();
@@ -104,7 +104,7 @@ module game {
 
         // TODO: 穿上装备
         private sendmsg_DressCloth(data: { pos, itemid }) {
-            console.log("发送穿上装备消息", data);
+            // console.log("发送穿上装备消息", data);
             sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
                 pos: data.pos,
                 itemid: data.itemid
@@ -112,11 +112,11 @@ module game {
         }
 
         private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-            console.log("性别切换成功", data);
+            // console.log("性别切换成功", data);
         }
         // TODO: 脱下装备
         private sendmsg_UnDressCloth(data: { pos }) {
-            console.log("发送脱下装备消息", data);
+            // console.log("发送脱下装备消息", data);
             sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
                 pos: data.pos,
             }));
@@ -129,7 +129,7 @@ module game {
         }
         // TODO: 接收显示性别消息
         private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-            console.log("GW2C_SendShowImage", data);
+            // console.log("GW2C_SendShowImage", data);
         }
 
 
