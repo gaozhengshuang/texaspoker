@@ -5089,305 +5089,6 @@ var egret = window.egret;
 		return t;
 	};
 	return RankPanelSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/win/WinRankItemSkin.exml'] = window.WinRankItemSkin = (function (_super) {
-	__extends(WinRankItemSkin, _super);
-	function WinRankItemSkin() {
-		_super.call(this);
-		this.skinParts = ["avatar","rankLabel","nameLabel","scoreLabel"];
-		
-		this.height = 214;
-		this.width = 116;
-		this.elementsContent = [this.avatar_i(),this.rankLabel_i(),this.nameLabel_i(),this.scoreLabel_i()];
-	}
-	var _proto = WinRankItemSkin.prototype;
-
-	_proto.avatar_i = function () {
-		var t = new game.Avatar();
-		this.avatar = t;
-		t.skinName = "AvatarSkin";
-		t.y = 44;
-		return t;
-	};
-	_proto.rankLabel_i = function () {
-		var t = new eui.Label();
-		this.rankLabel = t;
-		t.horizontalCenter = 0;
-		t.size = 36;
-		t.text = "1";
-		t.textAlign = "center";
-		t.textColor = 0x9d5df6;
-		t.width = 116;
-		return t;
-	};
-	_proto.nameLabel_i = function () {
-		var t = new eui.Label();
-		this.nameLabel = t;
-		t.anchorOffsetX = 0;
-		t.height = 24;
-		t.horizontalCenter = 0;
-		t.size = 24;
-		t.text = "玩家名";
-		t.textAlign = "center";
-		t.textColor = 0x514e5f;
-		t.width = 123;
-		t.y = 161;
-		return t;
-	};
-	_proto.scoreLabel_i = function () {
-		var t = new eui.Label();
-		this.scoreLabel = t;
-		t.horizontalCenter = 0;
-		t.size = 24;
-		t.text = "10000";
-		t.textColor = 0x514E5F;
-		t.y = 189.69;
-		return t;
-	};
-	return WinRankItemSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/win/WinSceneSkin.exml'] = window.WinSceneSkin = (function (_super) {
-	__extends(WinSceneSkin, _super);
-	function WinSceneSkin() {
-		_super.call(this);
-		this.skinParts = ["recordLabel","newRecordGroup","scoreLabel","rankGroup","normalGroup","rankLabel","backButton","againButton","shareButton"];
-		
-		this.height = 1100;
-		this.width = 720;
-		this.elementsContent = [this._Rect1_i(),this._Group1_i(),this._Group2_i()];
-	}
-	var _proto = WinSceneSkin.prototype;
-
-	_proto._Rect1_i = function () {
-		var t = new eui.Rect();
-		t.fillAlpha = 0.8;
-		t.fillColor = 0xeeeeee;
-		t.percentHeight = 100;
-		t.width = 720;
-		t.y = -1;
-		return t;
-	};
-	_proto._Group1_i = function () {
-		var t = new eui.Group();
-		t.height = 1100;
-		t.width = 720;
-		t.elementsContent = [this.newRecordGroup_i(),this.normalGroup_i(),this.rankLabel_i()];
-		return t;
-	};
-	_proto.newRecordGroup_i = function () {
-		var t = new eui.Group();
-		this.newRecordGroup = t;
-		t.height = 1100;
-		t.touchChildren = false;
-		t.touchEnabled = false;
-		t.width = 720;
-		t.elementsContent = [this._Image1_i(),this._Label1_i(),this.recordLabel_i()];
-		return t;
-	};
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "win_json.xinjilu";
-		t.x = -13;
-		t.y = 164.03;
-		return t;
-	};
-	_proto._Label1_i = function () {
-		var t = new eui.Label();
-		t.anchorOffsetX = 0;
-		t.bold = true;
-		t.horizontalCenter = 0.5;
-		t.size = 48;
-		t.text = "新纪录";
-		t.textAlign = "center";
-		t.textColor = 0xffa530;
-		t.width = 247;
-		t.y = 312.15;
-		return t;
-	};
-	_proto.recordLabel_i = function () {
-		var t = new eui.Label();
-		this.recordLabel = t;
-		t.anchorOffsetX = 0;
-		t.bold = true;
-		t.horizontalCenter = 0;
-		t.size = 100;
-		t.text = "100000";
-		t.textAlign = "center";
-		t.textColor = 0x5e93ed;
-		t.width = 518.21;
-		t.y = 403.05;
-		return t;
-	};
-	_proto.normalGroup_i = function () {
-		var t = new eui.Group();
-		this.normalGroup = t;
-		t.height = 1100;
-		t.touchChildren = false;
-		t.touchEnabled = false;
-		t.width = 720;
-		t.elementsContent = [this._Image2_i(),this._Label2_i(),this.scoreLabel_i(),this.rankGroup_i()];
-		return t;
-	};
-	_proto._Image2_i = function () {
-		var t = new eui.Image();
-		t.horizontalCenter = 0;
-		t.source = "win_json.jiesuan";
-		t.y = 194;
-		return t;
-	};
-	_proto._Label2_i = function () {
-		var t = new eui.Label();
-		t.anchorOffsetX = 0;
-		t.bold = true;
-		t.horizontalCenter = 0.5;
-		t.size = 48;
-		t.text = "本次得分";
-		t.textAlign = "center";
-		t.textColor = 0xFFA530;
-		t.width = 247;
-		t.y = 245.59;
-		return t;
-	};
-	_proto.scoreLabel_i = function () {
-		var t = new eui.Label();
-		this.scoreLabel = t;
-		t.anchorOffsetX = 0;
-		t.bold = true;
-		t.horizontalCenter = 0;
-		t.size = 48;
-		t.text = "100000";
-		t.textAlign = "center";
-		t.textColor = 0x5E93ED;
-		t.width = 518.21;
-		t.y = 303.05;
-		return t;
-	};
-	_proto.rankGroup_i = function () {
-		var t = new eui.Group();
-		this.rankGroup = t;
-		t.height = 214;
-		t.horizontalCenter = 0;
-		t.y = 386.01;
-		t.layout = this._HorizontalLayout1_i();
-		return t;
-	};
-	_proto._HorizontalLayout1_i = function () {
-		var t = new eui.HorizontalLayout();
-		t.gap = 40;
-		return t;
-	};
-	_proto.rankLabel_i = function () {
-		var t = new eui.Label();
-		this.rankLabel = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 60.67;
-		t.horizontalCenter = -0.5;
-		t.text = "查看排行榜";
-		t.textAlign = "center";
-		t.textColor = 0x514e5f;
-		t.verticalAlign = "middle";
-		t.width = 449.33;
-		t.y = 634;
-		return t;
-	};
-	_proto._Group2_i = function () {
-		var t = new eui.Group();
-		t.bottom = 0;
-		t.height = 1100;
-		t.touchChildren = true;
-		t.touchEnabled = false;
-		t.width = 720;
-		t.elementsContent = [this._Image3_i(),this.backButton_i(),this.againButton_i(),this.shareButton_i(),this._Label3_i(),this._Label4_i(),this._Label5_i()];
-		return t;
-	};
-	_proto._Image3_i = function () {
-		var t = new eui.Image();
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "win_json.anniudi";
-		t.touchEnabled = false;
-		t.y = 815.88;
-		return t;
-	};
-	_proto.backButton_i = function () {
-		var t = new game.IconButton();
-		this.backButton = t;
-		t.horizontalCenter = -194.5;
-		t.skinName = "IconButtonSkin";
-		t.verticalCenter = 304.5;
-		return t;
-	};
-	_proto.againButton_i = function () {
-		var t = new game.IconButton();
-		this.againButton = t;
-		t.horizontalCenter = -1.5;
-		t.skinName = "IconButtonSkin";
-		t.verticalCenter = 304.5;
-		return t;
-	};
-	_proto.shareButton_i = function () {
-		var t = new game.IconButton();
-		this.shareButton = t;
-		t.horizontalCenter = 194.5;
-		t.skinName = "IconButtonSkin";
-		t.verticalCenter = 304.5;
-		return t;
-	};
-	_proto._Label3_i = function () {
-		var t = new eui.Label();
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 60.67;
-		t.horizontalCenter = -194.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.text = "回到首页";
-		t.textAlign = "center";
-		t.textColor = 0x514E5F;
-		t.touchEnabled = false;
-		t.verticalAlign = "middle";
-		t.x = 135;
-		t.y = 931.27;
-		return t;
-	};
-	_proto._Label4_i = function () {
-		var t = new eui.Label();
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 60.67;
-		t.horizontalCenter = -1.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.text = "再玩一局";
-		t.textAlign = "center";
-		t.textColor = 0x514E5F;
-		t.touchEnabled = false;
-		t.verticalAlign = "middle";
-		t.x = 145;
-		t.y = 931.27;
-		return t;
-	};
-	_proto._Label5_i = function () {
-		var t = new eui.Label();
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 60.67;
-		t.horizontalCenter = 194.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.text = "发起挑战";
-		t.textAlign = "center";
-		t.textColor = 0x514E5F;
-		t.touchEnabled = false;
-		t.verticalAlign = "middle";
-		t.x = 155;
-		t.y = 931.27;
-		return t;
-	};
-	return WinSceneSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/role/ChooseIconSkin.exml'] = window.ChooseIconSkin = (function (_super) {
 	__extends(ChooseIconSkin, _super);
 	function ChooseIconSkin() {
@@ -6752,4 +6453,303 @@ var egret = window.egret;
 		return t;
 	};
 	return ShoppingCartSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/win/WinRankItemSkin.exml'] = window.WinRankItemSkin = (function (_super) {
+	__extends(WinRankItemSkin, _super);
+	function WinRankItemSkin() {
+		_super.call(this);
+		this.skinParts = ["avatar","rankLabel","nameLabel","scoreLabel"];
+		
+		this.height = 214;
+		this.width = 116;
+		this.elementsContent = [this.avatar_i(),this.rankLabel_i(),this.nameLabel_i(),this.scoreLabel_i()];
+	}
+	var _proto = WinRankItemSkin.prototype;
+
+	_proto.avatar_i = function () {
+		var t = new game.Avatar();
+		this.avatar = t;
+		t.skinName = "AvatarSkin";
+		t.y = 44;
+		return t;
+	};
+	_proto.rankLabel_i = function () {
+		var t = new eui.Label();
+		this.rankLabel = t;
+		t.horizontalCenter = 0;
+		t.size = 36;
+		t.text = "1";
+		t.textAlign = "center";
+		t.textColor = 0x9d5df6;
+		t.width = 116;
+		return t;
+	};
+	_proto.nameLabel_i = function () {
+		var t = new eui.Label();
+		this.nameLabel = t;
+		t.anchorOffsetX = 0;
+		t.height = 24;
+		t.horizontalCenter = 0;
+		t.size = 24;
+		t.text = "玩家名";
+		t.textAlign = "center";
+		t.textColor = 0x514e5f;
+		t.width = 123;
+		t.y = 161;
+		return t;
+	};
+	_proto.scoreLabel_i = function () {
+		var t = new eui.Label();
+		this.scoreLabel = t;
+		t.horizontalCenter = 0;
+		t.size = 24;
+		t.text = "10000";
+		t.textColor = 0x514E5F;
+		t.y = 189.69;
+		return t;
+	};
+	return WinRankItemSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/win/WinSceneSkin.exml'] = window.WinSceneSkin = (function (_super) {
+	__extends(WinSceneSkin, _super);
+	function WinSceneSkin() {
+		_super.call(this);
+		this.skinParts = ["recordLabel","newRecordGroup","scoreLabel","rankGroup","normalGroup","rankLabel","backButton","againButton","shareButton"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.elementsContent = [this._Rect1_i(),this._Group1_i(),this._Group2_i()];
+	}
+	var _proto = WinSceneSkin.prototype;
+
+	_proto._Rect1_i = function () {
+		var t = new eui.Rect();
+		t.fillAlpha = 0.8;
+		t.fillColor = 0xeeeeee;
+		t.percentHeight = 100;
+		t.width = 720;
+		t.y = -1;
+		return t;
+	};
+	_proto._Group1_i = function () {
+		var t = new eui.Group();
+		t.height = 1100;
+		t.width = 720;
+		t.elementsContent = [this.newRecordGroup_i(),this.normalGroup_i(),this.rankLabel_i()];
+		return t;
+	};
+	_proto.newRecordGroup_i = function () {
+		var t = new eui.Group();
+		this.newRecordGroup = t;
+		t.height = 1100;
+		t.touchChildren = false;
+		t.touchEnabled = false;
+		t.width = 720;
+		t.elementsContent = [this._Image1_i(),this._Label1_i(),this.recordLabel_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "win_json.xinjilu";
+		t.x = -13;
+		t.y = 164.03;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.horizontalCenter = 0.5;
+		t.size = 48;
+		t.text = "新纪录";
+		t.textAlign = "center";
+		t.textColor = 0xffa530;
+		t.width = 247;
+		t.y = 312.15;
+		return t;
+	};
+	_proto.recordLabel_i = function () {
+		var t = new eui.Label();
+		this.recordLabel = t;
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.horizontalCenter = 0;
+		t.size = 100;
+		t.text = "100000";
+		t.textAlign = "center";
+		t.textColor = 0x5e93ed;
+		t.width = 518.21;
+		t.y = 403.05;
+		return t;
+	};
+	_proto.normalGroup_i = function () {
+		var t = new eui.Group();
+		this.normalGroup = t;
+		t.height = 1100;
+		t.touchChildren = false;
+		t.touchEnabled = false;
+		t.width = 720;
+		t.elementsContent = [this._Image2_i(),this._Label2_i(),this.scoreLabel_i(),this.rankGroup_i()];
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0;
+		t.source = "win_json.jiesuan";
+		t.y = 194;
+		return t;
+	};
+	_proto._Label2_i = function () {
+		var t = new eui.Label();
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.horizontalCenter = 0.5;
+		t.size = 48;
+		t.text = "本次得分";
+		t.textAlign = "center";
+		t.textColor = 0xFFA530;
+		t.width = 247;
+		t.y = 245.59;
+		return t;
+	};
+	_proto.scoreLabel_i = function () {
+		var t = new eui.Label();
+		this.scoreLabel = t;
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.horizontalCenter = 0;
+		t.size = 48;
+		t.text = "100000";
+		t.textAlign = "center";
+		t.textColor = 0x5E93ED;
+		t.width = 518.21;
+		t.y = 303.05;
+		return t;
+	};
+	_proto.rankGroup_i = function () {
+		var t = new eui.Group();
+		this.rankGroup = t;
+		t.height = 214;
+		t.horizontalCenter = 0;
+		t.y = 386.01;
+		t.layout = this._HorizontalLayout1_i();
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.gap = 40;
+		return t;
+	};
+	_proto.rankLabel_i = function () {
+		var t = new eui.Label();
+		this.rankLabel = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 60.67;
+		t.horizontalCenter = -0.5;
+		t.text = "查看排行榜";
+		t.textAlign = "center";
+		t.textColor = 0x514e5f;
+		t.verticalAlign = "middle";
+		t.width = 449.33;
+		t.y = 634;
+		return t;
+	};
+	_proto._Group2_i = function () {
+		var t = new eui.Group();
+		t.bottom = 0;
+		t.height = 1100;
+		t.touchChildren = true;
+		t.touchEnabled = false;
+		t.width = 720;
+		t.elementsContent = [this._Image3_i(),this.backButton_i(),this.againButton_i(),this.shareButton_i(),this._Label3_i(),this._Label4_i(),this._Label5_i()];
+		return t;
+	};
+	_proto._Image3_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "win_json.anniudi";
+		t.touchEnabled = false;
+		t.y = 815.88;
+		return t;
+	};
+	_proto.backButton_i = function () {
+		var t = new game.IconButton();
+		this.backButton = t;
+		t.horizontalCenter = -194.5;
+		t.skinName = "IconButtonSkin";
+		t.verticalCenter = 304.5;
+		return t;
+	};
+	_proto.againButton_i = function () {
+		var t = new game.IconButton();
+		this.againButton = t;
+		t.horizontalCenter = -1.5;
+		t.skinName = "IconButtonSkin";
+		t.verticalCenter = 304.5;
+		return t;
+	};
+	_proto.shareButton_i = function () {
+		var t = new game.IconButton();
+		this.shareButton = t;
+		t.horizontalCenter = 194.5;
+		t.skinName = "IconButtonSkin";
+		t.verticalCenter = 304.5;
+		return t;
+	};
+	_proto._Label3_i = function () {
+		var t = new eui.Label();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 60.67;
+		t.horizontalCenter = -194.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.text = "回到首页";
+		t.textAlign = "center";
+		t.textColor = 0x514E5F;
+		t.touchEnabled = false;
+		t.verticalAlign = "middle";
+		t.x = 135;
+		t.y = 931.27;
+		return t;
+	};
+	_proto._Label4_i = function () {
+		var t = new eui.Label();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 60.67;
+		t.horizontalCenter = -1.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.text = "再玩一局";
+		t.textAlign = "center";
+		t.textColor = 0x514E5F;
+		t.touchEnabled = false;
+		t.verticalAlign = "middle";
+		t.x = 145;
+		t.y = 931.27;
+		return t;
+	};
+	_proto._Label5_i = function () {
+		var t = new eui.Label();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 60.67;
+		t.horizontalCenter = 194.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.text = "发起挑战";
+		t.textAlign = "center";
+		t.textColor = 0x514E5F;
+		t.touchEnabled = false;
+		t.verticalAlign = "middle";
+		t.x = 155;
+		t.y = 931.27;
+		return t;
+	};
+	return WinSceneSkin;
 })(eui.Skin);

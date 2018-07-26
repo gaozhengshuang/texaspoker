@@ -262,10 +262,10 @@ module game {
         }
         private updateCoins() {
             this.coin_gold.coins = DataManager.playerModel.getScore();
-            this.coin_gold.setCoinType(1);
+            this.coin_gold.setCoinType(msg.MoneyType.Glod);
 
             this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
-            this.coin_gold.setCoinType(0);
+            this.coin_gold.setCoinType(msg.MoneyType.Diamond);
         }
 
 
