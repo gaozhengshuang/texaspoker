@@ -28,7 +28,8 @@ module game {
 		}
 
 		public setCoinType(n: number) {
-			if (n == msg.MoneyType.Glod) {
+			console.log("类型",n);
+			if (n == msg.MoneyType._Gold) {
 				this.img_gold.visible = true;
 			} else {
 				this.img_gold.visible = false;

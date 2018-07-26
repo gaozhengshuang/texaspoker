@@ -97,7 +97,7 @@ module game {
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             console.log("添加包裹项：", data);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
-            
+
             this.updateShelf();
             this.updateCoins();
         }
@@ -174,7 +174,13 @@ module game {
             this.ls_items.selectedItem = null;
         }
 
-
+        private rmSelIndex() {
+            if (this.isGirl) {
+                this.rmGirlSelIndex(this._typeIdx);
+            } else {
+                this.rmBoySelIndex(this._typeIdx);
+            }
+        }
 
         // 选择项改变
         private onChange(e: eui.ItemTapEvent) {
@@ -182,27 +188,22 @@ module game {
             let idx = e.itemIndex;
             let itemRender = <game.ItemPrice>e.itemRenderer;
             if (ItemPrice.isComingSoon(item)) {
-                console.log("COMMING SOON!");
-                itemRender.selected = false;
+                this.unwear(item);
+                this.rmSelIndex();
                 return;
             }
             let canSave = false;
 
             if (this.isGirl) {
                 canSave = this.saveGrilSelIndex(this._typeIdx, idx)
-                if (!canSave) {
-                    this.rmGirlSelIndex(this._typeIdx);
-                }
             } else {
                 canSave = this.saveBoySelIndex(this._typeIdx, idx);
-                if (!canSave) {
-                    this.rmBoySelIndex(this._typeIdx);
-                }
             }
 
             if (!canSave) {
                 itemRender.selected = false;
                 this.unwear(item);
+                this.rmSelIndex();
 
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
             } else {
@@ -258,14 +259,14 @@ module game {
         }
 
         private initCoins() {
+            this.coin_gold.setCoinType(msg.MoneyType._Gold);
+            this.coin_money.setCoinType(msg.MoneyType._Diamond);
+
             this.updateCoins();
         }
         private updateCoins() {
             this.coin_gold.coins = DataManager.playerModel.getScore();
-            this.coin_gold.setCoinType(msg.MoneyType.Glod);
-
             this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
-            this.coin_gold.setCoinType(msg.MoneyType.Diamond);
         }
 
 

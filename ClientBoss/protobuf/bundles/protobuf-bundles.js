@@ -13161,13 +13161,13 @@ $root.msg = (function() {
      * MoneyType enum.
      * @name msg.MoneyType
      * @enum {string}
-     * @property {number} Glod=1 Glod value
-     * @property {number} Diamond=2 Diamond value
+     * @property {number} _Gold=1 _Gold value
+     * @property {number} _Diamond=2 _Diamond value
      */
     msg.MoneyType = (function() {
         var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[1] = "Glod"] = 1;
-        values[valuesById[2] = "Diamond"] = 2;
+        values[valuesById[1] = "_Gold"] = 1;
+        values[valuesById[2] = "_Diamond"] = 2;
         return values;
     })();
 
