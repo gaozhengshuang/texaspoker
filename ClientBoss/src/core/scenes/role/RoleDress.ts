@@ -97,6 +97,9 @@ module game {
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             console.log("添加包裹项：", data);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
+            
+            this.updateShelf();
+            this.updateCoins();
         }
 
         // TODO: 穿上装备
@@ -200,12 +203,25 @@ module game {
             if (!canSave) {
                 itemRender.selected = false;
                 this.unwear(item);
+
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
             } else {
                 this.changePart(item);
-                this._selItems.push(item);
-            }
+                let haveDressed = false;
 
+                for (let i = 0; i < this._selItems.length; i++) {
+                    let data = this._selItems[i];
+                    if (data.Sex === item.Sex && data.Pos === item.Pos) {
+                        haveDressed = true;
+                        this._selItems[i] = item;
+                        break;
+                    }
+                }
+
+                if (!haveDressed) {
+                    this._selItems.push(item);
+                }
+            }
             this.setDressInfo();
         }
 
@@ -246,10 +262,10 @@ module game {
         }
         private updateCoins() {
             this.coin_gold.coins = DataManager.playerModel.getScore();
-            this.coin_gold.setCoinType(0);
-
-            this.coin_money.coins = <number>DataManager.playerModel.getTotalMoney();
             this.coin_gold.setCoinType(1);
+
+            this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
+            this.coin_gold.setCoinType(0);
         }
 
 
@@ -296,7 +312,7 @@ module game {
             } else {
                 this.switchToGirl();
             }
-            
+
             this.sendmsg_SwitchGender({
                 sex: this.gender
             })

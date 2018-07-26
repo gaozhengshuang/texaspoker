@@ -29,9 +29,9 @@ module game {
 
 		public setCoinType(n: number) {
 			if (n == 1) {
-				this.img_gold.visible = false;
-			} else {
 				this.img_gold.visible = true;
+			} else {
+				this.img_gold.visible = false;
 			}
 		}
 

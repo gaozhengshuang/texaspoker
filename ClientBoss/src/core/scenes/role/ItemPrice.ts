@@ -40,6 +40,11 @@ module game {
             return false;
         }
 
+        public set obtain(b: boolean) {
+                 this.grp_price.visible = !b;
+                this.txt_obtained.visible = b;
+        }
+
         protected dataChanged() {
             if (ItemPrice.isComingSoon(this.data)) {
                 this.data['Path'] = "dress_01_json.dress_01_17";
@@ -60,12 +65,10 @@ module game {
                 this.img_equip.source = info.icon;
             }
             if (info.price <= 0) {
-                this.grp_price.visible = false;
-                this.txt_obtained.visible = true;
+                this.obtain = true;
             } else {
                 this.txt_price.text = `${info.price}`;
-                this.grp_price.visible = true;
-                this.txt_obtained.visible = false;
+                this.obtain = false;
             }
 
             this.setPriceUnit(info.priceUnit);
