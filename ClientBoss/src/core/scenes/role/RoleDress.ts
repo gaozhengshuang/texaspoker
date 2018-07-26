@@ -68,7 +68,7 @@ module game {
 
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
-            this.gender = 0;
+            this.gender = DataManager.playerModel.sex;
 
             this.initTypeSelIdxs();
 
@@ -76,7 +76,12 @@ module game {
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
-            this.switchToGirl();
+            if (this.isGirl) {
+                this.switchToGirl();
+            } else {
+                this.switchToBoy();
+            }
+
             this.hideDressInfo();
 
             this.partHandle_body();
@@ -93,10 +98,10 @@ module game {
             console.log("添加包裹项：", data);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
         }
-     
+
         // TODO: 穿上装备
         private sendmsg_DressCloth(data: { pos, itemid }) {
-            console.log("发送穿上装备消息",data);
+            console.log("发送穿上装备消息", data);
             sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
                 pos: data.pos,
                 itemid: data.itemid
@@ -104,11 +109,11 @@ module game {
         }
 
         private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-            console.log("性别切换成功",data);
+            console.log("性别切换成功", data);
         }
         // TODO: 脱下装备
         private sendmsg_UnDressCloth(data: { pos }) {
-            console.log("发送脱下装备消息",data);
+            console.log("发送脱下装备消息", data);
             sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
                 pos: data.pos,
             }));
@@ -165,6 +170,8 @@ module game {
             this.ls_items.selectedIndex = -1;
             this.ls_items.selectedItem = null;
         }
+
+
 
         // 选择项改变
         private onChange(e: eui.ItemTapEvent) {
@@ -280,8 +287,6 @@ module game {
         }
 
         private closeHandle() {
-            this.resetParts(this._boyBone);
-            this.resetParts(this._girlBone);
             this.remove();
         }
         private cartHandle() {
@@ -297,10 +302,6 @@ module game {
             this.useGirlShelf(true);
             this.useGirlTypeIcons(true);
             this.setDressInfo();
-
-            this.sendmsg_SwitchGender({
-                sex: this.gender
-            })
         }
 
         private switchGender() {
@@ -309,7 +310,10 @@ module game {
             } else {
                 this.switchToGirl();
             }
-
+            
+            this.sendmsg_SwitchGender({
+                sex: this.gender
+            })
         }
 
         private switchToBoy() {
@@ -320,10 +324,6 @@ module game {
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
             this.setDressInfo();
-
-             this.sendmsg_SwitchGender({
-                sex: this.gender
-            })
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }

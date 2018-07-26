@@ -41,7 +41,6 @@ module game {
         }
 
         protected dataChanged() {
-            console.log(this.data);
             if (ItemPrice.isComingSoon(this.data)) {
                 this.data['Path'] = "dress_01_json.dress_01_17";
                 this.data['Price'] = "敬请期待";
