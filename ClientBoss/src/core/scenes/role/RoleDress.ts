@@ -200,12 +200,26 @@ module game {
             if (!canSave) {
                 itemRender.selected = false;
                 this.unwear(item);
+              
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
             } else {
                 this.changePart(item);
-                this._selItems.push(item);
-            }
+                let haveDressed = false;
 
+                for (let i = 0; i < this._selItems.length; i++) {
+                   let data =  this._selItems[i];
+                   if(data.Sex===item.Sex && data.Pos===item.Pos)
+                   {
+                       haveDressed = true;
+                       this._selItems[i] = item;
+                       break;
+                   }
+                }
+
+                if(!haveDressed){
+                    this._selItems.push(item);
+                }
+            }
             this.setDressInfo();
         }
 
