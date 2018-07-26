@@ -162,7 +162,7 @@ func (this* GateUser) BuyItem(productid uint32, num uint32) {
 func (this *GateUser) BuyClothes(ItemList []int32) {
 
 	// 检查是否已经购买过，计算总价
-	totalprice := int32(0)
+	goldprice, diamondprice := int32(0), int32(0)
 	for _, id := range ItemList {
 		if item := this.bag.FindById(uint32(id)); item != nil {
 			this.SendNotify("购物车添加了已经购买过的服装")
@@ -182,19 +182,35 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 			return
 		}
 
-		totalprice += equip.Price
+		if equip.CoinType == int32(msg.MoneyType__Gold) {
+			goldprice += equip.Price
+		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
+			diamondprice += equip.Price
+		}else {
+			log.Error("玩家[%s %d] 购买的服装[%d]，无效的货币类型[%d]", this.Name(), this.Id(), id, equip.CoinType)
+			return
+		}
 	}
 
 	// 
-	if int32(this.GetGold()) < totalprice {
-		this.SendNotify("余额不足")
+	if int32(this.GetGold()) < goldprice {
+		this.SendNotify("金币不足")
+		return
+	}
+
+	if int32(this.GetDiamond()) < diamondprice {
+		this.SendNotify("钻石不足")
 		return
 	}
 
 	//
 	for _, id := range ItemList {
 		equip, _ := tbl.TEquipBase.EquipById[id]
-		this.RemoveGold(uint32(equip.Price), "购买服装", true)
+		if equip.CoinType == int32(msg.MoneyType__Gold) {
+			this.RemoveGold(uint32(equip.Price), "购买服装", true)
+		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
+			this.RemoveDiamond(uint32(equip.Price), "购买服装", true)
+		}
 		this.AddItem(uint32(id), 1, "购买服装")
 	}
 

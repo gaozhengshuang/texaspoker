@@ -28,7 +28,7 @@ module game {
 		}
 
 		public setCoinType(n: number) {
-			if (n == 1) {
+			if (n == msg.MoneyType._Gold) {
 				this.img_gold.visible = true;
 			} else {
 				this.img_gold.visible = false;

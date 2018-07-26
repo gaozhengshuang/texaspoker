@@ -13157,6 +13157,20 @@ $root.msg = (function() {
         return values;
     })();
 
+    /**
+     * MoneyType enum.
+     * @name msg.MoneyType
+     * @enum {string}
+     * @property {number} _Gold=1 _Gold value
+     * @property {number} _Diamond=2 _Diamond value
+     */
+    msg.MoneyType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1] = "_Gold"] = 1;
+        values[valuesById[2] = "_Diamond"] = 2;
+        return values;
+    })();
+
     msg.GW2L_ReqRegist = (function() {
 
         /**

@@ -65,3 +65,9 @@ enum Sex {
     Male = 1;
     Neutral = 2;
 }
+
+enum MoneyType {
+    _Gold = 1;
+    _Diamond = 2;
+}
+
