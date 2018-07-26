@@ -97,6 +97,7 @@ module game {
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             console.log("添加包裹项：", data);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
+            this.updateShelf();
         }
 
         // TODO: 穿上装备
