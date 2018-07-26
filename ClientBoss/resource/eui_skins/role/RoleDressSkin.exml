@@ -12,13 +12,13 @@
 
 
 
-		<game:IconButton id="btn_cart" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="257.395" bottom="58"/>
+		<game:IconButton id="btn_cart" width="183" height="69" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="262.895" bottom="20"/>
 		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-3.105000000000018" bottom="75" touchEnabled="false"/>
-		<e:Group id="grp_misc" width="158" height="86" anchorOffsetX="0" anchorOffsetY="0" scaleX="1.5" scaleY="1.5" horizontalCenter="-237.10500000000002" bottom="23">
-			<e:Image source="dress_01_json.dress_01_26" x="-4" y="3" anchorOffsetX="0" width="162" anchorOffsetY="0" height="81"/>
-			<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="82" y="15"/>
-			<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="13.5" y="15"/>
-			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" height="81" width="157" horizontalCenter="0.5" verticalCenter="-2.5" source="shopItemButtonBg_png"/>
+		<e:Group id="grp_misc" width="131" height="69" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-262.105" bottom="20">
+			<e:Image source="dress_01_json.dress_01_26" x="-4" y="3" anchorOffsetX="0" width="131" anchorOffsetY="0" height="69"/>
+			<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="64" y="9"/>
+			<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="0.5" y="9"/>
+			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" source="shopItemButtonBg_png" right="0" left="0" top="0" bottom="0"/>
 		</e:Group>
 
 		<e:Button id="btn_test" label="换" x="30" y="243" anchorOffsetX="0" width="130" anchorOffsetY="0" height="60" scaleX="1" scaleY="1" visible="false">
@@ -68,19 +68,19 @@
 			</e:Scroller>
 		</e:Group>
 		<e:Group id="btnGroup" width="718.18" height="75" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" top="0">
-			<e:Image source="dress_01_json.taboard-bg1" x="0" y="-6.08"/>
-			<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" width="718.18" height="74.24" horizontalCenter="-0.08999999999997499" verticalCenter="3.8800000000000026">
-			<e:Group>
+			<e:Image source="dress_01_json.taboard-bg1" x="-1" y="-6.08" anchorOffsetX="0" width="721"/>
+			<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" width="708.18" height="94.24" horizontalCenter="1.910000000000025" verticalCenter="4.5" anchorOffsetX="0">
+			<e:Group anchorOffsetX="0" width="709.18">
 				<e:layout>
-				<e:HorizontalLayout gap="30" horizontalAlign="left" verticalAlign="middle"/>
+				<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" paddingLeft="10" paddingRight="10" gap="10"/>
 				</e:layout>
-				<game:ChooseIcon id="part_head" width="80" height="80" x="68" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
-				<game:ChooseIcon id="part_body" width="80" height="80" x="115" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
-				<game:ChooseIcon id="part_leg" width="80" height="80" x="201" y="19" skinName="ChooseIconSkin" touchEnabled="true"/>
-				<game:ChooseIcon id="part_foot" width="80" height="80" x="245" y="21" skinName="ChooseIconSkin" touchEnabled="true"/>
-				<game:ChooseIcon id="part_waist" width="80" height="80" x="279" y="24" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
-				<game:ChooseIcon id="part_hand" width="80" height="80" x="334" y="18" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
-				<game:ChooseIcon id="part_back" width="80" height="80" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true" visible="false"/>
+				<game:ChooseIcon id="part_head" width="104" height="86" x="68" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_body" width="104" height="86" x="115" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_leg" width="104" height="86" x="201" y="19" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_foot" width="104" height="86" x="245" y="21" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_waist" width="104" height="86" x="279" y="24" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
+				<game:ChooseIcon id="part_hand" width="104" height="86" x="334" y="18" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
+				<game:ChooseIcon id="part_back" width="104" height="86" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true" visible="false"/>
 			</e:Group>
 			</e:Scroller>
 		</e:Group>

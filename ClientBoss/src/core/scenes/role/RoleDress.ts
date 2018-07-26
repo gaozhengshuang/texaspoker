@@ -40,7 +40,8 @@ module game {
         private _boyBone: SkeletonBase;
         private _typeIdx: msg.ItemPos;
 
-        private _typeChecked;
+        private _girlSelIdxs;   // 女性已选索引
+        private _boySelIdxs;
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -66,7 +67,8 @@ module game {
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
             this.gender = 0;
-            this._typeChecked={};
+
+            this.initTypeSelIdxs();
 
             this.initNetEvent();
             this.initTouchEvent();
@@ -111,41 +113,66 @@ module game {
             this.ls_items.itemRenderer = game.ItemPrice;
             this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
         }
- 
 
-        private saveSelected(typeIdx, itemIndex) {
-            if (this._typeChecked[typeIdx] != null && this._typeChecked[typeIdx] == itemIndex) {
-                console.log('选择了同样的项', itemIndex);
+        private initTypeSelIdxs() {
+            this._girlSelIdxs = {};
+            this._boySelIdxs = {};
+        }
+
+        private saveGrilSelIndex(typeIdx, itemIndex) {
+            if (this._girlSelIdxs[typeIdx] != null && this._girlSelIdxs[typeIdx] == itemIndex) {
                 return false;
             }
 
-            this._typeChecked[typeIdx] = itemIndex;
+            this._girlSelIdxs[typeIdx] = itemIndex;
             return true;
         }
+        private saveBoySelIndex(typeIdx, itemIdx) {
+            if (this._boySelIdxs[typeIdx] != null && this._boySelIdxs[typeIdx] == itemIdx) {
+                return false;
+            }
 
-        private rmSelected(typeIdx) {
-            this._typeChecked[this._typeIdx] = null;
+            this._boySelIdxs[typeIdx] = itemIdx;
+            return true;
+        }
+        private rmBoySelIndex(typeIdx) {
+            this._boySelIdxs[this._typeIdx] = null;
+            this.ls_items.selectedIndex = -1;
+            this.ls_items.selectedItem = null;
+        }
+
+        private rmGirlSelIndex(typeIdx) {
+            this._girlSelIdxs[this._typeIdx] = null;
             this.ls_items.selectedIndex = -1;
             this.ls_items.selectedItem = null;
         }
 
         // 选择项改变
         private onChange(e: eui.ItemTapEvent) {
-
-
             let item = this.ls_items.selectedItem;
             let idx = e.itemIndex;
             let itemRender = <game.ItemPrice>e.itemRenderer;
-            if (!this.saveSelected(this._typeIdx, idx)) {
+            let canSave = false;
+
+            if (this.isGirl) {
+                canSave = this.saveGrilSelIndex(this._typeIdx,idx)
+                if (!canSave){
+                    this.rmGirlSelIndex(this._typeIdx);
+                }
+            }else {
+                canSave = this.saveBoySelIndex(this._typeIdx,idx);
+                if (!canSave) {
+                    this.rmBoySelIndex(this._typeIdx);
+                }
+            }
+
+            if (!canSave) {
                 itemRender.selected = false;
-                this.rmSelected(this._typeIdx);
                 this.unwear(item);
             } else {
                 this.setDressInfo(item);
                 this.changePart(item);
             }
-
-
         }
 
         private initTypeIcons() {
@@ -229,6 +256,7 @@ module game {
             } else {
                 this.switchToGirl();
             }
+
         }
 
         private switchToBoy() {
@@ -329,19 +357,8 @@ module game {
         public showDressInfo() {
             this.dress_info.visible = true;
         }
-
-        // 设置装备列表
-        private setShelf(s: number) {
-            this._dataProv.removeAll();
-
-            let dressItem: table.IEquipDefine = null;
-            while (!!(dressItem = table.EquipById[s++])) {
-                if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
-                    this._dataProv.addItem(dressItem);
-                }
-            }
-
-            this.reselectIndex(this._typeIdx);
+        public get isGirl() {
+            return this.gender == 0;
         }
 
         public updateShelf() {
@@ -355,18 +372,40 @@ module game {
                 case msg.ItemPos.Suit: this.showShelf_back(); break;
             }
         }
-        private getSelectIndex(typeIndex) {
-            console.log("类型：", typeIndex,this._typeChecked )
+        // 设置装备列表
+        private setShelf(s: number) {
+            this._dataProv.removeAll();
 
-            if (!this._typeChecked || this._typeChecked[typeIndex] == null) return null;
-            console.log(this._typeChecked[typeIndex]);
-            return this._typeChecked[typeIndex];
+            let dressItem: table.IEquipDefine = null;
+            while (!!(dressItem = table.EquipById[s++])) {
+                if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
+                    this._dataProv.addItem(dressItem);
+                }
+            }
+            if (this.isGirl) {
+                this.reselGirlIdx(this._typeIdx)
+            } else {
+                this.reselBoyIdx(this._typeIdx);
+            }
+
+        }
+        private getGirlSelIdx(typeIndex) {
+            if (!this._girlSelIdxs || this._girlSelIdxs[typeIndex] == null) return null;
+            return this._girlSelIdxs[typeIndex];
+        }
+        private getBoySelIdx(typeIdx) {
+            if (!this._boySelIdxs || this._boySelIdxs[typeIdx] == null) return null;
+            return this._boySelIdxs[typeIdx];
         }
 
-        private reselectIndex(typeIndex) {
-            console.log(this._typeChecked);
-            let selIndex = this.getSelectIndex(this._typeIdx);
-            console.log("选择项：", selIndex);
+        private reselGirlIdx(typeIndex) {
+            let selIndex = this.getGirlSelIdx(this._typeIdx);
+            if (selIndex != null) {
+                this.ls_items.selectedIndex = selIndex;
+            }
+        }
+        private reselBoyIdx(typeIdx) {
+            let selIndex = this.getBoySelIdx(this._typeIdx);
             if (selIndex != null) {
                 this.ls_items.selectedIndex = selIndex;
             }
@@ -457,7 +496,7 @@ module game {
             }
         }
 
-        private resetSlots(bone:SkeletonBase, slotNames:string[]) {
+        private resetSlots(bone: SkeletonBase, slotNames: string[]) {
             slotNames.forEach((name) => bone.resetSlot(name));
         }
 
@@ -470,6 +509,7 @@ module game {
             } else {
                 this.resetSlots(this._boyBone, slotNames);
             }
+            this.hideDressInfo();
         }
 
 

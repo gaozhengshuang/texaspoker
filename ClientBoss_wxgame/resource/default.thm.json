@@ -4,7 +4,6 @@
 		"resource/eui_skins/CommonDialogSkin.exml",
 		"resource/eui_skins/LoadingSkin.exml",
 		"resource/eui_skins/NetFailedSkin.exml",
-		"resource/eui_skins/common/AvatarSkin.exml",
 		"resource/eui_skins/battle/BattleBagItemSkin.exml",
 		"resource/eui_skins/battle/BattleBagSkin.exml",
 		"resource/eui_skins/battle/BattleBallSkin.exml",
@@ -23,6 +22,7 @@
 		"resource/eui_skins/battle/BattleSceneSkin.exml",
 		"resource/eui_skins/battle/BattleSpBarSkin.exml",
 		"resource/eui_skins/battle/BattleTimeBoomSkin.exml",
+		"resource/eui_skins/common/AvatarSkin.exml",
 		"resource/eui_skins/component/BadBuffProgressBar.exml",
 		"resource/eui_skins/component/BadBuffSkin.exml",
 		"resource/eui_skins/component/CloseButtonSkin.exml",
@@ -43,6 +43,8 @@
 		"resource/eui_skins/main/HistoryMoneySkin.exml",
 		"resource/eui_skins/main/MainSceneSkin.exml",
 		"resource/eui_skins/main/UserPanelSkin.exml",
+		"resource/eui_skins/rank/RankItemSkin.exml",
+		"resource/eui_skins/rank/RankPanelSkin.exml",
 		"resource/eui_skins/role/ChooseIconSkin.exml",
 		"resource/eui_skins/role/CoinsSkin.exml",
 		"resource/eui_skins/role/EquipInfoSkin.exml",
@@ -51,9 +53,7 @@
 		"resource/eui_skins/role/ShopItemSkin.exml",
 		"resource/eui_skins/role/ShoppingCartSkin.exml",
 		"resource/eui_skins/win/WinRankItemSkin.exml",
-		"resource/eui_skins/win/WinSceneSkin.exml",
-		"resource/eui_skins/rank/RankItemSkin.exml",
-		"resource/eui_skins/rank/RankPanelSkin.exml"
+		"resource/eui_skins/win/WinSceneSkin.exml"
 	],
 	"path": "resource/default.thm.json",
 	"skins": {
