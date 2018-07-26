@@ -5310,7 +5310,7 @@ var egret = window.egret;
 	__extends(ItemPriceSkin, _super);
 	function ItemPriceSkin() {
 		_super.call(this);
-		this.skinParts = ["img_checkedbg","img_equip","img_checked","txt_obtained","img_price","txt_price","img_gold","grp_price","img_mask"];
+		this.skinParts = ["img_checkedbg","img_equip","img_checked","txt_obtained","img_price","txt_price","grp_price","img_mask"];
 		
 		this.height = 189;
 		this.width = 151;
@@ -5373,10 +5373,17 @@ var egret = window.egret;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 33.2;
-		t.width = 142.2;
-		t.x = 1.8;
-		t.y = 153.6;
-		t.elementsContent = [this.img_price_i(),this.txt_price_i(),this.img_gold_i()];
+		t.horizontalCenter = 0;
+		t.verticalCenter = 72;
+		t.width = 146.53;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.img_price_i(),this.txt_price_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.horizontalAlign = "center";
+		t.verticalAlign = "middle";
 		return t;
 	};
 	_proto.img_price_i = function () {
@@ -5385,35 +5392,25 @@ var egret = window.egret;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 58;
+		t.horizontalCenter = -25.599999999999994;
 		t.scaleX = 0.6;
 		t.scaleY = 0.6;
 		t.source = "dress_01_json.dress_01_19";
+		t.verticalCenter = -4.100000000000001;
 		t.width = 58;
-		t.x = 6.68;
-		t.y = -5.01;
 		return t;
 	};
 	_proto.txt_price_i = function () {
 		var t = new eui.Label();
 		this.txt_price = t;
-		t.size = 24;
-		t.text = "1000000";
-		t.x = 43;
-		t.y = 1;
-		return t;
-	};
-	_proto.img_gold_i = function () {
-		var t = new eui.Image();
-		this.img_gold = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 58;
-		t.scaleX = 0.6;
-		t.scaleY = 0.6;
-		t.source = "ui_json.gold";
-		t.width = 58;
-		t.x = 6.68;
-		t.y = -5.01;
+		t.left = 60;
+		t.size = 24;
+		t.text = "10000";
+		t.textAlign = "left";
+		t.verticalAlign = "middle";
+		t.verticalCenter = -4.600000000000001;
 		return t;
 	};
 	_proto.img_mask_i = function () {

@@ -9,7 +9,6 @@ module game {
         txt_price: eui.Label;
         img_mask: eui.Image;
         img_checkedbg: eui.Image;
-        img_gold: eui.Image;
 
         public fnSelected = null;
 
@@ -19,9 +18,6 @@ module game {
 
             this.selected = false;
 
-            // this.img_equip.addEventListener('touchBegin',this.onTouch,this);
-            // this.chk_item.addEventListener('touchBegin',this.onTouch,this);
-            this.img_mask.addEventListener('touchBegin', this.onTouch, this);
         }
 
         public set selected(b: boolean) {
@@ -29,17 +25,11 @@ module game {
             this.img_checkedbg.visible = b;
         }
 
-
-        private onTouch() {
-            this.selected = true;
-            this.fnSelected && this.fnSelected(this);
-        }
-
         protected getSkinName() {
             return ItemPriceSkin;
         }
 
-        public isComingSoon(item: table.IEquipDefine) {
+        public static  isComingSoon(item: table.IEquipDefine) {
             if (!item.LoadPoint || item.LoadPoint.length <= 0) {
                 return true;
             }
@@ -48,7 +38,7 @@ module game {
 
         protected dataChanged() {
 
-            if (this.isComingSoon(this.data)) {
+            if (ItemPrice.isComingSoon(this.data)) {
                 this.data['Path'] = "";
                 this.data['Price'] = "敬请期待";
             }
@@ -80,10 +70,10 @@ module game {
         }
 
         public setPriceUnit(n: number) {
-            if (n == 1) {
-                this.img_gold.visible = false;
+            if (n == 1) { // 1 金币
+                this.img_price.source = "ui_json.gold";
             } else {
-                this.img_gold.visible = true;
+                this.img_price.source = "dress_01_json.dress_01_19";
             }
         }
 
