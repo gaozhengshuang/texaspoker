@@ -35,9 +35,12 @@ module game {
             }
             return false;
         }
+        public static isObtain(item:table.IEquipDefine) {
+            if (item.Price <= 0) return true;
+            return false;
+        }
 
         protected dataChanged() {
-
             if (ItemPrice.isComingSoon(this.data)) {
                 this.data['Path'] = "";
                 this.data['Price'] = "敬请期待";

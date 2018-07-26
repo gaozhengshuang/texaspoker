@@ -84,31 +84,46 @@ module game {
 
         private initNetEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
-            NotificationCenter.addObserver(this, this.OnGW2C_UpdateItemPos, "msg.GW2C_UpdateItemPos");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetChangeImageSex, "msg.GW2C_RetChangeImageSex");
         }
 
         // TODO: 添加包裹项
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             console.log("添加包裹项：", data);
-            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item=>{return item.Id;}).filter(itemId=>{return !DataManager.playerModel.IsHaveItem(itemId);}));            
+            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
         }
-        // TODO: 更新项位置
-        private OnGW2C_UpdateItemPos(data: msg.GW2C_UpdateItemPos) {
-            console.log("更新项位置", data);
-        }
+     
         // TODO: 穿上装备
-        private sendDressCloth(data) {
+        private sendmsg_DressCloth(data: { pos, itemid }) {
+            console.log("发送穿上装备消息",data);
             sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
                 pos: data.pos,
                 itemid: data.itemid
             }));
         }
+
+        private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
+            console.log("性别切换成功",data);
+        }
         // TODO: 脱下装备
-        private sendUnDressCloth(data) {
+        private sendmsg_UnDressCloth(data: { pos }) {
+            console.log("发送脱下装备消息",data);
             sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
                 pos: data.pos,
             }));
         }
+        //TODO: 发送切换性别消息
+        private sendmsg_SwitchGender(data: { sex }) {
+            sendMessage("msg.C2GW_ChangeImageSex", msg.C2GW_ChangeImageSex.encode({
+                sex: data.sex
+            }))
+        }
+        // TODO: 接收显示性别消息
+        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
+            console.log("GW2C_SendShowImage", data);
+        }
+
 
         private initItemList() {
             this._dataProv = new eui.ArrayCollection();
@@ -165,12 +180,12 @@ module game {
             let canSave = false;
 
             if (this.isGirl) {
-                canSave = this.saveGrilSelIndex(this._typeIdx,idx)
-                if (!canSave){
+                canSave = this.saveGrilSelIndex(this._typeIdx, idx)
+                if (!canSave) {
                     this.rmGirlSelIndex(this._typeIdx);
                 }
-            }else {
-                canSave = this.saveBoySelIndex(this._typeIdx,idx);
+            } else {
+                canSave = this.saveBoySelIndex(this._typeIdx, idx);
                 if (!canSave) {
                     this.rmBoySelIndex(this._typeIdx);
                 }
@@ -179,12 +194,12 @@ module game {
             if (!canSave) {
                 itemRender.selected = false;
                 this.unwear(item);
-                this._selItems = this._selItems.filter(data=>{return (data.Sex!=item.Sex || data.Pos!=item.Pos) && data.Id!=item.Id;})
+                this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
             } else {
                 this.changePart(item);
                 this._selItems.push(item);
             }
-        
+
             this.setDressInfo();
         }
 
@@ -258,7 +273,7 @@ module game {
         }
         private cartHandle() {
             openPanel(PanelType.dressShopCarts);
-            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item=>{return item.Id;}).filter(itemId=>{return !DataManager.playerModel.IsHaveItem(itemId);}));
+            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
         }
 
         private switchToGirl() {
@@ -268,7 +283,11 @@ module game {
             this.useGirlIcon(true);
             this.useGirlShelf(true);
             this.useGirlTypeIcons(true);
-            this.setDressInfo();            
+            this.setDressInfo();
+
+            this.sendmsg_SwitchGender({
+                sex: this.gender
+            })
         }
 
         private switchGender() {
@@ -287,7 +306,11 @@ module game {
             this.useGirlIcon(false);
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
-            this.setDressInfo();            
+            this.setDressInfo();
+
+             this.sendmsg_SwitchGender({
+                sex: this.gender
+            })
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -358,11 +381,11 @@ module game {
         //=======================================
         //TODO: 设置装备信息
         public setDressInfo() {
-            let dressInfos : table.IEquipDefine[] = this._selItems.filter(item=>{return item.Sex==this.gender;});
-            this.dress_info.equip_name = dressInfos[dressInfos.length-1] ? dressInfos[dressInfos.length-1].Name : "";
+            let dressInfos: table.IEquipDefine[] = this._selItems.filter(item => { return item.Sex == this.gender; });
+            this.dress_info.equip_name = dressInfos[dressInfos.length - 1] ? dressInfos[dressInfos.length - 1].Name : "";
             //技能加成
             let skillDes = "";
-            dressInfos.forEach(info=>{
+            dressInfos.forEach(info => {
                 info.Skill.forEach(
                     (item, index, array) => {
                         let skillData: table.ITSkillDefine = table.TSkillById[parseInt(item)];
@@ -397,6 +420,19 @@ module game {
                 case msg.ItemPos.Suit: this.showShelf_back(); break;
             }
         }
+
+        private isInBagList(e: table.IEquipDefine) {
+            let bag = DataManager.playerModel.bagList
+            let a = bag.filter((item) => item.id == e.Id);
+            if (a.length > 0) {
+                return true;
+            }
+            return false;
+        }
+        private setObtain(e: table.IEquipDefine) {
+            e.Price = -1;
+        }
+
         // 设置装备列表
         private setShelf(s: number) {
             this._dataProv.removeAll();
@@ -404,6 +440,10 @@ module game {
             let dressItem: table.IEquipDefine = null;
             while (!!(dressItem = table.EquipById[s++])) {
                 if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
+                    if (this.isInBagList(dressItem)) {
+                        this.setObtain(dressItem);
+                    }
+
                     this._dataProv.addItem(dressItem);
                 }
             }
@@ -519,6 +559,13 @@ module game {
             } else {
                 this.changeSlotsInSuit(this._boyBone, slotNames, "boy_suit2");
             }
+            if (this.isInBagList(e)) {
+                this.sendmsg_DressCloth({
+                    pos: e.Pos,
+                    itemid: e.Id,
+                })
+            }
+
         }
 
         private resetSlots(bone: SkeletonBase, slotNames: string[]) {
@@ -534,6 +581,13 @@ module game {
             } else {
                 this.resetSlots(this._boyBone, slotNames);
             }
+
+            if (this.isInBagList(e)) {
+                this.sendmsg_UnDressCloth({
+                    pos: e.Pos
+                })
+            }
+
         }
 
 

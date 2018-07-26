@@ -6191,7 +6191,7 @@ var egret = window.egret;
 	__extends(ShoppingCartSkin, _super);
 	function ShoppingCartSkin() {
 		_super.call(this);
-		this.skinParts = ["BG","BG2","listGroup","ShopItemViewScroller","goldNumTxt","coin_gold","userCoin","diamondNumTxt","coin_gold1","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
+		this.skinParts = ["BG","BG2","listGroup","ShopItemViewScroller","goldNumTxt","userCoin","diamondNumTxt","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -6269,7 +6269,7 @@ var egret = window.egret;
 		t.width = 200;
 		t.x = 24;
 		t.y = 168;
-		t.elementsContent = [this._Image1_i(),this._Image2_i(),this.goldNumTxt_i(),this.coin_gold_i()];
+		t.elementsContent = [this._Image1_i(),this._Image2_i(),this.goldNumTxt_i()];
 		return t;
 	};
 	_proto._Image1_i = function () {
@@ -6308,17 +6308,6 @@ var egret = window.egret;
 		t.y = 15;
 		return t;
 	};
-	_proto.coin_gold_i = function () {
-		var t = new game.Coins();
-		this.coin_gold = t;
-		t.height = 0;
-		t.skinName = "CoinsSkin";
-		t.visible = false;
-		t.width = 200;
-		t.x = 0;
-		t.y = 8;
-		return t;
-	};
 	_proto.userDiamond_i = function () {
 		var t = new eui.Group();
 		this.userDiamond = t;
@@ -6328,7 +6317,7 @@ var egret = window.egret;
 		t.width = 200;
 		t.x = 242;
 		t.y = 168;
-		t.elementsContent = [this._Image3_i(),this.diamondNumTxt_i(),this.coin_gold1_i()];
+		t.elementsContent = [this._Image3_i(),this.diamondNumTxt_i()];
 		return t;
 	};
 	_proto._Image3_i = function () {
@@ -6352,17 +6341,6 @@ var egret = window.egret;
 		t.width = 115;
 		t.x = 52;
 		t.y = 15;
-		return t;
-	};
-	_proto.coin_gold1_i = function () {
-		var t = new game.Coins();
-		this.coin_gold1 = t;
-		t.height = 0;
-		t.skinName = "CoinsSkin";
-		t.visible = false;
-		t.width = 200;
-		t.x = 0;
-		t.y = 8;
 		return t;
 	};
 	_proto.coinGoldImage_i = function () {
