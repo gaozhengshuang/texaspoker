@@ -186,6 +186,9 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 			goldprice += equip.Price
 		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
 			diamondprice += equip.Price
+		}else {
+			log.Error("玩家[%s %d] 购买的服装[%d]，无效的货币类型[%d]", this.Name(), this.Id(), id, equip.CoinType)
+			return
 		}
 	}
 
@@ -203,7 +206,11 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 	//
 	for _, id := range ItemList {
 		equip, _ := tbl.TEquipBase.EquipById[id]
-		this.RemoveGold(uint32(equip.Price), "购买服装", true)
+		if equip.CoinType == int32(msg.MoneyType__Gold) {
+			this.RemoveGold(uint32(equip.Price), "购买服装", true)
+		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
+			this.RemoveDiamond(uint32(equip.Price), "购买服装", true)
+		}
 		this.AddItem(uint32(id), 1, "购买服装")
 	}
 
