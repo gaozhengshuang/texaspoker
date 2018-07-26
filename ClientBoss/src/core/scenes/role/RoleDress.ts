@@ -35,13 +35,15 @@ module game {
 
         private _dataProv: eui.ArrayCollection;
 
-        public gender: number;
+        public gender: number; // 0 女 1 男
         private _girlBone: SkeletonBase;
         private _boyBone: SkeletonBase;
         private _typeIdx: msg.ItemPos;
 
         private _girlSelIdxs;   // 女性已选索引
         private _boySelIdxs;
+
+        private _selItems: table.IEquipDefine[];
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -88,6 +90,7 @@ module game {
         // TODO: 添加包裹项
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             console.log("添加包裹项：", data);
+            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item=>{return item.Id;}).filter(itemId=>{return !DataManager.playerModel.IsHaveItem(itemId);}));            
         }
         // TODO: 更新项位置
         private OnGW2C_UpdateItemPos(data: msg.GW2C_UpdateItemPos) {
@@ -117,6 +120,7 @@ module game {
         private initTypeSelIdxs() {
             this._girlSelIdxs = {};
             this._boySelIdxs = {};
+            this._selItems = [];
         }
 
         private saveGrilSelIndex(typeIdx, itemIndex) {
@@ -152,6 +156,12 @@ module game {
             let item = this.ls_items.selectedItem;
             let idx = e.itemIndex;
             let itemRender = <game.ItemPrice>e.itemRenderer;
+            if (ItemPrice.isComingSoon(item)) {
+                console.log("COMMING SOON!");
+                itemRender.selected = false;
+                this.hideDressInfo();
+                return;
+            }
             let canSave = false;
 
             if (this.isGirl) {
@@ -169,10 +179,13 @@ module game {
             if (!canSave) {
                 itemRender.selected = false;
                 this.unwear(item);
+                this._selItems = this._selItems.filter(data=>{return (data.Sex!=item.Sex || data.Pos!=item.Pos) && data.Id!=item.Id;})
             } else {
-                this.setDressInfo(item);
                 this.changePart(item);
+                this._selItems.push(item);
             }
+        
+            this.setDressInfo();
         }
 
         private initTypeIcons() {
@@ -245,6 +258,7 @@ module game {
         }
         private cartHandle() {
             openPanel(PanelType.dressShopCarts);
+            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item=>{return item.Id;}).filter(itemId=>{return !DataManager.playerModel.IsHaveItem(itemId);}));
         }
 
         private switchToGirl() {
@@ -254,6 +268,7 @@ module game {
             this.useGirlIcon(true);
             this.useGirlShelf(true);
             this.useGirlTypeIcons(true);
+            this.setDressInfo();            
         }
 
         private switchGender() {
@@ -272,6 +287,7 @@ module game {
             this.useGirlIcon(false);
             this.useGirlShelf(false);
             this.useGirlTypeIcons(false);
+            this.setDressInfo();            
         }
 
         private partHandle_back() { this.unchoseAllIcons(); this.part_back.checked = true; this.showShelf_back(); }
@@ -341,20 +357,23 @@ module game {
 
         //=======================================
         //TODO: 设置装备信息
-        public setDressInfo(dressInfo: table.IEquipDefine) {
-            this.showDressInfo();
-            this.dress_info.equip_name = dressInfo.Name;
+        public setDressInfo() {
+            let dressInfos : table.IEquipDefine[] = this._selItems.filter(item=>{return item.Sex==this.gender;});
+            this.dress_info.equip_name = dressInfos[dressInfos.length-1] ? dressInfos[dressInfos.length-1].Name : "";
             //技能加成
             let skillDes = "";
-            dressInfo.Skill.forEach(
-                (item, index, array) => {
-                    let skillData: table.ITSkillDefine = table.TSkillById[parseInt(item)];
-                    if (skillData) {
-                        skillDes += (skillDes == "" ? skillData.Des : "\n" + skillData.Des);
+            dressInfos.forEach(info=>{
+                info.Skill.forEach(
+                    (item, index, array) => {
+                        let skillData: table.ITSkillDefine = table.TSkillById[parseInt(item)];
+                        if (skillData) {
+                            skillDes += (skillDes == "" ? skillData.Des : "\n" + skillData.Des);
+                        }
                     }
-                }
-            );
+                );
+            })
             this.dress_info.skillAddition = skillDes;
+            this.dress_info.visible = dressInfos.length > 0;
         }
 
         public hideDressInfo() {
@@ -515,7 +534,6 @@ module game {
             } else {
                 this.resetSlots(this._boyBone, slotNames);
             }
-            this.hideDressInfo();
         }
 
 

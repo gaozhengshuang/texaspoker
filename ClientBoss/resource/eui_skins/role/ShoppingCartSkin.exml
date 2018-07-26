@@ -14,12 +14,10 @@
 			<e:Image width="184" height="59" x="0" y="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_30"/>
 			<e:Image scaleX="1" scaleY="1" source="ui_json.gold" left="0" top="0" horizontalCenter="-72.5" right="145" verticalCenter="2.5" bottom="-5"/>
 			<e:Label id="goldNumTxt" text="0" x="52" y="15" fontFamily="Arial" size="27" width="115" textAlign="center"/>
-			<game:Coins id="coin_gold" width="200" height="0" x="0" y="8" skinName="CoinsSkin" visible="false"/>
 		</e:Group>
 		<e:Group id="userDiamond" width="200" height="50" y="168" scaleX="1" scaleY="1" x="242">
 			<e:Image width="184" height="59" x="0" y="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_30"/>
 			<e:Label id="diamondNumTxt" text="0" x="52" y="15" fontFamily="Arial" size="27" width="115" textAlign="center"/>
-			<game:Coins id="coin_gold1" width="200" height="0" x="0" y="8" skinName="CoinsSkin" visible="false"/>
 		</e:Group>
 		<e:Image id="coinGoldImage" x="73" y="1175" height="51" width="51" anchorOffsetY="0" source="ui_json.gold"/>
 		<e:Image id="coinDiamondImage" x="217" y="1175" height="51" width="51" anchorOffsetY="0" source="dress_01_json.dress_01_19"/>

@@ -151,6 +151,22 @@ module game {
         public getBag() {
             return this.bagList;
         }
+        //获取背包中的物品
+        public getBagItem(itemId:number)
+        {   
+            this.bagList.forEach(item=>{
+                if(item.id===itemId)
+                {
+                    return item;
+                }
+            });
+            return null;
+        }
+        //背包是否有这个物品
+        public IsHaveItem(itemId:number)
+        {
+            return this.bagList.some(item=>{return item.id===itemId;});
+        }
 
         get musicState() {
             let r = egret.localStorage.getItem("music");
