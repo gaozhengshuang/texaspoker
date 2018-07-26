@@ -174,7 +174,6 @@ module game {
             if (ItemPrice.isComingSoon(item)) {
                 console.log("COMMING SOON!");
                 itemRender.selected = false;
-                this.hideDressInfo();
                 return;
             }
             let canSave = false;
