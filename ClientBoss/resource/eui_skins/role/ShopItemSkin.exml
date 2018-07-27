@@ -4,8 +4,8 @@
 	<e:Image id="img_shopItemIcon" x="101" y="20" anchorOffsetX="0" width="85" anchorOffsetY="0" height="93" source=""/>
 	<e:Image id="img_shopItemSelect" x="25" y="53" anchorOffsetX="0" width="52" anchorOffsetY="0" height="37" source="dress_01_json.dress_01_25" visible="false"/>
 
-	<e:Label id="shopItemName" text="宫廷大头" x="230" y="8.2" bold="true" textAlign="left" textColor="0x5076f4"/>
-	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒双倍积分时间增加1秒" x="230" y="45.24" size="21" width="306.91" height="84.18" anchorOffsetY="0" anchorOffsetX="0" textAlign="left" bold="true" verticalAlign="middle" textColor="0x000000"/>
+	<e:Label id="shopItemName" text="宫廷大头" x="207" y="52.2" bold="true" textAlign="center" textColor="0x727272"/>
+	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒双倍积分时间增加1秒" x="332" y="3.24" size="22" width="192.91" height="129.18" anchorOffsetY="0" anchorOffsetX="0" textAlign="center" bold="true" verticalAlign="middle" textColor="0x000000"/>
 	<e:Group id="grp_price" width="0" height="0" x="526.8" y="53.2" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7" visible="false"/>
 		<e:Image id="img_gold" x="3.5" y="-2" scaleX="0.7" scaleY="0.7" source="ui_json.gold" width="57" height="57"/>
