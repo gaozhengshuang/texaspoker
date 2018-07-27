@@ -17,7 +17,7 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 )
 
-type ClientAccount struct {
+type CheckInAccount struct {
 	session network.IBaseNetSession
 	account string
 	tm_login int64
@@ -113,7 +113,7 @@ func QuickLogin(session network.IBaseNetSession, account string) bool {
 
 	log.Info("账户[%s] 快速登陆Gate[ip:%s port:%d]", account, ip, port)
 	session.SendCmd(newL2C_RetLogin("", ip, port, vkey))
-	Login().AddAuthenAccount(account, session)		// 避免同时登陆
+	Login().CheckInSetAdd(account, session)		// 避免同时登陆
 	return true
 }
 

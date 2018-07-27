@@ -71,8 +71,7 @@ module game {
                     let skillData : table.ITSkillDefine = table.TSkillById[parseInt(item)];
                     if(skillData)
                     {
-                        skillDes += (skillDes=="" ? skillData.Des : ";"+"\n"+skillData.Des);                        
-                        //skillDes += (skillDes=="" ? skillData.Des : (index%2== 1 ? ";"+skillData.Des : ";"+"\n"+skillData.Des));
+                        skillDes += (skillDes=="" ? skillData.Des : (index%2== 1 ? ";"+skillData.Des : ";"+"\n"+skillData.Des));
                     }
                 }
             );

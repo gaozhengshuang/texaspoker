@@ -55,7 +55,7 @@ module game {
 
             this._shopItemCarts = [];
             this.totalCosts = [0,0,0];
-            this.btn_close.icon = "lucky_json.luckycloseBtn"
+            this.btn_close.icon = "dress_01_json.dress_01_16"
             this.btn_buy.icon = "dress_01_json.dress_01_21";
         }
 
@@ -96,6 +96,7 @@ module game {
             if(!this._allShopItemIds || this._allShopItemIds.length==0) return;
           
             this._dataProvider = new eui.ArrayCollection();
+
             for (let i = 0; i < this._allShopItemIds.length; i++) {
                 let data: table.IEquipDefine = table.EquipById[this._allShopItemIds[i]];
                 let item: ShopItemInfo = new ShopItemInfo();
@@ -105,7 +106,7 @@ module game {
                 item.setData(data);
                 this.listGroup.addChild(item);
             }
-
+           
             this.ShopItemViewScroller.viewport = this.listGroup;
             this.ShopItemViewScroller.stopAnimation();
             this.ShopItemViewScroller.viewport.scrollV = 0;

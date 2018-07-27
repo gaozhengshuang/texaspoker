@@ -2806,6 +2806,109 @@ var egret = window.egret;
 		return t;
 	};
 	return AvatarSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
+	__extends(CloseButtonSkin, _super);
+	function CloseButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.height = 75;
+		this.width = 75;
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = CloseButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.source = "ui_json.ca";
+		return t;
+	};
+	return CloseButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
+	__extends(ImageButtonSkin, _super);
+	function ImageButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["bgDisplay","imageDisplay"];
+		
+		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
+	}
+	var _proto = ImageButtonSkin.prototype;
+
+	_proto.bgDisplay_i = function () {
+		var t = new eui.Image();
+		this.bgDisplay = t;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(43,19,39,11);
+		t.source = "ui_json.an4";
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.imageDisplay_i = function () {
+		var t = new eui.Image();
+		this.imageDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.tijiao";
+		t.verticalCenter = -0.5;
+		return t;
+	};
+	return ImageButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
+	__extends(LoadProgressBar, _super);
+	function LoadProgressBar() {
+		_super.call(this);
+		this.skinParts = ["thumb"];
+		
+		this.minHeight = 18;
+		this.minWidth = 30;
+		this.elementsContent = [this._Image1_i(),this.thumb_i()];
+	}
+	var _proto = LoadProgressBar.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.percentHeight = 100;
+		t.horizontalCenter = 0;
+		t.scale9Grid = new egret.Rectangle(1,1,4,4);
+		t.source = "ui_json.loadProgressBg";
+		t.verticalCenter = 0;
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.thumb_i = function () {
+		var t = new eui.Image();
+		this.thumb = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(3,77,20,464);
+		t.source = "ui_json.loadProgress";
+		t.percentWidth = 100;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return LoadProgressBar;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
+	__extends(ToggleButtonSkin, _super);
+	function ToggleButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = ToggleButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.kaishi";
+		t.verticalCenter = 0;
+		return t;
+	};
+	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginRewardSkin.exml'] = window.LoginRewardSkin = (function (_super) {
 	__extends(LoginRewardSkin, _super);
 	function LoginRewardSkin() {
@@ -3468,109 +3571,6 @@ var egret = window.egret;
 		return t;
 	};
 	return RegisterPanelSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
-	__extends(CloseButtonSkin, _super);
-	function CloseButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.height = 75;
-		this.width = 75;
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = CloseButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.source = "ui_json.ca";
-		return t;
-	};
-	return CloseButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
-	__extends(ImageButtonSkin, _super);
-	function ImageButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["bgDisplay","imageDisplay"];
-		
-		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
-	}
-	var _proto = ImageButtonSkin.prototype;
-
-	_proto.bgDisplay_i = function () {
-		var t = new eui.Image();
-		this.bgDisplay = t;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(43,19,39,11);
-		t.source = "ui_json.an4";
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.imageDisplay_i = function () {
-		var t = new eui.Image();
-		this.imageDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.tijiao";
-		t.verticalCenter = -0.5;
-		return t;
-	};
-	return ImageButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
-	__extends(LoadProgressBar, _super);
-	function LoadProgressBar() {
-		_super.call(this);
-		this.skinParts = ["thumb"];
-		
-		this.minHeight = 18;
-		this.minWidth = 30;
-		this.elementsContent = [this._Image1_i(),this.thumb_i()];
-	}
-	var _proto = LoadProgressBar.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.percentHeight = 100;
-		t.horizontalCenter = 0;
-		t.scale9Grid = new egret.Rectangle(1,1,4,4);
-		t.source = "ui_json.loadProgressBg";
-		t.verticalCenter = 0;
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.thumb_i = function () {
-		var t = new eui.Image();
-		this.thumb = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(3,77,20,464);
-		t.source = "ui_json.loadProgress";
-		t.percentWidth = 100;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	return LoadProgressBar;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
-	__extends(ToggleButtonSkin, _super);
-	function ToggleButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = ToggleButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.kaishi";
-		t.verticalCenter = 0;
-		return t;
-	};
-	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/main/DeliveryItemSkin.exml'] = window.DeliveryItemSkin = (function (_super) {
 	__extends(DeliveryItemSkin, _super);
 	function DeliveryItemSkin() {
@@ -5137,17 +5137,16 @@ var egret = window.egret;
 	__extends(CoinsSkin, _super);
 	function CoinsSkin() {
 		_super.call(this);
-		this.skinParts = ["img_bg","txt_num","img_gold"];
+		this.skinParts = ["txt_num","img_cointype"];
 		
 		this.height = 59;
 		this.width = 184;
-		this.elementsContent = [this.img_bg_i(),this.txt_num_i(),this.img_gold_i()];
+		this.elementsContent = [this._Image1_i(),this._Image2_i(),this.txt_num_i(),this.img_cointype_i()];
 	}
 	var _proto = CoinsSkin.prototype;
 
-	_proto.img_bg_i = function () {
+	_proto._Image1_i = function () {
 		var t = new eui.Image();
-		this.img_bg = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 59;
@@ -5155,6 +5154,13 @@ var egret = window.egret;
 		t.width = 184;
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.source = "dress_01_json.dress_01_32";
+		t.x = 0;
+		t.y = 0.5;
 		return t;
 	};
 	_proto.txt_num_i = function () {
@@ -5167,16 +5173,12 @@ var egret = window.egret;
 		t.y = 14.5;
 		return t;
 	};
-	_proto.img_gold_i = function () {
+	_proto.img_cointype_i = function () {
 		var t = new eui.Image();
-		this.img_gold = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.8;
-		t.source = "ui_json.gold";
-		t.width = 52.7;
-		t.x = 1.6;
-		t.y = 1;
+		this.img_cointype = t;
+		t.source = "dress_01_json.dress_gold";
+		t.x = 1.4;
+		t.y = 3.3;
 		return t;
 	};
 	return CoinsSkin;
@@ -5201,7 +5203,7 @@ var egret = window.egret;
 		t.fillMode = "scale";
 		t.left = 0;
 		t.right = -1;
-		t.source = "dress_01_json.dress_01_28";
+		t.source = "dress_01_json.dress_01_35";
 		t.top = 0;
 		return t;
 	};
@@ -5211,6 +5213,7 @@ var egret = window.egret;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 26;
+		t.visible = false;
 		t.width = 151;
 		t.x = 47;
 		t.y = 15;
@@ -5277,15 +5280,18 @@ var egret = window.egret;
 	_proto.txt_name_i = function () {
 		var t = new eui.Label();
 		this.txt_name = t;
-		t.horizontalCenter = 0;
+		t.bold = true;
+		t.horizontalCenter = 2;
 		t.text = "翡翠青衫";
-		t.y = 8;
+		t.textColor = 0x9e7cd8;
+		t.y = 19;
 		return t;
 	};
 	_proto._Label1_i = function () {
 		var t = new eui.Label();
 		t.horizontalCenter = 0;
 		t.text = "总加成";
+		t.visible = false;
 		t.y = 42;
 		return t;
 	};
@@ -5310,11 +5316,11 @@ var egret = window.egret;
 	__extends(ItemPriceSkin, _super);
 	function ItemPriceSkin() {
 		_super.call(this);
-		this.skinParts = ["img_checkedbg","img_equip","img_checked","txt_obtained","img_price","txt_price","grp_price","img_mask"];
+		this.skinParts = ["img_checkedbg","img_equip","img_infomask","txt_desc1","txt_desc2","grp_mask","img_checked","txt_obtained","img_price","txt_price","grp_price","img_mask"];
 		
 		this.height = 189;
 		this.width = 151;
-		this.elementsContent = [this._Image1_i(),this.img_checkedbg_i(),this.img_equip_i(),this.img_checked_i(),this.txt_obtained_i(),this.grp_price_i(),this.img_mask_i()];
+		this.elementsContent = [this._Image1_i(),this.img_checkedbg_i(),this.img_equip_i(),this.grp_mask_i(),this.img_checked_i(),this.txt_obtained_i(),this.grp_price_i(),this.img_mask_i()];
 	}
 	var _proto = ItemPriceSkin.prototype;
 
@@ -5340,13 +5346,61 @@ var egret = window.egret;
 	_proto.img_equip_i = function () {
 		var t = new eui.Image();
 		this.img_equip = t;
+		t.anchorOffsetX = 50;
+		t.anchorOffsetY = 50;
+		t.height = 100;
+		t.horizontalCenter = -0.5;
+		t.source = "dress_01_json.dress_01_17";
+		t.verticalCenter = -15.5;
+		t.width = 100;
+		return t;
+	};
+	_proto.grp_mask_i = function () {
+		var t = new eui.Group();
+		this.grp_mask = t;
+		t.height = 140;
+		t.width = 140;
+		t.x = 5.2;
+		t.y = 7.8;
+		t.elementsContent = [this.img_infomask_i(),this.txt_desc1_i(),this.txt_desc2_i()];
+		return t;
+	};
+	_proto.img_infomask_i = function () {
+		var t = new eui.Image();
+		this.img_infomask = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 100;
-		t.source = "dress_01_json.dress_01_17";
-		t.width = 100;
-		t.x = 27;
-		t.y = 25;
+		t.height = 137.8;
+		t.scale9Grid = new egret.Rectangle(16,17,100,103);
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_37";
+		t.width = 130.4;
+		t.x = 4.2;
+		t.y = 1.5999999999999996;
+		return t;
+	};
+	_proto.txt_desc1_i = function () {
+		var t = new eui.Label();
+		this.txt_desc1 = t;
+		t.size = 18;
+		t.stroke = 2;
+		t.strokeColor = 0x617abc;
+		t.text = "效果描述";
+		t.textColor = 0xffffff;
+		t.x = 35;
+		t.y = 35;
+		return t;
+	};
+	_proto.txt_desc2_i = function () {
+		var t = new eui.Label();
+		this.txt_desc2 = t;
+		t.stroke = 2;
+		t.strokeColor = 0x617abc;
+		t.text = "效果数值";
+		t.textColor = 0xfcf505;
+		t.x = 11;
+		t.y = 79;
 		return t;
 	};
 	_proto.img_checked_i = function () {
@@ -5362,6 +5416,8 @@ var egret = window.egret;
 		this.txt_obtained = t;
 		t.bold = true;
 		t.size = 26;
+		t.stroke = 2;
+		t.strokeColor = 0x7085eb;
 		t.text = "已获得";
 		t.x = 33;
 		t.y = 152;
@@ -5405,8 +5461,11 @@ var egret = window.egret;
 		this.txt_price = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
+		t.bold = true;
 		t.left = 60;
 		t.size = 24;
+		t.stroke = 2;
+		t.strokeColor = 0x7085eb;
 		t.text = "10000";
 		t.textAlign = "left";
 		t.verticalAlign = "middle";
@@ -5510,32 +5569,23 @@ var egret = window.egret;
 
 	function RoleDressSkin() {
 		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","dress_info","grp_dressinfo","btn_cart","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_test","btn_test2","roleGroup","coin_money","coin_gold","grp_coins","btn_close","topGroup","ls_items","sr_item","listGroup","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back","btnGroup","bmGroup"];
+		this.skinParts = ["img_girlbg","img_boybg","dress_info","grp_dressinfo","btn_cart","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_test","btn_test2","roleGroup","coin_money","coin_gold","grp_coins","btn_close","topGroup","ls_items","sr_item","listGroup","img_moreR","img_moreL","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","btnGroup","bmGroup"];
 		
 		this.height = 1100;
 		this.width = 720;
-		this.elementsContent = [this._Image1_i(),this.img_girlbg_i(),this.img_boybg_i(),this.roleGroup_i(),this.topGroup_i(),this.bmGroup_i()];
+		this.elementsContent = [this.img_girlbg_i(),this.img_boybg_i(),this.roleGroup_i(),this.topGroup_i(),this.bmGroup_i()];
 	}
 	var _proto = RoleDressSkin.prototype;
 
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.percentHeight = 47;
-		t.horizontalCenter = 0;
-		t.source = "dress_01_json.taboard-bg2";
-		t.width = 720;
-		return t;
-	};
 	_proto.img_girlbg_i = function () {
 		var t = new eui.Image();
 		this.img_girlbg = t;
 		t.anchorOffsetY = 0;
-		t.percentHeight = 53;
+		t.height = 1559;
 		t.horizontalCenter = 0;
 		t.source = "grilbg_png";
-		t.top = 0;
+		t.verticalCenter = 0;
+		t.visible = false;
 		t.width = 720;
 		return t;
 	};
@@ -5543,10 +5593,10 @@ var egret = window.egret;
 		var t = new eui.Image();
 		this.img_boybg = t;
 		t.anchorOffsetY = 0;
-		t.percentHeight = 53;
+		t.height = 1559;
 		t.horizontalCenter = 0;
 		t.source = "boybg_png";
-		t.top = 0;
+		t.verticalCenter = 0;
 		t.width = 720;
 		return t;
 	};
@@ -5623,10 +5673,10 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 131;
-		t.elementsContent = [this._Image2_i(),this.icon_boy_i(),this.icon_girl_i(),this.img_iconmask_i()];
+		t.elementsContent = [this._Image1_i(),this.icon_boy_i(),this.icon_girl_i(),this.img_iconmask_i()];
 		return t;
 	};
-	_proto._Image2_i = function () {
+	_proto._Image1_i = function () {
 		var t = new eui.Image();
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
@@ -5785,7 +5835,14 @@ var egret = window.egret;
 		t.right = 0;
 		t.scaleX = 1;
 		t.scaleY = 1;
-		t.elementsContent = [this.sr_item_i()];
+		t.elementsContent = [this._Image2_i(),this.sr_item_i()];
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.horizontalCenter = 0;
+		t.source = "dress_01_json.taboard-bg2";
+		t.verticalCenter = 0;
 		return t;
 	};
 	_proto.sr_item_i = function () {
@@ -5834,7 +5891,7 @@ var egret = window.egret;
 		t.scaleY = 1;
 		t.top = 0;
 		t.width = 718.18;
-		t.elementsContent = [this._Image3_i(),this._Scroller1_i()];
+		t.elementsContent = [this._Image3_i(),this.img_moreR_i(),this.img_moreL_i(),this._Scroller1_i()];
 		return t;
 	};
 	_proto._Image3_i = function () {
@@ -5846,16 +5903,35 @@ var egret = window.egret;
 		t.y = -6.08;
 		return t;
 	};
+	_proto.img_moreR_i = function () {
+		var t = new eui.Image();
+		this.img_moreR = t;
+		t.source = "dress_01_json.dress_01_33";
+		t.verticalCenter = -7;
+		t.x = 691;
+		return t;
+	};
+	_proto.img_moreL_i = function () {
+		var t = new eui.Image();
+		this.img_moreL = t;
+		t.anchorOffsetX = 24;
+		t.anchorOffsetY = 39;
+		t.rotation = 180;
+		t.source = "dress_01_json.dress_01_33";
+		t.verticalCenter = -7;
+		t.x = 1;
+		return t;
+	};
 	_proto._Scroller1_i = function () {
 		var t = new eui.Scroller();
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 94.24;
-		t.horizontalCenter = 1.910000000000025;
+		t.horizontalCenter = -12.089999999999975;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.verticalCenter = 4.5;
-		t.width = 708.18;
+		t.width = 650.18;
 		t.viewport = this._Group1_i();
 		return t;
 	};
@@ -5864,7 +5940,7 @@ var egret = window.egret;
 		t.anchorOffsetX = 0;
 		t.width = 709.18;
 		t.layout = this._HorizontalLayout2_i();
-		t.elementsContent = [this.part_head_i(),this.part_body_i(),this.part_leg_i(),this.part_foot_i(),this.part_waist_i(),this.part_hand_i(),this.part_back_i()];
+		t.elementsContent = [this.part_back_i(),this.part_head_i(),this.part_body_i(),this.part_leg_i(),this.part_foot_i(),this.part_waist_i(),this.part_hand_i()];
 		return t;
 	};
 	_proto._HorizontalLayout2_i = function () {
@@ -5874,6 +5950,18 @@ var egret = window.egret;
 		t.paddingLeft = 10;
 		t.paddingRight = 10;
 		t.verticalAlign = "middle";
+		return t;
+	};
+	_proto.part_back_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_back = t;
+		t.enabled = true;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 104;
+		t.x = 43;
+		t.y = 31;
 		return t;
 	};
 	_proto.part_head_i = function () {
@@ -5944,25 +6032,12 @@ var egret = window.egret;
 		t.y = 18;
 		return t;
 	};
-	_proto.part_back_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_back = t;
-		t.enabled = true;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.visible = false;
-		t.width = 104;
-		t.x = 43;
-		t.y = 31;
-		return t;
-	};
 	return RoleDressSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/role/ShopItemSkin.exml'] = window.ShopItemSkin = (function (_super) {
 	__extends(ShopItemSkin, _super);
 	function ShopItemSkin() {
 		_super.call(this);
-		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","img_gold","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
+		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","img_gold","img_diamond","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
 		
 		this.height = 143;
 		this.width = 680;
@@ -5975,9 +6050,9 @@ var egret = window.egret;
 		this.img_shopItemBg = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 143;
+		t.height = 135;
 		t.source = "dress_01_json.dress_01_27";
-		t.width = 680;
+		t.width = 653;
 		t.x = 0;
 		t.y = 0;
 		return t;
@@ -5991,7 +6066,7 @@ var egret = window.egret;
 		t.source = "";
 		t.width = 85;
 		t.x = 101;
-		t.y = 25;
+		t.y = 20;
 		return t;
 	};
 	_proto.img_shopItemSelect_i = function () {
@@ -6014,8 +6089,8 @@ var egret = window.egret;
 		t.text = "宫廷大头";
 		t.textAlign = "left";
 		t.textColor = 0x5076f4;
-		t.x = 240;
-		t.y = 18.2;
+		t.x = 230;
+		t.y = 8.2;
 		return t;
 	};
 	_proto.shopItemAddtion_i = function () {
@@ -6032,7 +6107,7 @@ var egret = window.egret;
 		t.verticalAlign = "middle";
 		t.width = 306.91;
 		t.x = 230;
-		t.y = 54.24;
+		t.y = 45.24;
 		return t;
 	};
 	_proto.grp_price_i = function () {
@@ -6042,9 +6117,9 @@ var egret = window.egret;
 		t.anchorOffsetY = 0;
 		t.height = 0;
 		t.width = 0;
-		t.x = 537.8;
-		t.y = 59.2;
-		t.elementsContent = [this.img_price_i(),this.img_gold_i(),this.txt_price_i()];
+		t.x = 526.8;
+		t.y = 53.2;
+		t.elementsContent = [this.img_price_i(),this.img_gold_i(),this.img_diamond_i(),this.txt_price_i()];
 		return t;
 	};
 	_proto.img_price_i = function () {
@@ -6053,6 +6128,7 @@ var egret = window.egret;
 		t.scaleX = 0.7;
 		t.scaleY = 0.7;
 		t.source = "dress_01_json.dress_01_30";
+		t.visible = false;
 		t.x = 4.2;
 		t.y = -1;
 		return t;
@@ -6069,15 +6145,29 @@ var egret = window.egret;
 		t.y = -2;
 		return t;
 	};
+	_proto.img_diamond_i = function () {
+		var t = new eui.Image();
+		this.img_diamond = t;
+		t.height = 58;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "dress_01_json.dress_01_19";
+		t.width = 58;
+		t.x = 4;
+		t.y = -1;
+		return t;
+	};
 	_proto.txt_price_i = function () {
 		var t = new eui.Label();
 		this.txt_price = t;
+		t.anchorOffsetX = 0;
 		t.size = 24;
 		t.text = "10000";
 		t.textAlign = "center";
+		t.textColor = 0x246ea5;
 		t.verticalAlign = "middle";
-		t.width = 97;
-		t.x = 32.8;
+		t.width = 81;
+		t.x = 38.8;
 		t.y = 7;
 		return t;
 	};
@@ -6191,11 +6281,11 @@ var egret = window.egret;
 	__extends(ShoppingCartSkin, _super);
 	function ShoppingCartSkin() {
 		_super.call(this);
-		this.skinParts = ["BG","BG2","listGroup","ShopItemViewScroller","goldNumTxt","userCoin","diamondNumTxt","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
+		this.skinParts = ["BG","BG2","BG3","listGroup","ShopItemViewScroller","goldNumTxt","userCoin","diamondNumTxt","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
 		
 		this.height = 1100;
 		this.width = 720;
-		this.elementsContent = [this.BG_i(),this.BG2_i(),this._Group1_i(),this.other_i()];
+		this.elementsContent = [this.BG_i(),this.BG2_i(),this.BG3_i(),this._Group1_i(),this.other_i()];
 	}
 	var _proto = ShoppingCartSkin.prototype;
 
@@ -6203,21 +6293,34 @@ var egret = window.egret;
 		var t = new eui.Image();
 		this.BG = t;
 		t.bottom = 0;
+		t.height = 1127;
 		t.left = 0;
 		t.right = 0;
-		t.source = "shopbg_png";
+		t.source = "dress_01_json.buy-bg";
 		t.top = 0;
+		t.width = 734;
 		return t;
 	};
 	_proto.BG2_i = function () {
 		var t = new eui.Image();
 		this.BG2 = t;
 		t.anchorOffsetY = 0;
-		t.height = 121;
+		t.height = 111;
 		t.source = "dress_01_json.dress_01_28";
-		t.width = 720;
-		t.x = 0;
-		t.y = 1155;
+		t.width = 666;
+		t.x = 26.5;
+		t.y = 1133;
+		return t;
+	};
+	_proto.BG3_i = function () {
+		var t = new eui.Image();
+		this.BG3 = t;
+		t.anchorOffsetY = 0;
+		t.height = 130;
+		t.source = "dress_01_json.shoppingcart-txt";
+		t.width = 302;
+		t.x = 209;
+		t.y = 22;
 		return t;
 	};
 	_proto._Group1_i = function () {
@@ -6226,7 +6329,7 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 680;
-		t.x = 19;
+		t.x = 33;
 		t.y = 221;
 		t.elementsContent = [this.ShopItemViewScroller_i()];
 		return t;
@@ -6247,6 +6350,11 @@ var egret = window.egret;
 	_proto.listGroup_i = function () {
 		var t = new eui.Group();
 		this.listGroup = t;
+		t.layout = this._VerticalLayout1_i();
+		return t;
+	};
+	_proto._VerticalLayout1_i = function () {
+		var t = new eui.VerticalLayout();
 		return t;
 	};
 	_proto.other_i = function () {
@@ -6267,8 +6375,8 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 200;
-		t.x = 24;
-		t.y = 168;
+		t.x = 34;
+		t.y = 158;
 		t.elementsContent = [this._Image1_i(),this._Image2_i(),this.goldNumTxt_i()];
 		return t;
 	};
@@ -6315,9 +6423,9 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 200;
-		t.x = 242;
-		t.y = 168;
-		t.elementsContent = [this._Image3_i(),this.diamondNumTxt_i()];
+		t.x = 252;
+		t.y = 158;
+		t.elementsContent = [this._Image3_i(),this._Image4_i(),this.diamondNumTxt_i()];
 		return t;
 	};
 	_proto._Image3_i = function () {
@@ -6329,6 +6437,17 @@ var egret = window.egret;
 		t.width = 184;
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto._Image4_i = function () {
+		var t = new eui.Image();
+		t.bottom = -5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_19";
+		t.top = 0;
+		t.verticalCenter = 2.5;
+		t.x = 1;
 		return t;
 	};
 	_proto.diamondNumTxt_i = function () {
@@ -6347,22 +6466,22 @@ var egret = window.egret;
 		var t = new eui.Image();
 		this.coinGoldImage = t;
 		t.anchorOffsetY = 0;
-		t.height = 51;
+		t.height = 41;
 		t.source = "ui_json.gold";
-		t.width = 51;
+		t.width = 41;
 		t.x = 73;
-		t.y = 1175;
+		t.y = 1152;
 		return t;
 	};
 	_proto.coinDiamondImage_i = function () {
 		var t = new eui.Image();
 		this.coinDiamondImage = t;
 		t.anchorOffsetY = 0;
-		t.height = 51;
+		t.height = 41;
 		t.source = "dress_01_json.dress_01_19";
-		t.width = 51;
+		t.width = 41;
 		t.x = 217;
-		t.y = 1175;
+		t.y = 1152;
 		return t;
 	};
 	_proto.totalCost_gold_i = function () {
@@ -6373,8 +6492,8 @@ var egret = window.egret;
 		t.text = "0";
 		t.textAlign = "center";
 		t.width = 115;
-		t.x = 41;
-		t.y = 1230;
+		t.x = 36;
+		t.y = 1207;
 		return t;
 	};
 	_proto.totalCost_diamond_i = function () {
@@ -6385,8 +6504,8 @@ var egret = window.egret;
 		t.text = "0";
 		t.textAlign = "center";
 		t.width = 115;
-		t.x = 185;
-		t.y = 1230;
+		t.x = 180;
+		t.y = 1207;
 		return t;
 	};
 	_proto.btn_close_i = function () {
@@ -6407,8 +6526,8 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 0;
-		t.x = 600.67;
-		t.y = 987;
+		t.x = 560;
+		t.y = 959;
 		t.elementsContent = [this.btn_buy_i(),this.shopNumBg_i(),this.shopNum_i()];
 		return t;
 	};

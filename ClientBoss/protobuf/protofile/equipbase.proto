@@ -37,7 +37,7 @@ message EquipDefine
 	optional int32 Sex = 6; // 0女1男2全部
 	
 	
-	repeated string LoadPoint = 7; // 挂载点
+	repeated string LoadPoint = 7; // 挂载点；套装要把所有的挂载点全部填进去
 	
 	
 	optional string Path = 8; // 图片路径
