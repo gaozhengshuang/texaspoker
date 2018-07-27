@@ -208,32 +208,40 @@ module game {
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
 
             } else {
-               
-                let haveDressed = false;
-
-                for (let i = 0; i < this._selItems.length; i++) {
-                    let data = this._selItems[i];
-                    if (data.Sex === item.Sex && data.Pos === item.Pos) {
-                        haveDressed = true;
-                        this._selItems[i] = item;
-                        break;
-                    }
-                }
-
-                if (!haveDressed) {
-                    this._selItems.push(item);
-                }
-
                 //TODO: 选择的是套装，先移除其他非套装部件；如果选择的是非套装，则先移除已选套装
+                let haveDressSuit = false;
                 if (ItemPrice.isSuit(item)) {
-                    
+                    haveDressSuit = true;
                     this.unselUnsuits();
                 } else if (this.hasSelSuit()) {
-                    
+                    haveDressSuit = false;
                     this.unselSuit();
                 }
-
                  this.changePart(item);
+
+                 //添加属性
+                 if(haveDressSuit){
+                    this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos == 7) && data.Id != item.Id; })
+                    this._selItems.push(item);
+                 }
+                 else{
+
+                    this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != 7) && data.Id != item.Id; })
+                    let haveDressed = false;
+                    for (let i = 0; i < this._selItems.length; i++) {
+                        let data = this._selItems[i];
+                        if (data.Sex === item.Sex && data.Pos === item.Pos) {
+                            haveDressed = true;
+                            this._selItems[i] = item;
+                            break;
+                        }
+                    }
+    
+                    if (!haveDressed) {
+                        this._selItems.push(item);
+                    }
+    
+                 }
             }
             this.setDressInfo();
         }
