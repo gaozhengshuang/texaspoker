@@ -69,7 +69,9 @@
 		</e:Group>
 		<e:Group id="btnGroup" width="718.18" height="75" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" top="0">
 			<e:Image source="dress_01_json.taboard-bg1" x="-1" y="-6.08" anchorOffsetX="0" width="721"/>
-			<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" width="708.18" height="94.24" horizontalCenter="1.910000000000025" verticalCenter="4.5" anchorOffsetX="0">
+			<e:Image id="img_moreR" source="dress_01_json.dress_01_33" horizontalCenter="343.41" verticalCenter="2"/>
+			<e:Image id="img_moreL" source="dress_01_json.dress_01_33" rotation="180" horizontalCenter="-345.59" verticalCenter="-1"/>
+			<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" width="650.18" height="94.24" horizontalCenter="-12.089999999999975" verticalCenter="4.5" anchorOffsetX="0">
 			<e:Group anchorOffsetX="0" width="709.18">
 				<e:layout>
 				<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" paddingLeft="10" paddingRight="10" gap="10"/>

@@ -1,8 +1,9 @@
 module game {
 	export class Coins extends eui.Component {
-		img_bg: eui.Image;
+		img_cointype:eui.Image;
+
 		txt_num: eui.Label;
-		img_gold: eui.Image;
+		
 
 		public constructor() {
 			super();
@@ -22,16 +23,12 @@ module game {
 			this.txt_num.text = `${n}`;
 		}
 
-		public set visible(b: boolean) {
-			this.img_bg.visible = b;
-			this.txt_num.visible = b;
-		}
 
 		public setCoinType(n: number) {
 			if (n == msg.MoneyType._Gold) {
-				this.img_gold.visible = true;
+				this.img_cointype.source = "dress_01_json.dress_gold";
 			} else {
-				this.img_gold.visible = false;
+				this.img_cointype.source = "dress_01_json.dress_01_19";
 			}
 		}
 
