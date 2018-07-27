@@ -3,16 +3,16 @@
 
 module table {
 export var TSkill : table.ITSkillDefine[] = [
-		{ Id : 1, Type : 1, Num : 1, NumPer : 0, Des : "<font color=\"#5e78f7\">贯穿弹</font>;<font color=\"#f96918\">+1</font>" 	},
-		{ Id : 2, Type : 2, Num : 2, NumPer : 0, Des : "<font color=\"#5e78f7\">双倍时间</font>;<font color=\"#f96918\">+2s</font>" 	},
-		{ Id : 3, Type : 3, Num : 0, NumPer : 5, Des : "<font color=\"#5e78f7\">大招所需能量</font>;<font color=\"#f96918\">-5%</font>" 	},
-		{ Id : 4, Type : 4, Num : 0, NumPer : 5, Des : "<font color=\"#5e78f7\">金币奖励</font>;<font color=\"#f96918\">+5%</font>" 	},
-		{ Id : 5, Type : 5, Num : 0, NumPer : 5, Des : "<font color=\"#5e78f7\">事件间隔时间</font>;<font color=\"#f96918\">+5%</font>" 	},
-		{ Id : 6, Type : 1, Num : 2, NumPer : 0, Des : "<font color=\"#5e78f7\">贯穿弹</font>;<font color=\"#f96918\">+2</font>" 	},
-		{ Id : 7, Type : 2, Num : 4, NumPer : 0, Des : "<font color=\"#5e78f7\">双倍时间</font>;<font color=\"#f96918\">+4s</font>" 	},
-		{ Id : 8, Type : 3, Num : 0, NumPer : 10, Des : "<font color=\"#5e78f7\">大招所需能量</font>;<font color=\"#f96918\">-10%</font>" 	},
-		{ Id : 9, Type : 4, Num : 0, NumPer : 10, Des : "<font color=\"#5e78f7\">金币奖励</font>;<font color=\"#f96918\">+10%</font>" 	},
-		{ Id : 10, Type : 5, Num : 0, NumPer : 10, Des : "<font color=\"#5e78f7\">事件间隔时间</font>;<font color=\"#f96918\">+10%</font>" 	}
+		{ Id : 1, Type : 1, Num : 1, NumPer : 0, Des : "贯穿弹;+1" 	},
+		{ Id : 2, Type : 2, Num : 2, NumPer : 0, Des : "双倍时间;+2s" 	},
+		{ Id : 3, Type : 3, Num : 0, NumPer : 5, Des : "大招所需能量;-5%" 	},
+		{ Id : 4, Type : 4, Num : 0, NumPer : 5, Des : "金币奖励;+5%" 	},
+		{ Id : 5, Type : 5, Num : 0, NumPer : 5, Des : "事件间隔时间;+5%" 	},
+		{ Id : 6, Type : 1, Num : 2, NumPer : 0, Des : "贯穿弹;+2" 	},
+		{ Id : 7, Type : 2, Num : 4, NumPer : 0, Des : "双倍时间;+4s" 	},
+		{ Id : 8, Type : 3, Num : 0, NumPer : 10, Des : "大招所需能量;-10%" 	},
+		{ Id : 9, Type : 4, Num : 0, NumPer : 10, Des : "金币奖励;+10%" 	},
+		{ Id : 10, Type : 5, Num : 0, NumPer : 10, Des : "事件间隔时间;+10%" 	}
 	]
 
 
