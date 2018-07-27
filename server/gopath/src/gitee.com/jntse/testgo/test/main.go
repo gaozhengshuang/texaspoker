@@ -48,20 +48,20 @@ func main() {
 	
 
 	// TODO: 通道传入slice是引用
-	TrSlice := func(ch_slice chan []byte) {
+	TrSlice := func(ch_slice chan interface{}) {
 		for ;; {
 			data , open := <-ch_slice
 			if open == false { return }
-			log.Info("data=%s", data)
+			passin := data.(*util.KeyBordInput)
+			log.Info("ch_slice recv %v %#v", &*passin, data)
 		}
 	}
-	ch_slice, chbuf := make(chan []byte, 0), make([]byte, 32)
+	ch_slice := make(chan interface{}, 1)
+	passin := new(util.KeyBordInput)
+	passin.C = make(chan string)
+	ch_slice <- passin
+	log.Info("ch_slice send %v %#v", &*passin, passin)
 	go TrSlice(ch_slice)
-	copy(chbuf, []byte("hello 12345"))
-	ch_slice <- chbuf
-	copy(chbuf, []byte("hello trslice"))
-	ch_slice <- chbuf
-	close(ch_slice)
 
 	// url 解析
 	testurl := "https://api.weixin.qq.com/cgi-bin/midas/sandbox/pay?access_token="
