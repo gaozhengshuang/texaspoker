@@ -24,7 +24,7 @@
 		<e:Image scaleX="1" scaleY="1" top="0" verticalCenter="2.5" bottom="-5" source="dress_01_json.dress_01_19" x="1"/>
 		<e:Label id="diamondNumTxt" text="0" x="52" y="15" fontFamily="Arial" size="27" width="115" textAlign="center"/>
 		</e:Group>
-		<game:IconButton id="btn_close" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="686.5" height="53" top="111" width="53" right="-713"/>
+
 	</e:Group>
 	<e:Group width="0" height="0" scaleX="1" scaleY="1" top="803" verticalCenter="253" horizontalCenter="202">
 		<e:Image id="BG2" height="111" width="685" anchorOffsetY="0" source="dress_01_json.dress_01_28" x="-544" y="178"/>
@@ -36,6 +36,7 @@
 		<e:Image id="shopNumBg" x="69" y="181" height="51" width="51" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg"/>
 		<e:Label id="shopNum" text="0" x="75" y="191" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1"/>
 	</e:Group>
+	<game:IconButton id="btn_close" skinName="IconButtonSkin" scaleX="1" scaleY="1" height="53" width="53" x="23" y="38"/>
 
 
 
