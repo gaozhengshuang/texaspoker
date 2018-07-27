@@ -87,6 +87,19 @@ module game {
             this.partHandle_body();
             
             DataManager.playerModel.skillUpdate();
+            
+        }
+
+        private updateBones() {
+            for (let l of DataManager.playerModel.clothes) {
+                if (l.sex == this.gender) {
+                    for(let m of l.clothes) {
+                        let e = table.EquipById[m.id];
+                        console.log("更新骨骼动画:",e)
+                        this.changePart(e);
+                    }
+                }
+            }
         }
 
         private initNetEvent() {
@@ -465,6 +478,7 @@ module game {
                 this._girlBone && (this._girlBone.visible = false);
             }
 
+            this.updateBones();
         }
 
         public useGirlShelf(b: boolean) {
@@ -532,19 +546,38 @@ module game {
             e.Price = -1;
         }
 
+        private isOnWear(e: table.IEquipDefine) {
+            for (let l of DataManager.playerModel.clothes) {
+                if (l.sex == this.gender) {
+                    for (let m of l.clothes) {
+                        if (e.Id == m.id){
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         // 设置装备列表
         private setShelf(s: number) {
             this._dataProv.removeAll();
 
             let dressItem: table.IEquipDefine = null;
+            let i = 0;
             while (!!(dressItem = table.EquipById[s++])) {
                 if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
                     if (this.isInBagList(dressItem)) {
                         this.setObtain(dressItem);
                     }
+                    if (this.isOnWear(dressItem)) {
+                        this.ls_items.selectedItem = dressItem;
+                        this.ls_items.selectedIndex = i;
+                    }
 
                     this._dataProv.addItem(dressItem);
                 }
+                i++;
             }
             if (this.isGirl) {
                 this.reselGirlIdx(this._typeIdx)
