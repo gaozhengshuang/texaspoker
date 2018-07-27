@@ -496,7 +496,6 @@ module game {
                 this.ls_items.selectedIndex = selIndex;
             }
         }
-
         // 显示装备列表
         public showShelf_back() {
             this._typeIdx = msg.ItemPos.Suit;
