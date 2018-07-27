@@ -23,6 +23,7 @@
 		"resource/eui_skins/battle/BattleSceneSkin.exml",
 		"resource/eui_skins/battle/BattleSpBarSkin.exml",
 		"resource/eui_skins/battle/BattleTimeBoomSkin.exml",
+		"resource/eui_skins/common/AvatarSkin.exml",
 		"resource/eui_skins/component/BadBuffProgressBar.exml",
 		"resource/eui_skins/component/BadBuffSkin.exml",
 		"resource/eui_skins/component/CloseButtonSkin.exml",
