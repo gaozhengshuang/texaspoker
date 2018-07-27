@@ -77,7 +77,7 @@ module game {
 
         private setCoinType(n: number) {
             if (n == msg.MoneyType._Gold) { // 1 金币
-                this.img_price.source = "ui_json.gold";
+                this.img_price.source = "dress_01_json.dress_gold";
             } else {
                 this.img_price.source = "dress_01_json.dress_01_19";
             }

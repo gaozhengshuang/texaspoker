@@ -2806,6 +2806,109 @@ var egret = window.egret;
 		return t;
 	};
 	return AvatarSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
+	__extends(CloseButtonSkin, _super);
+	function CloseButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.height = 75;
+		this.width = 75;
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = CloseButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.source = "ui_json.ca";
+		return t;
+	};
+	return CloseButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
+	__extends(ImageButtonSkin, _super);
+	function ImageButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["bgDisplay","imageDisplay"];
+		
+		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
+	}
+	var _proto = ImageButtonSkin.prototype;
+
+	_proto.bgDisplay_i = function () {
+		var t = new eui.Image();
+		this.bgDisplay = t;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(43,19,39,11);
+		t.source = "ui_json.an4";
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.imageDisplay_i = function () {
+		var t = new eui.Image();
+		this.imageDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.tijiao";
+		t.verticalCenter = -0.5;
+		return t;
+	};
+	return ImageButtonSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
+	__extends(LoadProgressBar, _super);
+	function LoadProgressBar() {
+		_super.call(this);
+		this.skinParts = ["thumb"];
+		
+		this.minHeight = 18;
+		this.minWidth = 30;
+		this.elementsContent = [this._Image1_i(),this.thumb_i()];
+	}
+	var _proto = LoadProgressBar.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.percentHeight = 100;
+		t.horizontalCenter = 0;
+		t.scale9Grid = new egret.Rectangle(1,1,4,4);
+		t.source = "ui_json.loadProgressBg";
+		t.verticalCenter = 0;
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.thumb_i = function () {
+		var t = new eui.Image();
+		this.thumb = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(3,77,20,464);
+		t.source = "ui_json.loadProgress";
+		t.percentWidth = 100;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return LoadProgressBar;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
+	__extends(ToggleButtonSkin, _super);
+	function ToggleButtonSkin() {
+		_super.call(this);
+		this.skinParts = ["iconDisplay"];
+		
+		this.elementsContent = [this.iconDisplay_i()];
+	}
+	var _proto = ToggleButtonSkin.prototype;
+
+	_proto.iconDisplay_i = function () {
+		var t = new eui.Image();
+		this.iconDisplay = t;
+		t.horizontalCenter = 0;
+		t.source = "ui_json.kaishi";
+		t.verticalCenter = 0;
+		return t;
+	};
+	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/login/LoginRewardSkin.exml'] = window.LoginRewardSkin = (function (_super) {
 	__extends(LoginRewardSkin, _super);
 	function LoginRewardSkin() {
@@ -3468,109 +3571,6 @@ var egret = window.egret;
 		return t;
 	};
 	return RegisterPanelSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/CloseButtonSkin.exml'] = window.CloseButtonSkin = (function (_super) {
-	__extends(CloseButtonSkin, _super);
-	function CloseButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.height = 75;
-		this.width = 75;
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = CloseButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.source = "ui_json.ca";
-		return t;
-	};
-	return CloseButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ImageButtonSkin.exml'] = window.ImageButtonSkin = (function (_super) {
-	__extends(ImageButtonSkin, _super);
-	function ImageButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["bgDisplay","imageDisplay"];
-		
-		this.elementsContent = [this.bgDisplay_i(),this.imageDisplay_i()];
-	}
-	var _proto = ImageButtonSkin.prototype;
-
-	_proto.bgDisplay_i = function () {
-		var t = new eui.Image();
-		this.bgDisplay = t;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(43,19,39,11);
-		t.source = "ui_json.an4";
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.imageDisplay_i = function () {
-		var t = new eui.Image();
-		this.imageDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.tijiao";
-		t.verticalCenter = -0.5;
-		return t;
-	};
-	return ImageButtonSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/LoadProgressBar.exml'] = window.LoadProgressBar = (function (_super) {
-	__extends(LoadProgressBar, _super);
-	function LoadProgressBar() {
-		_super.call(this);
-		this.skinParts = ["thumb"];
-		
-		this.minHeight = 18;
-		this.minWidth = 30;
-		this.elementsContent = [this._Image1_i(),this.thumb_i()];
-	}
-	var _proto = LoadProgressBar.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.percentHeight = 100;
-		t.horizontalCenter = 0;
-		t.scale9Grid = new egret.Rectangle(1,1,4,4);
-		t.source = "ui_json.loadProgressBg";
-		t.verticalCenter = 0;
-		t.percentWidth = 100;
-		return t;
-	};
-	_proto.thumb_i = function () {
-		var t = new eui.Image();
-		this.thumb = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.percentHeight = 100;
-		t.scale9Grid = new egret.Rectangle(3,77,20,464);
-		t.source = "ui_json.loadProgress";
-		t.percentWidth = 100;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	return LoadProgressBar;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/component/ToggleButtonSkin.exml'] = window.ToggleButtonSkin = (function (_super) {
-	__extends(ToggleButtonSkin, _super);
-	function ToggleButtonSkin() {
-		_super.call(this);
-		this.skinParts = ["iconDisplay"];
-		
-		this.elementsContent = [this.iconDisplay_i()];
-	}
-	var _proto = ToggleButtonSkin.prototype;
-
-	_proto.iconDisplay_i = function () {
-		var t = new eui.Image();
-		this.iconDisplay = t;
-		t.horizontalCenter = 0;
-		t.source = "ui_json.kaishi";
-		t.verticalCenter = 0;
-		return t;
-	};
-	return ToggleButtonSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/main/DeliveryItemSkin.exml'] = window.DeliveryItemSkin = (function (_super) {
 	__extends(DeliveryItemSkin, _super);
 	function DeliveryItemSkin() {
@@ -5962,7 +5962,7 @@ var egret = window.egret;
 	__extends(ShopItemSkin, _super);
 	function ShopItemSkin() {
 		_super.call(this);
-		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","img_gold","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
+		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","img_gold","img_diamond","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
 		
 		this.height = 143;
 		this.width = 680;
@@ -5975,9 +5975,9 @@ var egret = window.egret;
 		this.img_shopItemBg = t;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
-		t.height = 143;
+		t.height = 135;
 		t.source = "dress_01_json.dress_01_27";
-		t.width = 680;
+		t.width = 653;
 		t.x = 0;
 		t.y = 0;
 		return t;
@@ -5991,7 +5991,7 @@ var egret = window.egret;
 		t.source = "";
 		t.width = 85;
 		t.x = 101;
-		t.y = 25;
+		t.y = 20;
 		return t;
 	};
 	_proto.img_shopItemSelect_i = function () {
@@ -6014,8 +6014,8 @@ var egret = window.egret;
 		t.text = "宫廷大头";
 		t.textAlign = "left";
 		t.textColor = 0x5076f4;
-		t.x = 240;
-		t.y = 18.2;
+		t.x = 230;
+		t.y = 8.2;
 		return t;
 	};
 	_proto.shopItemAddtion_i = function () {
@@ -6032,7 +6032,7 @@ var egret = window.egret;
 		t.verticalAlign = "middle";
 		t.width = 306.91;
 		t.x = 230;
-		t.y = 54.24;
+		t.y = 45.24;
 		return t;
 	};
 	_proto.grp_price_i = function () {
@@ -6042,9 +6042,9 @@ var egret = window.egret;
 		t.anchorOffsetY = 0;
 		t.height = 0;
 		t.width = 0;
-		t.x = 537.8;
-		t.y = 59.2;
-		t.elementsContent = [this.img_price_i(),this.img_gold_i(),this.txt_price_i()];
+		t.x = 526.8;
+		t.y = 53.2;
+		t.elementsContent = [this.img_price_i(),this.img_gold_i(),this.img_diamond_i(),this.txt_price_i()];
 		return t;
 	};
 	_proto.img_price_i = function () {
@@ -6053,6 +6053,7 @@ var egret = window.egret;
 		t.scaleX = 0.7;
 		t.scaleY = 0.7;
 		t.source = "dress_01_json.dress_01_30";
+		t.visible = false;
 		t.x = 4.2;
 		t.y = -1;
 		return t;
@@ -6069,15 +6070,29 @@ var egret = window.egret;
 		t.y = -2;
 		return t;
 	};
+	_proto.img_diamond_i = function () {
+		var t = new eui.Image();
+		this.img_diamond = t;
+		t.height = 58;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "dress_01_json.dress_01_19";
+		t.width = 58;
+		t.x = 4;
+		t.y = -1;
+		return t;
+	};
 	_proto.txt_price_i = function () {
 		var t = new eui.Label();
 		this.txt_price = t;
+		t.anchorOffsetX = 0;
 		t.size = 24;
 		t.text = "10000";
 		t.textAlign = "center";
+		t.textColor = 0x246ea5;
 		t.verticalAlign = "middle";
-		t.width = 97;
-		t.x = 32.8;
+		t.width = 81;
+		t.x = 38.8;
 		t.y = 7;
 		return t;
 	};
@@ -6191,11 +6206,11 @@ var egret = window.egret;
 	__extends(ShoppingCartSkin, _super);
 	function ShoppingCartSkin() {
 		_super.call(this);
-		this.skinParts = ["BG","BG2","listGroup","ShopItemViewScroller","goldNumTxt","userCoin","diamondNumTxt","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
+		this.skinParts = ["BG","BG2","BG3","listGroup","ShopItemViewScroller","goldNumTxt","userCoin","diamondNumTxt","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
 		
 		this.height = 1100;
 		this.width = 720;
-		this.elementsContent = [this.BG_i(),this.BG2_i(),this._Group1_i(),this.other_i()];
+		this.elementsContent = [this.BG_i(),this.BG2_i(),this.BG3_i(),this._Group1_i(),this.other_i()];
 	}
 	var _proto = ShoppingCartSkin.prototype;
 
@@ -6203,21 +6218,34 @@ var egret = window.egret;
 		var t = new eui.Image();
 		this.BG = t;
 		t.bottom = 0;
+		t.height = 1127;
 		t.left = 0;
 		t.right = 0;
-		t.source = "shopbg_png";
+		t.source = "dress_01_json.buy-bg";
 		t.top = 0;
+		t.width = 734;
 		return t;
 	};
 	_proto.BG2_i = function () {
 		var t = new eui.Image();
 		this.BG2 = t;
 		t.anchorOffsetY = 0;
-		t.height = 121;
+		t.height = 111;
 		t.source = "dress_01_json.dress_01_28";
-		t.width = 720;
-		t.x = 0;
-		t.y = 1155;
+		t.width = 666;
+		t.x = 26.5;
+		t.y = 1133;
+		return t;
+	};
+	_proto.BG3_i = function () {
+		var t = new eui.Image();
+		this.BG3 = t;
+		t.anchorOffsetY = 0;
+		t.height = 130;
+		t.source = "dress_01_json.shoppingcart-txt";
+		t.width = 302;
+		t.x = 209;
+		t.y = 22;
 		return t;
 	};
 	_proto._Group1_i = function () {
@@ -6226,7 +6254,7 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 680;
-		t.x = 19;
+		t.x = 33;
 		t.y = 221;
 		t.elementsContent = [this.ShopItemViewScroller_i()];
 		return t;
@@ -6247,6 +6275,11 @@ var egret = window.egret;
 	_proto.listGroup_i = function () {
 		var t = new eui.Group();
 		this.listGroup = t;
+		t.layout = this._VerticalLayout1_i();
+		return t;
+	};
+	_proto._VerticalLayout1_i = function () {
+		var t = new eui.VerticalLayout();
 		return t;
 	};
 	_proto.other_i = function () {
@@ -6267,8 +6300,8 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 200;
-		t.x = 24;
-		t.y = 168;
+		t.x = 34;
+		t.y = 158;
 		t.elementsContent = [this._Image1_i(),this._Image2_i(),this.goldNumTxt_i()];
 		return t;
 	};
@@ -6315,9 +6348,9 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 200;
-		t.x = 242;
-		t.y = 168;
-		t.elementsContent = [this._Image3_i(),this.diamondNumTxt_i()];
+		t.x = 252;
+		t.y = 158;
+		t.elementsContent = [this._Image3_i(),this._Image4_i(),this.diamondNumTxt_i()];
 		return t;
 	};
 	_proto._Image3_i = function () {
@@ -6329,6 +6362,17 @@ var egret = window.egret;
 		t.width = 184;
 		t.x = 0;
 		t.y = 0;
+		return t;
+	};
+	_proto._Image4_i = function () {
+		var t = new eui.Image();
+		t.bottom = -5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_19";
+		t.top = 0;
+		t.verticalCenter = 2.5;
+		t.x = 1;
 		return t;
 	};
 	_proto.diamondNumTxt_i = function () {
@@ -6347,22 +6391,22 @@ var egret = window.egret;
 		var t = new eui.Image();
 		this.coinGoldImage = t;
 		t.anchorOffsetY = 0;
-		t.height = 51;
+		t.height = 41;
 		t.source = "ui_json.gold";
-		t.width = 51;
+		t.width = 41;
 		t.x = 73;
-		t.y = 1175;
+		t.y = 1152;
 		return t;
 	};
 	_proto.coinDiamondImage_i = function () {
 		var t = new eui.Image();
 		this.coinDiamondImage = t;
 		t.anchorOffsetY = 0;
-		t.height = 51;
+		t.height = 41;
 		t.source = "dress_01_json.dress_01_19";
-		t.width = 51;
+		t.width = 41;
 		t.x = 217;
-		t.y = 1175;
+		t.y = 1152;
 		return t;
 	};
 	_proto.totalCost_gold_i = function () {
@@ -6373,8 +6417,8 @@ var egret = window.egret;
 		t.text = "0";
 		t.textAlign = "center";
 		t.width = 115;
-		t.x = 41;
-		t.y = 1230;
+		t.x = 36;
+		t.y = 1207;
 		return t;
 	};
 	_proto.totalCost_diamond_i = function () {
@@ -6385,8 +6429,8 @@ var egret = window.egret;
 		t.text = "0";
 		t.textAlign = "center";
 		t.width = 115;
-		t.x = 185;
-		t.y = 1230;
+		t.x = 180;
+		t.y = 1207;
 		return t;
 	};
 	_proto.btn_close_i = function () {
@@ -6407,8 +6451,8 @@ var egret = window.egret;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.width = 0;
-		t.x = 600.67;
-		t.y = 987;
+		t.x = 560;
+		t.y = 959;
 		t.elementsContent = [this.btn_buy_i(),this.shopNumBg_i(),this.shopNum_i()];
 		return t;
 	};
