@@ -85,6 +85,8 @@ module game {
             this.hideDressInfo();
 
             this.partHandle_body();
+            
+            DataManager.playerModel.skillUpdate();
         }
 
         private initNetEvent() {

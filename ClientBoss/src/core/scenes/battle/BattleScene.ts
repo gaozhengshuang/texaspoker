@@ -169,8 +169,6 @@ module game {
                     this.brickInfoGroup.addChild(info);
                 }
             }
-        
-            SkillManager.getInstance().init();
             this.initWorld();
             this.initNetHandle();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;

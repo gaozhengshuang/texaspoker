@@ -10,9 +10,10 @@ module game {
         static TOP_UPDATE = "PlayerModel_TOP_UPDATE";
         static BAG_UPDATE = "PlayerModel_BAG_UPDATE";
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
+        static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
 
         public penetration: number = 0;
-        public userInfo: IUserInfo = {face: "1", name: "",userid: 0, rank: 0, gold:0, diamond: 0, openid: "", addrlist: []};
+        public userInfo: IUserInfo = {face: "1", name: "",userid: 0, rank: 0, gold:0, diamond: 0, openid: "", addrlist: [],PersonalImage:null};
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
@@ -31,6 +32,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
             NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");            
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -40,6 +42,7 @@ module game {
             this.userInfo.userid = data.entity.id;
             this.userInfo.openid = data.base.wechat.openid;
             this.userInfo.addrlist = data.base.addrlist;
+            this.userInfo.PersonalImage = data.base.images;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;
@@ -89,6 +92,17 @@ module game {
 
         private OnGW2C_RetGoldExchange(data: msg.GW2C_RetGoldExchange) {
             this.addScore(data.gold);
+        }
+
+        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
+            this.userInfo.PersonalImage.lists = this.userInfo.PersonalImage.lists.map(
+                item =>
+                {
+                    if(item.sex==data.images.sex) return data.images;
+                    return item;
+                }
+            );
+            this.skillUpdate();
         }
 
         public setScore(count: number) {
@@ -237,6 +251,34 @@ module game {
             }
         }
 
+
+
+        //-----------------------------------
+        public skillUpdate()
+        {
+            SkillManager.getInstance().resetEquipSKill();
+            this.userInfo.PersonalImage.lists.forEach(
+                imageData =>
+                {
+                    if(imageData.sex==this.sex)
+                    {
+                        imageData.clothes.forEach(
+                            itemData =>
+                            {
+                                let equipData = table.EquipById[itemData.id];
+                                equipData.Skill.forEach(
+                                    skillId =>
+                                    {
+                                        let skillData =  table.TSkillById[parseInt(skillId)];
+                                        SkillManager.getInstance().checkEquipSkill(skillData.Type,skillData.Num,skillData.NumPer);
+                                    }
+                                );  
+                            }
+                        );
+                    }
+                }
+            );
+        }
         public addPenetration(num: number) {
             this.penetration = num;
             this.postNotification(PlayerModel.PENETRATION_UPDATE);

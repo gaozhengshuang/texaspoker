@@ -17,24 +17,26 @@ module game {
     }
     export class SkillData {
         public Type :   SkillType;
-        public Lv   :   number;
+        public num  :   number;
     }    
 
     export class SkillManager {
 
         private _equipSkills : SkillData[];
 
-        public init() {
-            egret.log("------SkillDataManager Init------");
-            this._equipSkills = [{Type:SkillType.Penetration,Lv:0},{Type:SkillType.DoubleScore,Lv:0},{Type:SkillType.BigBoom,Lv:0},{Type:SkillType.BreakGoldGet,Lv:0},{Type:SkillType.BadBuffDeltaTime,Lv:0}];
+        constructor(){
+            this.resetEquipSKill();
         }
-
+        public resetEquipSKill()
+        {
+            this._equipSkills = [{Type:SkillType.Penetration,num:0},{Type:SkillType.DoubleScore,num:0},{Type:SkillType.BigBoom,num:0},{Type:SkillType.BreakGoldGet,num:0},{Type:SkillType.BadBuffDeltaTime,num:0}];          
+        }
         //装备
-        public checkEquipSkill(ItemSoltSkill:SkillType,lv:number)
+        public checkEquipSkill(ItemSoltSkill:SkillType,num:number,numPer:number)
         {
             let data :SkillData =  new SkillData();
-            data.Type =  ItemSoltSkill; data.Lv = lv;
-
+            data.Type =  ItemSoltSkill; data.num = num || (numPer*0.01);
+            console.log("装备技能数值----->",ItemSoltSkill,data.num);
             let haveEquipKSill = false;
             this._equipSkills.forEach(
                 (item,index,array) =>
@@ -42,7 +44,7 @@ module game {
                     if(item.Type===data.Type)
                     {
                         haveEquipKSill = true;
-                        if(item.Lv!=data.Lv)
+                        if(item.num!=data.num)
                         {
                             array[index] = data;
                             return;
@@ -58,28 +60,21 @@ module game {
         public SkillAddition(type:SkillType) 
         {
             let data  = this._equipSkills.filter(item=>{return item && item.Type===type;})[0];
-            let _skillAdditionNum = this.getSkillAdditionNum(type,data.Lv);
             switch(type)
             {
-                case SkillType.Penetration      :  return 1 + _skillAdditionNum;
-                case SkillType.DoubleScore      :  return     _skillAdditionNum;
-                case SkillType.BreakGoldGet     :  return 1 + _skillAdditionNum;
-                case SkillType.BigBoom          :  return 1 - _skillAdditionNum;
-                case SkillType.BadBuffDeltaTime :  return 1 + _skillAdditionNum;   
+                case SkillType.Penetration      :  return 1 + data.num;
+                case SkillType.DoubleScore      :  return     data.num; //积分固定加成数值
+                case SkillType.BreakGoldGet     :  return 1 + data.num; 
+                case SkillType.BigBoom          :  return 1 - data.num; 
+                case SkillType.BadBuffDeltaTime :  return 1 + data.num;      
             }
         }
 
         //技能加成数值
-        public getSkillAdditionNum(type:SkillType,lv:number)
+        public getSkillAdditionNum(type:SkillType)
         {        
-            switch(type)
-            {
-                case SkillType.Penetration      :  return lv * SkillDataAdd.PenetrationAdd;
-                case SkillType.DoubleScore      :  return lv * SkillDataAdd.DoubleScoreAdd;
-                case SkillType.BreakGoldGet     :  return lv * SkillDataAdd.BreakGoldGetPercent;
-                case SkillType.BigBoom          :  return lv * SkillDataAdd.BigBoomPercent;
-                case SkillType.BadBuffDeltaTime :  return lv * SkillDataAdd.BadBuffDeltaTimeGetPercent;
-            }
+            let data  = this._equipSkills.filter(item=>{return item && item.Type===type;})[0];
+            return data.num;
         }
 
         private static _instance: SkillManager;
