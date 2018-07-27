@@ -3,7 +3,7 @@
 	<e:Image source="dress_01_json.dress_01_31" left="0" right="0" top="0" bottom="0"/>
 
 	<e:Image id="img_checkedbg" source="dress_01_json.dress_01_23" left="0" right="0" top="0" bottom="0"/>
-	<e:Image id="img_equip" x="27" y="25" anchorOffsetX="0" width="100" anchorOffsetY="0" height="100" source="dress_01_json.dress_01_17"/>
+	<e:Image id="img_equip" x="27" y="25" anchorOffsetX="0" width="100" anchorOffsetY="0" height="100" source="dress_01_json.dress_01_17" scale9Grid="18,21,111,133"/>
 	<e:Image id="img_checked" source="dress_01_json.dress_01_22" x="83" y="-3"/>
 	<e:Label id="txt_obtained" text="已获得" x="33" y="152" bold="true" size="26"/>
 	<e:Group id="grp_price" width="146.53" height="33.2" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="72">

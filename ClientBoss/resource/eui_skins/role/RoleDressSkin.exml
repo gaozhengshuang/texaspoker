@@ -76,13 +76,14 @@
 				<e:layout>
 				<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" paddingLeft="10" paddingRight="10" gap="10"/>
 				</e:layout>
+				<game:ChooseIcon id="part_back" width="104" height="86" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true"/>
 				<game:ChooseIcon id="part_head" width="104" height="86" x="68" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
 				<game:ChooseIcon id="part_body" width="104" height="86" x="115" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
 				<game:ChooseIcon id="part_leg" width="104" height="86" x="201" y="19" skinName="ChooseIconSkin" touchEnabled="true"/>
 				<game:ChooseIcon id="part_foot" width="104" height="86" x="245" y="21" skinName="ChooseIconSkin" touchEnabled="true"/>
 				<game:ChooseIcon id="part_waist" width="104" height="86" x="279" y="24" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
 				<game:ChooseIcon id="part_hand" width="104" height="86" x="334" y="18" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
-				<game:ChooseIcon id="part_back" width="104" height="86" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true" visible="false"/>
+
 			</e:Group>
 			</e:Scroller>
 		</e:Group>
