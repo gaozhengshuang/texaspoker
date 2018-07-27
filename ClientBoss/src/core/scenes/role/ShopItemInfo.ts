@@ -37,18 +37,21 @@ module game {
         public setData(ShopItemData: table.IEquipDefine) {
             if(!ShopItemData) return;
             this.itemData = ShopItemData;
+            let factor = 0.9;
             if(this.itemData.Pos==7)
             {
                 this.img_shopItemIcon.x += 20;
-                this.img_shopItemIcon.y -= 20;
+                this.img_shopItemIcon.y -= 10;
+                factor = 0.6;
             }
+            
             //Icon
             let txtr:egret.Texture = RES.getRes(ShopItemData.Path);
             if(txtr)
             {
                 this.img_shopItemIcon.source    = txtr;
-                this.img_shopItemIcon.width     = txtr.textureWidth*0.9;
-                this.img_shopItemIcon.height    = txtr.textureHeight*0.9;
+                this.img_shopItemIcon.width     = txtr.textureWidth * factor;
+                this.img_shopItemIcon.height    = txtr.textureHeight * factor;
             }
             
             //名字
@@ -64,22 +67,22 @@ module game {
          
      
             //描述
-            let skillDes = "";
+            let skillDes : egret.ITextElement[] = [];
             ShopItemData.Skill.forEach(
                 (item,index,array)=>
                 {
                     let skillData : table.ITSkillDefine = table.TSkillById[parseInt(item)];
                     if(skillData)
                     {
-                        skillDes += (skillDes=="" ? skillData.Des : (index%2== 1 ? ";"+skillData.Des : ";"+"\n"+skillData.Des));
+                        let txt_element_des: egret.ITextElement =  {text: skillData.Des.split(";"[0])[0]+"  ", style: {"textColor": 0xffffff,"size": 19,"strokeColor": 0x7e97d9, "stroke": 2}};
+                        let txt_element_num: egret.ITextElement =  {text: skillData.Des.split(";"[0])[1]+"\n", style: {"textColor": 0xfcf505,"size": 19,"strokeColor": 0x7e97d9, "stroke": 2}};
+                        skillDes.push(txt_element_des);
+                        skillDes.push(txt_element_num);
                     }
                 }
             );
             this.shopItemAddtion.lineSpacing = 5;
-            this.shopItemAddtion.textFlow = (new egret.HtmlTextParser).parser(
-                skillDes
-            );
-
+            this.shopItemAddtion.textFlow = <Array<egret.ITextElement>>skillDes;
             //价格
             this.img_gold.visible  =  this.itemData.CoinType==1;
             this.img_diamond.visible = this.itemData.CoinType==2;
