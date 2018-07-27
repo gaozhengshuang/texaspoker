@@ -46,7 +46,7 @@
 			<e:HorizontalLayout gap="30"/>
 		</e:layout>
 		</e:Group>
-		<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-322.605" y="27" x="28"/>
+		<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-324" y="28.5" x="28"/>
 	</e:Group>
 
 
@@ -58,9 +58,10 @@
 
 
 	<e:Group id="bmGroup" width="720" height="47%" bottom="0" horizontalCenter="0">
-		<e:Group id="listGroup" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" height="85%" bottom="0" left="0" right="0">
-			<e:Image source="dress_01_json.taboard-bg2" verticalCenter="0" horizontalCenter="0"/>
-			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" width="720" scaleX="1" scaleY="1" x="0" top="0" bottom="0">
+		<e:Image source="dress_01_json.taboard-bg2" height="90%" horizontalCenter="0" bottom="0"/>
+		<e:Group id="listGroup" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" height="100%" right="0" bottom="0" left="0">
+
+			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" width="720" scaleX="1" scaleY="1" height="85%" bottom="0" horizontalCenter="0">
 			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="-32">
 				<e:layout>
 				<e:TileLayout paddingLeft="30" paddingRight="30" paddingTop="10" paddingBottom="0" verticalGap="22" horizontalGap="18"/>
@@ -68,10 +69,10 @@
 			</e:List>
 			</e:Scroller>
 		</e:Group>
-		<e:Group id="btnGroup" width="718.18" height="75" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" top="0">
-			<e:Image source="dress_01_json.taboard-bg1" x="-1" y="-6.08" anchorOffsetX="0" width="721"/>
-			<e:Image id="img_moreR" source="dress_01_json.dress_01_33" x="691" verticalCenter="-7"/>
-			<e:Image id="img_moreL" source="dress_01_json.dress_01_33" rotation="180" anchorOffsetX="24" anchorOffsetY="39" x="1" verticalCenter="-7"/>
+		<e:Group id="btnGroup" width="718.18" height="15%" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" top="0">
+			<e:Image source="dress_01_json.taboard-bg1" anchorOffsetX="0" width="721" verticalCenter="0" horizontalCenter="0"/>
+			<e:Image id="img_moreR" source="dress_01_json.dress_01_33" verticalCenter="0" horizontalCenter="343.41"/>
+			<e:Image id="img_moreL" source="dress_01_json.dress_01_33" rotation="180" anchorOffsetX="24" anchorOffsetY="39" verticalCenter="0" horizontalCenter="-345.59"/>
 			<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" width="650.18" height="94.24" horizontalCenter="-12.089999999999975" verticalCenter="4.5" anchorOffsetX="0">
 			<e:Group anchorOffsetX="0" width="709.18">
 				<e:layout>

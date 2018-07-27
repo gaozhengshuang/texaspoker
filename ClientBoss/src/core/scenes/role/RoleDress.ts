@@ -61,7 +61,7 @@ module game {
 
         public init() {
             if (gameConfig.isIphoneX()) {
-                this.topGroup.y = this.topGroup.y + 50;
+                this.topGroup.y = this.topGroup.y + 80;
                 // this.roleGroup.y = this.roleGroup.y + 150;
             }
             this.height = gameConfig.curHeight();
