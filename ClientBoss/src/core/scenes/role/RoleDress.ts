@@ -206,7 +206,7 @@ module game {
                 this.rmSelIndex(this._typeIdx);
 
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
-                
+
             } else {
                 this.changePart(item);
                 let haveDressed = false;
@@ -224,12 +224,51 @@ module game {
                     this._selItems.push(item);
                 }
 
-                if (ItemPrice.isSuit(item)){
-                    //TODO: 选择的是套装，先移除其他非套装部件；如果选择的是非套装，则先移除已选套装
+                //TODO: 选择的是套装，先移除其他非套装部件；如果选择的是非套装，则先移除已选套装
+                if (ItemPrice.isSuit(item)) {
+                    console.log("移除非套装")
+                    this.unselUnsuits();
+                } else if (this.hasSelSuit) {
+                    console.log("移除套装")
+                    this.unselSuit();
                 }
             }
             this.setDressInfo();
         }
+        // 互斥
+        private mutexSuitAndOther() {
+
+        }
+        private hasSelSuit() {
+            if (this.isGirl) {
+                return this._girlSelIdxs[msg.ItemPos.Suit];
+            }
+            return this._boySelIdxs[msg.ItemPos.Suit];
+
+        }
+
+        private unselUnsuits() {
+            if (this.isGirl) {
+                let suitIdx = this._girlSelIdxs[msg.ItemPos.Suit];
+                this._girlSelIdxs = {}
+                this._girlSelIdxs[msg.ItemPos.Suit] = suitIdx;
+            } else {
+                let suitIdx = this._boySelIdxs[msg.ItemPos.Suit];
+                this._boySelIdxs = {}
+                this._boySelIdxs[msg.ItemPos.Suit] = suitIdx;
+            }
+
+
+        }
+        private unselSuit() {
+            if (this.isGirl) {
+                this._girlSelIdxs[msg.ItemPos.Suit] = null;
+            } else {
+                this._boySelIdxs[msg.ItemPos.Suit] = null;
+            }
+
+        }
+
 
         private initTypeIcons() {
             this.useGirlTypeIcons(true);
@@ -374,7 +413,7 @@ module game {
                     this.grp_role.addChild(this._girlBone);
                     adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
                     let r = randRange(1, this._girlBone.animNum);
-                    this._girlBone.play(`idle${r}`,-1);
+                    this._girlBone.play(`idle${r}`, -1);
                 }
                 this._boyBone && (this._boyBone.visible = false);
                 this._girlBone && (this._girlBone.visible = true);
