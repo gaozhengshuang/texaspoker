@@ -31,6 +31,8 @@ module game {
                 w: this.img_equip.width,
                 h: this.img_equip.height,
             }
+
+            this.txt_desc1.visible = this.txt_desc2.visible = false;
         }
 
         public setSuitWidth() {
