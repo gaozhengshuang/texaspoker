@@ -137,7 +137,7 @@ module game {
             this._dataProv = new eui.ArrayCollection();
             this.ls_items.dataProvider = this._dataProv;
             this.ls_items.itemRenderer = game.ItemPrice;
-            this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onChange, this);
+            this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onSelItem, this);
         }
 
         private initTypeSelIdxs() {
@@ -163,33 +163,33 @@ module game {
             return true;
         }
         private rmBoySelIndex(typeIdx) {
-            this._boySelIdxs[this._typeIdx] = null;
+            this._boySelIdxs[typeIdx] = null;
             this.ls_items.selectedIndex = -1;
             this.ls_items.selectedItem = null;
         }
 
         private rmGirlSelIndex(typeIdx) {
-            this._girlSelIdxs[this._typeIdx] = null;
+            this._girlSelIdxs[typeIdx] = null;
             this.ls_items.selectedIndex = -1;
             this.ls_items.selectedItem = null;
         }
 
-        private rmSelIndex() {
+        private rmSelIndex(typeIdx) {
             if (this.isGirl) {
-                this.rmGirlSelIndex(this._typeIdx);
+                this.rmGirlSelIndex(typeIdx);
             } else {
-                this.rmBoySelIndex(this._typeIdx);
+                this.rmBoySelIndex(typeIdx);
             }
         }
 
         // 选择项改变
-        private onChange(e: eui.ItemTapEvent) {
+        private onSelItem(e: eui.ItemTapEvent) {
             let item = this.ls_items.selectedItem;
             let idx = e.itemIndex;
             let itemRender = <game.ItemPrice>e.itemRenderer;
             if (ItemPrice.isComingSoon(item)) {
                 this.unwear(item);
-                this.rmSelIndex();
+                this.rmSelIndex(this._typeIdx);
                 return;
             }
             let canSave = false;
@@ -200,12 +200,13 @@ module game {
                 canSave = this.saveBoySelIndex(this._typeIdx, idx);
             }
 
-            if (!canSave) {
+            if (!canSave) { // 选择相同的项
                 itemRender.selected = false;
                 this.unwear(item);
-                this.rmSelIndex();
+                this.rmSelIndex(this._typeIdx);
 
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
+                
             } else {
                 this.changePart(item);
                 let haveDressed = false;
@@ -221,6 +222,10 @@ module game {
 
                 if (!haveDressed) {
                     this._selItems.push(item);
+                }
+
+                if (ItemPrice.isSuit(item)){
+                    //TODO: 选择的是套装，先移除其他非套装部件；如果选择的是非套装，则先移除已选套装
                 }
             }
             this.setDressInfo();
@@ -285,8 +290,8 @@ module game {
             this.btn_cart.addEventListener("touchEnd", this.cartHandle, this);
             this.btn_close.addEventListener("touchEnd", this.closeHandle, this);
 
-            this.btn_test.addEventListener("touchEnd", this.setSuitHandle, this);
-            this.btn_test2.addEventListener("touchEnd", this.resetSuitHandle, this);
+            this.btn_test.addEventListener("touchEnd", this.testSuitDressHandle, this);
+            this.btn_test2.addEventListener("touchEnd", this.testSuitResetHandle, this);
         }
 
         private closeHandle() {
@@ -525,7 +530,7 @@ module game {
         }
 
 
-        public setSuitHandle() {
+        public testSuitDressHandle() {
             if (this.gender == 0) {
                 this.replaceParts(this._girlBone, "girl_suit2");
             } else {
@@ -543,7 +548,7 @@ module game {
                 bone.setNewSlot(slot.name, prefix + slot.name);
             })
         }
-        public resetSuitHandle() {
+        public testSuitResetHandle() {
             if (this.gender == 0) {
                 this.resetParts(this._girlBone);
             } else {

@@ -10,10 +10,10 @@
 		<e:Label id="txt_desc2" text="效果数值" x="11" y="79" textColor="0xfcf505" strokeColor="0x617abc" stroke="2"/>
 	</e:Group>
 	<e:Image id="img_checked" source="dress_01_json.dress_01_22" x="83" y="-3"/>
-	<e:Label id="txt_obtained" text="已获得" x="33" y="152" bold="true" size="26"/>
+	<e:Label id="txt_obtained" text="已获得" x="33" y="152" bold="true" size="26" strokeColor="0x7085eb" stroke="2"/>
 	<e:Group id="grp_price" width="146.53" height="33.2" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="72">
 		<e:Image id="img_price" scaleX="0.6" scaleY="0.6" anchorOffsetX="0" width="58" anchorOffsetY="0" height="58" source="dress_01_json.dress_01_19" horizontalCenter="-25.599999999999994" verticalCenter="-4.100000000000001"/>
-		<e:Label id="txt_price" text="10000" size="24" verticalAlign="middle" textAlign="left" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="-4.600000000000001" left="60"/>
+		<e:Label id="txt_price" text="10000" size="24" verticalAlign="middle" textAlign="left" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="-4.600000000000001" left="60" bold="true" strokeColor="0x7085eb" stroke="2"/>
 		<e:layout>
 			<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle"/>
 		</e:layout>

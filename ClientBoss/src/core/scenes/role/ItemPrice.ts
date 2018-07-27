@@ -79,7 +79,7 @@ module game {
             }
             this.setup(info);
 
-            if (ItemPrice.isSuitId(this.data['Id'])) {
+            if (ItemPrice.isSuit(this.data)) {
                 this.setSuitWidth()
             } else {
                 this.setNormalWidth();
@@ -91,8 +91,8 @@ module game {
             this.txt_desc2.text = desc2;
         }
 
-        private static isSuitId(id) {
-            let n = parseInt(id);
+        public static isSuit(item:table.IEquipDefine) {
+            let n = item.Id;
             return (n >= 700 && n <= 799);
         }
 
