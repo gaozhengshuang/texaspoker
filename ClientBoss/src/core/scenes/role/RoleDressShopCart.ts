@@ -55,7 +55,7 @@ module game {
 
             this._shopItemCarts = [];
             this.totalCosts = [0,0,0];
-            this.btn_close.icon = "dress_01_json.dress_01_16"
+            this.btn_close.icon = "lucky_json.luckycloseBtn"
             this.btn_buy.icon = "dress_01_json.dress_01_21";
         }
 
@@ -126,7 +126,7 @@ module game {
             this.totalCost_gold.textFlow = [
                 {text:this.totalCosts[0].toString(), style:{"textColor": textColor,"bold": true}}]
 
-            curgold = <number>DataManager.playerModel.getTotalMoney();
+            curgold = DataManager.playerModel.getDiamond();
             textColor = curgold < this.totalCosts[1] ? 0xFF0026 : 0xFFFFFF;
             this.totalCost_diamond.textFlow = [
                 {text:this.totalCosts[1].toString(), style:{"textColor": textColor,"bold": true}}]

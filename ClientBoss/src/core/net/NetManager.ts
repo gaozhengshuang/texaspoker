@@ -63,6 +63,7 @@ module game {
         diamond: number;
         openid: string;
         addrlist: msg.IUserAddress[];
+        PersonalImage: msg.IPersonalImage;
     }
 
     export var $uploadScore = "/score/uploadScore";
