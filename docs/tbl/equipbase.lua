@@ -39,8 +39,8 @@ export var Equip : table.IEquipDefine[] = [
 		{ Id : 505, Name : "翅膀5", Desc : "装备获得效果", Pos : 5, SuitId : 0, Sex : 2, LoadPoint : [ "wing" ], Path : "equip_json.505", Skill : [ "4" ], Price : 10, CoinType : 1, Suit : "" 	},
 		{ Id : 601, Name : "手持1", Desc : "装备获得效果", Pos : 6, SuitId : 0, Sex : 2, LoadPoint : [ "weapon" ], Path : "equip_json.601", Skill : [ "4" ], Price : 10, CoinType : 1, Suit : "" 	},
 		{ Id : 602, Name : "手持2", Desc : "装备获得效果", Pos : 6, SuitId : 0, Sex : 2, LoadPoint : [ "weapon" ], Path : "equip_json.602", Skill : [ "4" ], Price : 10, CoinType : 1, Suit : "" 	},
-		{ Id : 701, Name : "男套1", Desc : "装备获得效果", Pos : 7, SuitId : 0, Sex : 1, LoadPoint : [  ], Path : "equip_json.701", Skill : [ "1", "2", "3", "4" ], Price : 50, CoinType : 2, Suit : "" 	},
-		{ Id : 702, Name : "女套1", Desc : "装备获得效果", Pos : 7, SuitId : 0, Sex : 0, LoadPoint : [  ], Path : "equip_json.702", Skill : [ "1", "2", "3", "4" ], Price : 50, CoinType : 2, Suit : "" 	}
+		{ Id : 701, Name : "男套1", Desc : "装备获得效果", Pos : 7, SuitId : 0, Sex : 1, LoadPoint : [ "head1_1_00", "head1_1_01", "head1_1_02", "head1_1_03", "head1_1_04", "body1_1_00", "body1_1_01", "body1_1_02", "body1_1_03", "body1_1_04", "trousers1_1_00", "trousers1_1_01", "trousers1_1_02", "trousers1_1_03", "shoes1_1_00", "shoes1_1_01", "" ], Path : "equip_json.701", Skill : [ "1", "2", "3", "4" ], Price : 50, CoinType : 2, Suit : "boy_suit5" 	},
+		{ Id : 702, Name : "女套1", Desc : "装备获得效果", Pos : 7, SuitId : 0, Sex : 0, LoadPoint : [ "head1_1_00", "head1_1_01", "head1_1_02", "head1_1_03", "head1_1_04", "body1_1_00", "body1_1_01", "body1_1_02", "body1_1_03", "body1_1_04", "trousers1_1_00", "trousers1_1_01", "trousers1_1_02", "trousers1_1_03", "shoes1_1_00", "shoes1_1_01", "" ], Path : "equip_json.702", Skill : [ "1", "2", "3", "4" ], Price : 50, CoinType : 2, Suit : "girl_suit5" 	}
 	]
 
 
