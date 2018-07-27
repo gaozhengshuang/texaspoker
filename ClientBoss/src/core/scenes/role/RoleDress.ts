@@ -369,7 +369,7 @@ module game {
                     this.grp_role.addChild(this._girlBone);
                     adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
                     let r = randRange(1, this._girlBone.animNum);
-                    this._girlBone.play(`Idle${r}`, 0);
+                    this._girlBone.play(`idle${r}`, 0);
                 }
                 this._boyBone && (this._boyBone.visible = false);
                 this._girlBone && (this._girlBone.visible = true);
@@ -380,7 +380,7 @@ module game {
                     this.grp_role.addChild(this._boyBone);
                     adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role);
                     let r = randRange(1, this._boyBone.animNum);
-                    this._boyBone.play(`Idle${r}`, 0);
+                    this._boyBone.play(`idle${r}`, 0);
                 }
                 this._boyBone && (this._boyBone.visible = true);
                 this._girlBone && (this._girlBone.visible = false);

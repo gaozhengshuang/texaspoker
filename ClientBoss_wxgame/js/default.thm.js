@@ -5349,7 +5349,6 @@ var egret = window.egret;
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 100;
-		t.scale9Grid = new egret.Rectangle(18,21,111,133);
 		t.source = "dress_01_json.dress_01_17";
 		t.width = 100;
 		t.x = 27;
