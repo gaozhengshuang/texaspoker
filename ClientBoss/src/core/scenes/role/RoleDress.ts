@@ -44,6 +44,7 @@ module game {
         private _boySelIdxs;
 
         private _selItems: table.IEquipDefine[];
+        private _init: number;
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -69,9 +70,10 @@ module game {
             this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
             this.gender = DataManager.playerModel.sex;
+            this._init = 0;
 
             this.initTypeSelIdxs();
-
+            this.initWears();
             this.initNetEvent();
             this.initTouchEvent();
             this.initCoins();
@@ -85,18 +87,19 @@ module game {
             this.hideDressInfo();
 
             this.partHandle_body();
-            
+
             DataManager.playerModel.skillUpdate();
-            
+
         }
 
         private updateBones() {
             for (let l of DataManager.playerModel.clothes) {
                 if (l.sex == this.gender) {
-                    for(let m of l.clothes) {
+                    for (let m of l.clothes) {
                         let e = table.EquipById[m.id];
-                        console.log("更新骨骼动画:",e)
+                        console.log("更新骨骼动画:", e)
                         this.changePart(e);
+                       
                     }
                 }
             }
@@ -232,14 +235,14 @@ module game {
                     haveDressSuit = false;
                     this.unselSuit();
                 }
-                 this.changePart(item);
+                this.changePart(item);
 
-                 //添加属性
-                 if(haveDressSuit){
+                //添加属性
+                if (haveDressSuit) {
                     this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos == 7) && data.Id != item.Id; })
                     this._selItems.push(item);
-                 }
-                 else{
+                }
+                else {
 
                     this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != 7) && data.Id != item.Id; })
                     let haveDressed = false;
@@ -251,12 +254,12 @@ module game {
                             break;
                         }
                     }
-    
+
                     if (!haveDressed) {
                         this._selItems.push(item);
                     }
-    
-                 }
+
+                }
             }
             this.setDressInfo();
         }
@@ -267,7 +270,7 @@ module game {
             }
             return this._boySelIdxs[typeIdx];
         }
-        
+
         // 选择过非套装
         private hasSelUnsuit() {
             for (let i = 0; i < msg.ItemPos.LongClothes; ++i) {
@@ -277,16 +280,16 @@ module game {
             }
             return false;
         }
-        
+
         private hasSelSuit() {
             // console.log("是否已选套装",this._girlSelIdxs,this._boySelIdxs)
             // console.log(this._girlSelIdxs[msg.ItemPos.Suit])
             if (this.isGirl) {
                 let idx = this._girlSelIdxs[msg.ItemPos.Suit];
-                return !(idx==null);
+                return !(idx == null);
             }
             let idx = this._boySelIdxs[msg.ItemPos.Suit];
-            return !(idx==null);
+            return !(idx == null);
 
         }
 
@@ -301,11 +304,11 @@ module game {
                 this._boySelIdxs = {}
                 this._boySelIdxs[msg.ItemPos.Suit] = suitIdx;
             }
-// console.log("移除非套装后",this._girlSelIdxs,this._boySelIdxs)
+            // console.log("移除非套装后",this._girlSelIdxs,this._boySelIdxs)
 
         }
         private unselSuit() {
-// console.log("移除套装",this._girlSelIdxs,this._boySelIdxs);
+            // console.log("移除套装",this._girlSelIdxs,this._boySelIdxs);
 
             if (this.isGirl) {
                 this._girlSelIdxs[msg.ItemPos.Suit] = null;
@@ -314,7 +317,7 @@ module game {
                 this._boySelIdxs[msg.ItemPos.Suit] = null;
                 this.resetParts(this._boyBone);
             }
-// console.log("移除套装后",this._girlSelIdxs,this._boySelIdxs);
+            // console.log("移除套装后",this._girlSelIdxs,this._boySelIdxs);
         }
 
 
@@ -477,8 +480,10 @@ module game {
                 this._boyBone && (this._boyBone.visible = true);
                 this._girlBone && (this._girlBone.visible = false);
             }
+            if (this._init++ < 2) {
+                this.updateBones();
+            }
 
-            this.updateBones();
         }
 
         public useGirlShelf(b: boolean) {
@@ -493,21 +498,21 @@ module game {
             let dressInfos: table.IEquipDefine[] = this._selItems.filter(item => { return item.Sex == this.gender; });
             this.dress_info.equip_name = dressInfos[dressInfos.length - 1] ? dressInfos[dressInfos.length - 1].Name : "";
             //技能加成
-            let skillDes : egret.ITextElement[] = [];
+            let skillDes: egret.ITextElement[] = [];
             dressInfos.forEach(info => {
                 info.Skill.forEach(
                     (item, index, array) => {
                         let skillData: table.ITSkillDefine = table.TSkillById[parseInt(item)];
-                        if (skillData) { 
-                            let txt_element_des: egret.ITextElement =  {text: skillData.Des.split(";"[0])[0]+"  ", style: {"textColor": 0xffffff,"size": 18,"strokeColor": 0x7e97d9, "stroke": 2}};
-                            let txt_element_num: egret.ITextElement =  {text: skillData.Des.split(";"[0])[1]+"\n", style: {"textColor": 0xfcf505,"size": 18,"strokeColor": 0x7e97d9, "stroke": 2}};
+                        if (skillData) {
+                            let txt_element_des: egret.ITextElement = { text: skillData.Des.split(";"[0])[0] + "  ", style: { "textColor": 0xffffff, "size": 18, "strokeColor": 0x7e97d9, "stroke": 2 } };
+                            let txt_element_num: egret.ITextElement = { text: skillData.Des.split(";"[0])[1] + "\n", style: { "textColor": 0xfcf505, "size": 18, "strokeColor": 0x7e97d9, "stroke": 2 } };
                             skillDes.push(txt_element_des);
                             skillDes.push(txt_element_num);
                         }
                     }
                 );
             })
-            
+
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;
         }
@@ -546,17 +551,18 @@ module game {
             e.Price = -1;
         }
 
-        private isOnWear(e: table.IEquipDefine) {
+        private initWears() {
             for (let l of DataManager.playerModel.clothes) {
-                if (l.sex == this.gender) {
-                    for (let m of l.clothes) {
-                        if (e.Id == m.id){
-                            return true;
-                        }
+                for (let m of l.clothes) {
+                    let idx = (m.id % 100) - 1;
+                    if (this.isGirl) {
+                        this._girlSelIdxs[m.pos] = idx;
+                    } else {
+                        this._boySelIdxs[m.pos] = idx;
                     }
                 }
+
             }
-            return false;
         }
 
         // 设置装备列表
@@ -569,10 +575,6 @@ module game {
                 if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
                     if (this.isInBagList(dressItem)) {
                         this.setObtain(dressItem);
-                    }
-                    if (this.isOnWear(dressItem)) {
-                        this.ls_items.selectedItem = dressItem;
-                        this.ls_items.selectedIndex = i;
                     }
 
                     this._dataProv.addItem(dressItem);

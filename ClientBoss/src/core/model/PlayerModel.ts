@@ -36,7 +36,6 @@ module game {
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
-            console.log("用户信息",data);
             this.userInfo.gold = data.base.gold;
             this.userInfo.diamond = data.base.diamond;
             this.userInfo.name = data.entity.name;
@@ -99,7 +98,6 @@ module game {
         }
 
         private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-            console.log("SendShowImage",data)
             this.userInfo.PersonalImage.lists = this.userInfo.PersonalImage.lists.map(
                 item =>
                 {
