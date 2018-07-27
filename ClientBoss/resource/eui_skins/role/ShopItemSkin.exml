@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ShopItemSkin" width="680" height="143" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:Image id="img_shopItemBg" x="0" y="0" anchorOffsetX="0" width="680" anchorOffsetY="0" height="143" source="dress_01_json.dress_01_27"/>
-	<e:Image id="img_shopItemIcon" x="101" y="25" anchorOffsetX="0" width="85" anchorOffsetY="0" height="93" source=""/>
+	<e:Image id="img_shopItemBg" x="0" y="0" anchorOffsetX="0" width="653" anchorOffsetY="0" height="135" source="dress_01_json.dress_01_27"/>
+	<e:Image id="img_shopItemIcon" x="101" y="20" anchorOffsetX="0" width="85" anchorOffsetY="0" height="93" source=""/>
 	<e:Image id="img_shopItemSelect" x="25" y="53" anchorOffsetX="0" width="52" anchorOffsetY="0" height="37" source="dress_01_json.dress_01_25" visible="false"/>
 
-	<e:Label id="shopItemName" text="宫廷大头" x="240" y="18.2" bold="true" textAlign="left" textColor="0x5076f4"/>
-	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒双倍积分时间增加1秒" x="230" y="54.24" size="21" width="306.91" height="84.18" anchorOffsetY="0" anchorOffsetX="0" textAlign="left" bold="true" verticalAlign="middle" textColor="0x000000"/>
-	<e:Group id="grp_price" width="0" height="0" x="537.8" y="59.2" anchorOffsetX="0" anchorOffsetY="0">
-		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7"/>
+	<e:Label id="shopItemName" text="宫廷大头" x="230" y="8.2" bold="true" textAlign="left" textColor="0x5076f4"/>
+	<e:Label id="shopItemAddtion" text="双倍积分时间增加1秒双倍积分时间增加1秒" x="230" y="45.24" size="21" width="306.91" height="84.18" anchorOffsetY="0" anchorOffsetX="0" textAlign="left" bold="true" verticalAlign="middle" textColor="0x000000"/>
+	<e:Group id="grp_price" width="0" height="0" x="526.8" y="53.2" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Image id="img_price" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7" visible="false"/>
 		<e:Image id="img_gold" x="3.5" y="-2" scaleX="0.7" scaleY="0.7" source="ui_json.gold" width="57" height="57"/>
-		<e:Label id="txt_price" text="10000" x="32.8" y="7" size="24" textAlign="center" width="97" verticalAlign="middle"/>
+		<e:Image id="img_diamond" x="4" y="-1" scaleX="0.7" scaleY="0.7" width="58" height="58" source="dress_01_json.dress_01_19"/>
+		<e:Label id="txt_price" text="10000" x="38.8" y="7" size="24" textAlign="center" width="81" verticalAlign="middle" textColor="0x246ea5" anchorOffsetX="0"/>
 	</e:Group>
 	<e:Group id="star" width="0" height="0" x="191" y="28" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image id="img_star_0" x="0" y="0" scaleX="0.7" scaleY="0.7" width="48" height="50" source="" visible="false"/>

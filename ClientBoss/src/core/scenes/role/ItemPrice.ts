@@ -17,7 +17,7 @@ module game {
             this.skinName = ItemPriceSkin;
 
             this.selected = false;
-
+            this.txt_obtained.visible = false;
         }
 
         public set selected(b: boolean) {
@@ -76,8 +76,8 @@ module game {
         }
 
         private setCoinType(n: number) {
-            if (n == msg.MoneyType.Glod) { // 1 金币
-                this.img_price.source = "ui_json.gold";
+            if (n == msg.MoneyType._Gold) { // 1 金币
+                this.img_price.source = "dress_01_json.dress_gold";
             } else {
                 this.img_price.source = "dress_01_json.dress_01_19";
             }

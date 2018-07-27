@@ -5541,8 +5541,8 @@ declare namespace msg {
 
     /** MoneyType enum. */
     enum MoneyType {
-        Glod = 1,
-        Diamond = 2
+        _Gold = 1,
+        _Diamond = 2
     }
 
     /** Properties of a GW2L_ReqRegist. */

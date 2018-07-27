@@ -95,16 +95,16 @@ module game {
 
         // TODO: 添加包裹项
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
-            console.log("添加包裹项：", data);
+            // console.log("添加包裹项：", data);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
-            
+
             this.updateShelf();
             this.updateCoins();
         }
 
         // TODO: 穿上装备
         private sendmsg_DressCloth(data: { pos, itemid }) {
-            console.log("发送穿上装备消息", data);
+            // console.log("发送穿上装备消息", data);
             sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
                 pos: data.pos,
                 itemid: data.itemid
@@ -112,11 +112,11 @@ module game {
         }
 
         private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-            console.log("性别切换成功", data);
+            // console.log("性别切换成功", data);
         }
         // TODO: 脱下装备
         private sendmsg_UnDressCloth(data: { pos }) {
-            console.log("发送脱下装备消息", data);
+            // console.log("发送脱下装备消息", data);
             sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
                 pos: data.pos,
             }));
@@ -129,7 +129,7 @@ module game {
         }
         // TODO: 接收显示性别消息
         private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-            console.log("GW2C_SendShowImage", data);
+            // console.log("GW2C_SendShowImage", data);
         }
 
 
@@ -174,7 +174,13 @@ module game {
             this.ls_items.selectedItem = null;
         }
 
-
+        private rmSelIndex() {
+            if (this.isGirl) {
+                this.rmGirlSelIndex(this._typeIdx);
+            } else {
+                this.rmBoySelIndex(this._typeIdx);
+            }
+        }
 
         // 选择项改变
         private onChange(e: eui.ItemTapEvent) {
@@ -182,27 +188,22 @@ module game {
             let idx = e.itemIndex;
             let itemRender = <game.ItemPrice>e.itemRenderer;
             if (ItemPrice.isComingSoon(item)) {
-                console.log("COMMING SOON!");
-                itemRender.selected = false;
+                this.unwear(item);
+                this.rmSelIndex();
                 return;
             }
             let canSave = false;
 
             if (this.isGirl) {
                 canSave = this.saveGrilSelIndex(this._typeIdx, idx)
-                if (!canSave) {
-                    this.rmGirlSelIndex(this._typeIdx);
-                }
             } else {
                 canSave = this.saveBoySelIndex(this._typeIdx, idx);
-                if (!canSave) {
-                    this.rmBoySelIndex(this._typeIdx);
-                }
             }
 
             if (!canSave) {
                 itemRender.selected = false;
                 this.unwear(item);
+                this.rmSelIndex();
 
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
             } else {
@@ -258,14 +259,14 @@ module game {
         }
 
         private initCoins() {
+            this.coin_gold.setCoinType(msg.MoneyType._Gold);
+            this.coin_money.setCoinType(msg.MoneyType._Diamond);
+
             this.updateCoins();
         }
         private updateCoins() {
             this.coin_gold.coins = DataManager.playerModel.getScore();
-            this.coin_gold.setCoinType(msg.MoneyType.Glod);
-
             this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
-            this.coin_gold.setCoinType(msg.MoneyType.Diamond);
         }
 
 
