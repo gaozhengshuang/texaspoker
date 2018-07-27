@@ -130,7 +130,7 @@
 			"url": "assets/texpack/dress_01.json",
 			"type": "sheet",
 			"name": "dress_01_json",
-			"subkeys": "buy-bg,dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31,dress_01_32,dress_01_33,dress_01_34,dress_01_35,dress_01_36,dress_01_37,dress_gold,numBg,shoppingcart-txt,star,taboard-bg1,taboard-bg2"
+			"subkeys": "buy-bg,dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31,dress_01_32,dress_01_33,dress_01_34,dress_01_35,dress_01_36,dress_01_37,dress_01_38,dress_gold,numBg,shoppingcart-txt,star,taboard-bg1,taboard-bg2"
 		},
 		{
 			"url": "bones/girl/girl_tex.png",
