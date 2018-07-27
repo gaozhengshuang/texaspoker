@@ -405,17 +405,21 @@ module game {
             let dressInfos: table.IEquipDefine[] = this._selItems.filter(item => { return item.Sex == this.gender; });
             this.dress_info.equip_name = dressInfos[dressInfos.length - 1] ? dressInfos[dressInfos.length - 1].Name : "";
             //技能加成
-            let skillDes = "";
+            let skillDes : egret.ITextElement[] = [];
             dressInfos.forEach(info => {
                 info.Skill.forEach(
                     (item, index, array) => {
                         let skillData: table.ITSkillDefine = table.TSkillById[parseInt(item)];
-                        if (skillData) {
-                            skillDes += (skillDes == "" ? skillData.Des : "\n" + skillData.Des);
+                        if (skillData) { 
+                            let txt_element_des: egret.ITextElement =  {text: skillData.Des.split(";"[0])[0]+"  ", style: {"textColor": 0xffffff,"size": 18,"strokeColor": 0x7e97d9, "stroke": 2}};
+                            let txt_element_num: egret.ITextElement =  {text: skillData.Des.split(";"[0])[1]+"\n", style: {"textColor": 0xfcf505,"size": 18,"strokeColor": 0x7e97d9, "stroke": 2}};
+                            skillDes.push(txt_element_des);
+                            skillDes.push(txt_element_num);
                         }
                     }
                 );
             })
+            
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;
         }
