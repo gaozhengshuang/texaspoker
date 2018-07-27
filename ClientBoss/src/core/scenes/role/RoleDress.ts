@@ -206,9 +206,9 @@ module game {
                 this.rmSelIndex(this._typeIdx);
 
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
-                
+
             } else {
-                this.changePart(item);
+               
                 let haveDressed = false;
 
                 for (let i = 0; i < this._selItems.length; i++) {
@@ -224,12 +224,76 @@ module game {
                     this._selItems.push(item);
                 }
 
-                if (ItemPrice.isSuit(item)){
-                    //TODO: 选择的是套装，先移除其他非套装部件；如果选择的是非套装，则先移除已选套装
+                //TODO: 选择的是套装，先移除其他非套装部件；如果选择的是非套装，则先移除已选套装
+                if (ItemPrice.isSuit(item)) {
+                    
+                    this.unselUnsuits();
+                } else if (this.hasSelSuit()) {
+                    
+                    this.unselSuit();
                 }
+
+                 this.changePart(item);
             }
             this.setDressInfo();
         }
+
+        private isSel(typeIdx) {
+            if (this.isGirl) {
+                return this._girlSelIdxs[typeIdx]
+            }
+            return this._boySelIdxs[typeIdx];
+        }
+        
+        // 选择过非套装
+        private hasSelUnsuit() {
+            for (let i = 0; i < msg.ItemPos.LongClothes; ++i) {
+                if (i == msg.ItemPos.Suit) continue;
+                if (this.isSel(i))
+                    return true;
+            }
+            return false;
+        }
+        
+        private hasSelSuit() {
+            // console.log("是否已选套装",this._girlSelIdxs,this._boySelIdxs)
+            // console.log(this._girlSelIdxs[msg.ItemPos.Suit])
+            if (this.isGirl) {
+                let idx = this._girlSelIdxs[msg.ItemPos.Suit];
+                return !(idx==null);
+            }
+            let idx = this._boySelIdxs[msg.ItemPos.Suit];
+            return !(idx==null);
+
+        }
+
+        private unselUnsuits() {
+            // console.log("移除非套装",this._girlSelIdxs,this._boySelIdxs)
+            if (this.isGirl) {
+                let suitIdx = this._girlSelIdxs[msg.ItemPos.Suit];
+                this._girlSelIdxs = {}
+                this._girlSelIdxs[msg.ItemPos.Suit] = suitIdx;
+            } else {
+                let suitIdx = this._boySelIdxs[msg.ItemPos.Suit];
+                this._boySelIdxs = {}
+                this._boySelIdxs[msg.ItemPos.Suit] = suitIdx;
+            }
+// console.log("移除非套装后",this._girlSelIdxs,this._boySelIdxs)
+
+        }
+        private unselSuit() {
+// console.log("移除套装",this._girlSelIdxs,this._boySelIdxs);
+
+            if (this.isGirl) {
+                this._girlSelIdxs[msg.ItemPos.Suit] = null;
+                this.resetParts(this._girlBone);
+            } else {
+                this._boySelIdxs[msg.ItemPos.Suit] = null;
+                this.resetParts(this._boyBone);
+            }
+// console.log("移除套装后",this._girlSelIdxs,this._boySelIdxs);
+        }
+
 
         private initTypeIcons() {
             this.useGirlTypeIcons(true);
@@ -374,7 +438,7 @@ module game {
                     this.grp_role.addChild(this._girlBone);
                     adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
                     let r = randRange(1, this._girlBone.animNum);
-                    this._girlBone.play(`idle${r}`,-1);
+                    this._girlBone.play(`idle${r}`, -1);
                 }
                 this._boyBone && (this._boyBone.visible = false);
                 this._girlBone && (this._girlBone.visible = true);
