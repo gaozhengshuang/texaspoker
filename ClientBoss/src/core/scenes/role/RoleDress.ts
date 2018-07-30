@@ -61,8 +61,13 @@ module game {
             return RoleDress._instance;
         }
 
+        public static destroyInstance(){
+            delete RoleDress._instance;
+            RoleDress._instance = null;
+        }
 
         public init() {
+            console.log("xxxxxxxxxxxxxxxxxxxxxx");
             if (gameConfig.isIphoneX()) {
                 this.topGroup.y = this.topGroup.y + 80;
                 // this.roleGroup.y = this.roleGroup.y + 150;
@@ -390,7 +395,9 @@ module game {
 
         private closeHandle() {
             this.remove();
+            RoleDress.destroyInstance();
         }
+
         private cartHandle() {
             openPanel(PanelType.dressShopCarts);
             RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
