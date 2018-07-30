@@ -37,21 +37,18 @@ module game {
         public setData(ShopItemData: table.IEquipDefine) {
             if(!ShopItemData) return;
             this.itemData = ShopItemData;
-            let factor = 0.9;
-            if(this.itemData.Pos==7)
-            {
-                this.img_shopItemIcon.x += 20;
-                this.img_shopItemIcon.y -= 10;
-                factor = 0.6;
-            }
-            
+        
             //Icon
             let txtr:egret.Texture = RES.getRes(ShopItemData.Path);
+            let factor = this.itemData.Pos==7 ? 0.7 : 0.8;
             if(txtr)
             {
                 this.img_shopItemIcon.source    = txtr;
                 this.img_shopItemIcon.width     = txtr.textureWidth * factor;
                 this.img_shopItemIcon.height    = txtr.textureHeight * factor;
+/*              this.img_shopItemIcon.x += 20;
+                this.img_shopItemIcon.y -= 10; */
+                
             }
             
             //名字
@@ -81,7 +78,7 @@ module game {
                         skillDes.push(txt_element_num);
                     }
                 }
-            );
+            ); 
             this.shopItemAddtion.lineSpacing = 5;
             this.shopItemAddtion.textFlow = <Array<egret.ITextElement>>skillDes;
             //价格

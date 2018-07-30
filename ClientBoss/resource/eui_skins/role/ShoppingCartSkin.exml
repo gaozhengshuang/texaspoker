@@ -37,7 +37,7 @@
 		<e:Image id="btn_all_Image" x="-515" y="210" height="39" width="108" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_38"/>
 		<e:Label id="shopNum" text="0" x="75" y="195" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1"/>
 		<e:Label id="totalCostLabel" text="全选" x="-470" y="223" fontFamily="Arial" size="30" width="85" bold="true" anchorOffsetX="0" textAlign="center" textColor="0xd4f6f9" visible="false"/>
-		<e:Image id="allSelectTip" x="-509" y="205" height="30" width="36" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_25" visible="false"/>
+		<e:Image id="allSelectTip" x="-512" y="212" height="30" width="36" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_25" visible="false"/>
 		<game:IconButton id="btn_all" skinName="IconButtonSkin" scaleX="1" scaleY="1" height="104" anchorOffsetY="0" anchorOffsetX="0" verticalCenter="234" left="-530" right="450"/>
 		<e:Group id="totalGroup" width="0" height="0" y="117.00000000000011" x="-327" scaleX="1" scaleY="1">
 			<e:Label id="totalCostTittle" text="合计：" x="99" y="32" fontFamily="Arial" size="24" width="85" bold="true" anchorOffsetX="0" textAlign="center"/>
