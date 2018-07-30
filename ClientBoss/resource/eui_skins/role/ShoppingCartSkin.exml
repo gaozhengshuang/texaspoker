@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ShoppingCartSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
-	<e:Image id="BG" width="720" height="1136" horizontalCenter="0" verticalCenter="0" source="user_json.userBg"/>
+	<e:Image id="BG" width="720" height="1136" horizontalCenter="0" source="dress_01_json.buy-bg" verticalCenter="35"/>
 
 
-	<e:Group width="680" height="900" scaleX="1" scaleY="1" horizontalCenter="13" top="154" verticalCenter="54">
-		<e:Scroller id="ShopItemViewScroller" width="680" height="831.82" x="0" y="0" scaleX="1" scaleY="1" anchorOffsetY="0">
+	<e:Group id="center" width="680" height="900" scaleX="1" scaleY="1" horizontalCenter="13" top="154" verticalCenter="54">
+		<e:Scroller id="ShopItemViewScroller" width="680" height="786.43" x="0" y="21.36" scaleX="1" scaleY="1" anchorOffsetY="0">
 			<e:Group id="listGroup">
 				<e:layout>
 					<e:VerticalLayout/>
@@ -12,31 +12,47 @@
 			</e:Group>
 		</e:Scroller>
 	</e:Group>
-	<e:Group id="other" width="0" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-360" height="0" top="-84" verticalCenter="-634">
+	<e:Group id="top" width="0" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-360" height="0" top="-84" verticalCenter="-634">
 		<e:Image id="BG3" height="130" width="302" anchorOffsetY="0" x="209" source="dress_01_json.shoppingcart-txt" y="61"/>
-		<e:Group id="userCoin" width="200" height="50" x="32.48" y="178" scaleX="1" scaleY="1">
-		<e:Image width="184" height="59" x="0" y="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_30"/>
-		<e:Image scaleX="1" scaleY="1" source="dress_01_json.dress_gold" x="1" y="2"/>
-		<e:Label id="goldNumTxt" text="0" x="52" y="15" fontFamily="Arial" size="27" width="115" textAlign="center"/>
+		<e:Group id="userCoin" width="200" height="50" x="72.48" y="189" scaleX="1" scaleY="1">
+		<e:Image width="184" height="49" x="0" y="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_30" anchorOffsetY="0"/>
+		<e:Image scaleX="1" scaleY="1" source="dress_01_json.dress_gold" x="-3" y="-1"/>
+		<e:Label id="goldNumTxt" text="0" x="42.5" y="11" fontFamily="Arial" size="27" width="115" textAlign="center"/>
 		</e:Group>
-		<e:Group id="userDiamond" width="200" height="50" y="178" scaleX="1" scaleY="1" x="252">
-		<e:Image width="184" height="59" x="0" y="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_30"/>
-		<e:Image scaleX="1" scaleY="1" top="0" verticalCenter="2.5" bottom="-5" source="dress_01_json.dress_01_19" x="1"/>
-		<e:Label id="diamondNumTxt" text="0" x="52" y="15" fontFamily="Arial" size="27" width="115" textAlign="center"/>
+		<e:Group id="userDiamond" width="200" height="50" y="189" scaleX="1" scaleY="1" x="469">
+		<e:Image width="184" height="49" x="0" y="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_30"/>
+		<e:Image scaleX="1" scaleY="1" source="dress_01_json.dress_01_19" x="-3" y="-1" width="53" height="54"/>
+		<e:Label id="diamondNumTxt" text="0" x="42.5" y="11" fontFamily="Arial" size="27" width="115" textAlign="center"/>
 		</e:Group>
 
 	</e:Group>
-	<e:Group width="0" height="0" scaleX="1" scaleY="1" top="803" verticalCenter="253" horizontalCenter="202">
-		<e:Image id="BG2" height="111" width="685" anchorOffsetY="0" source="dress_01_json.dress_01_28" x="-544" y="178"/>
-		<e:Image id="coinGoldImage" x="-502" y="190" height="41" width="41" anchorOffsetY="0" source="dress_01_json.dress_gold"/>
-		<e:Image id="coinDiamondImage" x="-396" y="190" height="41" width="41" anchorOffsetY="0" source="dress_01_json.dress_01_19"/>
-		<e:Label id="totalCost_gold" text="0" x="-540" y="234" fontFamily="Arial" size="27" width="115" textAlign="center"/>
-		<e:Label id="totalCost_diamond" text="0" x="-432" y="234" fontFamily="Arial" size="27" width="115" textAlign="center"/>
-		<game:IconButton id="btn_buy" width="20" height="20" x="-6" y="221" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
-		<e:Image id="shopNumBg" x="69" y="181" height="51" width="51" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg"/>
-		<e:Label id="shopNum" text="0" x="75" y="191" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1"/>
+	<e:Group id="bottom" width="0" height="0" scaleX="1" scaleY="1" horizontalCenter="200" right="160" top="879" verticalCenter="289">
+		<e:Image id="BG2" height="111" width="692" anchorOffsetY="0" x="-546" y="178" source="dress_01_json.dress_01_28"/>
+		<e:Image id="coinGoldImage" x="-502" y="190" height="41" width="41" anchorOffsetY="0" source="dress_01_json.dress_gold" visible="false"/>
+		<e:Image id="coinDiamondImage" x="-396" y="190" height="41" width="41" anchorOffsetY="0" source="dress_01_json.dress_01_19" visible="false"/>
+		<e:Label id="totalCost_gold" text="0" x="-540" y="234" fontFamily="Arial" size="27" width="115" textAlign="center" visible="false"/>
+		<e:Label id="totalCost_diamond" text="0" x="-432" y="234" fontFamily="Arial" size="27" width="115" textAlign="center" visible="false"/>
+		<game:IconButton id="btn_buy" width="20" height="20" x="-6" y="225" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
+		<e:Image id="shopNumBg" x="69" y="185" height="51" width="51" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg"/>
+		<e:Image id="btn_all_Image" x="-515" y="210" height="58" width="57" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_32"/>
+		<e:Label id="shopNum" text="0" x="75" y="195" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1"/>
+		<e:Label id="totalCostLabel" text="全选" x="-470" y="223" fontFamily="Arial" size="30" width="85" bold="true" anchorOffsetX="0" textAlign="center" textColor="0xd4f6f9"/>
+		<e:Image id="allSelectTip" x="-506" y="219" height="30" width="36" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_25" visible="false"/>
+		<game:IconButton id="btn_all" skinName="IconButtonSkin" scaleX="1" scaleY="1" height="104" width="147" y="182" x="-541" anchorOffsetY="0" anchorOffsetX="0"/>
+		<e:Group id="totalGroup" width="0" height="0" y="117.00000000000011" x="-327" scaleX="1" scaleY="1">
+			<e:Label id="totalCostTittle" text="合计：" x="54" y="32" fontFamily="Arial" size="24" width="85" bold="true" anchorOffsetX="0" textAlign="center"/>
+			<e:Group id="costGold" width="200" height="50" x="132.96" y="18" scaleX="0.8" scaleY="0.8">
+			<e:Image scaleX="1" scaleY="1" source="dress_01_json.dress_gold" x="1" y="2"/>
+			<e:Label id="totalCost_gold2" text="0" x="36" y="15" fontFamily="Arial" size="30" width="145" textAlign="center" anchorOffsetX="0"/>
+			</e:Group>
+			<e:Group id="costDiamond" width="200" height="50" y="18" scaleX="0.8" scaleY="0.8" x="301">
+			<e:Image scaleX="1" scaleY="1" top="0" verticalCenter="2.5" bottom="-5" source="dress_01_json.dress_01_19" x="1"/>
+			<e:Label id="totalCost_diamond2" text="0" x="36" y="15" fontFamily="Arial" size="30" width="145" textAlign="center"/>
+			</e:Group>
+		</e:Group>
 	</e:Group>
-	<game:IconButton id="btn_close" skinName="IconButtonSkin" scaleX="1" scaleY="1" height="53" width="53" x="23" y="38"/>
+	<game:IconButton id="btn_close" skinName="IconButtonSkin" scaleX="1" scaleY="1" width="53" horizontalCenter="321.5" right="12" height="53" top="29" verticalCenter="-494.5"/>
+
 
 
 
