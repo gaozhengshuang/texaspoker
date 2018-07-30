@@ -134,7 +134,7 @@ module game {
         // TODO: 添加包裹项
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             // console.log("添加包裹项：", data);
-            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
+            RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
 
             this.updateShelf();
             this.updateCoins();
@@ -431,7 +431,7 @@ module game {
 
         private cartHandle() {
             openPanel(PanelType.dressShopCarts);
-            RoleDressShopCart.getInstance().UpdateData(this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); }));
+            RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
         }
 
         private switchToGirl() {
@@ -454,17 +454,31 @@ module game {
             this.updateBones(1);
         }
 
-        private switchGender() {
-            if (this.gender == 0) {
-                this.switchToBoy();
-            } else {
-                this.switchToGirl();
-            }
+        private switchGender() 
+        {
+            let _switchGender: Function = function(){
+                if (this.gender == 0) {
+                    this.switchToBoy();
+                } else {
+                    this.switchToGirl();
+                }
+                this.sendmsg_SwitchGender({
+                    sex: this.gender
+                })
+            }.bind(this);
 
-            this.sendmsg_SwitchGender({
-                sex: this.gender
-            })
+            if(this.getCartItems().length>0){
+                showDialog("您还有未购买的商品，是否前往购买?","确定",this.cartHandle.bind(this),function()
+                {
+                    this._selItems = [];
+                    _switchGender();
+                }.bind(this));
+            }
+            else{
+                _switchGender();
+            }
         }
+
 
         private switchToBoy() {
             this.gender = 1;
@@ -566,11 +580,16 @@ module game {
                 );
             })
 
-            this.shopNum.text = this._selItems.length.toString();
+            this.shopNum.text = this.getCartItems().length.toString();
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;
         }
-
+        //获取可以加入购物车的商品列表
+        private getCartItems()
+        {
+            let items = this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); });
+            return items;
+        }
         public hideDressInfo() {
             this.dress_info.visible = false;
         }

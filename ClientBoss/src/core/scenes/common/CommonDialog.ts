@@ -3,7 +3,8 @@ module game {
         btn_goPay: LabelButton;
         btn_close: IconButton;
         txt_content: eui.Label;
-        _func: Function;
+        _func   : Function;
+        _func2  : Function;
         open_tip: egret.tween.TweenGroup;
 
         protected getSkinName() {
@@ -19,7 +20,7 @@ module game {
             ];
         }
 
-        public OnShowPanel(contentTxt: string, btnTxt: string, func: Function = null, textFlow: Array<egret.ITextElement> = null) {
+        public OnShowPanel(contentTxt: string, btnTxt: string, func: Function = null, textFlow: Array<egret.ITextElement> = null,func2: Function = null) {
             if (textFlow) {
                 this.txt_content.textFlow = textFlow;
             } else {
@@ -27,6 +28,7 @@ module game {
             }
             this.btn_goPay.label = btnTxt;
             this._func = func;
+            this._func2 = func2;
             this.show();
             this.open_tip.play(0);
         }
@@ -39,6 +41,9 @@ module game {
         }
 
         private OnClosePanel() {
+            if (this._func2) {
+                this._func2();
+            }
             this.remove();
         }
 
