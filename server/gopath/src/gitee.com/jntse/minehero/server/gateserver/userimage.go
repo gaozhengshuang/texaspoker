@@ -128,3 +128,14 @@ func (this *UserImage) UnDressAll(syn bool) {
 	}
 }
 
+
+//
+func (this *UserImage) IsHaveDressSuit() bool {
+	clothes := this.clothes[this.owner.Sex()]
+	for _, v := range clothes {
+		if v.GetPos() == int32(msg.ItemPos_Suit) {
+			return true 
+		}
+	}
+	return false
+}

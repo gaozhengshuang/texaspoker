@@ -681,12 +681,10 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	}
 
 	// 套装
-	if tmsg.GetPos() == int32(msg.ItemPos_Suit) {
+	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || user.image.IsHaveDressSuit() == true {
 		user.image.UnDressAll(false)
-	}else {
-		if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
-			user.image.UnDressClothes(tmsg.GetPos(), false)
-		}
+	} else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
+		user.image.UnDressClothes(tmsg.GetPos(), false)
 	}
 
 	user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
