@@ -142,7 +142,8 @@ export var ItemBaseData : table.IItemBaseDataDefine[] = [
 		{ Id : 601, Name : "魔术扑克", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
 		{ Id : 602, Name : "折扇", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
 		{ Id : 701, Name : "银", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
-		{ Id : 702, Name : "樱", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	}
+		{ Id : 702, Name : "樱", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	},
+		{ Id : 703, Name : "艾利欧", Desc : "装备获得效果", Sort : 0, Type : 11, Sold : 0, RealPrice : 0 	}
 	]
 
 
