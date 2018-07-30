@@ -379,8 +379,8 @@ module game {
         return x < min ? min : x > max ? max : x;
     }
 
-    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null) {
-        CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func);
+    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null,func2 :Function = null) {
+        CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func,null,func2);
     }
 
     export function TextCopy(message) {
