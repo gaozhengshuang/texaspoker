@@ -211,7 +211,7 @@
 			"url": "assets/texpack/equip.json",
 			"type": "sheet",
 			"name": "equip_json",
-			"subkeys": "101,102,103,104,105,106,107,108,109,110,201,202,203,204,205,206,207,208,209,210,301,302,303,304,305,306,307,401,402,403,404,405,406,407,408,409,410,501,502,503,504,601,602,701,702,703"
+			"subkeys": "101,102,103,104,105,106,107,108,109,110,201,202,203,204,205,206,207,208,209,210,301,302,303,304,305,306,307,308,309,401,402,403,404,405,406,407,408,409,410,501,502,503,504,601,602,701,702,703"
 		},
 		{
 			"url": "assets/texpack/suit/boy_suit1.json",
@@ -253,7 +253,7 @@
 			"url": "assets/texpack/suit/girl_suit2.json",
 			"type": "sheet",
 			"name": "girl_suit2_json",
-			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,skirt1_1_00,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
 		},
 		{
 			"url": "assets/texpack/suit/girl_suit3.json",

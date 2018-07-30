@@ -43,7 +43,9 @@ module game {
         private _typeIdx: msg.ItemPos;
 
         private _girlSelIdxs;   // 女性已选索引
+        private _girlOriSelIdxs;   // 女性已选索引
         private _boySelIdxs;
+        private _boyOriSelIdxs;
 
         private _selItems: table.IEquipDefine[];
         private _init: number;
@@ -100,14 +102,24 @@ module game {
 
         private updateBones(gender = 0) {
             let clothes = DataManager.playerModel.clothes;
-            if (!clothes) return;
+            if (!clothes) {
+                return;
+            }
             for (let l of clothes) {
+                if (l.sex == gender) {
+                    if (l.clothes.length <= 0) {
+                        if (gender == 0)
+                            this.resetParts(this._girlBone);
+                        else
+                            this.resetParts(this._boyBone);
+                        return;
+                    }
+                }
                 if (l.sex == gender) {
                     for (let m of l.clothes) {
                         let e = table.EquipById[m.id];
                         console.log("更新骨骼动画:", e)
                         this.changePart(e);
-
                     }
                 }
             }
@@ -169,6 +181,8 @@ module game {
         private initTypeSelIdxs() {
             this._girlSelIdxs = {};
             this._boySelIdxs = {};
+            this._girlOriSelIdxs = {};
+            this._boyOriSelIdxs = {};
             this._selItems = [];
         }
 
@@ -404,6 +418,7 @@ module game {
 
         private switchToGirl() {
             this.gender = 0;
+            this.revertBoy();
             this.useGirlSpine(true);
             this.useGirlBg(true);
             this.useGirlIcon(true);
@@ -411,18 +426,14 @@ module game {
             this.useGirlTypeIcons(true);
             this.setDressInfo();
         }
-        private resetBones(sex) {
-            if (sex == 0) {
-                this.resetGirlBones();
-            } else {
-                this.resetBoyBones();
-            }
-        }
-        private resetGirlBones() {
+
+        private revertGirl() {
+            console.log("回滚girl")
             this.initWears(0);
             this.updateBones(0);
         }
-        private resetBoyBones() {
+        private revertBoy() {
+            console.log("回滚boy")
             this.initWears(1);
             this.updateBones(1);
         }
@@ -430,10 +441,8 @@ module game {
         private switchGender() {
             if (this.gender == 0) {
                 this.switchToBoy();
-                this.resetBones(0);
             } else {
                 this.switchToGirl();
-                this.resetBones(1);
             }
 
             this.sendmsg_SwitchGender({
@@ -443,6 +452,7 @@ module game {
 
         private switchToBoy() {
             this.gender = 1;
+            this.revertGirl();
             this.useGirlSpine(false);
             this.useGirlBg(false);
             this.useGirlIcon(false);
@@ -579,16 +589,37 @@ module game {
             e.Price = -1;
         }
 
+        private clrSelIdxs(gender) {
+            if (gender == 0) {
+                this._girlOriSelIdxs = {}
+                this._girlSelIdxs = {}
+            } else {
+                this._boyOriSelIdxs = {};
+                this._boySelIdxs = {};
+            }
+        }
+
         private initWears(gender = 0) {
             let clothes = DataManager.playerModel.clothes;
-            if (!clothes) return;
+            console.log(clothes)
+            if (!clothes) { return; }
+
             for (let l of clothes) {
+                if (l.sex == gender) {
+                    if (l.clothes.length <= 0) {
+                        this.clrSelIdxs(gender);
+                        return;
+                    }
+                }
+
                 for (let m of l.clothes) {
                     let idx = (m.id % 100) - 1;
-                    if (gender == 0) {
+                    if (gender == 0 && gender == l.sex) {
                         this._girlSelIdxs[m.pos] = idx;
+                        this._girlOriSelIdxs[m.pos] = idx;
                     } else {
                         this._boySelIdxs[m.pos] = idx;
+                        this._boyOriSelIdxs[m.pos] = idx;
                     }
                 }
 
