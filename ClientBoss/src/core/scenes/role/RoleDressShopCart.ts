@@ -72,7 +72,6 @@ module game {
                 { target: this.btn_all, callBackFunc: this.OnSeletAll },
             ];
         }
-
         //更新购物车商品列表
         public UpdateData(ids:number[])
         {
@@ -107,7 +106,7 @@ module game {
             if(!this._allShopItemIds || this._allShopItemIds.length==0) return;
           
             this._dataProvider = new eui.ArrayCollection();
-
+            
             for (let i = 0; i < this._allShopItemIds.length; i++) {
                 let data: table.IEquipDefine = table.EquipById[this._allShopItemIds[i]];
                 let item: ShopItemInfo = new ShopItemInfo();
@@ -183,6 +182,7 @@ module game {
             sc.viewport.scrollV += 10;
             if ((sc.viewport.scrollV + sc.height) >= sc.viewport.contentHeight) {
                 console.log("滚动到底部了");
+                this._ShopItemInfos[0].alpha = 0.5;
             }
         }
 

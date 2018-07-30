@@ -46,9 +46,6 @@ module game {
                 this.img_shopItemIcon.source    = txtr;
                 this.img_shopItemIcon.width     = txtr.textureWidth * factor;
                 this.img_shopItemIcon.height    = txtr.textureHeight * factor;
-/*              this.img_shopItemIcon.x += 20;
-                this.img_shopItemIcon.y -= 10; */
-                
             }
             
             //名字

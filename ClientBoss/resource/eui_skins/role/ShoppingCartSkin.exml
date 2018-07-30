@@ -32,13 +32,13 @@
 		<e:Image id="coinDiamondImage" x="-396" y="190" height="41" width="41" anchorOffsetY="0" source="dress_01_json.dress_01_19" visible="false"/>
 		<e:Label id="totalCost_gold" text="0" x="-540" y="234" fontFamily="Arial" size="27" width="115" textAlign="center" visible="false"/>
 		<e:Label id="totalCost_diamond" text="0" x="-432" y="234" fontFamily="Arial" size="27" width="115" textAlign="center" visible="false"/>
-		<game:IconButton id="btn_buy" width="20" height="20" x="-6" y="225" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
-		<e:Image id="shopNumBg" x="69" y="185" height="51" width="51" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg"/>
-		<e:Image id="btn_all_Image" x="-515" y="210" height="39" width="108" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_38"/>
-		<e:Label id="shopNum" text="0" x="75" y="195" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btn_buy" width="20" height="20" x="-6" y="230" skinName="IconButtonSkin" scaleX="1" scaleY="1"/>
+		<e:Image id="shopNumBg" x="69" y="190" height="51" width="51" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg"/>
+		<e:Image id="btn_all_Image" x="-515" y="215" height="39" width="108" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_38"/>
+		<e:Label id="shopNum" text="0" x="75" y="200" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1"/>
 		<e:Label id="totalCostLabel" text="全选" x="-470" y="223" fontFamily="Arial" size="30" width="85" bold="true" anchorOffsetX="0" textAlign="center" textColor="0xd4f6f9" visible="false"/>
-		<e:Image id="allSelectTip" x="-512" y="212" height="30" width="36" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_25" visible="false"/>
-		<game:IconButton id="btn_all" skinName="IconButtonSkin" scaleX="1" scaleY="1" height="104" anchorOffsetY="0" anchorOffsetX="0" verticalCenter="234" left="-530" right="450"/>
+		<e:Image id="allSelectTip" x="-512" y="217" height="30" width="36" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.dress_01_25" visible="false"/>
+		<game:IconButton id="btn_all" skinName="IconButtonSkin" scaleX="1" scaleY="1" height="104" anchorOffsetY="0" anchorOffsetX="0" left="-530" right="450" verticalCenter="239"/>
 		<e:Group id="totalGroup" width="0" height="0" y="117.00000000000011" x="-327" scaleX="1" scaleY="1">
 			<e:Label id="totalCostTittle" text="合计：" x="99" y="32" fontFamily="Arial" size="24" width="85" bold="true" anchorOffsetX="0" textAlign="center"/>
 			<e:Group id="costGold" width="150" height="50" x="329" y="18" scaleX="0.8" scaleY="0.8">
