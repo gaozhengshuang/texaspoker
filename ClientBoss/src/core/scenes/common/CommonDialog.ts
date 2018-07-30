@@ -37,7 +37,7 @@ module game {
             if (this._func) {
                 this._func();
             }
-            this.OnClosePanel();
+            this.remove();
         }
 
         private OnClosePanel() {
