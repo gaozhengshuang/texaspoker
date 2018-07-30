@@ -222,6 +222,7 @@ module game {
             }
         }
 
+
         // 选择项改变
         private onSelItem(e: eui.ItemTapEvent) {
             let item = this.ls_items.selectedItem;
@@ -232,6 +233,7 @@ module game {
                 this.rmSelIndex(this._typeIdx);
                 return;
             }
+
             let canSave = false;
 
             if (this.isGirl) {
@@ -264,16 +266,18 @@ module game {
                     // console.log("选择连衣裙")
                     this._girlSelIdxs[msg.ItemPos.Pants] = null;
                     this._girlSelIdxs[msg.ItemPos.LongClothes] = idx;
-                } else if (item.Pos == msg.ItemPos.Clothes && this.isGirl) {
-                    // console.log("选择上衣")
-                    if (this._girlSelIdxs[msg.ItemPos.LongClothes] != null) {
-                        // console.log("试穿过长裙")
+                } else if (this._girlSelIdxs[msg.ItemPos.LongClothes] != null) {
+                    if (item.Pos == msg.ItemPos.Clothes && this.isGirl) {
                         this._girlSelIdxs[msg.ItemPos.LongClothes] = null;
-                         this.resetSlots(this._girlBone, ["trousers1_1_00", "trousers1_1_01"]);
+                        this._girlSelIdxs[msg.ItemPos.Pants] = null;
+                        this._girlSelIdxs[msg.ItemPos.Clothes] = idx;
+                        this.resetSlots(this._girlBone, ["trousers1_1_00", "trousers1_1_01"]);
+                    } else if (item.Pos == msg.ItemPos.Pants && this.isGirl) {
+                        this._girlSelIdxs[msg.ItemPos.LongClothes] = null;
+                        this._girlSelIdxs[msg.ItemPos.Clothes] = null;
+                        this._girlSelIdxs[msg.ItemPos.Pants] = idx;
+                        this.resetSlots(this._girlBone, ["body1_1_00"]);
                     }
-                    this._girlSelIdxs[msg.ItemPos.Pants] = idx;
-
-                   
                 }
 
 
@@ -454,9 +458,8 @@ module game {
             this.updateBones(1);
         }
 
-        private switchGender() 
-        {
-            let _switchGender: Function = function(){
+        private switchGender() {
+            let _switchGender: Function = function () {
                 if (this.gender == 0) {
                     this.switchToBoy();
                 } else {
@@ -467,14 +470,13 @@ module game {
                 })
             }.bind(this);
 
-            if(this.getCartItems().length>0){
-                showDialog("您还有未购买的商品，是否前往购买?","确定",this.cartHandle.bind(this),function()
-                {
+            if (this.getCartItems().length > 0) {
+                showDialog("您还有未购买的商品，是否前往购买?", "确定", this.cartHandle.bind(this), function () {
                     this._selItems = [];
                     _switchGender();
                 }.bind(this));
             }
-            else{
+            else {
                 _switchGender();
             }
         }
@@ -585,8 +587,7 @@ module game {
             this.dress_info.visible = dressInfos.length > 0;
         }
         //获取可以加入购物车的商品列表
-        private getCartItems()
-        {
+        private getCartItems() {
             let items = this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); });
             return items;
         }
