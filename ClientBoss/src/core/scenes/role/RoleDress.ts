@@ -257,7 +257,25 @@ module game {
                     haveDressSuit = false;
                     this.unselSuit();
                 }
+
+                // 如果选择的是连衣裙，脱掉短裤；如果选择的是短装，重置短裤为默认
                 this.changePart(item);
+                if (item.Pos == msg.ItemPos.LongClothes) {
+                    // console.log("选择连衣裙")
+                    this._girlSelIdxs[msg.ItemPos.Pants] = null;
+                    this._girlSelIdxs[msg.ItemPos.LongClothes] = idx;
+                } else if (item.Pos == msg.ItemPos.Clothes && this.isGirl) {
+                    // console.log("选择上衣")
+                    if (this._girlSelIdxs[msg.ItemPos.LongClothes] != null) {
+                        // console.log("试穿过长裙")
+                        this._girlSelIdxs[msg.ItemPos.LongClothes] = null;
+                         this.resetSlots(this._girlBone, ["trousers1_1_00", "trousers1_1_01"]);
+                    }
+                    this._girlSelIdxs[msg.ItemPos.Pants] = idx;
+
+                   
+                }
+
 
                 //添加属性
                 if (haveDressSuit) {
