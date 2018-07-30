@@ -789,9 +789,11 @@ module game {
             if (slotNames.length <= 0) return;
             if (sex == 0) {
                 suit = suit || "girl_suit2";
+                if (!this._girlBone) return;
                 this.changeSlotsInSuit(this._girlBone, slotNames, suit);
             } else {
                 suit = suit || "boy_suit2";
+                if (!this._boyBone) return;
                 this.changeSlotsInSuit(this._boyBone, slotNames, suit);
             }
             if (this.isInBagList(e)) {
