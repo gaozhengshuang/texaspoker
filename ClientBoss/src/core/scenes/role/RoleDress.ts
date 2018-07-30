@@ -30,7 +30,7 @@ module game {
         btn_test: eui.Button;
         btn_test2: eui.Button;
 
-        shopNum :eui.Label;
+        shopNum: eui.Label;
 
         topGroup: eui.Group;
         roleGroup: eui.Group;
@@ -61,7 +61,7 @@ module game {
             return RoleDress._instance;
         }
 
-        public static destroyInstance(){
+        public static destroyInstance() {
             delete RoleDress._instance;
             RoleDress._instance = null;
         }
@@ -79,7 +79,7 @@ module game {
             this._init = 0;
 
             this.initTypeSelIdxs();
-            this.initWears();
+            this.initWears(this.gender);
             this.initNetEvent();
             this.initTouchEvent();
             this.initCoins();
@@ -98,11 +98,11 @@ module game {
 
         }
 
-        private updateBones() {
+        private updateBones(gender = 0) {
             let clothes = DataManager.playerModel.clothes;
             if (!clothes) return;
             for (let l of clothes) {
-                if (l.sex == this.gender) {
+                if (l.sex == gender) {
                     for (let m of l.clothes) {
                         let e = table.EquipById[m.id];
                         console.log("更新骨骼动画:", e)
@@ -411,12 +411,29 @@ module game {
             this.useGirlTypeIcons(true);
             this.setDressInfo();
         }
+        private resetBones(sex) {
+            if (sex == 0) {
+                this.resetGirlBones();
+            } else {
+                this.resetBoyBones();
+            }
+        }
+        private resetGirlBones() {
+            this.initWears(0);
+            this.updateBones(0);
+        }
+        private resetBoyBones() {
+            this.initWears(1);
+            this.updateBones(1);
+        }
 
         private switchGender() {
             if (this.gender == 0) {
                 this.switchToBoy();
+                this.resetBones(0);
             } else {
                 this.switchToGirl();
+                this.resetBones(1);
             }
 
             this.sendmsg_SwitchGender({
@@ -491,7 +508,7 @@ module game {
                 this._girlBone && (this._girlBone.visible = false);
             }
             if (this._init++ < 2) {
-                this.updateBones();
+                this.updateBones(this.gender);
             }
 
         }
@@ -562,13 +579,13 @@ module game {
             e.Price = -1;
         }
 
-        private initWears() {
+        private initWears(gender = 0) {
             let clothes = DataManager.playerModel.clothes;
             if (!clothes) return;
             for (let l of clothes) {
                 for (let m of l.clothes) {
                     let idx = (m.id % 100) - 1;
-                    if (this.isGirl) {
+                    if (gender == 0) {
                         this._girlSelIdxs[m.pos] = idx;
                     } else {
                         this._boySelIdxs[m.pos] = idx;
