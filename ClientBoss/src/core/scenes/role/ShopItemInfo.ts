@@ -74,8 +74,8 @@ module game {
                     let skillData : table.ITSkillDefine = table.TSkillById[parseInt(item)];
                     if(skillData)
                     {
-                        let txt_element_des: egret.ITextElement =  {text: skillData.Des.split(";"[0])[0]+"  ", style: {"textColor": 0xffffff,"size": 19,"strokeColor": 0x7e97d9, "stroke": 2}};
-                        let txt_element_num: egret.ITextElement =  {text: skillData.Des.split(";"[0])[1]+"\n", style: {"textColor": 0xfcf505,"size": 19,"strokeColor": 0x7e97d9, "stroke": 2}};
+                        let txt_element_des: egret.ITextElement =  {text: skillData.Des.split(";"[0])[0]+"  ", style: {"textColor": 0xffffff,"size": 18,"strokeColor": 0x7e97d9, "stroke": 2}};
+                        let txt_element_num: egret.ITextElement =  {text: skillData.Des.split(";"[0])[1]+"\n", style: {"textColor": 0xfcf505,"size": 18,"strokeColor": 0x7e97d9, "stroke": 2}};
                         skillDes.push(txt_element_des);
                         skillDes.push(txt_element_num);
                     }
@@ -97,6 +97,11 @@ module game {
             super.childrenCreated();
         }
 
+        public chooseAll(select:Boolean)
+        {
+            this._select = !select;
+            this.OnSelect();    
+        }
         private OnSelect()
         {
             this._select = !this._select;
