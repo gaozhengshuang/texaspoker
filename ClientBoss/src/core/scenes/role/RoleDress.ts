@@ -248,7 +248,7 @@ module game {
 
                 //添加属性
                 if (haveDressSuit) {
-                    this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos == 7) && data.Id != item.Id; })
+                    this._selItems = this._selItems.filter(data => { return data.Sex != item.Sex && data.Id != item.Id; })
                     this._selItems.push(item);
                 }
                 else {
