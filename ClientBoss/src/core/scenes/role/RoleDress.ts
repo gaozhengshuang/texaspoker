@@ -93,13 +93,15 @@ module game {
         }
 
         private updateBones() {
-            for (let l of DataManager.playerModel.clothes) {
+            let clothes = DataManager.playerModel.clothes;
+            if (!clothes) return;
+            for (let l of clothes) {
                 if (l.sex == this.gender) {
                     for (let m of l.clothes) {
                         let e = table.EquipById[m.id];
                         console.log("更新骨骼动画:", e)
                         this.changePart(e);
-                       
+
                     }
                 }
             }
@@ -552,7 +554,9 @@ module game {
         }
 
         private initWears() {
-            for (let l of DataManager.playerModel.clothes) {
+            let clothes = DataManager.playerModel.clothes;
+            if (!clothes) return;
+            for (let l of clothes) {
                 for (let m of l.clothes) {
                     let idx = (m.id % 100) - 1;
                     if (this.isGirl) {
