@@ -67,7 +67,6 @@ module game {
         }
 
         public init() {
-            console.log("xxxxxxxxxxxxxxxxxxxxxx");
             if (gameConfig.isIphoneX()) {
                 this.topGroup.y = this.topGroup.y + 80;
                 // this.roleGroup.y = this.roleGroup.y + 150;
