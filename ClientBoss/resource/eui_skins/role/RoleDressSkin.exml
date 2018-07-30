@@ -9,10 +9,23 @@
 		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" verticalCenter="-20.5" horizontalCenter="247.39499999999998">
 		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" width="220" height="280" y="0" x="0"/>
 		</e:Group>
-
-
-
+		<e:Group id="topGroup" width="720" height="100" y="0" x="0" scaleX="1" scaleY="1">
+			<e:Group id="grp_coins" width="593" height="58" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="53.5" y="11" x="80">
+			<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
+			<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
+			<e:layout>
+				<e:HorizontalLayout gap="30"/>
+			</e:layout>
+			</e:Group>
+			<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-324" y="28.5" x="28"/>
+		</e:Group>
 		<game:IconButton id="btn_cart" width="183" height="69" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="262.895" bottom="20"/>
+		<e:Image id="shopNumBg" height="48" width="48" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg" bottom="62" horizontalCenter="335.395"/>
+		<e:Label id="shopNum" text="0" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1" horizontalCenter="336.395" bottom="73"/>
+
+
+
+
 		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-3.105000000000018" bottom="75" touchEnabled="false"/>
 		<e:Group id="grp_misc" width="131" height="69" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-262.105" bottom="20">
 			<e:Image source="dress_01_json.dress_01_26" x="-4" y="3" anchorOffsetX="0" width="131" anchorOffsetY="0" height="69"/>
@@ -38,16 +51,7 @@
 			</e:skinName>
 		</e:Button>
 	</e:Group>
-	<e:Group id="topGroup" width="720" height="100" y="0" x="0" scaleX="1" scaleY="1">
-		<e:Group id="grp_coins" width="593" height="58" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="53.5" y="11" x="80">
-		<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
-		<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
-		<e:layout>
-			<e:HorizontalLayout gap="30"/>
-		</e:layout>
-		</e:Group>
-		<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-324" y="28.5" x="28"/>
-	</e:Group>
+
 
 
 

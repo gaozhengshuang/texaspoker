@@ -30,6 +30,8 @@ module game {
         btn_test: eui.Button;
         btn_test2: eui.Button;
 
+        shopNum :eui.Label;
+
         topGroup: eui.Group;
         roleGroup: eui.Group;
 
@@ -515,6 +517,7 @@ module game {
                 );
             })
 
+            this.shopNum.text = this._selItems.length.toString();
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;
         }
