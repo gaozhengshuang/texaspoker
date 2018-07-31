@@ -503,15 +503,9 @@ module game {
             }.bind(this);
 
             if(this.getCartItems().length>0){
-                showDialog("您还有未购买的商品，是否前往购买?","前去购买",this.cartHandle.bind(this),function()
-                {
-                    this._selItems = [];
-                    _switchGender();
-                }.bind(this));
+                this._selItems = []; 
             }
-            else{
-                _switchGender();
-            }
+            _switchGender();
         }
         private switchToBoy() {
             this.gender = 1;
