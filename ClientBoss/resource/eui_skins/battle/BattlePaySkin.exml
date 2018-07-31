@@ -36,7 +36,7 @@
 
 
 
-		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" x="16" y="20" width="80" height="68"/>
+		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" width="80" height="68" verticalCenter="-491" horizontalCenter="-301"/>
 		<game:IconButton id="startButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="0.5" verticalCenter="352.5"/>
 		<e:Label id="goldCnt" text="1234567890" size="48" textColor="0xff9f3b" bold="true" anchorOffsetY="24" anchorOffsetX="134" verticalCenter="-312" textAlign="center" verticalAlign="middle" horizontalCenter="-0.5"/>
 		<e:Label text="拥 有 金 币" horizontalCenter="5.5" touchEnabled="false" textColor="0xff9f3b" size="36" anchorOffsetX="89" anchorOffsetY="0" verticalCenter="-382" bold="true"/>
