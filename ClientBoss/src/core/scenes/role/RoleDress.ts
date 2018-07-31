@@ -30,7 +30,7 @@ module game {
         btn_test: eui.Button;
         btn_test2: eui.Button;
 
-        shopNumBg :eui.Image;
+        shopNumBg: eui.Image;
         shopNum: eui.Label;
 
         topGroup: eui.Group;
@@ -151,7 +151,8 @@ module game {
         }
 
         private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-            // console.log("性别切换成功", data);
+            console.log("性别切换成功", data);
+            this.postSwitchGender(data);
         }
         // TODO: 脱下装备
         private sendmsg_UnDressCloth(data: { pos }) {
@@ -240,7 +241,7 @@ module game {
             } else {
                 canSave = this.saveBoySelIndex(this._typeIdx, idx);
             }
-           
+
             if (!canSave) { // 选择相同的项
                 itemRender.selected = false;
                 this.unwear(item);
@@ -257,7 +258,7 @@ module game {
                     haveDressSuit = false;
                     this.unselSuit();
                 }
-        
+
                 // 如果选择的是连衣裙，脱掉短裤；如果选择的是短装，重置短裤为默认
                 this.changePart(item);
                 let haveDressLongClothes = false;
@@ -277,21 +278,19 @@ module game {
                         this._girlSelIdxs[msg.ItemPos.Pants] = idx;
                         this.resetSlots(this._girlBone, ["body1_1_00"]);
                     }
-                }  
+                }
 
-                this._selItems = this._selItems.filter(data => { 
+                this._selItems = this._selItems.filter(data => {
 
-                   if(item.Pos == msg.ItemPos.LongClothes)
-                   {
-                        return item.Sex== data.Sex && data.Pos!= msg.ItemPos.Clothes && data.Pos!= msg.ItemPos.Pants && data.Id!= item.Id;
-                   }
-                   if(item.Pos == msg.ItemPos.Clothes || item.Pos == msg.ItemPos.Pants)
-                   {
-                        return item.Sex== data.Sex && data.Pos!= msg.ItemPos.LongClothes && data.Id!= item.Id;
-                   }
-                   return data.Id != item.Id ;
+                    if (item.Pos == msg.ItemPos.LongClothes) {
+                        return item.Sex == data.Sex && data.Pos != msg.ItemPos.Clothes && data.Pos != msg.ItemPos.Pants && data.Id != item.Id;
+                    }
+                    if (item.Pos == msg.ItemPos.Clothes || item.Pos == msg.ItemPos.Pants) {
+                        return item.Sex == data.Sex && data.Pos != msg.ItemPos.LongClothes && data.Id != item.Id;
+                    }
+                    return data.Id != item.Id;
                 })
-    
+
 
                 //添加属性
                 if (haveDressSuit) {
@@ -305,13 +304,13 @@ module game {
 
                     for (let i = 0; i < this._selItems.length; i++) {
                         let data = this._selItems[i];
-                        if ((data.Sex == item.Sex && data.Pos == item.Pos) || this.checkLongClothes(item,data)) {
+                        if ((data.Sex == item.Sex && data.Pos == item.Pos) || this.checkLongClothes(item, data)) {
                             haveDressed = true;
                             this._selItems[i] = item;
                             break;
                         }
                     }
-                  
+
                     if (!haveDressed) {
                         this._selItems.push(item);
                     }
@@ -321,9 +320,9 @@ module game {
             this.setDressInfo();
         }
 
-        private checkLongClothes(item,data){
-            if(!this.isGirl) return false;
-            return ( item.Pos == msg.ItemPos.Clothes && data.Pos == msg.ItemPos.LongClothes) || ( item.Pos == msg.ItemPos.LongClothes && data.Pos == msg.ItemPos.Clothes);
+        private checkLongClothes(item, data) {
+            if (!this.isGirl) return false;
+            return (item.Pos == msg.ItemPos.Clothes && data.Pos == msg.ItemPos.LongClothes) || (item.Pos == msg.ItemPos.LongClothes && data.Pos == msg.ItemPos.Clothes);
         }
 
         private isSel(typeIdx) {
@@ -447,19 +446,18 @@ module game {
         }
 
         private closeHandle() {
-            let _closeHandle  :Function = function()
-            {
+            let _closeHandle: Function = function () {
                 this.remove();
                 RoleDress.destroyInstance();
             }.bind(this);
 
-            if(this.getCartItems().length>0){
-                showDialog("您还有未购买的商品，是否前往购买?","前去购买",this.cartHandle.bind(this),function(){
+            if (this.getCartItems().length > 0) {
+                showDialog("您还有未购买的商品，是否前往购买?", "前去购买", this.cartHandle.bind(this), function () {
                     this._selItems = [];
                     _closeHandle();
                 }.bind(this));
             }
-            else{
+            else {
                 _closeHandle();
             }
         }
@@ -489,23 +487,20 @@ module game {
             this.updateBones(1);
         }
 
-        private switchGender() 
-        {
-            let _switchGender: Function = function(){
-                if (this.gender == 0) {
-                    this.switchToBoy();
-                } else {
-                    this.switchToGirl();
-                }
-                this.sendmsg_SwitchGender({
-                    sex: this.gender
-                })
-            }.bind(this);
-
-            if(this.getCartItems().length>0){
-                this._selItems = []; 
+        private postSwitchGender(data: msg.GW2C_RetChangeImageSex) {
+            if (data.sex == 0) {
+                this.switchToGirl()
+            } else {
+                this.switchToBoy();
             }
-            _switchGender();
+
+            if (this.getCartItems().length > 0) {
+                this._selItems = [];
+            }
+        }
+        private switchGender() {
+            let sex = this.gender == 0 ? 1 : 0;
+            this.sendmsg_SwitchGender({ sex: sex })
         }
         private switchToBoy() {
             this.gender = 1;
@@ -613,8 +608,7 @@ module game {
             this.dress_info.visible = dressInfos.length > 0;
         }
         //获取可以加入购物车的商品列表
-        private getCartItems()
-        {
+        private getCartItems() {
             let items = this._selItems.map(item => { return item.Id; }).filter(itemId => { return !DataManager.playerModel.IsHaveItem(itemId); });
             return items;
         }
