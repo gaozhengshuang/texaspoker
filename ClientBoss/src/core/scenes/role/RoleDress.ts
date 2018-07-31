@@ -30,6 +30,7 @@ module game {
         btn_test: eui.Button;
         btn_test2: eui.Button;
 
+        shopNumBg :eui.Image;
         shopNum: eui.Label;
 
         topGroup: eui.Group;
@@ -279,7 +280,7 @@ module game {
                 }  
 
                 this._selItems = this._selItems.filter(data => { 
-                     
+
                    if(item.Pos == msg.ItemPos.LongClothes)
                    {
                         return item.Sex== data.Sex && data.Pos!= msg.ItemPos.Clothes && data.Pos!= msg.ItemPos.Pants && data.Id!= item.Id;
@@ -612,6 +613,7 @@ module game {
                 );
             })
 
+            this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
             this.shopNum.text = this.getCartItems().length.toString();
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;

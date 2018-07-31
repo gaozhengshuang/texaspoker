@@ -23,7 +23,8 @@ module game {
         btn_close                       :IconButton;
         btn_buy                         :IconButton;
         btn_all                         :IconButton;
-        allSelectTip                    :eui.Image;                         
+        allSelectTip                    :eui.Image;
+        shopNumBg                       :eui.Image;                             
         goldNumTxt                      :eui.Label;
         diamondNumTxt                   :eui.Label;
         shopNum                         :eui.Label;
@@ -97,6 +98,9 @@ module game {
 
             this._selectAll = false;
             this.allSelectTip.visible  = this._selectAll;
+
+            this.shopNumBg.visible  = this.shopNum.visible = false;
+
             this.UpdateList();
         }
 
@@ -142,6 +146,7 @@ module game {
             this.totalCost_diamond2.textFlow = [
                 {text:this.totalCosts[1].toString(), style:{"textColor": textColor,"bold": true}}]
                 
+            this.shopNumBg.visible  = this.shopNum.visible = this._shopItemCarts.length > 0;
         }
 
         private _selectShopItem(data: table.IEquipDefine) {
