@@ -6,14 +6,14 @@ module game {
         _func   : Function;
         _func2  : Function;
         open_tip: egret.tween.TweenGroup;
-
+        btn_width : number;
         protected getSkinName() {
             return CommonDialogSkin;
         }
-
         protected init() {
             this.btn_goPay.bg = "lucky_json.luckyBtn";
             this.btn_close.icon = "lucky_json.luckycloseBtn";
+            this.btn_width  = this.btn_goPay.width;
             this._touchEvent = [
                 {target: this.btn_close, callBackFunc: this.OnClosePanel},
                 {target: this.btn_goPay, callBackFunc: this.OnClickGo},
@@ -27,6 +27,7 @@ module game {
                 this.txt_content.text = contentTxt;
             }
             this.btn_goPay.label = btnTxt;
+            this.btn_goPay.width =  this.btn_width +  btnTxt.length  * this.btn_goPay.labelSize;
             this._func = func;
             this._func2 = func2;
             this.show();
@@ -37,7 +38,7 @@ module game {
             if (this._func) {
                 this._func();
             }
-            this.OnClosePanel();
+            this.remove();
         }
 
         private OnClosePanel() {

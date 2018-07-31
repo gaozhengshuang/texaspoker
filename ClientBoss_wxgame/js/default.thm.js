@@ -569,12 +569,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 638;
-		t.y = 23;
+		t.width = 80;
+		t.x = 16;
+		t.y = 20;
 		return t;
 	};
 	_proto.bagScr_i = function () {
@@ -1398,12 +1400,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 638.68;
-		t.y = 23.67;
+		t.width = 80;
+		t.x = 16;
+		t.y = 20;
 		return t;
 	};
 	_proto.startButton_i = function () {
@@ -1887,12 +1891,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 638.68;
-		t.y = 23.67;
+		t.width = 80;
+		t.x = 16;
+		t.y = 20;
 		return t;
 	};
 	_proto.startButton_i = function () {
@@ -4504,12 +4510,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 652.5;
-		t.y = 26;
+		t.width = 80;
+		t.x = 16;
+		t.y = 20;
 		return t;
 	};
 	_proto.labelName_i = function () {
@@ -5694,14 +5702,14 @@ var egret = window.egret;
 	_proto.btn_close_i = function () {
 		var t = new game.IconButton();
 		this.btn_close = t;
-		t.height = 20;
-		t.horizontalCenter = -324;
+		t.height = 68;
+		t.horizontalCenter = -320;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
-		t.width = 20;
+		t.width = 80;
 		t.x = 28;
-		t.y = 28.5;
+		t.y = 20;
 		return t;
 	};
 	_proto.btn_cart_i = function () {
@@ -6756,15 +6764,14 @@ var egret = window.egret;
 	_proto.btn_close_i = function () {
 		var t = new game.IconButton();
 		this.btn_close = t;
-		t.height = 53;
-		t.horizontalCenter = 321.5;
-		t.right = 12;
+		t.height = 68;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
-		t.top = 29;
-		t.verticalCenter = -494.5;
-		t.width = 53;
+		t.top = 75;
+		t.verticalCenter = -484.5;
+		t.width = 80;
+		t.x = 16;
 		return t;
 	};
 	return ShoppingCartSkin;

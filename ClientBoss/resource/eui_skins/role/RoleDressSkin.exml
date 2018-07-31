@@ -17,7 +17,7 @@
 				<e:HorizontalLayout gap="30"/>
 			</e:layout>
 			</e:Group>
-			<game:IconButton id="btn_close" width="20" height="20" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-324" y="28.5" x="28"/>
+			<game:IconButton id="btn_close" width="80" height="68" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-320" y="20" x="28"/>
 		</e:Group>
 		<game:IconButton id="btn_cart" width="183" height="69" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="262.895" bottom="20"/>
 		<e:Image id="shopNumBg" height="48" width="48" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg" bottom="62" horizontalCenter="335.395"/>
