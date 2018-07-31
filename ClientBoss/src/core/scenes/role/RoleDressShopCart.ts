@@ -81,10 +81,10 @@ module game {
         }
 
         public refreshShopCarts()
-        {
+        {   
+            //刷新金币和钻石
             let goldNum = DataManager.playerModel.getScore();
             let moneyNum = DataManager.playerModel.getDiamond();
-            
             this.goldNumTxt.text = goldNum.toString();
             this.diamondNumTxt.text = moneyNum.toString();
 
@@ -92,10 +92,12 @@ module game {
             this._ShopItemInfos = [];
             this.totalCosts = [0,0,0];
 
+            //选中和累计数量
             this.shopNum.text = "0";
             this.totalCost_gold2.text = "0";
             this.totalCost_diamond2.text = "0";
 
+            //全选提示
             this._selectAll = false;
             this.allSelectTip.visible  = this._selectAll;
 
