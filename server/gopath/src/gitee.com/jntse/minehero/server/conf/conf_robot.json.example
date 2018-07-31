@@ -17,7 +17,8 @@
             "svrchannel":false,
             "disable": 1,
             "disreconnect":1,
-            "https":false
+            "https":false,
+            "disable_eventqueue": false
 		},
 		{
 			"name": "GateConnector",
@@ -29,7 +30,8 @@
             "svrchannel":false,
             "disable": 1,
             "disreconnect":1,
-            "https":false
+            "https":false,
+            "disable_eventqueue": false
 		}
 	]
 }
