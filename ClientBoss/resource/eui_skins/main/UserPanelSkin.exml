@@ -5,7 +5,7 @@
 		<e:Image verticalCenter="0" source="user_json.userBg" horizontalCenter="0"/>
 		<e:Image y="-9" scaleX="1" scaleY="1" source="user_json.userTitle" horizontalCenter="0"/>
 
-		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" x="16" y="20" width="80" height="68"/>
+		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" width="80" height="68" verticalCenter="-491" horizontalCenter="-301"/>
 
 
 		<e:Label id="labelName" text="未设置用户名" textColor="0x8C5EDA" bold="true" scaleX="1" scaleY="1" y="283" textAlign="center" size="36" strokeColor="0x8c5eda" horizontalCenter="0.5"/>
