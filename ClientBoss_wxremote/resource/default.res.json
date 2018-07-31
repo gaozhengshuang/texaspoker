@@ -94,7 +94,7 @@
 			"url": "assets/texpack/lucky.json",
 			"type": "sheet",
 			"name": "lucky_json",
-			"subkeys": "bagBtn,bagget,bagline,bagshopbg,bagtitle,itemNameBg,itemNumBg,loginrewardBtn,luckyBg,luckyBtn,luckyGo,luckyIMG,luckyItemBg,luckyLight,luckyTitle,luckycloseBtn,shopbg,shoplight,shopnumbg"
+			"subkeys": "bagBtn,bagget,bagline,bagshopbg,bagtitle,itemNameBg,itemNumBg,leftBack,loginrewardBtn,luckyBg,luckyBtn,luckyGo,luckyIMG,luckyItemBg,luckyLight,luckyTitle,luckycloseBtn,shopbg,shoplight,shopnumbg"
 		},
 		{
 			"url": "assets/texpack/user.json",
