@@ -42,7 +42,7 @@
             "disable_eventqueue": false
 		}
     ],
-	"wslistens": [
+	"udplistens": [
 		{
 			"name": "ClientListener",
 			"parser": "C2GW_MsgParser",

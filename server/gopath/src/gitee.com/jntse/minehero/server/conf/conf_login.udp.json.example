@@ -18,7 +18,7 @@
             "disable_eventqueue": false
 		}
 	],
-	"wslistens": [
+	"udplistens": [
 		{
 			"name": "ClientListener",
 			"parser": "C2LS_MsgParser",
@@ -41,8 +41,7 @@
 			},
             "https": false,
             "cert":"../cert/https/https-server-214801457430415.pem",
-            "certkey":"../cert/https/https-server-214801457430415.key",
-            "disable_eventqueue": false
+            "certkey":"../cert/https/https-server-214801457430415.key"
 		}
     ],
     "redis": {
