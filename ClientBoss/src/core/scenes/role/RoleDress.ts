@@ -223,15 +223,18 @@ module game {
             this.ls_items.selectedItem = null;
         }
 
-        private rmGirlSelIndex(typeIdx) {
+        private rmGirlSelIndex(typeIdx, itemPos) {
+            if (itemPos == msg.ItemPos.LongClothes) {
+                this._girlSelIdxs[itemPos] = null;
+            }
             this._girlSelIdxs[typeIdx] = null;
             this.ls_items.selectedIndex = -1;
             this.ls_items.selectedItem = null;
         }
 
-        private rmSelIndex(typeIdx) {
+        private rmSelIndex(typeIdx, itemPos) {
             if (this.isGirl) {
-                this.rmGirlSelIndex(typeIdx);
+                this.rmGirlSelIndex(typeIdx, itemPos);
             } else {
                 this.rmBoySelIndex(typeIdx);
             }
@@ -244,7 +247,7 @@ module game {
             let itemRender = <game.ItemPrice>e.itemRenderer;
             if (ItemPrice.isComingSoon(item)) {
                 this.unwear(item);
-                this.rmSelIndex(this._typeIdx);
+                this.rmSelIndex(this._typeIdx, item.Pos);
                 return;
             }
             let canSave = false;
@@ -258,7 +261,7 @@ module game {
             if (!canSave) { // 选择相同的项
                 itemRender.selected = false;
                 this.unwear(item);
-                this.rmSelIndex(this._typeIdx);
+                this.rmSelIndex(this._typeIdx, item.Pos);
 
                 this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != item.Pos) && data.Id != item.Id; })
             } else {
@@ -279,6 +282,7 @@ module game {
                     // console.log("选择连衣裙")
                     this._girlSelIdxs[msg.ItemPos.Pants] = null;
                     this._girlSelIdxs[msg.ItemPos.LongClothes] = idx;
+                    this._girlSelIdxs[msg.ItemPos.Clothes] = idx;
                 } else if (this._girlSelIdxs[msg.ItemPos.LongClothes] != null) {
                     if (item.Pos == msg.ItemPos.Clothes && this.isGirl) {
                         this._girlSelIdxs[msg.ItemPos.LongClothes] = null;
