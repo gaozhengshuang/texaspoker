@@ -51,7 +51,7 @@
 			</e:Group>
 		</e:Group>
 	</e:Group>
-	<game:IconButton id="btn_close" skinName="IconButtonSkin" scaleX="1" scaleY="1" width="53" horizontalCenter="321.5" right="12" height="53" top="29" verticalCenter="-494.5"/>
+	<game:IconButton id="btn_close" skinName="IconButtonSkin" scaleX="1" scaleY="1" width="80" height="68" top="75" verticalCenter="-484.5" x="16"/>
 
 
 

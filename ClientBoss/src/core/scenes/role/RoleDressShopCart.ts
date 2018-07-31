@@ -60,7 +60,7 @@ module game {
 
             this._shopItemCarts = [];
             this.totalCosts = [0,0,0];
-            this.btn_close.icon = "lucky_json.luckycloseBtn"
+            this.btn_close.icon = "dress_01_json.dress_01_16"
             this.btn_buy.icon = "dress_01_json.dress_01_21";
             this.btn_all.icon = "shopItemButtonBg_png";
         }
