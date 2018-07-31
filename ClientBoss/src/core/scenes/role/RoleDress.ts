@@ -501,14 +501,13 @@ module game {
         }
 
         private postSwitchGender(data: msg.GW2C_RetChangeImageSex) {
+            if (this.getCartItems().length > 0) {
+                this._selItems = [];
+            }
             if (data.sex == 0) {
                 this.switchToGirl()
             } else {
                 this.switchToBoy();
-            }
-
-            if (this.getCartItems().length > 0) {
-                this._selItems = [];
             }
         }
         private switchGender() {

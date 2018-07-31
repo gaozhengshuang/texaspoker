@@ -30,7 +30,7 @@ module game {
         }
 
         protected init() {
-            this.closeButton && (this.closeButton.icon = "dress_01_json.dress_01_16");
+            this.closeButton && (this.closeButton.icon = "lucky_json.leftBack");
             this.startButton && (this.startButton.icon = "ui_json.b-recharge");
             this.allChangeButton && (this.allChangeButton.icon = "ui_json.changeMoneyAll");
 

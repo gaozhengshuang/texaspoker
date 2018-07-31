@@ -35,7 +35,7 @@
 
 
 		<e:Image id="luckyLight" source="lucky_json.luckyLight" x="100" y="225" anchorOffsetX="82" anchorOffsetY="82"/>
-		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" x="16" y="20" width="80" height="68"/>
+		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" width="80" height="68" verticalCenter="-491" horizontalCenter="-301"/>
 		<game:IconButton id="startButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="0.5" verticalCenter="472.5"/>
 		<game:IconButton id="bagButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="208.5" verticalCenter="472.5"/>
 		<e:Label text="抽  奖" y="1003.24" horizontalCenter="0.5" touchEnabled="false"/>

@@ -35,7 +35,7 @@ module game {
         }
 
         protected init() {
-            this.closeButton.icon = "dress_01_json.dress_01_16";
+            this.closeButton.icon = "lucky_json.leftBack";
             this.startButton.icon = "lucky_json.luckyBtn";
             this.bagButton.icon = "lucky_json.bagBtn";
             this.initGift();

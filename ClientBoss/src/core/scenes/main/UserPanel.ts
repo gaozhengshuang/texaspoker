@@ -23,7 +23,7 @@ module game {
 
         protected init() {
             this.img_userhead.mask = this.img_mask;
-            this.closeButton.icon = "dress_01_json.dress_01_16";
+            this.closeButton.icon = "lucky_json.leftBack";
             this.addressButton.icon = "user_json.deliveryAdressBtn";
             this.inviteFriendButton.icon = "login_json.inviteFriendsImg";
         }
