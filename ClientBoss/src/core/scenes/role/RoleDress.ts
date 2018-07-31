@@ -82,11 +82,16 @@ module game {
             this._init = 0;
 
             this.initTypeSelIdxs();
-            this.initWears(this.gender);
             this.initNetEvent();
             this.initTouchEvent();
             this.initCoins();
             this.initItemList();
+
+            this.postInit();
+
+        }
+        private postInit() {
+            this.initWears(this.gender);
             if (this.isGirl) {
                 this.switchToGirl();
             } else {
@@ -151,7 +156,8 @@ module game {
         }
 
         private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-            console.log("性别切换成功", data);
+            // console.log("性别切换成功", data);
+            DataManager.playerModel.sex = data.sex;
             this.postSwitchGender(data);
         }
         // TODO: 脱下装备
@@ -169,7 +175,8 @@ module game {
         }
         // TODO: 接收显示性别消息
         private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-            // console.log("GW2C_SendShowImage", data);
+            //console.log("接收装扮数据", data);
+            // this.postInit();
         }
 
 
@@ -188,12 +195,18 @@ module game {
             this._selItems = [];
         }
 
-        private saveGrilSelIndex(typeIdx, itemIndex) {
-            if (this._girlSelIdxs[typeIdx] != null && this._girlSelIdxs[typeIdx] == itemIndex) {
+        private saveGrilSelIndex(typeIdx, itemIndex, itemPos) {
+            let ti = typeIdx;
+            if (itemPos == msg.ItemPos.LongClothes) {
+                ti = msg.ItemPos.LongClothes;
+            }
+
+            if (this._girlSelIdxs[ti] != null &&
+                this._girlSelIdxs[ti] == itemIndex) {
                 return false;
             }
 
-            this._girlSelIdxs[typeIdx] = itemIndex;
+            this._girlSelIdxs[ti] = itemIndex;
             return true;
         }
         private saveBoySelIndex(typeIdx, itemIdx) {
@@ -226,7 +239,7 @@ module game {
 
         // 选择项改变
         private onSelItem(e: eui.ItemTapEvent) {
-            let item = this.ls_items.selectedItem;
+            let item = <table.IEquipDefine>this.ls_items.selectedItem;
             let idx = e.itemIndex;
             let itemRender = <game.ItemPrice>e.itemRenderer;
             if (ItemPrice.isComingSoon(item)) {
@@ -237,7 +250,7 @@ module game {
             let canSave = false;
 
             if (this.isGirl) {
-                canSave = this.saveGrilSelIndex(this._typeIdx, idx)
+                canSave = this.saveGrilSelIndex(this._typeIdx, idx, item.Pos)
             } else {
                 canSave = this.saveBoySelIndex(this._typeIdx, idx);
             }
@@ -260,7 +273,7 @@ module game {
                 }
 
                 // 如果选择的是连衣裙，脱掉短裤；如果选择的是短装，重置短裤为默认
-                this.changePart(item);
+                this.changePartWithNet(item);
                 let haveDressLongClothes = false;
                 if (item.Pos == msg.ItemPos.LongClothes) {
                     // console.log("选择连衣裙")
@@ -334,7 +347,7 @@ module game {
 
         // 选择过非套装
         private hasSelUnsuit() {
-            for (let i = 0; i < msg.ItemPos.LongClothes; ++i) {
+            for (let i = 0; i <= msg.ItemPos.LongClothes; ++i) {
                 if (i == msg.ItemPos.Suit) continue;
                 if (this.isSel(i))
                     return true;
@@ -656,21 +669,33 @@ module game {
             }
         }
 
+        private indexOfGenderDress(dressId, gender) {
+            let s = dressId - (dressId % 100) + 1;
+            let dressItem: table.IEquipDefine = null;
+            let i = 0;
+            while (!!(dressItem = table.EquipById[s++])) {
+                if ((dressItem.Sex == gender || dressItem.Sex == 2)) {
+                    if (dressItem.Id == dressId)
+                        return i;
+                    i++;
+                }
+            }
+            return i;
+        }
+
         private initWears(gender = 0) {
             let clothes = DataManager.playerModel.clothes;
-            // console.log(clothes)
             if (!clothes) { return; }
 
             for (let l of clothes) {
-                if (l.sex == gender) {
-                    if (l.clothes.length <= 0) {
-                        this.clrSelIdxs(gender);
-                        return;
-                    }
+                if (l.sex == gender && l.clothes.length <= 0) {
+                    this.clrSelIdxs(gender);
+                    return;
                 }
 
                 for (let m of l.clothes) {
-                    let idx = (m.id % 100) - 1;
+                    let idx = this.indexOfGenderDress(m.id, l.sex);
+
                     if (gender == 0 && gender == l.sex) {
                         this._girlSelIdxs[m.pos] = idx;
                         this._girlOriSelIdxs[m.pos] = idx;
@@ -707,8 +732,14 @@ module game {
 
         }
         private getGirlSelIdx(typeIndex) {
-            if (!this._girlSelIdxs || this._girlSelIdxs[typeIndex] == null) return null;
-            return this._girlSelIdxs[typeIndex];
+            if (!this._girlSelIdxs) return null;
+
+            let idx = this._girlSelIdxs[typeIndex];
+
+            if (idx == null && typeIndex == msg.ItemPos.Clothes) {
+                idx = this._girlOriSelIdxs[msg.ItemPos.LongClothes];
+            }
+            return idx;
         }
         private getBoySelIdx(typeIdx) {
             if (!this._boySelIdxs || this._boySelIdxs[typeIdx] == null) return null;
@@ -817,6 +848,10 @@ module game {
                 if (!this._boyBone) return;
                 this.changeSlotsInSuit(this._boyBone, slotNames, suit);
             }
+
+        }
+        private changePartWithNet(e: table.IEquipDefine) {
+            this.changePart(e);
             if (this.isInBagList(e)) {
                 this.sendmsg_DressCloth({
                     pos: e.Pos,
