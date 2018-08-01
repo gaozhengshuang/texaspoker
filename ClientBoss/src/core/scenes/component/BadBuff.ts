@@ -31,7 +31,7 @@ module game {
                 if (_currentIndex > 6) {
                     _currentIndex = 0;
                 }
-                this.boxBuffImg.source = `lucky/badBox/badBox_000${_currentIndex}`;
+                this.boxBuffImg.source = `lucky2_json.badBox_000${_currentIndex}`;
             }, this, 150);
         }
 
@@ -42,7 +42,7 @@ module game {
                 DataManager.playerModel.addScore(_score);
 
                 if (this._playInterval) {
-                    this.boxBuffImg.source = "ui/boxBuff1";
+                    this.boxBuffImg.source = "ui_json.boxBuff1";
                     egret.clearInterval(this._playInterval);
                     this._playInterval = null;
                 }

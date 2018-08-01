@@ -10,5 +10,21 @@
         "Count":3,
         "FloorTrigger":500,
         "Money":1000
-    }
+    },
+
+    "//":"游戏内规则",
+    "BulletPrice":20,
+
+    "//":"踩炸弹扣除",
+    "BombDeductMoney":500,
+
+    "//":"能量值满",
+    "MaxEnergy":250,
+	
+	"//":"钻石转金币",
+    "Diamond_To_Coins" : 1,
+    "//":"超级砖块获得奖励",
+    "SuperBrickReward":3000
+
+
 }

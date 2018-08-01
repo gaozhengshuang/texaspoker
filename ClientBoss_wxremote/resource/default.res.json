@@ -1,0 +1,250 @@
+{
+	"groups": [
+		{
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,girl_suitx_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_suit5_json,girl_suit5_json,boy_suit6_json",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/font/goldGame_fnt.fnt",
+			"type": "font",
+			"name": "goldGame_fnt"
+		},
+		{
+			"url": "assets/font/goldGame_png.png",
+			"type": "image",
+			"name": "goldGame_png"
+		},
+		{
+			"url": "assets/music/bingqiang.mp3",
+			"type": "sound",
+			"name": "bingqiang_mp3"
+		},
+		{
+			"url": "assets/music/dazhao.mp3",
+			"type": "sound",
+			"name": "dazhao_mp3"
+		},
+		{
+			"url": "assets/music/fashe.mp3",
+			"type": "sound",
+			"name": "fashe_mp3"
+		},
+		{
+			"url": "assets/music/heidong.mp3",
+			"type": "sound",
+			"name": "heidong_mp3"
+		},
+		{
+			"url": "assets/music/huoqiangloop.mp3",
+			"type": "sound",
+			"name": "huoqiangloop_mp3"
+		},
+		{
+			"url": "assets/music/jiesuan.mp3",
+			"type": "sound",
+			"name": "jiesuan_mp3"
+		},
+		{
+			"url": "assets/music/pengzhuang.mp3",
+			"type": "sound",
+			"name": "pengzhuang_mp3"
+		},
+		{
+			"url": "assets/music/play.mp3",
+			"type": "sound",
+			"name": "play_mp3"
+		},
+		{
+			"url": "assets/music/posui.mp3",
+			"type": "sound",
+			"name": "posui_mp3"
+		},
+		{
+			"url": "assets/music/zhadan.mp3",
+			"type": "sound",
+			"name": "zhadan_mp3"
+		},
+		{
+			"url": "assets/texpack/ball.json",
+			"type": "sheet",
+			"name": "ball_json",
+			"subkeys": "1,2,3,break_00000,break_00001,break_00002,break_00003,break_00004,break_00005,break_00006,break_00007"
+		},
+		{
+			"url": "assets/texpack/login.json",
+			"type": "sheet",
+			"name": "login_json",
+			"subkeys": "inviteFriendsImg,loginBtn,loginInput,loginTitle,loginbg,loginstar,nicknameImg,notreachImg,passwdicon,phoneicon,registerBtn,wxwbd,wxyjbd,yqmicon,yzmbutton,yzmicon"
+		},
+		{
+			"url": "assets/texpack/item.json",
+			"type": "sheet",
+			"name": "item_json",
+			"subkeys": "1001,2004,2006,3018,5003,5004,6002,6003"
+		},
+		{
+			"url": "assets/texpack/cube.json",
+			"type": "sheet",
+			"name": "cube_json",
+			"subkeys": "1_1,1_2,1_3,1_4,1_5,1_6,2,3,4,5,6,7,8,blackHole_00000,blackHole_00001,blackHole_00002,blackHole_00003,blackHole_00004,blackHole_00005,blackHole_00006,blackHole_00007,blueBoom_00000,blueBoom_00001,blueBoom_00002,blueBoom_00003,blueBoom_00004,blueBoom_00005,boom_00000,boom_00001,boom_00002,boom_00003,boom_00004,boom_00005,boom_00006,boom_00007,break_1,break_2,break_3,break_4,break_5,break_6,crack1,crack2,crack3,fire,frozen,goldShark_00000,goldShark_00001,goldShark_00002,goldShark_00003,goldShark_00004,goldShark_00005,redBoom_00000,redBoom_00001,redBoom_00002,redBoom_00003,redBoom_00004,redBoom_00005,redBoom_00006,redBoom_00007,sharkPop_00001,sharkPop_00002,sharkPop_00003,sharkPop_00004,sharkPop_00005,sharkPop_00006,timeBoom_00000,timeBoom_00001,timeBoom_00002,timeBoom_00003,timeBoom_00004"
+		},
+		{
+			"url": "assets/texpack/lucky.json",
+			"type": "sheet",
+			"name": "lucky_json",
+			"subkeys": "bagBtn,bagget,bagline,bagshopbg,bagtitle,itemNameBg,itemNumBg,leftBack,loginrewardBtn,luckyBg,luckyBtn,luckyGo,luckyIMG,luckyItemBg,luckyLight,luckyTitle,luckycloseBtn,shopbg,shoplight,shopnumbg"
+		},
+		{
+			"url": "assets/texpack/user.json",
+			"type": "sheet",
+			"name": "user_json",
+			"subkeys": "addressBg,addressImg,adrBg,comeonBg,copyButton,deliveryAdressBtn,getMoneyImg,headBg,headBorder,taskRewardImg,updateBtn,userBg,userButton,userOk,userTitle"
+		},
+		{
+			"url": "assets/texpack/ui.json",
+			"type": "sheet",
+			"name": "ui_json",
+			"subkeys": "b-recharge,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,changeMoneyAll,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,diamondChangeBg,duanxian,gameBack,gameBtnBg,gold,guangquan,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,loginRewardGold,luckMainBtn,moreFire,paihang,play,rechargeGo,sp,spBar,spBg,spGray,tantanle,topBg,tou,userGo,userMainBtn,yindao"
+		},
+		{
+			"url": "assets/texpack/paddle.json",
+			"type": "sheet",
+			"name": "paddle_json",
+			"subkeys": "1,bg,bg2,di,guanchuan,light,pao,pao2,paota,sp_00000,sp_00001,sp_00002,sp_00003,sp_00004,sp_00005,sp_00006,sp_00007,wave_00000,wave_00001,wave_00002,wave_00003,wave_00004,wave_00005,wave_00006,wave_00007,wave_00008,wave_00009,wuxianpao,wuxianpaobg"
+		},
+		{
+			"url": "assets/texpack/win.json",
+			"type": "sheet",
+			"name": "win_json",
+			"subkeys": "again,anniudi,back,fenxiang,haoyou,jiesuan,rankBg,rank_bg,rankitembg,shijie,touxiangkuang,xinjilu"
+		},
+		{
+			"url": "assets/texpack/lucky2.json",
+			"type": "sheet",
+			"name": "lucky2_json",
+			"subkeys": "badBox_0000,badBox_0001,badBox_0002,badBox_0003,badBox_0004,badBox_0005,badBox_0006,goldAni_0000,goldAni_0001,goldAni_0002,goldAni_0003,goldAni_0004,goldAni_0005,goldAni_0006,goldAni_0007"
+		},
+		{
+			"url": "assets/texpack/dress_01.json",
+			"type": "sheet",
+			"name": "dress_01_json",
+			"subkeys": "buy-bg,dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31,dress_01_32,dress_01_33,dress_01_34,dress_01_35,dress_01_36,dress_01_37,dress_01_38,dress_gold,numBg,shoppingcart-txt,star,taboard-bg1,taboard-bg2"
+		},
+		{
+			"url": "bones/girl/girl_tex.png",
+			"type": "image",
+			"name": "girl_tex_png"
+		},
+		{
+			"url": "bones/girl/girl_ske.json",
+			"type": "json",
+			"name": "girl_ske_json"
+		},
+		{
+			"url": "bones/girl/girl_tex.json",
+			"type": "json",
+			"name": "girl_tex_json"
+		},
+		{
+			"url": "bones/boy/boy_tex.png",
+			"type": "image",
+			"name": "boy_tex_png"
+		},
+		{
+			"url": "bones/boy/boy_tex.json",
+			"type": "json",
+			"name": "boy_tex_json"
+		},
+		{
+			"url": "bones/boy/boy_ske.json",
+			"type": "json",
+			"name": "boy_ske_json"
+		},
+		{
+			"url": "assets/texpack/equip.json",
+			"type": "sheet",
+			"name": "equip_json",
+			"subkeys": "101,102,103,104,105,106,107,108,109,110,201,202,203,204,205,206,207,208,209,210,301,302,303,304,305,306,307,308,309,401,402,403,404,405,406,407,408,409,410,501,502,503,504,601,602,701,702,703"
+		},
+		{
+			"url": "assets/texpack/suit/boy_suit1.json",
+			"type": "sheet",
+			"name": "boy_suit1_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/boy_suit4.json",
+			"type": "sheet",
+			"name": "boy_suit4_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/boy_suit2.json",
+			"type": "sheet",
+			"name": "boy_suit2_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/boy_suit3.json",
+			"type": "sheet",
+			"name": "boy_suit3_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/boy_suitx.json",
+			"type": "sheet",
+			"name": "boy_suitx_json",
+			"subkeys": "shoes1_1_00,shoes1_1_01"
+		},
+		{
+			"url": "assets/texpack/suit/girl_suit1.json",
+			"type": "sheet",
+			"name": "girl_suit1_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/girl_suit2.json",
+			"type": "sheet",
+			"name": "girl_suit2_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,skirt1_1_00,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/girl_suit3.json",
+			"type": "sheet",
+			"name": "girl_suit3_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/girl_suit4.json",
+			"type": "sheet",
+			"name": "girl_suit4_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/girl_suitx.json",
+			"type": "sheet",
+			"name": "girl_suitx_json",
+			"subkeys": "shoes1_1_00,shoes1_1_01"
+		},
+		{
+			"url": "assets/texpack/suit/girl_suit5.json",
+			"type": "sheet",
+			"name": "girl_suit5_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/boy_suit5.json",
+			"type": "sheet",
+			"name": "boy_suit5_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		},
+		{
+			"url": "assets/texpack/suit/boy_suit6.json",
+			"type": "sheet",
+			"name": "boy_suit6_json",
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+		}
+	]
+}

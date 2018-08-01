@@ -12,16 +12,15 @@ module game {
         constructor() {
             super();
             this.skinName = BattleBagItemSkin;
-            this.getButton.icon = "lucky/bagget";
-
+            this.getButton.icon = "lucky_json.bagget";
             this.getButton.addEventListener(egret.TouchEvent.TOUCH_TAP, this.getHandle, this);
 
             this.itemImg.mask = this.itemMask;
         }
 
         private getHandle() {
-            let list: msg.IDeliveryGoods[] = [{itemid: this.data.id, num: this.data.num}];
-            sendMessage("msg.C2GW_ReqDeliveryGoods", msg.C2GW_ReqDeliveryGoods.encode({list: list, token: ""}));
+            let list: msg.IDeliveryGoods[] = [{ itemid: this.data.id, num: this.data.num }];
+            sendMessage("msg.C2GW_ReqDeliveryGoods", msg.C2GW_ReqDeliveryGoods.encode({ list: list, token: "" }));
         }
 
         protected dataChanged() {
@@ -38,9 +37,9 @@ module game {
             if (_data.Id == 6003) { //(代表这是金币)
                 this.itemMoney.text = "";
             } else {
-                this.itemMoney.text = "价值："+_data.Sold+"元";
+                this.itemMoney.text = "价值：" + _data.Sold + "元";
             }
-            this.itemNum.text = "X"+this.data.num;
+            this.itemNum.text = "X" + this.data.num;
         }
     }
 }

@@ -2,9 +2,9 @@
 <e:Skin width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*" class="DeliveryPanelSkin">
 	<e:Rect width="720" height="100%" fillColor="0xEEEEEE" fillAlpha="0" y="-1" strokeColor="0xffffff"/>
 	<e:Group id="luckyGroup" width="720" height="1100" horizontalCenter="0" verticalCenter="0">
-		<e:Image verticalCenter="0" horizontalCenter="0" source="user/userBg"/>
-		<e:Image y="-10" horizontalCenter="0" x="222" scaleX="1" scaleY="1" source="ui/bag/deliveryTitle"/>
-		<e:Image id="deliveryTitle" source="ui/bag/deliveryNoTxt" horizontalCenter="0" verticalCenter="-511.5"/>
+		<e:Image verticalCenter="0" horizontalCenter="0" source="user_json.userBg"/>
+		<e:Image y="-10" horizontalCenter="0" x="222" scaleX="1" scaleY="1" source="ui_json.deliveryTitle"/>
+		<e:Image id="deliveryTitle" source="ui_json.deliveryNoTxt" horizontalCenter="0" verticalCenter="-511.5"/>
 
 
 
@@ -47,9 +47,9 @@
 				</e:layout>
 			</e:List>
 		</e:Scroller>
-		<e:Image source="ui/bag/deliverybtnBg" horizontalCenter="0" verticalCenter="346"/>
-		<e:Image id="selOkImg" source="ui/bag/deliverySel" horizontalCenter="-136.5" touchEnabled="true" verticalCenter="345"/>
-		<e:Image id="selNoImg" source="ui/bag/deliverySel" horizontalCenter="138.5" touchEnabled="true" verticalCenter="345"/>
+		<e:Image source="ui_json.deliverybtnBg" horizontalCenter="0" verticalCenter="346"/>
+		<e:Image id="selOkImg" source="ui_json.deliverySel" horizontalCenter="-136.5" touchEnabled="true" verticalCenter="345"/>
+		<e:Image id="selNoImg" source="ui_json.deliverySel" horizontalCenter="138.5" touchEnabled="true" verticalCenter="345"/>
 		<e:Label id="selOkTxt" text="已发货" x="175" y="885" size="25" touchEnabled="false" bold="true"/>
 		<e:Label id="selNoTxt" text="未发货" x="455" y="885" size="25" bold="true" touchEnabled="false"/>
 

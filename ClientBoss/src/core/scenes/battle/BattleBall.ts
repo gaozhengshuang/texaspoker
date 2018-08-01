@@ -11,7 +11,10 @@ module game {
         public body: p2.Body;
         private _shape: p2.Circle;
 
+        private _id: number|Long;
+
         public ballId: number;
+        public lifeValue: number;// 生命周期产生的总价值
         private _ballData: table.ITBallDefine;
 
         public battleBodyType: BattleBodyType;
@@ -31,7 +34,25 @@ module game {
             this._shape.collisionGroup = ballCollisionGroup;
             this._shape.collisionMask = wallCollisionGroup | paddleCollisionGroup | brickCollisionGroup;
             this.body.addShape(this._shape);
+            this.lifeValue = 0;
         }
+
+        public incLifeValue(n:number) {
+            this.lifeValue += n;
+        }
+
+        //TODO:使用lifeValue
+        public preDestroy() {
+            // console.log("生命总产值： ",this.ballId, this.lifeValue);
+            sendMessage("msg.BT_BulletEarnMoney",msg.BT_BulletEarnMoney.encode({
+                userid: DataManager.playerModel.getUserId(),
+                bulletid: this.id,
+                gold: this.lifeValue,
+            }))
+        }
+
+        public get id() {return this._id;}
+        public set id(n) {this._id = n;}
 
         public setData(ballId: number, material: p2.Material, isPenetration: boolean) {
             this.meetFire = false;
@@ -40,9 +61,9 @@ module game {
             this.ballId = ballId;
             this._ballData = table.TBallById[ballId];
             if (isPenetration) {
-                this.ballImage.source = `ball/3`;
+                this.ballImage.source = `ball_json.3`;
             } else {
-                this.ballImage.source = `ball/${ballId}`;
+                this.ballImage.source = `ball_json.${ballId}`;
             }
             if (ballId == 1) {
                 this.width = this.height = 28;
@@ -104,6 +125,7 @@ module game {
         }
 
         onDestroy() {
+            this.preDestroy();
             egret.Tween.removeTweens(this.ballImage);
             if (this.body.world) {
                 this.body.world.removeBody(this.body);
@@ -111,7 +133,17 @@ module game {
             this.removeFromParent();
             this._hitCount = 0;
             this.meetFire = false;
-            this.y = 800;
+            this.lifeValue = 0;
+        }
+
+        onRecycle() {
+            this.preDestroy();
+            egret.Tween.removeTweens(this.ballImage);
+
+            this.onMoveout();
+            this._hitCount = 0;
+            this.meetFire = false;
+            this.lifeValue = 0;
         }
 
         public getDamage() {

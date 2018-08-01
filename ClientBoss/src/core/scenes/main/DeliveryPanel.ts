@@ -24,10 +24,9 @@ module game {
         }
 
         protected init() {
-            this.closeButton.icon = "lucky/luckycloseBtn";
-            this.bagButton.icon = "ui/bag/backBagBtn";
-
-            this._listProvider = new eui.ArrayCollection();
+            this.closeButton.icon = "lucky_json.luckycloseBtn";
+           this.bagButton.icon = "ui_json.backBagBtn";
+          this._listProvider = new eui.ArrayCollection();
             this.deliveryList.dataProvider = this._listProvider;
             this.deliveryList.itemRenderer = DeliveryItem;
         }
@@ -71,7 +70,7 @@ module game {
             this.selOkTxt.textColor = this._selectType == 1 ? 0xffffff : 0x378ac2;
             this.selNoTxt.textColor = this._selectType == 2 ? 0xffffff : 0x378ac2;
 
-            this.deliveryTitle.source = this._selectType == 1 ? "ui/bag/deliveryOkTxt" : "ui/bag/deliveryNoTxt";
+            this.deliveryTitle.source = this._selectType == 1 ? "ui_json.deliveryOkTxt" : "ui_json.deliveryNoTxt";
 
             this.updateList();
         }

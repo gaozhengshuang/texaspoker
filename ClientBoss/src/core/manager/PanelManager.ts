@@ -29,6 +29,15 @@ module game {
             case PanelType.deliverySetting:
                 panel = DeliverySetting.getInstance();
                 break;
+            case PanelType.pay:
+                panel = BattlePay.getInstance();
+                break;
+            case PanelType.dress:
+                panel = RoleDress.getInstance();
+                break;
+            case PanelType.dressShopCarts:
+                panel = RoleDressShopCart.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -45,5 +54,8 @@ module game {
         history,
         delivery,
         deliverySetting,
+        pay,
+        dress,
+        dressShopCarts
     }
 }

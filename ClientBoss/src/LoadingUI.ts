@@ -29,9 +29,8 @@
 
 module game {
     export class LoadingUI extends GameComponent implements RES.PromiseTaskReporter {
-        loadText:eui.Label;
-        //loadProgress:eui.ProgressBar;
-
+        lodingGroup: eui.Group;
+        
         protected getSkinName() {
             return LoadingSkin;
         }
@@ -44,12 +43,15 @@ module game {
 
         private OnClosePanel() {
             NotificationCenter.removeObserver(this, "closeLoadingSkin");
-            this.removeFromParent();
+
+            egret.Tween.get(this.lodingGroup).to({alpha: 0}, 600).wait(100)
+                .call(() => {
+                    this.removeFromParent();
+                });
         }
 
         public onProgress(current: number, total: number): void {
-            this.loadText.text = `游戏加载中..${Math.ceil((current/total)*100)}%`;
-            //this.loadProgress.value = (current/total)*100;
+
         }
     }
 }

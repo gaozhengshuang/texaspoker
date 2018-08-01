@@ -11,10 +11,8 @@ module game {
             return DeliverySettingSkin;
         }
 
-        protected init() {
-            this.btn_close.icon = "lucky/luckycloseBtn";
-            this.btn_setting.icon = "user/updateBtn";
-        }
+        protected init() {            this.btn_close.icon = "lucky_json.luckycloseBtn";        this.btn_setting.icon = "user_json.updateBtn";
+    }
 
         protected beforeShow() {
             this._touchEvent = [

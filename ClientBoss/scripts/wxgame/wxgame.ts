@@ -37,7 +37,13 @@ export class WxgamePlugin implements plugins.Command {
                 }
                 if (filename == "libs/modules/particle/particle.js" || filename == 'libs/modules/particle/particle.min.js') {
                     content += ";window.particle = particle;"
-                }
+                } 
+                // // 添加导入MD5
+                // if (filename == "libs/modules/md5/md5.js" || filename == 'libs/modules/md5/md5.min.js') {
+                //     content += ";window.md5 = md5;"
+                // }
+         
+
                 content = "var egret = window.egret;" + content;
                 if (filename == 'main.js') {
                     content += ";window.Main = Main;"

@@ -31,7 +31,7 @@ module game {
         public static async playEffect(name: string, volume: number = 1) {
             if (!this.playSound) return;
             this.currentSound = name;
-            RES.getResAsync(`music/${name}`, (value: egret.Sound) => {
+            RES.getResAsync(`${name}_mp3`, (value: egret.Sound) => {
                 if (this.currentSound == name) {
                     if (!value) return;
                     let sound_eff = value;

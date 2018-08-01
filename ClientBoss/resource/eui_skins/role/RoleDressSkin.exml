@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RoleDressSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:game="game.*">
+
+	<e:Image id="img_girlbg" source="grilbg_png" width="720" anchorOffsetY="0" height="1559" horizontalCenter="0" verticalCenter="0" visible="false"/>
+	<e:Image id="img_boybg" source="boybg_png" width="720" anchorOffsetY="0" height="1559" horizontalCenter="0" verticalCenter="0"/>
+
+	<e:Group id="roleGroup" width="721.21" height="53%" anchorOffsetX="0" anchorOffsetY="0" top="0" horizontalCenter="0.5">
+
+		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" verticalCenter="-20.5" horizontalCenter="247.39499999999998">
+		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" width="220" height="280" y="0" x="0"/>
+		</e:Group>
+		<e:Group id="topGroup" width="720" height="100" y="0" x="0" scaleX="1" scaleY="1">
+			<e:Group id="grp_coins" width="593" height="58" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="53.5" y="11" x="80">
+			<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
+			<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
+			<e:layout>
+				<e:HorizontalLayout gap="30"/>
+			</e:layout>
+			</e:Group>
+			<game:IconButton id="btn_close" width="80" height="68" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-320" y="9" x="28"/>
+		</e:Group>
+		<game:IconButton id="btn_cart" width="183" height="69" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="262.895" bottom="20"/>
+		<e:Image id="shopNumBg" height="48" width="48" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg" bottom="62" horizontalCenter="335.395"/>
+		<e:Label id="shopNum" text="0" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1" horizontalCenter="336.395" bottom="73"/>
+
+
+
+
+		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-3.105000000000018" bottom="75" touchEnabled="false"/>
+		<e:Group id="grp_misc" width="131" height="69" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-262.105" bottom="20">
+			<e:Image source="dress_01_json.dress_01_26" x="-4" y="3" anchorOffsetX="0" width="131" anchorOffsetY="0" height="69"/>
+			<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="64" y="9"/>
+			<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="0.5" y="9"/>
+			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" source="shopItemButtonBg_png" right="0" left="0" top="0" bottom="0"/>
+		</e:Group>
+
+		<e:Button id="btn_test" label="换" x="30" y="243" anchorOffsetX="0" width="130" anchorOffsetY="0" height="60" scaleX="1" scaleY="1" visible="false">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="cube_json.1_2"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="btn_test2" label="重设" x="30" y="320" width="130" height="60" scaleX="1" scaleY="1" visible="false">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="cube_json.1_4"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+
+
+
+
+
+
+
+
+
+
+	<e:Group id="bmGroup" width="720" height="47%" bottom="0" horizontalCenter="0">
+		<e:Image source="dress_01_json.taboard-bg2" height="90%" horizontalCenter="0" bottom="0"/>
+		<e:Group id="listGroup" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" height="100%" right="0" bottom="0" left="0">
+
+			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" width="720" scaleX="1" scaleY="1" height="85%" bottom="0" horizontalCenter="0">
+			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="-32">
+				<e:layout>
+				<e:TileLayout paddingLeft="30" paddingRight="30" paddingTop="10" paddingBottom="0" verticalGap="22" horizontalGap="18"/>
+				</e:layout>
+			</e:List>
+			</e:Scroller>
+		</e:Group>
+		<e:Group id="btnGroup" width="718.18" height="15%" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" top="0">
+			<e:Image source="dress_01_json.taboard-bg1" anchorOffsetX="0" width="721" verticalCenter="0" horizontalCenter="0"/>
+			<e:Image id="img_moreR" source="dress_01_json.dress_01_33" verticalCenter="0" horizontalCenter="343.41"/>
+			<e:Image id="img_moreL" source="dress_01_json.dress_01_33" rotation="180" anchorOffsetX="24" anchorOffsetY="39" verticalCenter="0" horizontalCenter="-345.59"/>
+			<e:Scroller anchorOffsetY="0" scaleX="1" scaleY="1" width="650.18" height="94.24" horizontalCenter="-12.089999999999975" verticalCenter="4.5" anchorOffsetX="0">
+			<e:Group anchorOffsetX="0" width="709.18">
+				<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" paddingLeft="10" paddingRight="10" gap="10"/>
+				</e:layout>
+				<game:ChooseIcon id="part_back" width="104" height="86" x="43" y="31" skinName="ChooseIconSkin" touchEnabled="true" enabled="true"/>
+				<game:ChooseIcon id="part_head" width="104" height="86" x="68" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_body" width="104" height="86" x="115" y="6" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_leg" width="104" height="86" x="201" y="19" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_foot" width="104" height="86" x="245" y="21" skinName="ChooseIconSkin" touchEnabled="true"/>
+				<game:ChooseIcon id="part_waist" width="104" height="86" x="279" y="24" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
+				<game:ChooseIcon id="part_hand" width="104" height="86" x="334" y="18" skinName="ChooseIconSkin" touchEnabled="true" visible="false"/>
+
+			</e:Group>
+			</e:Scroller>
+		</e:Group>
+	</e:Group>
+
+
+
+
+
+</e:Skin>

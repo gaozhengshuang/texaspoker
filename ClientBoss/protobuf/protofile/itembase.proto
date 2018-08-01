@@ -31,7 +31,7 @@ message ItemBaseDataDefine
 	optional int32 Sort = 4; // 排序(从小到大,默认最后)
 	
 	
-	optional int32 Type = 5; // 道具类型
+	optional int32 Type = 5; // 道具类型:11装备
 	
 	
 	optional int32 Sold = 6; // 卖出价格元宝

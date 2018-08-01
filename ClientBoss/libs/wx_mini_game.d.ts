@@ -426,6 +426,10 @@ declare const wx: {
      * 发起米大师支付
      */
     requestMidasPayment(object: {mode:string,env:number,offerId:string,currencyType:string,platform:string,buyQuantity:number,zoneId:string,success:(res:any)=>void,fail:(res:any)=>void,complete:(res:any)=>void}): void;
+    /**
+     * 发起微信支付
+     */
+    requestPayment(object: {timeStamp:string,nonceStr:number,package:string,signType:string,paySign:string,success:(res:any)=>void,fail:(res:any)=>void,complete:(res:any)=>void}): void;
 }
 
 declare interface Canvas {

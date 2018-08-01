@@ -15,11 +15,10 @@ module game {
         }
 
         protected init() {
-            this.closeButton.icon = "lucky/luckycloseBtn";
-            this.luckyButton.icon = "lucky/luckyBtn";
-            this.deliveryButton.icon = "ui/bag/deliveryBtn";
-            this.historyMoneyButton.icon = "ui/bag/historyMoneyBtn";
-
+            this.closeButton.icon = "lucky_json.leftBack";
+            this.luckyButton.icon = "lucky_json.luckyBtn";
+            this.deliveryButton.icon = "ui_json.deliveryBtn";
+            this.historyMoneyButton.icon = "ui_json.historyMoneyBtn";
             this._listProvider = new eui.ArrayCollection();
             this.bagList.dataProvider = this._listProvider;
             this.bagList.itemRenderer = BattleBagItem;
@@ -27,10 +26,10 @@ module game {
 
         protected beforeShow() {
             this._touchEvent = [
-                {target: this.closeButton, callBackFunc: this.closeHandle},
-                {target: this.luckyButton, callBackFunc: this.luckyHandle},
-                {target: this.deliveryButton, callBackFunc: this.deliveryHandle},
-                {target: this.historyMoneyButton, callBackFunc: this.historyHandle},
+                { target: this.closeButton, callBackFunc: this.closeHandle },
+                { target: this.luckyButton, callBackFunc: this.luckyHandle },
+                { target: this.deliveryButton, callBackFunc: this.deliveryHandle },
+                { target: this.historyMoneyButton, callBackFunc: this.historyHandle },
             ];
             this.registerEvent();
 

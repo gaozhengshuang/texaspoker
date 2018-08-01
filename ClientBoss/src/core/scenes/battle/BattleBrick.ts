@@ -2,7 +2,7 @@ module game {
     import brickCollisionGroup = gameConfig.brickCollisionGroup;
     import ballCollisionGroup = gameConfig.ballCollisionGroup;
 
-    export class BattleBrick extends BattleBody implements PoolItem, BattleBody {
+    export class BattleBrick extends BattleBody {
         brickImage: eui.Image;
         crackImage: eui.Image;
         shakeAnim: egret.tween.TweenGroup;
@@ -251,9 +251,9 @@ module game {
                         this.brickColorNumber = gameConfig.TextColors.orangeYellow;
                         break;
                 }
-                this.brickImage.source = `cube/${this._brickData.Id}/${this._brickData.Id}_${value}`;
+                this.brickImage.source = `cube_json.${this._brickData.Id}_${value}`;
             } else if (this.buffType == BrickType.goldShark) {
-                this.brickImage.source = `cube/goldShark/goldShark_00001`;
+                this.brickImage.source = `cube_json.goldShark_00001`;
 
                 let _currentIndex = 0
                 this._playInterval = egret.setInterval(() => {
@@ -261,10 +261,10 @@ module game {
                     if (_currentIndex > 5) {
                         _currentIndex = 0;
                     }
-                    this.brickImage.source = `cube/goldShark/goldShark_0000${_currentIndex}`;
+                    this.brickImage.source = `cube_json.goldShark_0000${_currentIndex}`;
                 }, this, 200);
             } else {
-                this.brickImage.source = `cube/${this.buffType}`;
+                this.brickImage.source = `cube_json.${this.buffType}`;
             }
             this._grade = value;
         }
@@ -275,13 +275,13 @@ module game {
                 this.crackImage.visible = false;
             } else if (this._hp > this._31Hp) {
                 this.crackImage.visible = true;
-                this.crackImage.source = "cube/crack1";
+                this.crackImage.source = "cube_json.crack1";
             } else if (this._hp > 0) {
                 this.crackImage.visible = true;
-                this.crackImage.source = "cube/crack2";
+                this.crackImage.source = "cube_json.crack2";
             } else if (this._hp == 0) {
                 this.crackImage.visible = true;
-                this.crackImage.source = "cube/crack3";
+                this.crackImage.source = "cube_json.crack3";
             }
             if (value < 0) {
                 BattleScene.getInstance().destroyBrick(this);
@@ -310,11 +310,24 @@ module game {
             this.removeFromParent();
         }
 
+        onRecycle() {
+            if (this.body.shapes.length > 0) {
+                for (let shape of this.body.shapes) {
+                    this.body.removeShape(shape);
+                }
+            }
+            if (this._playInterval) {
+                egret.clearInterval(this._playInterval);
+                this._playInterval = null;
+            }
+            this.onMoveout();
+        }
+
         public hitByBall(ball: BattleBall, time: number, over: boolean = false) {
             let now = time;
             if (this._hitTime == now) return;
             if (!this._frozen) {
-                BattleScene.getInstance().addHit(this);
+                BattleScene.getInstance().addHit(this,ball);
             }
             this.shakeAnim.play(0);
             this._hitTime = now;
@@ -342,7 +355,7 @@ module game {
                                 _playSharkPop = null;
                                 return;
                             }
-                            popImg.source = `cube/sharkPop/0000${_currentIndex}`;
+                            popImg.source = `cube_json.sharkPop_0000${_currentIndex}`;
                         }, this, 150);
                     } else {
                         if (Math.random() <= _goldSharkCrush) {
@@ -370,7 +383,7 @@ module game {
             this.frozenBrick = brick;
             this._frozen = true;
             this.crackImage.visible = true;
-            this.crackImage.source = `cube/frozen`;
+            this.crackImage.source = `cube_json.frozen`;
         }
 
         public unFrozen() {

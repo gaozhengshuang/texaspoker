@@ -3,6 +3,7 @@ import (
 	"fmt"
 	"time"
 	"strings"
+	"strconv"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 
@@ -16,7 +17,7 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 )
 
-type ClientAccount struct {
+type CheckInAccount struct {
 	session network.IBaseNetSession
 	account string
 	tm_login int64
@@ -112,7 +113,7 @@ func QuickLogin(session network.IBaseNetSession, account string) bool {
 
 	log.Info("账户[%s] 快速登陆Gate[ip:%s port:%d]", account, ip, port)
 	session.SendCmd(newL2C_RetLogin("", ip, port, vkey))
-	Login().AddAuthenAccount(account, session)		// 避免同时登陆
+	Login().CheckInSetAdd(account, session)		// 避免同时登陆
 	return true
 }
 
@@ -139,27 +140,31 @@ func Authenticate(session network.IBaseNetSession, account string, passwd string
 func ProcessInvitationUser(charid uint64, invitationcode string) {
 
 	// 保存邀请人信息
-	if len(invitationcode) < 2 {
-		return
-	}
-
-	invitation_user := invitationcode[2:]
-	invitkey := fmt.Sprintf("user_%d_inviter", charid)
-	Redis().Set(invitkey, invitation_user, 0)
+	if len(invitationcode) < 2 { return }
+	inviter , _ := strconv.ParseInt(invitationcode[2:], 10, 32)
+	Redis().Set(fmt.Sprintf("user_%d_inviter", charid), inviter, 0)
 
 	// 转账给邀请人
-	invitation_openid , geterror := Redis().Get(fmt.Sprintf("user_%d_wechat_openid", invitation_user)).Result()
-	if geterror != nil {
-		return
+	invitation_openid , errget := Redis().Get(fmt.Sprintf("user_%d_wechat_openid", inviter)).Result()
+	if errget != nil {
+		log.Error("获取邀请人[%d]的openid失败 errmsg[%s]", inviter, errget)
+	}else {
+		def.HttpWechatCompanyPay(invitation_openid, 100, "邀请新玩家注册")
 	}
-	def.HttpWechatCompanyPay(invitation_openid, 1)
 
+	// 邀请人任务计数
+	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", inviter)
+	Redis().Incr(invite_count_key).Result()
 }
 
 // 微信小游戏，直接注册账户
 func RegistAccountFromWechatMiniGame(account, passwd, invitationcode, name, face string) string {
+	if account == "" {
+		return "账户不能为空"
+	}
+
 	// 获取账户信息
-	key := "accounts_" + account
+	key := fmt.Sprintf("accounts_%s", account)
 	exist , err := Redis().Exists(key).Result()
 	if err != nil {
 		return "检查账户存在 Redis报错"
@@ -351,12 +356,13 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 		
 		// 初始元宝和金卷
-		Yuanbao := uint32(tbl.Global.Newuser.Yuanbao)
+		gold := uint32(tbl.Global.NewUser.Gold)
 		userinfo := &msg.Serialize {
 			Entity : &msg.EntityBase{ Id:pb.Uint64(userid), Name:pb.String(nickname), Face:pb.String(""), Account:pb.String(account) },
-			Base : &msg.UserBase{Money: pb.Uint32(1000), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(Yuanbao), Level:pb.Uint32(1)},
+			Base : &msg.UserBase{Gold: pb.Uint32(gold), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(0), Level:pb.Uint32(1)},
 			Item : &msg.ItemBin{},
 		}
+		userinfo.Entity.Sex = pb.Int32(int32(msg.Sex_Female))
 		userinfo.Base.Wechat = &msg.UserWechat{ Openid:pb.String(openid) }
 
 		userkey := fmt.Sprintf("userbin_%d", userid)
@@ -366,6 +372,10 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			log.Error("新建账户%s插入玩家数据失败，err: %s", account, err)
 			break
 		}
+
+		// 关联userid和openid
+		setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)
+		Redis().Set(setopenidkey, openid, 0).Result()
 
 		log.Info("账户[%s] UserId[%d] 创建新用户成功", account, userid)
 		ProcessInvitationUser(userid, invitationcode)

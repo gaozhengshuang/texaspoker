@@ -1,5 +1,5 @@
 module game {
-    export class BattleBlackHole extends GameComponent implements PoolItem {
+    export class BattleBlackHole extends BattleBody {
         showAnim: egret.tween.TweenGroup;
         holeImage: eui.Image;
         private _currentIndex: number = 0;
@@ -13,13 +13,13 @@ module game {
         }
 
         private playAnim() {
-            this.holeImage.source = `cube/blackHole/blackHole_0000${this._currentIndex}`;
+            this.holeImage.source = `cube_json.blackHole_0000${this._currentIndex}`;
             this._playInterval = egret.setInterval(() => {
                 this._currentIndex++;
                 if (this._currentIndex > 7) {
                     this._currentIndex = 0;
                 }
-                this.holeImage.source = `cube/blackHole/blackHole_0000${this._currentIndex}`;
+                this.holeImage.source = `cube_json.blackHole_0000${this._currentIndex}`;
             }, this, 100);
         }
 
