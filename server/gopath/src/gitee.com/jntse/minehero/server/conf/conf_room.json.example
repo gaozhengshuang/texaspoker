@@ -15,7 +15,8 @@
 			},
             "interval": 3,
             "svrchannel":true,
-            "disable": 0
+            "disable": 0,
+            "disable_eventqueue": false
 		},
 		{
 			"name": "GateConnector",
@@ -26,7 +27,8 @@
             "interval": 1,
             "svrchannel":true,
             "disable": 1,
-            "disreconnect":1
+            "disreconnect":1,
+            "disable_eventqueue": false
 		}
 	],
     "redis": {

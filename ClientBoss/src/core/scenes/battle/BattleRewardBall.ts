@@ -1,5 +1,5 @@
 module game {
-    export class BattleRewardBall extends GameComponent implements PoolItem {
+    export class BattleRewardBall extends BattleBody {
         rewardLabel: eui.Label;
 
         onCreate() {

@@ -1,5 +1,5 @@
 module game {
-    export class BattleIce extends GameComponent implements PoolItem {
+    export class BattleIce extends BattleBody{
         boomImage: eui.Image;
         private _currentIndex: number = 0;
         private _playInterval: number;
@@ -24,14 +24,14 @@ module game {
         public play() {
             let d = defer();
             this._currentIndex = 0;
-            this.boomImage.source = `cube/blueBoom/0000${this._currentIndex}`;
+            this.boomImage.source = `cube_json.blueBoom_0000${this._currentIndex}`;
             this._playInterval = egret.setInterval(() => {
                 this._currentIndex++;
                 if (this._currentIndex > 5) {
                     d.resolve(null);
                     return;
                 }
-                this.boomImage.source = `cube/blueBoom/0000${this._currentIndex}`;
+                this.boomImage.source = `cube_json.blueBoom_0000${this._currentIndex}`;
             }, this, 80);
             return d.promise();
         }

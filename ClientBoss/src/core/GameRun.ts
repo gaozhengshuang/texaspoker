@@ -30,6 +30,9 @@ module game {
     }
 
     export function gameInit() {
+        // VL:微信小游戏登陆
+        wxAutoLogin();
+        /*
         wxCode = egret.getOption("code");
         wxState = egret.getOption("state");
         if(wxCode != "" && wxState != "") {
@@ -42,6 +45,7 @@ module game {
         } else {
             Login();
         }
+        */
     }
 
     export function createGameScene() {

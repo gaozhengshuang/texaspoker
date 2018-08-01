@@ -6,9 +6,8 @@ module game {
             return LoginRewardSkin;
         }
 
-        protected init() {
-            this.btn_ok.icon = "lucky/loginrewardBtn";
-            this._touchEvent = [
+        protected init() {            this.btn_ok.icon = "lucky_json.loginrewardBtn";
+        this._touchEvent = [
                 {target: this.btn_ok, callBackFunc: this.OnClickOk},
             ];
         }

@@ -15,11 +15,10 @@ module game {
         }
 
         protected init() {
-            this.closeButton.icon = "lucky/luckycloseBtn";
-            this.luckyButton.icon = "lucky/luckyBtn";
-            this.deliveryButton.icon = "ui/deliveryBtn";
-            this.historyMoneyButton.icon = "ui/historyMoneyBtn";
-
+            this.closeButton.icon = "lucky_json.leftBack";
+            this.luckyButton.icon = "lucky_json.luckyBtn";
+            this.deliveryButton.icon = "ui_json.deliveryBtn";
+            this.historyMoneyButton.icon = "ui_json.historyMoneyBtn";
             this._listProvider = new eui.ArrayCollection();
             this.bagList.dataProvider = this._listProvider;
             this.bagList.itemRenderer = BattleBagItem;
@@ -27,8 +26,10 @@ module game {
 
         protected beforeShow() {
             this._touchEvent = [
-                {target: this.closeButton, callBackFunc: this.closeHandle},
-                {target: this.luckyButton, callBackFunc: this.luckyHandle},
+                { target: this.closeButton, callBackFunc: this.closeHandle },
+                { target: this.luckyButton, callBackFunc: this.luckyHandle },
+                { target: this.deliveryButton, callBackFunc: this.deliveryHandle },
+                { target: this.historyMoneyButton, callBackFunc: this.historyHandle },
             ];
             this.registerEvent();
 
@@ -64,6 +65,16 @@ module game {
         private luckyHandle() {
             this.closeHandle();
             openPanel(PanelType.lucky);
+        }
+
+        private deliveryHandle() {
+            this.closeHandle();
+            openPanel(PanelType.delivery);
+        }
+
+        private historyHandle() {
+            this.closeHandle();
+            openPanel(PanelType.history);
         }
 
         private static _instance: BattleBag;

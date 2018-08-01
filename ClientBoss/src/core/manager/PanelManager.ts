@@ -20,6 +20,24 @@ module game {
             case PanelType.user:
                 panel = UserPanel.getInstance();
                 break;
+            case PanelType.history:
+                panel = HistoryMoneyPanel.getInstance();
+                break;
+            case PanelType.delivery:
+                panel = DeliveryPanel.getInstance();
+                break;
+            case PanelType.deliverySetting:
+                panel = DeliverySetting.getInstance();
+                break;
+            case PanelType.pay:
+                panel = BattlePay.getInstance();
+                break;
+            case PanelType.dress:
+                panel = RoleDress.getInstance();
+                break;
+            case PanelType.dressShopCarts:
+                panel = RoleDressShopCart.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -33,5 +51,11 @@ module game {
         bag,
         register,
         user,
+        history,
+        delivery,
+        deliverySetting,
+        pay,
+        dress,
+        dressShopCarts
     }
 }

@@ -8,7 +8,7 @@ module game {
         }
 
         public setData(brickId: number, p: number[], ball: number) {
-            this.brickImage.source = `cube/${brickId}/${p[3]}`;
+            this.brickImage.source = `cube_json.${brickId}_${p[3]}`;
             this.priceLabel.textFlow = [
                 {text: `${ball}`, style: {fontFamily: "DynoBold"}},
             ]

@@ -1,5 +1,5 @@
 module game {
-    export class BattlePaddle extends BattleBody implements PoolItem {
+    export class BattlePaddle extends BattleBody {
         paddleGroup: eui.Group;
         costLabel: eui.Label;
         cannonImage: eui.Image;
@@ -45,7 +45,7 @@ module game {
         }
 
         public playWave() {
-            this.waveImage.source = `paddle/wave/0000${this._currentWave}`;
+            this.waveImage.source = `paddle_json.wave_0000${this._currentWave}`;
             this._currentWave++;
             if (this._currentWave > 9) {
                 this._currentWave = 0;
@@ -89,7 +89,7 @@ module game {
         public playBoom() {
             this.boomImage.visible = true;
             this._currentIndex = 0;
-            this.boomImage.source = `cube/redBoom/0000${this._currentIndex}`;
+            this.boomImage.source = `cube_json.redBoom_0000${this._currentIndex}`;
             this._playInterval = egret.setInterval(() => {
                 this._currentIndex++;
                 if (this._currentIndex > 7) {
@@ -98,7 +98,7 @@ module game {
                     this._playInterval = null;
                     return;
                 }
-                this.boomImage.source = `cube/redBoom/0000${this._currentIndex}`;
+                this.boomImage.source = `cube_json.redBoom_0000${this._currentIndex}`;
             }, this, 80);
         }
 
@@ -136,14 +136,14 @@ module game {
             if (this._spPlayInterval) return;
             this._spCurrentIndex = 0;
             this.spImage.visible = true;
-            this.spImage.source = `paddle/sp/0000${this._spCurrentIndex}`;
+            this.spImage.source = `paddle_json.sp_0000${this._spCurrentIndex}`;
             this._spPlayInterval = egret.setInterval(() => {
                 this._spCurrentIndex++;
                 if (this._spCurrentIndex > 7) {
                     this._spCurrentIndex = 0;
                     this.stopSpAnim();
                 }
-                this.spImage.source = `paddle/sp/0000${this._spCurrentIndex}`;
+                this.spImage.source = `paddle_json.sp_0000${this._spCurrentIndex}`;
             }, this, 60);
         }
 
@@ -156,11 +156,11 @@ module game {
 
         public updatePenetrationNum(num: number, force: boolean = false) {
             if (this.onChange && !force) return;
-            if (this.cannonImage.source == "paddle/pao2" && num <= 0) {
+            if (this.cannonImage.source == "paddle_json.pao2" && num <= 0) {
                 this.playChangeAnim();
             } else {
-                this.bg.source = num > 0 ? "paddle/bg2" : "paddle/bg";
-                this.cannonImage.source = num > 0 ? "paddle/pao2" : "paddle/pao";
+                this.bg.source = num > 0 ? "paddle_json.bg2" : "paddle_json.bg";
+                this.cannonImage.source = num > 0 ? "paddle_json.pao2" : "paddle_json.pao";
                 this.ball1.visible = num >= 1;
                 this.ball2.visible = num >= 2;
                 this.ball3.visible = num >= 3;
@@ -174,13 +174,13 @@ module game {
             this.onChange = true;
             egret.Tween.get(this.group).to({y: 81.5}, 250).call(() => {
                 let num = DataManager.playerModel.penetration;
-                if (num <= 0 && this.cannonImage.source == "paddle/pao2") {
+                if (num <= 0 && this.cannonImage.source == "paddle_json.pao2") {
                     if(this._isWuxian){
-                        this.cannonImage.source = "paddle/wuxianpao";
-                        this.bg.source = "paddle/wuxianpaobg";
+                        this.cannonImage.source = "paddle_json.wuxianpao";
+                        this.bg.source = "paddle_json.wuxianpaobg";
                     }else{
-                        this.cannonImage.source = "paddle/pao";
-                        this.cannonImage.source = "paddle/bg";
+                        this.cannonImage.source = "paddle_json.pao";
+                        this.cannonImage.source = "paddle_json.bg";
                     }
                 }
                 this.updatePenetrationNum(num, true);
@@ -193,11 +193,11 @@ module game {
         public updateWuxianPao(wuxian:boolean) {
             this._isWuxian = wuxian;
             if(wuxian){
-                this.cannonImage.source = "paddle/wuxianpao";
-                this.bg.source = "paddle/wuxianpaobg";
+                this.cannonImage.source = "paddle_json.wuxianpao";
+                this.bg.source = "paddle_json.wuxianpaobg";
             }else{
-                this.cannonImage.source = "paddle/pao";
-                this.bg.source = "paddle/bg";
+                this.cannonImage.source = "paddle_json.pao";
+                this.bg.source = "paddle_json.bg";
             }
         }
     }

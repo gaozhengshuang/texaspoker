@@ -42,10 +42,6 @@ class Main extends eui.UILayer {
 
         RES.setMaxLoadingThread(6);
 
-        // egret.lifecycle.addLifecycleListener((context) => {
-        //     // custom lifecycle plugin
-        // });
-        //
         egret.lifecycle.onPause = () => {
             //egret.ticker.pause();
             game.leaveTime = new Date().getTime();
@@ -70,47 +66,56 @@ class Main extends eui.UILayer {
     }
 
     private async runGame() {
+        
         await this.loadResource();
         game.run();
     }
 
+    private async loadLoding() {
+        const loadingView = new game.LoadingUI();
+        GameLayer.loadLayer.addChild(loadingView);
+    }
+
     private async loadResource() {
         try {
-            if (typeof (resUrl) != "undefined") {
-                game.$isWx = false;
-                await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
-            } else {
-                game.$isWx = true;
-                await RES.loadConfig(`default.res.json`, "resource/");
-            }
-            // {
-            //     const remoteUrl = "http://jump.test.giantfun.cn/egret_remote/resource/"
+            // try {
+            //     if (typeof (resUrl) != "undefined") {
+            //         game.$isWx = false;
+            //         await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
+            //     } else {
+            //         game.$isWx = true;
+            //         await RES.loadConfig(`default.res.json`, "resource/");
+            //     }
+            // } catch (e) {
+            //     console.log("load config 出错");
+            // }
+            // console.log(dragonBones.DragonBones.VERSION)
+            {
+                const remoteUrl = "https://tantanle.giantfun.cn/egret_remote/resource/";
+                // const remoteUrl = "https://210.73.214.68/egret_remote/resource/";
 
             //     egret.ImageLoader.crossOrigin = "anonymous";
+                RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, (e) => { console.log("加载资源成功"); }, this);
+                RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, (e) => { console.log("加载资源出错！", e); }, this);
+                RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, (e) => { console.log("加载资源项出错", e); }, this);
+                RES.addEventListener(RES.ResourceEvent.CONFIG_LOAD_ERROR, (e) => { console.log("配置项出错", e); }, this);
 
-            //     RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, (e) => { console.log("加载资源成功"); }, this);
-            //     RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, (e) => { console.log("加载资源出错！", e); }, this);
-            //     RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, (e) => { console.log("加载资源项出错", e); }, this);
+                // VL: NOTE: 相同文件不可多次加载
+                await RES.loadConfig("default.res.json", "resource/");
+                await this.loadLoding();
+                try {
+                    await RES.loadConfig("default.res.json", remoteUrl);
+                } catch (e) {
+                    console.warn("加载远端文件失败：", remoteUrl, "default.res.json", e);
+                }
+            }
 
-            //     await RES.loadConfig("default.res.json", "resource/");
-            //     try {
-            //         await RES.loadConfig("default.res.json", remoteUrl);
-            //     } catch (e) {
-            //         console.log("加载远端文件失败：", remoteUrl, "default.res.json");
-            //     }
-            // }
             await this.loadTheme();
-            await RES.loadGroup("loading");
-            //const loadingView = new game.LoadingUI();
-            //GameLayer.loadLayer.addChild(loadingView);
-            // if (document && document.getElementById("preloading")) {
-            //     document.getElementById("preloading").style.display = "none";
-            // }
+
             await RES.loadGroup("preload", 0);
             if (document && document.getElementById("preloading")) {
                 document.getElementById("preloading").style.display = "none";
             }
-            //loadingView.removeFromParent();
         }
         catch (e) {
             console.error(e);

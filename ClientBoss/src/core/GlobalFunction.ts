@@ -1,7 +1,7 @@
 module game {
     //获取道具图片
     export function getItemIconSource(id: number) {
-        return `item/${id}`;
+        return `item_json.${id}`;
     }
 
     //显示等待界面
@@ -67,7 +67,7 @@ module game {
         effectTips.visible = true;
         egret.Tween.get(effectTips).to({
             alpha: 1
-        }, 500).wait(500).to({alpha: 1}, 500).call(onComplete2, this);
+        }, 500).wait(500).to({ alpha: 1 }, 500).call(onComplete2, this);
         egret.Tween.get(effectTips).to({
             y: effectTips.y - moveY,
         }, 800, egret.Ease.backOut);
@@ -96,7 +96,7 @@ module game {
         effectTips.visible = true;
         egret.Tween.get(effectTips).to({
             alpha: 1
-        }, 500).wait(500).to({alpha: 0}, 500).call(onComplete2, this);
+        }, 500).wait(500).to({ alpha: 0 }, 500).call(onComplete2, this);
         egret.Tween.get(effectTips).to({
             y: effectTips.y - 220,
         }, 800, egret.Ease.backOut);
@@ -163,7 +163,7 @@ module game {
                 d.resolve(data);
             }
             else {
-                d.reject({message: "IOError:" + _url});
+                d.reject({ message: "IOError:" + _url });
             }
         }, this, type);
 
@@ -176,7 +176,7 @@ module game {
             if (data) {
                 d.resolve(data);
             } else {
-                d.reject({message: "IOError:" + res})
+                d.reject({ message: "IOError:" + res })
             }
         }, this);
         return d.promise();
@@ -225,7 +225,7 @@ module game {
 
     export function lootPro(event: ProInfo[]): number {
         let randomNum = Math.random();
-        let info = {id:6, pro:0.33};
+        let info = { id: 6, pro: 0.33 };
         let value = 0;
         for (let i = 0; i < event.length; i++) {
             value += event[i].pro;
@@ -327,11 +327,11 @@ module game {
                 colorArray[i] = colorArray[i].substr(1, colorArray[i].length - 2);
             }
             for (let i = 1; i < textArray.length; i++) {
-                resultArray.push({text: textArray[i], style: {textColor: parse16Color(colorArray[i - 1])}});
+                resultArray.push({ text: textArray[i], style: { textColor: parse16Color(colorArray[i - 1]) } });
             }
         } else {
             for (let i = 0; i < textArray.length; i++) {
-                resultArray.push({text: textArray[i], color: 0x000000});
+                resultArray.push({ text: textArray[i], color: 0x000000 });
             }
         }
         return resultArray;
@@ -371,12 +371,75 @@ module game {
     export function randomRange(min, max) {
         return min + (max - min) * Math.random();
     }
+    export function randRange(min, max) {
+        return Math.floor(randomRange(min, max));
+    }
 
     export function clamp(x, min, max) {
         return x < min ? min : x > max ? max : x;
     }
 
-    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null) {
-        CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func);
+    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null,func2 :Function = null) {
+        CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func,null,func2);
+    }
+
+    export function TextCopy(message) {
+        var input = document.createElement("input");
+        input.value = message;
+        document.body.appendChild(input);
+        input.select();
+        input.setSelectionRange(0, input.value.length);
+        document.execCommand('Copy');
+        document.body.removeChild(input);
+        showTips("复制成功!");
+    }
+
+    export let BonesDictionary: Dictionary<Array<SkeletonBase>> = {};
+
+    export async function getBone(resourceName: string) {
+        if (!BonesDictionary[resourceName]) {
+            BonesDictionary[resourceName] = [];
+        }
+        for (let i = 0; i < BonesDictionary[resourceName].length; i++) {
+            let bone = BonesDictionary[resourceName][i];
+            if (!bone.isUsed) {
+                bone.isUsed = true;
+                return bone;
+            }
+        }
+        let bone = new SkeletonBase();
+        bone.isUsed = true;
+        await bone.createBones(resourceName);
+        BonesDictionary[resourceName].push(bone);
+        return bone;
+    }
+
+    export function destroyBone(bone: SkeletonBase) {
+        bone.removeFromParent();
+        bone.isUsed = false;
+    }
+
+    export function adjustBone(o: egret.DisplayObject, e: egret.DisplayObjectContainer, scale = 1.0) {
+        o.x = e.width * .5;
+        o.y = e.height;
+        o.scaleX = o.scaleY = scale;
+    }
+
+    export function hideAllChildren(e: egret.DisplayObjectContainer) {
+        for (let i = 0; i < e.numChildren; ++i) {
+            e.$children[i].visible = false;
+        }
+    }
+
+    export function setAnchor(e: egret.DisplayObject,x = 0.0,y=0.0) {
+        e.anchorOffsetX = e.width*x;
+        e.anchorOffsetY = e.height * y;
+    }
+
+    export function copyAnchor(to:egret.DisplayObject,from:egret.DisplayObject) {
+        let xp = from.anchorOffsetX / from.width;
+        let yp = from.anchorOffsetY / from.height;
+        console.log(xp,yp)
+        setAnchor(to,xp,yp);
     }
 }

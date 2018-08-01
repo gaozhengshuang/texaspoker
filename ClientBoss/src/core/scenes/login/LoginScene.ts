@@ -9,9 +9,8 @@ module game {
             return LoginSceneSkin;
         }
 
-        protected init() {
-            this.loginButton.icon = "login/loginBtn";
-        }
+        protected init() {            this.loginButton.icon = "login_json.loginBtn";
+    }
 
         protected beforeShow() {
             this._touchEvent = [
@@ -27,21 +26,26 @@ module game {
             this.passwordLabel.displayAsPassword = true;
         }
 
+
         private async loginHandle() {
-            let realName = deleteBlank(this.nameLabel.text);
-            if (realName == "") {
-                showTips("请输入您的用户名!", true);
-                return;
-            }
+            wxAutoLogin();
+            
 
-            loginUserInfo = {
-                account: this.nameLabel.text,
-                passwd: this.passwordLabel.text
-            };
-            LoginManager.getInstance().login();
 
-            egret.localStorage.setItem("userName", this.nameLabel.text);
-            egret.localStorage.setItem("password", this.passwordLabel.text);
+            // let realName = deleteBlank(this.nameLabel.text);
+            // if (realName == "") {
+            //     showTips("请输入您的用户名!", true);
+            //     return;
+            // }
+
+            // loginUserInfo = {
+            //     account: this.nameLabel.text,
+            //     passwd: this.passwordLabel.text
+            // };
+            // LoginManager.getInstance().login();
+
+            // egret.localStorage.setItem("userName", this.nameLabel.text);
+            // egret.localStorage.setItem("password", this.passwordLabel.text);
         }
 
         private registerHandle() {

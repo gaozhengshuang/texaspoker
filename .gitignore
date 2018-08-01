@@ -25,3 +25,5 @@ git
 /ClientBoss/bin-debug
 /ClientBoss/resource_Publish
 /ClientBoss/bin-release
+.wing
+/ClientBoss_wxgame/js/main.min.js

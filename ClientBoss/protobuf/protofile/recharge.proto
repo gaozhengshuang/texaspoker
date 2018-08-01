@@ -23,6 +23,9 @@ message TRechargeDefine
 	
 	
 	optional int32 Price = 2; // 价格
+	
+	
+	optional string Info = 3; // 描述
 
 }
 

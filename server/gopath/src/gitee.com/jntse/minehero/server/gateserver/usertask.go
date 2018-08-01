@@ -53,6 +53,24 @@ func (this *UserTask) TaskFinish(id int32) {
 	log.Info("玩家[%s %d] 完成任务[%d]", this.owner.Name(), this.owner.Id(), id)
 }
 
+func (this *UserTask) GetTaskProgress(id int32) int32 {
+	task, find := this.tasks[id]
+	if find == false {
+		return 0
+	}
+	return task.GetProgress()
+}
+
+func (this *UserTask) SetTaskProgress(id, progress int32) {
+	task, find := this.tasks[id]
+	if find == false {
+		task = &msg.TaskData{Id:pb.Int32(id), Progress:pb.Int32(progress), Completed:pb.Int32(0)}
+		this.tasks[id] = task
+		return
+	}
+	task.Progress = pb.Int32(progress)
+}
+
 func (this *UserTask) SendTaskList() {
 	send := &msg.GW2C_SendTaskList{Tasks:make([]*msg.TaskData, 0)}
 	for _, task := range this.tasks {
@@ -87,7 +105,7 @@ func (this *UserTask) GiveTaskReward(id int32) {
 	
 	// 
 	if id == int32(msg.TaskId_RegistAccount) || id == int32(msg.TaskId_RegisterTopScore) || id == int32(msg.TaskId_InviteeTopScore) {
-		def.HttpWechatCompanyPay(this.owner.WechatOpenId(), count)
+		def.HttpWechatCompanyPay(this.owner.OpenId(), count, taskbase.Desc)
 	}
 }
 

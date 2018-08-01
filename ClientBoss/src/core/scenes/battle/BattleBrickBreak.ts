@@ -1,5 +1,5 @@
 module game {
-    export class BattleBrickBreak extends GameComponent implements PoolItem {
+    export class BattleBrickBreak extends BattleBody {
         breakGroup: eui.Group;
         private _timeout: number;
         private _particle: particle.GravityParticleSystem;
@@ -26,9 +26,9 @@ module game {
             //this._particle = new particle.Particle();
             //this._cubeId = brick.getBrickId();
             var grade = brick.getGrade();
-            let texture = RES.getRes(`cube/break/${grade}`);
+            let texture = RES.getRes(`cube_json.break_${grade}`);
             if (!this._particle) {
-                let config = RES.getRes(`cube/break/posui`);
+                let config = RES.getRes(`posui_json`);
                 this._particle = new particle.GravityParticleSystem(texture, config);
                 this.breakGroup.addChild(this._particle);
             }
@@ -38,9 +38,9 @@ module game {
         }
 
         public setBall(ball: BattleBall) {
-            let texture = RES.getRes(`cube/break/${1}`);
+            let texture = RES.getRes(`cube_json.break_${1}`);
             if (!this._particle) {
-                let config = RES.getRes(`cube/break/posui`);
+                let config = RES.getRes(`posui`);
                 this._particle = new particle.GravityParticleSystem(texture, config);
                 this.breakGroup.addChild(this._particle);
             }

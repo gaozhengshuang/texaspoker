@@ -2,10 +2,29 @@
 	"//":"幸运抽奖价格",
     "LuckDrawPrice":100,
 
+    "//":"幸运抽奖历史记录长度",
+    "LuckDrawHistroyLimlit":5,
+
     "//":"免费赠送规则，每天1次，少于500，赠送1000",
     "FreePresentRule" : {
         "Count":3,
         "FloorTrigger":500,
         "Money":1000
-    }
+    },
+
+    "//":"游戏内规则",
+    "BulletPrice":20,
+
+    "//":"踩炸弹扣除",
+    "BombDeductMoney":500,
+
+    "//":"能量值满",
+    "MaxEnergy":250,
+	
+	"//":"钻石转金币",
+    "Diamond_To_Coins" : 1,
+    "//":"超级砖块获得奖励",
+    "SuperBrickReward":3000
+
+
 }

@@ -1,13 +1,12 @@
 module game {
     export interface PoolItem {
         onCreate(),
-
         onDestroy(),
+        onRecycle(),
     }
 
     export class ObjectPool<T> {
         private _classFactory;
-
         constructor(classFactory: any) {
             this._classFactory = classFactory;
         }
@@ -22,8 +21,7 @@ module game {
             let arr = self._pool;
             if (arr.length > 0) {
                 result = arr.pop();
-            }
-            else {
+            } else {
                 result = new self._classFactory();
             }
             if (result.onCreate) {
@@ -41,6 +39,17 @@ module game {
             this._pool.push(obj);
             if ((<any>obj).onDestroy) {
                 (<any>obj).onDestroy();
+            }
+        }
+
+        public recycleObject(obj: T) {
+            let index = this.list.indexOf(obj);
+            if (index != -1) {
+                this.list.splice(index, 1);
+            }
+            this._pool.push(obj);
+            if ((<any>obj).onRecycle) {
+                (<any>obj).onRecycle();
             }
         }
 

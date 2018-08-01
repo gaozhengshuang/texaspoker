@@ -26,12 +26,11 @@ const config: ResourceManagerConfig = {
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     new WxgamePlugin(),
 
-                    // new ResSplitPlugin({
-                    //     verbose: true, matchers: [
-                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: `${remote}_alpha`},
-                    //         { from: "resource/assets/!(ball|login)/**", to: `${remote}_alpha`},
-                    //     ]
-                    // }),
+                    new ResSplitPlugin({
+                        verbose: true, matchers: [
+                             { from: "resource/assets/@(texpack|font|music)/**", to: remote },
+                        ]
+                    }),
 
                     // new EmitResConfigFilePlugin({
                     //     output: "resource/default.res.json",
@@ -44,6 +43,7 @@ const config: ResourceManagerConfig = {
                     //     },
                     //     groupSelector: p => "preload"
                     // }),
+
 
                     new UglifyPlugin([{
                         sources: ["main.js"],
@@ -63,27 +63,27 @@ const config: ResourceManagerConfig = {
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     new WxgamePlugin(),
 
+                    // VL: FIXME：为了简单起见，暂时屏蔽资源crc32混淆
                     // new RenamePlugin({
                     //     verbose: true, hash: "crc32", matchers: [
                     //         { from: "resource/**/**", to: "[path][name]_[hash].[ext]" }
                     //     ]
                     // }),
 
-                    // new ResSplitPlugin({
-                    //     verbose: true, matchers: [
-                    //         { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
-                    //         { from: "resource/assets/!(ball|login)/**", to: remote },
-                    //     ]
-                    // }),
+                    new ResSplitPlugin({
+                        verbose: true, matchers: [
+                            // { from: "resource/**/**.@(jpg|fnt|mp3)", to: remote },
+                            { from: "resource/assets/@(texpack|font|music)/**", to: remote },
+                            { from: "resource/bones/**/**", to: remote },
+                        ]
+                    }),
 
                     // new EmitResConfigFilePlugin({
                     //     output: "resource/default.res.json",
                     //     typeSelector: config.typeSelector,
-                    //     nameSelector: (p: string) => {
-                    //         var b = p.lastIndexOf(".");
-                    //         var t = "assets/"
-                    //         var name = p.substring(p.indexOf(t) + t.length, b);
-                    //         return name;
+                    //     nameSelector: p => {
+                    //         
+                    //         return path.basename(p).replace(/\./gi, '_')
                     //     },
                     //     groupSelector: p => "preload"
                     // }),

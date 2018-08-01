@@ -15,10 +15,10 @@ module game {
         protected init() {
             this._rankItemList = [];
             this.recordLabel.fontFamily = this.scoreLabel.fontFamily = "DynoBold";
-            this.backButton.icon = "ui/win/back";
-            this.againButton.icon = "ui/win/again";
-            this.shareButton.icon = "ui/win/fenxiang";
-        }
+               this.backButton.icon = "ui_json.win_back";
+           this.againButton.icon = "ui_json.win_again";
+           this.shareButton.icon = "ui_json.win_fenxiang";
+    }
 
         protected getSkinName() {
             return WinSceneSkin;

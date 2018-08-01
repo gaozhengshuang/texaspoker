@@ -7,13 +7,15 @@ module game {
         luckyButton: IconButton;
         titleImage: eui.Image;
         rankLabel: eui.Label;
+        public btn_dress: game.IconButton;
 
         protected init() {
-            this.playButton.icon = "ui/main/play";
-            this.rankButton.icon = "ui/main/paihang";
-            this.userButton.icon = "ui/main/userMainBtn";
-            this.luckyButton.icon = "ui/main/luckMainBtn";
+            this.playButton.icon = "ui_json.play";
+            this.rankButton.icon = "ui_json.paihang";
+            this.userButton.icon = "ui_json.userMainBtn";
+            this.luckyButton.icon = "ui_json.luckMainBtn";
             this.titleImage.y = gameConfig.curHeight() * 0.1;
+            this.btn_dress.icon = "dress_01_json.dress_01_18";
         }
 
         protected getSkinName() {
@@ -22,14 +24,15 @@ module game {
 
         protected beforeShow() {
             this._touchEvent = [
-                {target: this.playButton, callBackFunc: this.playHandle},
-                {target: this.rankButton, callBackFunc: this.rankHandle},
-                {target: this.rankLabel, callBackFunc: this.rankHandle},
-                {target: this.userButton, callBackFunc: this.userHandle},
-                {target: this.luckyButton, callBackFunc: this.luckyHandle},
+                { target: this.playButton, callBackFunc: this.playHandle },
+                { target: this.rankButton, callBackFunc: this.rankHandle },
+                { target: this.rankLabel, callBackFunc: this.rankHandle },
+                { target: this.userButton, callBackFunc: this.userHandle },
+                { target: this.luckyButton, callBackFunc: this.luckyHandle },
+                { target: this.btn_dress, callBackFunc: this.dressHandle },
             ];
             this.lightImage.rotation = 0;
-            egret.Tween.get(this.lightImage, {loop: true}).to({rotation: 360}, 10000);
+            egret.Tween.get(this.lightImage, { loop: true }).to({ rotation: 360 }, 10000);
         }
 
         private playHandle() {
@@ -48,7 +51,11 @@ module game {
         private userHandle() {
             openPanel(PanelType.user);
         }
-        
+
+        private dressHandle() {
+            openPanel(PanelType.dress);
+        }
+
         private luckyHandle() {
             openPanel(PanelType.lucky);
         }

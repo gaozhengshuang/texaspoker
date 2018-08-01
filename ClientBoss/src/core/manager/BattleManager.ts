@@ -7,7 +7,6 @@ module game {
             //添加系统消息监听
             NotificationCenter.addObserver(this, this.OnGW2C_RetStartGame, "msg.GW2C_RetStartGame");
             NotificationCenter.addObserver(this, this.OnBT_GameInit, "msg.BT_GameInit");
-            NotificationCenter.addObserver(this, this.OnBT_SendBattleUser, "msg.BT_SendBattleUser");
             NotificationCenter.addObserver(this, this.OnBT_GameStart, "msg.BT_GameStart");
         }
 
@@ -25,11 +24,8 @@ module game {
         }
 
         private OnBT_GameInit(data: msg.BT_GameInit) {
-            
-        }
-
-        private OnBT_SendBattleUser(data: msg.BT_SendBattleUser) {
             DataManager.playerModel.setScore(data.gold);
+            DataManager.playerModel.setDiamond(data.diamond)
         }
 
         private OnBT_GameStart(data: msg.BT_GameStart) {

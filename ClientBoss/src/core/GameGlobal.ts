@@ -7,6 +7,9 @@ module game {
     export var wxCode: string = "";
     export var wxState: string = "";
 
+    export var openid:string;
+    export var session_key: string;
+
     //游戏内配置支持
     export var _buyLucky: number = 2000;    //转一次奖消耗金币数量
     export var _maxSp: number = 250;       //大招点击次数
@@ -17,6 +20,7 @@ module game {
     export var _boomUseScore: number = 500;     //炸弹扣除金币数
     export var _goldSharkCrush: number = 0.01;     //击碎黄金鲨的概率 1=100%
     export var _eventDifferent: number = 0.5;   //出现增益事件的概率 1=100%
+    export var _eventBadBuffDeltaTime: number = 1000;   //下一次出现减益事件的间隔    
     export var _goodBuffPro: number[] = [0.8, 0.2, 0, 0, 0];        //增益事件个数出现概率(总和为1即100%)
     export var _badBuffPro: number[] = [0.35, 0.35, 0.15, 0.10, 0.05];         //减益事件个数出现概率(总和为1即100%)
 
