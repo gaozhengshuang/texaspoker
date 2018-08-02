@@ -5226,7 +5226,8 @@ declare namespace msg {
         CarAccessory = 7,
         Advertisement = 8,
         Smallware = 9,
-        DiamondItem = 10
+        DiamondItem = 10,
+        ClothesItem = 11
     }
 
     /** Properties of a PairNumItem. */
