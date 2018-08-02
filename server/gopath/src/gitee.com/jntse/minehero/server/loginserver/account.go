@@ -356,10 +356,10 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 		
 		// 初始元宝和金卷
-		gold := uint32(tbl.Global.NewUser.Gold)
+		diamond := uint32(tbl.Global.NewUser.Diamond)
 		userinfo := &msg.Serialize {
 			Entity : &msg.EntityBase{ Id:pb.Uint64(userid), Name:pb.String(nickname), Face:pb.String(""), Account:pb.String(account) },
-			Base : &msg.UserBase{Gold: pb.Uint32(gold), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(0), Level:pb.Uint32(1)},
+			Base : &msg.UserBase{Diamond:pb.Uint32(diamond), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(0), Level:pb.Uint32(1)},
 			Item : &msg.ItemBin{},
 		}
 		userinfo.Entity.Sex = pb.Int32(int32(msg.Sex_Female))
