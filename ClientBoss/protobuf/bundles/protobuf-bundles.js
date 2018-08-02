@@ -12458,6 +12458,7 @@ $root.msg = (function() {
      * @property {number} Advertisement=8 Advertisement value
      * @property {number} Smallware=9 Smallware value
      * @property {number} DiamondItem=10 DiamondItem value
+     * @property {number} ClothesItem=11 ClothesItem value
      */
     msg.ItemType = (function() {
         var valuesById = {}, values = Object.create(valuesById);
@@ -12471,6 +12472,7 @@ $root.msg = (function() {
         values[valuesById[8] = "Advertisement"] = 8;
         values[valuesById[9] = "Smallware"] = 9;
         values[valuesById[10] = "DiamondItem"] = 10;
+        values[valuesById[11] = "ClothesItem"] = 11;
         return values;
     })();
 
