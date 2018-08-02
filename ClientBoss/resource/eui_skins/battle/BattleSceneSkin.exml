@@ -90,7 +90,9 @@
 	</e:Group>
 	
 	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" y="10" horizontalCenter="-319.5"/>
-	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff"/>
+	<game:Coins id="coin_money" width="195" height="55" x="114" y="12" skinName="CoinsSkin"/>
+	<game:Coins id="coin_gold" width="195" height="55" x="351" y="12" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
+	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff" visible="false"/>
 
 
 	<e:Label id="hitLabel" text="" stroke="2" strokeColor="0xFFFFFF" right="20" top="20" textColor="0x898989" visible="false"/>

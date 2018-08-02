@@ -66,7 +66,7 @@ func (this* C2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.C2GW_AddDeliveryAddress{}, on_C2GW_AddDeliveryAddress)
 	//this.msgparser.RegistProtoMsg(msg.C2GW_DelDeliveryAddress{}, on_C2GW_DelDeliveryAddress)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeDeliveryAddress{}, on_C2GW_ChangeDeliveryAddress)
-	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
+	//this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
@@ -107,7 +107,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendDeliveryAddressList{})
 	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
 
@@ -608,40 +608,40 @@ func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface
 	user.SendRoomMsg(tmsg)
 }
 
-func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_GoldExchange)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	if user.IsInRoom() {
-		user.SendRoomMsg(tmsg)
-		return
-	}
-
-	// 兑换
-	diamonds := tmsg.GetDiamonds()
-	if diamonds < 0 {
-		user.SendNotify("钻石数量不能是0")
-		return
-	}
-
-	if user.GetDiamond() < diamonds {
-		user.SendNotify("钻石不足")
-		return
-	}
-
-	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
-	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
-	user.AddGold(gold, "钻石兑换金币", true)
-
-	//send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
-	//user.SendMsg(send)
-
-}
+//func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.C2GW_GoldExchange)
+//	user := ExtractSessionUser(session)
+//	if user == nil {
+//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+//		session.Close()
+//		return
+//	}
+//
+//	if user.IsInRoom() {
+//		user.SendRoomMsg(tmsg)
+//		return
+//	}
+//
+//	// 兑换
+//	diamonds := tmsg.GetDiamonds()
+//	if diamonds < 0 {
+//		user.SendNotify("钻石数量不能是0")
+//		return
+//	}
+//
+//	if user.GetDiamond() < diamonds {
+//		user.SendNotify("钻石不足")
+//		return
+//	}
+//
+//	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
+//	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
+//	user.AddGold(gold, "钻石兑换金币", true)
+//
+//	//send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
+//	//user.SendMsg(send)
+//
+//}
 
 func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_BuyClothes)
