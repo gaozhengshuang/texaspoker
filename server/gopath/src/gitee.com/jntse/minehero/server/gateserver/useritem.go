@@ -340,6 +340,11 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 		if base.Type != int32(msg.ItemType_Smallware) {
 			IsAllSmallware = false
 		}
+
+		if base.Type == int32(msg.ItemType_ClothesItem) {
+			this.SendNotify("时装道具不能发货")
+			return
+		}
 	}
 
 	// 小商品不能单独邮寄

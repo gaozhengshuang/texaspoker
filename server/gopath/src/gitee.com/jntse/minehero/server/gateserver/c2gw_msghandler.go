@@ -513,6 +513,7 @@ func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}
 	}
 	
 	if user.IsInRoom() {
+		//user.SendRoomMsg(tmsg)
 		user.SendNotify("游戏中不能抽奖")
 		return
 	}
