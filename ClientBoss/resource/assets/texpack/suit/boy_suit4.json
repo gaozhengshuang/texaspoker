@@ -1,4 +1,9 @@
 {"file":"boy_suit4.png","frames":{
+"shoes1_1_01":{"x":364,"y":164,"w":36,"h":39,"offX":263,"offY":433,"sourceW":500,"sourceH":500},
+"trousers1_1_00":{"x":1,"y":378,"w":77,"h":82,"offX":197,"offY":327,"sourceW":500,"sourceH":500},
+"trousers1_1_01":{"x":1,"y":289,"w":75,"h":87,"offX":231,"offY":329,"sourceW":500,"sourceH":500},
+"trousers1_1_02":{"x":413,"y":158,"w":38,"h":54,"offX":203,"offY":390,"sourceW":500,"sourceH":500},
+"trousers1_1_03":{"x":156,"y":166,"w":43,"h":126,"offX":263,"offY":330,"sourceW":500,"sourceH":500},
 "body1_1_00":{"x":1,"y":166,"w":92,"h":121,"offX":205,"offY":225,"sourceW":500,"sourceH":500},
 "body1_1_01":{"x":364,"y":94,"w":47,"h":68,"offX":190,"offY":240,"sourceW":500,"sourceH":500},
 "body1_1_02":{"x":364,"y":1,"w":69,"h":91,"offX":159,"offY":289,"sourceW":500,"sourceH":500},
@@ -9,9 +14,4 @@
 "head1_1_02":{"x":95,"y":166,"w":59,"h":129,"offX":170,"offY":130,"sourceW":500,"sourceH":500},
 "head1_1_03":{"x":1,"y":462,"w":107,"h":36,"offX":186,"offY":162,"sourceW":500,"sourceH":500},
 "head1_1_04":{"x":78,"y":297,"w":107,"h":28,"offX":186,"offY":162,"sourceW":500,"sourceH":500},
-"shoes1_1_00":{"x":156,"y":247,"w":48,"h":35,"offX":182,"offY":428,"sourceW":500,"sourceH":500},
-"shoes1_1_01":{"x":200,"y":170,"w":36,"h":39,"offX":263,"offY":433,"sourceW":500,"sourceH":500},
-"trousers1_1_00":{"x":1,"y":378,"w":77,"h":82,"offX":197,"offY":327,"sourceW":500,"sourceH":500},
-"trousers1_1_01":{"x":1,"y":289,"w":75,"h":87,"offX":231,"offY":329,"sourceW":500,"sourceH":500},
-"trousers1_1_02":{"x":413,"y":158,"w":42,"h":72,"offX":200,"offY":374,"sourceW":500,"sourceH":500},
-"trousers1_1_03":{"x":156,"y":166,"w":42,"h":79,"offX":258,"offY":374,"sourceW":500,"sourceH":500}}}
+"shoes1_1_00":{"x":453,"y":158,"w":48,"h":35,"offX":182,"offY":428,"sourceW":500,"sourceH":500}}}
