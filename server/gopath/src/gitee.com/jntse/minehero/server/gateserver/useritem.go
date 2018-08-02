@@ -640,8 +640,8 @@ func (this *GateUser) LuckyDraw() {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) CheckFreePresentGold(syn bool) {
-	if this.GetGold() >= uint32(tbl.Game.FreePresentRule.FloorTrigger) {
+func (this *GateUser) CheckFreePresentDiamond(syn bool) {
+	if this.GetDiamond() >= uint32(tbl.Game.FreePresentRule.FloorTrigger) {
 		return
 	}
 
@@ -654,13 +654,13 @@ func (this *GateUser) CheckFreePresentGold(syn bool) {
 		}
 	}
 
-	gold := tbl.Game.FreePresentRule.Money
-	this.AddGold(uint32(gold), "每日免费赠送", syn)
+	diamond := tbl.Game.FreePresentRule.Money
+	this.AddDiamond(uint32(diamond), "每日免费赠送", syn)
 	this.presentcount += 1
 	this.presentrecord = curtime
 
 	// 客户端界面展示
-	send := &msg.GW2C_FreePresentNotify{Money:pb.Int32(int32(gold))}
+	send := &msg.GW2C_FreePresentNotify{Money:pb.Int32(int32(diamond))}
 	this.SendMsg(send)
 }
 

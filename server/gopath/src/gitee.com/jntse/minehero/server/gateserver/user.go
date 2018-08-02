@@ -526,8 +526,8 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.roomdata.Reset()
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功", this.Sid(), this.account, this.Id(), this.Name())
 
-	// 免费赠送金币
-	this.CheckFreePresentGold(false)
+	// 免费赠送钻石
+	this.CheckFreePresentDiamond(false)
 
 	// 上线任务检查
 	this.OnlineTaskCheck()
