@@ -94,7 +94,7 @@ module game {
             this.addScore(data.gold);
         }
         public get clothes() {
-            return (this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists) || null;
+            return this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists;
         }
 
         private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
