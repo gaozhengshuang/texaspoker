@@ -1,6 +1,6 @@
 {
 	"//":"幸运抽奖价格",
-    "LuckDrawPrice":100,
+    "LuckDrawPrice":2000,
 
     "//":"幸运抽奖历史记录长度",
     "LuckDrawHistroyLimlit":5,
