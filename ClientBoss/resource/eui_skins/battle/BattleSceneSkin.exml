@@ -54,7 +54,7 @@
 	</e:Group>
 	<e:Image id="topBg" source="ui_json.topBg" x="0" scale9Grid="90,10,540,45" y="0" touchEnabled="false"/>
 	<e:Group id="touchGroup" width="720" height="100%"/>
-	<e:Group id="bottomGroup" width="720" height="210" horizontalCenter="0" bottom="0" visible="false">
+	<e:Group id="bottomGroup" width="720" height="210" horizontalCenter="0" bottom="0">
 		<e:Image source="ui_json.gameBtnBg" horizontalCenter="0" verticalCenter="0"/>
 		<game:IconButton id="luckyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="181.5"/>
 		<game:IconButton id="userButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-300.5"/>
@@ -67,8 +67,7 @@
 		<e:Group id="showGroup" width="720" height="876" anchorOffsetX="0" touchChildren="false" touchEnabled="false" x="0" scaleX="1" scaleY="1" top="88">
 		</e:Group>
 		<e:Group id="paddleGroup" width="720" height="876" anchorOffsetX="0" touchChildren="true" touchEnabled="false" x="0" scaleX="1" scaleY="1" top="88">
-			<e:Image id="paddleDesk" horizontalCenter="0" touchEnabled="false" source="paddle_json.paodesk" width="450" right="135" anchorOffsetY="87.5" anchorOffsetX="222.5" verticalCenter="859.5" bottom="-506" height="169"/>
-			<e:Component scaleX="1" scaleY="1" skinName="BattlePaddleSkin" anchorOffsetX="98.5" anchorOffsetY="260" x="360.5" y="901" visible="false"/>
+			<e:Component scaleX="1" scaleY="1" skinName="BattlePaddleSkin" anchorOffsetX="98.5" anchorOffsetY="153" x="360.5" y="900" visible="false"/>
 			<e:Image id="moreFireImg" source="ui_json.moreFire" verticalCenter="-39" horizontalCenter="0" touchEnabled="false" visible="false"/>
 		</e:Group>
 		<e:Group id="debugGroup" width="720" height="876" anchorOffsetX="0" touchChildren="false" touchEnabled="false" x="0" scaleX="1" scaleY="1" top="88" visible="false"/>
