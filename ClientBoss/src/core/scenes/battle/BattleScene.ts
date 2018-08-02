@@ -113,8 +113,8 @@ module game {
                 this.backButton.y = 80;
                 this.topBg.height = 172;
                 this.scoreLabel.y = 110;
-                this.coin_money.y = 110;
-                this.coin_gold.y = 110;
+                this.coin_money.y = 90;
+                this.coin_gold.y = 90;
             }
             this._lootList = {};
             for (let i = 0; i < table.TBirckRefresh.length; i++) {

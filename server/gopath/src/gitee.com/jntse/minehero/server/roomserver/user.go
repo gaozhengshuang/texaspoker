@@ -637,7 +637,7 @@ func (this *RoomUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 	if uint32(amt_save) > this.TotalRecharge()  {
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
-		this.AddDiamond(recharge, "充值获得", false)
+		this.AddDiamond(recharge, "充值获得", true)
 		this.SetDiamondCost(this.GetDiamondCost() + int64(recharge))
 		//send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Uint64(this.Id()), Diamond:pb.Uint32(recharge) }
 		//this.SendClientMsg(send)
