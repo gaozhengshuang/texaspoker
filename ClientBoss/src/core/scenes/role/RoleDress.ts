@@ -1,61 +1,60 @@
 module game {
 
     export class RoleDress extends PanelComponent {
-        img_girlbg: eui.Image;
-        img_boybg: eui.Image;
-        grp_coins: eui.Group;
-        coin_money: game.Coins;
-        coin_gold: game.Coins;
-        grp_dressinfo: eui.Group;
-        grp_role: eui.Group;
-        grp_misc: eui.Group;
-        icon_boy: eui.Image;
-        icon_girl: eui.Image;
 
-        img_iconmask: eui.Image;
+        grp_coins       : eui.Group;
+        grp_dressinfo   : eui.Group;
+        grp_role        : eui.Group;
+        grp_misc        : eui.Group;
 
-        btn_cart: IconButton;
-        btn_close: IconButton;
-        part_back:  ChooseIcon;
-        part_head:  ChooseIcon;
-        part_body:  ChooseIcon;
-        part_leg:   ChooseIcon;
-        part_foot:  ChooseIcon;
-        part_waist: ChooseIcon;
-        part_hand:  ChooseIcon;
+        topGroup        : eui.Group;
+        roleGroup       : eui.Group;
 
-        sr_item: eui.Scroller;
-        ls_items: eui.List;
-        test_itemprice: game.ItemPrice;
-        dress_info: game.EquipInfo;
-        btn_test: eui.Button;
-        btn_test2: eui.Button;
+        icon_boy        : eui.Image;
+        icon_girl       : eui.Image;
+        img_girlbg      : eui.Image;
+        img_boybg       : eui.Image;
+        img_iconmask    : eui.Image;
+        shopNumBg       : eui.Image;
 
-        shopNumBg: eui.Image;
-        shopNum: eui.Label;
+        shopNum         : eui.Label;
 
-        topGroup: eui.Group;
-        roleGroup: eui.Group;
+        btn_cart        : IconButton;
+        btn_close       : IconButton;
 
+        sr_item         : eui.Scroller;
+        ls_items        : eui.List;
+        
+        part_back       : ChooseIcon;
+        part_head       : ChooseIcon;
+        part_body       : ChooseIcon;
+        part_leg        : ChooseIcon;
+        part_foot       : ChooseIcon;
+        part_waist      : ChooseIcon;
+        part_hand       : ChooseIcon;
+        
+        coin_money      : game.Coins;
+        coin_gold       : game.Coins;
+       
+
+        test_itemprice  : game.ItemPrice;
+        dress_info      : game.EquipInfo;
 
         private _dataProv: eui.ArrayCollection;
 
-        public gender: number; // 0 女 1 男
-        private _girlBone: SkeletonBase;
-        private _boyBone: SkeletonBase;
-        private _typeIdx: msg.ItemPos;
-
-        private _girlSelIdxs;   // 女性已选索引
-        private _girlOriSelIdxs;   // 女性已选索引
-        private _boySelIdxs;
-        private _boyOriSelIdxs;
-
-        private _selItems: table.IEquipDefine[];
-        private _init: number;
-
+        //部位RadioButton列表
         private _partsToggles;
         //部位RadioButton组
         private _partRadioBtnGroup : eui.RadioButtonGroup;
+        // 0 女 1 男
+        public gender: number; 
+
+        private _girlBone: SkeletonBase;
+        private _boyBone: SkeletonBase;
+
+        private _typeIdx: msg.ItemPos;
+        private _selItems: table.IEquipDefine[];
+        private _init: number;
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -95,21 +94,15 @@ module game {
             this.gender = DataManager.playerModel.sex;
             this._init = 0;
 
-            this._girlSelIdxs = {};
-            this._boySelIdxs = {};
-            this._girlOriSelIdxs = {};
-            this._boyOriSelIdxs = {};
-
             this._selItems = [];
 
             this._typeIdx = msg.ItemPos.Clothes;
 
             this._partRadioBtnGroup = new eui.RadioButtonGroup();
-            this._partRadioBtnGroup.addEventListener(eui.UIEvent.CHANGE, this.partHandle, this);
+            this._partRadioBtnGroup.addEventListener(eui.UIEvent.CHANGE, this.OnPartHandle, this);
 
             this.coin_gold.setCoinType(msg.MoneyType._Gold);
             this.coin_money.setCoinType(msg.MoneyType._Diamond);
-
 
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
             NotificationCenter.addObserver(this, this.OnGW2C_RetChangeImageSex, "msg.GW2C_RetChangeImageSex");
@@ -135,7 +128,6 @@ module game {
             ];
 
             this.updateCoins();
-            this.changePartIcons();
             this.switchSex();
            
             DataManager.playerModel.skillUpdate();
@@ -149,55 +141,58 @@ module game {
             this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onSelItem, this);
         }
 
+        private updateCoins() {
+            this.coin_gold.coins = DataManager.playerModel.getScore();
+            this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
+        }
+
+        //请求切换性别
+        private switchGender() {
+            let sex = this.gender == 0 ? 1 : 0;
+            this.sendmsg_SwitchGender({ sex: sex })
+        }
+
+        //收到消息可以切换性别
+        private postSwitchGender(data: msg.GW2C_RetChangeImageSex) {
+            this._selItems = [];
+            this.gender = data.sex;
+            this.switchSex();
+        }
+
+        private switchSex()
+        {
+            this.icon_boy.visible = !this.isGirl;
+            this.icon_girl.visible = this.isGirl;
+            this.img_boybg.visible = !this.isGirl;
+            this.img_girlbg.visible = this.isGirl;
+
+            //穿戴已获得装扮
+            this.initWears();
+            this.updateBones();
+
+            //切换模型骨骼
+            this.useGirlSpine(this.isGirl);
+            //切换部位Icon
+            this.changePartIcons();
+            //刷新对应装扮列表
+            this.updateItemList(this._typeIdx);
+            //更新已穿戴装扮属性
+            this.setDressInfo();
+        }
+
         private initWears() {
             let clothes = DataManager.playerModel.clothes;
-            if (!clothes) return; 
-
-/*             for (let l of clothes) {
-                for (let m of l.clothes) {
-                    let idx = this.indexOfGenderDress(m.id, l.sex);
-                    if (this.gender == 0 && this.gender == l.sex) {
-                        this._girlSelIdxs[m.pos] = idx;
-                        this._girlOriSelIdxs[m.pos] = idx;
-                    } else {
-                        this._boySelIdxs[m.pos] = idx;
-                        this._boyOriSelIdxs[m.pos] = idx;
-                    }
-                }
-
-            } */
-
+            if (!clothes) return;
             clothes.forEach(imagedata=>{
                 imagedata.clothes.forEach(
                     itemdata =>
                     {
-                        console.log("服务器记录穿戴",itemdata);
+                        //console.log("服务器记录穿戴",itemdata);
                         let _item = table.EquipById[itemdata.id];
                         if(_item) this._selItems.push(_item);
                     }
                 )
             });
-
-            console.log("---------------",this._selItems.length);
-            
-        }
-
-        private indexOfGenderDress(dressId, gender) {
-            let s = dressId - (dressId % 100) + 1;
-            let dressItem: table.IEquipDefine = null;
-            let i = 0;
-            while (!!(dressItem = table.EquipById[s++])) {
-                if ((dressItem.Sex == gender || dressItem.Sex == 2)) {
-                    if (dressItem.Id == dressId)
-                        return i;
-                    i++;
-                }
-            }
-            return i;
-        }
-        private updateCoins() {
-            this.coin_gold.coins = DataManager.playerModel.getScore();
-            this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
         }
 
         private changePartIcons() {
@@ -210,12 +205,6 @@ module game {
                 chooseIcon.setData({Type:item.type,iconPath:iconStr});
             });
 
-        }
-
-        private partHandle(evt:eui.UIEvent)
-        {       
-            let radioGroup : eui.RadioButtonGroup = evt.target;
-            this.updateItemList();
         }
         private updateItemList(posType:msg.ItemPos=null)
         {
@@ -281,41 +270,6 @@ module game {
                     this.ls_items.selectedIndex = _selectIndex;
                 }
             }
-        }
-        //请求切换性别
-        private switchGender() {
-            let sex = this.gender == 0 ? 1 : 0;
-            this.sendmsg_SwitchGender({ sex: sex })
-        }
-
-        //收到消息可以切换性别
-        private postSwitchGender(data: msg.GW2C_RetChangeImageSex) {
-            if (this.getCartItems().length > 0) {
-                this._selItems = [];
-            }
-            this.gender = data.sex;
-            this.switchSex();
-        }
-
-        private switchSex()
-        {
-            this.icon_boy.visible = !this.isGirl;
-            this.icon_girl.visible = this.isGirl;
-            this.img_boybg.visible = !this.isGirl;
-            this.img_girlbg.visible = this.isGirl;
-
-            //穿戴已获得装扮
-            this.initWears();
-            this.updateBones();
-
-            //切换模型骨骼
-            this.useGirlSpine(this.isGirl);
-            //切换部位Icon
-            this.changePartIcons();
-            //刷新对应装扮列表
-            this.updateItemList(this._typeIdx);
-            //更新已穿戴装扮属性
-            this.setDressInfo();
         }
 
         // TODO: 添加包裹项
@@ -503,6 +457,12 @@ module game {
             RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
         }
 
+        private OnPartHandle(evt:eui.UIEvent)
+        {       
+            let radioGroup : eui.RadioButtonGroup = evt.target;
+            this.updateItemList();
+        }
+
         //换装--------------------------
         private resetParts(bone: SkeletonBase) {
             if (!bone) return;
@@ -622,7 +582,6 @@ module game {
                         }
                     }
                 }
-    
             }
         }
     }

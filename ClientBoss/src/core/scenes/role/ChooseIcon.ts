@@ -27,10 +27,6 @@ module game {
 		{
 			this.chose.visible = this.radioButton.selected;
 		}
-
-		public set checked(b: boolean) {
-			this.chose.visible = b;
-		}
 	}
 
 	
