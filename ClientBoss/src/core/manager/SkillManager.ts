@@ -36,7 +36,7 @@ module game {
         {
             let data :SkillData =  new SkillData();
             data.Type =  ItemSoltSkill; data.num = num || (numPer*0.01);
-            console.log("装备技能数值----->",ItemSoltSkill,data.num);
+            //console.log("装备技能数值----->",ItemSoltSkill,data.num);
             let haveEquipKSill = false;
             this._equipSkills.forEach(
                 (item,index,array) =>
