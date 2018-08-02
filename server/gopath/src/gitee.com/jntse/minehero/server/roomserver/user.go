@@ -686,19 +686,13 @@ func (this *RoomUser) ReqLaunchBullet() {
 	switch {
 	default:
 		// 检查余额
-		if uint32(tbl.Game.BulletPrice) > this.GetGold() {
-			errmsg = "金币不足"
+		if uint32(tbl.Game.BulletPrice) > this.GetDiamond() {
+			errmsg = "钻石不足"
 			break
 		}
 
-		// 充值同步中
-		//if this.synbalance == true {
-		//	errmsg = "充值中"
-		//	break
-		//}
-
 		// 不同步
-		this.RemoveGold(uint32(tbl.Game.BulletPrice), "发射子弹", false)
+		this.RemoveDiamond(uint32(tbl.Game.BulletPrice), "发射子弹", true)
 
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
