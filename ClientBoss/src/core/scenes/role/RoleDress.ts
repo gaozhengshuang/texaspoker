@@ -226,7 +226,7 @@ module game {
             });
         }
 
-        public updateShelf(posType:msg.ItemPos =  msg.ItemPos.Helmet) {
+        private updateShelf(posType:msg.ItemPos =  msg.ItemPos.Helmet) {
             this._typeIdx = (this._typeIdx && posType  ) || posType;
 
             let  _partToggle = <ChooseIcon>this._partsToggles.filter(item=>{return item.type==this._typeIdx;})[0].target;
@@ -275,9 +275,12 @@ module game {
         // TODO: 添加包裹项
         private OnGW2C_AddPackageItem(data: msg.GW2C_AddPackageItem) {
             RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
-
-            this.updateShelf();
+            
             this.updateCoins();
+            this.updateItemList(this._typeIdx);
+          
+            this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
+            this.shopNum.text = this.getCartItems().length.toString();
         }
 
         // TODO: 穿上装备
