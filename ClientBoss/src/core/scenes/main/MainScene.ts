@@ -5,6 +5,7 @@ module game {
         rankButton: IconButton;
         userButton: IconButton;
         luckyButton: IconButton;
+        bagButton   : IconButton;
         titleImage: eui.Image;
         rankLabel: eui.Label;
         public btn_dress: game.IconButton;
@@ -14,6 +15,7 @@ module game {
             this.rankButton.icon = "ui_json.paihang";
             this.userButton.icon = "ui_json.userMainBtn";
             this.luckyButton.icon = "ui_json.luckMainBtn";
+            this.bagButton.icon  = "ui_json.bagGo";
             this.titleImage.y = gameConfig.curHeight() * 0.1;
             this.btn_dress.icon = "dress_01_json.dress_01_18";
         }
@@ -30,6 +32,7 @@ module game {
                 { target: this.userButton, callBackFunc: this.userHandle },
                 { target: this.luckyButton, callBackFunc: this.luckyHandle },
                 { target: this.btn_dress, callBackFunc: this.dressHandle },
+                { target: this.bagButton, callBackFunc: this.bagGoHandle}
             ];
             this.lightImage.rotation = 0;
             egret.Tween.get(this.lightImage, { loop: true }).to({ rotation: 360 }, 10000);
@@ -59,6 +62,11 @@ module game {
         private luckyHandle() {
             openPanel(PanelType.lucky);
         }
+
+        private bagGoHandle() {
+            openPanel(PanelType.bag);
+        }
+        
         protected beforeRemove() {
             egret.Tween.removeTweens(this.lightImage);
         }
