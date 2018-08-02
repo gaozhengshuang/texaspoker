@@ -672,7 +672,8 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	}
 
 	if user.IsInRoom() {
-		user.SendRoomMsg(tmsg)
+		//user.SendRoomMsg(tmsg)
+		user.SendNotify("正在游戏中")
 		return
 	}
 
@@ -707,7 +708,8 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 	}
 
 	if user.IsInRoom() {
-		user.SendRoomMsg(tmsg)
+		//user.SendRoomMsg(tmsg)
+		user.SendNotify("正在游戏中")
 		return
 	}
 
@@ -725,7 +727,8 @@ func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}
 	}
 
 	if user.IsInRoom() {
-		user.SendRoomMsg(tmsg)
+		//user.SendRoomMsg(tmsg)
+		user.SendNotify("正在游戏中")
 		return
 	}
 	
