@@ -49,13 +49,18 @@ module game {
         }
 
         public updateList() {
+            let bagSize = 0;
             this._listProvider.removeAll();
+
             for (let v of DataManager.playerModel.getBag()) {
-                this._listProvider.addItem(v);
+                if (table.ItemBaseDataById[v.id].Type != 11) {
+                    this._listProvider.addItem(v);
+                    bagSize++;
+                }
             }
             this.bagScr.viewport.scrollV = 0;
 
-            this.nogiftTips.visible = DataManager.playerModel.getBag().length == 0;
+            this.nogiftTips.visible = bagSize == 0;
         }
 
         private closeHandle() {
