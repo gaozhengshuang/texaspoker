@@ -30,7 +30,7 @@ module game {
         }
 
         protected init() {
-            this.closeButton && (this.closeButton.icon = "lucky_json.luckycloseBtn");
+            this.closeButton && (this.closeButton.icon = "lucky_json.leftBack");
             this.startButton && (this.startButton.icon = "ui_json.b-recharge");
             this.allChangeButton && (this.allChangeButton.icon = "ui_json.changeMoneyAll");
 
@@ -183,7 +183,7 @@ module game {
         }
 
         private changeHandle() {
-            sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+            // sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
         }
 
         private static _instance: BattlePay;

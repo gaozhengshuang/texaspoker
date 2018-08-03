@@ -569,12 +569,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
+		t.horizontalCenter = -301;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 638;
-		t.y = 23;
+		t.verticalCenter = -491;
+		t.width = 80;
 		return t;
 	};
 	_proto.bagScr_i = function () {
@@ -1398,12 +1400,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
+		t.horizontalCenter = -301;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 638.68;
-		t.y = 23.67;
+		t.verticalCenter = -491;
+		t.width = 80;
 		return t;
 	};
 	_proto.startButton_i = function () {
@@ -1887,12 +1891,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
+		t.horizontalCenter = -301;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 638.68;
-		t.y = 23.67;
+		t.verticalCenter = -491;
+		t.width = 80;
 		return t;
 	};
 	_proto.startButton_i = function () {
@@ -4504,12 +4510,14 @@ var egret = window.egret;
 	_proto.closeButton_i = function () {
 		var t = new game.IconButton();
 		this.closeButton = t;
+		t.height = 68;
+		t.horizontalCenter = -301;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.skinName = "IconButtonSkin";
 		t.touchEnabled = true;
-		t.x = 652.5;
-		t.y = 26;
+		t.verticalCenter = -491;
+		t.width = 80;
 		return t;
 	};
 	_proto.labelName_i = function () {
@@ -5089,1370 +5097,6 @@ var egret = window.egret;
 		return t;
 	};
 	return RankPanelSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ChooseIconSkin.exml'] = window.ChooseIconSkin = (function (_super) {
-	__extends(ChooseIconSkin, _super);
-	function ChooseIconSkin() {
-		_super.call(this);
-		this.skinParts = ["bg","chose","icon"];
-		
-		this.height = 86;
-		this.width = 104;
-		this.elementsContent = [this.bg_i(),this.chose_i(),this.icon_i()];
-	}
-	var _proto = ChooseIconSkin.prototype;
-
-	_proto.bg_i = function () {
-		var t = new eui.Image();
-		this.bg = t;
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.top = 0;
-		return t;
-	};
-	_proto.chose_i = function () {
-		var t = new eui.Image();
-		this.chose = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.source = "dress_01_json.dress_01_24";
-		t.top = 0;
-		return t;
-	};
-	_proto.icon_i = function () {
-		var t = new eui.Image();
-		this.icon = t;
-		t.height = 55;
-		t.horizontalCenter = 0.5;
-		t.source = "dress_01_json.dress_01_01";
-		t.verticalCenter = -6.5;
-		t.width = 55;
-		return t;
-	};
-	return ChooseIconSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/role/CoinsSkin.exml'] = window.CoinsSkin = (function (_super) {
-	__extends(CoinsSkin, _super);
-	function CoinsSkin() {
-		_super.call(this);
-		this.skinParts = ["img_bg","txt_num","img_gold"];
-		
-		this.height = 59;
-		this.width = 184;
-		this.elementsContent = [this.img_bg_i(),this.txt_num_i(),this.img_gold_i()];
-	}
-	var _proto = CoinsSkin.prototype;
-
-	_proto.img_bg_i = function () {
-		var t = new eui.Image();
-		this.img_bg = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 59;
-		t.source = "dress_01_json.dress_01_30";
-		t.width = 184;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.txt_num_i = function () {
-		var t = new eui.Label();
-		this.txt_num = t;
-		t.text = "0000000";
-		t.textAlign = "center";
-		t.verticalAlign = "middle";
-		t.x = 58.25;
-		t.y = 14.5;
-		return t;
-	};
-	_proto.img_gold_i = function () {
-		var t = new eui.Image();
-		this.img_gold = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 51.8;
-		t.source = "ui_json.gold";
-		t.width = 52.7;
-		t.x = 1.6;
-		t.y = 1;
-		return t;
-	};
-	return CoinsSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/role/EquipInfoSkin.exml'] = window.EquipInfoSkin = (function (_super) {
-	__extends(EquipInfoSkin, _super);
-	function EquipInfoSkin() {
-		_super.call(this);
-		this.skinParts = ["img_star1","img_star2","img_star3","img_star4","img_star5","stars","txt_name","totalAddition"];
-		
-		this.height = 280;
-		this.width = 220;
-		this.elementsContent = [this._Image1_i(),this.stars_i(),this.txt_name_i(),this._Label1_i(),this.totalAddition_i()];
-	}
-	var _proto = EquipInfoSkin.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.alpha = 0.8;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.fillMode = "scale";
-		t.left = 0;
-		t.right = -1;
-		t.source = "dress_01_json.dress_01_28";
-		t.top = 0;
-		return t;
-	};
-	_proto.stars_i = function () {
-		var t = new eui.Group();
-		this.stars = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 26;
-		t.width = 151;
-		t.x = 47;
-		t.y = 15;
-		t.layout = this._HorizontalLayout1_i();
-		t.elementsContent = [this.img_star1_i(),this.img_star2_i(),this.img_star3_i(),this.img_star4_i(),this.img_star5_i()];
-		return t;
-	};
-	_proto._HorizontalLayout1_i = function () {
-		var t = new eui.HorizontalLayout();
-		return t;
-	};
-	_proto.img_star1_i = function () {
-		var t = new eui.Image();
-		this.img_star1 = t;
-		t.height = 20;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.visible = false;
-		t.width = 20;
-		t.x = 61;
-		t.y = 17;
-		return t;
-	};
-	_proto.img_star2_i = function () {
-		var t = new eui.Image();
-		this.img_star2 = t;
-		t.height = 20;
-		t.visible = false;
-		t.width = 20;
-		t.x = 111;
-		t.y = 18;
-		return t;
-	};
-	_proto.img_star3_i = function () {
-		var t = new eui.Image();
-		this.img_star3 = t;
-		t.height = 20;
-		t.visible = false;
-		t.width = 20;
-		t.x = 147;
-		t.y = 18;
-		return t;
-	};
-	_proto.img_star4_i = function () {
-		var t = new eui.Image();
-		this.img_star4 = t;
-		t.height = 20;
-		t.visible = false;
-		t.width = 20;
-		t.x = 19;
-		t.y = 21;
-		return t;
-	};
-	_proto.img_star5_i = function () {
-		var t = new eui.Image();
-		this.img_star5 = t;
-		t.height = 20;
-		t.visible = false;
-		t.width = 20;
-		t.x = 122;
-		t.y = 3;
-		return t;
-	};
-	_proto.txt_name_i = function () {
-		var t = new eui.Label();
-		this.txt_name = t;
-		t.horizontalCenter = 0;
-		t.text = "翡翠青衫";
-		t.y = 8;
-		return t;
-	};
-	_proto._Label1_i = function () {
-		var t = new eui.Label();
-		t.horizontalCenter = 0;
-		t.text = "总加成";
-		t.y = 42;
-		return t;
-	};
-	_proto.totalAddition_i = function () {
-		var t = new eui.Label();
-		this.totalAddition = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.fontFamily = "Arial";
-		t.height = 199;
-		t.size = 25;
-		t.text = "";
-		t.textAlign = "center";
-		t.verticalAlign = "top";
-		t.width = 217;
-		t.x = 0;
-		t.y = 77;
-		return t;
-	};
-	return EquipInfoSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ItemPriceSkin.exml'] = window.ItemPriceSkin = (function (_super) {
-	__extends(ItemPriceSkin, _super);
-	function ItemPriceSkin() {
-		_super.call(this);
-		this.skinParts = ["img_checkedbg","img_equip","img_checked","txt_obtained","img_price","txt_price","grp_price","img_mask"];
-		
-		this.height = 189;
-		this.width = 151;
-		this.elementsContent = [this._Image1_i(),this.img_checkedbg_i(),this.img_equip_i(),this.img_checked_i(),this.txt_obtained_i(),this.grp_price_i(),this.img_mask_i()];
-	}
-	var _proto = ItemPriceSkin.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.source = "dress_01_json.dress_01_31";
-		t.top = 0;
-		return t;
-	};
-	_proto.img_checkedbg_i = function () {
-		var t = new eui.Image();
-		this.img_checkedbg = t;
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.source = "dress_01_json.dress_01_23";
-		t.top = 0;
-		return t;
-	};
-	_proto.img_equip_i = function () {
-		var t = new eui.Image();
-		this.img_equip = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 100;
-		t.source = "dress_01_json.dress_01_17";
-		t.width = 100;
-		t.x = 27;
-		t.y = 25;
-		return t;
-	};
-	_proto.img_checked_i = function () {
-		var t = new eui.Image();
-		this.img_checked = t;
-		t.source = "dress_01_json.dress_01_22";
-		t.x = 83;
-		t.y = -3;
-		return t;
-	};
-	_proto.txt_obtained_i = function () {
-		var t = new eui.Label();
-		this.txt_obtained = t;
-		t.bold = true;
-		t.text = "已获得";
-		t.visible = false;
-		t.x = 33;
-		t.y = 152;
-		return t;
-	};
-	_proto.grp_price_i = function () {
-		var t = new eui.Group();
-		this.grp_price = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 33.2;
-		t.horizontalCenter = 0;
-		t.verticalCenter = 72;
-		t.width = 146.53;
-		t.layout = this._HorizontalLayout1_i();
-		t.elementsContent = [this.img_price_i(),this.txt_price_i()];
-		return t;
-	};
-	_proto._HorizontalLayout1_i = function () {
-		var t = new eui.HorizontalLayout();
-		t.horizontalAlign = "center";
-		t.verticalAlign = "middle";
-		return t;
-	};
-	_proto.img_price_i = function () {
-		var t = new eui.Image();
-		this.img_price = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 58;
-		t.horizontalCenter = -25.599999999999994;
-		t.scaleX = 0.6;
-		t.scaleY = 0.6;
-		t.source = "dress_01_json.dress_01_19";
-		t.verticalCenter = -4.100000000000001;
-		t.width = 58;
-		return t;
-	};
-	_proto.txt_price_i = function () {
-		var t = new eui.Label();
-		this.txt_price = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.left = 60;
-		t.size = 24;
-		t.text = "10000";
-		t.textAlign = "left";
-		t.verticalAlign = "middle";
-		t.verticalCenter = -4.600000000000001;
-		return t;
-	};
-	_proto.img_mask_i = function () {
-		var t = new eui.Image();
-		this.img_mask = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.top = 0;
-		t.touchEnabled = true;
-		return t;
-	};
-	return ItemPriceSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/role/RoleDressSkin.exml'] = window.RoleDressSkin = (function (_super) {
-	__extends(RoleDressSkin, _super);
-	var RoleDressSkin$Skin2 = 	(function (_super) {
-		__extends(RoleDressSkin$Skin2, _super);
-		function RoleDressSkin$Skin2() {
-			_super.call(this);
-			this.skinParts = ["labelDisplay"];
-			
-			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
-			this.states = [
-				new eui.State ("up",
-					[
-					])
-				,
-				new eui.State ("down",
-					[
-					])
-				,
-				new eui.State ("disabled",
-					[
-					])
-			];
-		}
-		var _proto = RoleDressSkin$Skin2.prototype;
-
-		_proto._Image1_i = function () {
-			var t = new eui.Image();
-			t.percentHeight = 100;
-			t.source = "cube_json.1_2";
-			t.percentWidth = 100;
-			return t;
-		};
-		_proto.labelDisplay_i = function () {
-			var t = new eui.Label();
-			this.labelDisplay = t;
-			t.horizontalCenter = 0;
-			t.verticalCenter = 0;
-			return t;
-		};
-		return RoleDressSkin$Skin2;
-	})(eui.Skin);
-
-	var RoleDressSkin$Skin3 = 	(function (_super) {
-		__extends(RoleDressSkin$Skin3, _super);
-		function RoleDressSkin$Skin3() {
-			_super.call(this);
-			this.skinParts = ["labelDisplay"];
-			
-			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
-			this.states = [
-				new eui.State ("up",
-					[
-					])
-				,
-				new eui.State ("down",
-					[
-					])
-				,
-				new eui.State ("disabled",
-					[
-					])
-			];
-		}
-		var _proto = RoleDressSkin$Skin3.prototype;
-
-		_proto._Image1_i = function () {
-			var t = new eui.Image();
-			t.percentHeight = 100;
-			t.source = "cube_json.1_4";
-			t.percentWidth = 100;
-			return t;
-		};
-		_proto.labelDisplay_i = function () {
-			var t = new eui.Label();
-			this.labelDisplay = t;
-			t.horizontalCenter = 0;
-			t.verticalCenter = 0;
-			return t;
-		};
-		return RoleDressSkin$Skin3;
-	})(eui.Skin);
-
-	function RoleDressSkin() {
-		_super.call(this);
-		this.skinParts = ["img_girlbg","img_boybg","dress_info","grp_dressinfo","btn_cart","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_test","btn_test2","roleGroup","coin_money","coin_gold","grp_coins","btn_close","topGroup","ls_items","sr_item","listGroup","part_head","part_body","part_leg","part_foot","part_waist","part_hand","part_back","btnGroup","bmGroup"];
-		
-		this.height = 1100;
-		this.width = 720;
-		this.elementsContent = [this._Image1_i(),this.img_girlbg_i(),this.img_boybg_i(),this.roleGroup_i(),this.topGroup_i(),this.bmGroup_i()];
-	}
-	var _proto = RoleDressSkin.prototype;
-
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.percentHeight = 47;
-		t.horizontalCenter = 0;
-		t.source = "dress_01_json.taboard-bg2";
-		t.width = 720;
-		return t;
-	};
-	_proto.img_girlbg_i = function () {
-		var t = new eui.Image();
-		this.img_girlbg = t;
-		t.anchorOffsetY = 0;
-		t.percentHeight = 53;
-		t.horizontalCenter = 0;
-		t.source = "grilbg_png";
-		t.top = 0;
-		t.width = 720;
-		return t;
-	};
-	_proto.img_boybg_i = function () {
-		var t = new eui.Image();
-		this.img_boybg = t;
-		t.anchorOffsetY = 0;
-		t.percentHeight = 53;
-		t.horizontalCenter = 0;
-		t.source = "boybg_png";
-		t.top = 0;
-		t.width = 720;
-		return t;
-	};
-	_proto.roleGroup_i = function () {
-		var t = new eui.Group();
-		this.roleGroup = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.percentHeight = 53;
-		t.horizontalCenter = 0.5;
-		t.top = 0;
-		t.width = 721.21;
-		t.elementsContent = [this.grp_dressinfo_i(),this.btn_cart_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_test_i(),this.btn_test2_i()];
-		return t;
-	};
-	_proto.grp_dressinfo_i = function () {
-		var t = new eui.Group();
-		this.grp_dressinfo = t;
-		t.height = 280;
-		t.horizontalCenter = 247.39499999999998;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.verticalCenter = -20.5;
-		t.width = 220;
-		t.elementsContent = [this.dress_info_i()];
-		return t;
-	};
-	_proto.dress_info_i = function () {
-		var t = new game.EquipInfo();
-		this.dress_info = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 280;
-		t.skinName = "EquipInfoSkin";
-		t.width = 220;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.btn_cart_i = function () {
-		var t = new game.IconButton();
-		this.btn_cart = t;
-		t.bottom = 20;
-		t.height = 69;
-		t.horizontalCenter = 262.895;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.width = 183;
-		return t;
-	};
-	_proto.grp_role_i = function () {
-		var t = new eui.Group();
-		this.grp_role = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bottom = 75;
-		t.height = 278;
-		t.horizontalCenter = -3.105000000000018;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.touchEnabled = false;
-		t.width = 311;
-		return t;
-	};
-	_proto.grp_misc_i = function () {
-		var t = new eui.Group();
-		this.grp_misc = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bottom = 20;
-		t.height = 69;
-		t.horizontalCenter = -262.105;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 131;
-		t.elementsContent = [this._Image2_i(),this.icon_boy_i(),this.icon_girl_i(),this.img_iconmask_i()];
-		return t;
-	};
-	_proto._Image2_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 69;
-		t.source = "dress_01_json.dress_01_26";
-		t.width = 131;
-		t.x = -4;
-		t.y = 3;
-		return t;
-	};
-	_proto.icon_boy_i = function () {
-		var t = new eui.Image();
-		this.icon_boy = t;
-		t.source = "dress_01_json.dress_01_15";
-		t.x = 64;
-		t.y = 9;
-		return t;
-	};
-	_proto.icon_girl_i = function () {
-		var t = new eui.Image();
-		this.icon_girl = t;
-		t.source = "dress_01_json.dress_01_20";
-		t.x = 0.5;
-		t.y = 9;
-		return t;
-	};
-	_proto.img_iconmask_i = function () {
-		var t = new eui.Image();
-		this.img_iconmask = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.source = "shopItemButtonBg_png";
-		t.top = 0;
-		t.touchEnabled = true;
-		return t;
-	};
-	_proto.btn_test_i = function () {
-		var t = new eui.Button();
-		this.btn_test = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 60;
-		t.label = "换";
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.visible = false;
-		t.width = 130;
-		t.x = 30;
-		t.y = 243;
-		t.skinName = RoleDressSkin$Skin2;
-		return t;
-	};
-	_proto.btn_test2_i = function () {
-		var t = new eui.Button();
-		this.btn_test2 = t;
-		t.height = 60;
-		t.label = "重设";
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.visible = false;
-		t.width = 130;
-		t.x = 30;
-		t.y = 320;
-		t.skinName = RoleDressSkin$Skin3;
-		return t;
-	};
-	_proto.topGroup_i = function () {
-		var t = new eui.Group();
-		this.topGroup = t;
-		t.height = 100;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 720;
-		t.x = 0;
-		t.y = 0;
-		t.elementsContent = [this.grp_coins_i(),this.btn_close_i()];
-		return t;
-	};
-	_proto.grp_coins_i = function () {
-		var t = new eui.Group();
-		this.grp_coins = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 58;
-		t.horizontalCenter = 53.5;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 593;
-		t.x = 80;
-		t.y = 11;
-		t.layout = this._HorizontalLayout1_i();
-		t.elementsContent = [this.coin_money_i(),this.coin_gold_i()];
-		return t;
-	};
-	_proto._HorizontalLayout1_i = function () {
-		var t = new eui.HorizontalLayout();
-		t.gap = 30;
-		return t;
-	};
-	_proto.coin_money_i = function () {
-		var t = new game.Coins();
-		this.coin_money = t;
-		t.height = 55;
-		t.skinName = "CoinsSkin";
-		t.width = 195;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.coin_gold_i = function () {
-		var t = new game.Coins();
-		this.coin_gold = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 55;
-		t.skinName = "CoinsSkin";
-		t.width = 195;
-		t.x = 237;
-		t.y = -14.5;
-		return t;
-	};
-	_proto.btn_close_i = function () {
-		var t = new game.IconButton();
-		this.btn_close = t;
-		t.height = 20;
-		t.horizontalCenter = -322.605;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.width = 20;
-		t.x = 28;
-		t.y = 27;
-		return t;
-	};
-	_proto.bmGroup_i = function () {
-		var t = new eui.Group();
-		this.bmGroup = t;
-		t.bottom = 0;
-		t.percentHeight = 47;
-		t.horizontalCenter = 0;
-		t.width = 720;
-		t.elementsContent = [this.listGroup_i(),this.btnGroup_i()];
-		return t;
-	};
-	_proto.listGroup_i = function () {
-		var t = new eui.Group();
-		this.listGroup = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 435;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 720;
-		t.x = 0;
-		t.y = 81;
-		t.elementsContent = [this.sr_item_i()];
-		return t;
-	};
-	_proto.sr_item_i = function () {
-		var t = new eui.Scroller();
-		this.sr_item = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 434;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.top = 0;
-		t.width = 720;
-		t.viewport = this.ls_items_i();
-		return t;
-	};
-	_proto.ls_items_i = function () {
-		var t = new eui.List();
-		this.ls_items = t;
-		t.anchorOffsetY = 0;
-		t.height = 356;
-		t.itemRendererSkinName = ItemPriceSkin;
-		t.x = 0;
-		t.y = -32;
-		t.layout = this._TileLayout1_i();
-		return t;
-	};
-	_proto._TileLayout1_i = function () {
-		var t = new eui.TileLayout();
-		t.horizontalGap = 6;
-		t.paddingBottom = 0;
-		t.paddingLeft = 30;
-		t.paddingRight = 30;
-		t.paddingTop = 10;
-		t.verticalGap = 22;
-		return t;
-	};
-	_proto.btnGroup_i = function () {
-		var t = new eui.Group();
-		this.btnGroup = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 75;
-		t.horizontalCenter = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.top = 0;
-		t.width = 718.18;
-		t.elementsContent = [this._Image3_i(),this._Scroller1_i()];
-		return t;
-	};
-	_proto._Image3_i = function () {
-		var t = new eui.Image();
-		t.anchorOffsetX = 0;
-		t.source = "dress_01_json.taboard-bg1";
-		t.width = 721;
-		t.x = -1;
-		t.y = -6.08;
-		return t;
-	};
-	_proto._Scroller1_i = function () {
-		var t = new eui.Scroller();
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 94.24;
-		t.horizontalCenter = 1.910000000000025;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.verticalCenter = 4.5;
-		t.width = 708.18;
-		t.viewport = this._Group1_i();
-		return t;
-	};
-	_proto._Group1_i = function () {
-		var t = new eui.Group();
-		t.anchorOffsetX = 0;
-		t.width = 709.18;
-		t.layout = this._HorizontalLayout2_i();
-		t.elementsContent = [this.part_head_i(),this.part_body_i(),this.part_leg_i(),this.part_foot_i(),this.part_waist_i(),this.part_hand_i(),this.part_back_i()];
-		return t;
-	};
-	_proto._HorizontalLayout2_i = function () {
-		var t = new eui.HorizontalLayout();
-		t.gap = 10;
-		t.horizontalAlign = "left";
-		t.paddingLeft = 10;
-		t.paddingRight = 10;
-		t.verticalAlign = "middle";
-		return t;
-	};
-	_proto.part_head_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_head = t;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.width = 104;
-		t.x = 68;
-		t.y = 6;
-		return t;
-	};
-	_proto.part_body_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_body = t;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.width = 104;
-		t.x = 115;
-		t.y = 6;
-		return t;
-	};
-	_proto.part_leg_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_leg = t;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.width = 104;
-		t.x = 201;
-		t.y = 19;
-		return t;
-	};
-	_proto.part_foot_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_foot = t;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.width = 104;
-		t.x = 245;
-		t.y = 21;
-		return t;
-	};
-	_proto.part_waist_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_waist = t;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.visible = false;
-		t.width = 104;
-		t.x = 279;
-		t.y = 24;
-		return t;
-	};
-	_proto.part_hand_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_hand = t;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.visible = false;
-		t.width = 104;
-		t.x = 334;
-		t.y = 18;
-		return t;
-	};
-	_proto.part_back_i = function () {
-		var t = new game.ChooseIcon();
-		this.part_back = t;
-		t.enabled = true;
-		t.height = 86;
-		t.skinName = "ChooseIconSkin";
-		t.touchEnabled = true;
-		t.visible = false;
-		t.width = 104;
-		t.x = 43;
-		t.y = 31;
-		return t;
-	};
-	return RoleDressSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ShopItemSkin.exml'] = window.ShopItemSkin = (function (_super) {
-	__extends(ShopItemSkin, _super);
-	function ShopItemSkin() {
-		_super.call(this);
-		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","img_gold","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
-		
-		this.height = 143;
-		this.width = 680;
-		this.elementsContent = [this.img_shopItemBg_i(),this.img_shopItemIcon_i(),this.img_shopItemSelect_i(),this.shopItemName_i(),this.shopItemAddtion_i(),this.grp_price_i(),this.star_i(),this.btn_select_i(),this.btn_select0_i()];
-	}
-	var _proto = ShopItemSkin.prototype;
-
-	_proto.img_shopItemBg_i = function () {
-		var t = new eui.Image();
-		this.img_shopItemBg = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 143;
-		t.source = "dress_01_json.dress_01_27";
-		t.width = 680;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.img_shopItemIcon_i = function () {
-		var t = new eui.Image();
-		this.img_shopItemIcon = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 93;
-		t.source = "";
-		t.width = 85;
-		t.x = 101;
-		t.y = 25;
-		return t;
-	};
-	_proto.img_shopItemSelect_i = function () {
-		var t = new eui.Image();
-		this.img_shopItemSelect = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 37;
-		t.source = "dress_01_json.dress_01_25";
-		t.visible = false;
-		t.width = 52;
-		t.x = 25;
-		t.y = 53;
-		return t;
-	};
-	_proto.shopItemName_i = function () {
-		var t = new eui.Label();
-		this.shopItemName = t;
-		t.bold = true;
-		t.text = "宫廷大头";
-		t.textAlign = "left";
-		t.textColor = 0x5076f4;
-		t.x = 240;
-		t.y = 18.2;
-		return t;
-	};
-	_proto.shopItemAddtion_i = function () {
-		var t = new eui.Label();
-		this.shopItemAddtion = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.bold = true;
-		t.height = 84.18;
-		t.size = 21;
-		t.text = "双倍积分时间增加1秒双倍积分时间增加1秒";
-		t.textAlign = "left";
-		t.textColor = 0x000000;
-		t.verticalAlign = "middle";
-		t.width = 306.91;
-		t.x = 230;
-		t.y = 54.24;
-		return t;
-	};
-	_proto.grp_price_i = function () {
-		var t = new eui.Group();
-		this.grp_price = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 0;
-		t.width = 0;
-		t.x = 537.8;
-		t.y = 59.2;
-		t.elementsContent = [this.img_price_i(),this.img_gold_i(),this.txt_price_i()];
-		return t;
-	};
-	_proto.img_price_i = function () {
-		var t = new eui.Image();
-		this.img_price = t;
-		t.scaleX = 0.7;
-		t.scaleY = 0.7;
-		t.source = "dress_01_json.dress_01_30";
-		t.x = 4.2;
-		t.y = -1;
-		return t;
-	};
-	_proto.img_gold_i = function () {
-		var t = new eui.Image();
-		this.img_gold = t;
-		t.height = 57;
-		t.scaleX = 0.7;
-		t.scaleY = 0.7;
-		t.source = "ui_json.gold";
-		t.width = 57;
-		t.x = 3.5;
-		t.y = -2;
-		return t;
-	};
-	_proto.txt_price_i = function () {
-		var t = new eui.Label();
-		this.txt_price = t;
-		t.size = 24;
-		t.text = "10000";
-		t.textAlign = "center";
-		t.verticalAlign = "middle";
-		t.width = 97;
-		t.x = 32.8;
-		t.y = 7;
-		return t;
-	};
-	_proto.star_i = function () {
-		var t = new eui.Group();
-		this.star = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 0;
-		t.width = 0;
-		t.x = 191;
-		t.y = 28;
-		t.elementsContent = [this.img_star_0_i(),this.img_star_1_i(),this.img_star_2_i(),this.img_star_3_i(),this.img_star_4_i()];
-		return t;
-	};
-	_proto.img_star_0_i = function () {
-		var t = new eui.Image();
-		this.img_star_0 = t;
-		t.height = 50;
-		t.scaleX = 0.7;
-		t.scaleY = 0.7;
-		t.source = "";
-		t.visible = false;
-		t.width = 48;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.img_star_1_i = function () {
-		var t = new eui.Image();
-		this.img_star_1 = t;
-		t.height = 50;
-		t.scaleX = 0.7;
-		t.scaleY = 0.7;
-		t.source = "";
-		t.visible = false;
-		t.width = 48;
-		t.x = 26;
-		t.y = 0;
-		return t;
-	};
-	_proto.img_star_2_i = function () {
-		var t = new eui.Image();
-		this.img_star_2 = t;
-		t.height = 50;
-		t.scaleX = 0.7;
-		t.scaleY = 0.7;
-		t.source = "";
-		t.visible = false;
-		t.width = 48;
-		t.x = 52;
-		t.y = 0;
-		return t;
-	};
-	_proto.img_star_3_i = function () {
-		var t = new eui.Image();
-		this.img_star_3 = t;
-		t.height = 50;
-		t.scaleX = 0.7;
-		t.scaleY = 0.7;
-		t.source = "";
-		t.visible = false;
-		t.width = 48;
-		t.x = 78;
-		t.y = 0;
-		return t;
-	};
-	_proto.img_star_4_i = function () {
-		var t = new eui.Image();
-		this.img_star_4 = t;
-		t.height = 50;
-		t.scaleX = 0.7;
-		t.scaleY = 0.7;
-		t.source = "";
-		t.visible = false;
-		t.width = 48;
-		t.x = 104;
-		t.y = 0;
-		return t;
-	};
-	_proto.btn_select_i = function () {
-		var t = new game.IconButton();
-		this.btn_select = t;
-		t.enabled = true;
-		t.height = 143;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.visible = false;
-		t.width = 680;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.btn_select0_i = function () {
-		var t = new game.IconButton();
-		this.btn_select0 = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 115.73;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.width = 86.06;
-		t.x = 0;
-		t.y = 9.13;
-		return t;
-	};
-	return ShopItemSkin;
-})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ShoppingCartSkin.exml'] = window.ShoppingCartSkin = (function (_super) {
-	__extends(ShoppingCartSkin, _super);
-	function ShoppingCartSkin() {
-		_super.call(this);
-		this.skinParts = ["BG","BG2","listGroup","ShopItemViewScroller","goldNumTxt","userCoin","diamondNumTxt","userDiamond","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_close","btn_buy","shopNumBg","shopNum","other"];
-		
-		this.height = 1100;
-		this.width = 720;
-		this.elementsContent = [this.BG_i(),this.BG2_i(),this._Group1_i(),this.other_i()];
-	}
-	var _proto = ShoppingCartSkin.prototype;
-
-	_proto.BG_i = function () {
-		var t = new eui.Image();
-		this.BG = t;
-		t.bottom = 0;
-		t.left = 0;
-		t.right = 0;
-		t.source = "shopbg_png";
-		t.top = 0;
-		return t;
-	};
-	_proto.BG2_i = function () {
-		var t = new eui.Image();
-		this.BG2 = t;
-		t.anchorOffsetY = 0;
-		t.height = 121;
-		t.source = "dress_01_json.dress_01_28";
-		t.width = 720;
-		t.x = 0;
-		t.y = 1155;
-		return t;
-	};
-	_proto._Group1_i = function () {
-		var t = new eui.Group();
-		t.height = 900;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 680;
-		t.x = 19;
-		t.y = 221;
-		t.elementsContent = [this.ShopItemViewScroller_i()];
-		return t;
-	};
-	_proto.ShopItemViewScroller_i = function () {
-		var t = new eui.Scroller();
-		this.ShopItemViewScroller = t;
-		t.anchorOffsetY = 0;
-		t.height = 925.49;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 680;
-		t.x = 0;
-		t.y = 0;
-		t.viewport = this.listGroup_i();
-		return t;
-	};
-	_proto.listGroup_i = function () {
-		var t = new eui.Group();
-		this.listGroup = t;
-		return t;
-	};
-	_proto.other_i = function () {
-		var t = new eui.Group();
-		this.other = t;
-		t.anchorOffsetX = 0;
-		t.anchorOffsetY = 0;
-		t.height = 0;
-		t.width = 0;
-		t.y = -2;
-		t.elementsContent = [this.userCoin_i(),this.userDiamond_i(),this.coinGoldImage_i(),this.coinDiamondImage_i(),this.totalCost_gold_i(),this.totalCost_diamond_i(),this.btn_close_i(),this._Group2_i()];
-		return t;
-	};
-	_proto.userCoin_i = function () {
-		var t = new eui.Group();
-		this.userCoin = t;
-		t.height = 50;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 200;
-		t.x = 24;
-		t.y = 168;
-		t.elementsContent = [this._Image1_i(),this._Image2_i(),this.goldNumTxt_i()];
-		return t;
-	};
-	_proto._Image1_i = function () {
-		var t = new eui.Image();
-		t.height = 59;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "dress_01_json.dress_01_30";
-		t.width = 184;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto._Image2_i = function () {
-		var t = new eui.Image();
-		t.bottom = -5;
-		t.horizontalCenter = -72.5;
-		t.left = 0;
-		t.right = 145;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "ui_json.gold";
-		t.top = 0;
-		t.verticalCenter = 2.5;
-		return t;
-	};
-	_proto.goldNumTxt_i = function () {
-		var t = new eui.Label();
-		this.goldNumTxt = t;
-		t.fontFamily = "Arial";
-		t.size = 27;
-		t.text = "0";
-		t.textAlign = "center";
-		t.width = 115;
-		t.x = 52;
-		t.y = 15;
-		return t;
-	};
-	_proto.userDiamond_i = function () {
-		var t = new eui.Group();
-		this.userDiamond = t;
-		t.height = 50;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 200;
-		t.x = 242;
-		t.y = 168;
-		t.elementsContent = [this._Image3_i(),this.diamondNumTxt_i()];
-		return t;
-	};
-	_proto._Image3_i = function () {
-		var t = new eui.Image();
-		t.height = 59;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "dress_01_json.dress_01_30";
-		t.width = 184;
-		t.x = 0;
-		t.y = 0;
-		return t;
-	};
-	_proto.diamondNumTxt_i = function () {
-		var t = new eui.Label();
-		this.diamondNumTxt = t;
-		t.fontFamily = "Arial";
-		t.size = 27;
-		t.text = "0";
-		t.textAlign = "center";
-		t.width = 115;
-		t.x = 52;
-		t.y = 15;
-		return t;
-	};
-	_proto.coinGoldImage_i = function () {
-		var t = new eui.Image();
-		this.coinGoldImage = t;
-		t.anchorOffsetY = 0;
-		t.height = 51;
-		t.source = "ui_json.gold";
-		t.width = 51;
-		t.x = 73;
-		t.y = 1175;
-		return t;
-	};
-	_proto.coinDiamondImage_i = function () {
-		var t = new eui.Image();
-		this.coinDiamondImage = t;
-		t.anchorOffsetY = 0;
-		t.height = 51;
-		t.source = "dress_01_json.dress_01_19";
-		t.width = 51;
-		t.x = 217;
-		t.y = 1175;
-		return t;
-	};
-	_proto.totalCost_gold_i = function () {
-		var t = new eui.Label();
-		this.totalCost_gold = t;
-		t.fontFamily = "Arial";
-		t.size = 27;
-		t.text = "0";
-		t.textAlign = "center";
-		t.width = 115;
-		t.x = 41;
-		t.y = 1230;
-		return t;
-	};
-	_proto.totalCost_diamond_i = function () {
-		var t = new eui.Label();
-		this.totalCost_diamond = t;
-		t.fontFamily = "Arial";
-		t.size = 27;
-		t.text = "0";
-		t.textAlign = "center";
-		t.width = 115;
-		t.x = 185;
-		t.y = 1230;
-		return t;
-	};
-	_proto.btn_close_i = function () {
-		var t = new game.IconButton();
-		this.btn_close = t;
-		t.height = 20;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.width = 20;
-		t.x = 25;
-		t.y = 30;
-		return t;
-	};
-	_proto._Group2_i = function () {
-		var t = new eui.Group();
-		t.height = 0;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.width = 0;
-		t.x = 600.67;
-		t.y = 987;
-		t.elementsContent = [this.btn_buy_i(),this.shopNumBg_i(),this.shopNum_i()];
-		return t;
-	};
-	_proto.btn_buy_i = function () {
-		var t = new game.IconButton();
-		this.btn_buy = t;
-		t.height = 20;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.skinName = "IconButtonSkin";
-		t.width = 20;
-		t.x = -6;
-		t.y = 221;
-		return t;
-	};
-	_proto.shopNumBg_i = function () {
-		var t = new eui.Image();
-		this.shopNumBg = t;
-		t.anchorOffsetY = 0;
-		t.height = 51;
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.source = "dress_01_json.numBg";
-		t.width = 51;
-		t.x = 69;
-		t.y = 181;
-		return t;
-	};
-	_proto.shopNum_i = function () {
-		var t = new eui.Label();
-		this.shopNum = t;
-		t.fontFamily = "Arial";
-		t.scaleX = 1;
-		t.scaleY = 1;
-		t.size = 27;
-		t.text = "0";
-		t.textAlign = "center";
-		t.verticalAlign = "justify";
-		t.width = 38;
-		t.x = 75;
-		t.y = 191;
-		return t;
-	};
-	return ShoppingCartSkin;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/win/WinRankItemSkin.exml'] = window.WinRankItemSkin = (function (_super) {
 	__extends(WinRankItemSkin, _super);
 	function WinRankItemSkin() {
@@ -6752,4 +5396,1681 @@ var egret = window.egret;
 		return t;
 	};
 	return WinSceneSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ChooseIconSkin.exml'] = window.ChooseIconSkin = (function (_super) {
+	__extends(ChooseIconSkin, _super);
+	function ChooseIconSkin() {
+		_super.call(this);
+		this.skinParts = ["bg","chose","icon"];
+		
+		this.height = 86;
+		this.width = 104;
+		this.elementsContent = [this.bg_i(),this.chose_i(),this.icon_i()];
+	}
+	var _proto = ChooseIconSkin.prototype;
+
+	_proto.bg_i = function () {
+		var t = new eui.Image();
+		this.bg = t;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.top = 0;
+		return t;
+	};
+	_proto.chose_i = function () {
+		var t = new eui.Image();
+		this.chose = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.source = "dress_01_json.dress_01_24";
+		t.top = 0;
+		return t;
+	};
+	_proto.icon_i = function () {
+		var t = new eui.Image();
+		this.icon = t;
+		t.height = 55;
+		t.horizontalCenter = 0.5;
+		t.source = "dress_01_json.dress_01_01";
+		t.verticalCenter = -6.5;
+		t.width = 55;
+		return t;
+	};
+	return ChooseIconSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/CoinsSkin.exml'] = window.CoinsSkin = (function (_super) {
+	__extends(CoinsSkin, _super);
+	function CoinsSkin() {
+		_super.call(this);
+		this.skinParts = ["txt_num","img_cointype"];
+		
+		this.height = 59;
+		this.width = 184;
+		this.elementsContent = [this._Image1_i(),this._Image2_i(),this.txt_num_i(),this.img_cointype_i()];
+	}
+	var _proto = CoinsSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 59;
+		t.source = "dress_01_json.dress_01_30";
+		t.width = 184;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.source = "dress_01_json.dress_01_32";
+		t.x = 0;
+		t.y = 0.5;
+		return t;
+	};
+	_proto.txt_num_i = function () {
+		var t = new eui.Label();
+		this.txt_num = t;
+		t.text = "0000000";
+		t.textAlign = "center";
+		t.verticalAlign = "middle";
+		t.x = 58.25;
+		t.y = 14.5;
+		return t;
+	};
+	_proto.img_cointype_i = function () {
+		var t = new eui.Image();
+		this.img_cointype = t;
+		t.source = "dress_01_json.dress_gold";
+		t.x = 1.4;
+		t.y = 3.3;
+		return t;
+	};
+	return CoinsSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/EquipInfoSkin.exml'] = window.EquipInfoSkin = (function (_super) {
+	__extends(EquipInfoSkin, _super);
+	function EquipInfoSkin() {
+		_super.call(this);
+		this.skinParts = ["img_star1","img_star2","img_star3","img_star4","img_star5","stars","txt_name","totalAddition"];
+		
+		this.height = 280;
+		this.width = 220;
+		this.elementsContent = [this._Image1_i(),this.stars_i(),this.txt_name_i(),this._Label1_i(),this.totalAddition_i()];
+	}
+	var _proto = EquipInfoSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.alpha = 0.8;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.fillMode = "scale";
+		t.left = 0;
+		t.right = -1;
+		t.source = "dress_01_json.dress_01_35";
+		t.top = 0;
+		return t;
+	};
+	_proto.stars_i = function () {
+		var t = new eui.Group();
+		this.stars = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 26;
+		t.visible = false;
+		t.width = 151;
+		t.x = 47;
+		t.y = 15;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.img_star1_i(),this.img_star2_i(),this.img_star3_i(),this.img_star4_i(),this.img_star5_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		return t;
+	};
+	_proto.img_star1_i = function () {
+		var t = new eui.Image();
+		this.img_star1 = t;
+		t.height = 20;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.visible = false;
+		t.width = 20;
+		t.x = 61;
+		t.y = 17;
+		return t;
+	};
+	_proto.img_star2_i = function () {
+		var t = new eui.Image();
+		this.img_star2 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 111;
+		t.y = 18;
+		return t;
+	};
+	_proto.img_star3_i = function () {
+		var t = new eui.Image();
+		this.img_star3 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 147;
+		t.y = 18;
+		return t;
+	};
+	_proto.img_star4_i = function () {
+		var t = new eui.Image();
+		this.img_star4 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 19;
+		t.y = 21;
+		return t;
+	};
+	_proto.img_star5_i = function () {
+		var t = new eui.Image();
+		this.img_star5 = t;
+		t.height = 20;
+		t.visible = false;
+		t.width = 20;
+		t.x = 122;
+		t.y = 3;
+		return t;
+	};
+	_proto.txt_name_i = function () {
+		var t = new eui.Label();
+		this.txt_name = t;
+		t.bold = true;
+		t.horizontalCenter = 2;
+		t.text = "翡翠青衫";
+		t.textColor = 0x9e7cd8;
+		t.y = 19;
+		return t;
+	};
+	_proto._Label1_i = function () {
+		var t = new eui.Label();
+		t.horizontalCenter = 0;
+		t.text = "总加成";
+		t.visible = false;
+		t.y = 42;
+		return t;
+	};
+	_proto.totalAddition_i = function () {
+		var t = new eui.Label();
+		this.totalAddition = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.fontFamily = "Arial";
+		t.height = 199;
+		t.size = 25;
+		t.text = "";
+		t.textAlign = "center";
+		t.verticalAlign = "top";
+		t.width = 217;
+		t.x = 0;
+		t.y = 97;
+		return t;
+	};
+	return EquipInfoSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ItemPriceSkin.exml'] = window.ItemPriceSkin = (function (_super) {
+	__extends(ItemPriceSkin, _super);
+	function ItemPriceSkin() {
+		_super.call(this);
+		this.skinParts = ["img_checkedbg","img_equip","img_infomask","txt_desc1","txt_desc2","grp_mask","img_checked","txt_obtained","img_price","txt_price","grp_price","img_mask"];
+		
+		this.height = 189;
+		this.width = 151;
+		this.elementsContent = [this._Image1_i(),this.img_checkedbg_i(),this.img_equip_i(),this.grp_mask_i(),this.img_checked_i(),this.txt_obtained_i(),this.grp_price_i(),this.img_mask_i()];
+	}
+	var _proto = ItemPriceSkin.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.source = "dress_01_json.dress_01_31";
+		t.top = 0;
+		return t;
+	};
+	_proto.img_checkedbg_i = function () {
+		var t = new eui.Image();
+		this.img_checkedbg = t;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.source = "dress_01_json.dress_01_23";
+		t.top = 0;
+		return t;
+	};
+	_proto.img_equip_i = function () {
+		var t = new eui.Image();
+		this.img_equip = t;
+		t.anchorOffsetX = 50;
+		t.anchorOffsetY = 50;
+		t.height = 100;
+		t.horizontalCenter = -0.5;
+		t.source = "dress_01_json.dress_01_17";
+		t.verticalCenter = -15.5;
+		t.width = 100;
+		return t;
+	};
+	_proto.grp_mask_i = function () {
+		var t = new eui.Group();
+		this.grp_mask = t;
+		t.height = 140;
+		t.width = 140;
+		t.x = 5.2;
+		t.y = 7.8;
+		t.elementsContent = [this.img_infomask_i(),this.txt_desc1_i(),this.txt_desc2_i()];
+		return t;
+	};
+	_proto.img_infomask_i = function () {
+		var t = new eui.Image();
+		this.img_infomask = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 137.8;
+		t.scale9Grid = new egret.Rectangle(16,17,100,103);
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_37";
+		t.width = 130.4;
+		t.x = 4.2;
+		t.y = 1.5999999999999996;
+		return t;
+	};
+	_proto.txt_desc1_i = function () {
+		var t = new eui.Label();
+		this.txt_desc1 = t;
+		t.size = 18;
+		t.stroke = 2;
+		t.strokeColor = 0x617abc;
+		t.text = "效果描述";
+		t.textColor = 0xffffff;
+		t.x = 35;
+		t.y = 35;
+		return t;
+	};
+	_proto.txt_desc2_i = function () {
+		var t = new eui.Label();
+		this.txt_desc2 = t;
+		t.stroke = 2;
+		t.strokeColor = 0x617abc;
+		t.text = "效果数值";
+		t.textColor = 0xfcf505;
+		t.x = 11;
+		t.y = 79;
+		return t;
+	};
+	_proto.img_checked_i = function () {
+		var t = new eui.Image();
+		this.img_checked = t;
+		t.source = "dress_01_json.dress_01_22";
+		t.x = 83;
+		t.y = -3;
+		return t;
+	};
+	_proto.txt_obtained_i = function () {
+		var t = new eui.Label();
+		this.txt_obtained = t;
+		t.bold = true;
+		t.size = 26;
+		t.stroke = 2;
+		t.strokeColor = 0x7085eb;
+		t.text = "已获得";
+		t.x = 33;
+		t.y = 152;
+		return t;
+	};
+	_proto.grp_price_i = function () {
+		var t = new eui.Group();
+		this.grp_price = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 33.2;
+		t.horizontalCenter = 0;
+		t.verticalCenter = 72;
+		t.width = 146.53;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.img_price_i(),this.txt_price_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.horizontalAlign = "center";
+		t.verticalAlign = "middle";
+		return t;
+	};
+	_proto.img_price_i = function () {
+		var t = new eui.Image();
+		this.img_price = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 58;
+		t.horizontalCenter = -25.599999999999994;
+		t.scaleX = 0.6;
+		t.scaleY = 0.6;
+		t.source = "dress_01_json.dress_01_19";
+		t.verticalCenter = -4.100000000000001;
+		t.width = 58;
+		return t;
+	};
+	_proto.txt_price_i = function () {
+		var t = new eui.Label();
+		this.txt_price = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bold = true;
+		t.left = 60;
+		t.size = 24;
+		t.stroke = 2;
+		t.strokeColor = 0x7085eb;
+		t.text = "10000";
+		t.textAlign = "left";
+		t.verticalAlign = "middle";
+		t.verticalCenter = -4.600000000000001;
+		return t;
+	};
+	_proto.img_mask_i = function () {
+		var t = new eui.Image();
+		this.img_mask = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.top = 0;
+		t.touchEnabled = true;
+		return t;
+	};
+	return ItemPriceSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/RoleDressSkin.exml'] = window.RoleDressSkin = (function (_super) {
+	__extends(RoleDressSkin, _super);
+	var RoleDressSkin$Skin2 = 	(function (_super) {
+		__extends(RoleDressSkin$Skin2, _super);
+		function RoleDressSkin$Skin2() {
+			_super.call(this);
+			this.skinParts = ["labelDisplay"];
+			
+			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
+			this.states = [
+				new eui.State ("up",
+					[
+					])
+				,
+				new eui.State ("down",
+					[
+					])
+				,
+				new eui.State ("disabled",
+					[
+					])
+			];
+		}
+		var _proto = RoleDressSkin$Skin2.prototype;
+
+		_proto._Image1_i = function () {
+			var t = new eui.Image();
+			t.percentHeight = 100;
+			t.source = "cube_json.1_2";
+			t.percentWidth = 100;
+			return t;
+		};
+		_proto.labelDisplay_i = function () {
+			var t = new eui.Label();
+			this.labelDisplay = t;
+			t.horizontalCenter = 0;
+			t.verticalCenter = 0;
+			return t;
+		};
+		return RoleDressSkin$Skin2;
+	})(eui.Skin);
+
+	var RoleDressSkin$Skin3 = 	(function (_super) {
+		__extends(RoleDressSkin$Skin3, _super);
+		function RoleDressSkin$Skin3() {
+			_super.call(this);
+			this.skinParts = ["labelDisplay"];
+			
+			this.elementsContent = [this._Image1_i(),this.labelDisplay_i()];
+			this.states = [
+				new eui.State ("up",
+					[
+					])
+				,
+				new eui.State ("down",
+					[
+					])
+				,
+				new eui.State ("disabled",
+					[
+					])
+			];
+		}
+		var _proto = RoleDressSkin$Skin3.prototype;
+
+		_proto._Image1_i = function () {
+			var t = new eui.Image();
+			t.percentHeight = 100;
+			t.source = "cube_json.1_4";
+			t.percentWidth = 100;
+			return t;
+		};
+		_proto.labelDisplay_i = function () {
+			var t = new eui.Label();
+			this.labelDisplay = t;
+			t.horizontalCenter = 0;
+			t.verticalCenter = 0;
+			return t;
+		};
+		return RoleDressSkin$Skin3;
+	})(eui.Skin);
+
+	function RoleDressSkin() {
+		_super.call(this);
+		this.skinParts = ["img_girlbg","img_boybg","dress_info","grp_dressinfo","coin_money","coin_gold","grp_coins","btn_close","topGroup","btn_cart","shopNumBg","shopNum","grp_role","icon_boy","icon_girl","img_iconmask","grp_misc","btn_test","btn_test2","roleGroup","ls_items","sr_item","listGroup","img_moreR","img_moreL","part_back","part_head","part_body","part_leg","part_foot","part_waist","part_hand","btnGroup","bmGroup"];
+		
+		this.height = 1100;
+		this.width = 720;
+		this.elementsContent = [this.img_girlbg_i(),this.img_boybg_i(),this.roleGroup_i(),this.bmGroup_i()];
+	}
+	var _proto = RoleDressSkin.prototype;
+
+	_proto.img_girlbg_i = function () {
+		var t = new eui.Image();
+		this.img_girlbg = t;
+		t.anchorOffsetY = 0;
+		t.height = 1559;
+		t.horizontalCenter = 0;
+		t.source = "grilbg_png";
+		t.verticalCenter = 0;
+		t.visible = false;
+		t.width = 720;
+		return t;
+	};
+	_proto.img_boybg_i = function () {
+		var t = new eui.Image();
+		this.img_boybg = t;
+		t.anchorOffsetY = 0;
+		t.height = 1559;
+		t.horizontalCenter = 0;
+		t.source = "boybg_png";
+		t.verticalCenter = 0;
+		t.width = 720;
+		return t;
+	};
+	_proto.roleGroup_i = function () {
+		var t = new eui.Group();
+		this.roleGroup = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.percentHeight = 53;
+		t.horizontalCenter = 0.5;
+		t.top = 0;
+		t.width = 721.21;
+		t.elementsContent = [this.grp_dressinfo_i(),this.topGroup_i(),this.btn_cart_i(),this.shopNumBg_i(),this.shopNum_i(),this.grp_role_i(),this.grp_misc_i(),this.btn_test_i(),this.btn_test2_i()];
+		return t;
+	};
+	_proto.grp_dressinfo_i = function () {
+		var t = new eui.Group();
+		this.grp_dressinfo = t;
+		t.height = 280;
+		t.horizontalCenter = 247.39499999999998;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.verticalCenter = -20.5;
+		t.width = 220;
+		t.elementsContent = [this.dress_info_i()];
+		return t;
+	};
+	_proto.dress_info_i = function () {
+		var t = new game.EquipInfo();
+		this.dress_info = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 280;
+		t.skinName = "EquipInfoSkin";
+		t.width = 220;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.topGroup_i = function () {
+		var t = new eui.Group();
+		this.topGroup = t;
+		t.height = 100;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 720;
+		t.x = 0;
+		t.y = 0;
+		t.elementsContent = [this.grp_coins_i(),this.btn_close_i()];
+		return t;
+	};
+	_proto.grp_coins_i = function () {
+		var t = new eui.Group();
+		this.grp_coins = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 58;
+		t.horizontalCenter = 53.5;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 593;
+		t.x = 80;
+		t.y = 11;
+		t.layout = this._HorizontalLayout1_i();
+		t.elementsContent = [this.coin_money_i(),this.coin_gold_i()];
+		return t;
+	};
+	_proto._HorizontalLayout1_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.gap = 30;
+		return t;
+	};
+	_proto.coin_money_i = function () {
+		var t = new game.Coins();
+		this.coin_money = t;
+		t.height = 55;
+		t.skinName = "CoinsSkin";
+		t.width = 195;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.coin_gold_i = function () {
+		var t = new game.Coins();
+		this.coin_gold = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 55;
+		t.skinName = "CoinsSkin";
+		t.width = 195;
+		t.x = 237;
+		t.y = -14.5;
+		return t;
+	};
+	_proto.btn_close_i = function () {
+		var t = new game.IconButton();
+		this.btn_close = t;
+		t.height = 68;
+		t.horizontalCenter = -320;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 80;
+		t.x = 28;
+		t.y = 9;
+		return t;
+	};
+	_proto.btn_cart_i = function () {
+		var t = new game.IconButton();
+		this.btn_cart = t;
+		t.bottom = 20;
+		t.height = 69;
+		t.horizontalCenter = 262.895;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 183;
+		return t;
+	};
+	_proto.shopNumBg_i = function () {
+		var t = new eui.Image();
+		this.shopNumBg = t;
+		t.anchorOffsetY = 0;
+		t.bottom = 62;
+		t.height = 48;
+		t.horizontalCenter = 335.395;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.numBg";
+		t.width = 48;
+		return t;
+	};
+	_proto.shopNum_i = function () {
+		var t = new eui.Label();
+		this.shopNum = t;
+		t.bottom = 73;
+		t.fontFamily = "Arial";
+		t.horizontalCenter = 336.395;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.verticalAlign = "justify";
+		t.width = 38;
+		return t;
+	};
+	_proto.grp_role_i = function () {
+		var t = new eui.Group();
+		this.grp_role = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 75;
+		t.height = 278;
+		t.horizontalCenter = -3.105000000000018;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.touchEnabled = false;
+		t.width = 311;
+		return t;
+	};
+	_proto.grp_misc_i = function () {
+		var t = new eui.Group();
+		this.grp_misc = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 20;
+		t.height = 69;
+		t.horizontalCenter = -262.105;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 131;
+		t.elementsContent = [this._Image1_i(),this.icon_boy_i(),this.icon_girl_i(),this.img_iconmask_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 69;
+		t.source = "dress_01_json.dress_01_26";
+		t.width = 131;
+		t.x = -4;
+		t.y = 3;
+		return t;
+	};
+	_proto.icon_boy_i = function () {
+		var t = new eui.Image();
+		this.icon_boy = t;
+		t.source = "dress_01_json.dress_01_15";
+		t.x = 64;
+		t.y = 9;
+		return t;
+	};
+	_proto.icon_girl_i = function () {
+		var t = new eui.Image();
+		this.icon_girl = t;
+		t.source = "dress_01_json.dress_01_20";
+		t.x = 0.5;
+		t.y = 9;
+		return t;
+	};
+	_proto.img_iconmask_i = function () {
+		var t = new eui.Image();
+		this.img_iconmask = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.left = 0;
+		t.right = 0;
+		t.source = "shopItemButtonBg_png";
+		t.top = 0;
+		t.touchEnabled = true;
+		return t;
+	};
+	_proto.btn_test_i = function () {
+		var t = new eui.Button();
+		this.btn_test = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 60;
+		t.label = "换";
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.visible = false;
+		t.width = 130;
+		t.x = 30;
+		t.y = 243;
+		t.skinName = RoleDressSkin$Skin2;
+		return t;
+	};
+	_proto.btn_test2_i = function () {
+		var t = new eui.Button();
+		this.btn_test2 = t;
+		t.height = 60;
+		t.label = "重设";
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.visible = false;
+		t.width = 130;
+		t.x = 30;
+		t.y = 320;
+		t.skinName = RoleDressSkin$Skin3;
+		return t;
+	};
+	_proto.bmGroup_i = function () {
+		var t = new eui.Group();
+		this.bmGroup = t;
+		t.bottom = 0;
+		t.percentHeight = 47;
+		t.horizontalCenter = 0;
+		t.width = 720;
+		t.elementsContent = [this._Image2_i(),this.listGroup_i(),this.btnGroup_i()];
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.bottom = 0;
+		t.percentHeight = 90;
+		t.horizontalCenter = 0;
+		t.source = "dress_01_json.taboard-bg2";
+		return t;
+	};
+	_proto.listGroup_i = function () {
+		var t = new eui.Group();
+		this.listGroup = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.percentHeight = 100;
+		t.left = 0;
+		t.right = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.elementsContent = [this.sr_item_i()];
+		return t;
+	};
+	_proto.sr_item_i = function () {
+		var t = new eui.Scroller();
+		this.sr_item = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bottom = 0;
+		t.percentHeight = 85;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 720;
+		t.viewport = this.ls_items_i();
+		return t;
+	};
+	_proto.ls_items_i = function () {
+		var t = new eui.List();
+		this.ls_items = t;
+		t.anchorOffsetY = 0;
+		t.height = 356;
+		t.itemRendererSkinName = ItemPriceSkin;
+		t.x = 0;
+		t.y = -32;
+		t.layout = this._TileLayout1_i();
+		return t;
+	};
+	_proto._TileLayout1_i = function () {
+		var t = new eui.TileLayout();
+		t.horizontalGap = 18;
+		t.paddingBottom = 0;
+		t.paddingLeft = 30;
+		t.paddingRight = 30;
+		t.paddingTop = 10;
+		t.verticalGap = 22;
+		return t;
+	};
+	_proto.btnGroup_i = function () {
+		var t = new eui.Group();
+		this.btnGroup = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.percentHeight = 15;
+		t.horizontalCenter = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.top = 0;
+		t.width = 718.18;
+		t.elementsContent = [this._Image3_i(),this.img_moreR_i(),this.img_moreL_i(),this._Scroller1_i()];
+		return t;
+	};
+	_proto._Image3_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.horizontalCenter = 0;
+		t.source = "dress_01_json.taboard-bg1";
+		t.verticalCenter = 0;
+		t.width = 721;
+		return t;
+	};
+	_proto.img_moreR_i = function () {
+		var t = new eui.Image();
+		this.img_moreR = t;
+		t.horizontalCenter = 343.41;
+		t.source = "dress_01_json.dress_01_33";
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto.img_moreL_i = function () {
+		var t = new eui.Image();
+		this.img_moreL = t;
+		t.anchorOffsetX = 24;
+		t.anchorOffsetY = 39;
+		t.horizontalCenter = -345.59;
+		t.rotation = 180;
+		t.source = "dress_01_json.dress_01_33";
+		t.verticalCenter = 0;
+		return t;
+	};
+	_proto._Scroller1_i = function () {
+		var t = new eui.Scroller();
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 94.24;
+		t.horizontalCenter = -12.089999999999975;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.verticalCenter = 4.5;
+		t.width = 650.18;
+		t.viewport = this._Group1_i();
+		return t;
+	};
+	_proto._Group1_i = function () {
+		var t = new eui.Group();
+		t.anchorOffsetX = 0;
+		t.width = 709.18;
+		t.layout = this._HorizontalLayout2_i();
+		t.elementsContent = [this.part_back_i(),this.part_head_i(),this.part_body_i(),this.part_leg_i(),this.part_foot_i(),this.part_waist_i(),this.part_hand_i()];
+		return t;
+	};
+	_proto._HorizontalLayout2_i = function () {
+		var t = new eui.HorizontalLayout();
+		t.gap = 10;
+		t.horizontalAlign = "left";
+		t.paddingLeft = 10;
+		t.paddingRight = 10;
+		t.verticalAlign = "middle";
+		return t;
+	};
+	_proto.part_back_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_back = t;
+		t.enabled = true;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 104;
+		t.x = 43;
+		t.y = 31;
+		return t;
+	};
+	_proto.part_head_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_head = t;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 104;
+		t.x = 68;
+		t.y = 6;
+		return t;
+	};
+	_proto.part_body_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_body = t;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 104;
+		t.x = 115;
+		t.y = 6;
+		return t;
+	};
+	_proto.part_leg_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_leg = t;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 104;
+		t.x = 201;
+		t.y = 19;
+		return t;
+	};
+	_proto.part_foot_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_foot = t;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.width = 104;
+		t.x = 245;
+		t.y = 21;
+		return t;
+	};
+	_proto.part_waist_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_waist = t;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.visible = false;
+		t.width = 104;
+		t.x = 279;
+		t.y = 24;
+		return t;
+	};
+	_proto.part_hand_i = function () {
+		var t = new game.ChooseIcon();
+		this.part_hand = t;
+		t.height = 86;
+		t.skinName = "ChooseIconSkin";
+		t.touchEnabled = true;
+		t.visible = false;
+		t.width = 104;
+		t.x = 334;
+		t.y = 18;
+		return t;
+	};
+	return RoleDressSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ShopItemSkin.exml'] = window.ShopItemSkin = (function (_super) {
+	__extends(ShopItemSkin, _super);
+	function ShopItemSkin() {
+		_super.call(this);
+		this.skinParts = ["img_shopItemBg","img_shopItemIcon","img_shopItemSelect","shopItemName","shopItemAddtion","img_price","img_gold","img_diamond","txt_price","grp_price","img_star_0","img_star_1","img_star_2","img_star_3","img_star_4","star","btn_select","btn_select0"];
+		
+		this.height = 168;
+		this.width = 662;
+		this.elementsContent = [this.img_shopItemBg_i(),this.img_shopItemIcon_i(),this.img_shopItemSelect_i(),this.shopItemName_i(),this.shopItemAddtion_i(),this.grp_price_i(),this.star_i(),this.btn_select_i(),this.btn_select0_i()];
+	}
+	var _proto = ShopItemSkin.prototype;
+
+	_proto.img_shopItemBg_i = function () {
+		var t = new eui.Image();
+		this.img_shopItemBg = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 168;
+		t.source = "dress_01_json.dress_01_27";
+		t.width = 662;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.img_shopItemIcon_i = function () {
+		var t = new eui.Image();
+		this.img_shopItemIcon = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 138;
+		t.horizontalCenter = -186;
+		t.right = 448;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "equip_json.701";
+		t.top = 12;
+		t.verticalCenter = -3;
+		t.width = 138;
+		return t;
+	};
+	_proto.img_shopItemSelect_i = function () {
+		var t = new eui.Image();
+		this.img_shopItemSelect = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 30;
+		t.source = "dress_01_json.dress_01_25";
+		t.visible = false;
+		t.width = 36;
+		t.x = 21;
+		t.y = 63;
+		return t;
+	};
+	_proto.shopItemName_i = function () {
+		var t = new eui.Label();
+		this.shopItemName = t;
+		t.bold = true;
+		t.size = 30;
+		t.text = "宫廷大头";
+		t.textAlign = "center";
+		t.textColor = 0xa588db;
+		t.x = 234;
+		t.y = 20;
+		return t;
+	};
+	_proto.shopItemAddtion_i = function () {
+		var t = new eui.Label();
+		this.shopItemAddtion = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.bold = true;
+		t.height = 92.18;
+		t.size = 22;
+		t.text = "双倍积分时间增加1";
+		t.textAlign = "left";
+		t.textColor = 0x000000;
+		t.verticalAlign = "top";
+		t.width = 397.91;
+		t.x = 237;
+		t.y = 64.24;
+		return t;
+	};
+	_proto.grp_price_i = function () {
+		var t = new eui.Group();
+		this.grp_price = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 0;
+		t.width = 0;
+		t.x = 526.8;
+		t.y = 27.2;
+		t.elementsContent = [this.img_price_i(),this.img_gold_i(),this.img_diamond_i(),this.txt_price_i()];
+		return t;
+	};
+	_proto.img_price_i = function () {
+		var t = new eui.Image();
+		this.img_price = t;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "dress_01_json.dress_01_30";
+		t.visible = false;
+		t.x = 4.2;
+		t.y = -1;
+		return t;
+	};
+	_proto.img_gold_i = function () {
+		var t = new eui.Image();
+		this.img_gold = t;
+		t.height = 54;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "dress_01_json.dress_gold";
+		t.width = 53;
+		t.x = -20.5;
+		t.y = -2;
+		return t;
+	};
+	_proto.img_diamond_i = function () {
+		var t = new eui.Image();
+		this.img_diamond = t;
+		t.height = 54;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "dress_01_json.dress_01_19";
+		t.width = 53;
+		t.x = -22;
+		t.y = -1;
+		return t;
+	};
+	_proto.txt_price_i = function () {
+		var t = new eui.Label();
+		this.txt_price = t;
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.size = 24;
+		t.text = "10000";
+		t.textAlign = "center";
+		t.textColor = 0xff8b26;
+		t.verticalAlign = "middle";
+		t.width = 89;
+		t.x = 15.8;
+		t.y = 7;
+		return t;
+	};
+	_proto.star_i = function () {
+		var t = new eui.Group();
+		this.star = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 0;
+		t.width = 0;
+		t.x = 191;
+		t.y = 28;
+		t.elementsContent = [this.img_star_0_i(),this.img_star_1_i(),this.img_star_2_i(),this.img_star_3_i(),this.img_star_4_i()];
+		return t;
+	};
+	_proto.img_star_0_i = function () {
+		var t = new eui.Image();
+		this.img_star_0 = t;
+		t.height = 50;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "";
+		t.visible = false;
+		t.width = 48;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.img_star_1_i = function () {
+		var t = new eui.Image();
+		this.img_star_1 = t;
+		t.height = 50;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "";
+		t.visible = false;
+		t.width = 48;
+		t.x = 26;
+		t.y = 0;
+		return t;
+	};
+	_proto.img_star_2_i = function () {
+		var t = new eui.Image();
+		this.img_star_2 = t;
+		t.height = 50;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "";
+		t.visible = false;
+		t.width = 48;
+		t.x = 52;
+		t.y = 0;
+		return t;
+	};
+	_proto.img_star_3_i = function () {
+		var t = new eui.Image();
+		this.img_star_3 = t;
+		t.height = 50;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "";
+		t.visible = false;
+		t.width = 48;
+		t.x = 78;
+		t.y = 0;
+		return t;
+	};
+	_proto.img_star_4_i = function () {
+		var t = new eui.Image();
+		this.img_star_4 = t;
+		t.height = 50;
+		t.scaleX = 0.7;
+		t.scaleY = 0.7;
+		t.source = "";
+		t.visible = false;
+		t.width = 48;
+		t.x = 104;
+		t.y = 0;
+		return t;
+	};
+	_proto.btn_select_i = function () {
+		var t = new game.IconButton();
+		this.btn_select = t;
+		t.enabled = true;
+		t.height = 143;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.visible = false;
+		t.width = 680;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto.btn_select0_i = function () {
+		var t = new game.IconButton();
+		this.btn_select0 = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 145.73;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 63.06;
+		t.x = 3;
+		t.y = 9.13;
+		return t;
+	};
+	return ShopItemSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/role/ShoppingCartSkin.exml'] = window.ShoppingCartSkin = (function (_super) {
+	__extends(ShoppingCartSkin, _super);
+	function ShoppingCartSkin() {
+		_super.call(this);
+		this.skinParts = ["BG","listGroup","ShopItemViewScroller","center","BG3","goldNumTxt","userCoin","diamondNumTxt","userDiamond","top","BG2","coinGoldImage","coinDiamondImage","totalCost_gold","totalCost_diamond","btn_buy","shopNumBg","btn_all_Image","shopNum","totalCostLabel","allSelectTip","btn_all","totalCostTittle","totalCost_gold2","costGold","totalCost_diamond2","costDiamond","totalGroup","bottom","btn_close"];
+		
+		this.height = 1187;
+		this.width = 720;
+		this.elementsContent = [this.BG_i(),this.center_i(),this.top_i(),this.bottom_i(),this.btn_close_i()];
+	}
+	var _proto = ShoppingCartSkin.prototype;
+
+	_proto.BG_i = function () {
+		var t = new eui.Image();
+		this.BG = t;
+		t.height = 1136;
+		t.horizontalCenter = 0;
+		t.source = "dress_01_json.buy-bg";
+		t.verticalCenter = 35;
+		t.width = 720;
+		return t;
+	};
+	_proto.center_i = function () {
+		var t = new eui.Group();
+		this.center = t;
+		t.height = 900;
+		t.horizontalCenter = 13;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.top = 154;
+		t.verticalCenter = 54;
+		t.width = 680;
+		t.elementsContent = [this.ShopItemViewScroller_i()];
+		return t;
+	};
+	_proto.ShopItemViewScroller_i = function () {
+		var t = new eui.Scroller();
+		this.ShopItemViewScroller = t;
+		t.anchorOffsetY = 0;
+		t.height = 786.43;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 680;
+		t.x = 0;
+		t.y = 21.36;
+		t.viewport = this.listGroup_i();
+		return t;
+	};
+	_proto.listGroup_i = function () {
+		var t = new eui.Group();
+		this.listGroup = t;
+		t.layout = this._VerticalLayout1_i();
+		return t;
+	};
+	_proto._VerticalLayout1_i = function () {
+		var t = new eui.VerticalLayout();
+		return t;
+	};
+	_proto.top_i = function () {
+		var t = new eui.Group();
+		this.top = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 0;
+		t.horizontalCenter = -360;
+		t.top = -84;
+		t.verticalCenter = -634;
+		t.width = 0;
+		t.elementsContent = [this.BG3_i(),this.userCoin_i(),this.userDiamond_i()];
+		return t;
+	};
+	_proto.BG3_i = function () {
+		var t = new eui.Image();
+		this.BG3 = t;
+		t.anchorOffsetY = 0;
+		t.height = 130;
+		t.source = "dress_01_json.shoppingcart-txt";
+		t.width = 302;
+		t.x = 209;
+		t.y = 61;
+		return t;
+	};
+	_proto.userCoin_i = function () {
+		var t = new eui.Group();
+		this.userCoin = t;
+		t.height = 50;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 200;
+		t.x = 469;
+		t.y = 189;
+		t.elementsContent = [this._Image1_i(),this._Image2_i(),this.goldNumTxt_i()];
+		return t;
+	};
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetY = 0;
+		t.height = 49;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_30";
+		t.width = 184;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image2_i = function () {
+		var t = new eui.Image();
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_gold";
+		t.x = -3;
+		t.y = -1;
+		return t;
+	};
+	_proto.goldNumTxt_i = function () {
+		var t = new eui.Label();
+		this.goldNumTxt = t;
+		t.fontFamily = "Arial";
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.width = 115;
+		t.x = 42.5;
+		t.y = 11;
+		return t;
+	};
+	_proto.userDiamond_i = function () {
+		var t = new eui.Group();
+		this.userDiamond = t;
+		t.height = 50;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 200;
+		t.x = 72.48;
+		t.y = 189;
+		t.elementsContent = [this._Image3_i(),this._Image4_i(),this.diamondNumTxt_i()];
+		return t;
+	};
+	_proto._Image3_i = function () {
+		var t = new eui.Image();
+		t.height = 49;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_30";
+		t.width = 184;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	_proto._Image4_i = function () {
+		var t = new eui.Image();
+		t.height = 54;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_19";
+		t.width = 53;
+		t.x = -3;
+		t.y = -1;
+		return t;
+	};
+	_proto.diamondNumTxt_i = function () {
+		var t = new eui.Label();
+		this.diamondNumTxt = t;
+		t.fontFamily = "Arial";
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.width = 115;
+		t.x = 42.5;
+		t.y = 11;
+		return t;
+	};
+	_proto.bottom_i = function () {
+		var t = new eui.Group();
+		this.bottom = t;
+		t.height = 0;
+		t.horizontalCenter = 200;
+		t.right = 160;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.top = 879;
+		t.verticalCenter = 289;
+		t.width = 0;
+		t.elementsContent = [this.BG2_i(),this.coinGoldImage_i(),this.coinDiamondImage_i(),this.totalCost_gold_i(),this.totalCost_diamond_i(),this.btn_buy_i(),this.shopNumBg_i(),this.btn_all_Image_i(),this.shopNum_i(),this.totalCostLabel_i(),this.allSelectTip_i(),this.btn_all_i(),this.totalGroup_i()];
+		return t;
+	};
+	_proto.BG2_i = function () {
+		var t = new eui.Image();
+		this.BG2 = t;
+		t.anchorOffsetY = 0;
+		t.height = 111;
+		t.source = "dress_01_json.dress_01_28";
+		t.width = 692;
+		t.x = -546;
+		t.y = 178;
+		return t;
+	};
+	_proto.coinGoldImage_i = function () {
+		var t = new eui.Image();
+		this.coinGoldImage = t;
+		t.anchorOffsetY = 0;
+		t.height = 41;
+		t.source = "dress_01_json.dress_gold";
+		t.visible = false;
+		t.width = 41;
+		t.x = -502;
+		t.y = 190;
+		return t;
+	};
+	_proto.coinDiamondImage_i = function () {
+		var t = new eui.Image();
+		this.coinDiamondImage = t;
+		t.anchorOffsetY = 0;
+		t.height = 41;
+		t.source = "dress_01_json.dress_01_19";
+		t.visible = false;
+		t.width = 41;
+		t.x = -396;
+		t.y = 190;
+		return t;
+	};
+	_proto.totalCost_gold_i = function () {
+		var t = new eui.Label();
+		this.totalCost_gold = t;
+		t.fontFamily = "Arial";
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.visible = false;
+		t.width = 115;
+		t.x = -540;
+		t.y = 234;
+		return t;
+	};
+	_proto.totalCost_diamond_i = function () {
+		var t = new eui.Label();
+		this.totalCost_diamond = t;
+		t.fontFamily = "Arial";
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.visible = false;
+		t.width = 115;
+		t.x = -432;
+		t.y = 234;
+		return t;
+	};
+	_proto.btn_buy_i = function () {
+		var t = new game.IconButton();
+		this.btn_buy = t;
+		t.height = 20;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.width = 20;
+		t.x = -6;
+		t.y = 230;
+		return t;
+	};
+	_proto.shopNumBg_i = function () {
+		var t = new eui.Image();
+		this.shopNumBg = t;
+		t.anchorOffsetY = 0;
+		t.height = 51;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.numBg";
+		t.width = 51;
+		t.x = 69;
+		t.y = 190;
+		return t;
+	};
+	_proto.btn_all_Image_i = function () {
+		var t = new eui.Image();
+		this.btn_all_Image = t;
+		t.anchorOffsetY = 0;
+		t.height = 39;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_38";
+		t.width = 108;
+		t.x = -515;
+		t.y = 215;
+		return t;
+	};
+	_proto.shopNum_i = function () {
+		var t = new eui.Label();
+		this.shopNum = t;
+		t.fontFamily = "Arial";
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.size = 27;
+		t.text = "0";
+		t.textAlign = "center";
+		t.verticalAlign = "justify";
+		t.width = 38;
+		t.x = 75;
+		t.y = 200;
+		return t;
+	};
+	_proto.totalCostLabel_i = function () {
+		var t = new eui.Label();
+		this.totalCostLabel = t;
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.fontFamily = "Arial";
+		t.size = 30;
+		t.text = "全选";
+		t.textAlign = "center";
+		t.textColor = 0xd4f6f9;
+		t.visible = false;
+		t.width = 85;
+		t.x = -470;
+		t.y = 223;
+		return t;
+	};
+	_proto.allSelectTip_i = function () {
+		var t = new eui.Image();
+		this.allSelectTip = t;
+		t.anchorOffsetY = 0;
+		t.height = 30;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_25";
+		t.visible = false;
+		t.width = 36;
+		t.x = -512;
+		t.y = 217;
+		return t;
+	};
+	_proto.btn_all_i = function () {
+		var t = new game.IconButton();
+		this.btn_all = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 104;
+		t.left = -530;
+		t.right = 450;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.verticalCenter = 239;
+		return t;
+	};
+	_proto.totalGroup_i = function () {
+		var t = new eui.Group();
+		this.totalGroup = t;
+		t.height = 0;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.width = 0;
+		t.x = -327;
+		t.y = 117.00000000000011;
+		t.elementsContent = [this.totalCostTittle_i(),this.costGold_i(),this.costDiamond_i()];
+		return t;
+	};
+	_proto.totalCostTittle_i = function () {
+		var t = new eui.Label();
+		this.totalCostTittle = t;
+		t.anchorOffsetX = 0;
+		t.bold = true;
+		t.fontFamily = "Arial";
+		t.size = 24;
+		t.text = "合计：";
+		t.textAlign = "center";
+		t.width = 85;
+		t.x = 99;
+		t.y = 32;
+		return t;
+	};
+	_proto.costGold_i = function () {
+		var t = new eui.Group();
+		this.costGold = t;
+		t.height = 50;
+		t.scaleX = 0.8;
+		t.scaleY = 0.8;
+		t.width = 150;
+		t.x = 329;
+		t.y = 18;
+		t.elementsContent = [this._Image5_i(),this.totalCost_gold2_i()];
+		return t;
+	};
+	_proto._Image5_i = function () {
+		var t = new eui.Image();
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_gold";
+		t.x = 1;
+		t.y = 2;
+		return t;
+	};
+	_proto.totalCost_gold2_i = function () {
+		var t = new eui.Label();
+		this.totalCost_gold2 = t;
+		t.anchorOffsetX = 0;
+		t.fontFamily = "Arial";
+		t.size = 30;
+		t.text = "0";
+		t.textAlign = "center";
+		t.width = 135;
+		t.x = 36;
+		t.y = 15;
+		return t;
+	};
+	_proto.costDiamond_i = function () {
+		var t = new eui.Group();
+		this.costDiamond = t;
+		t.height = 50;
+		t.scaleX = 0.8;
+		t.scaleY = 0.8;
+		t.width = 150;
+		t.x = 185;
+		t.y = 18;
+		t.elementsContent = [this._Image6_i(),this.totalCost_diamond2_i()];
+		return t;
+	};
+	_proto._Image6_i = function () {
+		var t = new eui.Image();
+		t.bottom = -5;
+		t.height = 54;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "dress_01_json.dress_01_19";
+		t.top = 0;
+		t.verticalCenter = 2.5;
+		t.x = 1;
+		return t;
+	};
+	_proto.totalCost_diamond2_i = function () {
+		var t = new eui.Label();
+		this.totalCost_diamond2 = t;
+		t.fontFamily = "Arial";
+		t.size = 30;
+		t.text = "0";
+		t.textAlign = "center";
+		t.width = 135;
+		t.x = 36;
+		t.y = 15;
+		return t;
+	};
+	_proto.btn_close_i = function () {
+		var t = new game.IconButton();
+		this.btn_close = t;
+		t.height = 68;
+		t.horizontalCenter = -301;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "IconButtonSkin";
+		t.verticalCenter = -481.5;
+		t.width = 80;
+		return t;
+	};
+	return ShoppingCartSkin;
 })(eui.Skin);

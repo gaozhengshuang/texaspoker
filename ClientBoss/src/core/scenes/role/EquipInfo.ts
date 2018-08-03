@@ -31,10 +31,11 @@ module game {
             this.txt_name && (this.txt_name.text = name);
         }
         
-        public set skillAddition (des:string)
+        public set skillAddition (des:egret.ITextElement[])
         {
             this.totalAddition.lineSpacing = 5;
-            this.totalAddition.textFlow = (new egret.HtmlTextParser).parser(des);
+            //this.totalAddition.textFlow = (new egret.HtmlTextParser).parser(des);
+            this.totalAddition.textFlow = <Array<egret.ITextElement>>des;
         }
     }
 

@@ -4,6 +4,7 @@ module game {
         startButton: IconButton;
         bagButton: IconButton;
         luckyLight: eui.Image;
+        coin_gold: game.Coins;
 
         gift_1: LuckyItem;
         gift_2: LuckyItem;
@@ -35,9 +36,12 @@ module game {
         }
 
         protected init() {
-            this.closeButton.icon = "lucky_json.luckycloseBtn";
+            this.closeButton.icon = "lucky_json.leftBack";
             this.startButton.icon = "lucky_json.luckyBtn";
             this.bagButton.icon = "lucky_json.bagBtn";
+
+            this.coin_gold.setCoinType(msg.MoneyType._Gold);
+
             this.initGift();
         }
 
@@ -47,12 +51,6 @@ module game {
             this._giftIndex = 0;
             this.luckyLight.x = this.gift_1.x;
             this.luckyLight.y = this.gift_1.y;
-
-            this._touchEvent = [
-                { target: this.closeButton, callBackFunc: this.backHandle },
-                { target: this.startButton, callBackFunc: this.startLuckyHandle },
-                { target: this.bagButton, callBackFunc: this.bagHandle },
-            ];
 
             this.registerEvent();
         }
@@ -67,6 +65,22 @@ module game {
 
         private registerEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_LuckyDrawHit, "msg.GW2C_LuckyDrawHit");
+
+             this._touchEvent = [
+                { target: this.closeButton, callBackFunc: this.backHandle },
+                { target: this.startButton, callBackFunc: this.startLuckyHandle },
+                { target: this.bagButton, callBackFunc: this.bagHandle },
+            ];
+
+            this._notify = [
+                {
+                    source: DataManager.playerModel,
+                    target: this,
+                    callBackFunc: this.updateScore,
+                    notifyName: PlayerModel.SCORE_UPDATE,
+                    execute: true
+                },
+            ];
         }
 
         private removeEvent() {
@@ -154,6 +168,9 @@ module game {
                 let giftInfo = table.TBallGiftById[this._giftIndex];
                 if (giftInfo) {
                     showTips("恭喜您获得: " + giftInfo.Name);
+                    if (giftInfo.ItemId == 6003) {
+                        DataManager.playerModel.addScore(giftInfo.Num);
+                    }
                 }
             }.bind(this);
 
@@ -168,6 +185,10 @@ module game {
 
             this.backHandle();
             openPanel(PanelType.bag);
+        }
+
+        private updateScore() {
+            this.coin_gold.coins = DataManager.playerModel.getScore();
         }
 
         private static _instance: BattleLucky;

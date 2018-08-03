@@ -55,11 +55,11 @@
 	<e:Image id="topBg" source="ui_json.topBg" x="0" scale9Grid="90,10,540,45" y="0" touchEnabled="false"/>
 	<e:Group id="touchGroup" width="720" height="100%"/>
 	<e:Group id="bottomGroup" width="720" height="210" horizontalCenter="0" bottom="0">
-		<e:Image source="ui_json.gameBtnBg" horizontalCenter="0" verticalCenter="0"/>
-		<game:IconButton id="luckyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="181.5"/>
-		<game:IconButton id="userButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-300.5"/>
-		<game:IconButton id="rechargeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-174.5"/>
-		<game:IconButton id="bagButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="303.5"/>
+		<e:Image source="ui_json.gameBtnBg" horizontalCenter="0" verticalCenter="0" visible="false"/>
+		<game:IconButton id="luckyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="181.5" visible="false"/>
+		<game:IconButton id="userButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-300.5" visible="false"/>
+		<game:IconButton id="rechargeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="276.5" verticalCenter="39.5"/>
+		<game:IconButton id="bagButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="303.5" visible="false"/>
 	</e:Group>
 	<e:Group id="mainGroup" width="720" height="100%" touchChildren="true" touchEnabled="false">
 
@@ -90,7 +90,9 @@
 	</e:Group>
 	
 	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" y="10" horizontalCenter="-319.5"/>
-	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff"/>
+	<game:Coins id="coin_money" width="195" height="55" x="114" y="15.03" skinName="CoinsSkin"/>
+	<game:Coins id="coin_gold" width="195" height="55" x="351" y="15.03" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
+	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff" visible="false"/>
 
 
 	<e:Label id="hitLabel" text="" stroke="2" strokeColor="0xFFFFFF" right="20" top="20" textColor="0x898989" visible="false"/>

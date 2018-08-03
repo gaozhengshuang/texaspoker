@@ -110,7 +110,6 @@ func (this *UserImage) DressClothes(pos int32, itemid int32) {
 // 脱下服装
 func (this *UserImage) UnDressClothes(pos int32, syn bool) {
 	if clothes := this.GetClothesByPos(pos); clothes == nil {
-		this.owner.SendNotify("没有需要脱下的服装")
 		return
 	}
 
@@ -128,3 +127,14 @@ func (this *UserImage) UnDressAll(syn bool) {
 	}
 }
 
+
+//
+func (this *UserImage) IsHaveDressSuit() bool {
+	clothes := this.clothes[this.owner.Sex()]
+	for _, v := range clothes {
+		if v.GetPos() == int32(msg.ItemPos_Suit) {
+			return true 
+		}
+	}
+	return false
+}

@@ -32,6 +32,7 @@ enum ItemType {
     Advertisement   = 8;    // 广告
     Smallware       = 9;    // 小商品
     DiamondItem     = 10;   // 钻石道具
+    ClothesItem     = 11;   // 时装
 }
 
 message PairNumItem {
@@ -65,3 +66,9 @@ enum Sex {
     Male = 1;
     Neutral = 2;
 }
+
+enum MoneyType {
+    _Gold = 1;
+    _Diamond = 2;
+}
+

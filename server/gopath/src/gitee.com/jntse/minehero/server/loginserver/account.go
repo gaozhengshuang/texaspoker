@@ -17,7 +17,7 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 )
 
-type ClientAccount struct {
+type CheckInAccount struct {
 	session network.IBaseNetSession
 	account string
 	tm_login int64
@@ -113,7 +113,7 @@ func QuickLogin(session network.IBaseNetSession, account string) bool {
 
 	log.Info("账户[%s] 快速登陆Gate[ip:%s port:%d]", account, ip, port)
 	session.SendCmd(newL2C_RetLogin("", ip, port, vkey))
-	Login().AddAuthenAccount(account, session)		// 避免同时登陆
+	Login().CheckInSetAdd(account, session)		// 避免同时登陆
 	return true
 }
 
@@ -356,10 +356,10 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 		
 		// 初始元宝和金卷
-		gold := uint32(tbl.Global.NewUser.Gold)
+		diamond := uint32(tbl.Global.NewUser.Diamond)
 		userinfo := &msg.Serialize {
 			Entity : &msg.EntityBase{ Id:pb.Uint64(userid), Name:pb.String(nickname), Face:pb.String(""), Account:pb.String(account) },
-			Base : &msg.UserBase{Gold: pb.Uint32(gold), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(0), Level:pb.Uint32(1)},
+			Base : &msg.UserBase{Diamond:pb.Uint32(diamond), Invitationcode:pb.String(invitationcode), Yuanbao:pb.Uint32(0), Level:pb.Uint32(1)},
 			Item : &msg.ItemBin{},
 		}
 		userinfo.Entity.Sex = pb.Int32(int32(msg.Sex_Female))

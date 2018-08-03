@@ -20,20 +20,26 @@ module game {
         ShopItemList        : eui.List;
         listGroup           : eui.Group;
         
-        btn_close                   : IconButton;
-        btn_buy                     : IconButton;
-        goldNumTxt                  : eui.Label;
-        diamondNumTxt               : eui.Label;
-        shopNum                     : eui.Label;
-        totalCost_gold              : eui.Label;
-        totalCost_diamond           : eui.Label;
+        btn_close                       :IconButton;
+        btn_buy                         :IconButton;
+        btn_all                         :IconButton;
+        allSelectTip                    :eui.Image;
+        shopNumBg                       :eui.Image;                             
+        goldNumTxt                      :eui.Label;
+        diamondNumTxt                   :eui.Label;
+        shopNum                         :eui.Label;
+        totalCost_gold2                 :eui.Label;
+        totalCost_diamond2              :eui.Label;
         
         _dataProvider       : eui.ArrayCollection;
 
-        _allShopItemIds     : number[];
-        _shopItemCarts      : table.IEquipDefine[];
-        totalCosts          : number[];
-
+        totalCosts          : number[];             //选中合计花费
+        _allShopItemIds     : number[];             //购物车内所有商品ID
+        _ShopItemInfos      : ShopItemInfo[];      
+        _shopItemCarts      : table.IEquipDefine[]; //当前选择商品
+        
+        _selectAll = false;
+        
         protected getSkinName() {
             return ShoppingCartSkin;
         }
@@ -55,17 +61,18 @@ module game {
 
             this._shopItemCarts = [];
             this.totalCosts = [0,0,0];
-            this.btn_close.icon = "dress_01_json.dress_01_16"
+            this.btn_close.icon = "lucky_json.leftBack"
             this.btn_buy.icon = "dress_01_json.dress_01_21";
+            this.btn_all.icon = "shopItemButtonBg_png";
         }
 
         protected beforeShow() {
             this._touchEvent = [
                 { target: this.btn_close, callBackFunc: this.OnCloseHandle },
                 { target: this.btn_buy, callBackFunc: this.OnConfirmBuy },
+                { target: this.btn_all, callBackFunc: this.OnSeletAll },
             ];
         }
-
         //更新购物车商品列表
         public UpdateData(ids:number[])
         {
@@ -74,19 +81,28 @@ module game {
         }
 
         public refreshShopCarts()
-        {
+        {   
+            //刷新金币和钻石
             let goldNum = DataManager.playerModel.getScore();
-            let moneyNum = <number>DataManager.playerModel.getTotalMoney();
-            
+            let moneyNum = DataManager.playerModel.getDiamond();
             this.goldNumTxt.text = goldNum.toString();
             this.diamondNumTxt.text = moneyNum.toString();
 
             this._shopItemCarts = [];
+            this._ShopItemInfos = [];
             this.totalCosts = [0,0,0];
 
+            //选中和累计数量
             this.shopNum.text = "0";
-            this.totalCost_gold.text = "0";
-            this.totalCost_diamond.text = "0";
+            this.totalCost_gold2.text = "0";
+            this.totalCost_diamond2.text = "0";
+
+            //全选提示
+            this._selectAll = false;
+            this.allSelectTip.visible  = this._selectAll;
+
+            this.shopNumBg.visible  = this.shopNum.visible = false;
+
             this.UpdateList();
         }
 
@@ -96,15 +112,14 @@ module game {
             if(!this._allShopItemIds || this._allShopItemIds.length==0) return;
           
             this._dataProvider = new eui.ArrayCollection();
-
+            
             for (let i = 0; i < this._allShopItemIds.length; i++) {
                 let data: table.IEquipDefine = table.EquipById[this._allShopItemIds[i]];
                 let item: ShopItemInfo = new ShopItemInfo();
+                this._ShopItemInfos.push(item);
 
                 item.x = 0;
                 item.y = 150 * i;
-                item.width = 680;
-                item.height = 141;
                 item.setData(data);
                 this.listGroup.addChild(item);
             }
@@ -125,14 +140,15 @@ module game {
 
             let curgold = DataManager.playerModel.getScore();
             let textColor = curgold < this.totalCosts[0] ? 0xFF0026 : 0xFFFFFF;
-            this.totalCost_gold.textFlow = [
+            this.totalCost_gold2.textFlow = [
                 {text:this.totalCosts[0].toString(), style:{"textColor": textColor,"bold": true}}]
 
-            curgold = <number>DataManager.playerModel.getTotalMoney();
+            curgold = DataManager.playerModel.getDiamond();
             textColor = curgold < this.totalCosts[1] ? 0xFF0026 : 0xFFFFFF;
-            this.totalCost_diamond.textFlow = [
+            this.totalCost_diamond2.textFlow = [
                 {text:this.totalCosts[1].toString(), style:{"textColor": textColor,"bold": true}}]
                 
+            this.shopNumBg.visible  = this.shopNum.visible = this._shopItemCarts.length > 0;
         }
 
         private _selectShopItem(data: table.IEquipDefine) {
@@ -173,6 +189,7 @@ module game {
             sc.viewport.scrollV += 10;
             if ((sc.viewport.scrollV + sc.height) >= sc.viewport.contentHeight) {
                 console.log("滚动到底部了");
+                this._ShopItemInfos[0].alpha = 0.5;
             }
         }
 
@@ -182,6 +199,13 @@ module game {
             if(this._shopItemCarts.length==0) return;
             let list: number[]  = this._shopItemCarts.map(item =>{return item.Id;});
             sendMessage("msg.C2GW_BuyClothes", msg.C2GW_BuyClothes.encode({itemList:list}));
+        }
+
+        //选择全部
+        private OnSeletAll(){
+            this._selectAll = !this._selectAll;
+            this.allSelectTip.visible  = this._selectAll;
+            this._ShopItemInfos.forEach(item=>{item.chooseAll(this._selectAll);});
         }
 
         private OnCloseHandle() {

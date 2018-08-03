@@ -115,7 +115,7 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 			break
 		}
 
-		if Login().FindAuthenAccount(account) == true {
+		if Login().CheckInSetFind(account) == true {
 			errcode = "同时登陆多个账户"
 			break
 		}
@@ -149,7 +149,7 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 			Verifykey : pb.String(md5string),
 		}
 		agent.SendMsg(sendmsg)
-		Login().AddAuthenAccount(account, session)		// 避免同时登陆
+		Login().CheckInSetAdd(account, session)		// 避免同时登陆
 		tm5 := util.CURTIMEUS()
 		log.Info("登陆验证通过，请求注册玩家到Gate sid[%d] account[%s] host[%s] 登陆耗时%dus", session.Id(), account, agent.Host(), tm5-tm1)
 		return
@@ -187,7 +187,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 			break
 		}
 
-		if Login().FindAuthenAccount(account) == true {
+		if Login().CheckInSetFind(account) == true {
 			errcode = "同时登陆多个账户"
 			break
 		}
@@ -221,7 +221,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 			Verifykey : pb.String(md5string),
 		}
 		agent.SendMsg(sendmsg)
-		Login().AddAuthenAccount(account, session)		// 避免同时登陆
+		Login().CheckInSetAdd(account, session)		// 避免同时登陆
 		tm5 := util.CURTIMEUS()
 		log.Info("登陆验证通过，请求注册玩家到Gate sid[%d] account[%s] host[%s] 登陆耗时%dus",session.Id(), account, agent.Host(), tm5-tm1)
 		return

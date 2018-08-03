@@ -392,14 +392,14 @@ func (this *RoomUser) AddDiamond(num uint32, reason string, syn bool) {
 }
 
 // 添加道具
-func (this *RoomUser) AddItem(item uint32, num uint32, reason string) {
+func (this *RoomUser) AddItem(item uint32, num uint32, reason string, syn bool) {
 
     if item == uint32(msg.ItemId_YuanBao) {
         this.AddYuanbao(num, reason)
     }else if item == uint32(msg.ItemId_Gold) {
-        this.AddGold(num, reason, false)
+        this.AddGold(num, reason, syn)
     }else if item == uint32(msg.ItemId_Diamond) {
-		this.AddDiamond(num, reason, true)
+		this.AddDiamond(num, reason, syn)
 	}else if item == uint32(msg.ItemId_FreeStep) {
 		this.AddFreeStep(num, reason)
 	}else{
@@ -519,22 +519,6 @@ func (this *RoomUser) AsynEventInsert(event eventque.IEvent) {
 	this.asynev.Push(event)
 }
 
-// 推送资源消耗
-//func (this *RoomUser) PlatformPushConsumeMoney(yuanbao float32) {
-//	rmbcent := 100.0 * yuanbao / float32(tbl.Room.RmbToYuanbao)
-//	arglist := []interface{}{this.Account(), this.Token(), uint64(this.Id()), uint32(rmbcent)}
-//	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceConsumeArglist, nil)
-//	this.AsynEventInsert(event)
-//}
-//
-//// 推送资源获取
-//func (this *RoomUser) PlatformPushLootMoney(yuanbao float32) {
-//	rmbcent := 100.0 * yuanbao / float32(tbl.Room.RmbToYuanbao)
-//	arglist := []interface{}{this.Account(), this.Token(), uint64(this.Id()), uint32(rmbcent)}
-//	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceEarnArglist, nil)
-//	this.AsynEventInsert(event)
-//}
-
 func (this *RoomUser) LuckyDraw() {
 	// 检查消耗
 	cost := uint32(tbl.Game.LuckDrawPrice)
@@ -575,10 +559,6 @@ func (this *RoomUser) LuckyDraw() {
 		}
 	}
 
-	//giftweight := make([]util.WeightOdds, 0)
-	//for k ,v := range tbl.TBallGiftbase.TBallGiftById {
-	//	giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
-	//}
 	index := util.SelectByWeightOdds(giftweight)
 	if index < 0 || index >= int32(len(giftweight)) {
 		log.Error("[%d %s] 抽奖异常，无法获取抽奖id", this.Id(), this.Name())
@@ -593,7 +573,11 @@ func (this *RoomUser) LuckyDraw() {
 	}
 
 	this.RemoveGold(cost, "幸运抽奖", true)
-	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
+	if uint32(gift.ItemId) == uint32(msg.ItemId_Gold) {
+		this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖", false)
+	}else {
+		this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖", true)
+	}
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
 	this.SetLuckyDrawTotalWroth(this.GetLuckyDrawTotalWroth() + int64(gift.Cost))
@@ -637,7 +621,7 @@ func (this *RoomUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 	if uint32(amt_save) > this.TotalRecharge()  {
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
-		this.AddDiamond(recharge, "充值获得", false)
+		this.AddDiamond(recharge, "充值获得", true)
 		this.SetDiamondCost(this.GetDiamondCost() + int64(recharge))
 		//send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Uint64(this.Id()), Diamond:pb.Uint32(recharge) }
 		//this.SendClientMsg(send)
@@ -686,19 +670,13 @@ func (this *RoomUser) ReqLaunchBullet() {
 	switch {
 	default:
 		// 检查余额
-		if uint32(tbl.Game.BulletPrice) > this.GetGold() {
-			errmsg = "金币不足"
+		if uint32(tbl.Game.BulletPrice) > this.GetDiamond() {
+			errmsg = "钻石不足"
 			break
 		}
 
-		// 充值同步中
-		//if this.synbalance == true {
-		//	errmsg = "充值中"
-		//	break
-		//}
-
 		// 不同步
-		this.RemoveGold(uint32(tbl.Game.BulletPrice), "发射子弹", false)
+		this.RemoveDiamond(uint32(tbl.Game.BulletPrice), "发射子弹", true)
 
 		bulletid = this.bulletid + 1
 		this.bulletid += 1

@@ -10,13 +10,14 @@ module game {
         static TOP_UPDATE = "PlayerModel_TOP_UPDATE";
         static BAG_UPDATE = "PlayerModel_BAG_UPDATE";
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
+        static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
 
         public penetration: number = 0;
-        public userInfo: IUserInfo = {face: "1", name: "",userid: 0, rank: 0, gold:0, diamond: 0, openid: "", addrlist: []};
+        public userInfo: IUserInfo = { face: "1", name: "", userid: 0, rank: 0, gold: 0, diamond: 0, openid: "", addrlist: [], PersonalImage: null };
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
-        public totalMoney: number|Long = 0;
+        public totalMoney: number | Long = 0;
         private _tasks;
 
         public RegisterEvent() {
@@ -30,7 +31,8 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendLuckyDrawRecord, "msg.GW2C_SendLuckyDrawRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
-            NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
+            // NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -40,6 +42,7 @@ module game {
             this.userInfo.userid = data.entity.id;
             this.userInfo.openid = data.base.wechat.openid;
             this.userInfo.addrlist = data.base.addrlist;
+            this.userInfo.PersonalImage = data.base.images;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;
@@ -87,8 +90,22 @@ module game {
             this.userInfo.addrlist = data.list;
         }
 
-        private OnGW2C_RetGoldExchange(data: msg.GW2C_RetGoldExchange) {
-            this.addScore(data.gold);
+        // private OnGW2C_RetGoldExchange(data: msg.GW2C_RetGoldExchange) {
+        //     this.addScore(data.gold);
+        // }
+        
+        public get clothes() {
+            return this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists;
+        }
+
+        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
+            this.userInfo.PersonalImage.lists = this.userInfo.PersonalImage.lists.map(
+                item => {
+                    if (item.sex == data.images.sex) return data.images;
+                    return item;
+                }
+            );
+            this.skillUpdate();
         }
 
         public setScore(count: number) {
@@ -132,8 +149,8 @@ module game {
                 }
             }
 
-            if(isPush) {
-                this.bagList.push({id: itemId, num: itemNum});
+            if (isPush) {
+                this.bagList.push({ id: itemId, num: itemNum });
             }
         }
 
@@ -143,7 +160,7 @@ module game {
                     this.bagList[i].num -= itemNum;
 
                     if (this.bagList[i].num <= 0) {
-                        this.bagList.splice(i,1);
+                        this.bagList.splice(i, 1);
                     }
                     break;
                 }
@@ -153,21 +170,20 @@ module game {
         public getBag() {
             return this.bagList;
         }
+
         //获取背包中的物品
-        public getBagItem(itemId:number)
-        {   
-            this.bagList.forEach(item=>{
-                if(item.id===itemId)
-                {
+        public getBagItem(itemId: number) {
+            this.bagList.forEach(item => {
+                if (item.id === itemId) {
                     return item;
                 }
             });
             return null;
         }
+        
         //背包是否有这个物品
-        public IsHaveItem(itemId:number)
-        {
-            return this.bagList.some(item=>{return item.id===itemId;});
+        public IsHaveItem(itemId: number) {
+            return this.bagList.some(item => { return item.id === itemId; });
         }
 
         get musicState() {
@@ -223,7 +239,7 @@ module game {
             let sendInfo: IUpdateScore = {
                 face: this.userInfo.face,
                 name: this.userInfo.name,
-                openid: this.userInfo.userid+"",
+                openid: this.userInfo.userid + "",
                 score: this.getScore(),
                 token: ""
             };
@@ -237,6 +253,31 @@ module game {
             }
         }
 
+
+
+        //-----------------------------------
+        public skillUpdate() {
+            let clothes = this.clothes;
+            if (!clothes) return;
+            SkillManager.getInstance().resetEquipSKill();
+            clothes.forEach(
+                imageData => {
+                    if (imageData.sex == this.sex) {
+                        imageData.clothes.forEach(
+                            itemData => {
+                                let equipData = table.EquipById[itemData.id];
+                                equipData.Skill.forEach(
+                                    skillId => {
+                                        let skillData = table.TSkillById[parseInt(skillId)];
+                                        SkillManager.getInstance().checkEquipSkill(skillData.Type, skillData.Num, skillData.NumPer);
+                                    }
+                                );
+                            }
+                        );
+                    }
+                }
+            );
+        }
         public addPenetration(num: number) {
             this.penetration = num;
             this.postNotification(PlayerModel.PENETRATION_UPDATE);
@@ -247,11 +288,11 @@ module game {
             this.postNotification(PlayerModel.PENETRATION_UPDATE);
         }
 
-        public async openRankPanel(){
+        public async openRankPanel() {
             let sendInfo: IGetRankList = {
                 face: this.userInfo.face,
                 name: this.userInfo.name,
-                openid: this.userInfo.userid+"",
+                openid: this.userInfo.userid + "",
                 start: 0,
                 stop: 1,
                 token: ""
@@ -267,7 +308,7 @@ module game {
             let sendInfo: IGetRankList = {
                 face: this.userInfo.face,
                 name: this.userInfo.name,
-                openid: this.userInfo.userid+"",
+                openid: this.userInfo.userid + "",
                 start: begin,
                 stop: begin + 50,
                 token: ""
@@ -289,7 +330,7 @@ module game {
         }
 
         public async getPlayerGoods() {
-            let r = <string>await ajax(`${$goodsIp}${$goodsPath}`, {uid: this.getUserId(), state: 0, gameid: 10002});
+            let r = <string>await ajax(`${$goodsIp}${$goodsPath}`, { uid: this.getUserId(), state: 0, gameid: 10002 });
             let json = JSON.parse(r);
             if (json.code == 0 || json.msg == "操作成功") {
                 return json.data;
@@ -330,7 +371,7 @@ module game {
         }
 
         public getTask(taskId: number) {
-            for(let t of this._tasks) {
+            for (let t of this._tasks) {
                 if (t.id == taskId) {
                     return t;
                 }
@@ -338,6 +379,6 @@ module game {
             return null;
         }
 
-        
+
     }
 }

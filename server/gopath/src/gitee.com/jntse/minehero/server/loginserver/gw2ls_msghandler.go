@@ -91,7 +91,7 @@ func on_GW2L_RegistUserRet(session network.IBaseNetSession, message interface{})
 
 	// 获取玩家Session
 	usession := Login().GetSession(sid)
-	if usession == nil || reflect.ValueOf(usession).IsNil() {
+	if usession == nil /*|| reflect.ValueOf(usession).IsNil() */{
 		log.Error("注册玩家%s到Gate返回，玩家已经离开Login", account)
 		return
 	}

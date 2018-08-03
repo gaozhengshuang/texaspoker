@@ -28,7 +28,7 @@ message EquipDefine
 	optional string Desc = 3; // 装备简介
 	
 	
-	optional int32 Pos = 4; // 装备类型：1.头部2.上身3.下身4.鞋子5.翅膀6.手持7.套装8长衣
+	optional int32 Pos = 4; // 装备类型：1.头部2.上身3.下身4.鞋子5.翅膀6.手持7.套装8.长衣
 	
 	
 	optional int32 SuitId = 5; // 套装id
@@ -37,7 +37,7 @@ message EquipDefine
 	optional int32 Sex = 6; // 0女1男2全部
 	
 	
-	repeated string LoadPoint = 7; // 挂载点
+	repeated string LoadPoint = 7; // 挂载点；套装要把所有的挂载点全部填进去
 	
 	
 	optional string Path = 8; // 图片路径

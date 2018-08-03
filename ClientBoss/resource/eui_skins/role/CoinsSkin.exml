@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="CoinsSkin" width="184" height="59" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="164b1f043f6" ></w:Config>
-	<e:Image id="img_bg" source="dress_01_json.dress_01_30" anchorOffsetX="0" anchorOffsetY="0" width="184" height="59" x="0" y="0"/>
+	<e:Image source="dress_01_json.dress_01_30" anchorOffsetX="0" anchorOffsetY="0" width="184" height="59" x="0" y="0"/>
+
 	<e:Label id="txt_num" text="0000000" x="58.25" y="14.5" verticalAlign="middle" textAlign="center"/>
-	<e:Image id="img_gold" source="ui_json.gold" x="1.6" y="1" anchorOffsetX="0" width="52.7" anchorOffsetY="0" height="51.8"/>
+	<e:Image id="img_cointype" source="dress_01_json.dress_gold" verticalCenter="2.5" horizontalCenter="-64.5"/>
+
 </e:Skin>
