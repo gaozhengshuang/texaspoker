@@ -117,7 +117,7 @@ module game {
                 this.mainGroup.y = 86;
                 this.backButton.y = 80;
                 this.topBg.height = 172;
-                this.scoreLabel.y = 110;
+                this.scoreLabel.y = 100;
                 this.coin_money.y = 90;
                 this.coin_gold.y = 90;
             }
@@ -571,11 +571,11 @@ module game {
 
         private updateScore() {
             let gold = DataManager.playerModel.getScore();
-            // this.scoreLabel.textFlow = [
-            //     { text: "金币", style: { bold: true } },
-            //     { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
-            // ]
-            this.coin_gold.coins = gold;
+            this.scoreLabel.textFlow = [
+                 { text: "金币", style: { bold: true } },
+                 { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
+             ]
+            //this.coin_gold.coins = gold;
             if (gold >= this.curSpaceFire) {
                 this.curSpaceFire += _spaceFire;
                 this._paddle.updateWuxianPao(true);
