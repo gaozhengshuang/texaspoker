@@ -54,7 +54,7 @@ func (this* RS2GWMsgHandler) Init() {
 	//this.msgparser.RegistSendProto(msg.BT_UpdateMoney{})
 	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
 	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
-	//this.msgparser.RegistSendProto(msg.C2GW_GoldExchange{})
+	this.msgparser.RegistSendProto(msg.C2GW_GoldExchange{})
 	this.msgparser.RegistSendProto(msg.BT_ReqLaunchBullet{})
 	this.msgparser.RegistSendProto(msg.BT_StepOnBomb{})
 	this.msgparser.RegistSendProto(msg.BT_BulletEarnMoney{})
