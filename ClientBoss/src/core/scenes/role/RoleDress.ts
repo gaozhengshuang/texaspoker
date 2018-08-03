@@ -470,10 +470,6 @@ module game {
             slots.forEach((slot) => {
                 bone.resetSlot(slot.name);
             })
-            
-            //强制重置替换左右手贴图
-            let suitName = this.isGirl ? "girl_suit2" :"boy_suit2";
-            this.changeSlotsInSuit(bone,["body1_1_02","body1_1_04"], suitName);
         }
 
         private changePartWithNet(item: table.IEquipDefine) {
@@ -591,6 +587,14 @@ module game {
                         }
                     }
                 }
+            }
+
+            //强制重置替换左右手贴图
+            let bone = this.isGirl ? this._girlBone : this._boyBone;
+            let suitName = this.isGirl ? "girl_suit2" :"boy_suit2";
+            if(bone)
+            {
+                this.changeSlotsInSuit(bone,["body1_1_02","body1_1_04"], suitName);                
             }
         }
     }
