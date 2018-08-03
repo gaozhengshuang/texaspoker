@@ -107,7 +107,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendDeliveryAddressList{})
 	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
-	//this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
 
@@ -637,10 +637,10 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 
 	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
 	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
-	user.AddGold(gold, "钻石兑换金币", true)
+	user.AddGold(gold, "钻石兑换金币", false)
 
-	//send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
-	//user.SendMsg(send)
+	send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
+	user.SendMsg(send)
 
 }
 

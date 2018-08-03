@@ -6,12 +6,12 @@
 		<e:Image y="6" scaleX="1" scaleY="1" horizontalCenter="0.5" source="lucky_json.luckyBtn"/>
 		<e:Image source="ui_json.historyMoneyTitleBg" x="-3" y="88"/>
 		<e:Image source="ui_json.historyMoneyTitleBg" x="-3" y="88"/>
-		<game:PayItem id="gift_1" width="226" height="210" anchorOffsetY="105" skinName="PayItemSkin" x="134" y="468" anchorOffsetX="113" touchEnabled="true" touchChildren="true"/>
-		<game:PayItem width="226" height="210" x="359" y="468" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_2" touchEnabled="true" touchChildren="true"/>
-		<game:PayItem width="226" height="210" x="579" y="468" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_3" touchEnabled="true" touchChildren="true"/>
-		<game:PayItem width="226" height="210" x="134" y="678" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_4" touchEnabled="true"/>
-		<game:PayItem width="226" height="210" x="359" y="678" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_5" touchEnabled="true"/>
-		<game:PayItem width="226" height="210" x="579" y="678" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_6" touchEnabled="true"/>
+		<game:PayItem id="gift_1" width="226" height="210" anchorOffsetY="105" skinName="PayItemSkin" anchorOffsetX="113" touchEnabled="true" touchChildren="true" verticalCenter="-8" horizontalCenter="-226"/>
+		<game:PayItem width="226" height="210" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_2" touchEnabled="true" touchChildren="true" verticalCenter="-8" horizontalCenter="-1"/>
+		<game:PayItem width="226" height="210" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_3" touchEnabled="true" touchChildren="true" verticalCenter="-8" horizontalCenter="219"/>
+		<game:PayItem width="226" height="210" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_4" touchEnabled="true" verticalCenter="202" horizontalCenter="-226"/>
+		<game:PayItem width="226" height="210" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_5" touchEnabled="true" verticalCenter="202" horizontalCenter="-1"/>
+		<game:PayItem width="226" height="210" skinName="PayItemSkin" anchorOffsetX="113" anchorOffsetY="105" id="gift_6" touchEnabled="true" verticalCenter="202" horizontalCenter="219"/>
 
 
 
@@ -36,15 +36,16 @@
 
 
 
-		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" width="80" height="68" verticalCenter="-491" horizontalCenter="-301"/>
-		<game:IconButton id="startButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="0.5" verticalCenter="418.5"/>
-		<e:Label id="goldCnt" text="1234567890" size="48" textColor="0xff9f3b" bold="true" anchorOffsetY="24" anchorOffsetX="134" verticalCenter="-312" textAlign="center" verticalAlign="middle" horizontalCenter="-0.5"/>
-		<e:Label text="拥 有 金 币" horizontalCenter="5.5" touchEnabled="false" textColor="0xff9f3b" size="36" anchorOffsetX="89" anchorOffsetY="0" verticalCenter="-382" bold="true"/>
+		<game:IconButton id="closeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" width="80" height="68" verticalCenter="-500" horizontalCenter="300"/>
+		<game:IconButton id="startButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="446.5" horizontalCenter="0.5"/>
+		<e:Label id="goldCnt" text="1234567890" size="50" textColor="0xff9f3b" bold="true" anchorOffsetY="24" anchorOffsetX="134" verticalCenter="-312" textAlign="center" verticalAlign="middle" horizontalCenter="0"/>
+		<e:Label text="拥 有 钻 石" touchEnabled="false" textColor="0xff9f3b" size="30" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="-382" bold="true" horizontalCenter="0"/>
 		<e:Label text="充 值" x="317" y="32.17" bold="true" size="36"/>
-		<e:Image source="ui_json.diamondChangeBg" y="983" horizontalCenter="0.5" visible="false"/>
-		<game:IconButton id="allChangeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="147.5" verticalCenter="455.5" visible="false"/>
-		<e:Label id="curDiamond_txt" text="拥有：3000钻石" size="24" bold="true" textAlign="left" left="168" verticalCenter="458" visible="false"/>
-		<e:Label text="钻石兑换金币比例(1:1)" size="20" scaleX="1" scaleY="1" touchEnabled="false" y="1041" horizontalCenter="0" textColor="0xdb4c55" visible="false"/>
+		<e:Image source="ui_json.diamondChangeBg" y="345" horizontalCenter="0.5"/>
+		<game:IconButton id="allChangeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="147.5" verticalCenter="-182.5"/>
+		<e:Label id="curDiamond_txt" text="可兑换：3000金币" size="24" bold="true" textAlign="left" left="186" verticalCenter="-180"/>
+		<e:Image id="img_cointype" source="dress_01_json.dress_gold" verticalCenter="-179" horizontalCenter="-212.5"/>
+
 
 
 	</e:Group>

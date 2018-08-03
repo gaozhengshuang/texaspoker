@@ -62,20 +62,20 @@ module game {
                 },
             ]
 
-            this.setGoldCnt(DataManager.playerModel.getScore());
+            this.setGoldCnt(DataManager.playerModel.getDiamond());
             this.updateDiamond();
         }
 
         private updateScore() {
-            this.setGoldCnt(DataManager.playerModel.getScore());
+            this.setGoldCnt(DataManager.playerModel.getDiamond());
         }
 
         private updateDiamond() {
-            this.curDiamond_txt.text = `拥有：${DataManager.playerModel.getDiamond()}钻石`;
+            this.curDiamond_txt.text = `可兑换：${DataManager.playerModel.getDiamond()}金币`;
         }
 
         protected setGoldCnt(n) {
-            this.goldCnt && (this.goldCnt.text = `${n}枚`);
+            this.goldCnt && (this.goldCnt.text = `${n}`);
         }
 
         protected beforeShow() {
@@ -183,7 +183,7 @@ module game {
         }
 
         private changeHandle() {
-            // sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+            sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
         }
 
         private static _instance: BattlePay;
