@@ -466,23 +466,26 @@ module game {
         }
 
         private OnBT_RetLaunchBullet(data: msg.BT_RetLaunchBullet) {
-            // let x = event.stageX;
-            // let y = event.stageY - 88;
             let x = this._curStage.x;
             let y = this._curStage.y;
             if (y >= this._paddle.y) return;
             this._nowSp = <number>data.energy;
-            // console.log('服务器返回的能量数据：',data,this);
-            if (DataManager.playerModel.getDiamond() < _paddlePrice) {
-                showDialog("您的钻石不足!", "充值", function () {
-                    // this.rechargeGoHandle();
-                    openPanel(PanelType.pay);
-                    // showTips("暂未开放,敬请期待...", true);
-                });
+
+            if (DataManager.playerModel.getScore() < _paddlePrice) {
+                if (DataManager.playerModel.getDiamond() > 0) {
+                    let payStr = `金币不足，是否使用钻石更换金币\n当前拥有钻石：${DataManager.playerModel.getDiamond()}\n可兑换金币：${DataManager.playerModel.getDiamond()}`
+                    showDialog(payStr, "兑换", function () {
+                        sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+                    });
+                } else {
+                    showDialog("您的金币不足!", "充值", function () {
+                        openPanel(PanelType.pay);
+                    });
+                }
                 return;
             }
             if (this._spCool == 0) { //无限火力不扣子弹
-                // DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
+                DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
                 this.addSp();
             }
             //更新能量

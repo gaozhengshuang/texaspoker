@@ -10839,6 +10839,417 @@ $root.msg = (function() {
         return C2GW_SendWechatAuthCode;
     })();
 
+    msg.C2GW_GoldExchange = (function() {
+
+        /**
+         * Properties of a C2GW_GoldExchange.
+         * @memberof msg
+         * @interface IC2GW_GoldExchange
+         * @property {number|Long|null} [userid] C2GW_GoldExchange userid
+         * @property {number|null} [diamonds] C2GW_GoldExchange diamonds
+         */
+
+        /**
+         * Constructs a new C2GW_GoldExchange.
+         * @memberof msg
+         * @classdesc Represents a C2GW_GoldExchange.
+         * @implements IC2GW_GoldExchange
+         * @constructor
+         * @param {msg.IC2GW_GoldExchange=} [properties] Properties to set
+         */
+        function C2GW_GoldExchange(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_GoldExchange userid.
+         * @member {number|Long} userid
+         * @memberof msg.C2GW_GoldExchange
+         * @instance
+         */
+        C2GW_GoldExchange.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_GoldExchange diamonds.
+         * @member {number} diamonds
+         * @memberof msg.C2GW_GoldExchange
+         * @instance
+         */
+        C2GW_GoldExchange.prototype.diamonds = 0;
+
+        /**
+         * Creates a new C2GW_GoldExchange instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.IC2GW_GoldExchange=} [properties] Properties to set
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange instance
+         */
+        C2GW_GoldExchange.create = function create(properties) {
+            return new C2GW_GoldExchange(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_GoldExchange message. Does not implicitly {@link msg.C2GW_GoldExchange.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.IC2GW_GoldExchange} message C2GW_GoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GoldExchange.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.diamonds != null && message.hasOwnProperty("diamonds"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.diamonds);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_GoldExchange message, length delimited. Does not implicitly {@link msg.C2GW_GoldExchange.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.IC2GW_GoldExchange} message C2GW_GoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GoldExchange.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_GoldExchange message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GoldExchange.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_GoldExchange();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.diamonds = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_GoldExchange message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GoldExchange.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_GoldExchange message.
+         * @function verify
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_GoldExchange.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.diamonds != null && message.hasOwnProperty("diamonds"))
+                if (!$util.isInteger(message.diamonds))
+                    return "diamonds: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_GoldExchange message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_GoldExchange} C2GW_GoldExchange
+         */
+        C2GW_GoldExchange.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_GoldExchange)
+                return object;
+            var message = new $root.msg.C2GW_GoldExchange();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.diamonds != null)
+                message.diamonds = object.diamonds >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_GoldExchange message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_GoldExchange
+         * @static
+         * @param {msg.C2GW_GoldExchange} message C2GW_GoldExchange
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_GoldExchange.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                object.diamonds = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.diamonds != null && message.hasOwnProperty("diamonds"))
+                object.diamonds = message.diamonds;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_GoldExchange to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_GoldExchange
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_GoldExchange.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_GoldExchange;
+    })();
+
+    msg.GW2C_RetGoldExchange = (function() {
+
+        /**
+         * Properties of a GW2C_RetGoldExchange.
+         * @memberof msg
+         * @interface IGW2C_RetGoldExchange
+         * @property {number|null} [gold] GW2C_RetGoldExchange gold
+         */
+
+        /**
+         * Constructs a new GW2C_RetGoldExchange.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetGoldExchange.
+         * @implements IGW2C_RetGoldExchange
+         * @constructor
+         * @param {msg.IGW2C_RetGoldExchange=} [properties] Properties to set
+         */
+        function GW2C_RetGoldExchange(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetGoldExchange gold.
+         * @member {number} gold
+         * @memberof msg.GW2C_RetGoldExchange
+         * @instance
+         */
+        GW2C_RetGoldExchange.prototype.gold = 0;
+
+        /**
+         * Creates a new GW2C_RetGoldExchange instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.IGW2C_RetGoldExchange=} [properties] Properties to set
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange instance
+         */
+        GW2C_RetGoldExchange.create = function create(properties) {
+            return new GW2C_RetGoldExchange(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGoldExchange message. Does not implicitly {@link msg.GW2C_RetGoldExchange.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.IGW2C_RetGoldExchange} message GW2C_RetGoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGoldExchange.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.gold);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGoldExchange message, length delimited. Does not implicitly {@link msg.GW2C_RetGoldExchange.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.IGW2C_RetGoldExchange} message GW2C_RetGoldExchange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGoldExchange.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetGoldExchange message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGoldExchange.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetGoldExchange();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.gold = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetGoldExchange message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGoldExchange.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetGoldExchange message.
+         * @function verify
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetGoldExchange.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetGoldExchange message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetGoldExchange} GW2C_RetGoldExchange
+         */
+        GW2C_RetGoldExchange.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetGoldExchange)
+                return object;
+            var message = new $root.msg.GW2C_RetGoldExchange();
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetGoldExchange message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetGoldExchange
+         * @static
+         * @param {msg.GW2C_RetGoldExchange} message GW2C_RetGoldExchange
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetGoldExchange.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.gold = 0;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetGoldExchange to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetGoldExchange
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetGoldExchange.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetGoldExchange;
+    })();
+
     msg.C2L_ReqLogin = (function() {
 
         /**
