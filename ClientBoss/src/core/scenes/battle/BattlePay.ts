@@ -62,12 +62,12 @@ module game {
                 },
             ]
 
-            this.setGoldCnt(DataManager.playerModel.getScore());
+            this.setGoldCnt(DataManager.playerModel.getDiamond());
             this.updateDiamond();
         }
 
         private updateScore() {
-            this.setGoldCnt(DataManager.playerModel.getScore());
+            this.setGoldCnt(DataManager.playerModel.getDiamond());
         }
 
         private updateDiamond() {
@@ -183,7 +183,7 @@ module game {
         }
 
         private changeHandle() {
-            // sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+            sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
         }
 
         private static _instance: BattlePay;

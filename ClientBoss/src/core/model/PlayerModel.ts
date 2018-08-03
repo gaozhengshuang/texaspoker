@@ -31,7 +31,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendLuckyDrawRecord, "msg.GW2C_SendLuckyDrawRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
-            // NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
             NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
         }
 
@@ -90,9 +90,9 @@ module game {
             this.userInfo.addrlist = data.list;
         }
 
-        // private OnGW2C_RetGoldExchange(data: msg.GW2C_RetGoldExchange) {
-        //     this.addScore(data.gold);
-        // }
+        private OnGW2C_RetGoldExchange(data: msg.GW2C_RetGoldExchange) {
+            this.addScore(data.gold);
+        }
         
         public get clothes() {
             return this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists;
