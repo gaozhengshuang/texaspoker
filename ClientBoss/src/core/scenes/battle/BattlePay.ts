@@ -71,11 +71,11 @@ module game {
         }
 
         private updateDiamond() {
-            this.curDiamond_txt.text = `拥有：${DataManager.playerModel.getDiamond()}钻石`;
+            this.curDiamond_txt.text = `可兑换：${DataManager.playerModel.getDiamond()}金币`;
         }
 
         protected setGoldCnt(n) {
-            this.goldCnt && (this.goldCnt.text = `${n}枚`);
+            this.goldCnt && (this.goldCnt.text = `${n}`);
         }
 
         protected beforeShow() {
