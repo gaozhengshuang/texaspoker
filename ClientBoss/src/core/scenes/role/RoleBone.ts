@@ -19,15 +19,8 @@ module game {
             return RoleBoneSkin;
         }
 
-        protected init() 
-        {
-
-        }
-
         public awake()
         {
-            console.log("Role Bone Awake",DataManager.playerModel.sex);
-
             this.gender = DataManager.playerModel.sex;
             this.updateBones();
             //切换模型骨骼

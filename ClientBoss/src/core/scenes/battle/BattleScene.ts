@@ -1132,6 +1132,7 @@ module game {
             this._boomPool.destroyAllObject();
             this._timeBoomPool.destroyAllObject();
             this._firewallPool.destroyAllObject();
+            this._roleBonePool.destroyAllObject();
             this.touchGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandle, this);
             egret.stopTick(this.updateView, this);
         }
