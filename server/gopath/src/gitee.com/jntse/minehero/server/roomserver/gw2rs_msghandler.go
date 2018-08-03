@@ -43,7 +43,7 @@ func (this* C2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
 	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
-	//this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
+	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
 	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
 	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
@@ -188,33 +188,33 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 }
 
 // 钻石兑换金币
-//func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.C2GW_GoldExchange)
-//	user := UserMgr().FindUser(tmsg.GetUserid())
-//	if user == nil { 
-//		log.Error("C2GW_GoldExchange 玩家[%d]没有在Room中", tmsg.GetUserid())
-//		return 
-//	}
-//
-//	//
-//	diamonds := tmsg.GetDiamonds()
-//	if diamonds < 0 {
-//		user.SendNotify("钻石数量不能是0")
-//		return
-//	}
-//
-//	if user.GetDiamond() < diamonds {
-//		user.SendNotify("钻石不足")
-//		return
-//	}
-//	
-//	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
-//	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
-//	user.AddGold(gold, "钻石兑换金币", false)
-//
-//	send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
-//	user.SendClientMsg(send)
-//}
+func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_GoldExchange)
+	user := UserMgr().FindUser(tmsg.GetUserid())
+	if user == nil { 
+		log.Error("C2GW_GoldExchange 玩家[%d]没有在Room中", tmsg.GetUserid())
+		return 
+	}
+
+	//
+	diamonds := tmsg.GetDiamonds()
+	if diamonds < 0 {
+		user.SendNotify("钻石数量不能是0")
+		return
+	}
+
+	if user.GetDiamond() < diamonds {
+		user.SendNotify("钻石不足")
+		return
+	}
+	
+	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
+	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
+	user.AddGold(gold, "钻石兑换金币", false)
+
+	send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
+	user.SendClientMsg(send)
+}
 
 
 // 发射子弹
