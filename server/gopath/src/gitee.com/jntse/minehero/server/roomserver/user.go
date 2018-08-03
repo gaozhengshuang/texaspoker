@@ -26,7 +26,7 @@ type RoomUser struct {
 	bag 		UserBag
 	task       	UserTask
 	token		string
-	coins		uint32
+	//coins		uint32
 	ticker1s  	*util.GameTicker
 	ticker10ms  *util.GameTicker
 	asynev      eventque.AsynEventQueue // 异步事件处理
@@ -36,6 +36,7 @@ type RoomUser struct {
 	bulletid 	int64
 	energy		int64
 	save_amt	int64
+	topscore	int64
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
@@ -253,6 +254,13 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 
 // 游戏结束，将数据回传Gate
 func (this *RoomUser) OnEnd(now int64) {
+
+	// 单局日排行榜
+	zMem := redis.Z{ float64(this.topscore), this.Id() }
+	rKey := fmt.Sprintf("rank_topscore_day_%s", time.Now().Format("20060102"))
+	score, _ := Redis().ZScore(rKey, strconv.FormatUint(this.Id(), 10)).Result()
+	if score < float64(this.topscore) { Redis().ZAdd(rKey, zMem) }
+
 	this.ticker1s.Stop()
 	this.ticker10ms.Stop()
 	this.asynev.Shutdown()
@@ -285,13 +293,13 @@ func (this *RoomUser) SidGate() int {
 	return this.sid_gate
 }
 
-func (this *RoomUser) GetCoins() uint32 {
-	return this.coins
-}
-
-func (this *RoomUser) UpdateCoins(amount uint32) {
-	this.coins = amount
-}
+//func (this *RoomUser) GetCoins() uint32 {
+//	return this.coins
+//}
+//
+//func (this *RoomUser) UpdateCoins(amount uint32) {
+//	this.coins = amount
+//}
 
 func (this *RoomUser) GetGold() uint32 {
 	return this.UserBase().GetGold()
@@ -686,6 +694,10 @@ func (this *RoomUser) ReqLaunchBullet() {
 
 	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg), Energy:pb.Int64(this.energy) }
 	this.SendClientMsg(send)
+}
+
+func (this *RoomUser) AddTopScore(score uint32) {
+	this.topscore += int64(score)
 }
 
 

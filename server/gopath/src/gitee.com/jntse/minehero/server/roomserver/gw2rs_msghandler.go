@@ -259,6 +259,7 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 	}
 
 	user.AddGold(tmsg.GetGold(), "子弹获得金币", false)
+	user.AddTopScore(tmsg.GetGold())
 
 	// 检查任务
 	taskid := int32(msg.TaskId_RegisterTopScore)
