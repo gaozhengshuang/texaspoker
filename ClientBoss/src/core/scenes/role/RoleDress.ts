@@ -254,9 +254,6 @@ module game {
        
             while ((dressItem = table.EquipById[id++])) {
                 if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
-                    if (DataManager.playerModel.IsHaveItem(dressItem.Id)) {
-                        dressItem.Price = -1;
-                    }
                     this._dataProv.addItem(dressItem);
                 }
             }
@@ -473,6 +470,10 @@ module game {
             slots.forEach((slot) => {
                 bone.resetSlot(slot.name);
             })
+            
+            //强制重置替换左右手贴图
+            let suitName = this.isGirl ? "girl_suit2" :"boy_suit2";
+            this.changeSlotsInSuit(bone,["body1_1_02","body1_1_04"], suitName);
         }
 
         private changePartWithNet(item: table.IEquipDefine) {
@@ -510,15 +511,18 @@ module game {
                 bone.setNewSlot(name, assetName);
             })
         }
-
+        
+        //脱下衣服并且重置为骨骼默认绑定图片
         private unwear(item: table.IEquipDefine) {
             if (item.LoadPoint.length <= 0) return;
-            if (item.Sex == 0) {
-                this.resetSlots(this._girlBone, item.LoadPoint);
-            } else {
-                this.resetSlots(this._boyBone, item.LoadPoint);
-            }
 
+            let bone = item.Sex == 0 ? this._girlBone : this._boyBone;
+            this.resetSlots(bone, item.LoadPoint);
+
+            //强制重置替换左右手贴图
+            let suitName = this.isGirl ? "girl_suit2" :"boy_suit2";
+            this.changeSlotsInSuit(bone,["body1_1_02","body1_1_04"], suitName);
+ 
             if (DataManager.playerModel.IsHaveItem(item.Id)) {
                 this.sendmsg_UnDressCloth({
                     pos: item.Pos
@@ -538,7 +542,8 @@ module game {
                     this._girlBone = await game.getBone("girl");
                     this.grp_role.addChild(this._girlBone);
                     adjustBone(<egret.DisplayObject>(this._girlBone), this.grp_role);
-                    let r = randRange(1, this._girlBone.animNum);
+                    //let r = randRange(1, this._girlBone.animNum);
+                    let r = randRange(1, 4);                    
                     this._girlBone.play(`idle${r}`, -1);
                 }
                 this._boyBone && (this._boyBone.visible = false);
@@ -548,7 +553,8 @@ module game {
                     this._boyBone = await game.getBone("boy");
                     this.grp_role.addChild(this._boyBone);
                     adjustBone(<egret.DisplayObject>(this._boyBone), this.grp_role);
-                    let r = randRange(1, this._boyBone.animNum);
+                    //let r = randRange(1, this._boyBone.animNum);
+                    let r = randRange(1, 4);                    
                     this._boyBone.play(`idle${r}`, -1);
                 }
                 this._boyBone && (this._boyBone.visible = true);

@@ -105,3 +105,6 @@ declare class ShopItemSkin extends eui.Skin{
 }
 declare class ShoppingCartSkin extends eui.Skin{   
 }
+declare class RoleBoneSkin extends eui.Skin{   
+}
+

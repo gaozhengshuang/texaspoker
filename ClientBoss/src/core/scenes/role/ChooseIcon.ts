@@ -18,11 +18,7 @@ module game {
 			this.icon.source = data.iconPath;
 			this.posType = data.Type;
 		}
-
-		public setIcon(src:string) {
-			this.icon.source = src;
-		}
-
+		
 		public radioChangeHandler()
 		{
 			this.chose.visible = this.radioButton.selected;

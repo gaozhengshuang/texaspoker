@@ -17,6 +17,8 @@ module game {
         ball1Price: eui.Label;
         ball2Price: eui.Label;
         hitLabel: eui.Label;
+        diamondNumTxt : eui.Label;
+        
         topImage: eui.Image;
         noticeLabel: eui.Label;
         brickInfoGroup: eui.Group;
@@ -38,6 +40,8 @@ module game {
 
         coin_money: game.Coins;
         coin_gold: game.Coins;
+
+        roleBoneGroup : eui.Group;
 
         private _nowSp: number = 0;
         private _spCool: number = 0;
@@ -66,6 +70,7 @@ module game {
         private _timeBoomPool: ObjectPool<BattleTimeBoom>;
         private _firewallPool: ObjectPool<BattleFirewall>;
         private _icePool: ObjectPool<BattleIce>;
+        private _roleBonePool : ObjectPool<RoleBone>;
 
         private _paddle: BattlePaddle;
 
@@ -167,6 +172,7 @@ module game {
             this._timeBoomPool = new ObjectPool<BattleTimeBoom>(BattleTimeBoom);
             this._firewallPool = new ObjectPool<BattleFirewall>(BattleFirewall);
             this._icePool = new ObjectPool<BattleIce>(BattleIce);
+            this._roleBonePool = new ObjectPool<RoleBone>(RoleBone);
 
             for (let brickInfo of table.TBirckInfo) {
                 if (!brickInfo.Bullet) continue;
@@ -324,6 +330,19 @@ module game {
             this._diedMaxX = 720 + 14;
             this._nowSp = 0;
             this.updateSp();
+
+            //小人动画
+            let _roleBone = this._roleBonePool.createObject();
+            _roleBone.awake();
+            this.roleBoneGroup.addChild(_roleBone);
+            this.roleBoneGroup.setChildIndex(_roleBone,1);
+        
+            _roleBone.scaleX = 0.42;
+            _roleBone.scaleY = 0.42;
+            _roleBone.rotation  = 12;
+            _roleBone.x = 55;
+            _roleBone.y = 30;
+
 
             this.doubleGroup.visible = false;
             this._leftFirewall = [];
@@ -565,7 +584,8 @@ module game {
         }
 
         private updateDiamond() {
-            this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
+            //this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
+            this.diamondNumTxt.text = DataManager.playerModel.getDiamond().toString();      
         }
 
         private ballHandle(ballButton: IconButton) {
