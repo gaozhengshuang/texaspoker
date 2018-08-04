@@ -120,6 +120,7 @@ module game {
                 this.scoreLabel.y = 100;
                 this.coin_money.y = 90;
                 this.coin_gold.y = 90;
+                this.roleBoneGroup.y = -17;
             }
             this._lootList = {};
             for (let i = 0; i < table.TBirckRefresh.length; i++) {
@@ -320,9 +321,13 @@ module game {
 
         protected beforeShow() {
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
+            let add_y = 0;
+            if (gameConfig.isIphoneX()) {
+                add_y = 20;
+            }
             let paddle = this._paddlePool.createObject();
             paddle.setData(1);
-            paddle.resetPosition(this.mainGroup.y);
+            paddle.resetPosition(this.mainGroup.y + add_y);
             this.paddleGroup.addChild(paddle);
             this._paddle = paddle;
             this._diedY = this._paddle.y + this._paddle.height / 2;
