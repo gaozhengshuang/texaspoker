@@ -45,6 +45,10 @@ module game {
                     gamekind: 0,
                 }));
             }
+
+            egret.setTimeout(() => {
+                BattleManager.getInstance().isRetStartGame = true;
+            }, this, 3000);
         }
 
         private rankHandle() {

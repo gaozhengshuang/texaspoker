@@ -49,6 +49,7 @@
 		"resource/eui_skins/role/CoinsSkin.exml",
 		"resource/eui_skins/role/EquipInfoSkin.exml",
 		"resource/eui_skins/role/ItemPriceSkin.exml",
+		"resource/eui_skins/role/RoleBoneSkin.exml",
 		"resource/eui_skins/role/RoleDressSkin.exml",
 		"resource/eui_skins/role/ShopItemSkin.exml",
 		"resource/eui_skins/role/ShoppingCartSkin.exml",
