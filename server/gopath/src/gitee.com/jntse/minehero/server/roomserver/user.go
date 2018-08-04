@@ -310,7 +310,7 @@ func (this *RoomUser) RemoveGold(gold uint32, reason string, syn bool) bool {
 		userbase := this.UserBase()
 		userbase.Gold = pb.Uint32(this.GetGold() - gold)
 		if syn { this.SendGold() }
-		log.Info("玩家[%d] 扣除金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Gold), gold)
 		return true
@@ -323,14 +323,14 @@ func (this *RoomUser) AddGold(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Gold = pb.Uint32(this.GetGold() + gold)
 	if syn { this.SendGold() }
-	log.Info("玩家[%d] 添加金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
 
 func (this *RoomUser) SetGold(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Gold = pb.Uint32(gold)
 	if syn { this.SendGold() }
-	log.Info("玩家[%d] 设置金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
 
 func (this *RoomUser) SendGold() {
@@ -354,7 +354,7 @@ func (this *RoomUser) AddYuanbao(yuanbao uint32, reason string) {
 	userbase.Yuanbao = pb.Uint32(userbase.GetYuanbao() + yuanbao)
 	RCounter().IncrByDate("room_output", uint32(this.roomkind), yuanbao)
 	//this.PlatformPushLootMoney(float32(yuanbao))
-	log.Info("玩家[%d] 添加元宝[%d] 剩余[%d] 原因[%s]", this.Id(), yuanbao, userbase.GetYuanbao(), reason) 
+	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", this.Id(), yuanbao, userbase.GetYuanbao(), reason) 
 }
 
 func (this *RoomUser) RemoveYuanbao(yuanbao uint32, reason string) bool {
@@ -382,11 +382,11 @@ func (this *RoomUser) RemoveDiamond(num uint32, reason string, syn bool) bool {
 		//this.SynRemoveMidsMoney(int64(num), reason)
 		userbase.Diamond = pb.Uint32(userbase.GetDiamond() - num)
 		if syn { this.SendDiamond() }
-		log.Info("玩家[%d] 扣除金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
+		log.Info("玩家[%d] 扣除金卷[%d] 库存[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Diamond), num)
 		return true
 	}
-	log.Info("玩家[%d] 扣除金卷[%d]失败 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
+	log.Info("玩家[%d] 扣除金卷[%d]失败 库存[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 	return false
 }
 
@@ -396,7 +396,7 @@ func (this *RoomUser) AddDiamond(num uint32, reason string, syn bool) {
 	userbase.Diamond = pb.Uint32(userbase.GetDiamond() + num)
 	//this.SynAddMidsMoney(int64(num), reason)
 	if syn { this.SendDiamond() }
-	log.Info("玩家[%d] 添加金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
+	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 }
 
 // 添加道具
