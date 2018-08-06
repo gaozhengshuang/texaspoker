@@ -309,6 +309,11 @@ func (this *User) Recharge() {
 	this.SendGateMsg(send)
 }
 
+func (this *User) RechargeDone() {
+	send := &msg.C2GW_PlatformRechargeDone{ Userid:pb.Uint64(this.Id())}
+	this.SendGateMsg(send)
+}
+
 // 抽奖
 func (this *User) LuckyDraw() {
 	send := &msg.C2GW_StartLuckyDraw{ Userid:pb.Uint64(this.Id())}
@@ -393,6 +398,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.UnDressClothes()
 	case "sex":
 		this.ChangeSex()
+	case "rechargedone":
+		this.RechargeDone()
 	}
 }
 
