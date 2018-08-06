@@ -1,19 +1,19 @@
 package main
+
 import (
-	"fmt"
-	_"reflect"
-	_"strconv"
 	"encoding/json"
+	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
-	pb "github.com/gogo/protobuf/proto"
-	_"github.com/go-redis/redis"
-	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/tbl"
+	_ "github.com/go-redis/redis"
+	pb "github.com/gogo/protobuf/proto"
+	_ "reflect"
+	_ "strconv"
 )
-
 
 //func init() {
 //	log.Info("msg_msghandler.init")
@@ -30,7 +30,6 @@ func ExtractSessionUser(session network.IBaseNetSession) *GateUser {
 	return user
 }
 
-
 type C2GWMsgHandler struct {
 	msgparser *network.ProtoParser
 }
@@ -41,7 +40,7 @@ func NewC2GWMsgHandler() *C2GWMsgHandler {
 	return handler
 }
 
-func (this* C2GWMsgHandler) Init() {
+func (this *C2GWMsgHandler) Init() {
 
 	this.msgparser = network.NewProtoParser("C2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
 	if this.msgparser == nil {
@@ -71,6 +70,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -205,7 +205,7 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 
 	// 进入游戏房间
 	log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
 	user.SendRoomMsg(tmsg)
 }
 
@@ -221,14 +221,13 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 	}
 
 	// 离开游戏房间
-	tmsg.Roomid , tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
 	user.SendRoomMsg(tmsg)
 }
 
-
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLogin)
-	reason, account, verifykey, token , face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetFace()
+	reason, account, verifykey, token, face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetFace()
 	islogin := false
 
 	switch {
@@ -260,20 +259,21 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 			break
 		}
 
-		session.SetUserDefData(user)		// TODO: 登陆成功才绑定账户到会话
+		session.SetUserDefData(user) // TODO: 登陆成功才绑定账户到会话
 		return
 	}
 
 	// 返回给客户端，失败才回
 	if reason != "" {
-		if !islogin { UnBindingAccountGateWay(account) }
+		if !islogin {
+			UnBindingAccountGateWay(account)
+		}
 		log.Error("sid[%d] 账户[%s] 登陆网关失败 reason[%s]", session.Id(), account, reason)
-		send := &msg.GW2C_RetLogin{ Errcode : pb.String(reason) }
+		send := &msg.GW2C_RetLogin{Errcode: pb.String(reason)}
 		session.SendCmd(send)
-		session.Close() 
+		session.Close()
 	}
 }
-
 
 //func on_C2GW_ReqUserInfo(session network.IBaseNetSession, message interface{}) {
 //	//tmsg := message.(*msg.C2GW_ReqUserInfo)
@@ -292,7 +292,6 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 //
 //	user.Syn()
 //}
-
 
 // 购买道具
 func on_C2GW_BuyItem(session network.IBaseNetSession, message interface{}) {
@@ -334,7 +333,7 @@ func on_C2GW_ReqDeliveryGoods(session network.IBaseNetSession, message interface
 	if tbl.Global.IntranetFlag {
 		user.SendNotify("本版本暂不可用")
 		return
-	}else {
+	} else {
 		event := NewDeliveryGoodsEvent(tmsg.GetList(), tmsg.GetToken(), user.DeliveryGoods)
 		user.AsynEventInsert(event)
 	}
@@ -379,7 +378,6 @@ func on_C2GW_UseBagItem(session network.IBaseNetSession, message interface{}) {
 	user.UseItem(tmsg.GetItemid(), tmsg.GetNum())
 }
 
-
 func on_C2GW_ReqRechargeMoney(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqRechargeMoney)
 	//log.Trace("%v", tmsg)
@@ -406,8 +404,8 @@ func on_C2GW_SellBagItem(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	for _ , v  := range tmsg.GetList() {
-		itemid , num := v.GetItemid(), v.GetNum()
+	for _, v := range tmsg.GetList() {
+		itemid, num := v.GetItemid(), v.GetNum()
 		user.SellBagItem(itemid, num)
 	}
 }
@@ -446,22 +444,22 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	//获取用户access_token 和 openid
 	appid, secret, code := tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret, tmsg.GetCode()
 	url := fmt.Sprintf("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code",
-			appid, secret, code);
-	resp , errcode := network.HttpGet(url)
+		appid, secret, code)
+	resp, errcode := network.HttpGet(url)
 	if errcode != nil || resp == nil {
 		log.Error("玩家[%d] 获取access_token失败 HttpGet失败[%s]", user.Id(), errcode)
-		return 
+		return
 	}
 
 	type RespFail struct {
 		Errcode int64
-		Errmsg string
+		Errmsg  string
 	}
 	var respfail RespFail
 	unerror := json.Unmarshal(resp.Body, &respfail)
 	if unerror != nil {
 		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", user.Id(), unerror)
-		return 
+		return
 	}
 
 	if respfail.Errcode != 0 && respfail.Errmsg != "" {
@@ -470,29 +468,29 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	}
 
 	type RespOk struct {
-		Access_token 	string
-		Expires_in 		float64
-		Refresh_token 	string
-		Openid 			string
-		Scope 			string
-		Unionid 		string
+		Access_token  string
+		Expires_in    float64
+		Refresh_token string
+		Openid        string
+		Scope         string
+		Unionid       string
 	}
 	var respok RespOk
 	unerror = json.Unmarshal(resp.Body, &respok)
 	if unerror != nil {
 		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", user.Id(), unerror)
-		return 
+		return
 	}
 	log.Info("玩家[%d] 获取access_token成功, respok=%#v", user.Id(), respok)
-	
-	// 
+
+	//
 	if user.OpenId() == "" {
 		if _, errset := Redis().Set(fmt.Sprintf("user_%d_wechat_openid", user.Id()), respok.Openid, 0).Result(); errset != nil {
 			log.Info("玩家[%d] 设置wechat openid到redis失败", user.Id())
 			return
 		}
 		user.SetOpenId(respok.Openid)
-		send := &msg.GW2C_SendWechatInfo{ Openid:pb.String(respok.Openid)}
+		send := &msg.GW2C_SendWechatInfo{Openid: pb.String(respok.Openid)}
 		user.SendMsg(send)
 
 		// 转账给新用户
@@ -512,7 +510,7 @@ func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}
 		session.Close()
 		return
 	}
-	
+
 	if user.IsInRoom() {
 		//user.SendRoomMsg(tmsg)
 		user.SendNotify("游戏中不能抽奖")
@@ -524,7 +522,7 @@ func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}
 
 // --------------------------------------------------------------------------
 /// @brief 前暂时只有一个收货地址，设置和修改都使用这个
-/// @return 
+/// @return
 // --------------------------------------------------------------------------
 func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ChangeDeliveryAddress)
@@ -542,7 +540,6 @@ func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message inte
 	user.SendNotify("设置成功")
 	log.Info("玩家[%s %d] 修改收货地址，新地址[%s %s %s]", user.Name(), user.Id(), Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
 }
-
 
 //func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
 //	tmsg := message.(*msg.BT_UpdateMoney)
@@ -640,7 +637,7 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
 	user.AddGold(gold, "钻石兑换金币", false)
 
-	send := &msg.GW2C_RetGoldExchange{Gold:pb.Uint32(gold)}
+	send := &msg.GW2C_RetGoldExchange{Gold: pb.Uint32(gold)}
 	user.SendMsg(send)
 
 }
@@ -661,7 +658,6 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 
 	user.BuyClothes(tmsg.ItemList)
 }
-
 
 func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_DressClothes)
@@ -686,13 +682,13 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	// 套装
 	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || user.image.IsHaveDressSuit() == true {
 		user.image.UnDressAll(false)
-	}else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) {		// 长衣/裙子
-		user.image.UnDressClothes(int32(msg.ItemPos_Clothes), false)	// 脱掉上衣
-		user.image.UnDressClothes(int32(msg.ItemPos_Pants), false)		// 脱掉裤子
-	}else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
-		user.image.UnDressClothes(int32(msg.ItemPos_LongClothes), false)	//  脱掉长衣/裙子
+	} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
+		user.image.UnDressClothes(int32(msg.ItemPos_Clothes), false) // 脱掉上衣
+		user.image.UnDressClothes(int32(msg.ItemPos_Pants), false)   // 脱掉裤子
+	} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
+		user.image.UnDressClothes(int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
 		user.image.UnDressClothes(tmsg.GetPos(), false)
-	}else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
+	} else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
 		user.image.UnDressClothes(tmsg.GetPos(), false)
 	}
 
@@ -732,15 +728,31 @@ func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}
 		user.SendNotify("正在游戏中")
 		return
 	}
-	
+
 	if user.Sex() == tmsg.GetSex() {
 		user.SendNotify("和当前性别一致，无需切换")
 		return
 	}
 
 	user.SetSex(tmsg.GetSex())
-	send := &msg.GW2C_RetChangeImageSex{Sex:pb.Int32(user.Sex())}
+	send := &msg.GW2C_RetChangeImageSex{Sex: pb.Int32(user.Sex())}
 	user.SendMsg(send)
 
 	user.image.SendShowImage()
+}
+
+func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqTaskList)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	if user.IsInRoom() {
+		user.SendNotify("正在游戏中")
+		return
+	}
+	user.task.SendTaskList()
 }
