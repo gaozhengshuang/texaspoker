@@ -158,25 +158,7 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	//})
 }
 
-func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqStartGame)
-	//log.Info(reflect.TypeOf(tmsg).String())
-
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	gamekind := tmsg.GetGamekind()
-	if errcode := user.ReqStartGame(gamekind); errcode != "" {
-		user.ReplyStartGame(errcode, 0)
-	}
-}
-
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
-
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -187,10 +169,24 @@ func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{})
 	user.GetSignReward()
 }
 
-func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqEnterRoom)
+func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqStartGame)
 	//log.Info(reflect.TypeOf(tmsg).String())
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
 
+	gamekind := tmsg.GetGamekind()
+	errcode := user.ReqStartGameLocal(gamekind)
+	user.ReplyStartGame(errcode, 0)
+}
+
+func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.BT_ReqEnterRoom)
+	//log.Info(reflect.TypeOf(tmsg).String())
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -204,9 +200,16 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	}
 
 	// 进入游戏房间
-	log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
-	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
-	user.SendRoomMsg(tmsg)
+	//log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
+	//tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	//user.SendRoomMsg(tmsg)
+	roomid, userid := user.RoomId(), user.Id()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		return
+	}
+	room.UserEnter(userid, "")
 }
 
 func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{}) {
@@ -221,8 +224,15 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 	}
 
 	// 离开游戏房间
-	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
-	user.SendRoomMsg(tmsg)
+	//tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	//user.SendRoomMsg(tmsg)
+	roomid, userid := user.RoomId(), user.Id()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		return
+	}
+	room.UserLeave(userid, tmsg.GetGold())
 }
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {

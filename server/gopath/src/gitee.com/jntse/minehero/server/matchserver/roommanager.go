@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/eventqueue"
 	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/def"
 	pb"github.com/gogo/protobuf/proto"
 	"github.com/go-redis/redis"
 )
@@ -212,16 +213,6 @@ func (this *RoomSvrManager) SendGateToRoom(gate *GateAgent) {
 	this.BroadCast(send)
 }
 
-func GenerateRoomId() (id int64, errcode string ) {
-	key := "uuid_room"
-	id, err := Redis().Incr(key).Result()
-	if err != nil {
-		log.Error("生成roomid redis报错, err: %s", err)
-		return 0, "redis不可用"
-	}
-	return id, ""
-}
-
 func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, userid uint64) (string) {
 
 	tm1 := util.CURTIMEUS()
@@ -230,7 +221,7 @@ func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, 
 		return "找不到合适的房间服务器"
 	}
 
-	roomid, errcode := GenerateRoomId()
+	roomid, errcode := def.GenerateRoomId(Redis())
 	if errcode != "" {
 		return errcode
 	}

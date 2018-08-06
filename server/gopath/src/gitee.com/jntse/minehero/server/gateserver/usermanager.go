@@ -178,7 +178,7 @@ func (this *UserManager) IsRemove(user *GateUser, now int64) bool {
 	return false
 }
 
-//func (this *UserManager) LoadUserFromDB(user *GateUser) bool {
+//func (this *UserManager) UserLoadFromDB(user *GateUser) bool {
 //	if user.LoadDB() == false { 
 //		log.Error("账户[%s] 从DB加载玩家数据失败", user.Account())
 //		return false 

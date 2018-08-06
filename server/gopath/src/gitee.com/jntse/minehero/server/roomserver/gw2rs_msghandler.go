@@ -126,7 +126,7 @@ func on_BT_UploadGameUser(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	room.LoadUser(tmsg.GetBin(), session)
+	room.UserLoad(tmsg.GetBin(), session)
 }
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
