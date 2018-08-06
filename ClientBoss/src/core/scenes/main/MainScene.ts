@@ -48,7 +48,7 @@ module game {
 
             egret.setTimeout(() => {
                 BattleManager.getInstance().isRetStartGame = true;
-            }, this, 3000);
+            }, this, 1000);
         }
 
         private rankHandle() {
