@@ -39,7 +39,7 @@ module game {
                 {
                     source: DataManager.playerModel,
                     target: this,
-                    callBackFunc: this.initTask,
+                    callBackFunc: this.refreshTask,
                     notifyName: PlayerModel.TASK_UPDATE,
                     execute: true
                 },
@@ -84,13 +84,16 @@ module game {
         }
 
         private initTask() {
+            sendMessage("msg.C2GW_ReqTaskList", msg.C2GW_ReqTaskList.encode({}))
+        }
+
+        private refreshTask() {
             for (let i = msg.TaskId.RegistAccount; i <= msg.TaskId.InviteRegist; ++i) {
                 this.setTask(i);
             }
         }
 
         private setTask(id: number) {
-
             let task = DataManager.playerModel.getTask(id);
             if (!task) { return; }
             let isDone = task.completed;
