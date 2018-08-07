@@ -5,9 +5,10 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
-	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/gotoolkit/util"
 	_"gitee.com/jntse/gotoolkit/eventqueue"
+
+	_"gitee.com/jntse/minehero/pbmsg"
 	_"reflect"
 )
 
@@ -195,8 +196,8 @@ func (this *UserManager) OnMatchServerClose() {
 func (this *UserManager) OnRoomServerClose(sid int) {
 	for _, user := range this.accounts {
 		if sid == user.RoomSid() {
-			user.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(user.RoomId())})
-			user.GameEnd(nil , "房间服务器断开")
+			//user.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(user.RoomId())})
+			//user.OnGameEnd(nil , "房间服务器断开")
 		}
 	}
 }

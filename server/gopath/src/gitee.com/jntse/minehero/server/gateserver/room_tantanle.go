@@ -110,13 +110,13 @@ func (this *TanTanLe) OnEnd(now int64) {
 
 	// 序列化玩家个人数据
 	if this.owner != nil { 
-		this.owner.OnGameEnd(now) 
+		this.owner.OnGameEnd(nil, this.close_reason)
 	}
 
 	// 通知Gate删除房间，回传个人数据
-	msgend := &msg.BT_GameEnd { Roomid:pb.Int64(this.Id()) ,Ownerid:pb.Uint64(this.ownerid), Reason:pb.String(this.close_reason)}
-	if this.owner != nil { msgend.Bin = this.owner.PackBin() }
-	this.SendMsg(msgend)
+	//msgend := &msg.BT_OnGameEnd { Roomid:pb.Int64(this.Id()) ,Ownerid:pb.Uint64(this.ownerid), Reason:pb.String(this.close_reason)}
+	//if this.owner != nil { msgend.Bin = this.owner.PackBin() }
+	//this.SendMsg(msgend)
 
 
 	// 更新房间数量到redis

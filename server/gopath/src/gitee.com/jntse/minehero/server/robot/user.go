@@ -281,7 +281,7 @@ func (this *User) HttpWetchatLogin() {
 
 
 func (this *User) StartGame() {
-	this.SendGateMsg(&msg.C2GW_ReqStartGame{Gamekind:pb.Int32(30)})
+	this.SendGateMsg(&msg.C2GW_ReqStartGame{Gamekind:pb.Int32(0)})
 }
 
 func (this *User) LeaveGame() {

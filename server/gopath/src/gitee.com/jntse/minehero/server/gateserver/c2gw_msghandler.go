@@ -436,7 +436,7 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 	//	return
 	//}
 	//log.Error("玩家[%s %d]收到充值完成通知但玩家不在房间中", user.Name(), user.Id())
-	user.SynMidasBalance()
+	//user.SynMidasBalance()
 }
 
 // 绑定微信openid

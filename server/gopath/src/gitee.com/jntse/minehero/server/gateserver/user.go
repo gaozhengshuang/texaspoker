@@ -539,7 +539,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.Syn()
 
 	// 同步midas平台充值金额
-	this.SynMidasBalance()
+	//this.SynMidasBalance()
 
 	return true
 }
@@ -788,7 +788,7 @@ func (this *GateUser) StartGameFail(err string) {
 }
 
 // 房间关闭
-func (this *GateUser) GameEnd(bin *msg.Serialize, reason string) {
+func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
 
 	// 重置房间数据
 	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", this.Name(), this.Id(), this.RoomId(), reason)
@@ -805,10 +805,6 @@ func (this *GateUser) GameEnd(bin *msg.Serialize, reason string) {
 			//this.QueryPlatformCoins()
 		}
 	}
-}
-
-// 房间关闭
-func (this *GateUser) OnGameEnd(now int64) {
 }
 
 // 通知RS 玩家已经断开连接了
