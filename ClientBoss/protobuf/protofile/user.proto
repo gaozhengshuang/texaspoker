@@ -68,4 +68,7 @@ message GW2C_SendLuckyDrawRecord {
     optional LuckyDrawRecord luckydraw = 1;
 }
 
-
+// 请求任务列表
+message C2GW_ReqTaskList {
+	
+}

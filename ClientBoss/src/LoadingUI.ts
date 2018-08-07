@@ -51,7 +51,7 @@ module game {
         }
 
         public onProgress(current: number, total: number): void {
-
+            
         }
     }
 }
