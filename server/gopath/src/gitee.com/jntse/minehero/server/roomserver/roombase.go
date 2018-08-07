@@ -235,7 +235,7 @@ func (this *GameRoom) LoadUser(bin *msg.Serialize, gate network.IBaseNetSession)
 	this.owner = user
 
 	// 
-	log.Info("房间[%d] 玩家[%s %d] 加载个人数据 Step:%d", this.id, user.Name(), user.Id(), this.totalcost)
+	log.Info("房间[%d] 玩家[%s %d] 加载个人数据，最大能量%d", this.id, user.Name(), user.Id(), user.MaxEnergy())
 }
 
 // 玩家进房间，开始游戏
