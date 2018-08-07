@@ -178,14 +178,6 @@ module game {
             this.updateItemList(this._typeIdx);
             //更新已穿戴装扮属性
             this.setDressInfo();
-
-            //强制重置替换左右手贴图
-            let bone = this.isGirl ? this._girlBone : this._boyBone;
-            let suitName = this.isGirl ? "girl_suit2" :"boy_suit2";
-            if(bone)
-            {
-                this.changeSlotsInSuit(bone,["body1_1_02","body1_1_04"], suitName);                
-            }
         }
 
         private initWears() {
@@ -505,7 +497,13 @@ module game {
                 if (!this._boyBone) return;
                 this.changeSlotsInSuit(this._boyBone, slotNames, suit);
             }
-
+            //强制重置替换左右手贴图
+            let bone = this.isGirl ? this._girlBone : this._boyBone;
+            let suitName = this.isGirl ? "girl_suit2" :"boy_suit2";
+            if(bone)
+            {
+                this.changeSlotsInSuit(bone,["body1_1_02","body1_1_04"], suitName);                
+            }
         }
 
         private changeSlotsInSuit(bone: SkeletonBase, slotNames: string[], suitName: string) {
