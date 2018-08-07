@@ -121,7 +121,7 @@
 			"url": "assets/texpack/ui.json",
 			"type": "sheet",
 			"name": "ui_json",
-			"subkeys": "b-recharge,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,changeMoneyAll,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,diamondChangeBg,duanxian,gameBack,gameBtnBg,gold,guangquan,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,loginRewardGold,luckMainBtn,moreFire,paihang,play,rechargeGo,sp,spBar,spBg,spGray,tantanle,topBg,tou,userGo,userMainBtn,yindao"
+			"subkeys": "b-recharge,backBagBtn,badBuffProgress,badBuffProgressBg,bagGo,bg,boxBuff1,boxBuff2.png,boxBuff3,boxBuffBg,changeMoneyAll,chkPay,chkPayBg,common_luckyBtnBg,common_userBtnBg,deliveryBtn,deliveryNoTxt,deliveryOkTxt,deliverySel,deliveryTitle,deliverybtnBg,dialogBg,dialogMBg,diamondChangeBg,duanxian,gameBack,gameBtnBg,gameLoading,gameLoadingBg,gold,guangquan,historyMoneyBtn,historyMoneyTitle,historyMoneyTitleBg,loginRewardGold,luckMainBtn,moreFire,paihang,play,rechargeGo,sp,spBar,spBg,spGray,tantanle,topBg,tou,userGo,userMainBtn,yindao"
 		},
 		{
 			"url": "assets/texpack/paddle.json",
@@ -211,7 +211,7 @@
 			"url": "assets/texpack/equip.json",
 			"type": "sheet",
 			"name": "equip_json",
-			"subkeys": "101,102,103,104,105,106,107,108,109,110,201,202,203,204,205,206,207,208,209,210,301,302,303,304,305,306,307,308,309,401,402,403,404,405,406,407,408,409,410,501,502,503,504,601,602,701,702,703"
+			"subkeys": "101,102,103,104,105,106,107,108,109,110,201,202,203,204,205,206,207,208,209,210,301,302,303,304,305,306,307,308,309,310,401,402,403,404,405,406,407,408,409,410,501,502,503,504,601,602,701,702,703"
 		},
 		{
 			"url": "assets/texpack/suit/boy_suit1.json",
