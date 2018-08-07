@@ -24,33 +24,6 @@ module game {
             }
         }
 
-        public async wxlogin(msg) {
-            let gwResult: msg.IL2C_RetLogin;
-            gwResult = await this.connectWxLoginGW(msg);
-            if (gwResult.result == 1) {
-                NotificationCenter.once(this, () => {
-                    NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
-                    createGameScene();
-                }, "msg.GW2C_SendUserInfo");
-
-                let loginResult: msg.IGW2C_RetLogin = await this.connectLoginGate(gwResult, msg.openid);
-                if (loginResult.errcode == "") {
-
-                } else {
-                    NotificationCenter.removeObserver(this, "msg.GW2C_SendUserInfo");
-                    NetFailed.getInstance().show(loginResult.errcode);
-                    NotificationCenter.postNotification(LoginManager.LOGIN_STATE, false);
-                }
-            } else {
-                NetFailed.getInstance().show(gwResult.reason);
-                NotificationCenter.postNotification(LoginManager.LOGIN_STATE, false);
-            }
-        }
-
-        private async reqLoginFunc(verifykey: string) {
-
-        }
-
         private connectLoginGate(gwResult: msg.IL2C_RetLogin, account: string = "") {
             let d = defer();
             ClientNet.getInstance().onConnectClose();
@@ -82,18 +55,6 @@ module game {
             return d.promise();
         }
 
-        private connectWxLoginGW(m: msg.C2L_ReqLoginWechat) {
-            let d = defer();
-            ClientNet.getInstance().onConnectByUrl($netIp);
-            NotificationCenter.once(this, () => {
-                sendMessage("msg.C2L_ReqLoginWechat", msg.C2L_ReqLoginWechat.encode(m));
-                NotificationCenter.once(this, (data: msg.IL2C_RetLogin) => {
-                    d.resolve(data);
-                }, "msg.L2C_RetLogin");
-            }, ClientNet.SOCKET_CONNECT_SUCCESS);
-            return d.promise();
-        }
-
         private static _instance: LoginManager;
 
         public static getInstance(): LoginManager {
@@ -109,74 +70,6 @@ module game {
     export function Login() {
         NotificationCenter.postNotification("closeLoadingSkin");
         SceneManager.changeScene(SceneType.login, false);
-    }
-
-    export function wxTouchGw() {
-        platform.getUserInfo().then((res) => {
-            // console.log(res)
-            let nickName = res.nickName;
-            let avatarUrl = res.avatarUrl;
-            let gender = res.gender;
-            let country = res.country;
-            let province = res.province
-
-            DataManager.playerModel.userInfo.name = nickName;
-            DataManager.playerModel.userInfo.face = avatarUrl;
-
-            //TODO:使用这些获取的数据
-            // console.log("openid: ", DataManager.playerModel.getOpenId())
-            var opt = wx.getLaunchOptionsSync();
-            // console.log("启动参数为：", opt);
-            var inviteCode = opt.query['inviteCode'] || "";
-
-
-            LoginManager.getInstance().wxlogin({
-                openid: DataManager.playerModel.getOpenId(),
-                face: avatarUrl,
-                nickname: nickName,
-                invitationcode: inviteCode,
-            })
-        })
-    }
-
-    function sysinfo() {
-        var sys = wx.getSystemInfoSync();
-        loginOs = sys.system;
-
-
-    }
-    export function wxAutoLogin() {
-        sysinfo();
-        showShareMenu();
-        platform.login().then((res) => {
-            wxCode = res.code;
-
-            wx.request({
-                url: $registIp,
-                data: { "gmcmd": "wx_login", "tempauthcode": wxCode },
-                header: { 'content-type': 'application/json' },
-                method: "POST",
-                dataType: "",
-                success: (res) => {
-                    console.log('登录服务器返回：', res);
-                    if (res.data.status == 0) {
-                        DataManager.playerModel.setOpenId(res.data.msg)
-                        wxTouchGw();
-                    } else {
-                        showDialog("登陆失败 " + res.data.msg, "确定", null);
-                    }
-                },
-                fail: (res) => {
-                    console.log("请求失败", res);
-                    showTips("网络连接失败");
-                },
-                complete: null
-            });
-
-            // Pay.get_open_id_and_session_key(res.code, (openid, session_key) => {
-            //    wxTouchGw()
-            // });
-        });
     }
 
     export var loginUserInfo: msg.IC2L_ReqLogin;
