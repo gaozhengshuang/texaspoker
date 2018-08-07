@@ -46,7 +46,7 @@ module game {
         private OnClosePanel() {
             NotificationCenter.removeObserver(this, "closeLoadingSkin");
 
-            egret.Tween.get(this.lodingGroup).to({alpha: 0}, 600).wait(100)
+            egret.Tween.get(this.lodingGroup).to({alpha: 0}, 400).wait(100)
                 .call(() => {
                     this.removeFromParent();
                 });
