@@ -13,10 +13,10 @@ type UserImage struct {
 	//female 	map[int32]*msg.ItemData
 	//male		map[int32]*msg.ItemData
 	clothes 	map[int32]map[int32]*msg.ItemData
-	owner   	*GateUser
+	owner   	*RoomUser
 }
 
-func (this *UserImage) Init(user *GateUser) {
+func (this *UserImage) Init(user *RoomUser) {
 	//this.male = make(map[int32]*msg.ItemData)
 	//this.female = make(map[int32]*msg.ItemData)
 	this.clothes = make(map[int32]map[int32]*msg.ItemData)
@@ -147,7 +147,7 @@ func (this *UserImage) GetEquipSkills() []int32 {
 		return nil
 	}
 
-	skills := make([]int32, 10)
+	skills := make([]int32, 0, 10)
 	for _, item := range clothes {
 		equip, find := tbl.TEquipBase.EquipById[int32(item.GetId())]
 		if find == false { continue }

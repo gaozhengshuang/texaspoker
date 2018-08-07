@@ -217,11 +217,50 @@ var egret = window.egret;
 		return t;
 	};
 	return CommonDialogSkin;
+})(eui.Skin);generateEUI.paths['resource/eui_skins/component/GameLoadingProgressBar.exml'] = window.GameLoadingProgressBar = (function (_super) {
+	__extends(GameLoadingProgressBar, _super);
+	function GameLoadingProgressBar() {
+		_super.call(this);
+		this.skinParts = ["thumb"];
+		
+		this.height = 36;
+		this.minHeight = 18;
+		this.minWidth = 30;
+		this.width = 604;
+		this.elementsContent = [this._Image1_i(),this.thumb_i()];
+	}
+	var _proto = GameLoadingProgressBar.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.anchorOffsetX = 0;
+		t.percentHeight = 100;
+		t.horizontalCenter = 0;
+		t.scale9Grid = new egret.Rectangle(1,1,4,4);
+		t.source = "gameLoadingBg_png";
+		t.verticalCenter = 0;
+		t.percentWidth = 100;
+		return t;
+	};
+	_proto.thumb_i = function () {
+		var t = new eui.Image();
+		this.thumb = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.percentHeight = 100;
+		t.scale9Grid = new egret.Rectangle(3,77,20,464);
+		t.source = "gameLoading_png";
+		t.percentWidth = 100;
+		t.x = 0;
+		t.y = 0;
+		return t;
+	};
+	return GameLoadingProgressBar;
 })(eui.Skin);generateEUI.paths['resource/eui_skins/LoadingSkin.exml'] = window.LoadingSkin = (function (_super) {
 	__extends(LoadingSkin, _super);
 	function LoadingSkin() {
 		_super.call(this);
-		this.skinParts = ["lodingImg","lodingGroup"];
+		this.skinParts = ["lodingImg","loadingBar","loadText","lodingGroup"];
 		
 		this.height = 1100;
 		this.width = 720;
@@ -236,7 +275,7 @@ var egret = window.egret;
 		t.width = 720;
 		t.x = 0;
 		t.y = 0;
-		t.elementsContent = [this.lodingImg_i(),this._Image1_i(),this._Label1_i()];
+		t.elementsContent = [this.lodingImg_i(),this._Image1_i(),this.loadingBar_i(),this.loadText_i()];
 		return t;
 	};
 	_proto.lodingImg_i = function () {
@@ -263,17 +302,27 @@ var egret = window.egret;
 		t.y = 120;
 		return t;
 	};
-	_proto._Label1_i = function () {
-		var t = new eui.Label();
-		t.fontFamily = "Microsoft YaHei";
+	_proto.loadingBar_i = function () {
+		var t = new eui.ProgressBar();
+		this.loadingBar = t;
+		t.bottom = 22;
+		t.height = 36;
 		t.horizontalCenter = 0;
-		t.size = 28;
-		t.stroke = 1;
-		t.strokeColor = 0xffa0be;
-		t.text = "游戏正在加载中,请稍后...";
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.skinName = "GameLoadingProgressBar";
+		t.width = 604;
+		return t;
+	};
+	_proto.loadText_i = function () {
+		var t = new eui.Label();
+		this.loadText = t;
+		t.bold = true;
+		t.bottom = 34;
+		t.horizontalCenter = 0;
+		t.size = 14;
+		t.text = "100%";
 		t.textAlign = "center";
-		t.textColor = 0xff3d77;
-		t.verticalCenter = 363;
 		return t;
 	};
 	return LoadingSkin;

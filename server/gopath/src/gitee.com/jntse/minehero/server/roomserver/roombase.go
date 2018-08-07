@@ -231,6 +231,7 @@ func (this *GameRoom) LoadUser(bin *msg.Serialize, gate network.IBaseNetSession)
 
 	// 
 	user := UserMgr().CreateRoomUser(this.id, bin, gate, this.roomkind)
+	user.InitEquipSkills()
 	this.owner = user
 
 	// 
