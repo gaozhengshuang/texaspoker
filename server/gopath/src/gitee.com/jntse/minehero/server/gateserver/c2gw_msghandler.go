@@ -206,7 +206,7 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	roomid, userid := user.RoomId(), user.Id()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
 		return
 	}
 	room.UserEnter(userid, "")
@@ -422,7 +422,7 @@ func on_C2GW_SellBagItem(session network.IBaseNetSession, message interface{}) {
 
 // 玩家充值完成(大厅和房间都自己获取金币返回)
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_PlatformRechargeDone)
+	//tmsg := message.(*msg.C2GW_PlatformRechargeDone)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -431,13 +431,12 @@ func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message inter
 	}
 
 	// 游戏中
-	if user.IsInRoom() {
-		user.SendRoomMsg(tmsg)
-		return
-	}
-
-	log.Error("玩家[%s %d]收到充值完成通知但玩家不在房间中", user.Name(), user.Id())
-	//user.SynMidasBalance()
+	//if user.IsInRoom() {
+	//	user.SendRoomMsg(tmsg)
+	//	return
+	//}
+	//log.Error("玩家[%s %d]收到充值完成通知但玩家不在房间中", user.Name(), user.Id())
+	user.SynMidasBalance()
 }
 
 // 绑定微信openid
@@ -563,25 +562,45 @@ func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message inte
 //}
 
 func on_BT_ReqLaunchBullet(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqLaunchBullet)
+	//tmsg := message.(*msg.BT_ReqLaunchBullet)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.SendRoomMsg(tmsg)
+	//user.SendRoomMsg(tmsg)
+	roomid, userid := user.RoomId(), user.Id()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
+		return
+	}
+	if tantan, ok := room.(*TanTanLe); ok == true {
+		tantan.ReqLaunchBullet()
+	}
+
 }
 
 func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_StepOnBomb)
+	//tmsg := message.(*msg.BT_StepOnBomb)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.SendRoomMsg(tmsg)
+	//user.SendRoomMsg(tmsg)
+	roomid, userid := user.RoomId(), user.Id()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
+		return
+	}
+
+	if tantan, ok := room.(*TanTanLe); ok == true {
+		tantan.StepOnBomb()
+	}
 }
 
 func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{}) {
@@ -592,7 +611,18 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 		session.Close()
 		return
 	}
-	user.SendRoomMsg(tmsg)
+	//user.SendRoomMsg(tmsg)
+	roomid, userid := user.RoomId(), user.Id()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
+		return
+	}
+
+	if tantan, ok := room.(*TanTanLe); ok == true {
+		tantan.BulletEarnMoney(tmsg.GetGold())
+	}
+
 }
 
 func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{}) {
@@ -603,18 +633,38 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 		session.Close()
 		return
 	}
-	user.SendRoomMsg(tmsg)
+	//user.SendRoomMsg(tmsg)
+	roomid, userid := user.RoomId(), user.Id()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
+		return
+	}
+
+	if tantan, ok := room.(*TanTanLe); ok == true {
+		tantan.UseUltimateSkil(tmsg.GetGold())
+	}
 }
 
 func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqCrushSuperBrick)
+	//tmsg := message.(*msg.BT_ReqCrushSuperBrick)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.SendRoomMsg(tmsg)
+	//user.SendRoomMsg(tmsg)
+	roomid, userid := user.RoomId(), user.Id()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
+		return
+	}
+
+	if tantan, ok := room.(*TanTanLe); ok == true {
+		tantan.CrushSuperBrick()
+	}
 }
 
 func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
@@ -626,10 +676,10 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	if user.IsInRoom() {
-		user.SendRoomMsg(tmsg)
-		return
-	}
+	//if user.IsInRoom() {
+	//	user.SendRoomMsg(tmsg)
+	//	return
+	//}
 
 	// 兑换
 	diamonds := tmsg.GetDiamonds()
@@ -662,7 +712,8 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 	}
 
 	if user.IsInRoom() {
-		user.SendRoomMsg(tmsg)
+		//user.SendRoomMsg(tmsg)
+		user.SendNotify("正在游戏中")
 		return
 	}
 
@@ -760,9 +811,11 @@ func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if user.IsInRoom() {
-		user.SendNotify("正在游戏中")
-		return
-	}
+	//if user.IsInRoom() {
+	//	user.SendNotify("正在游戏中")
+	//	return
+	//}
 	user.task.SendTaskList()
 }
+
+

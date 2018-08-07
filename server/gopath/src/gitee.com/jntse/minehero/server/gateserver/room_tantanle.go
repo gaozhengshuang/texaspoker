@@ -220,6 +220,10 @@ func (this *TanTanLe) UserDisconnect(userid uint64) {
 	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, userid)
 }
 
+
+// --------------------------------------------------------------------------
+/// @brief 下面是弹弹乐特有接口
+// --------------------------------------------------------------------------
 // 请求发送子弹
 func (this *TanTanLe) ReqLaunchBullet() {
 	bulletid, errmsg := int64(0), ""
@@ -243,4 +247,50 @@ func (this *TanTanLe) ReqLaunchBullet() {
 	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg), Energy:pb.Int64(this.energy) }
 	this.SendClientMsg(send)
 }
+
+func (this *TanTanLe) AddTopScore(score uint32) {
+	this.topscore += int64(score)
+}
+
+func (this *TanTanLe) StepOnBomb() {
+	this.owner.RemoveGold(uint32(tbl.Game.BombDeductMoney), "踩到炸弹", false)
+	send := &msg.BT_RetStepOnBomb{}
+	this.owner.SendMsg(send)
+}
+
+func (this *TanTanLe) BulletEarnMoney(gold uint32) {
+	user := this.owner
+	if gold > 1000 {
+		log.Warn("玩家[%s %d] 子弹获得金币过多警告[%d]", user.Name(), user.Id(), gold)
+	}
+
+	user.AddGold(gold, "子弹获得金币", false)
+	this.AddTopScore(gold)
+
+	// 检查任务
+	taskid := int32(msg.TaskId_RegisterTopScore)
+	task, find := tbl.TaskBase.TTaskById[uint32(taskid)]
+	if user.task.IsTaskFinish(taskid) == false && find && user.GetGold() >= uint32(task.Count) {
+		user.task.TaskFinish(taskid)
+		inviter := user.Inviter()
+		if inviter != 0 { Redis().SAdd(fmt.Sprintf("task_invitee_topscorefinish_%d", inviter), user.Id()) }
+	}
+}
+
+func (this *TanTanLe) UseUltimateSkil(gold uint32) {
+	if this.energy < tbl.Game.MaxEnergy {
+		log.Error("玩家[%s %d]使用大招能量未满 %d", this.energy)
+		return
+	}
+
+	this.energy = 0
+	this.owner.AddGold(gold, "使用大招", true)
+}
+
+func (this *TanTanLe) CrushSuperBrick() {
+	this.owner.AddGold(uint32(tbl.Game.SuperBrickReward), "超级砖块奖励", false)
+	send := &msg.BT_RetCrushSuperBrick{Errmsg:pb.String("")}
+	this.owner.SendMsg(send)
+}
+
 

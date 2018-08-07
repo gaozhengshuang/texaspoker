@@ -647,12 +647,12 @@ func (this *GateUser) SendRoomMsg(msg pb.Message) {
 }
 
 // 转发消息到roomserver(效率不是最理想的方式)
-func (this *GateUser) TransferRoomMsg(m pb.Message) {
-	name := pb.MessageName(m)
-	msgbuf, _ := pb.Marshal(m)
-	send := &msg.GW2RS_MsgTransfer{ Uid:pb.Uint64(this.Id()), Name:pb.String(name), Buf:msgbuf }
-	this.SendRoomMsg(send)
-}
+//func (this *GateUser) TransferRoomMsg(m pb.Message) {
+//	name := pb.MessageName(m)
+//	msgbuf, _ := pb.Marshal(m)
+//	send := &msg.GW2RS_MsgTransfer{ Uid:pb.Uint64(this.Id()), Name:pb.String(name), Buf:msgbuf }
+//	this.SendRoomMsg(send)
+//}
 
 // 回复客户端
 func (this *GateUser) ReplyStartGame(err string, roomid int64) {
