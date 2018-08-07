@@ -615,7 +615,7 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 	roomid, userid := user.RoomId(), user.Id()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
+		log.Error("玩家[%d]子弹死亡同步，找不到游戏房间[%d]", userid, roomid)
 		return
 	}
 

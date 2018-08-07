@@ -1,7 +1,7 @@
 package main
 import (
 	"fmt"
-	_"time"
+	"time"
 	_"strings"
 	"strconv"
 	"gitee.com/jntse/gotoolkit/log"
@@ -12,6 +12,7 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 	_"gitee.com/jntse/minehero/server/tbl/excel"
 	"gitee.com/jntse/minehero/server/def"
+	"github.com/go-redis/redis"
 )
 
 // --------------------------------------------------------------------------
@@ -96,7 +97,7 @@ func (this *TanTanLe) IsEnd(now int64) bool {
 	}
 
 	if ( this.tm_end != 0)	{
-		log.Info("房间[%d] 准备删除房间，玩家[%d]", this.id, this.ownerid)
+		log.Info("房间[%d] 准备删除，玩家[%d]", this.id, this.ownerid)
 		return true
 	}
 
@@ -106,7 +107,13 @@ func (this *TanTanLe) IsEnd(now int64) bool {
 
 // 游戏结束
 func (this *TanTanLe) OnEnd(now int64) {
-	log.Info("房间[%d] 游戏结束，模式[%d]", this.Id(), this.Kind())
+	log.Info("房间[%d] 游戏结束，玩家[%d] 模式[%d]", this.Id(), this.ownerid, this.Kind())
+
+	// 单局日排行榜
+	zMem := redis.Z{ float64(this.topscore), this.ownerid }
+	rKey := fmt.Sprintf("rank_topscore_day_%s", time.Now().Format("20060102"))
+	score, _ := Redis().ZScore(rKey, strconv.FormatUint(this.ownerid, 10)).Result()
+	if score < float64(this.topscore) { Redis().ZAdd(rKey, zMem) }
 
 	// 序列化玩家个人数据
 	if this.owner != nil { 

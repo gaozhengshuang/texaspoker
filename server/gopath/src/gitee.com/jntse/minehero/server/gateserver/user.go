@@ -795,16 +795,14 @@ func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
 	this.roomdata.Reset()
 
 	// 加载玩家最新数据
-	if bin != nil {
-		this.bin = pb.Clone(bin).(*msg.Serialize)
-		this.OnLoadDB("房间结束")
-		if this.IsOnline() { 
-			this.SendUserBase()
-			//this.CheckGiveFreeStep(util.CURTIME(), "回大厅跨整点")
-			this.SyncBigRewardPickNum()
-			//this.QueryPlatformCoins()
-		}
-	}
+	//if bin != nil {
+	//	this.bin = pb.Clone(bin).(*msg.Serialize)
+	//	this.OnLoadDB("房间结束")
+	//	if this.IsOnline() { 
+	//		this.SendUserBase()
+	//		this.SyncBigRewardPickNum()
+	//	}
+	//}
 }
 
 // 通知RS 玩家已经断开连接了
