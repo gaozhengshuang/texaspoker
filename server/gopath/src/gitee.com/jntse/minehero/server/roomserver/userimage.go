@@ -147,7 +147,7 @@ func (this *UserImage) GetEquipSkills() []int32 {
 		return nil
 	}
 
-	skills := make([]int32, 10)
+	skills := make([]int32, 0, 10)
 	for _, item := range clothes {
 		equip, find := tbl.TEquipBase.EquipById[int32(item.GetId())]
 		if find == false { continue }
