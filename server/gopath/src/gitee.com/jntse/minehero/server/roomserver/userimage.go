@@ -13,10 +13,10 @@ type UserImage struct {
 	//female 	map[int32]*msg.ItemData
 	//male		map[int32]*msg.ItemData
 	clothes 	map[int32]map[int32]*msg.ItemData
-	owner   	*GateUser
+	owner   	*RoomUser
 }
 
-func (this *UserImage) Init(user *GateUser) {
+func (this *UserImage) Init(user *RoomUser) {
 	//this.male = make(map[int32]*msg.ItemData)
 	//this.female = make(map[int32]*msg.ItemData)
 	this.clothes = make(map[int32]map[int32]*msg.ItemData)
