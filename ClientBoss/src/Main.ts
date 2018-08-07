@@ -91,7 +91,7 @@ class Main extends eui.UILayer {
             // }
             // console.log(dragonBones.DragonBones.VERSION)
             {
-                const remoteUrl = "https://tantanle.giantfun.cn/cdn/egret_remote/resource/";
+                const remoteUrl = "https://tantanle-cdn.giantfun.cn/cdn/egret_remote/resource/";
                 // const remoteUrl = "http://210.73.214.68/egret_remote/resource/";
 
             //     egret.ImageLoader.crossOrigin = "anonymous";
