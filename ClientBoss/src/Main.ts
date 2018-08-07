@@ -33,7 +33,7 @@ import GameLayer = game.GameLayer;
 declare var resUrl;
 
 class Main extends eui.UILayer {
-
+    private loadingView;
 
     protected createChildren(): void {
         super.createChildren();
@@ -72,8 +72,8 @@ class Main extends eui.UILayer {
     }
 
     private async loadLoding() {
-        const loadingView = new game.LoadingUI();
-        GameLayer.loadLayer.addChild(loadingView);
+        this.loadingView = new game.LoadingUI();
+        GameLayer.loadLayer.addChild(this.loadingView);
     }
 
     private async loadResource() {
@@ -91,7 +91,7 @@ class Main extends eui.UILayer {
             // }
             // console.log(dragonBones.DragonBones.VERSION)
             {
-                const remoteUrl = "https://tantanle.giantfun.cn/cdn/egret_remote/resource/";
+                const remoteUrl = "https://tantanle-cdn.giantfun.cn/cdn/egret_remote/resource/";
                 // const remoteUrl = "http://210.73.214.68/egret_remote/resource/";
 
             //     egret.ImageLoader.crossOrigin = "anonymous";
@@ -111,8 +111,7 @@ class Main extends eui.UILayer {
             }
 
             await this.loadTheme();
-
-            await RES.loadGroup("preload", 0);
+            await RES.loadGroup("preload", 0, this.loadingView);
             if (document && document.getElementById("preloading")) {
                 document.getElementById("preloading").style.display = "none";
             }

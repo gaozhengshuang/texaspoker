@@ -3,7 +3,9 @@
 	<e:Group id="lodingGroup" width="720" height="100%" x="0" y="0">
 		<e:Image id="lodingImg" width="100%" height="100%" source="loadingMain_png" x="0" y="0" scaleX="1" scaleY="1" scale9Grid="72,137,579,787"/>
 		<e:Image source="loadingMainYs_png" horizontalCenter="0" verticalCenter="-117.5" x="0" y="120" scaleX="1" scaleY="1"/>
-		<e:Label text="游戏正在加载中,请稍后..." textAlign="center" horizontalCenter="0" verticalCenter="363" textColor="0xff3d77" size="28" strokeColor="0xffa0be" stroke="1" fontFamily="Microsoft YaHei"/>
+		<e:ProgressBar id="loadingBar" width="604" height="36" scaleX="1" scaleY="1" skinName="GameLoadingProgressBar" horizontalCenter="0" bottom="22"/>
+		<e:Label id="loadText" text="0%" size="14" bold="true" textAlign="center" horizontalCenter="0" bottom="34"/>
+
 	</e:Group>
 
 

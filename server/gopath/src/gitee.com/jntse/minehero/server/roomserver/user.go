@@ -2,6 +2,7 @@ package main
 import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/tbl/excel"
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/log"
@@ -25,6 +26,7 @@ type RoomUser struct {
 	bin 		*msg.Serialize
 	bag 		UserBag
 	task       	UserTask
+	image 		UserImage
 	token		string
 	//coins		uint32
 	ticker1s  	*util.GameTicker
@@ -37,6 +39,8 @@ type RoomUser struct {
 	energy		int64
 	save_amt	int64
 	topscore	int64
+	skills		[]int32
+	maxenergy	int64
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
@@ -49,7 +53,10 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, room
 	user.task.Init(user)
 	user.bag.LoadBin(b)
 	user.task.LoadBin(b)
+	user.image.Init(user)
+	user.image.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
+	user.maxenergy = tbl.Game.MaxEnergy
 	for _, v := range user.UserBase().Luckydraw.Drawlist { 
 		user.luckydraw = append(user.luckydraw, v) 
 	}
@@ -78,6 +85,18 @@ func (this *RoomUser) Account() string {
 
 func (this *RoomUser) Face() string {
 	return this.Entity().GetFace()
+}
+
+func (this *RoomUser) Sex() int32 {
+	return this.Entity().GetSex()
+}
+
+func (this *RoomUser) SetSex(sex int32) {
+	this.Entity().Sex = pb.Int32(sex)
+}
+
+func (this *RoomUser) MaxEnergy() int64 {
+	return this.maxenergy
 }
 
 func (this *RoomUser) RoomId() int64 {
@@ -247,6 +266,7 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 	// 背包
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
+	this.image.PackBin(bin)
 
 
 	return bin
@@ -688,7 +708,10 @@ func (this *RoomUser) ReqLaunchBullet() {
 
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
-		if this.energy < tbl.Game.MaxEnergy { this.energy += 1 }
+		if this.energy < this.MaxEnergy() { 
+			this.energy += 1
+			if this.energy >= this.MaxEnergy() { this.energy = this.MaxEnergy() }
+		}
 		log.Info("玩家[%s %d] 发射子弹[%d]成功 当前能量值[%d]", this.Name(), this.Id(), this.bulletid, this.energy)
 	}
 
@@ -698,6 +721,38 @@ func (this *RoomUser) ReqLaunchBullet() {
 
 func (this *RoomUser) AddTopScore(score uint32) {
 	this.topscore += int64(score)
+}
+
+func (this *RoomUser) InitEquipSkills() {
+	skills := this.image.GetEquipSkills()
+	this.skills = make([]int32, 0, len(skills))
+	this.skills = append(this.skills, skills...)
+
+	//
+	DoSkillEnergy := func(base *table.TSkillDefine) {
+		reduce := int64(base.Num)
+		reduce += int64(this.maxenergy * int64(base.NumPer) / 100)
+		if this.maxenergy >= reduce { 
+			this.maxenergy -= reduce 
+		}else {
+			this.maxenergy = 0
+		}
+	}
+
+	//1.贯穿弹2.延长双倍3.加快大招累计4.增加击碎金币5.延长事件间隔时间
+	for _, skill := range this.skills {
+		base, find := tbl.TSkillpBase.TSkillById[uint32(skill)]
+		if find == false { continue }
+		switch base.Type {
+		case 1: 
+			break
+		case 2: 
+			break
+		case 3:
+			DoSkillEnergy(base)
+			break
+		}
+	}
 }
 
 

@@ -44,7 +44,7 @@ pbindex_path = './tools/gen_pbindex'
 if os.path.isfile(pbindex_path+'/gen_pbindex') == False:
     curdir = os.getcwd()
     os.chdir(pbindex_path)
-    ExecShellCmd('''go build -gcflags "-N -l" -i -v''', True)
+    ExecShellCmd('''go build -gcflags=all="-N -l" -v''', True)
     os.chdir(curdir)
 
 cmd_genpb = '%s/gen_pbindex -root=%s -output=%s/proto_index.xlsx' % (pbindex_path, PROTOCOL_PATH, TBL_EXCEL)

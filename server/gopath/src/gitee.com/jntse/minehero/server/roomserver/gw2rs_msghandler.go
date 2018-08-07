@@ -280,7 +280,7 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 		return 
 	}
 
-	if user.energy < tbl.Game.MaxEnergy {
+	if user.energy < user.MaxEnergy() {
 		log.Error("玩家[%s %d]使用大招能量未满 %d", user.energy)
 		return
 	}
