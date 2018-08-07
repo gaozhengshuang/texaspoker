@@ -33,12 +33,7 @@ module game {
 
         private async reconnectHandle() {
             this.close();
-
-            LoginManager.getInstance().wxlogin({
-                openid: DataManager.playerModel.userInfo.openid,
-                face: DataManager.playerModel.userInfo.face,
-                nickname: DataManager.playerModel.userInfo.name
-            })
+            Login();
         }
 
         public close() {
