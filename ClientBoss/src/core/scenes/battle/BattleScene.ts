@@ -187,6 +187,7 @@ module game {
             this.initWorld();
             this.initNetHandle();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
+            DataManager.playerModel.skillUpdate();
         }
 
         private initNetHandle() {
@@ -514,7 +515,8 @@ module game {
             }
             //更新能量
             let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
-            if (this._nowSp < maxSp) {
+            this._nowSp = Math.min(this._nowSp,maxSp);
+            if (this._nowSp <= maxSp) {
                 this.updateSp();
             }
             let angle = Math.atan2(x - this._paddle.x, this._paddle.y - y);

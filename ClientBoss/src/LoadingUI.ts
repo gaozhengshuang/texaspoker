@@ -30,6 +30,8 @@
 module game {
     export class LoadingUI extends GameComponent implements RES.PromiseTaskReporter {
         lodingGroup: eui.Group;
+        loadingBar: eui.ProgressBar;
+        loadText: eui.Label;
         
         protected getSkinName() {
             return LoadingSkin;
@@ -51,7 +53,8 @@ module game {
         }
 
         public onProgress(current: number, total: number): void {
-            
+            this.loadText.text = `游戏加载中..${Math.ceil((current/total)*100)}%`;
+            this.loadingBar.value = (current/total)*100;
         }
     }
 }
