@@ -709,7 +709,7 @@ func (this *RoomUser) ReqLaunchBullet() {
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
 		if this.energy < this.MaxEnergy() { 
-			this.energy += 10 
+			this.energy += 1
 			if this.energy >= this.MaxEnergy() { this.energy = this.MaxEnergy() }
 		}
 		log.Info("玩家[%s %d] 发射子弹[%d]成功 当前能量值[%d]", this.Name(), this.Id(), this.bulletid, this.energy)
