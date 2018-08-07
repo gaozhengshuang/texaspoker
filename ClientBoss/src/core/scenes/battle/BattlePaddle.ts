@@ -21,7 +21,7 @@ module game {
         private _currentWave: number;
 
         private _isWuxian:boolean = false;
-
+        private _nowSp = 0;
         protected init() {
             this.boomImage.visible = false;
             this.battleBodyType = BattleBodyType.paddle;
@@ -105,21 +105,26 @@ module game {
         public setSp(percent: number) {
             if (percent < 0) {
                 this.spLabel.text = `无限炮弹`;
+                this._nowSp = 0;
             } else {
                 this.costLabel.visible = true;
-                let p = Math.floor(percent * 100);
+                let p = Math.min(Math.floor(percent * 100),100);
                 this.costLabel.text = `${p}%`;
                 let y = 173 - 1.14 * p;
                 egret.Tween.get(this.waveImage, null, null, true).to({y: y}, 500, egret.Ease.quadOut);
-                if (p == 100) {
-                    this.playSpAnim();
-                    this.waveImage.touchEnabled = true;
-                    this.spLabel.text = `点击发射`;
+                if (p == 100 ) {
+                    if(this._nowSp!=100)
+                    {
+                        this.playSpAnim();
+                        this.waveImage.touchEnabled = true;
+                        this.spLabel.text = `点击发射`;
+                    }
                 } else {
                     this.waveImage.touchEnabled = false;
                     this.spLabel.text = `能量`;
                     this.stopSpAnim();
                 }
+                this._nowSp = p;
             }
         }
 
