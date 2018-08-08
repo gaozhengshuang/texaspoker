@@ -281,7 +281,7 @@ func (this *User) HttpWetchatLogin() {
 
 
 func (this *User) StartGame() {
-	this.SendGateMsg(&msg.C2GW_ReqStartGame{Gamekind:pb.Int32(30)})
+	this.SendGateMsg(&msg.C2GW_ReqStartGame{Gamekind:pb.Int32(0)})
 }
 
 func (this *User) LeaveGame() {
@@ -306,6 +306,11 @@ func (this *User) DeliveryGoods() {
 
 func (this *User) Recharge() {
 	send := &msg.C2GW_ReqRechargeMoney{Amount:pb.Uint32(10)}
+	this.SendGateMsg(send)
+}
+
+func (this *User) RechargeDone() {
+	send := &msg.C2GW_PlatformRechargeDone{ Userid:pb.Uint64(this.Id())}
 	this.SendGateMsg(send)
 }
 
@@ -393,6 +398,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.UnDressClothes()
 	case "sex":
 		this.ChangeSex()
+	case "rechargedone":
+		this.RechargeDone()
 	}
 }
 

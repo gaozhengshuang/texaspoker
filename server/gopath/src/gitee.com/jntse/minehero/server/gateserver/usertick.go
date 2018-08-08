@@ -111,7 +111,7 @@ func (this *GateUser) CheckRechargeOrders() {
 		return
 	}
 
-	this.AddYuanbao(uint32(amount), "充值获得")
+	this.AddYuanbao(uint32(amount), "充值获得", true)
 }
 
 // 心跳,毫秒

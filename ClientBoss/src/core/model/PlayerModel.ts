@@ -22,7 +22,7 @@ module game {
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
-            NotificationCenter.addObserver(this, this.OnGW2C_SendWechatInfo, "msg.GW2C_SendWechatInfo")
+            NotificationCenter.addObserver(this, this.OnGW2C_SendWechatInfo, "msg.GW2C_SendWechatInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
             NotificationCenter.addObserver(this, this.OnGW2C_UpdateDiamond, "msg.GW2C_UpdateDiamond");
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
@@ -93,8 +93,9 @@ module game {
         private OnGW2C_RetGoldExchange(data: msg.GW2C_RetGoldExchange) {
             this.addScore(data.gold);
         }
+        
         public get clothes() {
-            return (this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists) || null;
+            return this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists;
         }
 
         private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
@@ -169,6 +170,7 @@ module game {
         public getBag() {
             return this.bagList;
         }
+
         //获取背包中的物品
         public getBagItem(itemId: number) {
             this.bagList.forEach(item => {
@@ -178,6 +180,7 @@ module game {
             });
             return null;
         }
+        
         //背包是否有这个物品
         public IsHaveItem(itemId: number) {
             return this.bagList.some(item => { return item.id === itemId; });
