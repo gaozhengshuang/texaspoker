@@ -2,6 +2,7 @@ package main
 import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/tbl/excel"
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/log"
@@ -25,8 +26,9 @@ type RoomUser struct {
 	bin 		*msg.Serialize
 	bag 		UserBag
 	task       	UserTask
+	image 		UserImage
 	token		string
-	coins		uint32
+	//coins		uint32
 	ticker1s  	*util.GameTicker
 	ticker10ms  *util.GameTicker
 	asynev      eventque.AsynEventQueue // 异步事件处理
@@ -36,6 +38,9 @@ type RoomUser struct {
 	bulletid 	int64
 	energy		int64
 	save_amt	int64
+	topscore	int64
+	skills		[]int32
+	maxenergy	int64
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
@@ -48,7 +53,10 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, room
 	user.task.Init(user)
 	user.bag.LoadBin(b)
 	user.task.LoadBin(b)
+	user.image.Init(user)
+	user.image.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
+	user.maxenergy = tbl.Game.MaxEnergy
 	for _, v := range user.UserBase().Luckydraw.Drawlist { 
 		user.luckydraw = append(user.luckydraw, v) 
 	}
@@ -77,6 +85,18 @@ func (this *RoomUser) Account() string {
 
 func (this *RoomUser) Face() string {
 	return this.Entity().GetFace()
+}
+
+func (this *RoomUser) Sex() int32 {
+	return this.Entity().GetSex()
+}
+
+func (this *RoomUser) SetSex(sex int32) {
+	this.Entity().Sex = pb.Int32(sex)
+}
+
+func (this *RoomUser) MaxEnergy() int64 {
+	return this.maxenergy
 }
 
 func (this *RoomUser) RoomId() int64 {
@@ -246,6 +266,7 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 	// 背包
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
+	this.image.PackBin(bin)
 
 
 	return bin
@@ -253,6 +274,13 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 
 // 游戏结束，将数据回传Gate
 func (this *RoomUser) OnEnd(now int64) {
+
+	// 单局日排行榜
+	zMem := redis.Z{ float64(this.topscore), this.Id() }
+	rKey := fmt.Sprintf("rank_topscore_day_%s", time.Now().Format("20060102"))
+	score, _ := Redis().ZScore(rKey, strconv.FormatUint(this.Id(), 10)).Result()
+	if score < float64(this.topscore) { Redis().ZAdd(rKey, zMem) }
+
 	this.ticker1s.Stop()
 	this.ticker10ms.Stop()
 	this.asynev.Shutdown()
@@ -285,13 +313,13 @@ func (this *RoomUser) SidGate() int {
 	return this.sid_gate
 }
 
-func (this *RoomUser) GetCoins() uint32 {
-	return this.coins
-}
-
-func (this *RoomUser) UpdateCoins(amount uint32) {
-	this.coins = amount
-}
+//func (this *RoomUser) GetCoins() uint32 {
+//	return this.coins
+//}
+//
+//func (this *RoomUser) UpdateCoins(amount uint32) {
+//	this.coins = amount
+//}
 
 func (this *RoomUser) GetGold() uint32 {
 	return this.UserBase().GetGold()
@@ -302,7 +330,7 @@ func (this *RoomUser) RemoveGold(gold uint32, reason string, syn bool) bool {
 		userbase := this.UserBase()
 		userbase.Gold = pb.Uint32(this.GetGold() - gold)
 		if syn { this.SendGold() }
-		log.Info("玩家[%d] 扣除金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Gold), gold)
 		return true
@@ -315,14 +343,14 @@ func (this *RoomUser) AddGold(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Gold = pb.Uint32(this.GetGold() + gold)
 	if syn { this.SendGold() }
-	log.Info("玩家[%d] 添加金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
 
 func (this *RoomUser) SetGold(gold uint32, reason string, syn bool) {
 	userbase := this.UserBase()
 	userbase.Gold = pb.Uint32(gold)
 	if syn { this.SendGold() }
-	log.Info("玩家[%d] 设置金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
 
 func (this *RoomUser) SendGold() {
@@ -346,7 +374,7 @@ func (this *RoomUser) AddYuanbao(yuanbao uint32, reason string) {
 	userbase.Yuanbao = pb.Uint32(userbase.GetYuanbao() + yuanbao)
 	RCounter().IncrByDate("room_output", uint32(this.roomkind), yuanbao)
 	//this.PlatformPushLootMoney(float32(yuanbao))
-	log.Info("玩家[%d] 添加元宝[%d] 剩余[%d] 原因[%s]", this.Id(), yuanbao, userbase.GetYuanbao(), reason) 
+	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", this.Id(), yuanbao, userbase.GetYuanbao(), reason) 
 }
 
 func (this *RoomUser) RemoveYuanbao(yuanbao uint32, reason string) bool {
@@ -374,11 +402,11 @@ func (this *RoomUser) RemoveDiamond(num uint32, reason string, syn bool) bool {
 		//this.SynRemoveMidsMoney(int64(num), reason)
 		userbase.Diamond = pb.Uint32(userbase.GetDiamond() - num)
 		if syn { this.SendDiamond() }
-		log.Info("玩家[%d] 扣除金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
+		log.Info("玩家[%d] 扣除金卷[%d] 库存[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Diamond), num)
 		return true
 	}
-	log.Info("玩家[%d] 扣除金卷[%d]失败 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
+	log.Info("玩家[%d] 扣除金卷[%d]失败 库存[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 	return false
 }
 
@@ -388,18 +416,18 @@ func (this *RoomUser) AddDiamond(num uint32, reason string, syn bool) {
 	userbase.Diamond = pb.Uint32(userbase.GetDiamond() + num)
 	//this.SynAddMidsMoney(int64(num), reason)
 	if syn { this.SendDiamond() }
-	log.Info("玩家[%d] 添加金卷[%d] 剩余[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
+	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, userbase.GetDiamond(), reason)
 }
 
 // 添加道具
-func (this *RoomUser) AddItem(item uint32, num uint32, reason string) {
+func (this *RoomUser) AddItem(item uint32, num uint32, reason string, syn bool) {
 
     if item == uint32(msg.ItemId_YuanBao) {
         this.AddYuanbao(num, reason)
     }else if item == uint32(msg.ItemId_Gold) {
-        this.AddGold(num, reason, false)
+        this.AddGold(num, reason, syn)
     }else if item == uint32(msg.ItemId_Diamond) {
-		this.AddDiamond(num, reason, true)
+		this.AddDiamond(num, reason, syn)
 	}else if item == uint32(msg.ItemId_FreeStep) {
 		this.AddFreeStep(num, reason)
 	}else{
@@ -519,22 +547,6 @@ func (this *RoomUser) AsynEventInsert(event eventque.IEvent) {
 	this.asynev.Push(event)
 }
 
-// 推送资源消耗
-//func (this *RoomUser) PlatformPushConsumeMoney(yuanbao float32) {
-//	rmbcent := 100.0 * yuanbao / float32(tbl.Room.RmbToYuanbao)
-//	arglist := []interface{}{this.Account(), this.Token(), uint64(this.Id()), uint32(rmbcent)}
-//	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceConsumeArglist, nil)
-//	this.AsynEventInsert(event)
-//}
-//
-//// 推送资源获取
-//func (this *RoomUser) PlatformPushLootMoney(yuanbao float32) {
-//	rmbcent := 100.0 * yuanbao / float32(tbl.Room.RmbToYuanbao)
-//	arglist := []interface{}{this.Account(), this.Token(), uint64(this.Id()), uint32(rmbcent)}
-//	event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceEarnArglist, nil)
-//	this.AsynEventInsert(event)
-//}
-
 func (this *RoomUser) LuckyDraw() {
 	// 检查消耗
 	cost := uint32(tbl.Game.LuckDrawPrice)
@@ -575,10 +587,6 @@ func (this *RoomUser) LuckyDraw() {
 		}
 	}
 
-	//giftweight := make([]util.WeightOdds, 0)
-	//for k ,v := range tbl.TBallGiftbase.TBallGiftById {
-	//	giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
-	//}
 	index := util.SelectByWeightOdds(giftweight)
 	if index < 0 || index >= int32(len(giftweight)) {
 		log.Error("[%d %s] 抽奖异常，无法获取抽奖id", this.Id(), this.Name())
@@ -593,7 +601,11 @@ func (this *RoomUser) LuckyDraw() {
 	}
 
 	this.RemoveGold(cost, "幸运抽奖", true)
-	this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖")
+	if uint32(gift.ItemId) == uint32(msg.ItemId_Gold) {
+		this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖", false)
+	}else {
+		this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖", true)
+	}
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
 	this.SetLuckyDrawTotalWroth(this.GetLuckyDrawTotalWroth() + int64(gift.Cost))
@@ -637,7 +649,7 @@ func (this *RoomUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 	if uint32(amt_save) > this.TotalRecharge()  {
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
-		this.AddDiamond(recharge, "充值获得", false)
+		this.AddDiamond(recharge, "充值获得", true)
 		this.SetDiamondCost(this.GetDiamondCost() + int64(recharge))
 		//send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Uint64(this.Id()), Diamond:pb.Uint32(recharge) }
 		//this.SendClientMsg(send)
@@ -691,23 +703,56 @@ func (this *RoomUser) ReqLaunchBullet() {
 			break
 		}
 
-		// 充值同步中
-		//if this.synbalance == true {
-		//	errmsg = "充值中"
-		//	break
-		//}
-
 		// 不同步
 		this.RemoveGold(uint32(tbl.Game.BulletPrice), "发射子弹", false)
 
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
-		if this.energy < tbl.Game.MaxEnergy { this.energy += 1 }
+		if this.energy < this.MaxEnergy() { 
+			this.energy += 1
+			if this.energy >= this.MaxEnergy() { this.energy = this.MaxEnergy() }
+		}
 		log.Info("玩家[%s %d] 发射子弹[%d]成功 当前能量值[%d]", this.Name(), this.Id(), this.bulletid, this.energy)
 	}
 
 	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg), Energy:pb.Int64(this.energy) }
 	this.SendClientMsg(send)
+}
+
+func (this *RoomUser) AddTopScore(score uint32) {
+	this.topscore += int64(score)
+}
+
+func (this *RoomUser) InitEquipSkills() {
+	skills := this.image.GetEquipSkills()
+	this.skills = make([]int32, 0, len(skills))
+	this.skills = append(this.skills, skills...)
+
+	//
+	DoSkillEnergy := func(base *table.TSkillDefine) {
+		reduce := int64(base.Num)
+		reduce += int64(this.maxenergy * int64(base.NumPer) / 100)
+		if this.maxenergy >= reduce { 
+			this.maxenergy -= reduce 
+		}else {
+			this.maxenergy = 0
+		}
+	}
+
+	//1.贯穿弹2.延长双倍3.加快大招累计4.增加击碎金币5.延长事件间隔时间
+	for _, skill := range this.skills {
+		base, find := tbl.TSkillpBase.TSkillById[uint32(skill)]
+		if find == false { continue }
+		switch base.Type {
+		case 1: 
+			break
+		case 2: 
+			break
+		case 3:
+			DoSkillEnergy(base)
+			break
+		}
+	}
 }
 
 

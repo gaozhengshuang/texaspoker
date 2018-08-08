@@ -25,38 +25,12 @@ module game {
         //战斗数据初始化
         BattleManager.getInstance().init();
 
-        //游戏初始化
-        gameInit();
-    }
-
-    export function gameInit() {
-        // VL:微信小游戏登陆
-        wxAutoLogin();
-        /*
-        wxCode = egret.getOption("code");
-        wxState = egret.getOption("state");
-        if(wxCode != "" && wxState != "") {
-            let userArray = wxState.split("-");
-            loginUserInfo = {
-                account: userArray[0],
-                passwd: userArray[1]
-            };
-            LoginManager.getInstance().login();
-        } else {
-            Login();
-        }
-        */
+        //打开登录
+        Login();
     }
 
     export function createGameScene() {
         SceneManager.changeScene(SceneType.main);
-
-        if (wxCode != "" && wxState != "" && DataManager.playerModel.getOpenId() == "") {
-            sendMessage("msg.C2GW_SendWechatAuthCode", msg.C2GW_SendWechatAuthCode.encode({
-                code: wxCode
-            }));
-            showTips("绑定微信成功!");
-        }
 
         //登录完成关闭loading界面
         NotificationCenter.postNotification("closeLoadingSkin");

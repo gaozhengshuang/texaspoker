@@ -124,7 +124,8 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 119, Name : "msg.GW2C_LuckyDrawHit" 	},
 		{ Id : 120, Name : "msg.GW2C_FreePresentNotify" 	},
 		{ Id : 121, Name : "msg.GW2C_SendTaskList" 	},
-		{ Id : 122, Name : "msg.GW2C_SendLuckyDrawRecord" 	}
+		{ Id : 122, Name : "msg.GW2C_SendLuckyDrawRecord" 	},
+		{ Id : 123, Name : "msg.C2GW_ReqTaskList" 	}
 	]
 
 

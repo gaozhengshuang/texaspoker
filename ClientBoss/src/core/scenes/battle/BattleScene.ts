@@ -17,6 +17,8 @@ module game {
         ball1Price: eui.Label;
         ball2Price: eui.Label;
         hitLabel: eui.Label;
+        diamondNumTxt : eui.Label;
+        
         topImage: eui.Image;
         noticeLabel: eui.Label;
         brickInfoGroup: eui.Group;
@@ -35,6 +37,11 @@ module game {
         mainGroup: eui.Group;
         moreFireImg: eui.Image;
         badbuffPanel: BadBuff;
+
+        coin_money: game.Coins;
+        coin_gold: game.Coins;
+
+        roleBoneGroup : eui.Group;
 
         private _nowSp: number = 0;
         private _spCool: number = 0;
@@ -63,6 +70,7 @@ module game {
         private _timeBoomPool: ObjectPool<BattleTimeBoom>;
         private _firewallPool: ObjectPool<BattleFirewall>;
         private _icePool: ObjectPool<BattleIce>;
+        private _roleBonePool : ObjectPool<RoleBone>;
 
         private _paddle: BattlePaddle;
 
@@ -107,9 +115,12 @@ module game {
         protected init() {
             if (gameConfig.isIphoneX()) {
                 this.mainGroup.y = 86;
-                this.topBg.height = 172;
-                this.scoreLabel.y = 110;
                 this.backButton.y = 80;
+                this.topBg.height = 172;
+                this.scoreLabel.y = 100;
+                this.coin_money.y = 90;
+                this.coin_gold.y = 90;
+                this.roleBoneGroup.y = -17;
             }
             this._lootList = {};
             for (let i = 0; i < table.TBirckRefresh.length; i++) {
@@ -147,6 +158,9 @@ module game {
             this.ball1Price.text = `价值:${table.TBallById[1].Price}炮弹`;
             this.ball2Price.text = `价值:${table.TBallById[2].Price}炮弹`;
 
+            this.coin_gold.setCoinType(msg.MoneyType._Gold);
+            this.coin_money.setCoinType(msg.MoneyType._Diamond);
+
             this._brickPool = new ObjectPool<BattleBrick>(BattleBrick);
             this._ballPool = new ObjectPool<BattleBall>(BattleBall);
             this._paddlePool = new ObjectPool<BattlePaddle>(BattlePaddle);
@@ -159,6 +173,7 @@ module game {
             this._timeBoomPool = new ObjectPool<BattleTimeBoom>(BattleTimeBoom);
             this._firewallPool = new ObjectPool<BattleFirewall>(BattleFirewall);
             this._icePool = new ObjectPool<BattleIce>(BattleIce);
+            this._roleBonePool = new ObjectPool<RoleBone>(RoleBone);
 
             for (let brickInfo of table.TBirckInfo) {
                 if (!brickInfo.Bullet) continue;
@@ -172,6 +187,7 @@ module game {
             this.initWorld();
             this.initNetHandle();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
+            DataManager.playerModel.skillUpdate();
         }
 
         private initNetHandle() {
@@ -306,9 +322,13 @@ module game {
 
         protected beforeShow() {
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
+            let add_y = 0;
+            if (gameConfig.isIphoneX()) {
+                add_y = 20;
+            }
             let paddle = this._paddlePool.createObject();
             paddle.setData(1);
-            paddle.resetPosition(this.mainGroup.y);
+            paddle.resetPosition(this.mainGroup.y + add_y);
             this.paddleGroup.addChild(paddle);
             this._paddle = paddle;
             this._diedY = this._paddle.y + this._paddle.height / 2;
@@ -316,6 +336,19 @@ module game {
             this._diedMaxX = 720 + 14;
             this._nowSp = 0;
             this.updateSp();
+
+            //小人动画
+            let _roleBone = this._roleBonePool.createObject();
+            _roleBone.awake();
+            this.roleBoneGroup.addChild(_roleBone);
+            this.roleBoneGroup.setChildIndex(_roleBone,1);
+        
+            _roleBone.scaleX = 0.42;
+            _roleBone.scaleY = 0.42;
+            _roleBone.rotation  = 12;
+            _roleBone.x = 55;
+            _roleBone.y = 30;
+
 
             this.doubleGroup.visible = false;
             this._leftFirewall = [];
@@ -368,7 +401,14 @@ module game {
                     callBackFunc: this.updatePenetration,
                     notifyName: PlayerModel.PENETRATION_UPDATE,
                     execute: true
-                }
+                },
+                {
+                    source: DataManager.playerModel,
+                    target: this,
+                    callBackFunc: this.updateDiamond,
+                    notifyName: PlayerModel.DIAMOND_UPDATE,
+                    execute: true
+                },
             ];
             // for (let brickData of this._missionMapData) {
             //     let brick = this._brickPool.createObject();
@@ -451,19 +491,22 @@ module game {
         }
 
         private OnBT_RetLaunchBullet(data: msg.BT_RetLaunchBullet) {
-            // let x = event.stageX;
-            // let y = event.stageY - 88;
             let x = this._curStage.x;
             let y = this._curStage.y;
             if (y >= this._paddle.y) return;
             this._nowSp = <number>data.energy;
-            // console.log('服务器返回的能量数据：',data,this);
+
             if (DataManager.playerModel.getScore() < _paddlePrice) {
-                showDialog("您的金币不足!", "充值", function () {
-                    // this.rechargeGoHandle();
-                    openPanel(PanelType.pay);
-                    // showTips("暂未开放,敬请期待...", true);
-                });
+                if (DataManager.playerModel.getDiamond() > 0) {
+                    let payStr = `金币不足，是否使用钻石更换金币\n当前拥有钻石：${DataManager.playerModel.getDiamond()}\n可兑换金币：${DataManager.playerModel.getDiamond()}`
+                    showDialog(payStr, "兑换", function () {
+                        sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+                    });
+                } else {
+                    showDialog("您的金币不足!", "充值", function () {
+                        openPanel(PanelType.pay);
+                    });
+                }
                 return;
             }
             if (this._spCool == 0) { //无限火力不扣子弹
@@ -472,7 +515,8 @@ module game {
             }
             //更新能量
             let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
-            if (this._nowSp < maxSp) {
+            this._nowSp = Math.min(this._nowSp,maxSp);
+            if (this._nowSp <= maxSp) {
                 this.updateSp();
             }
             let angle = Math.atan2(x - this._paddle.x, this._paddle.y - y);
@@ -534,17 +578,21 @@ module game {
 
         private updateScore() {
             let gold = DataManager.playerModel.getScore();
-            // console.log("更新金币", gold)
             this.scoreLabel.textFlow = [
-                { text: "金币", style: { bold: true } },
-                { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
-            ]
-
+                 { text: "金币", style: { bold: true } },
+                 { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
+             ]
+            //this.coin_gold.coins = gold;
             if (gold >= this.curSpaceFire) {
                 this.curSpaceFire += _spaceFire;
                 this._paddle.updateWuxianPao(true);
                 this.showBigFire();
             }
+        }
+
+        private updateDiamond() {
+            //this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
+            this.diamondNumTxt.text = DataManager.playerModel.getDiamond().toString();      
         }
 
         private ballHandle(ballButton: IconButton) {
@@ -1091,6 +1139,7 @@ module game {
             this._boomPool.destroyAllObject();
             this._timeBoomPool.destroyAllObject();
             this._firewallPool.destroyAllObject();
+            this._roleBonePool.destroyAllObject();
             this.touchGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandle, this);
             egret.stopTick(this.updateView, this);
         }

@@ -47,7 +47,7 @@
 		<e:VerticalLayout/>
 		</e:layout>
 	</e:Group>
-	<e:Group id="doubleGroup" width="720" height="100%" touchChildren="false" touchEnabled="false" y="87.81" scrollEnabled="true">
+	<e:Group id="doubleGroup" width="720" height="100%" touchChildren="false" touchEnabled="false" y="87.81" scrollEnabled="true" x="0">
 		<e:Image id="light1" source="paddle_json.light" scaleX="1" scaleY="1" width="720" y="0"/>
 		<e:Image id="light2" source="paddle_json.light" scaleX="1" scaleY="1" width="720" y="775"/>
 		<e:Image id="light3" source="paddle_json.light" scaleX="1" scaleY="1" width="720" y="1550"/>
@@ -55,21 +55,31 @@
 	<e:Image id="topBg" source="ui_json.topBg" x="0" scale9Grid="90,10,540,45" y="0" touchEnabled="false"/>
 	<e:Group id="touchGroup" width="720" height="100%"/>
 	<e:Group id="bottomGroup" width="720" height="210" horizontalCenter="0" bottom="0">
-		<e:Image source="ui_json.gameBtnBg" horizontalCenter="0" verticalCenter="0"/>
-		<game:IconButton id="luckyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="181.5"/>
-		<game:IconButton id="userButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-300.5"/>
-		<game:IconButton id="rechargeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-174.5"/>
-		<game:IconButton id="bagButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="303.5"/>
+		<e:Image source="ui_json.gameBtnBg" horizontalCenter="0" verticalCenter="0" visible="false"/>
+		<game:IconButton id="luckyButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="181.5" visible="false"/>
+		<game:IconButton id="userButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="-300.5" visible="false"/>
+		<game:IconButton id="rechargeButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="47.5" horizontalCenter="-285.5"/>
+		<game:IconButton id="bagButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="39.5" horizontalCenter="303.5" visible="false"/>
+		<e:Group id="roleBoneGroup" width="0" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" height="0" x="360" y="15">
+			<e:Image width="118" height="167" y="-22" x="91" source="paddle_json.bg2"/>
+			<e:Image width="450" height="169" y="27" source="paddle_json.bg" x="-225"/>
+			<e:Label id="diamondNumTxt" text="0000000" x="-30" y="165" size="23" width="83" height="22" textAlign="center"/>
+		</e:Group>
 	</e:Group>
 	<e:Group id="mainGroup" width="720" height="100%" touchChildren="true" touchEnabled="false">
 
 		<e:Group id="buffGroup" width="720" height="876" anchorOffsetX="0" touchChildren="false" touchEnabled="false" x="0" scaleX="1" scaleY="1" top="88"/>
 		<e:Group id="showGroup" width="720" height="876" anchorOffsetX="0" touchChildren="false" touchEnabled="false" x="0" scaleX="1" scaleY="1" top="88">
 		</e:Group>
-		<e:Group id="paddleGroup" width="720" height="876" anchorOffsetX="0" touchChildren="true" touchEnabled="false" x="0" scaleX="1" scaleY="1" top="88">
+
+		<e:Group id="paddleGroup" width="720" height="876" anchorOffsetX="0" touchChildren="true" touchEnabled="false" scaleX="1" scaleY="1" x="0" top="83">
 			<e:Component scaleX="1" scaleY="1" skinName="BattlePaddleSkin" anchorOffsetX="98.5" anchorOffsetY="153" x="360.5" y="900" visible="false"/>
 			<e:Image id="moreFireImg" source="ui_json.moreFire" verticalCenter="-39" horizontalCenter="0" touchEnabled="false" visible="false"/>
 		</e:Group>
+
+
+
+
 		<e:Group id="debugGroup" width="720" height="876" anchorOffsetX="0" touchChildren="false" touchEnabled="false" x="0" scaleX="1" scaleY="1" top="88" visible="false"/>
 
 
@@ -90,15 +100,18 @@
 	</e:Group>
 	
 	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" y="10" horizontalCenter="-319.5"/>
-	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" horizontalCenter="0" y="26" textColor="0xffffff"/>
+	<game:Coins id="coin_money" width="195" height="55" x="114" y="15.03" skinName="CoinsSkin" visible="false"/>
+	<game:Coins id="coin_gold" width="195" height="55" x="114" y="15.03" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin" visible="false"/>
+	<e:Label id="scoreLabel" text="分数:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="344" size="34" textColor="0xffffff" horizontalCenter="0" y="26"/>
 
 
 	<e:Label id="hitLabel" text="" stroke="2" strokeColor="0xFFFFFF" right="20" top="20" textColor="0x898989" visible="false"/>
 	<e:Label id="noticeLabel" text="" y="92" textColor="0xff678e" horizontalCenter="0"/>
 	<e:Group id="guideGroup" width="720" height="100%" touchChildren="false" touchEnabled="true">
 		<e:Image source="ui_json.yindao" scaleX="1" scaleY="1" horizontalCenter="0.5" verticalCenter="-220.5"/>
+		<e:Group width="200" height="200" x="92" y="1152"/>
 	</e:Group>
-	<e:Group id="badBuffGroup" width="150" height="200" horizontalCenter="282" verticalCenter="309" anchorOffsetY="0" touchEnabled="false" touchThrough="false">
-		<game:BadBuff id="badbuffPanel" width="20" height="20" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0" skinName="BadBuffSkin"/>
+	<e:Group id="badBuffGroup" width="0" anchorOffsetY="0" touchEnabled="false" touchThrough="false" height="0" horizontalCenter="282" bottom="65">
+		<game:BadBuff id="badbuffPanel" width="20" height="20" scaleX="1" scaleY="1" skinName="BadBuffSkin" x="-10" y="-10"/>
 	</e:Group>
 </e:Skin>

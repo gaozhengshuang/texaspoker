@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"encoding/base64"
 	"encoding/json"
+	"github.com/go-redis/redis"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
@@ -91,4 +92,20 @@ func IsValidItemPos(pos int32) bool {
 		return true
 	}
 	return false
+}
+
+// 生成room uuid
+func GenerateRoomId(redis *redis.Client) (id int64, errcode string ) {
+	key := "uuid_room"
+	id, err := redis.Incr(key).Result()
+	if err != nil {
+		log.Error("生成roomid redis报错, err: %s", err)
+		return 0, "redis不可用"
+	}
+	return id, ""
+}
+
+func RedisKeyGateRooms(gate string) string {
+	key := fmt.Sprintf("gate_%s_roomamount", gate)
+	return key
 }

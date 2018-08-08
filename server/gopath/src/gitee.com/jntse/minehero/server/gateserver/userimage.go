@@ -1,6 +1,8 @@
 package main
 import (
+	"strconv"
 	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
 )
 
@@ -138,3 +140,24 @@ func (this *UserImage) IsHaveDressSuit() bool {
 	}
 	return false
 }
+
+func (this *UserImage) GetEquipSkills() []int32 {
+	clothes, find := this.clothes[this.owner.Sex()]
+	if find == false {
+		return nil
+	}
+
+	skills := make([]int32, 10)
+	for _, item := range clothes {
+		equip, find := tbl.TEquipBase.EquipById[int32(item.GetId())]
+		if find == false { continue }
+		for _, skill := range equip.Skill { 
+			iskill, _ := strconv.ParseInt(skill, 10, 32)
+			skills = append(skills, int32(iskill))
+		}
+	}
+
+	return skills
+}
+
+

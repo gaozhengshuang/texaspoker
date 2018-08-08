@@ -47,21 +47,23 @@ func main() {
 	log.Info("初始键盘输入完成")
 	
 
+	fmt.Println(time.Now().Format("20060102"))
 	// TODO: 通道传入slice是引用
-	TrSlice := func(ch_slice chan interface{}) {
-		for ;; {
-			data , open := <-ch_slice
-			if open == false { return }
-			passin := data.(*util.KeyBordInput)
-			log.Info("ch_slice recv %v %#v", &*passin, data)
-		}
-	}
-	ch_slice := make(chan interface{}, 1)
-	passin := new(util.KeyBordInput)
-	passin.C = make(chan string)
-	ch_slice <- passin
-	log.Info("ch_slice send %v %#v", &*passin, passin)
-	go TrSlice(ch_slice)
+	//TrSlice := func(ch_slice chan interface{}) {
+	//	for ;; {
+	//		data , open := <-ch_slice
+	//		if open == false { return }
+	//		passin := data.(*util.KeyBordInput)
+	//		log.Info("ch_slice recv %v %#v", &*passin, data)
+	//	}
+	//}
+	//ch_slice := make(chan interface{}, 1)
+	//passin := new(util.KeyBordInput)
+	//passin.C = make(chan string)
+	//ch_slice <- passin
+	//log.Info("ch_slice send %v %#v", &*passin, passin)
+	//go TrSlice(ch_slice)
+
 
 	// url 解析
 	testurl := "https://api.weixin.qq.com/cgi-bin/midas/sandbox/pay?access_token="

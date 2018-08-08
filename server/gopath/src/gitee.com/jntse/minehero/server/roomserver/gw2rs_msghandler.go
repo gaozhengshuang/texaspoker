@@ -126,7 +126,7 @@ func on_BT_UploadGameUser(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	room.LoadUser(tmsg.GetBin(), session)
+	room.UserLoad(tmsg.GetBin(), session)
 }
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
@@ -259,6 +259,7 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 	}
 
 	user.AddGold(tmsg.GetGold(), "子弹获得金币", false)
+	user.AddTopScore(tmsg.GetGold())
 
 	// 检查任务
 	taskid := int32(msg.TaskId_RegisterTopScore)
@@ -279,7 +280,7 @@ func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{})
 		return 
 	}
 
-	if user.energy < tbl.Game.MaxEnergy {
+	if user.energy < user.MaxEnergy() {
 		log.Error("玩家[%s %d]使用大招能量未满 %d", user.energy)
 		return
 	}

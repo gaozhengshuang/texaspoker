@@ -28,20 +28,22 @@ import (
 // --------------------------------------------------------------------------
 /// @brief 玩家房间简单数据
 // --------------------------------------------------------------------------
-type RoomBase struct {
+type UserRoomData struct {
 	roomid      int64
 	sid_room    int
 	kind        int32
 	tm_closing	int64		// 房间关闭超时
 	creating	bool
+	room		IRoomBase
 }
 
-func (this *RoomBase) Reset() {
+func (this *UserRoomData) Reset() {
 	this.roomid = 0
 	this.sid_room = 0
 	this.kind = 0
 	this.tm_closing = 0
 	this.creating = false
+	this.room = nil
 }
 
 // --------------------------------------------------------------------------
@@ -90,7 +92,7 @@ type GateUser struct {
 	tm_asynsave		int64		// 异步存盘超时
 	savedone		bool		// 存盘标记
 	cleanup			bool     	// 清理标记
-	roomdata		RoomBase 	// 房间信息
+	roomdata		UserRoomData	// 房间信息
 	token			string		// token
 	asynev			eventque.AsynEventQueue	// 异步事件处理
 	broadcastbuffer []uint64	// 广播消息缓存
@@ -110,6 +112,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.savedone = false
 	u.token = token
 	u.broadcastbuffer = make([]uint64,0)
+	u.roomdata.Reset()
 	return u
 }
 
@@ -526,8 +529,8 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.roomdata.Reset()
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功", this.Sid(), this.account, this.Id(), this.Name())
 
-	// 免费赠送金币
-	this.CheckFreePresentGold(false)
+	// 免费赠送钻石
+	this.CheckFreePresentDiamond(false)
 
 	// 上线任务检查
 	this.OnlineTaskCheck()
@@ -536,7 +539,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.Syn()
 
 	// 同步midas平台充值金额
-	this.SynMidasBalance()
+	//this.SynMidasBalance()
 
 	return true
 }
@@ -644,12 +647,12 @@ func (this *GateUser) SendRoomMsg(msg pb.Message) {
 }
 
 // 转发消息到roomserver(效率不是最理想的方式)
-func (this *GateUser) TransferRoomMsg(m pb.Message) {
-	name := pb.MessageName(m)
-	msgbuf, _ := pb.Marshal(m)
-	send := &msg.GW2RS_MsgTransfer{ Uid:pb.Uint64(this.Id()), Name:pb.String(name), Buf:msgbuf }
-	this.SendRoomMsg(send)
-}
+//func (this *GateUser) TransferRoomMsg(m pb.Message) {
+//	name := pb.MessageName(m)
+//	msgbuf, _ := pb.Marshal(m)
+//	send := &msg.GW2RS_MsgTransfer{ Uid:pb.Uint64(this.Id()), Name:pb.String(name), Buf:msgbuf }
+//	this.SendRoomMsg(send)
+//}
 
 // 回复客户端
 func (this *GateUser) ReplyStartGame(err string, roomid int64) {
@@ -660,8 +663,56 @@ func (this *GateUser) ReplyStartGame(err string, roomid int64) {
 	}
 }
 
-// 请求开始游戏
-func (this *GateUser) ReqStartGame(gamekind int32) (errcode string) {
+// 在网关创建房间
+func (this *GateUser) ReqStartGameLocal(gamekind int32) (errcode string) {
+	// 创建中
+	if this.IsRoomCreating() {
+		log.Error("玩家[%s %d] 重复创建房间，正在创建房间中", this.Name(), this.Id())
+		errcode = "正在创建房间中"
+		return
+	}
+
+	// 有房间
+	if this.IsInRoom() {
+		log.Error("玩家[%s %d] 重复创建房间，已经有一个房间[%d]", this.Name(), this.Id(), this.RoomId())
+		errcode = "重复创建房间"
+		return
+	}
+
+	// 创建房间
+	roomid, errcode := def.GenerateRoomId(Redis())
+	if errcode != "" {
+		log.Error("玩家[%s %d] 创建房间，生成房间id失败[%s]", this.Name(), this.Id(), errcode)
+		errcode = "生成房间id失败"
+		return 
+	}
+
+	this.roomdata.kind = gamekind
+	this.roomdata.roomid = roomid
+	userid := this.Id()
+
+	switch {
+	default:
+		if RoomMgr().Find(roomid) != nil {
+			errcode = fmt.Sprintf("发现了相同的房间[%d]", roomid)
+			break
+		}
+
+		// 初始化房间
+		room := NewGameRoom(userid, roomid, gamekind)
+		if errcode = room.Init(); errcode != "" {
+			break
+		}
+		room.UserLoad(this)
+		RoomMgr().Add(room)
+	}
+
+	if errcode != "" { log.Error(errcode) }
+	return errcode
+}
+
+// 向match请求创建房间
+func (this *GateUser) ReqStartGameRemote(gamekind int32) (errcode string) {
 
 	// 检查游戏类型是否有效
 	//dunconfig , findid := tbl.DungeonsBase.TDungeonsById[gamekind]
@@ -725,7 +776,6 @@ func (this *GateUser) StartGameOk(servername string, roomid int64) {
 	// TODO: 将个人信息上传到Room
 	send := &msg.BT_UploadGameUser{}
 	send.Roomid = pb.Int64(roomid)
-	//send.Bin = pb.Clone(this.PackBin()).(*msg.Serialize)
 	send.Bin = this.PackBin()
 	agent.SendMsg(send)
 
@@ -738,31 +788,30 @@ func (this *GateUser) StartGameFail(err string) {
 }
 
 // 房间关闭
-func (this *GateUser) GameEnd(bin *msg.Serialize, reason string) {
+func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
 
 	// 重置房间数据
 	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", this.Name(), this.Id(), this.RoomId(), reason)
 	this.roomdata.Reset()
 
 	// 加载玩家最新数据
-	if bin != nil {
-		this.bin = pb.Clone(bin).(*msg.Serialize)
-		this.OnLoadDB("房间结束")
-		if this.IsOnline() { 
-			this.SendUserBase()
-			//this.CheckGiveFreeStep(util.CURTIME(), "回大厅跨整点")
-			this.SyncBigRewardPickNum()
-			//this.QueryPlatformCoins()
-		}
-	}
+	//if bin != nil {
+	//	this.bin = pb.Clone(bin).(*msg.Serialize)
+	//	this.OnLoadDB("房间结束")
+	//	if this.IsOnline() { 
+	//		this.SendUserBase()
+	//		this.SyncBigRewardPickNum()
+	//	}
+	//}
 }
 
 // 通知RS 玩家已经断开连接了
 func (this *GateUser) SendRsUserDisconnect() {
 	if this.roomdata.tm_closing != 0 { return }
 	this.roomdata.tm_closing = util.CURTIMEMS()
-	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Uint64(this.Id())}
-	this.SendRoomMsg(msgclose)
+	//msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Uint64(this.Id())}
+	//this.SendRoomMsg(msgclose)
+	if this.roomdata.room != nil { this.roomdata.room.UserDisconnect(this.Id()) }
 	log.Info("玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
 }
 

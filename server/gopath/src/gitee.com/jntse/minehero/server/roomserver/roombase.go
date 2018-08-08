@@ -223,7 +223,7 @@ func (this *GameRoom) OnStart() {
 }
 
 // 加载玩家
-func (this *GameRoom) LoadUser(bin *msg.Serialize, gate network.IBaseNetSession) {
+func (this *GameRoom) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
 	if this.owner != nil {
 		log.Error("房间[%d] 玩家[%s %d]个人数据已经在房间了", this.id, this.owner.Id(), this.owner.Name())
 		return
@@ -231,10 +231,11 @@ func (this *GameRoom) LoadUser(bin *msg.Serialize, gate network.IBaseNetSession)
 
 	// 
 	user := UserMgr().CreateRoomUser(this.id, bin, gate, this.roomkind)
+	user.InitEquipSkills()
 	this.owner = user
 
 	// 
-	log.Info("房间[%d] 玩家[%s %d] 加载个人数据 Step:%d", this.id, user.Name(), user.Id(), this.totalcost)
+	log.Info("房间[%d] 玩家[%s %d] 加载个人数据，最大能量%d", this.id, user.Name(), user.Id(), user.MaxEnergy())
 }
 
 // 玩家进房间，开始游戏

@@ -57,7 +57,7 @@ func (this *UserTask) SendTaskList() {
 	for _, task := range this.tasks {
 		send.Tasks = append(send.Tasks, task)
 	}
-	this.owner.SendMsg(send)
+	this.owner.SendClientMsg(send)
 }
 
 func (this *UserTask) IsTaskFinish(id int32) bool {

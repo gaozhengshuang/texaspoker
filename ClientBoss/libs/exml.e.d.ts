@@ -48,6 +48,8 @@ declare class BadBuffSkin extends eui.Skin{
 }
 declare class CloseButtonSkin extends eui.Skin{
 }
+declare class GameLoadingProgressBar extends eui.Skin{
+}
 declare class IconButtonSkin extends eui.Skin{
 }
 declare class ImageButtonSkin extends eui.Skin{
@@ -86,22 +88,23 @@ declare class RankItemSkin extends eui.Skin{
 }
 declare class RankPanelSkin extends eui.Skin{
 }
-declare class WinRankItemSkin extends eui.Skin{
-}
-declare class WinSceneSkin extends eui.Skin{
-}
 declare class ChooseIconSkin extends eui.Skin{
 }
 declare class CoinsSkin extends eui.Skin{
 }
 declare class EquipInfoSkin extends eui.Skin{
 }
-
 declare class ItemPriceSkin extends eui.Skin{
 }
-declare class RoleDressSkin extends eui.Skin{   
+declare class RoleBoneSkin extends eui.Skin{
 }
-declare class ShopItemSkin extends eui.Skin{   
+declare class RoleDressSkin extends eui.Skin{
 }
-declare class ShoppingCartSkin extends eui.Skin{   
+declare class ShopItemSkin extends eui.Skin{
+}
+declare class ShoppingCartSkin extends eui.Skin{
+}
+declare class WinRankItemSkin extends eui.Skin{
+}
+declare class WinSceneSkin extends eui.Skin{
 }

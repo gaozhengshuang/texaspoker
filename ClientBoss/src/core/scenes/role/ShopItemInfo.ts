@@ -84,14 +84,6 @@ module game {
             this.txt_price.text = this.itemData.Price.toString();
         }
 
-        protected partAdded(partName: string, instance: any): void {
-            super.partAdded(partName, instance);
-        }
-
-        protected childrenCreated(): void {
-            super.childrenCreated();
-        }
-
         public chooseAll(select:Boolean)
         {
             this._select = !select;

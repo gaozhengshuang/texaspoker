@@ -38,7 +38,7 @@ module game {
                 { rmb: 6, gold: 600 },
                 { rmb: 30, gold: 3000 },
                 { rmb: 98, gold: 9800 },
-                { rmb: 128, gold: 23800 },
+                { rmb: 128, gold: 12800 },
                 { rmb: 328, gold: 32800 },
                 { rmb: 648, gold: 64800 },
             ]
@@ -62,20 +62,20 @@ module game {
                 },
             ]
 
-            this.setGoldCnt(DataManager.playerModel.getScore());
+            this.setGoldCnt(DataManager.playerModel.getDiamond());
             this.updateDiamond();
         }
 
         private updateScore() {
-            this.setGoldCnt(DataManager.playerModel.getScore());
+            this.setGoldCnt(DataManager.playerModel.getDiamond());
         }
 
         private updateDiamond() {
-            this.curDiamond_txt.text = `拥有：${DataManager.playerModel.getDiamond()}钻石`;
+            this.curDiamond_txt.text = `可兑换：${DataManager.playerModel.getDiamond()}金币`;
         }
 
         protected setGoldCnt(n) {
-            this.goldCnt && (this.goldCnt.text = `${n}枚`);
+            this.goldCnt && (this.goldCnt.text = `${n}`);
         }
 
         protected beforeShow() {
@@ -164,7 +164,7 @@ module game {
             // console.log(this._checkedItemIndex, this._gifts)
             let g = this._gifts[this._checkedItemIndex - 1];
 
-            let zuanshi = g.rmb * 10 || 60;
+            let zuanshi = g.rmb * 100 || 600;
             let os = loginOs;
 
             console.warn("the os is:", os);

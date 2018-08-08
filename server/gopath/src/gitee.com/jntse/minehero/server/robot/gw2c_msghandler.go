@@ -70,7 +70,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.C2GW_ChangeDeliveryAddress{})
 	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
 
-	this.msgparser.RegistSendProto(msg.C2GW_GoldExchange{})
+	//this.msgparser.RegistSendProto(msg.C2GW_GoldExchange{})
 	this.msgparser.RegistSendProto(msg.C2GW_BuyClothes{})
 	this.msgparser.RegistSendProto(msg.C2GW_DressClothes{})
 	this.msgparser.RegistSendProto(msg.C2GW_UnDressClothes{})
