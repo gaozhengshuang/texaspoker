@@ -35,7 +35,7 @@ func (m *HelloRequest) Reset()         { *m = HelloRequest{} }
 func (m *HelloRequest) String() string { return proto.CompactTextString(m) }
 func (*HelloRequest) ProtoMessage()    {}
 func (*HelloRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_helloworld_573de60d50a182af, []int{0}
+	return fileDescriptor_helloworld_71e208cbdc16936b, []int{0}
 }
 func (m *HelloRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_HelloRequest.Unmarshal(m, b)
@@ -74,7 +74,7 @@ func (m *HelloReply) Reset()         { *m = HelloReply{} }
 func (m *HelloReply) String() string { return proto.CompactTextString(m) }
 func (*HelloReply) ProtoMessage()    {}
 func (*HelloReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_helloworld_573de60d50a182af, []int{1}
+	return fileDescriptor_helloworld_71e208cbdc16936b, []int{1}
 }
 func (m *HelloReply) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_HelloReply.Unmarshal(m, b)
@@ -101,80 +101,9 @@ func (m *HelloReply) GetMessage() string {
 	return ""
 }
 
-// 获取服务器时间
-type TimeRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *TimeRequest) Reset()         { *m = TimeRequest{} }
-func (m *TimeRequest) String() string { return proto.CompactTextString(m) }
-func (*TimeRequest) ProtoMessage()    {}
-func (*TimeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_helloworld_573de60d50a182af, []int{2}
-}
-func (m *TimeRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TimeRequest.Unmarshal(m, b)
-}
-func (m *TimeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TimeRequest.Marshal(b, m, deterministic)
-}
-func (dst *TimeRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TimeRequest.Merge(dst, src)
-}
-func (m *TimeRequest) XXX_Size() int {
-	return xxx_messageInfo_TimeRequest.Size(m)
-}
-func (m *TimeRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_TimeRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_TimeRequest proto.InternalMessageInfo
-
-type TimeReply struct {
-	Now                  string   `protobuf:"bytes,1,opt,name=now,proto3" json:"now,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *TimeReply) Reset()         { *m = TimeReply{} }
-func (m *TimeReply) String() string { return proto.CompactTextString(m) }
-func (*TimeReply) ProtoMessage()    {}
-func (*TimeReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_helloworld_573de60d50a182af, []int{3}
-}
-func (m *TimeReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TimeReply.Unmarshal(m, b)
-}
-func (m *TimeReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TimeReply.Marshal(b, m, deterministic)
-}
-func (dst *TimeReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TimeReply.Merge(dst, src)
-}
-func (m *TimeReply) XXX_Size() int {
-	return xxx_messageInfo_TimeReply.Size(m)
-}
-func (m *TimeReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_TimeReply.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_TimeReply proto.InternalMessageInfo
-
-func (m *TimeReply) GetNow() string {
-	if m != nil {
-		return m.Now
-	}
-	return ""
-}
-
 func init() {
 	proto.RegisterType((*HelloRequest)(nil), "helloworld.HelloRequest")
 	proto.RegisterType((*HelloReply)(nil), "helloworld.HelloReply")
-	proto.RegisterType((*TimeRequest)(nil), "helloworld.TimeRequest")
-	proto.RegisterType((*TimeReply)(nil), "helloworld.TimeReply")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -191,7 +120,6 @@ const _ = grpc.SupportPackageIsVersion4
 type GreeterClient interface {
 	// Sends a greeting
 	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
-	GetTime(ctx context.Context, in *TimeRequest, opts ...grpc.CallOption) (*TimeReply, error)
 }
 
 type greeterClient struct {
@@ -211,20 +139,10 @@ func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...
 	return out, nil
 }
 
-func (c *greeterClient) GetTime(ctx context.Context, in *TimeRequest, opts ...grpc.CallOption) (*TimeReply, error) {
-	out := new(TimeReply)
-	err := c.cc.Invoke(ctx, "/helloworld.Greeter/GetTime", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // GreeterServer is the server API for Greeter service.
 type GreeterServer interface {
 	// Sends a greeting
 	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
-	GetTime(context.Context, *TimeRequest) (*TimeReply, error)
 }
 
 func RegisterGreeterServer(s *grpc.Server, srv GreeterServer) {
@@ -249,24 +167,6 @@ func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Greeter_GetTime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TimeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GreeterServer).GetTime(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/helloworld.Greeter/GetTime",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).GetTime(ctx, req.(*TimeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _Greeter_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "helloworld.Greeter",
 	HandlerType: (*GreeterServer)(nil),
@@ -275,32 +175,24 @@ var _Greeter_serviceDesc = grpc.ServiceDesc{
 			MethodName: "SayHello",
 			Handler:    _Greeter_SayHello_Handler,
 		},
-		{
-			MethodName: "GetTime",
-			Handler:    _Greeter_GetTime_Handler,
-		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "helloworld.proto",
 }
 
-func init() { proto.RegisterFile("helloworld.proto", fileDescriptor_helloworld_573de60d50a182af) }
+func init() { proto.RegisterFile("helloworld.proto", fileDescriptor_helloworld_71e208cbdc16936b) }
 
-var fileDescriptor_helloworld_573de60d50a182af = []byte{
-	// 226 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x50, 0xc1, 0x4a, 0xc4, 0x30,
-	0x14, 0x34, 0x28, 0xd6, 0x7d, 0x2a, 0x2e, 0x0f, 0xd4, 0xb2, 0x22, 0x48, 0x0e, 0xe2, 0x29, 0x88,
-	0x1e, 0x05, 0x0f, 0x7b, 0xa9, 0xc7, 0x52, 0x05, 0xcf, 0x51, 0x1f, 0xb5, 0x90, 0x34, 0x31, 0x89,
-	0xd4, 0xfe, 0x80, 0xdf, 0x2d, 0x89, 0x2d, 0x06, 0xdc, 0xdb, 0x4c, 0xde, 0x4c, 0x66, 0x18, 0x58,
-	0xbe, 0x93, 0x52, 0x66, 0x30, 0x4e, 0xbd, 0x09, 0xeb, 0x4c, 0x30, 0x08, 0x7f, 0x2f, 0x9c, 0xc3,
-	0xc1, 0x43, 0x64, 0x0d, 0x7d, 0x7c, 0x92, 0x0f, 0x88, 0xb0, 0xd3, 0x4b, 0x4d, 0x25, 0xbb, 0x60,
-	0x57, 0x8b, 0x26, 0x61, 0x7e, 0x09, 0x30, 0x69, 0xac, 0x1a, 0xb1, 0x84, 0x42, 0x93, 0xf7, 0xb2,
-	0x9d, 0x45, 0x33, 0xe5, 0x87, 0xb0, 0xff, 0xd4, 0x69, 0x9a, 0xbe, 0xe2, 0xe7, 0xb0, 0xf8, 0xa5,
-	0xd1, 0xb5, 0x84, 0xed, 0xde, 0x0c, 0x93, 0x23, 0xc2, 0x9b, 0x6f, 0x06, 0x45, 0xe5, 0x88, 0x02,
-	0x39, 0xbc, 0x87, 0xbd, 0x47, 0x39, 0xa6, 0x10, 0x2c, 0x45, 0x56, 0x38, 0xef, 0xb6, 0x3a, 0xd9,
-	0x70, 0xb1, 0x6a, 0xe4, 0x5b, 0x78, 0x07, 0x45, 0x45, 0x21, 0xa6, 0xe1, 0x69, 0x2e, 0xca, 0xea,
-	0xac, 0x8e, 0xff, 0x1f, 0x92, 0x79, 0x7d, 0x0d, 0x67, 0x9d, 0x11, 0xad, 0xb3, 0xaf, 0x82, 0xbe,
-	0xa4, 0xb6, 0x8a, 0x7c, 0x26, 0x5d, 0x1f, 0xa5, 0xa4, 0xe7, 0x88, 0xeb, 0x38, 0x5f, 0xcd, 0x5e,
-	0x76, 0xd3, 0x8e, 0xb7, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xe5, 0xd1, 0x53, 0xa2, 0x5b, 0x01,
-	0x00, 0x00,
+var fileDescriptor_helloworld_71e208cbdc16936b = []byte{
+	// 175 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xc8, 0x48, 0xcd, 0xc9,
+	0xc9, 0x2f, 0xcf, 0x2f, 0xca, 0x49, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x42, 0x88,
+	0x28, 0x29, 0x71, 0xf1, 0x78, 0x80, 0x78, 0x41, 0xa9, 0x85, 0xa5, 0xa9, 0xc5, 0x25, 0x42, 0x42,
+	0x5c, 0x2c, 0x79, 0x89, 0xb9, 0xa9, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x9c, 0x41, 0x60, 0xb6, 0x92,
+	0x1a, 0x17, 0x17, 0x54, 0x4d, 0x41, 0x4e, 0xa5, 0x90, 0x04, 0x17, 0x7b, 0x6e, 0x6a, 0x71, 0x71,
+	0x62, 0x3a, 0x4c, 0x11, 0x8c, 0x6b, 0xe4, 0xc9, 0xc5, 0xee, 0x5e, 0x94, 0x9a, 0x5a, 0x92, 0x5a,
+	0x24, 0x64, 0xc7, 0xc5, 0x11, 0x9c, 0x58, 0x09, 0xd6, 0x25, 0x24, 0xa1, 0x87, 0xe4, 0x02, 0x64,
+	0xcb, 0xa4, 0xc4, 0xb0, 0xc8, 0x14, 0xe4, 0x54, 0x2a, 0x31, 0x38, 0x19, 0x70, 0x49, 0x67, 0xe6,
+	0xeb, 0xa5, 0x17, 0x15, 0x24, 0xeb, 0xa5, 0x56, 0x24, 0xe6, 0x16, 0xe4, 0xa4, 0x16, 0x23, 0xa9,
+	0x75, 0xe2, 0x07, 0x2b, 0x0e, 0x07, 0xb1, 0x03, 0x40, 0x5e, 0x0a, 0x60, 0x4c, 0x62, 0x03, 0xfb,
+	0xcd, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x0f, 0xb7, 0xcd, 0xf2, 0xef, 0x00, 0x00, 0x00,
 }

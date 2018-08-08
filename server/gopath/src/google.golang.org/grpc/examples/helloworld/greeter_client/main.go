@@ -21,6 +21,7 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -46,22 +47,11 @@ func main() {
 	if len(os.Args) > 1 {
 		name = os.Args[1]
 	}
-	{
-		r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
-		if err != nil {
-			log.Printf("could not greet: %v", err)
-		}else {
-			log.Printf("Greeting: %s", r.Message)
-		}
-	}	
-
-	{
-		r, err := c.GetTime(context.Background(), &pb.TimeRequest{})
-		if err != nil {
-			log.Printf("could not GetTime: %v", err)
-		}else {
-			log.Printf("ServerTime: %s", r.Now)
-		}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
 	}
-	
+	log.Printf("Greeting: %s", r.Message)
 }
