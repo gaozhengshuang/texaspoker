@@ -51,6 +51,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateItemPos{}, on_GW2C_UpdateItemPos)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendShowImage{}, on_GW2C_SendShowImage)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetChangeImageSex{}, on_GW2C_RetChangeImageSex)
+	this.msgparser.RegistProtoMsg(msg.GW2C_FreePresentNotify{}, on_GW2C_FreePresentNotify)
 
 	// 收room消息
 	this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
@@ -255,5 +256,8 @@ func on_GW2C_RetChangeImageSex(session network.IBaseNetSession, message interfac
 	client.SetSex(tmsg.GetSex())
 
 	log.Info("%+v", tmsg)
+}
+
+func on_GW2C_FreePresentNotify(session network.IBaseNetSession, message interface{}) {
 }
 
