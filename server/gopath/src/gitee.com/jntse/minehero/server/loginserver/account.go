@@ -388,3 +388,15 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 	return errcode
 }
 
+// 直接注册，无视验证码
+func DirectRegistAccount(account, passwd string) (errcode string) {
+
+	// 账户检查重复
+	keyaccount := fmt.Sprintf("accounts_%s", account)
+	bexist, _ := Redis().Exists(keyaccount).Result()
+	if bexist == 1 {
+		return ""
+	}
+
+	return RegistAccount(account, passwd, "", account, "", "")
+}

@@ -110,6 +110,11 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 			break
 		}
 
+		// 目前暂时先免注册，客户端直接账户密码登陆
+		if errcode = DirectRegistAccount(account, passwd); errcode != "" {
+			break
+		}
+
 		// 登陆验证
 		if errcode = Authenticate(session, account, passwd); errcode != "" {
 			break
