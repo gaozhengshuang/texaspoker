@@ -1,9 +1,46 @@
 package main
 
-import "fmt"
-import "github.com/go-redis/redis"
-import pb "github.com/golang/protobuf/proto"
-import "gitee.com/jntse/testgo/testredis/proto"
+import (
+	"fmt"
+	"github.com/go-redis/redis"
+	pb "github.com/golang/protobuf/proto"
+	"gitee.com/jntse/testgo/testredis/proto"
+	//"gitee.com/jntse/gotoolkit/util"
+)
+
+
+
+func main() {
+	fmt.Println("vim-go")
+
+	// 常规key
+	//TestKeys()
+
+	// incr
+	//TestIncr()
+
+	// list
+	//TestList()
+
+	// Set
+	//TestSet()
+
+	// ZSet
+	//TestZSet()
+
+	// 二进制
+	//TestBin()
+
+	// pipeline
+	TestPipeline()
+
+}
+
+// 连接redis服务器
+func init() {
+	ExampleNewClient()
+}
+
 
 var GRedis *redis.Client = nil
 func ExampleNewClient() *redis.Client {
@@ -268,29 +305,26 @@ func TestBin() {
 }
 
 
-func main() {
-	fmt.Println("vim-go")
+// 管道技术
+func TestPipeline() {
+	key1, key2, count := "pipe_test1", "pipe_test2", 10
 
-	// 连接redis服务器
-	ExampleNewClient()
-
-	// 常规key
-	TestKeys()
-
-	// incr
-	//TestIncr()
-
-	// list
-	//TestList()
-
-	// Set
-	//TestSet()
-
-	// ZSet
-	//TestZSet()
-
-	// 二进制
-	//TestBin()
-
+	// 普通方式
+	for i:=0; i < count; i++ {
+		_, err := GRedis.Get(fmt.Sprintf("%s_%d",key1,i)).Result()
+		if err != nil { fmt.Println("Redis Get Error: ", err) }
+	}
+	
+	// 管道方式
+	pipe := GRedis.Pipeline()
+	for i:=0; i < count; i++ {
+		_, err := pipe.Get(fmt.Sprintf("%s_%d",key2,i)).Result()
+		if err != nil { fmt.Println("Redis Get Error: ", err) }
+	}
+	cmds, err := pipe.Exec()
+	if err != nil {
+		fmt.Println("Pipe Exec Error: ", err)
+		for _, v := range cmds { fmt.Println(v) }
+	}
 }
 
