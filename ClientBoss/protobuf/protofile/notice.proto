@@ -1,3 +1,4 @@
+syntax = "proto2";
 package msg;
 
 // 个人提示信息
