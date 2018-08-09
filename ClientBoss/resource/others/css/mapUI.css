@@ -1,0 +1,271 @@
+#downPanel{
+	width:100%;
+	height:200px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	background-color:#FFF;
+	border-top:1px solid #ccc;
+	bottom:0px;
+	visibility:hidden;
+}
+#zichanBtn{
+	width:90px;
+	height:134px;
+	margin:0;
+	padding:0;
+	top:26px;
+	border-style:none;
+	position:absolute;
+}
+.zichan_default{
+	background-image:url(../images/down_zichan_btn2.png);
+	background-size:cover;
+}
+.zichan_activate{
+	background-image:url(../images/down_zichan_btn1.png);
+	background-size:cover;
+}
+
+#faxianBtn{
+	width:90px;
+	height:134px;
+	margin:0;
+	padding:0;
+	top:26px;
+	border-style:none;
+	position:absolute;
+}
+.faxian_default{
+	background-image:url(../images/down_faxian_btn2.png);
+	background-size:cover;
+}
+.faxian_activate{
+	background-image:url(../images/down_faxian_btn1.png);
+	background-size:cover;
+}
+
+
+#homeBtn{
+	width:90px;
+	height:134px;
+	margin:0;
+	padding:0;
+	top:26px;
+	border-style:none;
+	position:absolute;
+}
+.home_default{
+	background-image:url(../images/down_home_btn2.png);
+	background-size:cover;
+}
+.home_activate{
+	background-image:url(../images/down_home_btn1.png);
+	background-size:cover;
+}
+
+
+#jiaoyiBtn{
+	width:90px;
+	height:134px;
+	margin:0;
+	padding:0;
+	top:26px;
+	border-style:none;
+	position:absolute;
+}
+.jiaoyi_default{
+	background-image:url(../images/down_jiaoyi_btn2.png);
+	background-size:cover;
+}
+.jiaoyi_activate{
+	background-image:url(../images/down_jiaoyi_btn1.png);
+	background-size:cover;
+}
+
+
+#wodeBtn{
+	width:90px;
+	height:134px;
+	margin:0;
+	padding:0;
+	top:26px;
+	border-style:none;
+	position:absolute;
+}
+.wode_default{
+	background-image:url(../images/down_wode_btn2.png);
+	background-size:cover;
+}
+.wode_activate{
+	background-image:url(../images/down_wode_btn1.png);
+	background-size:cover;
+}
+
+#xiaoxiBtn{
+	width:196px;
+	height:246px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:absolute;
+	top:346px;
+	left:40px;
+	background-image:url(../images/xiaoxiBtn1.png);
+	background-size:cover;
+}
+
+#zhuanpanBtn{
+	width:244px;
+	height:292px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:absolute;
+	top:674px;
+	left:18px;
+	background-image:url(../images/zhuanpan_btn1.png);
+	background-size:cover;
+}
+
+#dingweiBtn{
+	width:190px;
+	height:256px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	right:10px;
+	bottom:220px;
+	background-image:url(../images/dingw.png);
+	background-size:cover;
+}
+
+
+#fujinSwitchBtn{
+	width:156px;
+	height:434px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:absolute;
+	top:300px; 
+	right:10px;
+}
+
+
+.fujinRen{
+	background-image:url(../images/fujinrenBtn.png);
+	background-size:cover;
+}
+.fujinJianzhu{
+	background-image:url(../images/fujinjianzhuBtn.png);
+	background-size:cover;
+}
+
+
+#fjJianzhuBtn{
+	width:100%;
+	height:50%;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:absolute;
+	left:0px;
+	top:50%;
+}
+
+#fjRenBtn{
+	width:100%;
+	height:50%;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+
+#maskBg{
+	margin: auto;
+	width: 100%;
+	height: 100%; 
+	position:absolute;
+	background-color: rgb(200,200,200);
+}
+#returnBtn{
+	width:384px;
+	height:138px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:absolute;
+	bottom:35px;
+	left:60px;
+	background-image:url(../images/returnBtn1.png);
+	background-size:cover;
+}
+.areaIcon{
+	background-image:url(../images/yuan_slt.png);
+	background-size:cover;	
+	position:absolute;
+	width:100px;
+	height:100px;
+	color:#ffffff;
+	text-align:center;
+	line-height:6.5;
+	overflow:hidden;
+}
+.playerIcon{
+	background-image:url(../images/mapHeadIcon.png);
+	background-size:cover;	
+	position:absolute;
+	width:50px;
+	height:53px;
+	text-align:center;
+	line-height:5.7;
+	overflow:hidden;
+}
+
+.bTitleIcon{
+	background-image:url(../images/map_building_titleBg1.png);
+	background-size:cover;	
+	position:absolute;
+	width:120px;
+	height:32px;
+	text-align:center;
+	font-size: 20;
+	color: #000;
+	line-height:1.5;
+	overflow:hidden;
+}
+
+.haveBTitleIcon{
+	background-image:url(../images/map_building_titleBg2.png);
+	background-size:cover;	
+	position:absolute;
+	width:120px;
+	height:32px;
+	text-align:center;
+	font-size: 20;
+	color:red;
+	line-height:1.5;
+	overflow:hidden;
+}
+
+#gameCloseBtn{
+	width:132px;
+	height:132px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:absolute;
+	top:0px;
+	right:0px;
+	background-image:url(../images/close_btn1.png);
+	background-size:cover;
+	visibility:hidden;
+}
+
+

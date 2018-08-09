@@ -27,32 +27,23 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-
-import GameLayer = game.GameLayer;
-
-declare var resUrl;
-
 class Main extends eui.UILayer {
 
 
     protected createChildren(): void {
         super.createChildren();
 
-        this.addChild(new game.GameLayer());
-
-        RES.setMaxLoadingThread(6);
+        egret.lifecycle.addLifecycleListener((context) => {
+            // custom lifecycle plugin
+        })
 
         egret.lifecycle.onPause = () => {
-            //egret.ticker.pause();
-            game.leaveTime = new Date().getTime();
-            game.SoundManager.hideBgSound();
-        };
+            egret.ticker.pause();
+        }
 
         egret.lifecycle.onResume = () => {
-            //egret.ticker.resume();
-            game.leaveTime = null;
-            game.SoundManager.showBgSound();
-        };
+            egret.ticker.resume();
+        }
 
         //inject the custom material parser
         //注入自定义的素材解析器
@@ -60,35 +51,31 @@ class Main extends eui.UILayer {
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
 
+
         this.runGame().catch(e => {
             console.log(e);
         })
     }
 
     private async runGame() {
-        await this.loadResource();
-        game.run();
-    }
+        await this.loadResource()
+        this.createGameScene();
+        const result = await RES.getResAsync("description_json")
+        //this.startAnimation(result);
+        await platform.login();
+        const userInfo = await platform.getUserInfo();
+        console.log(userInfo);
 
-    private async loadLoding() {
-        const loadingView = new game.LoadingUI();
-        GameLayer.loadLayer.addChild(loadingView);
     }
 
     private async loadResource() {
         try {
-            if (typeof(resUrl) != "undefined") {
-                game.$isWx = false;
-                await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
-            } else {
-                game.$isWx = true;
-                await RES.loadConfig(`default.res.json`, "resource/");
-            }
+            const loadingView = new LoadingUI();
+            this.stage.addChild(loadingView);
+            await RES.loadConfig("resource/default.res.json", "resource/");
             await this.loadTheme();
-            await RES.loadGroup("preload", 0);
-            if (document && document.getElementById("preloading")) {
-                document.getElementById("preloading").style.display = "none";
-            }
+            await RES.loadGroup("preload", 0, loadingView);
+            this.stage.removeChild(loadingView);
         }
         catch (e) {
             console.error(e);
@@ -106,4 +93,60 @@ class Main extends eui.UILayer {
 
         })
     }
+
+    private textfield: egret.TextField;
+    /**
+     * 创建场景界面
+     * Create scene interface
+     */
+    protected createGameScene(): void {
+        app.GameConfig.errorObj = RES.getRes(app.GameConfig.errorJson);
+        //window.addEventListener('resize', function (event) {
+        app.GameConfig.innerWidth = window.innerWidth;
+        app.GameConfig.innerHeight = window.innerHeight;
+        app.GameConfig.innerScaleH = app.GameConfig.innerHeight / app.GameConfig.stageHeight;
+        app.GameConfig.innerScaleW = app.GameConfig.innerWidth / app.GameConfig.stageWidth;
+
+        let expHeight:number=app.GameConfig.innerWidth*app.GameConfig.stageHeight/app.GameConfig.stageWidth;
+        app.GameConfig.innerScale=expHeight>app.GameConfig.innerHeight
+        ?app.GameConfig.innerScaleH:app.GameConfig.innerScaleW;
+
+        console.log(app.GameConfig.innerScale);
+
+
+        app.GameConfig.appContainer = new app.AppContainer();
+        this.addChild(app.GameConfig.appContainer);
+        app.ApplicationFacade.getInstance().startUp(app.GameConfig.appContainer);
+    }
+    
+    /**
+     * 描述文件加载成功，开始播放动画
+     * Description file loading is successful, start to play the animation
+     */
+    private startAnimation(result: Array<any>): void {
+        let parser = new egret.HtmlTextParser();
+
+        let textflowArr = result.map(text => parser.parse(text));
+        let textfield = this.textfield;
+        let count = -1;
+        let change = () => {
+            count++;
+            if (count >= textflowArr.length) {
+                count = 0;
+            }
+            let textFlow = textflowArr[count];
+
+            // 切换描述内容
+            // Switch to described content
+            textfield.textFlow = textFlow;
+            let tw = egret.Tween.get(textfield);
+            tw.to({ "alpha": 1 }, 200);
+            tw.wait(2000);
+            tw.to({ "alpha": 0 }, 200);
+            tw.call(change, this);
+        };
+
+        change();
+    }
+
 }

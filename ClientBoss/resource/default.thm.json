@@ -7,6 +7,12 @@
 		"resource/eui_skins/component/GameLoadingProgressBar.exml",
 		"resource/eui_skins/LoadingSkin.exml",
 		"resource/eui_skins/NetFailedSkin.exml",
+		"resource/skins/AllScrollerSkin.exml",
+		"resource/skins/HScrollBarSkin.exml",
+		"resource/skins/LoginSence.exml",
+		"resource/skins/UserInfoUISkin.exml",
+		"resource/skins/VScrollBarPanelSkin.exml",
+		"resource/skins/VScrollBarSkin.exml",
 		"resource/eui_skins/battle/BattleBagItemSkin.exml",
 		"resource/eui_skins/battle/BattleBagSkin.exml",
 		"resource/eui_skins/battle/BattleBallSkin.exml",
@@ -57,9 +63,5 @@
 		"resource/eui_skins/win/WinRankItemSkin.exml",
 		"resource/eui_skins/win/WinSceneSkin.exml"
 	],
-	"path": "resource/default.thm.json",
-	"skins": {
-		"Coins": "resource/eui_skins/Coins.exml",
-		"game.Choose": "resource/eui_skins/Choose.exml"
-	}
+	"path": "resource/default.thm.json"
 }

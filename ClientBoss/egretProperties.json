@@ -55,6 +55,10 @@
     {
       "name": "particle",
       "path": "../../tools/egret/particle/libsrc"
-    }
+    },
+    {
+			"name": "puremvc",
+			"path": "../../tools/egret/puremvc/"
+		}
   ]
 }

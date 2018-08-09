@@ -1,0 +1,156 @@
+declare function setBtnCallbackFun(fun:Function,body:any);
+declare function updataUserInfo(obj:any);
+module app {
+	export class GameMapUIView extends egret.Sprite {
+        public static FUJIN_SWITCH:string = "fujin_switch";
+        public static MAP_POSITION:string = "map_position";
+        public static OPEN_MAIN_ASSETS:string = "open_main_assets";
+        public static GOIN_MESSAGE:string = "goin_message";
+        public static EXPLORE_RETURN:string = "explore_return";
+        public static OPEN_TRANSACTION:string = "open_transaction";
+        public static GOTO_HOME: string = "goto_home";
+        public static OPEN_DISCOVERY: string = "open_discovery";
+        public static OPEN_MINE: string = "open_mine";
+        public static CLOSE_SMALL_GAME: string = "close_small_game";
+
+        private eventMask:eui.Rect;
+        private fujinLabelList:string[]=['附近的人','附近建筑'];
+        private fujinStatus:number=1;
+
+        private userInfo:UserVO;
+
+
+		public constructor() {
+			super();
+            
+            setBtnCallbackFun(this.btnCallbackFun,this);
+		}
+        public updateUserInfoFun(obj:any){
+            if(this.userInfo){
+                this.userInfo.setObject(obj);
+                if(this.userInfoPanel!=null){
+                    this.userInfoPanel.updataInfo(this.userInfo);
+                }
+            }
+        }
+        public btnCallbackFun(type:string,body:any){
+            switch(type){
+                case 'transaction':
+                    body.onclick_transaction();
+                break;
+                case 'xiaoxi':
+                    body.onclick_xiaoxi();
+                break;
+                case 'dingwei':
+                    body.onclick_mapDingwei(); 
+                break;
+                case 'assets':
+                    body.onclick_mainAssets();
+                    
+                break;
+                case 'fujinJianzhu':
+                
+                    body.onclick_fujinSwitch(1);
+                    
+                break;
+                case 'fujinRen':
+                    body.onclick_fujinSwitch(2);
+                break;
+
+                case 'expReturnBtn':
+
+                    body.onclick_expReturn();
+                    
+                break;
+                case 'mine':
+
+                    body.onclick_mine();
+                    
+                break;
+                case 'home':
+
+                    body.onclick_home();
+                    
+                break;
+                 case 'discovery':
+
+                    body.onclick_discovery();
+                    
+                break;
+                case 'gameClose':
+
+                    body.onclick_gameClose();
+                    
+                break;
+
+            }
+        }
+
+        public userInfoPanel:GameUserInfoPanel;
+        public initView(info:UserVO):void{
+            this.userInfo=info;
+            if(this.userInfoPanel==null){
+                this.userInfoPanel=new GameUserInfoPanel();
+                this.addChild(this.userInfoPanel);
+                this.userInfoPanel.x=20;
+                this.userInfoPanel.y=8;
+            }
+            this.userInfoPanel.updataInfo(this.userInfo);
+            /*initTopInfo(GameConfig.innerScale,{name:this.userInfo.nickname,
+                level:this.userInfo.level,gold1:this.userInfo.gold1});*/
+        }
+        public showUserInfo(bool:boolean){
+            if(this.userInfoPanel!=null){
+                this.userInfoPanel.visible=bool;
+            }
+        }
+        public showRoomWeizhi(isShow:boolean,roomvo:RoomVO=null){
+            if(this.userInfoPanel){
+                this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
+            }
+        }
+        private onclick_begin(){
+            console.log('???????????');
+			
+		}
+        private onclick_mine(){
+			
+            this.dispatchEvent(new BasicEvent(GameMapUIView.OPEN_MINE));
+		}
+        private onclick_home(){
+			
+            this.dispatchEvent(new BasicEvent(GameMapUIView.GOTO_HOME));
+		}
+        private onclick_discovery(){
+			
+            this.dispatchEvent(new BasicEvent(GameMapUIView.OPEN_DISCOVERY));
+		}
+        private onclick_transaction(){
+            this.dispatchEvent(new BasicEvent(GameMapUIView.OPEN_TRANSACTION));
+		}
+        private onclick_expReturn(){
+            this.dispatchEvent(new BasicEvent(GameMapUIView.EXPLORE_RETURN));
+		}
+        private onclick_gameClose(){
+            this.dispatchEvent(new BasicEvent(GameMapUIView.CLOSE_SMALL_GAME));
+		}
+        private onclick_zichan(){
+            
+		}
+        private onclick_xiaoxi(){
+            this.dispatchEvent(new BasicEvent(GameMapUIView.GOIN_MESSAGE));
+		}
+        private onclick_mainAssets(){
+            this.dispatchEvent(new BasicEvent(GameMapUIView.OPEN_MAIN_ASSETS));
+		}
+        private onclick_mapDingwei(){
+
+            this.dispatchEvent(new BasicEvent(GameMapUIView.MAP_POSITION));
+		}
+        private onclick_fujinSwitch(status:number){
+            console.log(this.fujinStatus+"//"+(this.fujinStatus==1));
+            this.fujinStatus=status;
+            this.dispatchEvent(new BasicEvent(GameMapUIView.FUJIN_SWITCH,{index:this.fujinStatus}));
+		}
+	}
+}

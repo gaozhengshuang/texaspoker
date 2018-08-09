@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="UserInfoUISkin" width="926" height="360" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="userInfo_bg1_png" left="0" top="0" anchorOffsetX="0" width="926.78" anchorOffsetY="0" height="239"/>
+	<e:Label id="name_txt" text="七宝王思聪思" x="232" y="36" anchorOffsetX="0" width="383" anchorOffsetY="0" height="68.67" size="60" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404a58"/>
+	<e:Label id="level_txt" text="Lv.15" x="613" y="40" anchorOffsetX="0" width="128.88" anchorOffsetY="0" height="61.58" size="50" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404a58" fontFamily="Microsoft YaHei"/>
+	<e:Label id="qiang_txt" text="500" x="804" y="40" anchorOffsetX="0" width="103.89" anchorOffsetY="0" height="61.58" size="50" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x5987af"/>
+	<e:Label id="vip_txt" text="99" x="102.43" y="214" anchorOffsetX="0" width="55.89" anchorOffsetY="0" height="41.6" size="40" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xff0937" strokeColor="0xffffff" stroke="2" visible="false"/>
+	<e:Label id="coin_txt" text="99999999" x="295.55" y="128" anchorOffsetX="0" width="290" anchorOffsetY="0" height="70" size="50" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404A58" fontFamily="Microsoft YaHei"/>
+	<e:Label id="gold_txt" text="99999" x="649.05" y="128" anchorOffsetX="0" width="260" anchorOffsetY="0" height="70" size="50" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404A58" fontFamily="Microsoft YaHei"/>
+	<e:Image x="232" y="139" source="ui_comn_icon_gold_png"/>
+	<e:Image source="diamondIcon_png" x="591" y="140"/>
+	<e:Image source="vipIcon_png" x="61" y="213" visible="false"/>
+	<e:Image source="qiangIcon_png" x="751" y="46"/>
+	<e:Group id="roomWeizhiGroup" x="190" y="238">
+		<e:Label id="bName_txt" text="万科城市花园" x="2" y="0" size="55" fontFamily="Microsoft YaHei" textAlign="left" anchorOffsetX="0" width="500" stroke="2"/>
+		<e:Label id="bWeizhi_txt" text="上海闵行区" x="52" y="69" size="50" fontFamily="Microsoft YaHei" textAlign="left" width="450" textColor="0xECB700" rotation="0.09" anchorOffsetX="0"/>
+		<e:Image source="room_weizhi_icon1_png" x="0" y="66"/>
+	</e:Group>
+</e:Skin>

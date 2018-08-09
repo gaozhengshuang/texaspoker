@@ -4,6 +4,22 @@ declare class LoadingSkin extends eui.Skin{
 }
 declare class NetFailedSkin extends eui.Skin{
 }
+declare class AllScrollerSkin extends eui.Skin{
+}
+declare module skins{
+	class HScrollBarSkin extends eui.Skin{
+	}
+}
+declare class LoginSence extends eui.Skin{
+}
+declare class UserInfoUISkin extends eui.Skin{
+}
+declare class VScrollBarPanelSkin extends eui.Skin{
+}
+declare module skins{
+	class VScrollBarSkin extends eui.Skin{
+	}
+}
 declare class BattleBagItemSkin extends eui.Skin{
 }
 declare class BattleBagSkin extends eui.Skin{

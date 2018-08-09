@@ -27,34 +27,25 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-module game {
-    export class LoadingUI extends GameComponent implements RES.PromiseTaskReporter {
-        lodingGroup: eui.Group;
-        loadingBar: eui.ProgressBar;
-        loadText: eui.Label;
-        
-        protected getSkinName() {
-            return LoadingSkin;
-        }
+class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
 
-        protected init() {
-            NotificationCenter.addObserver(this, this.OnClosePanel, "closeLoadingSkin");
+    public constructor() {
+        super();
+        this.createView();
+    }
 
-            this.height = gameConfig.curHeight();
-        }
+    private textField: egret.TextField;
 
-        private OnClosePanel() {
-            NotificationCenter.removeObserver(this, "closeLoadingSkin");
+    private createView(): void {
+        this.textField = new egret.TextField();
+        this.addChild(this.textField);
+        this.textField.y = 300;
+        this.textField.width = 480;
+        this.textField.height = 100;
+        this.textField.textAlign = "center";
+    }
 
-            egret.Tween.get(this.lodingGroup).to({alpha: 0}, 400).wait(100)
-                .call(() => {
-                    this.removeFromParent();
-                });
-        }
-
-        public onProgress(current: number, total: number): void {
-            this.loadText.text = `游戏加载中..${Math.ceil((current/total)*100)}%`;
-            this.loadingBar.value = (current/total)*100;
-        }
+    public onProgress(current: number, total: number): void {
+        this.textField.text = `Loading...${current}/${total}`;
     }
 }
