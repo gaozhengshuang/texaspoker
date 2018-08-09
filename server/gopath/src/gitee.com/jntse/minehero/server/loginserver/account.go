@@ -167,7 +167,8 @@ func RegistAccountFromWechatMiniGame(account, passwd, invitationcode, name, face
 	key := fmt.Sprintf("accounts_%s", account)
 	exist , err := Redis().Exists(key).Result()
 	if err != nil {
-		return "检查账户存在 Redis报错"
+		log.Error("获取账户数据失败 errmsg[%v]", err)
+		return "访问数据库异常"
 	}
 
 	if exist == 1 {
