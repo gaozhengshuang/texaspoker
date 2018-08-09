@@ -6,11 +6,17 @@ module app {
 
 		public static SCENE_SWITCH_LOGIN: string = "scene_switch_login";
 		public static SCENE_SWITCH_MAP: string = "scene_switch_map";
+		public static SCENE_SWITCH_DISCOVERY: string = "scene_switch_discovery";
+		public static SCENE_SWITCH_TRADING: string = "scene_switch_trading";
+		public static SCENE_SWITCH_MINE: string = "scene_switch_mine";
+		public static GOTO_HOME_PAGE: string = "goto_home_page";
 
 
 
 		public static SHOW_USER_INFO: string = "show_user_info";
 		public static GET_SELF_COORDINSTE: string = "get_self_coordinate";
+		public static UPDATE_USER_INFO: string = "update_user_info";
+		public static MAP_POSITION: string = "map_position";
 
 
 		/////////////////////

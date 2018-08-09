@@ -3,7 +3,7 @@ module utils{
 		public dataList: eui.List;
 		public constructor(type:number=1) {
 			super();
-			this.skinName = "resource/eui_skins/VScrollBarPanelSkin.exml";
+			this.skinName = "resource/skins/VScrollBarPanelSkin.exml";
 			this.viewport = this.dataList;
 		}
 		/**

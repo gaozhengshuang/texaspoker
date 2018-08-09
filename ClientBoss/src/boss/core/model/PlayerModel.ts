@@ -13,7 +13,7 @@ module game {
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
 
         public penetration: number = 0;
-        public userInfo: IUserInfo = { face: "1", name: "", userid: 0, rank: 0, gold: 0, diamond: 0, openid: "", addrlist: [], PersonalImage: null };
+        public userInfo: IUserInfo = { face: "1", name: "", userid: 0, rank: 0, gold: 0, diamond: 0, openid: "", addrlist: [], PersonalImage: null ,level:1};
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
@@ -43,6 +43,7 @@ module game {
             this.userInfo.openid = data.base.wechat.openid;
             this.userInfo.addrlist = data.base.addrlist;
             this.userInfo.PersonalImage = data.base.images;
+            this.userInfo.level=data.base.level;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;

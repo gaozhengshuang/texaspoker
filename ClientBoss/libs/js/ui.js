@@ -7,7 +7,6 @@ homeBtnW,homeBtnH,
 jiaoyiBtnW,jiaoyiBtnH,
 wodeBtnW,wodeBtnH,
 xiaoxiBtnW,xiaoxiBtnH,
-zhuanpanBtnW,zhuanpanBtnH,
 dingweiBtnW,dingweiBtnH,
 fujinSwitchBtnW,fujinSwitchBtnH,
 returnBtnW,returnBtnH,
@@ -40,10 +39,6 @@ window.onload=function(){
     xiaoxiBtnW=document.getElementById("xiaoxiBtn").clientWidth;
     xiaoxiBtnH=document.getElementById("xiaoxiBtn").clientHeight;
     document.getElementById("xiaoxiBtn").style.display='none';
-
-    zhuanpanBtnW=document.getElementById("zhuanpanBtn").clientWidth;
-    zhuanpanBtnH=document.getElementById("zhuanpanBtn").clientHeight;
-    document.getElementById("zhuanpanBtn").style.display='none';
 
     dingweiBtnW=document.getElementById("dingweiBtn").clientWidth;
     dingweiBtnH=document.getElementById("dingweiBtn").clientHeight;
@@ -106,11 +101,6 @@ function adaptive(scale){
     document.getElementById("xiaoxiBtn").style.top=(346*scale)+'px';
     document.getElementById("xiaoxiBtn").style.left=(40*scale)+'px';
 
-    document.getElementById("zhuanpanBtn").style.display='block';
-    document.getElementById("zhuanpanBtn").style.width=zhuanpanBtnW*scale+"px";
-    document.getElementById("zhuanpanBtn").style.height=zhuanpanBtnH*scale+"px";
-    document.getElementById("zhuanpanBtn").style.top=(674*scale)+'px';
-    document.getElementById("zhuanpanBtn").style.left=(18*scale)+'px';
 
     document.getElementById("dingweiBtn").style.display='block';
     document.getElementById("dingweiBtn").style.width=dingweiBtnW*scale+"px";
@@ -268,7 +258,6 @@ function exploreUI(isShow){
         document.getElementById("dingweiBtn").style.display = 'none';
         document.getElementById("fujinSwitchBtn").style.display = 'none';
         document.getElementById("xiaoxiBtn").style.display = 'none';
-        document.getElementById("zhuanpanBtn").style.display = 'none';
         document.getElementById("downPanel").style.display = 'none';
         
     }
@@ -278,7 +267,6 @@ function exploreUI(isShow){
         document.getElementById("dingweiBtn").style.display = 'block';
         document.getElementById("fujinSwitchBtn").style.display = 'block';
         document.getElementById("xiaoxiBtn").style.display = 'block';
-        document.getElementById("zhuanpanBtn").style.display = 'block';
         document.getElementById("downPanel").style.display = 'block';
     }
 }

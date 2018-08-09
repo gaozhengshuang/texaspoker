@@ -12,6 +12,7 @@ module app {
 			this.facade().registerProxy( new UserProxy() );
 			this.facade().registerProxy( new ServerProxy() );
 			this.facade().registerProxy( new MapProxy() );
+			this.facade().registerProxy( new SmallGameProxy() );
 		}
 	}
 }

@@ -19,14 +19,14 @@ module app {
             var data:any = notification.getBody();
 			switch(notification.getName())
             {
-				/*case CommandName.UPDATE_USER_INFO:
+				case CommandName.UPDATE_USER_INFO:
 					{
 						if (data) {
 							this.sceneGroup.updateUserInfoFun(data);
 						}
 						break;
 					}
-					case CommandName.SHOW_TOP_ROOM_INFO:
+					/*case CommandName.SHOW_TOP_ROOM_INFO:
 					{
 						if (data) {
 							if(data.isShow){
@@ -72,15 +72,15 @@ module app {
 		}
 		private goHomeRequset(eve:BasicEvent):void
 		{
-			//ApplicationFacade.getInstance().sendNotification(CommandName.GOTO_HOME_PAGE);
+			ApplicationFacade.getInstance().sendNotification(CommandName.GOTO_HOME_PAGE);
 		}
 		private openDiscoveryRequset(eve:BasicEvent):void
 		{
-			//ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_DISCOVERY);
+			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_DISCOVERY);
 		}
 		private openMineRequset(eve:BasicEvent):void
 		{
-			//ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_MINE);
+			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_MINE);
 		}
 		private closeGameRequset(eve:BasicEvent):void
 		{
@@ -107,7 +107,7 @@ module app {
 		}
 		private mapPositionRequset(eve:BasicEvent):void
 		{
-			//ApplicationFacade.getInstance().sendNotification(CommandName.MAP_POSITION);
+			ApplicationFacade.getInstance().sendNotification(CommandName.MAP_POSITION);
 		}
 		public get sceneGroup():GameMapUIView
         {

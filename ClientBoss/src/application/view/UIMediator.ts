@@ -31,8 +31,8 @@ module app {
                 {
                     this.removeSceneView();
                     this.uiView =new GameMapUIView();
-                    var userProxy:UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
-                    this.uiView.initView(userProxy.getUserInfo());
+                    //var userProxy:UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+                    this.uiView.initView(game.DataManager.playerModel.getUserInfo());
                     this.sceneGroup.addChild(this.uiView);
                     ApplicationFacade.getInstance().registerMediator(new MapUIMediator(this.uiView));
                     this.uiMediatorName=MapUIMediator.NAME;

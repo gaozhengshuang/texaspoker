@@ -6,7 +6,7 @@ module app {
         public gold_txt: eui.Label;
         public vip_txt: eui.Label;
         public qiang_txt: eui.Label;
-        private userInfo: UserVO;
+        private userInfo: any;
         public bName_txt: eui.Label;
         public bWeizhi_txt: eui.Label;
         public roomWeizhiGroup: eui.Group;
@@ -25,14 +25,14 @@ module app {
         private adaptive() {
             this.scaleX = this.scaleY = GameConfig.innerScale;
         }
-        public updataInfo(info: UserVO) {
+        public updataInfo(info: any) {
             this.userInfo = info;
-            this.name_txt.text = this.userInfo.nickname;
+            this.name_txt.text = this.userInfo.name;
             this.level_txt.text = "Lv. "+(this.userInfo.level);
-            this.coin_txt.text = String(this.userInfo.gold1);
-            this.gold_txt.text = String(this.userInfo.gold2);
-            this.vip_txt.text = String(this.userInfo.vipLevel);
-            this.qiang_txt.text = String(this.userInfo.grabTime);
+            this.coin_txt.text = String(this.userInfo.gold);
+            this.gold_txt.text = String(this.userInfo.diamond);
+            this.vip_txt.text = "0";
+            this.qiang_txt.text = "0";
         }
         public showRoomWeizhi(isShow: boolean, roomvo: RoomVO = null) {
             if (isShow) {

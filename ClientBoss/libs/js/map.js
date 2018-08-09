@@ -26,7 +26,7 @@ function init(lat, lng,zoom) {
   map = new qq.maps.Map(document.getElementById("map"), myOptions);
 
   let icon = new qq.maps.MarkerImage(
-    'resource/assets/ui_comn_info_button_loc.png'
+    'resource/others/images/ui_comn_info_button_loc.png'
   );
   marker = new qq.maps.Marker({
     icon: icon,
