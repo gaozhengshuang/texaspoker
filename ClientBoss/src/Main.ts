@@ -103,8 +103,7 @@ class Main extends eui.UILayer {
         game.GameConfig.innerScaleW = game.GameConfig.innerWidth / game.GameConfig.stageWidth;
 
         let expHeight:number=game.GameConfig.innerWidth*game.GameConfig.stageHeight/game.GameConfig.stageWidth;
-        game.GameConfig.innerScale=expHeight>game.GameConfig.innerHeight
-        ?game.GameConfig.innerScaleH:game.GameConfig.innerScaleW;
+        game.GameConfig.innerScale=expHeight>game.GameConfig.innerHeight?game.GameConfig.innerScaleH:game.GameConfig.innerScaleW;
 
         console.log(game.GameConfig.innerScale);
 
