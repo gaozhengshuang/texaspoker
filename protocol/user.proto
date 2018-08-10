@@ -73,3 +73,13 @@ message GW2C_SendLuckyDrawRecord {
 message C2GW_ReqTaskList {
 	
 }
+
+// 请求房屋信息
+message C2GW_ReqHouseData {
+	
+}
+
+// 返回房屋信息
+message GW2C_AckHouseData {
+	repeated msg.HouseData datas = 1;
+}

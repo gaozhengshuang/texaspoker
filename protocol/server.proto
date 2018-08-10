@@ -1,7 +1,7 @@
 syntax = "proto2";
 package msg;
 import "define.proto";
-
+import "serialize.proto";
 
 
 // --------------------------------------------------------------------------
@@ -89,8 +89,36 @@ message MS2GW_RetCreateRoom {
     optional string roomagent = 4;
 }
 
+// 玩家登录/下线 通知match
+message GW2MS_UserOnlineState {
+	optional uint64 userid = 1;
+	optional uint32 state = 2; //1上线 2下线
+}
 
 
+// 玩家创建新房屋
+message GW2MS_ReqCreateHouse {
+	optional uint64 userid = 1; 	//玩家id
+	optional uint32 housetid = 2; 	//房屋的配置id
+}
+
+//返回玩家创建新房屋
+message MS2GW_AckCreateHouse {
+	optional uint64 userid = 1;
+	optional uint32 housetid = 2;
+	optional uint32 ret = 3;
+}
+
+// 玩家请求自己的房屋信息
+message GW2MS_ReqUserHouse {
+	optional uint64 userid = 1;
+}
+
+//返回玩家房屋信息 
+message MS2GW_AckUserHouse {
+	optional uint64 userid = 1;
+	repeated msg.HouseData data = 2;
+}
 
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> RoomServer
@@ -206,4 +234,6 @@ message RS2MS_UpdateRewardPool {
 message MS2Server_BroadCast {
     optional string cmd = 1;
 }
+
+
 
