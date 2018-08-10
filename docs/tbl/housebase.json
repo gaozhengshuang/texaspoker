@@ -1,0 +1,10 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"THouse":[
+		{ "Id": 1001, "Type": 1, "MaxLevel": 5, "MaxCells": 3, "Cells": "1-2-3", "LevelUpCost": 1000 },
+		{ "Id": 1002, "Type": 1, "MaxLevel": 5, "MaxCells": 3, "Cells": "1-2-3", "LevelUpCost": 2000 },
+		{ "Id": 1003, "Type": 1, "MaxLevel": 5, "MaxCells": 3, "Cells": "1-2-3", "LevelUpCost": 3000 },
+		{ "Id": 1004, "Type": 1, "MaxLevel": 5, "MaxCells": 3, "Cells": "1-2-3", "LevelUpCost": 4000 },
+		{ "Id": 1005, "Type": 1, "MaxLevel": 5, "MaxCells": 3, "Cells": "1-2-3", "LevelUpCost": 5000 }
+	]}
