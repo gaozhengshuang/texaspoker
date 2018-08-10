@@ -19,8 +19,7 @@ module app {
 
 			this.titleWordGroup.scaleX=GameConfig.innerScaleW;
             this.titleWordGroup.scaleY=GameConfig.innerScaleW;
-			this.titleWordGroup.y=this.titleImg.height*GameConfig.innerScaleW
-
+			this.titleWordGroup.y=this.titleImg.height*GameConfig.innerScaleW;
 		}
 
 		private gameItemList:utils.AllScrollerPanel;

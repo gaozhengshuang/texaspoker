@@ -13,10 +13,10 @@ module game {
             }
             this._curSceneType = sceneType;
             switch (sceneType) {
-                case SceneType.battle:
-                    this._curScene = BattleScene.getInstance();
-                    BattleScene.getInstance().setData(userdata);
-                    break;
+                // case SceneType.battle:
+                //     this._curScene = BattleScene.getInstance();
+                //     BattleScene.getInstance().setData(userdata);
+                //     break;
                 case SceneType.main:
                     this._curScene = MainScene.getInstance();
                     break;

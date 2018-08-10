@@ -2,7 +2,7 @@ module game {
     import wallCollisionGroup = gameConfig.wallCollisionGroup;
     import ballCollisionGroup = gameConfig.ballCollisionGroup;
 
-    export class BattleScene extends SceneComponent {
+    export class BattleScene extends PanelComponent {
         touchGroup: eui.Group;
         showGroup: eui.Group;
         ballGroup: eui.Group;
@@ -296,8 +296,6 @@ module game {
             this.showBattleText(-cost, brick, 1, -10, this._rewardBallPool.createObject(), true);
         }
 
-
-
         private async playTimeBoom(x: number) {
             SoundManager.playEffect("zhadan", 0.5);
             let timeBoom = this._timeBoomPool.createObject();
@@ -310,14 +308,6 @@ module game {
 
         public setData(missionId: number) {
             this._missionId = missionId;
-        }
-
-        async loadRes() {
-            //this._missionMapData = await RES.getResAsync(`map/${this._missionId}`);
-            let test = await RES.getResAsync("test_json");
-            testP1 = test.number.choushui;
-            testP2 = test.number.fantan;
-            testSpeed = test.speed.ballspd;
         }
 
         protected beforeShow() {
@@ -497,16 +487,17 @@ module game {
             this._nowSp = <number>data.energy;
 
             if (DataManager.playerModel.getScore() < _paddlePrice) {
-                if (DataManager.playerModel.getDiamond() > 0) {
-                    let payStr = `金币不足，是否使用钻石更换金币\n当前拥有钻石：${DataManager.playerModel.getDiamond()}\n可兑换金币：${DataManager.playerModel.getDiamond()}`
-                    showDialog(payStr, "兑换", function () {
-                        sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
-                    });
-                } else {
-                    showDialog("您的金币不足!", "充值", function () {
-                        openPanel(PanelType.pay);
-                    });
-                }
+                // if (DataManager.playerModel.getDiamond() > 0) {
+                //     let payStr = `金币不足，是否使用钻石更换金币\n当前拥有钻石：${DataManager.playerModel.getDiamond()}\n可兑换金币：${DataManager.playerModel.getDiamond()}`
+                //     showDialog(payStr, "兑换", function () {
+                //         sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+                //     });
+                // } else {
+                //     showDialog("您的金币不足!", "充值", function () {
+                //         openPanel(PanelType.pay);
+                //     });
+                // }
+                showTips("金币不足,无法发射炮弹！", true);
                 return;
             }
             if (this._spCool == 0) { //无限火力不扣子弹
@@ -1481,7 +1472,7 @@ module game {
                     gold: DataManager.playerModel.getScore(),
                 }));
 
-                SceneManager.changeScene(SceneType.main);
+                this.remove();
             }.bind(this);
             let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));            
             if (this._nowSp >= maxSp / 2 || this._breakBad >= _breakBadBuffMax) {

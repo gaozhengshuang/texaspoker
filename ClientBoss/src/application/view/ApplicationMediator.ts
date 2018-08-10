@@ -53,8 +53,6 @@ module app {
 
             //通讯初始化
             ClientNet.getInstance().init();
-            //通讯初始化
-            ClientNet.getInstance().init();
 
             ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
 
