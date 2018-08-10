@@ -18,7 +18,7 @@ module game {
 
         public constructor() {
             super();
-            this.skinName = "resource/eui_skins/WelcomePanelSkin.exml";
+            this.skinName = "resource/skins/WelcomePanelSkin.exml";
             this.adaptive();
             this.goinRoom_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goinRoom_begin, this);
         }
@@ -32,23 +32,14 @@ module game {
             this.userInfo = player;
             this.buildInfo = build;
             this.roomInfo = room;
-            /*if (this.buildInfo && this.roomInfo) {
-                let roomType: RoomTypeVO = GameConfig.getRoomType(this.roomInfo.tId);
-                if (roomType) {
-                    this.word_txt.text = "尊敬的：" + this.userInfo.nickname + "\n" +
-                        "         欢迎来到citystar，根据您的定位在距离您" +
-                        String(this.distance({ lat: selfPoint.lat, lng: selfPoint.lng },
-                            { lat: this.buildInfo.lat, lng: this.buildInfo.lng })) +
-                        "公里的地方，赠送您一套" + roomType.tName + "的房子。"
-                    this.buildingImage.source = 'resource/assets/' + this.buildInfo.bImage1 + '.png';
-                    this.name_txt.text = this.buildInfo.bName;
-                    let weizhi_txt = this.weizhi_txt;
-                    GameConfig.getCityNameFun(this.buildInfo.lat, this.buildInfo.lng, function (txt: string) {
-                        weizhi_txt.text = txt;
-                    })
-                    this.huxing_txt.text=roomType.tName+"( "+roomType.area+"平米 )";
-                }
-            }*/
+            if (this.buildInfo && this.roomInfo) {
+               // let roomType: RoomTypeVO = GameConfig.getRoomType(this.roomInfo.tId);
+               // if (roomType) {
+                    this.word_txt.text = "欢迎入驻《财富人生》，这是一个充满梦想的世界。为了更快了解这个世界，为您准备了一处租房。（房间号："
+                    +1111+"）快来创造属于自己的财富吧！。"
+                    //this.buildingImage.source = 'resource/assets/' + this.buildInfo.bImage1 + '.png';
+                //}
+            }
         }
 
         private distance(start, end): number {
