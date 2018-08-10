@@ -1,25 +1,24 @@
 package def
+
 import (
-	"fmt"
-	"strconv"
 	"encoding/base64"
 	"encoding/json"
-	"github.com/go-redis/redis"
-	"gitee.com/jntse/gotoolkit/net"
+	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
+	"github.com/go-redis/redis"
+	"strconv"
 
-	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/tbl"
 )
-
 
 // 预定义redis key
 const (
 	RedisKeyAccountGate  = "account_gateinfo"
 	RedisKeyGateAccounts = "gate_accounts"
 )
-
 
 // 组装带颜色字体的公告内容
 func MakeNoticeText(text string, color string, size int32) string {
@@ -30,7 +29,7 @@ func MakeNoticeText(text string, color string, size int32) string {
 func SendSms(phone string) (authcode string) {
 
 	// make body
-	randcode := util.RandBetween(10000,99999)
+	randcode := util.RandBetween(10000, 99999)
 	body := fmt.Sprintf(`{
 		"batchName":"巨枫娱乐测试",
 		"content":"%s:%d",
@@ -39,15 +38,15 @@ func SendSms(phone string) (authcode string) {
 	}`, tbl.Global.Sms.AuthCodeContent, randcode, phone)
 
 	// make properties
-	Auth := tbl.Global.Sms.Account + ":" + util.MD5(tbl.Global.Sms.Passwd)	// md5加密
-	AuthBase64:= base64.StdEncoding.EncodeToString([]byte(Auth))	// base64加密
-	Contentlength := strconv.FormatInt(int64(len(body)), 10)	// 这个参数可选
+	Auth := tbl.Global.Sms.Account + ":" + util.MD5(tbl.Global.Sms.Passwd) // md5加密
+	AuthBase64 := base64.StdEncoding.EncodeToString([]byte(Auth))          // base64加密
+	Contentlength := strconv.FormatInt(int64(len(body)), 10)               // 这个参数可选
 	ContentType := "application/json"
-	properties := map[string]string{ "Content-Type":ContentType, "Authorization":AuthBase64, "Content-length":Contentlength ,"Accept":ContentType}
+	properties := map[string]string{"Content-Type": ContentType, "Authorization": AuthBase64, "Content-length": Contentlength, "Accept": ContentType}
 
 	// make request
 	url := tbl.Global.Sms.URLAPI
-	resp, err := network.HttpSendByProperty("POST", url ,body, properties)
+	resp, err := network.HttpSendByProperty("POST", url, body, properties)
 	if err != nil {
 		log.Error("TestPostSms HttpPost phone=%s err=[%v]", phone, err)
 		return ""
@@ -63,7 +62,7 @@ func SendSms(phone string) (authcode string) {
 		Msg  string
 		UUID string
 	}
-	
+
 	RespObj := &stHttpResp{}
 	unerror := json.Unmarshal(resp.Body, RespObj)
 	if unerror != nil {
@@ -95,7 +94,7 @@ func IsValidItemPos(pos int32) bool {
 }
 
 // 生成room uuid
-func GenerateRoomId(redis *redis.Client) (id int64, errcode string ) {
+func GenerateRoomId(redis *redis.Client) (id int64, errcode string) {
 	key := "uuid_room"
 	id, err := redis.Incr(key).Result()
 	if err != nil {
@@ -108,4 +107,15 @@ func GenerateRoomId(redis *redis.Client) (id int64, errcode string ) {
 func RedisKeyGateRooms(gate string) string {
 	key := fmt.Sprintf("gate_%s_roomamount", gate)
 	return key
+}
+
+//生成房子的 uuid
+func GenerateHouseId(redis *redis.Client) (id int64, errcode string) {
+	key := "uuid_house"
+	id, err := redis.Incr(key).Result()
+	if err != nil {
+		log.Error("生成houseid redis报错, err: %s", err)
+		return 0, "redis不可用"
+	}
+	return id, ""
 }
