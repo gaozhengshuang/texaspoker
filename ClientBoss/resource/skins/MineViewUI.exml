@@ -47,36 +47,40 @@
 			<e:Label id="jyLog_txt" text="0" x="0" y="0" anchorOffsetX="0" width="220" anchorOffsetY="0" height="80" size="80" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
 		</e:Group>
 	</e:Group>
-	<e:Group id="otherGroup" x="0" y="1150">
-		<e:Rect width="1440" height="866" x="0" y="0" fillColor="0xECECEC"/>
-		<e:Image source="room_line1_png" x="0" y="174" width="1440" height="5"/>
-		<e:Image source="room_line1_png" x="0" y="348" width="1440" height="5"/>
-		<e:Image source="room_line1_png" x="0" y="522" width="1440" height="5"/>
-		<e:Image source="room_line1_png" x="0" y="696" width="1440" height="5"/>
-		<e:Group x="99" y="32">
-			<e:Image source="mineIcon1_png" x="0" y="0"/>
-			<e:Image source="jiantou2_png" x="1195" y="31"/>
-			<e:Label text="任务" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
+	<e:Scroller id="bottomScroller" width="1440" height="866" x="0" y="1150">
+		<e:Group width="100%" height="100%">
+			<e:Group id="otherGroup" x="0" y="0" width="1440" height="866" scaleX="1" scaleY="1">
+				<e:Rect width="1440" height="866" x="0" y="0" fillColor="0xECECEC"/>
+				<e:Image source="room_line1_png" x="0" y="174" width="1440" height="5"/>
+				<e:Image source="room_line1_png" x="0" y="348" width="1440" height="5"/>
+				<e:Image source="room_line1_png" x="0" y="522" width="1440" height="5"/>
+				<e:Image source="room_line1_png" x="0" y="696" width="1440" height="5"/>
+				<e:Group x="99" y="32">
+				<e:Image source="mineIcon1_png" x="0" y="0"/>
+				<e:Image source="jiantou2_png" x="1195" y="31"/>
+				<e:Label text="任务" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
+				</e:Group>
+				<e:Group x="99" y="207">
+				<e:Image source="mineIcon2_png" x="0" y="0"/>
+				<e:Image source="jiantou2_png" x="1195" y="31"/>
+				<e:Label text="收徒奖励" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
+				</e:Group>
+				<e:Group x="99" y="381">
+				<e:Image source="mineIcon3_png" x="0" y="0"/>
+				<e:Image source="jiantou2_png" x="1195" y="31"/>
+				<e:Label text="钻石兑换" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
+				</e:Group>
+				<e:Group x="99" y="556">
+				<e:Image source="mineIcon4_png" x="0" y="0"/>
+				<e:Image source="jiantou2_png" x="1195" y="31"/>
+				<e:Label text="常见问题" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
+				</e:Group>
+				<e:Group x="99" y="730">
+				<e:Image source="mineIcon5_png" x="0" y="0"/>
+				<e:Image source="jiantou2_png" x="1195" y="31"/>
+				<e:Label text="设置" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
+				</e:Group>
+			</e:Group>
 		</e:Group>
-		<e:Group x="99" y="207">
-			<e:Image source="mineIcon2_png" x="0" y="0"/>
-			<e:Image source="jiantou2_png" x="1195" y="31"/>
-			<e:Label text="收徒奖励" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
-		</e:Group>
-		<e:Group x="99" y="381">
-			<e:Image source="mineIcon3_png" x="0" y="0"/>
-			<e:Image source="jiantou2_png" x="1195" y="31"/>
-			<e:Label text="钻石兑换" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
-		</e:Group>
-		<e:Group x="99" y="556">
-			<e:Image source="mineIcon4_png" x="0" y="0"/>
-			<e:Image source="jiantou2_png" x="1195" y="31"/>
-			<e:Label text="常见问题" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
-		</e:Group>
-		<e:Group x="99" y="730">
-			<e:Image source="mineIcon5_png" x="0" y="0"/>
-			<e:Image source="jiantou2_png" x="1195" y="31"/>
-			<e:Label text="设置" x="209" y="14" anchorOffsetX="0" width="260" anchorOffsetY="0" height="80" size="60" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
-		</e:Group>
-	</e:Group>
+	</e:Scroller>
 </e:Skin>
