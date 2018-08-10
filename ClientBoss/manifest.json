@@ -18,15 +18,15 @@
 	"game": [
 		"bin-debug/boss/core/scenes/component/GameComponent.js",
 		"bin-debug/core/utils/Notification.js",
+		"bin-debug/application/model/vo/BaseVO.js",
 		"bin-debug/boss/core/GameConfig.js",
 		"bin-debug/boss/core/scenes/battle/BattleBody.js",
 		"bin-debug/boss/core/scenes/component/EffectButton.js",
-		"bin-debug/application/model/vo/BaseVO.js",
-		"bin-debug/core/utils/ObjectPool.js",
-		"bin-debug/boss/core/scenes/component/PanelComponent.js",
 		"bin-debug/boss/core/scenes/component/SceneComponent.js",
 		"bin-debug/core/model/BaseModel.js",
 		"bin-debug/WebNode.js",
+		"bin-debug/core/utils/ObjectPool.js",
+		"bin-debug/boss/core/scenes/component/PanelComponent.js",
 		"bin-debug/application/ApplicationFacade.js",
 		"bin-debug/boss/core/scenes/battle/BattleBoom.js",
 		"bin-debug/application/app/AppUiContainer.js",
@@ -103,7 +103,7 @@
 		"bin-debug/boss/core/scenes/battle/BattleBall.js",
 		"bin-debug/boss/core/scenes/battle/BattleBlackHole.js",
 		"bin-debug/Main.js",
-		"bin-debug/cookie.file.js",
+		"bin-debug/core/utils/TimeUtils.js",
 		"bin-debug/boss/core/scenes/battle/BattleBrick.js",
 		"bin-debug/boss/core/scenes/battle/BattleBrickBreak.js",
 		"bin-debug/boss/core/scenes/battle/BattleBrickInfo.js",
@@ -190,6 +190,6 @@
 		"bin-debug/core/utils/Random.js",
 		"bin-debug/core/utils/Share.js",
 		"bin-debug/core/utils/SkeletonBase.js",
-		"bin-debug/core/utils/TimeUtils.js"
+		"bin-debug/cookie.file.js"
 	]
 }
