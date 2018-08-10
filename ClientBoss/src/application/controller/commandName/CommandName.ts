@@ -11,16 +11,16 @@ module game {
 		public static SCENE_SWITCH_MINE: string = "scene_switch_mine";
 		public static GOTO_HOME_PAGE: string = "goto_home_page";
 
-
-
 		public static SHOW_USER_INFO: string = "show_user_info";
 		public static GET_SELF_COORDINSTE: string = "get_self_coordinate";
 		public static UPDATE_USER_INFO: string = "update_user_info";
 		public static MAP_POSITION: string = "map_position";
 
-
+		public static PAGE_SWITCH_ROOM: string = "page_switch_room";
 		public static PAGE_SWITCH_SMALL_GAME: string = "page_switch_small_game";
 		public static REMOVE_SMALL_GAME_PAGE: string = "remove_small_game_page";
+
+		public static REMOVE_POPUP: string = "remove_popup";
 
 
 		/////////////////////
