@@ -14,6 +14,7 @@ module game {
 		public initGame(info:SmallGameVO){
 			this.smallGameInfo=info;
 			
+			
 		}
 		private onclick_begin() {
             this.dispatchEvent(new BasicEvent(GameSmallGameView.CLOSE));

@@ -42,7 +42,8 @@ module game {
             this.main.uiContainer.addChild(this.loadingView);
             this.main.uiContainer.addChild(this.alertView);
 
-            //this.gameView.addChild(new game.GameLayer());
+            this.gameView.touchThrough = true;
+            this.gameView.addChild(new game.GameLayer());
 
             ApplicationFacade.getInstance().registerMediator(new SceneMediator(this.screenView));
             ApplicationFacade.getInstance().registerMediator(new PageMediator(this.pageView));
@@ -56,6 +57,10 @@ module game {
 
             //通讯初始化
             ClientNet.getInstance().init();
+            //弹幕界面初始化
+            BarrageManager.getInstance().init();
+            //战斗数据初始化
+            BattleManager.getInstance().init();
 
             ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
 
