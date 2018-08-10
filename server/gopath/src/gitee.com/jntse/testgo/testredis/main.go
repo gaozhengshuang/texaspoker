@@ -343,19 +343,15 @@ func TestRedisCluster() {
 		nodes = append(nodes, fmt.Sprintf("127.0.0.1:%d", i))
 	}
 
-	//ClusterSlots :=  func() (slots []redis.ClusterSlot, err error) {
-	//	for _, slot := range slots { log.Println("slot: ", slot) }
-	//	return slots, err
-	//}
-
 	// client
-	var client *redis.ClusterClient
-	client = redis.NewClusterClient(&redis.ClusterOptions{ Addrs: nodes} )
+	clusteropt := &redis.ClusterOptions{ Addrs: nodes }
+	var client *redis.ClusterClient = redis.NewClusterClient(clusteropt)
 	err := client.Ping().Err()
 	if err != nil {
 		log.Println("redis cluster ping err: ", err)
 		return
 	}
+	//log.Println(clusteropt.ClusterSlots)
 
 	// flush all
 	//client.FlushAll().Result()
@@ -369,8 +365,7 @@ func TestRedisCluster() {
 
 	// set 
 	client.SAdd("addrs", "china shanghai pudong").Result()
-	mem, err := client.SMembers("addrs").Result()
-	log.Println("addrs members: ", mem)
+	log.Println(client.SMembers("addrs").Val())
 
 
 	// hset
@@ -379,11 +374,14 @@ func TestRedisCluster() {
 	client.HSet("charbase_1001", "old",  "30").Result()
 	client.HSet("charbase_1001", "sex",  "1").Result()
 	client.HSet("charbase_1001", "face", "").Result()
+	log.Println(client.HKeys("charbase_1001").Val())
+	log.Println(client.HVals("charbase_1001").Val())
 
 	// sortset
 	client.ZAdd("rankscore", redis.Z{150, "jakcy"})
 	client.ZAdd("rankscore", redis.Z{130, "Jimmy"})
 	client.ZAdd("rankscore", redis.Z{120, "John"})
+	log.Println(client.ZRangeWithScores("rankscore", 0, -1).Val())
 
 }
 
