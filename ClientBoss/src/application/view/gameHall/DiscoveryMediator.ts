@@ -28,7 +28,7 @@ module game {
 		private goinGameRequset(eve:BasicEvent):void
 		{
 			
-			//ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_SMALL_GAME,eve.EventObj);
+			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_SMALL_GAME,eve.EventObj);
 		}
 		
 		public get sceneGroup():GameDiscoveryView

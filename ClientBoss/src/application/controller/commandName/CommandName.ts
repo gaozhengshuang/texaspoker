@@ -19,6 +19,10 @@ module game {
 		public static MAP_POSITION: string = "map_position";
 
 
+		public static PAGE_SWITCH_SMALL_GAME: string = "page_switch_small_game";
+		public static REMOVE_SMALL_GAME_PAGE: string = "remove_small_game_page";
+
+
 		/////////////////////
 		/////请求服务器///////
 		/////////////////////
