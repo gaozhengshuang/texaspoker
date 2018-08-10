@@ -49,14 +49,14 @@ module game {
             GameLayer.maskLayer.touchEnabled = false;
             GameLayer.loadLayer.touchEnabled = false;
 
-            GameLayer.sceneLayer.touchThrough = true;
+            /*GameLayer.sceneLayer.touchThrough = true;
             GameLayer.mainLayer.touchThrough = true;
             GameLayer.battleLayer.touchThrough = true;
             GameLayer.panelLayer.touchThrough = true;
             GameLayer.effectLayer.touchThrough = true;
             GameLayer.teachLayer.touchThrough = true;
             GameLayer.maskLayer.touchThrough = true;
-            GameLayer.loadLayer.touchThrough = true;
+            GameLayer.loadLayer.touchThrough = true;*/
 
             this.addChild(GameLayer.sceneLayer);
             this.addChild(GameLayer.mainLayer);

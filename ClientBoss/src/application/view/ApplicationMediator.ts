@@ -15,6 +15,7 @@ module game {
         public popupView: eui.Group = new eui.Group();
         public alertView: eui.Group = new eui.Group();
         public UIView: eui.Group = new eui.Group();
+        public gameView: eui.Group = new eui.Group();
 
         public listNotificationInterests(): Array<any> {
             return [
@@ -37,9 +38,11 @@ module game {
             this.main.uiContainer.addChild(this.pageView);
             this.main.uiContainer.addChild(this.UIView);
             this.main.uiContainer.addChild(this.popupView);
+            this.main.uiContainer.addChild(this.gameView);
             this.main.uiContainer.addChild(this.loadingView);
             this.main.uiContainer.addChild(this.alertView);
 
+            //this.gameView.addChild(new game.GameLayer());
 
             ApplicationFacade.getInstance().registerMediator(new SceneMediator(this.screenView));
             ApplicationFacade.getInstance().registerMediator(new PageMediator(this.pageView));
