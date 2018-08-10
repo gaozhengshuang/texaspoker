@@ -20,6 +20,17 @@ module game {
 			this.titleWordGroup.scaleX=GameConfig.innerScaleW;
             this.titleWordGroup.scaleY=GameConfig.innerScaleW;
 			this.titleWordGroup.y=this.titleImg.height*GameConfig.innerScaleW;
+
+			if (BattleManager.getInstance().isRetStartGame) {
+                BattleManager.getInstance().isRetStartGame = false;
+                sendMessage("msg.C2GW_ReqStartGame", msg.C2GW_ReqStartGame.encode({
+                    gamekind: 0,
+                }));
+            }
+
+            egret.setTimeout(() => {
+                BattleManager.getInstance().isRetStartGame = true;
+            }, this, 1000);
 		}
 
 		private gameItemList:utils.AllScrollerPanel;

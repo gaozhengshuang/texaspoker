@@ -28,7 +28,6 @@ module game {
 
         private init() {
             this.touchThrough = true;
-
             GameLayer.sceneLayer.touchEnabled = false;
             GameLayer.panelLayer.touchEnabled = false;
             GameLayer.effectLayer.touchEnabled = false;
