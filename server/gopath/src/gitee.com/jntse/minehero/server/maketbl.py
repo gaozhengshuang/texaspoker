@@ -223,6 +223,9 @@ gen.maketbl_excel('GiftProBase', 'giftprobase', 'TGiftPro.xlsx')
 gen.maketbl_excel('TaskBase', 'taskbase', 'TTask.xlsx')
 gen.maketbl_excel('TEquipBase', 'equipbase', 'TEquip.xlsx')
 gen.maketbl_excel('TSkillpBase', 'skillbase', 'TSkill.xlsx')
+gen.maketbl_excel('THouseBase', 'housebase', 'THouse.xlsx')
+gen.maketbl_excel('THouseCellBase', 'housecellbase', 'THouseCell.xlsx')
+
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')
