@@ -18,16 +18,16 @@
 	"game": [
 		"bin-debug/boss/core/scenes/component/GameComponent.js",
 		"bin-debug/boss/core/utils/Notification.js",
-		"bin-debug/WebNode.js",
 		"bin-debug/boss/core/scenes/battle/BattleBody.js",
 		"bin-debug/boss/core/GameConfig.js",
+		"bin-debug/boss/core/GameGlobal.js",
 		"bin-debug/boss/core/model/BaseModel.js",
+		"bin-debug/WebNode.js",
+		"bin-debug/boss/core/scenes/component/EffectButton.js",
+		"bin-debug/boss/core/utils/ObjectPool.js",
 		"bin-debug/boss/core/scenes/component/PanelComponent.js",
 		"bin-debug/boss/core/scenes/component/SceneComponent.js",
 		"bin-debug/application/model/vo/BaseVO.js",
-		"bin-debug/boss/core/scenes/component/EffectButton.js",
-		"bin-debug/boss/core/utils/ObjectPool.js",
-		"bin-debug/core/net/NetManager.js",
 		"bin-debug/boss/core/scenes/battle/BattleBall.js",
 		"bin-debug/application/app/AppUiContainer.js",
 		"bin-debug/application/controller/ControllerPrepCommand.js",
@@ -104,7 +104,7 @@
 		"bin-debug/boss/core/scenes/p2DebugDraw.js",
 		"bin-debug/boss/core/scenes/battle/BattleBag.js",
 		"bin-debug/boss/core/scenes/battle/BattleBagItem.js",
-		"bin-debug/boss/core/GameGlobal.js",
+		"bin-debug/cookie.file.js",
 		"bin-debug/boss/core/scenes/battle/BattleBlackHole.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/boss/core/scenes/battle/BattleBoom.js",
@@ -191,6 +191,6 @@
 		"bin-debug/boss/table/signbase.js",
 		"bin-debug/boss/table/skillbase.js",
 		"bin-debug/boss/table/taskbase.js",
-		"bin-debug/cookie.file.js"
+		"bin-debug/core/net/NetManager.js"
 	]
 }
