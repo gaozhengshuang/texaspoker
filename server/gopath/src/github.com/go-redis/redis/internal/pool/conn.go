@@ -14,7 +14,9 @@ type Conn struct {
 	netConn net.Conn
 
 	Rd *proto.Reader
-	Wb *proto.WriteBuffer
+	wb *proto.WriteBuffer
+
+	concurrentReadWrite bool
 
 	Inited bool
 	usedAt atomic.Value
@@ -23,9 +25,10 @@ type Conn struct {
 func NewConn(netConn net.Conn) *Conn {
 	cn := &Conn{
 		netConn: netConn,
-		Wb:      proto.NewWriteBuffer(),
 	}
-	cn.Rd = proto.NewReader(cn.netConn)
+	buf := proto.NewElasticBufReader(netConn)
+	cn.Rd = proto.NewReader(buf)
+	cn.wb = proto.NewWriteBuffer()
 	cn.SetUsedAt(time.Now())
 	return cn
 }
@@ -47,22 +50,24 @@ func (cn *Conn) IsStale(timeout time.Duration) bool {
 	return timeout > 0 && time.Since(cn.UsedAt()) > timeout
 }
 
-func (cn *Conn) SetReadTimeout(timeout time.Duration) error {
+func (cn *Conn) SetReadTimeout(timeout time.Duration) {
 	now := time.Now()
 	cn.SetUsedAt(now)
 	if timeout > 0 {
-		return cn.netConn.SetReadDeadline(now.Add(timeout))
+		cn.netConn.SetReadDeadline(now.Add(timeout))
+	} else {
+		cn.netConn.SetReadDeadline(noDeadline)
 	}
-	return cn.netConn.SetReadDeadline(noDeadline)
 }
 
-func (cn *Conn) SetWriteTimeout(timeout time.Duration) error {
+func (cn *Conn) SetWriteTimeout(timeout time.Duration) {
 	now := time.Now()
 	cn.SetUsedAt(now)
 	if timeout > 0 {
-		return cn.netConn.SetWriteDeadline(now.Add(timeout))
+		cn.netConn.SetWriteDeadline(now.Add(timeout))
+	} else {
+		cn.netConn.SetWriteDeadline(noDeadline)
 	}
-	return cn.netConn.SetWriteDeadline(noDeadline)
 }
 
 func (cn *Conn) Write(b []byte) (int, error) {
@@ -71,6 +76,27 @@ func (cn *Conn) Write(b []byte) (int, error) {
 
 func (cn *Conn) RemoteAddr() net.Addr {
 	return cn.netConn.RemoteAddr()
+}
+
+func (cn *Conn) EnableConcurrentReadWrite() {
+	cn.concurrentReadWrite = true
+	cn.wb.ResetBuffer(make([]byte, 4096))
+}
+
+func (cn *Conn) PrepareWriteBuffer() *proto.WriteBuffer {
+	if !cn.concurrentReadWrite {
+		cn.wb.ResetBuffer(cn.Rd.Buffer())
+	}
+	cn.wb.Reset()
+	return cn.wb
+}
+
+func (cn *Conn) FlushWriteBuffer(wb *proto.WriteBuffer) error {
+	_, err := cn.netConn.Write(wb.Bytes())
+	if !cn.concurrentReadWrite {
+		cn.Rd.ResetBuffer(wb.Buffer())
+	}
+	return err
 }
 
 func (cn *Conn) Close() error {

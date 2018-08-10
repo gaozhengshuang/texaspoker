@@ -3,13 +3,11 @@ package redis_test
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"sync"
-	"sync/atomic"
 	"testing"
 	"time"
 
@@ -28,6 +26,7 @@ const (
 const (
 	ringShard1Port = "6390"
 	ringShard2Port = "6391"
+	ringShard3Port = "6392"
 )
 
 const (
@@ -40,7 +39,7 @@ const (
 
 var (
 	redisMain                                                *redisProcess
-	ringShard1, ringShard2                                   *redisProcess
+	ringShard1, ringShard2, ringShard3                       *redisProcess
 	sentinelMaster, sentinelSlave1, sentinelSlave2, sentinel *redisProcess
 )
 
@@ -49,10 +48,6 @@ var cluster = &clusterScenario{
 	nodeIds:   make([]string, 6),
 	processes: make(map[string]*redisProcess, 6),
 	clients:   make(map[string]*redis.Client, 6),
-}
-
-func init() {
-	redis.SetLogger(log.New(os.Stderr, "redis: ", log.LstdFlags|log.Lshortfile))
 }
 
 var _ = BeforeSuite(func() {
@@ -65,6 +60,9 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 
 	ringShard2, err = startRedis(ringShard2Port)
+	Expect(err).NotTo(HaveOccurred())
+
+	ringShard3, err = startRedis(ringShard3Port)
 	Expect(err).NotTo(HaveOccurred())
 
 	sentinelMaster, err = startRedis(sentinelMasterPort)
@@ -89,6 +87,7 @@ var _ = AfterSuite(func() {
 
 	Expect(ringShard1.Close()).NotTo(HaveOccurred())
 	Expect(ringShard2.Close()).NotTo(HaveOccurred())
+	Expect(ringShard3.Close()).NotTo(HaveOccurred())
 
 	Expect(sentinel.Close()).NotTo(HaveOccurred())
 	Expect(sentinelSlave1.Close()).NotTo(HaveOccurred())
@@ -147,7 +146,7 @@ func redisRingOptions() *redis.RingOptions {
 	}
 }
 
-func perform(n int, cbs ...func(int)) {
+func performAsync(n int, cbs ...func(int)) *sync.WaitGroup {
 	var wg sync.WaitGroup
 	for _, cb := range cbs {
 		for i := 0; i < n; i++ {
@@ -160,28 +159,37 @@ func perform(n int, cbs ...func(int)) {
 			}(cb, i)
 		}
 	}
+	return &wg
+}
+
+func perform(n int, cbs ...func(int)) {
+	wg := performAsync(n, cbs...)
 	wg.Wait()
 }
 
 func eventually(fn func() error, timeout time.Duration) error {
-	var exit int32
 	errCh := make(chan error)
 	done := make(chan struct{})
+	exit := make(chan struct{})
 
 	go func() {
-		defer GinkgoRecover()
-
-		for atomic.LoadInt32(&exit) == 0 {
+		for {
 			err := fn()
 			if err == nil {
 				close(done)
 				return
 			}
+
 			select {
 			case errCh <- err:
 			default:
 			}
-			time.Sleep(timeout / 100)
+
+			select {
+			case <-exit:
+				return
+			case <-time.After(timeout / 100):
+			}
 		}
 	}()
 
@@ -189,7 +197,7 @@ func eventually(fn func() error, timeout time.Duration) error {
 	case <-done:
 		return nil
 	case <-time.After(timeout):
-		atomic.StoreInt32(&exit, 1)
+		close(exit)
 		select {
 		case err := <-errCh:
 			return err

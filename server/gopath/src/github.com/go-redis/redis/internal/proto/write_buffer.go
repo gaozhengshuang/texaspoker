@@ -7,23 +7,37 @@ import (
 )
 
 type WriteBuffer struct {
-	b []byte
+	buf []byte
 }
 
 func NewWriteBuffer() *WriteBuffer {
-	return &WriteBuffer{
-		b: make([]byte, 0, 4096),
-	}
+	return &WriteBuffer{}
 }
 
-func (w *WriteBuffer) Len() int      { return len(w.b) }
-func (w *WriteBuffer) Bytes() []byte { return w.b }
-func (w *WriteBuffer) Reset()        { w.b = w.b[:0] }
+func (w *WriteBuffer) Len() int {
+	return len(w.buf)
+}
+
+func (w *WriteBuffer) Bytes() []byte {
+	return w.buf
+}
+
+func (w *WriteBuffer) Reset() {
+	w.buf = w.buf[:0]
+}
+
+func (w *WriteBuffer) Buffer() []byte {
+	return w.buf[:cap(w.buf)]
+}
+
+func (w *WriteBuffer) ResetBuffer(buf []byte) {
+	w.buf = buf[:0]
+}
 
 func (w *WriteBuffer) Append(args []interface{}) error {
-	w.b = append(w.b, ArrayReply)
-	w.b = strconv.AppendUint(w.b, uint64(len(args)), 10)
-	w.b = append(w.b, '\r', '\n')
+	w.buf = append(w.buf, ArrayReply)
+	w.buf = strconv.AppendUint(w.buf, uint64(len(args)), 10)
+	w.buf = append(w.buf, '\r', '\n')
 
 	for _, arg := range args {
 		if err := w.append(arg); err != nil {
@@ -71,33 +85,43 @@ func (w *WriteBuffer) append(val interface{}) error {
 		} else {
 			w.AppendString("0")
 		}
-	default:
-		if bm, ok := val.(encoding.BinaryMarshaler); ok {
-			bb, err := bm.MarshalBinary()
-			if err != nil {
-				return err
-			}
-			w.AppendBytes(bb)
-		} else {
-			return fmt.Errorf(
-				"redis: can't marshal %T (consider implementing encoding.BinaryMarshaler)", val)
+	case encoding.BinaryMarshaler:
+		b, err := v.MarshalBinary()
+		if err != nil {
+			return err
 		}
+		w.AppendBytes(b)
+	default:
+		return fmt.Errorf(
+			"redis: can't marshal %T (consider implementing encoding.BinaryMarshaler)", val)
 	}
 	return nil
 }
 
 func (w *WriteBuffer) AppendString(s string) {
-	w.b = append(w.b, StringReply)
-	w.b = strconv.AppendUint(w.b, uint64(len(s)), 10)
-	w.b = append(w.b, '\r', '\n')
-	w.b = append(w.b, s...)
-	w.b = append(w.b, '\r', '\n')
+	w.buf = append(w.buf, StringReply)
+	w.buf = strconv.AppendUint(w.buf, uint64(len(s)), 10)
+	w.buf = append(w.buf, '\r', '\n')
+	w.buf = append(w.buf, s...)
+	w.buf = append(w.buf, '\r', '\n')
 }
 
 func (w *WriteBuffer) AppendBytes(p []byte) {
-	w.b = append(w.b, StringReply)
-	w.b = strconv.AppendUint(w.b, uint64(len(p)), 10)
-	w.b = append(w.b, '\r', '\n')
-	w.b = append(w.b, p...)
-	w.b = append(w.b, '\r', '\n')
+	w.buf = append(w.buf, StringReply)
+	w.buf = strconv.AppendUint(w.buf, uint64(len(p)), 10)
+	w.buf = append(w.buf, '\r', '\n')
+	w.buf = append(w.buf, p...)
+	w.buf = append(w.buf, '\r', '\n')
+}
+
+func formatInt(n int64) string {
+	return strconv.FormatInt(n, 10)
+}
+
+func formatUint(u uint64) string {
+	return strconv.FormatUint(u, 10)
+}
+
+func formatFloat(f float64) string {
+	return strconv.FormatFloat(f, 'f', -1, 64)
 }

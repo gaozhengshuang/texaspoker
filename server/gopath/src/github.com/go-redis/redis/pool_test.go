@@ -30,8 +30,8 @@ var _ = Describe("pool", func() {
 
 		pool := client.Pool()
 		Expect(pool.Len()).To(BeNumerically("<=", 10))
-		Expect(pool.FreeLen()).To(BeNumerically("<=", 10))
-		Expect(pool.Len()).To(Equal(pool.FreeLen()))
+		Expect(pool.IdleLen()).To(BeNumerically("<=", 10))
+		Expect(pool.Len()).To(Equal(pool.IdleLen()))
 	})
 
 	It("respects max size on multi", func() {
@@ -55,8 +55,8 @@ var _ = Describe("pool", func() {
 
 		pool := client.Pool()
 		Expect(pool.Len()).To(BeNumerically("<=", 10))
-		Expect(pool.FreeLen()).To(BeNumerically("<=", 10))
-		Expect(pool.Len()).To(Equal(pool.FreeLen()))
+		Expect(pool.IdleLen()).To(BeNumerically("<=", 10))
+		Expect(pool.Len()).To(Equal(pool.IdleLen()))
 	})
 
 	It("respects max size on pipelines", func() {
@@ -73,15 +73,15 @@ var _ = Describe("pool", func() {
 
 		pool := client.Pool()
 		Expect(pool.Len()).To(BeNumerically("<=", 10))
-		Expect(pool.FreeLen()).To(BeNumerically("<=", 10))
-		Expect(pool.Len()).To(Equal(pool.FreeLen()))
+		Expect(pool.IdleLen()).To(BeNumerically("<=", 10))
+		Expect(pool.Len()).To(Equal(pool.IdleLen()))
 	})
 
 	It("removes broken connections", func() {
-		cn, _, err := client.Pool().Get()
+		cn, err := client.Pool().Get()
 		Expect(err).NotTo(HaveOccurred())
 		cn.SetNetConn(&badConn{})
-		Expect(client.Pool().Put(cn)).NotTo(HaveOccurred())
+		client.Pool().Put(cn)
 
 		err = client.Ping().Err()
 		Expect(err).To(MatchError("bad connection"))
@@ -92,11 +92,11 @@ var _ = Describe("pool", func() {
 
 		pool := client.Pool()
 		Expect(pool.Len()).To(Equal(1))
-		Expect(pool.FreeLen()).To(Equal(1))
+		Expect(pool.IdleLen()).To(Equal(1))
 
 		stats := pool.Stats()
-		Expect(stats.Requests).To(Equal(uint32(4)))
 		Expect(stats.Hits).To(Equal(uint32(2)))
+		Expect(stats.Misses).To(Equal(uint32(2)))
 		Expect(stats.Timeouts).To(Equal(uint32(0)))
 	})
 
@@ -109,33 +109,36 @@ var _ = Describe("pool", func() {
 
 		pool := client.Pool()
 		Expect(pool.Len()).To(Equal(1))
-		Expect(pool.FreeLen()).To(Equal(1))
+		Expect(pool.IdleLen()).To(Equal(1))
 
 		stats := pool.Stats()
-		Expect(stats.Requests).To(Equal(uint32(101)))
 		Expect(stats.Hits).To(Equal(uint32(100)))
+		Expect(stats.Misses).To(Equal(uint32(1)))
 		Expect(stats.Timeouts).To(Equal(uint32(0)))
 	})
 
 	It("removes idle connections", func() {
 		stats := client.PoolStats()
 		Expect(stats).To(Equal(&redis.PoolStats{
-			Requests:   1,
 			Hits:       0,
+			Misses:     1,
 			Timeouts:   0,
 			TotalConns: 1,
 			FreeConns:  1,
+			IdleConns:  1,
+			StaleConns: 0,
 		}))
 
 		time.Sleep(2 * time.Second)
 
 		stats = client.PoolStats()
 		Expect(stats).To(Equal(&redis.PoolStats{
-			Requests:   1,
 			Hits:       0,
+			Misses:     1,
 			Timeouts:   0,
 			TotalConns: 0,
 			FreeConns:  0,
+			StaleConns: 1,
 		}))
 	})
 })

@@ -71,6 +71,52 @@ func ExampleNewClusterClient() {
 	client.Ping()
 }
 
+// Following example creates a cluster from 2 master nodes and 2 slave nodes
+// without using cluster mode or Redis Sentinel.
+func ExampleNewClusterClient_manualSetup() {
+	// clusterSlots returns cluster slots information.
+	// It can use service like ZooKeeper to maintain configuration information
+	// and Cluster.ReloadState to manually trigger state reloading.
+	clusterSlots := func() ([]redis.ClusterSlot, error) {
+		slots := []redis.ClusterSlot{
+			// First node with 1 master and 1 slave.
+			{
+				Start: 0,
+				End:   8191,
+				Nodes: []redis.ClusterNode{{
+					Addr: ":7000", // master
+				}, {
+					Addr: ":8000", // 1st slave
+				}},
+			},
+			// Second node with 1 master and 1 slave.
+			{
+				Start: 8192,
+				End:   16383,
+				Nodes: []redis.ClusterNode{{
+					Addr: ":7001", // master
+				}, {
+					Addr: ":8001", // 1st slave
+				}},
+			},
+		}
+		return slots, nil
+	}
+
+	client := redis.NewClusterClient(&redis.ClusterOptions{
+		ClusterSlots:  clusterSlots,
+		RouteRandomly: true,
+	})
+	client.Ping()
+
+	// ReloadState reloads cluster state. It calls ClusterSlots func
+	// to get cluster slots information.
+	err := client.ReloadState()
+	if err != nil {
+		panic(err)
+	}
+}
+
 func ExampleNewRing() {
 	client := redis.NewRing(&redis.RingOptions{
 		Addrs: map[string]string{
@@ -94,16 +140,16 @@ func ExampleClient() {
 	}
 	fmt.Println("key", val)
 
-	val2, err := client.Get("key2").Result()
+	val2, err := client.Get("missing_key").Result()
 	if err == redis.Nil {
-		fmt.Println("key2 does not exists")
+		fmt.Println("missing_key does not exist")
 	} else if err != nil {
 		panic(err)
 	} else {
-		fmt.Println("key2", val2)
+		fmt.Println("missing_key", val2)
 	}
 	// Output: key value
-	// key2 does not exists
+	// missing_key does not exist
 }
 
 func ExampleClient_Set() {
@@ -276,28 +322,37 @@ func ExampleClient_Watch() {
 
 func ExamplePubSub() {
 	pubsub := client.Subscribe("mychannel1")
-	defer pubsub.Close()
 
-	// Wait for subscription to be created before publishing message.
-	subscr, err := pubsub.ReceiveTimeout(time.Second)
+	// Wait for confirmation that subscription is created before publishing anything.
+	_, err := pubsub.Receive()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(subscr)
 
+	// Go channel which receives messages.
+	ch := pubsub.Channel()
+
+	// Publish a message.
 	err = client.Publish("mychannel1", "hello").Err()
 	if err != nil {
 		panic(err)
 	}
 
-	msg, err := pubsub.ReceiveMessage()
-	if err != nil {
-		panic(err)
+	time.AfterFunc(time.Second, func() {
+		// When pubsub is closed channel is closed too.
+		_ = pubsub.Close()
+	})
+
+	// Consume messages.
+	for {
+		msg, ok := <-ch
+		if !ok {
+			break
+		}
+		fmt.Println(msg.Channel, msg.Payload)
 	}
 
-	fmt.Println(msg.Channel, msg.Payload)
-	// Output: subscribe: mychannel1
-	// mychannel1 hello
+	// Output: mychannel1 hello
 }
 
 func ExamplePubSub_Receive() {
