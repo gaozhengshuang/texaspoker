@@ -8,6 +8,10 @@ module game {
 		private assetsGroup: eui.Group;
 		private otherGroup: eui.Group;
 
+		private bottomScroller:eui.Scroller
+
+
+
 		private name_txt:eui.Label; 
 		private level_txt:eui.Label; 
 		private qiang_txt:eui.Label; 
@@ -19,6 +23,9 @@ module game {
 		private carlib_txt:eui.Label; 
 		private stock_txt:eui.Label; 
 		private jyLog_txt:eui.Label; 
+
+
+
 
 		private userInfo:any;
 
@@ -43,10 +50,13 @@ module game {
             this.assetsGroup.scaleY=GameConfig.innerScaleW;
 			this.assetsGroup.y=this.huobiGroup.y+this.huobiGroup.height*GameConfig.innerScaleW+20;
 
+			this.bottomScroller.y=this.assetsGroup.y+this.assetsGroup.height*GameConfig.innerScaleW+20;;
+			this.bottomScroller.width=GameConfig.innerWidth;
+			this.bottomScroller.height = GameConfig.innerPageHeight-this.bottomScroller.y;
+
 			this.otherGroup.scaleX=GameConfig.innerScaleW;
             this.otherGroup.scaleY=GameConfig.innerScaleW;
-			this.otherGroup.y=this.assetsGroup.y+this.assetsGroup.height*GameConfig.innerScaleW+20;
-
+			
 		}
 
 		public updateView(user:any){
@@ -62,5 +72,6 @@ module game {
 
 			this.estate_txt.text="0";
         }
+		
 	}
 }
