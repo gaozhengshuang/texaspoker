@@ -42,7 +42,8 @@ module game {
             this.main.uiContainer.addChild(this.loadingView);
             this.main.uiContainer.addChild(this.alertView);
 
-            //this.gameView.addChild(new game.GameLayer());
+            this.gameView.touchThrough = true;
+            this.gameView.addChild(new game.GameLayer());
 
             ApplicationFacade.getInstance().registerMediator(new SceneMediator(this.screenView));
             ApplicationFacade.getInstance().registerMediator(new PageMediator(this.pageView));
