@@ -1,4 +1,4 @@
-module app {
+module game {
     export class HttpLoginRequestCommand extends puremvc.SimpleCommand implements puremvc.ICommand {
 
         public constructor() {
@@ -7,7 +7,7 @@ module app {
         public static NAME: string = "HttpLoginRequestCommand";
 
 
-        public mapProxy: MapProxy
+        public mapProxy: MapProxy;
         public execute(notification: puremvc.INotification): void {
             let serverProxy: ServerProxy = <ServerProxy><any>this.facade().retrieveProxy(ServerProxy.NAME);
             if (this.mapProxy == null) {

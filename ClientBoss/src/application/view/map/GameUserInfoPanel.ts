@@ -1,4 +1,4 @@
-module app {
+module game {
     export class GameUserInfoPanel extends eui.Component {
         public name_txt: eui.Label;
         public level_txt: eui.Label;

@@ -1,7 +1,7 @@
 /**
  * Created by sunboy on 2015/4/8.
  */
-module app
+module game
 {
     export class BasicEvent extends egret.Event
     {

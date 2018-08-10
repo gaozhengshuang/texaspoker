@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class DiscoveryGameItemPanel extends eui.ItemRenderer {
 		private gameIcon:eui.Image;
 		private name_txt:eui.Label;

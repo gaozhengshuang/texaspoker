@@ -3,7 +3,7 @@
  *
  *
  */
-module app
+module game
 {
     export class BaseVO
     {

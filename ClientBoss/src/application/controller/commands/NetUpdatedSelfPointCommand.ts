@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class NetUpdatedSelfPointCommand extends puremvc.SimpleCommand implements puremvc.ICommand{
 
 		public constructor(){

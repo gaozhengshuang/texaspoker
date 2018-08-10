@@ -3,7 +3,7 @@
  *
  * 小游戏信息
  */
-module app {
+module game {
     export class SmallGameVO extends BaseVO {
         public constructor(obj: any = null) {
             super(obj);

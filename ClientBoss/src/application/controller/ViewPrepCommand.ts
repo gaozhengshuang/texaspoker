@@ -1,4 +1,4 @@
-module app {
+module game {
 
 	export class ViewPrepCommand extends puremvc.SimpleCommand implements puremvc.ICommand{
 

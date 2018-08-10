@@ -1,5 +1,5 @@
 
-module app {
+module game {
 
 	export class CommandName {
 		public static STARTUP: string = "startup";

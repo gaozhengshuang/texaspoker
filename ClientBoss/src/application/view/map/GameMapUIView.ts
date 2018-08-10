@@ -1,6 +1,6 @@
 declare function setBtnCallbackFun(fun:Function,body:any);
 declare function updataUserInfo(obj:any);
-module app {
+module game {
 	export class GameMapUIView extends egret.Sprite {
         public static FUJIN_SWITCH:string = "fujin_switch";
         public static MAP_POSITION:string = "map_position";

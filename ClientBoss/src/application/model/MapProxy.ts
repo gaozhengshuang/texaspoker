@@ -21,7 +21,7 @@ declare function getDistance(start: any, end: any)
  * 地图代理
  * @author sunboy
  */
-module app {
+module game {
 
 	export class MapProxy extends puremvc.Proxy implements puremvc.IProxy {
 		public static NAME: string = "MapProxy";

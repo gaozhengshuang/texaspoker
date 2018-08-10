@@ -3,7 +3,7 @@
  *
  * 坐标信息
  */
-module app {
+module game {
     export class PointVO extends BaseVO {
         public constructor(obj: any = null) {
             super(obj);

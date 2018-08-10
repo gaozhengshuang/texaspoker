@@ -95,23 +95,23 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected createGameScene(): void {
-        app.GameConfig.errorObj = RES.getRes(app.GameConfig.errorJson);
+        game.GameConfig.errorObj = RES.getRes(game.GameConfig.errorJson);
         //window.addEventListener('resize', function (event) {
-        app.GameConfig.innerWidth = window.innerWidth;
-        app.GameConfig.innerHeight = window.innerHeight;
-        app.GameConfig.innerScaleH = app.GameConfig.innerHeight / app.GameConfig.stageHeight;
-        app.GameConfig.innerScaleW = app.GameConfig.innerWidth / app.GameConfig.stageWidth;
+        game.GameConfig.innerWidth = window.innerWidth;
+        game.GameConfig.innerHeight = window.innerHeight;
+        game.GameConfig.innerScaleH = game.GameConfig.innerHeight / game.GameConfig.stageHeight;
+        game.GameConfig.innerScaleW = game.GameConfig.innerWidth / game.GameConfig.stageWidth;
 
-        let expHeight:number=app.GameConfig.innerWidth*app.GameConfig.stageHeight/app.GameConfig.stageWidth;
-        app.GameConfig.innerScale=expHeight>app.GameConfig.innerHeight
-        ?app.GameConfig.innerScaleH:app.GameConfig.innerScaleW;
+        let expHeight:number=game.GameConfig.innerWidth*game.GameConfig.stageHeight/game.GameConfig.stageWidth;
+        game.GameConfig.innerScale=expHeight>game.GameConfig.innerHeight
+        ?game.GameConfig.innerScaleH:game.GameConfig.innerScaleW;
 
-        console.log(app.GameConfig.innerScale);
+        console.log(game.GameConfig.innerScale);
 
 
-        app.GameConfig.appContainer = new app.AppContainer();
-        this.addChild(app.GameConfig.appContainer);
-        app.ApplicationFacade.getInstance().startUp(app.GameConfig.appContainer);
+        game.GameConfig.appContainer = new game.AppContainer();
+        this.addChild(game.GameConfig.appContainer);
+        game.ApplicationFacade.getInstance().startUp(game.GameConfig.appContainer);
     }
     
     /**

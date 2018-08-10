@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class GameMapContentView extends egret.DisplayObjectContainer {
 
 		public constructor() {

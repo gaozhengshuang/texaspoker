@@ -2,7 +2,7 @@
  * 用户代理
  * @author sunboy
  */
-module app {
+module game {
 
 	export class UserProxy extends puremvc.Proxy implements puremvc.IProxy{
 		public static NAME:string = "UserProxy";

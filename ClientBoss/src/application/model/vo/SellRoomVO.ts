@@ -3,7 +3,7 @@
  *
  * 出售房间信息
  */
-module app {
+module game {
     export class SellRoomVO extends BaseVO {
         public constructor(obj: any = null) {
             super(obj);

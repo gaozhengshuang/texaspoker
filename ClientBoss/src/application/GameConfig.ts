@@ -9,7 +9,7 @@ declare function setEgretEventsReply(bool:boolean);
 declare function showDownBtn(bool:boolean);
 declare function updataLoginMaskBg(color:string,alpha:number);
 declare function getCityName(lat:number,lng:number,fun:Function);
-module app {
+module game {
     export class GameConfig {
         public static instance: GameConfig;
         public constructor() {

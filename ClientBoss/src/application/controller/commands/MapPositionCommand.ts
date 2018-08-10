@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class MapPositionCommand extends puremvc.SimpleCommand implements puremvc.ICommand {
 
 		public constructor() {

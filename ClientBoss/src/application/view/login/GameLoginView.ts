@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class GameLoginView extends eui.Component {
 		public static LOGIN_REQUEST:string = "login_request";
 		public static REGISTER_REQUEST:string = "register_request";

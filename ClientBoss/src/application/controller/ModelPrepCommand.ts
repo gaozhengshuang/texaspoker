@@ -1,7 +1,6 @@
 
 
-module app {
-
+module game {
 	export class ModelPrepCommand extends puremvc.SimpleCommand implements puremvc.ICommand{
 
 		public constructor(){

@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class GameMineView extends eui.Component {
 
 		private view_bg: eui.Rect;

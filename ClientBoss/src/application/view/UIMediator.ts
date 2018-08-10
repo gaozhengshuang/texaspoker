@@ -1,5 +1,5 @@
 
-module app {
+module game {
     /**
      * 游戏UI中介器
      */

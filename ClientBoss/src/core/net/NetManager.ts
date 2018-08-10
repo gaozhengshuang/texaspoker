@@ -6,10 +6,20 @@ module game {
     export var $goodsIp: string = "http://logistics.giantfun.cn:8083";
     export var $goodsPath: string = "/v1/logistics/query";
 
+    //外网IP
+    //export var $registIp: string = "https://tantanle-service7003.giantfun.cn/";
+    //export var $netIp: string = "wss://tantanle-service7002.giantfun.cn/ws_handler";
+    //export var $gameNetIp: string = "wss://tantanle-service{gamePort}.giantfun.cn/ws_handler";
+
     //谢建服务器
-    export var $registIp: string = "http://192.168.30.203:7003";
-    export var $netIp: string = "ws://192.168.30.203:7002/ws_handler";
-    export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler";
+    // export var $registIp: string = "http://192.168.30.204:7003";
+    // export var $netIp: string = "ws://192.168.30.204:7002/ws_handler";
+    // export var $gameNetIp: string = "ws://192.168.30.204:{gamePort}/ws_handler";
+
+    //谢建服务器
+     export var $registIp: string = "http://192.168.30.203:7003";
+     export var $netIp: string = "ws://192.168.30.203:7002/ws_handler";
+     export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler";
 
     //毕强服务器
     // export var $registIp: string = "http://192.168.30.205:7003";
@@ -56,6 +66,7 @@ module game {
         face: string;
         name: string;
         rank: number;
+        level: number;
         gold: number;
         diamond: number;
         openid: string;

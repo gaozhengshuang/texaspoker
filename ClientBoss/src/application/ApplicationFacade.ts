@@ -1,6 +1,6 @@
 
 
-module app {
+module game {
 
 	export class ApplicationFacade extends puremvc.Facade implements puremvc.IFacade{
 

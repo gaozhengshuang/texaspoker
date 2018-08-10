@@ -1,5 +1,5 @@
 
-module app {
+module game {
 
 	export class AppSceneContainer extends egret.Sprite
     {

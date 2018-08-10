@@ -3,7 +3,7 @@
  *
  * 建筑信息
  */
-module app {
+module game {
     export class BuildingVO extends BaseVO {
         public constructor(obj: any = null) {
             super(obj);

@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class DiscoveryMediator extends puremvc.Mediator implements puremvc.IMediator{
 		public static NAME:string = "DiscoveryMediator";
 		public constructor(viewComponent:any){

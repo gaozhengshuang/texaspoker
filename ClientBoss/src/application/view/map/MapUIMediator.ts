@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class MapUIMediator extends puremvc.Mediator implements puremvc.IMediator{
 		public static NAME:string = "MapUIMediator";
 		public constructor(viewComponent:any){

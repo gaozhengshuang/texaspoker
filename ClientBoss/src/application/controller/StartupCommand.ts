@@ -1,6 +1,6 @@
 
 
-module app {
+module game {
 
 	export class StartupCommand extends puremvc.MacroCommand{
 

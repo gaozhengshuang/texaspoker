@@ -2,7 +2,7 @@
  * 小游戏代理
  * @author sunboy
  */
-module app {
+module game {
 
 	export class SmallGameProxy extends puremvc.Proxy implements puremvc.IProxy{
 		public static NAME:string = "SmallGameProxy";

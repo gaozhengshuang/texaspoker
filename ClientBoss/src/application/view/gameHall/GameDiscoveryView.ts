@@ -1,4 +1,4 @@
-module app {
+module game {
 	export class GameDiscoveryView extends eui.Component  {
 		public static GOIN_GAME:string = "goin_game";
 

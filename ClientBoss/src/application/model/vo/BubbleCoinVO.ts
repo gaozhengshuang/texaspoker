@@ -3,7 +3,7 @@
  *
  * 物品信息
  */
-module app {
+module game {
     export class BubbleCoinVO extends BaseVO {
         public constructor(obj: any = null) {
             super(obj);
