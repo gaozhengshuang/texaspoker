@@ -107,4 +107,32 @@ message Serialize {
     optional ItemBin    item    = 3;
 }
 
+//单个房间信息
+message HouseCell {
+	optional uint32 tid = 1; //房间的配置id
+	optional uint32 index = 2; //房间在房屋内的编号
+	optional uint32 level = 3; //房间等级
+	optional int64 tmproduce = 4; //产金币的起始时间戳
+	optional uint32 gold = 5; //当前待收取的金币
+	optional uint32 state = 6; //当前生产状态
+}
 
+//房屋访问者操作信息
+message HouseVisitInfo {
+	optional uint64 visitorid = 1; //来访玩家的id
+	optional int64 tmvisit = 2; //来访时间
+	optional uint32 optindex = 3; //操作的房间编号
+	optional uint32 opttype = 4; //操作类型 1主人收钱 2别人抢钱
+	optional uint32 optparam = 5; //操作附加参数 例如主人收了多少钱 别人抢了多少钱
+}
+
+//房屋信息包含若干房间 
+message HouseData {
+	optional uint64	id	= 1; //唯一id
+	optional uint32 tid = 2; //配置id tbl
+	optional uint64 ownerid = 3; //所有者id
+	optional uint32 buildingid = 4; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
+	optional uint32 level = 5; //房屋等级
+	repeated HouseCell housecells = 6; //每个房间信息 
+	repeated HouseVisitInfo visitinfo = 7; //操作记录 要限定条数 
+}
