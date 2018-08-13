@@ -9,6 +9,14 @@ module game {
 
 		public constructor() {
 			super(ServerProxy.NAME);
+			this.RegisterEvent();
+		}
+
+		public RegisterEvent() {
+            NotificationCenter.addObserver(this, this.netConnectionError, CommandName.NET_CONNECTION_ERROR);
+        }
+		private netConnectionError(){
+			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
 		}
 
 		private loginUserInfo: msg.IC2L_ReqLogin;

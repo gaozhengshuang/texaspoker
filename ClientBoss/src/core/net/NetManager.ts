@@ -72,6 +72,7 @@ module game {
         openid: string;
         addrlist: msg.IUserAddress[];
         PersonalImage: msg.IPersonalImage;
+        newplayerstep:number;
     }
 
     export var $uploadScore = "/score/uploadScore";

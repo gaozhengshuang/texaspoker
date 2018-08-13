@@ -13,7 +13,19 @@ module game {
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
 
         public penetration: number = 0;
-        public userInfo: IUserInfo = { face: "1", name: "", userid: 0, rank: 0, gold: 0, diamond: 0, openid: "", addrlist: [], PersonalImage: null ,level:1};
+        public userInfo: IUserInfo = { 
+            face: "1", 
+            name: "", 
+            userid: 0, 
+            rank: 0, 
+            gold: 0, 
+            diamond: 0, 
+            openid: "", 
+            addrlist: [], 
+            PersonalImage: null ,
+            level:1,
+            newplayerstep:0
+        };
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];

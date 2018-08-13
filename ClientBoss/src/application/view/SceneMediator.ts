@@ -29,7 +29,7 @@ module game {
                 case CommandName.SCENE_SWITCH_LOGIN:
                     {
                         this.removeSceneView();
-                        GameConfig.showDownBtnFun(true);
+                        GameConfig.showDownBtnFun(false);
                         GameConfig.sceneType = 1;
                         GameConfig.updataMaskBgFun('#f5f5f5', 1);
                         this.sceneView = new GameLoginView();
