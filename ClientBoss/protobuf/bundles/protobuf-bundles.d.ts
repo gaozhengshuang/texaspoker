@@ -17274,6 +17274,228 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a TCarBase. */
+    interface ITCarBase {
+
+        /** TCarBase TCar */
+        TCar?: (table.ITCarDefine[]|null);
+    }
+
+    /** Represents a TCarBase. */
+    class TCarBase implements ITCarBase {
+
+        /**
+         * Constructs a new TCarBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarBase);
+
+        /** TCarBase TCar. */
+        public TCar: table.ITCarDefine[];
+
+        /**
+         * Creates a new TCarBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarBase instance
+         */
+        public static create(properties?: table.ITCarBase): table.TCarBase;
+
+        /**
+         * Encodes the specified TCarBase message. Does not implicitly {@link table.TCarBase.verify|verify} messages.
+         * @param message TCarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarBase message, length delimited. Does not implicitly {@link table.TCarBase.verify|verify} messages.
+         * @param message TCarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarBase;
+
+        /**
+         * Decodes a TCarBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarBase;
+
+        /**
+         * Verifies a TCarBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarBase;
+
+        /**
+         * Creates a plain object from a TCarBase message. Also converts values to other types if specified.
+         * @param message TCarBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarDefine. */
+    interface ITCarDefine {
+
+        /** TCarDefine Id */
+        Id?: (number|null);
+
+        /** TCarDefine Brand */
+        Brand?: (string|null);
+
+        /** TCarDefine Model */
+        Model?: (string|null);
+
+        /** TCarDefine MoveRange */
+        MoveRange?: (number|null);
+
+        /** TCarDefine Capacity */
+        Capacity?: (number|null);
+
+        /** TCarDefine RewardPerH */
+        RewardPerH?: (number|null);
+
+        /** TCarDefine Price */
+        Price?: (number|null);
+
+        /** TCarDefine Des */
+        Des?: (string|null);
+    }
+
+    /** Represents a TCarDefine. */
+    class TCarDefine implements ITCarDefine {
+
+        /**
+         * Constructs a new TCarDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarDefine);
+
+        /** TCarDefine Id. */
+        public Id: number;
+
+        /** TCarDefine Brand. */
+        public Brand: string;
+
+        /** TCarDefine Model. */
+        public Model: string;
+
+        /** TCarDefine MoveRange. */
+        public MoveRange: number;
+
+        /** TCarDefine Capacity. */
+        public Capacity: number;
+
+        /** TCarDefine RewardPerH. */
+        public RewardPerH: number;
+
+        /** TCarDefine Price. */
+        public Price: number;
+
+        /** TCarDefine Des. */
+        public Des: string;
+
+        /**
+         * Creates a new TCarDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarDefine instance
+         */
+        public static create(properties?: table.ITCarDefine): table.TCarDefine;
+
+        /**
+         * Encodes the specified TCarDefine message. Does not implicitly {@link table.TCarDefine.verify|verify} messages.
+         * @param message TCarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarDefine message, length delimited. Does not implicitly {@link table.TCarDefine.verify|verify} messages.
+         * @param message TCarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarDefine;
+
+        /**
+         * Decodes a TCarDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarDefine;
+
+        /**
+         * Verifies a TCarDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarDefine;
+
+        /**
+         * Creates a plain object from a TCarDefine message. Also converts values to other types if specified.
+         * @param message TCarDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TEquipBase. */
     interface ITEquipBase {
 
@@ -19123,6 +19345,198 @@ declare namespace table {
 
         /**
          * Converts this TNoticeDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TParkingBase. */
+    interface ITParkingBase {
+
+        /** TParkingBase TParking */
+        TParking?: (table.ITParkingDefine[]|null);
+    }
+
+    /** Represents a TParkingBase. */
+    class TParkingBase implements ITParkingBase {
+
+        /**
+         * Constructs a new TParkingBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITParkingBase);
+
+        /** TParkingBase TParking. */
+        public TParking: table.ITParkingDefine[];
+
+        /**
+         * Creates a new TParkingBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TParkingBase instance
+         */
+        public static create(properties?: table.ITParkingBase): table.TParkingBase;
+
+        /**
+         * Encodes the specified TParkingBase message. Does not implicitly {@link table.TParkingBase.verify|verify} messages.
+         * @param message TParkingBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITParkingBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TParkingBase message, length delimited. Does not implicitly {@link table.TParkingBase.verify|verify} messages.
+         * @param message TParkingBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITParkingBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TParkingBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TParkingBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TParkingBase;
+
+        /**
+         * Decodes a TParkingBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TParkingBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TParkingBase;
+
+        /**
+         * Verifies a TParkingBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TParkingBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TParkingBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TParkingBase;
+
+        /**
+         * Creates a plain object from a TParkingBase message. Also converts values to other types if specified.
+         * @param message TParkingBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TParkingBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TParkingBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TParkingDefine. */
+    interface ITParkingDefine {
+
+        /** TParkingDefine Id */
+        Id?: (number|null);
+
+        /** TParkingDefine Type */
+        Type?: (number|null);
+
+        /** TParkingDefine RewardPercent */
+        RewardPercent?: (number|null);
+    }
+
+    /** Represents a TParkingDefine. */
+    class TParkingDefine implements ITParkingDefine {
+
+        /**
+         * Constructs a new TParkingDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITParkingDefine);
+
+        /** TParkingDefine Id. */
+        public Id: number;
+
+        /** TParkingDefine Type. */
+        public Type: number;
+
+        /** TParkingDefine RewardPercent. */
+        public RewardPercent: number;
+
+        /**
+         * Creates a new TParkingDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TParkingDefine instance
+         */
+        public static create(properties?: table.ITParkingDefine): table.TParkingDefine;
+
+        /**
+         * Encodes the specified TParkingDefine message. Does not implicitly {@link table.TParkingDefine.verify|verify} messages.
+         * @param message TParkingDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITParkingDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TParkingDefine message, length delimited. Does not implicitly {@link table.TParkingDefine.verify|verify} messages.
+         * @param message TParkingDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITParkingDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TParkingDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TParkingDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TParkingDefine;
+
+        /**
+         * Decodes a TParkingDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TParkingDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TParkingDefine;
+
+        /**
+         * Verifies a TParkingDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TParkingDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TParkingDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TParkingDefine;
+
+        /**
+         * Creates a plain object from a TParkingDefine message. Also converts values to other types if specified.
+         * @param message TParkingDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TParkingDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TParkingDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

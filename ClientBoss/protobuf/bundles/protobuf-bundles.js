@@ -40338,6 +40338,556 @@ $root.table = (function() {
         return TBirckRefreshDefine;
     })();
 
+    table.TCarBase = (function() {
+
+        /**
+         * Properties of a TCarBase.
+         * @memberof table
+         * @interface ITCarBase
+         * @property {Array.<table.ITCarDefine>|null} [TCar] TCarBase TCar
+         */
+
+        /**
+         * Constructs a new TCarBase.
+         * @memberof table
+         * @classdesc Represents a TCarBase.
+         * @implements ITCarBase
+         * @constructor
+         * @param {table.ITCarBase=} [properties] Properties to set
+         */
+        function TCarBase(properties) {
+            this.TCar = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarBase TCar.
+         * @member {Array.<table.ITCarDefine>} TCar
+         * @memberof table.TCarBase
+         * @instance
+         */
+        TCarBase.prototype.TCar = $util.emptyArray;
+
+        /**
+         * Creates a new TCarBase instance using the specified properties.
+         * @function create
+         * @memberof table.TCarBase
+         * @static
+         * @param {table.ITCarBase=} [properties] Properties to set
+         * @returns {table.TCarBase} TCarBase instance
+         */
+        TCarBase.create = function create(properties) {
+            return new TCarBase(properties);
+        };
+
+        /**
+         * Encodes the specified TCarBase message. Does not implicitly {@link table.TCarBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarBase
+         * @static
+         * @param {table.ITCarBase} message TCarBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCar != null && message.TCar.length)
+                for (var i = 0; i < message.TCar.length; ++i)
+                    $root.table.TCarDefine.encode(message.TCar[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarBase message, length delimited. Does not implicitly {@link table.TCarBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarBase
+         * @static
+         * @param {table.ITCarBase} message TCarBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarBase} TCarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCar && message.TCar.length))
+                        message.TCar = [];
+                    message.TCar.push($root.table.TCarDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarBase} TCarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarBase message.
+         * @function verify
+         * @memberof table.TCarBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCar != null && message.hasOwnProperty("TCar")) {
+                if (!Array.isArray(message.TCar))
+                    return "TCar: array expected";
+                for (var i = 0; i < message.TCar.length; ++i) {
+                    var error = $root.table.TCarDefine.verify(message.TCar[i]);
+                    if (error)
+                        return "TCar." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TCarBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarBase} TCarBase
+         */
+        TCarBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarBase)
+                return object;
+            var message = new $root.table.TCarBase();
+            if (object.TCar) {
+                if (!Array.isArray(object.TCar))
+                    throw TypeError(".table.TCarBase.TCar: array expected");
+                message.TCar = [];
+                for (var i = 0; i < object.TCar.length; ++i) {
+                    if (typeof object.TCar[i] !== "object")
+                        throw TypeError(".table.TCarBase.TCar: object expected");
+                    message.TCar[i] = $root.table.TCarDefine.fromObject(object.TCar[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarBase
+         * @static
+         * @param {table.TCarBase} message TCarBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCar = [];
+            if (message.TCar && message.TCar.length) {
+                object.TCar = [];
+                for (var j = 0; j < message.TCar.length; ++j)
+                    object.TCar[j] = $root.table.TCarDefine.toObject(message.TCar[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TCarBase to JSON.
+         * @function toJSON
+         * @memberof table.TCarBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarBase;
+    })();
+
+    table.TCarDefine = (function() {
+
+        /**
+         * Properties of a TCarDefine.
+         * @memberof table
+         * @interface ITCarDefine
+         * @property {number|null} [Id] TCarDefine Id
+         * @property {string|null} [Brand] TCarDefine Brand
+         * @property {string|null} [Model] TCarDefine Model
+         * @property {number|null} [MoveRange] TCarDefine MoveRange
+         * @property {number|null} [Capacity] TCarDefine Capacity
+         * @property {number|null} [RewardPerH] TCarDefine RewardPerH
+         * @property {number|null} [Price] TCarDefine Price
+         * @property {string|null} [Des] TCarDefine Des
+         */
+
+        /**
+         * Constructs a new TCarDefine.
+         * @memberof table
+         * @classdesc Represents a TCarDefine.
+         * @implements ITCarDefine
+         * @constructor
+         * @param {table.ITCarDefine=} [properties] Properties to set
+         */
+        function TCarDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarDefine Id.
+         * @member {number} Id
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.Id = 0;
+
+        /**
+         * TCarDefine Brand.
+         * @member {string} Brand
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.Brand = "";
+
+        /**
+         * TCarDefine Model.
+         * @member {string} Model
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.Model = "";
+
+        /**
+         * TCarDefine MoveRange.
+         * @member {number} MoveRange
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.MoveRange = 0;
+
+        /**
+         * TCarDefine Capacity.
+         * @member {number} Capacity
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.Capacity = 0;
+
+        /**
+         * TCarDefine RewardPerH.
+         * @member {number} RewardPerH
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.RewardPerH = 0;
+
+        /**
+         * TCarDefine Price.
+         * @member {number} Price
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.Price = 0;
+
+        /**
+         * TCarDefine Des.
+         * @member {string} Des
+         * @memberof table.TCarDefine
+         * @instance
+         */
+        TCarDefine.prototype.Des = "";
+
+        /**
+         * Creates a new TCarDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCarDefine
+         * @static
+         * @param {table.ITCarDefine=} [properties] Properties to set
+         * @returns {table.TCarDefine} TCarDefine instance
+         */
+        TCarDefine.create = function create(properties) {
+            return new TCarDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCarDefine message. Does not implicitly {@link table.TCarDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarDefine
+         * @static
+         * @param {table.ITCarDefine} message TCarDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Brand != null && message.hasOwnProperty("Brand"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Brand);
+            if (message.Model != null && message.hasOwnProperty("Model"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.Model);
+            if (message.MoveRange != null && message.hasOwnProperty("MoveRange"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.MoveRange);
+            if (message.Capacity != null && message.hasOwnProperty("Capacity"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.Capacity);
+            if (message.RewardPerH != null && message.hasOwnProperty("RewardPerH"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.RewardPerH);
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.Price);
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.Des);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarDefine message, length delimited. Does not implicitly {@link table.TCarDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarDefine
+         * @static
+         * @param {table.ITCarDefine} message TCarDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarDefine} TCarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Brand = reader.string();
+                    break;
+                case 3:
+                    message.Model = reader.string();
+                    break;
+                case 4:
+                    message.MoveRange = reader.uint32();
+                    break;
+                case 5:
+                    message.Capacity = reader.uint32();
+                    break;
+                case 6:
+                    message.RewardPerH = reader.uint32();
+                    break;
+                case 7:
+                    message.Price = reader.uint32();
+                    break;
+                case 8:
+                    message.Des = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarDefine} TCarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarDefine message.
+         * @function verify
+         * @memberof table.TCarDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Brand != null && message.hasOwnProperty("Brand"))
+                if (!$util.isString(message.Brand))
+                    return "Brand: string expected";
+            if (message.Model != null && message.hasOwnProperty("Model"))
+                if (!$util.isString(message.Model))
+                    return "Model: string expected";
+            if (message.MoveRange != null && message.hasOwnProperty("MoveRange"))
+                if (!$util.isInteger(message.MoveRange))
+                    return "MoveRange: integer expected";
+            if (message.Capacity != null && message.hasOwnProperty("Capacity"))
+                if (!$util.isInteger(message.Capacity))
+                    return "Capacity: integer expected";
+            if (message.RewardPerH != null && message.hasOwnProperty("RewardPerH"))
+                if (!$util.isInteger(message.RewardPerH))
+                    return "RewardPerH: integer expected";
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                if (!$util.isInteger(message.Price))
+                    return "Price: integer expected";
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                if (!$util.isString(message.Des))
+                    return "Des: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCarDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarDefine} TCarDefine
+         */
+        TCarDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarDefine)
+                return object;
+            var message = new $root.table.TCarDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Brand != null)
+                message.Brand = String(object.Brand);
+            if (object.Model != null)
+                message.Model = String(object.Model);
+            if (object.MoveRange != null)
+                message.MoveRange = object.MoveRange >>> 0;
+            if (object.Capacity != null)
+                message.Capacity = object.Capacity >>> 0;
+            if (object.RewardPerH != null)
+                message.RewardPerH = object.RewardPerH >>> 0;
+            if (object.Price != null)
+                message.Price = object.Price >>> 0;
+            if (object.Des != null)
+                message.Des = String(object.Des);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarDefine
+         * @static
+         * @param {table.TCarDefine} message TCarDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Brand = "";
+                object.Model = "";
+                object.MoveRange = 0;
+                object.Capacity = 0;
+                object.RewardPerH = 0;
+                object.Price = 0;
+                object.Des = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Brand != null && message.hasOwnProperty("Brand"))
+                object.Brand = message.Brand;
+            if (message.Model != null && message.hasOwnProperty("Model"))
+                object.Model = message.Model;
+            if (message.MoveRange != null && message.hasOwnProperty("MoveRange"))
+                object.MoveRange = message.MoveRange;
+            if (message.Capacity != null && message.hasOwnProperty("Capacity"))
+                object.Capacity = message.Capacity;
+            if (message.RewardPerH != null && message.hasOwnProperty("RewardPerH"))
+                object.RewardPerH = message.RewardPerH;
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                object.Price = message.Price;
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                object.Des = message.Des;
+            return object;
+        };
+
+        /**
+         * Converts this TCarDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCarDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarDefine;
+    })();
+
     table.TEquipBase = (function() {
 
         /**
@@ -44809,6 +45359,446 @@ $root.table = (function() {
         };
 
         return TNoticeDefine;
+    })();
+
+    table.TParkingBase = (function() {
+
+        /**
+         * Properties of a TParkingBase.
+         * @memberof table
+         * @interface ITParkingBase
+         * @property {Array.<table.ITParkingDefine>|null} [TParking] TParkingBase TParking
+         */
+
+        /**
+         * Constructs a new TParkingBase.
+         * @memberof table
+         * @classdesc Represents a TParkingBase.
+         * @implements ITParkingBase
+         * @constructor
+         * @param {table.ITParkingBase=} [properties] Properties to set
+         */
+        function TParkingBase(properties) {
+            this.TParking = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TParkingBase TParking.
+         * @member {Array.<table.ITParkingDefine>} TParking
+         * @memberof table.TParkingBase
+         * @instance
+         */
+        TParkingBase.prototype.TParking = $util.emptyArray;
+
+        /**
+         * Creates a new TParkingBase instance using the specified properties.
+         * @function create
+         * @memberof table.TParkingBase
+         * @static
+         * @param {table.ITParkingBase=} [properties] Properties to set
+         * @returns {table.TParkingBase} TParkingBase instance
+         */
+        TParkingBase.create = function create(properties) {
+            return new TParkingBase(properties);
+        };
+
+        /**
+         * Encodes the specified TParkingBase message. Does not implicitly {@link table.TParkingBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TParkingBase
+         * @static
+         * @param {table.ITParkingBase} message TParkingBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TParkingBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TParking != null && message.TParking.length)
+                for (var i = 0; i < message.TParking.length; ++i)
+                    $root.table.TParkingDefine.encode(message.TParking[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TParkingBase message, length delimited. Does not implicitly {@link table.TParkingBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TParkingBase
+         * @static
+         * @param {table.ITParkingBase} message TParkingBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TParkingBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TParkingBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TParkingBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TParkingBase} TParkingBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TParkingBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TParkingBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TParking && message.TParking.length))
+                        message.TParking = [];
+                    message.TParking.push($root.table.TParkingDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TParkingBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TParkingBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TParkingBase} TParkingBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TParkingBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TParkingBase message.
+         * @function verify
+         * @memberof table.TParkingBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TParkingBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TParking != null && message.hasOwnProperty("TParking")) {
+                if (!Array.isArray(message.TParking))
+                    return "TParking: array expected";
+                for (var i = 0; i < message.TParking.length; ++i) {
+                    var error = $root.table.TParkingDefine.verify(message.TParking[i]);
+                    if (error)
+                        return "TParking." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TParkingBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TParkingBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TParkingBase} TParkingBase
+         */
+        TParkingBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TParkingBase)
+                return object;
+            var message = new $root.table.TParkingBase();
+            if (object.TParking) {
+                if (!Array.isArray(object.TParking))
+                    throw TypeError(".table.TParkingBase.TParking: array expected");
+                message.TParking = [];
+                for (var i = 0; i < object.TParking.length; ++i) {
+                    if (typeof object.TParking[i] !== "object")
+                        throw TypeError(".table.TParkingBase.TParking: object expected");
+                    message.TParking[i] = $root.table.TParkingDefine.fromObject(object.TParking[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TParkingBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TParkingBase
+         * @static
+         * @param {table.TParkingBase} message TParkingBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TParkingBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TParking = [];
+            if (message.TParking && message.TParking.length) {
+                object.TParking = [];
+                for (var j = 0; j < message.TParking.length; ++j)
+                    object.TParking[j] = $root.table.TParkingDefine.toObject(message.TParking[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TParkingBase to JSON.
+         * @function toJSON
+         * @memberof table.TParkingBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TParkingBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TParkingBase;
+    })();
+
+    table.TParkingDefine = (function() {
+
+        /**
+         * Properties of a TParkingDefine.
+         * @memberof table
+         * @interface ITParkingDefine
+         * @property {number|null} [Id] TParkingDefine Id
+         * @property {number|null} [Type] TParkingDefine Type
+         * @property {number|null} [RewardPercent] TParkingDefine RewardPercent
+         */
+
+        /**
+         * Constructs a new TParkingDefine.
+         * @memberof table
+         * @classdesc Represents a TParkingDefine.
+         * @implements ITParkingDefine
+         * @constructor
+         * @param {table.ITParkingDefine=} [properties] Properties to set
+         */
+        function TParkingDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TParkingDefine Id.
+         * @member {number} Id
+         * @memberof table.TParkingDefine
+         * @instance
+         */
+        TParkingDefine.prototype.Id = 0;
+
+        /**
+         * TParkingDefine Type.
+         * @member {number} Type
+         * @memberof table.TParkingDefine
+         * @instance
+         */
+        TParkingDefine.prototype.Type = 0;
+
+        /**
+         * TParkingDefine RewardPercent.
+         * @member {number} RewardPercent
+         * @memberof table.TParkingDefine
+         * @instance
+         */
+        TParkingDefine.prototype.RewardPercent = 0;
+
+        /**
+         * Creates a new TParkingDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {table.ITParkingDefine=} [properties] Properties to set
+         * @returns {table.TParkingDefine} TParkingDefine instance
+         */
+        TParkingDefine.create = function create(properties) {
+            return new TParkingDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TParkingDefine message. Does not implicitly {@link table.TParkingDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {table.ITParkingDefine} message TParkingDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TParkingDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.Type);
+            if (message.RewardPercent != null && message.hasOwnProperty("RewardPercent"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.RewardPercent);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TParkingDefine message, length delimited. Does not implicitly {@link table.TParkingDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {table.ITParkingDefine} message TParkingDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TParkingDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TParkingDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TParkingDefine} TParkingDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TParkingDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TParkingDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Type = reader.uint32();
+                    break;
+                case 3:
+                    message.RewardPercent = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TParkingDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TParkingDefine} TParkingDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TParkingDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TParkingDefine message.
+         * @function verify
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TParkingDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.RewardPercent != null && message.hasOwnProperty("RewardPercent"))
+                if (!$util.isInteger(message.RewardPercent))
+                    return "RewardPercent: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TParkingDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TParkingDefine} TParkingDefine
+         */
+        TParkingDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TParkingDefine)
+                return object;
+            var message = new $root.table.TParkingDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Type != null)
+                message.Type = object.Type >>> 0;
+            if (object.RewardPercent != null)
+                message.RewardPercent = object.RewardPercent >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TParkingDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TParkingDefine
+         * @static
+         * @param {table.TParkingDefine} message TParkingDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TParkingDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.RewardPercent = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.RewardPercent != null && message.hasOwnProperty("RewardPercent"))
+                object.RewardPercent = message.RewardPercent;
+            return object;
+        };
+
+        /**
+         * Converts this TParkingDefine to JSON.
+         * @function toJSON
+         * @memberof table.TParkingDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TParkingDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TParkingDefine;
     })();
 
     table.ProtoMsgIndex = (function() {
