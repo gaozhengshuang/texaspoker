@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="DiscoveryViewUI" width="1440" height="2560" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect id="view_bg" width="1440" height="2560" x="0" y="0" fillColor="0xffffff"/>
-	<e:Image id="titleImg" x="0" y="0" scaleX="1" scaleY="1" width="1440" height="576" source="tantanleTitle_png"/>
-	<e:Group id="titleWordGroup" x="0" y="576">
-		<e:Rect width="1440" height="180" x="0" y="0" fillColor="0x9d9a96"/>
-		<e:Image source="game_icon1_png" x="50" y="50"/>
-		<e:Label text="游戏大厅" x="214" y="55" textColor="0x3f4957" fontFamily="Microsoft YaHei" size="70"/>
+<e:Skin class="DiscoveryViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="view_bg" width="720" height="1280" x="0" y="0" fillColor="0xffffff"/>
+	<e:Image id="titleImg" x="0" y="0" scaleX="1" scaleY="1" width="720" height="288" source="tantanleTitle_png"/>
+	<e:Group id="titleWordGroup" x="0" y="288">
+		<e:Rect width="720" height="90" x="0" y="0" fillColor="0x9d9a96"/>
+		<e:Image source="game_icon1_png" x="22" width="57" height="40" y="25"/>
+		<e:Label text="游戏大厅" x="104" textColor="0x3f4957" fontFamily="Microsoft YaHei" size="35" y="28"/>
 	</e:Group>
 </e:Skin>

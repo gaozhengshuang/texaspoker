@@ -8,23 +8,15 @@ module game {
 		public static NAME:string = "AssetsProxy";
 		public constructor(){
 			super(AssetsProxy.NAME);
+			this.RegisterEvent();
 		}
+		public RegisterEvent() {
+            NotificationCenter.addObserver(this, this.OnGW2C_AckHouseData, "msg.GW2C_AckHouseData");
+        }
+		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
+			console.log(data);
 
-		private _userInfo:UserVO=new UserVO();
-
-		public setUserInfo(obj:any):void
-		{
-			this._userInfo.setObject(obj);
 		}
-
-		public getUserInfo():UserVO
-		{
-			return this._userInfo;
-		}
-
-		public renameTime: number = 5;
-
-		public isGaming:boolean = false;
 
 	}
 }

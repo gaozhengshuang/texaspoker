@@ -62,8 +62,8 @@ module game {
 		}
 		private openMainAssetsRequset(eve:BasicEvent):void
 		{
-			let userProxy:UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
-			// ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_ASSETS_LIST,
+			//let userProxy:UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+			 ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_ASSETS_LIST)
 			// {gameId:userProxy.getUserInfo().gameId,backType:1});
 		}
 		private goinMessageRequset(eve:BasicEvent):void

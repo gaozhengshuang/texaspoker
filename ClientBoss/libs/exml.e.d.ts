@@ -2,6 +2,8 @@ declare class CommonDialogSkin extends eui.Skin{
 }
 declare class LoadingSkin extends eui.Skin{
 }
+declare class LoginSence extends eui.Skin{
+}
 declare class NetFailedSkin extends eui.Skin{
 }
 declare class AllScrollerSkin extends eui.Skin{
@@ -14,9 +16,11 @@ declare module skins{
 	class HScrollBarSkin extends eui.Skin{
 	}
 }
-declare class LoginSence extends eui.Skin{
-}
 declare class MineViewUI extends eui.Skin{
+}
+declare class SceneAssetsItemSkin extends eui.Skin{
+}
+declare class SceneAssetsViewUI extends eui.Skin{
 }
 declare class SmallGameViewUI extends eui.Skin{
 }
@@ -96,20 +100,6 @@ declare class LoginSceneSkin extends eui.Skin{
 }
 declare class RegisterPanelSkin extends eui.Skin{
 }
-declare class DeliveryItemSkin extends eui.Skin{
-}
-declare class DeliveryPanelSkin extends eui.Skin{
-}
-declare class DeliverySettingSkin extends eui.Skin{
-}
-declare class HistoryMoneyItemSkin extends eui.Skin{
-}
-declare class HistoryMoneySkin extends eui.Skin{
-}
-declare class MainSceneSkin extends eui.Skin{
-}
-declare class UserPanelSkin extends eui.Skin{
-}
 declare class RankItemSkin extends eui.Skin{
 }
 declare class RankPanelSkin extends eui.Skin{
@@ -129,6 +119,20 @@ declare class RoleDressSkin extends eui.Skin{
 declare class ShopItemSkin extends eui.Skin{
 }
 declare class ShoppingCartSkin extends eui.Skin{
+}
+declare class DeliveryItemSkin extends eui.Skin{
+}
+declare class DeliveryPanelSkin extends eui.Skin{
+}
+declare class DeliverySettingSkin extends eui.Skin{
+}
+declare class HistoryMoneyItemSkin extends eui.Skin{
+}
+declare class HistoryMoneySkin extends eui.Skin{
+}
+declare class MainSceneSkin extends eui.Skin{
+}
+declare class UserPanelSkin extends eui.Skin{
 }
 declare class WinRankItemSkin extends eui.Skin{
 }
