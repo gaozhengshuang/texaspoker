@@ -95,3 +95,52 @@ message GW2C_AckNewPlayerStep {
 }
 
 
+//玩家请求升级房屋
+message C2GW_ReqHouseLevelUp {
+	optional uint64 houseid = 1;
+}
+ 
+//返回升级房屋
+message GW2C_AckHouseLevelUp {
+	optional uint64 houseid = 1;
+	optional uint32 ret = 2;
+}
+
+//玩家请求升级房屋的房间
+message C2GW_ReqHouseCellLevelUp {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+}
+
+//返回玩家请求升级房屋的房间
+message GW2C_AckHouseCellLevelUp {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+	optional uint32 ret = 3;
+}
+
+//玩家请求收金币
+message C2GW_ReqTakeSelfHouseGold {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+}
+
+//返回玩家请求收金币
+message GW2C_AckTakeSelfHouseGoldRet {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+	optional uint32 gold = 3;
+}
+
+//玩家请求抢别人金币
+message C2GW_ReqTakeOtherHouseGold {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+}
+
+//返回玩家请求抢别人金币
+message GW2C_AckTakeOtherHouseGoldRet {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+	optional uint32 gold = 3;
+}

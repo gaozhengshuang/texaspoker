@@ -26907,6 +26907,1372 @@ $root.msg = (function() {
         return GW2MS_ReqHouseCellLevelUp;
     })();
 
+    msg.MS2GW_AckHouseCellLevelUp = (function() {
+
+        /**
+         * Properties of a MS2GW_AckHouseCellLevelUp.
+         * @memberof msg
+         * @interface IMS2GW_AckHouseCellLevelUp
+         * @property {number|Long|null} [userid] MS2GW_AckHouseCellLevelUp userid
+         * @property {number|Long|null} [houseid] MS2GW_AckHouseCellLevelUp houseid
+         * @property {number|null} [index] MS2GW_AckHouseCellLevelUp index
+         * @property {number|null} [ret] MS2GW_AckHouseCellLevelUp ret
+         */
+
+        /**
+         * Constructs a new MS2GW_AckHouseCellLevelUp.
+         * @memberof msg
+         * @classdesc Represents a MS2GW_AckHouseCellLevelUp.
+         * @implements IMS2GW_AckHouseCellLevelUp
+         * @constructor
+         * @param {msg.IMS2GW_AckHouseCellLevelUp=} [properties] Properties to set
+         */
+        function MS2GW_AckHouseCellLevelUp(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MS2GW_AckHouseCellLevelUp userid.
+         * @member {number|Long} userid
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @instance
+         */
+        MS2GW_AckHouseCellLevelUp.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MS2GW_AckHouseCellLevelUp houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @instance
+         */
+        MS2GW_AckHouseCellLevelUp.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MS2GW_AckHouseCellLevelUp index.
+         * @member {number} index
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @instance
+         */
+        MS2GW_AckHouseCellLevelUp.prototype.index = 0;
+
+        /**
+         * MS2GW_AckHouseCellLevelUp ret.
+         * @member {number} ret
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @instance
+         */
+        MS2GW_AckHouseCellLevelUp.prototype.ret = 0;
+
+        /**
+         * Creates a new MS2GW_AckHouseCellLevelUp instance using the specified properties.
+         * @function create
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {msg.IMS2GW_AckHouseCellLevelUp=} [properties] Properties to set
+         * @returns {msg.MS2GW_AckHouseCellLevelUp} MS2GW_AckHouseCellLevelUp instance
+         */
+        MS2GW_AckHouseCellLevelUp.create = function create(properties) {
+            return new MS2GW_AckHouseCellLevelUp(properties);
+        };
+
+        /**
+         * Encodes the specified MS2GW_AckHouseCellLevelUp message. Does not implicitly {@link msg.MS2GW_AckHouseCellLevelUp.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {msg.IMS2GW_AckHouseCellLevelUp} message MS2GW_AckHouseCellLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MS2GW_AckHouseCellLevelUp.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ret);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MS2GW_AckHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.MS2GW_AckHouseCellLevelUp.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {msg.IMS2GW_AckHouseCellLevelUp} message MS2GW_AckHouseCellLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MS2GW_AckHouseCellLevelUp.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MS2GW_AckHouseCellLevelUp message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MS2GW_AckHouseCellLevelUp} MS2GW_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MS2GW_AckHouseCellLevelUp.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MS2GW_AckHouseCellLevelUp();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.houseid = reader.uint64();
+                    break;
+                case 3:
+                    message.index = reader.uint32();
+                    break;
+                case 4:
+                    message.ret = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MS2GW_AckHouseCellLevelUp message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MS2GW_AckHouseCellLevelUp} MS2GW_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MS2GW_AckHouseCellLevelUp.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MS2GW_AckHouseCellLevelUp message.
+         * @function verify
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MS2GW_AckHouseCellLevelUp.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                if (!$util.isInteger(message.ret))
+                    return "ret: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MS2GW_AckHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MS2GW_AckHouseCellLevelUp} MS2GW_AckHouseCellLevelUp
+         */
+        MS2GW_AckHouseCellLevelUp.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MS2GW_AckHouseCellLevelUp)
+                return object;
+            var message = new $root.msg.MS2GW_AckHouseCellLevelUp();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            if (object.ret != null)
+                message.ret = object.ret >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MS2GW_AckHouseCellLevelUp message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @static
+         * @param {msg.MS2GW_AckHouseCellLevelUp} message MS2GW_AckHouseCellLevelUp
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MS2GW_AckHouseCellLevelUp.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+                object.ret = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                object.ret = message.ret;
+            return object;
+        };
+
+        /**
+         * Converts this MS2GW_AckHouseCellLevelUp to JSON.
+         * @function toJSON
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MS2GW_AckHouseCellLevelUp.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MS2GW_AckHouseCellLevelUp;
+    })();
+
+    msg.GW2MS_ReqTakeSelfHouseGold = (function() {
+
+        /**
+         * Properties of a GW2MS_ReqTakeSelfHouseGold.
+         * @memberof msg
+         * @interface IGW2MS_ReqTakeSelfHouseGold
+         * @property {number|Long|null} [userid] GW2MS_ReqTakeSelfHouseGold userid
+         * @property {number|Long|null} [houseid] GW2MS_ReqTakeSelfHouseGold houseid
+         * @property {number|null} [index] GW2MS_ReqTakeSelfHouseGold index
+         */
+
+        /**
+         * Constructs a new GW2MS_ReqTakeSelfHouseGold.
+         * @memberof msg
+         * @classdesc Represents a GW2MS_ReqTakeSelfHouseGold.
+         * @implements IGW2MS_ReqTakeSelfHouseGold
+         * @constructor
+         * @param {msg.IGW2MS_ReqTakeSelfHouseGold=} [properties] Properties to set
+         */
+        function GW2MS_ReqTakeSelfHouseGold(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2MS_ReqTakeSelfHouseGold userid.
+         * @member {number|Long} userid
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @instance
+         */
+        GW2MS_ReqTakeSelfHouseGold.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2MS_ReqTakeSelfHouseGold houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @instance
+         */
+        GW2MS_ReqTakeSelfHouseGold.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2MS_ReqTakeSelfHouseGold index.
+         * @member {number} index
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @instance
+         */
+        GW2MS_ReqTakeSelfHouseGold.prototype.index = 0;
+
+        /**
+         * Creates a new GW2MS_ReqTakeSelfHouseGold instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.IGW2MS_ReqTakeSelfHouseGold=} [properties] Properties to set
+         * @returns {msg.GW2MS_ReqTakeSelfHouseGold} GW2MS_ReqTakeSelfHouseGold instance
+         */
+        GW2MS_ReqTakeSelfHouseGold.create = function create(properties) {
+            return new GW2MS_ReqTakeSelfHouseGold(properties);
+        };
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeSelfHouseGold message. Does not implicitly {@link msg.GW2MS_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.IGW2MS_ReqTakeSelfHouseGold} message GW2MS_ReqTakeSelfHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_ReqTakeSelfHouseGold.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeSelfHouseGold message, length delimited. Does not implicitly {@link msg.GW2MS_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.IGW2MS_ReqTakeSelfHouseGold} message GW2MS_ReqTakeSelfHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_ReqTakeSelfHouseGold.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2MS_ReqTakeSelfHouseGold message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2MS_ReqTakeSelfHouseGold} GW2MS_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_ReqTakeSelfHouseGold.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2MS_ReqTakeSelfHouseGold();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.houseid = reader.uint64();
+                    break;
+                case 3:
+                    message.index = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2MS_ReqTakeSelfHouseGold message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2MS_ReqTakeSelfHouseGold} GW2MS_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_ReqTakeSelfHouseGold.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2MS_ReqTakeSelfHouseGold message.
+         * @function verify
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2MS_ReqTakeSelfHouseGold.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2MS_ReqTakeSelfHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2MS_ReqTakeSelfHouseGold} GW2MS_ReqTakeSelfHouseGold
+         */
+        GW2MS_ReqTakeSelfHouseGold.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2MS_ReqTakeSelfHouseGold)
+                return object;
+            var message = new $root.msg.GW2MS_ReqTakeSelfHouseGold();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2MS_ReqTakeSelfHouseGold message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.GW2MS_ReqTakeSelfHouseGold} message GW2MS_ReqTakeSelfHouseGold
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2MS_ReqTakeSelfHouseGold.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            return object;
+        };
+
+        /**
+         * Converts this GW2MS_ReqTakeSelfHouseGold to JSON.
+         * @function toJSON
+         * @memberof msg.GW2MS_ReqTakeSelfHouseGold
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2MS_ReqTakeSelfHouseGold.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2MS_ReqTakeSelfHouseGold;
+    })();
+
+    msg.MS2GW_AckTakeSelfHouseGoldRet = (function() {
+
+        /**
+         * Properties of a MS2GW_AckTakeSelfHouseGoldRet.
+         * @memberof msg
+         * @interface IMS2GW_AckTakeSelfHouseGoldRet
+         * @property {number|Long|null} [userid] MS2GW_AckTakeSelfHouseGoldRet userid
+         * @property {number|Long|null} [houseid] MS2GW_AckTakeSelfHouseGoldRet houseid
+         * @property {number|null} [index] MS2GW_AckTakeSelfHouseGoldRet index
+         * @property {number|null} [gold] MS2GW_AckTakeSelfHouseGoldRet gold
+         */
+
+        /**
+         * Constructs a new MS2GW_AckTakeSelfHouseGoldRet.
+         * @memberof msg
+         * @classdesc Represents a MS2GW_AckTakeSelfHouseGoldRet.
+         * @implements IMS2GW_AckTakeSelfHouseGoldRet
+         * @constructor
+         * @param {msg.IMS2GW_AckTakeSelfHouseGoldRet=} [properties] Properties to set
+         */
+        function MS2GW_AckTakeSelfHouseGoldRet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MS2GW_AckTakeSelfHouseGoldRet userid.
+         * @member {number|Long} userid
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MS2GW_AckTakeSelfHouseGoldRet houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MS2GW_AckTakeSelfHouseGoldRet index.
+         * @member {number} index
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.prototype.index = 0;
+
+        /**
+         * MS2GW_AckTakeSelfHouseGoldRet gold.
+         * @member {number} gold
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.prototype.gold = 0;
+
+        /**
+         * Creates a new MS2GW_AckTakeSelfHouseGoldRet instance using the specified properties.
+         * @function create
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.IMS2GW_AckTakeSelfHouseGoldRet=} [properties] Properties to set
+         * @returns {msg.MS2GW_AckTakeSelfHouseGoldRet} MS2GW_AckTakeSelfHouseGoldRet instance
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.create = function create(properties) {
+            return new MS2GW_AckTakeSelfHouseGoldRet(properties);
+        };
+
+        /**
+         * Encodes the specified MS2GW_AckTakeSelfHouseGoldRet message. Does not implicitly {@link msg.MS2GW_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.IMS2GW_AckTakeSelfHouseGoldRet} message MS2GW_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.gold);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MS2GW_AckTakeSelfHouseGoldRet message, length delimited. Does not implicitly {@link msg.MS2GW_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.IMS2GW_AckTakeSelfHouseGoldRet} message MS2GW_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MS2GW_AckTakeSelfHouseGoldRet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MS2GW_AckTakeSelfHouseGoldRet} MS2GW_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MS2GW_AckTakeSelfHouseGoldRet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.houseid = reader.uint64();
+                    break;
+                case 3:
+                    message.index = reader.uint32();
+                    break;
+                case 4:
+                    message.gold = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MS2GW_AckTakeSelfHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MS2GW_AckTakeSelfHouseGoldRet} MS2GW_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MS2GW_AckTakeSelfHouseGoldRet message.
+         * @function verify
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MS2GW_AckTakeSelfHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MS2GW_AckTakeSelfHouseGoldRet} MS2GW_AckTakeSelfHouseGoldRet
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MS2GW_AckTakeSelfHouseGoldRet)
+                return object;
+            var message = new $root.msg.MS2GW_AckTakeSelfHouseGoldRet();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MS2GW_AckTakeSelfHouseGoldRet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.MS2GW_AckTakeSelfHouseGoldRet} message MS2GW_AckTakeSelfHouseGoldRet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+                object.gold = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
+            return object;
+        };
+
+        /**
+         * Converts this MS2GW_AckTakeSelfHouseGoldRet to JSON.
+         * @function toJSON
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MS2GW_AckTakeSelfHouseGoldRet;
+    })();
+
+    msg.GW2MS_ReqTakeOtherHouseGold = (function() {
+
+        /**
+         * Properties of a GW2MS_ReqTakeOtherHouseGold.
+         * @memberof msg
+         * @interface IGW2MS_ReqTakeOtherHouseGold
+         * @property {number|Long|null} [userid] GW2MS_ReqTakeOtherHouseGold userid
+         * @property {number|Long|null} [houseid] GW2MS_ReqTakeOtherHouseGold houseid
+         * @property {number|null} [index] GW2MS_ReqTakeOtherHouseGold index
+         */
+
+        /**
+         * Constructs a new GW2MS_ReqTakeOtherHouseGold.
+         * @memberof msg
+         * @classdesc Represents a GW2MS_ReqTakeOtherHouseGold.
+         * @implements IGW2MS_ReqTakeOtherHouseGold
+         * @constructor
+         * @param {msg.IGW2MS_ReqTakeOtherHouseGold=} [properties] Properties to set
+         */
+        function GW2MS_ReqTakeOtherHouseGold(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2MS_ReqTakeOtherHouseGold userid.
+         * @member {number|Long} userid
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @instance
+         */
+        GW2MS_ReqTakeOtherHouseGold.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2MS_ReqTakeOtherHouseGold houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @instance
+         */
+        GW2MS_ReqTakeOtherHouseGold.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2MS_ReqTakeOtherHouseGold index.
+         * @member {number} index
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @instance
+         */
+        GW2MS_ReqTakeOtherHouseGold.prototype.index = 0;
+
+        /**
+         * Creates a new GW2MS_ReqTakeOtherHouseGold instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.IGW2MS_ReqTakeOtherHouseGold=} [properties] Properties to set
+         * @returns {msg.GW2MS_ReqTakeOtherHouseGold} GW2MS_ReqTakeOtherHouseGold instance
+         */
+        GW2MS_ReqTakeOtherHouseGold.create = function create(properties) {
+            return new GW2MS_ReqTakeOtherHouseGold(properties);
+        };
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeOtherHouseGold message. Does not implicitly {@link msg.GW2MS_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.IGW2MS_ReqTakeOtherHouseGold} message GW2MS_ReqTakeOtherHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_ReqTakeOtherHouseGold.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeOtherHouseGold message, length delimited. Does not implicitly {@link msg.GW2MS_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.IGW2MS_ReqTakeOtherHouseGold} message GW2MS_ReqTakeOtherHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_ReqTakeOtherHouseGold.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2MS_ReqTakeOtherHouseGold message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2MS_ReqTakeOtherHouseGold} GW2MS_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_ReqTakeOtherHouseGold.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2MS_ReqTakeOtherHouseGold();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.houseid = reader.uint64();
+                    break;
+                case 3:
+                    message.index = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2MS_ReqTakeOtherHouseGold message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2MS_ReqTakeOtherHouseGold} GW2MS_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_ReqTakeOtherHouseGold.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2MS_ReqTakeOtherHouseGold message.
+         * @function verify
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2MS_ReqTakeOtherHouseGold.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2MS_ReqTakeOtherHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2MS_ReqTakeOtherHouseGold} GW2MS_ReqTakeOtherHouseGold
+         */
+        GW2MS_ReqTakeOtherHouseGold.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2MS_ReqTakeOtherHouseGold)
+                return object;
+            var message = new $root.msg.GW2MS_ReqTakeOtherHouseGold();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2MS_ReqTakeOtherHouseGold message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.GW2MS_ReqTakeOtherHouseGold} message GW2MS_ReqTakeOtherHouseGold
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2MS_ReqTakeOtherHouseGold.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            return object;
+        };
+
+        /**
+         * Converts this GW2MS_ReqTakeOtherHouseGold to JSON.
+         * @function toJSON
+         * @memberof msg.GW2MS_ReqTakeOtherHouseGold
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2MS_ReqTakeOtherHouseGold.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2MS_ReqTakeOtherHouseGold;
+    })();
+
+    msg.MS2GW_AckTakeOtherHouseGoldRet = (function() {
+
+        /**
+         * Properties of a MS2GW_AckTakeOtherHouseGoldRet.
+         * @memberof msg
+         * @interface IMS2GW_AckTakeOtherHouseGoldRet
+         * @property {number|Long|null} [userid] MS2GW_AckTakeOtherHouseGoldRet userid
+         * @property {number|Long|null} [houseid] MS2GW_AckTakeOtherHouseGoldRet houseid
+         * @property {number|null} [index] MS2GW_AckTakeOtherHouseGoldRet index
+         * @property {number|null} [gold] MS2GW_AckTakeOtherHouseGoldRet gold
+         */
+
+        /**
+         * Constructs a new MS2GW_AckTakeOtherHouseGoldRet.
+         * @memberof msg
+         * @classdesc Represents a MS2GW_AckTakeOtherHouseGoldRet.
+         * @implements IMS2GW_AckTakeOtherHouseGoldRet
+         * @constructor
+         * @param {msg.IMS2GW_AckTakeOtherHouseGoldRet=} [properties] Properties to set
+         */
+        function MS2GW_AckTakeOtherHouseGoldRet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MS2GW_AckTakeOtherHouseGoldRet userid.
+         * @member {number|Long} userid
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MS2GW_AckTakeOtherHouseGoldRet houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MS2GW_AckTakeOtherHouseGoldRet index.
+         * @member {number} index
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.prototype.index = 0;
+
+        /**
+         * MS2GW_AckTakeOtherHouseGoldRet gold.
+         * @member {number} gold
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.prototype.gold = 0;
+
+        /**
+         * Creates a new MS2GW_AckTakeOtherHouseGoldRet instance using the specified properties.
+         * @function create
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.IMS2GW_AckTakeOtherHouseGoldRet=} [properties] Properties to set
+         * @returns {msg.MS2GW_AckTakeOtherHouseGoldRet} MS2GW_AckTakeOtherHouseGoldRet instance
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.create = function create(properties) {
+            return new MS2GW_AckTakeOtherHouseGoldRet(properties);
+        };
+
+        /**
+         * Encodes the specified MS2GW_AckTakeOtherHouseGoldRet message. Does not implicitly {@link msg.MS2GW_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.IMS2GW_AckTakeOtherHouseGoldRet} message MS2GW_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.gold);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MS2GW_AckTakeOtherHouseGoldRet message, length delimited. Does not implicitly {@link msg.MS2GW_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.IMS2GW_AckTakeOtherHouseGoldRet} message MS2GW_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MS2GW_AckTakeOtherHouseGoldRet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MS2GW_AckTakeOtherHouseGoldRet} MS2GW_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MS2GW_AckTakeOtherHouseGoldRet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    message.houseid = reader.uint64();
+                    break;
+                case 3:
+                    message.index = reader.uint32();
+                    break;
+                case 4:
+                    message.gold = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MS2GW_AckTakeOtherHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MS2GW_AckTakeOtherHouseGoldRet} MS2GW_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MS2GW_AckTakeOtherHouseGoldRet message.
+         * @function verify
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MS2GW_AckTakeOtherHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MS2GW_AckTakeOtherHouseGoldRet} MS2GW_AckTakeOtherHouseGoldRet
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MS2GW_AckTakeOtherHouseGoldRet)
+                return object;
+            var message = new $root.msg.MS2GW_AckTakeOtherHouseGoldRet();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MS2GW_AckTakeOtherHouseGoldRet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.MS2GW_AckTakeOtherHouseGoldRet} message MS2GW_AckTakeOtherHouseGoldRet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+                object.gold = 0;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
+            return object;
+        };
+
+        /**
+         * Converts this MS2GW_AckTakeOtherHouseGoldRet to JSON.
+         * @function toJSON
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MS2GW_AckTakeOtherHouseGoldRet;
+    })();
+
     msg.RS2GW_ReqRegist = (function() {
 
         /**
@@ -34197,6 +35563,1841 @@ $root.msg = (function() {
         };
 
         return GW2C_AckNewPlayerStep;
+    })();
+
+    msg.C2GW_ReqHouseLevelUp = (function() {
+
+        /**
+         * Properties of a C2GW_ReqHouseLevelUp.
+         * @memberof msg
+         * @interface IC2GW_ReqHouseLevelUp
+         * @property {number|Long|null} [houseid] C2GW_ReqHouseLevelUp houseid
+         */
+
+        /**
+         * Constructs a new C2GW_ReqHouseLevelUp.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqHouseLevelUp.
+         * @implements IC2GW_ReqHouseLevelUp
+         * @constructor
+         * @param {msg.IC2GW_ReqHouseLevelUp=} [properties] Properties to set
+         */
+        function C2GW_ReqHouseLevelUp(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqHouseLevelUp houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @instance
+         */
+        C2GW_ReqHouseLevelUp.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_ReqHouseLevelUp instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {msg.IC2GW_ReqHouseLevelUp=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqHouseLevelUp} C2GW_ReqHouseLevelUp instance
+         */
+        C2GW_ReqHouseLevelUp.create = function create(properties) {
+            return new C2GW_ReqHouseLevelUp(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqHouseLevelUp message. Does not implicitly {@link msg.C2GW_ReqHouseLevelUp.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {msg.IC2GW_ReqHouseLevelUp} message C2GW_ReqHouseLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqHouseLevelUp.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqHouseLevelUp message, length delimited. Does not implicitly {@link msg.C2GW_ReqHouseLevelUp.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {msg.IC2GW_ReqHouseLevelUp} message C2GW_ReqHouseLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqHouseLevelUp.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqHouseLevelUp message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqHouseLevelUp} C2GW_ReqHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqHouseLevelUp.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqHouseLevelUp();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqHouseLevelUp message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqHouseLevelUp} C2GW_ReqHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqHouseLevelUp.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqHouseLevelUp message.
+         * @function verify
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqHouseLevelUp.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqHouseLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqHouseLevelUp} C2GW_ReqHouseLevelUp
+         */
+        C2GW_ReqHouseLevelUp.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqHouseLevelUp)
+                return object;
+            var message = new $root.msg.C2GW_ReqHouseLevelUp();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqHouseLevelUp message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @static
+         * @param {msg.C2GW_ReqHouseLevelUp} message C2GW_ReqHouseLevelUp
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqHouseLevelUp.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqHouseLevelUp to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqHouseLevelUp
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqHouseLevelUp.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqHouseLevelUp;
+    })();
+
+    msg.GW2C_AckHouseLevelUp = (function() {
+
+        /**
+         * Properties of a GW2C_AckHouseLevelUp.
+         * @memberof msg
+         * @interface IGW2C_AckHouseLevelUp
+         * @property {number|Long|null} [houseid] GW2C_AckHouseLevelUp houseid
+         * @property {number|null} [ret] GW2C_AckHouseLevelUp ret
+         */
+
+        /**
+         * Constructs a new GW2C_AckHouseLevelUp.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckHouseLevelUp.
+         * @implements IGW2C_AckHouseLevelUp
+         * @constructor
+         * @param {msg.IGW2C_AckHouseLevelUp=} [properties] Properties to set
+         */
+        function GW2C_AckHouseLevelUp(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckHouseLevelUp houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @instance
+         */
+        GW2C_AckHouseLevelUp.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_AckHouseLevelUp ret.
+         * @member {number} ret
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @instance
+         */
+        GW2C_AckHouseLevelUp.prototype.ret = 0;
+
+        /**
+         * Creates a new GW2C_AckHouseLevelUp instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {msg.IGW2C_AckHouseLevelUp=} [properties] Properties to set
+         * @returns {msg.GW2C_AckHouseLevelUp} GW2C_AckHouseLevelUp instance
+         */
+        GW2C_AckHouseLevelUp.create = function create(properties) {
+            return new GW2C_AckHouseLevelUp(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckHouseLevelUp message. Does not implicitly {@link msg.GW2C_AckHouseLevelUp.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {msg.IGW2C_AckHouseLevelUp} message GW2C_AckHouseLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckHouseLevelUp.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.ret);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckHouseLevelUp message, length delimited. Does not implicitly {@link msg.GW2C_AckHouseLevelUp.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {msg.IGW2C_AckHouseLevelUp} message GW2C_AckHouseLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckHouseLevelUp.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckHouseLevelUp message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckHouseLevelUp} GW2C_AckHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckHouseLevelUp.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckHouseLevelUp();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.ret = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckHouseLevelUp message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckHouseLevelUp} GW2C_AckHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckHouseLevelUp.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckHouseLevelUp message.
+         * @function verify
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckHouseLevelUp.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                if (!$util.isInteger(message.ret))
+                    return "ret: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckHouseLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckHouseLevelUp} GW2C_AckHouseLevelUp
+         */
+        GW2C_AckHouseLevelUp.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckHouseLevelUp)
+                return object;
+            var message = new $root.msg.GW2C_AckHouseLevelUp();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.ret != null)
+                message.ret = object.ret >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckHouseLevelUp message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @static
+         * @param {msg.GW2C_AckHouseLevelUp} message GW2C_AckHouseLevelUp
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckHouseLevelUp.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.ret = 0;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                object.ret = message.ret;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckHouseLevelUp to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckHouseLevelUp.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckHouseLevelUp;
+    })();
+
+    msg.C2GW_ReqHouseCellLevelUp = (function() {
+
+        /**
+         * Properties of a C2GW_ReqHouseCellLevelUp.
+         * @memberof msg
+         * @interface IC2GW_ReqHouseCellLevelUp
+         * @property {number|Long|null} [houseid] C2GW_ReqHouseCellLevelUp houseid
+         * @property {number|null} [index] C2GW_ReqHouseCellLevelUp index
+         */
+
+        /**
+         * Constructs a new C2GW_ReqHouseCellLevelUp.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqHouseCellLevelUp.
+         * @implements IC2GW_ReqHouseCellLevelUp
+         * @constructor
+         * @param {msg.IC2GW_ReqHouseCellLevelUp=} [properties] Properties to set
+         */
+        function C2GW_ReqHouseCellLevelUp(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqHouseCellLevelUp houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @instance
+         */
+        C2GW_ReqHouseCellLevelUp.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_ReqHouseCellLevelUp index.
+         * @member {number} index
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @instance
+         */
+        C2GW_ReqHouseCellLevelUp.prototype.index = 0;
+
+        /**
+         * Creates a new C2GW_ReqHouseCellLevelUp instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {msg.IC2GW_ReqHouseCellLevelUp=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqHouseCellLevelUp} C2GW_ReqHouseCellLevelUp instance
+         */
+        C2GW_ReqHouseCellLevelUp.create = function create(properties) {
+            return new C2GW_ReqHouseCellLevelUp(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqHouseCellLevelUp message. Does not implicitly {@link msg.C2GW_ReqHouseCellLevelUp.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {msg.IC2GW_ReqHouseCellLevelUp} message C2GW_ReqHouseCellLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqHouseCellLevelUp.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.C2GW_ReqHouseCellLevelUp.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {msg.IC2GW_ReqHouseCellLevelUp} message C2GW_ReqHouseCellLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqHouseCellLevelUp.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqHouseCellLevelUp message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqHouseCellLevelUp} C2GW_ReqHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqHouseCellLevelUp.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqHouseCellLevelUp();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.index = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqHouseCellLevelUp message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqHouseCellLevelUp} C2GW_ReqHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqHouseCellLevelUp.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqHouseCellLevelUp message.
+         * @function verify
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqHouseCellLevelUp.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqHouseCellLevelUp} C2GW_ReqHouseCellLevelUp
+         */
+        C2GW_ReqHouseCellLevelUp.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqHouseCellLevelUp)
+                return object;
+            var message = new $root.msg.C2GW_ReqHouseCellLevelUp();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqHouseCellLevelUp message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @static
+         * @param {msg.C2GW_ReqHouseCellLevelUp} message C2GW_ReqHouseCellLevelUp
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqHouseCellLevelUp.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqHouseCellLevelUp to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqHouseCellLevelUp
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqHouseCellLevelUp.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqHouseCellLevelUp;
+    })();
+
+    msg.GW2C_AckHouseCellLevelUp = (function() {
+
+        /**
+         * Properties of a GW2C_AckHouseCellLevelUp.
+         * @memberof msg
+         * @interface IGW2C_AckHouseCellLevelUp
+         * @property {number|Long|null} [houseid] GW2C_AckHouseCellLevelUp houseid
+         * @property {number|null} [index] GW2C_AckHouseCellLevelUp index
+         * @property {number|null} [ret] GW2C_AckHouseCellLevelUp ret
+         */
+
+        /**
+         * Constructs a new GW2C_AckHouseCellLevelUp.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckHouseCellLevelUp.
+         * @implements IGW2C_AckHouseCellLevelUp
+         * @constructor
+         * @param {msg.IGW2C_AckHouseCellLevelUp=} [properties] Properties to set
+         */
+        function GW2C_AckHouseCellLevelUp(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckHouseCellLevelUp houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @instance
+         */
+        GW2C_AckHouseCellLevelUp.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_AckHouseCellLevelUp index.
+         * @member {number} index
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @instance
+         */
+        GW2C_AckHouseCellLevelUp.prototype.index = 0;
+
+        /**
+         * GW2C_AckHouseCellLevelUp ret.
+         * @member {number} ret
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @instance
+         */
+        GW2C_AckHouseCellLevelUp.prototype.ret = 0;
+
+        /**
+         * Creates a new GW2C_AckHouseCellLevelUp instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {msg.IGW2C_AckHouseCellLevelUp=} [properties] Properties to set
+         * @returns {msg.GW2C_AckHouseCellLevelUp} GW2C_AckHouseCellLevelUp instance
+         */
+        GW2C_AckHouseCellLevelUp.create = function create(properties) {
+            return new GW2C_AckHouseCellLevelUp(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckHouseCellLevelUp message. Does not implicitly {@link msg.GW2C_AckHouseCellLevelUp.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {msg.IGW2C_AckHouseCellLevelUp} message GW2C_AckHouseCellLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckHouseCellLevelUp.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ret);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.GW2C_AckHouseCellLevelUp.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {msg.IGW2C_AckHouseCellLevelUp} message GW2C_AckHouseCellLevelUp message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckHouseCellLevelUp.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckHouseCellLevelUp message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckHouseCellLevelUp} GW2C_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckHouseCellLevelUp.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckHouseCellLevelUp();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.index = reader.uint32();
+                    break;
+                case 3:
+                    message.ret = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckHouseCellLevelUp message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckHouseCellLevelUp} GW2C_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckHouseCellLevelUp.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckHouseCellLevelUp message.
+         * @function verify
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckHouseCellLevelUp.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                if (!$util.isInteger(message.ret))
+                    return "ret: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckHouseCellLevelUp} GW2C_AckHouseCellLevelUp
+         */
+        GW2C_AckHouseCellLevelUp.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckHouseCellLevelUp)
+                return object;
+            var message = new $root.msg.GW2C_AckHouseCellLevelUp();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            if (object.ret != null)
+                message.ret = object.ret >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckHouseCellLevelUp message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @static
+         * @param {msg.GW2C_AckHouseCellLevelUp} message GW2C_AckHouseCellLevelUp
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckHouseCellLevelUp.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+                object.ret = 0;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                object.ret = message.ret;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckHouseCellLevelUp to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckHouseCellLevelUp.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckHouseCellLevelUp;
+    })();
+
+    msg.C2GW_ReqTakeSelfHouseGold = (function() {
+
+        /**
+         * Properties of a C2GW_ReqTakeSelfHouseGold.
+         * @memberof msg
+         * @interface IC2GW_ReqTakeSelfHouseGold
+         * @property {number|Long|null} [houseid] C2GW_ReqTakeSelfHouseGold houseid
+         * @property {number|null} [index] C2GW_ReqTakeSelfHouseGold index
+         */
+
+        /**
+         * Constructs a new C2GW_ReqTakeSelfHouseGold.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqTakeSelfHouseGold.
+         * @implements IC2GW_ReqTakeSelfHouseGold
+         * @constructor
+         * @param {msg.IC2GW_ReqTakeSelfHouseGold=} [properties] Properties to set
+         */
+        function C2GW_ReqTakeSelfHouseGold(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqTakeSelfHouseGold houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @instance
+         */
+        C2GW_ReqTakeSelfHouseGold.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_ReqTakeSelfHouseGold index.
+         * @member {number} index
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @instance
+         */
+        C2GW_ReqTakeSelfHouseGold.prototype.index = 0;
+
+        /**
+         * Creates a new C2GW_ReqTakeSelfHouseGold instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.IC2GW_ReqTakeSelfHouseGold=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqTakeSelfHouseGold} C2GW_ReqTakeSelfHouseGold instance
+         */
+        C2GW_ReqTakeSelfHouseGold.create = function create(properties) {
+            return new C2GW_ReqTakeSelfHouseGold(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTakeSelfHouseGold message. Does not implicitly {@link msg.C2GW_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.IC2GW_ReqTakeSelfHouseGold} message C2GW_ReqTakeSelfHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTakeSelfHouseGold.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTakeSelfHouseGold message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.IC2GW_ReqTakeSelfHouseGold} message C2GW_ReqTakeSelfHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTakeSelfHouseGold.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqTakeSelfHouseGold message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqTakeSelfHouseGold} C2GW_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTakeSelfHouseGold.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqTakeSelfHouseGold();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.index = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqTakeSelfHouseGold message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqTakeSelfHouseGold} C2GW_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTakeSelfHouseGold.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqTakeSelfHouseGold message.
+         * @function verify
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqTakeSelfHouseGold.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqTakeSelfHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqTakeSelfHouseGold} C2GW_ReqTakeSelfHouseGold
+         */
+        C2GW_ReqTakeSelfHouseGold.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqTakeSelfHouseGold)
+                return object;
+            var message = new $root.msg.C2GW_ReqTakeSelfHouseGold();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeSelfHouseGold message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @static
+         * @param {msg.C2GW_ReqTakeSelfHouseGold} message C2GW_ReqTakeSelfHouseGold
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqTakeSelfHouseGold.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqTakeSelfHouseGold to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqTakeSelfHouseGold
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqTakeSelfHouseGold.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqTakeSelfHouseGold;
+    })();
+
+    msg.GW2C_AckTakeSelfHouseGoldRet = (function() {
+
+        /**
+         * Properties of a GW2C_AckTakeSelfHouseGoldRet.
+         * @memberof msg
+         * @interface IGW2C_AckTakeSelfHouseGoldRet
+         * @property {number|Long|null} [houseid] GW2C_AckTakeSelfHouseGoldRet houseid
+         * @property {number|null} [index] GW2C_AckTakeSelfHouseGoldRet index
+         * @property {number|null} [gold] GW2C_AckTakeSelfHouseGoldRet gold
+         */
+
+        /**
+         * Constructs a new GW2C_AckTakeSelfHouseGoldRet.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckTakeSelfHouseGoldRet.
+         * @implements IGW2C_AckTakeSelfHouseGoldRet
+         * @constructor
+         * @param {msg.IGW2C_AckTakeSelfHouseGoldRet=} [properties] Properties to set
+         */
+        function GW2C_AckTakeSelfHouseGoldRet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckTakeSelfHouseGoldRet houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeSelfHouseGoldRet.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_AckTakeSelfHouseGoldRet index.
+         * @member {number} index
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeSelfHouseGoldRet.prototype.index = 0;
+
+        /**
+         * GW2C_AckTakeSelfHouseGoldRet gold.
+         * @member {number} gold
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeSelfHouseGoldRet.prototype.gold = 0;
+
+        /**
+         * Creates a new GW2C_AckTakeSelfHouseGoldRet instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.IGW2C_AckTakeSelfHouseGoldRet=} [properties] Properties to set
+         * @returns {msg.GW2C_AckTakeSelfHouseGoldRet} GW2C_AckTakeSelfHouseGoldRet instance
+         */
+        GW2C_AckTakeSelfHouseGoldRet.create = function create(properties) {
+            return new GW2C_AckTakeSelfHouseGoldRet(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckTakeSelfHouseGoldRet message. Does not implicitly {@link msg.GW2C_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.IGW2C_AckTakeSelfHouseGoldRet} message GW2C_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckTakeSelfHouseGoldRet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckTakeSelfHouseGoldRet message, length delimited. Does not implicitly {@link msg.GW2C_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.IGW2C_AckTakeSelfHouseGoldRet} message GW2C_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckTakeSelfHouseGoldRet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckTakeSelfHouseGoldRet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckTakeSelfHouseGoldRet} GW2C_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckTakeSelfHouseGoldRet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckTakeSelfHouseGoldRet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.index = reader.uint32();
+                    break;
+                case 3:
+                    message.gold = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckTakeSelfHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckTakeSelfHouseGoldRet} GW2C_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckTakeSelfHouseGoldRet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckTakeSelfHouseGoldRet message.
+         * @function verify
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckTakeSelfHouseGoldRet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckTakeSelfHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckTakeSelfHouseGoldRet} GW2C_AckTakeSelfHouseGoldRet
+         */
+        GW2C_AckTakeSelfHouseGoldRet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckTakeSelfHouseGoldRet)
+                return object;
+            var message = new $root.msg.GW2C_AckTakeSelfHouseGoldRet();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckTakeSelfHouseGoldRet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @static
+         * @param {msg.GW2C_AckTakeSelfHouseGoldRet} message GW2C_AckTakeSelfHouseGoldRet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckTakeSelfHouseGoldRet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+                object.gold = 0;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckTakeSelfHouseGoldRet to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckTakeSelfHouseGoldRet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckTakeSelfHouseGoldRet;
+    })();
+
+    msg.C2GW_ReqTakeOtherHouseGold = (function() {
+
+        /**
+         * Properties of a C2GW_ReqTakeOtherHouseGold.
+         * @memberof msg
+         * @interface IC2GW_ReqTakeOtherHouseGold
+         * @property {number|Long|null} [houseid] C2GW_ReqTakeOtherHouseGold houseid
+         * @property {number|null} [index] C2GW_ReqTakeOtherHouseGold index
+         */
+
+        /**
+         * Constructs a new C2GW_ReqTakeOtherHouseGold.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqTakeOtherHouseGold.
+         * @implements IC2GW_ReqTakeOtherHouseGold
+         * @constructor
+         * @param {msg.IC2GW_ReqTakeOtherHouseGold=} [properties] Properties to set
+         */
+        function C2GW_ReqTakeOtherHouseGold(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqTakeOtherHouseGold houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @instance
+         */
+        C2GW_ReqTakeOtherHouseGold.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_ReqTakeOtherHouseGold index.
+         * @member {number} index
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @instance
+         */
+        C2GW_ReqTakeOtherHouseGold.prototype.index = 0;
+
+        /**
+         * Creates a new C2GW_ReqTakeOtherHouseGold instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.IC2GW_ReqTakeOtherHouseGold=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqTakeOtherHouseGold} C2GW_ReqTakeOtherHouseGold instance
+         */
+        C2GW_ReqTakeOtherHouseGold.create = function create(properties) {
+            return new C2GW_ReqTakeOtherHouseGold(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTakeOtherHouseGold message. Does not implicitly {@link msg.C2GW_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.IC2GW_ReqTakeOtherHouseGold} message C2GW_ReqTakeOtherHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTakeOtherHouseGold.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTakeOtherHouseGold message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.IC2GW_ReqTakeOtherHouseGold} message C2GW_ReqTakeOtherHouseGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTakeOtherHouseGold.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqTakeOtherHouseGold message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqTakeOtherHouseGold} C2GW_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTakeOtherHouseGold.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqTakeOtherHouseGold();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.index = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqTakeOtherHouseGold message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqTakeOtherHouseGold} C2GW_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTakeOtherHouseGold.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqTakeOtherHouseGold message.
+         * @function verify
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqTakeOtherHouseGold.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqTakeOtherHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqTakeOtherHouseGold} C2GW_ReqTakeOtherHouseGold
+         */
+        C2GW_ReqTakeOtherHouseGold.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqTakeOtherHouseGold)
+                return object;
+            var message = new $root.msg.C2GW_ReqTakeOtherHouseGold();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeOtherHouseGold message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @static
+         * @param {msg.C2GW_ReqTakeOtherHouseGold} message C2GW_ReqTakeOtherHouseGold
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqTakeOtherHouseGold.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqTakeOtherHouseGold to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqTakeOtherHouseGold
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqTakeOtherHouseGold.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqTakeOtherHouseGold;
+    })();
+
+    msg.GW2C_AckTakeOtherHouseGoldRet = (function() {
+
+        /**
+         * Properties of a GW2C_AckTakeOtherHouseGoldRet.
+         * @memberof msg
+         * @interface IGW2C_AckTakeOtherHouseGoldRet
+         * @property {number|Long|null} [houseid] GW2C_AckTakeOtherHouseGoldRet houseid
+         * @property {number|null} [index] GW2C_AckTakeOtherHouseGoldRet index
+         * @property {number|null} [gold] GW2C_AckTakeOtherHouseGoldRet gold
+         */
+
+        /**
+         * Constructs a new GW2C_AckTakeOtherHouseGoldRet.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckTakeOtherHouseGoldRet.
+         * @implements IGW2C_AckTakeOtherHouseGoldRet
+         * @constructor
+         * @param {msg.IGW2C_AckTakeOtherHouseGoldRet=} [properties] Properties to set
+         */
+        function GW2C_AckTakeOtherHouseGoldRet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckTakeOtherHouseGoldRet houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeOtherHouseGoldRet.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_AckTakeOtherHouseGoldRet index.
+         * @member {number} index
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeOtherHouseGoldRet.prototype.index = 0;
+
+        /**
+         * GW2C_AckTakeOtherHouseGoldRet gold.
+         * @member {number} gold
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeOtherHouseGoldRet.prototype.gold = 0;
+
+        /**
+         * Creates a new GW2C_AckTakeOtherHouseGoldRet instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.IGW2C_AckTakeOtherHouseGoldRet=} [properties] Properties to set
+         * @returns {msg.GW2C_AckTakeOtherHouseGoldRet} GW2C_AckTakeOtherHouseGoldRet instance
+         */
+        GW2C_AckTakeOtherHouseGoldRet.create = function create(properties) {
+            return new GW2C_AckTakeOtherHouseGoldRet(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckTakeOtherHouseGoldRet message. Does not implicitly {@link msg.GW2C_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.IGW2C_AckTakeOtherHouseGoldRet} message GW2C_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckTakeOtherHouseGoldRet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckTakeOtherHouseGoldRet message, length delimited. Does not implicitly {@link msg.GW2C_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.IGW2C_AckTakeOtherHouseGoldRet} message GW2C_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckTakeOtherHouseGoldRet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckTakeOtherHouseGoldRet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckTakeOtherHouseGoldRet} GW2C_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckTakeOtherHouseGoldRet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckTakeOtherHouseGoldRet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.index = reader.uint32();
+                    break;
+                case 3:
+                    message.gold = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckTakeOtherHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckTakeOtherHouseGoldRet} GW2C_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckTakeOtherHouseGoldRet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckTakeOtherHouseGoldRet message.
+         * @function verify
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckTakeOtherHouseGoldRet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckTakeOtherHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckTakeOtherHouseGoldRet} GW2C_AckTakeOtherHouseGoldRet
+         */
+        GW2C_AckTakeOtherHouseGoldRet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckTakeOtherHouseGoldRet)
+                return object;
+            var message = new $root.msg.GW2C_AckTakeOtherHouseGoldRet();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.index != null)
+                message.index = object.index >>> 0;
+            if (object.gold != null)
+                message.gold = object.gold >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckTakeOtherHouseGoldRet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @static
+         * @param {msg.GW2C_AckTakeOtherHouseGoldRet} message GW2C_AckTakeOtherHouseGoldRet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckTakeOtherHouseGoldRet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.index = 0;
+                object.gold = 0;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckTakeOtherHouseGoldRet to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckTakeOtherHouseGoldRet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckTakeOtherHouseGoldRet;
     })();
 
     return msg;

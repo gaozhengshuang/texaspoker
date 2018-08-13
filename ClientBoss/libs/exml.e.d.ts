@@ -68,12 +68,6 @@ declare class BattleTimeBoomSkin extends eui.Skin{
 }
 declare class AvatarSkin extends eui.Skin{
 }
-declare class LoginRewardSkin extends eui.Skin{
-}
-declare class LoginSceneSkin extends eui.Skin{
-}
-declare class RegisterPanelSkin extends eui.Skin{
-}
 declare class BadBuffProgressBar extends eui.Skin{
 }
 declare class BadBuffSkin extends eui.Skin{
@@ -95,6 +89,12 @@ declare class NormalLabelButtonSkin extends eui.Skin{
 declare class PayItemSkin extends eui.Skin{
 }
 declare class ToggleButtonSkin extends eui.Skin{
+}
+declare class LoginRewardSkin extends eui.Skin{
+}
+declare class LoginSceneSkin extends eui.Skin{
+}
+declare class RegisterPanelSkin extends eui.Skin{
 }
 declare class DeliveryItemSkin extends eui.Skin{
 }

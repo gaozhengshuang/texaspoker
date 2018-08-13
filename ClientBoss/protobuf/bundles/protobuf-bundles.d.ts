@@ -11456,6 +11456,534 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a MS2GW_AckHouseCellLevelUp. */
+    interface IMS2GW_AckHouseCellLevelUp {
+
+        /** MS2GW_AckHouseCellLevelUp userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_AckHouseCellLevelUp houseid */
+        houseid?: (number|Long|null);
+
+        /** MS2GW_AckHouseCellLevelUp index */
+        index?: (number|null);
+
+        /** MS2GW_AckHouseCellLevelUp ret */
+        ret?: (number|null);
+    }
+
+    /** Represents a MS2GW_AckHouseCellLevelUp. */
+    class MS2GW_AckHouseCellLevelUp implements IMS2GW_AckHouseCellLevelUp {
+
+        /**
+         * Constructs a new MS2GW_AckHouseCellLevelUp.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_AckHouseCellLevelUp);
+
+        /** MS2GW_AckHouseCellLevelUp userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_AckHouseCellLevelUp houseid. */
+        public houseid: (number|Long);
+
+        /** MS2GW_AckHouseCellLevelUp index. */
+        public index: number;
+
+        /** MS2GW_AckHouseCellLevelUp ret. */
+        public ret: number;
+
+        /**
+         * Creates a new MS2GW_AckHouseCellLevelUp instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_AckHouseCellLevelUp instance
+         */
+        public static create(properties?: msg.IMS2GW_AckHouseCellLevelUp): msg.MS2GW_AckHouseCellLevelUp;
+
+        /**
+         * Encodes the specified MS2GW_AckHouseCellLevelUp message. Does not implicitly {@link msg.MS2GW_AckHouseCellLevelUp.verify|verify} messages.
+         * @param message MS2GW_AckHouseCellLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_AckHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_AckHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.MS2GW_AckHouseCellLevelUp.verify|verify} messages.
+         * @param message MS2GW_AckHouseCellLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_AckHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_AckHouseCellLevelUp message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckHouseCellLevelUp;
+
+        /**
+         * Decodes a MS2GW_AckHouseCellLevelUp message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckHouseCellLevelUp;
+
+        /**
+         * Verifies a MS2GW_AckHouseCellLevelUp message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_AckHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_AckHouseCellLevelUp
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckHouseCellLevelUp;
+
+        /**
+         * Creates a plain object from a MS2GW_AckHouseCellLevelUp message. Also converts values to other types if specified.
+         * @param message MS2GW_AckHouseCellLevelUp
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_AckHouseCellLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_AckHouseCellLevelUp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqTakeSelfHouseGold. */
+    interface IGW2MS_ReqTakeSelfHouseGold {
+
+        /** GW2MS_ReqTakeSelfHouseGold userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_ReqTakeSelfHouseGold houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2MS_ReqTakeSelfHouseGold index */
+        index?: (number|null);
+    }
+
+    /** Represents a GW2MS_ReqTakeSelfHouseGold. */
+    class GW2MS_ReqTakeSelfHouseGold implements IGW2MS_ReqTakeSelfHouseGold {
+
+        /**
+         * Constructs a new GW2MS_ReqTakeSelfHouseGold.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqTakeSelfHouseGold);
+
+        /** GW2MS_ReqTakeSelfHouseGold userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_ReqTakeSelfHouseGold houseid. */
+        public houseid: (number|Long);
+
+        /** GW2MS_ReqTakeSelfHouseGold index. */
+        public index: number;
+
+        /**
+         * Creates a new GW2MS_ReqTakeSelfHouseGold instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqTakeSelfHouseGold instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqTakeSelfHouseGold): msg.GW2MS_ReqTakeSelfHouseGold;
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeSelfHouseGold message. Does not implicitly {@link msg.GW2MS_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @param message GW2MS_ReqTakeSelfHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqTakeSelfHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeSelfHouseGold message, length delimited. Does not implicitly {@link msg.GW2MS_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @param message GW2MS_ReqTakeSelfHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqTakeSelfHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqTakeSelfHouseGold message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqTakeSelfHouseGold;
+
+        /**
+         * Decodes a GW2MS_ReqTakeSelfHouseGold message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqTakeSelfHouseGold;
+
+        /**
+         * Verifies a GW2MS_ReqTakeSelfHouseGold message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqTakeSelfHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqTakeSelfHouseGold
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqTakeSelfHouseGold;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqTakeSelfHouseGold message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqTakeSelfHouseGold
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqTakeSelfHouseGold, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqTakeSelfHouseGold to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_AckTakeSelfHouseGoldRet. */
+    interface IMS2GW_AckTakeSelfHouseGoldRet {
+
+        /** MS2GW_AckTakeSelfHouseGoldRet userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet houseid */
+        houseid?: (number|Long|null);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet index */
+        index?: (number|null);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet gold */
+        gold?: (number|null);
+    }
+
+    /** Represents a MS2GW_AckTakeSelfHouseGoldRet. */
+    class MS2GW_AckTakeSelfHouseGoldRet implements IMS2GW_AckTakeSelfHouseGoldRet {
+
+        /**
+         * Constructs a new MS2GW_AckTakeSelfHouseGoldRet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_AckTakeSelfHouseGoldRet);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet houseid. */
+        public houseid: (number|Long);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet index. */
+        public index: number;
+
+        /** MS2GW_AckTakeSelfHouseGoldRet gold. */
+        public gold: number;
+
+        /**
+         * Creates a new MS2GW_AckTakeSelfHouseGoldRet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_AckTakeSelfHouseGoldRet instance
+         */
+        public static create(properties?: msg.IMS2GW_AckTakeSelfHouseGoldRet): msg.MS2GW_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Encodes the specified MS2GW_AckTakeSelfHouseGoldRet message. Does not implicitly {@link msg.MS2GW_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @param message MS2GW_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_AckTakeSelfHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_AckTakeSelfHouseGoldRet message, length delimited. Does not implicitly {@link msg.MS2GW_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @param message MS2GW_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_AckTakeSelfHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_AckTakeSelfHouseGoldRet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Decodes a MS2GW_AckTakeSelfHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Verifies a MS2GW_AckTakeSelfHouseGoldRet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_AckTakeSelfHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_AckTakeSelfHouseGoldRet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Creates a plain object from a MS2GW_AckTakeSelfHouseGoldRet message. Also converts values to other types if specified.
+         * @param message MS2GW_AckTakeSelfHouseGoldRet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_AckTakeSelfHouseGoldRet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_AckTakeSelfHouseGoldRet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqTakeOtherHouseGold. */
+    interface IGW2MS_ReqTakeOtherHouseGold {
+
+        /** GW2MS_ReqTakeOtherHouseGold userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_ReqTakeOtherHouseGold houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2MS_ReqTakeOtherHouseGold index */
+        index?: (number|null);
+    }
+
+    /** Represents a GW2MS_ReqTakeOtherHouseGold. */
+    class GW2MS_ReqTakeOtherHouseGold implements IGW2MS_ReqTakeOtherHouseGold {
+
+        /**
+         * Constructs a new GW2MS_ReqTakeOtherHouseGold.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqTakeOtherHouseGold);
+
+        /** GW2MS_ReqTakeOtherHouseGold userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_ReqTakeOtherHouseGold houseid. */
+        public houseid: (number|Long);
+
+        /** GW2MS_ReqTakeOtherHouseGold index. */
+        public index: number;
+
+        /**
+         * Creates a new GW2MS_ReqTakeOtherHouseGold instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqTakeOtherHouseGold instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqTakeOtherHouseGold): msg.GW2MS_ReqTakeOtherHouseGold;
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeOtherHouseGold message. Does not implicitly {@link msg.GW2MS_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @param message GW2MS_ReqTakeOtherHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqTakeOtherHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqTakeOtherHouseGold message, length delimited. Does not implicitly {@link msg.GW2MS_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @param message GW2MS_ReqTakeOtherHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqTakeOtherHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqTakeOtherHouseGold message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqTakeOtherHouseGold;
+
+        /**
+         * Decodes a GW2MS_ReqTakeOtherHouseGold message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqTakeOtherHouseGold;
+
+        /**
+         * Verifies a GW2MS_ReqTakeOtherHouseGold message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqTakeOtherHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqTakeOtherHouseGold
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqTakeOtherHouseGold;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqTakeOtherHouseGold message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqTakeOtherHouseGold
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqTakeOtherHouseGold, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqTakeOtherHouseGold to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_AckTakeOtherHouseGoldRet. */
+    interface IMS2GW_AckTakeOtherHouseGoldRet {
+
+        /** MS2GW_AckTakeOtherHouseGoldRet userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet houseid */
+        houseid?: (number|Long|null);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet index */
+        index?: (number|null);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet gold */
+        gold?: (number|null);
+    }
+
+    /** Represents a MS2GW_AckTakeOtherHouseGoldRet. */
+    class MS2GW_AckTakeOtherHouseGoldRet implements IMS2GW_AckTakeOtherHouseGoldRet {
+
+        /**
+         * Constructs a new MS2GW_AckTakeOtherHouseGoldRet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_AckTakeOtherHouseGoldRet);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet houseid. */
+        public houseid: (number|Long);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet index. */
+        public index: number;
+
+        /** MS2GW_AckTakeOtherHouseGoldRet gold. */
+        public gold: number;
+
+        /**
+         * Creates a new MS2GW_AckTakeOtherHouseGoldRet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_AckTakeOtherHouseGoldRet instance
+         */
+        public static create(properties?: msg.IMS2GW_AckTakeOtherHouseGoldRet): msg.MS2GW_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Encodes the specified MS2GW_AckTakeOtherHouseGoldRet message. Does not implicitly {@link msg.MS2GW_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @param message MS2GW_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_AckTakeOtherHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_AckTakeOtherHouseGoldRet message, length delimited. Does not implicitly {@link msg.MS2GW_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @param message MS2GW_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_AckTakeOtherHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_AckTakeOtherHouseGoldRet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Decodes a MS2GW_AckTakeOtherHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Verifies a MS2GW_AckTakeOtherHouseGoldRet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_AckTakeOtherHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_AckTakeOtherHouseGoldRet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Creates a plain object from a MS2GW_AckTakeOtherHouseGoldRet message. Also converts values to other types if specified.
+         * @param message MS2GW_AckTakeOtherHouseGoldRet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_AckTakeOtherHouseGoldRet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_AckTakeOtherHouseGoldRet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RS2GW_ReqRegist. */
     interface IRS2GW_ReqRegist {
 
@@ -14727,6 +15255,786 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_AckNewPlayerStep to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqHouseLevelUp. */
+    interface IC2GW_ReqHouseLevelUp {
+
+        /** C2GW_ReqHouseLevelUp houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqHouseLevelUp. */
+    class C2GW_ReqHouseLevelUp implements IC2GW_ReqHouseLevelUp {
+
+        /**
+         * Constructs a new C2GW_ReqHouseLevelUp.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqHouseLevelUp);
+
+        /** C2GW_ReqHouseLevelUp houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqHouseLevelUp instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqHouseLevelUp instance
+         */
+        public static create(properties?: msg.IC2GW_ReqHouseLevelUp): msg.C2GW_ReqHouseLevelUp;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseLevelUp message. Does not implicitly {@link msg.C2GW_ReqHouseLevelUp.verify|verify} messages.
+         * @param message C2GW_ReqHouseLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseLevelUp message, length delimited. Does not implicitly {@link msg.C2GW_ReqHouseLevelUp.verify|verify} messages.
+         * @param message C2GW_ReqHouseLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqHouseLevelUp message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqHouseLevelUp;
+
+        /**
+         * Decodes a C2GW_ReqHouseLevelUp message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqHouseLevelUp;
+
+        /**
+         * Verifies a C2GW_ReqHouseLevelUp message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqHouseLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqHouseLevelUp
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqHouseLevelUp;
+
+        /**
+         * Creates a plain object from a C2GW_ReqHouseLevelUp message. Also converts values to other types if specified.
+         * @param message C2GW_ReqHouseLevelUp
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqHouseLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqHouseLevelUp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckHouseLevelUp. */
+    interface IGW2C_AckHouseLevelUp {
+
+        /** GW2C_AckHouseLevelUp houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2C_AckHouseLevelUp ret */
+        ret?: (number|null);
+    }
+
+    /** Represents a GW2C_AckHouseLevelUp. */
+    class GW2C_AckHouseLevelUp implements IGW2C_AckHouseLevelUp {
+
+        /**
+         * Constructs a new GW2C_AckHouseLevelUp.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckHouseLevelUp);
+
+        /** GW2C_AckHouseLevelUp houseid. */
+        public houseid: (number|Long);
+
+        /** GW2C_AckHouseLevelUp ret. */
+        public ret: number;
+
+        /**
+         * Creates a new GW2C_AckHouseLevelUp instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckHouseLevelUp instance
+         */
+        public static create(properties?: msg.IGW2C_AckHouseLevelUp): msg.GW2C_AckHouseLevelUp;
+
+        /**
+         * Encodes the specified GW2C_AckHouseLevelUp message. Does not implicitly {@link msg.GW2C_AckHouseLevelUp.verify|verify} messages.
+         * @param message GW2C_AckHouseLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckHouseLevelUp message, length delimited. Does not implicitly {@link msg.GW2C_AckHouseLevelUp.verify|verify} messages.
+         * @param message GW2C_AckHouseLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckHouseLevelUp message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckHouseLevelUp;
+
+        /**
+         * Decodes a GW2C_AckHouseLevelUp message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckHouseLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckHouseLevelUp;
+
+        /**
+         * Verifies a GW2C_AckHouseLevelUp message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckHouseLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckHouseLevelUp
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckHouseLevelUp;
+
+        /**
+         * Creates a plain object from a GW2C_AckHouseLevelUp message. Also converts values to other types if specified.
+         * @param message GW2C_AckHouseLevelUp
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckHouseLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckHouseLevelUp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqHouseCellLevelUp. */
+    interface IC2GW_ReqHouseCellLevelUp {
+
+        /** C2GW_ReqHouseCellLevelUp houseid */
+        houseid?: (number|Long|null);
+
+        /** C2GW_ReqHouseCellLevelUp index */
+        index?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqHouseCellLevelUp. */
+    class C2GW_ReqHouseCellLevelUp implements IC2GW_ReqHouseCellLevelUp {
+
+        /**
+         * Constructs a new C2GW_ReqHouseCellLevelUp.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqHouseCellLevelUp);
+
+        /** C2GW_ReqHouseCellLevelUp houseid. */
+        public houseid: (number|Long);
+
+        /** C2GW_ReqHouseCellLevelUp index. */
+        public index: number;
+
+        /**
+         * Creates a new C2GW_ReqHouseCellLevelUp instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqHouseCellLevelUp instance
+         */
+        public static create(properties?: msg.IC2GW_ReqHouseCellLevelUp): msg.C2GW_ReqHouseCellLevelUp;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseCellLevelUp message. Does not implicitly {@link msg.C2GW_ReqHouseCellLevelUp.verify|verify} messages.
+         * @param message C2GW_ReqHouseCellLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.C2GW_ReqHouseCellLevelUp.verify|verify} messages.
+         * @param message C2GW_ReqHouseCellLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqHouseCellLevelUp message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqHouseCellLevelUp;
+
+        /**
+         * Decodes a C2GW_ReqHouseCellLevelUp message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqHouseCellLevelUp;
+
+        /**
+         * Verifies a C2GW_ReqHouseCellLevelUp message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqHouseCellLevelUp
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqHouseCellLevelUp;
+
+        /**
+         * Creates a plain object from a C2GW_ReqHouseCellLevelUp message. Also converts values to other types if specified.
+         * @param message C2GW_ReqHouseCellLevelUp
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqHouseCellLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqHouseCellLevelUp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckHouseCellLevelUp. */
+    interface IGW2C_AckHouseCellLevelUp {
+
+        /** GW2C_AckHouseCellLevelUp houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2C_AckHouseCellLevelUp index */
+        index?: (number|null);
+
+        /** GW2C_AckHouseCellLevelUp ret */
+        ret?: (number|null);
+    }
+
+    /** Represents a GW2C_AckHouseCellLevelUp. */
+    class GW2C_AckHouseCellLevelUp implements IGW2C_AckHouseCellLevelUp {
+
+        /**
+         * Constructs a new GW2C_AckHouseCellLevelUp.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckHouseCellLevelUp);
+
+        /** GW2C_AckHouseCellLevelUp houseid. */
+        public houseid: (number|Long);
+
+        /** GW2C_AckHouseCellLevelUp index. */
+        public index: number;
+
+        /** GW2C_AckHouseCellLevelUp ret. */
+        public ret: number;
+
+        /**
+         * Creates a new GW2C_AckHouseCellLevelUp instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckHouseCellLevelUp instance
+         */
+        public static create(properties?: msg.IGW2C_AckHouseCellLevelUp): msg.GW2C_AckHouseCellLevelUp;
+
+        /**
+         * Encodes the specified GW2C_AckHouseCellLevelUp message. Does not implicitly {@link msg.GW2C_AckHouseCellLevelUp.verify|verify} messages.
+         * @param message GW2C_AckHouseCellLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.GW2C_AckHouseCellLevelUp.verify|verify} messages.
+         * @param message GW2C_AckHouseCellLevelUp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckHouseCellLevelUp message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckHouseCellLevelUp;
+
+        /**
+         * Decodes a GW2C_AckHouseCellLevelUp message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckHouseCellLevelUp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckHouseCellLevelUp;
+
+        /**
+         * Verifies a GW2C_AckHouseCellLevelUp message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckHouseCellLevelUp
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckHouseCellLevelUp;
+
+        /**
+         * Creates a plain object from a GW2C_AckHouseCellLevelUp message. Also converts values to other types if specified.
+         * @param message GW2C_AckHouseCellLevelUp
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckHouseCellLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckHouseCellLevelUp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTakeSelfHouseGold. */
+    interface IC2GW_ReqTakeSelfHouseGold {
+
+        /** C2GW_ReqTakeSelfHouseGold houseid */
+        houseid?: (number|Long|null);
+
+        /** C2GW_ReqTakeSelfHouseGold index */
+        index?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqTakeSelfHouseGold. */
+    class C2GW_ReqTakeSelfHouseGold implements IC2GW_ReqTakeSelfHouseGold {
+
+        /**
+         * Constructs a new C2GW_ReqTakeSelfHouseGold.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTakeSelfHouseGold);
+
+        /** C2GW_ReqTakeSelfHouseGold houseid. */
+        public houseid: (number|Long);
+
+        /** C2GW_ReqTakeSelfHouseGold index. */
+        public index: number;
+
+        /**
+         * Creates a new C2GW_ReqTakeSelfHouseGold instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTakeSelfHouseGold instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTakeSelfHouseGold): msg.C2GW_ReqTakeSelfHouseGold;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeSelfHouseGold message. Does not implicitly {@link msg.C2GW_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @param message C2GW_ReqTakeSelfHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTakeSelfHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeSelfHouseGold message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeSelfHouseGold.verify|verify} messages.
+         * @param message C2GW_ReqTakeSelfHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTakeSelfHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTakeSelfHouseGold message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTakeSelfHouseGold;
+
+        /**
+         * Decodes a C2GW_ReqTakeSelfHouseGold message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTakeSelfHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTakeSelfHouseGold;
+
+        /**
+         * Verifies a C2GW_ReqTakeSelfHouseGold message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTakeSelfHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTakeSelfHouseGold
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTakeSelfHouseGold;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeSelfHouseGold message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTakeSelfHouseGold
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTakeSelfHouseGold, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTakeSelfHouseGold to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckTakeSelfHouseGoldRet. */
+    interface IGW2C_AckTakeSelfHouseGoldRet {
+
+        /** GW2C_AckTakeSelfHouseGoldRet houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2C_AckTakeSelfHouseGoldRet index */
+        index?: (number|null);
+
+        /** GW2C_AckTakeSelfHouseGoldRet gold */
+        gold?: (number|null);
+    }
+
+    /** Represents a GW2C_AckTakeSelfHouseGoldRet. */
+    class GW2C_AckTakeSelfHouseGoldRet implements IGW2C_AckTakeSelfHouseGoldRet {
+
+        /**
+         * Constructs a new GW2C_AckTakeSelfHouseGoldRet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckTakeSelfHouseGoldRet);
+
+        /** GW2C_AckTakeSelfHouseGoldRet houseid. */
+        public houseid: (number|Long);
+
+        /** GW2C_AckTakeSelfHouseGoldRet index. */
+        public index: number;
+
+        /** GW2C_AckTakeSelfHouseGoldRet gold. */
+        public gold: number;
+
+        /**
+         * Creates a new GW2C_AckTakeSelfHouseGoldRet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckTakeSelfHouseGoldRet instance
+         */
+        public static create(properties?: msg.IGW2C_AckTakeSelfHouseGoldRet): msg.GW2C_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Encodes the specified GW2C_AckTakeSelfHouseGoldRet message. Does not implicitly {@link msg.GW2C_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @param message GW2C_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckTakeSelfHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckTakeSelfHouseGoldRet message, length delimited. Does not implicitly {@link msg.GW2C_AckTakeSelfHouseGoldRet.verify|verify} messages.
+         * @param message GW2C_AckTakeSelfHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckTakeSelfHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckTakeSelfHouseGoldRet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Decodes a GW2C_AckTakeSelfHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckTakeSelfHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Verifies a GW2C_AckTakeSelfHouseGoldRet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckTakeSelfHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckTakeSelfHouseGoldRet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckTakeSelfHouseGoldRet;
+
+        /**
+         * Creates a plain object from a GW2C_AckTakeSelfHouseGoldRet message. Also converts values to other types if specified.
+         * @param message GW2C_AckTakeSelfHouseGoldRet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckTakeSelfHouseGoldRet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckTakeSelfHouseGoldRet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTakeOtherHouseGold. */
+    interface IC2GW_ReqTakeOtherHouseGold {
+
+        /** C2GW_ReqTakeOtherHouseGold houseid */
+        houseid?: (number|Long|null);
+
+        /** C2GW_ReqTakeOtherHouseGold index */
+        index?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqTakeOtherHouseGold. */
+    class C2GW_ReqTakeOtherHouseGold implements IC2GW_ReqTakeOtherHouseGold {
+
+        /**
+         * Constructs a new C2GW_ReqTakeOtherHouseGold.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTakeOtherHouseGold);
+
+        /** C2GW_ReqTakeOtherHouseGold houseid. */
+        public houseid: (number|Long);
+
+        /** C2GW_ReqTakeOtherHouseGold index. */
+        public index: number;
+
+        /**
+         * Creates a new C2GW_ReqTakeOtherHouseGold instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTakeOtherHouseGold instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTakeOtherHouseGold): msg.C2GW_ReqTakeOtherHouseGold;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeOtherHouseGold message. Does not implicitly {@link msg.C2GW_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @param message C2GW_ReqTakeOtherHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTakeOtherHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeOtherHouseGold message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeOtherHouseGold.verify|verify} messages.
+         * @param message C2GW_ReqTakeOtherHouseGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTakeOtherHouseGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTakeOtherHouseGold message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTakeOtherHouseGold;
+
+        /**
+         * Decodes a C2GW_ReqTakeOtherHouseGold message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTakeOtherHouseGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTakeOtherHouseGold;
+
+        /**
+         * Verifies a C2GW_ReqTakeOtherHouseGold message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTakeOtherHouseGold message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTakeOtherHouseGold
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTakeOtherHouseGold;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeOtherHouseGold message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTakeOtherHouseGold
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTakeOtherHouseGold, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTakeOtherHouseGold to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckTakeOtherHouseGoldRet. */
+    interface IGW2C_AckTakeOtherHouseGoldRet {
+
+        /** GW2C_AckTakeOtherHouseGoldRet houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2C_AckTakeOtherHouseGoldRet index */
+        index?: (number|null);
+
+        /** GW2C_AckTakeOtherHouseGoldRet gold */
+        gold?: (number|null);
+    }
+
+    /** Represents a GW2C_AckTakeOtherHouseGoldRet. */
+    class GW2C_AckTakeOtherHouseGoldRet implements IGW2C_AckTakeOtherHouseGoldRet {
+
+        /**
+         * Constructs a new GW2C_AckTakeOtherHouseGoldRet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckTakeOtherHouseGoldRet);
+
+        /** GW2C_AckTakeOtherHouseGoldRet houseid. */
+        public houseid: (number|Long);
+
+        /** GW2C_AckTakeOtherHouseGoldRet index. */
+        public index: number;
+
+        /** GW2C_AckTakeOtherHouseGoldRet gold. */
+        public gold: number;
+
+        /**
+         * Creates a new GW2C_AckTakeOtherHouseGoldRet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckTakeOtherHouseGoldRet instance
+         */
+        public static create(properties?: msg.IGW2C_AckTakeOtherHouseGoldRet): msg.GW2C_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Encodes the specified GW2C_AckTakeOtherHouseGoldRet message. Does not implicitly {@link msg.GW2C_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @param message GW2C_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckTakeOtherHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckTakeOtherHouseGoldRet message, length delimited. Does not implicitly {@link msg.GW2C_AckTakeOtherHouseGoldRet.verify|verify} messages.
+         * @param message GW2C_AckTakeOtherHouseGoldRet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckTakeOtherHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckTakeOtherHouseGoldRet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Decodes a GW2C_AckTakeOtherHouseGoldRet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckTakeOtherHouseGoldRet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Verifies a GW2C_AckTakeOtherHouseGoldRet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckTakeOtherHouseGoldRet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckTakeOtherHouseGoldRet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckTakeOtherHouseGoldRet;
+
+        /**
+         * Creates a plain object from a GW2C_AckTakeOtherHouseGoldRet message. Also converts values to other types if specified.
+         * @param message GW2C_AckTakeOtherHouseGoldRet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckTakeOtherHouseGoldRet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckTakeOtherHouseGoldRet to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
