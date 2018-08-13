@@ -14,7 +14,6 @@ module game {
         }
 
         public show() {
-            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.SHOW_ALL;
             if (this._isShow) {
                 return;
             }
@@ -154,7 +153,6 @@ module game {
             this.removeEventAndNotify();
             this.playRemoveEffect();
             this._isShow = false;
-            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.NO_SCALE;
             GameConfig.showDownBtnFun(true);
         }
 

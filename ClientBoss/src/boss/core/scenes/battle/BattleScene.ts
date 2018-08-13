@@ -311,6 +311,8 @@ module game {
         }
 
         protected beforeShow() {
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.SHOW_ALL;
+
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
             let add_y = 0;
             if (gameConfig.isIphoneX()) {
@@ -1117,6 +1119,8 @@ module game {
         }
 
         protected beforeRemove() {
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.NO_SCALE;
+
             this._doubleTime = 0;
             this._icePool.destroyAllObject();
             this._brickPool.destroyAllObject();
