@@ -79,7 +79,7 @@ module game {
         }
 
         private OnGW2C_FreePresentNotify(data: msg.GW2C_FreePresentNotify) {
-            LoginReward.getInstance().show();
+            // LoginReward.getInstance().show();
         }
 
         private OnGW2C_SendLuckyDrawRecord(data: msg.GW2C_SendLuckyDrawRecord) {

@@ -204,6 +204,8 @@ module game {
         private _rightWall: BattleWall;
 
         private initWorld() {
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
+            
             const stageWidth = gameConfig.curWidth();
             const stageHeight = gameConfig.curHeight();
             this._halfWidth = stageWidth / 2;
@@ -311,14 +313,12 @@ module game {
         }
 
         protected beforeShow() {
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
+
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
-            let add_y = 0;
-            if (gameConfig.isIphoneX()) {
-                add_y = 20;
-            }
             let paddle = this._paddlePool.createObject();
             paddle.setData(1);
-            paddle.resetPosition(this.mainGroup.y + add_y);
+            paddle.resetPosition(this.mainGroup.y);
             this.paddleGroup.addChild(paddle);
             this._paddle = paddle;
             this._diedY = this._paddle.y + this._paddle.height / 2;
@@ -1117,6 +1117,9 @@ module game {
         }
 
         protected beforeRemove() {
+            GameConfig.showDownBtnFun(true);
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.NO_SCALE;
+
             this._doubleTime = 0;
             this._icePool.destroyAllObject();
             this._brickPool.destroyAllObject();

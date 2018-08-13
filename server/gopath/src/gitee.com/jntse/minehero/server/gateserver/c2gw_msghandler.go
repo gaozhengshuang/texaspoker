@@ -71,6 +71,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetNewPlayerStep{}, on_C2GW_ReqSetNewPlayerStep)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -111,6 +112,12 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckHouseData{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckNewPlayerStep{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckHouseLevelUp{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckHouseCellLevelUp{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckTakeSelfHouseGoldRet{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckTakeOtherHouseGoldRet{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
@@ -818,4 +825,57 @@ func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	user.task.SendTaskList()
 }
 
+func on_C2GW_ReqSetNewPlayerStep(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetNewPlayerStep)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	step := tmsg.GetStep()
+	user.SetNewPlayerStep(step)
 
+	send := &msg.GW2C_AckNewPlayerStep{Step: pb.Uint32(step)}
+	user.SendMsg(send)
+}
+
+func on_C2GW_ReqHouseLevelUp(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqHouseLevelUp)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+}
+
+func on_C2GW_ReqHouseCellLevelUp(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqHouseCellLevelUp)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+}
+
+func on_C2GW_ReqTakeSelfHouseGold(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqTakeSelfHouseGold)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+}
+
+func on_C2GW_ReqTakeOtherHouseGold(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqTakeOtherHouseGold)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+}
