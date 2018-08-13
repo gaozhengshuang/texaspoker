@@ -1,16 +1,16 @@
 package main
+
 import (
-	"reflect"
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
+	"reflect"
 	//pb"github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 )
-
 
 //func init() {
 //	log.Info("ms2gw_msghandler.init")
@@ -27,13 +27,12 @@ func NewMS2GWMsgHandler() *MS2GWMsgHandler {
 	return handler
 }
 
-func (this* MS2GWMsgHandler) Init() {
+func (this *MS2GWMsgHandler) Init() {
 
 	this.msgparser = network.NewProtoParser("MS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
 	if this.msgparser == nil {
 		return
 	}
-
 
 	// 收
 	this.msgparser.RegistProtoMsg(msg.MS2GW_RetRegist{}, on_MS2GW_RetRegist)
@@ -44,6 +43,7 @@ func (this* MS2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.MS2GW_MatchOk{}, on_MS2GW_MatchOk)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckUserHouse{}, on_MS2Server_AckUserHouse)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
@@ -52,7 +52,9 @@ func (this* MS2GWMsgHandler) Init() {
 	//this.msgparser.RegistSendProto(msg.GW2MS_ReqCancelMatch{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateRoom{})
 	this.msgparser.RegistSendProto(msg.GW2MS_MsgNotice{})
-
+	this.msgparser.RegistSendProto(msg.GW2MS_UserOnlineState{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateHouse{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqUserHouse{})
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -89,7 +91,7 @@ func on_MS2GW_RetCreateRoom(session network.IBaseNetSession, message interface{}
 
 	if err == "" {
 		user.StartGameOk(roomagent, roomid)
-	}else {
+	} else {
 		user.StartGameFail(err)
 	}
 
@@ -108,11 +110,27 @@ func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}
 	}
 
 	// GM指令
-	if _ , ok := cmdmap["gmcmd"]; ok {
-		gmcommands:= make(map[string]string)
-		for k ,v := range cmdmap { gmcommands[k] = v.(string) }
+	if _, ok := cmdmap["gmcmd"]; ok {
+		gmcommands := make(map[string]string)
+		for k, v := range cmdmap {
+			gmcommands[k] = v.(string)
+		}
 		DoGMCmd(gmcommands)
 	}
+}
+
+func on_MS2Server_AckUserHouse(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckUserHouse)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	log.Info("on_MS2Server_AckUserHouse  uid:%d", uid)
+	if user == nil {
+		log.Error("玩家:%d 请求创建房间返回，但找不到玩家", uid)
+		return
+	}
+	send := &msg.GW2C_AckHouseData{}
+	send.Datas = tmsg.GetData()
+	user.SendMsg(send)
 }
 
 func DoGMCmd(cmd map[string]string) {
@@ -128,5 +146,3 @@ func DoGMCmd(cmd map[string]string) {
 		break
 	}
 }
-
-
