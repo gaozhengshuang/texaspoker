@@ -253,6 +253,7 @@ func (this *MatchServer) OnStart() {
 
 // 程序退出最后清理
 func (this *MatchServer) OnStop() {
+	this.hredis.Close()
 }
 
 //  退出

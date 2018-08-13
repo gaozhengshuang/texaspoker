@@ -291,6 +291,7 @@ func (this *RoomServer) OnStop() {
 	this.ticker1m.Stop()
 	this.ticker5s.Stop()
 	this.ticker100ms.Stop()
+	this.hredis.Close()
 }
 
 // 优雅退出
