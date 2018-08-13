@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="DiscoveryViewUI" width="1440" height="2560" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect id="view_bg" width="1440" height="2560" x="0" y="0" fillColor="0xffffff"/>
-	<e:Image id="titleImg" source="title_img1_png" x="0" y="0" scaleX="1" scaleY="1" width="1440" height="576"/>
+	<e:Image id="titleImg" x="0" y="0" scaleX="1" scaleY="1" width="1440" height="576" source="tantanleTitle_png"/>
 	<e:Group id="titleWordGroup" x="0" y="576">
 		<e:Rect width="1440" height="180" x="0" y="0" fillColor="0x9d9a96"/>
 		<e:Image source="game_icon1_png" x="50" y="50"/>
