@@ -551,6 +551,7 @@ func (this *GateUser) OnCreateNew() {
 	send.Userid = pb.Uint64(this.Id())
 	send.Housetid = pb.Uint32(1001)
 	Match().SendCmd(send)
+	this.newplayerstep = 0
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -998,4 +999,9 @@ func (this *GateUser) SendHouseData() {
 	for _, v := range this.housedata {
 		send.Datas = append(send.Datas, v)
 	}
+}
+
+func (this *GateUser) UpdateHouseData(data []*msg.HouseData) {
+	this.housedata = data
+	this.SendHouseData()
 }

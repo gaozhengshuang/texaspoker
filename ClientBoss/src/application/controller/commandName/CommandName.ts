@@ -30,6 +30,14 @@ module game {
 
 
 		public static SOCKET_REQ_UPDATED_POINT: string = "socket_req_updated_point";
+		public static SOCKET_REQ_GOIN_ROOM: string = "socket_req_goin_room";
+
+
+		////////////////
+		////错误消息////
+		///////////////
+		public static NET_CONNECTION_ERROR: string = "net_connection_error";
+
 		
 	}
 }

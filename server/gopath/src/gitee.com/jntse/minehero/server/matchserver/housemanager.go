@@ -11,7 +11,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	"strings"
-	_ "time"
+	"time"
 )
 
 //房间单元
@@ -22,6 +22,8 @@ type HouseCell struct {
 	tmproduce int64  //产金币的起始时间戳
 	gold      uint32 //当前待收取的金币
 	state     uint32 //当前生产状态
+
+	ownerid uint64 //所有者id
 }
 
 func (this *HouseCell) LoadBin(bin *msg.HouseCell) {
@@ -47,6 +49,10 @@ func (this *HouseCell) OnLoadBin() {
 		this.gold = base.ProduceGold
 		this.state = 1
 	}
+}
+
+func (this *HouseCell) SetOwner(ownerid uint64) {
+	this.ownerid = ownerid
 }
 
 //主人收获金币
@@ -81,7 +87,8 @@ func (this *HouseCell) VisitorTakeGold() uint32 {
 }
 
 //检查生产状态
-func (this *HouseCell) CkeckGoldProduce() {
+func (this *HouseCell) CkeckGoldProduce(now int64) {
+	log.Info("HouseCell CkeckGoldProduce index:%d", this.index)
 	if this.state > 0 {
 		return
 	}
@@ -92,7 +99,7 @@ func (this *HouseCell) CkeckGoldProduce() {
 		return
 	}
 	needtime := base.ProduceTime
-	if util.CURTIME()-this.tmproduce >= int64(needtime) {
+	if now-this.tmproduce >= int64(needtime) {
 		this.state = 1
 		this.gold = base.ProduceGold
 	}
@@ -144,9 +151,12 @@ type HouseData struct {
 	level      uint32                //房屋等级
 	housecells map[uint32]*HouseCell //每个房间信息
 	visitinfo  []*HouseVisitInfo
+
+	ticker1Sec *util.GameTicker
 }
 
 func (this *HouseData) LoadBin(bin *msg.HouseData) {
+	log.Info("读取房屋[%d] ", this.id)
 	this.housecells = make(map[uint32]*HouseCell)
 	this.visitinfo = make([]*HouseVisitInfo, 0)
 	this.id = bin.GetId()
@@ -157,6 +167,7 @@ func (this *HouseData) LoadBin(bin *msg.HouseData) {
 	for _, v := range bin.GetHousecells() {
 		cell := &HouseCell{}
 		cell.LoadBin(v)
+		cell.SetOwner(this.ownerid)
 		this.housecells[cell.index] = cell
 	}
 
@@ -168,8 +179,13 @@ func (this *HouseData) LoadBin(bin *msg.HouseData) {
 	this.OnLoadBin()
 }
 
-func (this *HouseData) OnLoadBin() {
+func (this *HouseData) Tick(now int64) {
+	this.ticker1Sec.Run(now)
+}
 
+func (this *HouseData) OnLoadBin() {
+	this.ticker1Sec = util.NewGameTicker(1000*time.Millisecond, this.Handler1SecTick)
+	this.ticker1Sec.Start()
 }
 
 func (this *HouseData) PackBin() *msg.HouseData {
@@ -202,9 +218,9 @@ func (this *HouseData) SaveBin() {
 }
 
 //每秒的Tick回调
-func (this *HouseData) Handler1SecTick() {
+func (this *HouseData) Handler1SecTick(now int64) {
 	for _, v := range this.housecells {
-		v.CkeckGoldProduce()
+		v.CkeckGoldProduce(now)
 	}
 }
 
@@ -250,6 +266,16 @@ func (this *HouseManager) Init() {
 	this.userhouses = make(map[uint64][]uint64)
 	this.housesIdList = make([]uint64, 0)
 	this.useronlne = make(map[uint64]int)
+	data, err := Redis().SMembers("houses_idset").Result()
+	if err != nil {
+		log.Error("启动加载放假数据失败 err: %s", err)
+	} else {
+
+		for _, v := range data {
+			houseid, _ := strconv.Atoi(v)
+			this.GetHouse(uint64(houseid))
+		}
+	}
 }
 
 //获取房屋
@@ -278,6 +304,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 
 //创建一个新的房屋
 func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32) *HouseData {
+	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
 		log.Error("创建新的房屋生成新的房屋id出错，error:%s", errcode)
@@ -314,6 +341,8 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32) *HouseData 
 
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
+	//创建好之后初始化额外计时器等
+	house.OnLoadBin()
 	return house
 }
 
@@ -331,6 +360,7 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 
 //储存所有的房屋信息
 func (this *HouseManager) SaveAllHousesData() {
+	log.Info("储存所有的房屋信息 SaveAllHousesData")
 	for _, v := range this.houses {
 		v.SaveBin()
 	}
@@ -355,5 +385,12 @@ func (this *HouseManager) OnSyncUserOnlineState(uid uint64, state uint32, sessio
 		if k, ok := this.useronlne[uid]; ok {
 			delete(this.useronlne, uint64(k))
 		}
+	}
+}
+
+//循环
+func (this *HouseManager) Tick(now int64) {
+	for _, v := range this.houses {
+		v.Tick(now)
 	}
 }

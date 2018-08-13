@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,girl_suitx_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_suit5_json,girl_suit5_json,boy_suit6_json,gameLoading2_png,gameLoadingBg2_png,ui_login_logo_png,ui_login_button_weixin_png,ui_login_button_qq_png,ui_login_button_weibo_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,description_json,errorCode_json,ui_login_button_forget_png,ui_login_button_go_login_png,ui_login_button_go_register_png,addFriend_btn1_png,assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_blue1_png,btnBg_red1_png,btnBg_red2_png,btnBg_yellow1_png,building_title_bg1_png,buyRoom_title_icon1_png,chushouzhong_icon1_png,close_btn1_png,crownIcon1_png,defaultHead1_png,defaultHead2_png,defaultHead3_png,diamondIcon_png,dongtaiWord1_png,dongtaiWord2_png,game_icon1_png,game90001_png,have_coin_icon_png,have_quan_icon_png,headImgBg1_png,hx_4001_png,hx_4002_png,hx_4003_png,hx_4004_png,jiantou1_png,jiantou2_png,jiaoyi_title_icon1_png,jinruFang_btn1_png,linjuInfo_bg1_png,loading_txt1_png,main_loading1_png,mineIcon1_png,mineIcon2_png,mineIcon3_png,mineIcon4_png,mineIcon5_png,myAssets_btn1_png,myAssetsBg1_png,qiangIcon_png,qipaoIcon1_png,qipaoIcon2_png,qipaoIcon3_png,redDianIcon1_png,room_baifang_btn1_png,room_canku_btn1_png,room_dongtai_icon1_png,room_down_bg1_png,room_line1_png,room_lingju_btn1_png,room_linju_icon1_png,room_quit_btn1_png,room_quit_btn2_png,room_tansuo_btn1_png,room_tansuo_btn2_png,room_weizhi_icon1_png,room_zicang_btn1_png,room_zicang_icon1_png,sellRoomListBg1_png,suolou_btn1_png,tansuofangwei_bg1_png,title_img1_png,titleBg1_png,titleIcon1_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_stock_tabBar1_png,trading_stock_tabBar2_png,ui_comn_icon_gold_png,userInfo_bg1_png,vertical_line1_png,vipIcon_png,welcmoe_btn1_png,welcome_bg1_png,zichan_btn1_png,zichan_title_icon1_png",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,girl_suitx_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_suit5_json,girl_suit5_json,boy_suit6_json,gameLoading2_png,gameLoadingBg2_png,ui_login_logo_png,ui_login_button_weixin_png,ui_login_button_qq_png,ui_login_button_weibo_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,description_json,errorCode_json,ui_login_button_forget_png,ui_login_button_go_login_png,ui_login_button_go_register_png,addFriend_btn1_png,assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_blue1_png,btnBg_red1_png,btnBg_red2_png,btnBg_yellow1_png,building_title_bg1_png,buyRoom_title_icon1_png,chushouzhong_icon1_png,close_btn1_png,crownIcon1_png,defaultHead1_png,defaultHead2_png,defaultHead3_png,diamondIcon_png,dongtaiWord1_png,dongtaiWord2_png,game_icon1_png,game90001_png,have_coin_icon_png,have_quan_icon_png,headImgBg1_png,hx_4001_png,hx_4002_png,hx_4003_png,hx_4004_png,jiantou1_png,jiantou2_png,jiaoyi_title_icon1_png,jinruFang_btn1_png,linjuInfo_bg1_png,loading_txt1_png,main_loading1_png,mineIcon1_png,mineIcon2_png,mineIcon3_png,mineIcon4_png,mineIcon5_png,myAssets_btn1_png,myAssetsBg1_png,qiangIcon_png,qipaoIcon1_png,qipaoIcon2_png,qipaoIcon3_png,redDianIcon1_png,room_baifang_btn1_png,room_canku_btn1_png,room_dongtai_icon1_png,room_down_bg1_png,room_line1_png,room_lingju_btn1_png,room_linju_icon1_png,room_quit_btn1_png,room_quit_btn2_png,room_tansuo_btn1_png,room_tansuo_btn2_png,room_weizhi_icon1_png,room_zicang_btn1_png,room_zicang_icon1_png,sellRoomListBg1_png,suolou_btn1_png,tansuofangwei_bg1_png,title_img1_png,titleBg1_png,titleIcon1_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_stock_tabBar1_png,trading_stock_tabBar2_png,ui_comn_icon_gold_png,userInfo_bg1_png,vertical_line1_png,vipIcon_png,welcmoe_btn1_png,welcome_bg1_png,zichan_btn1_png,zichan_title_icon1_png,tantanleTitle_png,gameTantanle_png,gameTantanle2_png,tantanleTitle2_png",
 			"name": "preload"
 		}
 	],
@@ -795,6 +795,26 @@
 			"name": "zichan_title_icon1_png",
 			"type": "image",
 			"url": "assets2/zichan_title_icon1.png"
+		},
+		{
+			"name": "tantanleTitle_png",
+			"type": "image",
+			"url": "assets2/tantanleTitle.png"
+		},
+		{
+			"name": "gameTantanle_png",
+			"type": "image",
+			"url": "assets2/gameTantanle.png"
+		},
+		{
+			"name": "gameTantanle2_png",
+			"type": "image",
+			"url": "assets2/gameTantanle.png"
+		},
+		{
+			"name": "tantanleTitle2_png",
+			"type": "image",
+			"url": "assets2/tantanleTitle.png"
 		}
 	]
 }

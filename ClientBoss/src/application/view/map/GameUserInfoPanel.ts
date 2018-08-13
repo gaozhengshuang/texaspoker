@@ -23,7 +23,12 @@ module game {
             GameConfig.goldGPoint=this.localToGlobal(this.coin_txt.x,this.coin_txt.y);
         }
         private adaptive() {
-            this.scaleX = this.scaleY = GameConfig.innerScale;
+            let innerScaleH: number = GameConfig.innerHeight / 1280;
+            let innerScaleW: number = GameConfig.innerWidth / 720;
+
+            let expHeight: number = GameConfig.innerWidth * 1280 / 720;
+            let innerScale: number = expHeight > GameConfig.innerHeight ? innerScaleH : innerScaleW;
+            this.scaleX = this.scaleY = innerScale;
         }
         public updataInfo(info: any) {
             this.userInfo = info;

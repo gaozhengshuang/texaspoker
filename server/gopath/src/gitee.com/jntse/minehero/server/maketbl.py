@@ -225,6 +225,8 @@ gen.maketbl_excel('TEquipBase', 'equipbase', 'TEquip.xlsx')
 gen.maketbl_excel('TSkillpBase', 'skillbase', 'TSkill.xlsx')
 gen.maketbl_excel('THouseBase', 'housebase', 'THouse.xlsx')
 gen.maketbl_excel('THouseCellBase', 'housecellbase', 'THouseCell.xlsx')
+gen.maketbl_excel('TCarBase','carbase','TCar.xlsx')
+gen.maketbl_excel('TParkingBase','parkingbase','TParking.xlsx')
 
 
 gen.maketbl_json('table', 'Global', 'global.json')

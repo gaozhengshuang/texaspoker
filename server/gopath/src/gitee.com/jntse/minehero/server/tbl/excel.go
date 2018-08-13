@@ -13,25 +13,27 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 /// @brief 为excel config 实例取一个别名
 // --------------------------------------------------------------------------
-var TaskBase = table.InsTaskBaseTable
 var MusicBase = table.InsMusicBaseTable
-var RechargeBase = table.InsRechargeBaseTable
-var TEquipBase = table.InsTEquipBaseTable
 var LevelBasee = table.InsLevelBaseeTable
-var TBirckItembase = table.InsTBirckItembaseTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
-var SignBase = table.InsSignBaseTable
-var THouseCellBase = table.InsTHouseCellBaseTable
-var ProtoMsgIndex = table.InsProtoMsgIndexTable
-var THouseBase = table.InsTHouseBaseTable
 var GiftProBase = table.InsGiftProBaseTable
-var TSkillpBase = table.InsTSkillpBaseTable
-var NameBase = table.InsNameBaseTable
 var TBirckBase = table.InsTBirckBaseTable
+var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
+var THouseBase = table.InsTHouseBaseTable
+var RechargeBase = table.InsRechargeBaseTable
+var TBirckItembase = table.InsTBirckItembaseTable
+var SignBase = table.InsSignBaseTable
+var THouseCellBase = table.InsTHouseCellBaseTable
+var TCarBase = table.InsTCarBaseTable
+var NameBase = table.InsNameBaseTable
+var TBallBase = table.InsTBallBaseTable
+var TEquipBase = table.InsTEquipBaseTable
+var TaskBase = table.InsTaskBaseTable
+var TSkillpBase = table.InsTSkillpBaseTable
+var TParkingBase = table.InsTParkingBaseTable
 var ShopBase = table.InsShopBaseTable
 var TbirckRefreshbase = table.InsTbirckRefreshbaseTable
-var TBallBase = table.InsTBallBaseTable
 var ItemBase = table.InsItemBaseTable
 

@@ -16,8 +16,8 @@ module game {
             this.smallGameList=[];
             let horeGame:SmallGameVO=new SmallGameVO();
             horeGame.sgId=1;
-            horeGame.sgIcon="game90001";
-            horeGame.sgName="running car";
+            horeGame.sgIcon="gameTantanle_png";
+            horeGame.sgName="超级弹弹乐";
             horeGame.sgType=1;
             horeGame.sgUrl="https://city.giantfun.cn/hero/";
             this.smallGameList.push(horeGame);
