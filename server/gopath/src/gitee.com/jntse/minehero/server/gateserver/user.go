@@ -165,8 +165,16 @@ func (this *GateUser) Level() uint32 {
 	return this.level
 }
 
+func (this *GateUser) AddLevel(num uint32) {
+	this.level += num
+}
+
 func (this *GateUser) Exp() uint32 {
 	return this.exp
+}
+
+func (this *GateUser) SetExp(exp uint32) {
+	this.exp = exp
 }
 
 func (this *GateUser) Token() string {
