@@ -153,7 +153,6 @@ module game {
             this.removeEventAndNotify();
             this.playRemoveEffect();
             this._isShow = false;
-            GameConfig.showDownBtnFun(true);
         }
 
         protected beforeRemove() {

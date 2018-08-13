@@ -54,10 +54,11 @@ type GateServer struct {
 	msghandlers []network.IBaseMsgHandler
 	tblloader   *tbl.TblLoader
 	//countmgr		CountManager
-	rcounter      util.RedisCounter
-	ticker1m      *util.GameTicker
-	ticker1s      *util.GameTicker
-	ticker100ms   *util.GameTicker
+	rcounter util.RedisCounter
+	//ticker1m		*util.GameTicker
+	//ticker1s		*util.GameTicker
+	//ticker100ms	*util.GameTicker
+	tickers       []util.IGameTicker
 	quit_graceful bool
 	runtimestamp  int64
 	hourmonitor   *util.IntHourMonitorPool
@@ -221,12 +222,13 @@ func (this *GateServer) Init(fileconf string) bool {
 	this.roommgr.Init()
 	//this.countmgr.Init()
 	//this.gamemgr.Init()
-	this.ticker1m = util.NewGameTicker(60*time.Second, this.Handler1mTick)
-	this.ticker1s = util.NewGameTicker(01*time.Second, this.Handler1sTick)
-	this.ticker100ms = util.NewGameTicker(100*time.Millisecond, this.Handler100msTick)
-	this.ticker1m.Start()
-	this.ticker1s.Start()
-	this.ticker100ms.Start()
+	this.tickers = append(this.tickers, util.NewGameTicker(60*time.Second, this.Handler1mTick))
+	this.tickers = append(this.tickers, util.NewGameTicker(01*time.Second, this.Handler1sTick))
+	this.tickers = append(this.tickers, util.NewGameTicker(100*time.Millisecond, this.Handler100msTick))
+	for _, t := range this.tickers {
+		t.Start()
+	}
+
 	this.runtimestamp = 0
 	return true
 }
@@ -327,9 +329,9 @@ func (this *GateServer) OnStart() {
 
 // 程序退出最后清理
 func (this *GateServer) OnStop() {
-	this.ticker1s.Stop()
-	this.ticker1m.Stop()
-	this.ticker100ms.Stop()
+	for _, t := range this.tickers {
+		t.Stop()
+	}
 	this.hredis.Close()
 }
 
@@ -360,9 +362,9 @@ func (this *GateServer) Run() {
 
 	//
 	this.hourmonitor.Run(now / 1000) // 秒
-	this.ticker1m.Run(now)           // 毫秒
-	this.ticker1s.Run(now)           // 毫秒
-	this.ticker100ms.Run(now)        // 毫秒
+	for _, t := range this.tickers {
+		t.Run(now)
+	}
 	tm_svrticker := util.CURTIMEMS()
 
 	// 每帧统计耗时

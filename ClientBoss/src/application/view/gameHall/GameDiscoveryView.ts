@@ -5,23 +5,25 @@ module game {
 		private view_bg: eui.Rect;
 		private titleImg: eui.Image;
 		private titleWordGroup: eui.Group;
+		private innerScaleW: number
 
 		public constructor() {
 			super();
 			this.skinName = "resource/skins/DiscoveryViewUI.exml";
             this.adaptive();
 		}
+
 		private adaptive(){
+			this.innerScaleW = GameConfig.innerWidth / 720;
 			this.view_bg.width=GameConfig.innerWidth;
             this.view_bg.height=GameConfig.innerHeight;
-			this.titleImg.scaleX=GameConfig.innerScaleW;
-            this.titleImg.scaleY=GameConfig.innerScaleW;
+			this.titleImg.scaleX=this.innerScaleW;
+            this.titleImg.scaleY=this.innerScaleW;
 
-			this.titleWordGroup.scaleX=GameConfig.innerScaleW;
-            this.titleWordGroup.scaleY=GameConfig.innerScaleW;
-			this.titleWordGroup.y=this.titleImg.height*GameConfig.innerScaleW;
+			this.titleWordGroup.scaleX=this.innerScaleW;
+            this.titleWordGroup.scaleY=this.innerScaleW;
+			this.titleWordGroup.y=this.titleImg.height*this.innerScaleW;
 
-			
 		}
 
 		private gameItemList:utils.AllScrollerPanel;
@@ -34,9 +36,9 @@ module game {
 				this.gameItemList=new utils.AllScrollerPanel();
 				this.addChild(this.gameItemList);
 				this.gameItemList.x=0;
-				this.gameItemList.y=this.titleWordGroup.y+this.titleWordGroup.height*GameConfig.innerScaleW;
+				this.gameItemList.y=this.titleWordGroup.y+this.titleWordGroup.height*this.innerScaleW;
                 this.gameItemList.width=GameConfig.innerWidth;
-				this.gameItemList.height=GameConfig.innerPageHeight-this.gameItemList.y;
+				this.gameItemList.height=GameConfig.innerHeight-this.gameItemList.y;
 				this.gameItemList.initItemRenderer(DiscoveryGameItemPanel);
 				this.gameItemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this); 
 			}

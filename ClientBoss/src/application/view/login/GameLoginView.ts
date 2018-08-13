@@ -20,7 +20,7 @@ module game {
 
 		public constructor() {
 			super();
-			this.skinName = "resource/skins/LoginSence.exml";
+			this.skinName = "resource/eui_skins/LoginSence.exml";
 			this.adaptive();
 			this.registerGroup.visible=false;
 			this.loginGroup.visible=true;

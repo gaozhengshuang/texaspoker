@@ -88,6 +88,8 @@ module game {
         public static cookieFirstLoginStr:string="csFirstLogin";
         public static isDayFirstLogin:boolean=true;
 
+        public static newPlayerStep:number=0;
+
         public static adaptiveUI(scale: number){
             this.innerPageHeight=this.innerHeight-adaptive(scale);
             console.log(this.innerPageHeight+"//"+this.innerHeight);
