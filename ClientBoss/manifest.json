@@ -18,10 +18,10 @@
 	"game": [
 		"bin-debug/boss/core/scenes/component/GameComponent.js",
 		"bin-debug/core/utils/Notification.js",
+		"bin-debug/boss/core/scenes/component/EffectButton.js",
 		"bin-debug/application/model/vo/BaseVO.js",
 		"bin-debug/boss/core/GameConfig.js",
 		"bin-debug/boss/core/scenes/battle/BattleBody.js",
-		"bin-debug/boss/core/scenes/component/EffectButton.js",
 		"bin-debug/WebNode.js",
 		"bin-debug/core/utils/ObjectPool.js",
 		"bin-debug/boss/core/scenes/component/PanelComponent.js",
@@ -108,7 +108,7 @@
 		"bin-debug/boss/core/scenes/battle/BattleBag.js",
 		"bin-debug/boss/core/scenes/battle/BattleBagItem.js",
 		"bin-debug/boss/core/scenes/battle/BattleBall.js",
-		"bin-debug/core/utils/TimeUtils.js",
+		"bin-debug/cookie.file.js",
 		"bin-debug/Main.js",
 		"bin-debug/boss/core/scenes/battle/BattleBoom.js",
 		"bin-debug/boss/core/scenes/battle/BattleBrick.js",
@@ -199,6 +199,6 @@
 		"bin-debug/core/utils/Random.js",
 		"bin-debug/core/utils/Share.js",
 		"bin-debug/core/utils/SkeletonBase.js",
-		"bin-debug/cookie.file.js"
+		"bin-debug/core/utils/TimeUtils.js"
 	]
 }
