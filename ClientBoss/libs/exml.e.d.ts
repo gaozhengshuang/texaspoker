@@ -30,6 +30,8 @@ declare module skins{
 }
 declare class WelcomePanelSkin extends eui.Skin{
 }
+declare class AvatarSkin extends eui.Skin{
+}
 declare class BattleBagItemSkin extends eui.Skin{
 }
 declare class BattleBagSkin extends eui.Skin{
@@ -65,8 +67,6 @@ declare class BattleSceneSkin extends eui.Skin{
 declare class BattleSpBarSkin extends eui.Skin{
 }
 declare class BattleTimeBoomSkin extends eui.Skin{
-}
-declare class AvatarSkin extends eui.Skin{
 }
 declare class BadBuffProgressBar extends eui.Skin{
 }

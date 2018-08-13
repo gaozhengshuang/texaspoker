@@ -204,7 +204,7 @@ module game {
         private _rightWall: BattleWall;
 
         private initWorld() {
-            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.SHOW_ALL;
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
             
             const stageWidth = gameConfig.curWidth();
             const stageHeight = gameConfig.curHeight();
@@ -313,7 +313,7 @@ module game {
         }
 
         protected beforeShow() {
-            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.SHOW_ALL;
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
 
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
             let add_y = 0;
