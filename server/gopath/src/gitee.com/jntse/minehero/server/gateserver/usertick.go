@@ -14,45 +14,65 @@ import (
 /// @brief 
 // --------------------------------------------------------------------------
 type UserTicker struct {
-	ticker1s	*util.GameTicker
-	ticker5s	*util.GameTicker
-	ticker1m	*util.GameTicker
-	ticker10ms 	*util.GameTicker
-	ticker100ms *util.GameTicker
+	//ticker1s	*util.GameTicker
+	//ticker5s	*util.GameTicker
+	//ticker1m	*util.GameTicker
+	//ticker10ms *util.GameTicker
+	//ticker100ms *util.GameTicker
+	tickers []*util.GameTicker
 }
 
 func (t *UserTicker) Init(handler10ms, handler100ms, handler1s, handler5s, handler1m util.TickerCallbackHandle) {
-	t.ticker10ms = util.NewGameTicker(10 * time.Millisecond, handler10ms)
-	t.ticker100ms = util.NewGameTicker(100 * time.Millisecond, handler100ms)
-	t.ticker1s = util.NewGameTicker(1 * time.Second, handler1s)
-	t.ticker5s = util.NewGameTicker(5 * time.Second, handler5s)
-	t.ticker1m = util.NewGameTicker(1 * time.Minute, handler1m)
+	ticker10ms := util.NewGameTicker(10 * time.Millisecond, handler10ms)
+	ticker100ms := util.NewGameTicker(100 * time.Millisecond, handler100ms)
+	ticker1s := util.NewGameTicker(1 * time.Second, handler1s)
+	ticker5s := util.NewGameTicker(5 * time.Second, handler5s)
+	ticker1m := util.NewGameTicker(1 * time.Minute, handler1m)
+
+	t.tickers = make([]*util.GameTicker, 0)
+	t.tickers = append(t.tickers, ticker10ms)
+	t.tickers = append(t.tickers, ticker100ms)
+	t.tickers = append(t.tickers, ticker1s)
+	t.tickers = append(t.tickers, ticker5s)
+	t.tickers = append(t.tickers, ticker1m)
 }
 
 
 func (t *UserTicker) Start() {
-	t.ticker10ms.Start()
-	t.ticker100ms.Start()
-	t.ticker1s.Start()
-	t.ticker5s.Start()
-	t.ticker1m.Start()
+	for _, t := range t.tickers {
+		t.Start()
+	}
+
+	//t.ticker10ms.Start()
+	//t.ticker100ms.Start()
+	//t.ticker1s.Start()
+	//t.ticker5s.Start()
+	//t.ticker1m.Start()
 }
 
 func (t *UserTicker) Stop() {
-	t.ticker10ms.Stop()
-	t.ticker100ms.Stop()
-	t.ticker1s.Stop()
-	t.ticker5s.Stop()
-	t.ticker1m.Stop()
+	for _, t := range t.tickers {
+		t.Stop()
+	}
+
+	//t.ticker10ms.Stop()
+	//t.ticker100ms.Stop()
+	//t.ticker1s.Stop()
+	//t.ticker5s.Stop()
+	//t.ticker1m.Stop()
 }
 
 func (this *UserTicker) Run(now int64) {
-	// 嵌套节省
-	this.ticker10ms.Run(now)
-	this.ticker100ms.Run(now)
-	if this.ticker1s.Run(now) {
-		if this.ticker5s.Run(now) { this.ticker1m.Run(now) }
+	for _ , t := range this.tickers {
+		t.Run(now)
 	}
+
+	// 嵌套节省
+	//this.ticker10ms.Run(now)
+	//this.ticker100ms.Run(now)
+	//if this.ticker1s.Run(now) {
+	//	if this.ticker5s.Run(now) { this.ticker1m.Run(now) }
+	//}
 }
 
 func (this *GateUser) OnTicker10ms(now int64) {
