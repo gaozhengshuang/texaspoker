@@ -1121,6 +1121,7 @@ module game {
         }
 
         protected beforeRemove() {
+            GameConfig.showDownBtnFun(true);
             egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.NO_SCALE;
 
             this._doubleTime = 0;
