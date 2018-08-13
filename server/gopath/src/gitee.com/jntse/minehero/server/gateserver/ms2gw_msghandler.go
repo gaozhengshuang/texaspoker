@@ -55,6 +55,11 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2MS_UserOnlineState{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateHouse{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqUserHouse{})
+
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqHouseLevelUp{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqHouseCellLevelUp{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeSelfHouseGold{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeOtherHouseGold{})
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -128,9 +133,53 @@ func on_MS2Server_AckUserHouse(session network.IBaseNetSession, message interfac
 		log.Error("玩家:%d 请求创建房间返回，但找不到玩家", uid)
 		return
 	}
-	send := &msg.GW2C_AckHouseData{}
-	send.Datas = tmsg.GetData()
-	user.SendMsg(send)
+	user.UpdateHouseData(tmsg.GetData())
+	/*
+		send := &msg.GW2C_AckHouseData{}
+		send.Datas = tmsg.GetData()
+		user.SendMsg(send)
+	*/
+}
+
+func on_MS2GW_AckHouseLevelUp(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckHouseLevelUp)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 升级房屋返回，但找不到玩家", uid)
+		return
+	}
+
+}
+
+func on_MS2GW_AckHouseCellLevelUp(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckHouseCellLevelUp)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 升级房屋房间Cell返回，但找不到玩家", uid)
+		return
+	}
+}
+
+func on_MS2GW_AckTakeSelfHouseGoldRet(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckTakeSelfHouseGoldRet)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 收获金币返回，但找不到玩家", uid)
+		return
+	}
+}
+
+func on_MS2GW_AckTakeOtherHouseGoldRet(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckTakeOtherHouseGoldRet)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 抢夺金币返回，但找不到玩家", uid)
+		return
+	}
 }
 
 func DoGMCmd(cmd map[string]string) {

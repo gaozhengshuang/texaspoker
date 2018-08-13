@@ -140,6 +140,44 @@ message GW2MS_ReqHouseCellLevelUp {
 	optional uint32 index = 3;
 }
 
+//返回玩家请求升级房屋的房间
+message MS2GW_AckHouseCellLevelUp {
+ 	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+	optional uint32 index = 3;
+	optional uint32 ret = 4;
+}
+
+//玩家请求收金币
+message GW2MS_ReqTakeSelfHouseGold {
+	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+	optional uint32 index = 3;
+}
+
+//返回玩家请求收金币
+message MS2GW_AckTakeSelfHouseGoldRet {
+	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+	optional uint32 index = 3;
+	optional uint32 gold = 4;
+}
+
+//玩家请求抢别人金币
+message GW2MS_ReqTakeOtherHouseGold {
+	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+	optional uint32 index = 3;
+}
+
+//返回玩家请求抢别人金币
+message MS2GW_AckTakeOtherHouseGoldRet {
+	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+	optional uint32 index = 3;
+	optional uint32 gold = 4;
+}
+
 
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> RoomServer
