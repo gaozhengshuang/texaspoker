@@ -83,6 +83,7 @@ message UserBase {
     optional LuckyDrawRecord luckydraw = 18;   // 抽奖
     optional uint32     total_recharge = 19; // 总充值
     optional PersonalImage images = 20;     // 个人形象
+	optional uint32 	newplayerstep = 21; // 新手引导
 }
 
 message UserAddress {

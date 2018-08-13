@@ -135,7 +135,9 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 130, Name : "msg.GW2C_SendLuckyDrawRecord" 	},
 		{ Id : 131, Name : "msg.C2GW_ReqTaskList" 	},
 		{ Id : 132, Name : "msg.C2GW_ReqHouseData" 	},
-		{ Id : 133, Name : "msg.GW2C_AckHouseData" 	}
+		{ Id : 133, Name : "msg.GW2C_AckHouseData" 	},
+		{ Id : 134, Name : "msg.C2GW_ReqSetNewPlayerStep" 	},
+		{ Id : 135, Name : "msg.GW2C_AckNewPlayerStep" 	}
 	]
 
 
