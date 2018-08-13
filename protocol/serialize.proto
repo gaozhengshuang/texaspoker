@@ -1,5 +1,6 @@
 syntax = "proto2";
 package msg;
+import "serialize.proto";
 
 message EntityBase {
     optional uint64 id      = 1;
