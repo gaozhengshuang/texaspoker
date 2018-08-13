@@ -1,6 +1,6 @@
 package main
+
 import (
-	"reflect"
 	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
@@ -8,9 +8,9 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
+	"reflect"
 	"time"
 )
-
 
 //func init() {
 //	NewGW2MSMsgHandler()
@@ -26,7 +26,7 @@ func NewGW2MSMsgHandler() *GW2MSMsgHandler {
 	return handler
 }
 
-func (this* GW2MSMsgHandler) Init() {
+func (this *GW2MSMsgHandler) Init() {
 
 	this.msgparser = network.NewProtoParser("GW2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
 	if this.msgparser == nil {
@@ -40,6 +40,9 @@ func (this* GW2MSMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCancelMatch{}, on_GW2MS_ReqCancelMatch)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_UserOnlineState{}, on_GW2MS_UserOnlineState)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateHouse{}, on_GW2MS_ReqCreateHouse)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqUserHouse{}, on_GW2MS_ReqUserHouse)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
@@ -50,7 +53,7 @@ func (this* GW2MSMsgHandler) Init() {
 	//this.msgparser.RegistSendProto(msg.MS2GW_MatchOk{})
 	this.msgparser.RegistSendProto(msg.MS2GW_RetCreateRoom{})
 	this.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
-
+	this.msgparser.RegistSendProto(msg.MS2GW_AckUserHouse{})
 }
 
 func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
@@ -59,19 +62,21 @@ func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}
 
 	userid := tmsg.GetUserid()
 	log.Info("收到玩家[%d] 创建房间请求 ts[%d]", userid, util.CURTIMEMS())
-	doCreateRoomReply := func (id uint64, err string) {
-		send := &msg.MS2GW_RetCreateRoom  { 
-			Userid : pb.Uint64(id),
-			Errcode : pb.String(err),
-			Roomid : pb.Int64(0),
+	doCreateRoomReply := func(id uint64, err string) {
+		send := &msg.MS2GW_RetCreateRoom{
+			Userid:  pb.Uint64(id),
+			Errcode: pb.String(err),
+			Roomid:  pb.Int64(0),
 		}
 		session.SendCmd(send)
-		if err != "" { log.Error("玩家[%d] 创建房间失败: %s", id, err) }
+		if err != "" {
+			log.Error("玩家[%d] 创建房间失败: %s", id, err)
+		}
 	}
 
 	if RoomSvrMgr().Num() == 0 {
 		doCreateRoomReply(userid, "没有可用的房间服务器")
-		return 
+		return
 	}
 
 	// 创建房间信息
@@ -99,11 +104,11 @@ func on_GW2MS_ReqRegist(session network.IBaseNetSession, message interface{}) {
 
 	if GateSvrMgr().IsRegisted(name, ip, port) == true {
 		log.Fatal(fmt.Sprintf("重复注册网关服务器 [%s] [%s:%d]", name, ip, port))
-		session.SendCmd(&msg.MS2GW_RetRegist{Errcode:pb.String("重复注册网关服务器")})
+		session.SendCmd(&msg.MS2GW_RetRegist{Errcode: pb.String("重复注册网关服务器")})
 		return
 	}
-	session.SendCmd(&msg.MS2GW_RetRegist{Host:tmsg.Host})
-	
+	session.SendCmd(&msg.MS2GW_RetRegist{Host: tmsg.Host})
+
 	// 添加gate
 	GateSvrMgr().AddNewSession(session, name, ip, port)
 }
@@ -116,7 +121,37 @@ func on_GW2MS_HeartBeat(session network.IBaseNetSession, message interface{}) {
 func on_GW2MS_MsgNotice(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_MsgNotice)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	send := &msg.MS2GW_MsgNotice{ Notice : tmsg.GetNotice() }
+	send := &msg.MS2GW_MsgNotice{Notice: tmsg.GetNotice()}
 	Match().BroadcastGateMsg(send)
 }
 
+func on_GW2MS_UserOnlineState(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_UserOnlineState)
+	uid := tmsg.GetUserid()
+	state := tmsg.GetState()
+	HouseSvrMgr().OnSyncUserOnlineState(uid, state, session.Id())
+}
+
+func on_GW2MS_ReqCreateHouse(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqCreateHouse)
+	uid := tmsg.GetUserid()
+	housetid := tmsg.GetHousetid()
+	HouseSvrMgr().CreateNewHouse(uid, housetid)
+}
+
+func on_GW2MS_ReqUserHouse(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqUserHouse)
+	uid := tmsg.GetUserid()
+
+	log.Info("on_GW2MS_ReqUserHouse %d", uid)
+	send := &msg.MS2GW_AckUserHouse{}
+	send.Userid = pb.Uint64(uid)
+	datas := send.GetData()
+
+	info := HouseSvrMgr().GetHousesByUser(uid)
+	for _, v := range info {
+		tmp := v.PackBin()
+		datas = append(datas, tmp)
+	}
+	session.SendCmd(send)
+}

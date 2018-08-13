@@ -83,3 +83,15 @@ message C2GW_ReqHouseData {
 message GW2C_AckHouseData {
 	repeated msg.HouseData datas = 1;
 }
+
+// 请求设置引导标记
+message C2GW_ReqSetNewPlayerStep {
+	optional uint32 step = 1;
+}
+
+// 返回设置引导标记
+message GW2C_AckNewPlayerStep {
+	optional uint32 step = 1;
+}
+
+
