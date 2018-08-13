@@ -249,6 +249,7 @@ func (this *LoginServer) OnStart() {
 
 // 程序退出最后清理
 func (this *LoginServer) OnStop() {
+	this.hredis.Close()
 }
 
 //  退出

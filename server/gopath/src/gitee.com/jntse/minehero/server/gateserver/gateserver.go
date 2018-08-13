@@ -322,6 +322,7 @@ func (this *GateServer) OnStop() {
 	this.ticker1s.Stop()
 	this.ticker1m.Stop()
 	this.ticker100ms.Stop()
+	this.hredis.Close()
 }
 
 func (this *GateServer) ClientListenerConf() *network.WsListenConf {
