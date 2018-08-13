@@ -160,4 +160,14 @@ message GW2C_NotifyRobCount {
 	optional uint32 value = 1;
 }
 
+//请求其他人的房屋信息
+message C2GW_ReqOtherUserHouseData {
+	optional uint64 userid = 1;
+}
+
+//返回请求其他人的房屋信息
+message GW2C_AckOtherUserHouseData {
+	repeated msg.HouseData datas = 1;
+}
+
 

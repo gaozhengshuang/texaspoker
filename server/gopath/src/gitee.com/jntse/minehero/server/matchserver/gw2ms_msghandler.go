@@ -49,6 +49,7 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqTakeSelfHouseGold{}, on_GW2MS_ReqTakeSelfHouseGold)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqTakeOtherHouseGold{}, on_GW2MS_ReqTakeOtherHouseGold)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRandHouseList{}, on_GW2MS_ReqRandHouseList)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqOtherUserHouseData{}, on_GW2MS_ReqOtherUserHouseData)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
@@ -66,6 +67,7 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeSelfHouseGoldRet{})
 	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeOtherHouseGoldRet{})
 	this.msgparser.RegistSendProto(msg.MS2GW_AckRandHouseList{})
+	this.msgparser.RegistSendProto(msg.MS2GW_AckOtherUserHouseData{})
 }
 
 func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
@@ -246,4 +248,23 @@ func on_GW2MS_ReqRandHouseList(session network.IBaseNetSession, message interfac
 	data := HouseSvrMgr().GetRandHouseList()
 	send.Datas = data
 	session.SendCmd(send)
+}
+
+func on_GW2MS_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqOtherUserHouseData)
+	uid := tmsg.GetUserid()
+	log.Info("on_GW2MS_ReqOtherUserHouseData %d", uid)
+	otherid := tmsg.GetOtherid()
+	send := &msg.MS2GW_AckOtherUserHouseData{}
+	send.Userid = pb.Uint64(uid)
+	send.Otherid = pb.Uint64(otherid)
+	info := HouseSvrMgr().GetHousesByUser(otherid)
+	datas := send.GetDatas()
+	for _, v := range info {
+		tmp := v.PackBin()
+		datas = append(datas, tmp)
+	}
+	send.Datas = datas
+	session.SendCmd(send)
+
 }

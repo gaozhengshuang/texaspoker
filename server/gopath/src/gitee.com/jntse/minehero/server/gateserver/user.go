@@ -1152,3 +1152,10 @@ func (this *GateUser) OnlineUpdateRobCount() {
 		this.SetRobCount(this.GetRobCount() + 5)
 	}
 }
+
+func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
+	sendmatch := &msg.GW2MS_ReqOtherUserHouseData{}
+	sendmatch.Userid = pb.Uint64(this.Id())
+	sendmatch.Otherid = pb.Uint64(otherid)
+	Match().SendCmd(sendmatch)
+}

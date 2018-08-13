@@ -79,6 +79,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeSelfHouseGold{}, on_C2GW_ReqTakeSelfHouseGold)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeOtherHouseGold{}, on_C2GW_ReqTakeOtherHouseGold)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRandHouseList{}, on_C2GW_ReqRandHouseList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqOtherUserHouseData{}, on_C2GW_ReqOtherUserHouseData)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -920,4 +921,16 @@ func on_C2GW_ReqRandHouseList(session network.IBaseNetSession, message interface
 		return
 	}
 	user.ReqRandHouseList()
+}
+
+func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqOtherUserHouseData)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	otherid := tmsg.GetUserid()
+	user.ReqOtherUserHouse(otherid)
 }

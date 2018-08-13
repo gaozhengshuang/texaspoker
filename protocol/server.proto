@@ -191,6 +191,20 @@ message MS2GW_AckRandHouseList {
 	repeated msg.HouseData datas = 2;
 }
 
+//请求其他人的房屋信息
+message GW2MS_ReqOtherUserHouseData {
+	optional uint64 userid = 1;
+	optional uint64 otherid = 2;
+}
+
+message MS2GW_AckOtherUserHouseData {
+	optional uint64 userid = 1;
+	optional uint64 otherid = 2;
+	repeated msg.HouseData datas = 3;
+}
+
+
+
 
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> RoomServer

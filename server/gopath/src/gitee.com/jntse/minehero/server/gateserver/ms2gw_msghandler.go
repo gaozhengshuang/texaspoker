@@ -50,6 +50,7 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckTakeSelfHouseGoldRet{}, on_MS2GW_AckTakeSelfHouseGoldRet)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckTakeOtherHouseGoldRet{}, on_MS2GW_AckTakeOtherHouseGoldRet)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckRandHouseList{}, on_MS2GW_AckRandHouseList)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckOtherUserHouseData{}, on_MS2GW_AckOtherUserHouseData)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
@@ -67,6 +68,7 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeSelfHouseGold{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeOtherHouseGold{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRandHouseList{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqOtherUserHouseData{})
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -225,6 +227,20 @@ func on_MS2GW_AckRandHouseList(session network.IBaseNetSession, message interfac
 	}
 
 	send := &msg.GW2C_AckRandHouseList{}
+	send.Datas = tmsg.GetDatas()
+	user.SendMsg(send)
+}
+
+func on_MS2GW_AckOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckOtherUserHouseData)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 申请查看其他玩家房屋信息返回，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_AckOtherUserHouseData{}
 	send.Datas = tmsg.GetDatas()
 	user.SendMsg(send)
 }
