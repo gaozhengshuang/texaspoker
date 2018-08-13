@@ -1,6 +1,6 @@
 syntax = "proto2";
 package msg;
-
+import "serialize.proto";
 //我的车辆信息
 message C2GW_ReqCarInfo {
 
