@@ -351,7 +351,8 @@ func TestRedisCluster() {
 		log.Println("redis cluster ping err: ", err)
 		return
 	}
-	//log.Println(clusteropt.ClusterSlots)
+	log.Println("\n",client.ClusterNodes())
+	//log.Println("\n",client.ClusterSlots())
 
 	// flush all
 	//client.FlushAll().Result()
