@@ -114,10 +114,6 @@ declare class RankItemSkin extends eui.Skin{
 }
 declare class RankPanelSkin extends eui.Skin{
 }
-declare class WinRankItemSkin extends eui.Skin{
-}
-declare class WinSceneSkin extends eui.Skin{
-}
 declare class ChooseIconSkin extends eui.Skin{
 }
 declare class CoinsSkin extends eui.Skin{
@@ -133,4 +129,8 @@ declare class RoleDressSkin extends eui.Skin{
 declare class ShopItemSkin extends eui.Skin{
 }
 declare class ShoppingCartSkin extends eui.Skin{
+}
+declare class WinRankItemSkin extends eui.Skin{
+}
+declare class WinSceneSkin extends eui.Skin{
 }

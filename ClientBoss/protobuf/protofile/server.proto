@@ -120,6 +120,27 @@ message MS2GW_AckUserHouse {
 	repeated msg.HouseData data = 2;
 }
 
+//玩家请求升级房屋
+message GW2MS_ReqHouseLevelUp {
+	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+}
+ 
+//返回升级房屋
+message MS2GW_AckHouseLevelUp {
+	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+	optional uint32 ret = 3;
+}
+
+//玩家请求升级房屋的房间
+message GW2MS_ReqHouseCellLevelUp {
+	optional uint64 userid = 1;
+	optional uint64 houseid = 2;
+	optional uint32 index = 3;
+}
+
+
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> RoomServer
 // --------------------------------------------------------------------------
