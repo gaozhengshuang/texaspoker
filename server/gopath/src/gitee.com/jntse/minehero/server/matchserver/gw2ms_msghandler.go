@@ -54,6 +54,11 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.MS2GW_RetCreateRoom{})
 	this.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
 	this.msgparser.RegistSendProto(msg.MS2GW_AckUserHouse{})
+
+	this.msgparser.RegistSendProto(msg.MS2GW_AckHouseLevelUp{})
+	this.msgparser.RegistSendProto(msg.MS2GW_AckHouseCellLevelUp{})
+	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeSelfHouseGoldRet{})
+	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeOtherHouseGoldRet{})
 }
 
 func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
@@ -154,4 +159,28 @@ func on_GW2MS_ReqUserHouse(session network.IBaseNetSession, message interface{})
 		datas = append(datas, tmp)
 	}
 	session.SendCmd(send)
+}
+
+func on_GW2MS_ReqHouseLevelUp(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqHouseLevelUp)
+	uid := tmsg.GetUserid()
+	log.Info("on_GW2MS_ReqHouseLevelUp %d", uid)
+}
+
+func on_GW2MS_ReqHouseCellLevelUp(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqHouseCellLevelUp)
+	uid := tmsg.GetUserid()
+	log.Info("on_GW2MS_ReqHouseCellLevelUp %d", uid)
+}
+
+func on_GW2MS_ReqTakeSelfHouseGold(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqTakeSelfHouseGold)
+	uid := tmsg.GetUserid()
+	log.Info("on_GW2MS_ReqTakeSelfHouseGold %d", uid)
+}
+
+func on_GW2MS_ReqTakeOtherHouseGold(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqTakeOtherHouseGold)
+	uid := tmsg.GetUserid()
+	log.Info("on_GW2MS_ReqTakeSelfHouseGold %d", uid)
 }

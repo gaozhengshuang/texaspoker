@@ -992,3 +992,8 @@ func (this *GateUser) SendHouseData() {
 		send.Datas = append(send.Datas, v)
 	}
 }
+
+func (this *GateUser) UpdateHouseData(data []*msg.HouseData) {
+	this.housedata = data
+	this.SendHouseData()
+}
