@@ -15,7 +15,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	_ "strings"
-	_ "time"
+	"time"
 )
 
 //const (
@@ -73,6 +73,7 @@ type DBUserData struct {
 	luckydrawtotal int64
 	totalrecharge  uint32 // 总充值
 	newplayerstep  uint32 // 新手引导步骤
+	robcount       uint32 // 抢钱次数
 }
 
 // --------------------------------------------------------------------------
@@ -321,6 +322,22 @@ func (this *GateUser) SetNewPlayerStep(step uint32) {
 	this.newplayerstep = step
 }
 
+func (this *GateUser) GetRobCount() uint32 {
+	return this.robcount
+}
+
+func (this *GateUser) SetRobCount(count uint32) {
+	if count > 10 {
+		this.robcount = 10
+	} else {
+		this.robcount = count
+	}
+
+	send := &msg.GW2C_NotifyRobCount{}
+	send.Value = pb.Uint32(this.robcount)
+	this.SendMsg(send)
+}
+
 func (this *GateUser) SendMsg(msg pb.Message) {
 	if this.online == false {
 		log.Info("账户[%s] [%d %s] 不在线", this.Account(), this.Id(), this.Name())
@@ -542,8 +559,10 @@ func (this *GateUser) OnCreateNew() {
 	send := &msg.GW2MS_ReqCreateHouse{}
 	send.Userid = pb.Uint64(this.Id())
 	send.Housetid = pb.Uint32(1001)
+	send.Ownername = pb.String(this.Name())
 	Match().SendCmd(send)
 	this.newplayerstep = 0
+	this.robcount = 10
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -580,7 +599,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	//this.SynMidasBalance()
 	//上线通知MatchServer
 	this.OnlineMatchServer()
-	this.ReqMatchHouseData()
+	//this.ReqMatchHouseData()
 	return true
 }
 
@@ -991,9 +1010,137 @@ func (this *GateUser) SendHouseData() {
 	for _, v := range this.housedata {
 		send.Datas = append(send.Datas, v)
 	}
+	this.SendMsg(send)
 }
 
 func (this *GateUser) UpdateHouseData(data []*msg.HouseData) {
 	this.housedata = data
 	this.SendHouseData()
+}
+
+func (this *GateUser) GetUserHouseDataByHouseId(houseid uint64) *msg.HouseData {
+	for _, v := range this.housedata {
+		if houseid == v.GetId() {
+			return v
+		}
+	}
+	return nil
+}
+
+func (this *GateUser) HouseLevelUp(houseid uint64) {
+	house := this.GetUserHouseDataByHouseId(houseid)
+	if house != nil {
+		base, find := tbl.THouseBase.THouseById[house.GetTid()]
+		if find == false {
+			log.Error("无效的房屋  tid[%d]", house.GetTid())
+			return
+		}
+		if house.GetLevel() >= base.MaxLevel {
+			//房屋到最高等级
+			return
+		}
+		needgold := base.LevelUpCost
+		if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
+			//钱不够
+			return
+		} else {
+			sendmatch := &msg.GW2MS_ReqHouseLevelUp{}
+			sendmatch.Userid = pb.Uint64(this.Id())
+			sendmatch.Houseid = pb.Uint64(house.GetId())
+			Match().SendCmd(sendmatch)
+		}
+	} else {
+		log.Error("HouseLevelUp house not found id:%d", houseid)
+	}
+}
+
+func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
+	house := this.GetUserHouseDataByHouseId(houseid)
+	if house != nil {
+		cells := house.GetHousecells()
+		for _, v := range cells {
+			if v.GetIndex() == index {
+				base, find := tbl.THouseCellBase.THouseCellById[v.GetTid()]
+				if find == false {
+					log.Error("无效的房间Cell  tid[%d]", v.GetTid())
+					return
+				}
+				if v.GetLevel() >= base.MaxLevel {
+					//Cell到最高等级
+					return
+				}
+				needgold := base.LevelUpCost
+				if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
+					//钱不够
+					return
+				} else {
+					sendmatch := &msg.GW2MS_ReqHouseCellLevelUp{}
+					sendmatch.Userid = pb.Uint64(this.Id())
+					sendmatch.Houseid = pb.Uint64(houseid)
+					sendmatch.Index = pb.Uint32(index)
+					Match().SendCmd(sendmatch)
+				}
+
+				return
+			}
+		}
+		//here not find index
+		log.Error("HouseCellLevelUp index not found index:%d", index)
+	} else {
+		log.Error("HouseCellLevelUp house not found id:%d", houseid)
+	}
+
+}
+
+func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
+	house := this.GetUserHouseDataByHouseId(houseid)
+	if house != nil {
+		cells := house.GetHousecells()
+		for _, v := range cells {
+			if v.GetIndex() == index {
+				if v.GetGold() <= 0 {
+					//没钱可取
+					return
+				}
+				sendmatch := &msg.GW2MS_ReqTakeSelfHouseGold{}
+				sendmatch.Userid = pb.Uint64(this.Id())
+				sendmatch.Houseid = pb.Uint64(houseid)
+				sendmatch.Index = pb.Uint32(index)
+				Match().SendCmd(sendmatch)
+				return
+			}
+		}
+		//here not find index
+		log.Error("TakeSelfHouseGold index not found index:%d", index)
+	} else {
+		log.Error("TakeSelfHouseGold house not found id:%d", houseid)
+	}
+
+}
+
+func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
+	if this.robcount <= 0 {
+		return
+	}
+	sendmatch := &msg.GW2MS_ReqTakeOtherHouseGold{}
+	sendmatch.Userid = pb.Uint64(this.Id())
+	sendmatch.Houseid = pb.Uint64(houseid)
+	sendmatch.Index = pb.Uint32(index)
+	sendmatch.Username = pb.String(this.Name())
+	Match().SendCmd(sendmatch)
+}
+
+func (this *GateUser) ReqRandHouseList() {
+	sendmatch := &msg.GW2MS_ReqRandHouseList{}
+	sendmatch.Userid = pb.Uint64(this.Id())
+	Match().SendCmd(sendmatch)
+}
+
+//上限检查更新 抢钱次数
+func (this *GateUser) OnlineUpdateRobCount() {
+	nowtimehour := time.Now().Format("2006010215")
+	logouttimehour := time.Unix(this.tm_logout, 0).Format("2006010215")
+	if nowtimehour != logouttimehour {
+		this.SetRobCount(this.GetRobCount() + 5)
+	}
 }

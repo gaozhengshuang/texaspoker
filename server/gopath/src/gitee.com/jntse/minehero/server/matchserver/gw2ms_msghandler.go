@@ -44,6 +44,12 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateHouse{}, on_GW2MS_ReqCreateHouse)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqUserHouse{}, on_GW2MS_ReqUserHouse)
 
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseLevelUp{}, on_GW2MS_ReqHouseLevelUp)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseCellLevelUp{}, on_GW2MS_ReqHouseCellLevelUp)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqTakeSelfHouseGold{}, on_GW2MS_ReqTakeSelfHouseGold)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqTakeOtherHouseGold{}, on_GW2MS_ReqTakeOtherHouseGold)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRandHouseList{}, on_GW2MS_ReqRandHouseList)
+
 	// 发
 	this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
 	this.msgparser.RegistSendProto(msg.MS2GW_HeartBeat{})
@@ -59,6 +65,7 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.MS2GW_AckHouseCellLevelUp{})
 	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeSelfHouseGoldRet{})
 	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeOtherHouseGoldRet{})
+	this.msgparser.RegistSendProto(msg.MS2GW_AckRandHouseList{})
 }
 
 func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
@@ -141,7 +148,8 @@ func on_GW2MS_ReqCreateHouse(session network.IBaseNetSession, message interface{
 	tmsg := message.(*msg.GW2MS_ReqCreateHouse)
 	uid := tmsg.GetUserid()
 	housetid := tmsg.GetHousetid()
-	HouseSvrMgr().CreateNewHouse(uid, housetid)
+	ownername := tmsg.GetOwnername()
+	HouseSvrMgr().CreateNewHouse(uid, housetid, ownername)
 }
 
 func on_GW2MS_ReqUserHouse(session network.IBaseNetSession, message interface{}) {
@@ -158,6 +166,7 @@ func on_GW2MS_ReqUserHouse(session network.IBaseNetSession, message interface{})
 		tmp := v.PackBin()
 		datas = append(datas, tmp)
 	}
+	send.Data = datas
 	session.SendCmd(send)
 }
 
@@ -165,22 +174,76 @@ func on_GW2MS_ReqHouseLevelUp(session network.IBaseNetSession, message interface
 	tmsg := message.(*msg.GW2MS_ReqHouseLevelUp)
 	uid := tmsg.GetUserid()
 	log.Info("on_GW2MS_ReqHouseLevelUp %d", uid)
+
+	houseid := tmsg.GetHouseid()
+	ret := HouseSvrMgr().HouseLevelUp(uid, houseid)
+	send := &msg.MS2GW_AckHouseLevelUp{}
+	send.Userid = pb.Uint64(uid)
+	send.Houseid = pb.Uint64(houseid)
+	send.Ret = pb.Uint32(ret)
+	session.SendCmd(send)
 }
 
 func on_GW2MS_ReqHouseCellLevelUp(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_ReqHouseCellLevelUp)
 	uid := tmsg.GetUserid()
 	log.Info("on_GW2MS_ReqHouseCellLevelUp %d", uid)
+	houseid := tmsg.GetHouseid()
+	index := tmsg.GetIndex()
+	ret := HouseSvrMgr().HouseCellLevelUp(houseid, houseid, index)
+
+	send := &msg.MS2GW_AckHouseCellLevelUp{}
+	send.Userid = pb.Uint64(uid)
+	send.Houseid = pb.Uint64(houseid)
+	send.Index = pb.Uint32(index)
+	send.Ret = pb.Uint32(ret)
+	session.SendCmd(send)
+
 }
 
 func on_GW2MS_ReqTakeSelfHouseGold(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_ReqTakeSelfHouseGold)
 	uid := tmsg.GetUserid()
 	log.Info("on_GW2MS_ReqTakeSelfHouseGold %d", uid)
+	houseid := tmsg.GetHouseid()
+	index := tmsg.GetIndex()
+	gold := HouseSvrMgr().TakeSelfHouseGold(houseid, houseid, index)
+
+	send := &msg.MS2GW_AckTakeSelfHouseGoldRet{}
+	send.Userid = pb.Uint64(uid)
+	send.Houseid = pb.Uint64(houseid)
+	send.Index = pb.Uint32(index)
+	send.Gold = pb.Uint32(gold)
+	session.SendCmd(send)
+
 }
 
 func on_GW2MS_ReqTakeOtherHouseGold(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_ReqTakeOtherHouseGold)
 	uid := tmsg.GetUserid()
 	log.Info("on_GW2MS_ReqTakeSelfHouseGold %d", uid)
+	houseid := tmsg.GetHouseid()
+	index := tmsg.GetIndex()
+	visitorname := tmsg.GetUsername()
+	gold := HouseSvrMgr().TakeOtherHouseGold(houseid, index, uid, visitorname)
+
+	send := &msg.MS2GW_AckTakeSelfHouseGoldRet{}
+	send.Userid = pb.Uint64(uid)
+	send.Houseid = pb.Uint64(houseid)
+	send.Index = pb.Uint32(index)
+	send.Gold = pb.Uint32(gold)
+	session.SendCmd(send)
+
+}
+
+func on_GW2MS_ReqRandHouseList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqRandHouseList)
+	uid := tmsg.GetUserid()
+	log.Info("on_GW2MS_ReqRandHouseList %d", uid)
+
+	send := &msg.MS2GW_AckRandHouseList{}
+	send.Userid = pb.Uint64(uid)
+	data := HouseSvrMgr().GetRandHouseList()
+	send.Datas = data
+	session.SendCmd(send)
 }

@@ -100,6 +100,7 @@ message GW2MS_UserOnlineState {
 message GW2MS_ReqCreateHouse {
 	optional uint64 userid = 1; 	//玩家id
 	optional uint32 housetid = 2; 	//房屋的配置id
+	optional string ownername = 3;  //玩家名字
 }
 
 //返回玩家创建新房屋
@@ -168,6 +169,7 @@ message GW2MS_ReqTakeOtherHouseGold {
 	optional uint64 userid = 1;
 	optional uint64 houseid = 2;
 	optional uint32 index = 3;
+	optional string username = 4;
 }
 
 //返回玩家请求抢别人金币
@@ -176,6 +178,17 @@ message MS2GW_AckTakeOtherHouseGoldRet {
 	optional uint64 houseid = 2;
 	optional uint32 index = 3;
 	optional uint32 gold = 4;
+}
+
+//玩家请求获取随机的房屋列表
+message GW2MS_ReqRandHouseList {
+	optional uint64 userid = 1;
+}
+
+//返回随机的房屋列表
+message MS2GW_AckRandHouseList {
+	optional uint64 userid = 1;
+	repeated msg.HouseData datas = 2;
 }
 
 
