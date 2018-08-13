@@ -316,13 +316,9 @@ module game {
             egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
 
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
-            let add_y = 0;
-            if (gameConfig.isIphoneX()) {
-                add_y = 20;
-            }
             let paddle = this._paddlePool.createObject();
             paddle.setData(1);
-            paddle.resetPosition(this.mainGroup.y + add_y);
+            paddle.resetPosition(this.mainGroup.y);
             this.paddleGroup.addChild(paddle);
             this._paddle = paddle;
             this._diedY = this._paddle.y + this._paddle.height / 2;
