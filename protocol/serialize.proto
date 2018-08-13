@@ -1,5 +1,6 @@
 syntax = "proto2";
 package msg;
+import "serialize.proto";
 
 message EntityBase {
     optional uint64 id      = 1;
@@ -83,6 +84,7 @@ message UserBase {
     optional LuckyDrawRecord luckydraw = 18;   // 抽奖
     optional uint32     total_recharge = 19; // 总充值
     optional PersonalImage images = 20;     // 个人形象
+	optional uint32 	newplayerstep = 21; // 新手引导
 }
 
 message UserAddress {
@@ -135,4 +137,26 @@ message HouseData {
 	optional uint32 level = 5; //房屋等级
 	repeated HouseCell housecells = 6; //每个房间信息 
 	repeated HouseVisitInfo visitinfo = 7; //操作记录 要限定条数 
+}
+
+
+//车的相关信息
+message CarData {
+    optional uint64 id = 1;                 //车辆id
+    optional uint32 tid = 2;                //配置id
+    optional uint64 ownerid = 3;            //拥有者id 
+    optional uint64 createtime = 4;         //创建时间
+    optional uint64 parkingid = 5;          //停车位id 未停车为0
+}
+
+//车位信息
+message ParkingData{
+    optional uint64 id = 1;                 //车位id
+    optional uint32 tid = 2;                //配置id
+    optional uint64 ownerid = 3;            //拥有者id 公共车位为0
+    optional uint64 parkingcar = 4;         //停的车辆id
+    optional uint64 parkingcarownerid = 5;  //停的车主人id
+    optional uint64 parkingcarownername = 6;//停的车主人名字
+    optional uint64 parkingtime = 7;        //开始停车时间戳
+    optional uint32 parkingreward = 8 ;     //停车获得收益
 }

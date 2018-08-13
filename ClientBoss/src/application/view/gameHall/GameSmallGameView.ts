@@ -22,9 +22,8 @@ module game {
 
             egret.setTimeout(() => {
                 BattleManager.getInstance().isRetStartGame = true;
+				this.dispatchEvent(new BasicEvent(GameSmallGameView.CLOSE));
             }, this, 1000);
-			
-			
 		}
 		private onclick_begin() {
             this.dispatchEvent(new BasicEvent(GameSmallGameView.CLOSE));
