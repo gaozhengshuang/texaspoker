@@ -40,7 +40,7 @@ message GW2C_TakeBackCarResult {
 }
 //贴条
 message C2GW_TicketCar {
-    optional uint64 parkingid;                          //车位id
+    optional uint64 parkingid = 1;                      //车位id
 }
 message GW2C_TicketCarResult {
     optional int32 result = 1;                          //贴条结果 0为成功 其他失败
