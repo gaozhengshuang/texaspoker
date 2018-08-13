@@ -543,6 +543,7 @@ func (this *GateUser) OnCreateNew() {
 	send.Userid = pb.Uint64(this.Id())
 	send.Housetid = pb.Uint32(1001)
 	Match().SendCmd(send)
+	this.newplayerstep = 0
 }
 
 // 上线回调，玩家数据在LoginOk中发送
