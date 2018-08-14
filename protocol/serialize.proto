@@ -144,7 +144,8 @@ message HouseData {
 
 
 //车的相关信息
-message CarData {
+message CarData 
+{
     optional uint64 id = 1;                 //车辆id
     optional uint32 tid = 2;                //配置id
     optional uint64 ownerid = 3;            //拥有者id 
@@ -153,7 +154,8 @@ message CarData {
 }
 
 //车位信息
-message ParkingData{
+message ParkingData
+{
     optional uint64 id = 1;                 //车位id
     optional uint32 tid = 2;                //配置id
     optional uint64 ownerid = 3;            //拥有者id 公共车位为0
