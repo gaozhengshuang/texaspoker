@@ -482,7 +482,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Invitationcode = pb.String(this.invitationcode)
 	userbase.TotalRecharge = pb.Uint32(this.totalrecharge)
 	userbase.Newplayerstep = pb.Uint32(this.newplayerstep)
-
+	userbase.Robcount = pb.Uint32(this.robcount)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -526,7 +526,7 @@ func (this *GateUser) LoadBin() {
 	this.invitationcode = userbase.GetInvitationcode()
 	this.totalrecharge = userbase.GetTotalRecharge()
 	this.newplayerstep = userbase.GetNewplayerstep()
-
+	this.robcount = userbase.GetRobcount()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
