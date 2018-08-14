@@ -3,16 +3,23 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 	"github.com/go-redis/redis"
 	pb "github.com/golang/protobuf/proto"
 	"gitee.com/jntse/testgo/testredis/proto"
-	//"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/util"
 )
 
-
+var g_KeyBordInput util.KeyBordInput
+var g_Quit bool
 
 func main() {
 	fmt.Println("vim-go")
+
+	// 初始化键盘输入
+	g_KeyBordInput.Init()
+	g_KeyBordInput.Start()
+	log.Println("初始键盘输入完成")
 
 	// 常规key
 	//TestKeys()
@@ -36,7 +43,20 @@ func main() {
 	//TestPipeline()
 
 	// cluster
-	TestRedisCluster()
+	//TestRedisCluster()
+
+	// 发布订阅
+	TestSubscribe()
+
+	//
+	for g_Quit == false {
+		time.Sleep(time.Millisecond * 10)
+		select {
+		case cmd,_:= <-g_KeyBordInput.C:
+			DoInputCmd(cmd)
+		default:
+		}
+	}
 
 }
 
@@ -59,6 +79,16 @@ func ExampleNewClient() *redis.Client {
 	log.Println(pong, err)
 	// Output: PONG <nil>
 	return GRedis
+}
+
+func DoInputCmd(cmd string) {
+	switch cmd {
+	case "quit","exit":
+		g_Quit = true
+		break
+	default:
+		break
+	}
 }
 
 
@@ -318,7 +348,7 @@ func TestPipeline() {
 		_, err := GRedis.Get(fmt.Sprintf("%s_%d",key1,i)).Result()
 		if err != nil { log.Println("Redis Get Error: ", err) }
 	}
-	
+
 	// 管道方式
 	pipe := GRedis.Pipeline()
 	for i:=0; i < count; i++ {
@@ -385,5 +415,68 @@ func TestRedisCluster() {
 	log.Println(client.ZRangeWithScores("rankscore", 0, -1).Val())
 
 }
+
+
+// 发布/订阅
+func TestSubscribe() {
+
+	// 订阅一个频道
+	log.Println("=====Subscribe=====")
+	client := GRedis
+	pubsub := client.Subscribe("chan1")
+	msg, err := pubsub.Receive()
+	if err != nil {
+		panic(err)
+	}
+	switch msg := msg.(type) {
+	case *redis.Subscription:	log.Printf("%#v",msg)		// 订阅/取消订阅返回
+	case *redis.Pong:			log.Printf("%#v",msg)
+	case *redis.Message:		log.Printf("%#v",msg)
+	default:		panic("redis: unknown message type")
+	}
+
+	log.Println("=====Pubsub API=====")
+	// 返回当前所有被订阅的频道(模式匹配)
+	log.Println(client.PubSubChannels("*"))
+	// 返回频道订阅者的数量
+	log.Println(client.PubSubNumSub("chan1"))
+	// 返回被订阅的模式数量
+	log.Println(client.PubSubNumPat())
+
+
+	// 发布一个消息到 channel
+	log.Println("======Publish======")
+	_, err = client.Publish("chan1", "hello").Result()
+	if err != nil {
+		panic(err)
+	}
+	client.Publish("chan1", "你好")	// 中文
+	client.Publish("chan1", "")		// 空字符串
+	client.Publish("chan1", " ")		// 空格
+	pubsub.Unsubscribe("chan1")
+
+
+	// 从订阅channel获取数据
+	log.Println("======Receive======")
+	PubRecvMsg := func() {
+		for ;; {
+			msg, open := <-pubsub.Channel()
+			if !open {
+				log.Println("pubsub has been closed")
+				break
+			}
+			log.Printf("%s recv(%d): %s\n", msg.Channel, len(msg.Payload), msg.Payload)
+		}
+	}
+	go PubRecvMsg()
+
+
+	// 关闭订阅
+	time.AfterFunc(time.Second * 3600, func() {
+		_ = pubsub.Close()
+	})
+
+}
+
 
 

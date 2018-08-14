@@ -147,7 +147,7 @@ func (this* GateUser) BuyItem(productid uint32, num uint32) {
 		log.Error("[元宝商店] 玩家[%s %d] 购买商品[%d]，无效的道具[%d]", this.Name(), this.Id(), productid, itemid)
 		return
 	}
-	
+
 	cost := uint32(product.Price) * num
 	if this.GetYuanbao() < cost {
 		log.Error("[元宝商店] 玩家[%s %d] 购买商品[%d]，元宝不足", this.Name(), this.Id(), itemid)
@@ -158,7 +158,7 @@ func (this* GateUser) BuyItem(productid uint32, num uint32) {
 	this.AddItem(itemid, num * uint32(product.Num), "商店购买道具", true)
 	this.SendNotify("购买成功")
 	GateSvr().SendNotice(	this.Face(), msg.NoticeType_Marquee, def.MakeNoticeText(this.Name(), "#00ff00", 26),
-		def.MakeNoticeText("获得", "#00ff00", 26), def.MakeNoticeText(item.Name, "#00ff00", 26));
+	def.MakeNoticeText("获得", "#00ff00", 26), def.MakeNoticeText(item.Name, "#00ff00", 26));
 	;
 }
 
@@ -230,7 +230,7 @@ func (this *GateUser) SellBagItem(itemid, num uint32) {
 		log.Error("[道具换元宝] 玩家[%s %d] 无效的道具[%d]", this.Name(), this.Id(), itemid)
 		return
 	}
-	
+
 	have := this.bag.GetItemNum(itemid)
 	if have < num {
 		this.SendNotify("道具数量不足")
@@ -472,7 +472,7 @@ func (this *GateUser) SyncBigRewardPickNum() {
 		log.Error("玩家[%s %d] 同步奖被拿走计数失败 err[%s]", this.Name(), this.Id(), err)
 		return
 	}
-	
+
 	for _, v := range picklist {
 		stritemid := v.Member.(string)
 		itemid, _ := strconv.ParseInt(stritemid, 10, 32)
@@ -501,19 +501,19 @@ func (this *GateUser) GetSignReward(){
 	item, itemok := tbl.ItemBase.ItemBaseDataById[uint32(sconfig.CostId)]
 	if itemok {
 		GateSvr().SendNotice(this.Face(), msg.NoticeType_Marquee, 
-			def.MakeNoticeText(this.Name(), "#00ff00", 26),
-			def.MakeNoticeText("领取每日签到奖励", "#00ff00", 26), 
-			def.MakeNoticeText(strconv.Itoa(int(sconfig.Num)), "#00ff00", 26),
-			def.MakeNoticeText(item.Name, "#00ff00", 26),
-		);
-	}
+		def.MakeNoticeText(this.Name(), "#00ff00", 26),
+		def.MakeNoticeText("领取每日签到奖励", "#00ff00", 26), 
+		def.MakeNoticeText(strconv.Itoa(int(sconfig.Num)), "#00ff00", 26),
+		def.MakeNoticeText(item.Name, "#00ff00", 26),
+	);
+}
 }
 
 func (this *GateUser) SendSign(){
 	if util.IsSameDay(int64(this.signtime), util.CURTIME()) {
 		return
 	}
-    send := &msg.GW2C_Ret7DayReward{Day: pb.Uint32(this.signreward + 1)}
+	send := &msg.GW2C_Ret7DayReward{Day: pb.Uint32(this.signreward + 1)}
 	this.SendMsg(send)
 }
 
@@ -631,7 +631,7 @@ func (this *GateUser) LuckyDraw() {
 
 
 	this.RemoveGold(cost, "幸运抽奖", true)
-	
+
 	if uint32(gift.ItemId) == uint32(msg.ItemId_Gold) {
 		this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖", false)	// 金币不同步，客户端自己添加
 	}else {
@@ -676,6 +676,33 @@ func (this *GateUser) CheckFreePresentDiamond(syn bool) {
 	// 客户端界面展示
 	send := &msg.GW2C_FreePresentNotify{Money:pb.Int32(int32(diamond))}
 	this.SendMsg(send)
+}
+
+
+// 添加经验
+func (this *GateUser) AddExp(num uint32, reason string) {
+	old, exp := this.Level(), this.Exp() + num
+	for {
+		lvlbase, ok := tbl.LevelBasee.TLevelById[this.Level()]
+		if ok == false {
+			break
+		}
+
+		// 下一级需要经验
+		if exp < uint32(lvlbase.ExpNums) || lvlbase.ExpNums == 0 {
+			break
+		}
+
+		exp = exp - uint32(lvlbase.ExpNums)
+		this.OnLevelUp()
+	}
+	this.SetExp(exp)
+	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", this.Id(), num, old, this.Level(), this.Exp(), reason)
+}
+
+// 升级
+func (this *GateUser) OnLevelUp() {
+	this.AddLevel(1)
 }
 
 

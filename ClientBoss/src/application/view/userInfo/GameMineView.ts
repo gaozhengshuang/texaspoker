@@ -24,10 +24,9 @@ module game {
 		private stock_txt:eui.Label; 
 		private jyLog_txt:eui.Label; 
 
-
-
-
 		private userInfo:any;
+
+		private innerScaleW:number;
 
 		public constructor() {
 			super();
@@ -35,27 +34,28 @@ module game {
 			this.adaptive();
 		}
 		private adaptive() {
+			this.innerScaleW = GameConfig.innerWidth / 720;
 			this.view_bg.width=GameConfig.innerWidth;
             this.view_bg.height=GameConfig.innerHeight;
 
-			this.userInfoGroup.scaleX=GameConfig.innerScaleW;
-            this.userInfoGroup.scaleY=GameConfig.innerScaleW;
+			this.userInfoGroup.scaleX=this.innerScaleW;
+            this.userInfoGroup.scaleY=this.innerScaleW;
 
-			this.huobiGroup.scaleX=GameConfig.innerScaleW;
-            this.huobiGroup.scaleY=GameConfig.innerScaleW;
-			this.huobiGroup.y=this.userInfoGroup.height*GameConfig.innerScaleW;
+			this.huobiGroup.scaleX=this.innerScaleW;
+            this.huobiGroup.scaleY=this.innerScaleW;
+			this.huobiGroup.y=this.userInfoGroup.height*this.innerScaleW;
 			console.log(this.huobiGroup.y+"//"+this.userInfoGroup.height)
 
-			this.assetsGroup.scaleX=GameConfig.innerScaleW;
-            this.assetsGroup.scaleY=GameConfig.innerScaleW;
-			this.assetsGroup.y=this.huobiGroup.y+this.huobiGroup.height*GameConfig.innerScaleW+20;
+			this.assetsGroup.scaleX=this.innerScaleW;
+            this.assetsGroup.scaleY=this.innerScaleW;
+			this.assetsGroup.y=this.huobiGroup.y+this.huobiGroup.height*this.innerScaleW+20;
 
-			this.bottomScroller.y=this.assetsGroup.y+this.assetsGroup.height*GameConfig.innerScaleW+20;;
+			this.bottomScroller.y=this.assetsGroup.y+this.assetsGroup.height*this.innerScaleW+20;;
 			this.bottomScroller.width=GameConfig.innerWidth;
 			this.bottomScroller.height = GameConfig.innerPageHeight-this.bottomScroller.y;
 
-			this.otherGroup.scaleX=GameConfig.innerScaleW;
-            this.otherGroup.scaleY=GameConfig.innerScaleW;
+			this.otherGroup.scaleX=this.innerScaleW;
+            this.otherGroup.scaleY=this.innerScaleW;
 			
 		}
 

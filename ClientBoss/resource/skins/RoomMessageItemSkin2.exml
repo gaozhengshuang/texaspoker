@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RoomMessageItemSkin2" width="720" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="content_txt" text="XXX 通过邀请正式进入 欢迎新人！" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="417" x="115.83" textColor="0x3f4957" y="17"/>
+	<e:Label id="time_txt" text="23.59" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="98.83" textAlign="left" x="8" textColor="0x3f4957" y="17"/>
+	<e:Button id="huifang_btn" label="" x="595" y="8" scaleX="0.5" scaleY="0.5">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="room_baifang_btn1_png" source.down="room_baifang_btn1_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

@@ -20,7 +20,7 @@ module game {
 
 		public constructor() {
 			super();
-			this.skinName = "resource/skins/LoginSence.exml";
+			this.skinName = "resource/eui_skins/LoginSence.exml";
 			this.adaptive();
 			this.registerGroup.visible=false;
 			this.loginGroup.visible=true;
@@ -43,7 +43,7 @@ module game {
 			}
 		}
 		private adaptive(){
-			this.scaleX=this.scaleY=GameConfig.innerScale;
+			this.scaleX=this.scaleY=GameConfig.innerScale/2;
 			this.anchorOffsetX = this.width / 2;
 			this.anchorOffsetY = this.height / 2;
 

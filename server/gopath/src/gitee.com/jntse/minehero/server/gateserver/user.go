@@ -73,6 +73,7 @@ type DBUserData struct {
 	luckydrawtotal int64
 	totalrecharge  uint32 // 总充值
 	newplayerstep  uint32 // 新手引导步骤
+	robcount       uint32 // 抢钱次数
 }
 
 // --------------------------------------------------------------------------
@@ -165,8 +166,16 @@ func (this *GateUser) Level() uint32 {
 	return this.level
 }
 
+func (this *GateUser) AddLevel(num uint32) {
+	this.level += num
+}
+
 func (this *GateUser) Exp() uint32 {
 	return this.exp
+}
+
+func (this *GateUser) SetExp(exp uint32) {
+	this.exp = exp
 }
 
 func (this *GateUser) Token() string {
@@ -321,6 +330,22 @@ func (this *GateUser) SetNewPlayerStep(step uint32) {
 	this.newplayerstep = step
 }
 
+func (this *GateUser) GetRobCount() uint32 {
+	return this.robcount
+}
+
+func (this *GateUser) SetRobCount(count uint32) {
+	if count > 10 {
+		this.robcount = 10
+	} else {
+		this.robcount = count
+	}
+
+	send := &msg.GW2C_NotifyRobCount{}
+	send.Value = pb.Uint32(this.robcount)
+	this.SendMsg(send)
+}
+
 func (this *GateUser) SendMsg(msg pb.Message) {
 	if this.online == false {
 		log.Info("账户[%s] [%d %s] 不在线", this.Account(), this.Id(), this.Name())
@@ -457,7 +482,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Invitationcode = pb.String(this.invitationcode)
 	userbase.TotalRecharge = pb.Uint32(this.totalrecharge)
 	userbase.Newplayerstep = pb.Uint32(this.newplayerstep)
-
+	userbase.Robcount = pb.Uint32(this.robcount)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -501,7 +526,7 @@ func (this *GateUser) LoadBin() {
 	this.invitationcode = userbase.GetInvitationcode()
 	this.totalrecharge = userbase.GetTotalRecharge()
 	this.newplayerstep = userbase.GetNewplayerstep()
-
+	this.robcount = userbase.GetRobcount()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -542,8 +567,10 @@ func (this *GateUser) OnCreateNew() {
 	send := &msg.GW2MS_ReqCreateHouse{}
 	send.Userid = pb.Uint64(this.Id())
 	send.Housetid = pb.Uint32(1001)
+	send.Ownername = pb.String(this.Name())
 	Match().SendCmd(send)
 	this.newplayerstep = 0
+	this.robcount = 10
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -575,12 +602,12 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 
 	// 同步数据到客户端
 	this.Syn()
-
+	this.SyncTimeStamp()
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
 	//上线通知MatchServer
 	this.OnlineMatchServer()
-	this.ReqMatchHouseData()
+	//this.ReqMatchHouseData()
 	return true
 }
 
@@ -991,9 +1018,155 @@ func (this *GateUser) SendHouseData() {
 	for _, v := range this.housedata {
 		send.Datas = append(send.Datas, v)
 	}
+	this.SendMsg(send)
 }
 
 func (this *GateUser) UpdateHouseData(data []*msg.HouseData) {
 	this.housedata = data
 	this.SendHouseData()
+}
+
+func (this *GateUser) GetUserHouseDataByHouseId(houseid uint64) *msg.HouseData {
+	for _, v := range this.housedata {
+		if houseid == v.GetId() {
+			return v
+		}
+	}
+	return nil
+}
+
+func (this *GateUser) HouseLevelUp(houseid uint64) {
+	house := this.GetUserHouseDataByHouseId(houseid)
+	if house != nil {
+		base, find := tbl.THouseBase.THouseById[house.GetTid()]
+		if find == false {
+			log.Error("无效的房屋  tid[%d]", house.GetTid())
+			return
+		}
+		if house.GetLevel() >= base.MaxLevel {
+			//房屋到最高等级
+			return
+		}
+		needgold := base.LevelUpCost
+		if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
+			//钱不够
+			return
+		} else {
+			sendmatch := &msg.GW2MS_ReqHouseLevelUp{}
+			sendmatch.Userid = pb.Uint64(this.Id())
+			sendmatch.Houseid = pb.Uint64(house.GetId())
+			Match().SendCmd(sendmatch)
+		}
+	} else {
+		log.Error("HouseLevelUp house not found id:%d", houseid)
+	}
+}
+
+func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
+	house := this.GetUserHouseDataByHouseId(houseid)
+	if house != nil {
+		cells := house.GetHousecells()
+		for _, v := range cells {
+			if v.GetIndex() == index {
+				base, find := tbl.THouseCellBase.THouseCellById[v.GetTid()]
+				if find == false {
+					log.Error("无效的房间Cell  tid[%d]", v.GetTid())
+					return
+				}
+				if v.GetLevel() >= base.MaxLevel {
+					//Cell到最高等级
+					return
+				}
+				needgold := base.LevelUpCost
+				if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
+					//钱不够
+					return
+				} else {
+					sendmatch := &msg.GW2MS_ReqHouseCellLevelUp{}
+					sendmatch.Userid = pb.Uint64(this.Id())
+					sendmatch.Houseid = pb.Uint64(houseid)
+					sendmatch.Index = pb.Uint32(index)
+					Match().SendCmd(sendmatch)
+				}
+
+				return
+			}
+		}
+		//here not find index
+		log.Error("HouseCellLevelUp index not found index:%d", index)
+	} else {
+		log.Error("HouseCellLevelUp house not found id:%d", houseid)
+	}
+
+}
+
+func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
+	house := this.GetUserHouseDataByHouseId(houseid)
+	if house != nil {
+		cells := house.GetHousecells()
+		for _, v := range cells {
+			if v.GetIndex() == index {
+				if v.GetGold() <= 0 {
+					//没钱可取
+					return
+				}
+				sendmatch := &msg.GW2MS_ReqTakeSelfHouseGold{}
+				sendmatch.Userid = pb.Uint64(this.Id())
+				sendmatch.Houseid = pb.Uint64(houseid)
+				sendmatch.Index = pb.Uint32(index)
+				Match().SendCmd(sendmatch)
+				return
+			}
+		}
+		//here not find index
+		log.Error("TakeSelfHouseGold index not found index:%d", index)
+	} else {
+		log.Error("TakeSelfHouseGold house not found id:%d", houseid)
+	}
+
+}
+
+func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
+	if this.robcount <= 0 {
+		return
+	}
+	sendmatch := &msg.GW2MS_ReqTakeOtherHouseGold{}
+	sendmatch.Userid = pb.Uint64(this.Id())
+	sendmatch.Houseid = pb.Uint64(houseid)
+	sendmatch.Index = pb.Uint32(index)
+	sendmatch.Username = pb.String(this.Name())
+	Match().SendCmd(sendmatch)
+}
+
+func (this *GateUser) ReqRandHouseList() {
+	sendmatch := &msg.GW2MS_ReqRandHouseList{}
+	sendmatch.Userid = pb.Uint64(this.Id())
+	Match().SendCmd(sendmatch)
+}
+
+//上限检查更新 抢钱次数
+func (this *GateUser) OnlineUpdateRobCount() {
+	if this.tm_logout > 0 {
+		nowtimehour := util.CURTIME() / 3600
+		logouttimehour := this.tm_logout / 3600
+		dexhours := nowtimehour - logouttimehour
+		if dexhours > 0 {
+			addcount := dexhours * 5
+			this.SetRobCount(this.GetRobCount() + uint32(addcount))
+		}
+	}
+}
+
+func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
+	sendmatch := &msg.GW2MS_ReqOtherUserHouseData{}
+	sendmatch.Userid = pb.Uint64(this.Id())
+	sendmatch.Otherid = pb.Uint64(otherid)
+	Match().SendCmd(sendmatch)
+}
+
+func (this *GateUser) SyncTimeStamp() {
+	now := util.CURTIME()
+	send := &msg.GW2C_NotifyTimeStamp{}
+	send.Timestamp = pb.Uint64(uint64(now))
+	this.SendMsg(send)
 }

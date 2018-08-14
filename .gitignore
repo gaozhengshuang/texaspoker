@@ -27,3 +27,6 @@ git
 /ClientBoss/bin-release
 .wing
 /ClientBoss_wxgame/js/main.min.js
+/ClientBoss/libs/exml.e.d.ts
+/ClientBoss/resource/default.thm.json
+/ClientBoss/manifest.json

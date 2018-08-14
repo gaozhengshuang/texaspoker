@@ -73,6 +73,14 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetNewPlayerStep{}, on_C2GW_ReqSetNewPlayerStep)
 
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseData{}, on_C2GW_ReqHouseData)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseLevelUp{}, on_C2GW_ReqHouseLevelUp)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseCellLevelUp{}, on_C2GW_ReqHouseCellLevelUp)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeSelfHouseGold{}, on_C2GW_ReqTakeSelfHouseGold)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeOtherHouseGold{}, on_C2GW_ReqTakeOtherHouseGold)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRandHouseList{}, on_C2GW_ReqRandHouseList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqOtherUserHouseData{}, on_C2GW_ReqOtherUserHouseData)
+
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
@@ -118,6 +126,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseCellLevelUp{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckTakeSelfHouseGoldRet{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckTakeOtherHouseGoldRet{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckRandHouseList{})
+	this.msgparser.RegistSendProto(msg.GW2C_NotifyRobCount{})
+	this.msgparser.RegistSendProto(msg.GW2C_NotifyTimeStamp{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckOtherUserHouseData{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
@@ -840,42 +852,87 @@ func on_C2GW_ReqSetNewPlayerStep(session network.IBaseNetSession, message interf
 	user.SendMsg(send)
 }
 
-func on_C2GW_ReqHouseLevelUp(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_ReqHouseLevelUp)
+func on_C2GW_ReqHouseData(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqHouseData)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
+	user.ReqMatchHouseData()
+	//user.SendHouseData()
+}
+
+func on_C2GW_ReqHouseLevelUp(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqHouseLevelUp)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	houseid := tmsg.GetHouseid()
+	user.HouseLevelUp(houseid)
 }
 
 func on_C2GW_ReqHouseCellLevelUp(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_ReqHouseCellLevelUp)
+	tmsg := message.(*msg.C2GW_ReqHouseCellLevelUp)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
+	houseid := tmsg.GetHouseid()
+	index := tmsg.GetIndex()
+	user.HouseCellLevelUp(houseid, index)
 }
 
 func on_C2GW_ReqTakeSelfHouseGold(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_ReqTakeSelfHouseGold)
+	tmsg := message.(*msg.C2GW_ReqTakeSelfHouseGold)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
+	houseid := tmsg.GetHouseid()
+	index := tmsg.GetIndex()
+	user.TakeSelfHouseGold(houseid, index)
 }
 
 func on_C2GW_ReqTakeOtherHouseGold(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_ReqTakeOtherHouseGold)
+	tmsg := message.(*msg.C2GW_ReqTakeOtherHouseGold)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
+	houseid := tmsg.GetHouseid()
+	index := tmsg.GetIndex()
+	user.TakeOtherHouseGold(houseid, index)
+}
+
+func on_C2GW_ReqRandHouseList(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.ReqRandHouseList()
+}
+
+func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqOtherUserHouseData)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	otherid := tmsg.GetUserid()
+	user.ReqOtherUserHouse(otherid)
 }
