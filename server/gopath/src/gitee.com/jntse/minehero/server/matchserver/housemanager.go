@@ -23,16 +23,19 @@ type HouseCell struct {
 	gold      uint32 //当前待收取的金币
 	state     uint32 //当前生产状态
 
-	ownerid uint64 //所有者id
+	ownerid uint64   //所有者id
+	robdata []uint64 //抢钱人id
 }
 
 func (this *HouseCell) LoadBin(bin *msg.HouseCell) {
+	this.robdata = make([]uint64, 0)
 	this.tid = bin.GetTid()
 	this.index = bin.GetIndex()
 	this.level = bin.GetLevel()
 	this.tmproduce = bin.GetTmproduce()
 	this.gold = bin.GetGold()
 	this.state = bin.GetState()
+	this.robdata = bin.GetRobers()
 	this.OnLoadBin()
 }
 
@@ -68,20 +71,28 @@ func (this *HouseCell) OwnerTakeGold() uint32 {
 }
 
 //其他人偷金币
-func (this *HouseCell) VisitorTakeGold() uint32 {
-	protect := 30
-	if this.state == 0 || this.gold <= uint32(protect) {
+func (this *HouseCell) VisitorTakeGold(roberid uint64) uint32 {
+	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
+	if find == false {
+		log.Error("无效的房间区域cell  tid[%d]", this.tid)
+		return 0
+	}
+	goldmax := base.ProduceGold
+	count := len(this.robdata)
+	for _, v := range this.robdata {
+		if v == roberid {
+			//这个玩家已经抢过
+			return 0
+		}
+	}
+	if this.state == 0 || count >= 3 {
+		//未产出 或 被抢三次
 		return 0
 	}
 
-	take := uint32(float64(this.gold) * 0.2)
-	temp := this.gold - take
-	if temp <= uint32(protect) {
-		this.gold = uint32(protect)
-		take = this.gold - uint32(protect)
-	} else {
-		this.gold = temp
-	}
+	take := uint32(float64(goldmax) * 0.2)
+	this.gold = this.gold - take
+	this.robdata = append(this.robdata, roberid)
 
 	return take
 }
@@ -102,6 +113,7 @@ func (this *HouseCell) CkeckGoldProduce(now int64) {
 	if now-this.tmproduce >= int64(needtime) {
 		this.state = 1
 		this.gold = base.ProduceGold
+		this.robdata = make([]uint64, 0)
 		HouseSvrMgr().SyncUserHouseData(this.ownerid)
 	}
 }
@@ -114,6 +126,7 @@ func (this *HouseCell) PackBin() *msg.HouseCell {
 	bin.Tmproduce = pb.Int64(this.tmproduce)
 	bin.Gold = pb.Uint32(this.gold)
 	bin.State = pb.Uint32(this.state)
+	bin.Robers = this.robdata
 	return bin
 }
 
@@ -260,7 +273,7 @@ func (this *HouseData) OwnerTakeGold(cellindex uint32) uint32 {
 //访客偷金币
 func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visitorname string) uint32 {
 	if _, ok := this.housecells[cellindex]; ok {
-		gold := this.housecells[cellindex].VisitorTakeGold()
+		gold := this.housecells[cellindex].VisitorTakeGold(visitorid)
 		if gold > 0 {
 			//加偷钱的记录
 			this.AddVisitInfo(visitorid, cellindex, 2, gold, visitorname)
@@ -407,6 +420,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		cell.tmproduce = util.CURTIME()
 		cell.gold = 0
 		cell.state = 0
+		cell.robdata = make([]uint64, 0)
 		house.housecells[uint32(index)] = cell
 	}
 

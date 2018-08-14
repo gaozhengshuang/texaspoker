@@ -128,6 +128,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AckTakeOtherHouseGoldRet{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckRandHouseList{})
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyRobCount{})
+	this.msgparser.RegistSendProto(msg.GW2C_NotifyTimeStamp{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckOtherUserHouseData{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})

@@ -9,6 +9,7 @@ module game {
 		public static SCENE_SWITCH_DISCOVERY: string = "scene_switch_discovery";
 		public static SCENE_SWITCH_TRADING: string = "scene_switch_trading";
 		public static SCENE_SWITCH_MINE: string = "scene_switch_mine";
+		public static SCENE_MAIN_ASSETS: string = "scene_main_assets";
 		public static GOTO_HOME_PAGE: string = "goto_home_page";
 
 		public static SHOW_USER_INFO: string = "show_user_info";
@@ -19,8 +20,17 @@ module game {
 		public static PAGE_SWITCH_ROOM: string = "page_switch_room";
 		public static PAGE_SWITCH_SMALL_GAME: string = "page_switch_small_game";
 		public static REMOVE_SMALL_GAME_PAGE: string = "remove_small_game_page";
+		public static REMOVE_ROOM_PAGE: string = "remove_room_page";
 
+		public static POPUP_WELCOME: string = "popup_welcome";
+		public static POPUP_ROOM_NEIGHBOR: string = "popup_room_neighbor";
 		public static REMOVE_POPUP: string = "remove_popup";
+		public static ERROR_ALERT: string = "error_alert";
+		
+
+		public static SHOW_TOP_ROOM_INFO: string = "show_top_room_info";
+		public static PLUNDER_SUCCESS: string = "plunder_success";
+		public static RECEIVE_SUCCESS: string = "receive_success";
 
 
 		/////////////////////
@@ -33,6 +43,9 @@ module game {
 		public static SOCKET_REQ_GOIN_ROOM: string = "socket_req_goin_room";
 		public static SOCKET_REQ_ASSETS_LIST: string = "socket_req_assets_list";
 		public static SOCKET_REQ_ALLOT_ROOM: string = "socket_req_allot_room";
+		public static SOCKET_REQ_PLUNDER: string = "socket_req_plunder";
+		public static SOCKET_REQ_NEIGHBOR_LIST: string = "socket_req_neighbor_list";
+		public static SOCKET_REQ_RECEIVE: string = "socket_req_receive";
 
 
 		////////////////

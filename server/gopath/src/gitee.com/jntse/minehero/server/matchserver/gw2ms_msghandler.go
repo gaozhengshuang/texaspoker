@@ -229,7 +229,7 @@ func on_GW2MS_ReqTakeOtherHouseGold(session network.IBaseNetSession, message int
 	visitorname := tmsg.GetUsername()
 	gold := HouseSvrMgr().TakeOtherHouseGold(houseid, index, uid, visitorname)
 
-	send := &msg.MS2GW_AckTakeSelfHouseGoldRet{}
+	send := &msg.MS2GW_AckTakeOtherHouseGoldRet{}
 	send.Userid = pb.Uint64(uid)
 	send.Houseid = pb.Uint64(houseid)
 	send.Index = pb.Uint32(index)

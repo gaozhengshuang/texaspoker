@@ -24,27 +24,29 @@ module game {
             this.scaleX=GameConfig.innerScaleW;
             this.scaleY=GameConfig.innerScaleW;
         }
-        private itemDate: RoomVO;
+
+        private itemDate:any;
         protected dataChanged(): void {
             this.itemDate = this.data;
             if (this.itemDate) {
-                this.name_txt.text = this.itemDate.bName;
-                let weizhiTxt = this.weizhi_txt;
+                console.log(this.itemDate);
+                this.name_txt.text = this.itemDate.id+"号房间";
+                /*let weizhiTxt = this.weizhi_txt;
                 GameConfig.getCityNameFun(this.itemDate.bLatLng[0],
                     this.itemDate.bLatLng[1], function (txt: string) {
                         weizhiTxt.text = txt;
                     });
-                /*let roomType:RoomTypeVO=GameConfig.getRoomType(this.itemDate.tId)
+                let roomType:RoomTypeVO=GameConfig.getRoomType(this.itemDate.tId)
                 if(roomType){
                     this.huxing_txt.text=roomType.tName+roomType.area+"平米";
-                }*/
+                }
                 this.junjia_txt.text="当前均价"+this.itemDate.price+"元/平米";
 
                 this.build_img.source='resource/assets/'+this.itemDate.bImage+'.png';
 
                 if(this.itemDate.status==2){
                     this.chushou_icon.visible=true;
-                }
+                }*/
             }
         }
     }

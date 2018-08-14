@@ -117,6 +117,7 @@ message HouseCell {
 	optional int64 tmproduce = 4; //产金币的起始时间戳
 	optional uint32 gold = 5; //当前待收取的金币
 	optional uint32 state = 6; //当前生产状态
+	repeated uint64 robers = 7; //记录抢钱的玩家id
 }
 
 //房屋访问者操作信息

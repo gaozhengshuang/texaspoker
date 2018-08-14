@@ -482,7 +482,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Invitationcode = pb.String(this.invitationcode)
 	userbase.TotalRecharge = pb.Uint32(this.totalrecharge)
 	userbase.Newplayerstep = pb.Uint32(this.newplayerstep)
-
+	userbase.Robcount = pb.Uint32(this.robcount)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -526,7 +526,7 @@ func (this *GateUser) LoadBin() {
 	this.invitationcode = userbase.GetInvitationcode()
 	this.totalrecharge = userbase.GetTotalRecharge()
 	this.newplayerstep = userbase.GetNewplayerstep()
-
+	this.robcount = userbase.GetRobcount()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -602,7 +602,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 
 	// 同步数据到客户端
 	this.Syn()
-
+	this.SyncTimeStamp()
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
 	//上线通知MatchServer
@@ -1162,4 +1162,11 @@ func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 	sendmatch.Userid = pb.Uint64(this.Id())
 	sendmatch.Otherid = pb.Uint64(otherid)
 	Match().SendCmd(sendmatch)
+}
+
+func (this *GateUser) SyncTimeStamp() {
+	now := util.CURTIME()
+	send := &msg.GW2C_NotifyTimeStamp{}
+	send.Timestamp = pb.Uint64(uint64(now))
+	this.SendMsg(send)
 }

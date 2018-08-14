@@ -46,8 +46,6 @@ module game {
             this.titleRadioGroup.scaleX=GameConfig.innerScaleW;
             this.titleRadioGroup.scaleY=GameConfig.innerScaleW;
 			this.titleRadioGroup.y=this.topBar.height*GameConfig.innerScaleW;
-			//this.top_line.width=GameConfig.innerWidth;
-			//this.top_line.y=this.titleRadioGroup.height*GameConfig.innerScaleW;
 
 			this.contentStarck.width=GameConfig.innerWidth;
 			this.contentStarck.y = this.titleRadioGroup.y + 
@@ -64,15 +62,12 @@ module game {
 			var rbGroup: eui.RadioButtonGroup = e.target;
 			console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
 			this.currentGroupId=rbGroup.selectedValue;
-			//let goalX:number=this["titleRadio"+this.currentGroupId].x
-			//+this["titleRadio"+this.currentGroupId].width/2
-			//egret.Tween.get(this.radioLine).to({ x: goalX}, 500, egret.Ease.elasticOut);
-			//this.contentStarck.selectedChild=this["stackGroup"+this.currentGroupId];
+			this.contentStarck.selectedChild=this["stackGroup"+this.currentGroupId];
 		}
 		private assetsItemList:utils.ScrollerPanel;
-		private assetsList:RoomVO[]=[];
+		private assetsList:any[]=[];
 		private buildingId:number=0;
-		public updateAssetsList(list:RoomVO[])
+		public updateAssetsList(list:any[])
 		{
 			this.assetsList=list;
 			if(this.assetsItemList==null)

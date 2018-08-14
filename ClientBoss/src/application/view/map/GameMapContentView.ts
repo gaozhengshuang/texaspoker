@@ -6,8 +6,7 @@ module game {
             
 		}
         public initView():void{
-			console.log(GameConfig.innerScale);
-           GameConfig.adaptiveUI(GameConfig.innerScale);
+           GameConfig.adaptiveUI(GameConfig.innerScale/2);
         }
 		public initExploreView(isShow:boolean):void{
            GameConfig.exploreUIFun(isShow);
