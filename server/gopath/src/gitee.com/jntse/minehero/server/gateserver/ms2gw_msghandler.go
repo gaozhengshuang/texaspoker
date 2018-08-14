@@ -173,6 +173,7 @@ func on_MS2GW_AckHouseLevelUp(session network.IBaseNetSession, message interface
 	send := &msg.GW2C_AckHouseLevelUp{}
 	send.Houseid = pb.Uint64(tmsg.GetHouseid())
 	send.Ret = pb.Uint32(tmsg.GetRet())
+	send.Data = tmsg.GetData()
 	user.SendMsg(send)
 }
 
@@ -188,6 +189,7 @@ func on_MS2GW_AckHouseCellLevelUp(session network.IBaseNetSession, message inter
 	send.Houseid = pb.Uint64(tmsg.GetHouseid())
 	send.Index = pb.Uint32(tmsg.GetIndex())
 	send.Ret = pb.Uint32(tmsg.GetRet())
+	send.Data = tmsg.GetData()
 	user.SendMsg(send)
 }
 
