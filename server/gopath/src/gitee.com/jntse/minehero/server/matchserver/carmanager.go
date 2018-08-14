@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 	"math"
+	"strconv"
+	"strings"
 	"gitee.com/jntse/gotoolkit/redis"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/server/tbl/excel"
@@ -27,7 +29,7 @@ type CarData struct {
 	createtime  uint64 	//创建时间
 	parkingid 	uint64  //车位id
 
-	template	table.TCarDefine
+	template	*table.TCarDefine
 }
 
 func (this *CarData) LoadBin(bin *msg.CarData) {
@@ -78,7 +80,7 @@ type ParkingData struct {
     parkingtime	uint64        		//开始停车时间戳
 	parkingreward uint32     		//停车获得收益
 	
-	template table.TParkingDefine
+	template *table.TParkingDefine
 }
 
 func (this *ParkingData) LoadBin(bin *msg.ParkingData){
@@ -147,7 +149,7 @@ func (this* ParkingData) ParkingCar(car *CarData,username string){
 	this.parkingcar = car.id
 	this.parkingcarownerid = car.ownerid
 	this.parkingcarownername = username
-	this.parkingtime = util.CURTIMEMS()
+	this.parkingtime = uint64(util.CURTIMEMS())
 	this.parkingreward = 0
 }
 
@@ -181,7 +183,7 @@ func (this* CarManager) Init(){
 		}
 	}
 
-	parkingIds,err = Redis().SMembers(ParkingIdSetKey).Result()
+	parkingIds,err := Redis().SMembers(ParkingIdSetKey).Result()
 	if err != nil {
 		log.Error("启动加载车位数据失败 err: %s", err)
 	} else {
@@ -228,7 +230,7 @@ func (this* CarManager) CreateNewCar(ownerid uint64, tid uint32) *CarData{
 	car.tid = tid
 	car.template = template
 	car.parkingid = 0
-	car.createtime = util.CURTIMEMS()
+	car.createtime = uint64(util.CURTIMEMS())
 
 	Redis().SAdd(CarIdSetKey, carid)
 	this.AddCar(car)
@@ -274,7 +276,7 @@ func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *CarData{
 	}
 	//查表去获取房屋的配置信息创建
 	parking := &ParkingData{}
-	parking.id = parking
+	parking.id = parkingid
 	parking.ownerid = ownerid
 	parking.tid = tid
 	parking.template = template
