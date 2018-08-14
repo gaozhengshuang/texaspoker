@@ -170,4 +170,9 @@ message GW2C_AckOtherUserHouseData {
 	repeated msg.HouseData datas = 1;
 }
 
+//登录同步时间戳
+message GW2C_NotifyTimeStamp {
+	optional uint64 timestamp = 1;
+}
+
 
