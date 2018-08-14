@@ -194,6 +194,12 @@ func (this* CarManager) Init(){
 			this.GetParking(uint64(parkingid))
 		}
 	}
+	if len(this.parkings) == 0 {
+		//创建公共车位
+		for i := 0; i < 20; i++{
+			this.CreateNewParking(0,1001,"公共车位")
+		}
+	}
 }
 
 func (this* CarManager) GetCar(id uint64) *CarData{
