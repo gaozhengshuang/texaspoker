@@ -43,7 +43,10 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2MS_UserOnlineState{}, on_GW2MS_UserOnlineState)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateHouse{}, on_GW2MS_ReqCreateHouse)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqUserHouse{}, on_GW2MS_ReqUserHouse)
+
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateCar{},on_GW2MS_ReqCreateCar)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCarInfo{}, on_GW2MS_ReqCarInfo)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateParking{},on_GW2MS_ReqCreateParking)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqMyParkingInfo{}, on_GW2MS_ReqMyParkingInfo)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqParkingInfoByType{}, on_GW2MS_ReqParkingInfoByType)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ParkCar{}, on_GW2MS_ParkCar)
@@ -73,6 +76,8 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeSelfHouseGoldRet{})
 	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeOtherHouseGoldRet{})
 
+	this.msgparser.RegistSendProto(msg.MS2GW_AckCreateCar{})
+	this.msgparser.RegistSendProto(msg.MS2GW_AckCreateParking{})
 	this.msgparser.RegistSendProto(msg.MS2GW_AckCarInfo{})
 	this.msgparser.RegistSendProto(msg.MS2GW_ResParkingInfo{})
 	this.msgparser.RegistSendProto(msg.MS2GW_ParkCarResult{})
@@ -281,6 +286,20 @@ func on_GW2MS_ReqOtherUserHouseData(session network.IBaseNetSession, message int
 
 }
 
+func on_GW2MS_ReqCreateCar(session network.IBaseNetSession,message interface{}){
+	tmsg := message.(*msg.GW2MS_ReqCreateCar)
+	uid := tmsg.GetUserid()
+	ctid := tmsg.GetCartid()
+
+	log.Info("on_GW2MS_ReqCreateCar %d", uid)
+	send := &msg.MS2GW_AckCreateCar {}
+	send.Userid = pb.Uint64(uid)
+
+	carinfo := CarSvrMgr().CreateNewCar(uid,ctid)
+	send.Cardata = carinfo.PackBin()
+	session.SendCmd(send)
+}
+
 func on_GW2MS_ReqCarInfo(session network.IBaseNetSession,message interface{}){
 	tmsg := message.(*msg.GW2MS_ReqCarInfo)
 	uid := tmsg.GetUserid()
@@ -306,6 +325,21 @@ func on_GW2MS_ReqCarInfo(session network.IBaseNetSession,message interface{}){
 		tmp := v.PackBin()
 		parkingdatas = append(parkingdatas,tmp)
 	}
+	session.SendCmd(send)
+}
+
+func on_GW2MS_ReqCreateParking(session network.IBaseNetSession,message interface{}){
+	tmsg := message.(*msg.GW2MS_ReqCreateParking)
+	uid := tmsg.GetUserid()
+	pid := tmsg.GetParkid()
+	uname := tmsg.GetUsername()
+
+	log.Info("on_GW2MS_ReqCreateParking %d", uid)
+	send := &msg.MS2GW_AckCreateParking {}
+	send.Userid = pb.Uint64(uid)
+
+	parkinginfo := CarSvrMgr().CreateNewParking(uid,pid,uname)
+	send.Parkdata = parkinginfo.PackBin()
 	session.SendCmd(send)
 }
 

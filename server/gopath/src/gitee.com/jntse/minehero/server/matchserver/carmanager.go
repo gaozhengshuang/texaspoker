@@ -72,7 +72,8 @@ func (this *CarData) SaveBin() {
 type ParkingData struct {
 	id 			uint64  			//车位id
     tid 		uint32				//配置id
-    ownerid 	uint64  			//拥有者id 公共车位为0
+	ownerid 	uint64  			//拥有者id 公共车位为0
+	ownername 	string				//拥有者名字
     parkingcar 	uint64  			//停的车辆id
 	parkingcarownerid uint64  		//停的车主人id
     parkingcarownername string		//停的车主人名字
@@ -91,6 +92,7 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData){
 	this.parkingcarownername = bin.GetParkingcarownername()
 	this.parkingtime = bin.GetParkingtime()
 	this.parkingreward = bin.GetParkingreward()
+	this.ownername = bin.GetWonername()
 
 	template,find := tbl.TParkingBase.TParkingById[this.tid]
 	if find == false {
@@ -110,6 +112,7 @@ func (this* ParkingData) PackBin() *msg.ParkingData {
 	bin.Parkingcarownername = pb.String(this.parkingcarownername)
 	bin.Parkingtime = pb.Uint64(this.parkingtime)
 	bin.Parkingreward = pb.Uint32(this.parkingreward)
+	bin.Ownername = pb.String(this.ownername)
 	return bin
 }
 
@@ -308,7 +311,7 @@ func (this* CarManager) GetParkingByType(parkingtype uint32) []*ParkingData{
 	return data
 }
 
-func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *ParkingData{
+func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32,name string) *ParkingData{
 	parkingid, errcode := def.GenerateParkingId(Redis())
 	if errcode != "" {
 		log.Error("创建新的车位生成新的车位id出错，error:%s", errcode)
@@ -324,6 +327,7 @@ func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *ParkingDat
 	parking := &ParkingData{}
 	parking.id = parkingid
 	parking.ownerid = ownerid
+	parking.ownername = name
 	parking.tid = tid
 	parking.template = template
 	parking.parkingcar = 0

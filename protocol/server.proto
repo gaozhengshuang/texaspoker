@@ -179,6 +179,17 @@ message MS2GW_AckTakeOtherHouseGoldRet {
 	optional uint32 gold = 4;
 }
 
+// 玩家创建新车
+message GW2MS_ReqCreateCar {
+	optional uint64 userid = 1; 	                    //玩家id
+	optional uint32 cartid = 2; 	                    //车辆的配置id
+}
+
+//返回玩家创建新车辆
+message MS2GW_AckCreateCar {
+	optional uint64 userid = 1;
+	optional msg.CarData cardata = 2;                  //我的车辆信息
+}
 //车辆信息
 message GW2MS_ReqCarInfo 
 {
@@ -191,7 +202,18 @@ message MS2GW_AckCarInfo
     repeated msg.CarData cardatas = 2;                  //我的车辆信息
     repeated msg.ParkingData parkingdatas = 3;          //我的车辆停放的停车位信息
 }
+// 玩家创建新车位
+message GW2MS_ReqCreateParking {
+	optional uint64 userid = 1; 	                    //玩家id
+	optional uint32 parkid = 2; 	                    //车位配置
+    optional string username = 3;                       //玩家名字 
+}
 
+//返回玩家创建新车位
+message MS2GW_AckCreateParking {
+	optional uint64 userid = 1;
+	optional msg.ParkingData parkdata = 2;               //我的车位信息
+}
 //我的车位信息
 message GW2MS_ReqMyParkingInfo
 {
