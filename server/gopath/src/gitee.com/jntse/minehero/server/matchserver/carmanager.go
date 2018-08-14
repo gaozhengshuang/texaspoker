@@ -240,6 +240,7 @@ func (this* CarManager) CreateNewCar(ownerid uint64, tid uint32) *CarData{
 	car.parkingid = 0
 	car.createtime = uint64(util.CURTIMEMS())
 
+	car.SaveBin()
 	Redis().SAdd(CarIdSetKey, carid)
 	this.AddCar(car)
 	return car
@@ -342,6 +343,7 @@ func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32,name string)
     parking.parkingtime	= 0
 	parking.parkingreward = 0
 
+	parking.SaveBin()
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
 	return parking
