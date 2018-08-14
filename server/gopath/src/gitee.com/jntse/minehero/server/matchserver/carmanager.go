@@ -276,10 +276,10 @@ func (this* CarManager) GetParking(id uint64) *ParkingData{
 
 func (this* CarManager) GetParkingByUser(id uint64) []*ParkingData{
 	data := make([]*ParkingData, 0)
-	if _, ok := this.userparkings[uid]; !ok {
+	if _, ok := this.userparkings[id]; !ok {
 		return data
 	}
-	ids := this.userparkings[uid]
+	ids := this.userparkings[id]
 	for _, v := range ids {
 		parkingInfo := this.GetParking(v)
 		data = append(data,parkingInfo)
@@ -381,7 +381,7 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32){
 }
 
 func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,reward uint32){
-	parking := this.GetParking(car.parkingid)
+	parking := this.GetParking(parkingid)
 	if parking == nil {
 		return 1,0
 	}
