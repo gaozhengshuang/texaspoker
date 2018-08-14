@@ -128,7 +128,7 @@ func GenerateCarId(redis *redis.Client) (id uint64,errcode string){
 		log.Error("生成carid redis报错, err: %s",err)
 		return 0,"redis不可用"
 	}
-	return (uint64)id,""
+	return uint64(id),""
 }
 
 //生成车位的 uuid
@@ -139,5 +139,5 @@ func GenerateParkingId(redis *redis.Client) (id uint64,errcode string){
 		log.Error("生成parkingid redis报错, err: %s",err)
 		return 0,"redis不可用"
 	}
-	return (uint64)id,""
+	return uint64(id),""
 }
