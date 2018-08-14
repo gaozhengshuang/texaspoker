@@ -11,10 +11,10 @@ import (
 	"gitee.com/jntse/gotoolkit/log" 
 )
 
-const {
+const (
 	CarIdSetKey = "cars_idset"
 	ParkingIdSetKey = "parking_idset"
-}
+)
 
 //车辆信息
 type CarData struct {
@@ -324,7 +324,7 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32){
 		return 3,0
 	}
 	//可以收回
-	reward := parking.TakeBackCar()
+	reward = parking.TakeBackCar()
 	car.SetParking(0)
 	return 0,reward
 }
