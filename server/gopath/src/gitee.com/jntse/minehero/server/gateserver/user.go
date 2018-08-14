@@ -602,7 +602,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 
 	// 同步数据到客户端
 	this.Syn()
-
+	this.SyncTimeStamp()
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
 	//上线通知MatchServer
@@ -1162,4 +1162,11 @@ func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 	sendmatch.Userid = pb.Uint64(this.Id())
 	sendmatch.Otherid = pb.Uint64(otherid)
 	Match().SendCmd(sendmatch)
+}
+
+func (this *GateUser) SyncTimeStamp() {
+	now := util.CURTIME()
+	send := &msg.GW2C_NotifyTimeStamp{}
+	send.Timestamp = pb.Uint64(uint64(now))
+	this.SendMsg(send)
 }

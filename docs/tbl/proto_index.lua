@@ -175,7 +175,8 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 170, Name : "msg.GW2C_AckRandHouseList" 	},
 		{ Id : 171, Name : "msg.GW2C_NotifyRobCount" 	},
 		{ Id : 172, Name : "msg.C2GW_ReqOtherUserHouseData" 	},
-		{ Id : 173, Name : "msg.GW2C_AckOtherUserHouseData" 	}
+		{ Id : 173, Name : "msg.GW2C_AckOtherUserHouseData" 	},
+		{ Id : 174, Name : "msg.GW2C_NotifyTimeStamp" 	}
 	]
 
 
