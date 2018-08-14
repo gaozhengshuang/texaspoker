@@ -52,11 +52,11 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckRandHouseList{}, on_MS2GW_AckRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckOtherUserHouseData{}, on_MS2GW_AckOtherUserHouseData)
 
-	this.msgparser.RegistProtoMsg(msg.MS2GW_AckCarInfo,on_MS2GW_AckCarInfo)
-	this.msgparser.RegistProtoMsg(msg.MS2GW_ResParkingInfo,on_MS2GW_ResParkingInfo)
-	this.msgparser.RegistProtoMsg(msg.MS2GW_ParkCarResult,on_MS2GW_ParkCarResult)
-	this.msgparser.RegistProtoMsg(msg.MS2GW_TakeBackCarResult,on_MS2GW_TakeBackCarResult)
-	this.msgparser.RegistProtoMsg(msg.MS2GW_TicketCarResult,on_MS2GW_TicketCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckCarInfo{},on_MS2GW_AckCarInfo)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_ResParkingInfo{},on_MS2GW_ResParkingInfo)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_ParkCarResult{},on_MS2GW_ParkCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_TakeBackCarResult{},on_MS2GW_TakeBackCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_TicketCarResult{},on_MS2GW_TicketCarResult)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
@@ -313,8 +313,8 @@ func on_MS2GW_TakeBackCarResult(session network.IBaseNetSession, message interfa
 	send := &msg.GW2C_TakeBackCarResult{}
 	send.Result = tmsg.GetResult()
 	send.Reward = tmsg.GetReward()
-	if send.Result == 0 && send.Reward > 0{
-		user.AddGold(uint32(send.Reward), "收取抢车位产出金币", true)
+	if send.GetResult() == 0 && send.GetReward() > 0{
+		user.AddGold(uint32(send.GetReward()), "收取抢车位产出金币", true)
 	}
 	user.SendMsg(send)
 }
@@ -330,8 +330,8 @@ func on_MS2GW_TicketCarResult(session network.IBaseNetSession, message interface
 	send := &msg.GW2C_TicketCarResult{}
 	send.Result = tmsg.GetResult()
 	send.Reward = tmsg.GetReward()
-	if send.Result == 0 && send.Reward > 0{
-		user.AddGold(uint32(send.Reward), "贴条产出金币", true)
+	if send.GetResult() == 0 && send.GetReward() > 0{
+		user.AddGold(uint32(send.GetReward()), "贴条产出金币", true)
 	}
 	user.SendMsg(send)
 }
