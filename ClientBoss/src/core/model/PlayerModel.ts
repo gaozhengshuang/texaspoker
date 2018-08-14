@@ -24,7 +24,9 @@ module game {
             addrlist: [], 
             PersonalImage: null ,
             level:1,
-            newplayerstep:0
+            newplayerstep:0,
+            cardatas : [],
+            parkingdatas : [],
         };
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];
@@ -45,6 +47,13 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
             NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
             NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
+            NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
+        }
+
+        private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
+            console.log("OnGW2C_ResCarInfo");
+            this.userInfo.cardatas = data.cardatas;
+            this.userInfo.parkingdatas = data.parkingdatas;
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -376,7 +385,7 @@ module game {
         public getOpenId() {
             return this.userInfo.openid;
         }
-
+        
         public getHistoryMoney() {
             return this.historyMoneyList;
         }
@@ -394,6 +403,19 @@ module game {
             return null;
         }
 
+        //我的车辆是否停靠
+        public getMyCarPakingInfo(id:number|Long)
+        {
+           let _parkingdatas = this.userInfo.parkingdatas.filter(data=>{return data.parkingcarownerid===this.userInfo.userid && data.parkingcar==id;});
+           if(_parkingdatas.length==0) return false;
+           if(_parkingdatas.length > 1) 
+           {
+               _parkingdatas.forEach(data=>{
+                console.warn("相同的车辆ID",this.userInfo.userid,data.id,data.tid);
+               }); 
+           }
+           return _parkingdatas[0]; 
+        }
 
     }
 }

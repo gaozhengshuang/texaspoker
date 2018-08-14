@@ -2,6 +2,7 @@ module game {
     export class CommonDialog extends PanelComponent {
         btn_goPay: LabelButton;
         btn_close: IconButton;
+        imageBg    : eui.Image;
         txt_content: eui.Label;
         _func   : Function;
         _func2  : Function;
@@ -19,6 +20,14 @@ module game {
                 {target: this.btn_goPay, callBackFunc: this.OnClickGo},
             ];
         }
+
+        public updateView(bgPath:string,goBtnPath:string,backBtnPath:string)
+        {
+            this.imageBg.source = bgPath;
+            this.btn_goPay.bg = goBtnPath;
+            this.btn_close.icon = backBtnPath;
+        }
+
 
         public OnShowPanel(contentTxt: string, btnTxt: string, func: Function = null, textFlow: Array<egret.ITextElement> = null,func2: Function = null) {
             if (textFlow) {

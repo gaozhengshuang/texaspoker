@@ -161,6 +161,7 @@ message MS2GW_AckTakeSelfHouseGoldRet {
 	optional uint64 houseid = 2;
 	optional uint32 index = 3;
 	optional uint32 gold = 4;
+	optional msg.HouseData data = 5;
 }
 
 //玩家请求抢别人金币
@@ -177,6 +178,7 @@ message MS2GW_AckTakeOtherHouseGoldRet {
 	optional uint64 houseid = 2;
 	optional uint32 index = 3;
 	optional uint32 gold = 4;
+	optional msg.HouseData data = 5;
 }
 
 // 玩家创建新车

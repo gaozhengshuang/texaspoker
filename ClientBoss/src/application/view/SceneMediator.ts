@@ -20,12 +20,15 @@ module game {
                 CommandName.SCENE_SWITCH_MINE,
                 CommandName.SCENE_MAIN_ASSETS,
                 CommandName.GOTO_HOME_PAGE,
-
             ];
         }
 
         public handleNotification(notification: puremvc.INotification): void {
             var data: any = notification.getBody();
+            if(notification.getName()!=CommandName.SCENE_MAIN_ASSETS)
+            {
+                CarDetailView.getInstance().OnCloseHandle();
+            }
             switch (notification.getName()) {
                 case CommandName.SCENE_SWITCH_LOGIN:
                     {
@@ -63,15 +66,16 @@ module game {
                         GameConfig.updataMaskBgFun('#404A58', 1);
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
-                        if (data) {
-                            GameConfig.sceneType = 3;
-                            GameConfig.setEventsReply(true);
-                            this.sceneView = new GameSceneAssetsView();
-                            this.sceneGroup.addChild(this.sceneView);
-                            ApplicationFacade.getInstance().registerMediator(new SceneAssetsMediator(this.sceneView));
-							this.sceneMediatorName = SceneAssetsMediator.NAME;
-                            this.sceneView.updateAssetsList(data.roomlist);
-                        }
+                      
+                        GameConfig.sceneType = 3;
+                        GameConfig.setEventsReply(true);
+                        this.sceneView = new GameSceneAssetsView();
+                        this.sceneGroup.addChild(this.sceneView);
+                        ApplicationFacade.getInstance().registerMediator(new SceneAssetsMediator(this.sceneView));
+                        this.sceneMediatorName = SceneAssetsMediator.NAME;
+                       
+                        if(data){this.sceneView.updateAssetsList(data.roomlist);}
+                        
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO,{isShow:false});
                         break;
                     }

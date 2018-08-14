@@ -63,12 +63,35 @@ module game {
 			console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
 			this.currentGroupId=rbGroup.selectedValue;
 			this.contentStarck.selectedChild=this["stackGroup"+this.currentGroupId];
+
+			if(this.currentGroupId==2){
+				CarManager.getInstance().ReqMyCarInfo();
+				let cardata  = {id:1,tid:1001,ownerid:DataManager.playerModel.userInfo.userid,createtime:0,parkingid:0};
+				this.updateAssetsList([(<msg.ICarData>cardata)]);
+			}
 		}
 		private assetsItemList:utils.ScrollerPanel;
 		private assetsList:HouseVO[]=[];
 		private buildingId:number=0;
 		public updateAssetsList(list:HouseVO[])
 		{
+			console.log("updateAssetsList");
+			if(this.currentGroupId ==2 )
+			{
+				let assetsList=<msg.ICarData[]>list;
+				if(this.assetsItemList==null)
+				{
+					this.assetsItemList=new utils.VScrollerPanel();
+					this.stackGroup2.addChild(this.assetsItemList);
+					this.assetsItemList.y = 0;
+					this.assetsItemList.height = this.contentStarck.height;
+					this.assetsItemList.initItemRenderer(CarItem);
+					//this.assetsItemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this); 
+				}
+				this.assetsItemList.bindData(assetsList);		
+				return;
+			}
+			this.assetsList=<RoomVO[]>list;
 			this.assetsList=list;
 			if(this.assetsItemList==null)
 			{

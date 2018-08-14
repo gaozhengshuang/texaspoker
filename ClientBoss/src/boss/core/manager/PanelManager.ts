@@ -41,6 +41,9 @@ module game {
             case PanelType.battle:
                 panel = BattleScene.getInstance();
                 break;
+            case PanelType.carDetail:
+                panel = CarDetailView.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -60,6 +63,7 @@ module game {
         pay,
         dress,
         dressShopCarts,
-        battle
+        battle,
+        carDetail,
     }
 }
