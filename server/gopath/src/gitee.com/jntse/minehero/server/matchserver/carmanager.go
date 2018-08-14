@@ -244,6 +244,19 @@ func (this* CarManager) AddCar(car *CarData){
 	this.usercars[car.ownerid] = append(this.usercars[car.ownerid], car.id)
 }
 
+func (this* CarManager) GetCarByUser(uid uint64) []*CarData{
+	data := make([]*CarData, 0)
+	if _, ok := this.usercars[uid]; !ok {
+		return data
+	}
+	ids := this.usercars[uid]
+	for _, v := range ids {
+		carInfo := this.GetCar(v)
+		data = append(data,carInfo)
+	}
+	return data
+}
+
 func (this* CarManager) GetParking(id uint64) *ParkingData{
 	if _, ok := this.parkings[id]; ok {
 		return this.parkings[id]
@@ -259,6 +272,40 @@ func (this* CarManager) GetParking(id uint64) *ParkingData{
 		this.AddParking(parking)
 		return parking
 	}
+}
+
+func (this* CarManager) GetParkingByUser(id uint64) []*ParkingData{
+	data := make([]*ParkingData, 0)
+	if _, ok := this.userparkings[uid]; !ok {
+		return data
+	}
+	ids := this.userparkings[uid]
+	for _, v := range ids {
+		parkingInfo := this.GetParking(v)
+		data = append(data,parkingInfo)
+	}
+	return data
+}
+
+func (this* CarManager) GetParkingById(ids []uint64) []*ParkingData{
+	data := make([]*ParkingData,0)
+	for _,v := range ids {
+		parkingInfo := this.GetParking(v);
+		if parkingInfo != nil {
+			data = append(data,parkingInfo)
+		}
+	}
+	return data
+}
+
+func (this* CarManager) GetParkingByType(parkingtype uint32) []*ParkingData{
+	data := make([]*ParkingData,0)
+	for _,v := range this.parkings {
+		if(v.template.Type == parkingtype){
+			data = append(data,v)
+		}
+	}
+	return data
 }
 
 func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *ParkingData{
@@ -325,6 +372,24 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32){
 	}
 	parking := this.GetParking(car.parkingid)
 	if parking == nil {
+		return 3,0
+	}
+	//可以收回
+	reward = parking.TakeBackCar()
+	car.SetParking(0)
+	return 0,reward
+}
+
+func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,reward uint32){
+	parking := this.GetParking(car.parkingid)
+	if parking == nil {
+		return 1,0
+	}
+	if parking.parkingcar  == 0 {
+		return 2,0
+	}
+	car := this.GetCar(parking.parkingcar)
+	if car == nil {
 		return 3,0
 	}
 	//可以收回
