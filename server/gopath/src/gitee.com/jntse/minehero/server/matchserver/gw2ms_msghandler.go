@@ -262,7 +262,7 @@ func on_GW2MS_ParkCar(session network.IBaseNetSession,message interface{}){
 	uid := tmsg.GetUserid()
 	uname := tmsg.GetUsername()
 	cid := tmsg.GetCarid()
-	pid := tmsg.GEtParkingid()
+	pid := tmsg.GetParkingid()
 	log.Info("on_GW2MS_ParkCar %d", uid)
 	send := &msg.MS2GW_ParkCarResult {}
 	send.Userid = pb.Uint64(uid)
@@ -278,8 +278,8 @@ func on_GW2MS_TakeBackCar(session network.IBaseNetSession,message interface{}){
 	send := &msg.MS2GW_TakeBackCarResult {}
 	send.Userid = pb.Uint64(uid)
 	result,reward := CarSvrMgr().TakeBackCar(cid)
-	send.Result = pb.Int32(result)
-	send.Reward = pb.Int32(reward)
+	send.Result = pb.Int32(int32(result))
+	send.Reward = pb.Int32(int32(reward))
 	session.SendCmd(send)
 }
 
@@ -291,7 +291,7 @@ func on_GW2MS_TicketCar(session network.IBaseNetSession,message interface{}){
 	send := &msg.MS2GW_TicketCarResult {}
 	send.Userid = pb.Uint64(uid)
 	result,reward := CarSvrMgr().TakeBackFromParking(pid)
-	send.Result = pb.Int32(result)
-	send.Reward = pb.Int32(reward)
+	send.Result = pb.Int32(int32(result))
+	send.Reward = pb.Int32(int32(reward))
 	session.SendCmd(send)
 }
