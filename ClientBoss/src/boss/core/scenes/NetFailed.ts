@@ -33,7 +33,8 @@ module game {
 
         private async reconnectHandle() {
             this.close();
-            Login();
+            //Login();
+            NotificationCenter.postNotification(CommandName.NET_CONNECTION_ERROR);
         }
 
         public close() {

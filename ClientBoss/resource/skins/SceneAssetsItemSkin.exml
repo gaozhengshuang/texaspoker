@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SceneAssetsItemSkin" width="720" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="720" height="150" x="0" y="0" fillAlpha="0"/>
+	<e:Image id="build_img" x="19" scaleX="0.4" scaleY="0.4" source="hx_4001_png" y="3"/>
+	<e:Label id="name_txt" text="万科城市花园808房间" x="214" y="18.5" textColor="0x3f4957" fontFamily="Microsoft YaHei" size="23" anchorOffsetX="0" width="250"/>
+	<e:Label id="junjia_txt" text="当前均价20000元/平米" x="214" y="108" fontFamily="Microsoft YaHei" size="23" textColor="0xe7415d" width="250"/>
+	<e:Label id="huxing_txt" text="两室一厅73平米" x="214" y="78" textColor="0x3F4957" fontFamily="Microsoft YaHei" size="23" width="250"/>
+	<e:Label id="weizhi_txt" text="上海闵行区" x="214" y="48" textColor="0x3F4957" fontFamily="Microsoft YaHei" size="23" width="250"/>
+	<e:Image id="hCoin_icon" source="have_coin_icon_png" x="484" width="85" height="86" y="32" visible="false"/>
+	<e:Image id="hQuan_icon" source="have_quan_icon_png" x="592" width="85" height="86" y="32" visible="false"/>
+	<e:Image id="chushou_icon" source="chushouzhong_icon1_png" x="526.5" width="123" height="120" y="15" visible="false"/>
+	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
+</e:Skin>

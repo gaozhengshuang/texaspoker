@@ -1,24 +1,25 @@
 package main
+
 import (
-	_"fmt"
-	_"time"
-	pb "github.com/gogo/protobuf/proto"
+	_ "fmt"
+	_ "gitee.com/jntse/gotoolkit/eventqueue"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
-	_"gitee.com/jntse/gotoolkit/eventqueue"
+	pb "github.com/gogo/protobuf/proto"
+	_ "time"
 
-	_"gitee.com/jntse/minehero/pbmsg"
-	_"reflect"
+	_ "gitee.com/jntse/minehero/pbmsg"
+	_ "reflect"
 )
 
 // --------------------------------------------------------------------------
 /// @brief 账户登陆等待池
 // --------------------------------------------------------------------------
 type stAccountLogin struct {
-	account 	string
-	tm_expire	int64
-	verifykey	string
+	account   string
+	tm_expire int64
+	verifykey string
 }
 
 type LoginWaitPool struct {
@@ -50,7 +51,7 @@ func (this *LoginWaitPool) Remove(acc string) {
 }
 
 func (this *LoginWaitPool) Clear() {
-	this.pool= make(map[string]*stAccountLogin)
+	this.pool = make(map[string]*stAccountLogin)
 }
 
 func (this *LoginWaitPool) Tick(now int64) {
@@ -64,7 +65,7 @@ func (this *LoginWaitPool) Tick(now int64) {
 }
 
 type BufferMsg struct {
-	msg pb.Message
+	msg        pb.Message
 	tm_timeout int64
 }
 
@@ -72,10 +73,10 @@ type BufferMsg struct {
 /// @brief 玩家管理器
 // --------------------------------------------------------------------------
 type UserManager struct {
-	accounts	map[string]*GateUser
-	ids			map[uint64]*GateUser
-	names		map[string]*GateUser
-	msgbuffer	map[uint64]*BufferMsg
+	accounts  map[string]*GateUser
+	ids       map[uint64]*GateUser
+	names     map[string]*GateUser
+	msgbuffer map[uint64]*BufferMsg
 }
 
 func (this *UserManager) Init() {
@@ -110,7 +111,9 @@ func (this *UserManager) Amount() int {
 func (this *UserManager) AmountOnline() int {
 	count := 0
 	for _, user := range this.accounts {
-		if user.IsOnline() { count ++ }
+		if user.IsOnline() {
+			count++
+		}
 	}
 	return count
 }
@@ -153,7 +156,7 @@ func (this *UserManager) DelUser(user *GateUser) {
 }
 
 func (this *UserManager) Tick(now int64) {
-	
+
 	// faster broadcast
 	for k, v := range this.msgbuffer {
 		if now > v.tm_timeout {
@@ -180,9 +183,9 @@ func (this *UserManager) IsRemove(user *GateUser, now int64) bool {
 }
 
 //func (this *UserManager) UserLoadFromDB(user *GateUser) bool {
-//	if user.LoadDB() == false { 
+//	if user.LoadDB() == false {
 //		log.Error("账户[%s] 从DB加载玩家数据失败", user.Account())
-//		return false 
+//		return false
 //	}
 //	this.ids[user.Id()] = user
 //	this.names[user.Name()] = user
@@ -215,25 +218,26 @@ func (this *UserManager) BroadcastMsg(msg pb.Message) {
 	for _, user := range this.accounts {
 		user.SendMsg(msg)
 	}
-	log.Trace("BroadcastMsg Amount[%d] 耗时[%d]us", len(this.accounts), util.CURTIMEUS() - t1)
+	log.Trace("BroadcastMsg Amount[%d] 耗时[%d]us", len(this.accounts), util.CURTIMEUS()-t1)
 }
 
 // 通过buffer广播消息
 func (this *UserManager) BroadcastMsgFaster(msg pb.Message) {
-	t1 , uuid := util.CURTIMEUS(), util.UUID()
-	this.msgbuffer[uuid] = &BufferMsg{msg:msg, tm_timeout:util.CURTIMEMS()+10000}
-	for _ , user := range this.accounts {
+	t1, uuid := util.CURTIMEUS(), util.UUID()
+	this.msgbuffer[uuid] = &BufferMsg{msg: msg, tm_timeout: util.CURTIMEMS() + 10000}
+	for _, user := range this.accounts {
 		user.AddBroadCastMsg(uuid)
 	}
-	log.Trace("BroadcastMsgFaster Amount[%d] 耗时[%d]us", len(this.accounts), util.CURTIMEUS() - t1)
+	log.Trace("BroadcastMsgFaster Amount[%d] 耗时[%d]us", len(this.accounts), util.CURTIMEUS()-t1)
 }
 
 func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 	buffermsg, ok := this.msgbuffer[uid]
-	if ok == false { return nil }
+	if ok == false {
+		return nil
+	}
 	return buffermsg.msg
 }
-
 
 // 异步广播消息
 //func (this *UserManager) BroadcastMsgAsyn(msg pb.Message) {
@@ -247,9 +251,9 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 //		return nil
 //	}
 //	msg, ok := arglist[0].(pb.Message)
-//	if ok == false { 
+//	if ok == false {
 //		log.Fatal("DoBroadcastMsgAsyn 类型转换错误 argu真实类型是：%s", reflect.TypeOf(arglist[0]).String());
-//		return nil 
+//		return nil
 //	}
 //
 //	// copy lock
@@ -264,7 +268,6 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 //	return nil
 //}
 
-
 // TODO:整点赠送免费步数，异步事件处理
 //func (this *UserManager) GiveFreeStep(now int64) {
 //	for _, user := range this.accounts {
@@ -273,4 +276,9 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 //	}
 //}
 
-
+//整点回调
+func (this *UserManager) IntHourClockCallback(now int64) {
+	for _, user := range this.accounts {
+		user.SetRobCount(user.GetRobCount() + 5)
+	}
+}

@@ -18,6 +18,7 @@ module game {
                 CommandName.SCENE_SWITCH_MAP,
                 CommandName.SCENE_SWITCH_DISCOVERY,
                 CommandName.SCENE_SWITCH_MINE,
+                CommandName.SCENE_MAIN_ASSETS,
                 CommandName.GOTO_HOME_PAGE,
 
             ];
@@ -29,7 +30,7 @@ module game {
                 case CommandName.SCENE_SWITCH_LOGIN:
                     {
                         this.removeSceneView();
-                        GameConfig.showDownBtnFun(true);
+                        GameConfig.showDownBtnFun(false);
                         GameConfig.sceneType = 1;
                         GameConfig.updataMaskBgFun('#f5f5f5', 1);
                         this.sceneView = new GameLoginView();
@@ -55,6 +56,23 @@ module game {
                         this.sceneMediatorName = MapContentMediator.NAME;
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_UPDATED_POINT, { require: 1 });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO,{isShow:true});
+                        break;
+                    }
+                    case CommandName.SCENE_MAIN_ASSETS:
+                    {
+                        GameConfig.updataMaskBgFun('#404A58', 1);
+                        this.removeSceneView();
+                        GameConfig.showDownBtnFun(true);
+                        if (data) {
+                            GameConfig.sceneType = 3;
+                            GameConfig.setEventsReply(true);
+                            this.sceneView = new GameSceneAssetsView();
+                            this.sceneGroup.addChild(this.sceneView);
+                            ApplicationFacade.getInstance().registerMediator(new SceneAssetsMediator(this.sceneView));
+							this.sceneMediatorName = SceneAssetsMediator.NAME;
+                            this.sceneView.updateAssetsList(data.roomlist);
+                        }
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO,{isShow:false});
                         break;
                     }
                     case CommandName.SCENE_SWITCH_DISCOVERY:

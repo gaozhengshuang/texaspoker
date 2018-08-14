@@ -33,7 +33,7 @@
 		<e:Button id="LoginBtn" label="登录" y="639" anchorOffsetX="0" width="1222" anchorOffsetY="0" height="233" enabled="true" x="0">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
-				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="60" ellipseHeight="60"/>
+				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="60" ellipseHeight="60" enabled="true" fillAlpha="1" strokeColor="0x4fc1e9"/>
 				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" size="100" fontFamily="Microsoft YaHei"/>
 			</e:Skin>
 			</e:skinName>

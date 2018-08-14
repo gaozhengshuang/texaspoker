@@ -31,17 +31,17 @@ module game {
         public static configVersion: string = "0001";
         public static isDebug: boolean = true;
 
-        public static stageWidth: number = 720*2;
-        public static stageHeight: number = 1280*2;
-        public static stageFullWidth: number = 720*2;
-        public static stageFullHeight: number = 1280*2;
+        public static stageWidth: number = 720;
+        public static stageHeight: number = 1280;
+        public static stageFullWidth: number = 720;
+        public static stageFullHeight: number = 1280;
 
-        public static gameWidth: number = 720*2;
-        public static gameHeight: number = 1280*2;
+        public static gameWidth: number = 720;
+        public static gameHeight: number = 1280;
 
-        public static innerWidth: number = 720*2;
-        public static innerHeight: number = 1280*2;
-        public static innerPageHeight: number = 1280*2;
+        public static innerWidth: number = 720;
+        public static innerHeight: number = 1280;
+        public static innerPageHeight: number = 1280;
 
         public static innerScale:number=1;
         public static innerScaleW:number=1;
@@ -87,6 +87,8 @@ module game {
         public static cookiePassStr:string="csPassword";
         public static cookieFirstLoginStr:string="csFirstLogin";
         public static isDayFirstLogin:boolean=true;
+
+        public static newPlayerStep:number=0;
 
         public static adaptiveUI(scale: number){
             this.innerPageHeight=this.innerHeight-adaptive(scale);

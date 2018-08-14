@@ -12,6 +12,7 @@ module game {
 			this.facade().registerCommand(CommandName.SOCKET_REQ_UPDATED_POINT,NetUpdatedSelfPointCommand);
 			this.facade().registerCommand(CommandName.GET_SELF_COORDINSTE,GetSelfCoordinateCommand);
 			this.facade().registerCommand(CommandName.MAP_POSITION,MapPositionCommand);
+			this.facade().registerCommand(CommandName.SOCKET_REQ_ASSETS_LIST,NetAssetsListRequestCommand);
 			
         }
 	}
