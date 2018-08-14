@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 	"math"
 	"gitee.com/jntse/gotoolkit/redis"
@@ -22,7 +23,7 @@ const (
 type CarData struct {
 	id			uint64	//车辆id
 	tid       	uint32 	//车的配置id
-	ownerid     uint32 	//拥有者id
+	ownerid     uint64 	//拥有者id
 	createtime  uint64 	//创建时间
 	parkingid 	uint64  //车位id
 
@@ -50,7 +51,7 @@ func (this *CarData) SetParking(id uint64){
 func (this *CarData) PackBin() *msg.CarData {
 	bin := &msg.CarData{}
 	bin.Id = pb.Uint64(this.id)
-	bin.Tid = pb.Uint64(this.tid)
+	bin.Tid = pb.Uint32(this.tid)
 	bin.Ownerid = pb.Uint64(this.ownerid)
 	bin.Createtime = pb.Uint64(this.createtime)
 	bin.Parkingid = pb.Uint64(this.parkingid)
@@ -100,14 +101,14 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData){
 
 func (this* ParkingData) PackBin() *msg.ParkingData {
 	bin := &msg.ParkingData{}
-	bin.Id = this.id
-	bin.Tid = this.tid
-	bin.Ownerid = this.ownerid
-	bin.Parkingcar = this.parkingcar
-	bin.Parkingcarownerid = this.parkingcarownerid
-	bin.Parkingcarownername = this.parkingcarownername
-	bin.Parkingtime = this.parkingtime
-	bin.Parkingreward = this.parkingreward
+	bin.Id = pb.Uint64(this.id)
+	bin.Tid = pb.Uint32(this.tid)
+	bin.Ownerid = pb.Uint64(this.ownerid)
+	bin.Parkingcar = pb.Uint64(this.parkingcar)
+	bin.Parkingcarownerid = pb.Uint64(this.parkingcarownerid)
+	bin.Parkingcarownername = pb.String(this.parkingcarownername)
+	bin.Parkingtime = pb.Uint64(this.parkingtime)
+	bin.Parkingreward = pb.Uint32(this.parkingreward)
 	return bin
 }
 
