@@ -128,7 +128,7 @@ func (this *HouseCell) LevelUp() bool {
 		log.Error("HouseCell LevelUp 房间Cell升级 已达最大等级  tid[%d]", this.tid)
 		return false
 	}
-
+	this.level = this.level + 1
 	this.tid = this.tid + 1
 	return true
 }
@@ -288,6 +288,7 @@ func (this *HouseData) LevelUp() bool {
 		log.Error("House LevelUp 房屋已达最大等级 tid[%d]", this.tid)
 		return false
 	}
+	this.level = this.level + 1
 	this.tid = this.tid + 1
 	return true
 }

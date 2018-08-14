@@ -15,7 +15,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	_ "strings"
-	"time"
+	_ "time"
 )
 
 //const (
@@ -1146,10 +1146,14 @@ func (this *GateUser) ReqRandHouseList() {
 
 //上限检查更新 抢钱次数
 func (this *GateUser) OnlineUpdateRobCount() {
-	nowtimehour := time.Now().Format("2006010215")
-	logouttimehour := time.Unix(this.tm_logout, 0).Format("2006010215")
-	if nowtimehour != logouttimehour {
-		this.SetRobCount(this.GetRobCount() + 5)
+	if this.tm_logout > 0 {
+		nowtimehour := util.CURTIME() / 3600
+		logouttimehour := this.tm_logout / 3600
+		dexhours := nowtimehour - logouttimehour
+		if dexhours > 0 {
+			addcount := dexhours * 5
+			this.SetRobCount(this.GetRobCount() + uint32(addcount))
+		}
 	}
 }
 
