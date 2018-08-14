@@ -2,7 +2,7 @@
 <e:Skin class="CarDetailInfoSkin" width="1440" height="2560" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect id="view_bg" width="1440" height="2560" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xc4c4c4"/>
 	<e:Group id="top" width="0" height="0" right="1440" horizontalCenter="-720" verticalCenter="-1280" top="0">
-		<e:Image id="goldbg" width="239" height="82" x="435" scaleX="2" scaleY="2" y="445" source="uiCarAltas_json.goldBg"/>
+		<e:Image id="goldbg" width="239" height="82" x="435" scaleX="2" scaleY="2" y="445" source="ui_json.goldBg"/>
 		<e:Label id="carInfoTxt" text="Label" x="466" y="456" anchorOffsetY="0" height="138" anchorOffsetX="0" width="414" size="80" stroke="2" verticalAlign="middle" textAlign="center"/>
 	</e:Group>
 	<e:Group id="center" width="200" height="200" horizontalCenter="-620" verticalCenter="-1180" bottom="2360" right="1240">
