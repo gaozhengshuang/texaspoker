@@ -307,8 +307,7 @@ func on_MS2GW_AckCreateParking(session network.IBaseNetSession, message interfac
 	}
 
 	send := &msg.GW2C_ResParkingInfo{}
-	parkingdatas := send.GetParkingdatas()
-	parkingdatas = append(parkingdatas, tmsg.GetParkdata())
+	send.Parkingdatas = append(send.Parkingdatas, tmsg.GetParkdata())
 	user.SendMsg(send)
 }
 

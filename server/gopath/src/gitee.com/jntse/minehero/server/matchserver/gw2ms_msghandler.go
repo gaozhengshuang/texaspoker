@@ -321,23 +321,21 @@ func on_GW2MS_ReqCarInfo(session network.IBaseNetSession, message interface{}) {
 	log.Info("on_GW2MS_ReqCarInfo %d", uid)
 	send := &msg.MS2GW_AckCarInfo{}
 	send.Userid = pb.Uint64(uid)
-	cardatas := send.GetCardatas()
 
 	carinfo := CarSvrMgr().GetCarByUser(uid)
 	carids := make([]uint64, 0)
 	for _, v := range carinfo {
 		tmp := v.PackBin()
-		cardatas = append(cardatas, tmp)
+		send.Cardatas = append(send.Cardatas, tmp)
 		if v.parkingid != 0 {
 			carids = append(carids, v.parkingid)
 		}
 	}
 
 	parkinginfo := CarSvrMgr().GetParkingById(carids)
-	parkingdatas := send.GetParkingdatas()
 	for _, v := range parkinginfo {
 		tmp := v.PackBin()
-		parkingdatas = append(parkingdatas, tmp)
+		send.Parkingdatas = append(send.Parkingdatas, tmp)
 	}
 	session.SendCmd(send)
 }
@@ -367,10 +365,9 @@ func on_GW2MS_ReqMyParkingInfo(session network.IBaseNetSession, message interfac
 	send := &msg.MS2GW_ResParkingInfo{}
 	send.Userid = pb.Uint64(uid)
 	parkinginfo := CarSvrMgr().GetParkingByUser(uid)
-	parkingdatas := send.GetParkingdatas()
 	for _, v := range parkinginfo {
 		tmp := v.PackBin()
-		parkingdatas = append(parkingdatas, tmp)
+		send.Parkingdatas = append(send.Parkingdatas, tmp)
 	}
 	session.SendCmd(send)
 }
@@ -383,10 +380,9 @@ func on_GW2MS_ReqParkingInfoByType(session network.IBaseNetSession, message inte
 	send := &msg.MS2GW_ResParkingInfo{}
 	send.Userid = pb.Uint64(uid)
 	parkinginfo := CarSvrMgr().GetParkingByType(uint32(parkingtype))
-	parkingdatas := send.GetParkingdatas()
 	for _, v := range parkinginfo {
 		tmp := v.PackBin()
-		parkingdatas = append(parkingdatas, tmp)
+		send.Parkingdatas = append(send.Parkingdatas, tmp)
 	}
 	session.SendCmd(send)
 }
