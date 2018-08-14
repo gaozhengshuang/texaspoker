@@ -144,3 +144,30 @@ message GW2C_AckTakeOtherHouseGoldRet {
 	optional uint32 index = 2;
 	optional uint32 gold = 3;
 }
+
+//获取随机的房屋列表
+message C2GW_ReqRandHouseList {
+	
+}
+
+//返回随机的房屋列表
+message GW2C_AckRandHouseList {
+	repeated msg.HouseData datas = 1;
+}
+
+//更新抢钱次数
+message GW2C_NotifyRobCount {
+	optional uint32 value = 1;
+}
+
+//请求其他人的房屋信息
+message C2GW_ReqOtherUserHouseData {
+	optional uint64 userid = 1;
+}
+
+//返回请求其他人的房屋信息
+message GW2C_AckOtherUserHouseData {
+	repeated msg.HouseData datas = 1;
+}
+
+
