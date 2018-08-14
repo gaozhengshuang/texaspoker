@@ -946,7 +946,6 @@ func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message inte
 
 //请求车辆信息
 func on_C2GW_ReqCarInfo(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqCarInfo)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -959,7 +958,6 @@ func on_C2GW_ReqCarInfo(session network.IBaseNetSession, message interface{}) {
 }
 //请求我的车位信息
 func on_C2GW_ReqMyParkingInfo(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqMyParkingInfo)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
