@@ -296,7 +296,9 @@ func on_GW2MS_ReqCreateCar(session network.IBaseNetSession,message interface{}){
 	send.Userid = pb.Uint64(uid)
 
 	carinfo := CarSvrMgr().CreateNewCar(uid,ctid)
-	send.Cardata = carinfo.PackBin()
+	if carinfo != nil {
+		send.Cardata = carinfo.PackBin()
+	}
 	session.SendCmd(send)
 }
 
@@ -339,7 +341,9 @@ func on_GW2MS_ReqCreateParking(session network.IBaseNetSession,message interface
 	send.Userid = pb.Uint64(uid)
 
 	parkinginfo := CarSvrMgr().CreateNewParking(uid,pid,uname)
-	send.Parkdata = parkinginfo.PackBin()
+	if parkinginfo != nil {
+		send.Parkdata = parkinginfo.PackBin()
+	}
 	session.SendCmd(send)
 }
 
