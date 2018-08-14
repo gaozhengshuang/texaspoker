@@ -501,8 +501,13 @@ func (this *HouseManager) HouseCellLevelUp(userid uint64, houseid uint64, index 
 	if house == nil {
 		return 0
 	}
+	houselevel := house.level
 	if _, ok := house.housecells[index]; ok {
 		cell := house.housecells[index]
+		celllevel := cell.level
+		if celllevel >= houselevel {
+			return 0
+		}
 		if cell.LevelUp() {
 			this.SyncUserHouseData(userid)
 			return 1
