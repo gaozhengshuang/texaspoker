@@ -5,7 +5,6 @@ import (
 	"time"
 	"math"
 	"strconv"
-	"strings"
 	"gitee.com/jntse/gotoolkit/redis"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/server/tbl/excel"
@@ -262,7 +261,7 @@ func (this* CarManager) GetParking(id uint64) *ParkingData{
 	}
 }
 
-func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *CarData{
+func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *ParkingData{
 	parkingid, errcode := def.GenerateParkingId(Redis())
 	if errcode != "" {
 		log.Error("创建新的车位生成新的车位id出错，error:%s", errcode)
@@ -282,7 +281,7 @@ func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *CarData{
 	parking.template = template
 	parking.parkingcar = 0
 	parking.parkingcarownerid = 0
-    parking.parkingcarownername = 0
+    parking.parkingcarownername = ""
     parking.parkingtime	= 0
 	parking.parkingreward = 0
 
