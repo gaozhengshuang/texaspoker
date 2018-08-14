@@ -131,6 +131,7 @@ message MS2GW_AckHouseLevelUp {
 	optional uint64 userid = 1;
 	optional uint64 houseid = 2;
 	optional uint32 ret = 3;
+	optional msg.HouseData data = 4;
 }
 
 //玩家请求升级房屋的房间
@@ -146,6 +147,7 @@ message MS2GW_AckHouseCellLevelUp {
 	optional uint64 houseid = 2;
 	optional uint32 index = 3;
 	optional uint32 ret = 4;
+	optional msg.HouseData data = 5;
 }
 
 //玩家请求收金币

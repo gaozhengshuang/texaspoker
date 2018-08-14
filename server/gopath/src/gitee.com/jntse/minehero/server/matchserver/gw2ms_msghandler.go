@@ -200,6 +200,9 @@ func on_GW2MS_ReqHouseLevelUp(session network.IBaseNetSession, message interface
 	send.Userid = pb.Uint64(uid)
 	send.Houseid = pb.Uint64(houseid)
 	send.Ret = pb.Uint32(ret)
+	house := HouseSvrMgr().GetHouse(houseid)
+	data := house.PackBin()
+	send.Data = data
 	session.SendCmd(send)
 }
 
@@ -216,6 +219,9 @@ func on_GW2MS_ReqHouseCellLevelUp(session network.IBaseNetSession, message inter
 	send.Houseid = pb.Uint64(houseid)
 	send.Index = pb.Uint32(index)
 	send.Ret = pb.Uint32(ret)
+	house := HouseSvrMgr().GetHouse(houseid)
+	data := house.PackBin()
+	send.Data = data
 	session.SendCmd(send)
 
 }

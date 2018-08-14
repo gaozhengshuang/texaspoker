@@ -104,6 +104,7 @@ message C2GW_ReqHouseLevelUp {
 message GW2C_AckHouseLevelUp {
 	optional uint64 houseid = 1;
 	optional uint32 ret = 2;
+	optional msg.HouseData data = 3;
 }
 
 //玩家请求升级房屋的房间
@@ -117,6 +118,7 @@ message GW2C_AckHouseCellLevelUp {
 	optional uint64 houseid = 1;
 	optional uint32 index = 2;
 	optional uint32 ret = 3;
+	optional msg.HouseData data = 4;
 }
 
 //玩家请求收金币
