@@ -36,7 +36,7 @@ func (this *CarData) LoadBin(bin *msg.CarData) {
 	this.ownerid = bin.GetOwnerid()
 	this.createtime = bin.GetCreatetime()
 	this.parkingid = bin.GetParkingid()
-	template,find := tbl.TCarBaseTable.TCarById[this.tid]
+	template,find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
 		log.Error("玩家[%d] 找不到车辆配置[%d]", this.ownerid, this.tid)
 	}else{
@@ -91,7 +91,7 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData){
 	this.parkingtime = bin.GetParkingtime()
 	this.parkingreward = bin.GetParkingreward()
 
-	template,find := tbl.TParkingBaseTable.TParkingById[this.tid]
+	template,find := tbl.TParkingBase.TParkingById[this.tid]
 	if find == false {
 		log.Error("玩家[%d] 找不到车位配置[%d]", this.ownerid, this.tid)
 	}else{
@@ -216,7 +216,7 @@ func (this* CarManager) CreateNewCar(ownerid uint64, tid uint32) *CarData{
 		return nil
 	}
 
-	template,find := tbl.TCarBaseTable.TCarById[tid]
+	template,find := tbl.TCarBase.TCarById[tid]
 	if find == false {
 		log.Error("无效的车辆tid[%d]", tid)
 		return nil
@@ -267,7 +267,7 @@ func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32) *CarData{
 		return nil
 	}
 
-	template,find := tbl.TParkingBaseTable.TParkingById[tid]
+	template,find := tbl.TParkingBase.TParkingById[tid]
 	if find == false {
 		log.Error("无效的车位tid[%d]", tid)
 		return nil

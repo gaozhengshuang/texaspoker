@@ -155,7 +155,7 @@ message ParkingData{
     optional uint64 ownerid = 3;            //拥有者id 公共车位为0
     optional uint64 parkingcar = 4;         //停的车辆id
     optional uint64 parkingcarownerid = 5;  //停的车主人id
-    optional uint64 parkingcarownername = 6;//停的车主人名字
+    optional string parkingcarownername = 6;//停的车主人名字
     optional uint64 parkingtime = 7;        //开始停车时间戳
     optional uint32 parkingreward = 8 ;     //停车获得收益
 }
