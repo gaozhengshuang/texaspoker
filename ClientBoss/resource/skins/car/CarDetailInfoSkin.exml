@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarDetailInfoSkin" width="1440" height="2560" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="view_bg" width="1440" height="2560" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xc4c4c4"/>
+	<e:Group id="top" width="0" height="0" right="1440" horizontalCenter="-720" verticalCenter="-1280" top="0">
+		<e:Image id="goldbg" width="239" height="82" x="435" scaleX="2" scaleY="2" y="445" source="uiCarAltas_json.goldBg"/>
+		<e:Label id="carInfoTxt" text="Label" x="466" y="456" anchorOffsetY="0" height="138" anchorOffsetX="0" width="414" size="80" stroke="2" verticalAlign="middle" textAlign="center"/>
+	</e:Group>
+	<e:Group id="center" width="200" height="200" horizontalCenter="-620" verticalCenter="-1180" bottom="2360" right="1240">
+		<e:Label id="carNameTxt" text="宝马" x="395" y="791" width="414" anchorOffsetY="0" height="138" anchorOffsetX="0" size="78" scaleX="1" scaleY="1" textAlign="center" verticalAlign="middle" stroke="2"/>
+		<e:Label id="priceTxt" text="Label" x="566" y="905" width="414" anchorOffsetY="0" height="138" anchorOffsetX="0" size="60" verticalAlign="middle" textAlign="center" stroke="2"/>
+		<e:Label id="parkingInfoTxt" text="Label" x="37.39" y="1870" width="1000.06" anchorOffsetY="0" height="138" anchorOffsetX="0" size="70" verticalAlign="middle" textAlign="center" stroke="2"/>
+		<e:Image id="carIcon" width="720" height="350" x="0" scaleX="2" scaleY="2" y="1049" source="carIconAltas_json.big_1"/>
+		<e:Image id="btnDriveAwayBg" width="150" height="56" x="1084" scaleX="2" scaleY="2" y="1870" source="uiCarAltas_json.normalBtn"/>
+		<e:Label id="btnDriveAwayTxt" text="收回" x="1117" y="1882" size="64" verticalAlign="middle" textAlign="center" anchorOffsetX="0" width="234.79" height="84" bold="true"/>
+		<game:IconButton id="btnDriveAway" height="107.88" enabled="true" skinName="IconButtonSkin" width="298.79" x="1083.64" y="1870" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0"/>
+	</e:Group>
+	<e:Group id="bottom" width="200" height="200" bottom="2360" right="1240" horizontalCenter="-620" verticalCenter="-1180">
+		<e:Image width="1440" height="440" scaleX="1" scaleY="1" source="uiCarAltas_json.scrollviewBg" y="2136" x="-4"/>
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="53" scaleX="2" scaleY="2"/>
+		<game:IconButton id="btnState" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="85" y="2094" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btnNeighbor" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="270" y="2094" scaleX="1" scaleY="1"/>
+	</e:Group>
+</e:Skin>
