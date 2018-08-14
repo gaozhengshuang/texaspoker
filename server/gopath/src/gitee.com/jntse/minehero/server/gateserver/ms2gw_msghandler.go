@@ -52,6 +52,12 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckRandHouseList{}, on_MS2GW_AckRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckOtherUserHouseData{}, on_MS2GW_AckOtherUserHouseData)
 
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckCarInfo,on_MS2GW_AckCarInfo)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_ResParkingInfo,on_MS2GW_ResParkingInfo)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_ParkCarResult,on_MS2GW_ParkCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_TakeBackCarResult,on_MS2GW_TakeBackCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_TicketCarResult,on_MS2GW_TicketCarResult)
+
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
 	this.msgparser.RegistSendProto(msg.GW2MS_HeartBeat{})
@@ -69,6 +75,13 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeOtherHouseGold{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRandHouseList{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqOtherUserHouseData{})
+	
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqCarInfo{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqMyParkingInfo{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqParkingInfoByType{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ParkCar{})
+	this.msgparser.RegistSendProto(msg.GW2MS_TakeBackCar{})
+	this.msgparser.RegistSendProto(msg.GW2MS_TicketCar{})
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -242,6 +255,84 @@ func on_MS2GW_AckOtherUserHouseData(session network.IBaseNetSession, message int
 
 	send := &msg.GW2C_AckOtherUserHouseData{}
 	send.Datas = tmsg.GetDatas()
+	user.SendMsg(send)
+}
+//返回车辆信息
+func on_MS2GW_AckCarInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckCarInfo)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_ResCarInfo{}
+	send.Cardatas = tmsg.GetCardatas()
+	send.Parkingdatas = tmsg.GetParkingdatas()
+	user.SendMsg(send)
+}
+//返回车位信息
+func on_MS2GW_ResParkingInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_ResParkingInfo)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_ResParkingInfo{}
+	send.Parkingdatas = tmsg.GetParkingdatas()
+	user.SendMsg(send)
+}
+//返回停车结果
+func on_MS2GW_ParkCarResult(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_ParkCarResult)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_ParkCarResult{}
+	send.Result = tmsg.GetResult()
+	user.SendMsg(send)
+}
+
+//返回收回结果
+func on_MS2GW_TakeBackCarResult(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_TakeBackCarResult)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+	send := &msg.GW2C_TakeBackCarResult{}
+	send.Result = tmsg.GetResult()
+	send.Reward = tmsg.GetReward()
+	if send.Result == 0 && send.Reward > 0{
+		user.AddGold(uint32(send.Reward), "收取抢车位产出金币", true)
+	}
+	user.SendMsg(send)
+}
+//返回贴条结果
+func on_MS2GW_TicketCarResult(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_TicketCarResult)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+	send := &msg.GW2C_TicketCarResult{}
+	send.Result = tmsg.GetResult()
+	send.Reward = tmsg.GetReward()
+	if send.Result == 0 && send.Reward > 0{
+		user.AddGold(uint32(send.Reward), "贴条产出金币", true)
+	}
 	user.SendMsg(send)
 }
 

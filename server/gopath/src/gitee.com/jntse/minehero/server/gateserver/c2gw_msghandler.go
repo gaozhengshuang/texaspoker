@@ -138,6 +138,11 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyTimeStamp{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckOtherUserHouseData{})
 
+	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
+	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
+	this.msgparser.RegistSendProto(msg.GW2C_ParkCarResult{})
+	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
+	this.msgparser.RegistSendProto(msg.GW2C_TicketCarResult{})
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
 	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
