@@ -74,7 +74,7 @@ type ParkingData struct {
     ownerid 	uint64  			//拥有者id 公共车位为0
     parkingcar 	uint64  			//停的车辆id
 	parkingcarownerid uint64  		//停的车主人id
-    parkingcarownername uint64		//停的车主人名字
+    parkingcarownername string		//停的车主人名字
     parkingtime	uint64        		//开始停车时间戳
 	parkingreward uint32     		//停车获得收益
 	
@@ -121,11 +121,11 @@ func (this *ParkingData) SaveBin() {
 	log.Info("保存车位[%d]数据成功", this.id)
 }
 
-func (this* ParkingData) UpdateReward(car *CarData,now int64) bool{
+func (this* ParkingData) UpdateReward(car *CarData,now uint64) bool{
 	//计算经过了几个小时了
 	passedHour := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Hours()))
 	reward := (passedHour * car.template.RewardPerH * this.template.RewardPercent) / 100
-	reward = math.Min(reward,car.template.Capacity)
+	reward = uint32(math.Min(float64(reward),float64(car.template.Capacity)))
 	if this.parkingreward != reward {
 		this.parkingreward = reward
 		return true
@@ -352,6 +352,6 @@ func (this *CarManager) Handler1MiniteTick(now int64) {
 			continue
 		}
 		car := this.GetCar(v.parkingcar)
-		v.UpdateReward(car,now)
+		v.UpdateReward(car,uint64(now))
 	}
 }
