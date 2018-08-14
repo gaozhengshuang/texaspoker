@@ -130,6 +130,7 @@ message GW2C_AckTakeSelfHouseGoldRet {
 	optional uint64 houseid = 1;
 	optional uint32 index = 2;
 	optional uint32 gold = 3;
+	optional msg.HouseData data = 4;
 }
 
 //玩家请求抢别人金币
@@ -143,6 +144,7 @@ message GW2C_AckTakeOtherHouseGoldRet {
 	optional uint64 houseid = 1;
 	optional uint32 index = 2;
 	optional uint32 gold = 3;
+	optional msg.HouseData data = 4;
 }
 
 //获取随机的房屋列表
