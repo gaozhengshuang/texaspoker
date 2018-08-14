@@ -48,8 +48,8 @@ module game {
 			}
 		}
 		private adaptive() {
-			this.scaleX=this.scaleY=this.beishu;
-			this.anchorOffsetX = this.width / 2;
+			this.scaleX=this.scaleY=GameConfig.innerScaleW;
+			//this.anchorOffsetX = this.width / 2;
 		}
 
 		private onclick_begin() {

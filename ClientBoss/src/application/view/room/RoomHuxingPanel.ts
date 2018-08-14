@@ -3,27 +3,27 @@ module game {
 		private roomView:GameRoomView;
 		public constructor(rView:GameRoomView) {
 			super();
-			this.roomView=rView
+			this.roomView=rView;
 		}
-		private roomInfo:RoomVO;
+		private roomInfo:HouseVO;
 		private bubbleList:any[]=[];
 		private qiPaoList:QipaoPanel[]=[];
 		private huxingImage:egret.Bitmap;
-		public init(rVo:RoomVO){
+
+		private qipaoWeizhi:any[]=[{x:448,y:0},{x:460,y:330},{x:190,y:198},{x:630,y:90}]
+		public init(rVo:HouseVO){
 			this.roomInfo=rVo;
 			this.huxingImage = new egret.Bitmap();
-			//let roomType: RoomTypeVO = GameConfig.getRoomType(this.roomInfo.tId)
-             //   if (roomType) {
-					this.huxingImage.texture = RES.getRes(/*roomType.rImage+*/"hx_4001_png");
-			//	}
+			this.huxingImage.texture = RES.getRes(/*roomType.rImage+*/"hx_4001_png");
 			console.log(this.huxingImage.width);
-			this.huxingImage.width=this.huxingImage.width*GameConfig.innerScale*3.5;
-			this.huxingImage.height=this.huxingImage.height*GameConfig.innerScale*3.5;
+			this.huxingImage.width=this.huxingImage.width*GameConfig.innerScale*2;
+			this.huxingImage.height=this.huxingImage.height*GameConfig.innerScale*2;
 			console.log(this.huxingImage.width);
 			this.width=this.huxingImage.width;
 			this.height=this.huxingImage.height;
 			this.addChild(this.huxingImage);
-			this.updataQipao(this.roomInfo.bubble);
+			this.y=this.parent.height/2-this.height/2+30;
+			this.updataQipao(this.roomInfo.housecells);
 		}
 		private updataQipao(bubble){
 			//let origin:egret.Point=this.globalToLocal(0,0);
@@ -32,20 +32,19 @@ module game {
 			this.qiPaoList=[];
 			if(bubble && bubble.length>0){
 				for (let i: number = 0; i < bubble.length; i++) {
-					if (bubble[i].status > 0 && bubble[i].status < 3) {
 						let qipao: QipaoPanel = new QipaoPanel(this.roomView);
 						this.addChild(qipao);
-						qipao.x = this.width / 8 + Math.random() * this.width * 6 / 8;
-						qipao.y = this.height / 8 + Math.random() * this.height * 6 / 8;
+						let point:any=this.qipaoWeizhi[bubble[i].index-1];
+						qipao.x = point.x*GameConfig.innerScale;
+						qipao.y = point.y*GameConfig.innerScale;
 						let oldY: number = qipao.y;
 						let timeNum: number = 800 + Math.floor(Math.random() * 500);
 						qipao.updataInfo(bubble[i]);
 						egret.Tween.get(qipao, { loop: true })
 							.to({ y: oldY + 10 }, timeNum)
 							.to({ y: oldY }, timeNum);
-						this.bubbleList.push(bubble[i].status);
+						//this.bubbleList.push(bubble[i].status);
 						this.qiPaoList.push(qipao);
-					}
 				}
 			}
 		}
@@ -114,7 +113,7 @@ module game {
 			if(this.qiPaoList && this.qiPaoList.length>0){
 				for(let i:number=0;i<this.qiPaoList.length;i++){
 					if(this.qiPaoList[i].bubble.id==gId){
-						this.qiPaoList[i].updatePlunder(pId,getNum);
+						//this.qiPaoList[i].updatePlunder(pId,getNum);
 						index=i;
 						qipao=this.qiPaoList[i];
 						this.plunderFloatWord(qipao,getNum);

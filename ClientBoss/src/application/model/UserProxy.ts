@@ -10,16 +10,16 @@ module game {
 			super(UserProxy.NAME);
 		}
 
-		private _userInfo:UserVO=new UserVO();
+		/*private _userInfo:UserVO=new UserVO();
 
 		public setUserInfo(obj:any):void
 		{
 			this._userInfo.setObject(obj);
-		}
+		}*/
 
-		public getUserInfo():UserVO
+		public getUserInfo():IUserInfo
 		{
-			return this._userInfo;
+			return DataManager.playerModel.getUserInfo();
 		}
 
 		public renameTime: number = 5;

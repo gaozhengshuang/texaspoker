@@ -16,7 +16,8 @@ module game {
 
 		public listNotificationInterests(): Array<any> {
 			return [
-				CommandName.POPUP_WELCOME	
+				CommandName.POPUP_WELCOME,
+				CommandName.REMOVE_POPUP
 			];
 		}
 
@@ -30,9 +31,9 @@ module game {
 						if (data) {
 							GameConfig.updataMaskBgFun('#000000', 0);
 							this.sceneView = new WelcomeNewPlayersPanel();
-							let goalScale:number=this.sceneView.scaleX;
+							let goalScale: number = this.sceneView.scaleX;
 							this.sceneView.alpha = 0;
-							this.sceneView.scaleX = this.sceneView.scaleY = goalScale*0.5;
+							this.sceneView.scaleX = this.sceneView.scaleY = goalScale * 0.5;
 							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
 							this.sceneView.initInfo(data.room);
 							this.sceneGroup.addChild(this.sceneView);
@@ -40,6 +41,25 @@ module game {
 							this.sceneView.y = GameConfig.innerHeight / 2;
 							ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
 							this.sceneMediatorName = PopupWelcomeMediator.NAME;
+						}
+						break;
+					}
+				case CommandName.REMOVE_POPUP:
+					{
+						if (GameConfig.sceneType == 2 || GameConfig.pageType == 2) {
+							GameConfig.updataMaskBgFun('#000000', 0);
+							GameConfig.setEventsReply(false);
+						}
+						this.removeSceneView();
+						break;
+					}
+				case CommandName.REMOVE_ALERT_ERROR:
+					{
+						if (this.sceneMediatorName == "") {
+							if (GameConfig.sceneType == 2 || GameConfig.pageType == 2) {
+								GameConfig.updataMaskBgFun('#000000', 0);
+								GameConfig.setEventsReply(false);
+							}
 						}
 						break;
 					}

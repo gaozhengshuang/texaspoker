@@ -25,12 +25,12 @@ module game {
             this.scaleY=GameConfig.innerScaleW;
         }
 
-        private itemDate:any;
+        private itemDate:HouseVO;
         protected dataChanged(): void {
             this.itemDate = this.data;
             if (this.itemDate) {
                 console.log(this.itemDate);
-                this.name_txt.text = this.itemDate.id+"号房间";
+                this.name_txt.text = this.itemDate.rId+"号房间";
                 /*let weizhiTxt = this.weizhi_txt;
                 GameConfig.getCityNameFun(this.itemDate.bLatLng[0],
                     this.itemDate.bLatLng[1], function (txt: string) {

@@ -56,6 +56,8 @@ module game {
             this.userInfo.addrlist = data.base.addrlist;
             this.userInfo.PersonalImage = data.base.images;
             this.userInfo.level=data.base.level;
+            this.userInfo.newplayerstep=data.base.newplayerstep;
+            GameConfig.newPlayerStep=this.userInfo.newplayerstep;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;

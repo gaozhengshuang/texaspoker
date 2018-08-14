@@ -27,7 +27,7 @@ module game {
 		}
 		private newRoomRequset(eve:BasicEvent):void
 		{
-			//ApplicationFacade.getInstance().sendNotification(CommandName.GOTO_NEW_ALLOT_ROOM,eve.EventObj);
+			ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,eve.EventObj);
 		}
 		private closeRequset(eve:BasicEvent):void
 		{

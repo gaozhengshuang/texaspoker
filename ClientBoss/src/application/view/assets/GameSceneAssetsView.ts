@@ -65,9 +65,9 @@ module game {
 			this.contentStarck.selectedChild=this["stackGroup"+this.currentGroupId];
 		}
 		private assetsItemList:utils.ScrollerPanel;
-		private assetsList:any[]=[];
+		private assetsList:HouseVO[]=[];
 		private buildingId:number=0;
-		public updateAssetsList(list:any[])
+		public updateAssetsList(list:HouseVO[])
 		{
 			this.assetsList=list;
 			if(this.assetsItemList==null)
@@ -82,14 +82,9 @@ module game {
 			this.assetsItemList.bindData(this.assetsList);			
 		}
 		private onItemTouch(eve:eui.ItemTapEvent){
-			let item:RoomVO=this.assetsList[eve.itemIndex];
+			let item:HouseVO=this.assetsList[eve.itemIndex];
 			if(item){
-				if(item.status==2){
-					this.dispatchEvent(new BasicEvent(GameSceneAssetsView.IN_SALE));
-				}else{
-					this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM,{rId:item.rId}));
-				}
-				
+				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM,{userid:item.ownerid}));	
 			}
         }
 	}

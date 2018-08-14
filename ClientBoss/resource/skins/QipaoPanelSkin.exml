@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="QipaoPanelSkin" width="130" height="220" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="img" source="qipaoIcon1_png" horizontalCenter="0" top="0" scaleX="1" scaleY="1"/>
-	<e:Label id="txt1" text="999" y="160" size="28" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="130" textAlign="center" horizontalCenter="0" stroke="3" strokeColor="0xe29313" bold="true" textColor="0xffffff"/>
-	<e:Label id="txt2" text="10:55" y="194" size="25" fontFamily="Microsoft YaHei" width="130" textAlign="center" horizontalCenter="0" stroke="3" strokeColor="0xe29313" textColor="0xffffff"/>
+	<e:Label id="txt2" text="999" y="160" size="28" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="130" textAlign="center" horizontalCenter="0" stroke="3" strokeColor="0xe29313" bold="true" textColor="0xffffff"/>
+	<e:Label id="txt1" text="10:55" y="194" size="25" fontFamily="Microsoft YaHei" width="130" textAlign="center" horizontalCenter="0" stroke="3" strokeColor="0xe29313" textColor="0xffffff"/>
 </e:Skin>

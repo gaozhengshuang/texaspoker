@@ -13,6 +13,7 @@ module game {
 			this.facade().registerProxy( new MapProxy() );
 			this.facade().registerProxy( new SmallGameProxy() );
 			this.facade().registerProxy( new AssetsProxy() );
+			this.facade().registerProxy( new HouseProxy() );
 		}
 	}
 }

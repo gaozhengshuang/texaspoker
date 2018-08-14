@@ -99,14 +99,14 @@ module game {
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
                         //if (data) {
-                            //let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+                            let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
                             GameConfig.sceneType = 6;
                             GameConfig.setEventsReply(true);
                             this.sceneView = new GameMineView();
                             this.sceneGroup.addChild(this.sceneView);
                             ApplicationFacade.getInstance().registerMediator(new MineMediator(this.sceneView));
 							this.sceneMediatorName = MineMediator.NAME;
-                            this.sceneView.updateView(game.DataManager.playerModel.getUserInfo());
+                            this.sceneView.updateView(userProxy.getUserInfo());
                         //}
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO,{isShow:false});
                         break;
@@ -132,6 +132,8 @@ module game {
             if (this.sceneMediatorName != "") {
                 ApplicationFacade.getInstance().removeMediator(this.sceneMediatorName);
             }
+            ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
+            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_INFO, { isShow: false });
         }
 
         public get sceneGroup(): egret.Sprite {
