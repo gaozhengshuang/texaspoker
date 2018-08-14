@@ -5,7 +5,7 @@ module game {
 		private view_bg: eui.Rect;
 		private titleImg: eui.Image;
 		private titleWordGroup: eui.Group;
-		private innerScaleW: number
+		private innerScaleW: number=1;
 
 		public constructor() {
 			super();
