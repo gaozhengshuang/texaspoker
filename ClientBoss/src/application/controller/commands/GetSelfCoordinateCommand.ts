@@ -24,6 +24,9 @@ module game {
 			this.mapProxy.currentPoint.setObject(data);
 			
             ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_MAP);
+			if(GameConfig.newPlayerStep==0){
+				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_ASSETS_LIST);
+			}
 		}
 	}
 }
