@@ -17,7 +17,12 @@ export var THouseCell : table.ITHouseCellDefine[] = [
 		{ Id : 3002, Type : 3, MaxLevel : 5, ProduceGold : 2000, ProduceTime : 20, LevelUpCost : 2000, Des : "" 	},
 		{ Id : 3003, Type : 3, MaxLevel : 5, ProduceGold : 3000, ProduceTime : 30, LevelUpCost : 3000, Des : "" 	},
 		{ Id : 3004, Type : 3, MaxLevel : 5, ProduceGold : 4000, ProduceTime : 40, LevelUpCost : 4000, Des : "" 	},
-		{ Id : 3005, Type : 3, MaxLevel : 5, ProduceGold : 5000, ProduceTime : 50, LevelUpCost : 0, Des : "" 	}
+		{ Id : 3005, Type : 3, MaxLevel : 5, ProduceGold : 5000, ProduceTime : 50, LevelUpCost : 0, Des : "" 	},
+		{ Id : 4001, Type : 4, MaxLevel : 5, ProduceGold : 1000, ProduceTime : 10, LevelUpCost : 1000, Des : "" 	},
+		{ Id : 4002, Type : 4, MaxLevel : 5, ProduceGold : 2000, ProduceTime : 20, LevelUpCost : 2000, Des : "" 	},
+		{ Id : 4003, Type : 4, MaxLevel : 5, ProduceGold : 3000, ProduceTime : 30, LevelUpCost : 3000, Des : "" 	},
+		{ Id : 4004, Type : 4, MaxLevel : 5, ProduceGold : 4000, ProduceTime : 40, LevelUpCost : 4000, Des : "" 	},
+		{ Id : 4005, Type : 4, MaxLevel : 5, ProduceGold : 5000, ProduceTime : 50, LevelUpCost : 0, Des : "" 	}
 	]
 
 
