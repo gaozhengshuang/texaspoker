@@ -297,7 +297,7 @@ func on_MS2GW_ParkCarResult(session network.IBaseNetSession, message interface{}
 	}
 
 	send := &msg.GW2C_ParkCarResult{}
-	send.Result = tmsg.GetResult()
+	send.Result = pb.Int32(tmsg.GetResult())
 	user.SendMsg(send)
 }
 
@@ -311,8 +311,8 @@ func on_MS2GW_TakeBackCarResult(session network.IBaseNetSession, message interfa
 		return
 	}
 	send := &msg.GW2C_TakeBackCarResult{}
-	send.Result = tmsg.GetResult()
-	send.Reward = tmsg.GetReward()
+	send.Result = pb.Int32(tmsg.GetResult())
+	send.Reward = pb.Int32(tmsg.GetReward())
 	if send.GetResult() == 0 && send.GetReward() > 0{
 		user.AddGold(uint32(send.GetReward()), "收取抢车位产出金币", true)
 	}
@@ -328,8 +328,8 @@ func on_MS2GW_TicketCarResult(session network.IBaseNetSession, message interface
 		return
 	}
 	send := &msg.GW2C_TicketCarResult{}
-	send.Result = tmsg.GetResult()
-	send.Reward = tmsg.GetReward()
+	send.Result = pb.Int32(tmsg.GetResult())
+	send.Reward = pb.Int32(tmsg.GetReward())
 	if send.GetResult() == 0 && send.GetReward() > 0{
 		user.AddGold(uint32(send.GetReward()), "贴条产出金币", true)
 	}
