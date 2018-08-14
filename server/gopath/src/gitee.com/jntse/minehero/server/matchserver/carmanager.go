@@ -92,7 +92,7 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData){
 	this.parkingcarownername = bin.GetParkingcarownername()
 	this.parkingtime = bin.GetParkingtime()
 	this.parkingreward = bin.GetParkingreward()
-	this.ownername = bin.GetWonername()
+	this.ownername = bin.GetOwnername()
 
 	template,find := tbl.TParkingBase.TParkingById[this.tid]
 	if find == false {
