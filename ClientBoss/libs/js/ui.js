@@ -77,6 +77,13 @@ function adaptive(scale){
     let crucialX2=equalW*2-equalW/2;
     document.getElementById("zichanBtn").style.left=(crucialX2-zichanBtnW*scale/2)+'px';
 
+    document.getElementById("zichanRedIcon").style.width=zichanBtnW*scale+"px";
+    document.getElementById("zichanRedIcon").style.height=zichanBtnH*scale+"px";
+    document.getElementById("zichanRedIcon").style.top=(downPanelH*scale-zichanBtnH*scale)/2+'px';
+    document.getElementById("zichanRedIcon").style.left=(crucialX2-zichanBtnW*scale/2+5)+'px';
+    document.getElementById("zichanRedIcon").style.pointerEvents = 'none';
+
+
     document.getElementById("faxianBtn").style.width=faxianBtnW*scale+"px";
     document.getElementById("faxianBtn").style.height=faxianBtnH*scale+"px";
     document.getElementById("faxianBtn").style.top=(downPanelH*scale-faxianBtnH*scale)/2+'px';
@@ -277,6 +284,15 @@ function smallGameClose(isShow){
     }
     else {
         document.getElementById("gameCloseBtn").style.display = 'none';
+    }
+}
+
+function showAssetsRedIcon(isShow){
+    if (isShow) {
+        document.getElementById("zichanRedIcon").style.display='block';
+    }
+    else {
+        document.getElementById("zichanRedIcon").style.display = 'none';
     }
 }
 

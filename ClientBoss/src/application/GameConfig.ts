@@ -77,6 +77,8 @@ module game {
 
         public static pageType: number = 0;
 
+        public static reqAssets:boolean = false;
+
         public static goldGPoint:egret.Point = new egret.Point(0,0);
 
 
