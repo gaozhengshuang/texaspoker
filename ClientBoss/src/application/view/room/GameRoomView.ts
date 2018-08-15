@@ -8,16 +8,15 @@ module game {
         public static PLUNDER: string = "plunder";
         public static PLUNDER_ERROR: string = "plunder_error";
         public static LEVEL: string = "level";
-        public static SHOW_TOP_ROOM_NUM: string = "show_top_room_num";
-
+		public static SHOW_TOP_ROOM_NUM: string = "show_top_room_num";
         private room_bg: eui.Rect;
 
         private huxingGroup: eui.Group;
         private downBtnGroup: eui.Group;
         private linjuInfoGroup: eui.Group;
         private roomLevelGroup: eui.Group;
-
-        private down_bg: eui.Group;
+        private bootomGroup   : eui.Group;
+         private down_bg: eui.Group;
 
         private quit_btn: eui.Button;
         private lingju_btn: eui.Button;
@@ -33,6 +32,9 @@ module game {
 
         private roomLevel_txt: eui.Label;
         private shouyi_txt: eui.Label;
+
+        private parkingLot  : CarParkingLot;
+        private parkingLots : CarParkingLot[];
 
         public roomInfo: HouseVO;
         public selfIdNum: number;
@@ -130,6 +132,8 @@ module game {
 
             this.addChild(scrollView);
             this.swapChildren(scrollView, this.huxingGroup);
+
+            this.showParkingLotList();
         }
         public updateInfo(rVo: HouseVO, selfId: number) {
             this.roomInfo = rVo;
@@ -145,8 +149,7 @@ module game {
             if( this.huxingPanel){
                 this.huxingPanel.update(this.roomInfo);
             }
-
-            if(this.listIndex>0 && this.itemList){
+	        if(this.listIndex>0 && this.itemList){
                 this.bindDataList(this.listIndex);
             }
         }
@@ -155,7 +158,7 @@ module game {
             this.linjuInfoGroup.visible = false;
             this.roomLevelGroup.visible = true;
             this.downBtnGroup.visible=true;
-            this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: true, rId: this.roomInfo.rId }));
+			this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: true, rId: this.roomInfo.rId }));
         }
         private showOthers() {
 
@@ -168,8 +171,7 @@ module game {
             this.ljName_txt.text = this.roomInfo.ownername;
             //this.ljbName_txt.text = "";
             this.ljHuxing_txt.text = ""+this.roomInfo.rId;
-
-            this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: false}));
+			this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: false}));
         }
 
         public receiveCoin(coinId: number) {
@@ -193,6 +195,7 @@ module game {
         }
 
         private onclick_begin() {
+            this.removePanel();
             this.dispatchEvent(new BasicEvent(GameRoomView.CLOSE));
         }
 
@@ -233,7 +236,7 @@ module game {
                     + 20 * GameConfig.innerScaleW;
             }
             this.listIndex = index;
-            console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
+			console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
 
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
@@ -306,7 +309,7 @@ module game {
                 case 1:
                     item= this.dongtaiList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.visitorid,return:this.roomInfo}));
+               			this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.visitorid,return:this.roomInfo}));
                     }
                     break;
                 case 2:
@@ -318,7 +321,7 @@ module game {
                 case 3:
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.ownerid,return:this.roomInfo}));
+                		this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.ownerid,return:this.roomInfo}));
                     }
                     break;
             }
@@ -359,6 +362,40 @@ module game {
             this.levelInfoList[4]={index:4,data:this.getCellInfo(4),name:"厨房"};
             this.itemList.bindData(this.levelInfoList);
         }
+
+        //车库列表
+        public showParkingLotList(){
+            //console.log("showParkingLotList");
+            let self = this;
+          
+            for (let index = 1; index < self.bootomGroup.numChildren; index++) {
+                self.bootomGroup.removeChildAt(self.bootomGroup.numChildren-1);
+            }
+            self.parkingLot.visible = false;
+            self.parkingLots = [];
+            
+            let _showParkingLotList :Function = function(parkingDatas:msg.IParkingData[]){
+                //console.log("回调_showParkingLotList------->",parkingDatas.length);
+                if(parkingDatas && parkingDatas.length > 0){
+                    self.parkingLot.visible = true;
+                    self.parkingLots.push(self.parkingLot);
+                    parkingDatas.forEach((data,index,array)=>{
+                        //console.log("车位赋值--->",data.ownername+" "+data.ownerid+" "+data.parkingcarownername);
+                        if(index==0){self.parkingLot.setData(data);}
+                        else{
+                            let _parkingLot : CarParkingLot = new CarParkingLot();
+                            self.bootomGroup.addChild(_parkingLot);
+                            _parkingLot.x = self.parkingLot.x;
+                            _parkingLot.y =  self.parkingLot.y + 100;
+                            _parkingLot.setData(data);
+                            self.parkingLots.push(_parkingLot);
+                        }
+                    });
+                };
+            };
+            CarManager.getInstance().ReqParkingInfoByType(0,this.roomInfo.ownerid,_showParkingLotList);
+        }
+
         private getCellInfo(index: number): any {
             let cell: any = null;
             if (this.roomInfo) {
@@ -396,5 +433,13 @@ module game {
             }
 
         }
+
+        public removePanel(){
+            console.log("房屋界面关闭");
+            this.parkingLots.forEach(item=>{
+                item.removeTimer();
+            })
+        }
+
     }
 }

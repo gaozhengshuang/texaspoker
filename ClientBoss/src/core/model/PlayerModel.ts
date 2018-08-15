@@ -422,7 +422,7 @@ module game {
         public getMyCarPakingInfo(id:number|Long)
         {
            let _parkingdatas = this.userInfo.parkingdatas.filter(data=>{return data.parkingcarownerid===this.userInfo.userid && data.parkingcar==id;});
-           if(_parkingdatas.length==0) return false;
+           if(_parkingdatas.length==0) return null;
            if(_parkingdatas.length > 1) 
            {
                _parkingdatas.forEach(data=>{

@@ -1,6 +1,6 @@
 module game {
     export class CarManager {
-
+    
         private static _instance: CarManager;
         public static getInstance(): CarManager {
             if (!CarManager._instance) {
@@ -9,51 +9,103 @@ module game {
             return CarManager._instance;
         }
 
+        private GW2C_ResCarInfo_BackCalls           : Function[];
+        private GW2C_ResParkingInfo_BackCalls       : Function[];
+        private GW2C_ParkCarResult_BackCalls        : Function[];
+        private GW2C_TakeBackCarResult_BackCalls    : Function[];
+        private GW2C_TicketCarResult_BackCalls      : Function[]; 
+
         public constructor()
         {
+            NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
+            
             NotificationCenter.addObserver(this, this.OnGW2C_ParkCarResult, "msg.GW2C_ParkCarResult");
             NotificationCenter.addObserver(this, this.OnGW2C_TakeBackCarResult, "msg.GW2C_TakeBackCarResult");
             NotificationCenter.addObserver(this, this.OnGW2C_TicketCarResult, "msg.GW2C_TicketCarResult");
             NotificationCenter.addObserver(this, this.OnGW2C_ResParkingInfo, "msg.GW2C_ResParkingInfo");
+            
+            this.GW2C_ResCarInfo_BackCalls          = [];
+            this.GW2C_ResParkingInfo_BackCalls      = [];
+            this.GW2C_ParkCarResult_BackCalls       = [];
+            this.GW2C_TakeBackCarResult_BackCalls   = [];
+            this.GW2C_TicketCarResult_BackCalls     = [];
         }
-                
+    
+
         public buyParkingLot(){}
 
+         //请求我的车辆信息
+        public ReqMyCarInfo(callFunc:Function=null)
+        {
+            //console.log("ReqMyCarInfo");
+            if(callFunc && !this.GW2C_ResCarInfo_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_ResCarInfo_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_ReqCarInfo",msg.C2GW_ReqCarInfo.encode({}));
+        }
+        private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
+            this.GW2C_ResCarInfo_BackCalls.forEach(func=>{if(func){func()};});
+            this.GW2C_ResCarInfo_BackCalls = [];
+        }
  
         //停车 
-        public parking(cid:number|Long,pid:number|Long)
+        public parking(cid:number|Long,_parkingData:msg.IParkingData,callFunc:Function=null)
         {
-            sendMessage("msg.C2GW_ParkCar", msg.C2GW_ParkCar.encode({
-                carid: cid,
-                parkingid: pid,
-            }));
+            //console.log("停车--->",cid," ",_parkingData.ownerid+" "+_parkingData.ownername);
+            let self = this;
+            CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
+            showDialog("是否在"+_parkingData.ownername+"的车位停车?", "停车", function(){
+                if(callFunc && !self.GW2C_ParkCarResult_BackCalls.some(func=>{return func==callFunc;}))
+                {
+                    self.GW2C_ParkCarResult_BackCalls.push(callFunc);
+                }
+                sendMessage("msg.C2GW_ParkCar", msg.C2GW_ParkCar.encode({
+                    carid: cid,
+                    parkingid: _parkingData.id,
+                }));
+            },null);
         }
 
         //贴条
-        public giveTicket(pid:number|Long)
+        public giveTicket(_parkingData:msg.IParkingData,callFunc:Function=null)
         {
-            sendMessage("msg.C2GW_TicketCar", msg.C2GW_TicketCar.encode({
-                parkingid: pid,
-            }));
+            //console.log("贴条--------");
+            CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
+            let self = this;
+            showDialog("是否对"+_parkingData.parkingcarownername+"的车贴条?", "贴条", function(){
+                if(callFunc && !self.GW2C_TicketCarResult_BackCalls.some(func=>{return func==callFunc;}))
+                {
+                    self.GW2C_TicketCarResult_BackCalls.push(callFunc);
+                }
+                sendMessage("msg.C2GW_TicketCar", msg.C2GW_TicketCar.encode({
+                    parkingid: _parkingData.id,
+                }));
+            },null);
         }
 
         //收回
-        public driveAway(cid:number|Long)
+        public driveAway(cid:number|Long,parkingData:msg.IParkingData,callFunc:Function=null)
         {   
-            let _parkingData = DataManager.playerModel.getMyCarPakingInfo(cid);
+            //console.log("收回--------");
+            let _parkingData :msg.IParkingData = parkingData;
+            if(!parkingData) 
+            {
+                _parkingData = DataManager.playerModel.getMyCarPakingInfo(cid);
+            }
+            
             if(!_parkingData) return;
+            let self = this;
             CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
-            showDialog("是否收回在"+_parkingData.id+"的车?", "收回", function(){
+            showDialog("是否收回在"+_parkingData.ownername+"的车?", "收回", function(){
+                if(callFunc && !self.GW2C_TakeBackCarResult_BackCalls.some(func=>{return func==callFunc;}))
+                {
+                    self.GW2C_TakeBackCarResult_BackCalls.push(callFunc);
+                }
                 sendMessage("msg.C2GW_TakeBackCar", msg.C2GW_TakeBackCar.encode({
                     carid: cid,
                 }));
             },null);
-        }
-         //请求我的车辆信息
-        public ReqMyCarInfo()
-        {
-            console.log("ReqMyCarInfo");
-            sendMessage("msg.C2GW_ReqCarInfo",msg.C2GW_ReqCarInfo.encode({}));
         }
 
         //请求我的停车位
@@ -63,45 +115,51 @@ module game {
 
         }
 
-        //请求符合条件的车位列表
-        public ReqParkingInfoByType(data:msg.C2GW_ReqParkingInfoByType)
+        //请求符合条件的车位列表 0 所有类型 1 公共车位 2 普通车位
+        public ReqParkingInfoByType(infotype:number,uid:number|Long,callFunc:Function=null)
         {
+            //console.log("ReqParkingInfoByType---->",infotype," ",uid);
+            
+            if(callFunc && !this.GW2C_ResParkingInfo_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_ResParkingInfo_BackCalls.push(callFunc);
+            }
             sendMessage("msg.C2GW_ReqParkingInfoByType", msg.C2GW_ReqParkingInfoByType.encode({
-               type : data.type,
+               type : infotype,
+               playerid : uid,
             }));
         }
 
         //收到符合条件的车位列表
         private OnGW2C_ResParkingInfo(msgs:msg.GW2C_ResParkingInfo)
         {
-            console.log("OnGW2C_ResParkingInfo",msgs.parkingdatas.length);
-            msgs.parkingdatas.forEach((parkingData,index,array)=>{
-                console.log(index+" "+parkingData);
-            });
+           // console.log("OnGW2C_ResParkingInfo",msgs.parkingdatas.length);
+            this.GW2C_ResParkingInfo_BackCalls.forEach(func=>{if(func){func(msgs.parkingdatas)};});
+            this.GW2C_ResParkingInfo_BackCalls = [];
         }
 
         //停车结果
-        private OnGW2C_ParkCarResult(msg:msg.GW2C_ParkCarResult)
+        private OnGW2C_ParkCarResult(msgs:msg.GW2C_ParkCarResult)
         {
-            
+            //console.log("停车结果",msgs.result);
+            this.GW2C_ParkCarResult_BackCalls.forEach(func=>{if(func){func(msgs.result)};});
+            this.GW2C_ParkCarResult_BackCalls = [];
         }
 
         //收回结果
-        private OnGW2C_TakeBackCarResult(msg:msg.GW2C_TakeBackCarResult)
+        private OnGW2C_TakeBackCarResult(msgs:msg.GW2C_TakeBackCarResult)
         {
-
+            //console.log("收回结果",msgs.result+"  "+msgs.reward);
+            this.GW2C_TakeBackCarResult_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.reward)};});
+            this.GW2C_TakeBackCarResult_BackCalls = [];
         }
         
         //贴条结果
-        private OnGW2C_TicketCarResult(msg:msg.GW2C_TicketCarResult)
+        private OnGW2C_TicketCarResult(msgs:msg.GW2C_TicketCarResult)
         {
-
-        }
-
-        private OnGW2C_ResCarInfo(msgs:msg.GW2C_ResCarInfo)
-        {
-            console.log("OnGW2C_ResCarInfo"+msgs.parkingdatas.length+" "+msgs.cardatas.length);
-            
+            //console.log("贴条结果",msgs.result+"  "+msgs.reward);
+            this.GW2C_TicketCarResult_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.reward)};});
+            this.GW2C_TicketCarResult_BackCalls = [];
         }
 
     }

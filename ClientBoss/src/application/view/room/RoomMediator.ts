@@ -10,7 +10,8 @@ module game {
 				CommandName.POPUP_ROOM_NEIGHBOR,
 				CommandName.PLUNDER_SUCCESS,
 				CommandName.RECEIVE_SUCCESS,
-				CommandName.UPDATE_ROOM_INFO
+				CommandName.UPDATE_ROOM_INFO,
+				CommandName.ROOM_PARKINGLOT_UPDATE
 			];
 		}
 
@@ -19,6 +20,7 @@ module game {
 			switch (notification.getName()) {
 				case CommandName.UPDATE_ROOM_INFO:
 					{
+						
 						if (data) {
 							let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
 							this.sceneGroup.updateInfo(data.room,Number(userProxy.getUserInfo().userid));
@@ -61,6 +63,14 @@ module game {
 						}
 						break;
 					}
+
+				case CommandName.ROOM_PARKINGLOT_UPDATE:
+					{
+						console.log("更新车位信息");
+						this.sceneGroup.showParkingLotList();
+						break;
+					}
+					
 			}
 		}
 		private init(): void {
@@ -72,8 +82,8 @@ module game {
 			this.sceneGroup.addEventListener(GameRoomView.PLUNDER_ERROR, this.plunderErrorRegister, this);
 			this.sceneGroup.addEventListener(GameRoomView.RECEIVE, this.receiveRegister, this);
 			this.sceneGroup.addEventListener(GameRoomView.LEVEL, this.levelRegister, this);
-			this.sceneGroup.addEventListener(GameRoomView.SHOW_TOP_ROOM_NUM, this.showRoomNumRegister, this);
-
+			this.sceneGroup.addEventListener(GameRoomView.SHOW_TOP_ROOM_NUM, this.showRoomNumRegister, this);			
+			CarManager.getInstance().ReqMyCarInfo();
 		}
 		private closeRequset(eve: BasicEvent): void {
 			let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
@@ -84,6 +94,7 @@ module game {
 			} else {
 				ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_ROOM_PAGE);
 			}
+
 		}
 		private showRoomNumRegister(eve: BasicEvent): void {
 			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_NUM, eve.EventObj);
@@ -110,7 +121,6 @@ module game {
 				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
 				 {userid:eve.EventObj.userid});
 			}
-			
 		}
 		private showRoomInfoRegister(eve: BasicEvent): void {
 			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_INFO, eve.EventObj);

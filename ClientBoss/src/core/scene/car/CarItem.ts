@@ -28,7 +28,7 @@ module game {
 
         protected dataChanged():void{
             //数据改变时，会自动调用 dataChanged 这个方法
-            console.log("dataChanged "+this.data.tid);
+            //console.log("dataChanged "+this.data.tid);
             this.setData(table.TCarById[this.data.tid]);
         }
 
@@ -88,7 +88,7 @@ module game {
             //RoleDressShopCart.getInstance().OnChooseItem(this._select,this.itemData);
         }
         private OnClickDetail(){
-            console.log("OnClickDetail");
+            CarManager.getInstance().ReqMyCarInfo();
             openPanel(PanelType.carDetail);
             CarDetailView.getInstance().setData(this.data);
         }
