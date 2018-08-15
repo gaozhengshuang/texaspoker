@@ -249,7 +249,7 @@ func on_GW2MS_ReqTakeSelfHouseGold(session network.IBaseNetSession, message inte
 func on_GW2MS_ReqTakeOtherHouseGold(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_ReqTakeOtherHouseGold)
 	uid := tmsg.GetUserid()
-	log.Info("on_GW2MS_ReqTakeSelfHouseGold %d", uid)
+	log.Info("on_GW2MS_ReqTakeOtherHouseGold %d", uid)
 	houseid := tmsg.GetHouseid()
 	index := tmsg.GetIndex()
 	visitorname := tmsg.GetUsername()
