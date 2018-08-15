@@ -79,6 +79,10 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					//Cell到最高等级
 					return
 				}
+				if house.GetLevel() <= v.GetLevel() {
+					//房屋等级不足
+					return
+				}
 				needgold := base.LevelUpCost
 				if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 					//钱不够
