@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="RoomViewUISkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="RoomViewUISkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
 	<e:Rect id="room_bg" width="720" height="1280" x="0" y="0" fillColor="0xc3c6cb" locked="true"/>
 	<e:Group id="huxingGroup">
 	</e:Group>
+	<e:Group id="bootomGroup" width="0" height="0" horizontalCenter="-360" verticalCenter="-640" bottom="1280">
+		<game:CarParkingLot id="parkingLot" width="20" height="20" x="530" y="807" scaleX="1" scaleY="1" skinName="CarParkingLotSkin" visible="false"/>
+	</e:Group>
+
 	<e:Button id="quit_btn" label="" y="0" anchorOffsetX="0" anchorOffsetY="0" x="0">
 		<e:skinName>
 		<e:Skin states="up,down,disabled">
@@ -62,4 +66,5 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
+
 </e:Skin>
