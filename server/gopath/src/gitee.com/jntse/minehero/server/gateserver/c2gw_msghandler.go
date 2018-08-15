@@ -985,6 +985,7 @@ func on_C2GW_ReqParkingInfoByType(session network.IBaseNetSession, message inter
 	sendmatch := &msg.GW2MS_ReqParkingInfoByType{}
 	sendmatch.Userid = pb.Uint64(user.Id())
 	sendmatch.Type = pb.Int32(tmsg.GetType())
+	sendmatch.Playerid = pb.Uint64(tmsg.GetPlayerid())
 	Match().SendCmd(sendmatch)
 }
 //请求停车

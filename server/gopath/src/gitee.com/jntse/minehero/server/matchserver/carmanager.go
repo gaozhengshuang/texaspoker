@@ -313,12 +313,16 @@ func (this* CarManager) GetParkingById(ids []uint64) []*ParkingData{
 	return data
 }
 
-func (this* CarManager) GetParkingByType(parkingtype uint32) []*ParkingData{
+func (this* CarManager) GetParkingByCondition(parkingtype uint32,playerid uint64) []*ParkingData{
 	data := make([]*ParkingData,0)
 	for _,v := range this.parkings {
-		if(v.template.Type == parkingtype){
-			data = append(data,v)
+		if parkingtype != 0 && v.template.Type != parkingtype {
+			continue;
 		}
+		if playerid != 0 && v.ownerid != playerid {
+			continue;
+		}
+		data = append(data,v)
 	}
 	return data
 }
