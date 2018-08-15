@@ -35,6 +35,7 @@ module game {
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
         public totalMoney: number | Long = 0;
         private _tasks;
+        private _houses;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -407,6 +408,14 @@ module game {
                 }
             }
             return null;
+        }
+
+        public setHouse(house: msg.IHouseData[]) {
+            this._houses = house;
+        }
+
+        public getHouse() {
+            return this._houses;
         }
 
         //我的车辆是否停靠

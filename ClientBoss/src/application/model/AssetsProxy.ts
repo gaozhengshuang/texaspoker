@@ -16,6 +16,7 @@ module game {
 			NotificationCenter.addObserver(this, this.OnGW2C_AckNewPlayerStep, "msg.GW2C_AckNewPlayerStep");
         }
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
+			DataManager.playerModel.setHouse(data.datas);
 			this.setHouseAssets(data.datas);
 			if (GameConfig.reqAssets && GameConfig.pageType != 1) {
 				GameConfig.reqAssets=false;
