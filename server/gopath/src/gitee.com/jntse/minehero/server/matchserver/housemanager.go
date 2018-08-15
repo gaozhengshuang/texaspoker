@@ -65,6 +65,7 @@ func (this *HouseCell) OwnerTakeGold() uint32 {
 	} else {
 		gold := this.gold
 		this.gold = 0
+		this.state = 0
 		this.tmproduce = util.CURTIME()
 		return gold
 	}
@@ -470,8 +471,9 @@ func (this *HouseManager) OnSyncUserOnlineState(uid uint64, state uint32, sessio
 
 //循环
 func (this *HouseManager) Tick(now int64) {
+	nowsec := int64(now / 1000)
 	for _, v := range this.houses {
-		v.Tick(now)
+		v.Tick(nowsec)
 	}
 }
 

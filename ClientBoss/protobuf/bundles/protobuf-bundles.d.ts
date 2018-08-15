@@ -1,5 +1,4 @@
 type Long = protobuf.Long;
-// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -11300,6 +11299,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseLevelUp ret */
         ret?: (number|null);
+
+        /** MS2GW_AckHouseLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckHouseLevelUp. */
@@ -11319,6 +11321,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseLevelUp ret. */
         public ret: number;
+
+        /** MS2GW_AckHouseLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckHouseLevelUp instance using the specified properties.
@@ -11507,6 +11512,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseCellLevelUp ret */
         ret?: (number|null);
+
+        /** MS2GW_AckHouseCellLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckHouseCellLevelUp. */
@@ -11529,6 +11537,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseCellLevelUp ret. */
         public ret: number;
+
+        /** MS2GW_AckHouseCellLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckHouseCellLevelUp instance using the specified properties.
@@ -11717,6 +11728,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeSelfHouseGoldRet gold */
         gold?: (number|null);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckTakeSelfHouseGoldRet. */
@@ -11739,6 +11753,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeSelfHouseGoldRet gold. */
         public gold: number;
+
+        /** MS2GW_AckTakeSelfHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckTakeSelfHouseGoldRet instance using the specified properties.
@@ -11933,6 +11950,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeOtherHouseGoldRet gold */
         gold?: (number|null);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckTakeOtherHouseGoldRet. */
@@ -11955,6 +11975,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeOtherHouseGoldRet gold. */
         public gold: number;
+
+        /** MS2GW_AckTakeOtherHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckTakeOtherHouseGoldRet instance using the specified properties.
@@ -17249,6 +17272,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseLevelUp ret */
         ret?: (number|null);
+
+        /** GW2C_AckHouseLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckHouseLevelUp. */
@@ -17265,6 +17291,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseLevelUp ret. */
         public ret: number;
+
+        /** GW2C_AckHouseLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckHouseLevelUp instance using the specified properties.
@@ -17444,6 +17473,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseCellLevelUp ret */
         ret?: (number|null);
+
+        /** GW2C_AckHouseCellLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckHouseCellLevelUp. */
@@ -17463,6 +17495,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseCellLevelUp ret. */
         public ret: number;
+
+        /** GW2C_AckHouseCellLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckHouseCellLevelUp instance using the specified properties.
@@ -17642,6 +17677,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeSelfHouseGoldRet gold */
         gold?: (number|null);
+
+        /** GW2C_AckTakeSelfHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckTakeSelfHouseGoldRet. */
@@ -17661,6 +17699,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeSelfHouseGoldRet gold. */
         public gold: number;
+
+        /** GW2C_AckTakeSelfHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckTakeSelfHouseGoldRet instance using the specified properties.
@@ -17840,6 +17881,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeOtherHouseGoldRet gold */
         gold?: (number|null);
+
+        /** GW2C_AckTakeOtherHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckTakeOtherHouseGoldRet. */
@@ -17859,6 +17903,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeOtherHouseGoldRet gold. */
         public gold: number;
+
+        /** GW2C_AckTakeOtherHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckTakeOtherHouseGoldRet instance using the specified properties.
@@ -19819,8 +19866,8 @@ declare namespace table {
         /** TCarDefine path */
         path?: (string|null);
 
-        /** TCarDefine bigPath */
-        bigPath?: (string|null);
+        /** TCarDefine bigpath */
+        bigpath?: (string|null);
     }
 
     /** Represents a TCarDefine. */
@@ -19859,8 +19906,8 @@ declare namespace table {
         /** TCarDefine path. */
         public path: string;
 
-        /** TCarDefine bigPath. */
-        public bigPath: string;
+        /** TCarDefine bigpath. */
+        public bigpath: string;
 
         /**
          * Creates a new TCarDefine instance using the specified properties.

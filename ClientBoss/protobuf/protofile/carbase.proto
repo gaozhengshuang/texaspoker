@@ -46,7 +46,7 @@ message TCarDefine
 	optional string path = 9; // 图片路径
 	
 	
-	optional string big_path = 10; // 图片路径
+	optional string bigpath = 10; // 图片路径
 
 }
 

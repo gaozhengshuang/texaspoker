@@ -26546,6 +26546,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [userid] MS2GW_AckHouseLevelUp userid
          * @property {number|Long|null} [houseid] MS2GW_AckHouseLevelUp houseid
          * @property {number|null} [ret] MS2GW_AckHouseLevelUp ret
+         * @property {msg.IHouseData|null} [data] MS2GW_AckHouseLevelUp data
          */
 
         /**
@@ -26588,6 +26589,14 @@ $root.msg = (function() {
         MS2GW_AckHouseLevelUp.prototype.ret = 0;
 
         /**
+         * MS2GW_AckHouseLevelUp data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.MS2GW_AckHouseLevelUp
+         * @instance
+         */
+        MS2GW_AckHouseLevelUp.prototype.data = null;
+
+        /**
          * Creates a new MS2GW_AckHouseLevelUp instance using the specified properties.
          * @function create
          * @memberof msg.MS2GW_AckHouseLevelUp
@@ -26617,6 +26626,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.houseid);
             if (message.ret != null && message.hasOwnProperty("ret"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ret);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             return writer;
         };
 
@@ -26659,6 +26670,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.ret = reader.uint32();
+                    break;
+                case 4:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -26704,6 +26718,11 @@ $root.msg = (function() {
             if (message.ret != null && message.hasOwnProperty("ret"))
                 if (!$util.isInteger(message.ret))
                     return "ret: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -26739,6 +26758,11 @@ $root.msg = (function() {
                     message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
             if (object.ret != null)
                 message.ret = object.ret >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.MS2GW_AckHouseLevelUp.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -26767,6 +26791,7 @@ $root.msg = (function() {
                 } else
                     object.houseid = options.longs === String ? "0" : 0;
                 object.ret = 0;
+                object.data = null;
             }
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
@@ -26780,6 +26805,8 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
             if (message.ret != null && message.hasOwnProperty("ret"))
                 object.ret = message.ret;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -27067,6 +27094,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] MS2GW_AckHouseCellLevelUp houseid
          * @property {number|null} [index] MS2GW_AckHouseCellLevelUp index
          * @property {number|null} [ret] MS2GW_AckHouseCellLevelUp ret
+         * @property {msg.IHouseData|null} [data] MS2GW_AckHouseCellLevelUp data
          */
 
         /**
@@ -27117,6 +27145,14 @@ $root.msg = (function() {
         MS2GW_AckHouseCellLevelUp.prototype.ret = 0;
 
         /**
+         * MS2GW_AckHouseCellLevelUp data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.MS2GW_AckHouseCellLevelUp
+         * @instance
+         */
+        MS2GW_AckHouseCellLevelUp.prototype.data = null;
+
+        /**
          * Creates a new MS2GW_AckHouseCellLevelUp instance using the specified properties.
          * @function create
          * @memberof msg.MS2GW_AckHouseCellLevelUp
@@ -27148,6 +27184,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
             if (message.ret != null && message.hasOwnProperty("ret"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ret);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             return writer;
         };
 
@@ -27193,6 +27231,9 @@ $root.msg = (function() {
                     break;
                 case 4:
                     message.ret = reader.uint32();
+                    break;
+                case 5:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -27241,6 +27282,11 @@ $root.msg = (function() {
             if (message.ret != null && message.hasOwnProperty("ret"))
                 if (!$util.isInteger(message.ret))
                     return "ret: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -27278,6 +27324,11 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.ret != null)
                 message.ret = object.ret >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.MS2GW_AckHouseCellLevelUp.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -27307,6 +27358,7 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? "0" : 0;
                 object.index = 0;
                 object.ret = 0;
+                object.data = null;
             }
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
@@ -27322,6 +27374,8 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.ret != null && message.hasOwnProperty("ret"))
                 object.ret = message.ret;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -27609,6 +27663,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] MS2GW_AckTakeSelfHouseGoldRet houseid
          * @property {number|null} [index] MS2GW_AckTakeSelfHouseGoldRet index
          * @property {number|null} [gold] MS2GW_AckTakeSelfHouseGoldRet gold
+         * @property {msg.IHouseData|null} [data] MS2GW_AckTakeSelfHouseGoldRet data
          */
 
         /**
@@ -27659,6 +27714,14 @@ $root.msg = (function() {
         MS2GW_AckTakeSelfHouseGoldRet.prototype.gold = 0;
 
         /**
+         * MS2GW_AckTakeSelfHouseGoldRet data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeSelfHouseGoldRet.prototype.data = null;
+
+        /**
          * Creates a new MS2GW_AckTakeSelfHouseGoldRet instance using the specified properties.
          * @function create
          * @memberof msg.MS2GW_AckTakeSelfHouseGoldRet
@@ -27690,6 +27753,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
             if (message.gold != null && message.hasOwnProperty("gold"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.gold);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             return writer;
         };
 
@@ -27735,6 +27800,9 @@ $root.msg = (function() {
                     break;
                 case 4:
                     message.gold = reader.uint32();
+                    break;
+                case 5:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -27783,6 +27851,11 @@ $root.msg = (function() {
             if (message.gold != null && message.hasOwnProperty("gold"))
                 if (!$util.isInteger(message.gold))
                     return "gold: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -27820,6 +27893,11 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.gold != null)
                 message.gold = object.gold >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.MS2GW_AckTakeSelfHouseGoldRet.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -27849,6 +27927,7 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? "0" : 0;
                 object.index = 0;
                 object.gold = 0;
+                object.data = null;
             }
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
@@ -27864,6 +27943,8 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.gold != null && message.hasOwnProperty("gold"))
                 object.gold = message.gold;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -28173,6 +28254,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] MS2GW_AckTakeOtherHouseGoldRet houseid
          * @property {number|null} [index] MS2GW_AckTakeOtherHouseGoldRet index
          * @property {number|null} [gold] MS2GW_AckTakeOtherHouseGoldRet gold
+         * @property {msg.IHouseData|null} [data] MS2GW_AckTakeOtherHouseGoldRet data
          */
 
         /**
@@ -28223,6 +28305,14 @@ $root.msg = (function() {
         MS2GW_AckTakeOtherHouseGoldRet.prototype.gold = 0;
 
         /**
+         * MS2GW_AckTakeOtherHouseGoldRet data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        MS2GW_AckTakeOtherHouseGoldRet.prototype.data = null;
+
+        /**
          * Creates a new MS2GW_AckTakeOtherHouseGoldRet instance using the specified properties.
          * @function create
          * @memberof msg.MS2GW_AckTakeOtherHouseGoldRet
@@ -28254,6 +28344,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.index);
             if (message.gold != null && message.hasOwnProperty("gold"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.gold);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             return writer;
         };
 
@@ -28299,6 +28391,9 @@ $root.msg = (function() {
                     break;
                 case 4:
                     message.gold = reader.uint32();
+                    break;
+                case 5:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -28347,6 +28442,11 @@ $root.msg = (function() {
             if (message.gold != null && message.hasOwnProperty("gold"))
                 if (!$util.isInteger(message.gold))
                     return "gold: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -28384,6 +28484,11 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.gold != null)
                 message.gold = object.gold >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.MS2GW_AckTakeOtherHouseGoldRet.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -28413,6 +28518,7 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? "0" : 0;
                 object.index = 0;
                 object.gold = 0;
+                object.data = null;
             }
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
@@ -28428,6 +28534,8 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.gold != null && message.hasOwnProperty("gold"))
                 object.gold = message.gold;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -34148,13 +34256,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -34403,13 +34505,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -40500,6 +40596,7 @@ $root.msg = (function() {
          * @interface IGW2C_AckHouseLevelUp
          * @property {number|Long|null} [houseid] GW2C_AckHouseLevelUp houseid
          * @property {number|null} [ret] GW2C_AckHouseLevelUp ret
+         * @property {msg.IHouseData|null} [data] GW2C_AckHouseLevelUp data
          */
 
         /**
@@ -40534,6 +40631,14 @@ $root.msg = (function() {
         GW2C_AckHouseLevelUp.prototype.ret = 0;
 
         /**
+         * GW2C_AckHouseLevelUp data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.GW2C_AckHouseLevelUp
+         * @instance
+         */
+        GW2C_AckHouseLevelUp.prototype.data = null;
+
+        /**
          * Creates a new GW2C_AckHouseLevelUp instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckHouseLevelUp
@@ -40561,6 +40666,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
             if (message.ret != null && message.hasOwnProperty("ret"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.ret);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             return writer;
         };
 
@@ -40600,6 +40707,9 @@ $root.msg = (function() {
                     break;
                 case 2:
                     message.ret = reader.uint32();
+                    break;
+                case 3:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -40642,6 +40752,11 @@ $root.msg = (function() {
             if (message.ret != null && message.hasOwnProperty("ret"))
                 if (!$util.isInteger(message.ret))
                     return "ret: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -40668,6 +40783,11 @@ $root.msg = (function() {
                     message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
             if (object.ret != null)
                 message.ret = object.ret >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.GW2C_AckHouseLevelUp.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -40691,6 +40811,7 @@ $root.msg = (function() {
                 } else
                     object.houseid = options.longs === String ? "0" : 0;
                 object.ret = 0;
+                object.data = null;
             }
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 if (typeof message.houseid === "number")
@@ -40699,6 +40820,8 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
             if (message.ret != null && message.hasOwnProperty("ret"))
                 object.ret = message.ret;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -40949,6 +41072,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] GW2C_AckHouseCellLevelUp houseid
          * @property {number|null} [index] GW2C_AckHouseCellLevelUp index
          * @property {number|null} [ret] GW2C_AckHouseCellLevelUp ret
+         * @property {msg.IHouseData|null} [data] GW2C_AckHouseCellLevelUp data
          */
 
         /**
@@ -40991,6 +41115,14 @@ $root.msg = (function() {
         GW2C_AckHouseCellLevelUp.prototype.ret = 0;
 
         /**
+         * GW2C_AckHouseCellLevelUp data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.GW2C_AckHouseCellLevelUp
+         * @instance
+         */
+        GW2C_AckHouseCellLevelUp.prototype.data = null;
+
+        /**
          * Creates a new GW2C_AckHouseCellLevelUp instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckHouseCellLevelUp
@@ -41020,6 +41152,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
             if (message.ret != null && message.hasOwnProperty("ret"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ret);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             return writer;
         };
 
@@ -41062,6 +41196,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.ret = reader.uint32();
+                    break;
+                case 4:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -41107,6 +41244,11 @@ $root.msg = (function() {
             if (message.ret != null && message.hasOwnProperty("ret"))
                 if (!$util.isInteger(message.ret))
                     return "ret: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -41135,6 +41277,11 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.ret != null)
                 message.ret = object.ret >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.GW2C_AckHouseCellLevelUp.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -41159,6 +41306,7 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? "0" : 0;
                 object.index = 0;
                 object.ret = 0;
+                object.data = null;
             }
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 if (typeof message.houseid === "number")
@@ -41169,6 +41317,8 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.ret != null && message.hasOwnProperty("ret"))
                 object.ret = message.ret;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -41419,6 +41569,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] GW2C_AckTakeSelfHouseGoldRet houseid
          * @property {number|null} [index] GW2C_AckTakeSelfHouseGoldRet index
          * @property {number|null} [gold] GW2C_AckTakeSelfHouseGoldRet gold
+         * @property {msg.IHouseData|null} [data] GW2C_AckTakeSelfHouseGoldRet data
          */
 
         /**
@@ -41461,6 +41612,14 @@ $root.msg = (function() {
         GW2C_AckTakeSelfHouseGoldRet.prototype.gold = 0;
 
         /**
+         * GW2C_AckTakeSelfHouseGoldRet data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeSelfHouseGoldRet.prototype.data = null;
+
+        /**
          * Creates a new GW2C_AckTakeSelfHouseGoldRet instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
@@ -41490,6 +41649,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
             if (message.gold != null && message.hasOwnProperty("gold"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             return writer;
         };
 
@@ -41532,6 +41693,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.gold = reader.uint32();
+                    break;
+                case 4:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -41577,6 +41741,11 @@ $root.msg = (function() {
             if (message.gold != null && message.hasOwnProperty("gold"))
                 if (!$util.isInteger(message.gold))
                     return "gold: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -41605,6 +41774,11 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.gold != null)
                 message.gold = object.gold >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.GW2C_AckTakeSelfHouseGoldRet.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -41629,6 +41803,7 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? "0" : 0;
                 object.index = 0;
                 object.gold = 0;
+                object.data = null;
             }
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 if (typeof message.houseid === "number")
@@ -41639,6 +41814,8 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.gold != null && message.hasOwnProperty("gold"))
                 object.gold = message.gold;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -41889,6 +42066,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] GW2C_AckTakeOtherHouseGoldRet houseid
          * @property {number|null} [index] GW2C_AckTakeOtherHouseGoldRet index
          * @property {number|null} [gold] GW2C_AckTakeOtherHouseGoldRet gold
+         * @property {msg.IHouseData|null} [data] GW2C_AckTakeOtherHouseGoldRet data
          */
 
         /**
@@ -41931,6 +42109,14 @@ $root.msg = (function() {
         GW2C_AckTakeOtherHouseGoldRet.prototype.gold = 0;
 
         /**
+         * GW2C_AckTakeOtherHouseGoldRet data.
+         * @member {msg.IHouseData|null|undefined} data
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeOtherHouseGoldRet.prototype.data = null;
+
+        /**
          * Creates a new GW2C_AckTakeOtherHouseGoldRet instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
@@ -41960,6 +42146,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
             if (message.gold != null && message.hasOwnProperty("gold"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.HouseData.encode(message.data, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             return writer;
         };
 
@@ -42002,6 +42190,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.gold = reader.uint32();
+                    break;
+                case 4:
+                    message.data = $root.msg.HouseData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -42047,6 +42238,11 @@ $root.msg = (function() {
             if (message.gold != null && message.hasOwnProperty("gold"))
                 if (!$util.isInteger(message.gold))
                     return "gold: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.HouseData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
             return null;
         };
 
@@ -42075,6 +42271,11 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.gold != null)
                 message.gold = object.gold >>> 0;
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.GW2C_AckTakeOtherHouseGoldRet.data: object expected");
+                message.data = $root.msg.HouseData.fromObject(object.data);
+            }
             return message;
         };
 
@@ -42099,6 +42300,7 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? "0" : 0;
                 object.index = 0;
                 object.gold = 0;
+                object.data = null;
             }
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 if (typeof message.houseid === "number")
@@ -42109,6 +42311,8 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.gold != null && message.hasOwnProperty("gold"))
                 object.gold = message.gold;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.HouseData.toObject(message.data, options);
             return object;
         };
 
@@ -46452,7 +46656,7 @@ $root.table = (function() {
          * @property {number|null} [Price] TCarDefine Price
          * @property {string|null} [Des] TCarDefine Des
          * @property {string|null} [path] TCarDefine path
-         * @property {string|null} [bigPath] TCarDefine bigPath
+         * @property {string|null} [bigpath] TCarDefine bigpath
          */
 
         /**
@@ -46543,12 +46747,12 @@ $root.table = (function() {
         TCarDefine.prototype.path = "";
 
         /**
-         * TCarDefine bigPath.
-         * @member {string} bigPath
+         * TCarDefine bigpath.
+         * @member {string} bigpath
          * @memberof table.TCarDefine
          * @instance
          */
-        TCarDefine.prototype.bigPath = "";
+        TCarDefine.prototype.bigpath = "";
 
         /**
          * Creates a new TCarDefine instance using the specified properties.
@@ -46592,8 +46796,8 @@ $root.table = (function() {
                 writer.uint32(/* id 8, wireType 2 =*/66).string(message.Des);
             if (message.path != null && message.hasOwnProperty("path"))
                 writer.uint32(/* id 9, wireType 2 =*/74).string(message.path);
-            if (message.bigPath != null && message.hasOwnProperty("bigPath"))
-                writer.uint32(/* id 10, wireType 2 =*/82).string(message.bigPath);
+            if (message.bigpath != null && message.hasOwnProperty("bigpath"))
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.bigpath);
             return writer;
         };
 
@@ -46656,7 +46860,7 @@ $root.table = (function() {
                     message.path = reader.string();
                     break;
                 case 10:
-                    message.bigPath = reader.string();
+                    message.bigpath = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -46720,9 +46924,9 @@ $root.table = (function() {
             if (message.path != null && message.hasOwnProperty("path"))
                 if (!$util.isString(message.path))
                     return "path: string expected";
-            if (message.bigPath != null && message.hasOwnProperty("bigPath"))
-                if (!$util.isString(message.bigPath))
-                    return "bigPath: string expected";
+            if (message.bigpath != null && message.hasOwnProperty("bigpath"))
+                if (!$util.isString(message.bigpath))
+                    return "bigpath: string expected";
             return null;
         };
 
@@ -46756,8 +46960,8 @@ $root.table = (function() {
                 message.Des = String(object.Des);
             if (object.path != null)
                 message.path = String(object.path);
-            if (object.bigPath != null)
-                message.bigPath = String(object.bigPath);
+            if (object.bigpath != null)
+                message.bigpath = String(object.bigpath);
             return message;
         };
 
@@ -46784,7 +46988,7 @@ $root.table = (function() {
                 object.Price = 0;
                 object.Des = "";
                 object.path = "";
-                object.bigPath = "";
+                object.bigpath = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -46804,8 +47008,8 @@ $root.table = (function() {
                 object.Des = message.Des;
             if (message.path != null && message.hasOwnProperty("path"))
                 object.path = message.path;
-            if (message.bigPath != null && message.hasOwnProperty("bigPath"))
-                object.bigPath = message.bigPath;
+            if (message.bigpath != null && message.hasOwnProperty("bigpath"))
+                object.bigpath = message.bigpath;
             return object;
         };
 
