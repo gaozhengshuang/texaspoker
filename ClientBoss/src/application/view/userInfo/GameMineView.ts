@@ -70,7 +70,8 @@ module game {
             this.gold2_txt.text = String(this.userInfo.diamond);
 			this.gold3_txt.text = "0";
 
-			this.estate_txt.text="0";
+			this.estate_txt.text = `${DataManager.playerModel.getHouse().length}`;
+			this.carlib_txt.text = `${DataManager.playerModel.getUserInfo().cardatas.length}`;
         }
 		
 	}
