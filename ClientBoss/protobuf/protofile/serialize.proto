@@ -117,6 +117,7 @@ message HouseCell {
 	optional int64 tmproduce = 4; //产金币的起始时间戳
 	optional uint32 gold = 5; //当前待收取的金币
 	optional uint32 state = 6; //当前生产状态
+	repeated uint64 robers = 7; //记录抢钱的玩家id
 }
 
 //房屋访问者操作信息
@@ -143,7 +144,8 @@ message HouseData {
 
 
 //车的相关信息
-message CarData {
+message CarData 
+{
     optional uint64 id = 1;                 //车辆id
     optional uint32 tid = 2;                //配置id
     optional uint64 ownerid = 3;            //拥有者id 
@@ -152,13 +154,15 @@ message CarData {
 }
 
 //车位信息
-message ParkingData{
+message ParkingData
+{
     optional uint64 id = 1;                 //车位id
     optional uint32 tid = 2;                //配置id
     optional uint64 ownerid = 3;            //拥有者id 公共车位为0
     optional uint64 parkingcar = 4;         //停的车辆id
     optional uint64 parkingcarownerid = 5;  //停的车主人id
-    optional uint64 parkingcarownername = 6;//停的车主人名字
+    optional string parkingcarownername = 6;//停的车主人名字
     optional uint64 parkingtime = 7;        //开始停车时间戳
     optional uint32 parkingreward = 8 ;     //停车获得收益
+    optional string ownername = 9;
 }

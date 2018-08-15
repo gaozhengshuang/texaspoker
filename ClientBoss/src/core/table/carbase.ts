@@ -3,7 +3,7 @@
 
 module table {
 export var TCar : table.ITCarDefine[] = [
-		{ Id : 1001, Brand : "宝马", Model : "X7", MoveRange : 1000, Capacity : 1000, RewardPerH : 100, Price : 2000, Des : "" 	}
+		{ Id : 1001, Brand : "宝马", Model : "X7", MoveRange : 1000, Capacity : 1000, RewardPerH : 100, Price : 2000, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	}
 	]
 
 

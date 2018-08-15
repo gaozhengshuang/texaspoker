@@ -61,13 +61,13 @@ module game {
             let carItemData  = table.TCarById[this.carData.tid];
             if(!carItemData) return;
             //Icon
-            let txtr:egret.Texture = RES.getRes(carItemData.big_path);
+            let txtr:egret.Texture = RES.getRes(carItemData.bigpath);
             let factor = 1;
             if(txtr)
             {
                 this.carIcon.source    = txtr;
                 this.carIcon.width     = txtr.textureWidth * factor;
-                this.carIcon.height    = txtr.textureHeight * factor;
+                this.carIcon.height    = txtr.textureHeight * factor;``
             }
             //名字
             this.carNameTxt.textFlow = [
