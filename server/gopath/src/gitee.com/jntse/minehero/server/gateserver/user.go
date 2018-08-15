@@ -619,7 +619,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	//this.SynMidasBalance()
 	//上线通知MatchServer
 	this.OnlineMatchServer()
-	//this.ReqMatchHouseData()
+	this.ReqMatchHouseData()
 	return true
 }
 
