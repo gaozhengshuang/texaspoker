@@ -27,6 +27,7 @@ module game {
             newplayerstep:0,
             cardatas : [],
             parkingdatas : [],
+            robcount:0
         };
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];

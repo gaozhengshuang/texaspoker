@@ -49,6 +49,7 @@ module game {
             }
         }
         public updataInfo(ble: any) {
+            this.removeTimer();
             this.bubble = ble;
             if (this.bubble) {
                 this.roomTypeObj=table.THouseCellById[this.bubble.tid];
@@ -110,22 +111,6 @@ module game {
         public removeTimer(): void {
             SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
         }
-        /*public updatePlunder(ble:any,getNum:number) {
-            if (this.bubble.state == 1 && this.bubble.robers.length < 3 &&
-                this.bubble.robers.indexOf(this.roomView.selfIdNum) == -1) {
-                this.bubble.endCoin -= getNum;
-                this.txt1.text = String(this.bubble.endCoin);
-                this.bubble.robers.push(pId);
-                if (this.bubble.robers.length == 1) {
-                    this.img.source = 'resource/assets2/qipaoIcon2.png';
-                    this.txt2.text = "已掠夺";
-                } else if (this.bubble.plunder.length == 2) {
-
-                    this.img.source = 'resource/assets2/qipaoIcon3.png';
-                    this.txt2.text = "不可掠夺";
-                }
-            }
-        }*/
         public hideTxt2(){
             this.txt2.visible=false;
         }

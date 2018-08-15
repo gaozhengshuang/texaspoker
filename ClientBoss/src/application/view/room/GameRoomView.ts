@@ -2,12 +2,12 @@ module game {
     export class GameRoomView extends eui.Component {
         public static CLOSE: string = "close";
         public static OPEN_NEIGHBOR_LIST: string = "open_neighbor_list";
-        //public static OPEN_DONGTAI_LIST: string = "open_dongtai_list";
         public static GOIN_ROOM: string = "goin_room";
         public static SHOW_TOP_ROOM_INFO: string = "show_top_room_info";
         public static RECEIVE: string = "receive";
         public static PLUNDER: string = "plunder";
         public static PLUNDER_ERROR: string = "plunder_error";
+        public static LEVEL: string = "level";
 
         private room_bg: eui.Rect;
 
@@ -92,7 +92,7 @@ module game {
             this.oldBtnY = this.downBtnGroup.y;
 
         }
-        public updateInfo(rVo: HouseVO, selfId: number) {
+        public initInfo(rVo: HouseVO, selfId: number) {
             this.roomInfo = rVo;
             this.selfIdNum = selfId;
             this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level;
@@ -129,9 +129,21 @@ module game {
 
             this.addChild(scrollView);
             this.swapChildren(scrollView, this.huxingGroup);
-
-
-
+        }
+        public updateInfo(rVo: HouseVO, selfId: number) {
+            this.roomInfo = rVo;
+            this.selfIdNum = selfId;
+            this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level;
+            if (this.selfIdNum == this.roomInfo.ownerid) {
+                this.showSelf();
+                this.lingju_btn.visible = true;
+            } else {
+                this.showOthers();
+                this.lingju_btn.visible = false;
+            }
+            if( this.huxingPanel){
+                this.huxingPanel.update(this.roomInfo);
+            }
         }
         private showSelf() {
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_INFO, { isShow: true, room: this.roomInfo }));
@@ -160,7 +172,13 @@ module game {
 
         public plunderCoin(coinId: number) {
             this.dispatchEvent(new BasicEvent(GameRoomView.PLUNDER,
-                { coinId: coinId, rId: this.roomInfo.rId }));
+                { index: coinId, houseid: this.roomInfo.rId }));
+
+        }
+
+        public levelFun(index: number) {
+            this.dispatchEvent(new BasicEvent(GameRoomView.LEVEL,
+                { index: index, houseid: this.roomInfo.rId }));
 
         }
         public plunderCoinError(eid: number) {
@@ -280,13 +298,13 @@ module game {
                 case 1:
                     item= this.dongtaiList[eve.itemIndex];
                     if (item) {
-                        //this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{rId:item.rId}));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.visitorid}));
                     }
                     break;
                 case 2:
                     item = this.levelInfoList[eve.itemIndex];
                     if (item) {
-                        //this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{rId:item.rId}));
+                        this.levelFun(item.index);
                     }
                     break;
                 case 3:
@@ -345,31 +363,19 @@ module game {
             return cell;
         }
 
-
-        private onGoinRoom(eve: BasicEvent) {
-            this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,
-                { rId: eve.EventObj.rId, backType: 1, backId: this.roomInfo.rId }));
-        }
-        private restoreDownBg() {
-            egret.Tween.get(this.down_bg).to({ height: this.dBgDefaultH, y: this.dBgDefaultY }, 300)
-                .call(this.onComplete, this, [0]);
-        }
-
-
-
-
-
-        public receiveSuccess(gId: number, rId: number, getNum: number) {
-            if (rId == this.roomInfo.rId) {
-
-                this.huxingPanel.receiveSuccess(gId);
+        public receiveSuccess(houseid: number, index: number, getNum: number) {
+            if (houseid == this.roomInfo.rId) {
+                this.huxingPanel.receiveSuccess(index,getNum);
             }
 
         }
-        public plunderSuccess(gId: number, rId: number, getNum: number) {
-            if (rId == this.roomInfo.rId) {
-                this.huxingPanel.plunderSuccess(gId, this.selfIdNum, getNum);
+        public plunderSuccess(houseid: number, index: number, getNum: number) {
+            if (houseid == this.roomInfo.rId) {
+                this.huxingPanel.plunderSuccess(index,getNum);
             }
+        }
+        public levelSuccess(index:number) {
+            
 
         }
         private onCompleteFun(param1: any): void {

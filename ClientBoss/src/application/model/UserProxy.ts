@@ -8,15 +8,19 @@ module game {
 		public static NAME:string = "UserProxy";
 		public constructor(){
 			super(UserProxy.NAME);
+			this.RegisterEvent();
 		}
 
-		/*private _userInfo:UserVO=new UserVO();
-
-		public setUserInfo(obj:any):void
-		{
-			this._userInfo.setObject(obj);
-		}*/
-
+		public RegisterEvent() {
+            NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
+			NotificationCenter.addObserver(this, this.OnGW2C_NotifyRobCount, "msg.GW2C_NotifyRobCount");
+        }
+		private OnGW2C_UpdateGold(data: msg.GW2C_UpdateGold) {
+			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_USER_INFO,DataManager.playerModel.getUserInfo());
+		}
+		private OnGW2C_NotifyRobCount(data: msg.GW2C_NotifyRobCount) {
+			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_USER_INFO,DataManager.playerModel.getUserInfo());
+		}
 		public getUserInfo():IUserInfo
 		{
 			return DataManager.playerModel.getUserInfo();

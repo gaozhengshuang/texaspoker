@@ -16,7 +16,8 @@ module game {
             return [
                 CommandName.PAGE_SWITCH_SMALL_GAME,
                 CommandName.REMOVE_SMALL_GAME_PAGE,
-                CommandName.PAGE_SWITCH_ROOM
+                CommandName.PAGE_SWITCH_ROOM,
+                CommandName.REMOVE_ROOM_PAGE,
             ];
         }
 
@@ -37,7 +38,7 @@ module game {
                             this.sceneGroup.addChild(this.pageView);
                             ApplicationFacade.getInstance().registerMediator(new RoomMediator(this.pageView));
                             this.pageMediatorName = RoomMediator.NAME;
-                            this.pageView.updateInfo(data.room,userProxy.getUserInfo().userid);
+                            this.pageView.initInfo(data.room,userProxy.getUserInfo().userid);
                             
                             /*if (GameConfig.exploring && data.room.rUserId == userProxy.getUserInfo().userid) {
                                 GameConfig.exploreUIFun(false);
@@ -75,7 +76,15 @@ module game {
                         this.removeSceneView();
                         //GameConfig.closeGameFun(false);
                         //ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_DISCOVERY);
+                        break;
                     }
+                    case CommandName.REMOVE_ROOM_PAGE:
+                    {
+                        this.removeSceneView();
+                        GameConfig.showDownBtnFun(true);
+                        break;
+                    }
+                    
                 
             }
 

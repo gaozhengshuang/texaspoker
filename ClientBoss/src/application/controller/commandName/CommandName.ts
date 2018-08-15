@@ -34,6 +34,8 @@ module game {
 		public static SHOW_TOP_ROOM_INFO: string = "show_top_room_info";
 		public static PLUNDER_SUCCESS: string = "plunder_success";
 		public static RECEIVE_SUCCESS: string = "receive_success";
+		public static HOUSE_LEVEL_SUCCESS: string = "house_level_success";
+		public static ROOM_LEVEL_SUCCESS: string = "room_level_success";
 
 
 		/////////////////////
@@ -50,6 +52,7 @@ module game {
 		public static SOCKET_REQ_NEIGHBOR_LIST: string = "socket_req_neighbor_list";
 		//public static SOCKET_REQ_DONGTAI_LIST: string = "socket_req_dongtai_list";
 		public static SOCKET_REQ_RECEIVE: string = "socket_req_receive";
+		public static SOCKET_REQ_LEVEL: string = "socket_req_level";
 
 
 		////////////////

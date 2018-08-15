@@ -71,9 +71,9 @@ module game {
 			}
 		}
 		private assetsItemList:utils.ScrollerPanel;
-		private assetsList:HouseVO[]=[];
+		private assetsList:any[]=[];
 		private buildingId:number=0;
-		public updateAssetsList(list:HouseVO[])
+		public updateAssetsList(list:any[])
 		{
 			console.log("updateAssetsList");
 			if(this.currentGroupId ==2 )
@@ -91,7 +91,7 @@ module game {
 				this.assetsItemList.bindData(assetsList);		
 				return;
 			}
-			this.assetsList=<RoomVO[]>list;
+			this.assetsList=<HouseVO[]>list;
 			this.assetsList=list;
 			if(this.assetsItemList==null)
 			{

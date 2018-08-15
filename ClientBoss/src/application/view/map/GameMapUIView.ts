@@ -17,7 +17,7 @@ module game {
         private fujinLabelList:string[]=['附近的人','附近建筑'];
         private fujinStatus:number=1;
 
-        private userInfo:UserVO;
+        private userInfo:IUserInfo;
 
 
 		public constructor() {
@@ -25,12 +25,10 @@ module game {
             
             setBtnCallbackFun(this.btnCallbackFun,this);
 		}
-        public updateUserInfoFun(obj:any){
-            if(this.userInfo){
-                this.userInfo.setObject(obj);
-                if(this.userInfoPanel!=null){
-                    this.userInfoPanel.updataInfo(this.userInfo);
-                }
+        public updateUserInfoFun(obj: IUserInfo) {
+            this.userInfo = obj;
+            if (this.userInfoPanel != null) {
+                this.userInfoPanel.updataInfo(this.userInfo);
             }
         }
         public btnCallbackFun(type:string,body:any){
@@ -87,7 +85,7 @@ module game {
         }
 
         public userInfoPanel:GameUserInfoPanel;
-        public initView(info:UserVO):void{
+        public initView(info:IUserInfo):void{
             this.userInfo=info;
             if(this.userInfoPanel==null){
                 this.userInfoPanel=new GameUserInfoPanel();
