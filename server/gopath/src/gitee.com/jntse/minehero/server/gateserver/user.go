@@ -1120,6 +1120,7 @@ func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
 			if v.GetIndex() == index {
 				if v.GetGold() <= 0 {
 					//没钱可取
+					log.Error("TakeSelfHouseGold have no gold")
 					return
 				}
 				sendmatch := &msg.GW2MS_ReqTakeSelfHouseGold{}
