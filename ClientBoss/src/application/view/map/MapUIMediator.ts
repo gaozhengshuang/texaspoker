@@ -11,6 +11,9 @@ module game {
 					//CommandName.UPDATE_USER_INFO,
 					//CommandName.SHOW_TOP_ROOM_INFO,
 					CommandName.SHOW_USER_INFO,
+					CommandName.UPDATE_USER_INFO,
+					CommandName.SHOW_TOP_ROOM_NUM
+
             ];
         }
 		
@@ -38,6 +41,18 @@ module game {
 						}
 						break;
 					}*/
+					case CommandName.SHOW_TOP_ROOM_NUM:
+					{
+						if (data) {
+							if(data.isShow){
+								this.sceneGroup.showRoomNum(data.isShow,data.rId);
+							}else{
+								this.sceneGroup.showRoomNum(data.isShow);
+							}
+							
+						}
+						break;
+					}
 					case CommandName.SHOW_USER_INFO:
 					{
 						if (data) {
@@ -64,7 +79,7 @@ module game {
 		{
 			//let userProxy:UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
 			 ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_ASSETS_LIST);
-			 ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_MAIN_ASSETS);
+			 //ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_MAIN_ASSETS);
 			// {gameId:userProxy.getUserInfo().gameId,backType:1});
 		}
 		private goinMessageRequset(eve:BasicEvent):void

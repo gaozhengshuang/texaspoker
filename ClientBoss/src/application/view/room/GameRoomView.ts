@@ -8,6 +8,7 @@ module game {
         public static PLUNDER: string = "plunder";
         public static PLUNDER_ERROR: string = "plunder_error";
         public static LEVEL: string = "level";
+        public static SHOW_TOP_ROOM_NUM: string = "show_top_room_num";
 
         private room_bg: eui.Rect;
 
@@ -144,13 +145,17 @@ module game {
             if( this.huxingPanel){
                 this.huxingPanel.update(this.roomInfo);
             }
+
+            if(this.listIndex>0 && this.itemList){
+                this.bindDataList(this.listIndex);
+            }
         }
         private showSelf() {
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_INFO, { isShow: true, room: this.roomInfo }));
             this.linjuInfoGroup.visible = false;
             this.roomLevelGroup.visible = true;
             this.downBtnGroup.visible=true;
-
+            this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: true, rId: this.roomInfo.rId }));
         }
         private showOthers() {
 
@@ -163,6 +168,8 @@ module game {
             this.ljName_txt.text = this.roomInfo.ownername;
             //this.ljbName_txt.text = "";
             this.ljHuxing_txt.text = ""+this.roomInfo.rId;
+
+            this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: false}));
         }
 
         public receiveCoin(coinId: number) {
@@ -298,7 +305,7 @@ module game {
                 case 1:
                     item= this.dongtaiList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.visitorid}));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.visitorid,return:this.roomInfo}));
                     }
                     break;
                 case 2:
@@ -310,7 +317,7 @@ module game {
                 case 3:
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.ownerid}));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.ownerid,return:this.roomInfo}));
                     }
                     break;
             }
@@ -344,11 +351,11 @@ module game {
          */
         public showLevelList() {
             this.levelInfoList = []
-            this.levelInfoList[0] = { index: 1, data: this.roomInfo, name: "房屋" };
-            this.levelInfoList[1] = { index: 2, data: this.getCellInfo(1), name: "卧室" };
-            this.levelInfoList[2] = { index: 3, data: this.getCellInfo(2), name: "客厅" };
-            this.levelInfoList[3] = { index: 4, data: this.getCellInfo(3), name: "厕所" };
-            //this.levelInfoList[3]={index:5,data:this.getCellInfo(4),name:"厨房"};
+            this.levelInfoList[0] = { index: 0, data: this.roomInfo, name: "房屋" };
+            this.levelInfoList[1] = { index: 1, data: this.getCellInfo(1), name: "客厅" };
+            this.levelInfoList[2] = { index: 2, data: this.getCellInfo(2), name: "卧室" };
+            this.levelInfoList[3] = { index: 3, data: this.getCellInfo(3), name: "厕所" };
+            this.levelInfoList[4]={index:4,data:this.getCellInfo(4),name:"厨房"};
             this.itemList.bindData(this.levelInfoList);
         }
         private getCellInfo(index: number): any {

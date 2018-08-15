@@ -102,9 +102,14 @@ module game {
                 this.userInfoPanel.visible=bool;
             }
         }
-        public showRoomWeizhi(isShow:boolean,roomvo:RoomVO=null){
+        public showRoomWeizhi(isShow:boolean,roomvo:HouseVO=null){
             if(this.userInfoPanel){
                 this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
+            }
+        }
+        public showRoomNum(isShow: boolean, rId: number = 0) {
+            if(this.userInfoPanel){
+                this.userInfoPanel.showRoomNum(isShow,rId);
             }
         }
         private onclick_begin(){

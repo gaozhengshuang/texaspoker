@@ -97,7 +97,7 @@ module game {
             }
             else {
                 if (time >= body.endTime) {
-                    if (body.roomView.selfIdNum == body.roomView.roomInfo.rUserId) {
+                    if (body.roomView.selfIdNum == body.roomView.roomInfo.ownerid) {
                         body.txt2.text = "可领取";
                     } else {
                         body.txt2.text = "可掠夺";

@@ -82,6 +82,8 @@ module game {
                     {
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_NUM, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
                         break;
                     }
                     

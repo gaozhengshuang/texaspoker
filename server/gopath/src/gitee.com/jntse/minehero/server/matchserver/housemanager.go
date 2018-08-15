@@ -111,7 +111,8 @@ func (this *HouseCell) CkeckGoldProduce(now int64) {
 		return
 	}
 	needtime := base.ProduceTime
-	if now-this.tmproduce >= int64(needtime) {
+	nowsecond := util.CURTIME()
+	if nowsecond-this.tmproduce >= int64(needtime) {
 		this.state = 1
 		this.gold = base.ProduceGold
 		this.robdata = make([]uint64, 0)
@@ -471,9 +472,8 @@ func (this *HouseManager) OnSyncUserOnlineState(uid uint64, state uint32, sessio
 
 //循环
 func (this *HouseManager) Tick(now int64) {
-	nowsec := int64(now / 1000)
 	for _, v := range this.houses {
-		v.Tick(nowsec)
+		v.Tick(now)
 	}
 }
 
@@ -491,6 +491,7 @@ func (this *HouseManager) SyncUserHouseData(uid uint64) {
 				tmp := v.PackBin()
 				datas = append(datas, tmp)
 			}
+			send.Data = datas
 			agent.SendMsg(send)
 		}
 	}
@@ -591,7 +592,9 @@ func (this *HouseManager) GetRandHouseList() []*msg.HouseData {
 
 		for _, v := range tmprand {
 			house := this.GetHouse(v)
-			data = append(data, house.PackBin())
+			if house != nil {
+				data = append(data, house.PackBin())
+			}
 		}
 	}
 	return data
