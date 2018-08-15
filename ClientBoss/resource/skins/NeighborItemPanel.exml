@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="NeighborItemPanel" width="720" height="94" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="touxkdb_png" x="36" verticalCenter="0"/>
 	<e:Label id="name_txt" text="七宝土豪宝土豪" x="108.04" textColor="0x3d4558" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="207.33" y="34.5"/>
 	<e:Label id="roomNum_txt" text="房间号 : 123456" x="312.67" textColor="0x3D4558" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="234.33" y="34.5"/>
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" left="0" height="2"/>

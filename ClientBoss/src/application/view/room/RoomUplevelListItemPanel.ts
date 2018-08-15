@@ -18,12 +18,12 @@ module game {
         protected dataChanged():void{
             this.itemDate=this.data;
             if(this.itemDate){
-                this.quyuImg.source="resource/assets2/roomLevelIcon"+this.itemDate.index+".png";
+                this.quyuImg.source="resource/assets2/roomLevelIcon"+(this.itemDate.index+1)+".png";
                 this.level_txt.text=this.itemDate.name+"等级"+this.itemDate.data.level+"级——"
                 +this.itemDate.name+"等级"+(this.itemDate.data.level+1)+"级";
                 let type:any;
                 console.log(this.itemDate.data);
-                if(this.itemDate.index==1){
+                if(this.itemDate.index==0){
                     type=table.THouseById[this.itemDate.data.tId];
                     this.spend_txt.text=""+type.LevelUpCost;
 

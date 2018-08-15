@@ -31,7 +31,7 @@ module game {
 
 		}
 		public stopTimer(): void {
-			if (this.timer.running) {
+			if (this.timer && this.timer.running) {
 				this.timer.stop();
 				this.timer.removeEventListener(egret.TimerEvent.TIMER, this.timerHandler, this);
 			}
@@ -87,7 +87,10 @@ module game {
 
 		}
 		public delAllFunction(): void {
-			this.functionArr.length = 0;
+			if(this.functionArr!=null){
+				this.functionArr.length = 0;
+			}
+			
 		}
 		private runFunction(time: Number): void {
 			if (this.functionArr && this.functionArr.length > 0) {

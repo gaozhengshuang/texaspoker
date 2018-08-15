@@ -11,6 +11,8 @@ module game {
 					//CommandName.UPDATE_USER_INFO,
 					//CommandName.SHOW_TOP_ROOM_INFO,
 					CommandName.SHOW_USER_INFO,
+					CommandName.UPDATE_USER_INFO
+
             ];
         }
 		

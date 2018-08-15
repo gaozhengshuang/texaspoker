@@ -344,11 +344,11 @@ module game {
          */
         public showLevelList() {
             this.levelInfoList = []
-            this.levelInfoList[0] = { index: 1, data: this.roomInfo, name: "房屋" };
-            this.levelInfoList[1] = { index: 2, data: this.getCellInfo(1), name: "卧室" };
-            this.levelInfoList[2] = { index: 3, data: this.getCellInfo(2), name: "客厅" };
-            this.levelInfoList[3] = { index: 4, data: this.getCellInfo(3), name: "厕所" };
-            //this.levelInfoList[3]={index:5,data:this.getCellInfo(4),name:"厨房"};
+            this.levelInfoList[0] = { index: 0, data: this.roomInfo, name: "房屋" };
+            this.levelInfoList[1] = { index: 1, data: this.getCellInfo(1), name: "卧室" };
+            this.levelInfoList[2] = { index: 2, data: this.getCellInfo(2), name: "客厅" };
+            this.levelInfoList[3] = { index: 3, data: this.getCellInfo(3), name: "厕所" };
+            this.levelInfoList[4]={index:4,data:this.getCellInfo(4),name:"厨房"};
             this.itemList.bindData(this.levelInfoList);
         }
         private getCellInfo(index: number): any {
