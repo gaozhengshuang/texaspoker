@@ -13,6 +13,11 @@ module game {
 			this.facade().registerCommand(CommandName.GET_SELF_COORDINSTE,GetSelfCoordinateCommand);
 			this.facade().registerCommand(CommandName.MAP_POSITION,MapPositionCommand);
 			this.facade().registerCommand(CommandName.SOCKET_REQ_ASSETS_LIST,NetAssetsListRequestCommand);
+			this.facade().registerCommand(CommandName.SOCKET_REQ_GOIN_ROOM,NetGoinRoomRequestCommand);
+			this.facade().registerCommand(CommandName.SOCKET_REQ_NEIGHBOR_LIST,NetNeighborListRequestCommand);
+			this.facade().registerCommand(CommandName.SOCKET_REQ_RECEIVE,NetReceiveRequestCommand);
+			this.facade().registerCommand(CommandName.SOCKET_REQ_PLUNDER,NetPlunderRequestCommand);
+			this.facade().registerCommand(CommandName.SOCKET_REQ_LEVEL,NetRoomLevelRequestCommand);
 			
         }
 	}

@@ -14,7 +14,11 @@ module game {
 
 		public RegisterEvent() {
             NotificationCenter.addObserver(this, this.netConnectionError, CommandName.NET_CONNECTION_ERROR);
+			NotificationCenter.addObserver(this, this.OnGW2C_NotifyTimeStamp, "msg.GW2C_NotifyTimeStamp");
         }
+		private OnGW2C_NotifyTimeStamp(data: msg.GW2C_NotifyTimeStamp) {
+			SysTimeEventManager.getInstance().systimeNum=Number(data.timestamp);
+		}
 		private netConnectionError(){
 			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
 		}

@@ -6,7 +6,7 @@ module game {
         public gold_txt: eui.Label;
         public vip_txt: eui.Label;
         public qiang_txt: eui.Label;
-        private userInfo: any;
+        private userInfo: IUserInfo;
         public bName_txt: eui.Label;
         public bWeizhi_txt: eui.Label;
         public roomWeizhiGroup: eui.Group;
@@ -30,14 +30,14 @@ module game {
             let innerScale: number = expHeight > GameConfig.innerHeight ? innerScaleH : innerScaleW;
             this.scaleX = this.scaleY = innerScale;
         }
-        public updataInfo(info: any) {
+        public updataInfo(info: IUserInfo) {
             this.userInfo = info;
             this.name_txt.text = this.userInfo.name;
             this.level_txt.text = "Lv. "+(this.userInfo.level);
             this.coin_txt.text = String(this.userInfo.gold);
             this.gold_txt.text = String(this.userInfo.diamond);
             this.vip_txt.text = "0";
-            this.qiang_txt.text = "0";
+            this.qiang_txt.text = String(this.userInfo.robcount);
         }
         public showRoomWeizhi(isShow: boolean, roomvo: RoomVO = null) {
             if (isShow) {

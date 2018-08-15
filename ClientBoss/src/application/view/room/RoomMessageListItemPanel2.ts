@@ -9,13 +9,17 @@ module game {
 			this.skinName = "resource/skins/RoomMessageItemSkin2.exml";
             
 		}
-        private itemDate:MessageVO;
+        private itemDate:any;
         protected dataChanged():void{
             this.itemDate=this.data;
             if(this.itemDate){
-                let dateTime:Date=new Date(this.itemDate.createTime*1000);
+                let dateTime:Date=new Date(this.itemDate.tmvisit*1000);
                 this.time_txt.text=String(dateTime.getHours()+":"+dateTime.getMinutes());
-                this.content_txt.text=this.itemDate.template;
+                if(this.itemDate.opttype==1){
+                    this.content_txt.text="你收取了"+this.itemDate.optparam+"金币";
+                }else if(this.itemDate.opttype==2){
+                    this.content_txt.text=this.itemDate.visitorname+"在你的房屋里掠夺了"+this.itemDate.optparam+"金币";
+                }
             }
         }
         private onclick_jingru(){

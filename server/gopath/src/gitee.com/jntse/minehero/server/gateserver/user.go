@@ -569,6 +569,18 @@ func (this *GateUser) OnCreateNew() {
 	send.Housetid = pb.Uint32(1001)
 	send.Ownername = pb.String(this.Name())
 	Match().SendCmd(send)
+
+	createcarsend := &msg.GW2MS_ReqCreateCar{}
+	createcarsend.Userid = pb.Uint64(this.Id())
+	createcarsend.Cartid = pb.Uint32(1001)
+	Match().SendCmd(createcarsend)
+
+	createparksend := &msg.GW2MS_ReqCreateParking{}
+	createparksend.Userid = pb.Uint64(this.Id())
+	createparksend.Parkid = pb.Uint32(1002)
+	createparksend.Username = pb.String(this.Name())
+	Match().SendCmd(createparksend)
+
 	this.newplayerstep = 0
 	this.robcount = 10
 }

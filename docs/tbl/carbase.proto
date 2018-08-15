@@ -41,6 +41,12 @@ message TCarDefine
 	
 	
 	optional string Des = 8; // 描述
+	
+	
+	optional string path = 9; // 图片路径
+	
+	
+	optional string bigpath = 10; // 图片路径
 
 }
 

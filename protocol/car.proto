@@ -2,47 +2,58 @@ syntax = "proto2";
 package msg;
 import "serialize.proto";
 //我的车辆信息
-message C2GW_ReqCarInfo {
+message C2GW_ReqCarInfo 
+{
 
 }
-message GW2C_ResCarInfo{
+message GW2C_ResCarInfo
+{
     repeated msg.CarData cardatas = 1;                  //我的车辆信息
     repeated msg.ParkingData parkingdatas = 2;          //我的车辆停放的停车位信息
 }
 
 //我的车位信息
-message C2GW_ReqMyParkingInfo{
+message C2GW_ReqMyParkingInfo
+{
 
 }
 //根据条件查询到的车位信息
-message C2GW_ReqParkingInfoByType{
+message C2GW_ReqParkingInfoByType
+{
     optional int32 type = 1;                            //1 公共车位 2 普通车位
 }
 
-message GW2C_ResParkingInfo{
+message GW2C_ResParkingInfo
+{
     repeated msg.ParkingData parkingdatas = 1;          //停车位信息
 }
 //停车
-message C2GW_ParkCar{
+message C2GW_ParkCar
+{
     optional uint64 carid = 1;                          //车辆id
     optional uint64 parkingid = 2;                      //车位id
 }
-message GW2C_ParkCarResult {
+message GW2C_ParkCarResult 
+{
     optional int32 result = 1;                          //停车结果 0为成功 其他的失败，具体含义再说
 }
 //收回
-message C2GW_TakeBackCar {
+message C2GW_TakeBackCar 
+{
     optional uint64 carid = 1;                          //车辆id
 }
-message GW2C_TakeBackCarResult {
+message GW2C_TakeBackCarResult 
+{
     optional int32 result = 1;                          //收回结果 0为成功 其他失败
     optional int32 reward = 2;                          //收回获得的奖励
 }
 //贴条
-message C2GW_TicketCar {
+message C2GW_TicketCar 
+{
     optional uint64 parkingid = 1;                      //车位id
 }
-message GW2C_TicketCarResult {
+message GW2C_TicketCarResult 
+{
     optional int32 result = 1;                          //贴条结果 0为成功 其他失败
     optional int32 reward = 2;                          //贴条获得的奖励
 }

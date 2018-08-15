@@ -12,7 +12,7 @@ module game {
         public buildingImage: eui.Image;
 
         private buildInfo: BuildingVO;
-        private roomInfo: any;
+        private roomInfo: HouseVO;
         private userInfo: UserVO;
 
 
@@ -28,13 +28,13 @@ module game {
             this.anchorOffsetY = this.height / 2;
         }
 
-        public initInfo(room: any) {
+        public initInfo(room:HouseVO) {
             this.roomInfo = room;
             if (this.roomInfo) {
                // let roomType: RoomTypeVO = GameConfig.getRoomType(this.roomInfo.tId);
                // if (roomType) {
                     this.word_txt.text = "欢迎入驻《财富人生》，这是一个充满梦想的世界。为了更快了解这个世界，为您准备了一处租房。（房间号："
-                    +this.roomInfo.id+"）快来创造属于自己的财富吧！。"
+                    +this.roomInfo.rId+"）快来创造属于自己的财富吧！。"
                     //this.buildingImage.source = 'resource/assets/' + this.buildInfo.bImage1 + '.png';
                 //}
             }
@@ -46,7 +46,7 @@ module game {
 
         private goinRoom_begin() {
             this.dispatchEvent(new BasicEvent(WelcomeNewPlayersPanel.GOIN_NEW_ROOM,
-            {build:this.buildInfo,room:this.roomInfo}));
+            {userid:this.roomInfo.ownerid}));
             this.onclick_begin();
         }
         private onclick_begin(){

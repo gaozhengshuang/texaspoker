@@ -15,13 +15,43 @@ module game {
         public listNotificationInterests(): Array<any> {
             return [
                 CommandName.PAGE_SWITCH_SMALL_GAME,
-                CommandName.REMOVE_SMALL_GAME_PAGE
+                CommandName.REMOVE_SMALL_GAME_PAGE,
+                CommandName.PAGE_SWITCH_ROOM,
+                CommandName.REMOVE_ROOM_PAGE,
             ];
         }
 
         public handleNotification(notification: puremvc.INotification): void {
             var data: any = notification.getBody();
             switch (notification.getName()) {
+                case CommandName.PAGE_SWITCH_ROOM:
+                    {
+                        //GameConfig.updataMaskBgFun('#404A58', 1);
+                        this.removeSceneView();
+                        GameConfig.showDownBtnFun(false);
+                        if (data) {
+                            let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+                            let mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+                            GameConfig.pageType = 1;
+                            GameConfig.setEventsReply(true);
+                            this.pageView = new GameRoomView();
+                            this.sceneGroup.addChild(this.pageView);
+                            ApplicationFacade.getInstance().registerMediator(new RoomMediator(this.pageView));
+                            this.pageMediatorName = RoomMediator.NAME;
+                            this.pageView.initInfo(data.room,userProxy.getUserInfo().userid);
+                            
+                            /*if (GameConfig.exploring && data.room.rUserId == userProxy.getUserInfo().userid) {
+                                GameConfig.exploreUIFun(false);
+                                GameConfig.exploring = false;
+                                GameConfig.explorRId = 0;
+                                GameConfig.explorLimit = null;
+                                mapProxy.removeMapCircle();
+                            }*/
+                        }
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+
+                        break;
+                    }
                 case CommandName.PAGE_SWITCH_SMALL_GAME:
                     {
                         //GameConfig.updataMaskBgFun('#404A58', 1);
@@ -46,13 +76,22 @@ module game {
                         this.removeSceneView();
                         //GameConfig.closeGameFun(false);
                         //ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_DISCOVERY);
+                        break;
                     }
+                    case CommandName.REMOVE_ROOM_PAGE:
+                    {
+                        this.removeSceneView();
+                        GameConfig.showDownBtnFun(true);
+                        break;
+                    }
+                    
                 
             }
 
         }
 
         private removeSceneView(): void {
+            GameConfig.pageType = 0;
             this.sceneGroup.removeChildren();
             if (this.pageMediatorName != "") {
                 ApplicationFacade.getInstance().removeMediator(this.pageMediatorName);

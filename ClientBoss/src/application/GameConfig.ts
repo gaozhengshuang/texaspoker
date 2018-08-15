@@ -73,9 +73,9 @@ module game {
         public static errorJson: string = "errorCode_json";
         public static errorObj: any;
 
-        public static sceneType: number = 1;
+        public static sceneType: number = 0;
 
-        public static pageType: number = 1;
+        public static pageType: number = 0;
 
         public static goldGPoint:egret.Point = new egret.Point(0,0);
 

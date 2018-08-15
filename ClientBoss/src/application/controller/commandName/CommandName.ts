@@ -15,6 +15,7 @@ module game {
 		public static SHOW_USER_INFO: string = "show_user_info";
 		public static GET_SELF_COORDINSTE: string = "get_self_coordinate";
 		public static UPDATE_USER_INFO: string = "update_user_info";
+		public static UPDATE_ROOM_INFO: string = "update_room_info";
 		public static MAP_POSITION: string = "map_position";
 
 		public static PAGE_SWITCH_ROOM: string = "page_switch_room";
@@ -24,13 +25,17 @@ module game {
 
 		public static POPUP_WELCOME: string = "popup_welcome";
 		public static POPUP_ROOM_NEIGHBOR: string = "popup_room_neighbor";
+		public static POPUP_ROOM_DONGTAI: string = "popup_room_dongtai";
 		public static REMOVE_POPUP: string = "remove_popup";
 		public static ERROR_ALERT: string = "error_alert";
+		public static REMOVE_ALERT_ERROR: string = "remove_error_alert";
 		
 
 		public static SHOW_TOP_ROOM_INFO: string = "show_top_room_info";
 		public static PLUNDER_SUCCESS: string = "plunder_success";
 		public static RECEIVE_SUCCESS: string = "receive_success";
+		public static HOUSE_LEVEL_SUCCESS: string = "house_level_success";
+		public static ROOM_LEVEL_SUCCESS: string = "room_level_success";
 
 
 		/////////////////////
@@ -45,7 +50,9 @@ module game {
 		public static SOCKET_REQ_ALLOT_ROOM: string = "socket_req_allot_room";
 		public static SOCKET_REQ_PLUNDER: string = "socket_req_plunder";
 		public static SOCKET_REQ_NEIGHBOR_LIST: string = "socket_req_neighbor_list";
+		//public static SOCKET_REQ_DONGTAI_LIST: string = "socket_req_dongtai_list";
 		public static SOCKET_REQ_RECEIVE: string = "socket_req_receive";
+		public static SOCKET_REQ_LEVEL: string = "socket_req_level";
 
 
 		////////////////

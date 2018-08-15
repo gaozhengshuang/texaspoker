@@ -24,7 +24,7 @@ module game {
 		private stock_txt:eui.Label; 
 		private jyLog_txt:eui.Label; 
 
-		private userInfo:any;
+		private userInfo:IUserInfo;
 
 		private innerScaleW:number;
 
@@ -59,11 +59,11 @@ module game {
 			
 		}
 
-		public updateView(user:any){
+		public updateView(user:IUserInfo){
 			this.userInfo=user;
             this.name_txt.text = this.userInfo.name;
             this.level_txt.text = "Lv. "+(this.userInfo.level);
-			this.qiang_txt.text = "0";
+			this.qiang_txt.text = ""+this.userInfo.robcount;
 			this.vip_txt.text = "0";
 
             this.gold1_txt.text = String(this.userInfo.gold);

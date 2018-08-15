@@ -52,6 +52,14 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckRandHouseList{}, on_MS2GW_AckRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_AckOtherUserHouseData{}, on_MS2GW_AckOtherUserHouseData)
 
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckCreateCar{}, on_MS2GW_AckCreateCar)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckCarInfo{}, on_MS2GW_AckCarInfo)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckCreateParking{}, on_MS2GW_AckCreateParking)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_ResParkingInfo{}, on_MS2GW_ResParkingInfo)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_ParkCarResult{}, on_MS2GW_ParkCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_TakeBackCarResult{}, on_MS2GW_TakeBackCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_TicketCarResult{}, on_MS2GW_TicketCarResult)
+
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
 	this.msgparser.RegistSendProto(msg.GW2MS_HeartBeat{})
@@ -69,6 +77,15 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeOtherHouseGold{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRandHouseList{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqOtherUserHouseData{})
+
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateCar{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqCarInfo{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateParking{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqMyParkingInfo{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqParkingInfoByType{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ParkCar{})
+	this.msgparser.RegistSendProto(msg.GW2MS_TakeBackCar{})
+	this.msgparser.RegistSendProto(msg.GW2MS_TicketCar{})
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -156,6 +173,7 @@ func on_MS2GW_AckHouseLevelUp(session network.IBaseNetSession, message interface
 	send := &msg.GW2C_AckHouseLevelUp{}
 	send.Houseid = pb.Uint64(tmsg.GetHouseid())
 	send.Ret = pb.Uint32(tmsg.GetRet())
+	send.Data = tmsg.GetData()
 	user.SendMsg(send)
 }
 
@@ -171,6 +189,7 @@ func on_MS2GW_AckHouseCellLevelUp(session network.IBaseNetSession, message inter
 	send.Houseid = pb.Uint64(tmsg.GetHouseid())
 	send.Index = pb.Uint32(tmsg.GetIndex())
 	send.Ret = pb.Uint32(tmsg.GetRet())
+	send.Data = tmsg.GetData()
 	user.SendMsg(send)
 }
 
@@ -193,6 +212,7 @@ func on_MS2GW_AckTakeSelfHouseGoldRet(session network.IBaseNetSession, message i
 	send.Houseid = pb.Uint64(tmsg.GetHouseid())
 	send.Index = pb.Uint32(tmsg.GetIndex())
 	send.Gold = pb.Uint32(gold)
+	send.Data = tmsg.GetData()
 	user.SendMsg(send)
 }
 
@@ -214,6 +234,7 @@ func on_MS2GW_AckTakeOtherHouseGoldRet(session network.IBaseNetSession, message 
 	send.Houseid = pb.Uint64(tmsg.GetHouseid())
 	send.Index = pb.Uint32(tmsg.GetIndex())
 	send.Gold = pb.Uint32(tmsg.GetGold())
+	send.Data = tmsg.GetData()
 	user.SendMsg(send)
 }
 
@@ -242,6 +263,117 @@ func on_MS2GW_AckOtherUserHouseData(session network.IBaseNetSession, message int
 
 	send := &msg.GW2C_AckOtherUserHouseData{}
 	send.Datas = tmsg.GetDatas()
+	user.SendMsg(send)
+}
+
+//创建车辆回调
+func on_MS2GW_AckCreateCar(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckCreateCar)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+	log.Info("on_MS2GW_AckCreateCar  uid:%d", uid)
+	send := &msg.GW2C_ResCarInfo{}
+	cardatas := send.GetCardatas()
+	cardatas = append(cardatas, tmsg.GetCardata())
+	user.SendMsg(send)
+}
+
+//返回车辆信息
+func on_MS2GW_AckCarInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckCarInfo)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_ResCarInfo{}
+	send.Cardatas = tmsg.GetCardatas()
+	send.Parkingdatas = tmsg.GetParkingdatas()
+	user.SendMsg(send)
+}
+func on_MS2GW_AckCreateParking(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckCreateParking)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_ResParkingInfo{}
+	send.Parkingdatas = append(send.Parkingdatas, tmsg.GetParkdata())
+	user.SendMsg(send)
+}
+
+//返回车位信息
+func on_MS2GW_ResParkingInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_ResParkingInfo)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_ResParkingInfo{}
+	send.Parkingdatas = tmsg.GetParkingdatas()
+	user.SendMsg(send)
+}
+
+//返回停车结果
+func on_MS2GW_ParkCarResult(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_ParkCarResult)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+
+	send := &msg.GW2C_ParkCarResult{}
+	send.Result = pb.Int32(tmsg.GetResult())
+	user.SendMsg(send)
+}
+
+//返回收回结果
+func on_MS2GW_TakeBackCarResult(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_TakeBackCarResult)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+	send := &msg.GW2C_TakeBackCarResult{}
+	send.Result = pb.Int32(tmsg.GetResult())
+	send.Reward = pb.Int32(tmsg.GetReward())
+	if send.GetResult() == 0 && send.GetReward() > 0 {
+		user.AddGold(uint32(send.GetReward()), "收取抢车位产出金币", true)
+	}
+	user.SendMsg(send)
+}
+
+//返回贴条结果
+func on_MS2GW_TicketCarResult(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_TicketCarResult)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆数据，但找不到玩家", uid)
+		return
+	}
+	send := &msg.GW2C_TicketCarResult{}
+	send.Result = pb.Int32(tmsg.GetResult())
+	send.Reward = pb.Int32(tmsg.GetReward())
+	if send.GetResult() == 0 && send.GetReward() > 0 {
+		user.AddGold(uint32(send.GetReward()), "贴条产出金币", true)
+	}
 	user.SendMsg(send)
 }
 

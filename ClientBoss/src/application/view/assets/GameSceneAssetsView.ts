@@ -63,12 +63,35 @@ module game {
 			console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
 			this.currentGroupId=rbGroup.selectedValue;
 			this.contentStarck.selectedChild=this["stackGroup"+this.currentGroupId];
+
+			if(this.currentGroupId==2){
+				CarManager.getInstance().ReqMyCarInfo();
+				let cardata  = {id:1,tid:1001,ownerid:DataManager.playerModel.userInfo.userid,createtime:0,parkingid:0};
+				this.updateAssetsList([(<msg.ICarData>cardata)]);
+			}
 		}
 		private assetsItemList:utils.ScrollerPanel;
 		private assetsList:any[]=[];
 		private buildingId:number=0;
 		public updateAssetsList(list:any[])
 		{
+			console.log("updateAssetsList");
+			if(this.currentGroupId ==2 )
+			{
+				let assetsList=<msg.ICarData[]>list;
+				if(this.assetsItemList==null)
+				{
+					this.assetsItemList=new utils.VScrollerPanel();
+					this.stackGroup2.addChild(this.assetsItemList);
+					this.assetsItemList.y = 0;
+					this.assetsItemList.height = this.contentStarck.height;
+					this.assetsItemList.initItemRenderer(CarItem);
+					//this.assetsItemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this); 
+				}
+				this.assetsItemList.bindData(assetsList);		
+				return;
+			}
+			this.assetsList=<HouseVO[]>list;
 			this.assetsList=list;
 			if(this.assetsItemList==null)
 			{
@@ -82,14 +105,9 @@ module game {
 			this.assetsItemList.bindData(this.assetsList);			
 		}
 		private onItemTouch(eve:eui.ItemTapEvent){
-			let item:RoomVO=this.assetsList[eve.itemIndex];
+			let item:HouseVO=this.assetsList[eve.itemIndex];
 			if(item){
-				if(item.status==2){
-					this.dispatchEvent(new BasicEvent(GameSceneAssetsView.IN_SALE));
-				}else{
-					this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM,{rId:item.rId}));
-				}
-				
+				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM,{userid:item.ownerid}));	
 			}
         }
 	}
