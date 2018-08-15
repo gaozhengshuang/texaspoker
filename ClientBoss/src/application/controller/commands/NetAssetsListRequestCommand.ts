@@ -11,6 +11,7 @@ module game {
 			switch(notification.getName()){
 				case CommandName.SOCKET_REQ_ASSETS_LIST:
 				{
+					GameConfig.reqAssets=true;
                     sendMessage("msg.C2GW_ReqHouseData", msg.C2GW_ReqHouseData.encode({}));
 					break;
 				}
