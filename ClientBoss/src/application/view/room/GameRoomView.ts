@@ -17,7 +17,7 @@ module game {
         private linjuInfoGroup: eui.Group;
         private roomLevelGroup: eui.Group;
 
-        private down_bg: eui.Image;
+        private down_bg: eui.Group;
 
         private quit_btn: eui.Button;
         private lingju_btn: eui.Button;
@@ -233,11 +233,12 @@ module game {
                     + 20 * GameConfig.innerScaleW;
             }
             this.listIndex = index;
+            console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
 
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
                 call(this.onComplete, this, [this.listIndex]);
-                egret.Tween.get(this.down_bg).to({ height: this.goalH, y: this.goalY }, 300)
+                egret.Tween.get(this.down_bg).to({ height: this.goalH+GameConfig.innerHeight / 2, y: this.goalY }, 300)
                     
             }else{
                 this.onComplete(this.listIndex);
@@ -258,9 +259,9 @@ module game {
                 this.itemList = new utils.VScrollerPanel();
                 this.addChild(this.itemList);
                 this.itemList.x = 0;
-                this.itemList.y = this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale;
-                this.itemList.height = (this.hideList_btn.y - 20) -
-                    (this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale + 20);
+                this.itemList.y = this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale+10;
+                this.itemList.height = (this.hideList_btn.y - 10) -
+                    (this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale + 10);
                 switch (index) {
 
                     case 1:

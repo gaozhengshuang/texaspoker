@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"gitee.com/jntse/gotoolkit/util"
 	"sync"
+	"math/rand"
 )
 
 // --------------------------------------------------------------------------
@@ -196,4 +197,84 @@ func BenchmarkMutexLock(b *testing.B) {
 	}
 }
 
+func GetRandNumbers(total, num int32) []int32 {
+	all := make([]int32, 0, total)
+	for i := int32(0); i < total; i++ {
+		all = append(all, i)
+	}
+	for i := int32(0); i < total/2; i++ {
+		index1 := util.RandBetween(0, total-1)
+		index2 := util.RandBetween(0, total-1)
+		all[index1], all[index2] = all[index2], all[index1]
+	}
+
+	if num >= total {
+		return all
+	}
+
+	result := all[0:num]
+	return result
+}
+
+func GetRandNumbersShuffle(total, num int32) []int32 {
+	all := make([]int32, 0, total)
+	for i := int32(0); i < total; i++ {
+		all = append(all, i)
+	}
+	rand.Shuffle(len(all), func(i, j int) {
+		all[i], all[j] = all[j], all[i]
+	})
+
+	if num >= total {
+		return all
+	}
+
+	result := all[0:num]
+	return result
+}
+
+//生成count个[start,end)结束的不重复的随机数
+func GenerateRandomNumber(start int, end int, count int) []int {
+	if end < start || (end-start) < count {
+		return nil
+	}
+	nums := make([]int, 0)
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for len(nums) < count {
+		num := r.Intn((end - start)) + start
+		exist := false
+		for _, v := range nums {
+			if v == num {
+				exist = true
+				break
+			}
+		}
+		if !exist { nums = append(nums, num) }
+	}
+	return nums
+}
+
+func BenchmarkGetRandNumbers(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		GetRandNumbers(100, 10)
+	}
+}
+
+func BenchmarkGetRandNumbersShuffle(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		GetRandNumbersShuffle(100, 10)
+	}
+}
+
+func BenchmarkGenerateRandomNumber(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		GenerateRandomNumber(0, 100, 10)
+	}
+}
+
+func BenchmarkRandPerm(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		rand.Perm(100)
+	}
+}
 

@@ -65,21 +65,12 @@ module game {
 
         private registerEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_LuckyDrawHit, "msg.GW2C_LuckyDrawHit");
+            NotificationCenter.addObserver(this, this.updateScore, PlayerModel.SCORE_UPDATE);
 
              this._touchEvent = [
                 { target: this.closeButton, callBackFunc: this.backHandle },
                 { target: this.startButton, callBackFunc: this.startLuckyHandle },
                 { target: this.bagButton, callBackFunc: this.bagHandle },
-            ];
-
-            this._notify = [
-                {
-                    source: DataManager.playerModel,
-                    target: this,
-                    callBackFunc: this.updateScore,
-                    notifyName: PlayerModel.SCORE_UPDATE,
-                    execute: true
-                },
             ];
         }
 

@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
@@ -142,27 +143,26 @@ func GenerateParkingId(redis *redis.Client) (id uint64,errcode string){
 	return uint64(newid),""
 }
 
+// --------------------------------------------------------------------------
+/// @brief 从指定范围total内，随机num个数据，不能重复
+/// @param total 范围大小 [0 - total)
+/// @param num 返回数据数量
+///
+/// @return 
+// --------------------------------------------------------------------------
 func GetRandNumbers(total, num int32) []int32 {
 	all := make([]int32, 0, total)
 	for i := int32(0); i < total; i++ {
 		all = append(all, i)
 	}
-	for i := int32(0); i < total/2; i++ {
-		index1 := util.RandBetween(0, i)
-		index2 := total - index1 - 1
-		tmp := all[index1]
-		all[index1] = all[index2]
-		all[index2] = tmp
-	}
+	rand.Shuffle(len(all), func(i, j int) {
+		all[i], all[j] = all[j], all[i]
+	})
 
 	if num >= total {
 		return all
 	}
 
-	result := make([]int32, 0, num)
-	for i := int32(0); i < num; i++ {
-		result = append(result, all[i])
-	}
-	return result
+	return all[0:num]
 }
 
