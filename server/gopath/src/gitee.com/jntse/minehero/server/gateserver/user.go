@@ -629,6 +629,7 @@ func (this *GateUser) Syn() {
 	//this.CheckGiveFreeStep(util.CURTIME(), "上线跨整点")
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
+	this.ReqMatchCarData()
 	//this.QueryPlatformCoins()
 }
 
