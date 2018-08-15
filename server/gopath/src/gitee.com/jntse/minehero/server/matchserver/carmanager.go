@@ -79,6 +79,7 @@ type ParkingData struct {
     parkingcarownername string		//停的车主人名字
     parkingtime	uint64        		//开始停车时间戳
 	parkingreward uint32     		//停车获得收益
+	parkingcartid uint32			//停的车的配置id
 	
 	template *table.TParkingDefine
 }
@@ -93,6 +94,7 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData){
 	this.parkingtime = bin.GetParkingtime()
 	this.parkingreward = bin.GetParkingreward()
 	this.ownername = bin.GetOwnername()
+	this.parkingcartid = bin.GetParkingcartid()
 
 	template,find := tbl.TParkingBase.TParkingById[this.tid]
 	if find == false {
@@ -113,6 +115,7 @@ func (this* ParkingData) PackBin() *msg.ParkingData {
 	bin.Parkingtime = pb.Uint64(this.parkingtime)
 	bin.Parkingreward = pb.Uint32(this.parkingreward)
 	bin.Ownername = pb.String(this.ownername)
+	bin.Parkingcartid = pb.Uint32(this.parkingcartid)
 	return bin
 }
 
@@ -141,6 +144,7 @@ func (this* ParkingData) TakeBackCar() uint32{
 	this.parkingcarownerid = 0
 	this.parkingcarownername = ""
 	this.parkingtime = 0
+	this.parkingcartid = 0
 	reward := this.parkingreward
 	this.parkingreward = 0
 	return reward 
@@ -153,6 +157,7 @@ func (this* ParkingData) ParkingCar(car *CarData,username string){
 	this.parkingcarownername = username
 	this.parkingtime = uint64(util.CURTIMEMS())
 	this.parkingreward = 0
+	this.parkingcartid = car.tid
 }
 
 //车辆管理器
@@ -342,6 +347,7 @@ func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32,name string)
     parking.parkingcarownername = ""
     parking.parkingtime	= 0
 	parking.parkingreward = 0
+	parking.parkingcartid = 0
 
 	parking.SaveBin()
 	Redis().SAdd(ParkingIdSetKey, parkingid)
