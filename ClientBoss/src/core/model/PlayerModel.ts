@@ -136,7 +136,7 @@ module game {
 
         public setScore(count: number) {
             this.userInfo.gold = count;
-            this.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.SCORE_UPDATE);
             NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
@@ -149,19 +149,19 @@ module game {
             if (this.userInfo.gold < 0) {
                 this.userInfo.gold = 0;
             }
-            this.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.SCORE_UPDATE);
             NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
         public addScore(count: number) {
             this.userInfo.gold += count;
-            this.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.SCORE_UPDATE);
             NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
         public setDiamond(count: number) {
             this.userInfo.diamond = count;
-            this.postNotification(PlayerModel.DIAMOND_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.DIAMOND_UPDATE);
             NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
