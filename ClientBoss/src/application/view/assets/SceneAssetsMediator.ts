@@ -25,6 +25,7 @@ module game {
 			
 			this.sceneGroup.addEventListener(GameSceneAssetsView.CLOSE,this.closeRequset,this);
 			this.sceneGroup.addEventListener(GameSceneAssetsView.GOIN_ROOM,this.goinRoomRequset,this);
+			this.sceneGroup.addEventListener(GameSceneAssetsView.PAGE_SWITCH,this.pageSwitchRequset,this);
 		}
 		private closeRequset(eve:BasicEvent):void
 		{
@@ -34,6 +35,15 @@ module game {
 		{
 			ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,eve.EventObj);
 			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
+		}
+		private pageSwitchRequset(eve:BasicEvent):void
+		{
+			let assetsProxy: AssetsProxy = <AssetsProxy><any>this.facade().retrieveProxy(AssetsProxy.NAME);
+			switch(eve.EventObj.pageIndex){
+				case 1:
+					this.sceneGroup.updateAssetsList(assetsProxy.houseAssetsList);
+				break;
+			}
 		}
 		public get sceneGroup():GameSceneAssetsView
         {

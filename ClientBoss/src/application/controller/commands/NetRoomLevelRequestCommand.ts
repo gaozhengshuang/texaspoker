@@ -14,10 +14,10 @@ module game {
 						if (data != null) {
                             if(data.index==0){
                                 sendMessage("msg.C2GW_ReqHouseLevelUp",
-							 msg.C2GW_ReqRandHouseList.encode({houseid:data.houseid}));
+							 msg.C2GW_ReqHouseLevelUp.encode({houseid:data.houseid}));
                             }else{
                                 sendMessage("msg.C2GW_ReqHouseCellLevelUp",
-							 msg.C2GW_ReqRandHouseList.encode({houseid:data.houseid,index:data.index}));
+							 msg.C2GW_ReqHouseCellLevelUp.encode({houseid:data.houseid,index:data.index}));
                             }
 						}
 						break;

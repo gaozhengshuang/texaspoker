@@ -3,6 +3,7 @@ module game {
         public static CLOSE:string = "close";
 		public static GOIN_ROOM:string = "goin_room";
 		public static IN_SALE:string = "in_sale";
+		public static PAGE_SWITCH:string = "page_switch";
 
 		private view_bg: eui.Rect;
 		private topBar: eui.Image;
@@ -68,6 +69,8 @@ module game {
 				CarManager.getInstance().ReqMyCarInfo();
 				let cardata  = {id:1,tid:1001,ownerid:DataManager.playerModel.userInfo.userid,createtime:0,parkingid:0};
 				this.updateAssetsList([(<msg.ICarData>cardata)]);
+			}else if(this.currentGroupId==1){
+				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.PAGE_SWITCH,{pageIndex:1}));
 			}
 		}
 		private assetsItemList:utils.ScrollerPanel;

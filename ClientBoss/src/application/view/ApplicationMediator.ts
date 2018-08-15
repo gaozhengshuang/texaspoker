@@ -62,6 +62,10 @@ module game {
             //战斗数据初始化
             BattleManager.getInstance().init();
 
+            
+            game.SysTimeEventManager.getInstance().delAllFunction();
+            game.SysTimeEventManager.getInstance().stopTimer();
+
             ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
 
         }

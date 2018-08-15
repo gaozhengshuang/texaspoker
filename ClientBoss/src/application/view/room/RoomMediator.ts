@@ -9,7 +9,8 @@ module game {
 			return [
 				CommandName.POPUP_ROOM_NEIGHBOR,
 				CommandName.PLUNDER_SUCCESS,
-				CommandName.RECEIVE_SUCCESS
+				CommandName.RECEIVE_SUCCESS,
+				CommandName.UPDATE_ROOM_INFO
 			];
 		}
 
@@ -18,8 +19,10 @@ module game {
 			switch (notification.getName()) {
 				case CommandName.UPDATE_ROOM_INFO:
 					{
+						
 						if (data) {
-							this.sceneGroup.showLinjuList(data.list);
+							let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+							this.sceneGroup.updateInfo(data.room,Number(userProxy.getUserInfo().userid));
 						}
 						break;
 					}

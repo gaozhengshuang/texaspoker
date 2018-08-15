@@ -22,7 +22,7 @@ module game {
         }
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
 			if(GameConfig.pageType==1){
-				this.updateRoomInfo(data.datas);
+				//this.updateRoomInfo(data.datas);
 			}
 		}
 		private OnGW2C_AckOtherUserHouseData(data: msg.GW2C_AckOtherUserHouseData) {
@@ -51,25 +51,20 @@ module game {
 			this.updateRoomInfo(data.data);
 		}
 		private OnGW2C_AckHouseLevelUp(data: msg.GW2C_AckHouseLevelUp) {
-			ApplicationFacade.getInstance().sendNotification(CommandName.PLUNDER_SUCCESS, 
+			ApplicationFacade.getInstance().sendNotification(CommandName.HOUSE_LEVEL_SUCCESS, 
 			{houseid:data.houseid,ret:data.ret,index:0});
 			this.updateRoomInfo(data.data);
 		}
 		private OnGW2C_AckHouseCellLevelUp(data: msg.GW2C_AckHouseCellLevelUp) {
-			ApplicationFacade.getInstance().sendNotification(CommandName.PLUNDER_SUCCESS, 
+			ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_LEVEL_SUCCESS, 
 			{houseid:data.houseid, index:data.index,ret:data.ret});
 			this.updateRoomInfo(data.data);
 		}
 		private updateRoomInfo(datas: any) {
-			if (datas && datas.length > 0) {
-				for (let i: number; i < datas.length; i++) {
-					if (datas[i].id == this.currentHouse.rId) {
-						this.currentHouse.setObject(datas[i]);
-						ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
-						break;
-					}
-				}
-			}
+			this.currentHouse.setObject(datas);
+			console.log(datas);
+			console.log(this.currentHouse);
+			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
 		}
 		
         public currentHouse:HouseVO;
