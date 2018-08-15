@@ -32,6 +32,7 @@ module game {
 		
 
 		public static SHOW_TOP_ROOM_INFO: string = "show_top_room_info";
+		public static SHOW_TOP_ROOM_NUM: string = "show_top_room_num";
 		public static PLUNDER_SUCCESS: string = "plunder_success";
 		public static RECEIVE_SUCCESS: string = "receive_success";
 		public static HOUSE_LEVEL_SUCCESS: string = "house_level_success";

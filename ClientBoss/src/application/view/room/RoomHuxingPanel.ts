@@ -10,7 +10,7 @@ module game {
 		private qiPaoList:QipaoPanel[]=[];
 		private huxingImage:egret.Bitmap;
 
-		private qipaoWeizhi:any[]=[{x:448,y:0},{x:460,y:330},{x:190,y:198},{x:630,y:90}]
+		private qipaoWeizhi:any[]=[{x:190,y:198},{x:460,y:330},{x:630,y:90},{x:448,y:0}]
 		public init(rVo:HouseVO){
 			this.roomInfo=rVo;
 			this.huxingImage = new egret.Bitmap();

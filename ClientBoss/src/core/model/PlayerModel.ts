@@ -67,6 +67,7 @@ module game {
             this.userInfo.PersonalImage = data.base.images;
             this.userInfo.level=data.base.level;
             this.userInfo.newplayerstep=data.base.newplayerstep;
+            this.userInfo.robcount=data.base.robcount;
             GameConfig.newPlayerStep=this.userInfo.newplayerstep;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;

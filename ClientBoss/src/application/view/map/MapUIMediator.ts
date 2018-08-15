@@ -11,7 +11,8 @@ module game {
 					//CommandName.UPDATE_USER_INFO,
 					//CommandName.SHOW_TOP_ROOM_INFO,
 					CommandName.SHOW_USER_INFO,
-					CommandName.UPDATE_USER_INFO
+					CommandName.UPDATE_USER_INFO,
+					CommandName.SHOW_TOP_ROOM_NUM
 
             ];
         }
@@ -40,6 +41,18 @@ module game {
 						}
 						break;
 					}*/
+					case CommandName.SHOW_TOP_ROOM_NUM:
+					{
+						if (data) {
+							if(data.isShow){
+								this.sceneGroup.showRoomNum(data.isShow,data.rId);
+							}else{
+								this.sceneGroup.showRoomNum(data.isShow);
+							}
+							
+						}
+						break;
+					}
 					case CommandName.SHOW_USER_INFO:
 					{
 						if (data) {

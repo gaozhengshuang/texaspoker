@@ -7,7 +7,10 @@ module game {
 		public constructor(data:any=null) {
 			super();
 			this.skinName = "resource/skins/RoomMessageItemSkin2.exml";
-            
+            this.adaptive();
+		}
+        private adaptive() {
+			this.scaleX=this.scaleY=GameConfig.innerScaleW;
 		}
         private itemDate:any;
         protected dataChanged():void{
