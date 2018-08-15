@@ -3491,6 +3491,9 @@ declare namespace msg {
 
         /** HouseCell state */
         state?: (number|null);
+
+        /** HouseCell robers */
+        robers?: ((number|Long)[]|null);
     }
 
     /** Represents an HouseCell. */
@@ -3519,6 +3522,9 @@ declare namespace msg {
 
         /** HouseCell state. */
         public state: number;
+
+        /** HouseCell robers. */
+        public robers: (number|Long)[];
 
         /**
          * Creates a new HouseCell instance using the specified properties.
@@ -3976,13 +3982,16 @@ declare namespace msg {
         parkingcarownerid?: (number|Long|null);
 
         /** ParkingData parkingcarownername */
-        parkingcarownername?: (number|Long|null);
+        parkingcarownername?: (string|null);
 
         /** ParkingData parkingtime */
         parkingtime?: (number|Long|null);
 
         /** ParkingData parkingreward */
         parkingreward?: (number|null);
+
+        /** ParkingData ownername */
+        ownername?: (string|null);
     }
 
     /** Represents a ParkingData. */
@@ -4010,13 +4019,16 @@ declare namespace msg {
         public parkingcarownerid: (number|Long);
 
         /** ParkingData parkingcarownername. */
-        public parkingcarownername: (number|Long);
+        public parkingcarownername: string;
 
         /** ParkingData parkingtime. */
         public parkingtime: (number|Long);
 
         /** ParkingData parkingreward. */
         public parkingreward: number;
+
+        /** ParkingData ownername. */
+        public ownername: string;
 
         /**
          * Creates a new ParkingData instance using the specified properties.
@@ -11287,6 +11299,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseLevelUp ret */
         ret?: (number|null);
+
+        /** MS2GW_AckHouseLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckHouseLevelUp. */
@@ -11306,6 +11321,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseLevelUp ret. */
         public ret: number;
+
+        /** MS2GW_AckHouseLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckHouseLevelUp instance using the specified properties.
@@ -11494,6 +11512,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseCellLevelUp ret */
         ret?: (number|null);
+
+        /** MS2GW_AckHouseCellLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckHouseCellLevelUp. */
@@ -11516,6 +11537,9 @@ declare namespace msg {
 
         /** MS2GW_AckHouseCellLevelUp ret. */
         public ret: number;
+
+        /** MS2GW_AckHouseCellLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckHouseCellLevelUp instance using the specified properties.
@@ -11704,6 +11728,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeSelfHouseGoldRet gold */
         gold?: (number|null);
+
+        /** MS2GW_AckTakeSelfHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckTakeSelfHouseGoldRet. */
@@ -11726,6 +11753,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeSelfHouseGoldRet gold. */
         public gold: number;
+
+        /** MS2GW_AckTakeSelfHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckTakeSelfHouseGoldRet instance using the specified properties.
@@ -11920,6 +11950,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeOtherHouseGoldRet gold */
         gold?: (number|null);
+
+        /** MS2GW_AckTakeOtherHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a MS2GW_AckTakeOtherHouseGoldRet. */
@@ -11942,6 +11975,9 @@ declare namespace msg {
 
         /** MS2GW_AckTakeOtherHouseGoldRet gold. */
         public gold: number;
+
+        /** MS2GW_AckTakeOtherHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new MS2GW_AckTakeOtherHouseGoldRet instance using the specified properties.
@@ -12009,6 +12045,1470 @@ declare namespace msg {
 
         /**
          * Converts this MS2GW_AckTakeOtherHouseGoldRet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqCreateCar. */
+    interface IGW2MS_ReqCreateCar {
+
+        /** GW2MS_ReqCreateCar userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_ReqCreateCar cartid */
+        cartid?: (number|null);
+    }
+
+    /** Represents a GW2MS_ReqCreateCar. */
+    class GW2MS_ReqCreateCar implements IGW2MS_ReqCreateCar {
+
+        /**
+         * Constructs a new GW2MS_ReqCreateCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqCreateCar);
+
+        /** GW2MS_ReqCreateCar userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_ReqCreateCar cartid. */
+        public cartid: number;
+
+        /**
+         * Creates a new GW2MS_ReqCreateCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqCreateCar instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqCreateCar): msg.GW2MS_ReqCreateCar;
+
+        /**
+         * Encodes the specified GW2MS_ReqCreateCar message. Does not implicitly {@link msg.GW2MS_ReqCreateCar.verify|verify} messages.
+         * @param message GW2MS_ReqCreateCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqCreateCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqCreateCar message, length delimited. Does not implicitly {@link msg.GW2MS_ReqCreateCar.verify|verify} messages.
+         * @param message GW2MS_ReqCreateCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqCreateCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqCreateCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqCreateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqCreateCar;
+
+        /**
+         * Decodes a GW2MS_ReqCreateCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqCreateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqCreateCar;
+
+        /**
+         * Verifies a GW2MS_ReqCreateCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqCreateCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqCreateCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqCreateCar;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqCreateCar message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqCreateCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqCreateCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqCreateCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_AckCreateCar. */
+    interface IMS2GW_AckCreateCar {
+
+        /** MS2GW_AckCreateCar userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_AckCreateCar cardata */
+        cardata?: (msg.ICarData|null);
+    }
+
+    /** Represents a MS2GW_AckCreateCar. */
+    class MS2GW_AckCreateCar implements IMS2GW_AckCreateCar {
+
+        /**
+         * Constructs a new MS2GW_AckCreateCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_AckCreateCar);
+
+        /** MS2GW_AckCreateCar userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_AckCreateCar cardata. */
+        public cardata?: (msg.ICarData|null);
+
+        /**
+         * Creates a new MS2GW_AckCreateCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_AckCreateCar instance
+         */
+        public static create(properties?: msg.IMS2GW_AckCreateCar): msg.MS2GW_AckCreateCar;
+
+        /**
+         * Encodes the specified MS2GW_AckCreateCar message. Does not implicitly {@link msg.MS2GW_AckCreateCar.verify|verify} messages.
+         * @param message MS2GW_AckCreateCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_AckCreateCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_AckCreateCar message, length delimited. Does not implicitly {@link msg.MS2GW_AckCreateCar.verify|verify} messages.
+         * @param message MS2GW_AckCreateCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_AckCreateCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_AckCreateCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_AckCreateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckCreateCar;
+
+        /**
+         * Decodes a MS2GW_AckCreateCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_AckCreateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckCreateCar;
+
+        /**
+         * Verifies a MS2GW_AckCreateCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_AckCreateCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_AckCreateCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckCreateCar;
+
+        /**
+         * Creates a plain object from a MS2GW_AckCreateCar message. Also converts values to other types if specified.
+         * @param message MS2GW_AckCreateCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_AckCreateCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_AckCreateCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqCarInfo. */
+    interface IGW2MS_ReqCarInfo {
+
+        /** GW2MS_ReqCarInfo userid */
+        userid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_ReqCarInfo. */
+    class GW2MS_ReqCarInfo implements IGW2MS_ReqCarInfo {
+
+        /**
+         * Constructs a new GW2MS_ReqCarInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqCarInfo);
+
+        /** GW2MS_ReqCarInfo userid. */
+        public userid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_ReqCarInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqCarInfo instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqCarInfo): msg.GW2MS_ReqCarInfo;
+
+        /**
+         * Encodes the specified GW2MS_ReqCarInfo message. Does not implicitly {@link msg.GW2MS_ReqCarInfo.verify|verify} messages.
+         * @param message GW2MS_ReqCarInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqCarInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqCarInfo message, length delimited. Does not implicitly {@link msg.GW2MS_ReqCarInfo.verify|verify} messages.
+         * @param message GW2MS_ReqCarInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqCarInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqCarInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqCarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqCarInfo;
+
+        /**
+         * Decodes a GW2MS_ReqCarInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqCarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqCarInfo;
+
+        /**
+         * Verifies a GW2MS_ReqCarInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqCarInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqCarInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqCarInfo;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqCarInfo message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqCarInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqCarInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqCarInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_AckCarInfo. */
+    interface IMS2GW_AckCarInfo {
+
+        /** MS2GW_AckCarInfo userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_AckCarInfo cardatas */
+        cardatas?: (msg.ICarData[]|null);
+
+        /** MS2GW_AckCarInfo parkingdatas */
+        parkingdatas?: (msg.IParkingData[]|null);
+    }
+
+    /** Represents a MS2GW_AckCarInfo. */
+    class MS2GW_AckCarInfo implements IMS2GW_AckCarInfo {
+
+        /**
+         * Constructs a new MS2GW_AckCarInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_AckCarInfo);
+
+        /** MS2GW_AckCarInfo userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_AckCarInfo cardatas. */
+        public cardatas: msg.ICarData[];
+
+        /** MS2GW_AckCarInfo parkingdatas. */
+        public parkingdatas: msg.IParkingData[];
+
+        /**
+         * Creates a new MS2GW_AckCarInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_AckCarInfo instance
+         */
+        public static create(properties?: msg.IMS2GW_AckCarInfo): msg.MS2GW_AckCarInfo;
+
+        /**
+         * Encodes the specified MS2GW_AckCarInfo message. Does not implicitly {@link msg.MS2GW_AckCarInfo.verify|verify} messages.
+         * @param message MS2GW_AckCarInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_AckCarInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_AckCarInfo message, length delimited. Does not implicitly {@link msg.MS2GW_AckCarInfo.verify|verify} messages.
+         * @param message MS2GW_AckCarInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_AckCarInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_AckCarInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_AckCarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckCarInfo;
+
+        /**
+         * Decodes a MS2GW_AckCarInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_AckCarInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckCarInfo;
+
+        /**
+         * Verifies a MS2GW_AckCarInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_AckCarInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_AckCarInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckCarInfo;
+
+        /**
+         * Creates a plain object from a MS2GW_AckCarInfo message. Also converts values to other types if specified.
+         * @param message MS2GW_AckCarInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_AckCarInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_AckCarInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqCreateParking. */
+    interface IGW2MS_ReqCreateParking {
+
+        /** GW2MS_ReqCreateParking userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_ReqCreateParking parkid */
+        parkid?: (number|null);
+
+        /** GW2MS_ReqCreateParking username */
+        username?: (string|null);
+    }
+
+    /** Represents a GW2MS_ReqCreateParking. */
+    class GW2MS_ReqCreateParking implements IGW2MS_ReqCreateParking {
+
+        /**
+         * Constructs a new GW2MS_ReqCreateParking.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqCreateParking);
+
+        /** GW2MS_ReqCreateParking userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_ReqCreateParking parkid. */
+        public parkid: number;
+
+        /** GW2MS_ReqCreateParking username. */
+        public username: string;
+
+        /**
+         * Creates a new GW2MS_ReqCreateParking instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqCreateParking instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqCreateParking): msg.GW2MS_ReqCreateParking;
+
+        /**
+         * Encodes the specified GW2MS_ReqCreateParking message. Does not implicitly {@link msg.GW2MS_ReqCreateParking.verify|verify} messages.
+         * @param message GW2MS_ReqCreateParking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqCreateParking, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqCreateParking message, length delimited. Does not implicitly {@link msg.GW2MS_ReqCreateParking.verify|verify} messages.
+         * @param message GW2MS_ReqCreateParking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqCreateParking, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqCreateParking message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqCreateParking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqCreateParking;
+
+        /**
+         * Decodes a GW2MS_ReqCreateParking message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqCreateParking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqCreateParking;
+
+        /**
+         * Verifies a GW2MS_ReqCreateParking message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqCreateParking message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqCreateParking
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqCreateParking;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqCreateParking message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqCreateParking
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqCreateParking, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqCreateParking to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_AckCreateParking. */
+    interface IMS2GW_AckCreateParking {
+
+        /** MS2GW_AckCreateParking userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_AckCreateParking parkdata */
+        parkdata?: (msg.IParkingData|null);
+    }
+
+    /** Represents a MS2GW_AckCreateParking. */
+    class MS2GW_AckCreateParking implements IMS2GW_AckCreateParking {
+
+        /**
+         * Constructs a new MS2GW_AckCreateParking.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_AckCreateParking);
+
+        /** MS2GW_AckCreateParking userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_AckCreateParking parkdata. */
+        public parkdata?: (msg.IParkingData|null);
+
+        /**
+         * Creates a new MS2GW_AckCreateParking instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_AckCreateParking instance
+         */
+        public static create(properties?: msg.IMS2GW_AckCreateParking): msg.MS2GW_AckCreateParking;
+
+        /**
+         * Encodes the specified MS2GW_AckCreateParking message. Does not implicitly {@link msg.MS2GW_AckCreateParking.verify|verify} messages.
+         * @param message MS2GW_AckCreateParking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_AckCreateParking, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_AckCreateParking message, length delimited. Does not implicitly {@link msg.MS2GW_AckCreateParking.verify|verify} messages.
+         * @param message MS2GW_AckCreateParking message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_AckCreateParking, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_AckCreateParking message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_AckCreateParking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckCreateParking;
+
+        /**
+         * Decodes a MS2GW_AckCreateParking message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_AckCreateParking
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckCreateParking;
+
+        /**
+         * Verifies a MS2GW_AckCreateParking message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_AckCreateParking message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_AckCreateParking
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckCreateParking;
+
+        /**
+         * Creates a plain object from a MS2GW_AckCreateParking message. Also converts values to other types if specified.
+         * @param message MS2GW_AckCreateParking
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_AckCreateParking, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_AckCreateParking to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqMyParkingInfo. */
+    interface IGW2MS_ReqMyParkingInfo {
+
+        /** GW2MS_ReqMyParkingInfo userid */
+        userid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_ReqMyParkingInfo. */
+    class GW2MS_ReqMyParkingInfo implements IGW2MS_ReqMyParkingInfo {
+
+        /**
+         * Constructs a new GW2MS_ReqMyParkingInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqMyParkingInfo);
+
+        /** GW2MS_ReqMyParkingInfo userid. */
+        public userid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_ReqMyParkingInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqMyParkingInfo instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqMyParkingInfo): msg.GW2MS_ReqMyParkingInfo;
+
+        /**
+         * Encodes the specified GW2MS_ReqMyParkingInfo message. Does not implicitly {@link msg.GW2MS_ReqMyParkingInfo.verify|verify} messages.
+         * @param message GW2MS_ReqMyParkingInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqMyParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqMyParkingInfo message, length delimited. Does not implicitly {@link msg.GW2MS_ReqMyParkingInfo.verify|verify} messages.
+         * @param message GW2MS_ReqMyParkingInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqMyParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqMyParkingInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqMyParkingInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqMyParkingInfo;
+
+        /**
+         * Decodes a GW2MS_ReqMyParkingInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqMyParkingInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqMyParkingInfo;
+
+        /**
+         * Verifies a GW2MS_ReqMyParkingInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqMyParkingInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqMyParkingInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqMyParkingInfo;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqMyParkingInfo message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqMyParkingInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqMyParkingInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqMyParkingInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqParkingInfoByType. */
+    interface IGW2MS_ReqParkingInfoByType {
+
+        /** GW2MS_ReqParkingInfoByType userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_ReqParkingInfoByType type */
+        type?: (number|null);
+    }
+
+    /** Represents a GW2MS_ReqParkingInfoByType. */
+    class GW2MS_ReqParkingInfoByType implements IGW2MS_ReqParkingInfoByType {
+
+        /**
+         * Constructs a new GW2MS_ReqParkingInfoByType.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqParkingInfoByType);
+
+        /** GW2MS_ReqParkingInfoByType userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_ReqParkingInfoByType type. */
+        public type: number;
+
+        /**
+         * Creates a new GW2MS_ReqParkingInfoByType instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqParkingInfoByType instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqParkingInfoByType): msg.GW2MS_ReqParkingInfoByType;
+
+        /**
+         * Encodes the specified GW2MS_ReqParkingInfoByType message. Does not implicitly {@link msg.GW2MS_ReqParkingInfoByType.verify|verify} messages.
+         * @param message GW2MS_ReqParkingInfoByType message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqParkingInfoByType, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqParkingInfoByType message, length delimited. Does not implicitly {@link msg.GW2MS_ReqParkingInfoByType.verify|verify} messages.
+         * @param message GW2MS_ReqParkingInfoByType message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqParkingInfoByType, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqParkingInfoByType message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqParkingInfoByType
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqParkingInfoByType;
+
+        /**
+         * Decodes a GW2MS_ReqParkingInfoByType message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqParkingInfoByType
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqParkingInfoByType;
+
+        /**
+         * Verifies a GW2MS_ReqParkingInfoByType message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqParkingInfoByType message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqParkingInfoByType
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqParkingInfoByType;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqParkingInfoByType message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqParkingInfoByType
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqParkingInfoByType, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqParkingInfoByType to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_ResParkingInfo. */
+    interface IMS2GW_ResParkingInfo {
+
+        /** MS2GW_ResParkingInfo userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_ResParkingInfo parkingdatas */
+        parkingdatas?: (msg.IParkingData[]|null);
+    }
+
+    /** Represents a MS2GW_ResParkingInfo. */
+    class MS2GW_ResParkingInfo implements IMS2GW_ResParkingInfo {
+
+        /**
+         * Constructs a new MS2GW_ResParkingInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_ResParkingInfo);
+
+        /** MS2GW_ResParkingInfo userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_ResParkingInfo parkingdatas. */
+        public parkingdatas: msg.IParkingData[];
+
+        /**
+         * Creates a new MS2GW_ResParkingInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_ResParkingInfo instance
+         */
+        public static create(properties?: msg.IMS2GW_ResParkingInfo): msg.MS2GW_ResParkingInfo;
+
+        /**
+         * Encodes the specified MS2GW_ResParkingInfo message. Does not implicitly {@link msg.MS2GW_ResParkingInfo.verify|verify} messages.
+         * @param message MS2GW_ResParkingInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_ResParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_ResParkingInfo message, length delimited. Does not implicitly {@link msg.MS2GW_ResParkingInfo.verify|verify} messages.
+         * @param message MS2GW_ResParkingInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_ResParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_ResParkingInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_ResParkingInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_ResParkingInfo;
+
+        /**
+         * Decodes a MS2GW_ResParkingInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_ResParkingInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_ResParkingInfo;
+
+        /**
+         * Verifies a MS2GW_ResParkingInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_ResParkingInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_ResParkingInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_ResParkingInfo;
+
+        /**
+         * Creates a plain object from a MS2GW_ResParkingInfo message. Also converts values to other types if specified.
+         * @param message MS2GW_ResParkingInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_ResParkingInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_ResParkingInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ParkCar. */
+    interface IGW2MS_ParkCar {
+
+        /** GW2MS_ParkCar userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_ParkCar username */
+        username?: (string|null);
+
+        /** GW2MS_ParkCar carid */
+        carid?: (number|Long|null);
+
+        /** GW2MS_ParkCar parkingid */
+        parkingid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_ParkCar. */
+    class GW2MS_ParkCar implements IGW2MS_ParkCar {
+
+        /**
+         * Constructs a new GW2MS_ParkCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ParkCar);
+
+        /** GW2MS_ParkCar userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_ParkCar username. */
+        public username: string;
+
+        /** GW2MS_ParkCar carid. */
+        public carid: (number|Long);
+
+        /** GW2MS_ParkCar parkingid. */
+        public parkingid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_ParkCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ParkCar instance
+         */
+        public static create(properties?: msg.IGW2MS_ParkCar): msg.GW2MS_ParkCar;
+
+        /**
+         * Encodes the specified GW2MS_ParkCar message. Does not implicitly {@link msg.GW2MS_ParkCar.verify|verify} messages.
+         * @param message GW2MS_ParkCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ParkCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ParkCar message, length delimited. Does not implicitly {@link msg.GW2MS_ParkCar.verify|verify} messages.
+         * @param message GW2MS_ParkCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ParkCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ParkCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ParkCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ParkCar;
+
+        /**
+         * Decodes a GW2MS_ParkCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ParkCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ParkCar;
+
+        /**
+         * Verifies a GW2MS_ParkCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ParkCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ParkCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ParkCar;
+
+        /**
+         * Creates a plain object from a GW2MS_ParkCar message. Also converts values to other types if specified.
+         * @param message GW2MS_ParkCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ParkCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ParkCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_ParkCarResult. */
+    interface IMS2GW_ParkCarResult {
+
+        /** MS2GW_ParkCarResult userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_ParkCarResult result */
+        result?: (number|null);
+    }
+
+    /** Represents a MS2GW_ParkCarResult. */
+    class MS2GW_ParkCarResult implements IMS2GW_ParkCarResult {
+
+        /**
+         * Constructs a new MS2GW_ParkCarResult.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_ParkCarResult);
+
+        /** MS2GW_ParkCarResult userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_ParkCarResult result. */
+        public result: number;
+
+        /**
+         * Creates a new MS2GW_ParkCarResult instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_ParkCarResult instance
+         */
+        public static create(properties?: msg.IMS2GW_ParkCarResult): msg.MS2GW_ParkCarResult;
+
+        /**
+         * Encodes the specified MS2GW_ParkCarResult message. Does not implicitly {@link msg.MS2GW_ParkCarResult.verify|verify} messages.
+         * @param message MS2GW_ParkCarResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_ParkCarResult, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_ParkCarResult message, length delimited. Does not implicitly {@link msg.MS2GW_ParkCarResult.verify|verify} messages.
+         * @param message MS2GW_ParkCarResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_ParkCarResult, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_ParkCarResult message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_ParkCarResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_ParkCarResult;
+
+        /**
+         * Decodes a MS2GW_ParkCarResult message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_ParkCarResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_ParkCarResult;
+
+        /**
+         * Verifies a MS2GW_ParkCarResult message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_ParkCarResult message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_ParkCarResult
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_ParkCarResult;
+
+        /**
+         * Creates a plain object from a MS2GW_ParkCarResult message. Also converts values to other types if specified.
+         * @param message MS2GW_ParkCarResult
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_ParkCarResult, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_ParkCarResult to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_TakeBackCar. */
+    interface IGW2MS_TakeBackCar {
+
+        /** GW2MS_TakeBackCar userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_TakeBackCar carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_TakeBackCar. */
+    class GW2MS_TakeBackCar implements IGW2MS_TakeBackCar {
+
+        /**
+         * Constructs a new GW2MS_TakeBackCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_TakeBackCar);
+
+        /** GW2MS_TakeBackCar userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_TakeBackCar carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_TakeBackCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_TakeBackCar instance
+         */
+        public static create(properties?: msg.IGW2MS_TakeBackCar): msg.GW2MS_TakeBackCar;
+
+        /**
+         * Encodes the specified GW2MS_TakeBackCar message. Does not implicitly {@link msg.GW2MS_TakeBackCar.verify|verify} messages.
+         * @param message GW2MS_TakeBackCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_TakeBackCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_TakeBackCar message, length delimited. Does not implicitly {@link msg.GW2MS_TakeBackCar.verify|verify} messages.
+         * @param message GW2MS_TakeBackCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_TakeBackCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_TakeBackCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_TakeBackCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_TakeBackCar;
+
+        /**
+         * Decodes a GW2MS_TakeBackCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_TakeBackCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_TakeBackCar;
+
+        /**
+         * Verifies a GW2MS_TakeBackCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_TakeBackCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_TakeBackCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_TakeBackCar;
+
+        /**
+         * Creates a plain object from a GW2MS_TakeBackCar message. Also converts values to other types if specified.
+         * @param message GW2MS_TakeBackCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_TakeBackCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_TakeBackCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_TakeBackCarResult. */
+    interface IMS2GW_TakeBackCarResult {
+
+        /** MS2GW_TakeBackCarResult userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_TakeBackCarResult result */
+        result?: (number|null);
+
+        /** MS2GW_TakeBackCarResult reward */
+        reward?: (number|null);
+    }
+
+    /** Represents a MS2GW_TakeBackCarResult. */
+    class MS2GW_TakeBackCarResult implements IMS2GW_TakeBackCarResult {
+
+        /**
+         * Constructs a new MS2GW_TakeBackCarResult.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_TakeBackCarResult);
+
+        /** MS2GW_TakeBackCarResult userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_TakeBackCarResult result. */
+        public result: number;
+
+        /** MS2GW_TakeBackCarResult reward. */
+        public reward: number;
+
+        /**
+         * Creates a new MS2GW_TakeBackCarResult instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_TakeBackCarResult instance
+         */
+        public static create(properties?: msg.IMS2GW_TakeBackCarResult): msg.MS2GW_TakeBackCarResult;
+
+        /**
+         * Encodes the specified MS2GW_TakeBackCarResult message. Does not implicitly {@link msg.MS2GW_TakeBackCarResult.verify|verify} messages.
+         * @param message MS2GW_TakeBackCarResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_TakeBackCarResult, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_TakeBackCarResult message, length delimited. Does not implicitly {@link msg.MS2GW_TakeBackCarResult.verify|verify} messages.
+         * @param message MS2GW_TakeBackCarResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_TakeBackCarResult, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_TakeBackCarResult message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_TakeBackCarResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_TakeBackCarResult;
+
+        /**
+         * Decodes a MS2GW_TakeBackCarResult message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_TakeBackCarResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_TakeBackCarResult;
+
+        /**
+         * Verifies a MS2GW_TakeBackCarResult message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_TakeBackCarResult message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_TakeBackCarResult
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_TakeBackCarResult;
+
+        /**
+         * Creates a plain object from a MS2GW_TakeBackCarResult message. Also converts values to other types if specified.
+         * @param message MS2GW_TakeBackCarResult
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_TakeBackCarResult, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_TakeBackCarResult to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_TicketCar. */
+    interface IGW2MS_TicketCar {
+
+        /** GW2MS_TicketCar userid */
+        userid?: (number|Long|null);
+
+        /** GW2MS_TicketCar parkingid */
+        parkingid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_TicketCar. */
+    class GW2MS_TicketCar implements IGW2MS_TicketCar {
+
+        /**
+         * Constructs a new GW2MS_TicketCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_TicketCar);
+
+        /** GW2MS_TicketCar userid. */
+        public userid: (number|Long);
+
+        /** GW2MS_TicketCar parkingid. */
+        public parkingid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_TicketCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_TicketCar instance
+         */
+        public static create(properties?: msg.IGW2MS_TicketCar): msg.GW2MS_TicketCar;
+
+        /**
+         * Encodes the specified GW2MS_TicketCar message. Does not implicitly {@link msg.GW2MS_TicketCar.verify|verify} messages.
+         * @param message GW2MS_TicketCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_TicketCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_TicketCar message, length delimited. Does not implicitly {@link msg.GW2MS_TicketCar.verify|verify} messages.
+         * @param message GW2MS_TicketCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_TicketCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_TicketCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_TicketCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_TicketCar;
+
+        /**
+         * Decodes a GW2MS_TicketCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_TicketCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_TicketCar;
+
+        /**
+         * Verifies a GW2MS_TicketCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_TicketCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_TicketCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_TicketCar;
+
+        /**
+         * Creates a plain object from a GW2MS_TicketCar message. Also converts values to other types if specified.
+         * @param message GW2MS_TicketCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_TicketCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_TicketCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_TicketCarResult. */
+    interface IMS2GW_TicketCarResult {
+
+        /** MS2GW_TicketCarResult userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_TicketCarResult result */
+        result?: (number|null);
+
+        /** MS2GW_TicketCarResult reward */
+        reward?: (number|null);
+    }
+
+    /** Represents a MS2GW_TicketCarResult. */
+    class MS2GW_TicketCarResult implements IMS2GW_TicketCarResult {
+
+        /**
+         * Constructs a new MS2GW_TicketCarResult.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_TicketCarResult);
+
+        /** MS2GW_TicketCarResult userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_TicketCarResult result. */
+        public result: number;
+
+        /** MS2GW_TicketCarResult reward. */
+        public reward: number;
+
+        /**
+         * Creates a new MS2GW_TicketCarResult instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_TicketCarResult instance
+         */
+        public static create(properties?: msg.IMS2GW_TicketCarResult): msg.MS2GW_TicketCarResult;
+
+        /**
+         * Encodes the specified MS2GW_TicketCarResult message. Does not implicitly {@link msg.MS2GW_TicketCarResult.verify|verify} messages.
+         * @param message MS2GW_TicketCarResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_TicketCarResult, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_TicketCarResult message, length delimited. Does not implicitly {@link msg.MS2GW_TicketCarResult.verify|verify} messages.
+         * @param message MS2GW_TicketCarResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_TicketCarResult, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_TicketCarResult message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_TicketCarResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_TicketCarResult;
+
+        /**
+         * Decodes a MS2GW_TicketCarResult message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_TicketCarResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_TicketCarResult;
+
+        /**
+         * Verifies a MS2GW_TicketCarResult message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_TicketCarResult message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_TicketCarResult
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_TicketCarResult;
+
+        /**
+         * Creates a plain object from a MS2GW_TicketCarResult message. Also converts values to other types if specified.
+         * @param message MS2GW_TicketCarResult
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_TicketCarResult, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_TicketCarResult to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -15772,6 +17272,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseLevelUp ret */
         ret?: (number|null);
+
+        /** GW2C_AckHouseLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckHouseLevelUp. */
@@ -15788,6 +17291,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseLevelUp ret. */
         public ret: number;
+
+        /** GW2C_AckHouseLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckHouseLevelUp instance using the specified properties.
@@ -15967,6 +17473,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseCellLevelUp ret */
         ret?: (number|null);
+
+        /** GW2C_AckHouseCellLevelUp data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckHouseCellLevelUp. */
@@ -15986,6 +17495,9 @@ declare namespace msg {
 
         /** GW2C_AckHouseCellLevelUp ret. */
         public ret: number;
+
+        /** GW2C_AckHouseCellLevelUp data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckHouseCellLevelUp instance using the specified properties.
@@ -16165,6 +17677,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeSelfHouseGoldRet gold */
         gold?: (number|null);
+
+        /** GW2C_AckTakeSelfHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckTakeSelfHouseGoldRet. */
@@ -16184,6 +17699,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeSelfHouseGoldRet gold. */
         public gold: number;
+
+        /** GW2C_AckTakeSelfHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckTakeSelfHouseGoldRet instance using the specified properties.
@@ -16363,6 +17881,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeOtherHouseGoldRet gold */
         gold?: (number|null);
+
+        /** GW2C_AckTakeOtherHouseGoldRet data */
+        data?: (msg.IHouseData|null);
     }
 
     /** Represents a GW2C_AckTakeOtherHouseGoldRet. */
@@ -16382,6 +17903,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeOtherHouseGoldRet gold. */
         public gold: number;
+
+        /** GW2C_AckTakeOtherHouseGoldRet data. */
+        public data?: (msg.IHouseData|null);
 
         /**
          * Creates a new GW2C_AckTakeOtherHouseGoldRet instance using the specified properties.
@@ -18338,6 +19862,12 @@ declare namespace table {
 
         /** TCarDefine Des */
         Des?: (string|null);
+
+        /** TCarDefine path */
+        path?: (string|null);
+
+        /** TCarDefine bigpath */
+        bigpath?: (string|null);
     }
 
     /** Represents a TCarDefine. */
@@ -18372,6 +19902,12 @@ declare namespace table {
 
         /** TCarDefine Des. */
         public Des: string;
+
+        /** TCarDefine path. */
+        public path: string;
+
+        /** TCarDefine bigpath. */
+        public bigpath: string;
 
         /**
          * Creates a new TCarDefine instance using the specified properties.
