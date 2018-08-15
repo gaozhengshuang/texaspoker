@@ -282,7 +282,7 @@ func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visit
 		}
 		return gold
 	} else {
-		log.Error("玩家[%d] 偷金币出错 房屋id[%d] tid:[%d] 没有此区域index[%d]", this.ownerid, this.id, this.tid, cellindex)
+		log.Error("玩家[%d] 偷金币出错 房屋id[%d] tid:[%d] 没有此区域index[%d]", visitorid, this.id, this.tid, cellindex)
 		return 0
 	}
 }
@@ -559,6 +559,10 @@ func (this *HouseManager) TakeSelfHouseGold(userid uint64, houseid uint64, index
 func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visitorid uint64, visitorname string) uint32 {
 	house := this.GetHouse(houseid)
 	if house == nil {
+		return 0
+	}
+	if house.ownerid == visitorid {
+		log.Error("偷取金币出错 不能偷取自己的房屋金币 houseid:%d  ownerid:%d  visitorid:%d", houseid, house.ownerid, visitorid)
 		return 0
 	}
 	gold := house.VisitorTakeGold(index, visitorid, visitorname)
