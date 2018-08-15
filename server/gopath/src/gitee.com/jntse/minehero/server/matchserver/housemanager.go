@@ -592,7 +592,9 @@ func (this *HouseManager) GetRandHouseList() []*msg.HouseData {
 
 		for _, v := range tmprand {
 			house := this.GetHouse(v)
-			data = append(data, house.PackBin())
+			if house != nil {
+				data = append(data, house.PackBin())
+			}
 		}
 	}
 	return data
