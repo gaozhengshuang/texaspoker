@@ -957,9 +957,7 @@ func on_C2GW_ReqCarInfo(session network.IBaseNetSession, message interface{}) {
 		session.Close()
 		return
 	}
-	sendmatch := &msg.GW2MS_ReqCarInfo{}
-	sendmatch.Userid = pb.Uint64(user.Id())
-	Match().SendCmd(sendmatch)
+	user.ReqMatchCarData()
 }
 //请求我的车位信息
 func on_C2GW_ReqMyParkingInfo(session network.IBaseNetSession, message interface{}) {
