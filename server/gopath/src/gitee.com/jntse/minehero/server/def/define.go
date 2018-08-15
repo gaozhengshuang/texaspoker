@@ -142,6 +142,13 @@ func GenerateParkingId(redis *redis.Client) (id uint64,errcode string){
 	return uint64(newid),""
 }
 
+// --------------------------------------------------------------------------
+/// @brief 从指定范围内，随机num个数据，不能重复
+/// @param total 范围大小 [0 - total)
+/// @param num 返回数据数量
+///
+/// @return 
+// --------------------------------------------------------------------------
 func GetRandNumbers(total, num int32) []int32 {
 	all := make([]int32, 0, total)
 	for i := int32(0); i < total; i++ {
@@ -159,10 +166,6 @@ func GetRandNumbers(total, num int32) []int32 {
 		return all
 	}
 
-	result := make([]int32, 0, num)
-	for i := int32(0); i < num; i++ {
-		result = append(result, all[i])
-	}
-	return result
+	return all[0:num]
 }
 
