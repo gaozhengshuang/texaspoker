@@ -45,22 +45,8 @@ module game {
             let goldCnt = 0;
             this.setGift(testGifts);
 
-            this._notify = [
-                {
-                    source: DataManager.playerModel,
-                    target: this,
-                    callBackFunc: this.updateScore,
-                    notifyName: PlayerModel.SCORE_UPDATE,
-                    execute: true
-                },
-                {
-                    source: DataManager.playerModel,
-                    target: this,
-                    callBackFunc: this.updateDiamond,
-                    notifyName: PlayerModel.DIAMOND_UPDATE,
-                    execute: true
-                },
-            ]
+            NotificationCenter.addObserver(this, this.updateScore, PlayerModel.SCORE_UPDATE);
+            NotificationCenter.addObserver(this, this.updateDiamond, PlayerModel.DIAMOND_UPDATE);
 
             this.setGoldCnt(DataManager.playerModel.getDiamond());
             this.updateDiamond();

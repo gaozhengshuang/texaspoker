@@ -13,7 +13,7 @@ module game {
 					{
 						if (data != null) {
 							sendMessage("msg.C2GW_ReqTakeOtherHouseGold",
-							 msg.C2GW_ReqRandHouseList.encode({houseid:data.houseid,index:data.index}));
+							 msg.C2GW_ReqTakeOtherHouseGold.encode({houseid:data.houseid,index:data.index}));
 						}
 						break;
 					}

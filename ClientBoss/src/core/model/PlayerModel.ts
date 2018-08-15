@@ -11,6 +11,7 @@ module game {
         static BAG_UPDATE = "PlayerModel_BAG_UPDATE";
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
+        static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE"
 
         public penetration: number = 0;
         public userInfo: IUserInfo = { 
@@ -34,6 +35,7 @@ module game {
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
         public totalMoney: number | Long = 0;
         private _tasks;
+        private _houses;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -52,7 +54,6 @@ module game {
         }
 
         private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
-            console.log("OnGW2C_ResCarInfo");
             this.userInfo.cardatas = data.cardatas;
             this.userInfo.parkingdatas = data.parkingdatas;
         }
@@ -67,6 +68,7 @@ module game {
             this.userInfo.PersonalImage = data.base.images;
             this.userInfo.level=data.base.level;
             this.userInfo.newplayerstep=data.base.newplayerstep;
+            this.userInfo.robcount=data.base.robcount;
             GameConfig.newPlayerStep=this.userInfo.newplayerstep;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;
@@ -135,7 +137,8 @@ module game {
 
         public setScore(count: number) {
             this.userInfo.gold = count;
-            this.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
         public getScore() {
@@ -147,17 +150,20 @@ module game {
             if (this.userInfo.gold < 0) {
                 this.userInfo.gold = 0;
             }
-            this.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
         public addScore(count: number) {
             this.userInfo.gold += count;
-            this.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.SCORE_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
         public setDiamond(count: number) {
             this.userInfo.diamond = count;
-            this.postNotification(PlayerModel.DIAMOND_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.DIAMOND_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
 
         public getDiamond() {
@@ -402,6 +408,14 @@ module game {
                 }
             }
             return null;
+        }
+
+        public setHouse(house: msg.IHouseData[]) {
+            this._houses = house;
+        }
+
+        public getHouse() {
+            return this._houses;
         }
 
         //我的车辆是否停靠

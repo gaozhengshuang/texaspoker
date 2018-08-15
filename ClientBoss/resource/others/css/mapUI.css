@@ -28,6 +28,20 @@
 	background-size:cover;
 }
 
+#zichanRedIcon{
+	background-image:url(../images/redDianIcon1.png);
+	background-size:cover;
+	width:90px;
+	height:134px;
+	margin:0;
+	padding:0;
+	top:26px;
+	border-style:none;
+	position:absolute;
+	display:none;
+}
+
+
 #faxianBtn{
 	width:90px;
 	height:134px;
@@ -267,5 +281,7 @@
 	background-size:cover;
 	visibility:hidden;
 }
+
+
 
 

@@ -12,15 +12,14 @@ module game {
 		}
 
 		public RegisterEvent() {
-            //NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, "msg.GW2C_UpdateGold");
-			NotificationCenter.addObserver(this, this.OnGW2C_UpdateGold, PlayerModel.SCORE_UPDATE);
+            NotificationCenter.addObserver(this, this.OnUpdateUser, PlayerModel.PLAYERMODEL_UPDATE);
 			NotificationCenter.addObserver(this, this.OnGW2C_NotifyRobCount, "msg.GW2C_NotifyRobCount");
         }
-		private OnGW2C_UpdateGold() {
-			console.log(DataManager.playerModel.getUserInfo().gold);
+		private OnUpdateUser() {
 			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_USER_INFO,DataManager.playerModel.getUserInfo());
 		}
 		private OnGW2C_NotifyRobCount(data: msg.GW2C_NotifyRobCount) {
+			DataManager.playerModel.getUserInfo().robcount=data.value;
 			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_USER_INFO,DataManager.playerModel.getUserInfo());
 		}
 		public getUserInfo():IUserInfo

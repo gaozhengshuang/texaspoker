@@ -201,6 +201,9 @@ func on_GW2MS_ReqHouseLevelUp(session network.IBaseNetSession, message interface
 	send.Houseid = pb.Uint64(houseid)
 	send.Ret = pb.Uint32(ret)
 	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
 	data := house.PackBin()
 	send.Data = data
 	session.SendCmd(send)
@@ -220,6 +223,9 @@ func on_GW2MS_ReqHouseCellLevelUp(session network.IBaseNetSession, message inter
 	send.Index = pb.Uint32(index)
 	send.Ret = pb.Uint32(ret)
 	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
 	data := house.PackBin()
 	send.Data = data
 	session.SendCmd(send)
@@ -240,6 +246,9 @@ func on_GW2MS_ReqTakeSelfHouseGold(session network.IBaseNetSession, message inte
 	send.Index = pb.Uint32(index)
 	send.Gold = pb.Uint32(gold)
 	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
 	data := house.PackBin()
 	send.Data = data
 	session.SendCmd(send)
@@ -254,13 +263,15 @@ func on_GW2MS_ReqTakeOtherHouseGold(session network.IBaseNetSession, message int
 	index := tmsg.GetIndex()
 	visitorname := tmsg.GetUsername()
 	gold := HouseSvrMgr().TakeOtherHouseGold(houseid, index, uid, visitorname)
-
 	send := &msg.MS2GW_AckTakeOtherHouseGoldRet{}
 	send.Userid = pb.Uint64(uid)
 	send.Houseid = pb.Uint64(houseid)
 	send.Index = pb.Uint32(index)
 	send.Gold = pb.Uint32(gold)
 	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
 	data := house.PackBin()
 	send.Data = data
 	session.SendCmd(send)
@@ -380,7 +391,7 @@ func on_GW2MS_ReqParkingInfoByType(session network.IBaseNetSession, message inte
 	log.Info("on_GW2MS_ReqParkingInfoByType %d", uid)
 	send := &msg.MS2GW_ResParkingInfo{}
 	send.Userid = pb.Uint64(uid)
-	parkinginfo := CarSvrMgr().GetParkingByCondition(uint32(parkingtype),uint64(playerid))
+	parkinginfo := CarSvrMgr().GetParkingByCondition(uint32(parkingtype), uint64(playerid))
 	for _, v := range parkinginfo {
 		tmp := v.PackBin()
 		send.Parkingdatas = append(send.Parkingdatas, tmp)

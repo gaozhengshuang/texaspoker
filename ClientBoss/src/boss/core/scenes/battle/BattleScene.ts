@@ -188,12 +188,16 @@ module game {
             this.initNetHandle();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
             DataManager.playerModel.skillUpdate();
+            this.updateScore();
+            this.updateDiamond();
         }
 
         private initNetHandle() {
             NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
             NotificationCenter.addObserver(this, this.onBT_RetStepOnBomb, "msg.BT_RetStepOnBomb");  // 定时炸弹
             NotificationCenter.addObserver(this, this.onBT_RetCrushSuperBrick, "msg.BT_RetCrushSuperBrick");  // 定时炸弹
+            NotificationCenter.addObserver(this, this.updateScore, PlayerModel.SCORE_UPDATE);
+            NotificationCenter.addObserver(this, this.updateDiamond, PlayerModel.DIAMOND_UPDATE);
         }
 
         protected getSkinName() {
@@ -374,13 +378,6 @@ module game {
                 {
                     source: DataManager.playerModel,
                     target: this,
-                    callBackFunc: this.updateScore,
-                    notifyName: PlayerModel.SCORE_UPDATE,
-                    execute: true
-                },
-                {
-                    source: DataManager.playerModel,
-                    target: this,
                     callBackFunc: this.addNotice,
                     notifyName: PlayerModel.ADD_OR_USE_GOLD,
                     execute: false
@@ -390,13 +387,6 @@ module game {
                     target: this,
                     callBackFunc: this.updatePenetration,
                     notifyName: PlayerModel.PENETRATION_UPDATE,
-                    execute: true
-                },
-                {
-                    source: DataManager.playerModel,
-                    target: this,
-                    callBackFunc: this.updateDiamond,
-                    notifyName: PlayerModel.DIAMOND_UPDATE,
                     execute: true
                 },
             ];

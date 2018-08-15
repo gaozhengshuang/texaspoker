@@ -9,14 +9,16 @@ module game {
         private userInfo: IUserInfo;
         public bName_txt: eui.Label;
         public bWeizhi_txt: eui.Label;
+        public roomNum_txt: eui.Label;
         public roomWeizhiGroup: eui.Group;
-
+        public roomNumGroup: eui.Group;
 
         public constructor() {
             super();
             this.skinName = "resource/skins/UserInfoUISkin.exml";
             this.roomWeizhiGroup.visible = false;
             this.adaptive();
+            this.roomNumGroup.visible=false;
             this.addEventListener(egret.Event.ADDED_TO_STAGE,this.addStageFun,this);
         }
         private addStageFun(eve:egret.Event){
@@ -39,19 +41,27 @@ module game {
             this.vip_txt.text = "0";
             this.qiang_txt.text = String(this.userInfo.robcount);
         }
-        public showRoomWeizhi(isShow: boolean, roomvo: RoomVO = null) {
+        public showRoomWeizhi(isShow: boolean, roomvo: HouseVO = null) {
             if (isShow) {
                 if (roomvo) {
                     this.roomWeizhiGroup.visible = true;
-                    this.bName_txt.text = roomvo.bName;
+                    /*this.bName_txt.text = roomvo.bName;
                     let weizhiTxt = this.bWeizhi_txt;
                     GameConfig.getCityNameFun(roomvo.bLatLng[0],
                         roomvo.bLatLng[1], function (txt: string) {
                             weizhiTxt.text = txt;
-                        });
+                        });*/
                 }
             } else {
                 this.roomWeizhiGroup.visible = false;
+            }
+        }
+        public showRoomNum(isShow: boolean, rId: number = 0) {
+            if (isShow) {
+                this.roomNumGroup.visible = true;
+                this.roomNum_txt.text = "" + rId;
+            } else {
+                this.roomNumGroup.visible = false;
             }
         }
     }

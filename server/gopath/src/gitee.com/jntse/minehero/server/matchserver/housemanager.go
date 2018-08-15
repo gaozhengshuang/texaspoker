@@ -192,7 +192,6 @@ type HouseData struct {
 }
 
 func (this *HouseData) LoadBin(bin *msg.HouseData) {
-	log.Info("读取房屋[%d] ", this.id)
 	this.housecells = make(map[uint32]*HouseCell)
 	this.visitinfo = make([]*HouseVisitInfo, 0)
 	this.id = bin.GetId()
@@ -213,6 +212,7 @@ func (this *HouseData) LoadBin(bin *msg.HouseData) {
 		info.LoadBin(v)
 		this.visitinfo = append(this.visitinfo, info)
 	}
+	log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 }
 
@@ -282,7 +282,7 @@ func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visit
 		}
 		return gold
 	} else {
-		log.Error("玩家[%d] 偷金币出错 房屋id[%d] tid:[%d] 没有此区域index[%d]", this.ownerid, this.id, this.tid, cellindex)
+		log.Error("玩家[%d] 偷金币出错 房屋id[%d] tid:[%d] 没有此区域index[%d]", visitorid, this.id, this.tid, cellindex)
 		return 0
 	}
 }
@@ -354,7 +354,14 @@ func (this *HouseManager) Init() {
 
 		for _, v := range data {
 			houseid, _ := strconv.Atoi(v)
-			this.GetHouse(uint64(houseid))
+			key, bin := fmt.Sprintf("houses_%d", uint64(houseid)), &msg.HouseData{}
+			if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
+				log.Error("加载房屋信息失败无此房屋数据 id%d ，err: %s", uint64(houseid), err)
+			} else {
+				house := &HouseData{}
+				house.LoadBin(bin)
+				this.AddHouse(house)
+			}
 		}
 	}
 }
@@ -364,16 +371,8 @@ func (this *HouseManager) GetHouse(houseid uint64) *HouseData {
 	if _, ok := this.houses[houseid]; ok {
 		return this.houses[houseid]
 	} else {
-		//尝试从内存加载 如果没有返回nil
-		key, bin := fmt.Sprintf("houses_%d", houseid), &msg.HouseData{}
-		if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
-			log.Error("加载房屋信息失败无此房屋数据 id%d ，err: %s", houseid, err)
-			return nil
-		}
-		house := &HouseData{}
-		house.LoadBin(bin)
-		this.AddHouse(house)
-		return house
+		log.Error("GetHouse House ERR No Data return nil id%d ", houseid)
+		return nil
 	}
 }
 
@@ -442,14 +441,18 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 
 //添加房屋到管理器
 func (this *HouseManager) AddHouse(house *HouseData) {
-	this.houses[house.id] = house
+	if _, ok := this.houses[house.id]; ok {
+		log.Error("AddHouse Err Same houseid  id:%d ", house.id)
+	} else {
+		this.houses[house.id] = house
+		this.housesIdList = append(this.housesIdList, house.id)
+	}
 	if _, ok := this.userhouses[house.ownerid]; ok {
 		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
 	} else {
 		this.userhouses[house.ownerid] = make([]uint64, 0)
 		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
 	}
-	this.housesIdList = append(this.housesIdList, house.id)
 }
 
 //储存所有的房屋信息
@@ -558,6 +561,10 @@ func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visit
 	if house == nil {
 		return 0
 	}
+	if house.ownerid == visitorid {
+		log.Error("偷取金币出错 不能偷取自己的房屋金币 houseid:%d  ownerid:%d  visitorid:%d", houseid, house.ownerid, visitorid)
+		return 0
+	}
 	gold := house.VisitorTakeGold(index, visitorid, visitorname)
 	if gold > 0 {
 		this.SyncUserHouseData(house.ownerid)
@@ -580,19 +587,13 @@ func (this *HouseManager) GetRandHouseList() []*msg.HouseData {
 			i = i + 1
 		}
 	} else {
-		tmp := this.housesIdList
-		tmprand := make([]uint64, 0)
-		i := 0
-		for i < 10 {
-			randindex := util.RandBetween(0, int32(len(tmp)-1))
-			tmprand = append(tmprand, tmp[randindex])
-			tmp = append(tmp[:randindex], tmp[randindex+1:]...)
-			i = i + 1
-		}
-
+		tmprand := def.GetRandNumbers(int32(count-1), 10)
 		for _, v := range tmprand {
-			house := this.GetHouse(v)
-			data = append(data, house.PackBin())
+			houseid := this.housesIdList[int(v)]
+			house := this.GetHouse(houseid)
+			if house != nil {
+				data = append(data, house.PackBin())
+			}
 		}
 	}
 	return data
