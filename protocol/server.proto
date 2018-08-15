@@ -227,7 +227,8 @@ message GW2MS_ReqMyParkingInfo
 message GW2MS_ReqParkingInfoByType
 {
     optional uint64 userid = 1;
-    optional int32 type = 2;                            //1 公共车位 2 普通车位
+    optional int32 type = 2;                            //0 所有类型 1 公共车位 2 普通车位
+    optional uint64 playerid = 3;                       //0 所有玩家 
 }
 
 message MS2GW_ResParkingInfo

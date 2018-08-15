@@ -376,10 +376,11 @@ func on_GW2MS_ReqParkingInfoByType(session network.IBaseNetSession, message inte
 	tmsg := message.(*msg.GW2MS_ReqParkingInfoByType)
 	uid := tmsg.GetUserid()
 	parkingtype := tmsg.GetType()
+	playerid := tmsg.GetPlayerid()
 	log.Info("on_GW2MS_ReqParkingInfoByType %d", uid)
 	send := &msg.MS2GW_ResParkingInfo{}
 	send.Userid = pb.Uint64(uid)
-	parkinginfo := CarSvrMgr().GetParkingByType(uint32(parkingtype))
+	parkinginfo := CarSvrMgr().GetParkingByCondition(uint32(parkingtype),uint64(playerid))
 	for _, v := range parkinginfo {
 		tmp := v.PackBin()
 		send.Parkingdatas = append(send.Parkingdatas, tmp)
