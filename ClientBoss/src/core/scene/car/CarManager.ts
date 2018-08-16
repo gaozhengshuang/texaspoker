@@ -140,7 +140,7 @@ module game {
         //收到符合条件的车位列表
         private OnGW2C_ResParkingInfo(msgs:msg.GW2C_ResParkingInfo)
         {
-            console.log("OnGW2C_ResParkingInfo----->",msgs.parkingdatas.length);
+            //console.log("OnGW2C_ResParkingInfo----->",msgs.parkingdatas.length);
 /*             msgs.parkingdatas.forEach(data=>{
                 console.log("data-------------->",data.ownername,"   ",data.parkingcar);
             }) */
