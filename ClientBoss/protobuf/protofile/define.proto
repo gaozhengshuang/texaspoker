@@ -73,3 +73,9 @@ enum MoneyType {
     _Diamond = 2;
 }
 
+enum CarOperatorType {
+    Park = 1;
+    TakeBack = 2;
+    Ticket = 3;
+}
+
