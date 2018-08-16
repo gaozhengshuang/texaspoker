@@ -105,28 +105,40 @@ module game {
 			}
 		}
 		private plunderFloatWord(qipao: QipaoPanel, num: number) {
+			let FloatSpr:egret.Sprite=new egret.Sprite();
 			let textField: egret.TextField = new egret.TextField();
-			this.addChild(textField);
-			textField.size = 25;
+			textField.size = 30;
 			textField.textColor = 0x69470F;
 			textField.stroke = 3;
 			textField.strokeColor = 0xffffff;
 			textField.width = qipao.width;
-			textField.height = 25;
-			textField.textAlign = "center";
+			textField.height = 30;
+			textField.textAlign ="left";
 			textField.text = "+" + num;
-			textField.scaleX = textField.scaleY = GameConfig.innerScale;
-			textField.x = qipao.x;
-			textField.y = qipao.y;
-			textField.alpha = 0;
-			egret.Tween.get(textField)
-				.to({ y: textField.y - 20, alpha: 1 }, 500)
+			//textField.scaleX = textField.scaleY = GameConfig.innerScale;
+			let goldImg:egret.Bitmap = new egret.Bitmap();
+			goldImg.texture=RES.getRes("smallGoldIcon1_png");
+			goldImg.anchorOffsetY=goldImg.height/2;
+			goldImg.x=0;goldImg.y=0;
+			FloatSpr.addChild(goldImg);
+			textField.anchorOffsetY=textField.height/2;
+			textField.x=goldImg.width;
+			textField.y=0;
+			FloatSpr.addChild(textField);
+			
+
+			FloatSpr.alpha = 0;
+			this.addChild(FloatSpr);
+			FloatSpr.x = qipao.x;
+			FloatSpr.y = qipao.y;
+			egret.Tween.get(FloatSpr)
+				.to({ y: FloatSpr.y - 20, alpha: 1 }, 500)
 				.wait(500)
-				.to({ alpha: 0 }, 500)
-				.call(this.FloatWordOnComplete, this, [textField]);//设置回调函数及作用域，可用于侦听动画完成
+				.to({ scaleX:2,scaleY:2,alpha: 0 }, 500)
+				.call(this.FloatWordOnComplete, this, [FloatSpr]);//设置回调函数及作用域，可用于侦听动画完成
 
 		}
-		private FloatWordOnComplete(param1: egret.TextField): void {
+		private FloatWordOnComplete(param1: egret.Sprite): void {
 			egret.Tween.removeTweens(param1);
 			this.removeChild(param1);
 			param1 = null;
