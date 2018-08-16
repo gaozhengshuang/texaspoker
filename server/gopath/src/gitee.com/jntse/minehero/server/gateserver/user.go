@@ -581,8 +581,9 @@ func (this *GateUser) OnCreateNew() {
 	createparksend.Username = pb.String(this.Name())
 	Match().SendCmd(createparksend)
 
-	this.newplayerstep = 0
-	this.robcount = 10
+	//this.newplayerstep = 0
+	//this.robcount = 10
+
 }
 
 // 上线回调，玩家数据在LoginOk中发送
