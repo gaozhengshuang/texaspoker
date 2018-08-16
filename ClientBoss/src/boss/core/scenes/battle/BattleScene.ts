@@ -208,8 +208,6 @@ module game {
         private _rightWall: BattleWall;
 
         private initWorld() {
-            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
-            
             const stageWidth = gameConfig.curWidth();
             const stageHeight = gameConfig.curHeight();
             this._halfWidth = stageWidth / 2;
