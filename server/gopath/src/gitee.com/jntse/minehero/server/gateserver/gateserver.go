@@ -99,7 +99,7 @@ func RoomMgr() *RoomManager {
 }
 
 func HouseSvrMgr() *HouseManager {
-	return &Match().housesvrmgr
+	return &GateSvr().housesvrmgr
 }
 
 //func CountMgr() *CountManager {
