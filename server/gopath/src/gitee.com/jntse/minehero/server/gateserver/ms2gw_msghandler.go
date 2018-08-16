@@ -59,6 +59,7 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2GW_ParkCarResult{}, on_MS2GW_ParkCarResult)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_TakeBackCarResult{}, on_MS2GW_TakeBackCarResult)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_TicketCarResult{}, on_MS2GW_TicketCarResult)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_AckRecordData{}, on_MS2GW_AckRecordData)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
@@ -86,6 +87,7 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2MS_ParkCar{})
 	this.msgparser.RegistSendProto(msg.GW2MS_TakeBackCar{})
 	this.msgparser.RegistSendProto(msg.GW2MS_TicketCar{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqRecordData{})
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -374,6 +376,19 @@ func on_MS2GW_TicketCarResult(session network.IBaseNetSession, message interface
 	if send.GetResult() == 0 && send.GetReward() > 0 {
 		user.AddGold(uint32(send.GetReward()), "贴条产出金币", true)
 	}
+	user.SendMsg(send)
+}
+
+func on_MS2GW_AckRecordData(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckRecordData)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆操作记录数据，但找不到玩家", uid)
+		return
+	}
+	send := &msg.GW2C_SynParkingRecord{}
+	send.Records = tmsg.GetRecords()
 	user.SendMsg(send)
 }
 

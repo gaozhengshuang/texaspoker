@@ -143,6 +143,17 @@ func GenerateParkingId(redis *redis.Client) (id uint64,errcode string){
 	return uint64(newid),""
 }
 
+//生成记录的uuid
+func GenerateParkingRecordId(redis *redis.Client) (id uint64,errcode string){
+	key := "uuid_parkingrecord"
+	newid,err := redis.Incr(key).Result()
+	if err != nil {
+		log.Error("生成parkingrecordid redis报错, err: %s",err)
+		return 0,"redis不可用"
+	}
+	return uint64(newid),""
+}
+
 // --------------------------------------------------------------------------
 /// @brief 从指定范围total内，随机num个数据，不能重复
 /// @param total 范围大小 [0 - total)

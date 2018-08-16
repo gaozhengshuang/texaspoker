@@ -273,6 +273,15 @@ message MS2GW_TicketCarResult
     optional int32 result = 2;                          //贴条结果 0为成功 其他失败
     optional int32 reward = 3;                          //贴条获得的奖励
 }
+message GW2MS_ReqRecordData
+{
+    optional uint64 userid = 1;
+}
+message MS2GW_AckRecordData
+{
+    optional uint64 userid = 1;
+    repeated msg.ParkingRecordData records = 2;
+}
 //玩家请求获取随机的房屋列表
 message GW2MS_ReqRandHouseList {
 	optional uint64 userid = 1;
