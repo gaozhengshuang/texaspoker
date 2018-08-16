@@ -889,39 +889,39 @@
 			"name": "carParkBg_png"
 		},
 		{
-			"name": "jiaobiao3_png",
+			"url": "assets2/jiaobiao3.png",
 			"type": "image",
-			"url": "assets2/jiaobiao3.png"
+			"name": "jiaobiao3_png"
 		},
 		{
-			"name": "jiaobiaoIcon1_png",
+			"url": "assets2/jiaobiaoIcon1.png",
 			"type": "image",
-			"url": "assets2/jiaobiaoIcon1.png"
+			"name": "jiaobiaoIcon1_png"
 		},
 		{
-			"name": "jiaobiaoIcon2_png",
+			"url": "assets2/jiaobiaoIcon2.png",
 			"type": "image",
-			"url": "assets2/jiaobiaoIcon2.png"
+			"name": "jiaobiaoIcon2_png"
 		},
 		{
-			"name": "levelSuccessImg1_png",
+			"url": "assets2/levelSuccessImg1.png",
 			"type": "image",
-			"url": "assets2/levelSuccessImg1.png"
+			"name": "levelSuccessImg1_png"
 		},
 		{
-			"name": "roomUserInfo-bg_png",
+			"url": "assets2/roomUserInfo-bg.png",
 			"type": "image",
-			"url": "assets2/roomUserInfo-bg.png"
+			"name": "roomUserInfo-bg_png"
 		},
 		{
-			"name": "smallGoldIcon1_png",
+			"url": "assets2/smallGoldIcon1.png",
 			"type": "image",
-			"url": "assets2/smallGoldIcon1.png"
+			"name": "smallGoldIcon1_png"
 		},
 		{
-			"name": "tilingIcon1_png",
+			"url": "assets2/tilingIcon1.png",
 			"type": "image",
-			"url": "assets2/tilingIcon1.png"
+			"name": "tilingIcon1_png"
 		}
 	]
 }
