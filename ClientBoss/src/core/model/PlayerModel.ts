@@ -69,6 +69,7 @@ module game {
             this.userInfo.level=data.base.level;
             this.userInfo.newplayerstep=data.base.newplayerstep;
             this.userInfo.robcount=data.base.robcount;
+            console.log("抢夺次数:"+data.base.robcount);
             GameConfig.newPlayerStep=this.userInfo.newplayerstep;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;

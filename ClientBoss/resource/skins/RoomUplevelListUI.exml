@@ -2,9 +2,9 @@
 <e:Skin class="RoomUplevelListUI" width="720" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="quyuImg" source="roomLevelIcon1_png" x="19" y="10"/>
 	<e:Label id="level_txt" text="房屋等级4级——房屋等级5级" x="165" y="27" textColor="0x3F4957" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="363" verticalAlign="middle" textAlign="center" bold="true"/>
-	<e:Label id="chanliang_txt" text="金币产量999&gt;金币产量999" x="165" y="69" textColor="0x3F4957" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="363" verticalAlign="middle" textAlign="center" bold="true" visible="false"/>
+	<e:Label id="chanliang_txt" text="金币产量999&gt;金币产量999" x="165" y="69" textColor="0x3F4957" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="363" verticalAlign="middle" textAlign="center" bold="true"/>
 	<e:Group id="btnGruop" x="532" y="28">
-		<e:Image source="btnBg_red3_png" x="0" y="0" width="170" height="66"/>
+		<e:Image id="btn_bg" source="btnBg_red3_png" x="0" y="0" width="170" height="66"/>
 		<e:Label text="升  级" x="55" y="4" fontFamily="Microsoft YaHei" size="23"/>
 		<e:Image source="ui_comn_icon_gold_png" x="42" y="33" scaleX="0.5" scaleY="0.5"/>
 		<e:Label id="spend_txt" text="1000" x="73.5" y="34" fontFamily="Microsoft YaHei" size="23" anchorOffsetX="0" width="80"/>
