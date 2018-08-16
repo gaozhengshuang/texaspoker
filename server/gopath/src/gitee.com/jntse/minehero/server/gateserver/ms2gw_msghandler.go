@@ -390,6 +390,7 @@ func on_MS2GW_AckRecordData(session network.IBaseNetSession, message interface{}
 	}
 	send := &msg.GW2C_SynParkingRecord{}
 	send.Records = tmsg.GetRecords()
+	log.Info("发送玩家车辆操作记录 [%d] 记录长度 [%d] ",uid,len(send.GetRecords()))
 	user.SendMsg(send)
 }
 
