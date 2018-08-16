@@ -10,6 +10,7 @@ module game {
         infoBgImage     : eui.Image;
 
         btnDriveAwayTxt : eui.Label;
+        priceTxt        : eui.Label;
         carInfoTxt      : eui.Label;
         carNameTxt      : eui.Label;
         parkingInfoTxt  : eui.Label;
@@ -30,7 +31,7 @@ module game {
         protected getSkinName() {
             return CarDetailInfoSkin;
         }
-        private static _instance: CarDetailView;
+        public static _instance: CarDetailView;
 
         public static getInstance(): CarDetailView {
             if (!CarDetailView._instance) {
@@ -87,7 +88,6 @@ module game {
             this.carData = carData;
             this.updateView();
         }
-
         private updateView()
         {   
             if(!this.carData) return;
@@ -127,13 +127,22 @@ module game {
             this.btnDriveAway.visible = this.btnDriveAwayBg.visible  = this.parkingInfoTxt.visible = _parkingData && true;
             this.infoBgImage.source = (_parkingData && true) ? "uiCarAltas_json.infobg" : "uiCarAltas_json.emptybg";
             this.parkingEmptyTxt.visible = !(_parkingData && true);
-        }
-
+         }
         public OnCloseHandle() {
             this.remove();
             GameConfig.showDownBtnFun(true); 
             delete CarDetailView._instance;
             CarDetailView._instance = null;
+        }
+
+        public OnEnableHandle(){
+            this.visible = true;
+            GameConfig.showDownBtnFun(false); 
+        }
+        public OnDisableHandle(){
+            this.visible = false;
+            this.removeDarkRect();
+            GameConfig.showDownBtnFun(true); 
         }
 
         private OnDriveAwayHandle(){
@@ -329,14 +338,14 @@ module game {
                     let _userId = item.operatortype==msg.CarOperatorType.Ticket ? item.carownerid : item.parkingownerid;
                     if (item) {
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:_userId});
-                        this.OnCloseHandle();
+                        this.OnDisableHandle();
                     }
                     break;
                 case 3:
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:item.ownerid});
-                        this.OnCloseHandle();
+                        this.OnDisableHandle();
                     }
                     break;
             }
