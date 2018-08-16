@@ -80,6 +80,7 @@ type ParkingData struct {
     parkingtime	uint64        		//开始停车时间戳
 	parkingreward uint32     		//停车获得收益
 	parkingcartid uint32			//停的车的配置id
+	houseid uint64					//所属房屋id
 	
 	template *table.TParkingDefine
 }
@@ -95,6 +96,7 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData){
 	this.parkingreward = bin.GetParkingreward()
 	this.ownername = bin.GetOwnername()
 	this.parkingcartid = bin.GetParkingcartid()
+	this.houseid = bin.GetHouseid();
 
 	template,find := tbl.TParkingBase.TParkingById[this.tid]
 	if find == false {
@@ -116,6 +118,7 @@ func (this* ParkingData) PackBin() *msg.ParkingData {
 	bin.Parkingreward = pb.Uint32(this.parkingreward)
 	bin.Ownername = pb.String(this.ownername)
 	bin.Parkingcartid = pb.Uint32(this.parkingcartid)
+	bin.Houseid = pb.Uint64(this.houseid)
 	return bin
 }
 
@@ -313,7 +316,7 @@ func (this* CarManager) GetParkingById(ids []uint64) []*ParkingData{
 	return data
 }
 
-func (this* CarManager) GetParkingByCondition(parkingtype uint32,playerid uint64) []*ParkingData{
+func (this* CarManager) GetParkingByCondition(parkingtype uint32,playerid uint64,houseids []uint64) []*ParkingData{
 	data := make([]*ParkingData,0)
 	for _,v := range this.parkings {
 		if parkingtype != 0 && v.template.Type != parkingtype {
@@ -322,12 +325,15 @@ func (this* CarManager) GetParkingByCondition(parkingtype uint32,playerid uint64
 		if playerid != 0 && v.ownerid != playerid {
 			continue;
 		}
+		if len(houseids) > 0 && !def.IsContainObj(v.houseid,houseids) {
+			continue;
+		}
 		data = append(data,v)
 	}
 	return data
 }
 
-func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32,name string) *ParkingData{
+func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32,name string,hid  uint64) *ParkingData{
 	parkingid, errcode := def.GenerateParkingId(Redis())
 	if errcode != "" {
 		log.Error("创建新的车位生成新的车位id出错，error:%s", errcode)
@@ -352,7 +358,7 @@ func (this* CarManager) CreateNewParking(ownerid uint64, tid uint32,name string)
     parking.parkingtime	= 0
 	parking.parkingreward = 0
 	parking.parkingcartid = 0
-
+	parking.houseid = hid
 	parking.SaveBin()
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
