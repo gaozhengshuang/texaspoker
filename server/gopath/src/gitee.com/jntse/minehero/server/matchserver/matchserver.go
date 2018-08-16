@@ -58,7 +58,7 @@ type MatchServer struct {
 	msghandlers  []network.IBaseMsgHandler
 	tblloader    *tbl.TblLoader
 	runtimestamp int64
-	housesvrmgr  HouseManager
+	//housesvrmgr  HouseManager
 	carmgr CarManager
 }
 
@@ -88,9 +88,11 @@ func RoomSvrMgr() *RoomSvrManager {
 	return &Match().roomsvrmgr
 }
 
+/*
 func HouseSvrMgr() *HouseManager {
 	return &Match().housesvrmgr
 }
+*/
 
 func CarSvrMgr() *CarManager {
 	return &Match().carmgr
@@ -254,13 +256,13 @@ func (this *MatchServer) OnStart() {
 	this.runtimestamp = util.CURTIMEMS()
 	log.Info("结束执行OnStart")
 
-	this.housesvrmgr.Init()
+	//this.housesvrmgr.Init()
 	this.carmgr.Init()
 }
 
 // 程序退出最后清理
 func (this *MatchServer) OnStop() {
-	this.housesvrmgr.SaveAllHousesData()
+	//this.housesvrmgr.SaveAllHousesData()
 	this.carmgr.SaveAllData()
 	this.hredis.Close()
 }
@@ -283,7 +285,7 @@ func (this *MatchServer) Run() {
 
 	//
 	this.roomsvrmgr.Tick(now)
-	this.housesvrmgr.Tick(now)
+	//this.housesvrmgr.Tick(now)
 	this.carmgr.Tick(now)
 	tm_roomtick := util.CURTIMEMS()
 	//
