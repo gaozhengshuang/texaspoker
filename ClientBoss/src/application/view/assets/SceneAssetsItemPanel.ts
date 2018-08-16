@@ -10,6 +10,7 @@ module game {
         private hCoin_icon: eui.Image;
         private hQuan_icon: eui.Image;
         private chushou_icon: eui.Image;
+        private jiaoBiaoIcon: eui.Image;
 
         public constructor(data: any = null) {
             super();
@@ -18,6 +19,7 @@ module game {
             this.hCoin_icon.visible=false;
             this.hQuan_icon.visible=false;
             this.chushou_icon.visible=false;
+            this.jiaoBiaoIcon.visible=false;
 
         }
         private adaptive(){
@@ -30,7 +32,12 @@ module game {
             this.itemDate = this.data;
             if (this.itemDate) {
                 console.log(this.itemDate);
-                this.name_txt.text = this.itemDate.rId+"号房间";
+                this.name_txt.text = this.itemDate.rId+"号房间(一室一厅)";
+                if(AnalyzeHouseGold(this.itemDate,1)){
+                    this.jiaoBiaoIcon.visible=true;
+                }else{
+                    this.jiaoBiaoIcon.visible=false;
+                }
                 /*let weizhiTxt = this.weizhi_txt;
                 GameConfig.getCityNameFun(this.itemDate.bLatLng[0],
                     this.itemDate.bLatLng[1], function (txt: string) {

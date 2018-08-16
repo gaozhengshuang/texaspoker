@@ -52,7 +52,7 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ParkCar{}, on_GW2MS_ParkCar)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_TakeBackCar{}, on_GW2MS_TakeBackCar)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_TicketCar{}, on_GW2MS_TicketCar)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRecordData{},on_GW2MS_ReqRecordData)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRecordData{}, on_GW2MS_ReqRecordData)
 
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseLevelUp{}, on_GW2MS_ReqHouseLevelUp)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseCellLevelUp{}, on_GW2MS_ReqHouseCellLevelUp)
@@ -288,7 +288,7 @@ func on_GW2MS_ReqRandHouseList(session network.IBaseNetSession, message interfac
 
 	send := &msg.MS2GW_AckRandHouseList{}
 	send.Userid = pb.Uint64(uid)
-	data := HouseSvrMgr().GetRandHouseList()
+	data := HouseSvrMgr().GetRandHouseList(uid)
 	send.Datas = data
 	session.SendCmd(send)
 }
@@ -322,7 +322,7 @@ func on_GW2MS_ReqCreateCar(session network.IBaseNetSession, message interface{})
 	send := &msg.MS2GW_AckCreateCar{}
 	send.Userid = pb.Uint64(uid)
 
-	carinfo := CarSvrMgr().CreateNewCar(uid, ctid,uname)
+	carinfo := CarSvrMgr().CreateNewCar(uid, ctid, uname)
 	if carinfo != nil {
 		send.Cardata = carinfo.PackBin()
 	}
@@ -412,7 +412,7 @@ func on_GW2MS_ParkCar(session network.IBaseNetSession, message interface{}) {
 	log.Info("on_GW2MS_ParkCar %d", uid)
 	send := &msg.MS2GW_ParkCarResult{}
 	send.Userid = pb.Uint64(uid)
-	result,record := CarSvrMgr().ParkingCar(cid,pid,uname)
+	result, record := CarSvrMgr().ParkingCar(cid, pid, uname)
 	send.Result = pb.Int32(result)
 	session.SendCmd(send)
 
@@ -434,7 +434,7 @@ func on_GW2MS_TakeBackCar(session network.IBaseNetSession, message interface{}) 
 	log.Info("on_GW2MS_TakeBackCar %d", uid)
 	send := &msg.MS2GW_TakeBackCarResult{}
 	send.Userid = pb.Uint64(uid)
-	result, reward,record := CarSvrMgr().TakeBackCar(cid)
+	result, reward, record := CarSvrMgr().TakeBackCar(cid)
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	session.SendCmd(send)
@@ -457,7 +457,7 @@ func on_GW2MS_TicketCar(session network.IBaseNetSession, message interface{}) {
 	log.Info("on_GW2MS_TicketCar %d", uid)
 	send := &msg.MS2GW_TicketCarResult{}
 	send.Userid = pb.Uint64(uid)
-	result, reward,record := CarSvrMgr().TakeBackFromParking(pid)
+	result, reward, record := CarSvrMgr().TakeBackFromParking(pid)
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	session.SendCmd(send)
@@ -490,5 +490,6 @@ func on_GW2MS_ReqRecordData(session network.IBaseNetSession, message interface{}
 func on_GW2MS_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_ReqResetRobCheckFlag)
 	houseid := tmsg.GetHouseid()
+	log.Info("on_GW2MS_ReqResetRobCheckFlag %d", houseid)
 	HouseSvrMgr().ResetRobcheckflag(houseid)
 }

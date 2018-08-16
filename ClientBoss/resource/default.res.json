@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,girl_suitx_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_suit5_json,girl_suit5_json,boy_suit6_json,gameLoading2_png,gameLoadingBg2_png,description_json,errorCode_json,carIconAltas_json,uiCarAltas_json,carParkBg_png",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,goldGame_png,goldGame_fnt,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,girl_suitx_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_suit5_json,girl_suit5_json,boy_suit6_json,gameLoading2_png,gameLoadingBg2_png,description_json,errorCode_json,carIconAltas_json,uiCarAltas_json,carParkBg_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,levelSuccessImg1_png,roomUserInfo-bg_png,smallGoldIcon1_png,tilingIcon1_png",
 			"name": "preload"
 		}
 	],
@@ -887,6 +887,41 @@
 			"url": "assets/carParkBg.png",
 			"type": "image",
 			"name": "carParkBg_png"
+		},
+		{
+			"name": "jiaobiao3_png",
+			"type": "image",
+			"url": "assets2/jiaobiao3.png"
+		},
+		{
+			"name": "jiaobiaoIcon1_png",
+			"type": "image",
+			"url": "assets2/jiaobiaoIcon1.png"
+		},
+		{
+			"name": "jiaobiaoIcon2_png",
+			"type": "image",
+			"url": "assets2/jiaobiaoIcon2.png"
+		},
+		{
+			"name": "levelSuccessImg1_png",
+			"type": "image",
+			"url": "assets2/levelSuccessImg1.png"
+		},
+		{
+			"name": "roomUserInfo-bg_png",
+			"type": "image",
+			"url": "assets2/roomUserInfo-bg.png"
+		},
+		{
+			"name": "smallGoldIcon1_png",
+			"type": "image",
+			"url": "assets2/smallGoldIcon1.png"
+		},
+		{
+			"name": "tilingIcon1_png",
+			"type": "image",
+			"url": "assets2/tilingIcon1.png"
 		}
 	]
 }

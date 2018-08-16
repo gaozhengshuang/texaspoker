@@ -335,8 +335,8 @@ func (this *GateUser) GetRobCount() uint32 {
 }
 
 func (this *GateUser) SetRobCount(count uint32) {
-	if count > 10 {
-		this.robcount = 10
+	if count > 20 {
+		this.robcount = 20
 	} else {
 		this.robcount = count
 	}
@@ -632,6 +632,7 @@ func (this *GateUser) Syn() {
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
 	this.ReqMatchCarData()
+	this.ReqRecordData()
 	//this.QueryPlatformCoins()
 }
 

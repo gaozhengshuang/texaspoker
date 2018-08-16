@@ -176,6 +176,7 @@ func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
 	house := this.GetUserHouseDataByHouseId(houseid)
 	if house == nil {
+		log.Error("ResetRobCheckFlag have no house  houseid: %d", houseid)
 		return
 	}
 	sendmatch := &msg.GW2MS_ReqResetRobCheckFlag{}

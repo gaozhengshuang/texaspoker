@@ -90,8 +90,8 @@ module game {
             if(this.userInfoPanel==null){
                 this.userInfoPanel=new GameUserInfoPanel();
                 this.addChild(this.userInfoPanel);
-                this.userInfoPanel.x=20;
-                this.userInfoPanel.y=8;
+                this.userInfoPanel.x=0;
+                this.userInfoPanel.y=0;
             }
             this.userInfoPanel.updataInfo(this.userInfo);
             /*initTopInfo(GameConfig.innerScale,{name:this.userInfo.nickname,
@@ -110,6 +110,11 @@ module game {
         public showRoomNum(isShow: boolean, rId: number = 0) {
             if(this.userInfoPanel){
                 this.userInfoPanel.showRoomNum(isShow,rId);
+            }
+        }
+        public showRoomBg(isShow: boolean) {
+            if(this.userInfoPanel){
+                this.userInfoPanel.showRoomBg(isShow);
             }
         }
         private onclick_begin(){

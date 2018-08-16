@@ -11,6 +11,8 @@ module game {
 				CommandName.PLUNDER_SUCCESS,
 				CommandName.RECEIVE_SUCCESS,
 				CommandName.UPDATE_ROOM_INFO,
+				CommandName.HOUSE_LEVEL_SUCCESS,
+				CommandName.ROOM_LEVEL_SUCCESS,
 				CommandName.ROOM_PARKINGLOT_UPDATE,
 				CommandName.HAVE_NEW_DONGTAI
 			];
@@ -66,7 +68,7 @@ module game {
 					}
 					case CommandName.HAVE_NEW_DONGTAI:
 					{
-						this.sceneGroup.haveNewDongtai();
+						//this.sceneGroup.haveNewDongtai();
 						break;
 					}
 
