@@ -10,20 +10,6 @@ module game {
 		public constructor() {
 			super();
 			this.skinName = "resource/skins/DiscoveryViewUI.exml";
-            this.adaptive();
-		}
-
-		private adaptive(){
-			this.innerScaleW = GameConfig.innerWidth / 720;
-			this.view_bg.width=GameConfig.innerWidth;
-            this.view_bg.height=GameConfig.innerHeight;
-			this.titleImg.scaleX=this.innerScaleW;
-            this.titleImg.scaleY=this.innerScaleW;
-
-			this.titleWordGroup.scaleX=this.innerScaleW;
-            this.titleWordGroup.scaleY=this.innerScaleW;
-			this.titleWordGroup.y=this.titleImg.height*this.innerScaleW;
-
 		}
 
 		private gameItemList:utils.AllScrollerPanel;

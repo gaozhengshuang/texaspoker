@@ -317,8 +317,6 @@ module game {
         }
 
         protected beforeShow() {
-            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
-
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
             let paddle = this._paddlePool.createObject();
             paddle.setData(1);
@@ -1108,7 +1106,6 @@ module game {
 
         protected beforeRemove() {
             GameConfig.showDownBtnFun(true);
-            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.NO_SCALE;
 
             this._doubleTime = 0;
             this._icePool.destroyAllObject();

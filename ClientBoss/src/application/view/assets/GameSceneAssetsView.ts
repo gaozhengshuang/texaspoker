@@ -28,7 +28,6 @@ module game {
 		public constructor() {
 			super();
 			this.skinName = "resource/skins/SceneAssetsViewUI.exml";
-            this.adaptive();
 			this.radioGroup=this.titleRadio1.group;
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			this.radioGroup.selectedValue=this.titleRadio1.value;
@@ -37,26 +36,7 @@ module game {
 			
 			NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");			
 		}
-        private adaptive(){
-			this.view_bg.width=GameConfig.innerWidth;
-            this.view_bg.height=GameConfig.innerHeight;
 
-			this.topBar.scaleX=GameConfig.innerScaleW;
-            this.topBar.scaleY=GameConfig.innerScaleW;
-
-            this.titleRadioGroup.scaleX=GameConfig.innerScaleW;
-            this.titleRadioGroup.scaleY=GameConfig.innerScaleW;
-			this.titleRadioGroup.y=this.topBar.height*GameConfig.innerScaleW;
-
-			this.contentStarck.width=GameConfig.innerWidth;
-			this.contentStarck.y = this.titleRadioGroup.y + 
-			this.titleRadioGroup.height*GameConfig.innerScaleW;
-			this.contentStarck.height=GameConfig.innerPageHeight-this.contentStarck.y;
-
-			this.undoneTips2.scaleX=this.undoneTips2.scaleY
-			=this.undoneTips3.scaleX=this.undoneTips3.scaleY
-			=GameConfig.innerScale;
-		}
         private onChangeSex(e: egret.Event) {
 			var rbGroup: eui.RadioButtonGroup = e.target;
 			console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
