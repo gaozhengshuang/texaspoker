@@ -9215,6 +9215,7 @@ $root.msg = (function() {
          * @property {Array.<msg.IHouseCell>|null} [housecells] HouseData housecells
          * @property {Array.<msg.IHouseVisitInfo>|null} [visitinfo] HouseData visitinfo
          * @property {string|null} [ownername] HouseData ownername
+         * @property {number|null} [robcheckflag] HouseData robcheckflag
          */
 
         /**
@@ -9299,6 +9300,14 @@ $root.msg = (function() {
         HouseData.prototype.ownername = "";
 
         /**
+         * HouseData robcheckflag.
+         * @member {number} robcheckflag
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.robcheckflag = 0;
+
+        /**
          * Creates a new HouseData instance using the specified properties.
          * @function create
          * @memberof msg.HouseData
@@ -9340,6 +9349,8 @@ $root.msg = (function() {
                     $root.msg.HouseVisitInfo.encode(message.visitinfo[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
             if (message.ownername != null && message.hasOwnProperty("ownername"))
                 writer.uint32(/* id 8, wireType 2 =*/66).string(message.ownername);
+            if (message.robcheckflag != null && message.hasOwnProperty("robcheckflag"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.robcheckflag);
             return writer;
         };
 
@@ -9401,6 +9412,9 @@ $root.msg = (function() {
                     break;
                 case 8:
                     message.ownername = reader.string();
+                    break;
+                case 9:
+                    message.robcheckflag = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -9473,6 +9487,9 @@ $root.msg = (function() {
             if (message.ownername != null && message.hasOwnProperty("ownername"))
                 if (!$util.isString(message.ownername))
                     return "ownername: string expected";
+            if (message.robcheckflag != null && message.hasOwnProperty("robcheckflag"))
+                if (!$util.isInteger(message.robcheckflag))
+                    return "robcheckflag: integer expected";
             return null;
         };
 
@@ -9534,6 +9551,8 @@ $root.msg = (function() {
             }
             if (object.ownername != null)
                 message.ownername = String(object.ownername);
+            if (object.robcheckflag != null)
+                message.robcheckflag = object.robcheckflag >>> 0;
             return message;
         };
 
@@ -9569,6 +9588,7 @@ $root.msg = (function() {
                 object.buildingid = 0;
                 object.level = 0;
                 object.ownername = "";
+                object.robcheckflag = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -9598,6 +9618,8 @@ $root.msg = (function() {
             }
             if (message.ownername != null && message.hasOwnProperty("ownername"))
                 object.ownername = message.ownername;
+            if (message.robcheckflag != null && message.hasOwnProperty("robcheckflag"))
+                object.robcheckflag = message.robcheckflag;
             return object;
         };
 
@@ -17052,6 +17074,207 @@ $root.msg = (function() {
         };
 
         return GW2C_NotifyTimeStamp;
+    })();
+
+    msg.C2GW_ReqResetRobCheckFlag = (function() {
+
+        /**
+         * Properties of a C2GW_ReqResetRobCheckFlag.
+         * @memberof msg
+         * @interface IC2GW_ReqResetRobCheckFlag
+         * @property {number|Long|null} [houseid] C2GW_ReqResetRobCheckFlag houseid
+         */
+
+        /**
+         * Constructs a new C2GW_ReqResetRobCheckFlag.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqResetRobCheckFlag.
+         * @implements IC2GW_ReqResetRobCheckFlag
+         * @constructor
+         * @param {msg.IC2GW_ReqResetRobCheckFlag=} [properties] Properties to set
+         */
+        function C2GW_ReqResetRobCheckFlag(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqResetRobCheckFlag houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @instance
+         */
+        C2GW_ReqResetRobCheckFlag.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_ReqResetRobCheckFlag instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.IC2GW_ReqResetRobCheckFlag=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqResetRobCheckFlag} C2GW_ReqResetRobCheckFlag instance
+         */
+        C2GW_ReqResetRobCheckFlag.create = function create(properties) {
+            return new C2GW_ReqResetRobCheckFlag(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqResetRobCheckFlag message. Does not implicitly {@link msg.C2GW_ReqResetRobCheckFlag.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.IC2GW_ReqResetRobCheckFlag} message C2GW_ReqResetRobCheckFlag message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqResetRobCheckFlag.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqResetRobCheckFlag message, length delimited. Does not implicitly {@link msg.C2GW_ReqResetRobCheckFlag.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.IC2GW_ReqResetRobCheckFlag} message C2GW_ReqResetRobCheckFlag message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqResetRobCheckFlag.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqResetRobCheckFlag message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqResetRobCheckFlag} C2GW_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqResetRobCheckFlag.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqResetRobCheckFlag();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqResetRobCheckFlag message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqResetRobCheckFlag} C2GW_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqResetRobCheckFlag.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqResetRobCheckFlag message.
+         * @function verify
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqResetRobCheckFlag.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqResetRobCheckFlag message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqResetRobCheckFlag} C2GW_ReqResetRobCheckFlag
+         */
+        C2GW_ReqResetRobCheckFlag.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqResetRobCheckFlag)
+                return object;
+            var message = new $root.msg.C2GW_ReqResetRobCheckFlag();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqResetRobCheckFlag message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.C2GW_ReqResetRobCheckFlag} message C2GW_ReqResetRobCheckFlag
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqResetRobCheckFlag.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqResetRobCheckFlag to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqResetRobCheckFlag
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqResetRobCheckFlag.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqResetRobCheckFlag;
     })();
 
     msg.C2GW_BuyItem = (function() {
@@ -37040,6 +37263,207 @@ $root.msg = (function() {
         return MS2GW_AckOtherUserHouseData;
     })();
 
+    msg.GW2MS_ReqResetRobCheckFlag = (function() {
+
+        /**
+         * Properties of a GW2MS_ReqResetRobCheckFlag.
+         * @memberof msg
+         * @interface IGW2MS_ReqResetRobCheckFlag
+         * @property {number|Long|null} [houseid] GW2MS_ReqResetRobCheckFlag houseid
+         */
+
+        /**
+         * Constructs a new GW2MS_ReqResetRobCheckFlag.
+         * @memberof msg
+         * @classdesc Represents a GW2MS_ReqResetRobCheckFlag.
+         * @implements IGW2MS_ReqResetRobCheckFlag
+         * @constructor
+         * @param {msg.IGW2MS_ReqResetRobCheckFlag=} [properties] Properties to set
+         */
+        function GW2MS_ReqResetRobCheckFlag(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2MS_ReqResetRobCheckFlag houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @instance
+         */
+        GW2MS_ReqResetRobCheckFlag.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2MS_ReqResetRobCheckFlag instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.IGW2MS_ReqResetRobCheckFlag=} [properties] Properties to set
+         * @returns {msg.GW2MS_ReqResetRobCheckFlag} GW2MS_ReqResetRobCheckFlag instance
+         */
+        GW2MS_ReqResetRobCheckFlag.create = function create(properties) {
+            return new GW2MS_ReqResetRobCheckFlag(properties);
+        };
+
+        /**
+         * Encodes the specified GW2MS_ReqResetRobCheckFlag message. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.IGW2MS_ReqResetRobCheckFlag} message GW2MS_ReqResetRobCheckFlag message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_ReqResetRobCheckFlag.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2MS_ReqResetRobCheckFlag message, length delimited. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.IGW2MS_ReqResetRobCheckFlag} message GW2MS_ReqResetRobCheckFlag message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_ReqResetRobCheckFlag.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2MS_ReqResetRobCheckFlag} GW2MS_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_ReqResetRobCheckFlag.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2MS_ReqResetRobCheckFlag();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2MS_ReqResetRobCheckFlag} GW2MS_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_ReqResetRobCheckFlag.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2MS_ReqResetRobCheckFlag message.
+         * @function verify
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2MS_ReqResetRobCheckFlag.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2MS_ReqResetRobCheckFlag message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2MS_ReqResetRobCheckFlag} GW2MS_ReqResetRobCheckFlag
+         */
+        GW2MS_ReqResetRobCheckFlag.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2MS_ReqResetRobCheckFlag)
+                return object;
+            var message = new $root.msg.GW2MS_ReqResetRobCheckFlag();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2MS_ReqResetRobCheckFlag message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @static
+         * @param {msg.GW2MS_ReqResetRobCheckFlag} message GW2MS_ReqResetRobCheckFlag
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2MS_ReqResetRobCheckFlag.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2MS_ReqResetRobCheckFlag to JSON.
+         * @function toJSON
+         * @memberof msg.GW2MS_ReqResetRobCheckFlag
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2MS_ReqResetRobCheckFlag.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2MS_ReqResetRobCheckFlag;
+    })();
+
     msg.RS2GW_ReqRegist = (function() {
 
         /**
@@ -38201,13 +38625,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -38456,13 +38874,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -49034,8 +49446,6 @@ $root.table = (function() {
          * @property {number|null} [ProduceTime] THouseCellDefine ProduceTime
          * @property {number|null} [LevelUpCost] THouseCellDefine LevelUpCost
          * @property {string|null} [Des] THouseCellDefine Des
-         * @property {string|null} [Tips1] THouseCellDefine Tips1
-         * @property {string|null} [Tips2] THouseCellDefine Tips2
          */
 
         /**
@@ -49110,22 +49520,6 @@ $root.table = (function() {
         THouseCellDefine.prototype.Des = "";
 
         /**
-         * THouseCellDefine Tips1.
-         * @member {string} Tips1
-         * @memberof table.THouseCellDefine
-         * @instance
-         */
-        THouseCellDefine.prototype.Tips1 = "";
-
-        /**
-         * THouseCellDefine Tips2.
-         * @member {string} Tips2
-         * @memberof table.THouseCellDefine
-         * @instance
-         */
-        THouseCellDefine.prototype.Tips2 = "";
-
-        /**
          * Creates a new THouseCellDefine instance using the specified properties.
          * @function create
          * @memberof table.THouseCellDefine
@@ -49163,10 +49557,6 @@ $root.table = (function() {
                 writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.LevelUpCost);
             if (message.Des != null && message.hasOwnProperty("Des"))
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.Des);
-            if (message.Tips1 != null && message.hasOwnProperty("Tips1"))
-                writer.uint32(/* id 8, wireType 2 =*/66).string(message.Tips1);
-            if (message.Tips2 != null && message.hasOwnProperty("Tips2"))
-                writer.uint32(/* id 9, wireType 2 =*/74).string(message.Tips2);
             return writer;
         };
 
@@ -49221,12 +49611,6 @@ $root.table = (function() {
                     break;
                 case 7:
                     message.Des = reader.string();
-                    break;
-                case 8:
-                    message.Tips1 = reader.string();
-                    break;
-                case 9:
-                    message.Tips2 = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -49284,12 +49668,6 @@ $root.table = (function() {
             if (message.Des != null && message.hasOwnProperty("Des"))
                 if (!$util.isString(message.Des))
                     return "Des: string expected";
-            if (message.Tips1 != null && message.hasOwnProperty("Tips1"))
-                if (!$util.isString(message.Tips1))
-                    return "Tips1: string expected";
-            if (message.Tips2 != null && message.hasOwnProperty("Tips2"))
-                if (!$util.isString(message.Tips2))
-                    return "Tips2: string expected";
             return null;
         };
 
@@ -49319,10 +49697,6 @@ $root.table = (function() {
                 message.LevelUpCost = object.LevelUpCost >>> 0;
             if (object.Des != null)
                 message.Des = String(object.Des);
-            if (object.Tips1 != null)
-                message.Tips1 = String(object.Tips1);
-            if (object.Tips2 != null)
-                message.Tips2 = String(object.Tips2);
             return message;
         };
 
@@ -49347,8 +49721,6 @@ $root.table = (function() {
                 object.ProduceTime = 0;
                 object.LevelUpCost = 0;
                 object.Des = "";
-                object.Tips1 = "";
-                object.Tips2 = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -49364,10 +49736,6 @@ $root.table = (function() {
                 object.LevelUpCost = message.LevelUpCost;
             if (message.Des != null && message.hasOwnProperty("Des"))
                 object.Des = message.Des;
-            if (message.Tips1 != null && message.hasOwnProperty("Tips1"))
-                object.Tips1 = message.Tips1;
-            if (message.Tips2 != null && message.hasOwnProperty("Tips2"))
-                object.Tips2 = message.Tips2;
             return object;
         };
 
