@@ -36,6 +36,7 @@ module game {
         public totalMoney: number | Long = 0;
         private _tasks;
         private _houses;
+        private _carRecords;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -51,11 +52,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
             NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
-        }
-
-        private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
-            this.userInfo.cardatas = data.cardatas;
-            this.userInfo.parkingdatas = data.parkingdatas;
+            NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord,"msg.GW2C_SynParkingRecord");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -76,6 +73,18 @@ module game {
             this.historyMoneyList = data.base.luckydraw.drawlist;
             this.totalMoney = data.base.luckydraw.totalvalue;
             this._tasks = data.base.task.tasks;
+        }
+
+        private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
+            this.userInfo.cardatas = data.cardatas;
+            this.userInfo.parkingdatas = data.parkingdatas;
+        }
+
+        private OnGW2C_SynParkingRecord()
+        {
+            if (GameConfig.sceneType == 3 && CarDetailView.getInstance()) {
+                
+            }
         }
 
         private OnGW2C_SendTaskList(data: msg.IGW2C_SendTaskList) {
@@ -417,6 +426,14 @@ module game {
 
         public getHouse() {
             return this._houses;
+        }
+
+        public setCarRecords(house: msg.IHouseData[]) {
+            this._carRecords = house;
+        }
+
+        public getCarRecords() {
+            return this._carRecords;
         }
 
         //我的车辆是否停靠

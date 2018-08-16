@@ -432,6 +432,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		cell.gold = 0
 		cell.state = 0
 		cell.robdata = make([]uint64, 0)
+		cell.SetOwner(ownerid)
 		house.housecells[uint32(index)] = cell
 	}
 
@@ -492,6 +493,7 @@ func (this *HouseManager) Tick(now int64) {
 
 //通知gataserver 玩家房屋信息变化
 func (this *HouseManager) SyncUserHouseData(uid uint64) {
+	log.Info("SyncUserHouseData uid: %d", uid)
 	if _, ok := this.useronlne[uid]; ok {
 		sessionid := this.useronlne[uid]
 		agent := GateSvrMgr().FindGate(sessionid)
@@ -505,6 +507,7 @@ func (this *HouseManager) SyncUserHouseData(uid uint64) {
 				datas = append(datas, tmp)
 			}
 			send.Data = datas
+			//log.Info("SyncUserHouseData sendout !!!!!!! uid: %d", uid)
 			agent.SendMsg(send)
 		}
 	}
