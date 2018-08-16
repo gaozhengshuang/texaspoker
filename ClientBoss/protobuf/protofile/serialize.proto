@@ -140,6 +140,7 @@ message HouseData {
 	repeated HouseCell housecells = 6; //每个房间信息 
 	repeated HouseVisitInfo visitinfo = 7; //操作记录 要限定条数 
 	optional string ownername = 8; //主人的名字
+	optional uint32 robcheckflag = 9; //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 }
 
 

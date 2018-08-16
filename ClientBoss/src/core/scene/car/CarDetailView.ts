@@ -1,6 +1,9 @@
 module game {
     export class CarDetailView extends PanelComponent  {
         
+        downBtnGroup    : eui.Group;
+        down_bg         : eui.Group;
+
         carIcon         : eui.Image;
         btnDriveAwayBg  : eui.Image;
         goldbg          : eui.Image;
@@ -16,6 +19,11 @@ module game {
         btnNeighbor     : IconButton;
         btnState        : IconButton;
 
+        dongtai_btn     : eui.Button;
+        lingju_btn      : eui.Button;
+
+        hideList_btn: eui.Button;
+
         private carData  : msg.ICarData;
 
         protected getSkinName() {
@@ -30,6 +38,11 @@ module game {
             return CarDetailView._instance;
         }
 
+        constructor()
+        {
+            super();
+            this.adaptive();
+        }
 
         public init() 
         {
@@ -37,6 +50,10 @@ module game {
             this.btnClose.icon = "uiCarAltas_json.backBtn";
             this.btnNeighbor.icon = "uiCarAltas_json.neighbor";
             this.btnState.icon = "uiCarAltas_json.stateBtn";
+
+            this.hideList_btn.visible = false;
+
+            
         }
 
         protected beforeShow() {
@@ -45,9 +62,25 @@ module game {
                 { target: this.btnDriveAway, callBackFunc: this.OnDriveAwayHandle },
                 { target: this.btnNeighbor, callBackFunc: this.OnClickNeighbor },
                 { target: this.btnState, callBackFunc: this.OnClickState },
+                { target: this.lingju_btn, callBackFunc: this.OnClickNeighbor },
+                { target: this.dongtai_btn, callBackFunc: this.OnClickState },
+                { target: this.hideList_btn, callBackFunc: this.onclick_hideList },
+                
             ];
-
+            //this.addEventListener(CarDetailView.POPUP_ROOM_NEIGHBOR,this.showLinjuList,this);
         }
+
+        private adaptive() {
+            this.down_bg.y = gameConfig.curHeight()-this.down_bg.height;
+            this.downBtnGroup.y=this.down_bg.y-this.downBtnGroup.height/2 + 20;
+            this.hideList_btn.y = gameConfig.curHeight() - 30 - this.hideList_btn.height / 2;
+
+
+            this.oldY = this.down_bg.y;
+            this.oldH = this.down_bg.height;
+            this.oldBtnY = this.downBtnGroup.y;
+        }
+
         public setData(carData:msg.ICarData) {
             if(!carData) return;
             this.carData = carData;
@@ -84,7 +117,7 @@ module game {
             let _parkingData = DataManager.playerModel.getMyCarPakingInfo(this.carData.id);
             if(_parkingData){
                 this.parkingInfoTxt.textFlow = [
-                    { text: "停在"+_parkingData.ownername+"车位", style: { bold: true,size: 30 }},
+                    { text: "停在"+_parkingData.ownername+"车位，", style: { bold: true,size: 30 }},
                     { text: "预计收益"+_parkingData.parkingreward+"金币", style: { bold: true,size: 30 } },
                 ]
             }
@@ -96,6 +129,9 @@ module game {
         }
         public OnCloseHandle() {
             this.remove();
+            GameConfig.showDownBtnFun(true); 
+            delete CarDetailView._instance;
+            CarDetailView._instance = null;
         }
 
         private OnDriveAwayHandle(){
@@ -113,11 +149,173 @@ module game {
             });
         }
 
-        private OnClickNeighbor(){
 
+    //--------------邻居和动态----------------------------------//
+        private OnClickNeighbor(){
+            this.showlist(3);
         }
 
         private OnClickState(){
+            this.showlist(1);
+        }
+        
+
+        private onclick_hideList() {
+            this.hideItemList();
+            this.hideList_btn.visible = false;
+            this.listIndex = 0;
+            egret.Tween.get(this.downBtnGroup).to({ y: this.oldBtnY }, 300);
+            egret.Tween.get(this.down_bg).to({ height: this.oldH, y: this.oldY }, 300)
+
+        }
+        
+        private oldY: number = 0;
+        private oldH: number = 0;
+        private oldBtnY: number = 0;
+        private listIndex: number = 1;
+
+        private goalY: number = -1;
+        private goalH: number = -1;
+        private btnGoalY: number = -1;
+
+        public roomInfo: HouseVO;
+
+        private showlist(index) {
+            console.log("展示列表showlist----------->",index);
+            if (this.goalY == -1) { this.goalY = GameConfig.innerHeight * 0.5 };
+            if (this.goalH == -1) { this.goalH = GameConfig.innerHeight };
+            if (this.btnGoalY == -1) {
+                 this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
+                    - 20 * GameConfig.innerScaleW; 
+            }
+            this.listIndex = index;
+			console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
+
+            if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
+                egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
+                call(this.onComplete, this, [this.listIndex]);
+                egret.Tween.get(this.down_bg).to({ height: this.goalH+GameConfig.innerHeight / 2, y: this.goalY }, 300)
+                    
+            }else{
+                this.onComplete(this.listIndex);
+            }
+        }
+
+        private onComplete(index: number): void {
+            console.log ("onComplete");
+            this.hideList_btn.visible = true;
+            this.showItemList(index);
+            egret.Tween.removeTweens(this.downBtnGroup);
+            egret.Tween.removeTweens(this.down_bg);
+        }
+
+        private itemList: utils.ScrollerPanel;
+        private showItemList(index: number) {
+            console.log("showItemList---->",this.itemList == null);
+            this.hideItemList();
+            if (this.itemList == null) {
+                this.itemList = new utils.VScrollerPanel();
+                this.addChild(this.itemList);
+                this.itemList.x = 0;
+                this.itemList.y = this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale+50;
+                this.itemList.height = (this.hideList_btn.y - 10) -
+                    (this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale + 50);
+                switch (index) {
+                    case 1:
+                        this.itemList.initItemRenderer(CarMessageItem);
+                        break;
+                    case 3:
+                        this.itemList.initItemRenderer(NeighborCarItem);
+                        break;
+                }
+                this.itemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this);
+            }
+            this.bindDataList(index);
+
+        }
+        private hideItemList() {
+            if (this.itemList != null) {
+                this.itemList.parent.removeChild(this.itemList);
+                this.itemList = null;
+            }
+        }
+        private bindDataList(index: number) {
+            console.log("绑定数据--------->",index);
+            switch (index) {
+                case 1:
+   /*                  CarManager.getInstance().ReqMyCarInfo(function(){
+                        DataManager.playerModel.getUserInfo().cardatas.forEach(data=>{
+                            
+                        });
+                    }); */
+                    break;
+                case 3:
+                    ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST);
+                    break;
+            }
+        }
+ 
+        private dongtaiList: any[];
+        public showDongtaiList(list: any[]) {
+            this.dongtaiList = list;
+            if (this.itemList && this.listIndex == 1) {
+                this.itemList.bindData(this.dongtaiList);
+            }
+        }
+
+        private linjuList: HouseVO[];
+        public showLinjuList(list: HouseVO[]) {
+            console.log("showLinjuList--------------->",list.length);
+            CarManager.getInstance().clearBackFunc_ResParkingInfo();
+            this.linjuList = list;
+            if (this.itemList && this.listIndex == 3) {
+                let self = this;    
+                this.linjuList.forEach((houseData,index,array)=>{
+                    CarManager.getInstance().ReqParkingInfoByType(2,houseData.ownerid,function(parkingDatas:msg.IParkingData[]){
+                        if(parkingDatas.length>0)
+                        {
+                            let isBelong :boolean = parkingDatas[0].ownerid == houseData.ownerid;
+                            if(isBelong)
+                            {
+                                let _empty:number = parkingDatas.some(data=>{return data.parkingcar==0;}) ? 1 : 0;
+                                //console.log(houseData.ownername,"--空->"+_empty);
+                                houseData.setObject({empty:_empty});
+                            }
+                        }
+                        //console.log("回调执行------>",index);
+/*                         if(index==self.linjuList.length-1){
+                            self.itemList.bindData(self.linjuList);
+                        } */
+                        self.itemList.bindData(self.linjuList);
+                    }.bind(this));
+                });
+            
+                //this.itemList.bindData(this.linjuList);
+            }
+        }
+
+        private onItemTouch(eve: eui.ItemTapEvent) {
+            let item: any = null;
+            console.log("onItemTouch------------->",this.listIndex)
+            switch (this.listIndex) {
+                case 1:
+                    item= this.dongtaiList[eve.itemIndex];
+                    if (item) {
+               			this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.visitorid,return:this.roomInfo}));
+                    }
+                    break;
+                case 3:
+                    item = this.linjuList[eve.itemIndex];
+                    if (item) {
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:item.ownerid});
+                        this.OnCloseHandle();
+                    }
+                    break;
+            }
+        }
+        //-----------------------------------------------------------------------------//
+        public isDongTaiPanelView()
+        {
 
         }
     }

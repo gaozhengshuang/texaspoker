@@ -180,14 +180,15 @@ func (this *HouseVisitInfo) PackBin() *msg.HouseVisitInfo {
 }
 
 type HouseData struct {
-	id         uint64                //唯一id
-	tid        uint32                //配置id tbl
-	ownerid    uint64                //所有者id
-	buildingid uint32                //所在楼房的id  新手所租房为虚拟的所在楼房id为0
-	level      uint32                //房屋等级
-	housecells map[uint32]*HouseCell //每个房间信息
-	visitinfo  []*HouseVisitInfo
-	ownername  string
+	id           uint64                //唯一id
+	tid          uint32                //配置id tbl
+	ownerid      uint64                //所有者id
+	buildingid   uint32                //所在楼房的id  新手所租房为虚拟的所在楼房id为0
+	level        uint32                //房屋等级
+	housecells   map[uint32]*HouseCell //每个房间信息
+	visitinfo    []*HouseVisitInfo
+	ownername    string
+	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 
 	ticker1Sec *util.GameTicker
 }
@@ -201,6 +202,7 @@ func (this *HouseData) LoadBin(bin *msg.HouseData) {
 	this.buildingid = bin.GetBuildingid()
 	this.level = bin.GetLevel()
 	this.ownername = bin.GetOwnername()
+	this.robcheckflag = bin.GetRobcheckflag()
 	for _, v := range bin.GetHousecells() {
 		cell := &HouseCell{}
 		cell.LoadBin(v)
@@ -235,6 +237,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Level = pb.Uint32(this.level)
 	bin.Ownername = pb.String(this.ownername)
 	bin.Housecells = make([]*msg.HouseCell, 0)
+	bin.Robcheckflag = pb.Uint32(this.robcheckflag)
 	for _, v := range this.housecells {
 		bin.Housecells = append(bin.Housecells, v.PackBin())
 	}
@@ -328,6 +331,13 @@ func (this *HouseData) AddVisitInfo(visitorid uint64, optindex uint32, opttype u
 		this.visitinfo = append(this.visitinfo[:0], this.visitinfo[1:]...)
 		infolen = len(this.visitinfo)
 	}
+	this.robcheckflag = 1
+}
+
+//客户端查看记录重置查看状态
+func (this *HouseData) ResetRobcheckflag() {
+	log.Info("重置查看状态 houseid: %d", this.id)
+	this.robcheckflag = 0
 }
 
 //------------------------------------------------------------------------------------
@@ -423,6 +433,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		cell.gold = 0
 		cell.state = 0
 		cell.robdata = make([]uint64, 0)
+		cell.SetOwner(ownerid)
 		house.housecells[uint32(index)] = cell
 	}
 
@@ -483,6 +494,7 @@ func (this *HouseManager) Tick(now int64) {
 
 //通知gataserver 玩家房屋信息变化
 func (this *HouseManager) SyncUserHouseData(uid uint64) {
+	log.Info("SyncUserHouseData uid: %d", uid)
 	if _, ok := this.useronlne[uid]; ok {
 		sessionid := this.useronlne[uid]
 		agent := GateSvrMgr().FindGate(sessionid)
@@ -496,6 +508,7 @@ func (this *HouseManager) SyncUserHouseData(uid uint64) {
 				datas = append(datas, tmp)
 			}
 			send.Data = datas
+			//log.Info("SyncUserHouseData sendout !!!!!!! uid: %d", uid)
 			agent.SendMsg(send)
 		}
 	}

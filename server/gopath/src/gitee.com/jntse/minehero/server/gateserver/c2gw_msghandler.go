@@ -1050,3 +1050,15 @@ func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message inter
 	houseid := tmsg.GetHouseid()
 	user.ResetRobCheckFlag(houseid)
 }
+
+func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqResetRobCheckFlag)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	houseid := tmsg.GetHouseid()
+	user.ResetRobCheckFlag(houseid)
+}

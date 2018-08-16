@@ -18,6 +18,7 @@ import (
 const (
 	CarIdSetKey = "cars_idset"
 	ParkingIdSetKey = "parking_idset"
+	RecordIdSetKey = "record_idset"
 )
 
 //车辆信息
@@ -27,6 +28,7 @@ type CarData struct {
 	ownerid     uint64 	//拥有者id
 	createtime  uint64 	//创建时间
 	parkingid 	uint64  //车位id
+	ownername 	string 	//拥有者名字
 
 	template	*table.TCarDefine
 }
@@ -37,6 +39,7 @@ func (this *CarData) LoadBin(bin *msg.CarData) {
 	this.ownerid = bin.GetOwnerid()
 	this.createtime = bin.GetCreatetime()
 	this.parkingid = bin.GetParkingid()
+	this.ownername = bin.GetOwnername()
 	template,find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
 		log.Error("玩家[%d] 找不到车辆配置[%d]", this.ownerid, this.tid)
@@ -56,6 +59,7 @@ func (this *CarData) PackBin() *msg.CarData {
 	bin.Ownerid = pb.Uint64(this.ownerid)
 	bin.Createtime = pb.Uint64(this.createtime)
 	bin.Parkingid = pb.Uint64(this.parkingid)
+	bin.Ownername = pb.String(this.ownername)
 	return bin
 }
 
@@ -163,6 +167,54 @@ func (this* ParkingData) ParkingCar(car *CarData,username string){
 	this.parkingcartid = car.tid
 }
 
+
+//记录数据
+type ParkingRecordData struct {
+	id					uint64
+	recordtime 			uint64  			//记录时间
+    operatortype 		uint32				//操作类型
+	parkingownerid	 	uint64  			//车位拥有者id
+	parkingownername 	string				//车位拥有者名字
+    cartid		 		uint32  			//车辆模板id
+	carownerid 			uint64  			//车辆拥有者id
+    carownername 		string				//车辆拥有者名字
+    recordparam			uint32        		//操作的参数
+}
+
+func (this *ParkingRecordData) LoadBin(bin *msg.ParkingRecordData){
+	this.recordtime = bin.GetRecordtime()
+	this.operatortype = bin.GetOperatortype()
+	this.parkingownerid = bin.GetParkingownerid()
+	this.parkingownername = bin.GetParkingownername()
+	this.cartid = bin.GetCartid()
+	this.carownerid = bin.GetCarownerid()
+	this.carownername = bin.GetCarownername()
+	this.recordparam = bin.GetRecordparam()
+}
+
+func (this* ParkingRecordData) PackBin() *msg.ParkingRecordData {
+	bin := &msg.ParkingRecordData{}
+	bin.Recordtime = pb.Uint64(this.recordtime)
+	bin.Operatortype = pb.Uint32(this.operatortype)
+	bin.Parkingownerid = pb.Uint64(this.parkingownerid)
+	bin.Parkingownername = pb.String(this.parkingownername)
+	bin.Cartid = pb.Uint32(this.cartid)
+	bin.Carownerid = pb.Uint64(this.carownerid)
+	bin.Carownername = pb.String(this.carownername)
+	bin.Recordparam = pb.Uint32(this.recordparam)
+	return bin
+}
+
+func (this *ParkingRecordData) SaveBin() {
+	key := fmt.Sprintf("parkings_%d", this.id)
+	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
+		log.Error("保存车位[%d]数据失败", this.id)
+		return
+	}
+	log.Info("保存车位[%d]数据成功", this.id)
+}
+
+
 //车辆管理器
 type CarManager struct {
 	cars map[uint64]*CarData //已加载的所有车辆的map
@@ -171,6 +223,7 @@ type CarManager struct {
 	parkings map[uint64]*ParkingData //已加载的所有车位map
 	userparkings map[uint64][]uint64 //玩家id 关联的车位id
 
+	records map[uint64]*ParkingRecordData
 	ticker1Minite *util.GameTicker
 }
 
@@ -179,6 +232,7 @@ func (this* CarManager) Init(){
 	this.usercars = make(map[uint64][]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
+	this.records = make(map[uint64]*ParkingRecordData)
 
 	this.ticker1Minite = util.NewGameTicker(time.Minute, this.Handler1MiniteTick)
 	this.ticker1Minite.Start()
@@ -202,6 +256,17 @@ func (this* CarManager) Init(){
 			this.GetParking(uint64(parkingid))
 		}
 	}
+
+	recordIds,err := Redis().SMembers(RecordIdSetKey).Result()
+	if err != nil{
+		log.Error("启动加载操作记录失败 err: %s", err)
+	}else{
+		for _, v := range recordIds {
+			recordid, _ := strconv.Atoi(v)
+			this.GetRecord(uint64(recordid))
+		}
+	}
+
 	if len(this.parkings) == 0 {
 		//创建公共车位
 		for i := 0; i < 20; i++{
@@ -227,7 +292,7 @@ func (this* CarManager) GetCar(id uint64) *CarData{
 	}
 }
 
-func (this* CarManager) CreateNewCar(ownerid uint64, tid uint32) *CarData{
+func (this* CarManager) CreateNewCar(ownerid uint64, tid uint32,name string ) *CarData{
 	carid, errcode := def.GenerateCarId(Redis())
 	if errcode != "" {
 		log.Error("创建新的车辆生成新的车辆id出错，error:%s", errcode)
@@ -247,6 +312,7 @@ func (this* CarManager) CreateNewCar(ownerid uint64, tid uint32) *CarData{
 	car.template = template
 	car.parkingid = 0
 	car.createtime = uint64(util.CURTIMEMS())
+	car.ownername = name
 
 	car.SaveBin()
 	Redis().SAdd(CarIdSetKey, carid)
@@ -291,6 +357,57 @@ func (this* CarManager) GetParking(id uint64) *ParkingData{
 		return parking
 	}
 }
+
+func (this* CarManager) GetRecord(id uint64) *ParkingRecordData{
+	if _, ok := this.records[id]; ok {
+		return this.records[id]
+	} else {
+		//尝试从内存加载 如果没有返回nil
+		key, bin := fmt.Sprintf("parkingrecord_%d", id), &msg.ParkingRecordData{}
+		if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
+			log.Error("加载车位信息失败无此车位数据 id%d ，err: %s", id, err)
+			return nil
+		}
+		record := &ParkingRecordData{}
+		record.LoadBin(bin)
+		this.records[id] = record
+		return record
+	}
+}
+
+func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
+	data := make([]*ParkingRecordData, 0)
+	for _, v := range this.records {
+		if v.carownerid == id && v.parkingownerid == id {
+			data = append(data,v)		
+		}
+	}
+	return data
+}
+func (this* CarManager) CreateNewRecord(car* CarData, parking* ParkingData,opttype uint32,param uint32) *ParkingRecordData{
+	recordid, errcode := def.GenerateParkingRecordId(Redis())
+	if errcode != "" {
+		log.Error("创建新的车位生成新的记录id出错，error:%s", errcode)
+		return nil
+	}
+	//查表去获取房屋的配置信息创建
+	record := &ParkingRecordData{}
+	record.id = recordid
+	record.operatortype = opttype
+	record.recordtime = uint64(util.CURTIMEMS())
+	record.carownerid = car.ownerid
+	record.carownername = car.ownername
+	record.cartid = car.tid
+	record.parkingownerid = parking.ownerid
+	record.parkingownername = parking.ownername
+	record.recordparam = param
+
+	record.SaveBin()
+	Redis().SAdd(ParkingIdSetKey, recordid)
+	this.records[recordid] = record
+	return record
+}
+
 
 func (this* CarManager) GetParkingByUser(id uint64) []*ParkingData{
 	data := make([]*ParkingData, 0)
@@ -373,57 +490,60 @@ func (this* CarManager) AddParking(parking *ParkingData){
 	this.userparkings[parking.ownerid] = append(this.userparkings[parking.ownerid],parking.id)
 }
 
-func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string) int32{
+func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string) (result int32,record* ParkingRecordData){
 	car := this.GetCar(carid)
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
-		return 1
+		return 1,nil
 	}
 	if car.parkingid != 0 {
-		return 2
+		return 2,nil
 	}
 	if parking.parkingcar != 0	{
-		return 3
+		return 3,nil
 	}
 	//可以了
 	parking.ParkingCar(car,username)
-	return 0
+	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_Park),0)
+	return 0,record
 }
 
-func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32){
+func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,record* ParkingRecordData){
 	car := this.GetCar(carid)
 	if car == nil {
-		return 1,0
+		return 1,0,nil
 	}
 	if car.parkingid == 0 {
-		return 2,0
+		return 2,0,nil
 	}
 	parking := this.GetParking(car.parkingid)
 	if parking == nil {
-		return 3,0
+		return 3,0,nil
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
+	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_TakeBack),reward)
 	car.SetParking(0)
-	return 0,reward
+	return 0,reward,record
 }
 
-func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,reward uint32){
+func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,reward uint32,record* ParkingRecordData){
 	parking := this.GetParking(parkingid)
 	if parking == nil {
-		return 1,0
+		return 1,0,nil
 	}
 	if parking.parkingcar  == 0 {
-		return 2,0
+		return 2,0,nil
 	}
 	car := this.GetCar(parking.parkingcar)
 	if car == nil {
-		return 3,0
+		return 3,0,nil
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
+	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_Ticket),reward)
 	car.SetParking(0)
-	return 0,reward
+	return 0,reward,record
 }
 
 func (this* CarManager) SaveAllData(){
@@ -431,6 +551,9 @@ func (this* CarManager) SaveAllData(){
 		v.SaveBin()
 	}
 	for _, v := range this.parkings {
+		v.SaveBin()
+	}
+	for _,v := range this.records {
 		v.SaveBin()
 	}
 }

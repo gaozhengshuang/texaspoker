@@ -59,3 +59,8 @@ message GW2C_TicketCarResult
     optional int32 result = 1;                          //贴条结果 0为成功 其他失败
     optional int32 reward = 2;                          //贴条获得的奖励
 }
+
+message GW2C_SynParkingRecord
+{
+    repeated msg.ParkingRecordData records = 1;         //记录们
+}

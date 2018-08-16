@@ -12,12 +12,41 @@
 		<e:Image id="carIcon" width="720" height="350" x="0" scaleX="1" scaleY="1" y="536" source="carIconAltas_json.big_1"/>
 		<e:Image id="btnDriveAwayBg" width="150" height="56" x="533" scaleX="1" scaleY="1" y="868" source="uiCarAltas_json.normalBtn"/>
 		<e:Label id="btnDriveAwayTxt" text="收回" x="565" y="872" size="35" verticalAlign="middle" textAlign="center" anchorOffsetX="0" width="88.79" height="45" bold="true" anchorOffsetY="0"/>
-	</e:Group>
-	<e:Group id="bottom" width="200" height="200" bottom="1080" verticalCenter="-540" horizontalCenter="-260" right="520">
-		<e:Image width="1440" height="440" scaleX="1" scaleY="1" source="uiCarAltas_json.scrollviewBg" y="1042" x="-4"/>
-		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="94" scaleX="1" scaleY="1"/>
-		<game:IconButton id="btnState" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="85" y="994" scaleX="1" scaleY="1"/>
-		<game:IconButton id="btnNeighbor" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="270" y="994" scaleX="1" scaleY="1"/>
 		<game:IconButton id="btnDriveAway" height="53.88" enabled="true" skinName="IconButtonSkin" width="156.79" x="527" y="866" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0"/>
 	</e:Group>
+	<e:Group id="bottom" width="200" height="200" bottom="1080" verticalCenter="-540" horizontalCenter="-260" right="520">
+		<e:Image width="1440" height="440" scaleX="1" scaleY="1" source="uiCarAltas_json.scrollviewBg" y="1042" x="-4" visible="false"/>
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="94" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btnState" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="85" y="994" scaleX="1" scaleY="1" visible="false"/>
+		<game:IconButton id="btnNeighbor" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="270" y="994" scaleX="1" scaleY="1" visible="false"/>
+	</e:Group>
+	<e:Group id="down_bg" width="720" height="108" left="0" y="1172">
+		<e:Image source="room_down_bg1_png" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" y="0"/>
+	</e:Group>
+	<e:Group id="downBtnGroup" y="1121" anchorOffsetX="0" x="50" width="415" height="125">
+		<e:Button id="dongtai_btn" label="" x="0" y="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="uiCarAltas_json.stateBtn" source.down="uiCarAltas_json.stateBtn"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="lingju_btn" label="" x="157" y="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="uiCarAltas_json.neighbor" source.down="uiCarAltas_json.neighbor"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+	<e:Button id="hideList_btn" label="返 回" width="150" height="56" horizontalCenter="0" y="1211">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
 </e:Skin>

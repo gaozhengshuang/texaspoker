@@ -8,7 +8,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	_ "github.com/gogo/protobuf/proto"
+	_"github.com/gogo/protobuf/proto"
 	"reflect"
 )
 
@@ -248,6 +248,19 @@ func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}
 //	send.Datas = tmsg.GetDatas()
 //	user.SendMsg(send)
 //}
+
+func on_MS2GW_AckRecordData(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_AckRecordData)
+	uid := tmsg.GetUserid()
+	user := UserMgr().FindById(uid)
+	if user == nil {
+		log.Error("玩家:%d 请求车辆操作记录数据，但找不到玩家", uid)
+		return
+	}
+	send := &msg.GW2C_SynParkingRecord{}
+	send.Records = tmsg.GetRecords()
+	user.SendMsg(send)
+}
 
 func DoGMCmd(cmd map[string]string) {
 	value, ok := cmd["gmcmd"]

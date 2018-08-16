@@ -1,4 +1,9 @@
 module game {
+    export class CarFunData
+    {
+        public uid     :number|Long;
+        public func    :Function;
+    }
     export class CarManager {
     
         private static _instance: CarManager;
@@ -8,13 +13,13 @@ module game {
             }
             return CarManager._instance;
         }
-
+        //回调后需要判断是否是对应的发起者
         private GW2C_ResCarInfo_BackCalls           : Function[];
-        private GW2C_ResParkingInfo_BackCalls       : Function[];
         private GW2C_ParkCarResult_BackCalls        : Function[];
         private GW2C_TakeBackCarResult_BackCalls    : Function[];
         private GW2C_TicketCarResult_BackCalls      : Function[]; 
 
+        private GW2C_ResParkingInfo_BackCalls       : CarFunData[];
         public constructor()
         {
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
@@ -119,10 +124,12 @@ module game {
         public ReqParkingInfoByType(infotype:number,uid:number|Long,callFunc:Function=null)
         {
             //console.log("ReqParkingInfoByType---->",infotype," ",uid);
-            
-            if(callFunc && !this.GW2C_ResParkingInfo_BackCalls.some(func=>{return func==callFunc;}))
+            let callFuncData : CarFunData = new  CarFunData();
+            callFuncData.uid   = uid;
+            callFuncData.func  = callFunc;
+            if(callFunc && !this.GW2C_ResParkingInfo_BackCalls.some(func=>{return func.uid==callFuncData.uid;}))
             {
-                this.GW2C_ResParkingInfo_BackCalls.push(callFunc);
+                this.GW2C_ResParkingInfo_BackCalls.push(callFuncData);
             }
             sendMessage("msg.C2GW_ReqParkingInfoByType", msg.C2GW_ReqParkingInfoByType.encode({
                type : infotype,
@@ -133,9 +140,26 @@ module game {
         //收到符合条件的车位列表
         private OnGW2C_ResParkingInfo(msgs:msg.GW2C_ResParkingInfo)
         {
-           // console.log("OnGW2C_ResParkingInfo",msgs.parkingdatas.length);
-            this.GW2C_ResParkingInfo_BackCalls.forEach(func=>{if(func){func(msgs.parkingdatas)};});
-            this.GW2C_ResParkingInfo_BackCalls = [];
+            console.log("OnGW2C_ResParkingInfo----->",msgs.parkingdatas.length);
+/*             msgs.parkingdatas.forEach(data=>{
+                console.log("data-------------->",data.ownername,"   ",data.parkingcar);
+            }) */
+            let uid =  msgs.parkingdatas.length > 0 ? msgs.parkingdatas[0].ownerid : 0;
+
+            for(let callFuncData of this.GW2C_ResParkingInfo_BackCalls)
+            {
+                if(callFuncData.uid==uid || uid==0)
+                {
+                   if( callFuncData.func){
+                        callFuncData.func(msgs.parkingdatas);
+                   }
+                   this.GW2C_ResParkingInfo_BackCalls.splice(this.GW2C_ResParkingInfo_BackCalls.indexOf(callFuncData),1);
+                   break;
+                }
+            }
+            if(uid==0){
+                console.warn("玩家没有停车位数据");
+            }
         }
 
         //停车结果
@@ -162,5 +186,10 @@ module game {
             this.GW2C_TicketCarResult_BackCalls = [];
         }
 
+        //---------
+        public clearBackFunc_ResParkingInfo()
+        {
+            this.GW2C_ResParkingInfo_BackCalls = [];
+        }
     }
 }
