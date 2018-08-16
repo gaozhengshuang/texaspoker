@@ -569,11 +569,13 @@ func (this *GateUser) OnCreateNew() {
 	//send.Housetid = pb.Uint32(1001)
 	//send.Ownername = pb.String(this.Name())
 	//Match().SendCmd(send)
-	HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
+	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
 
-	CarMgr().CreateNewCar(this.Id(),1001)
-	CarMgr().CreateNewParking(this.Id(),1002,this.Name(),0)
-
+	if houseData != nil {
+		CarMgr().CreateNewCar(this.Id(),1001)
+		CarMgr().CreateNewParking(this.Id(),1002,this.Name(),houseData.id)
+	}
+	
 	this.newplayerstep = 0
 	this.robcount = 10
 }
