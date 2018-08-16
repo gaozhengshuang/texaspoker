@@ -399,7 +399,8 @@ module game {
                     });
                 };
             };
-            CarManager.getInstance().ReqParkingInfoByType(0,this.roomInfo.ownerid,_showParkingLotList);
+
+            CarManager.getInstance().ReqParkingInfoByType(2,this.roomInfo.ownerid,_showParkingLotList);
         }
 
         private getCellInfo(index: number): any {

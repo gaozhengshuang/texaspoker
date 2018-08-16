@@ -38,6 +38,7 @@ module game {
             ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM,{ room: this.currentHouse});
 		}
 		private OnGW2C_AckRandHouseList(data: msg.GW2C_AckRandHouseList) {
+			//console.log("收到邻居列表----------->",data.datas.length);
 			if(data.datas && data.datas.length>0){
 				let houseList=[];
 				for(let i:number=0;i<data.datas.length;i++){
@@ -45,7 +46,9 @@ module game {
 					house.setObject(data.datas[i]);
 					houseList.push(house);
 				}
+			
 				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_ROOM_NEIGHBOR,{ list: houseList});
+				CarDetailView.getInstance().showLinjuList(houseList);
 			}
 		}
 		private OnGW2C_AckTakeSelfHouseGoldRet(data: msg.GW2C_AckTakeSelfHouseGoldRet) {
