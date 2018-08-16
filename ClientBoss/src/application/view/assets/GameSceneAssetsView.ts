@@ -76,6 +76,7 @@ module game {
 		{
 			if(this.currentGroupId ==2 )
 			{
+				this.stackGroup2.removeChildren();
 				let assetsList=<msg.ICarData[]>list;
 				{
 					let _assetsItemList=new utils.VScrollerPanel();
@@ -88,7 +89,6 @@ module game {
 				return;
 			}
 			this.assetsList=<HouseVO[]>list;
-			this.assetsList=list;
 			if(this.assetsItemList==null)
 			{
 				this.assetsItemList=new utils.VScrollerPanel();
