@@ -20,6 +20,7 @@ func (this *GateUser) SendHouseData() {
 	for _, v := range this.housedata {
 		send.Datas = append(send.Datas, v)
 	}
+
 	this.SendMsg(send)
 }
 
