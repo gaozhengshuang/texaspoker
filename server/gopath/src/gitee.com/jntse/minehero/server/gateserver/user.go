@@ -572,7 +572,7 @@ func (this *GateUser) OnCreateNew() {
 	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
 
 	if houseData != nil {
-		CarMgr().CreateNewCar(this.Id(),1001)
+		CarMgr().CreateNewCar(this.Id(),1001,this.Name())
 		CarMgr().CreateNewParking(this.Id(),1002,this.Name(),houseData.id)
 	}
 	

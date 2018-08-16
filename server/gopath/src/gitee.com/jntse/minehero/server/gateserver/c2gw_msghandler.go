@@ -1003,7 +1003,8 @@ func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 	cid := tmsg.GetCarid()
 	pid := tmsg.GetParkingid()
 	send := &msg.GW2C_ParkCarResult{}
-	send.Result = pb.Int32(CarMgr().ParkingCar(cid, pid, user.Name()))
+	result,record := CarMgr().ParkingCar(cid,pid,user.Name())
+	send.Result = pb.Int32(result)
 	user.SendMsg(send)
 }
 
@@ -1017,7 +1018,7 @@ func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	}
 	tmsg := message.(*msg.C2GW_TakeBackCar)
 	send := &msg.GW2C_TakeBackCarResult{}
-	result, reward := CarMgr().TakeBackCar(tmsg.GetCarid())
+	result, reward,record := CarMgr().TakeBackCar(tmsg.GetCarid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)
@@ -1033,22 +1034,10 @@ func on_C2GW_TicketCar(session network.IBaseNetSession, message interface{}) {
 	}
 	tmsg := message.(*msg.C2GW_TicketCar)
 	send := &msg.GW2C_TicketCarResult{}
-	result, reward := CarMgr().TakeBackFromParking(tmsg.GetParkingid())
+	result,reward,record := CarMgr().TakeBackFromParking(tmsg.GetParkingid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)
-}
-
-func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqResetRobCheckFlag)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	houseid := tmsg.GetHouseid()
-	user.ResetRobCheckFlag(houseid)
 }
 
 func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
