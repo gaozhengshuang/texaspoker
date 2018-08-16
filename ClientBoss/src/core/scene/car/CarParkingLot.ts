@@ -80,7 +80,9 @@ module game {
                         if(result==0){showTips("贴条成功！");  CarManager.getInstance().ReqMyCarInfo(
                             function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);}
                         );}
-                        if(reward!=0){showTips("获得"+reward+"金币！");}                            
+                        egret.setTimeout(() => {
+                            if(reward!=0){showTips("获得"+reward+"金币！");}   
+                        }, this, 0.5);                          
                     });
                 }
                 else
@@ -121,7 +123,9 @@ module game {
                                 showTips("收回成功！"); 
                                 CarManager.getInstance().ReqMyCarInfo(function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);});
                             }
-                            if(reward!=0){showTips("获得"+reward+"金币！");}                            
+                            egret.setTimeout(() => {
+                                if(reward!=0){showTips("获得"+reward+"金币！");}   
+                            }, this, 0.5);   
                         });
                     } 
                 }

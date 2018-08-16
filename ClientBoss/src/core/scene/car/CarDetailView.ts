@@ -107,7 +107,9 @@ module game {
                     CarManager.getInstance().ReqMyCarInfo(function(){
                         self.setData(DataManager.playerModel.userInfo.cardatas.filter(data=>{return data.id== _carDataId})[0]);});
                 }
-                if(reward!=0){showTips("获得"+reward+"金币！");}  
+                egret.setTimeout(() => {
+                    if(reward!=0){showTips("获得"+reward+"金币！");}   
+                }, this, 0.5);   
             });
         }
 
