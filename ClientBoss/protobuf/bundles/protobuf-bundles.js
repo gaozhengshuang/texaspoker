@@ -38201,7 +38201,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -38450,7 +38456,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -49022,6 +49034,8 @@ $root.table = (function() {
          * @property {number|null} [ProduceTime] THouseCellDefine ProduceTime
          * @property {number|null} [LevelUpCost] THouseCellDefine LevelUpCost
          * @property {string|null} [Des] THouseCellDefine Des
+         * @property {string|null} [Tips1] THouseCellDefine Tips1
+         * @property {string|null} [Tips2] THouseCellDefine Tips2
          */
 
         /**
@@ -49096,6 +49110,22 @@ $root.table = (function() {
         THouseCellDefine.prototype.Des = "";
 
         /**
+         * THouseCellDefine Tips1.
+         * @member {string} Tips1
+         * @memberof table.THouseCellDefine
+         * @instance
+         */
+        THouseCellDefine.prototype.Tips1 = "";
+
+        /**
+         * THouseCellDefine Tips2.
+         * @member {string} Tips2
+         * @memberof table.THouseCellDefine
+         * @instance
+         */
+        THouseCellDefine.prototype.Tips2 = "";
+
+        /**
          * Creates a new THouseCellDefine instance using the specified properties.
          * @function create
          * @memberof table.THouseCellDefine
@@ -49133,6 +49163,10 @@ $root.table = (function() {
                 writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.LevelUpCost);
             if (message.Des != null && message.hasOwnProperty("Des"))
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.Des);
+            if (message.Tips1 != null && message.hasOwnProperty("Tips1"))
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.Tips1);
+            if (message.Tips2 != null && message.hasOwnProperty("Tips2"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.Tips2);
             return writer;
         };
 
@@ -49187,6 +49221,12 @@ $root.table = (function() {
                     break;
                 case 7:
                     message.Des = reader.string();
+                    break;
+                case 8:
+                    message.Tips1 = reader.string();
+                    break;
+                case 9:
+                    message.Tips2 = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -49244,6 +49284,12 @@ $root.table = (function() {
             if (message.Des != null && message.hasOwnProperty("Des"))
                 if (!$util.isString(message.Des))
                     return "Des: string expected";
+            if (message.Tips1 != null && message.hasOwnProperty("Tips1"))
+                if (!$util.isString(message.Tips1))
+                    return "Tips1: string expected";
+            if (message.Tips2 != null && message.hasOwnProperty("Tips2"))
+                if (!$util.isString(message.Tips2))
+                    return "Tips2: string expected";
             return null;
         };
 
@@ -49273,6 +49319,10 @@ $root.table = (function() {
                 message.LevelUpCost = object.LevelUpCost >>> 0;
             if (object.Des != null)
                 message.Des = String(object.Des);
+            if (object.Tips1 != null)
+                message.Tips1 = String(object.Tips1);
+            if (object.Tips2 != null)
+                message.Tips2 = String(object.Tips2);
             return message;
         };
 
@@ -49297,6 +49347,8 @@ $root.table = (function() {
                 object.ProduceTime = 0;
                 object.LevelUpCost = 0;
                 object.Des = "";
+                object.Tips1 = "";
+                object.Tips2 = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -49312,6 +49364,10 @@ $root.table = (function() {
                 object.LevelUpCost = message.LevelUpCost;
             if (message.Des != null && message.hasOwnProperty("Des"))
                 object.Des = message.Des;
+            if (message.Tips1 != null && message.hasOwnProperty("Tips1"))
+                object.Tips1 = message.Tips1;
+            if (message.Tips2 != null && message.hasOwnProperty("Tips2"))
+                object.Tips2 = message.Tips2;
             return object;
         };
 

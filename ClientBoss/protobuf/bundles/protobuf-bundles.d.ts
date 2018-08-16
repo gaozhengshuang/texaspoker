@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -20771,6 +20772,12 @@ declare namespace table {
 
         /** THouseCellDefine Des */
         Des?: (string|null);
+
+        /** THouseCellDefine Tips1 */
+        Tips1?: (string|null);
+
+        /** THouseCellDefine Tips2 */
+        Tips2?: (string|null);
     }
 
     /** Represents a THouseCellDefine. */
@@ -20802,6 +20809,12 @@ declare namespace table {
 
         /** THouseCellDefine Des. */
         public Des: string;
+
+        /** THouseCellDefine Tips1. */
+        public Tips1: string;
+
+        /** THouseCellDefine Tips2. */
+        public Tips2: string;
 
         /**
          * Creates a new THouseCellDefine instance using the specified properties.
