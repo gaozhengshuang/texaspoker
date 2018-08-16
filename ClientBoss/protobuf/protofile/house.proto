@@ -106,3 +106,8 @@ message GW2C_AckOtherUserHouseData {
 message GW2C_NotifyTimeStamp {
 	optional uint64 timestamp = 1;
 }
+
+//请求重置访客查看状态
+message C2GW_ReqResetRobCheckFlag {
+	optional uint64 houseid = 1;
+}

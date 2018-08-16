@@ -27,7 +27,7 @@
 		<e:Button id="dongtai_btn" label="" x="0" y="0">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="uiCarAltas_json.stateBtn" source.down="room_dongtai_btn1_png"/>
+				<e:Image width="100%" height="100%" source="uiCarAltas_json.stateBtn" source.down="uiCarAltas_json.stateBtn"/>
 				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
 				</e:Skin>
 			</e:skinName>

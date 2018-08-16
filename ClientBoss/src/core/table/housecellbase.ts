@@ -3,26 +3,26 @@
 
 module table {
 export var THouseCell : table.ITHouseCellDefine[] = [
-		{ Id : 1001, Type : 1, MaxLevel : 5, ProduceGold : 100, ProduceTime : 10, LevelUpCost : 100, Des : "客厅" 	},
-		{ Id : 1002, Type : 1, MaxLevel : 5, ProduceGold : 200, ProduceTime : 20, LevelUpCost : 200, Des : "客厅" 	},
-		{ Id : 1003, Type : 1, MaxLevel : 5, ProduceGold : 300, ProduceTime : 30, LevelUpCost : 300, Des : "客厅" 	},
-		{ Id : 1004, Type : 1, MaxLevel : 5, ProduceGold : 400, ProduceTime : 40, LevelUpCost : 400, Des : "客厅" 	},
-		{ Id : 1005, Type : 1, MaxLevel : 5, ProduceGold : 500, ProduceTime : 50, LevelUpCost : 0, Des : "客厅" 	},
-		{ Id : 2001, Type : 2, MaxLevel : 5, ProduceGold : 10, ProduceTime : 10, LevelUpCost : 10, Des : "卧室" 	},
-		{ Id : 2002, Type : 2, MaxLevel : 5, ProduceGold : 20, ProduceTime : 20, LevelUpCost : 20, Des : "卧室" 	},
-		{ Id : 2003, Type : 2, MaxLevel : 5, ProduceGold : 30, ProduceTime : 30, LevelUpCost : 30, Des : "卧室" 	},
-		{ Id : 2004, Type : 2, MaxLevel : 5, ProduceGold : 40, ProduceTime : 40, LevelUpCost : 40, Des : "卧室" 	},
-		{ Id : 2005, Type : 2, MaxLevel : 5, ProduceGold : 50, ProduceTime : 50, LevelUpCost : 0, Des : "卧室" 	},
-		{ Id : 3001, Type : 3, MaxLevel : 5, ProduceGold : 1000, ProduceTime : 10, LevelUpCost : 1000, Des : "厕所" 	},
-		{ Id : 3002, Type : 3, MaxLevel : 5, ProduceGold : 2000, ProduceTime : 20, LevelUpCost : 2000, Des : "厕所" 	},
-		{ Id : 3003, Type : 3, MaxLevel : 5, ProduceGold : 3000, ProduceTime : 30, LevelUpCost : 3000, Des : "厕所" 	},
-		{ Id : 3004, Type : 3, MaxLevel : 5, ProduceGold : 4000, ProduceTime : 40, LevelUpCost : 4000, Des : "厕所" 	},
-		{ Id : 3005, Type : 3, MaxLevel : 5, ProduceGold : 5000, ProduceTime : 50, LevelUpCost : 0, Des : "厕所" 	},
-		{ Id : 4001, Type : 4, MaxLevel : 5, ProduceGold : 1000, ProduceTime : 10, LevelUpCost : 1000, Des : "厨房" 	},
-		{ Id : 4002, Type : 4, MaxLevel : 5, ProduceGold : 2000, ProduceTime : 20, LevelUpCost : 2000, Des : "厨房" 	},
-		{ Id : 4003, Type : 4, MaxLevel : 5, ProduceGold : 3000, ProduceTime : 30, LevelUpCost : 3000, Des : "厨房" 	},
-		{ Id : 4004, Type : 4, MaxLevel : 5, ProduceGold : 4000, ProduceTime : 40, LevelUpCost : 4000, Des : "厨房" 	},
-		{ Id : 4005, Type : 4, MaxLevel : 5, ProduceGold : 5000, ProduceTime : 50, LevelUpCost : 0, Des : "厨房" 	}
+		{ Id : 1001, Type : 1, MaxLevel : 5, ProduceGold : 10, ProduceTime : 10, LevelUpCost : 50, Des : "客厅" 	},
+		{ Id : 1002, Type : 1, MaxLevel : 5, ProduceGold : 150, ProduceTime : 30, LevelUpCost : 2250, Des : "客厅" 	},
+		{ Id : 1003, Type : 1, MaxLevel : 5, ProduceGold : 450, ProduceTime : 50, LevelUpCost : 11250, Des : "客厅" 	},
+		{ Id : 1004, Type : 1, MaxLevel : 5, ProduceGold : 910, ProduceTime : 70, LevelUpCost : 31850, Des : "客厅" 	},
+		{ Id : 1005, Type : 1, MaxLevel : 5, ProduceGold : 1530, ProduceTime : 90, LevelUpCost : 0, Des : "客厅" 	},
+		{ Id : 2001, Type : 2, MaxLevel : 5, ProduceGold : 30, ProduceTime : 15, LevelUpCost : 150, Des : "卧室" 	},
+		{ Id : 2002, Type : 2, MaxLevel : 5, ProduceGold : 210, ProduceTime : 35, LevelUpCost : 3150, Des : "卧室" 	},
+		{ Id : 2003, Type : 2, MaxLevel : 5, ProduceGold : 550, ProduceTime : 55, LevelUpCost : 13750, Des : "卧室" 	},
+		{ Id : 2004, Type : 2, MaxLevel : 5, ProduceGold : 1050, ProduceTime : 75, LevelUpCost : 36750, Des : "卧室" 	},
+		{ Id : 2005, Type : 2, MaxLevel : 5, ProduceGold : 1710, ProduceTime : 95, LevelUpCost : 0, Des : "卧室" 	},
+		{ Id : 3001, Type : 3, MaxLevel : 5, ProduceGold : 60, ProduceTime : 20, LevelUpCost : 300, Des : "厕所" 	},
+		{ Id : 3002, Type : 3, MaxLevel : 5, ProduceGold : 280, ProduceTime : 40, LevelUpCost : 4200, Des : "厕所" 	},
+		{ Id : 3003, Type : 3, MaxLevel : 5, ProduceGold : 660, ProduceTime : 60, LevelUpCost : 16500, Des : "厕所" 	},
+		{ Id : 3004, Type : 3, MaxLevel : 5, ProduceGold : 1200, ProduceTime : 80, LevelUpCost : 42000, Des : "厕所" 	},
+		{ Id : 3005, Type : 3, MaxLevel : 5, ProduceGold : 1900, ProduceTime : 100, LevelUpCost : 0, Des : "厕所" 	},
+		{ Id : 4001, Type : 4, MaxLevel : 5, ProduceGold : 100, ProduceTime : 25, LevelUpCost : 500, Des : "厨房" 	},
+		{ Id : 4002, Type : 4, MaxLevel : 5, ProduceGold : 360, ProduceTime : 45, LevelUpCost : 5400, Des : "厨房" 	},
+		{ Id : 4003, Type : 4, MaxLevel : 5, ProduceGold : 780, ProduceTime : 65, LevelUpCost : 19500, Des : "厨房" 	},
+		{ Id : 4004, Type : 4, MaxLevel : 5, ProduceGold : 1360, ProduceTime : 85, LevelUpCost : 47600, Des : "厨房" 	},
+		{ Id : 4005, Type : 4, MaxLevel : 5, ProduceGold : 2100, ProduceTime : 105, LevelUpCost : 0, Des : "厨房" 	}
 	]
 
 
