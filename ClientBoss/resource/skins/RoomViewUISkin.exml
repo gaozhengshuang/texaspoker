@@ -4,7 +4,7 @@
 	<e:Group id="huxingGroup">
 	</e:Group>
 	<e:Group id="bootomGroup" width="0" height="0" horizontalCenter="-360" verticalCenter="-640" bottom="1280">
-		<game:CarParkingLot id="parkingLot" width="20" height="20" x="530" y="807" scaleX="1" scaleY="1" skinName="CarParkingLotSkin" visible="false"/>
+		<game:CarParkingLot id="parkingLot" width="20" height="20" x="630" y="857" scaleX="1" scaleY="1" skinName="CarParkingLotSkin" anchorOffsetX="0" visible="false"/>
 	</e:Group>
 
 	<e:Button id="quit_btn" label="" y="0" anchorOffsetX="0" anchorOffsetY="0" x="0">

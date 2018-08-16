@@ -37,10 +37,11 @@ module game {
             this.btnClose.icon = "uiCarAltas_json.backBtn";
             this.btnNeighbor.icon = "uiCarAltas_json.neighbor";
             this.btnState.icon = "uiCarAltas_json.stateBtn";
-            
-
         }
+
         protected beforeShow() {
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH;
+
             this._touchEvent = [
                 { target: this.btnClose, callBackFunc: this.OnCloseHandle },
                 { target: this.btnDriveAway, callBackFunc: this.OnDriveAwayHandle },
@@ -97,6 +98,7 @@ module game {
         }
         public OnCloseHandle() {
             this.remove();
+            egret.MainContext.instance.stage.scaleMode=egret.StageScaleMode.NO_SCALE;
         }
 
         private OnDriveAwayHandle(){

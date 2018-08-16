@@ -1,14 +1,13 @@
 module game {
     export class CarItem extends eui.ItemRenderer  {
         
-
-        img_Icon    : eui.Image;
-        //img_shopItemSelect  : eui.Image;
+        allGroup            : eui.Group;
+        img_Icon            : eui.Image;
+      
         img_gold            : eui.Image;
         img_diamond         : eui.Image;
   
-        ItemName        : eui.Label;
-        //shopItemAddtion     : eui.Label;
+        ItemName            : eui.Label;
         txt_price           : eui.Label;
 
         btn_select          : IconButton;
@@ -24,6 +23,12 @@ module game {
             this.btn_select.icon = this.btn_detail.icon = "shopItemButtonBg_png";
             this.btn_select.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
             this.btn_detail.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnClickDetail,this);
+            this.adaptive();
+        }
+
+        private adaptive(){
+            this.scaleX=GameConfig.innerScaleW;
+            this.scaleY=GameConfig.innerScaleW;
         }
 
         protected dataChanged():void{

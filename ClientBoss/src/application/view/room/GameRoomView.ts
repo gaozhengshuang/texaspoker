@@ -73,6 +73,13 @@ module game {
             this.downBtnGroup.y = this.down_bg.y - (this.downBtnGroup.height * GameConfig.innerScale / 2)
                 + 20 * GameConfig.innerScaleW;
 
+
+            this.bootomGroup.scaleX = this.bootomGroup.scaleY = GameConfig.innerScale;
+           
+            this.bootomGroup.x = GameConfig.innerWidth / 2 -
+                this.bootomGroup.width * GameConfig.innerScale / 2;
+            this.bootomGroup.y = 160 * GameConfig.innerScale;
+
             this.roomLevelGroup.scaleX = this.roomLevelGroup.scaleY = GameConfig.innerScale;
             this.roomLevelGroup.x = GameConfig.innerWidth / 2 -
                 this.roomLevelGroup.width * GameConfig.innerScale / 2;
@@ -93,6 +100,8 @@ module game {
             this.oldY = this.down_bg.y;
             this.oldH = this.down_bg.height;
             this.oldBtnY = this.downBtnGroup.y;
+
+            
 
         }
         public initInfo(rVo: HouseVO, selfId: number) {
