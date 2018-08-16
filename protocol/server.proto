@@ -187,6 +187,7 @@ message MS2GW_AckTakeOtherHouseGoldRet {
 message GW2MS_ReqCreateCar {
 	optional uint64 userid = 1; 	                    //玩家id
 	optional uint32 cartid = 2; 	                    //车辆的配置id
+    optional string username = 3;                       //玩家名字
 }
 
 //返回玩家创建新车辆
@@ -272,6 +273,15 @@ message MS2GW_TicketCarResult
     optional uint64 userid = 1;
     optional int32 result = 2;                          //贴条结果 0为成功 其他失败
     optional int32 reward = 3;                          //贴条获得的奖励
+}
+message GW2MS_ReqRecordData
+{
+    optional uint64 userid = 1;
+}
+message MS2GW_AckRecordData
+{
+    optional uint64 userid = 1;
+    repeated msg.ParkingRecordData records = 2;
 }
 //玩家请求获取随机的房屋列表
 message GW2MS_ReqRandHouseList {
