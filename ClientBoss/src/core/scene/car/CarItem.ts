@@ -13,7 +13,7 @@ module game {
         ItemName            : eui.Label;
         txt_info            : eui.Label;
         stateTxt            : eui.Label;
-
+        btnJoin             : IconButton;
     
         private itemData    : table.ITCarDefine;
       
@@ -34,6 +34,7 @@ module game {
             this.itemData = carItemData;
         
             //Icon
+            this.btnJoin && (this.btnJoin.icon = "btnBg_red3_png");
             let txtr:egret.Texture = RES.getRes(carItemData.path);
             let factor = 1;
             if(txtr)
