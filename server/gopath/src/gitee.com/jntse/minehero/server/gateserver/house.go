@@ -171,3 +171,13 @@ func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 	sendmatch.Otherid = pb.Uint64(otherid)
 	Match().SendCmd(sendmatch)
 }
+
+func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
+	house := this.GetUserHouseDataByHouseId(houseid)
+	if house == nil {
+		return
+	}
+	sendmatch := &msg.GW2MS_ReqResetRobCheckFlag{}
+	sendmatch.Houseid = pb.Uint64(houseid)
+	Match().SendCmd(sendmatch)
+}
