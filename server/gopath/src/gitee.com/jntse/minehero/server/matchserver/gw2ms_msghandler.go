@@ -59,6 +59,7 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqTakeOtherHouseGold{}, on_GW2MS_ReqTakeOtherHouseGold)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRandHouseList{}, on_GW2MS_ReqRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqOtherUserHouseData{}, on_GW2MS_ReqOtherUserHouseData)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqResetRobCheckFlag{}, on_GW2MS_ReqResetRobCheckFlag)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
@@ -436,4 +437,10 @@ func on_GW2MS_TicketCar(session network.IBaseNetSession, message interface{}) {
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	session.SendCmd(send)
+}
+
+func on_GW2MS_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqResetRobCheckFlag)
+	houseid := tmsg.GetHouseid()
+	HouseSvrMgr().ResetRobcheckflag(houseid)
 }

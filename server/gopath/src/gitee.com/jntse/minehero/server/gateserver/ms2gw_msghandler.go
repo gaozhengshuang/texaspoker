@@ -77,6 +77,7 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeOtherHouseGold{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRandHouseList{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqOtherUserHouseData{})
+	this.msgparser.RegistSendProto(msg.GW2MS_ReqResetRobCheckFlag{})
 
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateCar{})
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqCarInfo{})

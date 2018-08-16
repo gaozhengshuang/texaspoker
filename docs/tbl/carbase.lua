@@ -3,7 +3,11 @@
 
 module table {
 export var TCar : table.ITCarDefine[] = [
-		{ Id : 1001, Brand : "宝马", Model : "X7", MoveRange : 1000, Capacity : 1000, RewardPerH : 100, Price : 2000, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	}
+		{ Id : 1001, Brand : "宝马", Model : "316", MoveRange : 1000, Capacity : 1200, RewardPerH : 120, Price : 2400, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	},
+		{ Id : 1002, Brand : "宝马", Model : "320", MoveRange : 1000, Capacity : 12000, RewardPerH : 600, Price : 24000, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	},
+		{ Id : 1003, Brand : "宝马", Model : "328", MoveRange : 1000, Capacity : 27000, RewardPerH : 900, Price : 54000, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	},
+		{ Id : 1004, Brand : "宝马", Model : "525", MoveRange : 1000, Capacity : 72000, RewardPerH : 1200, Price : 96000, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	},
+		{ Id : 1005, Brand : "宝马", Model : "530", MoveRange : 1000, Capacity : 180000, RewardPerH : 1500, Price : 150000, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	}
 	]
 
 
