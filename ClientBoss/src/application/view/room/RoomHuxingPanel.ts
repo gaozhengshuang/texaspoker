@@ -125,16 +125,16 @@ module game {
 			textField.x=goldImg.width;
 			textField.y=0;
 			FloatSpr.addChild(textField);
+			FloatSpr.width=goldImg.width+60;
+			FloatSpr.anchorOffsetX=FloatSpr.width/2;
 			
 
-			FloatSpr.alpha = 0;
+			FloatSpr.alpha = 1;
 			this.addChild(FloatSpr);
-			FloatSpr.x = qipao.x;
+			FloatSpr.x = qipao.x+130/2;;
 			FloatSpr.y = qipao.y;
 			egret.Tween.get(FloatSpr)
-				.to({ y: FloatSpr.y - 20, alpha: 1 }, 500)
-				.wait(500)
-				.to({ scaleX:2,scaleY:2,alpha: 0 }, 500)
+				.to({ scaleX:2,scaleY:2, y: FloatSpr.y - 30,alpha: 0 }, 500)
 				.call(this.FloatWordOnComplete, this, [FloatSpr]);//设置回调函数及作用域，可用于侦听动画完成
 
 		}
