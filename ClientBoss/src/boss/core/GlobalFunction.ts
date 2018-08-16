@@ -73,13 +73,13 @@ module game {
         }, 800, egret.Ease.backOut);
     }
 
-    export function showTipsImage(id: number): void {
+    export function showTipsImage(imgSource: string): void {
         let effectTips = TipsImagePool.createObject();
 
 
         effectTips.y = gameConfig.curHeight() / 2;
         effectTips.alpha = 0;
-        effectTips.source = `lang/${id}`;
+        effectTips.source = imgSource;
         effectTips.horizontalCenter = 0;
 
         if (!GameLayer.effectLayer.contains(effectTips)) {

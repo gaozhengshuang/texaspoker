@@ -34,7 +34,7 @@ message TCarDefine
 	optional uint32 Capacity = 5; // 最大收益金币
 	
 	
-	optional uint32 RewardPerH = 6; // 每小时产出金币
+	optional uint32 RewardPerH = 6; // 每分钟产出金币
 	
 	
 	optional uint32 Price = 7; // 价值
