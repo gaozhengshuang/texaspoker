@@ -23,14 +23,8 @@ module game {
             this.btn_select.icon = this.btn_detail.icon = "shopItemButtonBg_png";
             this.btn_select.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
             this.btn_detail.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnClickDetail,this);
-            this.adaptive();
+         
         }
-
-        private adaptive(){
-            this.scaleX=GameConfig.innerScaleW;
-            this.scaleY=GameConfig.innerScaleW;
-        }
-
         protected dataChanged():void{
             //数据改变时，会自动调用 dataChanged 这个方法
             //console.log("dataChanged "+this.data.tid);
@@ -95,6 +89,8 @@ module game {
         private OnClickDetail(){
             CarManager.getInstance().ReqMyCarInfo();
             openPanel(PanelType.carDetail);
+            ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);   
+            GameConfig.showDownBtnFun(false);         
             CarDetailView.getInstance().setData(this.data);
         }
     }

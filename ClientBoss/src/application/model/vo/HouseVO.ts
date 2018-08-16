@@ -36,6 +36,10 @@ module game {
                 this.visitinfo = obj.visitinfo;
             }
 
+            if (obj.empty != null) {
+                this.empty = obj.empty;
+            }
+            
         }
         public rId:number;
 
@@ -48,6 +52,8 @@ module game {
         public bId:number = 4; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
 
         public level:number = 5; //房屋等级
+
+        public empty : number = 0;  
 
         public housecells:any[] = []; //每个房间信息 
 
