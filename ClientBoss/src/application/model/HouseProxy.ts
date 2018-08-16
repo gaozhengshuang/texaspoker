@@ -49,6 +49,7 @@ module game {
 				}
 				this.linjuList=houseList;
 				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_ROOM_NEIGHBOR,{ list: houseList});
+				CarDetailView.getInstance().showLinjuList(houseList);
 			}
 		}
 		private OnGW2C_AckTakeSelfHouseGoldRet(data: msg.GW2C_AckTakeSelfHouseGoldRet) {
