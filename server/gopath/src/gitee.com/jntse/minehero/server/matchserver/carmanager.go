@@ -193,7 +193,7 @@ func (this* ParkingRecordData) PackBin() *msg.ParkingRecordData {
 	bin := &msg.ParkingRecordData{}
 	bin.Recordtime = pb.Uint64(this.recordtime)
 	bin.Operatortype = pb.Uint32(this.operatortype)
-	bin.GetParkingownerid = pb.Uint64(this.parkingownerid)
+	bin.Parkingownerid = pb.Uint64(this.parkingownerid)
 	bin.Parkingownername = pb.String(this.parkingownername)
 	bin.Cartid = pb.Uint32(this.cartid)
 	bin.Carownerid = pb.Uint64(this.carownerid)
@@ -498,7 +498,7 @@ func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string
 	}
 	//可以了
 	parking.ParkingCar(car,username)
-	record = this.CreateNewRecord(car,parking,msg.CarOperatorType_Park,0)
+	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_Park),0)
 	return 0,record
 }
 
@@ -516,7 +516,7 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,r
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record = this.CreateNewRecord(car,parking,msg.CarOperatorType_TakeBack,reward)
+	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_TakeBack),reward)
 	car.SetParking(0)
 	return 0,reward,record
 }
@@ -535,7 +535,7 @@ func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,rew
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record = this.CreateNewRecord(car,parking,msg.CarOperatorType_Ticket,reward)
+	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_Ticket),reward)
 	car.SetParking(0)
 	return 0,reward,record
 }

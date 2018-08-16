@@ -573,6 +573,7 @@ func (this *GateUser) OnCreateNew() {
 	createcarsend := &msg.GW2MS_ReqCreateCar{}
 	createcarsend.Userid = pb.Uint64(this.Id())
 	createcarsend.Cartid = pb.Uint32(1001)
+	createcarsend.Username = pb.String(this.Name())
 	Match().SendCmd(createcarsend)
 
 	createparksend := &msg.GW2MS_ReqCreateParking{}

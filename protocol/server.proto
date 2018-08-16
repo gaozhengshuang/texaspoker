@@ -187,6 +187,7 @@ message MS2GW_AckTakeOtherHouseGoldRet {
 message GW2MS_ReqCreateCar {
 	optional uint64 userid = 1; 	                    //玩家id
 	optional uint32 cartid = 2; 	                    //车辆的配置id
+    optional string username = 3;                       //玩家名字
 }
 
 //返回玩家创建新车辆

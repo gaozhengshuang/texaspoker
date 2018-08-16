@@ -315,12 +315,13 @@ func on_GW2MS_ReqCreateCar(session network.IBaseNetSession, message interface{})
 	tmsg := message.(*msg.GW2MS_ReqCreateCar)
 	uid := tmsg.GetUserid()
 	ctid := tmsg.GetCartid()
+	uname := tmsg.GetUsername()
 
 	log.Info("on_GW2MS_ReqCreateCar %d", uid)
 	send := &msg.MS2GW_AckCreateCar{}
 	send.Userid = pb.Uint64(uid)
 
-	carinfo := CarSvrMgr().CreateNewCar(uid, ctid)
+	carinfo := CarSvrMgr().CreateNewCar(uid, ctid,uname)
 	if carinfo != nil {
 		send.Cardata = carinfo.PackBin()
 	}
@@ -416,12 +417,12 @@ func on_GW2MS_ParkCar(session network.IBaseNetSession, message interface{}) {
 
 	send1 := &msg.MS2GW_AckRecordData{}
 	send1.Userid = pb.Uint64(record.parkingownerid)
-	send1.Records = append(send.Records, record.PackBin())
+	send1.Records = append(send1.Records, record.PackBin())
 	session.SendCmd(send1)
 
 	send2 := &msg.MS2GW_AckRecordData{}
 	send2.Userid = pb.Uint64(record.carownerid)
-	send2.Records = append(send.Records, record.PackBin())
+	send2.Records = append(send2.Records, record.PackBin())
 	session.SendCmd(send2)
 }
 
@@ -439,12 +440,12 @@ func on_GW2MS_TakeBackCar(session network.IBaseNetSession, message interface{}) 
 
 	send1 := &msg.MS2GW_AckRecordData{}
 	send1.Userid = pb.Uint64(record.parkingownerid)
-	send1.Records = append(send.Records, record.PackBin())
+	send1.Records = append(send1.Records, record.PackBin())
 	session.SendCmd(send1)
 
 	send2 := &msg.MS2GW_AckRecordData{}
 	send2.Userid = pb.Uint64(record.carownerid)
-	send2.Records = append(send.Records, record.PackBin())
+	send2.Records = append(send2.Records, record.PackBin())
 	session.SendCmd(send2)
 }
 
@@ -462,12 +463,12 @@ func on_GW2MS_TicketCar(session network.IBaseNetSession, message interface{}) {
 
 	send1 := &msg.MS2GW_AckRecordData{}
 	send1.Userid = pb.Uint64(record.parkingownerid)
-	send1.Records = append(send.Records, record.PackBin())
+	send1.Records = append(send1.Records, record.PackBin())
 	session.SendCmd(send1)
 
 	send2 := &msg.MS2GW_AckRecordData{}
 	send2.Userid = pb.Uint64(record.carownerid)
-	send2.Records = append(send.Records, record.PackBin())
+	send2.Records = append(send2.Records, record.PackBin())
 	session.SendCmd(send2)
 }
 
