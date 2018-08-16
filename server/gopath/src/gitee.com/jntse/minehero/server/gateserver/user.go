@@ -564,11 +564,12 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	send := &msg.GW2MS_ReqCreateHouse{}
-	send.Userid = pb.Uint64(this.Id())
-	send.Housetid = pb.Uint32(1001)
-	send.Ownername = pb.String(this.Name())
-	Match().SendCmd(send)
+	//send := &msg.GW2MS_ReqCreateHouse{}
+	//send.Userid = pb.Uint64(this.Id())
+	//send.Housetid = pb.Uint32(1001)
+	//send.Ownername = pb.String(this.Name())
+	//Match().SendCmd(send)
+	HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
 
 	CarMgr().CreateNewCar(this.Id(),1001)
 	CarMgr().CreateNewParking(this.Id(),1002,this.Name(),0)
@@ -610,7 +611,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
 	//上线通知MatchServer
-	this.OnlineMatchServer()
+	//this.OnlineMatchServer()
 	this.ReqMatchHouseData()
 	return true
 }
@@ -701,7 +702,7 @@ func (this *GateUser) Logout() {
 	this.asynev.Shutdown()
 
 	//下线通知MatchServer
-	this.OnDisconnectMatchServer()
+	//this.OnDisconnectMatchServer()
 	log.Info("账户%s 玩家[%s %d] 存盘下线", this.account, this.Name(), this.Id())
 }
 
@@ -996,22 +997,22 @@ func (this *GateUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount
 	}
 }
 
-func (this *GateUser) OnlineMatchServer() {
-	send := &msg.GW2MS_UserOnlineState{
-		Userid: pb.Uint64(this.Id()),
-		State:  pb.Uint32(1),
-	}
-	Match().SendCmd(send)
-
-}
-
-func (this *GateUser) OnDisconnectMatchServer() {
-	send := &msg.GW2MS_UserOnlineState{
-		Userid: pb.Uint64(this.Id()),
-		State:  pb.Uint32(0),
-	}
-	Match().SendCmd(send)
-}
+//func (this *GateUser) OnlineMatchServer() {
+//	send := &msg.GW2MS_UserOnlineState{
+//		Userid: pb.Uint64(this.Id()),
+//		State:  pb.Uint32(1),
+//	}
+//	Match().SendCmd(send)
+//
+//}
+//
+//func (this *GateUser) OnDisconnectMatchServer() {
+//	send := &msg.GW2MS_UserOnlineState{
+//		Userid: pb.Uint64(this.Id()),
+//		State:  pb.Uint32(0),
+//	}
+//	Match().SendCmd(send)
+//}
 
 func (this *GateUser) SyncTimeStamp() {
 	now := util.CURTIME()

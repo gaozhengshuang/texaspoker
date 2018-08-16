@@ -1,5 +1,6 @@
 package main
 
+/*
 import (
 	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
@@ -598,3 +599,4 @@ func (this *HouseManager) GetRandHouseList() []*msg.HouseData {
 	}
 	return data
 }
+*/

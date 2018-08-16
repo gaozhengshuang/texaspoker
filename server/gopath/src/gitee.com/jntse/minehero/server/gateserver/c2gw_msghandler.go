@@ -81,12 +81,12 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRandHouseList{}, on_C2GW_ReqRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqOtherUserHouseData{}, on_C2GW_ReqOtherUserHouseData)
 
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{},on_C2GW_ReqCarInfo)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{},on_C2GW_ReqMyParkingInfo)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqParkingInfoByType{},on_C2GW_ReqParkingInfoByType)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ParkCar{},on_C2GW_ParkCar)
-	this.msgparser.RegistProtoMsg(msg.C2GW_TakeBackCar{},on_C2GW_TakeBackCar)
-	this.msgparser.RegistProtoMsg(msg.C2GW_TicketCar{},on_C2GW_TicketCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqParkingInfoByType{}, on_C2GW_ReqParkingInfoByType)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ParkCar{}, on_C2GW_ParkCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TakeBackCar{}, on_C2GW_TakeBackCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TicketCar{}, on_C2GW_TicketCar)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -873,7 +873,6 @@ func on_C2GW_ReqHouseData(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 	user.ReqMatchHouseData()
-	//user.SendHouseData()
 }
 
 func on_C2GW_ReqHouseLevelUp(session network.IBaseNetSession, message interface{}) {
@@ -960,6 +959,7 @@ func on_C2GW_ReqCarInfo(session network.IBaseNetSession, message interface{}) {
 	log.Info("on_C2GW_ReqCarInfo %d", user.Id())
 	user.SynCarData()
 }
+
 //请求我的车位信息
 func on_C2GW_ReqMyParkingInfo(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
@@ -971,6 +971,7 @@ func on_C2GW_ReqMyParkingInfo(session network.IBaseNetSession, message interface
 	log.Info("on_C2GW_ReqMyParkingInfo %d", user.Id())
 	user.SynParkingData()
 }
+
 //请求指定车位信息
 func on_C2GW_ReqParkingInfoByType(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
@@ -988,6 +989,7 @@ func on_C2GW_ReqParkingInfoByType(session network.IBaseNetSession, message inter
 	}
 	user.SendMsg(send)
 }
+
 //请求停车
 func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
@@ -1003,6 +1005,7 @@ func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 	send.Result = pb.Int32(CarMgr().ParkingCar(cid, pid, user.Name()))
 	user.SendMsg(send)
 }
+
 //请求收回车辆
 func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
@@ -1018,6 +1021,7 @@ func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)
 }
+
 //请求贴条
 func on_C2GW_TicketCar(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)

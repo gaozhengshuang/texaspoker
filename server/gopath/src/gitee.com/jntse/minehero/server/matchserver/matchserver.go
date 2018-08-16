@@ -58,7 +58,7 @@ type MatchServer struct {
 	msghandlers  []network.IBaseMsgHandler
 	tblloader    *tbl.TblLoader
 	runtimestamp int64
-	housesvrmgr  HouseManager
+	//housesvrmgr  HouseManager
 }
 
 var g_MatchServer *MatchServer = nil
@@ -87,9 +87,11 @@ func RoomSvrMgr() *RoomSvrManager {
 	return &Match().roomsvrmgr
 }
 
+/*
 func HouseSvrMgr() *HouseManager {
 	return &Match().housesvrmgr
 }
+*/
 
 func Redis() *redis.Client {
 	return Match().hredis
@@ -248,13 +250,12 @@ func (this *MatchServer) OnStart() {
 	log.Info("开始执行OnStart")
 	this.runtimestamp = util.CURTIMEMS()
 	log.Info("结束执行OnStart")
-
-	this.housesvrmgr.Init()
+	//this.housesvrmgr.Init()
 }
 
 // 程序退出最后清理
 func (this *MatchServer) OnStop() {
-	this.housesvrmgr.SaveAllHousesData()
+	//this.housesvrmgr.SaveAllHousesData()
 	this.hredis.Close()
 }
 
@@ -276,7 +277,7 @@ func (this *MatchServer) Run() {
 
 	//
 	this.roomsvrmgr.Tick(now)
-	this.housesvrmgr.Tick(now)
+	//this.housesvrmgr.Tick(now)
 	tm_roomtick := util.CURTIMEMS()
 	//
 	delay := tm_roomtick - now
