@@ -3,7 +3,6 @@ package main
 import (
 	_ "fmt"
 	"gitee.com/jntse/minehero/pbmsg"
-	pb "github.com/gogo/protobuf/proto"
 )
 
 func (this *GateUser) SynCarData() {
@@ -18,7 +17,6 @@ func (this *GateUser) SynCarData() {
 			carids = append(carids, v.parkingid)
 		}
 	}
-
 	parkinginfo := CarMgr().GetParkingById(carids)
 	for _, v := range parkinginfo {
 		tmp := v.PackBin()
