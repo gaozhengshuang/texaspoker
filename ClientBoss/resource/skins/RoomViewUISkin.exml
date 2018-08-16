@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="RoomViewUISkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:Rect id="room_bg" width="720" height="1280" x="0" y="0" fillColor="0xc3c6cb" locked="true"/>
+	<e:Rect id="room_bg" width="720" height="1280" x="0" y="0" fillColor="0xc3c6cb"/>
 	<e:Group id="huxingGroup">
 	</e:Group>
 	<e:Group id="bootomGroup" width="0" height="0" verticalCenter="-640" bottom="1280" x="0">
-		<game:CarParkingLot id="parkingLot" width="20" height="20" x="532" y="857" scaleX="1" scaleY="1" skinName="CarParkingLotSkin" anchorOffsetX="0" visible="false"/>
+		<game:CarParkingLot id="parkingLot" width="20" height="20" x="630" y="857" scaleX="1" scaleY="1" skinName="CarParkingLotSkin" anchorOffsetX="0" visible="false"/>
 	</e:Group>
 
 	<e:Button id="quit_btn" label="" y="160" anchorOffsetX="0" anchorOffsetY="0" left="0">
@@ -15,10 +15,10 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Group id="down_bg" width="720" height="108" left="0" y="1172" locked="true">
-		<e:Image source="room_down_bg1_png" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" top="0"/>
+	<e:Group id="down_bg" width="720" height="108" left="0" y="1172">
+		<e:Image source="room_down_bg1_png" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" top="0" alpha="0.9"/>
 	</e:Group>
-	<e:Group id="downBtnGroup" y="1121" anchorOffsetX="0" width="415" height="125" x="50" locked="true">
+	<e:Group id="downBtnGroup" y="1121" anchorOffsetX="0" width="415" height="125" x="50">
 		<e:Image id="xuanBtnBg" source="xuanzhongBtn_bg_png" x="280" y="-12"/>
 		<e:Button id="dongtai_btn" label="" x="0" y="0">
 			<e:skinName>
@@ -58,10 +58,10 @@
 		<e:Label id="vip_txt" text="99" x="247.8" y="76.29" anchorOffsetX="0" width="29.88" anchorOffsetY="0" height="23.6" size="20" textAlign="right" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" strokeColor="0xFFFFFF" stroke="2" textColor="0x720AFD" scaleX="1" scaleY="1" visible="false"/>
 		<e:Image source="vipIcon_png" x="278.25" y="77.05" scaleX="1" scaleY="1" visible="false"/>
 	</e:Group>
-	<e:Group id="roomLevelGroup" y="160" width="320" height="110" horizontalCenter="50">
+	<e:Group id="roomLevelGroup" y="160" width="320" height="110" horizontalCenter="0">
 		<e:Rect width="320" height="110" y="0" fillColor="0xb1b1b1" ellipseWidth="100" ellipseHeight="100" anchorOffsetX="0" anchorOffsetY="0" x="0"/>
 		<e:Label id="roomLevel_txt" text="房屋等级4" x="100" y="17" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="26"/>
-		<e:Label id="totalChanLiang_txt" text="房屋总产量:10000" x="21" y="56.5" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="34" textColor="0xffe776" bold="true"/>
+		<e:Label id="totalChanLiang_txt" text="房屋总产量:10000" x="18" y="56.5" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="34" textColor="0xffe776" bold="true"/>
 
 
 	</e:Group>
@@ -81,6 +81,7 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
+	<e:Image id="sussImg" source="levelSuccessImg1_png" width="496" height="140" anchorOffsetY="70" anchorOffsetX="248" x="360" y="640"/>
 
 
 </e:Skin>

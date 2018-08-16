@@ -102,7 +102,7 @@ function adaptive(scale){
     let crucialX5=equalW*5-equalW/2;
     document.getElementById("wodeBtn").style.left=(crucialX5-wodeBtnW*scale/2)+'px';
 
-    document.getElementById("xiaoxiBtn").style.display='block';
+    //document.getElementById("xiaoxiBtn").style.display='block';
     document.getElementById("xiaoxiBtn").style.width=xiaoxiBtnW*scale+"px";
     document.getElementById("xiaoxiBtn").style.height=xiaoxiBtnH*scale+"px";
     document.getElementById("xiaoxiBtn").style.top=(346*scale)+'px';
@@ -114,7 +114,7 @@ function adaptive(scale){
     document.getElementById("dingweiBtn").style.height=dingweiBtnH*scale+"px";
     document.getElementById("dingweiBtn").style.bottom=(downPanelH*scale+70*scale)+'px';
 
-    document.getElementById("fujinSwitchBtn").style.display='block';
+    //document.getElementById("fujinSwitchBtn").style.display='block';
     document.getElementById("fujinSwitchBtn").style.width=fujinSwitchBtnW*scale+"px";
     document.getElementById("fujinSwitchBtn").style.height=fujinSwitchBtnH*scale+"px";
     document.getElementById("fujinSwitchBtn").style.top=(window.innerHeight-fujinSwitchBtnH*scale)/2+'px';

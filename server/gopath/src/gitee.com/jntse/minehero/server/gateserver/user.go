@@ -632,6 +632,7 @@ func (this *GateUser) Syn() {
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
 	this.ReqMatchCarData()
+	this.ReqRecordData()
 	//this.QueryPlatformCoins()
 }
 

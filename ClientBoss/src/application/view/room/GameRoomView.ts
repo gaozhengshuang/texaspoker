@@ -52,6 +52,7 @@ module game {
         public selfIdNum: number;
 
         private huxingPanel: RoomHuxingPanel;
+        private sussImg:eui.Image;
 
         private xuanBgPointX: number[] = [-9, 136, 280];
 
@@ -67,6 +68,7 @@ module game {
             this.downBtnRed1.visible = false;
             this.downBtnRed2.visible = false;
             this.downBtnRed3.visible = false;
+            this.sussImg.visible = false;
 
             this.quit_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_begin, this);
             this.lingju_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_lingju, this);
@@ -88,7 +90,7 @@ module game {
 
             this.downBtnGroup.y = this.down_bg.y - this.downBtnGroup.height / 2 + 20;
 
-            this.hideList_btn.y = gameConfig.curHeight() - 30 - this.hideList_btn.height / 2;
+            this.hideList_btn.y = gameConfig.curHeight() - 60 - this.hideList_btn.height / 2;
             this.shualingju_btn.y = this.hideList_btn.y;
 
             this.oldY = this.down_bg.y;
@@ -106,6 +108,7 @@ module game {
             if (this.selfIdNum == this.roomInfo.ownerid) {
                 this.showSelf();
                 this.lingju_btn.visible = true;
+                
                 if (this.returnType > 0) {
                     switch (this.returnType) {
                         case 1:
@@ -152,8 +155,14 @@ module game {
 
         }
 
-        public haveNewDongtai() {
-            this.downBtnRed1.visible = true;
+        public haveNewDongtai(isRed:number) {
+            if(isRed==1){
+                this.downBtnRed1.visible = true;
+            }
+            else{
+                this.downBtnRed1.visible = false;
+            }
+            
         }
         public updateInfo(rVo: HouseVO, selfId: number) {
             this.roomInfo = rVo;
@@ -188,6 +197,7 @@ module game {
             return num;
         }
         private showSelf() {
+            this.haveNewDongtai(this.roomInfo.robcheckflag);
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_INFO, { isShow: true, room: this.roomInfo }));
             this.linjuInfoGroup.visible = false;
             this.roomLevelGroup.visible = true;
@@ -322,7 +332,12 @@ module game {
 
                     case 1:
                         this.itemList.initItemRenderer(RoomMessageListItemPanel2);
-                        this.downBtnRed1.visible = false;
+                        if(this.downBtnRed1.visible){
+                            sendMessage("msg.C2GW_ReqResetRobCheckFlag", 
+                            msg.C2GW_ReqResetRobCheckFlag.encode({houseid:this.roomInfo.ownerid}));
+                            this.downBtnRed1.visible = false;
+                        }
+                        
                         break;
                     case 2:
                         this.itemList.initItemRenderer(RoomUplevelListItemPanel);
@@ -480,9 +495,28 @@ module game {
             }
         }
         public levelSuccess(index: number) {
-
-
+            //showTipsImage('resource/assets/levelSuccessImg1.png')
+            this.levelSuccessAction();
         }
+        private levelSuccessAction() {
+            this.addChildAt(this.sussImg,this.numChildren-1);
+            this.sussImg.x=gameConfig.curWidth()/2;
+			this.sussImg.y=gameConfig.curHeight()/2;
+            this.sussImg.scaleX=this.sussImg.scaleY=0.3;
+            this.sussImg.alpha=0;
+            this.sussImg.visible=true;
+
+			egret.Tween.get(this.sussImg)
+				.to({ scaleX:1, scaleY:1,alpha:1 }, 300)
+				.wait(300)
+				.to({y:this.sussImg.y-60, alpha: 0 }, 300)
+				.call(this.levelSuccessComplete, this, [this.sussImg]);//设置回调函数及作用域，可用于侦听动画完成
+
+		}
+        private levelSuccessComplete(param1: eui.Image): void {
+			egret.Tween.removeTweens(param1);
+			this.sussImg.visible=false;
+		}
         private onCompleteFun(param1: any): void {
             param1.visible = false;
         }
