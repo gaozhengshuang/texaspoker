@@ -7,12 +7,14 @@ module game {
         carIcon         : eui.Image;
         btnDriveAwayBg  : eui.Image;
         goldbg          : eui.Image;
+        infoBgImage     : eui.Image;
 
         btnDriveAwayTxt : eui.Label;
         priceTxt        : eui.Label;
         carInfoTxt      : eui.Label;
         carNameTxt      : eui.Label;
         parkingInfoTxt  : eui.Label;
+        parkingEmptyTxt : eui.Label;
 
         btnDriveAway    : IconButton;
         btnClose        : IconButton;
@@ -105,12 +107,17 @@ module game {
                 { text: carItemData.Brand+""+carItemData.Model, style: { bold: true,size: 30 } },
             ]
             //价格
-            this.priceTxt.text = "价值"+carItemData.Price+"金币";
-           
+            this.priceTxt.textFlow = [
+                { text: "价值"},
+                { text: carItemData.Price+"", style: {size: 35,"textColor": 0xFF3207}},
+            ]
             //容量和收益
             this.carInfoTxt.textFlow = [
-                { text: "汽车容量"+carItemData.Capacity, style: { bold: true,size: 35 }},
-                { text: "\n"+"收益"+carItemData.RewardPerH+"/小时", style: { bold: true,size: 30 } },
+                { text: "汽车容量", style: { bold: true,size: 30 }},
+                { text: carItemData.Capacity+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
+                { text: "\n"+"收益", style: { bold: true,size: 30 } },
+                { text: carItemData.RewardPerH+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
+                { text: "/小时", style: { bold: true,size: 30}},
             ]
 
             //停放状态
@@ -123,9 +130,11 @@ module game {
             }
             else{
                 if(this.carData.parkingid!=0){console.warn("不在parkingdatas中",this.carData.parkingid);}
-                this.parkingInfoTxt.text = "空闲";
+               
             }
-            this.btnDriveAwayBg.visible = this.btnDriveAwayTxt.visible = _parkingData && true;
+            this.btnDriveAway.visible = this.btnDriveAwayBg.visible  = this.parkingInfoTxt.visible = _parkingData && true;
+            this.infoBgImage.source = (_parkingData && true) ? "uiCarAltas_json.infobg" : "uiCarAltas_json.emptybg";
+            this.parkingEmptyTxt.visible = !(_parkingData && true);
         }
         public OnCloseHandle() {
             this.remove();
@@ -139,13 +148,19 @@ module game {
             let self = this;
             CarManager.getInstance().driveAway(_carDataId,null,function(result:number,reward:number){
                 if(result==0){
-                    showTips("收回成功！");  
+
                     CarManager.getInstance().ReqMyCarInfo(function(){
                         self.setData(DataManager.playerModel.userInfo.cardatas.filter(data=>{return data.id== _carDataId})[0]);});
+            
+                    if(reward!=0){
+                        egret.setTimeout(() => {
+                        showTips("获得"+reward+"金币！");   
+                        }, this, 0.5);
+                    }
+                    else{
+                        showTips("收回成功！");  
+                    }     
                 }
-                egret.setTimeout(() => {
-                    if(reward!=0){showTips("获得"+reward+"金币！");}   
-                }, this, 0.5);   
             });
         }
 
@@ -248,6 +263,7 @@ module game {
                             
                         });
                     }); */
+                    this.showDongtaiList();
                     break;
                 case 3:
                     ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST);
@@ -255,9 +271,23 @@ module game {
             }
         }
  
-        private dongtaiList: any[];
-        public showDongtaiList(list: any[]) {
-            this.dongtaiList = list;
+        private dongtaiList: msg.IParkingRecordData[];
+        public showDongtaiList() {
+            console.log("总共记录条数--->", DataManager.playerModel.getCarRecords().length);
+            this.dongtaiList =  DataManager.playerModel.getCarRecords().filter(data=>{
+                console.log("记录类型-->",data.operatortype);
+                switch(data.operatortype)
+                {
+                    case msg.CarOperatorType.Park:
+                        return  data.parkingownerid == DataManager.playerModel.getUserId();
+                    case msg.CarOperatorType.TakeBack:
+                        return  data.parkingownerid == DataManager.playerModel.getUserId();
+                    case msg.CarOperatorType.Ticket:
+                        return  data.carownerid == DataManager.playerModel.getUserId();
+                }
+                return true;
+            });
+            console.log("dongtaiList.......",this.dongtaiList.length);
             if (this.itemList && this.listIndex == 1) {
                 this.itemList.bindData(this.dongtaiList);
             }
@@ -299,9 +329,11 @@ module game {
             console.log("onItemTouch------------->",this.listIndex)
             switch (this.listIndex) {
                 case 1:
-                    item= this.dongtaiList[eve.itemIndex];
+                    item = this.dongtaiList[eve.itemIndex];
+                    let _userId = item.operatortype==msg.CarOperatorType.Ticket ? item.carownerid : item.parkingownerid;
                     if (item) {
-               			this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM,{userid:item.visitorid,return:this.roomInfo}));
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:_userId});
+                        this.OnCloseHandle();
                     }
                     break;
                 case 3:
@@ -316,7 +348,7 @@ module game {
         //-----------------------------------------------------------------------------//
         public isDongTaiPanelView()
         {
-
+            return this.hideList_btn.visible;
         }
     }
 }
