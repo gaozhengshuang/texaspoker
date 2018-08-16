@@ -52,7 +52,7 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ParkCar{}, on_GW2MS_ParkCar)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_TakeBackCar{}, on_GW2MS_TakeBackCar)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_TicketCar{}, on_GW2MS_TicketCar)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRecordData{},on_GW2MS_ReqRecordData})
+	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRecordData{},on_GW2MS_ReqRecordData)
 
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseLevelUp{}, on_GW2MS_ReqHouseLevelUp)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseCellLevelUp{}, on_GW2MS_ReqHouseCellLevelUp)
