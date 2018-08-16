@@ -39,6 +39,10 @@ module game {
             if (obj.empty != null) {
                 this.empty = obj.empty;
             }
+
+            if (obj.robcheckflag != null) {
+                this.robcheckflag = obj.robcheckflag;
+            }
             
         }
         public rId:number;
@@ -59,11 +63,7 @@ module game {
 
         public visitinfo:any[] = []; //操作记录 要限定条数 
 	
-
-        
-
-        
-
+        public robcheckflag : number = 0;  //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
         
     }
 }
