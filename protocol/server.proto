@@ -296,7 +296,10 @@ message MS2GW_AckOtherUserHouseData {
 	repeated msg.HouseData datas = 3;
 }
 
-
+//请求重置房屋的查看记录状态
+message GW2MS_ReqResetRobCheckFlag {
+	optional uint64 houseid = 1;
+}
 
 
 // --------------------------------------------------------------------------

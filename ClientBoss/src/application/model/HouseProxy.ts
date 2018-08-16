@@ -17,6 +17,7 @@ module game {
 
 		public returnRoomInfo:HouseVO=null;
 		public returnPlayersId:number=0;
+		public returnType:number=0;
 
 		public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_AckOtherUserHouseData, "msg.GW2C_AckOtherUserHouseData");
@@ -37,8 +38,8 @@ module game {
 			this.setCurrentHouse(data.datas);
             ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM,{ room: this.currentHouse});
 		}
+		public linjuList:any[]=[];
 		private OnGW2C_AckRandHouseList(data: msg.GW2C_AckRandHouseList) {
-			//console.log("收到邻居列表----------->",data.datas.length);
 			if(data.datas && data.datas.length>0){
 				let houseList=[];
 				for(let i:number=0;i<data.datas.length;i++){
@@ -46,7 +47,7 @@ module game {
 					house.setObject(data.datas[i]);
 					houseList.push(house);
 				}
-			
+				this.linjuList=houseList;
 				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_ROOM_NEIGHBOR,{ list: houseList});
 				CarDetailView.getInstance().showLinjuList(houseList);
 			}
@@ -79,11 +80,30 @@ module game {
 		}
 		
         public currentHouse:HouseVO;
+		public selfHouse:HouseVO;
         public setCurrentHouse(info:any[]){
 			if(info && info.length>0){
                 this.currentHouse=new HouseVO();
                 this.currentHouse.setObject(info[0]);
+				if(info[0].ownerid==DataManager.playerModel.getUserInfo().userid){
+					this.setSelfHouse(info[0]);
+				}
             }
+		}
+		public setSelfHouse(house:HouseVO){
+			if(house){
+                this.selfHouse=new HouseVO();
+                this.selfHouse.setObject(house);
+				this.updateSelfDongtaiList(this.selfHouse.visitinfo);
+            }
+		}
+
+		public selfDongtaiList:any[]
+		public updateSelfDongtaiList(list:any[]){
+			if(this.selfDongtaiList && list.length>this.selfDongtaiList.length){
+				ApplicationFacade.getInstance().sendNotification(CommandName.HAVE_NEW_DONGTAI);
+			}
+			this.selfDongtaiList=list;
 		}
 	}
 }

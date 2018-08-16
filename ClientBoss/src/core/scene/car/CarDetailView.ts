@@ -149,12 +149,14 @@ module game {
             });
         }
 
+
+    //--------------邻居和动态----------------------------------//
         private OnClickNeighbor(){
             this.showlist(3);
         }
 
         private OnClickState(){
-
+            this.showlist(1);
         }
         
 
@@ -220,10 +222,7 @@ module game {
                     (this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale + 50);
                 switch (index) {
                     case 1:
-                        this.itemList.initItemRenderer(RoomMessageListItemPanel2);
-                        break;
-                    case 2:
-                        this.itemList.initItemRenderer(RoomUplevelListItemPanel);
+                        this.itemList.initItemRenderer(CarMessageItem);
                         break;
                     case 3:
                         this.itemList.initItemRenderer(NeighborCarItem);
@@ -284,9 +283,10 @@ module game {
                             }
                         }
                         //console.log("回调执行------>",index);
-                        if(index==self.linjuList.length-1){
+/*                         if(index==self.linjuList.length-1){
                             self.itemList.bindData(self.linjuList);
-                        }
+                        } */
+                        self.itemList.bindData(self.linjuList);
                     }.bind(this));
                 });
             
@@ -312,6 +312,11 @@ module game {
                     }
                     break;
             }
-		}
+        }
+        //-----------------------------------------------------------------------------//
+        public isDongTaiPanelView()
+        {
+
+        }
     }
 }

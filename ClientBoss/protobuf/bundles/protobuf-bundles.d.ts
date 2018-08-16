@@ -3743,6 +3743,9 @@ declare namespace msg {
 
         /** HouseData ownername */
         ownername?: (string|null);
+
+        /** HouseData robcheckflag */
+        robcheckflag?: (number|null);
     }
 
     /** Represents an HouseData. */
@@ -3777,6 +3780,9 @@ declare namespace msg {
 
         /** HouseData ownername. */
         public ownername: string;
+
+        /** HouseData robcheckflag. */
+        public robcheckflag: number;
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -7053,6 +7059,96 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_NotifyTimeStamp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqResetRobCheckFlag. */
+    interface IC2GW_ReqResetRobCheckFlag {
+
+        /** C2GW_ReqResetRobCheckFlag houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqResetRobCheckFlag. */
+    class C2GW_ReqResetRobCheckFlag implements IC2GW_ReqResetRobCheckFlag {
+
+        /**
+         * Constructs a new C2GW_ReqResetRobCheckFlag.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqResetRobCheckFlag);
+
+        /** C2GW_ReqResetRobCheckFlag houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqResetRobCheckFlag instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqResetRobCheckFlag instance
+         */
+        public static create(properties?: msg.IC2GW_ReqResetRobCheckFlag): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Encodes the specified C2GW_ReqResetRobCheckFlag message. Does not implicitly {@link msg.C2GW_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message C2GW_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqResetRobCheckFlag message, length delimited. Does not implicitly {@link msg.C2GW_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message C2GW_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqResetRobCheckFlag message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Decodes a C2GW_ReqResetRobCheckFlag message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Verifies a C2GW_ReqResetRobCheckFlag message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqResetRobCheckFlag message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqResetRobCheckFlag
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Creates a plain object from a C2GW_ReqResetRobCheckFlag message. Also converts values to other types if specified.
+         * @param message C2GW_ReqResetRobCheckFlag
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqResetRobCheckFlag, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqResetRobCheckFlag to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -15603,6 +15699,96 @@ declare namespace msg {
 
         /**
          * Converts this MS2GW_AckOtherUserHouseData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqResetRobCheckFlag. */
+    interface IGW2MS_ReqResetRobCheckFlag {
+
+        /** GW2MS_ReqResetRobCheckFlag houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_ReqResetRobCheckFlag. */
+    class GW2MS_ReqResetRobCheckFlag implements IGW2MS_ReqResetRobCheckFlag {
+
+        /**
+         * Constructs a new GW2MS_ReqResetRobCheckFlag.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqResetRobCheckFlag);
+
+        /** GW2MS_ReqResetRobCheckFlag houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_ReqResetRobCheckFlag instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqResetRobCheckFlag instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqResetRobCheckFlag): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Encodes the specified GW2MS_ReqResetRobCheckFlag message. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message GW2MS_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqResetRobCheckFlag message, length delimited. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message GW2MS_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Verifies a GW2MS_ReqResetRobCheckFlag message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqResetRobCheckFlag message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqResetRobCheckFlag
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqResetRobCheckFlag message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqResetRobCheckFlag
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqResetRobCheckFlag, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqResetRobCheckFlag to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
