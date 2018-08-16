@@ -297,10 +297,10 @@ module game {
         public showLinjuList(list: HouseVO[]) {
             console.log("showLinjuList--------------->",list.length);
             CarManager.getInstance().clearBackFunc_ResParkingInfo();
-            this.linjuList = list;
+            this.linjuList = [];
             if (this.itemList && this.listIndex == 3) {
                 let self = this;    
-                this.linjuList.forEach((houseData,index,array)=>{
+                list.forEach((houseData,index,array)=>{
                     CarManager.getInstance().ReqParkingInfoByType(2,houseData.ownerid,function(parkingDatas:msg.IParkingData[]){
                         if(parkingDatas.length>0)
                         {
@@ -310,6 +310,9 @@ module game {
                                 let _empty:number = parkingDatas.some(data=>{return data.parkingcar==0;}) ? 1 : 0;
                                 //console.log(houseData.ownername,"--空->"+_empty);
                                 houseData.setObject({empty:_empty});
+                                if(_empty){
+                                    self.linjuList.push(houseData);  
+                                }
                             }
                         }
                         //console.log("回调执行------>",index);
