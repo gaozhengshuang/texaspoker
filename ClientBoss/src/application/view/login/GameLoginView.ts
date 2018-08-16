@@ -21,7 +21,7 @@ module game {
 		public constructor() {
 			super();
 			this.skinName = "resource/eui_skins/LoginSence.exml";
-			this.adaptive();
+			//this.adaptive();
 			this.registerGroup.visible=false;
 			this.loginGroup.visible=true;
 			this.LoginBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onclick_login,this);
@@ -43,7 +43,7 @@ module game {
 			}
 		}
 		private adaptive(){
-			this.scaleX=this.scaleY=GameConfig.innerScale/2;
+			//this.scaleX=this.scaleY=GameConfig.innerScale/2;
 			this.anchorOffsetX = this.width / 2;
 			this.anchorOffsetY = this.height / 2;
 

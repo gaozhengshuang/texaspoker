@@ -10,7 +10,7 @@ module game {
             this.adaptive();
 		}
         private adaptive() {
-			this.scaleX=this.scaleY=GameConfig.innerScaleW;
+			//this.scaleX=this.scaleY=GameConfig.innerScaleW;
 		}
         private itemDate:any;
         protected dataChanged():void{

@@ -12,24 +12,24 @@ module game {
     //export var $gameNetIp: string = "wss://tantanle-service{gamePort}.giantfun.cn/ws_handler";
 
     //策划服务器
-   //export var $registIp: string = "http://192.168.30.204:7003";
+    //export var $registIp: string = "http://192.168.30.204:7003";
     //export var $netIp: string = "ws://192.168.30.204:7002/ws_handler";
-   // export var $gameNetIp: string = "ws://192.168.30.204:{gamePort}/ws_handler";
+    // export var $gameNetIp: string = "ws://192.168.30.204:{gamePort}/ws_handler";
 
     //谢建服务器
-     //export var $registIp: string = "http://192.168.30.203:7003";
-     //export var $netIp: string = "ws://192.168.30.203:7002/ws_handler";
-     //export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler";
+    //export var $registIp: string = "http://192.168.30.203:7003";
+    //export var $netIp: string = "ws://192.168.30.203:7002/ws_handler";
+    //export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler";
 
     //毕强服务器
-/*       export var $registIp: string = "http://192.168.30.205:7003";
-      export var $netIp: string = "ws://192.168.30.205:7002/ws_handler";
-      export var $gameNetIp: string = "ws://192.168.30.205:{gamePort}/ws_handler"; */
+    export var $registIp: string = "http://192.168.30.205:7003";
+    export var $netIp: string = "ws://192.168.30.205:7002/ws_handler";
+    export var $gameNetIp: string = "ws://192.168.30.205:{gamePort}/ws_handler";
 
     //刘凯服务器
-    export var $registIp: string = "http://192.168.30.206:7002";
-    export var $netIp: string = "ws://192.168.30.206:7002/ws_handler";
-    export var $gameNetIp: string = "ws://192.168.30.206:{gamePort}/ws_handler"; 
+    //export var $registIp: string = "http://192.168.30.206:7002";
+    //export var $netIp: string = "ws://192.168.30.206:7002/ws_handler";
+    //export var $gameNetIp: string = "ws://192.168.30.206:{gamePort}/ws_handler"; 
 
 
     export interface IUpdateScore {
@@ -60,7 +60,7 @@ module game {
     }
 
     export interface IRankInfo {
-        userid: number|Long;
+        userid: number | Long;
         face: string;
         name: string;
         score: number;
@@ -68,7 +68,7 @@ module game {
     }
 
     export interface IUserInfo {
-        userid: number|Long;
+        userid: number | Long;
         face: string;
         name: string;
         rank: number;
@@ -78,10 +78,10 @@ module game {
         openid: string;
         addrlist: msg.IUserAddress[];
         PersonalImage: msg.IPersonalImage;
-        newplayerstep:number;
-        cardatas        : msg.ICarData[];
-        parkingdatas    : msg.IParkingData[];
-        robcount:number
+        newplayerstep: number;
+        cardatas: msg.ICarData[];
+        parkingdatas: msg.IParkingData[];
+        robcount: number
     }
 
     export var $uploadScore = "/score/uploadScore";

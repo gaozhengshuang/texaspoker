@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="LoginSence" width="1440" height="2560" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image width="585" height="261" x="439" y="180" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_logo_png"/>
-	<e:Group id="registerGroup" y="614" horizontalCenter="4" visible="false">
-		<e:Image width="1222" height="232" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_usernamebg_png"/>
-		<e:EditableText id="regNameput" width="914" height="124" x="229" y="54" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="100" fontFamily="Microsoft YaHei"/>
-		<e:Image width="1222" height="232" x="0" y="326" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
-		<e:EditableText id="regPassput1" width="914" height="124" x="229" y="380" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="100" fontFamily="Microsoft YaHei"/>
-		<e:Image width="1222" height="232" x="0" y="652" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
-		<e:EditableText id="regPassput2" width="914" height="124" x="229" y="706" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0A0909" size="100" fontFamily="Microsoft YaHei"/>
-		<e:Button id="RegisterBtn" label="注册" y="994.36" anchorOffsetX="0" width="1222" anchorOffsetY="0" height="232" enabled="true" x="0">
+<e:Skin class="LoginSence" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="292" height="130" y="103" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_logo_png" horizontalCenter="0"/>
+	<e:Group id="registerGroup" y="310" horizontalCenter="0">
+		<e:Image width="611" height="116" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_usernamebg_png"/>
+		<e:EditableText id="regNameput" width="457" height="62" x="122" y="27" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="50" fontFamily="Microsoft YaHei"/>
+		<e:Image width="611" height="116" x="0" y="162" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
+		<e:EditableText id="regPassput1" width="457" height="62" x="122" y="189" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="50" fontFamily="Microsoft YaHei"/>
+		<e:Image width="611" height="116" x="0" y="324" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
+		<e:EditableText id="regPassput2" width="457" height="62" x="122" y="351" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0A0909" size="50" fontFamily="Microsoft YaHei"/>
+		<e:Button id="RegisterBtn" label="注册" y="486" anchorOffsetX="0" width="611" anchorOffsetY="0" height="116" enabled="true" x="0">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
-				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="60" ellipseHeight="60"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" size="100" fontFamily="Microsoft YaHei"/>
+				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="30" ellipseHeight="30"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" size="50" fontFamily="Microsoft YaHei"/>
 			</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Button id="loginUrl_Btn" label="" x="487" y="1302.36" width="248" height="61">
+		<e:Button id="loginUrl_Btn" label="" y="645" x="249">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="ui_login_button_go_login_png" source.down="ui_login_button_go_login_png"/>
@@ -25,24 +25,24 @@
 			</e:skinName>
 		</e:Button>
 	</e:Group>
-	<e:Group id="loginGroup" y="614" horizontalCenter="4">
-		<e:Image width="1222" height="232" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_usernamebg_png"/>
-		<e:EditableText id="loginNameput" width="914" height="124" x="265.37" y="54" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="100" fontFamily="Microsoft YaHei" text=""/>
-		<e:Image width="1222" height="232" x="0" y="328" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
-		<e:EditableText id="loginPassput" width="914" height="124" x="270" y="385" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="100"/>
-		<e:Button id="LoginBtn" label="登录" y="639" anchorOffsetX="0" width="1222" anchorOffsetY="0" height="233" enabled="true" x="0">
+	<e:Group id="loginGroup" y="310" horizontalCenter="0">
+		<e:Image width="611" height="116" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_usernamebg_png"/>
+		<e:EditableText id="loginNameput" width="457" height="62" x="122" y="27" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="50" fontFamily="Microsoft YaHei" text="9999999" verticalAlign="middle" textAlign="left"/>
+		<e:Image width="611" height="116" x="0" y="161" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
+		<e:EditableText id="loginPassput" width="457" height="62" x="122" y="188" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="50" text="99999999" verticalAlign="middle" textAlign="left" fontFamily="Microsoft YaHei"/>
+		<e:Button id="LoginBtn" label="登录" y="321" anchorOffsetX="0" width="611" anchorOffsetY="0" height="116" enabled="true" x="0">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
-				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="60" ellipseHeight="60" enabled="true" fillAlpha="1" strokeColor="0x4fc1e9"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" size="100" fontFamily="Microsoft YaHei"/>
+				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="30" ellipseHeight="30" enabled="true" fillAlpha="1" strokeColor="0x4fc1e9"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" size="50" fontFamily="Microsoft YaHei"/>
 			</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Image x="165" y="1117" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_thirdpartytex_png"/>
-		<e:Image width="228" height="228" x="485" y="1254" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_button_qq_png"/>
-		<e:Image x="132" y="1254" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_button_weixin_png" width="228" height="228"/>
-		<e:Image width="228" height="228" x="838" y="1254" source="ui_login_button_weibo_png"/>
-		<e:Button id="registerUrl_Btn" label="" x="307.63" y="936" width="248" height="61" visible="false">
+		<e:Image y="595" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_thirdpartytex_png" x="82"/>
+		<e:Image x="255.37" y="661" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_button_qq_png"/>
+		<e:Image x="83" y="661" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_button_weixin_png" width="100" height="100"/>
+		<e:Image x="427.37" y="661" source="ui_login_button_weibo_png" width="100" height="100"/>
+		<e:Button id="registerUrl_Btn" label="" x="83" y="486" visible="false">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="ui_login_button_go_register_png" source.down="ui_login_button_go_register_png"/>
@@ -50,7 +50,7 @@
 			</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Button id="forgetUrl_btn" label="" y="936" width="248" height="61" horizontalCenter="0">
+		<e:Button id="forgetUrl_btn" label="" y="486" x="239">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="ui_login_button_forget_png" source.down="ui_login_button_forget_png"/>

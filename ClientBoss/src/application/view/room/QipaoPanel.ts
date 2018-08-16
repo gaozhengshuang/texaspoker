@@ -17,7 +17,7 @@ module game {
         private adaptive() {
             this.touchChildren = false;
             this.touchEnabled = true;
-            this.scaleX = this.scaleY = GameConfig.innerScale;
+            //this.scaleX = this.scaleY = GameConfig.innerScale;
             //this.anchorOffsetX = this.width / 2;
             //this.anchorOffsetY = this.height / 2;
         }

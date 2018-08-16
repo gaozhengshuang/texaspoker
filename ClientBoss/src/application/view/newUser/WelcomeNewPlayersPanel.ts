@@ -23,7 +23,7 @@ module game {
             this.goinRoom_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goinRoom_begin, this);
         }
         private adaptive() {
-            this.scaleX = this.scaleY = GameConfig.innerScale;
+            //this.scaleX = this.scaleY = GameConfig.innerScale;
             this.anchorOffsetX = this.width / 2;
             this.anchorOffsetY = this.height / 2;
         }
