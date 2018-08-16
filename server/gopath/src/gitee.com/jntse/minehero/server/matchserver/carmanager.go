@@ -375,7 +375,7 @@ func (this* CarManager) GetRecord(id uint64) *ParkingRecordData{
 func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
 	data := make([]*ParkingRecordData, 0)
 	for _, v := range this.records {
-		if v.carownerid == id && v.parkingownerid == id {
+		if v.carownerid == id || v.parkingownerid == id {
 			data = append(data,v)		
 		}
 	}
