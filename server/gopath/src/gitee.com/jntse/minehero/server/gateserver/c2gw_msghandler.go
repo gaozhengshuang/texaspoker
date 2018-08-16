@@ -997,11 +997,10 @@ func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	tmsg := message.(*msg.C2GW_ParkCar)
-	uname := tmsg.GetUsername()
 	cid := tmsg.GetCarid()
 	pid := tmsg.GetParkingid()
 	send := &msg.GW2C_ParkCarResult{}
-	send.Result = pb.Int32(CarMgr().ParkingCar(cid, pid, uname))
+	send.Result = pb.Int32(CarMgr().ParkingCar(cid, pid, user.Name()))
 	user.SendMsg(send)
 }
 //请求收回车辆
