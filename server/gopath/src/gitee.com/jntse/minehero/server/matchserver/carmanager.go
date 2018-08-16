@@ -134,8 +134,8 @@ func (this *ParkingData) SaveBin() {
 
 func (this* ParkingData) UpdateReward(car *CarData,now uint64) bool{
 	//计算经过了几个小时了
-	passedHour := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Hours()))
-	reward := (passedHour * car.template.RewardPerH * this.template.RewardPercent) / 100
+	passedMinute := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Minutes()))
+	reward := (passedMinute * car.template.RewardPerH * this.template.RewardPercent) / 100
 	reward = uint32(math.Min(float64(reward),float64(car.template.Capacity)))
 	if this.parkingreward != reward {
 		this.parkingreward = reward
