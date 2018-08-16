@@ -13,13 +13,34 @@
     <link rel="stylesheet" type="text/css" href="resource/others/css/mapUI.css">
     <style>
         html, body {
-            overflow: hidden;
             -ms-touch-action: none;
             background: #ffffff;
             padding: 0;
             border: 0;
             margin: 0;
             height: 100%;
+        }
+
+        @font-face {
+            font-family: 'DynoBold';
+            src: url('DynoBold.eot?#iefix') format('embedded-opentype'), url('DynoBold.woff') format('woff'), url('DynoBold.ttf') format('truetype'), url('DynoBold.svg#FZXS') format('svg'), url('DynoBold.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        #preloading {
+            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1 1 auto;
+            position: absolute;
+        }
+
+        #preloading img {
+            max-width: 100%;
         }
     </style>
 <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
@@ -39,9 +60,19 @@
 </div>
 <div id="returnBtn"></div>
 <div id="maskBg"></div>
-<div style="margin: auto;width: 100%;height: 100%;" class="egret-player" data-entry-class="Main" data-orientation="auto" data-scale-mode="noScale" data-frame-rate="30" data-content-width="720"
-data-content-height="1280" data-multi-fingered="2" data-show-fps="false" data-show-log="false" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
+
+<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+     data-entry-class="Main"
+     data-orientation="auto"
+     data-scale-mode="fixedWidth"
+     data-frame-rate="60"
+     data-content-width="720"
+     data-content-height="1280"
+     data-multi-fingered="1"
+     data-show-fps="false" data-show-log="false"
+     data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
 </div>
+
 <div id="downPanel">
     <div id="zichanBtn" class="zichan_default"></div>
     <div id="zichanRedIcon"></div>
@@ -53,6 +84,13 @@ data-content-height="1280" data-multi-fingered="2" data-show-fps="false" data-sh
 <div id="mainBg"></div>
 <div id="gameCloseBtn"></div>
 <script>
+    var div = document.getElementsByClassName("egret-player")[0];
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        div.setAttribute("data-scale-mode", "fixedWidth")
+    } else {
+        div.setAttribute("data-scale-mode", "showAll")
+    }
+
     var loadScript = function (list, callback) {
         var loaded = 0;
         var loadNext = function () {

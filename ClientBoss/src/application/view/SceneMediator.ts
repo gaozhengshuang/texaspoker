@@ -38,8 +38,8 @@ module game {
                         GameConfig.updataMaskBgFun('#f5f5f5', 1);
                         this.sceneView = new GameLoginView();
                         this.sceneGroup.addChild(this.sceneView);
-                        this.sceneView.x = GameConfig.innerWidth / 2;
-                        this.sceneView.y = GameConfig.innerHeight / 2;
+                        //this.sceneView.x = GameConfig.innerWidth / 2;
+                        //this.sceneView.y = GameConfig.innerHeight / 2;
                         ApplicationFacade.getInstance().registerMediator(new LoginMediator(this.sceneView));
                         this.sceneMediatorName = LoginMediator.NAME;
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO,{isShow:false});
