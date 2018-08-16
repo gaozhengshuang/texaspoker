@@ -60,42 +60,40 @@ module game {
         private dBgDefaultY: number = 0;
         private adaptive() {
 
-            this.room_bg.width = GameConfig.innerWidth;
-            this.room_bg.height = GameConfig.innerHeight;
+            //this.room_bg.width = GameConfig.innerWidth;
+            //this.room_bg.height = GameConfig.innerHeight;
 
             this.huxingGroup.touchEnabled = false;
             this.huxingGroup.touchChildren = false;
 
-            this.down_bg.scaleX = this.down_bg.scaleY = GameConfig.innerScaleW;
-            this.down_bg.x = 0; this.down_bg.y = GameConfig.innerHeight - this.down_bg.height * GameConfig.innerScaleW;
+            //this.down_bg.scaleX = this.down_bg.scaleY = GameConfig.innerScaleW;
+            this.down_bg.y = gameConfig.curHeight()-this.down_bg.height;
 
-            this.downBtnGroup.scaleX = this.downBtnGroup.scaleY = GameConfig.innerScale;
-            this.downBtnGroup.y = this.down_bg.y - (this.downBtnGroup.height * GameConfig.innerScale / 2)
-                + 20 * GameConfig.innerScaleW;
+            this.downBtnGroup.y=this.down_bg.y-this.downBtnGroup.height/2+20;
 
+            this.hideList_btn.y = gameConfig.curHeight() - 30 - this.hideList_btn.height / 2;
 
-            this.bootomGroup.scaleX = this.bootomGroup.scaleY = GameConfig.innerScale;
+            //this.bootomGroup.scaleX = this.bootomGroup.scaleY = GameConfig.innerScale;
            
-            this.bootomGroup.x = GameConfig.innerWidth / 2 -
-                this.bootomGroup.width * GameConfig.innerScale / 2;
-            this.bootomGroup.y = 160 * GameConfig.innerScale;
+            //this.bootomGroup.x = GameConfig.innerWidth / 2 -
+                //this.bootomGroup.width * GameConfig.innerScale / 2;
+            //this.bootomGroup.y = 160 * GameConfig.innerScale;
 
-            this.roomLevelGroup.scaleX = this.roomLevelGroup.scaleY = GameConfig.innerScale;
-            this.roomLevelGroup.x = GameConfig.innerWidth / 2 -
-                this.roomLevelGroup.width * GameConfig.innerScale / 2;
+            //this.roomLevelGroup.scaleX = this.roomLevelGroup.scaleY = GameConfig.innerScale;
+            //this.roomLevelGroup.x = GameConfig.innerWidth / 2 -
+                //this.roomLevelGroup.width * GameConfig.innerScale / 2;
 
-            this.roomLevelGroup.y = 160 * GameConfig.innerScale;
+            //this.roomLevelGroup.y = 160 * GameConfig.innerScale;
 
-            this.quit_btn.scaleX = this.quit_btn.scaleY = GameConfig.innerScale;
-            this.quit_btn.y = 160 * GameConfig.innerScale;
+            //this.quit_btn.scaleX = this.quit_btn.scaleY = GameConfig.innerScale;
+            //this.quit_btn.y = 160 * GameConfig.innerScale;
 
-            this.linjuInfoGroup.scaleX = this.linjuInfoGroup.scaleY = GameConfig.innerScale;
-            this.linjuInfoGroup.x = GameConfig.innerWidth - this.linjuInfoGroup.width * GameConfig.innerScale;
-            this.linjuInfoGroup.y = 160 * GameConfig.innerScale;
+            //this.linjuInfoGroup.scaleX = this.linjuInfoGroup.scaleY = GameConfig.innerScale;
+            //this.linjuInfoGroup.x = GameConfig.innerWidth - this.linjuInfoGroup.width * GameConfig.innerScale;
+            //this.linjuInfoGroup.y = 160 * GameConfig.innerScale;
 
-            this.hideList_btn.scaleX = this.hideList_btn.scaleY = GameConfig.innerScale;
-            this.hideList_btn.x = GameConfig.innerWidth / 2 - this.hideList_btn.width * GameConfig.innerScale / 2;
-            this.hideList_btn.y = GameConfig.innerHeight - 30 - this.hideList_btn.height * GameConfig.innerScale / 2;
+            //this.hideList_btn.scaleX = this.hideList_btn.scaleY = GameConfig.innerScale;
+            
 
             this.oldY = this.down_bg.y;
             this.oldH = this.down_bg.height;
@@ -123,8 +121,8 @@ module game {
             //设置滚动内容
             scrollView.setContent(this.huxingPanel);
             //设置滚动区域宽高
-            scrollView.width = GameConfig.innerWidth;
-            scrollView.height = GameConfig.innerHeight;
+            scrollView.width = gameConfig.curWidth();
+            scrollView.height = gameConfig.curHeight();
             //垂直滚动设置为 on 
             scrollView.verticalScrollPolicy = "on";
             //水平滚动设置为 auto
@@ -238,11 +236,10 @@ module game {
         private btnGoalY: number = -1;
 
         private showlist(index) {
-            if (this.goalY == -1) { this.goalY = GameConfig.innerHeight / 4 };
-            if (this.goalH == -1) { this.goalH = GameConfig.innerHeight };
+            if (this.goalY == -1) { this.goalY = gameConfig.curHeight() / 4 };
+            if (this.goalH == -1) { this.goalH = gameConfig.curHeight()*3/4 };
             if (this.btnGoalY == -1) {
-                this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
-                    + 20 * GameConfig.innerScaleW;
+                this.btnGoalY = gameConfig.curHeight()/4 - this.downBtnGroup.height/2+ 20
             }
             this.listIndex = index;
 			console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
@@ -250,7 +247,7 @@ module game {
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
                 call(this.onComplete, this, [this.listIndex]);
-                egret.Tween.get(this.down_bg).to({ height: this.goalH+GameConfig.innerHeight / 2, y: this.goalY }, 300)
+                egret.Tween.get(this.down_bg).to({ height: this.goalH,y:this.goalY}, 300)
                     
             }else{
                 this.onComplete(this.listIndex);
@@ -271,9 +268,9 @@ module game {
                 this.itemList = new utils.VScrollerPanel();
                 this.addChild(this.itemList);
                 this.itemList.x = 0;
-                this.itemList.y = this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale+10;
+                this.itemList.y = this.downBtnGroup.y + this.downBtnGroup.height+10;
                 this.itemList.height = (this.hideList_btn.y - 10) -
-                    (this.downBtnGroup.y + this.downBtnGroup.height * GameConfig.innerScale + 10);
+                    (this.downBtnGroup.y + this.downBtnGroup.height + 10);
                 switch (index) {
 
                     case 1:

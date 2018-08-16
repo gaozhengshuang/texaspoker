@@ -17,7 +17,7 @@ module game {
             super();
             this.skinName = "resource/skins/UserInfoUISkin.exml";
             this.roomWeizhiGroup.visible = false;
-            this.adaptive();
+            //this.adaptive();
             this.roomNumGroup.visible=false;
             this.addEventListener(egret.Event.ADDED_TO_STAGE,this.addStageFun,this);
         }
@@ -30,7 +30,7 @@ module game {
 
             let expHeight: number = GameConfig.innerWidth * 1280 / 720;
             let innerScale: number = expHeight > GameConfig.innerHeight ? innerScaleH : innerScaleW;
-            this.scaleX = this.scaleY = innerScale;
+            //this.scaleX = this.scaleY = innerScale;
         }
         public updataInfo(info: IUserInfo) {
             this.userInfo = info;

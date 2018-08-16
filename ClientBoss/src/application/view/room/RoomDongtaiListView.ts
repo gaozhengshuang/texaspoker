@@ -16,7 +16,7 @@ module game {
 			this.width=GameConfig.stageWidth;
 			this.height=this.limitedH;
 			this.init(list);
-			this.adaptive();
+			//this.adaptive();
 			
 		}
 		private init(list:MessageVO[]){

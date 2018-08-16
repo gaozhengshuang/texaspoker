@@ -10,7 +10,7 @@ module game {
             
 		}
 		private adaptive(){
-			this.scaleX=this.scaleY=GameConfig.innerScale;
+			//this.scaleX=this.scaleY=GameConfig.innerScale;
 		}
         private itemDate:SmallGameVO;
         protected dataChanged():void{
