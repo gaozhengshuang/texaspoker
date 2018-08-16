@@ -80,6 +80,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeOtherHouseGold{}, on_C2GW_ReqTakeOtherHouseGold)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRandHouseList{}, on_C2GW_ReqRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqOtherUserHouseData{}, on_C2GW_ReqOtherUserHouseData)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqResetRobCheckFlag{}, on_C2GW_ReqResetRobCheckFlag)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
@@ -1036,4 +1037,16 @@ func on_C2GW_TicketCar(session network.IBaseNetSession, message interface{}) {
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)
+}
+
+func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqResetRobCheckFlag)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	houseid := tmsg.GetHouseid()
+	user.ResetRobCheckFlag(houseid)
 }
