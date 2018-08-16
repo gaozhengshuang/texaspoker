@@ -25,6 +25,7 @@ func (this *GateUser) SendHouseData() {
 }
 
 func (this *GateUser) UpdateHouseData(data []*msg.HouseData) {
+	log.Info("UpdateHouseData!!!!!!!!!!!!!!!!!!")
 	this.housedata = data
 	this.SendHouseData()
 }
