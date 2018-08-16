@@ -10,7 +10,6 @@ module game {
         infoBgImage     : eui.Image;
 
         btnDriveAwayTxt : eui.Label;
-        priceTxt        : eui.Label;
         carInfoTxt      : eui.Label;
         carNameTxt      : eui.Label;
         parkingInfoTxt  : eui.Label;
@@ -88,6 +87,7 @@ module game {
             this.carData = carData;
             this.updateView();
         }
+
         private updateView()
         {   
             if(!this.carData) return;
@@ -102,31 +102,23 @@ module game {
                 this.carIcon.width     = txtr.textureWidth * factor;
                 this.carIcon.height    = txtr.textureHeight * factor;
             }
-            //名字
-            this.carNameTxt.textFlow = [
-                { text: carItemData.Brand+""+carItemData.Model, style: { bold: true,size: 30 } },
-            ]
-            //价格
-            this.priceTxt.textFlow = [
-                { text: "价值"},
-                { text: carItemData.Price+"", style: {size: 35,"textColor": 0xFF3207}},
-            ]
+            //名字+价格
+            this.carNameTxt.text = carItemData.Brand+""+carItemData.Model + "  价值" + carItemData.Price;
+
             //容量和收益
-            this.carInfoTxt.textFlow = [
-                { text: "汽车容量", style: { bold: true,size: 30 }},
-                { text: carItemData.Capacity+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
-                { text: "\n"+"收益", style: { bold: true,size: 30 } },
-                { text: carItemData.RewardPerH+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
-                { text: "/小时", style: { bold: true,size: 30}},
-            ]
+            // this.carInfoTxt.textFlow = [
+            //     { text: "汽车容量", style: { bold: true,size: 30 }},
+            //     { text: carItemData.Capacity+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
+            //     { text: "\n"+"收益", style: { bold: true,size: 30 } },
+            //     { text: carItemData.RewardPerH+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
+            //     { text: "/小时", style: { bold: true,size: 30}},
+            // ]
+            this.carInfoTxt.text = "汽车容量" + carItemData.Capacity + "\n"+"收益" + carItemData.RewardPerH + "/小时";
 
             //停放状态
             let _parkingData = DataManager.playerModel.getMyCarPakingInfo(this.carData.id);
             if(_parkingData){
-                this.parkingInfoTxt.textFlow = [
-                    { text: "停在"+_parkingData.ownername+"车位，", style: { bold: true,size: 30 }},
-                    { text: "预计收益"+_parkingData.parkingreward+"金币", style: { bold: true,size: 30 } },
-                ]
+                this.parkingInfoTxt.text = "停在" + _parkingData.ownername + "车位" +"预计收益"+_parkingData.parkingreward+"金币";
             }
             else{
                 if(this.carData.parkingid!=0){console.warn("不在parkingdatas中",this.carData.parkingid);}
@@ -136,6 +128,7 @@ module game {
             this.infoBgImage.source = (_parkingData && true) ? "uiCarAltas_json.infobg" : "uiCarAltas_json.emptybg";
             this.parkingEmptyTxt.visible = !(_parkingData && true);
         }
+
         public OnCloseHandle() {
             this.remove();
             GameConfig.showDownBtnFun(true); 

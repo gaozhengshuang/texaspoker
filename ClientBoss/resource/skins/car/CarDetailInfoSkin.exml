@@ -2,17 +2,17 @@
 <e:Skin class="CarDetailInfoSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect id="view_bg" width="720" height="1280" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xc4c4c4"/>
 	<e:Image id="Bg" width="720" height="1280" x="0" scaleX="1" scaleY="1" y="0" source="carParkBg_png"/>
-	<e:Group id="top" height="0" width="0" top="0" verticalCenter="-640" horizontalCenter="-360" right="720">
-		<e:Image id="goldbg" width="326" height="160" x="220" scaleX="1" scaleY="1" y="359" source="uiCarAltas_json.goldBg"/>
-		<e:Label id="carInfoTxt" text="汽车容量2000" x="257.27" y="371" anchorOffsetY="0" height="99.76" anchorOffsetX="0" width="253.7" size="30" stroke="0" verticalAlign="middle" textAlign="center" textColor="0xf9f9f9"/>
+	<e:Group id="top" height="1280" width="720" x="0" y="0">
+		<e:Image id="goldbg" width="326" height="160" scaleX="1" scaleY="1" y="359" source="uiCarAltas_json.goldBg" horizontalCenter="0"/>
+		<e:Label id="carInfoTxt" text="汽车容量2000" y="371" anchorOffsetY="0" height="99.76" anchorOffsetX="0" width="253.7" size="30" stroke="0" verticalAlign="middle" textAlign="center" textColor="0x7f5737" horizontalCenter="0"/>
 	</e:Group>
-	<e:Group id="center" width="200" height="200" horizontalCenter="-260" right="520" verticalCenter="-540" top="0">
-		<e:Label id="carNameTxt" text="宝马 smart" x="137.15" y="781" width="200.85" anchorOffsetY="0" height="65" anchorOffsetX="0" size="30" scaleX="1" scaleY="1" textAlign="center" verticalAlign="middle" stroke="0"/>
-		<e:Label id="priceTxt" text="价值20000金币" x="312" y="781" width="250" anchorOffsetY="0" height="65" anchorOffsetX="0" size="30" verticalAlign="middle" textAlign="center" stroke="0"/>
+	<e:Group id="center" width="720" height="1280" y="0" x="0">
+		<e:Label id="carNameTxt" text="宝马 smart" width="422" anchorOffsetY="0" height="65" anchorOffsetX="0" size="24" scaleX="1" scaleY="1" verticalAlign="middle" stroke="0" x="139.27" y="784.5" textAlign="center"/>
+
 		<e:Image id="carIcon" width="720" height="350" x="0" scaleX="1" scaleY="1" y="475" source="carIconAltas_json.big_1"/>
 		<e:Image id="infoBgImage" height="99" x="11" scaleX="1" scaleY="1" y="854" source="uiCarAltas_json.infobg"/>
-		<e:Label id="parkingInfoTxt" text="停在马云家" x="37.39" y="867.33" width="524.55" anchorOffsetY="0" height="62.12" anchorOffsetX="0" size="35" verticalAlign="middle" textAlign="center" stroke="0" textColor="0xf4620e" bold="true" fontFamily="Arial"/>
-		<e:Label id="parkingEmptyTxt" text="空闲中...." x="26.18" y="867.33" width="651.82" anchorOffsetY="0" height="62.12" anchorOffsetX="0" size="35" verticalAlign="middle" textAlign="center" stroke="0" bold="true" fontFamily="Arial" textColor="0xffffff"/>
+		<e:Label id="parkingInfoTxt" text="停在马云家" x="37.39" y="867.33" width="524.55" anchorOffsetY="0" height="62.12" anchorOffsetX="0" size="28" verticalAlign="middle" textAlign="center" stroke="0" fontFamily="Arial" textColor="0xff573c"/>
+		<e:Label id="parkingEmptyTxt" text="空闲中...." x="26.18" y="867.33" width="651.82" anchorOffsetY="0" height="62.12" anchorOffsetX="0" size="28" verticalAlign="middle" textAlign="center" stroke="0" fontFamily="Arial" textColor="0xffffff"/>
 		<e:Image id="btnDriveAwayBg" width="121" height="65" x="561" scaleX="1" scaleY="1" y="866" source="uiCarAltas_json.driveBtn"/>
 		<e:Label id="btnDriveAwayTxt" text="收回" x="565" y="872" size="35" verticalAlign="middle" textAlign="center" anchorOffsetX="0" width="88.79" height="45" bold="true" anchorOffsetY="0" visible="false"/>
 		<game:IconButton id="btnDriveAway" height="60.88" enabled="true" skinName="IconButtonSkin" width="122.79" x="558" y="867" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0"/>
