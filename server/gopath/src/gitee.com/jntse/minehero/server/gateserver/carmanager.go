@@ -417,7 +417,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 		}
 		rbuf :=[]byte(val[0])
 		removeRecordData := &msg.ParkingRecordData{}
-		err = pb.Unmarshal(val, removeRecordData)
+		err = pb.Unmarshal(rbuf, removeRecordData)
 		if err != nil { 
 			log.Error("删除多余车位操作记录失败 id%d", ownerid)
 			return record
