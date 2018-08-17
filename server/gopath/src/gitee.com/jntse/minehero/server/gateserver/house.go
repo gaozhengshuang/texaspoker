@@ -60,6 +60,15 @@ func (this *HouseCell) SetOwner(ownerid uint64) {
 
 //主人收获金币
 func (this *HouseCell) OwnerTakeGold() uint32 {
+	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
+	if find == false {
+		log.Error("无效的房间区域cell  tid[%d]", this.tid)
+		return 0
+	}
+	goldmax := base.ProduceGold
+	if this.gold > goldmax {
+		this.gold = goldmax
+	}
 	if this.state == 0 {
 		return 0
 	} else {
@@ -79,6 +88,9 @@ func (this *HouseCell) VisitorTakeGold(roberid uint64) uint32 {
 		return 0
 	}
 	goldmax := base.ProduceGold
+	if this.gold > goldmax {
+		this.gold = goldmax
+	}
 	count := len(this.robdata)
 	for _, v := range this.robdata {
 		if v == roberid {
@@ -90,11 +102,15 @@ func (this *HouseCell) VisitorTakeGold(roberid uint64) uint32 {
 		//未产出 或 被抢三次
 		return 0
 	}
-
 	take := uint32(float64(goldmax) * 0.2)
-	this.gold = this.gold - take
-	this.robdata = append(this.robdata, roberid)
+	if take >= this.gold {
+		take = this.gold
+		this.gold = 0
+	} else {
+		this.gold = this.gold - take
+	}
 
+	this.robdata = append(this.robdata, roberid)
 	return take
 }
 
@@ -589,29 +605,35 @@ func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visit
 }
 
 //获取随机的房屋列表
-func (this *HouseManager) GetRandHouseList() []*msg.HouseData {
+func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 	data := make([]*msg.HouseData, 0)
 	count := len(this.housesIdList)
-	if count <= 10 {
+	if count <= 11 {
 		i := 0
 		for _, v := range this.houses {
-			if i >= 10 {
+			if i >= 11 {
 				break
 			}
-			data = append(data, v.PackBin())
+			if v.ownerid != uid {
+				data = append(data, v.PackBin())
+			}
 			i = i + 1
 		}
 	} else {
-		tmprand := def.GetRandNumbers(int32(count-1), 10)
+		tmprand := def.GetRandNumbers(int32(count-1), 11)
 		for _, v := range tmprand {
 			houseid := this.housesIdList[int(v)]
 			house := this.GetHouse(houseid)
-			if house != nil {
+			if house != nil && house.ownerid != uid {
 				data = append(data, house.PackBin())
 			}
 		}
 	}
+	if len(data) > 10 {
+		data = data[1:]
+	}
 	return data
+
 }
 
 func (this *HouseManager) ResetRobcheckflag(houseid uint64) {
@@ -828,7 +850,7 @@ func (this *GateUser) ReqRandHouseList() {
 	//sendmatch.Userid = pb.Uint64(this.Id())
 	//Match().SendCmd(sendmatch)
 
-	data := HouseSvrMgr().GetRandHouseList()
+	data := HouseSvrMgr().GetRandHouseList(this.Id())
 	send := &msg.GW2C_AckRandHouseList{}
 	send.Datas = data
 	this.SendMsg(send)
@@ -847,19 +869,6 @@ func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 		send.Datas = append(send.Datas, tmp)
 	}
 	this.SendMsg(send)
-}
-
-//上限检查更新 抢钱次数
-func (this *GateUser) OnlineUpdateRobCount() {
-	if this.tm_logout > 0 {
-		nowtimehour := util.CURTIME() / 3600
-		logouttimehour := this.tm_logout / 3600
-		dexhours := nowtimehour - logouttimehour
-		if dexhours > 0 {
-			addcount := dexhours * 5
-			this.SetRobCount(this.GetRobCount() + uint32(addcount))
-		}
-	}
 }
 
 func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
