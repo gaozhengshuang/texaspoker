@@ -410,16 +410,16 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 	this.userrecords[ownerid] = append(this.userrecords[ownerid],record)
 	if len(this.userrecords[ownerid]) > 5 {
 		//删除最老的记录
-		val := Redis().BLPop(0,key)
-		// if err != nil { 
-		// 	log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
-		// 	return record
-		// }
-		// rbuf :=[]byte(val)
+		val,err := Redis().BLPop(0,key).Result()
+		if err != nil || len(val) == 0{ 
+			log.Error("删除多余车位操作记录失败 id%d", ownerid)
+			return record
+		}
+		rbuf :=[]byte(val[0])
 		removeRecordData := &msg.ParkingRecordData{}
 		err = pb.Unmarshal(val, removeRecordData)
 		if err != nil { 
-			log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
+			log.Error("删除多余车位操作记录失败 id%d", ownerid)
 			return record
 		}
 		removeRecord := &ParkingRecordData{}
