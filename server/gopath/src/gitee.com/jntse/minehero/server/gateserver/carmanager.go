@@ -256,7 +256,7 @@ func (this* CarManager) Init(){
 	}else{
 		for _, v := range recordIds {
 			recordid, _ := strconv.Atoi(v)
-			this.GetRecord(uint64(recordid))
+			this.GetRecordByUser(uint64(recordid))
 		}
 	}
 
@@ -351,14 +351,14 @@ func (this* CarManager) GetParking(id uint64) *ParkingData{
 	}
 }
 
-func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
+func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
 	if _, ok := this.userrecords[id]; ok {
 		return this.userrecords[id]
 	} else {
 		data := make([]*ParkingRecordData, 0)
 		//尝试从内存加载 如果没有返回nil
 		key, bin := fmt.Sprintf("parkingrecord_%d", id), &msg.ParkingRecordData{}
-		rlist, err := Redis().LRange(key).Result()
+		rlist, err := Redis().LRange(key,0,10).Result()
 		if err != nil {
 			log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
 			return data
@@ -367,26 +367,21 @@ func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
 			this.userrecords[id] = data
 		}
 		for _,v := range rlist {
-			record := &ParkingRecordData{}
 			rbuf :=[]byte(v)
-			err = pb.Unmarshal(rbuf, record)
+			recordData := &msg.ParkingRecordData{}
+			err = pb.Unmarshal(rbuf, recordData)
 			if err != nil {
 				log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
 				return data
 			}
+			record := &ParkingRecordData{}
+			record.LoadBin(recordData)
 			this.userrecords[id] = append(this.userrecords[id],record)
 		}
 		return record
 	}
 }
 
-func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
-	data := make([]*ParkingRecordData, 0)
-	if _,ok := this.userrecords[id]; !ok {
-		return data
-	}
-	return this.userrecords[id]
-}
 func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* ParkingData,opttype uint32,param uint32) *ParkingRecordData{
 	//查表去获取房屋的配置信息创建
 	record := &ParkingRecordData{}
@@ -399,7 +394,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 	record.parkingownername = parking.ownername
 	record.recordparam = param
 
-	buf, err := pb.Marshal(record)
+	buf, err := pb.Marshal(record.PackBin())
 	if err != nil { 
 		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
 		return nil
@@ -423,12 +418,14 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 			return record
 		}
 		rbuf :=[]byte(val)
-		removeRecord := &ParkingRecordData{}
-		err = pb.Unmarshal(rbuf, removeRecord)
+		removeRecordData := &msg.ParkingRecordData{}
+		err = pb.Unmarshal(rbuf, removeRecordData)
 		if err != nil { 
 			log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
 			return record
 		}
+		removeRecord := &ParkingRecordData{}
+		removeRecord.LoadBin(removeRecordData)
 		findindex := -1
 		for index,v := range this.userrecords[ownerid] {
 			if removeRecord.Equal(v) {
@@ -437,7 +434,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 			}
 		}
 		if findindex != -1 {
-			this.userrecords = append(this.userrecords[:findindex],this.userrecords[findindex+1:])
+			this.userrecords[ownerid] = append(this.userrecords[ownerid][:findindex],this.userrecords[ownerid][findindex+1:])
 		}
 	}
 	return record
