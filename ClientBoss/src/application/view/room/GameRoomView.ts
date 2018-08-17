@@ -54,7 +54,7 @@ module game {
         private huxingPanel: RoomHuxingPanel;
         private sussImg:eui.Image;
 
-        private xuanBgPointX: number[] = [-9, 136, 280];
+        private xuanBgPointX: number[] = [-9, 137, 284];
 
         public constructor() {
             super();
@@ -168,7 +168,7 @@ module game {
             this.roomInfo = rVo;
             this.selfIdNum = selfId;
             this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level;
-            this.totalChanLiang_txt.text = "房屋总产量:" + this.getTotalChanLiang();
+            this.totalChanLiang_txt.text = "预计当前收益:" + this.getTotalChanLiang();
             if (this.selfIdNum == this.roomInfo.ownerid) {
                 this.showSelf();
                 this.lingju_btn.visible = true;
@@ -180,7 +180,7 @@ module game {
                 this.huxingPanel.update(this.roomInfo);
             }
             if (this.listIndex > 0 && this.itemList) {
-                this.bindDataList(this.listIndex);
+                this.bindDataList(this.listIndex,2);
             }
         }
 
@@ -197,6 +197,7 @@ module game {
             return num;
         }
         private showSelf() {
+            console.log("sssaa:"+this.roomInfo.robcheckflag);
             this.haveNewDongtai(this.roomInfo.robcheckflag);
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_INFO, { isShow: true, room: this.roomInfo }));
             this.linjuInfoGroup.visible = false;
@@ -334,7 +335,7 @@ module game {
                         this.itemList.initItemRenderer(RoomMessageListItemPanel2);
                         if(this.downBtnRed1.visible){
                             sendMessage("msg.C2GW_ReqResetRobCheckFlag", 
-                            msg.C2GW_ReqResetRobCheckFlag.encode({houseid:this.roomInfo.ownerid}));
+                            msg.C2GW_ReqResetRobCheckFlag.encode({houseid:this.roomInfo.rId}));
                             this.downBtnRed1.visible = false;
                         }
                         
@@ -347,8 +348,9 @@ module game {
                         break;
                 }
                 this.itemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this);
+                this.itemList.dataList.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onItemTouchTap, this);
             }
-            this.bindDataList(index);
+            this.bindDataList(index,1);
 
         }
         private hideItemList() {
@@ -357,7 +359,7 @@ module game {
                 this.itemList = null;
             }
         }
-        private bindDataList(index: number) {
+        private bindDataList(index: number,type:number=1) {
             switch (index) {
                 case 1:
                     if (this.roomInfo.visitinfo) {
@@ -372,7 +374,12 @@ module game {
                     this.hideList_btn.x = 285;
                     break;
                 case 3:
-                    this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST));
+                    if (type == 1) {
+                        this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU));
+                    } else {
+                        this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST));
+                    }
+
                     this.shualingju_btn.visible = true;
                     this.hideList_btn.x = 177;
                     break;
@@ -387,18 +394,33 @@ module game {
                         this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { userid: item.visitorid, return: this.roomInfo, type: 1 }));
                     }
                     break;
-                case 2:
+               /* case 2:
                     item = this.levelInfoList[eve.itemIndex];
                     if (item) {
                         this.levelFun(item);
                     }
-                    break;
+                    break;*/
                 case 3:
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
                         this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { userid: item.ownerid, return: this.roomInfo, type: 2 }));
                     }
                     break;
+            }
+        }
+        private onItemTouchTap(eve: TouchEvent) {
+            console.log(eve.target["name"]);
+			let item: any = eve.target["parent"].itemDate;
+            switch (this.listIndex) {
+               case 2:
+                if (item) {
+                    if(eve.target["name"]=="levelBtnGruop")
+                    {
+                        this.levelFun(item);
+                    }   
+                }
+                break;
+                
             }
         }
 
@@ -430,11 +452,11 @@ module game {
          */
         public showLevelList() {
             this.levelInfoList = []
-            this.levelInfoList[0] = { index: 0, data: this.roomInfo, name: "房屋" };
-            this.levelInfoList[1] = { index: 1, data: this.getCellInfo(1), name: "客厅" };
-            this.levelInfoList[2] = { index: 2, data: this.getCellInfo(2), name: "卧室" };
-            this.levelInfoList[3] = { index: 3, data: this.getCellInfo(3), name: "厕所" };
-            this.levelInfoList[4] = { index: 4, data: this.getCellInfo(4), name: "厨房" };
+            this.levelInfoList[0] = { index: 0, data: this.roomInfo, name: "房屋",hLevel:this.roomInfo.level };
+            this.levelInfoList[1] = { index: 1, data: this.getCellInfo(1), name: "客厅",hLevel:this.roomInfo.level };
+            this.levelInfoList[2] = { index: 2, data: this.getCellInfo(2), name: "卧室",hLevel:this.roomInfo.level };
+            this.levelInfoList[3] = { index: 3, data: this.getCellInfo(3), name: "厕所",hLevel:this.roomInfo.level };
+            this.levelInfoList[4] = { index: 4, data: this.getCellInfo(4), name: "厨房",hLevel:this.roomInfo.level };
             this.itemList.bindData(this.levelInfoList);
         }
 

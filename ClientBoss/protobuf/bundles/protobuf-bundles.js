@@ -6888,6 +6888,7 @@ $root.msg = (function() {
          * @property {msg.IPersonalImage|null} [images] UserBase images
          * @property {number|null} [newplayerstep] UserBase newplayerstep
          * @property {number|null} [robcount] UserBase robcount
+         * @property {number|Long|null} [tmaddrobcount] UserBase tmaddrobcount
          */
 
         /**
@@ -7083,6 +7084,14 @@ $root.msg = (function() {
         UserBase.prototype.robcount = 0;
 
         /**
+         * UserBase tmaddrobcount.
+         * @member {number|Long} tmaddrobcount
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.tmaddrobcount = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
          * Creates a new UserBase instance using the specified properties.
          * @function create
          * @memberof msg.UserBase
@@ -7151,6 +7160,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 21, wireType 0 =*/168).uint32(message.newplayerstep);
             if (message.robcount != null && message.hasOwnProperty("robcount"))
                 writer.uint32(/* id 22, wireType 0 =*/176).uint32(message.robcount);
+            if (message.tmaddrobcount != null && message.hasOwnProperty("tmaddrobcount"))
+                writer.uint32(/* id 23, wireType 0 =*/184).int64(message.tmaddrobcount);
             return writer;
         };
 
@@ -7252,6 +7263,9 @@ $root.msg = (function() {
                     break;
                 case 22:
                     message.robcount = reader.uint32();
+                    break;
+                case 23:
+                    message.tmaddrobcount = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7372,6 +7386,9 @@ $root.msg = (function() {
             if (message.robcount != null && message.hasOwnProperty("robcount"))
                 if (!$util.isInteger(message.robcount))
                     return "robcount: integer expected";
+            if (message.tmaddrobcount != null && message.hasOwnProperty("tmaddrobcount"))
+                if (!$util.isInteger(message.tmaddrobcount) && !(message.tmaddrobcount && $util.isInteger(message.tmaddrobcount.low) && $util.isInteger(message.tmaddrobcount.high)))
+                    return "tmaddrobcount: integer|Long expected";
             return null;
         };
 
@@ -7471,6 +7488,15 @@ $root.msg = (function() {
                 message.newplayerstep = object.newplayerstep >>> 0;
             if (object.robcount != null)
                 message.robcount = object.robcount >>> 0;
+            if (object.tmaddrobcount != null)
+                if ($util.Long)
+                    (message.tmaddrobcount = $util.Long.fromValue(object.tmaddrobcount)).unsigned = false;
+                else if (typeof object.tmaddrobcount === "string")
+                    message.tmaddrobcount = parseInt(object.tmaddrobcount, 10);
+                else if (typeof object.tmaddrobcount === "number")
+                    message.tmaddrobcount = object.tmaddrobcount;
+                else if (typeof object.tmaddrobcount === "object")
+                    message.tmaddrobcount = new $util.LongBits(object.tmaddrobcount.low >>> 0, object.tmaddrobcount.high >>> 0).toNumber();
             return message;
         };
 
@@ -7519,6 +7545,11 @@ $root.msg = (function() {
                 object.images = null;
                 object.newplayerstep = 0;
                 object.robcount = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.tmaddrobcount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tmaddrobcount = options.longs === String ? "0" : 0;
             }
             if (message.level != null && message.hasOwnProperty("level"))
                 object.level = message.level;
@@ -7573,6 +7604,11 @@ $root.msg = (function() {
                 object.newplayerstep = message.newplayerstep;
             if (message.robcount != null && message.hasOwnProperty("robcount"))
                 object.robcount = message.robcount;
+            if (message.tmaddrobcount != null && message.hasOwnProperty("tmaddrobcount"))
+                if (typeof message.tmaddrobcount === "number")
+                    object.tmaddrobcount = options.longs === String ? String(message.tmaddrobcount) : message.tmaddrobcount;
+                else
+                    object.tmaddrobcount = options.longs === String ? $util.Long.prototype.toString.call(message.tmaddrobcount) : options.longs === Number ? new $util.LongBits(message.tmaddrobcount.low >>> 0, message.tmaddrobcount.high >>> 0).toNumber() : message.tmaddrobcount;
             return object;
         };
 
@@ -17905,6 +17941,207 @@ $root.msg = (function() {
         };
 
         return C2GW_ReqResetRobCheckFlag;
+    })();
+
+    msg.GW2C_NotifyAddRobCountTime = (function() {
+
+        /**
+         * Properties of a GW2C_NotifyAddRobCountTime.
+         * @memberof msg
+         * @interface IGW2C_NotifyAddRobCountTime
+         * @property {number|Long|null} [time] GW2C_NotifyAddRobCountTime time
+         */
+
+        /**
+         * Constructs a new GW2C_NotifyAddRobCountTime.
+         * @memberof msg
+         * @classdesc Represents a GW2C_NotifyAddRobCountTime.
+         * @implements IGW2C_NotifyAddRobCountTime
+         * @constructor
+         * @param {msg.IGW2C_NotifyAddRobCountTime=} [properties] Properties to set
+         */
+        function GW2C_NotifyAddRobCountTime(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_NotifyAddRobCountTime time.
+         * @member {number|Long} time
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @instance
+         */
+        GW2C_NotifyAddRobCountTime.prototype.time = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new GW2C_NotifyAddRobCountTime instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {msg.IGW2C_NotifyAddRobCountTime=} [properties] Properties to set
+         * @returns {msg.GW2C_NotifyAddRobCountTime} GW2C_NotifyAddRobCountTime instance
+         */
+        GW2C_NotifyAddRobCountTime.create = function create(properties) {
+            return new GW2C_NotifyAddRobCountTime(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_NotifyAddRobCountTime message. Does not implicitly {@link msg.GW2C_NotifyAddRobCountTime.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {msg.IGW2C_NotifyAddRobCountTime} message GW2C_NotifyAddRobCountTime message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_NotifyAddRobCountTime.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.time != null && message.hasOwnProperty("time"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.time);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_NotifyAddRobCountTime message, length delimited. Does not implicitly {@link msg.GW2C_NotifyAddRobCountTime.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {msg.IGW2C_NotifyAddRobCountTime} message GW2C_NotifyAddRobCountTime message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_NotifyAddRobCountTime.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_NotifyAddRobCountTime message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_NotifyAddRobCountTime} GW2C_NotifyAddRobCountTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_NotifyAddRobCountTime.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_NotifyAddRobCountTime();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.time = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_NotifyAddRobCountTime message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_NotifyAddRobCountTime} GW2C_NotifyAddRobCountTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_NotifyAddRobCountTime.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_NotifyAddRobCountTime message.
+         * @function verify
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_NotifyAddRobCountTime.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.time != null && message.hasOwnProperty("time"))
+                if (!$util.isInteger(message.time) && !(message.time && $util.isInteger(message.time.low) && $util.isInteger(message.time.high)))
+                    return "time: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_NotifyAddRobCountTime message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_NotifyAddRobCountTime} GW2C_NotifyAddRobCountTime
+         */
+        GW2C_NotifyAddRobCountTime.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_NotifyAddRobCountTime)
+                return object;
+            var message = new $root.msg.GW2C_NotifyAddRobCountTime();
+            if (object.time != null)
+                if ($util.Long)
+                    (message.time = $util.Long.fromValue(object.time)).unsigned = false;
+                else if (typeof object.time === "string")
+                    message.time = parseInt(object.time, 10);
+                else if (typeof object.time === "number")
+                    message.time = object.time;
+                else if (typeof object.time === "object")
+                    message.time = new $util.LongBits(object.time.low >>> 0, object.time.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_NotifyAddRobCountTime message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @static
+         * @param {msg.GW2C_NotifyAddRobCountTime} message GW2C_NotifyAddRobCountTime
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_NotifyAddRobCountTime.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.time = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.time = options.longs === String ? "0" : 0;
+            if (message.time != null && message.hasOwnProperty("time"))
+                if (typeof message.time === "number")
+                    object.time = options.longs === String ? String(message.time) : message.time;
+                else
+                    object.time = options.longs === String ? $util.Long.prototype.toString.call(message.time) : options.longs === Number ? new $util.LongBits(message.time.low >>> 0, message.time.high >>> 0).toNumber() : message.time;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_NotifyAddRobCountTime to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_NotifyAddRobCountTime
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_NotifyAddRobCountTime.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_NotifyAddRobCountTime;
     })();
 
     msg.C2GW_BuyItem = (function() {
@@ -39723,7 +39960,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -39972,7 +40215,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -50545,6 +50794,7 @@ $root.table = (function() {
          * @property {number|null} [LevelUpCost] THouseCellDefine LevelUpCost
          * @property {string|null} [Des] THouseCellDefine Des
          * @property {number|null} [IncomePerSecond] THouseCellDefine IncomePerSecond
+         * @property {number|null} [UnlockGold] THouseCellDefine UnlockGold
          */
 
         /**
@@ -50627,6 +50877,14 @@ $root.table = (function() {
         THouseCellDefine.prototype.IncomePerSecond = 0;
 
         /**
+         * THouseCellDefine UnlockGold.
+         * @member {number} UnlockGold
+         * @memberof table.THouseCellDefine
+         * @instance
+         */
+        THouseCellDefine.prototype.UnlockGold = 0;
+
+        /**
          * Creates a new THouseCellDefine instance using the specified properties.
          * @function create
          * @memberof table.THouseCellDefine
@@ -50666,6 +50924,8 @@ $root.table = (function() {
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.Des);
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
                 writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.IncomePerSecond);
+            if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.UnlockGold);
             return writer;
         };
 
@@ -50723,6 +50983,9 @@ $root.table = (function() {
                     break;
                 case 8:
                     message.IncomePerSecond = reader.uint32();
+                    break;
+                case 9:
+                    message.UnlockGold = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -50783,6 +51046,9 @@ $root.table = (function() {
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
                 if (!$util.isInteger(message.IncomePerSecond))
                     return "IncomePerSecond: integer expected";
+            if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
+                if (!$util.isInteger(message.UnlockGold))
+                    return "UnlockGold: integer expected";
             return null;
         };
 
@@ -50814,6 +51080,8 @@ $root.table = (function() {
                 message.Des = String(object.Des);
             if (object.IncomePerSecond != null)
                 message.IncomePerSecond = object.IncomePerSecond >>> 0;
+            if (object.UnlockGold != null)
+                message.UnlockGold = object.UnlockGold >>> 0;
             return message;
         };
 
@@ -50839,6 +51107,7 @@ $root.table = (function() {
                 object.LevelUpCost = 0;
                 object.Des = "";
                 object.IncomePerSecond = 0;
+                object.UnlockGold = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -50856,6 +51125,8 @@ $root.table = (function() {
                 object.Des = message.Des;
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
                 object.IncomePerSecond = message.IncomePerSecond;
+            if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
+                object.UnlockGold = message.UnlockGold;
             return object;
         };
 

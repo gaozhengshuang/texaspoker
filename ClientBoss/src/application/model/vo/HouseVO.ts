@@ -40,10 +40,6 @@ module game {
                 this.empty = obj.empty;
             }
 
-            if (obj.myCarPark != null) {
-                this.myCarPark = obj.myCarPark;
-            }
-
             if (obj.robcheckflag != null) {
                 this.robcheckflag = obj.robcheckflag;
             }
@@ -61,15 +57,15 @@ module game {
 
         public level:number = 5; //房屋等级
 
-        public empty : number = 0;  //是否有空的停车位
-
-        public myCarPark : number = 0;//是否有我的车停靠
+        public empty : number = 0;  
 
         public housecells:any[] = []; //每个房间信息 
 
         public visitinfo:any[] = []; //操作记录 要限定条数 
 	
         public robcheckflag : number = 0;  //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
+
+        public isHave:boolean=false;
         
     }
 }

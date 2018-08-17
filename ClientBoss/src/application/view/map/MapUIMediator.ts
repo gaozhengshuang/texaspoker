@@ -13,7 +13,8 @@ module game {
 					CommandName.SHOW_USER_INFO,
 					CommandName.UPDATE_USER_INFO,
 					CommandName.SHOW_TOP_ROOM_NUM,
-					CommandName.SHOW_TOP_ROOM_BG
+					CommandName.SHOW_TOP_ROOM_BG,
+					CommandName.UPDATE_TILI_TIME
 
             ];
         }
@@ -24,6 +25,13 @@ module game {
 			switch(notification.getName())
             {
 				case CommandName.UPDATE_USER_INFO:
+					{
+						if (data) {
+							this.sceneGroup.updateUserInfoFun(data);
+						}
+						break;
+					}
+					case CommandName.UPDATE_TILI_TIME:
 					{
 						if (data) {
 							this.sceneGroup.updateUserInfoFun(data);

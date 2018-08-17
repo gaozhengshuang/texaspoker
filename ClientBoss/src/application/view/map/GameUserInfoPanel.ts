@@ -50,16 +50,19 @@ module game {
                 this.timeGroup.visible=true;
                 this.isTime=true;
                 this.showTime();
+                this.qiang_txt.y=13;
             }
             else{
                 this.timeGroup.visible=false;
+                this.removeTimer();
+                this.isTime=false;
+                this.qiang_txt.y=27;
             }
         }
         private endTime: number;
         private showTime() {
             this.timeGroup.visible = true;
-            this.endTime=SysTimeEventManager.getInstance().systimeNum+
-            (3600-SysTimeEventManager.getInstance().systimeNum%3600);
+            this.endTime=this.userInfo.tmaddrobcount;
             if(this.isTime){
                 SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
             }
@@ -76,10 +79,7 @@ module game {
                     body.removeTimer();
                     body.timeGroup.visible = false;
                     body.isTime=false;
-                }
-                else{
-                    body.userInfo.robcount+=5;
-                    body.showTime();
+                    this.qiang_txt.y=13;
                 }
             }
         }
@@ -115,6 +115,9 @@ module game {
             } else {
                 this.roomBg.visible = false;
             }
+        }
+        public removePanel(){
+            this.removeTimer();
         }
     }
 }

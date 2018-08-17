@@ -28,7 +28,8 @@ module game {
             newplayerstep:0,
             cardatas : [],
             parkingdatas : [],
-            robcount:0
+            robcount:0,
+            tmaddrobcount:0
         };
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];
@@ -66,6 +67,7 @@ module game {
             this.userInfo.level=data.base.level;
             this.userInfo.newplayerstep=data.base.newplayerstep;
             this.userInfo.robcount=data.base.robcount;
+            this.userInfo.tmaddrobcount=Number(data.base.tmaddrobcount);
             console.log("抢夺次数:"+data.base.robcount);
             GameConfig.newPlayerStep=this.userInfo.newplayerstep;
             this.sex = data.entity.sex;
@@ -82,7 +84,7 @@ module game {
 
         private OnGW2C_SynParkingRecord(msg:msg.GW2C_SynParkingRecord)
         {
-            console.log("OnGW2C_SynParkingRecord---------->",msg.records.length);
+            console.log("OnGW2C_SynParkingRecord---------->",msg.records.length,JSON.stringify(msg));
          
             this.setCarRecords(msg.records);
             if (GameConfig.sceneType == 3 && CarDetailView.getInstance()) {

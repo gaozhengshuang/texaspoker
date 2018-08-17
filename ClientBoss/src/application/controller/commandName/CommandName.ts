@@ -16,6 +16,7 @@ module game {
 		public static GET_SELF_COORDINSTE: string = "get_self_coordinate";
 		public static UPDATE_USER_INFO: string = "update_user_info";
 		public static UPDATE_ROOM_INFO: string = "update_room_info";
+		public static UPDATE_TILI_TIME: string = "update_tili_time";
 		public static MAP_POSITION: string = "map_position";
 		public static HAVE_NEW_DONGTAI: string = "have_new_dongtai";
 
@@ -40,6 +41,7 @@ module game {
 		public static HOUSE_LEVEL_SUCCESS: string = "house_level_success";
 		public static ROOM_LEVEL_SUCCESS: string = "room_level_success";
 		public static ROOM_PARKINGLOT_UPDATE : string = "roome_parkinglot_update";
+		public static MAIN_ASSETS_UPDATE : string = "main_assets_update";
 
 		/////////////////////
 		/////请求服务器///////

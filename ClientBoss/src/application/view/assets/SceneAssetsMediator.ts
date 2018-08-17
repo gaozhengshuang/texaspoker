@@ -8,7 +8,7 @@ module game {
 		public listNotificationInterests():Array<any>
         {
             return [
-
+					CommandName.MAIN_ASSETS_UPDATE
             ];
         }
 		
@@ -17,7 +17,16 @@ module game {
             var data:any = notification.getBody();
 			switch(notification.getName())
             {
+				case CommandName.MAIN_ASSETS_UPDATE:
+				{
+					if(data){
+						
+						this.sceneGroup.updateAssetsList(data.roomlist);
 
+					}
+				}
+					
+				break;
 			}
 		}
 		private init():void

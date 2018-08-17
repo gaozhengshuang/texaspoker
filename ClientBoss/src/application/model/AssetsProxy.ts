@@ -19,7 +19,7 @@ module game {
 			console.log("有推送");
 			DataManager.playerModel.setHouse(data.datas);
 			this.setHouseAssets(data.datas);
-			if (GameConfig.reqAssets && GameConfig.pageType != 1) {
+			if (GameConfig.reqAssets) {
 				GameConfig.reqAssets=false;
 				if (GameConfig.newPlayerStep == 0) {
 					if (this.houseAssetsList.length > 0) {
@@ -33,6 +33,7 @@ module game {
 			}else{
 				
 				showAssetsRedIcon(AnalyzeUserGold(this.houseAssetsList,1));
+				ApplicationFacade.getInstance().sendNotification(CommandName.MAIN_ASSETS_UPDATE, { roomlist: this.houseAssetsList });
 			}
 		}
 		private OnGW2C_AckNewPlayerStep(data: msg.GW2C_AckNewPlayerStep) {
@@ -45,10 +46,9 @@ module game {
 				for(let i:number=0;i<list.length;i++){
 					let house:HouseVO=new HouseVO();
 					house.setObject(list[i]);
+					house.isHave=AnalyzeHouseGold(house,1);
 					this.houseAssetsList.push(house);
-
 				}
-				
 			}
 		}
 	}

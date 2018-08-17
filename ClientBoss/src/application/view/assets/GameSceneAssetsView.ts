@@ -23,7 +23,7 @@ module game {
 		private undoneTips2:eui.Label; 
 		private undoneTips3:eui.Label; 
 		
-		private currentGroupId:number=1;
+		public currentGroupId:number=1;
 
 		public constructor() {
 			super();

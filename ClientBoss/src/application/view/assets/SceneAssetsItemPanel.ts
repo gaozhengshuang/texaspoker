@@ -33,7 +33,7 @@ module game {
             if (this.itemDate) {
                 console.log(this.itemDate);
                 this.name_txt.text = this.itemDate.rId+"号房间(一室一厅)";
-                if(AnalyzeHouseGold(this.itemDate,1)){
+                if(this.itemDate.isHave){
                     this.jiaoBiaoIcon.visible=true;
                 }else{
                     this.jiaoBiaoIcon.visible=false;
