@@ -204,9 +204,9 @@ func (this* ParkingRecordData) PackBin() *msg.ParkingRecordData {
 	return bin
 }
 
-func (this* ParkingRecordData) Equal(other* ParkingRecordData) bool{
-	return this.recordtime == other.recordtime && this.cartid == other.cartid && this.operatortype == other.operatortype
-			&& this.parkingownerid == other.parkingownerid && this.recordparam == other.recordparam && this.carownerid == other.carownerid
+func (this* ParkingRecordData) Equal(other* ParkingRecordData) bool {
+	return true;
+	// (this.recordtime == other.recordtime && this.cartid == other.cartid && this.operatortype == other.operatortype && this.parkingownerid == other.parkingownerid && this.recordparam == other.recordparam && this.carownerid == other.carownerid)
 }
 
 //车辆管理器
@@ -360,7 +360,7 @@ func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
 		//尝试从内存加载 如果没有返回nil
 		key, bin := fmt.Sprintf("parkingrecord_%d", id), &msg.ParkingRecordData{}
 		rlist, err := Redis().LRange(key).Result(); err != nil {
-			log.Error("加载车位操作记录失败 id%d ，err: %s", id, err)
+			log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
 			return data
 		}
 		if _,ok := this.userrecords[id]; !ok {
