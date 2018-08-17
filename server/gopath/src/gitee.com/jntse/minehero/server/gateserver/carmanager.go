@@ -204,6 +204,11 @@ func (this* ParkingRecordData) PackBin() *msg.ParkingRecordData {
 	return bin
 }
 
+func (this* ParkingRecordData) Equal(other* ParkingRecordData) bool{
+	return this.recordtime == other.recordtime && this.cartid == other.cartid && this.operatortype == other.operatortype
+			&& this.parkingownerid == other.parkingownerid && this.recordparam == other.recordparam && this.carownerid == other.carownerid
+}
+
 //车辆管理器
 type CarManager struct {
 	cars map[uint64]*CarData //已加载的所有车辆的map
@@ -377,22 +382,14 @@ func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
 
 func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
 	data := make([]*ParkingRecordData, 0)
-	for _, v := range this.records {
-		if v.carownerid == id && v.parkingownerid == id {
-			data = append(data,v)		
-		}
+	if _,ok := this.userrecords[id]; !ok {
+		return data
 	}
-	return data
+	return this.userrecords[id]
 }
-func (this* CarManager) CreateNewRecord(car* CarData, parking* ParkingData,opttype uint32,param uint32) *ParkingRecordData{
-	recordid, errcode := def.GenerateParkingRecordId(Redis())
-	if errcode != "" {
-		log.Error("创建新的车位生成新的记录id出错，error:%s", errcode)
-		return nil
-	}
+func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* ParkingData,opttype uint32,param uint32) *ParkingRecordData{
 	//查表去获取房屋的配置信息创建
 	record := &ParkingRecordData{}
-	record.id = recordid
 	record.operatortype = opttype
 	record.recordtime = uint64(util.CURTIMEMS())
 	record.carownerid = car.ownerid
@@ -402,9 +399,47 @@ func (this* CarManager) CreateNewRecord(car* CarData, parking* ParkingData,optty
 	record.parkingownername = parking.ownername
 	record.recordparam = param
 
-	record.SaveBin()
-	Redis().SAdd(ParkingIdSetKey, recordid)
-	this.records[recordid] = record
+	buf, err := pb.Marshal(record)
+	if err != nil { 
+		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
+		return nil
+	}
+	// Set二进制
+	key := fmt.Sprintf("parkingrecord_%d", ownerid),
+	err = Redis().RPush(key, buf).Err()
+	if err != nil { 
+		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
+		return nil
+	}
+	if _,ok := this.userrecords[ownerid]; !ok {
+		this.userrecords[ownerid] = make([]*ParkingRecordData,0)
+	}
+	this.userrecords[ownerid] = append(this.userrecords[ownerid],record)
+	if Redis().LLen(key) > 5 {
+		//删除最老的记录
+		val,err := Redis().BLPop(0,key).Result()
+		if err != nil { 
+			log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
+			return record
+		}
+		rbuf :=[]byte(val)
+		removeRecord := &ParkingRecordData{}
+		err = pb.Unmarshal(rbuf, removeRecord)
+		if err != nil { 
+			log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
+			return record
+		}
+		findindex := -1
+		for index,v := range this.userrecords[ownerid] {
+			if removeRecord.Equal(v) {
+				findindex = index
+				break
+			}
+		}
+		if findindex != -1 {
+			this.userrecords = append(this.userrecords[:findindex],this.userrecords[findindex+1:])
+		}
+	}
 	return record
 }
 
