@@ -93,7 +93,7 @@ func (this *GateUser) OnTicker100ms(now int64) {
 }
 
 func (this *GateUser) OnTicker1s(now int64) {
-	log.Info("User OnTicker1s !!!!!")
+	//log.Info("User OnTicker1s !!!!!")
 	this.CheckAddRobCount()
 }
 

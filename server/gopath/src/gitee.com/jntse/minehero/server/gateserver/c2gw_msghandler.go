@@ -183,7 +183,7 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	user.SetHeartBeat(util.CURTIMEMS())
 
 	curtime := util.CURTIME()
-	log.Info("receive heart beat msg now=%d", curtime)
+	//log.Info("receive heart beat msg now=%d", curtime)
 	user.SendMsg(&msg.GW2C_HeartBeat{
 		Time: pb.Int64(curtime),
 	})
