@@ -14,12 +14,14 @@ module game {
             return CarManager._instance;
         }
         //回调后需要判断是否是对应的发起者
-        private GW2C_ResCarInfo_BackCalls           : Function[];
-        private GW2C_ParkCarResult_BackCalls        : Function[];
-        private GW2C_TakeBackCarResult_BackCalls    : Function[];
-        private GW2C_TicketCarResult_BackCalls      : Function[]; 
+        private GW2C_ResCarInfo_BackCalls               : Function[];
+        private GW2C_ParkCarResult_BackCalls            : Function[];
+        private GW2C_TakeBackCarResult_BackCalls        : Function[];
+        private GW2C_TicketCarResult_BackCalls          : Function[]; 
 
-        private GW2C_ResParkingInfo_BackCalls       : CarFunData[];
+        private GW2C_ResParkingInfo_BackCalls           : CarFunData[];
+        private GW2C_AckOtherUserHouseData_BackCalls    : CarFunData[];
+        
         public constructor()
         {
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
@@ -28,7 +30,9 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_TakeBackCarResult, "msg.GW2C_TakeBackCarResult");
             NotificationCenter.addObserver(this, this.OnGW2C_TicketCarResult, "msg.GW2C_TicketCarResult");
             NotificationCenter.addObserver(this, this.OnGW2C_ResParkingInfo, "msg.GW2C_ResParkingInfo");
+            //NotificationCenter.addObserver(this, this.OnGW2C_AckOtherUserHouseData, "msg.GW2C_AckOtherUserHouseData");
             
+        
             this.GW2C_ResCarInfo_BackCalls          = [];
             this.GW2C_ResParkingInfo_BackCalls      = [];
             this.GW2C_ParkCarResult_BackCalls       = [];
@@ -117,7 +121,6 @@ module game {
         public ReqMyParkingInfo()
         {
             sendMessage("msg.C2GW_ReqCarInfo",msg.C2GW_ReqMyParkingInfo.encode({}));
-
         }
 
         //请求符合条件的车位列表 0 所有类型 1 公共车位 2 普通车位
@@ -161,6 +164,44 @@ module game {
                 console.warn("玩家没有停车位数据");
             }
         }
+
+        //请求车停的房屋信息
+        public ReqCarParkingHouseData (uid:number|Long,callFunc:Function)
+        {
+            let callFuncData : CarFunData = new  CarFunData();
+            callFuncData.uid   = uid;
+            callFuncData.func  = callFunc;
+        
+            if(callFunc && !this.GW2C_AckOtherUserHouseData_BackCalls.some(func=>{return func.uid==callFuncData.uid;}))
+            {
+                this.GW2C_AckOtherUserHouseData_BackCalls.push(callFuncData);
+            }
+            sendMessage("msg.C2GW_ReqOtherUserHouseData", msg.C2GW_ReqOtherUserHouseData.encode({
+                userid : uid,
+             }));
+        }
+        private OnGW2C_AckOtherUserHouseData(msgs:msg.GW2C_AckOtherUserHouseData)
+        {
+            console.log("OnGW2C_AckOtherUserHouseData----->",msgs.datas.length);
+            let uid = msgs.datas.length > 0 ? msgs.datas[0].ownerid : 0;
+
+            for(let callFuncData of this.GW2C_AckOtherUserHouseData_BackCalls)
+            {
+                if(callFuncData.uid==uid || uid==0)
+                {
+                   if( callFuncData.func){
+                        callFuncData.func(msgs.datas);
+                   }
+                   this.GW2C_AckOtherUserHouseData_BackCalls.splice(this.GW2C_AckOtherUserHouseData_BackCalls.indexOf(callFuncData),1);
+                   break;
+                }
+            }
+            if(uid==0){
+                console.warn("玩家没有对应的房屋数据");
+            }
+        }
+        //-------------------
+
 
         //停车结果
         private OnGW2C_ParkCarResult(msgs:msg.GW2C_ParkCarResult)

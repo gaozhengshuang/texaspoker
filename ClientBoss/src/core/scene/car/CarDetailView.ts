@@ -113,12 +113,20 @@ module game {
             //     { text: carItemData.RewardPerH+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
             //     { text: "/小时", style: { bold: true,size: 30}},
             // ]
-            this.carInfoTxt.text = "汽车容量" + carItemData.Capacity + "\n"+"收益" + carItemData.RewardPerH + "/小时";
+            this.carInfoTxt.text = "汽车容量" + carItemData.Capacity + "\n"+"收益" + carItemData.RewardPerH + "/分钟";
 
             //停放状态
             let _parkingData = DataManager.playerModel.getMyCarPakingInfo(this.carData.id);
             if(_parkingData){
-                this.parkingInfoTxt.text = "停在" + _parkingData.ownername + "车位" +"预计收益"+_parkingData.parkingreward+"金币";
+                //this.parkingInfoTxt.text = "停在" + _parkingData.ownername + "车位" +"预计收益"+_parkingData.parkingreward+"金币";
+        
+                this.parkingInfoTxt.textFlow = [
+                    { text: "停在 "},
+                    { text: _parkingData.ownername +"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
+                    { text: " 家车位 预计收益 "},
+                    { text: _parkingData.parkingreward+"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
+                    { text: " 金币"},
+                ]
             }
             else{
                 if(this.carData.parkingid!=0){console.warn("不在parkingdatas中",this.carData.parkingid);}
@@ -138,7 +146,15 @@ module game {
         public OnEnableHandle(){
             this.visible = true;
             GameConfig.showDownBtnFun(false); 
-           
+
+            //刷新车辆信息
+            let self = this;
+            CarManager.getInstance().ReqMyCarInfo(function(){
+                self.setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
+                    return data.id == self.carData.id;
+                })[0]);
+            });
+            //刷新车位邻居列表
             if( this.listIndex==3){
                 this.showLinjuList(this.linjuList);
             }
@@ -203,7 +219,7 @@ module game {
 
         private showlist(index) {
             console.log("展示列表showlist----------->",index);
-            if (this.listIndex == index) return;
+            //if (this.listIndex == index) return;
             if (this.goalY == -1) { this.goalY = GameConfig.innerHeight * 0.5 };
             if (this.goalH == -1) { this.goalH = GameConfig.innerHeight };
             if (this.btnGoalY == -1) {
@@ -304,8 +320,23 @@ module game {
         private linjuList: HouseVO[];
         public showLinjuList(list: HouseVO[]) {
             console.log("showLinjuList--------------->",list.length);
-            CarManager.getInstance().clearBackFunc_ResParkingInfo();
+        
+/*             let self = this;
+            CarManager.getInstance().ReqMyCarInfo(function(){
+                DataManager.playerModel.getUserInfo().parkingdatas.forEach(data=>{
+                    if(data.parkingcarownerid!=0 && data.ownerid== DataManager.playerModel.getUserId()){
+                        CarManager.getInstance().ReqCarParkingHouseData(data.parkingcarownerid,function(houseDatas:msg.IHouseData[]){
+                            //
+                        });
+                    }
+                })
+            }); */
+            this._showLinjuList(list);
+        }
+        private _showLinjuList(list: HouseVO[])
+        {
             this.linjuList = [];
+            CarManager.getInstance().clearBackFunc_ResParkingInfo();
             if (this.itemList && this.listIndex == 3) {
                 let self = this;    
                 list.forEach((houseData,index,array)=>{
@@ -374,7 +405,7 @@ module game {
                 });
             }
         }
-
+ 
         private onItemTouch(eve: eui.ItemTapEvent) {
             let item: any = null;
             console.log("onItemTouch------------->",this.listIndex)

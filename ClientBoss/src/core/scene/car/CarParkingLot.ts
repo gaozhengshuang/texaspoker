@@ -54,8 +54,10 @@ module game {
                 console.log('当前时间------->',new Date().getTime());
                 console.log('停车开始时间------->',<number>data.parkingtime);
                 let dateTime = new Date(Math.max(new Date().getTime() - <number>data.parkingtime - SysTimeEventManager.getInstance().systimeoffset,0));
-                let timeStr =  String(dateTime.getHours()+":"+dateTime.getMinutes());
-                timeStr = sDh(dateTime.getTime()/1000);
+                //let timeStr =  String(dateTime.getHours()+":"+dateTime.getMinutes());
+                //let timeStr = sDh(dateTime.getTime()/1000);
+                //let timeStr= formatTime(dateTime,"hh:mm:ss");
+                let timeStr = sDhFilter(dateTime.getTime()/1000);
                 console.log("累计时间---->",dateTime.getTime());
                 this.infoTxt.textFlow = [
                     { text: data.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 20} },
@@ -81,7 +83,7 @@ module game {
                             CarManager.getInstance().ReqMyCarInfo(
                                 function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);}
                             );
-                            
+
                             if(reward!=0){
                                 egret.setTimeout(() => {
                                 showTips("获得"+reward+"金币！");   
@@ -152,7 +154,10 @@ module game {
 
            
             //let dateTime = new Date(dt - <number>body.itemData.parkingtime);
-            let timeStr = sDh(dateTime.getTime()/1000);
+            //let timeStr = sDh(dateTime.getTime()/1000);
+            let timeStr = sDhFilter(dateTime.getTime()/1000);
+            
+            //let timeStr = formatTime(dateTime,"hh:mm:ss");            
             //getHourMinutesTime();
             body.infoTxt.textFlow = [
                 { text: body.itemData.parkingcarownername+"："+body.carData.Brand+body.carData.Model, style: { size : 20} },
