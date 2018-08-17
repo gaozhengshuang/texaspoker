@@ -77,12 +77,20 @@ module game {
                 if(this.itemData.parkingcar!=0)
                 {
                     CarManager.getInstance().giveTicket(this.itemData,function(result:number,reward:number){
-                        if(result==0){showTips("贴条成功！");  CarManager.getInstance().ReqMyCarInfo(
-                            function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);}
-                        );}
-                        egret.setTimeout(() => {
-                            if(reward!=0){showTips("获得"+reward+"金币！");}   
-                        }, this, 0.5);                          
+                        if(result==0){ 
+                            CarManager.getInstance().ReqMyCarInfo(
+                                function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);}
+                            );
+                            
+                            if(reward!=0){
+                                egret.setTimeout(() => {
+                                showTips("获得"+reward+"金币！");   
+                                }, this, 0.5);
+                            }
+                            else{
+                                showTips("贴条成功！");  
+                            }  
+                    }                     
                     });
                 }
                 else
@@ -119,13 +127,19 @@ module game {
                         //停的是自己的车
                         CarManager.getInstance().driveAway(this.itemData.parkingcar,this.itemData,function(result:number,reward:number){
                             if(result==0)
-                            {
-                                showTips("收回成功！"); 
+                            {; 
                                 CarManager.getInstance().ReqMyCarInfo(function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);});
+                            
+                                if(reward!=0){
+                                    egret.setTimeout(() => {
+                                    showTips("获得"+reward+"金币！");   
+                                    }, this, 0.5);
+                                }
+                                else{
+                                    showTips("收回成功！");  
+                                }  
                             }
-                            egret.setTimeout(() => {
-                                if(reward!=0){showTips("获得"+reward+"金币！");}   
-                            }, this, 0.5);   
+
                         });
                     } 
                 }

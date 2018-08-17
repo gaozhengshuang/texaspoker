@@ -2,28 +2,26 @@ module game {
     export class CarItem extends eui.ItemRenderer  {
         
         allGroup            : eui.Group;
+        btnDetail           : eui.Group;
+        
         img_Icon            : eui.Image;
       
         img_gold            : eui.Image;
         img_diamond         : eui.Image;
-  
+        stateBg             : eui.Image; 
+
         ItemName            : eui.Label;
-        txt_price           : eui.Label;
-
-        btn_select          : IconButton;
-        btn_detail          : IconButton;
-
+        txt_info            : eui.Label;
+        stateTxt            : eui.Label;
+        btnJoin             : IconButton;
+    
         private itemData    : table.ITCarDefine;
-        private _select = false;
+      
 
         public constructor() {
             super();
-            this._select = false;
             this.skinName = CarItemSkin;
-            this.btn_select.icon = this.btn_detail.icon = "shopItemButtonBg_png";
-            this.btn_select.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
-            this.btn_detail.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnClickDetail,this);
-         
+            this.btnDetail.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnClickDetail,this);
         }
         protected dataChanged():void{
             //数据改变时，会自动调用 dataChanged 这个方法
@@ -36,6 +34,7 @@ module game {
             this.itemData = carItemData;
         
             //Icon
+            this.btnJoin && (this.btnJoin.icon = "btnBg_red3_png");
             let txtr:egret.Texture = RES.getRes(carItemData.path);
             let factor = 1;
             if(txtr)
@@ -69,23 +68,17 @@ module game {
             ); 
             this.shopItemAddtion.lineSpacing = 5;
             this.shopItemAddtion.textFlow = <Array<egret.ITextElement>>skillDes; */
+
             //价格
-            this.img_gold.visible  =  true;
-            this.img_diamond.visible = false;
-            this.txt_price.text = this.itemData.Price.toString();
+            //this.img_gold.visible  =  true;
+            //this.img_diamond.visible = false;
+            this.txt_info.text = "产能："+ this.itemData.RewardPerH + "金币/小时" + "\n"+"价值："+ this.itemData.Price+"金币";
+
+            //状态
+            //this.stateTxt.text = this.data.parkingid == 0 ? "空闲" : "出征";
+            this.stateBg.source = this.data.parkingid == 0 ? "uiCarAltas_json.null_bg":"uiCarAltas_json.parkedBg";
         }
 
-        public chooseAll(select:Boolean)
-        {
-            this._select = !select;
-            this.OnSelect();    
-        }
-        private OnSelect()
-        {
-            this._select = !this._select;
-            //this.img_shopItemSelect.visible  = this._select;
-            //RoleDressShopCart.getInstance().OnChooseItem(this._select,this.itemData);
-        }
         private OnClickDetail(){
             CarManager.getInstance().ReqMyCarInfo();
             openPanel(PanelType.carDetail);

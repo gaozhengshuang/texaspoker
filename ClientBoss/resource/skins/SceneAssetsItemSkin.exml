@@ -2,9 +2,9 @@
 <e:Skin class="SceneAssetsItemSkin" width="720" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect width="720" height="150" x="0" y="0" fillAlpha="0"/>
 	<e:Image id="build_img" x="19" scaleX="0.35" scaleY="0.35" source="hx_4001_png" verticalCenter="0"/>
-	<e:Label id="name_txt" text="万科城市花园808房间" x="213" y="29" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="294" bold="true" textColor="0x404a58"/>
-	<e:Label id="junjia_txt" text="现价：20000金币" x="214" y="98" fontFamily="Microsoft YaHei" size="23" width="250" textColor="0xec5339"/>
-	<e:Label id="huxing_txt" text="产能：2000金币/小时" x="214" y="65" fontFamily="Microsoft YaHei" size="23" width="250" textColor="0xec5339"/>
+	<e:Label id="name_txt" text="万科城市花园808房间" x="213" y="29" fontFamily="Arial" size="26" anchorOffsetX="0" width="294" bold="true" textColor="0x404a58"/>
+	<e:Label id="junjia_txt" text="现价：20000金币" x="214" y="91" fontFamily="Arial" size="23" width="250" textColor="0xec5339"/>
+	<e:Label id="huxing_txt" text="产能：2000金币/小时" x="214" y="65" fontFamily="Arial" size="23" width="250" textColor="0xec5339"/>
 	<e:Image id="hCoin_icon" source="have_coin_icon_png" x="484" width="85" height="86" y="32" visible="false"/>
 	<e:Image id="hQuan_icon" source="have_quan_icon_png" x="592" width="85" height="86" y="32" visible="false"/>
 	<e:Image id="chushou_icon" source="chushouzhong_icon1_png" x="526.5" width="123" height="120" y="15" visible="false"/>

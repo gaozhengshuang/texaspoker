@@ -107,6 +107,10 @@ module game {
 					//houseProxy.returnType = 0;
 				} else {
 					ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_ROOM_PAGE);
+					if(CarDetailView._instance)
+					{
+						CarDetailView.getInstance().OnEnableHandle();
+					}
 				}
 			}
 			
