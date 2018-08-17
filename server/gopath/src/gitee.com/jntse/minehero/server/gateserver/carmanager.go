@@ -444,13 +444,13 @@ func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string
 	car := this.GetCar(carid)
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
-		return 1,nil
+		return 1,""
 	}
 	if car.parkingid != 0 {
-		return 2,nil
+		return 2,""
 	}
 	if parking.parkingcar != 0	{
-		return 3,nil
+		return 3,""
 	}
 	//可以了
 	parking.ParkingCar(car,username)
@@ -461,14 +461,14 @@ func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string
 func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,record string){
 	car := this.GetCar(carid)
 	if car == nil {
-		return 1,0,nil
+		return 1,0,""
 	}
 	if car.parkingid == 0 {
-		return 2,0,nil
+		return 2,0,""
 	}
 	parking := this.GetParking(car.parkingid)
 	if parking == nil {
-		return 3,0,nil
+		return 3,0,""
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
@@ -480,14 +480,14 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,r
 func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,reward uint32,record string){
 	parking := this.GetParking(parkingid)
 	if parking == nil {
-		return 1,0,nil
+		return 1,0,""
 	}
 	if parking.parkingcar  == 0 {
-		return 2,0,nil
+		return 2,0,""
 	}
 	car := this.GetCar(parking.parkingcar)
 	if car == nil {
-		return 3,0,nil
+		return 3,0,""
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
