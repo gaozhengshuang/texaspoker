@@ -31,7 +31,7 @@ module game {
         }
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
 			if(GameConfig.pageType==1){
-				this.updateRoomInfo(data.datas);
+				this.updateRoomInfo(data.datas[0]);
 			}
 		}
 		private OnGW2C_AckOtherUserHouseData(data: msg.GW2C_AckOtherUserHouseData) {

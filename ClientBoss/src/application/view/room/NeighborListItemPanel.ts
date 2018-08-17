@@ -5,6 +5,7 @@ module game {
         private youIcon: eui.Image;
         private timeGroup: eui.Group;
         private time_txt: eui.Label;
+        private bg_mc:eui.Rect;
 
         public constructor(data: any = null) {
             super();
@@ -12,6 +13,18 @@ module game {
             this.adaptive();
             this.youIcon.visible = false;
             this.timeGroup.visible = false;
+            this.bg_mc.alpha=0;
+            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onclick_begin, this);
+            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_END, this.onclick_begin, this);
+            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onclick_begin, this);
+        }
+        private onclick_begin(eve:egret.TouchEvent){
+            if(eve.type==egret.TouchEvent.TOUCH_BEGIN){
+                this.bg_mc.alpha=1;
+            }else{
+                this.bg_mc.alpha=0;
+            }
+
         }
         private adaptive() {
             //this.scaleX=this.scaleY=GameConfig.innerScaleW;
