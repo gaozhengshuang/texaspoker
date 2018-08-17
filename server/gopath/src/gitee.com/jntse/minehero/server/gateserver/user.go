@@ -342,7 +342,7 @@ func (this *GateUser) SetRobCount(count uint32) {
 	} else {
 		this.robcount = count
 	}
-
+	//log.Info("SetRobCount!!! robcount:%d", this.robcount)
 	send := &msg.GW2C_NotifyRobCount{}
 	send.Value = pb.Uint32(this.robcount)
 	this.SendMsg(send)
@@ -636,6 +636,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	//上线通知MatchServer
 	this.OnlineMatchServer()
 	this.ReqMatchHouseData()
+	this.CheckAddRobCount()
 	return true
 }
 
@@ -1047,7 +1048,7 @@ func (this *GateUser) SyncTimeStamp() {
 func (this *GateUser) CheckAddRobCount() {
 	now := util.CURTIME()
 	if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
-		this.SetRobCount(this.robcount + 5)
+		this.SetRobCount(this.GetRobCount() + 5)
 		if this.robcount < 20 {
 			this.tmaddrobcount = now + 3600
 		} else {

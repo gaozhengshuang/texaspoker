@@ -153,11 +153,6 @@ func (this *GateUser) ReqRandHouseList() {
 	Match().SendCmd(sendmatch)
 }
 
-//上线检查更新 抢钱次数
-func (this *GateUser) OnlineUpdateRobCount() {
-	this.CheckAddRobCount()
-}
-
 func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 	sendmatch := &msg.GW2MS_ReqOtherUserHouseData{}
 	sendmatch.Userid = pb.Uint64(this.Id())
