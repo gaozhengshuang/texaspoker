@@ -313,7 +313,7 @@ func (this* CarManager) GetRecordByUser(id uint64) []string{
 func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* ParkingData,opttype uint32,param uint32) string{
 	str := make([]byte,0,256)
 	str = strconv.AppendInt(str,int64(ownerid),10)
-	str = strconv.AppendQuote(str,'_')
+	str = strconv.AppendQuote(str,"_")
 	str = strconv.AppendQuote(str,time.Now().Format("15:04"))
 	str = strconv.AppendQuote(str,"  ")
 	switch (opttype){
@@ -343,7 +343,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 	data := string(str)
 	// 保存数据
 	key := fmt.Sprintf("parkingrecord_%d", ownerid)
-	err = Redis().RPush(key, data).Err()
+	err := Redis().RPush(key, data).Err()
 	if err != nil { 
 		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
 		return ""
@@ -440,7 +440,7 @@ func (this* CarManager) AddParking(parking *ParkingData){
 	this.userparkings[parking.ownerid] = append(this.userparkings[parking.ownerid],parking.id)
 }
 
-func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string) (result int32,record* ParkingRecordData){
+func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string) (result int32,record string){
 	car := this.GetCar(carid)
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
@@ -458,7 +458,7 @@ func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string
 	return 0,record
 }
 
-func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,record* ParkingRecordData){
+func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,record string){
 	car := this.GetCar(carid)
 	if car == nil {
 		return 1,0,nil
@@ -477,7 +477,7 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,r
 	return 0,reward,record
 }
 
-func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,reward uint32,record* ParkingRecordData){
+func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,reward uint32,record string){
 	parking := this.GetParking(parkingid)
 	if parking == nil {
 		return 1,0,nil
