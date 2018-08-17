@@ -170,7 +170,6 @@ func (this* ParkingData) ParkingCar(car *CarData,username string){
 
 //记录数据
 type ParkingRecordData struct {
-	id					uint64
 	recordtime 			uint64  			//记录时间
     operatortype 		uint32				//操作类型
 	parkingownerid	 	uint64  			//车位拥有者id
@@ -205,16 +204,6 @@ func (this* ParkingRecordData) PackBin() *msg.ParkingRecordData {
 	return bin
 }
 
-func (this *ParkingRecordData) SaveBin() {
-	key := fmt.Sprintf("parkings_%d", this.id)
-	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
-		log.Error("保存车位[%d]数据失败", this.id)
-		return
-	}
-	log.Info("保存车位[%d]数据成功", this.id)
-}
-
-
 //车辆管理器
 type CarManager struct {
 	cars map[uint64]*CarData //已加载的所有车辆的map
@@ -223,7 +212,7 @@ type CarManager struct {
 	parkings map[uint64]*ParkingData //已加载的所有车位map
 	userparkings map[uint64][]uint64 //玩家id 关联的车位id
 
-	records map[uint64]*ParkingRecordData
+	userrecords map[uint64][]*ParkingRecordData
 	ticker1Minite *util.GameTicker
 }
 
@@ -232,7 +221,7 @@ func (this* CarManager) Init(){
 	this.usercars = make(map[uint64][]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
-	this.records = make(map[uint64]*ParkingRecordData)
+	this.userrecords = make(map[uint64][]*ParkingRecordData)
 
 	this.ticker1Minite = util.NewGameTicker(time.Minute, this.Handler1MiniteTick)
 	this.ticker1Minite.Start()
@@ -358,19 +347,30 @@ func (this* CarManager) GetParking(id uint64) *ParkingData{
 	}
 }
 
-func (this* CarManager) GetRecord(id uint64) *ParkingRecordData{
-	if _, ok := this.records[id]; ok {
-		return this.records[id]
+func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
+	if _, ok := this.userrecords[id]; ok {
+		return this.userrecords[id]
 	} else {
+		data := make([]*ParkingRecordData, 0)
 		//尝试从内存加载 如果没有返回nil
 		key, bin := fmt.Sprintf("parkingrecord_%d", id), &msg.ParkingRecordData{}
-		if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
-			log.Error("加载车位信息失败无此车位数据 id%d ，err: %s", id, err)
-			return nil
+		rlist, err := Redis().LRange(key).Result(); err != nil {
+			log.Error("加载车位操作记录失败 id%d ，err: %s", id, err)
+			return data
 		}
-		record := &ParkingRecordData{}
-		record.LoadBin(bin)
-		this.records[id] = record
+		if _,ok := this.userrecords[id]; !ok {
+			this.userrecords[id] = make([]*ParkingRecordData,0)
+		}
+		for _,v := range rlist {
+			record := &ParkingRecordData{}
+			rbuf :=[]byte(v)
+			err = pb.Unmarshal(rbuf, record)
+			err != nil {
+				log.Error("加载车位操作记录失败 id%d ，err: %s", id, err)
+				return data
+			}
+			this.userrecords[id] = append(this.userrecords[id],record)
+		}
 		return record
 	}
 }
