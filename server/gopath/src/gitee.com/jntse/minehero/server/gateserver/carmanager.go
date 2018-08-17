@@ -406,6 +406,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 	}
 	if _,ok := this.userrecords[ownerid]; !ok {
 		this.userrecords[ownerid] = make([]*ParkingRecordData,0)
+		Redis().SAdd(RecordIdSetKey, ownerid)
 	}
 	this.userrecords[ownerid] = append(this.userrecords[ownerid],record)
 	if len(this.userrecords[ownerid]) > 5 {
