@@ -138,6 +138,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyRobCount{})
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyTimeStamp{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckOtherUserHouseData{})
+	this.msgparser.RegistSendProto(msg.GW2C_NotifyAddRobCountTime{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
@@ -180,14 +181,11 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	user.SetHeartBeat(util.CURTIMEMS())
-
-	//curtime := util.CURTIMEUS()
-	//log.Info("receive heart beat msg interval=%d", curtime - tmsg.GetTime())
-	//session.SendCmd(&msg.GW2C_HeartBeat{
-	//	Uid: tmsg.Uid,
-	//	Time: pb.Int64(util.CURTIMEUS()),
-	//	Test: tmsg.Test,
-	//})
+	curtime := util.CURTIME()
+	//log.Info("receive heart beat msg now=%d", curtime)
+	user.SendMsg(&msg.GW2C_HeartBeat{
+		Time: pb.Int64(curtime),
+	})
 }
 
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
