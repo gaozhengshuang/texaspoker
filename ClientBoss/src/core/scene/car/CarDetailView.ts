@@ -54,8 +54,6 @@ module game {
             this.btnState.icon = "uiCarAltas_json.stateBtn";
 
             this.hideList_btn.visible = false;
-
-            
         }
 
         protected beforeShow() {
@@ -69,6 +67,8 @@ module game {
                 { target: this.hideList_btn, callBackFunc: this.onclick_hideList },
                 
             ];
+
+            this.listIndex = 0;
             //this.addEventListener(CarDetailView.POPUP_ROOM_NEIGHBOR,this.showLinjuList,this);
         }
 
@@ -189,7 +189,7 @@ module game {
         private oldY: number = 0;
         private oldH: number = 0;
         private oldBtnY: number = 0;
-        private listIndex: number = 1;
+        private listIndex: number = 0;
 
         private goalY: number = -1;
         private goalH: number = -1;
@@ -199,6 +199,7 @@ module game {
 
         private showlist(index) {
             console.log("展示列表showlist----------->",index);
+            if (this.listIndex == index) return;
             if (this.goalY == -1) { this.goalY = GameConfig.innerHeight * 0.5 };
             if (this.goalH == -1) { this.goalH = GameConfig.innerHeight };
             if (this.btnGoalY == -1) {
