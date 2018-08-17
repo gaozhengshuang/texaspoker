@@ -357,7 +357,7 @@ func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
 	} else {
 		datas := make([]*ParkingRecordData, 0)
 		//尝试从内存加载 如果没有返回nil
-		key, bin := fmt.Sprintf("parkingrecord_%d", id), &msg.ParkingRecordData{}
+		key := fmt.Sprintf("parkingrecord_%d", id)
 		rlist, err := Redis().LRange(key,0,10).Result()
 		if err != nil {
 			log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
