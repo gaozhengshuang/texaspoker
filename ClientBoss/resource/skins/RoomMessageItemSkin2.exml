@@ -10,7 +10,7 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Group id="stateGroup" width="0" height="0" x="0" y="0">
+	<e:Group id="stateGroup" width="0" height="0" x="0" y="0" visible="false">
 		<e:Image source="uiCarAltas_json.normalBtn" anchorOffsetX="1" anchorOffsetY="1" width="150" y="8.2" height="56" x="593.2" scaleX="0.8" scaleY="0.8"/>
 		<e:Label id="stateTxt" text="拜 访" x="620" y="16" size="25"/>
 	</e:Group>

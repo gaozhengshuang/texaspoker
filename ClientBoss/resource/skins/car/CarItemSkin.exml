@@ -2,6 +2,7 @@
 <e:Skin class="CarItemSkin" width="720" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect width="720" height="150" x="0" y="0" fillAlpha="0"/>
 	<e:Group id="allGroup" width="720" height="150" y="0" x="0" touchEnabled="false">
+		<e:Image id="img_IconBg" anchorOffsetX="0" height="73" scaleX="1" scaleY="1" width="150" anchorOffsetY="0" x="19" y="45" source="uiCarAltas_json.parkinglot"/>
 
 		<e:Image id="img_Icon" anchorOffsetX="0" height="73" scaleX="1" scaleY="1" top="12" verticalCenter="-3" width="150" anchorOffsetY="0" source="carIconAltas_json.small_1" x="19" y="45"/>
 		<e:Image id="img_btnbg" anchorOffsetX="0" height="56" scaleX="1" scaleY="1" top="12" verticalCenter="-3" width="150" anchorOffsetY="0" source="uiCarAltas_json.normalBtn" horizontalCenter="212" right="73" x="497" y="53" visible="false"/>
