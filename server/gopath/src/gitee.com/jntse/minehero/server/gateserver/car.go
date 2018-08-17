@@ -40,7 +40,7 @@ func (this *GateUser) SynParkingRecord(){
 	send := &msg.GW2C_SynParkingRecord{}
 	records := CarMgr().GetRecordByUser(this.Id())
 	for _,v := range records {
-		send.Records = append(send.Records,pb.String(v))
+		send.Records = append(send.Records,*pb.String(v))
 	}
 	this.SendMsg(send)
 }
