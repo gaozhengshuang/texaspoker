@@ -410,7 +410,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 	this.userrecords[ownerid] = append(this.userrecords[ownerid],record)
 	if len(this.userrecords[ownerid]) > 5 {
 		//删除最老的记录
-		val,err := Redis().BLPop(0,key).Result()
+		val,err := Redis().BLPop(0,key)
 		if err != nil { 
 			log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
 			return record
