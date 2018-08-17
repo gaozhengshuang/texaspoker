@@ -3,7 +3,7 @@ package main
 import (
 	_ "fmt"
 	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/gotoolkit/util"
+	_ "gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
@@ -153,17 +153,9 @@ func (this *GateUser) ReqRandHouseList() {
 	Match().SendCmd(sendmatch)
 }
 
-//上限检查更新 抢钱次数
+//上线检查更新 抢钱次数
 func (this *GateUser) OnlineUpdateRobCount() {
-	if this.tm_logout > 0 {
-		nowtimehour := util.CURTIME() / 3600
-		logouttimehour := this.tm_logout / 3600
-		dexhours := nowtimehour - logouttimehour
-		if dexhours > 0 {
-			addcount := dexhours * 5
-			this.SetRobCount(this.GetRobCount() + uint32(addcount))
-		}
-	}
+	this.CheckAddRobCount()
 }
 
 func (this *GateUser) ReqOtherUserHouse(otherid uint64) {

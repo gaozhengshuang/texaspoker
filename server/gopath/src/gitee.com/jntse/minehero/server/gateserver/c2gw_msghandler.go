@@ -182,13 +182,11 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	}
 	user.SetHeartBeat(util.CURTIMEMS())
 
-	//curtime := util.CURTIMEUS()
-	//log.Info("receive heart beat msg interval=%d", curtime - tmsg.GetTime())
-	//session.SendCmd(&msg.GW2C_HeartBeat{
-	//	Uid: tmsg.Uid,
-	//	Time: pb.Int64(util.CURTIMEUS()),
-	//	Test: tmsg.Test,
-	//})
+	curtime := util.CURTIME()
+	log.Info("receive heart beat msg now=%d", curtime)
+	user.SendMsg(&msg.GW2C_HeartBeat{
+		Time: pb.Int64(curtime),
+	})
 }
 
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {

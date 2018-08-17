@@ -74,6 +74,7 @@ type DBUserData struct {
 	totalrecharge  uint32 // 总充值
 	newplayerstep  uint32 // 新手引导步骤
 	robcount       uint32 // 抢钱次数
+	tmaddrobcount  int64  // 下次涨抢钱次数的时间戳
 }
 
 // --------------------------------------------------------------------------
@@ -335,6 +336,7 @@ func (this *GateUser) GetRobCount() uint32 {
 }
 
 func (this *GateUser) SetRobCount(count uint32) {
+	before := this.robcount
 	if count > 20 {
 		this.robcount = 20
 	} else {
@@ -344,6 +346,16 @@ func (this *GateUser) SetRobCount(count uint32) {
 	send := &msg.GW2C_NotifyRobCount{}
 	send.Value = pb.Uint32(this.robcount)
 	this.SendMsg(send)
+
+	if this.robcount == 20 {
+		this.tmaddrobcount = 0
+		this.NotifyRobAddTime()
+	} else {
+		if before == 20 && this.robcount < before {
+			this.tmaddrobcount = util.CURTIME() + 3600
+			this.NotifyRobAddTime()
+		}
+	}
 }
 
 func (this *GateUser) SendMsg(msg pb.Message) {
@@ -483,6 +495,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.TotalRecharge = pb.Uint32(this.totalrecharge)
 	userbase.Newplayerstep = pb.Uint32(this.newplayerstep)
 	userbase.Robcount = pb.Uint32(this.robcount)
+	userbase.Tmaddrobcount = pb.Int64(this.tmaddrobcount)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -527,6 +540,7 @@ func (this *GateUser) LoadBin() {
 	this.totalrecharge = userbase.GetTotalRecharge()
 	this.newplayerstep = userbase.GetNewplayerstep()
 	this.robcount = userbase.GetRobcount()
+	this.tmaddrobcount = userbase.GetTmaddrobcount()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -1027,5 +1041,24 @@ func (this *GateUser) SyncTimeStamp() {
 	now := util.CURTIME()
 	send := &msg.GW2C_NotifyTimeStamp{}
 	send.Timestamp = pb.Uint64(uint64(now))
+	this.SendMsg(send)
+}
+
+func (this *GateUser) CheckAddRobCount() {
+	now := util.CURTIME()
+	if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
+		this.SetRobCount(this.robcount + 5)
+		if this.robcount < 20 {
+			this.tmaddrobcount = now + 3600
+		} else {
+			this.tmaddrobcount = 0
+		}
+		this.NotifyRobAddTime()
+	}
+}
+
+func (this *GateUser) NotifyRobAddTime() {
+	send := &msg.GW2C_NotifyAddRobCountTime{}
+	send.Time = pb.Int64(this.tmaddrobcount)
 	this.SendMsg(send)
 }
