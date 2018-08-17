@@ -176,6 +176,7 @@ type CarManager struct {
 	userparkings map[uint64][]uint64 //玩家id 关联的车位id
 
 	ticker1Minite *util.GameTicker
+	ticker1Second *util.GameTicker
 }
 
 func (this* CarManager) Init(){
@@ -186,6 +187,9 @@ func (this* CarManager) Init(){
 
 	this.ticker1Minite = util.NewGameTicker(time.Minute, this.Handler1MiniteTick)
 	this.ticker1Minite.Start()
+
+	this.ticker1Second = util.NewGameTicker(time.Second,this.Handler1SecondTick)
+	this.ticker1Second.Start()
 
 	carsIds, err := Redis().SMembers(CarIdSetKey).Result()
 	if err != nil {
@@ -523,9 +527,13 @@ func (this* CarManager) AppendHouseData(houses []*msg.HouseData){
 //循环
 func (this *CarManager) Tick(now int64) {
 	this.ticker1Minite.Run(now)
+	this.ticker1Second.Run(now)
 }
 
 func (this *CarManager) Handler1MiniteTick(now int64) {
+}
+
+func (this *CarManager) Handler1SecondTick(now int64){
 	for _, v := range this.parkings {
 		if v.parkingcar == 0 {
 			continue

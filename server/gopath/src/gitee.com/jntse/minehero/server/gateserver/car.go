@@ -42,5 +42,6 @@ func (this *GateUser) SynParkingRecord(){
 	for _,v := range records {
 		send.Records = append(send.Records,pb.String(v))
 	}
+	this.SendMsg(send)
 }
 
