@@ -1,10 +1,13 @@
 module game {
     export class CarParkingLot extends eui.Component  {
         
-
+        center            : eui.Group;
         parkingCarIcon    : eui.Image;
+        stateBgTicket     : eui.Image;
+        stateBgPark       : eui.Image;
 
         infoTxt           : eui.Label;
+        timeTxt           : eui.Label;
 
         btn_select          : IconButton;
     
@@ -20,15 +23,17 @@ module game {
 
         public setData(data:msg.IParkingData) {
             if(!data) return;
-            this.btn_select.icon = "shopItemButtonBg_png";
-            this.btn_select.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
+            this.center.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
             
             this.itemData = data;
             this.parkingCarIcon.visible = data.parkingcar!=0;
+            this.stateBgPark.visible    = data.parkingcar==0;
+            this.stateBgTicket.visible  = data.parkingcar!=0 && data.ownerid == DataManager.playerModel.getUserId();
             //console.log("车位信息------->",data.parkingcar," ",data.parkingtime);
             if(data.parkingcar==0)
             {
-                this.infoTxt.text = "空";
+                this.infoTxt.text = "";
+                this.timeTxt.text = "";
                 this.removeTimer();
             }
             else
@@ -39,14 +44,15 @@ module game {
                 {
                     this.carData = _parkingCarData;
                     //Icon
-                    let txtr:egret.Texture = RES.getRes(_parkingCarData.path);
+                    let txtr:egret.Texture = RES.getRes(_parkingCarData.bigpath);
                     let factor = 1;
                     if(txtr)
                     {
                         this.parkingCarIcon.source    = txtr;
-                        this.parkingCarIcon.width     = txtr.textureWidth * factor;
-                        this.parkingCarIcon.height    = txtr.textureHeight * factor;
+                        //this.parkingCarIcon.width     = txtr.textureWidth * factor;
+                        //this.parkingCarIcon.height    = txtr.textureHeight * factor;
                     }
+
                 }
 
                 //信息
@@ -59,9 +65,13 @@ module game {
                 //let timeStr= formatTime(dateTime,"hh:mm:ss");
                 let timeStr = sDhFilter(dateTime.getTime()/1000);
                 console.log("累计时间---->",dateTime.getTime());
+                this.timeTxt.textFlow = [
+                    { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
+                ]
                 this.infoTxt.textFlow = [
-                    { text: data.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 20} },
-                    { text: "\n"+timeStr,style: { size : 20}},
+                    { text: data.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 20,"textColor":0x5f6163,bold:true} },
+                    //{ text: "\n", style: { size : 18} },                    
+                    //{ text: "\n"+ timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
                 ]
                 SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
                 //this.runningTimer(SysTimeEventManager.getInstance().systimeNum);
@@ -141,7 +151,6 @@ module game {
                                     showTips("收回成功！");  
                                 }  
                             }
-
                         });
                     } 
                 }
@@ -159,10 +168,21 @@ module game {
             
             //let timeStr = formatTime(dateTime,"hh:mm:ss");            
             //getHourMinutesTime();
-            body.infoTxt.textFlow = [
-                { text: body.itemData.parkingcarownername+"："+body.carData.Brand+body.carData.Model, style: { size : 20} },
-                { text: "\n"+timeStr,style: { size : 20}},
+/*             body.infoTxt.textFlow = [
+                { text: body.itemData.parkingcarownername+"："+body.carData.Brand+body.carData.Model, style: { size : 18,"textColor":0x5f6163} },
+                { text: "\n"+timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
+            ] */
+
+            body.timeTxt.textFlow = [
+                { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
             ]
+            body.infoTxt.textFlow = [
+                { text: body.itemData.parkingcarownername+"："+body.carData.Brand+body.carData.Model, style: { size : 20,"textColor":0x5f6163,bold:true} },
+                //{ text: "\n", style: { size : 18} },                    
+                //{ text: "\n"+ timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
+            ]
+
+
         }
 
         public removeTimer(): void {

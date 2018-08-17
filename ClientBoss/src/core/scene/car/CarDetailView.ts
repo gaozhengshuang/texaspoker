@@ -31,7 +31,7 @@ module game {
         protected getSkinName() {
             return CarDetailInfoSkin;
         }
-        public static _instance: CarDetailView;
+        private static _instance: CarDetailView = null;
 
         public static getInstance(): CarDetailView {
             if (!CarDetailView._instance) {
@@ -149,11 +149,16 @@ module game {
 
             //刷新车辆信息
             let self = this;
-            CarManager.getInstance().ReqMyCarInfo(function(){
-                self.setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
-                    return data.id == self.carData.id;
-                })[0]);
-            });
+
+            if(self.carData)
+            {
+                CarManager.getInstance().ReqMyCarInfo(function(){
+                    self.setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
+                        return data.id == self.carData.id;
+                    })[0]);
+                });
+            }
+
             //刷新车位邻居列表
             if( this.listIndex==3){
                 this.showLinjuList(this.linjuList);
@@ -281,11 +286,6 @@ module game {
             console.log("绑定数据--------->",index);
             switch (index) {
                 case 1:
-   /*                  CarManager.getInstance().ReqMyCarInfo(function(){
-                        DataManager.playerModel.getUserInfo().cardatas.forEach(data=>{
-                            
-                        });
-                    }); */
                     this.showDongtaiList();
                     break;
                 case 3:
@@ -357,7 +357,6 @@ module game {
                             }
                         }
                         //console.log("回调执行------>",index);
-
                         //if(index==self.linjuList.length-1){ //等待所有邻居停车位数据返回后在显示
                             self.linjuList.sort(function(a,b){
                                 let empty_a  = a.empty;

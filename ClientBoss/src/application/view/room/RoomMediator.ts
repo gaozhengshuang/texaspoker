@@ -107,7 +107,7 @@ module game {
 					//houseProxy.returnType = 0;
 				} else {
 					ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_ROOM_PAGE);
-					if(CarDetailView._instance)
+					if(CarDetailView.getInstance().isDongTaiPanelView())
 					{
 						CarDetailView.getInstance().OnEnableHandle();
 					}
