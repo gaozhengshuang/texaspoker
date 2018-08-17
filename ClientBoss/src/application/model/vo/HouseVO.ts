@@ -43,6 +43,11 @@ module game {
             if (obj.robcheckflag != null) {
                 this.robcheckflag = obj.robcheckflag;
             }
+
+            if (obj.myCarPark != null) {
+                this.myCarPark = obj.myCarPark;
+            }
+
             
         }
         public rId:number;
@@ -66,6 +71,8 @@ module game {
         public robcheckflag : number = 0;  //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 
         public isHave:boolean=false;
+
+        public myCarPark : number = 0;//是否有我的车停
         
     }
 }

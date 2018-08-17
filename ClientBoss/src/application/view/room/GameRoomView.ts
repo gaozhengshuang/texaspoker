@@ -104,7 +104,7 @@ module game {
             this.selfIdNum = selfId;
             this.returnType = retType;
             this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level;
-            this.totalChanLiang_txt.text = "房屋总产量:" + this.getTotalChanLiang();
+            this.totalChanLiang_txt.text = "当前收益:" + this.getTotalChanLiang();
             if (this.selfIdNum == this.roomInfo.ownerid) {
                 this.showSelf();
                 this.lingju_btn.visible = true;

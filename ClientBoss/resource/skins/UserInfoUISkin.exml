@@ -4,10 +4,10 @@
 	<e:Image source="userInfo_bg1_png" anchorOffsetX="0" width="430" anchorOffsetY="0" height="122" y="0"/>
 	<e:Label id="name_txt" text="七宝王思聪思" x="128" y="22" anchorOffsetX="0" width="165" anchorOffsetY="0" height="32.67" size="25" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404a58" bold="true"/>
 	<e:Label id="level_txt" text="Lv.99" x="37" y="81.55" anchorOffsetX="0" anchorOffsetY="0" size="20" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x2b7deb" bold="true"/>
-	<e:Label id="qiang_txt" text="30/50" x="323.63" y="27" anchorOffsetX="0" width="81.87" anchorOffsetY="0" height="22.58" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="1" textColor="0x14b05e"/>
+	<e:Label id="qiang_txt" text="30/50" x="323.63" y="27" anchorOffsetX="0" width="81.87" anchorOffsetY="0" height="22.58" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="0" textColor="0x14b05e"/>
 	<e:Group id="timeGroup" x="323.63" y="39.64">
-		<e:Label id="time_txt" text="30:50" x="0" y="1" anchorOffsetX="0" width="63.18" anchorOffsetY="0" height="22.58" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="1" textColor="0x5987af"/>
-		<e:Label id="qiang_txt1" text="+5" x="63.22" y="0" anchorOffsetX="0" anchorOffsetY="0" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="1" textColor="0x14b05e"/>
+		<e:Label id="time_txt" text="30:50" x="0" y="1" anchorOffsetX="0" width="63.18" anchorOffsetY="0" height="22.58" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="0" textColor="0x5987af"/>
+		<e:Label id="qiang_txt1" text="+5" x="63.22" y="0" anchorOffsetX="0" anchorOffsetY="0" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="0" textColor="0x14b05e"/>
 	</e:Group>
 	<e:Label id="vip_txt" text="99" x="59.05" y="85.66" anchorOffsetX="0" width="29.88" anchorOffsetY="0" height="23.6" size="20" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" strokeColor="0xffffff" stroke="2" textColor="0x720afd" visible="false"/>
 	<e:Label id="coin_txt" text="99999999" x="147.42" y="74" anchorOffsetX="0" width="130.51" anchorOffsetY="0" height="26.48" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404A58" fontFamily="Microsoft YaHei"/>

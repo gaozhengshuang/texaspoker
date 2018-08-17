@@ -61,7 +61,7 @@
 	<e:Group id="roomLevelGroup" y="160" width="320" height="110" horizontalCenter="0">
 		<e:Rect width="320" height="110" y="0" fillColor="0xb1b1b1" ellipseWidth="100" ellipseHeight="100" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
 		<e:Label id="roomLevel_txt" text="房屋等级4" y="17" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="26" horizontalCenter="0"/>
-		<e:Label id="totalChanLiang_txt" text="预计当前收益10000" y="56.5" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="32" textColor="0xffe776" bold="true" horizontalCenter="0"/>
+		<e:Label id="totalChanLiang_txt" text="当前收益:10000" y="56.5" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="30" textColor="0xffe776" bold="true" horizontalCenter="0" width="300"/>
 
 
 	</e:Group>
