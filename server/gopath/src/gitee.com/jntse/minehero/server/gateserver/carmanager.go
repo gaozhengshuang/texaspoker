@@ -370,7 +370,7 @@ func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
 			record := &ParkingRecordData{}
 			rbuf :=[]byte(v)
 			err = pb.Unmarshal(rbuf, record)
-			err != nil {
+			if err != nil {
 				log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
 				return data
 			}
@@ -405,7 +405,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 		return nil
 	}
 	// Set二进制
-	key := fmt.Sprintf("parkingrecord_%d", ownerid),
+	key := fmt.Sprintf("parkingrecord_%d", ownerid)
 	err = Redis().RPush(key, buf).Err()
 	if err != nil { 
 		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
