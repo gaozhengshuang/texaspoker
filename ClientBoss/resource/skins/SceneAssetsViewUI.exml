@@ -35,7 +35,7 @@
 		<e:Group id="stackGroup1" width="100%" height="100%" name="page1">
 		</e:Group>
 		<e:Group id="stackGroup2" width="100%" height="100%" name="page2">
-			<e:Label id="undoneTips2" text="暂未开放\n敬请期待" textColor="0x404A58" fontFamily="Microsoft YaHei" size="100" horizontalCenter="0" verticalCenter="0" scaleX="1" scaleY="1"/>
+			<e:Label id="undoneTips2" text="暂未开放\n敬请期待" textColor="0x404A58" fontFamily="Microsoft YaHei" size="100" horizontalCenter="0" verticalCenter="0" scaleX="1" scaleY="1" visible="false"/>
 		</e:Group>
 		<e:Group id="stackGroup3" width="100%" height="100%" name="page3">
 			<e:Label id="undoneTips3" text="暂未开放\n敬请期待" textColor="0x404A58" fontFamily="Microsoft YaHei" size="100" horizontalCenter="0" verticalCenter="0" scaleX="1" scaleY="1"/>

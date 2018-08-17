@@ -16,8 +16,8 @@ module game {
 			this.huxingImage = new egret.Bitmap();
 			this.huxingImage.texture = RES.getRes(/*roomType.rImage+*/"hx_4001_png");
 			console.log(this.huxingImage.width);
-			this.huxingImage.width = this.huxingImage.width * GameConfig.innerScale * 2;
-			this.huxingImage.height = this.huxingImage.height * GameConfig.innerScale * 2;
+			this.huxingImage.width = this.huxingImage.width* 2;
+			this.huxingImage.height = this.huxingImage.height* 2;
 			console.log(this.huxingImage.width);
 			this.width = this.huxingImage.width;
 			this.height = this.huxingImage.height;
@@ -39,8 +39,8 @@ module game {
 					let qipao: QipaoPanel = new QipaoPanel(this.roomView);
 					this.addChild(qipao);
 					let point: any = this.qipaoWeizhi[bubble[i].index - 1];
-					qipao.x = point.x * GameConfig.innerScale;
-					qipao.y = point.y * GameConfig.innerScale;
+					qipao.x = point.x;
+					qipao.y = point.y;
 					let oldY: number = qipao.y;
 					let timeNum: number = 800 + Math.floor(Math.random() * 500);
 					qipao.updataInfo(bubble[i]);

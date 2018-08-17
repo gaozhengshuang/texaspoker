@@ -583,19 +583,13 @@ func (this *GateUser) OnCreateNew() {
 	//send.Housetid = pb.Uint32(1001)
 	//send.Ownername = pb.String(this.Name())
 	//Match().SendCmd(send)
-	HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
+	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
 
-	createcarsend := &msg.GW2MS_ReqCreateCar{}
-	createcarsend.Userid = pb.Uint64(this.Id())
-	createcarsend.Cartid = pb.Uint32(1001)
-	Match().SendCmd(createcarsend)
-
-	createparksend := &msg.GW2MS_ReqCreateParking{}
-	createparksend.Userid = pb.Uint64(this.Id())
-	createparksend.Parkid = pb.Uint32(1002)
-	createparksend.Username = pb.String(this.Name())
-	Match().SendCmd(createparksend)
-
+	if houseData != nil {
+		CarMgr().CreateNewCar(this.Id(),1001,this.Name())
+		CarMgr().CreateNewParking(this.Id(),1002,this.Name(),houseData.id)
+	}
+	
 	this.newplayerstep = 0
 	this.robcount = 10
 }
@@ -645,6 +639,8 @@ func (this *GateUser) Syn() {
 	//this.CheckGiveFreeStep(util.CURTIME(), "上线跨整点")
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
+	this.SynCarData()
+	this.SynParkingData()
 	//this.QueryPlatformCoins()
 }
 

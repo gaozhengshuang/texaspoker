@@ -6,7 +6,7 @@ module game {
 
 	export class ServerProxy extends puremvc.Proxy implements puremvc.IProxy {
 		public static NAME: string = "ServerProxy";
-
+		
 		public constructor() {
 			super(ServerProxy.NAME);
 			this.RegisterEvent();
@@ -18,6 +18,15 @@ module game {
         }
 		private OnGW2C_NotifyTimeStamp(data: msg.GW2C_NotifyTimeStamp) {
 			SysTimeEventManager.getInstance().systimeNum=Number(data.timestamp);
+			
+/* 			console.log('服务器时间------->',data.timestamp);
+			console.log('本地时间------->',new Date().getTime());
+			console.log('计时器时间------->',SysTimeEventManager.getInstance().systimeNum); */
+                
+			let offset_dateTime = new Date().getTime() - Number(data.timestamp) * 1000;
+			SysTimeEventManager.getInstance().systimeoffset = offset_dateTime;
+
+	 		console.log('时差------->',offset_dateTime);
 		}
 		private netConnectionError(){
 			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);

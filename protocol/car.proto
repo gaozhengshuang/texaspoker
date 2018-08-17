@@ -22,6 +22,7 @@ message C2GW_ReqParkingInfoByType
 {
     optional int32 type = 1;                            //0 所有类型 1 公共车位 2 普通车位
     optional uint64 playerid = 2;                       //0 所有玩家 
+    repeated uint64 houseids = 3;                       // 房间id们
 }
 
 message GW2C_ResParkingInfo
@@ -57,4 +58,9 @@ message GW2C_TicketCarResult
 {
     optional int32 result = 1;                          //贴条结果 0为成功 其他失败
     optional int32 reward = 2;                          //贴条获得的奖励
+}
+
+message GW2C_SynParkingRecord
+{
+    repeated msg.ParkingRecordData records = 1;         //记录们
 }

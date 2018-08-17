@@ -140,6 +140,7 @@ message HouseData {
 	repeated HouseCell housecells = 6; //每个房间信息 
 	repeated HouseVisitInfo visitinfo = 7; //操作记录 要限定条数 
 	optional string ownername = 8; //主人的名字
+	optional uint32 robcheckflag = 9; //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 }
 
 
@@ -164,5 +165,6 @@ message ParkingData
     optional string parkingcarownername = 6;//停的车主人名字
     optional uint64 parkingtime = 7;        //开始停车时间戳
     optional uint32 parkingreward = 8 ;     //停车获得收益
-    optional string ownername = 9;
+    optional string ownername = 9;          //车位主人名字
+    optional uint32 parkingcartid = 10;     //停的车辆配置id
 }

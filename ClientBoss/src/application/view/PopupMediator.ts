@@ -37,8 +37,8 @@ module game {
 							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
 							this.sceneView.initInfo(data.room);
 							this.sceneGroup.addChild(this.sceneView);
-							this.sceneView.x = GameConfig.innerWidth / 2;
-							this.sceneView.y = GameConfig.innerHeight / 2;
+							this.sceneView.x = gameConfig.curWidth() / 2;
+							this.sceneView.y = gameConfig.curHeight() / 2;
 							ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
 							this.sceneMediatorName = PopupWelcomeMediator.NAME;
 						}

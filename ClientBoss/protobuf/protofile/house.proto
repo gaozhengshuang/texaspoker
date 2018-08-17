@@ -1,0 +1,113 @@
+syntax = "proto2";
+package msg;
+import "serialize.proto";
+
+// 请求房屋信息
+message C2GW_ReqHouseData {
+	
+}
+
+// 返回房屋信息
+message GW2C_AckHouseData {
+	repeated msg.HouseData datas = 1;
+}
+
+// 请求设置引导标记
+message C2GW_ReqSetNewPlayerStep {
+	optional uint32 step = 1;
+}
+
+// 返回设置引导标记
+message GW2C_AckNewPlayerStep {
+	optional uint32 step = 1;
+}
+
+
+//玩家请求升级房屋
+message C2GW_ReqHouseLevelUp {
+	optional uint64 houseid = 1;
+}
+ 
+//返回升级房屋
+message GW2C_AckHouseLevelUp {
+	optional uint64 houseid = 1;
+	optional uint32 ret = 2;
+	optional msg.HouseData data = 3;
+}
+
+//玩家请求升级房屋的房间
+message C2GW_ReqHouseCellLevelUp {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+}
+
+//返回玩家请求升级房屋的房间
+message GW2C_AckHouseCellLevelUp {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+	optional uint32 ret = 3;
+	optional msg.HouseData data = 4;
+}
+
+//玩家请求收金币
+message C2GW_ReqTakeSelfHouseGold {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+}
+
+//返回玩家请求收金币
+message GW2C_AckTakeSelfHouseGoldRet {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+	optional uint32 gold = 3;
+	optional msg.HouseData data = 4;
+}
+
+//玩家请求抢别人金币
+message C2GW_ReqTakeOtherHouseGold {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+}
+
+//返回玩家请求抢别人金币
+message GW2C_AckTakeOtherHouseGoldRet {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+	optional uint32 gold = 3;
+	optional msg.HouseData data = 4;
+}
+
+//获取随机的房屋列表
+message C2GW_ReqRandHouseList {
+	
+}
+
+//返回随机的房屋列表
+message GW2C_AckRandHouseList {
+	repeated msg.HouseData datas = 1;
+}
+
+//更新抢钱次数
+message GW2C_NotifyRobCount {
+	optional uint32 value = 1;
+}
+
+//请求其他人的房屋信息
+message C2GW_ReqOtherUserHouseData {
+	optional uint64 userid = 1;
+}
+
+//返回请求其他人的房屋信息
+message GW2C_AckOtherUserHouseData {
+	repeated msg.HouseData datas = 1;
+}
+
+//登录同步时间戳
+message GW2C_NotifyTimeStamp {
+	optional uint64 timestamp = 1;
+}
+
+//请求重置访客查看状态
+message C2GW_ReqResetRobCheckFlag {
+	optional uint64 houseid = 1;
+}

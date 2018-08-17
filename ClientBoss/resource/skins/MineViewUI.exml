@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="MineViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect id="view_bg" width="720" height="1280" x="0" y="0" fillColor="0x404a58"/>
+	<e:Rect width="720" height="1280" x="0" y="0" fillColor="0xececec"/>
 	<e:Group id="userInfoGroup" x="0" y="0" width="720" height="225">
 		<e:Image source="titleBg1_png" x="0" y="0" width="720" height="225"/>
 		<e:Label id="qiang_txt" text="500" x="547.47" y="146.97" anchorOffsetX="0" width="100" anchorOffsetY="0" height="40" size="38" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
-		<e:Image source="qiangIcon_png" x="456.58" y="135.88" width="42" height="42"/>
+		<e:Image source="qiangIcon_png" x="485.58" y="145.88" width="42" height="42"/>
 		<e:Image source="crownIcon1_png" x="143.16" y="0" scaleX="0.5" scaleY="0.5"/>
 		<e:Image id="headImg" source="defaultHead2_png" x="19.34" y="24.79" width="185" height="185"/>
 		<e:Label id="name_txt" text="七宝王思聪思" x="248.51" y="53.64" anchorOffsetX="0" width="300" anchorOffsetY="0" height="50" size="42" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xFFFFFF" textAlign="left"/>
@@ -15,7 +15,7 @@
 		</e:Group>
 	</e:Group>
 	<e:Group id="huobiGroup" x="0" y="225" width="720" height="150">
-		<e:Rect width="720" height="150" x="0" y="0" fillColor="0xececec"/>
+
 		<e:Image source="vertical_line1_png" x="240" y="0" width="5" height="150"/>
 		<e:Image source="vertical_line1_png" x="480" y="0" width="5" height="150"/>
 		<e:Image source="ui_comn_icon_gold_png" x="49.27" y="24" width="41" height="40"/>
@@ -27,9 +27,11 @@
 		<e:Label id="gold3_txt" text="0" x="496" y="83" anchorOffsetX="0" width="210" anchorOffsetY="0" height="40" size="35" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
 		<e:Label text="钻石" x="359.63" y="24" anchorOffsetX="0" width="65" anchorOffsetY="0" height="40" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
 		<e:Label text="Bcoin" x="584.89" y="24" anchorOffsetX="0" width="70" anchorOffsetY="0" height="40" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
+		<e:Image source="room_line1_png" x="0" y="0" width="720" height="3" scaleX="1" scaleY="1"/>
+		<e:Image source="room_line1_png" x="0" y="150" width="720" height="3" scaleX="1" scaleY="1"/>
 	</e:Group>
 	<e:Group id="assetsGroup" x="0" y="375" anchorOffsetX="0" width="720" height="150">
-		<e:Rect width="720" height="150" x="0" y="0" fillColor="0xECECEC"/>
+
 		<e:Group x="40" y="32" width="110" height="93">
 			<e:Label text="我的房产" x="0" y="44" anchorOffsetX="0" width="110" anchorOffsetY="0" height="40" size="23" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
 			<e:Label id="estate_txt" text="9" x="0" y="0" anchorOffsetX="0" width="110" anchorOffsetY="0" height="40" size="40" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
@@ -47,14 +49,16 @@
 			<e:Label id="jyLog_txt" text="0" x="0" y="0" anchorOffsetX="0" width="110" anchorOffsetY="0" height="40" size="40" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
 		</e:Group>
 	</e:Group>
-	<e:Scroller id="bottomScroller" width="720" height="433" x="0" y="525">
+	<e:Image source="room_line1_png" x="0" y="525" width="720" height="3" scaleX="1" scaleY="1"/>
+	<e:Scroller id="bottomScroller" width="720" height="440" x="0" y="526.33">
 		<e:Group width="100%" height="100%">
-			<e:Group id="otherGroup" x="0" y="0" width="720" height="433" scaleX="1" scaleY="1">
+			<e:Group id="otherGroup" x="0" y="0" width="720" height="440" scaleX="1" scaleY="1">
 				<e:Rect width="720" height="433" x="0" y="0" fillColor="0xECECEC"/>
-				<e:Image source="room_line1_png" x="0" y="86" width="720" height="3"/>
-				<e:Image source="room_line1_png" x="0" y="172" width="720" height="3"/>
+				<e:Image source="room_line1_png" x="0" y="85" width="720" height="3"/>
+				<e:Image source="room_line1_png" x="0" y="170" width="720" height="3"/>
 				<e:Image source="room_line1_png" x="0" y="260" width="720" height="3"/>
 				<e:Image source="room_line1_png" x="0" y="350" width="720" height="3"/>
+				<e:Image source="room_line1_png" x="0" y="438" width="720" height="3"/>
 				<e:Group x="61" y="20" width="614" height="54">
 				<e:Image source="mineIcon1_png" x="0" y="0" width="52" height="54"/>
 				<e:Image source="jiantou2_png" x="585" y="15" width="17" height="23"/>

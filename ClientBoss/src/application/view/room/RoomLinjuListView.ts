@@ -48,7 +48,7 @@ module game {
 			}
 		}
 		private adaptive() {
-			this.scaleX=this.scaleY=GameConfig.innerScaleW;
+			//this.scaleX=this.scaleY=GameConfig.innerScaleW;
 			//this.anchorOffsetX = this.width / 2;
 		}
 

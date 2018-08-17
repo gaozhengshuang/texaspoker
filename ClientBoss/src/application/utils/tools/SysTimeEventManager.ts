@@ -6,6 +6,7 @@ module game {
 			if (SysTimeEventManager.instance == null) SysTimeEventManager.instance = this;
 		}
 		private _systimeNum: number = 0;
+		private _systimeoffset : number = 0;
 		private timer: egret.Timer;
 		private functionArr: any[];
 
@@ -44,6 +45,15 @@ module game {
 		public get systimeNum(): number {
 			return this._systimeNum;
 		}
+
+		public set systimeoffset (num: number){
+			this._systimeoffset = num;
+		}
+
+		public get systimeoffset(): number {
+			return this._systimeoffset;
+		}
+
 		public getDateStr(): string {
 			return String(this._systimeNum);
 		}

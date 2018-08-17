@@ -19,16 +19,16 @@ message THouseDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID
+	optional uint32 Id = 1; // 房屋ID*100+房屋等级
 	
 	
 	optional uint32 Type = 2; 
 	
 	
-	optional uint32 MaxLevel = 3; // 最大等级
+	optional uint32 MaxLevel = 3; // 房屋最大等级
 	
 	
-	optional uint32 MaxCells = 4; // 包含区域数
+	optional uint32 MaxCells = 4; // 包含区域数（暂时无用字段）
 	
 	
 	optional string Cells = 5; // 区域类型

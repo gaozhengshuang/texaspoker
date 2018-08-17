@@ -17,6 +17,7 @@ module game {
 		public static UPDATE_USER_INFO: string = "update_user_info";
 		public static UPDATE_ROOM_INFO: string = "update_room_info";
 		public static MAP_POSITION: string = "map_position";
+		public static HAVE_NEW_DONGTAI: string = "have_new_dongtai";
 
 		public static PAGE_SWITCH_ROOM: string = "page_switch_room";
 		public static PAGE_SWITCH_SMALL_GAME: string = "page_switch_small_game";
@@ -37,7 +38,7 @@ module game {
 		public static RECEIVE_SUCCESS: string = "receive_success";
 		public static HOUSE_LEVEL_SUCCESS: string = "house_level_success";
 		public static ROOM_LEVEL_SUCCESS: string = "room_level_success";
-
+		public static ROOM_PARKINGLOT_UPDATE : string = "roome_parkinglot_update";
 
 		/////////////////////
 		/////请求服务器///////

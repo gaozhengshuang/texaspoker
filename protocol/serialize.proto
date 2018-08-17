@@ -153,6 +153,7 @@ message CarData
     optional uint64 ownerid = 3;            //拥有者id 
     optional uint64 createtime = 4;         //创建时间
     optional uint64 parkingid = 5;          //停车位id 未停车为0
+    optional string ownername = 6;          //拥有者名字
 }
 
 //车位信息
@@ -168,4 +169,17 @@ message ParkingData
     optional uint32 parkingreward = 8 ;     //停车获得收益
     optional string ownername = 9;          //车位主人名字
     optional uint32 parkingcartid = 10;     //停的车辆配置id
+    optional uint64 houseid = 11;           //所属房屋id
+}
+
+//车辆操作记录
+message ParkingRecordData {
+	optional uint64 recordtime = 1;         //操作时间
+	optional uint32 operatortype = 2;       //CarOperatorType
+    optional uint64 parkingownerid = 3;     //车库拥有者的id
+    optional string parkingownername = 4;   //车库拥有者名字
+	optional uint32 cartid = 5;             //车辆模板id
+    optional uint64 carownerid = 6;         //车辆拥有者id
+    optional string carownername = 7;       //车辆拥有者名字
+	optional uint32 recordparam = 8;        //操作参数 operatortype为Park时无效   为TakeBack时为获得的金币数 为Ticket是为掠夺的金币数
 }

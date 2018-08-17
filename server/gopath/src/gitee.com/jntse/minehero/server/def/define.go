@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"math/rand"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
@@ -165,4 +166,27 @@ func GetRandNumbers(total, num int32) []int32 {
 
 	return all[0:num]
 }
+// --------------------------------------------------------------------------
+/// @brief 检查target中是否包含obj
+/// @param obj 检查的值
+/// @param target 检查的目标
+///
+/// @return 
+// --------------------------------------------------------------------------
+func IsContainObj(obj interface{}, target interface{}) bool {
+    targetValue := reflect.ValueOf(target)
+    switch reflect.TypeOf(target).Kind() {
+    case reflect.Slice, reflect.Array:
+        for i := 0; i < targetValue.Len(); i++ {
+            if targetValue.Index(i).Interface() == obj {
+                return true
+            }
+        }
+    case reflect.Map:
+        if targetValue.MapIndex(reflect.ValueOf(obj)).IsValid() {
+            return true
+        }
+    }
 
+    return false
+}

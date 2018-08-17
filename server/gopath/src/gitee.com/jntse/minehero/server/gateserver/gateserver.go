@@ -62,6 +62,7 @@ type GateServer struct {
 	quit_graceful bool
 	runtimestamp  int64
 	hourmonitor   *util.IntHourMonitorPool
+	carmgr 		CarManager
 	housesvrmgr   HouseManager
 }
 
@@ -98,6 +99,9 @@ func RoomMgr() *RoomManager {
 	return &GateSvr().roommgr
 }
 
+func CarMgr() *CarManager{
+	return &GateSvr().carmgr
+}
 func HouseSvrMgr() *HouseManager {
 	return &GateSvr().housesvrmgr
 }
@@ -225,6 +229,7 @@ func (this *GateServer) Init(fileconf string) bool {
 	this.waitpool.Init()
 	this.roomsvrmgr.Init()
 	this.roommgr.Init()
+	this.carmgr.Init()
 	//this.countmgr.Init()
 	//this.gamemgr.Init()
 	this.tickers = append(this.tickers, util.NewGameTicker(60*time.Second, this.Handler1mTick))
@@ -340,6 +345,7 @@ func (this *GateServer) OnStop() {
 	}
 	this.housesvrmgr.SaveAllHousesData()
 	this.hredis.Close()
+	this.carmgr.SaveAllData()
 }
 
 func (this *GateServer) ClientListenerConf() *network.WsListenConf {
@@ -365,6 +371,7 @@ func (this *GateServer) Run() {
 	//
 	this.usermgr.Tick(now)
 	this.roommgr.Tick(now)
+	this.carmgr.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 
 	//

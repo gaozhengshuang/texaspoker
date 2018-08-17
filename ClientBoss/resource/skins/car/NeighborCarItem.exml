@@ -6,7 +6,7 @@
 	<e:Image source="have_coin_icon_png" x="1044" y="8"/>
 	<e:Image source="have_quan_icon_png" x="1238" y="8"/>
 	<e:Image source="headImgBg1_png" x="13" y="7" scaleX="0.25" scaleY="0.25"/>
-	<e:Button label="掠夺" x="559" y="19">
+	<e:Button label="掠夺" x="559" y="19" visible="false">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
@@ -14,4 +14,9 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
+	<e:Group id="center" width="0" height="0" x="540" y="-22">
+		<e:Image id="parkinglotBg" width="149" height="45" y="62" source="uiCarAltas_json.parkinglot" scaleX="1" scaleY="1" x="28"/>
+		<e:Image id="imageFull" width="150" scaleX="1" scaleY="1" horizontalCenter="103" height="73" verticalCenter="74.5" source="parkinglot_empty" visible="false"/>
+		<e:Image id="imageEmpty" width="150" scaleX="1" scaleY="1" horizontalCenter="103" height="73" verticalCenter="74.5" source="uiCarAltas_json.parkinglot_full" visible="false"/>
+	</e:Group>
 </e:Skin>

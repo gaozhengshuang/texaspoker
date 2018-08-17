@@ -877,6 +877,11 @@
 			"url": "assets2/zichan_title_icon1.png",
 			"type": "image",
 			"name": "zichan_title_icon1_png"
+		},
+		{
+			"url": "assets2/xuanzhongBtn_bg.png",
+			"type": "image",
+			"name": "xuanzhongBtn_bg_png"
 		}
 	]
 }
