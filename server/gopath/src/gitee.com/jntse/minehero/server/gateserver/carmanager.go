@@ -355,30 +355,28 @@ func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
 	if _, ok := this.userrecords[id]; ok {
 		return this.userrecords[id]
 	} else {
-		data := make([]*ParkingRecordData, 0)
+		datas := make([]*ParkingRecordData, 0)
 		//尝试从内存加载 如果没有返回nil
 		key, bin := fmt.Sprintf("parkingrecord_%d", id), &msg.ParkingRecordData{}
 		rlist, err := Redis().LRange(key,0,10).Result()
 		if err != nil {
 			log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
-			return data
+			return datas
 		}
-		if _,ok := this.userrecords[id]; !ok {
-			this.userrecords[id] = data
-		}
+		this.userrecords[id] = datas
 		for _,v := range rlist {
 			rbuf :=[]byte(v)
 			recordData := &msg.ParkingRecordData{}
 			err = pb.Unmarshal(rbuf, recordData)
 			if err != nil {
 				log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
-				return data
+				return datas
 			}
 			record := &ParkingRecordData{}
 			record.LoadBin(recordData)
 			this.userrecords[id] = append(this.userrecords[id],record)
 		}
-		return record
+		return datas
 	}
 }
 
@@ -410,7 +408,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 		this.userrecords[ownerid] = make([]*ParkingRecordData,0)
 	}
 	this.userrecords[ownerid] = append(this.userrecords[ownerid],record)
-	if Redis().LLen(key) > 5 {
+	if len(this.userrecords[ownerid]) > 5 {
 		//删除最老的记录
 		val,err := Redis().BLPop(0,key).Result()
 		if err != nil { 
@@ -536,7 +534,7 @@ func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string
 	}
 	//可以了
 	parking.ParkingCar(car,username)
-	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_Park),0)
+	record = this.CreateNewRecord(parking.ownerid,car,parking,uint32(msg.CarOperatorType_Park),0)
 	return 0,record
 }
 
@@ -554,7 +552,7 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,r
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_TakeBack),reward)
+	record = this.CreateNewRecord(parking.ownerid, car,parking,uint32(msg.CarOperatorType_TakeBack),reward)
 	car.SetParking(0)
 	return 0,reward,record
 }
@@ -573,7 +571,7 @@ func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,rew
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record = this.CreateNewRecord(car,parking,uint32(msg.CarOperatorType_Ticket),reward)
+	record = this.CreateNewRecord(car.ownerid, car,parking,uint32(msg.CarOperatorType_Ticket),reward)
 	car.SetParking(0)
 	return 0,reward,record
 }
@@ -583,9 +581,6 @@ func (this* CarManager) SaveAllData(){
 		v.SaveBin()
 	}
 	for _, v := range this.parkings {
-		v.SaveBin()
-	}
-	for _,v := range this.records {
 		v.SaveBin()
 	}
 }
