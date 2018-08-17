@@ -317,10 +317,10 @@ module game {
                             {
                                 //空
                                 let _empty:number = parkingDatas.some(data=>{return data.parkingcar==0;}) ? 1 : 0;
-                                console.log(houseData.ownername,"--空->"+_empty);                                                                
+                                //console.log(houseData.ownername,"--空->"+_empty);                                                                
                                 //我车
                                 let _mycarPark:number = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();}) ? 1 : 0;
-                                console.log(houseData.ownername,"--有我车->"+_mycarPark);                                
+                                //console.log(houseData.ownername,"--有我车->"+_mycarPark);                                
                                 houseData.setObject({empty:_empty,myCarPark:_mycarPark});
                                 self.linjuList.push(houseData);  
                             }
