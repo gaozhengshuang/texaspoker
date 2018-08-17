@@ -50544,6 +50544,7 @@ $root.table = (function() {
          * @property {number|null} [ProduceTime] THouseCellDefine ProduceTime
          * @property {number|null} [LevelUpCost] THouseCellDefine LevelUpCost
          * @property {string|null} [Des] THouseCellDefine Des
+         * @property {number|null} [IncomePerSecond] THouseCellDefine IncomePerSecond
          */
 
         /**
@@ -50618,6 +50619,14 @@ $root.table = (function() {
         THouseCellDefine.prototype.Des = "";
 
         /**
+         * THouseCellDefine IncomePerSecond.
+         * @member {number} IncomePerSecond
+         * @memberof table.THouseCellDefine
+         * @instance
+         */
+        THouseCellDefine.prototype.IncomePerSecond = 0;
+
+        /**
          * Creates a new THouseCellDefine instance using the specified properties.
          * @function create
          * @memberof table.THouseCellDefine
@@ -50655,6 +50664,8 @@ $root.table = (function() {
                 writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.LevelUpCost);
             if (message.Des != null && message.hasOwnProperty("Des"))
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.Des);
+            if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.IncomePerSecond);
             return writer;
         };
 
@@ -50709,6 +50720,9 @@ $root.table = (function() {
                     break;
                 case 7:
                     message.Des = reader.string();
+                    break;
+                case 8:
+                    message.IncomePerSecond = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -50766,6 +50780,9 @@ $root.table = (function() {
             if (message.Des != null && message.hasOwnProperty("Des"))
                 if (!$util.isString(message.Des))
                     return "Des: string expected";
+            if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
+                if (!$util.isInteger(message.IncomePerSecond))
+                    return "IncomePerSecond: integer expected";
             return null;
         };
 
@@ -50795,6 +50812,8 @@ $root.table = (function() {
                 message.LevelUpCost = object.LevelUpCost >>> 0;
             if (object.Des != null)
                 message.Des = String(object.Des);
+            if (object.IncomePerSecond != null)
+                message.IncomePerSecond = object.IncomePerSecond >>> 0;
             return message;
         };
 
@@ -50819,6 +50838,7 @@ $root.table = (function() {
                 object.ProduceTime = 0;
                 object.LevelUpCost = 0;
                 object.Des = "";
+                object.IncomePerSecond = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -50834,6 +50854,8 @@ $root.table = (function() {
                 object.LevelUpCost = message.LevelUpCost;
             if (message.Des != null && message.hasOwnProperty("Des"))
                 object.Des = message.Des;
+            if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
+                object.IncomePerSecond = message.IncomePerSecond;
             return object;
         };
 

@@ -38,6 +38,12 @@ message THouseCellDefine
 	
 	
 	optional string Des = 7; // 区域描述
+	
+	
+	optional uint32 IncomePerSecond = 8; // 每秒效率
+	
+	
+	optional uint32 UnlockGold = 9; // 解锁花费金币
 
 }
 

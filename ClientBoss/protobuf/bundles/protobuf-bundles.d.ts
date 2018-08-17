@@ -21384,6 +21384,9 @@ declare namespace table {
 
         /** THouseCellDefine Des */
         Des?: (string|null);
+
+        /** THouseCellDefine IncomePerSecond */
+        IncomePerSecond?: (number|null);
     }
 
     /** Represents a THouseCellDefine. */
@@ -21415,6 +21418,9 @@ declare namespace table {
 
         /** THouseCellDefine Des. */
         public Des: string;
+
+        /** THouseCellDefine IncomePerSecond. */
+        public IncomePerSecond: number;
 
         /**
          * Creates a new THouseCellDefine instance using the specified properties.

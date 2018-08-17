@@ -111,3 +111,8 @@ message GW2C_NotifyTimeStamp {
 message C2GW_ReqResetRobCheckFlag {
 	optional uint64 houseid = 1;
 }
+
+//同步恢复抢钱次数的时间
+message GW2C_NotifyAddRobCountTime {
+	optional int64 time = 1;
+}

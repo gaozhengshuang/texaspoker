@@ -85,6 +85,7 @@ message UserBase {
     optional PersonalImage images = 20;     // 个人形象
 	optional uint32 	newplayerstep = 21; // 新手引导
 	optional uint32 	robcount = 22;		// 抢钱次数
+	optional int64 		tmaddrobcount = 23; // 下次涨抢钱次数的时间戳
 }
 
 message UserAddress {

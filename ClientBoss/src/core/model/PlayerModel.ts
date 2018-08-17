@@ -36,7 +36,7 @@ module game {
         public totalMoney: number | Long = 0;
         private _tasks;
         private _houses;
-        private _carRecords;
+        private _carRecords:msg.IParkingRecordData[] = [];
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -80,10 +80,16 @@ module game {
             this.userInfo.parkingdatas = data.parkingdatas;
         }
 
-        private OnGW2C_SynParkingRecord()
+        private OnGW2C_SynParkingRecord(msg:msg.GW2C_SynParkingRecord)
         {
+            console.log("OnGW2C_SynParkingRecord---------->",msg.records.length);
+         
+            this.setCarRecords(msg.records);
             if (GameConfig.sceneType == 3 && CarDetailView.getInstance()) {
-                
+                if(CarDetailView.getInstance().isDongTaiPanelView())
+                {
+                    CarDetailView.getInstance().showDongtaiList();
+                }
             }
         }
 
@@ -428,8 +434,8 @@ module game {
             return this._houses;
         }
 
-        public setCarRecords(house: msg.IHouseData[]) {
-            this._carRecords = house;
+        public setCarRecords(datas: msg.IParkingRecordData[]) {
+             datas.forEach(data=>{this._carRecords.push(data);});
         }
 
         public getCarRecords() {
