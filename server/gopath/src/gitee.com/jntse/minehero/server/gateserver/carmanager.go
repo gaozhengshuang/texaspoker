@@ -415,9 +415,9 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 			log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
 			return record
 		}
-		rbuf :=[]byte(val)
+		// rbuf :=[]byte(val)
 		removeRecordData := &msg.ParkingRecordData{}
-		err = pb.Unmarshal(rbuf, removeRecordData)
+		err = pb.Unmarshal(val, removeRecordData)
 		if err != nil { 
 			log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
 			return record
@@ -432,7 +432,7 @@ func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* Pa
 			}
 		}
 		if findindex != -1 {
-			this.userrecords[ownerid] = append(this.userrecords[ownerid][:findindex],this.userrecords[ownerid][findindex+1:])
+			this.userrecords[ownerid] = append(this.userrecords[ownerid][:findindex],this.userrecords[ownerid][findindex+1:]...)
 		}
 	}
 	return record
