@@ -455,6 +455,8 @@ func (this* CarManager) ParkingCar(carid uint64,parkingid uint64,username string
 	//可以了
 	parking.ParkingCar(car,username)
 	record = this.CreateNewRecord(parking.ownerid,car,parking,uint32(msg.CarOperatorType_Park),0)
+	car.SaveBin()
+	parking.SaveBin()
 	return 0,record
 }
 
@@ -474,6 +476,8 @@ func (this* CarManager) TakeBackCar(carid uint64) (result uint32,reward uint32,r
 	reward = parking.TakeBackCar()
 	record = this.CreateNewRecord(parking.ownerid, car,parking,uint32(msg.CarOperatorType_TakeBack),reward)
 	car.SetParking(0)
+	car.SaveBin()
+	parking.SaveBin()
 	return 0,reward,record
 }
 
@@ -493,6 +497,8 @@ func (this* CarManager) TakeBackFromParking(parkingid uint64) (result uint32,rew
 	reward = parking.TakeBackCar()
 	record = this.CreateNewRecord(car.ownerid, car,parking,uint32(msg.CarOperatorType_Ticket),reward)
 	car.SetParking(0)
+	car.SaveBin()
+	parking.SaveBin()
 	return 0,reward,record
 }
 
@@ -502,6 +508,15 @@ func (this* CarManager) SaveAllData(){
 	}
 	for _, v := range this.parkings {
 		v.SaveBin()
+	}
+}
+
+func (this* CarManager) AppendHouseData(houses []*msg.HouseData){
+	for _,v := range houses {
+		parkings := this.GetParkingByUser(v.GetOwnerid())
+		for _,p := range parkings {
+			v.Parkings = append(v.Parkings,p.PackBin())
+		}
 	}
 }
 
@@ -519,3 +534,5 @@ func (this *CarManager) Handler1MiniteTick(now int64) {
 		v.UpdateReward(car,uint64(now))
 	}
 }
+
+

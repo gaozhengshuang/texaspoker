@@ -62,5 +62,5 @@ message GW2C_TicketCarResult
 
 message GW2C_SynParkingRecord
 {
-    repeated msg.ParkingRecordData records = 1;         //记录们
+    repeated string records = 1;         //记录们
 }

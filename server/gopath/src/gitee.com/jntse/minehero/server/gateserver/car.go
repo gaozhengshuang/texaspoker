@@ -3,6 +3,7 @@ package main
 import (
 	_ "fmt"
 	"gitee.com/jntse/minehero/pbmsg"
+	pb "github.com/gogo/protobuf/proto"
 )
 
 func (this *GateUser) SynCarData() {
@@ -33,5 +34,13 @@ func (this *GateUser) SynParkingData(){
 		send.Parkingdatas = append(send.Parkingdatas, tmp)
 	}
 	this.SendMsg(send)
+}
+
+func (this *GateUser) SynParkingRecord(){
+	send := &msg.GW2C_SynParkingRecord{}
+	records := CarMgr().GetRecordByUser(this.Id())
+	for _,v := range records {
+		send.Records = append(send.Records,pb.String(v))
+	}
 }
 
