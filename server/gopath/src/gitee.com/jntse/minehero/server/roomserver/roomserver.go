@@ -18,22 +18,22 @@ import (
 
 func SignalInt(signal os.Signal)    {
 	log.Info("SignalInt");
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalTerm(signal os.Signal)   {
 	log.Info("SignalTerm");
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalHup(signal os.Signal)    {
 	log.Info("SignalHup");
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalCoreDump(signal os.Signal)   {
 	log.Info("Signal[%d] Received", signal);
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 
@@ -59,7 +59,7 @@ type RoomServer struct {
 	ticker5s		*util.GameTicker
 	ticker100ms		*util.GameTicker
 	runtimestamp 	int64
-	quit_graceful 	bool
+	gracefulquit 	bool
 	noticerepeat 	[]*msg.RS2MS_MsgNotice
 	noticepause 	int64
 	itembase		[]*table.ItemBaseDataDefine
@@ -110,7 +110,7 @@ func RCounter() *util.RedisCounter {
 
 func (this *RoomServer) DoInputCmd(cmd string) {
 	switch cmd {
-	case "quit_graceful":
+	case "gracefulquit":
 		this.QuitGraceful()
 	case "gates":
 		log.Info("show gates list")
@@ -227,8 +227,8 @@ func (this *RoomServer) Handler5sTick(now int64) {
 }
 
 func (this *RoomServer) Handler100msTick(now int64) {
-	if this.quit_graceful && this.roommgr.Num() == 0 {
-		g_KeyBordInput.Insert("quit")
+	if this.gracefulquit && this.roommgr.Num() == 0 {
+		g_KeyBordInput.Push("quit")
 	}
 }
 
@@ -296,7 +296,7 @@ func (this *RoomServer) OnStop() {
 
 // 优雅退出
 func (this *RoomServer) QuitGraceful() {
-	this.quit_graceful = true
+	this.gracefulquit = true
 	this.roommgr.Shutdown()
 	RCounter().Save()
 	log.Info("服务器 QuitGraceful")

@@ -20,22 +20,22 @@ import (
 
 func SignalInt(signal os.Signal) {
 	log.Info("SignalInt")
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalTerm(signal os.Signal) {
 	log.Info("SignalTerm")
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalHup(signal os.Signal) {
 	log.Info("SignalHup")
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalCoreDump(signal os.Signal) {
 	log.Info("Signal[%d] Received", signal)
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func init() {

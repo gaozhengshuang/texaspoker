@@ -269,36 +269,38 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLogin)
-	reason, account, verifykey, token, face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetFace()
+	errmsg, account, verifykey, token, face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetFace()
 	islogin := false
 
 	switch {
 	default:
-		if UserMgr().FindByAccount(account) != nil {
-			islogin, reason = true, "玩家已经登陆了"
-			log.Info("账户%s 登录Gate失败，已经登陆了", account)
-			break
-		}
+		user := UserMgr().FindByAccount(account)
+		if user != nil {
+			if user.IsOnline() {
+				islogin, errmsg = true, "玩家已经登陆了"
+				break
+			}
 
-		wAccount := WaitPool().Find(account)
-		if wAccount == nil {
-			reason = "非法登陆网关"
-			//log.Info("账户%s 登录Gate失败，没有注册信息", account)
-			break
-		}
+			if errmsg = UserMgr().LoginByCache(session, user); errmsg != "" {
+				break
+			}
+		}else {
+			wAccount := WaitPool().Find(account)
+			if wAccount == nil {
+				errmsg = "非法登陆网关"
+				break
+			}
 
-		if wAccount.verifykey != verifykey {
-			reason = "登陆网关校验失败"
-			log.Info("账户%s 登陆Gate校验Key不正确 want:%s have:%s", account, wAccount.verifykey, verifykey)
-			break
-		}
+			if wAccount.verifykey != verifykey {
+				errmsg = "登陆网关校验失败"
+				log.Info("账户%s 登陆Gate校验Key不正确 want:%s have:%s", account, wAccount.verifykey, verifykey)
+				break
+			}
 
-		// 构造新GateUser
-		user, newerr := UserMgr().CreateNewUser(session, account, verifykey, token, face)
-		if newerr != "" || user == nil {
-			reason = newerr
-			log.Info("账户%s 创建新GateUser失败 原因[%s]", account, newerr)
-			break
+			user, errmsg = UserMgr().CreateNewUser(session, account, verifykey, token, face)	// 构造user指针 from redis db
+			if errmsg != "" || user == nil {
+				break
+			}
 		}
 
 		session.SetUserDefData(user) // TODO: 登陆成功才绑定账户到会话
@@ -306,12 +308,12 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 	}
 
 	// 返回给客户端，失败才回
-	if reason != "" {
+	if errmsg != "" {
 		if !islogin {
 			UnBindingAccountGateWay(account)
 		}
-		log.Error("sid[%d] 账户[%s] 登陆网关失败 reason[%s]", session.Id(), account, reason)
-		send := &msg.GW2C_RetLogin{Errcode: pb.String(reason)}
+		log.Error("sid[%d] 账户[%s] 登陆网关失败 errmsg[%s]", session.Id(), account, errmsg)
+		send := &msg.GW2C_RetLogin{Errcode: pb.String(errmsg)}
 		session.SendCmd(send)
 		session.Close()
 	}

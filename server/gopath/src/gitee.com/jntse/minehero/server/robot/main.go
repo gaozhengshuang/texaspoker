@@ -114,7 +114,7 @@ func main_pprof() {
 }
 
 func Quit() {
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 	//g_Signal.Close()
 }
 

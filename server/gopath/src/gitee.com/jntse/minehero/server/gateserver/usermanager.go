@@ -99,9 +99,17 @@ func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account,
 
 	WaitPool().Remove(account)
 	this.AddUser(user)
-	log.Info("当前在线人数:%d", len(this.accounts))
-	//this.AddAccount(user)
+	log.Info("当前在线人数:%d", this.AmountOnline())
 	return user, ""
+}
+
+// 从缓存登陆
+func (this *UserManager) LoginByCache(session network.IBaseNetSession, user *GateUser) string {
+	if user.Online(session) == false {
+		return "Online失败"
+	}
+	log.Info("当前在线人数:%d", this.AmountOnline())
+	return ""
 }
 
 func (this *UserManager) Amount() int {
