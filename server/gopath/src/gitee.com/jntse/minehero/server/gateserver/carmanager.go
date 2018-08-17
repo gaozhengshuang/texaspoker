@@ -358,7 +358,8 @@ func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
 		data := make([]*ParkingRecordData, 0)
 		//尝试从内存加载 如果没有返回nil
 		key, bin := fmt.Sprintf("parkingrecord_%d", id), &msg.ParkingRecordData{}
-		rlist, err := Redis().LRange(key).Result(); err != nil {
+		rlist, err := Redis().LRange(key).Result()
+		if err != nil {
 			log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
 			return data
 		}
@@ -370,7 +371,7 @@ func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
 			rbuf :=[]byte(v)
 			err = pb.Unmarshal(rbuf, record)
 			err != nil {
-				log.Error("加载车位操作记录失败 id%d ，err: %s", id, err)
+				log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
 				return data
 			}
 			this.userrecords[id] = append(this.userrecords[id],record)
