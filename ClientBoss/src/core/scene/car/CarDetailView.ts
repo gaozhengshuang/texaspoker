@@ -138,6 +138,10 @@ module game {
         public OnEnableHandle(){
             this.visible = true;
             GameConfig.showDownBtnFun(false); 
+           
+            if( this.listIndex==3){
+                this.showLinjuList(this.linjuList);
+            }
         }
         public OnDisableHandle(){
             this.visible = false;
@@ -279,7 +283,8 @@ module game {
             console.log("总共记录条数--->", DataManager.playerModel.getCarRecords().length);
             this.dongtaiList =  DataManager.playerModel.getCarRecords().filter(data=>{
                 console.log("记录类型-->",data.operatortype);
-                switch(data.operatortype)
+                //筛选出自己被操作的记录
+                switch(data.operatortype) 
                 {
                     case msg.CarOperatorType.Park:
                         return  data.parkingownerid == DataManager.playerModel.getUserId();
@@ -310,23 +315,63 @@ module game {
                             let isBelong :boolean = parkingDatas[0].ownerid == houseData.ownerid;
                             if(isBelong)
                             {
+                                //空
                                 let _empty:number = parkingDatas.some(data=>{return data.parkingcar==0;}) ? 1 : 0;
-                                //console.log(houseData.ownername,"--空->"+_empty);
-                                houseData.setObject({empty:_empty});
-                                if(_empty){
-                                    self.linjuList.push(houseData);  
-                                }
+                                console.log(houseData.ownername,"--空->"+_empty);                                                                
+                                //我车
+                                let _mycarPark:number = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();}) ? 1 : 0;
+                                console.log(houseData.ownername,"--有我车->"+_mycarPark);                                
+                                houseData.setObject({empty:_empty,myCarPark:_mycarPark});
+                                self.linjuList.push(houseData);  
                             }
                         }
                         //console.log("回调执行------>",index);
-/*                         if(index==self.linjuList.length-1){
+
+                        //if(index==self.linjuList.length-1){ //等待所有邻居停车位数据返回后在显示
+                            self.linjuList.sort(function(a,b){
+                                let empty_a  = a.empty;
+                                let empty_b  = b.empty;
+                                let myCar_a  = a.myCarPark;
+                                let myCar_b  = b.myCarPark;
+
+                                if(myCar_a && !myCar_b)
+                                {
+                                    return 0;
+                                }
+                                else if(!myCar_a && myCar_b)
+                                {
+                                    return 1;
+                                }
+                                else if(myCar_a && myCar_b)
+                                {
+                                   if(empty_a&&!empty_b){
+                                       return 1;
+                                   }
+                                   else if(!empty_a&&empty_b){
+                                       return 0;
+                                   }
+                                   else if(!empty_a&&!empty_b){
+                                       return 0;
+                                  }
+                                }
+                                else if(!myCar_a &&!myCar_b)
+                                {
+                                   if(empty_a&&!empty_b){
+                                       return 1;
+                                   }
+                                   else if(!empty_a&&empty_b){
+                                       return 0;
+                                   }
+                                   else if(!empty_a&&!empty_b){
+                                       return 0;
+                                  }
+                                }
+                            });
                             self.itemList.bindData(self.linjuList);
-                        } */
-                        self.itemList.bindData(self.linjuList);
+                        //} 
+                       
                     }.bind(this));
                 });
-            
-                //this.itemList.bindData(this.linjuList);
             }
         }
 

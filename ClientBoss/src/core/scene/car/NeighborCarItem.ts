@@ -3,18 +3,17 @@ module game {
 
         imageEmpty      : eui.Image;
         imageFull       : eui.Image
+        imageMy         : eui.Image;
+        
         infoTxt         : eui.Label;
-        name_txt        :eui.Label;
-        roomNum_txt     :eui.Label;
+        name_txt        : eui.Label;
+        roomNum_txt     : eui.Label;
 
 		public constructor(data:any=null) {
 			super();
-			this.skinName = "resource/skins/car/NeighborCarItem.exml";
-            //this.adaptive();             
+			this.skinName = "resource/skins/car/NeighborCarItem.exml"; 
 		}
-        private adaptive() {
-			this.scaleX=this.scaleY=GameConfig.innerScaleW;
-		}
+
         private itemData:HouseVO;
         protected dataChanged():void{
             this.itemData=this.data;
@@ -24,6 +23,7 @@ module game {
                 //console.log(this.itemData.ownername+"-----设置车位空满-----", this.data.empty);
                 this.imageEmpty.visible = this.data.empty && true;
                 this.imageFull.visible  = ! (this.data.empty && true);
+                this.imageMy.visible    = this.itemData.myCarPark && true;
             }
         }
 	}

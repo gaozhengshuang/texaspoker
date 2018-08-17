@@ -82,7 +82,7 @@ module game {
 
         private OnGW2C_SynParkingRecord(msg:msg.GW2C_SynParkingRecord)
         {
-            console.log("OnGW2C_SynParkingRecord---------->",msg.records.length,JSON.stringify(msg));
+            console.log("OnGW2C_SynParkingRecord---------->",msg.records.length);
          
             this.setCarRecords(msg.records);
             if (GameConfig.sceneType == 3 && CarDetailView.getInstance()) {
