@@ -138,6 +138,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyRobCount{})
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyTimeStamp{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckOtherUserHouseData{})
+	this.msgparser.RegistSendProto(msg.GW2C_NotifyAddRobCountTime{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
