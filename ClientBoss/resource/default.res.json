@@ -331,7 +331,7 @@
 			"url": "assets/texpack/car/uiCarAltas.json",
 			"type": "sheet",
 			"name": "uiCarAltas_json",
-			"subkeys": "backBtn,closeBtn,dialogBg,driveBtn,emptybg,goldBg,infobg,line,neighbor,normalBtn,null_bg,parkedBg,parkinglot,parkinglot_empty,parkinglot_full,scrollviewBg,selectBtn,stateBtn"
+			"subkeys": "backBtn,closeBtn,dialogBg,driveBtn,emptybg,goldBg,infobg,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,scrollviewBg,selectBtn,stateBtn,ticket"
 		},
 		{
 			"url": "assets2/addFriend_btn1.png",
