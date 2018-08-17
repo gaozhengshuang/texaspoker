@@ -205,8 +205,7 @@ func (this* ParkingRecordData) PackBin() *msg.ParkingRecordData {
 }
 
 func (this* ParkingRecordData) Equal(other* ParkingRecordData) bool {
-	return true;
-	// (this.recordtime == other.recordtime && this.cartid == other.cartid && this.operatortype == other.operatortype && this.parkingownerid == other.parkingownerid && this.recordparam == other.recordparam && this.carownerid == other.carownerid)
+	return (this.recordtime == other.recordtime && this.cartid == other.cartid && this.operatortype == other.operatortype && this.parkingownerid == other.parkingownerid && this.recordparam == other.recordparam && this.carownerid == other.carownerid)
 }
 
 //车辆管理器
@@ -364,7 +363,7 @@ func (this* CarManager) GetRecords(id uint64) []*ParkingRecordData{
 			return data
 		}
 		if _,ok := this.userrecords[id]; !ok {
-			this.userrecords[id] = make([]*ParkingRecordData,0)
+			this.userrecords[id] = data
 		}
 		for _,v := range rlist {
 			record := &ParkingRecordData{}
