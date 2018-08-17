@@ -18,7 +18,6 @@ import (
 const (
 	CarIdSetKey = "cars_idset"
 	ParkingIdSetKey = "parking_idset"
-	RecordIdSetKey = "record_idset"
 )
 
 //车辆信息
@@ -168,46 +167,6 @@ func (this* ParkingData) ParkingCar(car *CarData,username string){
 }
 
 
-//记录数据
-type ParkingRecordData struct {
-	recordtime 			uint64  			//记录时间
-    operatortype 		uint32				//操作类型
-	parkingownerid	 	uint64  			//车位拥有者id
-	parkingownername 	string				//车位拥有者名字
-    cartid		 		uint32  			//车辆模板id
-	carownerid 			uint64  			//车辆拥有者id
-    carownername 		string				//车辆拥有者名字
-    recordparam			uint32        		//操作的参数
-}
-
-func (this *ParkingRecordData) LoadBin(bin *msg.ParkingRecordData){
-	this.recordtime = bin.GetRecordtime()
-	this.operatortype = bin.GetOperatortype()
-	this.parkingownerid = bin.GetParkingownerid()
-	this.parkingownername = bin.GetParkingownername()
-	this.cartid = bin.GetCartid()
-	this.carownerid = bin.GetCarownerid()
-	this.carownername = bin.GetCarownername()
-	this.recordparam = bin.GetRecordparam()
-}
-
-func (this* ParkingRecordData) PackBin() *msg.ParkingRecordData {
-	bin := &msg.ParkingRecordData{}
-	bin.Recordtime = pb.Uint64(this.recordtime)
-	bin.Operatortype = pb.Uint32(this.operatortype)
-	bin.Parkingownerid = pb.Uint64(this.parkingownerid)
-	bin.Parkingownername = pb.String(this.parkingownername)
-	bin.Cartid = pb.Uint32(this.cartid)
-	bin.Carownerid = pb.Uint64(this.carownerid)
-	bin.Carownername = pb.String(this.carownername)
-	bin.Recordparam = pb.Uint32(this.recordparam)
-	return bin
-}
-
-func (this* ParkingRecordData) Equal(other* ParkingRecordData) bool {
-	return (this.recordtime == other.recordtime && this.cartid == other.cartid && this.operatortype == other.operatortype && this.parkingownerid == other.parkingownerid && this.recordparam == other.recordparam && this.carownerid == other.carownerid)
-}
-
 //车辆管理器
 type CarManager struct {
 	cars map[uint64]*CarData //已加载的所有车辆的map
@@ -216,7 +175,6 @@ type CarManager struct {
 	parkings map[uint64]*ParkingData //已加载的所有车位map
 	userparkings map[uint64][]uint64 //玩家id 关联的车位id
 
-	userrecords map[uint64][]*ParkingRecordData
 	ticker1Minite *util.GameTicker
 }
 
@@ -225,7 +183,6 @@ func (this* CarManager) Init(){
 	this.usercars = make(map[uint64][]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
-	this.userrecords = make(map[uint64][]*ParkingRecordData)
 
 	this.ticker1Minite = util.NewGameTicker(time.Minute, this.Handler1MiniteTick)
 	this.ticker1Minite.Start()
@@ -247,16 +204,6 @@ func (this* CarManager) Init(){
 		for _, v := range parkingIds {
 			parkingid, _ := strconv.Atoi(v)
 			this.GetParking(uint64(parkingid))
-		}
-	}
-
-	recordIds,err := Redis().SMembers(RecordIdSetKey).Result()
-	if err != nil{
-		log.Error("启动加载操作记录失败 err: %s", err)
-	}else{
-		for _, v := range recordIds {
-			recordid, _ := strconv.Atoi(v)
-			this.GetRecordByUser(uint64(recordid))
 		}
 	}
 
@@ -351,92 +298,64 @@ func (this* CarManager) GetParking(id uint64) *ParkingData{
 	}
 }
 
-func (this* CarManager) GetRecordByUser(id uint64) []*ParkingRecordData{
-	if _, ok := this.userrecords[id]; ok {
-		return this.userrecords[id]
-	} else {
-		datas := make([]*ParkingRecordData, 0)
-		//尝试从内存加载 如果没有返回nil
-		key := fmt.Sprintf("parkingrecord_%d", id)
-		rlist, err := Redis().LRange(key,0,10).Result()
-		if err != nil {
-			log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
-			return datas
-		}
-		this.userrecords[id] = datas
-		for _,v := range rlist {
-			rbuf :=[]byte(v)
-			recordData := &msg.ParkingRecordData{}
-			err = pb.Unmarshal(rbuf, recordData)
-			if err != nil {
-				log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
-				return datas
-			}
-			record := &ParkingRecordData{}
-			record.LoadBin(recordData)
-			this.userrecords[id] = append(this.userrecords[id],record)
-		}
-		return datas
+func (this* CarManager) GetRecordByUser(id uint64) []string{
+	//尝试从内存加载 如果没有返回nil
+	str := make([]string,0)
+	key := fmt.Sprintf("parkingrecord_%d", id)
+	rlist, err := Redis().LRange(key,0,10).Result()
+	if err != nil {
+		log.Error("加载车位操作记录失败 id %d ，err: %s", id, err)
+		return str
 	}
+	return rlist
 }
 
-func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* ParkingData,opttype uint32,param uint32) *ParkingRecordData{
-	//查表去获取房屋的配置信息创建
-	record := &ParkingRecordData{}
-	record.operatortype = opttype
-	record.recordtime = uint64(util.CURTIMEMS())
-	record.carownerid = car.ownerid
-	record.carownername = car.ownername
-	record.cartid = car.tid
-	record.parkingownerid = parking.ownerid
-	record.parkingownername = parking.ownername
-	record.recordparam = param
-
-	buf, err := pb.Marshal(record.PackBin())
-	if err != nil { 
-		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
-		return nil
+func (this* CarManager) CreateNewRecord(ownerid uint64,car* CarData, parking* ParkingData,opttype uint32,param uint32) string{
+	str := make([]byte,0,256)
+	str = strconv.AppendInt(str,int64(ownerid),10)
+	str = strconv.AppendQuote(str,'_')
+	str = strconv.AppendQuote(str,time.Now().Format("15:04"))
+	str = strconv.AppendQuote(str,"  ")
+	switch (opttype){
+		case 1:
+			//停车
+			str = strconv.AppendQuote(str,car.ownername)
+			str = strconv.AppendQuote(str,"将他的")
+			str = strconv.AppendQuote(str,car.template.Brand)
+			str = strconv.AppendQuote(str,car.template.Model)
+			str = strconv.AppendQuote(str,"停在了你的车位")
+			break
+		case 2:
+			//收车
+			str = strconv.AppendQuote(str,car.ownername)
+			str = strconv.AppendQuote(str,"开走了他的")
+			str = strconv.AppendQuote(str,car.template.Brand)
+			str = strconv.AppendQuote(str,car.template.Model)
+			break
+		case 3:
+			str = strconv.AppendQuote(str,parking.ownername)
+			str = strconv.AppendQuote(str,"对你的")
+			str = strconv.AppendQuote(str,car.template.Brand)
+			str = strconv.AppendQuote(str,car.template.Model)
+			str = strconv.AppendQuote(str,"贴条")
+			break
 	}
-	// Set二进制
+	data := string(str)
+	// 保存数据
 	key := fmt.Sprintf("parkingrecord_%d", ownerid)
-	err = Redis().RPush(key, buf).Err()
+	err = Redis().RPush(key, data).Err()
 	if err != nil { 
 		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
-		return nil
+		return ""
 	}
-	if _,ok := this.userrecords[ownerid]; !ok {
-		this.userrecords[ownerid] = make([]*ParkingRecordData,0)
-		Redis().SAdd(RecordIdSetKey, ownerid)
-	}
-	this.userrecords[ownerid] = append(this.userrecords[ownerid],record)
 	if Redis().LLen(key).Val() > 5 {
 		//删除最老的记录
-		val,err := Redis().BLPop(0,key).Result()
-		if err != nil || len(val) == 0{ 
+		err := Redis().BLPop(0,key).Err()
+		if err != nil{ 
 			log.Error("删除多余车位操作记录失败 id%d", ownerid)
-			return record
-		}
-		rbuf :=[]byte(val[0])
-		removeRecordData := &msg.ParkingRecordData{}
-		err = pb.Unmarshal(rbuf, removeRecordData)
-		if err != nil { 
-			log.Error("删除多余车位操作记录失败 id%d", ownerid)
-			return record
-		}
-		removeRecord := &ParkingRecordData{}
-		removeRecord.LoadBin(removeRecordData)
-		findindex := -1
-		for index,v := range this.userrecords[ownerid] {
-			if removeRecord.Equal(v) {
-				findindex = index
-				break
-			}
-		}
-		if findindex != -1 {
-			this.userrecords[ownerid] = append(this.userrecords[ownerid][:findindex],this.userrecords[ownerid][findindex+1:]...)
 		}
 	}
-	return record
+	return data
 }
 
 
