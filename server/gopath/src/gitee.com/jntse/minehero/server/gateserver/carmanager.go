@@ -314,38 +314,21 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 }
 
 func (this *CarManager) CreateNewRecord(ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
-	str := make([]byte, 0, 256)
-	str = strconv.AppendInt(str, int64(ownerid), 10)
-	str = strconv.AppendQuote(str, "_")
-	str = strconv.AppendInt(str, int64(opttype),10)
-	str = strconv.AppendQuote(str, "_")
-	str = strconv.AppendQuote(str, time.Now().Format("15:04"))
-	str = strconv.AppendQuote(str, "  ")
+	prefix := fmt.Sprintf("%d_%d_%s  ", ownerid,opttype,time.Now().Format("15:04"))
+	data := ""
 	switch opttype {
 	case 1:
 		//停车
-		str = strconv.AppendQuote(str, car.ownername)
-		str = strconv.AppendQuote(str, "将他的")
-		str = strconv.AppendQuote(str, car.template.Brand)
-		str = strconv.AppendQuote(str, car.template.Model)
-		str = strconv.AppendQuote(str, "停在了你的车位")
+		data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
 		break
 	case 2:
 		//收车
-		str = strconv.AppendQuote(str, car.ownername)
-		str = strconv.AppendQuote(str, "开走了他的")
-		str = strconv.AppendQuote(str, car.template.Brand)
-		str = strconv.AppendQuote(str, car.template.Model)
+		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
 		break
 	case 3:
-		str = strconv.AppendQuote(str, parking.ownername)
-		str = strconv.AppendQuote(str, "对你的")
-		str = strconv.AppendQuote(str, car.template.Brand)
-		str = strconv.AppendQuote(str, car.template.Model)
-		str = strconv.AppendQuote(str, "贴条")
+		data = prefix + car.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
 		break
 	}
-	data := string(str)
 	// 保存数据
 	key := fmt.Sprintf("parkingrecord_%d", ownerid)
 	err := Redis().RPush(key, data).Err()
