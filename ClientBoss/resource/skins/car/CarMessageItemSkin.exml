@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarMessageItemSkin" width="720" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="content_txt" text="XXX 通过邀请正式进入 欢迎新人！" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="583" x="3" textColor="0x3f4957" y="4" anchorOffsetY="0" height="50" verticalAlign="middle" textAlign="left"/>
+
+
+	<e:Group id="stateGroup" width="0" height="0" x="0" y="0">
+		<e:Image source="uiCarAltas_json.normalBtn" anchorOffsetX="1" anchorOffsetY="1" width="150" y="8.2" height="56" x="593.2" scaleX="0.8" scaleY="0.8"/>
+		<e:Label id="stateTxt" text="拜 访" x="620" y="16" size="25"/>
+	</e:Group>
+</e:Skin>
