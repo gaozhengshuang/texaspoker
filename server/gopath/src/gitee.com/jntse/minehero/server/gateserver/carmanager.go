@@ -28,6 +28,7 @@ type CarData struct {
 	createtime uint64 //创建时间
 	parkingid  uint64 //车位id
 	ownername  string //拥有者名字
+	modified   bool   //是否需要保存
 
 	template *table.TCarDefine
 }
@@ -39,6 +40,7 @@ func (this *CarData) LoadBin(bin *msg.CarData) {
 	this.createtime = bin.GetCreatetime()
 	this.parkingid = bin.GetParkingid()
 	this.ownername = bin.GetOwnername()
+	this.modified = false
 	template, find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
 		log.Error("玩家[%d] 找不到车辆配置[%d]", this.ownerid, this.tid)
@@ -84,6 +86,7 @@ type ParkingData struct {
 	parkingreward       uint32 //停车获得收益
 	parkingcartid       uint32 //停的车的配置id
 	houseid             uint64 //所属房屋id
+	modified   			bool   //是否需要保存
 
 	template *table.TParkingDefine
 }
@@ -100,6 +103,7 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData) {
 	this.ownername = bin.GetOwnername()
 	this.parkingcartid = bin.GetParkingcartid()
 	this.houseid = bin.GetHouseid()
+	this.modified = false
 
 	template, find := tbl.TParkingBase.TParkingById[this.tid]
 	if find == false {
@@ -256,6 +260,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	car.parkingid = 0
 	car.createtime = uint64(util.CURTIMEMS())
 	car.ownername = name
+	car.modified = false
 
 	car.SaveBin()
 	Redis().SAdd(CarIdSetKey, carid)
@@ -413,6 +418,7 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	parking.parkingreward = 0
 	parking.parkingcartid = 0
 	parking.houseid = hid
+	parking.modified = false
 	parking.SaveBin()
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
@@ -442,8 +448,8 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	//可以了
 	parking.ParkingCar(car, username)
 	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
-	car.SaveBin()
-	parking.SaveBin()
+	car.modified = true
+	parking.modified = true
 
 	//发送操作记录
 	sendOwner := UserMgr().FindById(parking.ownerid)
@@ -471,8 +477,8 @@ func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32)
 	reward = parking.TakeBackCar()
 	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 	car.SetParking(0)
-	car.SaveBin()
-	parking.SaveBin()
+	car.modified = true
+	parking.modified = true
 	//发送操作记录
 	sendOwner := UserMgr().FindById(parking.ownerid)
 	if sendOwner != nil {
@@ -499,8 +505,8 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, re
 	reward = parking.TakeBackCar()
 	record := this.CreateNewRecord(parking.ownerid,car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 	car.SetParking(0)
-	car.SaveBin()
-	parking.SaveBin()
+	car.modified = true
+	parking.modified = true
 
 	//发送操作记录
 	sendOwner := UserMgr().FindById(car.ownerid)
@@ -513,11 +519,33 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, re
 }
 
 func (this *CarManager) SaveAllData() {
+	pipe := Redis().Pipeline()
+		
 	for _, v := range this.cars {
-		v.SaveBin()
+		if v.modified {
+			buf, err := pb.Marshal(v.PackBin())
+			if err != nil { 
+				log.Error("保存车辆数据失败[%d] 数据打包失败[%s]", v.id, err)
+				continue
+			}
+			pipe.Set(fmt.Sprintf("cars_%d", v.id), buf,0).Err()
+			v.modified = false
+		}
 	}
 	for _, v := range this.parkings {
-		v.SaveBin()
+		if v.modified {
+			buf, err := pb.Marshal(v.PackBin())
+			if err != nil { 
+				log.Error("保存车位数据失败[%d] 数据打包失败[%s]", v.id, err)
+				continue
+			}
+			pipe.Set(fmt.Sprintf("parkings_%d", v.id), buf,0).Err()
+			v.modified = false
+		}
+	}
+	_, err := pipe.Exec()
+	if err != nil {
+		log.Error("保存数据失败 redis pipe操作失败")
 	}
 }
 
@@ -537,6 +565,7 @@ func (this *CarManager) Tick(now int64) {
 }
 
 func (this *CarManager) Handler1MiniteTick(now int64) {
+	this.SaveAllData()
 }
 
 func (this *CarManager) Handler1SecondTick(now int64) {

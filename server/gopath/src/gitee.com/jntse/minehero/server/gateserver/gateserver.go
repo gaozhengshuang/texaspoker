@@ -346,7 +346,6 @@ func (this *GateServer) OnStop() {
 	}
 	this.housesvrmgr.SaveAllHousesData()
 	this.hredis.Close()
-	this.carmgr.SaveAllData()
 }
 
 func (this *GateServer) ClientListenerConf() *network.WsListenConf {
