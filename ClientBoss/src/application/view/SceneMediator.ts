@@ -63,7 +63,7 @@ module game {
                     }
                     case CommandName.SCENE_MAIN_ASSETS:
                     {
-                        GameConfig.updataMaskBgFun('#404A58', 1);
+                        GameConfig.updataMaskBgFun('#E5E6E6', 1);
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
                       
@@ -81,7 +81,7 @@ module game {
                     }
                     case CommandName.SCENE_SWITCH_DISCOVERY:
                     {
-                        GameConfig.updataMaskBgFun('#404A58', 1);
+                        GameConfig.updataMaskBgFun('#FFFFFF', 1);
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
                         //if (data) {
@@ -99,7 +99,7 @@ module game {
                     }
                     case CommandName.SCENE_SWITCH_MINE:
                     {
-                        GameConfig.updataMaskBgFun('#404A58', 1);
+                        GameConfig.updataMaskBgFun('#E5E6E6', 1);
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
                         //if (data) {
