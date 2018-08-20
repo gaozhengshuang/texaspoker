@@ -82,18 +82,50 @@ module game {
             this.userInfo.parkingdatas = data.parkingdatas;
         }
 
-        private OnGW2C_SynParkingRecord(msg:msg.GW2C_SynParkingRecord)
+        private OnGW2C_SynParkingRecord(msgs:msg.GW2C_SynParkingRecord)
         {
-            console.log("OnGW2C_SynParkingRecord---------->",msg.records.length,JSON.stringify(msg));
+            console.log("OnGW2C_SynParkingRecord---------->",msgs.records.length,JSON.stringify(msgs));
          
-            this.setCarRecords(msg.records);
-            if (GameConfig.sceneType == 3 && CarDetailView.getInstance()) {
-                if(CarDetailView.getInstance().isDongTaiPanelView())
+            this.setCarRecords(msgs.records);
+
+            if (GameConfig.sceneType == 3) //资产主界面打开
+             {  
+                //车辆信息界面
+                if( CarDetailView.getInstance())
                 {
-                    CarDetailView.getInstance().showDongtaiList();
+                    if( CarDetailView.getInstance().visible && CarDetailView.getInstance().Inited())
+                    {   
+                        //车辆信息界面刷新
+                        if(msgs.records.some(str=>{return str.split("_"[0])[1] == msg.CarOperatorType.Ticket.toString();}))
+                        {
+                            CarManager.getInstance().ReqMyCarInfo(function(){
+                                CarDetailView.getInstance().setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
+                                    return data.id == CarDetailView.getInstance().carData.id;
+                                })[0]);
+                            });
+                        }
+                        //刷新动态列表
+                        if(CarDetailView.getInstance().isDongTaiPanelView())
+                        {
+                            CarDetailView.getInstance().showDongtaiList();
+                        }
+                    }
                 }
+                //房屋信息界面
+                if(GameRoomView.getInstance()) 
+                {
+                    //房屋信息界面刷新
+                    if(GameRoomView.getInstance().visible && GameRoomView.getInstance().IsInMyRoom())
+                    {
+                        //if(msgs.records.some(str=>{return str.split("_"[0])[1] == msg.CarOperatorType.Ticket.toString();}))
+                        {
+                            ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);
+                        }                        
+                    }
+                }
+
             }
-        }
+         }
 
         private OnGW2C_SendTaskList(data: msg.IGW2C_SendTaskList) {
             this._tasks = data.tasks;

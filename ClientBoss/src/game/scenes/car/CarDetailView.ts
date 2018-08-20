@@ -23,10 +23,10 @@ module game {
 
         dongtai_btn     : eui.Button;
         lingju_btn      : eui.Button;
+        hideList_btn    : eui.Button;
 
-        hideList_btn: eui.Button;
-
-        private carData  : msg.ICarData;
+        private _inited : boolean;
+        public carData  : msg.ICarData;
 
         protected getSkinName() {
             return CarDetailInfoSkin;
@@ -40,12 +40,6 @@ module game {
             return CarDetailView._instance;
         }
 
-        constructor()
-        {
-            super();
-            this.adaptive();
-        }
-
         public init() 
         {
             this.btnDriveAway.icon = "shopItemButtonBg_png";
@@ -54,6 +48,8 @@ module game {
             this.btnState.icon = "uiCarAltas_json.stateBtn";
 
             this.hideList_btn.visible = false;
+            this._inited   = false;
+            this.adaptive();
         }
 
         protected beforeShow() {
@@ -69,6 +65,7 @@ module game {
             ];
 
             this.listIndex = 0;
+            this._inited   = true;
             //this.addEventListener(CarDetailView.POPUP_ROOM_NEIGHBOR,this.showLinjuList,this);
         }
 
@@ -137,7 +134,9 @@ module game {
             this.parkingEmptyTxt.visible = !(_parkingData && true);
          }
         public OnCloseHandle() {
+            if(!this.Inited()) return;
             this.remove();
+            this._inited  = false;
             GameConfig.showDownBtnFun(true); 
             delete CarDetailView._instance;
             CarDetailView._instance = null;
@@ -145,6 +144,7 @@ module game {
 
         public OnEnableHandle(){
             this.visible = true;
+            this._inited  = true;
             GameConfig.showDownBtnFun(false); 
 
             //刷新车辆信息
@@ -166,6 +166,7 @@ module game {
         }
         public OnDisableHandle(){
             this.visible = false;
+            this._inited  = false;
             this.removeDarkRect();
             GameConfig.showDownBtnFun(true); 
         }
@@ -294,13 +295,13 @@ module game {
             }
         }
  
-        private dongtaiList: msg.IParkingRecordData[];
+        private dongtaiList: string[];
         public showDongtaiList() {
             console.log("总共记录条数--->", DataManager.playerModel.getCarRecords().length);
             this.dongtaiList =  DataManager.playerModel.getCarRecords().filter(data=>{
-                console.log("记录类型-->",data.operatortype);
+                console.log("记录类型-->",data);
                 //筛选出自己被操作的记录
-                switch(data.operatortype) 
+/*                 switch(data.operatortype) 
                 {
                     case msg.CarOperatorType.Park:
                         return  data.parkingownerid == DataManager.playerModel.getUserId();
@@ -308,7 +309,7 @@ module game {
                         return  data.parkingownerid == DataManager.playerModel.getUserId();
                     case msg.CarOperatorType.Ticket:
                         return  data.carownerid == DataManager.playerModel.getUserId();
-                }
+                } */
                 return true;
             });
             console.log("dongtaiList.......",this.dongtaiList.length);
@@ -411,7 +412,9 @@ module game {
             switch (this.listIndex) {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];
-                    let _userId = item.operatortype==msg.CarOperatorType.Ticket ? item.carownerid : item.parkingownerid;
+                    let operatortype =  parseInt(item.split("_"[0])[1]);
+                    let _userId = operatortype==msg.CarOperatorType.Park ? DataManager.playerModel.getUserId() : parseInt(item.split("_"[0])[0]);
+                    //console.log("前往玩家ID------>",_userId);
                     if (item) {
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:_userId});
                         this.OnDisableHandle();
@@ -430,6 +433,10 @@ module game {
         public isDongTaiPanelView()
         {
             return this.hideList_btn.visible;
+        }
+
+        public Inited(){
+            return this._inited;
         }
     }
 }
