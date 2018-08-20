@@ -8,7 +8,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	_"github.com/gogo/protobuf/proto"
+	_ "github.com/gogo/protobuf/proto"
 	"reflect"
 )
 
@@ -44,14 +44,6 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
 
-	//this.msgparser.RegistProtoMsg(msg.MS2GW_AckUserHouse{}, on_MS2Server_AckUserHouse)
-	//this.msgparser.RegistProtoMsg(msg.MS2GW_AckHouseLevelUp{}, on_MS2GW_AckHouseLevelUp)
-	//this.msgparser.RegistProtoMsg(msg.MS2GW_AckHouseCellLevelUp{}, on_MS2GW_AckHouseCellLevelUp)
-	//this.msgparser.RegistProtoMsg(msg.MS2GW_AckTakeSelfHouseGoldRet{}, on_MS2GW_AckTakeSelfHouseGoldRet)
-	//this.msgparser.RegistProtoMsg(msg.MS2GW_AckTakeOtherHouseGoldRet{}, on_MS2GW_AckTakeOtherHouseGoldRet)
-	//this.msgparser.RegistProtoMsg(msg.MS2GW_AckRandHouseList{}, on_MS2GW_AckRandHouseList)
-	//this.msgparser.RegistProtoMsg(msg.MS2GW_AckOtherUserHouseData{}, on_MS2GW_AckOtherUserHouseData)
-
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
 	this.msgparser.RegistSendProto(msg.GW2MS_HeartBeat{})
@@ -60,15 +52,6 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateRoom{})
 	this.msgparser.RegistSendProto(msg.GW2MS_MsgNotice{})
 
-	//this.msgparser.RegistSendProto(msg.GW2MS_UserOnlineState{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateHouse{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqUserHouse{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqHouseLevelUp{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqHouseCellLevelUp{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeSelfHouseGold{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqTakeOtherHouseGold{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqRandHouseList{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqOtherUserHouseData{})
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -132,122 +115,6 @@ func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}
 		DoGMCmd(gmcommands)
 	}
 }
-
-//func on_MS2Server_AckUserHouse(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.MS2GW_AckUserHouse)
-//	uid := tmsg.GetUserid()
-//	user := UserMgr().FindById(uid)
-//	log.Info("on_MS2Server_AckUserHouse  uid:%d", uid)
-//	if user == nil {
-//		log.Error("玩家:%d 请求创建房间返回，但找不到玩家", uid)
-//		return
-//	}
-//	user.UpdateHouseData(tmsg.GetData())
-//}
-
-//func on_MS2GW_AckHouseLevelUp(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.MS2GW_AckHouseLevelUp)
-//	uid := tmsg.GetUserid()
-//	user := UserMgr().FindById(uid)
-//	if user == nil {
-//		log.Error("玩家:%d 升级房屋返回，但找不到玩家", uid)
-//		return
-//	}
-//	send := &msg.GW2C_AckHouseLevelUp{}
-//	send.Houseid = pb.Uint64(tmsg.GetHouseid())
-//	send.Ret = pb.Uint32(tmsg.GetRet())
-//	send.Data = tmsg.GetData()
-//	user.SendMsg(send)
-//}
-
-//func on_MS2GW_AckHouseCellLevelUp(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.MS2GW_AckHouseCellLevelUp)
-//	uid := tmsg.GetUserid()
-//	user := UserMgr().FindById(uid)
-//	if user == nil {
-//		log.Error("玩家:%d 升级房屋房间Cell返回，但找不到玩家", uid)
-//		return
-//	}
-//	send := &msg.GW2C_AckHouseCellLevelUp{}
-//	send.Houseid = pb.Uint64(tmsg.GetHouseid())
-//	send.Index = pb.Uint32(tmsg.GetIndex())
-//	send.Ret = pb.Uint32(tmsg.GetRet())
-//	send.Data = tmsg.GetData()
-//	user.SendMsg(send)
-//}
-
-//func on_MS2GW_AckTakeSelfHouseGoldRet(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.MS2GW_AckTakeSelfHouseGoldRet)
-//	uid := tmsg.GetUserid()
-//	user := UserMgr().FindById(uid)
-//	if user == nil {
-//		log.Error("玩家:%d 收获金币返回，但找不到玩家", uid)
-//		return
-//	}
-//
-//	gold := tmsg.GetGold()
-//
-//	if gold > 0 {
-//		user.AddGold(gold, "收取自己房屋产出金币", true)
-//	}
-//
-//	send := &msg.GW2C_AckTakeSelfHouseGoldRet{}
-//	send.Houseid = pb.Uint64(tmsg.GetHouseid())
-//	send.Index = pb.Uint32(tmsg.GetIndex())
-//	send.Gold = pb.Uint32(gold)
-//	send.Data = tmsg.GetData()
-//	user.SendMsg(send)
-//}
-
-//func on_MS2GW_AckTakeOtherHouseGoldRet(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.MS2GW_AckTakeOtherHouseGoldRet)
-//	uid := tmsg.GetUserid()
-//	user := UserMgr().FindById(uid)
-//	if user == nil {
-//		log.Error("玩家:%d 抢夺金币返回，但找不到玩家", uid)
-//		return
-//	}
-//	gold := tmsg.GetGold()
-//	if gold > 0 {
-//		user.AddGold(gold, "抢夺其他玩家房屋产出金币", true)
-//		user.SetRobCount(user.GetRobCount() - 1)
-//	}
-//
-//	send := &msg.GW2C_AckTakeOtherHouseGoldRet{}
-//	send.Houseid = pb.Uint64(tmsg.GetHouseid())
-//	send.Index = pb.Uint32(tmsg.GetIndex())
-//	send.Gold = pb.Uint32(tmsg.GetGold())
-//	send.Data = tmsg.GetData()
-//	user.SendMsg(send)
-//}
-
-//func on_MS2GW_AckRandHouseList(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.MS2GW_AckRandHouseList)
-//	uid := tmsg.GetUserid()
-//	user := UserMgr().FindById(uid)
-//	if user == nil {
-//		log.Error("玩家:%d 申请查看随机房屋列表返回，但找不到玩家", uid)
-//		return
-//	}
-//
-//	send := &msg.GW2C_AckRandHouseList{}
-//	send.Datas = tmsg.GetDatas()
-//	user.SendMsg(send)
-//}
-
-//func on_MS2GW_AckOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.MS2GW_AckOtherUserHouseData)
-//	uid := tmsg.GetUserid()
-//	user := UserMgr().FindById(uid)
-//	if user == nil {
-//		log.Error("玩家:%d 申请查看其他玩家房屋信息返回，但找不到玩家", uid)
-//		return
-//	}
-//
-//	send := &msg.GW2C_AckOtherUserHouseData{}
-//	send.Datas = tmsg.GetDatas()
-//	user.SendMsg(send)
-//}
 
 func DoGMCmd(cmd map[string]string) {
 	value, ok := cmd["gmcmd"]

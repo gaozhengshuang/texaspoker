@@ -490,16 +490,6 @@ func (this *HouseManager) SaveAllHousesData() {
 	}
 }
 
-//func (this *HouseManager) OnSyncUserOnlineState(uid uint64, state uint32, sessionid int) {
-//	if state == 1 {
-//		this.useronlne[uid] = sessionid
-//	} else {
-//		if k, ok := this.useronlne[uid]; ok {
-//			delete(this.useronlne, uint64(k))
-//		}
-//	}
-//}
-
 //循环
 func (this *HouseManager) Tick(now int64) {
 	for _, v := range this.houses {
@@ -509,22 +499,6 @@ func (this *HouseManager) Tick(now int64) {
 
 //通知 玩家房屋信息变化
 func (this *HouseManager) SyncUserHouseData(uid uint64) {
-	//if _, ok := this.useronlne[uid]; ok {
-	//	sessionid := this.useronlne[uid]
-	//	agent := GateSvrMgr().FindGate(sessionid)
-	//	if agent != nil {
-	//		send := &msg.MS2GW_AckUserHouse{}
-	//		send.Userid = pb.Uint64(uid)
-	//		datas := send.GetData()
-	//		info := this.GetHousesByUser(uid)
-	//		for _, v := range info {
-	//			tmp := v.PackBin()
-	//			datas = append(datas, tmp)
-	//		}
-	//		send.Data = datas
-	//		agent.SendMsg(send)
-	//	}
-	//}
 	user := UserMgr().FindById(uid)
 	if user != nil {
 		user.ReqMatchHouseData()
@@ -646,9 +620,6 @@ func (this *HouseManager) ResetRobcheckflag(houseid uint64) {
 }
 
 func (this *GateUser) ReqMatchHouseData() {
-	//send := &msg.GW2MS_ReqUserHouse{}
-	//send.Userid = pb.Uint64(this.Id())
-	//Match().SendCmd(send)
 	this.UpdateHouseData()
 	this.SendHouseData()
 }
@@ -698,10 +669,6 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 			//钱不够
 			return
 		} else {
-			//sendmatch := &msg.GW2MS_ReqHouseLevelUp{}
-			//sendmatch.Userid = pb.Uint64(this.Id())
-			//sendmatch.Houseid = pb.Uint64(house.GetId())
-			//Match().SendCmd(sendmatch)
 			ret := HouseSvrMgr().HouseLevelUp(this.Id(), houseid)
 			house := HouseSvrMgr().GetHouse(houseid)
 			if house == nil {
@@ -743,11 +710,6 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					//钱不够
 					return
 				} else {
-					//sendmatch := &msg.GW2MS_ReqHouseCellLevelUp{}
-					//sendmatch.Userid = pb.Uint64(this.Id())
-					//sendmatch.Houseid = pb.Uint64(houseid)
-					//sendmatch.Index = pb.Uint32(index)
-					//Match().SendCmd(sendmatch)
 					ret := HouseSvrMgr().HouseCellLevelUp(this.Id(), houseid, index)
 					house := HouseSvrMgr().GetHouse(houseid)
 					if house == nil {
@@ -784,12 +746,6 @@ func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
 					log.Error("TakeSelfHouseGold have no gold")
 					return
 				}
-				//sendmatch := &msg.GW2MS_ReqTakeSelfHouseGold{}
-				//sendmatch.Userid = pb.Uint64(this.Id())
-				//sendmatch.Houseid = pb.Uint64(houseid)
-				//sendmatch.Index = pb.Uint32(index)
-				//Match().SendCmd(sendmatch)
-
 				gold := HouseSvrMgr().TakeSelfHouseGold(this.Id(), houseid, index)
 				if gold > 0 {
 					this.AddGold(gold, "收取自己房屋产出金币", true)
@@ -837,20 +793,9 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	send.Gold = pb.Uint32(gold)
 	send.Data = house.PackBin()
 	this.SendMsg(send)
-
-	//sendmatch := &msg.GW2MS_ReqTakeOtherHouseGold{}
-	//sendmatch.Userid = pb.Uint64(this.Id())
-	//sendmatch.Houseid = pb.Uint64(houseid)
-	//sendmatch.Index = pb.Uint32(index)
-	//sendmatch.Username = pb.String(this.Name())
-	//Match().SendCmd(sendmatch)
 }
 
 func (this *GateUser) ReqRandHouseList() {
-	//sendmatch := &msg.GW2MS_ReqRandHouseList{}
-	//sendmatch.Userid = pb.Uint64(this.Id())
-	//Match().SendCmd(sendmatch)
-
 	data := HouseSvrMgr().GetRandHouseList(this.Id())
 	send := &msg.GW2C_AckRandHouseList{}
 	send.Datas = data
@@ -858,11 +803,6 @@ func (this *GateUser) ReqRandHouseList() {
 }
 
 func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
-	//sendmatch := &msg.GW2MS_ReqOtherUserHouseData{}
-	//sendmatch.Userid = pb.Uint64(this.Id())
-	//sendmatch.Otherid = pb.Uint64(otherid)
-	//Match().SendCmd(sendmatch)
-
 	info := HouseSvrMgr().GetHousesByUser(otherid)
 	send := &msg.GW2C_AckOtherUserHouseData{}
 	for _, v := range info {

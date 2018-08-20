@@ -586,10 +586,10 @@ func (this *GateUser) OnCreateNew() {
 	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
 
 	if houseData != nil {
-		CarMgr().CreateNewCar(this.Id(),1001,this.Name())
-		CarMgr().CreateNewParking(this.Id(),1002,this.Name(),houseData.id)
+		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
+		CarMgr().CreateNewParking(this.Id(), 1002, this.Name(), houseData.id)
 	}
-	
+
 	this.newplayerstep = 0
 	this.robcount = 10
 }
@@ -1013,23 +1013,6 @@ func (this *GateUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount
 		log.Error("玩家[%s %d] midas加钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
 	}
 }
-
-//func (this *GateUser) OnlineMatchServer() {
-//	send := &msg.GW2MS_UserOnlineState{
-//		Userid: pb.Uint64(this.Id()),
-//		State:  pb.Uint32(1),
-//	}
-//	Match().SendCmd(send)
-//
-//}
-//
-//func (this *GateUser) OnDisconnectMatchServer() {
-//	send := &msg.GW2MS_UserOnlineState{
-//		Userid: pb.Uint64(this.Id()),
-//		State:  pb.Uint32(0),
-//	}
-//	Match().SendCmd(send)
-//}
 
 func (this *GateUser) SyncTimeStamp() {
 	now := util.CURTIME()
