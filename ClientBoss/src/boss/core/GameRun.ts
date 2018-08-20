@@ -25,6 +25,9 @@ module game {
         //战斗数据初始化
         BattleManager.getInstance().init();
 
+        //初始化MVC框架
+        //代码放这里
+
         //打开登录
         Login();
     }
