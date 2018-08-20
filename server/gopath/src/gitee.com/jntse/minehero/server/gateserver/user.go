@@ -606,7 +606,7 @@ func (this *GateUser) OnCreateNew() {
 }
 
 // 上线回调，玩家数据在LoginOk中发送
-func (this *GateUser) Online(session network.IBaseNetSession) bool {
+func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
 
 	if this.online == true {
 		log.Error("Sid[%d] 账户[%s] 玩家[%d %s] Online失败，已经处于在线状态", this.Sid(), this.account, this.Id(), this.Name())
@@ -623,7 +623,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.tm_disconnect = 0
 	this.tm_heartbeat = util.CURTIMEMS()
 	this.roomdata.Reset()
-	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功", this.Sid(), this.account, this.Id(), this.Name())
+	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", this.Sid(), this.account, this.Id(), this.Name(), way)
 
 	// 免费赠送钻石
 	this.CheckFreePresentDiamond(false)
