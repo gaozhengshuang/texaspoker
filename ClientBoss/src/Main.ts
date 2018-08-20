@@ -27,6 +27,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
+declare var resUrl;
+
 class Main extends eui.UILayer {
 
 
@@ -65,10 +67,13 @@ class Main extends eui.UILayer {
 
     private async loadResource() {
         try {
+            await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
+            await this.loadTheme();
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
-            await RES.loadConfig("resource/default.res.json", "resource/");
-            await this.loadTheme();
+            if (document && document.getElementById("preloading")) {
+                document.getElementById("preloading").style.display = "none";
+            }
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
         }

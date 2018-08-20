@@ -84,6 +84,8 @@
 <div id="mainBg"></div>
 <div id="gameCloseBtn"></div>
 <script>
+	var manifestUrl = "./manifest.json";
+    var resUrl = "default.res.json";
     var div = document.getElementsByClassName("egret-player")[0];
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         div.setAttribute("data-scale-mode", "fixedWidth")
