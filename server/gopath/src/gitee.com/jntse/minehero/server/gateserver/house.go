@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
+	"github.com/go-redis/redis"
 	"strconv"
 	"strings"
 	"time"
@@ -265,13 +266,20 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	return bin
 }
 
-func (this *HouseData) SaveBin() {
+func (this *HouseData) SaveBin(pipe redis.Pipeliner) {
 	key := fmt.Sprintf("houses_%d", this.id)
-	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
-		log.Error("保存房屋[%d]数据失败", this.id)
-		return
+	if pipe != nil {
+		if err := utredis.SetProtoBinPipeline(pipe, key, this.PackBin()); err != nil {
+			log.Error("保存房屋[%d]数据失败", this.id)
+			return
+		}
+	}else {
+		if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
+			log.Error("保存房屋[%d]数据失败", this.id)
+			return
+		}
+		log.Info("保存房屋[%d]数据成功", this.id)
 	}
-	log.Info("保存房屋[%d]数据成功", this.id)
 }
 
 //每秒的Tick回调
@@ -458,7 +466,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.level = 1
 	house.ownerid = ownerid
 	house.ownername = ownername
-	house.SaveBin()
+	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
 	//创建好之后初始化额外计时器等
@@ -485,8 +493,16 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 //储存所有的房屋信息
 func (this *HouseManager) SaveAllHousesData() {
 	log.Info("储存所有的房屋信息 SaveAllHousesData")
+	pipe := Redis().Pipeline()
 	for _, v := range this.houses {
-		v.SaveBin()
+		v.SaveBin(pipe)
+	}
+
+	_, err := pipe.Exec()
+	if err != nil {
+		log.Error("储存所有的房屋信息失败 [%s]", err)
+	}else {
+		log.Info("储存所有的房屋信息成功")
 	}
 }
 
