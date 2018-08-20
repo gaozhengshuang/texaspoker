@@ -497,7 +497,7 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, re
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record := this.CreateNewRecord(parking.ownerid,car.ownerid car, parking, uint32(msg.CarOperatorType_Ticket), reward)
+	record := this.CreateNewRecord(parking.ownerid,car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 	car.SetParking(0)
 	car.SaveBin()
 	parking.SaveBin()
