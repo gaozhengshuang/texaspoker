@@ -795,10 +795,18 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	this.SendMsg(send)
 }
 
+
 func (this *GateUser) ReqRandHouseList() {
+	data := HouseSvrMgr().GetRandHouseList(this.Id())
 	send := &msg.GW2C_AckRandHouseList{}
 	send.Datas = data
 	this.SendMsg(send)
+}
+
+func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
+	info := HouseSvrMgr().GetHousesByUser(otherid)
+	send := &msg.GW2C_AckOtherUserHouseData{}
+	for _, v := range info {
 		tmp := v.PackBin()
 		send.Datas = append(send.Datas, tmp)
 	}

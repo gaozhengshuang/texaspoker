@@ -1041,21 +1041,3 @@ func (this *GateUser) NotifyRobAddTime() {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) CheckAddRobCount() {
-	now := util.CURTIME()
-	if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
-		this.SetRobCount(this.GetRobCount() + 5)
-		if this.robcount < 20 {
-			this.tmaddrobcount = now + 3600
-		} else {
-			this.tmaddrobcount = 0
-		}
-		this.NotifyRobAddTime()
-	}
-}
-
-func (this *GateUser) NotifyRobAddTime() {
-	send := &msg.GW2C_NotifyAddRobCountTime{}
-	send.Time = pb.Int64(this.tmaddrobcount)
-	this.SendMsg(send)
-}
