@@ -64,13 +64,22 @@ func (this *CarData) PackBin() *msg.CarData {
 	return bin
 }
 
-func (this *CarData) SaveBin() {
+func (this *CarData) SaveBin(pipe redis.Pipeliner) {
 	key := fmt.Sprintf("cars_%d", this.id)
-	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
-		log.Error("保存车辆[%d]数据失败", this.id)
-		return
+	if pipe != nil {
+		if this.modified {
+			if err := utredis.SetProtoBinPipeline(pipe, key, this.PackBin()); err != nil {
+				log.Error("打包车辆[%d]数据失败", this.id)
+				return
+			}
+			this.modified = false
+		}
+	}else{
+		if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
+			log.Error("保存车辆[%d]数据失败", this.id)
+			return
+		}
 	}
-	log.Info("保存车辆[%d]数据成功", this.id)
 }
 
 //车位信息
@@ -129,13 +138,22 @@ func (this *ParkingData) PackBin() *msg.ParkingData {
 	return bin
 }
 
-func (this *ParkingData) SaveBin() {
+func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 	key := fmt.Sprintf("parkings_%d", this.id)
-	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
-		log.Error("保存车位[%d]数据失败", this.id)
-		return
+	if pipe != nil {
+		if this.modified {
+			if err := utredis.SetProtoBinPipeline(pipe, key, this.PackBin()); err != nil {
+				log.Error("打包车位[%d]数据失败", this.id)
+				return
+			}
+			this.modified = false
+		}
+	}else{
+		if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
+			log.Error("保存车位[%d]数据失败", this.id)
+			return
+		}
 	}
-	log.Info("保存车位[%d]数据成功", this.id)
 }
 
 func (this *ParkingData) UpdateReward(car *CarData, now uint64) bool {
@@ -262,7 +280,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	car.ownername = name
 	car.modified = false
 
-	car.SaveBin()
+	car.SaveBin(nil)
 	Redis().SAdd(CarIdSetKey, carid)
 	this.AddCar(car)
 	return car
@@ -419,7 +437,7 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	parking.parkingcartid = 0
 	parking.houseid = hid
 	parking.modified = false
-	parking.SaveBin()
+	parking.SaveBin(nil)
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
 	return parking
@@ -522,26 +540,10 @@ func (this *CarManager) SaveAllData() {
 	pipe := Redis().Pipeline()
 		
 	for _, v := range this.cars {
-		if v.modified {
-			buf, err := pb.Marshal(v.PackBin())
-			if err != nil { 
-				log.Error("保存车辆数据失败[%d] 数据打包失败[%s]", v.id, err)
-				continue
-			}
-			pipe.Set(fmt.Sprintf("cars_%d", v.id), buf,0).Err()
-			v.modified = false
-		}
+		v.SaveBin(pipe)
 	}
 	for _, v := range this.parkings {
-		if v.modified {
-			buf, err := pb.Marshal(v.PackBin())
-			if err != nil { 
-				log.Error("保存车位数据失败[%d] 数据打包失败[%s]", v.id, err)
-				continue
-			}
-			pipe.Set(fmt.Sprintf("parkings_%d", v.id), buf,0).Err()
-			v.modified = false
-		}
+		v.SaveBin(pipe)
 	}
 	_, err := pipe.Exec()
 	if err != nil {
