@@ -27,9 +27,9 @@
 	</e:Group>
 	<e:Group id="loginGroup" y="310" horizontalCenter="0">
 		<e:Image width="611" height="116" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_usernamebg_png"/>
-		<e:EditableText id="loginNameput" width="457" height="62" x="122" y="27" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="50" fontFamily="Microsoft YaHei" text="9999999" verticalAlign="middle" textAlign="left"/>
+		<e:EditableText id="loginNameput" width="457" height="62" x="122" y="27" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="50" fontFamily="Microsoft YaHei" text="" verticalAlign="middle" textAlign="left"/>
 		<e:Image width="611" height="116" x="0" y="161" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
-		<e:EditableText id="loginPassput" width="457" height="62" x="122" y="188" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="50" text="99999999" verticalAlign="middle" textAlign="left" fontFamily="Microsoft YaHei"/>
+		<e:EditableText id="loginPassput" width="457" height="62" x="122" y="188" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="50" text="" verticalAlign="middle" textAlign="left" fontFamily="Microsoft YaHei"/>
 		<e:Button id="LoginBtn" label="登录" y="321" anchorOffsetX="0" width="611" anchorOffsetY="0" height="116" enabled="true" x="0">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
