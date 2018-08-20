@@ -145,6 +145,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_ParkCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TicketCarResult{})
+	this.msgparser.RegistSendProto(msg.GW2C_SynParkingRecord{})
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
 	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
@@ -1001,9 +1002,10 @@ func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 	cid := tmsg.GetCarid()
 	pid := tmsg.GetParkingid()
 	send := &msg.GW2C_ParkCarResult{}
-	result,_ := CarMgr().ParkingCar(cid,pid,user.Name())
+	result := CarMgr().ParkingCar(cid,pid,user.Name())
 	send.Result = pb.Int32(result)
 	user.SendMsg(send)
+
 }
 
 //请求收回车辆
@@ -1016,7 +1018,7 @@ func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	}
 	tmsg := message.(*msg.C2GW_TakeBackCar)
 	send := &msg.GW2C_TakeBackCarResult{}
-	result, reward,_ := CarMgr().TakeBackCar(tmsg.GetCarid())
+	result, reward := CarMgr().TakeBackCar(tmsg.GetCarid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)
@@ -1032,7 +1034,7 @@ func on_C2GW_TicketCar(session network.IBaseNetSession, message interface{}) {
 	}
 	tmsg := message.(*msg.C2GW_TicketCar)
 	send := &msg.GW2C_TicketCarResult{}
-	result,reward,_ := CarMgr().TakeBackFromParking(tmsg.GetParkingid())
+	result,reward:= CarMgr().TakeBackFromParking(tmsg.GetParkingid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)

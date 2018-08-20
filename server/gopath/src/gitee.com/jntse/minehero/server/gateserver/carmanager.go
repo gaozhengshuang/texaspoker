@@ -317,6 +317,8 @@ func (this *CarManager) CreateNewRecord(ownerid uint64, car *CarData, parking *P
 	str := make([]byte, 0, 256)
 	str = strconv.AppendInt(str, int64(ownerid), 10)
 	str = strconv.AppendQuote(str, "_")
+	str = strconv.AppendInt(str, int64(opttype),10)
+	str = strconv.AppendQuote(str, "_")
 	str = strconv.AppendQuote(str, time.Now().Format("15:04"))
 	str = strconv.AppendQuote(str, "  ")
 	switch opttype {
@@ -442,66 +444,89 @@ func (this *CarManager) AddParking(parking *ParkingData) {
 	this.userparkings[parking.ownerid] = append(this.userparkings[parking.ownerid], parking.id)
 }
 
-func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username string) (result int32, record string) {
+func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username string) (result int32) {
 	car := this.GetCar(carid)
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
-		return 1, ""
+		return 1
 	}
 	if car.parkingid != 0 {
-		return 2, ""
+		return 2
 	}
 	if parking.parkingcar != 0 {
-		return 3, ""
+		return 3
 	}
 	//可以了
 	parking.ParkingCar(car, username)
-	record = this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
+	record := this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
 	car.SaveBin()
 	parking.SaveBin()
-	return 0, record
+
+	//发送操作记录
+	sendOwner := UserMgr().FindById(parking.ownerid)
+	if sendOwner != nil {
+		sendRecord := &msg.GW2C_SynParkingRecord{}
+		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
+		sendOwner.SendMsg(sendRecord)
+	}
+	return 0
 }
 
-func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32, record string) {
+func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32) {
 	car := this.GetCar(carid)
 	if car == nil {
-		return 1, 0, ""
+		return 1, 0
 	}
 	if car.parkingid == 0 {
-		return 2, 0, ""
+		return 2, 0
 	}
 	parking := this.GetParking(car.parkingid)
 	if parking == nil {
-		return 3, 0, ""
+		return 3, 0
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record = this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
+	record := this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 	car.SetParking(0)
 	car.SaveBin()
 	parking.SaveBin()
-	return 0, reward, record
+	//发送操作记录
+	sendOwner := UserMgr().FindById(parking.ownerid)
+	if sendOwner != nil {
+		sendRecord := &msg.GW2C_SynParkingRecord{}
+		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
+		sendOwner.SendMsg(sendRecord)
+	}
+	return 0, reward
 }
 
-func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, reward uint32, record string) {
+func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, reward uint32) {
 	parking := this.GetParking(parkingid)
 	if parking == nil {
-		return 1, 0, ""
+		return 1, 0
 	}
 	if parking.parkingcar == 0 {
-		return 2, 0, ""
+		return 2, 0
 	}
 	car := this.GetCar(parking.parkingcar)
 	if car == nil {
-		return 3, 0, ""
+		return 3, 0
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record = this.CreateNewRecord(car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
+	record := this.CreateNewRecord(car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 	car.SetParking(0)
 	car.SaveBin()
 	parking.SaveBin()
-	return 0, reward, record
+
+	//发送操作记录
+	sendOwner := UserMgr().FindById(car.ownerid)
+	if sendOwner != nil {
+		sendRecord := &msg.GW2C_SynParkingRecord{}
+		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
+		sendOwner.SendMsg(sendRecord)
+	}
+	return 0, reward
 }
 
 func (this *CarManager) SaveAllData() {
