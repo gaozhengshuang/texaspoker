@@ -326,7 +326,7 @@ func (this *CarManager) CreateNewRecord(ownerid uint64, car *CarData, parking *P
 		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
 		break
 	case 3:
-		data = prefix + car.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
+		data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
 		break
 	}
 	// 保存数据
