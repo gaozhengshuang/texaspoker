@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/tbl/excel"
+	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 	"math"
 	"strconv"
