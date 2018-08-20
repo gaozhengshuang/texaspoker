@@ -474,18 +474,22 @@ module game {
             let _showParkingLotList: Function = function (parkingDatas: msg.IParkingData[]) {
                 //console.log("回调_showParkingLotList------->",parkingDatas.length);
                 if (parkingDatas && parkingDatas.length > 0) {
-                    self.parkingLot.visible = true;
                     self.parkingLots.push(self.parkingLot);
                     parkingDatas.forEach((data, index, array) => {
-                        //console.log("车位赋值--->",data.ownername+" "+data.ownerid+" "+data.parkingcarownername);
-                        if (index == 0) { self.parkingLot.setData(data); }
-                        else {
-                            let _parkingLot: CarParkingLot = new CarParkingLot();
-                            self.bootomGroup.addChild(_parkingLot);
-                            _parkingLot.x = self.parkingLot.x;
-                            _parkingLot.y = self.parkingLot.y + 100;
-                            _parkingLot.setData(data);
-                            self.parkingLots.push(_parkingLot);
+                        //console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
+                        if(data.houseid==self.roomInfo.rId){
+                            if (self.parkingLots.length == 0) { 
+                                self.parkingLot.setData(data); 
+                                self.parkingLot.visible = true;
+                            }
+                            else {
+                                let _parkingLot: CarParkingLot = new CarParkingLot();
+                                self.bootomGroup.addChild(_parkingLot);
+                                _parkingLot.x = self.parkingLot.x;
+                                _parkingLot.y = self.parkingLot.y + 100;
+                                _parkingLot.setData(data);
+                                self.parkingLots.push(_parkingLot);
+                            }
                         }
                     });
                 };

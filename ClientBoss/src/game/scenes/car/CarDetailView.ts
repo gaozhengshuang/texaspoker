@@ -406,8 +406,8 @@ module game {
         }
  
         private onItemTouch(eve: eui.ItemTapEvent) {
-            let item: any = null;
             console.log("onItemTouch------------->",this.listIndex)
+            let item :any = null;
             switch (this.listIndex) {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];

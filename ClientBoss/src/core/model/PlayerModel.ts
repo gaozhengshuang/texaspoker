@@ -37,7 +37,7 @@ module game {
         public totalMoney: number | Long = 0;
         private _tasks;
         private _houses;
-        private _carRecords:msg.IParkingRecordData[] = [];
+        private _carRecords:string[] = [];
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -436,7 +436,7 @@ module game {
             return this._houses;
         }
 
-        public setCarRecords(datas: msg.IParkingRecordData[]) {
+        public setCarRecords(datas: string[]) {
              datas.forEach(data=>{this._carRecords.push(data);});
         }
 

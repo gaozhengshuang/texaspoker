@@ -278,5 +278,4 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 
 //整点回调
 func (this *UserManager) IntHourClockCallback(now int64) {
-
 }

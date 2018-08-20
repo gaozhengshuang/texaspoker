@@ -357,9 +357,16 @@
 			"url":"assets2/assets_stock_tabBar1.png"
 		},
 		{
+<<<<<<< HEAD
 			"name":"assets_stock_tabBar2_png",
 			"type":"image",
 			"url":"assets2/assets_stock_tabBar2.png"
+=======
+			"url": "assets/texpack/car/uiCarAltas.json",
+			"type": "sheet",
+			"name": "uiCarAltas_json",
+			"subkeys": "backBtn,closeBtn,dialogBg,driveBtn,emptybg,goldBg,infobg,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,scrollviewBg,selectBtn,stateBtn,ticket"
+>>>>>>> dev_liu
 		},
 		{
 			"name":"bCoinIcon1_png",
@@ -907,9 +914,60 @@
 			"url":"assets2/smallGoldIcon1.png"
 		},
 		{
+<<<<<<< HEAD
 			"name":"tilingIcon1_png",
 			"type":"image",
 			"url":"assets2/tilingIcon1.png"
+=======
+			"url": "assets2/xuanzhongBtn_bg.png",
+			"type": "image",
+			"name": "xuanzhongBtn_bg_png"
+		},
+		{
+			"url": "assets/carParkBg.png",
+			"type": "image",
+			"name": "carParkBg_png"
+		},
+		{
+			"url": "assets2/jiaobiao3.png",
+			"type": "image",
+			"name": "jiaobiao3_png"
+		},
+		{
+			"url": "assets2/jiaobiaoIcon1.png",
+			"type": "image",
+			"name": "jiaobiaoIcon1_png"
+		},
+		{
+			"url": "assets2/jiaobiaoIcon2.png",
+			"type": "image",
+			"name": "jiaobiaoIcon2_png"
+		},
+		{
+			"url": "assets2/levelSuccessImg1.png",
+			"type": "image",
+			"name": "levelSuccessImg1_png"
+		},
+		{
+			"url": "assets2/roomUserInfo-bg.png",
+			"type": "image",
+			"name": "roomUserInfo-bg_png"
+		},
+		{
+			"url": "assets2/smallGoldIcon1.png",
+			"type": "image",
+			"name": "smallGoldIcon1_png"
+		},
+		{
+			"url": "assets2/tilingIcon1.png",
+			"type": "image",
+			"name": "tilingIcon1_png"
+		},
+		{
+			"url": "assets2/welcmoe_btn1.tif",
+			"type": "bin",
+			"name": "welcmoe_btn1_tif"
+>>>>>>> dev_liu
 		}
 	]
 }

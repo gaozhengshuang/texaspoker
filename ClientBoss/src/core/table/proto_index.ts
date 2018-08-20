@@ -146,6 +146,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 141, Name : "msg.MS2GW_AckTakeSelfHouseGoldRet" 	},
 		{ Id : 142, Name : "msg.GW2MS_ReqTakeOtherHouseGold" 	},
 		{ Id : 143, Name : "msg.MS2GW_AckTakeOtherHouseGoldRet" 	},
+<<<<<<< HEAD
 		{ Id : 144, Name : "msg.GW2MS_ReqCreateCar" 	},
 		{ Id : 145, Name : "msg.MS2GW_AckCreateCar" 	},
 		{ Id : 146, Name : "msg.GW2MS_ReqCarInfo" 	},
@@ -199,6 +200,44 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 194, Name : "msg.GW2C_SendTaskList" 	},
 		{ Id : 195, Name : "msg.GW2C_SendLuckyDrawRecord" 	},
 		{ Id : 196, Name : "msg.C2GW_ReqTaskList" 	}
+=======
+		{ Id : 144, Name : "msg.GW2MS_ReqRandHouseList" 	},
+		{ Id : 145, Name : "msg.MS2GW_AckRandHouseList" 	},
+		{ Id : 146, Name : "msg.GW2MS_ReqOtherUserHouseData" 	},
+		{ Id : 147, Name : "msg.MS2GW_AckOtherUserHouseData" 	},
+		{ Id : 148, Name : "msg.GW2MS_ReqResetRobCheckFlag" 	},
+		{ Id : 149, Name : "msg.RS2GW_ReqRegist" 	},
+		{ Id : 150, Name : "msg.GW2RS_RetRegist" 	},
+		{ Id : 151, Name : "msg.GW2RS_UserDisconnect" 	},
+		{ Id : 152, Name : "msg.RS2GW_RetUserDisconnect" 	},
+		{ Id : 153, Name : "msg.GW2RS_MsgTransfer" 	},
+		{ Id : 154, Name : "msg.RS2GW_MsgTransfer" 	},
+		{ Id : 155, Name : "msg.RS2MS_ReqRegist" 	},
+		{ Id : 156, Name : "msg.MS2RS_RetRegist" 	},
+		{ Id : 157, Name : "msg.RS2MS_HeartBeat" 	},
+		{ Id : 158, Name : "msg.MS2RS_HeartBeat" 	},
+		{ Id : 159, Name : "msg.GateSimpleInfo" 	},
+		{ Id : 160, Name : "msg.MS2RS_GateInfo" 	},
+		{ Id : 161, Name : "msg.MS2RS_CreateRoom" 	},
+		{ Id : 162, Name : "msg.RS2MS_RetCreateRoom" 	},
+		{ Id : 163, Name : "msg.RS2MS_DeleteRoom" 	},
+		{ Id : 164, Name : "msg.RS2MS_UpdateRewardPool" 	},
+		{ Id : 165, Name : "msg.MS2Server_BroadCast" 	},
+		{ Id : 166, Name : "msg.C2GW_AddDeliveryAddress" 	},
+		{ Id : 167, Name : "msg.C2GW_DelDeliveryAddress" 	},
+		{ Id : 168, Name : "msg.C2GW_ChangeDeliveryAddress" 	},
+		{ Id : 169, Name : "msg.GW2C_SendDeliveryAddressList" 	},
+		{ Id : 170, Name : "msg.C2GW_ReqRechargeMoney" 	},
+		{ Id : 171, Name : "msg.GW2C_RetRechargeMoney" 	},
+		{ Id : 172, Name : "msg.C2GW_PlatformRechargeDone" 	},
+		{ Id : 173, Name : "msg.GW2C_SendWechatInfo" 	},
+		{ Id : 174, Name : "msg.C2GW_StartLuckyDraw" 	},
+		{ Id : 175, Name : "msg.GW2C_LuckyDrawHit" 	},
+		{ Id : 176, Name : "msg.GW2C_FreePresentNotify" 	},
+		{ Id : 177, Name : "msg.GW2C_SendTaskList" 	},
+		{ Id : 178, Name : "msg.GW2C_SendLuckyDrawRecord" 	},
+		{ Id : 179, Name : "msg.C2GW_ReqTaskList" 	}
+>>>>>>> dev_liu
 	]
 
 
