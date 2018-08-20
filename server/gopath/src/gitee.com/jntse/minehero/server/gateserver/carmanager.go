@@ -313,8 +313,8 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 	return rlist
 }
 
-func (this *CarManager) CreateNewRecord(ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
-	prefix := fmt.Sprintf("%d_%d_%s  ", ownerid,opttype,time.Now().Format("15:04"))
+func (this *CarManager) CreateNewRecord(handleid uint64,ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
+	prefix := fmt.Sprintf("%d_%d_%s  ", handleid,opttype,time.Now().Format("15:04"))
 	data := ""
 	switch opttype {
 	case 1:
@@ -441,7 +441,7 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	}
 	//可以了
 	parking.ParkingCar(car, username)
-	record := this.CreateNewRecord(car.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
+	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
 	car.SaveBin()
 	parking.SaveBin()
 
@@ -469,7 +469,7 @@ func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32)
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record := this.CreateNewRecord(car.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
+	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 	car.SetParking(0)
 	car.SaveBin()
 	parking.SaveBin()
@@ -497,7 +497,7 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, re
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record := this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
+	record := this.CreateNewRecord(parking.ownerid,car.ownerid car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 	car.SetParking(0)
 	car.SaveBin()
 	parking.SaveBin()
