@@ -441,7 +441,7 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	}
 	//可以了
 	parking.ParkingCar(car, username)
-	record := this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
+	record := this.CreateNewRecord(car.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
 	car.SaveBin()
 	parking.SaveBin()
 
@@ -469,7 +469,7 @@ func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32)
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record := this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
+	record := this.CreateNewRecord(car.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 	car.SetParking(0)
 	car.SaveBin()
 	parking.SaveBin()
@@ -497,7 +497,7 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, re
 	}
 	//可以收回
 	reward = parking.TakeBackCar()
-	record := this.CreateNewRecord(car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
+	record := this.CreateNewRecord(parking.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 	car.SetParking(0)
 	car.SaveBin()
 	parking.SaveBin()
