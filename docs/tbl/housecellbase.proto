@@ -40,10 +40,10 @@ message THouseCellDefine
 	optional string Des = 7; // 区域描述
 	
 	
-	optional string Tips1 = 8; // 效率（金币/时间）
+	optional uint32 IncomePerSecond = 8; // 每秒效率
 	
 	
-	optional string Tips2 = 9; // 升级效率（升级金币/单周期金币）
+	optional uint32 UnlockGold = 9; // 解锁花费金币
 
 }
 

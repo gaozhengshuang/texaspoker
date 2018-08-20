@@ -40,25 +40,6 @@ func (this *GW2MSMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCancelMatch{}, on_GW2MS_ReqCancelMatch)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_UserOnlineState{}, on_GW2MS_UserOnlineState)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateHouse{}, on_GW2MS_ReqCreateHouse)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqUserHouse{}, on_GW2MS_ReqUserHouse)
-
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateCar{}, on_GW2MS_ReqCreateCar)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCarInfo{}, on_GW2MS_ReqCarInfo)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateParking{}, on_GW2MS_ReqCreateParking)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqMyParkingInfo{}, on_GW2MS_ReqMyParkingInfo)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqParkingInfoByType{}, on_GW2MS_ReqParkingInfoByType)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ParkCar{}, on_GW2MS_ParkCar)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_TakeBackCar{}, on_GW2MS_TakeBackCar)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_TicketCar{}, on_GW2MS_TicketCar)
-
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseLevelUp{}, on_GW2MS_ReqHouseLevelUp)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqHouseCellLevelUp{}, on_GW2MS_ReqHouseCellLevelUp)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqTakeSelfHouseGold{}, on_GW2MS_ReqTakeSelfHouseGold)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqTakeOtherHouseGold{}, on_GW2MS_ReqTakeOtherHouseGold)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRandHouseList{}, on_GW2MS_ReqRandHouseList)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqOtherUserHouseData{}, on_GW2MS_ReqOtherUserHouseData)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
@@ -69,22 +50,7 @@ func (this *GW2MSMsgHandler) Init() {
 	//this.msgparser.RegistSendProto(msg.MS2GW_MatchOk{})
 	this.msgparser.RegistSendProto(msg.MS2GW_RetCreateRoom{})
 	this.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckUserHouse{})
 
-	this.msgparser.RegistSendProto(msg.MS2GW_AckHouseLevelUp{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckHouseCellLevelUp{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeSelfHouseGoldRet{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckTakeOtherHouseGoldRet{})
-
-	this.msgparser.RegistSendProto(msg.MS2GW_AckCreateCar{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckCreateParking{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckCarInfo{})
-	this.msgparser.RegistSendProto(msg.MS2GW_ResParkingInfo{})
-	this.msgparser.RegistSendProto(msg.MS2GW_ParkCarResult{})
-	this.msgparser.RegistSendProto(msg.MS2GW_TakeBackCarResult{})
-	this.msgparser.RegistSendProto(msg.MS2GW_TicketCarResult{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckRandHouseList{})
-	this.msgparser.RegistSendProto(msg.MS2GW_AckOtherUserHouseData{})
 }
 
 func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
@@ -155,6 +121,7 @@ func on_GW2MS_MsgNotice(session network.IBaseNetSession, message interface{}) {
 	send := &msg.MS2GW_MsgNotice{Notice: tmsg.GetNotice()}
 	Match().BroadcastGateMsg(send)
 }
+<<<<<<< HEAD
 
 func on_GW2MS_UserOnlineState(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_UserOnlineState)
@@ -285,7 +252,7 @@ func on_GW2MS_ReqRandHouseList(session network.IBaseNetSession, message interfac
 
 	send := &msg.MS2GW_AckRandHouseList{}
 	send.Userid = pb.Uint64(uid)
-	data := HouseSvrMgr().GetRandHouseList()
+	data := HouseSvrMgr().GetRandHouseList(uid)
 	send.Datas = data
 	session.SendCmd(send)
 }
@@ -313,12 +280,13 @@ func on_GW2MS_ReqCreateCar(session network.IBaseNetSession, message interface{})
 	tmsg := message.(*msg.GW2MS_ReqCreateCar)
 	uid := tmsg.GetUserid()
 	ctid := tmsg.GetCartid()
+	uname := tmsg.GetUsername()
 
 	log.Info("on_GW2MS_ReqCreateCar %d", uid)
 	send := &msg.MS2GW_AckCreateCar{}
 	send.Userid = pb.Uint64(uid)
 
-	carinfo := CarSvrMgr().CreateNewCar(uid, ctid)
+	carinfo := CarSvrMgr().CreateNewCar(uid, ctid, uname)
 	if carinfo != nil {
 		send.Cardata = carinfo.PackBin()
 	}
@@ -408,8 +376,19 @@ func on_GW2MS_ParkCar(session network.IBaseNetSession, message interface{}) {
 	log.Info("on_GW2MS_ParkCar %d", uid)
 	send := &msg.MS2GW_ParkCarResult{}
 	send.Userid = pb.Uint64(uid)
-	send.Result = pb.Int32(CarSvrMgr().ParkingCar(cid, pid, uname))
+	result, record := CarSvrMgr().ParkingCar(cid, pid, uname)
+	send.Result = pb.Int32(result)
 	session.SendCmd(send)
+
+	send1 := &msg.MS2GW_AckRecordData{}
+	send1.Userid = pb.Uint64(record.parkingownerid)
+	send1.Records = append(send1.Records, record.PackBin())
+	session.SendCmd(send1)
+
+	send2 := &msg.MS2GW_AckRecordData{}
+	send2.Userid = pb.Uint64(record.carownerid)
+	send2.Records = append(send2.Records, record.PackBin())
+	session.SendCmd(send2)
 }
 
 func on_GW2MS_TakeBackCar(session network.IBaseNetSession, message interface{}) {
@@ -419,10 +398,20 @@ func on_GW2MS_TakeBackCar(session network.IBaseNetSession, message interface{}) 
 	log.Info("on_GW2MS_TakeBackCar %d", uid)
 	send := &msg.MS2GW_TakeBackCarResult{}
 	send.Userid = pb.Uint64(uid)
-	result, reward := CarSvrMgr().TakeBackCar(cid)
+	result, reward, record := CarSvrMgr().TakeBackCar(cid)
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	session.SendCmd(send)
+
+	send1 := &msg.MS2GW_AckRecordData{}
+	send1.Userid = pb.Uint64(record.parkingownerid)
+	send1.Records = append(send1.Records, record.PackBin())
+	session.SendCmd(send1)
+
+	send2 := &msg.MS2GW_AckRecordData{}
+	send2.Userid = pb.Uint64(record.carownerid)
+	send2.Records = append(send2.Records, record.PackBin())
+	session.SendCmd(send2)
 }
 
 func on_GW2MS_TicketCar(session network.IBaseNetSession, message interface{}) {
@@ -432,8 +421,41 @@ func on_GW2MS_TicketCar(session network.IBaseNetSession, message interface{}) {
 	log.Info("on_GW2MS_TicketCar %d", uid)
 	send := &msg.MS2GW_TicketCarResult{}
 	send.Userid = pb.Uint64(uid)
-	result, reward := CarSvrMgr().TakeBackFromParking(pid)
+	result, reward, record := CarSvrMgr().TakeBackFromParking(pid)
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	session.SendCmd(send)
+
+	send1 := &msg.MS2GW_AckRecordData{}
+	send1.Userid = pb.Uint64(record.parkingownerid)
+	send1.Records = append(send1.Records, record.PackBin())
+	session.SendCmd(send1)
+
+	send2 := &msg.MS2GW_AckRecordData{}
+	send2.Userid = pb.Uint64(record.carownerid)
+	send2.Records = append(send2.Records, record.PackBin())
+	session.SendCmd(send2)
 }
+
+func on_GW2MS_ReqRecordData(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqRecordData)
+	uid := tmsg.GetUserid()
+	log.Info("on_GW2MS_ReqRecordData %d", uid)
+	send := &msg.MS2GW_AckRecordData{}
+	send.Userid = pb.Uint64(uid)
+	recordsinfo := CarSvrMgr().GetRecordByUser(uid)
+	for _, v := range recordsinfo {
+		tmp := v.PackBin()
+		send.Records = append(send.Records, tmp)
+	}
+	session.SendCmd(send)
+}
+
+func on_GW2MS_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ReqResetRobCheckFlag)
+	houseid := tmsg.GetHouseid()
+	log.Info("on_GW2MS_ReqResetRobCheckFlag %d", houseid)
+	HouseSvrMgr().ResetRobcheckflag(houseid)
+}
+=======
+>>>>>>> dev_liu

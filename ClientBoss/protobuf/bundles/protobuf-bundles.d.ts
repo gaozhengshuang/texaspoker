@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -2927,6 +2928,9 @@ declare namespace msg {
 
         /** UserBase robcount */
         robcount?: (number|null);
+
+        /** UserBase tmaddrobcount */
+        tmaddrobcount?: (number|Long|null);
     }
 
     /** Represents a UserBase. */
@@ -3003,6 +3007,9 @@ declare namespace msg {
 
         /** UserBase robcount. */
         public robcount: number;
+
+        /** UserBase tmaddrobcount. */
+        public tmaddrobcount: (number|Long);
 
         /**
          * Creates a new UserBase instance using the specified properties.
@@ -3743,6 +3750,9 @@ declare namespace msg {
 
         /** HouseData ownername */
         ownername?: (string|null);
+
+        /** HouseData robcheckflag */
+        robcheckflag?: (number|null);
     }
 
     /** Represents an HouseData. */
@@ -3777,6 +3787,9 @@ declare namespace msg {
 
         /** HouseData ownername. */
         public ownername: string;
+
+        /** HouseData robcheckflag. */
+        public robcheckflag: number;
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -3866,6 +3879,9 @@ declare namespace msg {
 
         /** CarData parkingid */
         parkingid?: (number|Long|null);
+
+        /** CarData ownername */
+        ownername?: (string|null);
     }
 
     /** Represents a CarData. */
@@ -3891,6 +3907,9 @@ declare namespace msg {
 
         /** CarData parkingid. */
         public parkingid: (number|Long);
+
+        /** CarData ownername. */
+        public ownername: string;
 
         /**
          * Creates a new CarData instance using the specified properties.
@@ -4102,6 +4121,138 @@ declare namespace msg {
 
         /**
          * Converts this ParkingData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ParkingRecordData. */
+    interface IParkingRecordData {
+
+        /** ParkingRecordData recordtime */
+        recordtime?: (number|Long|null);
+
+        /** ParkingRecordData operatortype */
+        operatortype?: (number|null);
+
+        /** ParkingRecordData parkingownerid */
+        parkingownerid?: (number|Long|null);
+
+        /** ParkingRecordData parkingownername */
+        parkingownername?: (string|null);
+
+        /** ParkingRecordData cartid */
+        cartid?: (number|null);
+
+        /** ParkingRecordData carownerid */
+        carownerid?: (number|Long|null);
+
+        /** ParkingRecordData carownername */
+        carownername?: (string|null);
+
+        /** ParkingRecordData recordparam */
+        recordparam?: (number|null);
+    }
+
+    /** Represents a ParkingRecordData. */
+    class ParkingRecordData implements IParkingRecordData {
+
+        /**
+         * Constructs a new ParkingRecordData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IParkingRecordData);
+
+        /** ParkingRecordData recordtime. */
+        public recordtime: (number|Long);
+
+        /** ParkingRecordData operatortype. */
+        public operatortype: number;
+
+        /** ParkingRecordData parkingownerid. */
+        public parkingownerid: (number|Long);
+
+        /** ParkingRecordData parkingownername. */
+        public parkingownername: string;
+
+        /** ParkingRecordData cartid. */
+        public cartid: number;
+
+        /** ParkingRecordData carownerid. */
+        public carownerid: (number|Long);
+
+        /** ParkingRecordData carownername. */
+        public carownername: string;
+
+        /** ParkingRecordData recordparam. */
+        public recordparam: number;
+
+        /**
+         * Creates a new ParkingRecordData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ParkingRecordData instance
+         */
+        public static create(properties?: msg.IParkingRecordData): msg.ParkingRecordData;
+
+        /**
+         * Encodes the specified ParkingRecordData message. Does not implicitly {@link msg.ParkingRecordData.verify|verify} messages.
+         * @param message ParkingRecordData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IParkingRecordData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ParkingRecordData message, length delimited. Does not implicitly {@link msg.ParkingRecordData.verify|verify} messages.
+         * @param message ParkingRecordData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IParkingRecordData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ParkingRecordData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ParkingRecordData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.ParkingRecordData;
+
+        /**
+         * Decodes a ParkingRecordData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ParkingRecordData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.ParkingRecordData;
+
+        /**
+         * Verifies a ParkingRecordData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ParkingRecordData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ParkingRecordData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.ParkingRecordData;
+
+        /**
+         * Creates a plain object from a ParkingRecordData message. Also converts values to other types if specified.
+         * @param message ParkingRecordData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.ParkingRecordData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ParkingRecordData to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -5115,6 +5266,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2C_SynParkingRecord. */
+    interface IGW2C_SynParkingRecord {
+
+        /** GW2C_SynParkingRecord records */
+        records?: (msg.IParkingRecordData[]|null);
+    }
+
+    /** Represents a GW2C_SynParkingRecord. */
+    class GW2C_SynParkingRecord implements IGW2C_SynParkingRecord {
+
+        /**
+         * Constructs a new GW2C_SynParkingRecord.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_SynParkingRecord);
+
+        /** GW2C_SynParkingRecord records. */
+        public records: msg.IParkingRecordData[];
+
+        /**
+         * Creates a new GW2C_SynParkingRecord instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_SynParkingRecord instance
+         */
+        public static create(properties?: msg.IGW2C_SynParkingRecord): msg.GW2C_SynParkingRecord;
+
+        /**
+         * Encodes the specified GW2C_SynParkingRecord message. Does not implicitly {@link msg.GW2C_SynParkingRecord.verify|verify} messages.
+         * @param message GW2C_SynParkingRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_SynParkingRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_SynParkingRecord message, length delimited. Does not implicitly {@link msg.GW2C_SynParkingRecord.verify|verify} messages.
+         * @param message GW2C_SynParkingRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_SynParkingRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_SynParkingRecord message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_SynParkingRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_SynParkingRecord;
+
+        /**
+         * Decodes a GW2C_SynParkingRecord message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_SynParkingRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_SynParkingRecord;
+
+        /**
+         * Verifies a GW2C_SynParkingRecord message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_SynParkingRecord message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_SynParkingRecord
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_SynParkingRecord;
+
+        /**
+         * Creates a plain object from a GW2C_SynParkingRecord message. Also converts values to other types if specified.
+         * @param message GW2C_SynParkingRecord
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_SynParkingRecord, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_SynParkingRecord to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an IpHost. */
     interface IIpHost {
 
@@ -5364,6 +5605,13 @@ declare namespace msg {
     enum MoneyType {
         _Gold = 1,
         _Diamond = 2
+    }
+
+    /** CarOperatorType enum. */
+    enum CarOperatorType {
+        Park = 1,
+        TakeBack = 2,
+        Ticket = 3
     }
 
     /** Properties of a C2GW_ReqHouseData. */
@@ -7053,6 +7301,186 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_NotifyTimeStamp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqResetRobCheckFlag. */
+    interface IC2GW_ReqResetRobCheckFlag {
+
+        /** C2GW_ReqResetRobCheckFlag houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqResetRobCheckFlag. */
+    class C2GW_ReqResetRobCheckFlag implements IC2GW_ReqResetRobCheckFlag {
+
+        /**
+         * Constructs a new C2GW_ReqResetRobCheckFlag.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqResetRobCheckFlag);
+
+        /** C2GW_ReqResetRobCheckFlag houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqResetRobCheckFlag instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqResetRobCheckFlag instance
+         */
+        public static create(properties?: msg.IC2GW_ReqResetRobCheckFlag): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Encodes the specified C2GW_ReqResetRobCheckFlag message. Does not implicitly {@link msg.C2GW_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message C2GW_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqResetRobCheckFlag message, length delimited. Does not implicitly {@link msg.C2GW_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message C2GW_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqResetRobCheckFlag message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Decodes a C2GW_ReqResetRobCheckFlag message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Verifies a C2GW_ReqResetRobCheckFlag message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqResetRobCheckFlag message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqResetRobCheckFlag
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqResetRobCheckFlag;
+
+        /**
+         * Creates a plain object from a C2GW_ReqResetRobCheckFlag message. Also converts values to other types if specified.
+         * @param message C2GW_ReqResetRobCheckFlag
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqResetRobCheckFlag, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqResetRobCheckFlag to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_NotifyAddRobCountTime. */
+    interface IGW2C_NotifyAddRobCountTime {
+
+        /** GW2C_NotifyAddRobCountTime time */
+        time?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_NotifyAddRobCountTime. */
+    class GW2C_NotifyAddRobCountTime implements IGW2C_NotifyAddRobCountTime {
+
+        /**
+         * Constructs a new GW2C_NotifyAddRobCountTime.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_NotifyAddRobCountTime);
+
+        /** GW2C_NotifyAddRobCountTime time. */
+        public time: (number|Long);
+
+        /**
+         * Creates a new GW2C_NotifyAddRobCountTime instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_NotifyAddRobCountTime instance
+         */
+        public static create(properties?: msg.IGW2C_NotifyAddRobCountTime): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Encodes the specified GW2C_NotifyAddRobCountTime message. Does not implicitly {@link msg.GW2C_NotifyAddRobCountTime.verify|verify} messages.
+         * @param message GW2C_NotifyAddRobCountTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_NotifyAddRobCountTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_NotifyAddRobCountTime message, length delimited. Does not implicitly {@link msg.GW2C_NotifyAddRobCountTime.verify|verify} messages.
+         * @param message GW2C_NotifyAddRobCountTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_NotifyAddRobCountTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_NotifyAddRobCountTime message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_NotifyAddRobCountTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Decodes a GW2C_NotifyAddRobCountTime message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_NotifyAddRobCountTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Verifies a GW2C_NotifyAddRobCountTime message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_NotifyAddRobCountTime message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_NotifyAddRobCountTime
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Creates a plain object from a GW2C_NotifyAddRobCountTime message. Also converts values to other types if specified.
+         * @param message GW2C_NotifyAddRobCountTime
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_NotifyAddRobCountTime, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_NotifyAddRobCountTime to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -13762,6 +14190,9 @@ declare namespace msg {
 
         /** GW2MS_ReqCreateCar cartid */
         cartid?: (number|null);
+
+        /** GW2MS_ReqCreateCar username */
+        username?: (string|null);
     }
 
     /** Represents a GW2MS_ReqCreateCar. */
@@ -13778,6 +14209,9 @@ declare namespace msg {
 
         /** GW2MS_ReqCreateCar cartid. */
         public cartid: number;
+
+        /** GW2MS_ReqCreateCar username. */
+        public username: string;
 
         /**
          * Creates a new GW2MS_ReqCreateCar instance using the specified properties.
@@ -15224,6 +15658,192 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2MS_ReqRecordData. */
+    interface IGW2MS_ReqRecordData {
+
+        /** GW2MS_ReqRecordData userid */
+        userid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_ReqRecordData. */
+    class GW2MS_ReqRecordData implements IGW2MS_ReqRecordData {
+
+        /**
+         * Constructs a new GW2MS_ReqRecordData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqRecordData);
+
+        /** GW2MS_ReqRecordData userid. */
+        public userid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_ReqRecordData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqRecordData instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqRecordData): msg.GW2MS_ReqRecordData;
+
+        /**
+         * Encodes the specified GW2MS_ReqRecordData message. Does not implicitly {@link msg.GW2MS_ReqRecordData.verify|verify} messages.
+         * @param message GW2MS_ReqRecordData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqRecordData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqRecordData message, length delimited. Does not implicitly {@link msg.GW2MS_ReqRecordData.verify|verify} messages.
+         * @param message GW2MS_ReqRecordData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqRecordData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqRecordData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqRecordData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqRecordData;
+
+        /**
+         * Decodes a GW2MS_ReqRecordData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqRecordData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqRecordData;
+
+        /**
+         * Verifies a GW2MS_ReqRecordData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqRecordData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqRecordData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqRecordData;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqRecordData message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqRecordData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqRecordData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqRecordData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_AckRecordData. */
+    interface IMS2GW_AckRecordData {
+
+        /** MS2GW_AckRecordData userid */
+        userid?: (number|Long|null);
+
+        /** MS2GW_AckRecordData records */
+        records?: (msg.IParkingRecordData[]|null);
+    }
+
+    /** Represents a MS2GW_AckRecordData. */
+    class MS2GW_AckRecordData implements IMS2GW_AckRecordData {
+
+        /**
+         * Constructs a new MS2GW_AckRecordData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_AckRecordData);
+
+        /** MS2GW_AckRecordData userid. */
+        public userid: (number|Long);
+
+        /** MS2GW_AckRecordData records. */
+        public records: msg.IParkingRecordData[];
+
+        /**
+         * Creates a new MS2GW_AckRecordData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_AckRecordData instance
+         */
+        public static create(properties?: msg.IMS2GW_AckRecordData): msg.MS2GW_AckRecordData;
+
+        /**
+         * Encodes the specified MS2GW_AckRecordData message. Does not implicitly {@link msg.MS2GW_AckRecordData.verify|verify} messages.
+         * @param message MS2GW_AckRecordData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_AckRecordData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_AckRecordData message, length delimited. Does not implicitly {@link msg.MS2GW_AckRecordData.verify|verify} messages.
+         * @param message MS2GW_AckRecordData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_AckRecordData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_AckRecordData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_AckRecordData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckRecordData;
+
+        /**
+         * Decodes a MS2GW_AckRecordData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_AckRecordData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckRecordData;
+
+        /**
+         * Verifies a MS2GW_AckRecordData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_AckRecordData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_AckRecordData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckRecordData;
+
+        /**
+         * Creates a plain object from a MS2GW_AckRecordData message. Also converts values to other types if specified.
+         * @param message MS2GW_AckRecordData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_AckRecordData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_AckRecordData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2MS_ReqRandHouseList. */
     interface IGW2MS_ReqRandHouseList {
 
@@ -15603,6 +16223,96 @@ declare namespace msg {
 
         /**
          * Converts this MS2GW_AckOtherUserHouseData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_ReqResetRobCheckFlag. */
+    interface IGW2MS_ReqResetRobCheckFlag {
+
+        /** GW2MS_ReqResetRobCheckFlag houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_ReqResetRobCheckFlag. */
+    class GW2MS_ReqResetRobCheckFlag implements IGW2MS_ReqResetRobCheckFlag {
+
+        /**
+         * Constructs a new GW2MS_ReqResetRobCheckFlag.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_ReqResetRobCheckFlag);
+
+        /** GW2MS_ReqResetRobCheckFlag houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_ReqResetRobCheckFlag instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_ReqResetRobCheckFlag instance
+         */
+        public static create(properties?: msg.IGW2MS_ReqResetRobCheckFlag): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Encodes the specified GW2MS_ReqResetRobCheckFlag message. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message GW2MS_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_ReqResetRobCheckFlag message, length delimited. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
+         * @param message GW2MS_ReqResetRobCheckFlag message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_ReqResetRobCheckFlag
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Verifies a GW2MS_ReqResetRobCheckFlag message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_ReqResetRobCheckFlag message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_ReqResetRobCheckFlag
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqResetRobCheckFlag;
+
+        /**
+         * Creates a plain object from a GW2MS_ReqResetRobCheckFlag message. Also converts values to other types if specified.
+         * @param message GW2MS_ReqResetRobCheckFlag
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_ReqResetRobCheckFlag, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_ReqResetRobCheckFlag to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -20771,6 +21481,12 @@ declare namespace table {
 
         /** THouseCellDefine Des */
         Des?: (string|null);
+
+        /** THouseCellDefine IncomePerSecond */
+        IncomePerSecond?: (number|null);
+
+        /** THouseCellDefine UnlockGold */
+        UnlockGold?: (number|null);
     }
 
     /** Represents a THouseCellDefine. */
@@ -20802,6 +21518,12 @@ declare namespace table {
 
         /** THouseCellDefine Des. */
         public Des: string;
+
+        /** THouseCellDefine IncomePerSecond. */
+        public IncomePerSecond: number;
+
+        /** THouseCellDefine UnlockGold. */
+        public UnlockGold: number;
 
         /**
          * Creates a new THouseCellDefine instance using the specified properties.

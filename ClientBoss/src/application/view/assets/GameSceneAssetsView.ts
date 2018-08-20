@@ -23,7 +23,7 @@ module game {
 		private undoneTips2:eui.Label; 
 		private undoneTips3:eui.Label; 
 		
-		private currentGroupId:number=1;
+		public currentGroupId:number=1;
 
 		public constructor() {
 			super();
@@ -33,6 +33,7 @@ module game {
 			this.radioGroup.selectedValue=this.titleRadio1.value;
 			this.currentGroupId=this.radioGroup.selectedValue;
 			this.contentStarck.selectedChild=this["stackGroup"+this.currentGroupId];
+			this.view_bg.height=gameConfig.curHeight();
 			
 			NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");			
 		}

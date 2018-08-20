@@ -27,12 +27,16 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
+declare var resUrl;
+
 class Main extends eui.UILayer {
 
 
     protected createChildren(): void {
         super.createChildren();
 
+        this.addChild(new game.GameLayer());
+        
         egret.lifecycle.addLifecycleListener((context) => {
             // custom lifecycle plugin
         })
@@ -59,16 +63,18 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         await this.loadResource()
-        this.createGameScene();
-        const result = await RES.getResAsync("description_json")
+        game.run();
     }
 
     private async loadResource() {
         try {
+            await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
+            await this.loadTheme();
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
-            await RES.loadConfig("resource/default.res.json", "resource/");
-            await this.loadTheme();
+            if (document && document.getElementById("preloading")) {
+                document.getElementById("preloading").style.display = "none";
+            }
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
         }

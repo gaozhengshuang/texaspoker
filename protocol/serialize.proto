@@ -85,6 +85,7 @@ message UserBase {
     optional PersonalImage images = 20;     // 个人形象
 	optional uint32 	newplayerstep = 21; // 新手引导
 	optional uint32 	robcount = 22;		// 抢钱次数
+	optional int64 		tmaddrobcount = 23; // 下次涨抢钱次数的时间戳
 }
 
 message UserAddress {
@@ -107,6 +108,34 @@ message Serialize {
     optional EntityBase entity  = 1;
     optional UserBase   base    = 2;
     optional ItemBin    item    = 3;
+}
+
+
+//车的相关信息
+message CarData 
+{
+    optional uint64 id = 1;                 //车辆id
+    optional uint32 tid = 2;                //配置id
+    optional uint64 ownerid = 3;            //拥有者id 
+    optional uint64 createtime = 4;         //创建时间
+    optional uint64 parkingid = 5;          //停车位id 未停车为0
+    optional string ownername = 6;          //拥有者名字
+}
+
+//车位信息
+message ParkingData
+{
+    optional uint64 id = 1;                 //车位id
+    optional uint32 tid = 2;                //配置id
+    optional uint64 ownerid = 3;            //拥有者id 公共车位为0
+    optional uint64 parkingcar = 4;         //停的车辆id
+    optional uint64 parkingcarownerid = 5;  //停的车主人id
+    optional string parkingcarownername = 6;//停的车主人名字
+    optional uint64 parkingtime = 7;        //开始停车时间戳
+    optional uint32 parkingreward = 8 ;     //停车获得收益
+    optional string ownername = 9;          //车位主人名字
+    optional uint32 parkingcartid = 10;     //停的车辆配置id
+    optional uint64 houseid = 11;           //所属房屋id
 }
 
 //单个房间信息
@@ -140,30 +169,7 @@ message HouseData {
 	repeated HouseCell housecells = 6; //每个房间信息 
 	repeated HouseVisitInfo visitinfo = 7; //操作记录 要限定条数 
 	optional string ownername = 8; //主人的名字
+	optional uint32 robcheckflag = 9; //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
+    repeated ParkingData parkings = 10;
 }
 
-
-//车的相关信息
-message CarData 
-{
-    optional uint64 id = 1;                 //车辆id
-    optional uint32 tid = 2;                //配置id
-    optional uint64 ownerid = 3;            //拥有者id 
-    optional uint64 createtime = 4;         //创建时间
-    optional uint64 parkingid = 5;          //停车位id 未停车为0
-}
-
-//车位信息
-message ParkingData
-{
-    optional uint64 id = 1;                 //车位id
-    optional uint32 tid = 2;                //配置id
-    optional uint64 ownerid = 3;            //拥有者id 公共车位为0
-    optional uint64 parkingcar = 4;         //停的车辆id
-    optional uint64 parkingcarownerid = 5;  //停的车主人id
-    optional string parkingcarownername = 6;//停的车主人名字
-    optional uint64 parkingtime = 7;        //开始停车时间戳
-    optional uint32 parkingreward = 8 ;     //停车获得收益
-    optional string ownername = 9;          //车位主人名字
-    optional uint32 parkingcartid = 10;     //停的车辆配置id
-}

@@ -14,9 +14,10 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Group id="center" width="0" height="0" x="540" y="-22">
-		<e:Image id="parkinglotBg" width="149" height="45" y="62" source="uiCarAltas_json.parkinglot" scaleX="1" scaleY="1" x="28"/>
-		<e:Image id="imageFull" width="150" scaleX="1" scaleY="1" horizontalCenter="103" height="73" verticalCenter="74.5" source="parkinglot_empty" visible="false"/>
-		<e:Image id="imageEmpty" width="150" scaleX="1" scaleY="1" horizontalCenter="103" height="73" verticalCenter="74.5" source="uiCarAltas_json.parkinglot_full" visible="false"/>
+	<e:Group id="center" width="0" height="0" y="-22" x="540">
+		<e:Image id="parkinglotBg" width="149" height="45" y="62" source="uiCarAltas_json.parkinglot" scaleX="1" scaleY="1" x="-18" visible="false"/>
+		<e:Image id="imageFull" width="150" scaleX="1" scaleY="1" height="73" verticalCenter="74.5" source="parkinglot_empty" x="-3" visible="false"/>
+		<e:Image id="imageEmpty" width="150" scaleX="1" scaleY="1" height="73" verticalCenter="74.5" source="uiCarAltas_json.parkinglot_full" x="-3" visible="false"/>
+		<e:Image id="imageMy" width="52" scaleX="1" scaleY="1" height="52" source="uiCarAltas_json.parkedBg" top="20" verticalCenter="46" horizontalCenter="151" right="-177"/>
 	</e:Group>
 </e:Skin>

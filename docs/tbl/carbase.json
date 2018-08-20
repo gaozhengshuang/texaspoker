@@ -2,5 +2,9 @@
 	"Tool": "github.com/davyxu/tabtoy",
 	"Version": "2.8.10",
 	"TCar":[
-		{ "Id": 1001, "Brand": "宝马", "Model": "X7", "MoveRange": 1000, "Capacity": 1000, "RewardPerH": 100, "Price": 2000, "path": "carIconAltas_json.small_1", "bigpath": "carIconAltas_json.big_1" }
+		{ "Id": 1001, "Brand": "铁雪龙", "Model": "316", "MoveRange": 1000, "Capacity": 1200, "RewardPerH": 120, "Price": 2400, "path": "carIconAltas_json.small_1", "bigpath": "carIconAltas_json.big_1" },
+		{ "Id": 1002, "Brand": "大众", "Model": "320", "MoveRange": 1500, "Capacity": 12000, "RewardPerH": 600, "Price": 24000, "path": "carIconAltas_json.small_2", "bigpath": "carIconAltas_json.big_2" },
+		{ "Id": 1003, "Brand": "雪佛莱", "Model": "328", "MoveRange": 2000, "Capacity": 27000, "RewardPerH": 900, "Price": 54000, "path": "carIconAltas_json.small_3", "bigpath": "carIconAltas_json.big_3" },
+		{ "Id": 1004, "Brand": "保时捷", "Model": "525", "MoveRange": 2500, "Capacity": 72000, "RewardPerH": 1200, "Price": 96000, "path": "carIconAltas_json.small_4", "bigpath": "carIconAltas_json.big_4" },
+		{ "Id": 1005, "Brand": "奔驰", "Model": "530", "MoveRange": 3000, "Capacity": 180000, "RewardPerH": 1500, "Price": 150000, "path": "carIconAltas_json.small_5", "bigpath": "carIconAltas_json.big_5" }
 	]}

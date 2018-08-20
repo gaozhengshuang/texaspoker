@@ -31,6 +31,15 @@ func tests(args ...string) {
 	}
 }
 
+func RankList() func() []int32 {
+	nums := []int32{1,2,3,4,5}
+	return func() []int32 {
+		nums = append(nums, nums...)
+		return nums
+	}
+}
+
+
 func main() {
 	defer util.RecoverPanic(ProcessPanic, nil)
 
@@ -45,7 +54,10 @@ func main() {
 	g_KeyBordInput.Init()
 	g_KeyBordInput.Start()
 	log.Info("初始键盘输入完成")
-	
+	f1 := RankList()
+	fmt.Println(f1())
+	fmt.Println(f1())
+	return
 
 	fmt.Println(time.Now().Format("20060102"))
 	// TODO: 通道传入slice是引用

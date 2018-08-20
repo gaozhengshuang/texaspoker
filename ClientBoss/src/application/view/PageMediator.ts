@@ -32,13 +32,15 @@ module game {
                         if (data) {
                             let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
                             let mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+                            let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
                             GameConfig.pageType = 1;
                             GameConfig.setEventsReply(true);
                             this.pageView = new GameRoomView();
                             this.sceneGroup.addChild(this.pageView);
                             ApplicationFacade.getInstance().registerMediator(new RoomMediator(this.pageView));
                             this.pageMediatorName = RoomMediator.NAME;
-                            this.pageView.initInfo(data.room,userProxy.getUserInfo().userid);
+                            this.pageView.initInfo(data.room,userProxy.getUserInfo().userid,houseProxy.returnType);
+                            
                             
                             /*if (GameConfig.exploring && data.room.rUserId == userProxy.getUserInfo().userid) {
                                 GameConfig.exploreUIFun(false);
@@ -49,6 +51,7 @@ module game {
                             }*/
                         }
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: true });
 
                         break;
                     }
@@ -83,6 +86,7 @@ module game {
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_NUM, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
                         break;
                     }
