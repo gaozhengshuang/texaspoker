@@ -363,7 +363,7 @@ module game {
                     this._selItems.push(item);
                 }
                 else {   
-                    this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != 7) && data.Id != item.Id; })
+                    this._selItems = this._selItems.filter(data => { return (data.Sex != item.Sex || data.Pos != msg.ItemPos.Suit) && data.Id != item.Id; })
                     let haveDressed = false;
 
                     for (let i = 0; i < this._selItems.length; i++) {
@@ -435,6 +435,19 @@ module game {
             return this.gender == 0;
         }
 
+        //切换并刷新部位背包
+        private OnPartHandle(evt:eui.UIEvent)
+        {       
+            let radioGroup : eui.RadioButtonGroup = evt.target;
+            this.updateItemList();
+        }
+
+        //打开并刷新购物车界面
+        private OnCartHandle() {
+            openPanel(PanelType.dressShopCarts);
+            RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
+        }
+
         private OnCloseHandle() {
             let _closeHandle: Function = function () {
                 this.remove();
@@ -450,18 +463,7 @@ module game {
             else {
                 _closeHandle();
             }
-        }
-
-        private OnCartHandle() {
-            openPanel(PanelType.dressShopCarts);
-            RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
-        }
-
-        private OnPartHandle(evt:eui.UIEvent)
-        {       
-            let radioGroup : eui.RadioButtonGroup = evt.target;
-            this.updateItemList();
-        }
+        } 
 
         //换装--------------------------
         private resetParts(bone: SkeletonBase) {
