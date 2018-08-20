@@ -317,7 +317,7 @@ func (this *CarManager) CreateNewRecord(ownerid uint64, car *CarData, parking *P
 	str := make([]byte, 0, 256)
 	str = strconv.AppendInt(str, int64(ownerid), 10)
 	str = strconv.AppendQuote(str, "_")
-	str = strconv.AppendInt(str, int64(opttype))
+	str = strconv.AppendInt(str, int64(opttype),10)
 	str = strconv.AppendQuote(str, "_")
 	str = strconv.AppendQuote(str, time.Now().Format("15:04"))
 	str = strconv.AppendQuote(str, "  ")
