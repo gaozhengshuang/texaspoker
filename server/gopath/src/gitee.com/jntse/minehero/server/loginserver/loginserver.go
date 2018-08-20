@@ -198,7 +198,7 @@ func (this *LoginServer) Init(fileconf string) bool {
 	//this.sessions = make(map[int]network.IBaseNetSession)
 	this.checkinset = make(map[string]*CheckInAccount)
 	this.runtimestamp = 0
-	this.asynev.Start(1,10000)
+	this.asynev.Start(1, 1000000)
 
 	return true
 }
