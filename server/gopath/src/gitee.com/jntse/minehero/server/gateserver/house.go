@@ -332,6 +332,36 @@ func (this *HouseData) LevelUp() bool {
 	}
 	this.level = this.level + 1
 	this.tid = this.tid + 1
+
+	cellstr := base.Cells
+	slicecell := strings.Split(cellstr, "|")
+	for k, v := range slicecell {
+		cellinfo := strings.Split(v, "-")
+		celltype, _ := strconv.Atoi(cellinfo[0])
+		cellUnlocklevel, _ := strconv.Atoi(cellinfo[1])
+
+		if uint32(cellUnlocklevel) == this.level {
+			index := k + 1
+			if _, ok := this.housecells[uint32(index)]; ok {
+				this.housecells[uint32(index)].state = 0
+				this.housecells[uint32(index)].gold = 0
+				this.housecells[uint32(index)].tmproduce = util.CURTIME()
+			} else {
+				celltid := celltype*1000 + 1
+				cell := &HouseCell{}
+				cell.tid = uint32(celltid)
+				cell.index = uint32(index)
+				cell.level = 1
+				cell.tmproduce = util.CURTIME()
+				cell.gold = 0
+				cell.state = 0
+				cell.robdata = make([]uint64, 0)
+				cell.SetOwner(this.ownerid)
+				this.housecells[uint32(index)] = cell
+			}
+		}
+	}
+	this.SaveBin(nil)
 	return true
 }
 
@@ -443,24 +473,6 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		return nil
 	}
 	cellstr := base.Cells
-	/*
-		slicecell := strings.Split(cellstr, "-")
-		for k, v := range slicecell {
-			index := k + 1
-			celltype, _ := strconv.Atoi(v)
-			celltid := celltype*1000 + 1
-			cell := &HouseCell{}
-			cell.tid = uint32(celltid)
-			cell.index = uint32(index)
-			cell.level = 1
-			cell.tmproduce = util.CURTIME()
-			cell.gold = 0
-			cell.state = 0
-			cell.robdata = make([]uint64, 0)
-			cell.SetOwner(ownerid)
-			house.housecells[uint32(index)] = cell
-		}
-	*/
 	slicecell := strings.Split(cellstr, "|")
 	for k, v := range slicecell {
 		cellinfo := strings.Split(v, "-")
