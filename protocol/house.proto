@@ -116,3 +116,16 @@ message C2GW_ReqResetRobCheckFlag {
 message GW2C_NotifyAddRobCountTime {
 	optional int64 time = 1;
 }
+
+//解锁房间区域
+message C2GW_ReqUnLockHouseCell {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+}
+
+//返回房间区域解锁
+message GW2C_ACKUnLockHouseCell {
+	optional uint64 houseid = 1;
+	optional uint32 index = 2;
+	optional uint32 ret = 3;
+}
