@@ -8,8 +8,8 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
-	pb "github.com/gogo/protobuf/proto"
 	"github.com/go-redis/redis"
+	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	"strings"
 	"time"
@@ -273,7 +273,7 @@ func (this *HouseData) SaveBin(pipe redis.Pipeliner) {
 			log.Error("保存房屋[%d]数据失败", this.id)
 			return
 		}
-	}else {
+	} else {
 		if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
 			log.Error("保存房屋[%d]数据失败", this.id)
 			return
@@ -501,7 +501,7 @@ func (this *HouseManager) SaveAllHousesData() {
 	_, err := pipe.Exec()
 	if err != nil {
 		log.Error("储存所有的房屋信息失败 [%s]", err)
-	}else {
+	} else {
 		log.Info("储存所有的房屋信息成功")
 	}
 }
@@ -811,7 +811,6 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	this.SendMsg(send)
 }
 
-
 func (this *GateUser) ReqRandHouseList() {
 	data := HouseSvrMgr().GetRandHouseList(this.Id())
 	send := &msg.GW2C_AckRandHouseList{}
@@ -836,4 +835,12 @@ func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
 		return
 	}
 	HouseSvrMgr().ResetRobcheckflag(houseid)
+}
+
+func (this *GateUser) UnLockHouseCell(houseid uint64, index uint32) {
+	send := &msg.GW2C_ACKUnLockHouseCell{}
+	send.Houseid = pb.Uint64(houseid)
+	send.Index = pb.Uint32(index)
+	send.Ret = pb.Uint32(1)
+	this.SendMsg(send)
 }
