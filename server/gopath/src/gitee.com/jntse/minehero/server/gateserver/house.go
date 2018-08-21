@@ -443,10 +443,30 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		return nil
 	}
 	cellstr := base.Cells
-	slicecell := strings.Split(cellstr, "-")
+	/*
+		slicecell := strings.Split(cellstr, "-")
+		for k, v := range slicecell {
+			index := k + 1
+			celltype, _ := strconv.Atoi(v)
+			celltid := celltype*1000 + 1
+			cell := &HouseCell{}
+			cell.tid = uint32(celltid)
+			cell.index = uint32(index)
+			cell.level = 1
+			cell.tmproduce = util.CURTIME()
+			cell.gold = 0
+			cell.state = 0
+			cell.robdata = make([]uint64, 0)
+			cell.SetOwner(ownerid)
+			house.housecells[uint32(index)] = cell
+		}
+	*/
+	slicecell := strings.Split(cellstr, "|")
 	for k, v := range slicecell {
+		cellinfo := strings.Split(v, "-")
+		celltype, _ := strconv.Atoi(cellinfo[0])
+		cellUnlocklevel, _ := strconv.Atoi(cellinfo[1])
 		index := k + 1
-		celltype, _ := strconv.Atoi(v)
 		celltid := celltype*1000 + 1
 		cell := &HouseCell{}
 		cell.tid = uint32(celltid)
@@ -454,7 +474,11 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		cell.level = 1
 		cell.tmproduce = util.CURTIME()
 		cell.gold = 0
-		cell.state = 0
+		if cellUnlocklevel == 1 {
+			cell.state = 0
+		} else {
+			cell.state = 2
+		}
 		cell.robdata = make([]uint64, 0)
 		cell.SetOwner(ownerid)
 		house.housecells[uint32(index)] = cell
@@ -645,7 +669,7 @@ func (this *GateUser) SendHouseData() {
 	for _, v := range this.housedata {
 		send.Datas = append(send.Datas, v)
 	}
-
+	CarMgr().AppendHouseData(send.Datas)
 	this.SendMsg(send)
 }
 
@@ -811,10 +835,21 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) ReqRandHouseList() {
+func (this *GateUser) ReqRandHouseList(carflag uint32) {
 	data := HouseSvrMgr().GetRandHouseList(this.Id())
 	send := &msg.GW2C_AckRandHouseList{}
 	send.Datas = data
+	if carflag == 1 {
+		carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
+		for _, v := range carParkHouseIds {
+			house := HouseSvrMgr().GetHouse(v)
+			if house == nil {
+				continue
+			}
+			send.Datas = append(send.Datas, house.PackBin())
+		}
+	}
+	CarMgr().AppendHouseData(send.Datas)
 	this.SendMsg(send)
 }
 
@@ -825,6 +860,7 @@ func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 		tmp := v.PackBin()
 		send.Datas = append(send.Datas, tmp)
 	}
+	CarMgr().AppendHouseData(send.Datas)
 	this.SendMsg(send)
 }
 
