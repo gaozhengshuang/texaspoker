@@ -610,7 +610,7 @@ func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 			i = i + 1
 		}
 	} else {
-		tmprand := def.GetRandNumbers(int32(count-1), 11)
+		tmprand := util.SelectRandNumbers(int32(count-1), 11)
 		for _, v := range tmprand {
 			houseid := this.housesIdList[int(v)]
 			house := this.GetHouse(houseid)
