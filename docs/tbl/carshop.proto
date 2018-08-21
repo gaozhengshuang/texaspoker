@@ -22,10 +22,16 @@ message TCarShopDefine
 	optional uint32 Id = 1; // ID
 	
 	
-	optional uint32 Carid = 2; 
+	optional uint32 ShopId = 2; // 商店标识
 	
 	
-	optional uint32 Price = 3; 
+	optional uint32 Carid = 3; // uuid
+	
+	
+	optional uint32 Price = 4; // 售价
+	
+	
+	optional uint32 Nums = 5; // 初始数量
 
 }
 

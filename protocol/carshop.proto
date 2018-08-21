@@ -1,0 +1,26 @@
+syntax = "proto2";
+package msg;
+import "serialize.proto";
+
+
+// 请求汽车商店信息
+message C2GW_ReqCarShopInfo {
+    optional uint32 shopid = 1;     // 暂不使用
+}
+
+// 发送汽车商店信息
+message GW2C_SendCarShopInfo {
+    repeated msg.CarProductData products = 1;
+}
+
+// 购买汽车
+message C2GW_BuyCarFromShop {
+    optional uint32 shopid = 1;     // 暂不使用
+}
+
+// 更新单个汽车商品
+message GW2C_UpdateCarShopProduct {
+    optional msg.CarProductData product = 1;
+}
+
+
