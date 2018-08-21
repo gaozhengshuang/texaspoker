@@ -44,6 +44,9 @@ module game {
             case PanelType.carDetail:
                 panel = CarDetailView.getInstance();
                 break;
+             case PanelType.carPublicLot:
+                panel = CarPublicParkingLotManager.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -65,5 +68,6 @@ module game {
         dressShopCarts,
         battle,
         carDetail,
+        carPublicLot,
     }
 }

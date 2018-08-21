@@ -73,10 +73,12 @@ module game {
 			this.updateRoomInfo(data.data);
 		}
 		private updateRoomInfo(datas: any) {
-			this.currentHouse.setObject(datas);
-			console.log(datas);
-			console.log(this.currentHouse);
-			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
+			if (datas.id == this.currentHouse.rId) {
+				this.currentHouse.setObject(datas);
+				console.log(datas);
+				console.log(this.currentHouse);
+				ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
+			}
 		}
 		
         public currentHouse:HouseVO;

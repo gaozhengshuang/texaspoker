@@ -30,6 +30,35 @@ module game {
         return bool;
     }
     /**
+     * 得到某个玩家房屋可收列表中一间房
+     */
+    export function GetHaveGoldHouse(houseList: HouseVO[], type: number = 1, userid: number = 0):HouseVO {
+        let gHouse:HouseVO = null;
+        if (houseList && houseList.length > 0) {
+            for (let i: number = 0; i < houseList.length; i++) {
+                let house: HouseVO = houseList[i];
+                if (house && house.housecells && house.housecells.length > 0) {
+                    for (let k: number = 0; k < house.housecells.length; k++) {
+                        if (type == 1) {
+                            if (house.housecells[k].state == 1) {
+                                gHouse = house;
+                                return gHouse;
+                            }
+                        } else {
+                            if (house.housecells[k].state == 1
+                                && house.housecells[k].robers.length < 3
+                                && house.housecells[k].robers.indexOf(userid) == -1) {
+                                gHouse = house;
+                                return gHouse;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return gHouse;
+    }
+    /**
      * 分析某个房屋是否可收
      */
     export function AnalyzeHouseGold(house: HouseVO, type: number = 1, userid: number = 0): boolean {

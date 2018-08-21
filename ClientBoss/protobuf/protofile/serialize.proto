@@ -173,3 +173,21 @@ message HouseData {
     repeated ParkingData parkings = 10;
 }
 
+// 汽车商店出售信息
+message CarProductData {
+    optional uint32 pid  = 1;       // 商品id
+    optional uint32 sell = 2;       // 可以出售，限量
+    optional uint32 sold = 3;       // 已经出售
+}
+
+//楼里的房屋入住信息
+message BuidingSoldData {
+	optional uint32 index = 1; //入住房屋在楼里的编号 楼层数*10 + 每层编号
+	optional uint64 houseid = 2; //房屋的数据id HouseData的id
+}
+
+//楼数据
+message BuildingData {
+	optional uint32 id = 1; //唯一id也是配置表里的id 一一对应
+	repeated BuidingSoldData data = 2; //已卖出入住信息
+}

@@ -30,13 +30,9 @@
 declare var resUrl;
 
 class Main extends eui.UILayer {
-
-
     protected createChildren(): void {
         super.createChildren();
 
-        this.addChild(new game.GameLayer());
-        
         egret.lifecycle.addLifecycleListener((context) => {
             // custom lifecycle plugin
         })
@@ -62,8 +58,8 @@ class Main extends eui.UILayer {
     }
 
     private async runGame() {
-        await this.loadResource()
-        game.run();
+        await this.loadResource();
+        game.run(this.stage);
     }
 
     private async loadResource() {
@@ -94,59 +90,4 @@ class Main extends eui.UILayer {
 
         })
     }
-
-    private textfield: egret.TextField;
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    protected createGameScene(): void {
-        game.GameConfig.errorObj = RES.getRes(game.GameConfig.errorJson);
-        //window.addEventListener('resize', function (event) {
-        game.GameConfig.innerWidth = window.innerWidth;
-        game.GameConfig.innerHeight = window.innerHeight;
-        game.GameConfig.innerScaleH = game.GameConfig.innerHeight / game.GameConfig.stageHeight;
-        game.GameConfig.innerScaleW = game.GameConfig.innerWidth / game.GameConfig.stageWidth;
-
-        let expHeight:number=game.GameConfig.innerWidth*game.GameConfig.stageHeight/game.GameConfig.stageWidth;
-        game.GameConfig.innerScale=expHeight>game.GameConfig.innerHeight?game.GameConfig.innerScaleH:game.GameConfig.innerScaleW;
-
-        console.log(game.GameConfig.innerScale);
-
-
-        game.GameConfig.appContainer = new game.AppContainer();
-        this.addChild(game.GameConfig.appContainer);
-        game.ApplicationFacade.getInstance().startUp(game.GameConfig.appContainer);
-    }
-    
-    /**
-     * 描述文件加载成功，开始播放动画
-     * Description file loading is successful, start to play the animation
-     */
-    private startAnimation(result: Array<any>): void {
-        let parser = new egret.HtmlTextParser();
-
-        let textflowArr = result.map(text => parser.parse(text));
-        let textfield = this.textfield;
-        let count = -1;
-        let change = () => {
-            count++;
-            if (count >= textflowArr.length) {
-                count = 0;
-            }
-            let textFlow = textflowArr[count];
-
-            // 切换描述内容
-            // Switch to described content
-            textfield.textFlow = textFlow;
-            let tw = egret.Tween.get(textfield);
-            tw.to({ "alpha": 1 }, 200);
-            tw.wait(2000);
-            tw.to({ "alpha": 0 }, 200);
-            tw.call(change, this);
-        };
-
-        change();
-    }
-
 }

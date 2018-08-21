@@ -95,6 +95,7 @@ module game {
 			this.sceneGroup.addEventListener(GameMapUIView.OPEN_DISCOVERY,this.openDiscoveryRequset,this);
 			this.sceneGroup.addEventListener(GameMapUIView.OPEN_MINE,this.openMineRequset,this);
 			this.sceneGroup.addEventListener(GameMapUIView.CLOSE_SMALL_GAME,this.closeGameRequset,this);
+			this.sceneGroup.addEventListener(GameMapUIView.GOTO_SHOUYI_ROOM,this.gotoShouyiRoomRequset,this);
 		}
 		private openMainAssetsRequset(eve:BasicEvent):void
 		{
@@ -145,6 +146,21 @@ module game {
 		private mapPositionRequset(eve:BasicEvent):void
 		{
 			ApplicationFacade.getInstance().sendNotification(CommandName.MAP_POSITION);
+		}
+		private gotoShouyiRoomRequset(eve:BasicEvent):void
+		{
+			let assetsProxy: AssetsProxy = <AssetsProxy><any>this.facade().retrieveProxy(AssetsProxy.NAME);
+			if (assetsProxy.houseAssetsList && assetsProxy.houseAssetsList.length > 0) {
+				let getHaveGoldRoom: HouseVO = GetHaveGoldHouse(assetsProxy.houseAssetsList, 1);
+				if (getHaveGoldRoom) {
+					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
+						{ userid: getHaveGoldRoom.ownerid });
+				} else {
+					getHaveGoldRoom = assetsProxy.houseAssetsList[0];
+					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
+						{ userid: getHaveGoldRoom.ownerid });
+				}
+			}
 		}
 		public get sceneGroup():GameMapUIView
         {

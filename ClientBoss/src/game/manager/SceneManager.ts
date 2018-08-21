@@ -23,6 +23,9 @@ module game {
                 case SceneType.login:
                     this._curScene = LoginScene.getInstance();
                     break;
+                case SceneType.hall:
+                    this._curScene = HallScene.getInstance();
+                    break;
             }
             if (this._curScene) {
                 await this._curScene.loadRes();
@@ -40,6 +43,7 @@ module game {
     export const enum SceneType {
         battle,
         main,
-        login
+        login,
+        hall
     }
 }

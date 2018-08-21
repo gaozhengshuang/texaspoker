@@ -64,7 +64,7 @@ module game {
             //console.log("停车--->",cid," ",_parkingData.ownerid+" "+_parkingData.ownername);
             let self = this;
             CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
-            showDialog("是否在"+_parkingData.ownername+"的车位停车?", "停车", function(){
+            showDialog("是否在"+ (_parkingData.ownerid&&_parkingData.ownername+"的车位"||"公共车位") +"停车?", "停车", function(){
                 if(callFunc && !self.GW2C_ParkCarResult_BackCalls.some(func=>{return func==callFunc;}))
                 {
                     self.GW2C_ParkCarResult_BackCalls.push(callFunc);
@@ -161,7 +161,7 @@ module game {
                 }
             }
             if(uid==0){
-                console.warn("玩家没有停车位数据");
+                console.warn("请求的是公共车位或者玩家没有停车位数据");
             }
         }
 

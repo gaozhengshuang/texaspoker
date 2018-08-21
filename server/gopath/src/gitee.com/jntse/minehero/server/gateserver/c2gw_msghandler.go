@@ -85,6 +85,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuyHouseFromBuilding{}, on_C2GW_ReqBuyHouseFromBuilding)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuildingCanBuyInfo{}, on_C2GW_ReqBuildingCanBuyInfo)
 
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
+
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqParkingInfoByType{}, on_C2GW_ReqParkingInfoByType)
@@ -837,6 +840,30 @@ func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}
 	user.SendMsg(send)
 
 	user.image.SendShowImage()
+}
+
+
+func on_C2GW_ReqCarShopInfo(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	Carshop().SendShopInfo(user)
+}
+
+func on_C2GW_BuyCarFromShop(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_BuyCarFromShop)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	Carshop().BuyCar(user, tmsg.GetShopid(), tmsg.GetPid())
 }
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
