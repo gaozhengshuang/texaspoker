@@ -2,8 +2,9 @@ declare var platform;
 
 module game {
     let inited = false;
+    export let gamelayer: GameLayer;
 
-    export function run() {
+    export function run(stage: egret.Stage) {
         // gameConfig.curStage().once(egret.TouchEvent.TOUCH_BEGIN, () => {
         //     initWebAudio();
         // }, this);
@@ -14,6 +15,8 @@ module game {
                 msg += `\n${error.stack}`;
             //todo 客户端错误上传
         };
+        gamelayer = new GameLayer();
+        stage.addChild(gamelayer);
         //配置表加载
         DataManager.init();
         SoundManager.init();
@@ -24,16 +27,21 @@ module game {
         BarrageManager.getInstance().init();
         //战斗数据初始化
         BattleManager.getInstance().init();
-
-        //初始化MVC框架
-        //代码放这里
-
+        SysTimeEventManager.getInstance().delAllFunction();
+        SysTimeEventManager.getInstance().stopTimer();
         //打开登录
         Login();
     }
-
     export function createGameScene() {
-        SceneManager.changeScene(SceneType.main);
+
+        //进入大厅场景 由mvc来完成
+        ApplicationFacade.getInstance().startUp(gamelayer);
+        SceneManager.changeScene(SceneType.hall);
+        
+        let mapProxy = <MapProxy>ApplicationFacade.getInstance().retrieveProxy(MapProxy.NAME);
+        mapProxy.LoginBtnClick();
+
+        // SceneManager.changeScene(SceneType.main);
 
         //登录完成关闭loading界面
         NotificationCenter.postNotification("closeLoadingSkin");
@@ -62,9 +70,9 @@ module game {
 
     export async function startHeart() {
         if (heartTimeout) return;
-        if (game.leaveTime) {
+        if (leaveTime) {
             let now = new Date().getTime();
-            if ((now - game.leaveTime) >= 300000) {
+            if ((now - leaveTime) >= 300000) {
                 stopHeart();
                 return;
             }
