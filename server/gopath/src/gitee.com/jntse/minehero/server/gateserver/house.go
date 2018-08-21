@@ -8,8 +8,8 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
-	pb "github.com/gogo/protobuf/proto"
 	"github.com/go-redis/redis"
+	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	"strings"
 	"time"
@@ -155,7 +155,10 @@ func (this *HouseCell) LevelUp() bool {
 		log.Error("HouseCell LevelUp 无效的房间区域cell  tid[%d]", this.tid)
 		return false
 	}
-
+	if this.state == 2 {
+		log.Error("HouseCell LevelUp 房间Cell升级失败 房间尚未解锁", this.tid)
+		return false
+	}
 	if this.level >= base.MaxLevel {
 		log.Error("HouseCell LevelUp 房间Cell升级 已达最大等级  tid[%d]", this.tid)
 		return false
@@ -273,7 +276,7 @@ func (this *HouseData) SaveBin(pipe redis.Pipeliner) {
 			log.Error("保存房屋[%d]数据失败", this.id)
 			return
 		}
-	}else {
+	} else {
 		if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
 			log.Error("保存房屋[%d]数据失败", this.id)
 			return
@@ -332,6 +335,35 @@ func (this *HouseData) LevelUp() bool {
 	}
 	this.level = this.level + 1
 	this.tid = this.tid + 1
+	//查看是否有房间可解锁
+	cellstr := base.Cells
+	slicecell := strings.Split(cellstr, "|")
+	for k, v := range slicecell {
+		cellinfo := strings.Split(v, "-")
+		celltype, _ := strconv.Atoi(cellinfo[0])
+		cellUnlocklevel, _ := strconv.Atoi(cellinfo[1])
+		if uint32(cellUnlocklevel) == this.level {
+			index := k + 1
+			if _, ok := this.housecells[uint32(index)]; ok {
+				this.housecells[uint32(index)].state = 0
+				this.housecells[uint32(index)].gold = 0
+				this.housecells[uint32(index)].tmproduce = util.CURTIME()
+			} else {
+				celltid := celltype*1000 + 1
+				cell := &HouseCell{}
+				cell.tid = uint32(celltid)
+				cell.index = uint32(index)
+				cell.level = 1
+				cell.tmproduce = util.CURTIME()
+				cell.gold = 0
+				cell.state = 0
+				cell.robdata = make([]uint64, 0)
+				cell.SetOwner(this.ownerid)
+				this.housecells[uint32(index)] = cell
+			}
+		}
+	}
+	this.SaveBin(nil)
 	return true
 }
 
@@ -443,10 +475,12 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		return nil
 	}
 	cellstr := base.Cells
-	slicecell := strings.Split(cellstr, "-")
+	slicecell := strings.Split(cellstr, "|")
 	for k, v := range slicecell {
+		cellinfo := strings.Split(v, "-")
+		celltype, _ := strconv.Atoi(cellinfo[0])
+		cellUnlocklevel, _ := strconv.Atoi(cellinfo[1])
 		index := k + 1
-		celltype, _ := strconv.Atoi(v)
 		celltid := celltype*1000 + 1
 		cell := &HouseCell{}
 		cell.tid = uint32(celltid)
@@ -454,7 +488,11 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 		cell.level = 1
 		cell.tmproduce = util.CURTIME()
 		cell.gold = 0
-		cell.state = 0
+		if cellUnlocklevel == 1 {
+			cell.state = 0
+		} else {
+			cell.state = 2
+		}
 		cell.robdata = make([]uint64, 0)
 		cell.SetOwner(ownerid)
 		house.housecells[uint32(index)] = cell
@@ -501,7 +539,7 @@ func (this *HouseManager) SaveAllHousesData() {
 	_, err := pipe.Exec()
 	if err != nil {
 		log.Error("储存所有的房屋信息失败 [%s]", err)
-	}else {
+	} else {
 		log.Info("储存所有的房屋信息成功")
 	}
 }
@@ -610,7 +648,7 @@ func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 			i = i + 1
 		}
 	} else {
-		tmprand := def.GetRandNumbers(int32(count-1), 11)
+		tmprand := util.SelectRandNumbers(int32(count-1), 11)
 		for _, v := range tmprand {
 			houseid := this.housesIdList[int(v)]
 			house := this.GetHouse(houseid)
@@ -645,7 +683,7 @@ func (this *GateUser) SendHouseData() {
 	for _, v := range this.housedata {
 		send.Datas = append(send.Datas, v)
 	}
-
+	CarMgr().AppendHouseData(send.Datas)
 	this.SendMsg(send)
 }
 
@@ -811,11 +849,21 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	this.SendMsg(send)
 }
 
-
-func (this *GateUser) ReqRandHouseList() {
+func (this *GateUser) ReqRandHouseList(carflag uint32) {
 	data := HouseSvrMgr().GetRandHouseList(this.Id())
 	send := &msg.GW2C_AckRandHouseList{}
 	send.Datas = data
+	if carflag == 1 {
+		carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
+		for _, v := range carParkHouseIds {
+			house := HouseSvrMgr().GetHouse(v)
+			if house == nil {
+				continue
+			}
+			send.Datas = append(send.Datas, house.PackBin())
+		}
+	}
+	CarMgr().AppendHouseData(send.Datas)
 	this.SendMsg(send)
 }
 
@@ -826,6 +874,7 @@ func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
 		tmp := v.PackBin()
 		send.Datas = append(send.Datas, tmp)
 	}
+	CarMgr().AppendHouseData(send.Datas)
 	this.SendMsg(send)
 }
 

@@ -927,13 +927,15 @@ func on_C2GW_ReqTakeOtherHouseGold(session network.IBaseNetSession, message inte
 }
 
 func on_C2GW_ReqRandHouseList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqRandHouseList)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.ReqRandHouseList()
+	carflag := tmsg.GetCarflag()
+	user.ReqRandHouseList(carflag)
 }
 
 func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
@@ -981,7 +983,7 @@ func on_C2GW_ReqParkingInfoByType(session network.IBaseNetSession, message inter
 		return
 	}
 	tmsg := message.(*msg.C2GW_ReqParkingInfoByType)
-	parkinginfo := CarMgr().GetParkingByCondition(uint32(tmsg.GetType()), uint64(tmsg.GetPlayerid()),tmsg.GetHouseids())
+	parkinginfo := CarMgr().GetParkingByCondition(uint32(tmsg.GetType()), uint64(tmsg.GetPlayerid()), tmsg.GetHouseids())
 	send := &msg.GW2C_ResParkingInfo{}
 	for _, v := range parkinginfo {
 		tmp := v.PackBin()
@@ -1002,7 +1004,7 @@ func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 	cid := tmsg.GetCarid()
 	pid := tmsg.GetParkingid()
 	send := &msg.GW2C_ParkCarResult{}
-	result := CarMgr().ParkingCar(cid,pid,user.Name())
+	result := CarMgr().ParkingCar(cid, pid, user.Name())
 	send.Result = pb.Int32(result)
 	user.SendMsg(send)
 
@@ -1034,7 +1036,7 @@ func on_C2GW_TicketCar(session network.IBaseNetSession, message interface{}) {
 	}
 	tmsg := message.(*msg.C2GW_TicketCar)
 	send := &msg.GW2C_TicketCarResult{}
-	result,reward:= CarMgr().TakeBackFromParking(tmsg.GetParkingid())
+	result, reward := CarMgr().TakeBackFromParking(tmsg.GetParkingid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)
