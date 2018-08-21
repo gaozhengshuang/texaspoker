@@ -17,6 +17,7 @@ type CarShop struct {
 
 func (shop* CarShop) Init() {
 	log.Info("汽车商店初始化")
+	shop.products = make(map[uint32] *msg.CarProductData)
 	shop.LoadDB()
 	shop.InitOnce()
 }
@@ -31,7 +32,7 @@ func (shop *CarShop) InitOnce() {
 		product := &msg.CarProductData{ Pid:pb.Uint32(v.Id), Sell:pb.Uint32(v.Nums), Sold:pb.Uint32(0) }
 		shop.products[v.Id] = product
 	}
-	shop.SaveAll()
+	//shop.SaveAll()
 }
 
 // 反序列化
