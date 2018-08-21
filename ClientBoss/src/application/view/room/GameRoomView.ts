@@ -97,8 +97,10 @@ module game {
 
             this.down_bg.y = gameConfig.curHeight() - this.down_bg.height;
 
+            this.bootomGroup.y = gameConfig.curHeight() - this.bootomGroup.height - 100;
+            
             this.downBtnGroup.y = this.down_bg.y - this.downBtnGroup.height / 2 + 20;
-
+            
             this.hideList_btn.y = gameConfig.curHeight() - 30 - this.hideList_btn.height / 2;
             this.shualingju_btn.y = this.hideList_btn.y;
 
