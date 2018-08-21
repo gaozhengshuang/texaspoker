@@ -175,8 +175,8 @@ message HouseData {
 
 //楼里的房屋入住信息
 message BuidingSoldData {
-	optional uint32 index = 1; //入住房屋在楼里的编号 楼层数*10 + 每层编号
-	optional uint64 houseid = 2; //房屋的数据id HouseData的id
+	optional uint32 index = 1; //入住户型
+	repeated uint64 houseid = 2; //入住此户型的房屋的数据id HouseData的id
 }
 
 //楼数据

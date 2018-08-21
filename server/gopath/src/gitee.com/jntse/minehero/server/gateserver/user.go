@@ -583,7 +583,7 @@ func (this *GateUser) OnCreateNew() {
 	//send.Housetid = pb.Uint32(1001)
 	//send.Ownername = pb.String(this.Name())
 	//Match().SendCmd(send)
-	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name())
+	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0)
 
 	if houseData != nil {
 		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
@@ -1040,4 +1040,3 @@ func (this *GateUser) NotifyRobAddTime() {
 	send.Time = pb.Int64(this.tmaddrobcount)
 	this.SendMsg(send)
 }
-
