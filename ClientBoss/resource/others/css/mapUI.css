@@ -155,7 +155,24 @@
 	background-image:url(../images/dingw.png);
 	background-size:cover;
 }
-
+#shouyiBtn{
+	width:240px;
+	height:260px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	right:10px;
+	bottom:520px;
+}
+.noShouyi{
+	background-image:url(../images/no_Shouyi_btn.png);
+	background-size:cover;
+}
+.haveShouyi{
+	background-image:url(../images/have_Shouyi_btn.png);
+	background-size:cover;
+}
 
 #fujinSwitchBtn{
 	width:156px;

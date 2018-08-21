@@ -6,6 +6,7 @@ module game {
         private weizhi_txt: eui.Label;
         private huxing_txt: eui.Label;
         private junjia_txt: eui.Label;
+        private channeng_txt: eui.Label;
 
         private hCoin_icon: eui.Image;
         private hQuan_icon: eui.Image;
@@ -45,7 +46,13 @@ module game {
             this.itemDate = this.data;
             if (this.itemDate) {
                 console.log(this.itemDate);
-                this.name_txt.text = this.itemDate.rId+"号房间(一室一厅)";
+                if(this.itemDate.bId<=0){
+                    this.name_txt.text = this.itemDate.rId+"号房间(租)";
+                }else{
+                    this.name_txt.text = this.itemDate.rId+"号房间";
+                }
+                
+                this.huxing_txt.text="户型：一室一厅";
                 if(this.itemDate.isHave){
                     this.jiaoBiaoIcon.visible=true;
                 }else{

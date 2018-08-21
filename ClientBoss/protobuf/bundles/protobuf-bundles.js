@@ -16327,6 +16327,7 @@ $root.msg = (function() {
          * Properties of a C2GW_ReqRandHouseList.
          * @memberof msg
          * @interface IC2GW_ReqRandHouseList
+         * @property {number|null} [carflag] C2GW_ReqRandHouseList carflag
          */
 
         /**
@@ -16343,6 +16344,14 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * C2GW_ReqRandHouseList carflag.
+         * @member {number} carflag
+         * @memberof msg.C2GW_ReqRandHouseList
+         * @instance
+         */
+        C2GW_ReqRandHouseList.prototype.carflag = 0;
 
         /**
          * Creates a new C2GW_ReqRandHouseList instance using the specified properties.
@@ -16368,6 +16377,8 @@ $root.msg = (function() {
         C2GW_ReqRandHouseList.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.carflag != null && message.hasOwnProperty("carflag"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.carflag);
             return writer;
         };
 
@@ -16402,6 +16413,9 @@ $root.msg = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
+                case 1:
+                    message.carflag = reader.uint32();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -16437,6 +16451,9 @@ $root.msg = (function() {
         C2GW_ReqRandHouseList.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.carflag != null && message.hasOwnProperty("carflag"))
+                if (!$util.isInteger(message.carflag))
+                    return "carflag: integer expected";
             return null;
         };
 
@@ -16451,7 +16468,10 @@ $root.msg = (function() {
         C2GW_ReqRandHouseList.fromObject = function fromObject(object) {
             if (object instanceof $root.msg.C2GW_ReqRandHouseList)
                 return object;
-            return new $root.msg.C2GW_ReqRandHouseList();
+            var message = new $root.msg.C2GW_ReqRandHouseList();
+            if (object.carflag != null)
+                message.carflag = object.carflag >>> 0;
+            return message;
         };
 
         /**
@@ -16463,8 +16483,15 @@ $root.msg = (function() {
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2GW_ReqRandHouseList.toObject = function toObject() {
-            return {};
+        C2GW_ReqRandHouseList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.carflag = 0;
+            if (message.carflag != null && message.hasOwnProperty("carflag"))
+                object.carflag = message.carflag;
+            return object;
         };
 
         /**
@@ -16488,6 +16515,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IGW2C_AckRandHouseList
          * @property {Array.<msg.IHouseData>|null} [datas] GW2C_AckRandHouseList datas
+         * @property {Array.<msg.IHouseData>|null} [datas2] GW2C_AckRandHouseList datas2
          */
 
         /**
@@ -16500,6 +16528,7 @@ $root.msg = (function() {
          */
         function GW2C_AckRandHouseList(properties) {
             this.datas = [];
+            this.datas2 = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -16513,6 +16542,14 @@ $root.msg = (function() {
          * @instance
          */
         GW2C_AckRandHouseList.prototype.datas = $util.emptyArray;
+
+        /**
+         * GW2C_AckRandHouseList datas2.
+         * @member {Array.<msg.IHouseData>} datas2
+         * @memberof msg.GW2C_AckRandHouseList
+         * @instance
+         */
+        GW2C_AckRandHouseList.prototype.datas2 = $util.emptyArray;
 
         /**
          * Creates a new GW2C_AckRandHouseList instance using the specified properties.
@@ -16541,6 +16578,9 @@ $root.msg = (function() {
             if (message.datas != null && message.datas.length)
                 for (var i = 0; i < message.datas.length; ++i)
                     $root.msg.HouseData.encode(message.datas[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.datas2 != null && message.datas2.length)
+                for (var i = 0; i < message.datas2.length; ++i)
+                    $root.msg.HouseData.encode(message.datas2[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             return writer;
         };
 
@@ -16579,6 +16619,11 @@ $root.msg = (function() {
                     if (!(message.datas && message.datas.length))
                         message.datas = [];
                     message.datas.push($root.msg.HouseData.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    if (!(message.datas2 && message.datas2.length))
+                        message.datas2 = [];
+                    message.datas2.push($root.msg.HouseData.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -16624,6 +16669,15 @@ $root.msg = (function() {
                         return "datas." + error;
                 }
             }
+            if (message.datas2 != null && message.hasOwnProperty("datas2")) {
+                if (!Array.isArray(message.datas2))
+                    return "datas2: array expected";
+                for (var i = 0; i < message.datas2.length; ++i) {
+                    var error = $root.msg.HouseData.verify(message.datas2[i]);
+                    if (error)
+                        return "datas2." + error;
+                }
+            }
             return null;
         };
 
@@ -16649,6 +16703,16 @@ $root.msg = (function() {
                     message.datas[i] = $root.msg.HouseData.fromObject(object.datas[i]);
                 }
             }
+            if (object.datas2) {
+                if (!Array.isArray(object.datas2))
+                    throw TypeError(".msg.GW2C_AckRandHouseList.datas2: array expected");
+                message.datas2 = [];
+                for (var i = 0; i < object.datas2.length; ++i) {
+                    if (typeof object.datas2[i] !== "object")
+                        throw TypeError(".msg.GW2C_AckRandHouseList.datas2: object expected");
+                    message.datas2[i] = $root.msg.HouseData.fromObject(object.datas2[i]);
+                }
+            }
             return message;
         };
 
@@ -16665,12 +16729,19 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.arrays || options.defaults)
+            if (options.arrays || options.defaults) {
                 object.datas = [];
+                object.datas2 = [];
+            }
             if (message.datas && message.datas.length) {
                 object.datas = [];
                 for (var j = 0; j < message.datas.length; ++j)
                     object.datas[j] = $root.msg.HouseData.toObject(message.datas[j], options);
+            }
+            if (message.datas2 && message.datas2.length) {
+                object.datas2 = [];
+                for (var j = 0; j < message.datas2.length; ++j)
+                    object.datas2[j] = $root.msg.HouseData.toObject(message.datas2[j], options);
             }
             return object;
         };
@@ -31041,7 +31112,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -31290,7 +31367,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")

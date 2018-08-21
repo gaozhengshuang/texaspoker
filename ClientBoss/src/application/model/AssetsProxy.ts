@@ -3,6 +3,7 @@
  * @author sunboy
  */
 declare function showAssetsRedIcon(bool: boolean);
+declare function showShouyiIcon(bool: boolean);
 module game {
 
 	export class AssetsProxy extends puremvc.Proxy implements puremvc.IProxy{
@@ -33,6 +34,7 @@ module game {
 			}else{
 				
 				showAssetsRedIcon(AnalyzeUserGold(this.houseAssetsList,1));
+				showShouyiIcon(AnalyzeUserGold(this.houseAssetsList,1));
 				ApplicationFacade.getInstance().sendNotification(CommandName.MAIN_ASSETS_UPDATE, { roomlist: this.houseAssetsList });
 			}
 		}

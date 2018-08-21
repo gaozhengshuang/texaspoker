@@ -58,9 +58,9 @@ module game {
 
         public ownername:string = ""; //主人的名字
 
-        public bId:number = 4; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
+        public bId:number = 0; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
 
-        public level:number = 5; //房屋等级
+        public level:number = 0; //房屋等级
 
         public empty : number = 0;  
 

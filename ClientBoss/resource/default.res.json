@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,girl_suitx_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_suit5_json,girl_suit5_json,boy_suit6_json,gameLoading2_png,gameLoadingBg2_png,description_json,errorCode_json,carIconAltas_json,uiCarAltas_json,carParkBg_png,gameLoading_png,gameLoadingBg_png,item_json",
+			"keys": "user_json,ui_json,paddle_json,lucky_json,login_json,cube_json,ball_json,posui_json,test_json,1_png,zhadan_mp3,posui_mp3,play_mp3,pengzhuang_mp3,jiesuan_mp3,huoqiangloop_mp3,heidong_mp3,fashe_mp3,dazhao_mp3,bingqiang_mp3,win_json,lucky2_json,loadingMain_png,loadingMainYs_png,shopbg_png,grilbg_png,boybg_png,dress_01_json,girl_tex_png,girl_tex_json,girl_ske_json,boy_tex_png,boy_tex_json,boy_ske_json,shopItemButtonBg_png,equip_json,girl_suitx_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_suit5_json,girl_suit5_json,boy_suit6_json,gameLoading2_png,gameLoadingBg2_png,description_json,errorCode_json,carIconAltas_json,uiCarAltas_json,carParkBg_png,gameLoading_png,gameLoadingBg_png,item_json,roomUnlock1_png,roomLock1_png,hx_4001_png",
 			"name": "preload"
 		}
 	],
@@ -917,6 +917,16 @@
 			"url": "assets2/welcmoe_btn1.tif",
 			"type": "bin",
 			"name": "welcmoe_btn1_tif"
+		},
+		{
+			"url": "assets2/roomUnlock1.png",
+			"type": "image",
+			"name": "roomUnlock1_png"
+		},
+		{
+			"url": "assets2/roomLock1.png",
+			"type": "image",
+			"name": "roomLock1_png"
 		}
 	]
 }

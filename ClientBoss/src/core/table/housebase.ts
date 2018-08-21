@@ -3,11 +3,11 @@
 
 module table {
 export var THouse : table.ITHouseDefine[] = [
-		{ Id : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 400, Des : "" 	},
-		{ Id : 1002, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 6000, Des : "" 	},
-		{ Id : 1003, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 24400, Des : "" 	},
-		{ Id : 1004, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 63280, Des : "" 	},
-		{ Id : 1005, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 0, Des : "" 	}
+		{ Id : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 400, Des : "" 	},
+		{ Id : 1002, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 6000, Des : "" 	},
+		{ Id : 1003, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 24400, Des : "" 	},
+		{ Id : 1004, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 63280, Des : "" 	},
+		{ Id : 1005, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 0, Des : "" 	}
 	]
 
 

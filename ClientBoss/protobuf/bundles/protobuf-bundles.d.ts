@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -6659,6 +6660,9 @@ declare namespace msg {
 
     /** Properties of a C2GW_ReqRandHouseList. */
     interface IC2GW_ReqRandHouseList {
+
+        /** C2GW_ReqRandHouseList carflag */
+        carflag?: (number|null);
     }
 
     /** Represents a C2GW_ReqRandHouseList. */
@@ -6669,6 +6673,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_ReqRandHouseList);
+
+        /** C2GW_ReqRandHouseList carflag. */
+        public carflag: number;
 
         /**
          * Creates a new C2GW_ReqRandHouseList instance using the specified properties.
@@ -6746,6 +6753,9 @@ declare namespace msg {
 
         /** GW2C_AckRandHouseList datas */
         datas?: (msg.IHouseData[]|null);
+
+        /** GW2C_AckRandHouseList datas2 */
+        datas2?: (msg.IHouseData[]|null);
     }
 
     /** Represents a GW2C_AckRandHouseList. */
@@ -6759,6 +6769,9 @@ declare namespace msg {
 
         /** GW2C_AckRandHouseList datas. */
         public datas: msg.IHouseData[];
+
+        /** GW2C_AckRandHouseList datas2. */
+        public datas2: msg.IHouseData[];
 
         /**
          * Creates a new GW2C_AckRandHouseList instance using the specified properties.

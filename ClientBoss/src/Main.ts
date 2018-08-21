@@ -35,7 +35,7 @@ class Main extends eui.UILayer {
     protected createChildren(): void {
         super.createChildren();
 
-        this.addChild(new game.GameLayer());
+        //this.addChild(new game.GameLayer());
         
         egret.lifecycle.addLifecycleListener((context) => {
             // custom lifecycle plugin
@@ -63,7 +63,8 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         await this.loadResource()
-        game.run();
+        //game.run();
+        this.createGameScene();
     }
 
     private async loadResource() {

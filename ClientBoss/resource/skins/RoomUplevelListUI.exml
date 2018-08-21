@@ -5,8 +5,9 @@
 	<e:Label id="chanliang_txt" text="金币产量999&gt;金币产量999" x="165" y="69" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="363" verticalAlign="middle" textAlign="center" bold="true" textColor="0xec5339"/>
 	<e:Group id="btnGruop" x="532" y="28">
 		<e:Image id="btn_bg" source="btnBg_red3_png" x="0" y="0" width="170" height="66"/>
-		<e:Image x="14" scaleX="1" scaleY="1" source="smallGoldIcon1_png" y="14"/>
+		<e:Image id="goldImg" x="14" scaleX="1" scaleY="1" source="smallGoldIcon1_png" y="14"/>
 		<e:Label id="btnName_txt" text="金币不足" x="56" y="10" fontFamily="Microsoft YaHei" size="20" textAlign="center" verticalAlign="top" width="100" height="46" anchorOffsetY="0"/>
+		<e:Label id="lock_txt" text="房屋4级解锁" fontFamily="Microsoft YaHei" size="24" textAlign="center" verticalAlign="middle" width="166" height="46" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0" verticalCenter="0" visible="false"/>
 		<e:Label id="spend_txt" text="1000金币" x="56" y="37" fontFamily="Microsoft YaHei" size="16" anchorOffsetX="0" width="100" textAlign="center" verticalAlign="middle"/>
 		<e:Label id="manji_txt" text="满 级" x="49" fontFamily="Microsoft YaHei" size="40" anchorOffsetX="0" verticalAlign="middle" textAlign="center" bold="true" verticalCenter="0" textColor="0xed788b" visible="false"/>
 	</e:Group>
