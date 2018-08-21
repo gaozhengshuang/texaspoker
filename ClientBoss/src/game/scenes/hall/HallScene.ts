@@ -5,7 +5,6 @@ module game {
 	export class HallScene extends SceneComponent {
 		public pageGroup: eui.Group;
 		public sceneMediatorName: string;
-		public tab: HallTab;
 		protected getSkinName() {
 			return HallSceneSkin;
 		}
