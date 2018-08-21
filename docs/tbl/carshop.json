@@ -1,0 +1,11 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"TCarShop":[
+		{ "Id": 10001, "ShopId": 1, "Carid": 1001, "Price": 1000, "Nums": 100 },
+		{ "Id": 10002, "ShopId": 1, "Carid": 1002, "Price": 1000, "Nums": 100 },
+		{ "Id": 10003, "ShopId": 1, "Carid": 1003, "Price": 1000, "Nums": 100 },
+		{ "Id": 10004, "ShopId": 1, "Carid": 1004, "Price": 1000, "Nums": 100 },
+		{ "Id": 10005, "ShopId": 1, "Carid": 1005, "Price": 1000, "Nums": 100 },
+		{ "Id": 10006, "ShopId": 1, "Carid": 1006, "Price": 1000, "Nums": 100 }
+	]}
