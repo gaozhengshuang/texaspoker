@@ -168,7 +168,7 @@ func (this *ParkingData) UpdateReward(car *CarData, now uint64) bool {
 	}
 	return false
 }
-func (this *ParkingData) TakeBackCar() uint32 {
+func (this *ParkingData) TakeBack() uint32 {
 	this.parkingcar = 0
 	this.parkingcarownerid = 0
 	this.parkingcarownername = ""
@@ -179,7 +179,7 @@ func (this *ParkingData) TakeBackCar() uint32 {
 	return reward
 }
 
-func (this *ParkingData) ParkingCar(car *CarData, username string) {
+func (this *ParkingData) Parking(car *CarData, username string) {
 	car.SetParking(this.id)
 	this.parkingcar = car.id
 	this.parkingcarownerid = car.ownerid
@@ -465,7 +465,7 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 		return 3
 	}
 	//可以了
-	parking.ParkingCar(car, username)
+	parking.Parking(car, username)
 	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
 	car.modified = true
 	parking.modified = true
@@ -493,7 +493,7 @@ func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32)
 		return 3, 0
 	}
 	//可以收回
-	reward = parking.TakeBackCar()
+	reward = parking.TakeBack()
 	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 	car.SetParking(0)
 	car.modified = true
@@ -521,7 +521,7 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, re
 		return 3, 0
 	}
 	//可以收回
-	reward = parking.TakeBackCar()
+	reward = parking.TakeBack()
 	record := this.CreateNewRecord(parking.ownerid,car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 	car.SetParking(0)
 	car.modified = true
@@ -559,6 +559,18 @@ func (this *CarManager) AppendHouseData(houses []*msg.HouseData) {
 			v.Parkings = append(v.Parkings, p.PackBin())
 		}
 	}
+}
+
+func (this *CarManager) GetParkingHouseList(uid uint64) []uint64{
+	retIds := make([]uint64, 0)
+	cars := this.GetCarByUser(uid)
+	for _,c := range cars {
+		if c.parkingid != 0 {
+			parking := this.GetParking(c.parkingid)
+			retIds = append(retIds,parking.houseid)
+		}
+	}
+	return retIds
 }
 
 //循环
