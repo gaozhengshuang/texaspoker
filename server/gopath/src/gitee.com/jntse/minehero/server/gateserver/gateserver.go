@@ -379,6 +379,7 @@ func (this *GateServer) Run() {
 	this.usermgr.Tick(now)
 	this.roommgr.Tick(now)
 	this.carmgr.Tick(now)
+	this.carshop.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 
 	//

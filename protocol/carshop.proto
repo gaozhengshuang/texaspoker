@@ -16,6 +16,7 @@ message GW2C_SendCarShopInfo {
 // 购买汽车
 message C2GW_BuyCarFromShop {
     optional uint32 shopid = 1;     // 暂不使用
+    optional uint32 pid = 2;        // 商品id
 }
 
 // 更新单个汽车商品
