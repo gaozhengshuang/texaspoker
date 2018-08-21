@@ -17,6 +17,7 @@ var MusicBase = table.InsMusicBaseTable
 var LevelBasee = table.InsLevelBaseeTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
 var GiftProBase = table.InsGiftProBaseTable
+var CarShopBase = table.InsCarShopBaseTable
 var TBirckBase = table.InsTBirckBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
