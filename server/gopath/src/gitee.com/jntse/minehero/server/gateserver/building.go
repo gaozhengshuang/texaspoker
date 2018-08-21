@@ -161,7 +161,7 @@ func (this *BuildingManager) GetBuilding(buildingid uint32) *BuildingData {
 //获取楼还有多少房屋未售
 func (this *BuildingManager) GetHouseNotSoldNumFromBuilding(buildingid uint32) uint32 {
 	building := this.GetBuilding(buildingid)
-	if building == nil {
+	if building == nil || building.tbl == nil {
 		return 0
 	}
 	return 0

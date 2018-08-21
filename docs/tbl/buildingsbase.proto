@@ -34,25 +34,28 @@ message TBuildingsDefine
 	optional uint32 MaxFloor = 5; // 最大楼层数
 	
 	
-	optional string Houses1 = 6; // 户型1
+	optional uint32 NumPerFloor = 6; // 每层多少户最多4户
 	
 	
-	optional string Houses2 = 7; // 户型2
+	optional string Houses1 = 7; // 户型1
 	
 	
-	optional string Houses3 = 8; // 户型3
+	optional string Houses2 = 8; // 户型2
 	
 	
-	optional string Houses4 = 9; // 户型4
+	optional string Houses3 = 9; // 户型3
 	
 	
-	optional uint32 PosX = 10; // 坐标x
+	optional string Houses4 = 10; // 户型4
 	
 	
-	optional uint32 PosY = 11; // 坐标y
+	optional uint32 PosX = 11; // 坐标x
 	
 	
-	optional string Des = 12; // 描述
+	optional uint32 PosY = 12; // 坐标y
+	
+	
+	optional string Des = 13; // 描述
 
 }
 
