@@ -40,6 +40,11 @@ module game {
             return CarDetailView._instance;
         }
 
+        constructor(){
+            super();
+            this.adaptive();
+        }
+
         public init() 
         {
             this.btnDriveAway.icon = "shopItemButtonBg_png";
@@ -49,7 +54,6 @@ module game {
 
             this.hideList_btn.visible = false;
             this._inited   = false;
-            this.adaptive();
         }
 
         protected beforeShow() {
@@ -149,7 +153,6 @@ module game {
 
             //刷新车辆信息
             let self = this;
-
             if(self.carData)
             {
                 CarManager.getInstance().ReqMyCarInfo(function(){
