@@ -18,12 +18,21 @@ module game {
         protected dataChanged():void{
             this.itemData=this.data;
             if(this.itemData){
+                    //console.log(this.itemData.ownername+"-----设置车位空满-----", this.data.empty);
                 this.name_txt.text=this.itemData.ownername;
+
+                this.imageEmpty.visible  = this.data.empty && true;
+                this.imageFull.visible   = ! (this.data.empty && true);
+                this.imageMy.visible     = this.itemData.myCarPark && true;
+                this.roomNum_txt.visible = this.itemData.ownerid!=0;
+                if(this.itemData.ownerid==0){ 
+                    console.log(this.itemData.ownername+"-----公共车位-----", this.data.empty);
+                    return;
+                }
+
                 this.roomNum_txt.text='房间 : '+this.itemData.rId+"室";
-                //console.log(this.itemData.ownername+"-----设置车位空满-----", this.data.empty);
-                this.imageEmpty.visible = this.data.empty && true;
-                this.imageFull.visible  = ! (this.data.empty && true);
-                this.imageMy.visible    = this.itemData.myCarPark && true;
+
+  
             }
         }
 	}

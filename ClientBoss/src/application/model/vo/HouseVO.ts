@@ -48,6 +48,9 @@ module game {
                 this.myCarPark = obj.myCarPark;
             }
 
+            if(obj.parkings!=null){
+                this.parkings = obj.parkings;
+            }
             
         }
         public rId:number;
@@ -73,6 +76,8 @@ module game {
         public isHave:boolean=false;
 
         public myCarPark : number = 0;//是否有我的车停
+    
+        public parkings : msg.IParkingData[] = [];//房间的车位信息列表
         
     }
 }
