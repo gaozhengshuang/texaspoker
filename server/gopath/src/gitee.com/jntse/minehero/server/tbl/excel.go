@@ -32,6 +32,7 @@ var TBallBase = table.InsTBallBaseTable
 var TEquipBase = table.InsTEquipBaseTable
 var TaskBase = table.InsTaskBaseTable
 var TSkillpBase = table.InsTSkillpBaseTable
+var CarShopBase = table.InsCarShopBaseTable
 var TParkingBase = table.InsTParkingBaseTable
 var ShopBase = table.InsShopBaseTable
 var TbirckRefreshbase = table.InsTbirckRefreshbaseTable
