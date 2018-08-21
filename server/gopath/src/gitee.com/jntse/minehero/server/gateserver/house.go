@@ -155,7 +155,10 @@ func (this *HouseCell) LevelUp() bool {
 		log.Error("HouseCell LevelUp 无效的房间区域cell  tid[%d]", this.tid)
 		return false
 	}
-
+	if this.state == 2 {
+		log.Error("HouseCell LevelUp 房间Cell升级失败 房间尚未解锁", this.tid)
+		return false
+	}
 	if this.level >= base.MaxLevel {
 		log.Error("HouseCell LevelUp 房间Cell升级 已达最大等级  tid[%d]", this.tid)
 		return false
@@ -332,14 +335,13 @@ func (this *HouseData) LevelUp() bool {
 	}
 	this.level = this.level + 1
 	this.tid = this.tid + 1
-
+	//查看是否有房间可解锁
 	cellstr := base.Cells
 	slicecell := strings.Split(cellstr, "|")
 	for k, v := range slicecell {
 		cellinfo := strings.Split(v, "-")
 		celltype, _ := strconv.Atoi(cellinfo[0])
 		cellUnlocklevel, _ := strconv.Atoi(cellinfo[1])
-
 		if uint32(cellUnlocklevel) == this.level {
 			index := k + 1
 			if _, ok := this.housecells[uint32(index)]; ok {
@@ -883,12 +885,4 @@ func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
 		return
 	}
 	HouseSvrMgr().ResetRobcheckflag(houseid)
-}
-
-func (this *GateUser) UnLockHouseCell(houseid uint64, index uint32) {
-	send := &msg.GW2C_ACKUnLockHouseCell{}
-	send.Houseid = pb.Uint64(houseid)
-	send.Index = pb.Uint32(index)
-	send.Ret = pb.Uint32(1)
-	this.SendMsg(send)
 }

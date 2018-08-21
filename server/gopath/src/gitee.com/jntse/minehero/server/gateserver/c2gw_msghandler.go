@@ -81,7 +81,6 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRandHouseList{}, on_C2GW_ReqRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqOtherUserHouseData{}, on_C2GW_ReqOtherUserHouseData)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqResetRobCheckFlag{}, on_C2GW_ReqResetRobCheckFlag)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUnLockHouseCell{}, on_C2GW_ReqUnLockHouseCell)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
@@ -1053,17 +1052,4 @@ func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message inter
 	}
 	houseid := tmsg.GetHouseid()
 	user.ResetRobCheckFlag(houseid)
-}
-
-func on_C2GW_ReqUnLockHouseCell(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqUnLockHouseCell)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	houseid := tmsg.GetHouseid()
-	index := tmsg.GetIndex()
-	user.UnLockHouseCell(houseid, index)
 }
