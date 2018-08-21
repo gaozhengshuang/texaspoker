@@ -561,6 +561,18 @@ func (this *CarManager) AppendHouseData(houses []*msg.HouseData) {
 	}
 }
 
+func (this *CarManager) GetParkingHouseList(uid uint64) []uint64{
+	retIds := make([]uint64, 0)
+	cars := this.GetCarByUser(uid)
+	for _,c := range cars {
+		if c.parkingid != 0 {
+			parking := this.GetParking(c.parkingid)
+			retIds = append(retIds,parking.houseid)
+		}
+	}
+	return retIds
+}
+
 //循环
 func (this *CarManager) Tick(now int64) {
 	this.ticker1Minite.Run(now)
