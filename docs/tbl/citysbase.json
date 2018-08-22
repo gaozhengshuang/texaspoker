@@ -7,5 +7,17 @@
 		{ "Id": 10003, "Type": 1, "Superior": 0, "Name": "天津" },
 		{ "Id": 10004, "Type": 1, "Superior": 0, "Name": "重庆" },
 		{ "Id": 10005, "Type": 1, "Superior": 0, "Name": "河北" },
-		{ "Id": 20001, "Type": 2, "Superior": 10002, "Name": "黄埔区" }
+		{ "Id": 20001, "Type": 2, "Superior": 10002, "Name": "黄埔区" },
+		{ "Id": 20002, "Type": 2, "Superior": 10002, "Name": "徐汇区" },
+		{ "Id": 20003, "Type": 2, "Superior": 10002, "Name": "闵行区" },
+		{ "Id": 20004, "Type": 2, "Superior": 10002, "Name": "青浦区" },
+		{ "Id": 20005, "Type": 2, "Superior": 10002, "Name": "金山区" },
+		{ "Id": 20006, "Type": 2, "Superior": 10002, "Name": "静安区" },
+		{ "Id": 20007, "Type": 2, "Superior": 10002, "Name": "浦东区" },
+		{ "Id": 20008, "Type": 2, "Superior": 10002, "Name": "松江区" },
+		{ "Id": 20009, "Type": 2, "Superior": 10002, "Name": "奉贤区" },
+		{ "Id": 20010, "Type": 2, "Superior": 10002, "Name": "崇明区" },
+		{ "Id": 20011, "Type": 2, "Superior": 10002, "Name": "虹口区" },
+		{ "Id": 20012, "Type": 2, "Superior": 10002, "Name": "普陀区" },
+		{ "Id": 20013, "Type": 2, "Superior": 10002, "Name": "宝山区" }
 	]}
