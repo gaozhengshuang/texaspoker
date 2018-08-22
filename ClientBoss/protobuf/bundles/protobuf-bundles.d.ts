@@ -4246,7 +4246,7 @@ declare namespace msg {
         index?: (number|null);
 
         /** BuidingSoldData houseid */
-        houseid?: (number|Long|null);
+        houseid?: ((number|Long)[]|null);
     }
 
     /** Represents a BuidingSoldData. */
@@ -4262,7 +4262,7 @@ declare namespace msg {
         public index: number;
 
         /** BuidingSoldData houseid. */
-        public houseid: (number|Long);
+        public houseid: (number|Long)[];
 
         /**
          * Creates a new BuidingSoldData instance using the specified properties.
@@ -7672,6 +7672,672 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_NotifyAddRobCountTime to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqHouseDataByHouseId. */
+    interface IC2GW_ReqHouseDataByHouseId {
+
+        /** C2GW_ReqHouseDataByHouseId houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqHouseDataByHouseId. */
+    class C2GW_ReqHouseDataByHouseId implements IC2GW_ReqHouseDataByHouseId {
+
+        /**
+         * Constructs a new C2GW_ReqHouseDataByHouseId.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqHouseDataByHouseId);
+
+        /** C2GW_ReqHouseDataByHouseId houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqHouseDataByHouseId instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqHouseDataByHouseId instance
+         */
+        public static create(properties?: msg.IC2GW_ReqHouseDataByHouseId): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseDataByHouseId message. Does not implicitly {@link msg.C2GW_ReqHouseDataByHouseId.verify|verify} messages.
+         * @param message C2GW_ReqHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseDataByHouseId message, length delimited. Does not implicitly {@link msg.C2GW_ReqHouseDataByHouseId.verify|verify} messages.
+         * @param message C2GW_ReqHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqHouseDataByHouseId message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Decodes a C2GW_ReqHouseDataByHouseId message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Verifies a C2GW_ReqHouseDataByHouseId message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqHouseDataByHouseId message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqHouseDataByHouseId
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Creates a plain object from a C2GW_ReqHouseDataByHouseId message. Also converts values to other types if specified.
+         * @param message C2GW_ReqHouseDataByHouseId
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqHouseDataByHouseId, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqHouseDataByHouseId to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckHouseDataByHouseId. */
+    interface IGW2C_AckHouseDataByHouseId {
+
+        /** GW2C_AckHouseDataByHouseId houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2C_AckHouseDataByHouseId data */
+        data?: (msg.IHouseData|null);
+    }
+
+    /** Represents a GW2C_AckHouseDataByHouseId. */
+    class GW2C_AckHouseDataByHouseId implements IGW2C_AckHouseDataByHouseId {
+
+        /**
+         * Constructs a new GW2C_AckHouseDataByHouseId.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckHouseDataByHouseId);
+
+        /** GW2C_AckHouseDataByHouseId houseid. */
+        public houseid: (number|Long);
+
+        /** GW2C_AckHouseDataByHouseId data. */
+        public data?: (msg.IHouseData|null);
+
+        /**
+         * Creates a new GW2C_AckHouseDataByHouseId instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckHouseDataByHouseId instance
+         */
+        public static create(properties?: msg.IGW2C_AckHouseDataByHouseId): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Encodes the specified GW2C_AckHouseDataByHouseId message. Does not implicitly {@link msg.GW2C_AckHouseDataByHouseId.verify|verify} messages.
+         * @param message GW2C_AckHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckHouseDataByHouseId message, length delimited. Does not implicitly {@link msg.GW2C_AckHouseDataByHouseId.verify|verify} messages.
+         * @param message GW2C_AckHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckHouseDataByHouseId message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Decodes a GW2C_AckHouseDataByHouseId message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Verifies a GW2C_AckHouseDataByHouseId message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckHouseDataByHouseId message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckHouseDataByHouseId
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Creates a plain object from a GW2C_AckHouseDataByHouseId message. Also converts values to other types if specified.
+         * @param message GW2C_AckHouseDataByHouseId
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckHouseDataByHouseId, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckHouseDataByHouseId to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqBuyHouseFromBuilding. */
+    interface IC2GW_ReqBuyHouseFromBuilding {
+
+        /** C2GW_ReqBuyHouseFromBuilding buildingid */
+        buildingid?: (number|null);
+
+        /** C2GW_ReqBuyHouseFromBuilding index */
+        index?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqBuyHouseFromBuilding. */
+    class C2GW_ReqBuyHouseFromBuilding implements IC2GW_ReqBuyHouseFromBuilding {
+
+        /**
+         * Constructs a new C2GW_ReqBuyHouseFromBuilding.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqBuyHouseFromBuilding);
+
+        /** C2GW_ReqBuyHouseFromBuilding buildingid. */
+        public buildingid: number;
+
+        /** C2GW_ReqBuyHouseFromBuilding index. */
+        public index: number;
+
+        /**
+         * Creates a new C2GW_ReqBuyHouseFromBuilding instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqBuyHouseFromBuilding instance
+         */
+        public static create(properties?: msg.IC2GW_ReqBuyHouseFromBuilding): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Encodes the specified C2GW_ReqBuyHouseFromBuilding message. Does not implicitly {@link msg.C2GW_ReqBuyHouseFromBuilding.verify|verify} messages.
+         * @param message C2GW_ReqBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqBuyHouseFromBuilding message, length delimited. Does not implicitly {@link msg.C2GW_ReqBuyHouseFromBuilding.verify|verify} messages.
+         * @param message C2GW_ReqBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqBuyHouseFromBuilding message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Decodes a C2GW_ReqBuyHouseFromBuilding message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Verifies a C2GW_ReqBuyHouseFromBuilding message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqBuyHouseFromBuilding message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqBuyHouseFromBuilding
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Creates a plain object from a C2GW_ReqBuyHouseFromBuilding message. Also converts values to other types if specified.
+         * @param message C2GW_ReqBuyHouseFromBuilding
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqBuyHouseFromBuilding, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqBuyHouseFromBuilding to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckBuyHouseFromBuilding. */
+    interface IGW2C_AckBuyHouseFromBuilding {
+
+        /** GW2C_AckBuyHouseFromBuilding buildingid */
+        buildingid?: (number|null);
+
+        /** GW2C_AckBuyHouseFromBuilding index */
+        index?: (number|null);
+
+        /** GW2C_AckBuyHouseFromBuilding ret */
+        ret?: (number|null);
+    }
+
+    /** Represents a GW2C_AckBuyHouseFromBuilding. */
+    class GW2C_AckBuyHouseFromBuilding implements IGW2C_AckBuyHouseFromBuilding {
+
+        /**
+         * Constructs a new GW2C_AckBuyHouseFromBuilding.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckBuyHouseFromBuilding);
+
+        /** GW2C_AckBuyHouseFromBuilding buildingid. */
+        public buildingid: number;
+
+        /** GW2C_AckBuyHouseFromBuilding index. */
+        public index: number;
+
+        /** GW2C_AckBuyHouseFromBuilding ret. */
+        public ret: number;
+
+        /**
+         * Creates a new GW2C_AckBuyHouseFromBuilding instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckBuyHouseFromBuilding instance
+         */
+        public static create(properties?: msg.IGW2C_AckBuyHouseFromBuilding): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Encodes the specified GW2C_AckBuyHouseFromBuilding message. Does not implicitly {@link msg.GW2C_AckBuyHouseFromBuilding.verify|verify} messages.
+         * @param message GW2C_AckBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckBuyHouseFromBuilding message, length delimited. Does not implicitly {@link msg.GW2C_AckBuyHouseFromBuilding.verify|verify} messages.
+         * @param message GW2C_AckBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckBuyHouseFromBuilding message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Decodes a GW2C_AckBuyHouseFromBuilding message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Verifies a GW2C_AckBuyHouseFromBuilding message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckBuyHouseFromBuilding message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckBuyHouseFromBuilding
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Creates a plain object from a GW2C_AckBuyHouseFromBuilding message. Also converts values to other types if specified.
+         * @param message GW2C_AckBuyHouseFromBuilding
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckBuyHouseFromBuilding, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckBuyHouseFromBuilding to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqBuildingCanBuyInfo. */
+    interface IC2GW_ReqBuildingCanBuyInfo {
+
+        /** C2GW_ReqBuildingCanBuyInfo buildingid */
+        buildingid?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqBuildingCanBuyInfo. */
+    class C2GW_ReqBuildingCanBuyInfo implements IC2GW_ReqBuildingCanBuyInfo {
+
+        /**
+         * Constructs a new C2GW_ReqBuildingCanBuyInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqBuildingCanBuyInfo);
+
+        /** C2GW_ReqBuildingCanBuyInfo buildingid. */
+        public buildingid: number;
+
+        /**
+         * Creates a new C2GW_ReqBuildingCanBuyInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqBuildingCanBuyInfo instance
+         */
+        public static create(properties?: msg.IC2GW_ReqBuildingCanBuyInfo): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Encodes the specified C2GW_ReqBuildingCanBuyInfo message. Does not implicitly {@link msg.C2GW_ReqBuildingCanBuyInfo.verify|verify} messages.
+         * @param message C2GW_ReqBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqBuildingCanBuyInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqBuildingCanBuyInfo.verify|verify} messages.
+         * @param message C2GW_ReqBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqBuildingCanBuyInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Decodes a C2GW_ReqBuildingCanBuyInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Verifies a C2GW_ReqBuildingCanBuyInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqBuildingCanBuyInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqBuildingCanBuyInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Creates a plain object from a C2GW_ReqBuildingCanBuyInfo message. Also converts values to other types if specified.
+         * @param message C2GW_ReqBuildingCanBuyInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqBuildingCanBuyInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqBuildingCanBuyInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CanBuyInfo. */
+    interface ICanBuyInfo {
+
+        /** CanBuyInfo index */
+        index?: (number|null);
+
+        /** CanBuyInfo count */
+        count?: (number|null);
+    }
+
+    /** Represents a CanBuyInfo. */
+    class CanBuyInfo implements ICanBuyInfo {
+
+        /**
+         * Constructs a new CanBuyInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICanBuyInfo);
+
+        /** CanBuyInfo index. */
+        public index: number;
+
+        /** CanBuyInfo count. */
+        public count: number;
+
+        /**
+         * Creates a new CanBuyInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CanBuyInfo instance
+         */
+        public static create(properties?: msg.ICanBuyInfo): msg.CanBuyInfo;
+
+        /**
+         * Encodes the specified CanBuyInfo message. Does not implicitly {@link msg.CanBuyInfo.verify|verify} messages.
+         * @param message CanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CanBuyInfo message, length delimited. Does not implicitly {@link msg.CanBuyInfo.verify|verify} messages.
+         * @param message CanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CanBuyInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CanBuyInfo;
+
+        /**
+         * Decodes a CanBuyInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CanBuyInfo;
+
+        /**
+         * Verifies a CanBuyInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CanBuyInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CanBuyInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CanBuyInfo;
+
+        /**
+         * Creates a plain object from a CanBuyInfo message. Also converts values to other types if specified.
+         * @param message CanBuyInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CanBuyInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CanBuyInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckBuildingCanBuyInfo. */
+    interface IGW2C_AckBuildingCanBuyInfo {
+
+        /** GW2C_AckBuildingCanBuyInfo buildingid */
+        buildingid?: (number|null);
+
+        /** GW2C_AckBuildingCanBuyInfo data */
+        data?: (msg.ICanBuyInfo[]|null);
+    }
+
+    /** Represents a GW2C_AckBuildingCanBuyInfo. */
+    class GW2C_AckBuildingCanBuyInfo implements IGW2C_AckBuildingCanBuyInfo {
+
+        /**
+         * Constructs a new GW2C_AckBuildingCanBuyInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckBuildingCanBuyInfo);
+
+        /** GW2C_AckBuildingCanBuyInfo buildingid. */
+        public buildingid: number;
+
+        /** GW2C_AckBuildingCanBuyInfo data. */
+        public data: msg.ICanBuyInfo[];
+
+        /**
+         * Creates a new GW2C_AckBuildingCanBuyInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckBuildingCanBuyInfo instance
+         */
+        public static create(properties?: msg.IGW2C_AckBuildingCanBuyInfo): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Encodes the specified GW2C_AckBuildingCanBuyInfo message. Does not implicitly {@link msg.GW2C_AckBuildingCanBuyInfo.verify|verify} messages.
+         * @param message GW2C_AckBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckBuildingCanBuyInfo message, length delimited. Does not implicitly {@link msg.GW2C_AckBuildingCanBuyInfo.verify|verify} messages.
+         * @param message GW2C_AckBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckBuildingCanBuyInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Decodes a GW2C_AckBuildingCanBuyInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Verifies a GW2C_AckBuildingCanBuyInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckBuildingCanBuyInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckBuildingCanBuyInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Creates a plain object from a GW2C_AckBuildingCanBuyInfo message. Also converts values to other types if specified.
+         * @param message GW2C_AckBuildingCanBuyInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckBuildingCanBuyInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckBuildingCanBuyInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -17281,6 +17947,9 @@ declare namespace table {
         /** TBuildingsDefine Id */
         Id?: (number|null);
 
+        /** TBuildingsDefine Province */
+        Province?: (number|null);
+
         /** TBuildingsDefine City */
         City?: (number|null);
 
@@ -17329,6 +17998,9 @@ declare namespace table {
 
         /** TBuildingsDefine Id. */
         public Id: number;
+
+        /** TBuildingsDefine Province. */
+        public Province: number;
 
         /** TBuildingsDefine City. */
         public City: number;

@@ -17,8 +17,7 @@ module game {
         public constructor() {
             super();
             this._select = false;
-           this.skinName = "resource/skins/car/CarPublicParkingLotItemSkin.exml";
-           //this.skinName = CarParkingLotSkin;
+            this.skinName = "resource/skins/car/CarPublicParkingLotItemSkin.exml";
             this.center.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
         }
         
@@ -63,19 +62,16 @@ module game {
                 //let timeStr =  String(dateTime.getHours()+":"+dateTime.getMinutes());
                 //let timeStr = sDh(dateTime.getTime()/1000);
                 //let timeStr= formatTime(dateTime,"hh:mm:ss");
-                let timeStr = sDhFilter(dateTime.getTime()/1000);
+                let timeStr = sDhFilter(dateTime.getTime()/1000,":");
                 console.log("累计时间---->",dateTime.getTime());
                 this.timeTxt.textFlow = [
                     { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
                 ]
                 this.infoTxt.textFlow = [
                     { text: this.itemData.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 22,"textColor":0xffe776,bold:true} },
-                    //{ text: "\n", style: { size : 18} },                    
-                    //{ text: "\n"+ timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
                 ]
 
                 CarPublicParkingLotManager.getInstance().addFunction(this.runningTimer,this);
-                //SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
             }
 
         }
@@ -85,7 +81,6 @@ module game {
 
             if(!this.data) return;
             //console.log("选择车位----------->",this.itemData.ownerid,"---",DataManager.playerModel.getUserId());
-            console.log("选择车位----------->",this.itemIndex);
             this._select = !this._select;
 
             if(this.itemData.ownerid == DataManager.playerModel.getUserId()) {
@@ -162,33 +157,22 @@ module game {
         private runningTimer(dt:number,body:any)
         {
             let dateTime = new Date(Math.max(0,new Date().getTime() - <number>body.itemData.parkingtime - SysTimeEventManager.getInstance().systimeoffset));
-
-    
             //let dateTime = new Date(dt - <number>body.itemData.parkingtime);
             //let timeStr = sDh(dateTime.getTime()/1000);
-            let timeStr = sDhFilter(dateTime.getTime()/1000);
-            
             //let timeStr = formatTime(dateTime,"hh:mm:ss");            
             //getHourMinutesTime();
-/*             body.infoTxt.textFlow = [
-                { text: body.itemData.parkingcarownername+"："+body.carData.Brand+body.carData.Model, style: { size : 18,"textColor":0x5f6163} },
-                { text: "\n"+timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
-            ] */
+            let timeStr = sDhFilter(dateTime.getTime()/1000,":");
 
             body.timeTxt.textFlow = [
                 { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
             ]
             body.infoTxt.textFlow = [
                 { text: body.itemData.parkingcarownername+"："+body.carData.Brand+body.carData.Model, style: { size : 22,"textColor":0xffe776,bold:true} },
-                //{ text: "\n", style: { size : 18} },                    
-                //{ text: "\n"+ timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
             ]
-
 
         }
 
         public removeTimer(): void {
-            //SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
             CarPublicParkingLotManager.getInstance().delFunction(this.runningTimer,this);
         }
 

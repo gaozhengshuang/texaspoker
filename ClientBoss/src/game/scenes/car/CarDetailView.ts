@@ -237,11 +237,12 @@ module game {
         private showlist(index) {
             console.log("展示列表showlist----------->",index);
             //if (this.listIndex == index) return;
-            if (this.goalY == -1) { this.goalY = GameConfig.innerHeight * 0.5 };
-            if (this.goalH == -1) { this.goalH = GameConfig.innerHeight };
+            if (this.goalY == -1) { this.goalY = GameConfig.innerHeight / 4 };
+            if (this.goalH == -1) { this.goalH = GameConfig.innerHeight * 3 /4 };
             if (this.btnGoalY == -1) {
-                 this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
-                    - 20 * GameConfig.innerScaleW; 
+/*                  this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
+                    - 20 * GameConfig.innerScaleW;  */
+                this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20
             }
             this.listIndex = index;
 			console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
@@ -460,7 +461,7 @@ module game {
                     if (item) {
                         if(item.ownerid==0){
                             openPanel(PanelType.carPublicLot);
-                            console.log(JSON.stringify(item.parkings));
+                            //console.log(JSON.stringify(item.parkings));
                             CarPublicParkingLotManager.getInstance().UpdateData(item.parkings);
                             return;
                         }
