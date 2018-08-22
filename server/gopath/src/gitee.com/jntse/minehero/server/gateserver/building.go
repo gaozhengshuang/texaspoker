@@ -91,6 +91,7 @@ func (this *BuildingManager) Init() {
 func (this *BuildingManager) LoadDB() {
 	//跟据配置加载或创建所有的楼
 	pipe := Redis().Pipeline()
+	defer pipe.Close()
 	newbuildings := make([]*BuildingData, 0)
 	for _, v := range tbl.TBuildingsBase.TBuildingsById {
 		key := fmt.Sprintf("buildings_%d", v.Id)
@@ -120,13 +121,14 @@ func (this *BuildingManager) LoadDB() {
 	//新创建的楼批量存一次
 	if len(newbuildings) > 0 {
 		log.Info("新建楼 批量储存")
-		pipe := Redis().Pipeline()
+		pipe2 := Redis().Pipeline()
+		defer pipe2.Close()
 		for _, v := range newbuildings {
 			if v != nil {
-				v.SaveBin(pipe)
+				v.SaveBin(pipe2)
 			}
 		}
-		_, err := pipe.Exec()
+		_, err := pipe2.Exec()
 
 		if err != nil {
 			log.Error("储存新建楼信息失败 [%s]", err)
@@ -189,6 +191,7 @@ func (this *BuildingManager) GetBuilding(buildingid uint32) *BuildingData {
 func (this *BuildingManager) SaveAllBuildings() {
 	log.Info("储存所有的楼信息 SaveAllBuildings")
 	pipe := Redis().Pipeline()
+	defer pipe.Close()
 	for _, v := range this.buildings {
 		v.SaveBin(pipe)
 	}

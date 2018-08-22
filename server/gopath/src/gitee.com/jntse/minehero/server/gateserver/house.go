@@ -427,6 +427,7 @@ func (this *HouseManager) LoadDB() {
 		log.Error("启动加载放假数据失败 err: %s", err)
 	} else {
 		pipe := Redis().Pipeline()
+		defer pipe.Close()
 		for _, v := range data {
 			houseid, _ := strconv.Atoi(v)
 			key := fmt.Sprintf("houses_%d", uint64(houseid))
@@ -552,6 +553,7 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 func (this *HouseManager) SaveAllHousesData() {
 	log.Info("储存所有的房屋信息 SaveAllHousesData")
 	pipe := Redis().Pipeline()
+	defer pipe.Close()
 	for _, v := range this.houses {
 		v.SaveBin(pipe)
 	}
