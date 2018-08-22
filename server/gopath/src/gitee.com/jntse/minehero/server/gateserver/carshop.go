@@ -13,17 +13,81 @@ import (
 	"github.com/go-redis/redis"
 )
 
+// --------------------------------------------------------------------------
+/// @brief 
+/// @brief 
+/// @brief 
+// --------------------------------------------------------------------------
 type CarProduct struct {
 	bin *msg.CarProductData
+	dirty bool
 }
 
+func NewCarProduct(config *table.TCarShopDefine) *CarProduct {
+	data := &msg.CarProductData{ Pid:pb.Uint32(config.Id), Sell:pb.Uint32(config.Nums), Sold:pb.Uint32(0) }
+	prodcut := &CarProduct{bin:data, dirty:true}
+	return prodcut
+}
+
+func (cp *CarProduct) Bin() *msg.CarProductData {
+	return cp.bin
+}
+
+func (cp *CarProduct) Pid() uint32 {
+	return cp.bin.GetPid()
+}
+
+func (cp *CarProduct) Sold() uint32 {
+	return cp.bin.GetSold()
+}
+
+func (cp *CarProduct) Sell() uint32 {
+	return cp.bin.GetSell()
+}
+
+func (cp *CarProduct) AddSell(n uint32) {
+	cp.bin.Sell = pb.Uint32(cp.Sell() + 1)
+	cp.dirty = true
+}
+
+func (cp *CarProduct) Dirty() bool {
+	return cp.dirty
+}
+
+func (cp *CarProduct) SaveBin(pipe redis.Pipeliner) {
+	pid := strconv.FormatUint(uint64(cp.Pid()), 10)
+	cp.dirty = false
+	if pipe == nil {
+		if err := utredis.HSetProtoBin(Redis(), "carshop", pid, cp.bin); err != nil {
+			log.Error("汽车商店保存产品数据 Redis Error:%s", err)
+		}
+	}else {
+		utredis.HSetProtoBinPipeline(pipe, "carshop", pid, cp.bin)
+	}
+}
+
+func (cp *CarProduct) LoadBin(rbuf []byte) *msg.CarProductData {
+	data := &msg.CarProductData{}
+	if err := pb.Unmarshal(rbuf, data); err != nil {
+		return nil
+	}
+	cp.bin = data
+	return data
+}
+
+
+// --------------------------------------------------------------------------
+/// @brief 
+/// @brief 
+/// @brief 
+// --------------------------------------------------------------------------
 type CarShop struct {
-	products 		map[uint32] *msg.CarProductData
+	products 		map[uint32] *CarProduct
 	ticker1Minite 	*util.GameTicker
 }
 
 func (shop* CarShop) Init() {
-	shop.products = make(map[uint32] *msg.CarProductData)
+	shop.products = make(map[uint32] *CarProduct)
 	shop.ticker1Minite = util.NewGameTicker(time.Minute, shop.Handler1MiniteTick)
 	shop.ticker1Minite.Start()
 
@@ -36,37 +100,18 @@ func (shop* CarShop) Tick(now int64) {
 }
 
 func (shop *CarShop) Handler1MiniteTick(now int64) {
-	;
 }
-
 
 // 第一次初始化
 func (shop *CarShop) InitOnce() {
 	if len(shop.products) != 0 {
 		return
 	}
-
 	for _, v := range tbl.CarShopBase.TCarShopById {
-		product := &msg.CarProductData{ Pid:pb.Uint32(v.Id), Sell:pb.Uint32(v.Nums), Sold:pb.Uint32(0) }
-		shop.products[v.Id] = product
+		shop.products[v.Id] = NewCarProduct(v)
 	}
 	log.Info("汽车商店首次初始化")
 	shop.SaveAll()
-}
-
-// 反序列化
-func (shop* CarShop) LoadProduct(rbuf []byte) *msg.CarProductData {
-	data := &msg.CarProductData{}
-	if err := pb.Unmarshal(rbuf, data); err != nil {
-		return nil
-	}
-	return data
-}
-
-// 保存单个产品数据
-func (shop* CarShop) SaveProduct(product *msg.CarProductData) {
-	pid := strconv.FormatUint(uint64(product.GetPid()), 10)
-	utredis.HSetProtoBin(Redis(), "carshop", pid, product)
 }
 
 // DB加载
@@ -85,9 +130,10 @@ func (shop* CarShop) LoadDB() {
 	for _, v := range cmds {
 		if v.Err() == redis.Nil { continue }
 		rbuf, _ := v.(*redis.StringCmd).Bytes()
-		productdata := shop.LoadProduct(rbuf)
-		if productdata == nil { continue }
-		shop.products[productdata.GetPid()] = productdata
+		product := &CarProduct{}
+		if product.LoadBin(rbuf) != nil {
+			shop.products[product.Pid()] = product
+		}
 	}
 	log.Info("汽车商店DB加载数据 size=%d", len(shop.products))
 }
@@ -96,10 +142,8 @@ func (shop* CarShop) LoadDB() {
 func (shop *CarShop) SaveAll() {
 	pipe := Redis().Pipeline()
 	for _, v := range shop.products {
-		pid := strconv.FormatUint(uint64(v.GetPid()), 10)
-		utredis.HSetProtoBinPipeline(pipe, "carshop", pid, v)
+		v.SaveBin(pipe)
 	}
-
 	_, err := pipe.Exec()
 	if err != nil {
 		log.Error("CarShop SaveAll Error:%s", err)
@@ -130,38 +174,32 @@ func (shop *CarShop) BuyCar(user *GateUser, shopid, pid uint32) {
 
 	product, ok := shop.products[pid]
 	if ok == false {
-		product = shop.addNewProduct(config)
+		product = NewCarProduct(config)
+		product.SaveBin(nil)
 	}
 
 	// 限量
-	if product.GetSell() >= product.GetSold() {
+	if product.Sell() >= product.Sold() {
 		user.SendNotify("车辆数量不足")
 		return
 	}
 
 
 	user.RemoveGold(config.Price, "购买车辆", true)
-	product.Sell = pb.Uint32(product.GetSell() - 1)
+	product.AddSell(1)
 	CarMgr().CreateNewCar(user.Id(), cartemplate.Id, user.Name())
 
 
 	// 刷新单条数据
-	send := &msg.GW2C_UpdateCarShopProduct{Product:pb.Clone(product).(*msg.CarProductData)}
+	send := &msg.GW2C_UpdateCarShopProduct{Product:pb.Clone(product.Bin()).(*msg.CarProductData)}
 	user.SendMsg(send)
-}
-
-func (shop *CarShop) addNewProduct(config *table.TCarShopDefine) *msg.CarProductData {
-	product := &msg.CarProductData{ Pid:pb.Uint32(config.Id), Sell:pb.Uint32(config.Nums), Sold:pb.Uint32(0) }
-	shop.products[config.Id] = product
-	shop.SaveProduct(product)
-	return product
 }
 
 // 发送汽车商店信息
 func (shop *CarShop) SendShopInfo(user *GateUser) {
 	send := &msg.GW2C_SendCarShopInfo{}
 	for _, v := range shop.products {
-		send.Products = append(send.Products, pb.Clone(v).(*msg.CarProductData))
+		send.Products = append(send.Products, pb.Clone(v.Bin()).(*msg.CarProductData))
 	}
 	user.SendMsg(send)
 }
