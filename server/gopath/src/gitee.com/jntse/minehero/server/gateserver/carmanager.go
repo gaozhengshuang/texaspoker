@@ -116,7 +116,12 @@ type ParkingData struct {
 	template *table.TParkingDefine
 }
 
-func (this *ParkingData) LoadBin(bin *msg.ParkingData) {
+func (this *ParkingData) LoadBin(rbuf []byte) error {
+	bin := &msg.ParkingData{}
+	if err := pb.Unmarshal(rbuf, bin); err != nil {
+		return fmt.Errorf("pb反序列化失败")
+	}
+
 	this.id = bin.GetId()
 	this.tid = bin.GetTid()
 	this.ownerid = bin.GetOwnerid()
@@ -136,6 +141,7 @@ func (this *ParkingData) LoadBin(bin *msg.ParkingData) {
 	} else {
 		this.template = template
 	}
+	return nil
 }
 
 func (this *ParkingData) PackBin() *msg.ParkingData {
@@ -248,15 +254,7 @@ func (this *CarManager) Init() {
 	this.ticker1Second.Start()
 
 	this.LoadCarFromDB()
-	parkingIds, err := Redis().SMembers(ParkingIdSetKey).Result()
-	if err != nil {
-		log.Error("启动加载车位数据失败 err: %s", err)
-	} else {
-		for _, v := range parkingIds {
-			parkingid, _ := strconv.Atoi(v)
-			this.GetParking(uint64(parkingid))
-		}
-	}
+	this.LoadParkingFromDB()
 
 	//创建公共车位
 	for _, v := range this.parkings {
@@ -268,6 +266,7 @@ func (this *CarManager) Init() {
 	this.publicparkings = uint32(tbl.Car.PulicParkingNum)
 }
 
+// 从DB加载所有车辆数据
 func (this *CarManager) LoadCarFromDB() {
 	carsIds, err := Redis().SMembers(CarIdSetKey).Result()
 	if err != nil {
@@ -296,7 +295,37 @@ func (this *CarManager) LoadCarFromDB() {
 	}
 	log.Info("加载所有车辆DB数据 size=%d", len(this.cars))
 }
- 
+
+// 从DB加载所有车位数据
+func (this *CarManager) LoadParkingFromDB() {
+	parkingIds, err := Redis().SMembers(ParkingIdSetKey).Result()
+	if err != nil {
+		log.Error("启动加载车位数据失败 err: %s", err)
+		return
+	} 
+
+	pipe := Redis().Pipeline()
+	for _, v := range parkingIds {
+		parkingid, _ := strconv.Atoi(v)
+		pipe.Get(fmt.Sprintf("parkings_%d", parkingid))
+	}
+	cmds, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("加载车辆信息失败 RedisError: %s", err)
+		return
+	}
+
+	for _, v := range cmds {
+		if v.Err() == redis.Nil { continue }
+		rbuf, _ := v.(*redis.StringCmd).Bytes()
+		parking := &ParkingData{}
+		if parking.LoadBin(rbuf) == nil {
+			this.AddParking(parking)
+		}
+	}
+	log.Info("加载所有车位DB数据 size=%d", len(this.parkings))
+}
+
 func (this *CarManager) GetCar(id uint64) *CarData {
 	if _, ok := this.cars[id]; ok {
 		return this.cars[id]
@@ -358,18 +387,8 @@ func (this *CarManager) GetCarByUser(uid uint64) []*CarData {
 func (this *CarManager) GetParking(id uint64) *ParkingData {
 	if _, ok := this.parkings[id]; ok {
 		return this.parkings[id]
-	} else {
-		//尝试从内存加载 如果没有返回nil
-		key, bin := fmt.Sprintf("parkings_%d", id), &msg.ParkingData{}
-		if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
-			log.Error("加载车位信息失败无此车位数据 id%d ，err: %s", id, err)
-			return nil
-		}
-		parking := &ParkingData{}
-		parking.LoadBin(bin)
-		this.AddParking(parking)
-		return parking
 	}
+	return nil
 }
 
 func (this *CarManager) GetRecordByUser(id uint64) []string {
