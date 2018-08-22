@@ -14,6 +14,7 @@ module game {
         carInfoTxt      : eui.Label;
         carNameTxt      : eui.Label;
         parkingInfoTxt  : eui.Label;
+        parkingNameTxt  : eui.Label;
         parkingEmptyTxt : eui.Label;
 
         btnDriveAway    : IconButton;
@@ -120,11 +121,24 @@ module game {
             let _parkingData = DataManager.playerModel.getMyCarPakingInfo(this.carData.id);
             if(_parkingData){
                 //this.parkingInfoTxt.text = "停在" + _parkingData.ownername + "车位" +"预计收益"+_parkingData.parkingreward+"金币";
-        
+                let dateTime = new Date(Math.max(new Date().getTime() - <number>_parkingData.parkingtime - SysTimeEventManager.getInstance().systimeoffset,0));
+               
+                let second = Math.round(dateTime.getTime() / 1000);
+                let d = Math.floor(second / (3600 * 24));
+                let h = Math.floor(second % (3600 * 24) / 3600);
+                let m = Math.floor(second % (3600 * 24) % 3600 / 60);
+                let s = Math.floor(second % (3600 * 24) % 3600 % 60);
+                
+                let timeStr = d + "天" + h + "时" + m + "分";
+                
+                this.parkingNameTxt.textFlow = [
+                    { text: _parkingData.ownername +"", style: { bold: true,"textColor": 0xffee9f}},
+                    { text: _parkingData.ownerid && " 家车位" || "" ,style: { bold: true,"textColor": 0xffffff}},
+                ]
                 this.parkingInfoTxt.textFlow = [
-                    { text: "停在 "},
-                    { text: _parkingData.ownername +"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
-                    { text: " 家车位 预计收益 "},
+                    { text: "已停放 "},
+                    { text: timeStr +"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
+                    { text: "预计收益 "},
                     { text: _parkingData.parkingreward+"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
                     { text: " 金币"},
                 ]
@@ -197,11 +211,12 @@ module game {
 
             //刷新车位邻居列表
             if( this.listIndex==3){
-                //清除之前的公共车位
+                this.bindDataList(this.listIndex);
+/*                 //清除之前的公共车位
                 if(this.linjuList[0].ownerid==0){
                     this.linjuList.shift();
                 }
-                this.showLinjuList(this.linjuList);
+                this.showLinjuList(this.linjuList); */
             }
         }
 
@@ -302,7 +317,7 @@ module game {
                     this.showDongtaiList();
                     break;
                 case 3:
-                    ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST);
+                    ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST,{carflag:1});
                     break;
             }
         }
@@ -332,7 +347,7 @@ module game {
 
         private linjuList: HouseVO[];
         public showLinjuList(list: HouseVO[]) {
-            console.log("showLinjuList--------------->",list.length);
+            console.log("showLinjuList--------------->",list.length+" "+JSON.stringify(list));
         
 /*             let self = this;
             CarManager.getInstance().ReqMyCarInfo(function(){
@@ -417,6 +432,7 @@ module game {
                        
                     }.bind(this));
                 }); */
+            
                 //房屋和车位绑定后
                 this.linjuList = list.map(houseData=>{
                     //空
