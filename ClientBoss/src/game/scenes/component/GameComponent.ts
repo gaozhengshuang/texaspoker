@@ -71,6 +71,6 @@ module game {
         target: any,
         callBackFunc: Function,
         notifyName: string,
-        execute: boolean,
+        execute?: boolean,
     }
 }

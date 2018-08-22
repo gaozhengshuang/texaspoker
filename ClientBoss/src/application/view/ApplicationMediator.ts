@@ -9,14 +9,6 @@ module game {
             this.drawAssets();
         }
 
-        public loadingView: eui.Group = new eui.Group();
-        public screenView: egret.Sprite = new egret.Sprite;
-        public pageView: egret.Sprite = new egret.Sprite;
-        public popupView: eui.Group = new eui.Group();
-        public alertView: eui.Group = new eui.Group();
-        public UIView: eui.Group = new eui.Group();
-        public gameView: eui.Group = new eui.Group();
-
         public listNotificationInterests(): Array<any> {
             return [
 
@@ -34,44 +26,16 @@ module game {
          *
          */
         private drawAssets(): void {
-            this.main.sceneContainer.addChild(this.screenView);
-            this.main.uiContainer.addChild(this.pageView);
-            this.main.uiContainer.addChild(this.UIView);
-            this.main.uiContainer.addChild(this.popupView);
-            this.main.uiContainer.addChild(this.gameView);
-            this.main.uiContainer.addChild(this.loadingView);
-            this.main.uiContainer.addChild(this.alertView);
-
-            this.gameView.touchThrough = true;
-            this.gameView.addChild(new game.GameLayer());
-
-            ApplicationFacade.getInstance().registerMediator(new SceneMediator(this.screenView));
-            ApplicationFacade.getInstance().registerMediator(new PageMediator(this.pageView));
-            ApplicationFacade.getInstance().registerMediator(new UIMediator(this.UIView));
-            ApplicationFacade.getInstance().registerMediator(new PopupMediator(this.popupView));
+            ApplicationFacade.getInstance().registerMediator(new PageMediator(GameLayer.sceneUiLayer));
+            ApplicationFacade.getInstance().registerMediator(new UIMediator(GameLayer.panelLayer)); //todo
+            ApplicationFacade.getInstance().registerMediator(new PopupMediator(GameLayer.effectLayer));
             //ApplicationFacade.getInstance().registerMediator(new SceneSwitchMediator(this.loadingView));
-            ApplicationFacade.getInstance().registerMediator(new AlertMediator(this.alertView));
-
-            game.DataManager.init();
-            game.SoundManager.init();
-
-            //通讯初始化
-            ClientNet.getInstance().init();
-            //弹幕界面初始化
-            BarrageManager.getInstance().init();
-            //战斗数据初始化
-            BattleManager.getInstance().init();
-
-            
-            game.SysTimeEventManager.getInstance().delAllFunction();
-            game.SysTimeEventManager.getInstance().stopTimer();
-
-            ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
+            ApplicationFacade.getInstance().registerMediator(new AlertMediator(GameLayer.alertLayer));
 
         }
 
-        public get main(): AppContainer {
-            return <AppContainer><any>(this.viewComponent);
+        public get main(): GameLayer {
+            return <GameLayer><any>(this.viewComponent);
         }
     }
 }

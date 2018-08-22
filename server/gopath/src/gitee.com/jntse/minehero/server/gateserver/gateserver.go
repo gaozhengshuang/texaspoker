@@ -64,6 +64,8 @@ type GateServer struct {
 	hourmonitor   *util.IntHourMonitorPool
 	carmgr        CarManager
 	housesvrmgr   HouseManager
+	buildingmgr   BuildingManager
+	carshop       CarShop
 }
 
 var g_GateServer *GateServer = nil
@@ -104,6 +106,13 @@ func CarMgr() *CarManager {
 }
 func HouseSvrMgr() *HouseManager {
 	return &GateSvr().housesvrmgr
+}
+func BuildSvrMgr() *BuildingManager {
+	return &GateSvr().buildingmgr
+}
+
+func Carshop() *CarShop {
+	return &GateSvr().carshop
 }
 
 //func CountMgr() *CountManager {
@@ -334,8 +343,10 @@ func (this *GateServer) OnStart() {
 
 	//
 	this.runtimestamp = util.CURTIMEMS()
+	//this.buildingmgr.Init()
 	this.housesvrmgr.Init()
 	this.carmgr.Init()
+	this.carshop.Init()
 	log.Info("结束执行OnStart")
 }
 
@@ -345,6 +356,8 @@ func (this *GateServer) OnStop() {
 		t.Stop()
 	}
 	this.housesvrmgr.SaveAllHousesData()
+	//this.buildingmgr.SaveAllBuildings()
+	this.carshop.SaveAll()
 	this.hredis.Close()
 }
 
@@ -372,6 +385,7 @@ func (this *GateServer) Run() {
 	this.usermgr.Tick(now)
 	this.roommgr.Tick(now)
 	this.carmgr.Tick(now)
+	this.carshop.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 
 	//

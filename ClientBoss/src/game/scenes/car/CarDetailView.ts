@@ -150,22 +150,7 @@ module game {
             this.visible = true;
             this._inited  = true;
             GameConfig.showDownBtnFun(false); 
-
-            //刷新车辆信息
-            let self = this;
-            if(self.carData)
-            {
-                CarManager.getInstance().ReqMyCarInfo(function(){
-                    self.setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
-                        return data.id == self.carData.id;
-                    })[0]);
-                });
-            }
-
-            //刷新车位邻居列表
-            if( this.listIndex==3){
-                this.showLinjuList(this.linjuList);
-            }
+            this.refrehLinJu();
         }
         public OnDisableHandle(){
             this.visible = false;
@@ -194,9 +179,32 @@ module game {
                 }
             });
         }
+    
+ 
+    //--------------邻居和动态列表----------------------------------//
+        public refrehLinJu()
+        {
+            //刷新车辆信息
+            let self = this;
+            if(self.carData)
+            {
+                CarManager.getInstance().ReqMyCarInfo(function(){
+                    self.setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
+                        return data.id == self.carData.id;
+                    })[0]);
+                });
+            }
 
+            //刷新车位邻居列表
+            if( this.listIndex==3){
+                //清除之前的公共车位
+                if(this.linjuList[0].ownerid==0){
+                    this.linjuList.shift();
+                }
+                this.showLinjuList(this.linjuList);
+            }
+        }
 
-    //--------------邻居和动态----------------------------------//
         private OnClickNeighbor(){
             this.showlist(3);
         }
@@ -214,7 +222,7 @@ module game {
             egret.Tween.get(this.down_bg).to({ height: this.oldH, y: this.oldY }, 300)
 
         }
-        
+
         private oldY: number = 0;
         private oldH: number = 0;
         private oldBtnY: number = 0;
@@ -335,15 +343,57 @@ module game {
                     }
                 })
             }); */
+
             this._showLinjuList(list);
         }
+
         private _showLinjuList(list: HouseVO[])
         {
             this.linjuList = [];
             CarManager.getInstance().clearBackFunc_ResParkingInfo();
             if (this.itemList && this.listIndex == 3) {
-                let self = this;    
-                list.forEach((houseData,index,array)=>{
+                let self = this; 
+
+                let _sortFunc : Function  = function(a:HouseVO,b:HouseVO){
+                    let empty_a  = a.empty;
+                    let empty_b  = b.empty;
+                    let myCar_a  = a.myCarPark;
+                    let myCar_b  = b.myCarPark;
+                    if(myCar_a && !myCar_b)
+                    {
+                        return 0;
+                    }
+                    else if(!myCar_a && myCar_b)
+                    {
+                        return 1;
+                    }
+                    else if(myCar_a && myCar_b)
+                    {
+                       if(empty_a&&!empty_b){
+                           return 1;
+                       }
+                       else if(!empty_a&&empty_b){
+                           return 0;
+                       }
+                       else if(!empty_a&&!empty_b){
+                           return 0;
+                      }
+                    }
+                    else if(!myCar_a &&!myCar_b)
+                    {
+                       if(empty_a&&!empty_b){
+                           return 1;
+                       }
+                       else if(!empty_a&&empty_b){
+                           return 0;
+                       }
+                       else if(!empty_a&&!empty_b){
+                           return 0;
+                      }
+                    }
+                }
+                //房屋和车位数据分离
+/*                 list.forEach((houseData,index,array)=>{  
                     CarManager.getInstance().ReqParkingInfoByType(2,houseData.ownerid,function(parkingDatas:msg.IParkingData[]){
                         if(parkingDatas.length>0)
                         {
@@ -351,64 +401,46 @@ module game {
                             if(isBelong)
                             {
                                 //空
-                                let _empty:number = parkingDatas.some(data=>{return data.parkingcar==0;}) ? 1 : 0;
-                                //console.log(houseData.ownername,"--空->"+_empty);                                                                
+                                let _empty:number = Number(parkingDatas.some(data=>{return data.parkingcar==0;}));                                            
                                 //我车
-                                let _mycarPark:number = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();}) ? 1 : 0;
-                                //console.log(houseData.ownername,"--有我车->"+_mycarPark);                                
+                                let _mycarPark:number = Number(parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();}));        
                                 houseData.setObject({empty:_empty,myCarPark:_mycarPark});
                                 self.linjuList.push(houseData);  
                             }
                         }
                         //console.log("回调执行------>",index);
                         //if(index==self.linjuList.length-1){ //等待所有邻居停车位数据返回后在显示
-                            self.linjuList.sort(function(a,b){
-                                let empty_a  = a.empty;
-                                let empty_b  = b.empty;
-                                let myCar_a  = a.myCarPark;
-                                let myCar_b  = b.myCarPark;
-
-                                if(myCar_a && !myCar_b)
-                                {
-                                    return 0;
-                                }
-                                else if(!myCar_a && myCar_b)
-                                {
-                                    return 1;
-                                }
-                                else if(myCar_a && myCar_b)
-                                {
-                                   if(empty_a&&!empty_b){
-                                       return 1;
-                                   }
-                                   else if(!empty_a&&empty_b){
-                                       return 0;
-                                   }
-                                   else if(!empty_a&&!empty_b){
-                                       return 0;
-                                  }
-                                }
-                                else if(!myCar_a &&!myCar_b)
-                                {
-                                   if(empty_a&&!empty_b){
-                                       return 1;
-                                   }
-                                   else if(!empty_a&&empty_b){
-                                       return 0;
-                                   }
-                                   else if(!empty_a&&!empty_b){
-                                       return 0;
-                                  }
-                                }
-                            });
+                            self.linjuList.sort(function(a,b){return _sortFunc(a,b);});
                             self.itemList.bindData(self.linjuList);
                         //} 
                        
                     }.bind(this));
+                }); */
+                //房屋和车位绑定后
+                this.linjuList = list.map(houseData=>{
+                    //空
+                    let _empty:number = Number(houseData.parkings.some(data=>{return data.parkingcar==0;}));                                                          
+                    //我车
+                    let _mycarPark:number = Number(houseData.parkings.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();}));                             
+                    houseData.setObject({empty:_empty,myCarPark:_mycarPark});
+                    return houseData;
+                }); 
+
+                self.linjuList.sort(function(a,b){return _sortFunc(a,b);});
+            
+                //第一栏显示公共车位
+                 CarManager.getInstance().ReqParkingInfoByType(1,0,function(parkingDatas:msg.IParkingData[]){
+                    let emptyLots  = parkingDatas.some(data=>{return data.parkingcar==0});
+                    let _mycarPark = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();});                             
+                    let obj = {rId:0,tId:0,ownerid:0,ownername:"公共车位",empty:Number(emptyLots),myCarPark:Number(_mycarPark),parkings:parkingDatas};
+                    let houseVO : HouseVO = new HouseVO();
+                    houseVO.setObject(obj);
+                    self.linjuList.unshift(houseVO);
+                    //请求并返回当前状态下的公共车位数据
+                    self.itemList.bindData(self.linjuList);
                 });
             }
         }
- 
         private onItemTouch(eve: eui.ItemTapEvent) {
             console.log("onItemTouch------------->",this.listIndex)
             let item :any = null;
@@ -426,6 +458,12 @@ module game {
                 case 3:
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
+                        if(item.ownerid==0){
+                            openPanel(PanelType.carPublicLot);
+                            console.log(JSON.stringify(item.parkings));
+                            CarPublicParkingLotManager.getInstance().UpdateData(item.parkings);
+                            return;
+                        }
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:item.ownerid});
                         this.OnDisableHandle();
                     }

@@ -81,6 +81,12 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRandHouseList{}, on_C2GW_ReqRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqOtherUserHouseData{}, on_C2GW_ReqOtherUserHouseData)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqResetRobCheckFlag{}, on_C2GW_ReqResetRobCheckFlag)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseDataByHouseId{}, on_C2GW_ReqHouseDataByHouseId)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuyHouseFromBuilding{}, on_C2GW_ReqBuyHouseFromBuilding)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuildingCanBuyInfo{}, on_C2GW_ReqBuildingCanBuyInfo)
+
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
@@ -139,6 +145,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyTimeStamp{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckOtherUserHouseData{})
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyAddRobCountTime{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckHouseDataByHouseId{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckBuyHouseFromBuilding{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckBuildingCanBuyInfo{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
@@ -833,6 +842,30 @@ func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}
 	user.image.SendShowImage()
 }
 
+
+func on_C2GW_ReqCarShopInfo(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	Carshop().SendShopInfo(user)
+}
+
+func on_C2GW_BuyCarFromShop(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_BuyCarFromShop)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	Carshop().BuyCar(user, tmsg.GetShopid(), tmsg.GetPid())
+}
+
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)
 	user := ExtractSessionUser(session)
@@ -1052,4 +1085,41 @@ func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message inter
 	}
 	houseid := tmsg.GetHouseid()
 	user.ResetRobCheckFlag(houseid)
+}
+
+func on_C2GW_ReqHouseDataByHouseId(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqHouseDataByHouseId)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	houseid := tmsg.GetHouseid()
+	user.ReqHouseDataByHouseId(houseid)
+}
+
+func on_C2GW_ReqBuyHouseFromBuilding(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqBuyHouseFromBuilding)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	buildingid := tmsg.GetBuildingid()
+	index := tmsg.GetIndex()
+	user.BuyHouseFromBuilding(buildingid, index)
+}
+
+func on_C2GW_ReqBuildingCanBuyInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqBuildingCanBuyInfo)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	buildingid := tmsg.GetBuildingid()
+	user.ReqBuildingCanBuyInfo(buildingid)
 }

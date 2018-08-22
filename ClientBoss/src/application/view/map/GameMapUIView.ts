@@ -12,6 +12,7 @@ module game {
         public static OPEN_DISCOVERY: string = "open_discovery";
         public static OPEN_MINE: string = "open_mine";
         public static CLOSE_SMALL_GAME: string = "close_small_game";
+        public static GOTO_SHOUYI_ROOM: string = "goto_shouyi_room";
 
         private eventMask:eui.Rect;
         private fujinLabelList:string[]=['附近的人','附近建筑'];
@@ -78,6 +79,11 @@ module game {
                 case 'gameClose':
 
                     body.onclick_gameClose();
+                    
+                break;
+                case 'shouyi':
+
+                    body.onclick_shouyi();
                     
                 break;
 
@@ -154,6 +160,10 @@ module game {
         private onclick_mapDingwei(){
 
             this.dispatchEvent(new BasicEvent(GameMapUIView.MAP_POSITION));
+		}
+        private onclick_shouyi(){
+
+            this.dispatchEvent(new BasicEvent(GameMapUIView.GOTO_SHOUYI_ROOM));
 		}
         private onclick_fujinSwitch(status:number){
             console.log(this.fujinStatus+"//"+(this.fujinStatus==1));

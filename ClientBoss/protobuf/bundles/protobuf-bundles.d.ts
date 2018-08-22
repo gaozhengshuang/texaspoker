@@ -4137,6 +4137,300 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a CarProductData. */
+    interface ICarProductData {
+
+        /** CarProductData pid */
+        pid?: (number|null);
+
+        /** CarProductData sell */
+        sell?: (number|null);
+
+        /** CarProductData sold */
+        sold?: (number|null);
+    }
+
+    /** Represents a CarProductData. */
+    class CarProductData implements ICarProductData {
+
+        /**
+         * Constructs a new CarProductData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICarProductData);
+
+        /** CarProductData pid. */
+        public pid: number;
+
+        /** CarProductData sell. */
+        public sell: number;
+
+        /** CarProductData sold. */
+        public sold: number;
+
+        /**
+         * Creates a new CarProductData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarProductData instance
+         */
+        public static create(properties?: msg.ICarProductData): msg.CarProductData;
+
+        /**
+         * Encodes the specified CarProductData message. Does not implicitly {@link msg.CarProductData.verify|verify} messages.
+         * @param message CarProductData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICarProductData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarProductData message, length delimited. Does not implicitly {@link msg.CarProductData.verify|verify} messages.
+         * @param message CarProductData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICarProductData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarProductData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarProductData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarProductData;
+
+        /**
+         * Decodes a CarProductData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarProductData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarProductData;
+
+        /**
+         * Verifies a CarProductData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarProductData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarProductData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CarProductData;
+
+        /**
+         * Creates a plain object from a CarProductData message. Also converts values to other types if specified.
+         * @param message CarProductData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CarProductData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarProductData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BuidingSoldData. */
+    interface IBuidingSoldData {
+
+        /** BuidingSoldData index */
+        index?: (number|null);
+
+        /** BuidingSoldData houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a BuidingSoldData. */
+    class BuidingSoldData implements IBuidingSoldData {
+
+        /**
+         * Constructs a new BuidingSoldData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBuidingSoldData);
+
+        /** BuidingSoldData index. */
+        public index: number;
+
+        /** BuidingSoldData houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new BuidingSoldData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BuidingSoldData instance
+         */
+        public static create(properties?: msg.IBuidingSoldData): msg.BuidingSoldData;
+
+        /**
+         * Encodes the specified BuidingSoldData message. Does not implicitly {@link msg.BuidingSoldData.verify|verify} messages.
+         * @param message BuidingSoldData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBuidingSoldData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BuidingSoldData message, length delimited. Does not implicitly {@link msg.BuidingSoldData.verify|verify} messages.
+         * @param message BuidingSoldData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBuidingSoldData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BuidingSoldData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BuidingSoldData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BuidingSoldData;
+
+        /**
+         * Decodes a BuidingSoldData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BuidingSoldData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BuidingSoldData;
+
+        /**
+         * Verifies a BuidingSoldData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BuidingSoldData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BuidingSoldData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BuidingSoldData;
+
+        /**
+         * Creates a plain object from a BuidingSoldData message. Also converts values to other types if specified.
+         * @param message BuidingSoldData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BuidingSoldData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BuidingSoldData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BuildingData. */
+    interface IBuildingData {
+
+        /** BuildingData id */
+        id?: (number|null);
+
+        /** BuildingData data */
+        data?: (msg.IBuidingSoldData[]|null);
+    }
+
+    /** Represents a BuildingData. */
+    class BuildingData implements IBuildingData {
+
+        /**
+         * Constructs a new BuildingData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBuildingData);
+
+        /** BuildingData id. */
+        public id: number;
+
+        /** BuildingData data. */
+        public data: msg.IBuidingSoldData[];
+
+        /**
+         * Creates a new BuildingData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BuildingData instance
+         */
+        public static create(properties?: msg.IBuildingData): msg.BuildingData;
+
+        /**
+         * Encodes the specified BuildingData message. Does not implicitly {@link msg.BuildingData.verify|verify} messages.
+         * @param message BuildingData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBuildingData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BuildingData message, length delimited. Does not implicitly {@link msg.BuildingData.verify|verify} messages.
+         * @param message BuildingData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBuildingData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BuildingData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BuildingData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BuildingData;
+
+        /**
+         * Decodes a BuildingData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BuildingData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BuildingData;
+
+        /**
+         * Verifies a BuildingData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BuildingData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BuildingData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BuildingData;
+
+        /**
+         * Creates a plain object from a BuildingData message. Also converts values to other types if specified.
+         * @param message BuildingData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BuildingData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BuildingData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_ReqCarInfo. */
     interface IC2GW_ReqCarInfo {
     }
@@ -6659,6 +6953,9 @@ declare namespace msg {
 
     /** Properties of a C2GW_ReqRandHouseList. */
     interface IC2GW_ReqRandHouseList {
+
+        /** C2GW_ReqRandHouseList carflag */
+        carflag?: (number|null);
     }
 
     /** Represents a C2GW_ReqRandHouseList. */
@@ -6669,6 +6966,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_ReqRandHouseList);
+
+        /** C2GW_ReqRandHouseList carflag. */
+        public carflag: number;
 
         /**
          * Creates a new C2GW_ReqRandHouseList instance using the specified properties.
@@ -6746,6 +7046,9 @@ declare namespace msg {
 
         /** GW2C_AckRandHouseList datas */
         datas?: (msg.IHouseData[]|null);
+
+        /** GW2C_AckRandHouseList datas2 */
+        datas2?: (msg.IHouseData[]|null);
     }
 
     /** Represents a GW2C_AckRandHouseList. */
@@ -6759,6 +7062,9 @@ declare namespace msg {
 
         /** GW2C_AckRandHouseList datas. */
         public datas: msg.IHouseData[];
+
+        /** GW2C_AckRandHouseList datas2. */
+        public datas2: msg.IHouseData[];
 
         /**
          * Creates a new GW2C_AckRandHouseList instance using the specified properties.
@@ -16879,6 +17185,258 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a TBuildingsBase. */
+    interface ITBuildingsBase {
+
+        /** TBuildingsBase TBuildings */
+        TBuildings?: (table.ITBuildingsDefine[]|null);
+    }
+
+    /** Represents a TBuildingsBase. */
+    class TBuildingsBase implements ITBuildingsBase {
+
+        /**
+         * Constructs a new TBuildingsBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITBuildingsBase);
+
+        /** TBuildingsBase TBuildings. */
+        public TBuildings: table.ITBuildingsDefine[];
+
+        /**
+         * Creates a new TBuildingsBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TBuildingsBase instance
+         */
+        public static create(properties?: table.ITBuildingsBase): table.TBuildingsBase;
+
+        /**
+         * Encodes the specified TBuildingsBase message. Does not implicitly {@link table.TBuildingsBase.verify|verify} messages.
+         * @param message TBuildingsBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITBuildingsBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TBuildingsBase message, length delimited. Does not implicitly {@link table.TBuildingsBase.verify|verify} messages.
+         * @param message TBuildingsBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITBuildingsBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TBuildingsBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TBuildingsBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TBuildingsBase;
+
+        /**
+         * Decodes a TBuildingsBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TBuildingsBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TBuildingsBase;
+
+        /**
+         * Verifies a TBuildingsBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TBuildingsBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TBuildingsBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TBuildingsBase;
+
+        /**
+         * Creates a plain object from a TBuildingsBase message. Also converts values to other types if specified.
+         * @param message TBuildingsBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TBuildingsBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TBuildingsBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TBuildingsDefine. */
+    interface ITBuildingsDefine {
+
+        /** TBuildingsDefine Id */
+        Id?: (number|null);
+
+        /** TBuildingsDefine City */
+        City?: (number|null);
+
+        /** TBuildingsDefine Community */
+        Community?: (number|null);
+
+        /** TBuildingsDefine Number */
+        Number?: (number|null);
+
+        /** TBuildingsDefine MaxFloor */
+        MaxFloor?: (number|null);
+
+        /** TBuildingsDefine NumPerFloor */
+        NumPerFloor?: (number|null);
+
+        /** TBuildingsDefine Houses1 */
+        Houses1?: (string|null);
+
+        /** TBuildingsDefine Houses2 */
+        Houses2?: (string|null);
+
+        /** TBuildingsDefine Houses3 */
+        Houses3?: (string|null);
+
+        /** TBuildingsDefine Houses4 */
+        Houses4?: (string|null);
+
+        /** TBuildingsDefine PosX */
+        PosX?: (number|null);
+
+        /** TBuildingsDefine PosY */
+        PosY?: (number|null);
+
+        /** TBuildingsDefine Des */
+        Des?: (string|null);
+    }
+
+    /** Represents a TBuildingsDefine. */
+    class TBuildingsDefine implements ITBuildingsDefine {
+
+        /**
+         * Constructs a new TBuildingsDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITBuildingsDefine);
+
+        /** TBuildingsDefine Id. */
+        public Id: number;
+
+        /** TBuildingsDefine City. */
+        public City: number;
+
+        /** TBuildingsDefine Community. */
+        public Community: number;
+
+        /** TBuildingsDefine Number. */
+        public Number: number;
+
+        /** TBuildingsDefine MaxFloor. */
+        public MaxFloor: number;
+
+        /** TBuildingsDefine NumPerFloor. */
+        public NumPerFloor: number;
+
+        /** TBuildingsDefine Houses1. */
+        public Houses1: string;
+
+        /** TBuildingsDefine Houses2. */
+        public Houses2: string;
+
+        /** TBuildingsDefine Houses3. */
+        public Houses3: string;
+
+        /** TBuildingsDefine Houses4. */
+        public Houses4: string;
+
+        /** TBuildingsDefine PosX. */
+        public PosX: number;
+
+        /** TBuildingsDefine PosY. */
+        public PosY: number;
+
+        /** TBuildingsDefine Des. */
+        public Des: string;
+
+        /**
+         * Creates a new TBuildingsDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TBuildingsDefine instance
+         */
+        public static create(properties?: table.ITBuildingsDefine): table.TBuildingsDefine;
+
+        /**
+         * Encodes the specified TBuildingsDefine message. Does not implicitly {@link table.TBuildingsDefine.verify|verify} messages.
+         * @param message TBuildingsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITBuildingsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TBuildingsDefine message, length delimited. Does not implicitly {@link table.TBuildingsDefine.verify|verify} messages.
+         * @param message TBuildingsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITBuildingsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TBuildingsDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TBuildingsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TBuildingsDefine;
+
+        /**
+         * Decodes a TBuildingsDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TBuildingsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TBuildingsDefine;
+
+        /**
+         * Verifies a TBuildingsDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TBuildingsDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TBuildingsDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TBuildingsDefine;
+
+        /**
+         * Creates a plain object from a TBuildingsDefine message. Also converts values to other types if specified.
+         * @param message TBuildingsDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TBuildingsDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TBuildingsDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TCarBase. */
     interface ITCarBase {
 
@@ -17108,6 +17666,210 @@ declare namespace table {
 
         /**
          * Converts this TCarDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CarShopBase. */
+    interface ICarShopBase {
+
+        /** CarShopBase TCarShop */
+        TCarShop?: (table.ITCarShopDefine[]|null);
+    }
+
+    /** Represents a CarShopBase. */
+    class CarShopBase implements ICarShopBase {
+
+        /**
+         * Constructs a new CarShopBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ICarShopBase);
+
+        /** CarShopBase TCarShop. */
+        public TCarShop: table.ITCarShopDefine[];
+
+        /**
+         * Creates a new CarShopBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarShopBase instance
+         */
+        public static create(properties?: table.ICarShopBase): table.CarShopBase;
+
+        /**
+         * Encodes the specified CarShopBase message. Does not implicitly {@link table.CarShopBase.verify|verify} messages.
+         * @param message CarShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ICarShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarShopBase message, length delimited. Does not implicitly {@link table.CarShopBase.verify|verify} messages.
+         * @param message CarShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ICarShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarShopBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.CarShopBase;
+
+        /**
+         * Decodes a CarShopBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.CarShopBase;
+
+        /**
+         * Verifies a CarShopBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarShopBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarShopBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.CarShopBase;
+
+        /**
+         * Creates a plain object from a CarShopBase message. Also converts values to other types if specified.
+         * @param message CarShopBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.CarShopBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarShopBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarShopDefine. */
+    interface ITCarShopDefine {
+
+        /** TCarShopDefine Id */
+        Id?: (number|null);
+
+        /** TCarShopDefine ShopId */
+        ShopId?: (number|null);
+
+        /** TCarShopDefine Carid */
+        Carid?: (number|null);
+
+        /** TCarShopDefine Price */
+        Price?: (number|null);
+
+        /** TCarShopDefine Nums */
+        Nums?: (number|null);
+    }
+
+    /** Represents a TCarShopDefine. */
+    class TCarShopDefine implements ITCarShopDefine {
+
+        /**
+         * Constructs a new TCarShopDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarShopDefine);
+
+        /** TCarShopDefine Id. */
+        public Id: number;
+
+        /** TCarShopDefine ShopId. */
+        public ShopId: number;
+
+        /** TCarShopDefine Carid. */
+        public Carid: number;
+
+        /** TCarShopDefine Price. */
+        public Price: number;
+
+        /** TCarShopDefine Nums. */
+        public Nums: number;
+
+        /**
+         * Creates a new TCarShopDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarShopDefine instance
+         */
+        public static create(properties?: table.ITCarShopDefine): table.TCarShopDefine;
+
+        /**
+         * Encodes the specified TCarShopDefine message. Does not implicitly {@link table.TCarShopDefine.verify|verify} messages.
+         * @param message TCarShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarShopDefine message, length delimited. Does not implicitly {@link table.TCarShopDefine.verify|verify} messages.
+         * @param message TCarShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarShopDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarShopDefine;
+
+        /**
+         * Decodes a TCarShopDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarShopDefine;
+
+        /**
+         * Verifies a TCarShopDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarShopDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarShopDefine;
+
+        /**
+         * Creates a plain object from a TCarShopDefine message. Also converts values to other types if specified.
+         * @param message TCarShopDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarShopDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarShopDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

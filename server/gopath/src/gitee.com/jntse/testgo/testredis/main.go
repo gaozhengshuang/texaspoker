@@ -40,13 +40,13 @@ func main() {
 	//TestBin()
 
 	// pipeline
-	//TestPipeline()
+	TestPipeline()
 
 	// cluster
 	//TestRedisCluster()
 
 	// 发布订阅
-	TestSubscribe()
+	//TestSubscribe()
 
 	//
 	for g_Quit == false {
@@ -358,8 +358,12 @@ func TestPipeline() {
 	cmds, err := pipe.Exec()
 	if err != nil {
 		log.Println("Pipe Exec Error: ", err)
-		for _, v := range cmds { log.Println(v) }
+		for _, v := range cmds { log.Printf("%#v\n",v) }
+		for _, v := range cmds { 
+			log.Printf("name[%s] string[%s] args[%s]\n", v.Name(), v.String(), v.Args())
+		}
 	}
+
 }
 
 

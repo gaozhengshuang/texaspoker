@@ -459,7 +459,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -504,6 +504,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.level = 1
 	house.ownerid = ownerid
 	house.ownername = ownername
+	house.buildingid = buildingid
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
@@ -885,4 +886,15 @@ func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
 		return
 	}
 	HouseSvrMgr().ResetRobcheckflag(houseid)
+}
+
+func (this *GateUser) ReqHouseDataByHouseId(houseid uint64) {
+	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
+	send := &msg.GW2C_AckHouseDataByHouseId{}
+	send.Houseid = pb.Uint64(houseid)
+	send.Data = house.PackBin()
+	this.SendMsg(send)
 }

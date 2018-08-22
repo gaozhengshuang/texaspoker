@@ -33,7 +33,8 @@ module game {
 	 		console.log('时差------->',offset_dateTime);
 		}
 		private netConnectionError(){
-			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
+			// ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
+			NetFailed.getInstance().show();
 		}
 
 		private loginUserInfo: msg.IC2L_ReqLogin;
