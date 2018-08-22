@@ -551,9 +551,17 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64, optype uint32) (re
 	if optype == uint32(msg.CarOperatorType_TakeBack) {
 		record = this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 		notifyuser = parking.ownerid
+		reaper := UserMgr().FindById(car.ownerid)
+		if reaper != nil {
+			reaper.AddGold(reward,"收回车辆收益",true)
+		}
 	}else if optype == uint32(msg.CarOperatorType_Ticket) {
 		record = this.CreateNewRecord(parking.ownerid, car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 		notifyuser = car.ownerid
+		reaper := UserMgr().FindById(parking.ownerid)
+		if reaper != nil {
+			reaper.AddGold(reward,"贴条车辆收益",true)
+		}
 	}else if optype == uint32(msg.CarOperatorType_AutoBack) {
 		record = this.CreateNewRecord(parking.id, car.ownerid, car, parking, uint32(msg.CarOperatorType_AutoBack), reward)
 		notifyuser = car.ownerid
