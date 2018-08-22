@@ -18,6 +18,7 @@ module game {
 
         public constructor() {
             super();
+            this._layerType = PanelLayerType.Diy;
             this._isShowDark = this._isShowEffect = false;
         }
         protected getSkinName() {

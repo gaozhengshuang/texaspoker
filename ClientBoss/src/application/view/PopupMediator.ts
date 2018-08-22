@@ -39,7 +39,9 @@ module game {
 							WelcomeNewPlayersPanel.getInstance().initInfo(data.room);
 							// this.sceneView.x = gameConfig.curWidth() / 2;
 							// this.sceneView.y = gameConfig.curHeight() / 2 - (this.sceneView.height * goalScale * 0.5) / 2;
-							ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
+							// ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
+							ApplicationFacade.getInstance().registerMdt<PopupWelcomeMediator>(PopupWelcomeMediator.NAME, PopupWelcomeMediator, this.sceneView);
+
 							this.sceneMediatorName = PopupWelcomeMediator.NAME;
 						}
 						break;
@@ -75,8 +77,7 @@ module game {
 		}
 
 		private removeSceneView(): void {
-			if(this.sceneView)
-			{
+			if (this.sceneView) {
 				this.sceneView.remove();
 			}
 			if (this.sceneMediatorName != "") {

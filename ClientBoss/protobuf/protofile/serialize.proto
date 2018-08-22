@@ -120,6 +120,7 @@ message CarData
     optional uint64 createtime = 4;         //创建时间
     optional uint64 parkingid = 5;          //停车位id 未停车为0
     optional string ownername = 6;          //拥有者名字
+    optional uint32 parkingreward = 7;      //停车收益(自动回收)
 }
 
 //车位信息

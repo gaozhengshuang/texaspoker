@@ -72,12 +72,12 @@ module game {
             super();
             this._isShowDark = false;
             this._isShowEffect = false;
+            this.adaptive();
         }
         protected getSkinName() {
             return RoomViewUISkin;
         }
         protected init() {
-            this.adaptive();
             this.hideList_btn.visible = false;
             this.shualingju_btn.visible = false;
             this.xuanBtnBg.visible = false;
