@@ -1,5 +1,18 @@
 module game {
     export function openPanel(panelType: PanelType, data: any = null) {
+        let panel = getPanel(panelType);
+        if (panel) {
+            panel.show();
+        }
+    }
+    export function panelIsShow(panelType: PanelType): boolean {
+        let panel = getPanel(panelType);
+        if (panel && panel.parent) {
+            return true;
+        }
+        return false;
+    }
+    function getPanel(panelType: PanelType): PanelComponent {
         let panel: PanelComponent;
         switch (panelType) {
             case PanelType.win:
@@ -65,12 +78,12 @@ module game {
             case PanelType.WelcomeNewPlayersPanel:
                 panel = WelcomeNewPlayersPanel.getInstance();
                 break;
+            default:
+                Console.log("未找到面板！面板名：", panelType);
+                break;
         }
-        if (panel) {
-            panel.show();
-        }
+        return panel;
     }
-
     export const enum PanelType {
         win = 1,
         rank,
