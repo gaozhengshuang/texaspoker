@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="CarParkingLotSkin" width="230" height="120" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:Group id="center" width="0" height="0" x="16" y="0">
-		<e:Image id="parkinglotBg" width="149" height="45" y="62" source="uiCarAltas_json.parkinglot" scaleX="1" scaleY="1" x="28"/>
-		<e:Image id="parkingCarIcon" width="150" scaleX="1" scaleY="1" source="carIconAltas_json.small_1" horizontalCenter="103" verticalCenter="59.5" height="73"/>
-		<e:Label id="infoTxt" text="" x="-23.17" y="63.34" size="20" textAlign="center" verticalAlign="top" anchorOffsetX="0" width="230.84" anchorOffsetY="0" height="56.16" stroke="2"/>
-		<game:IconButton id="btn_select" width="150" height="73" x="29" y="32" skinName="IconButtonSkin"/>
+<e:Skin class="CarParkingLotSkin" width="400" height="250" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<e:Group id="center" width="400" height="250" x="0" y="0">
+		<e:Image id="parkinglotBg" width="247" height="61" y="117" scaleX="1" scaleY="1" x="78" source="uiCarAltas_json.parkinglotHouse"/>
+		<e:Image id="parkingCarIcon" width="288" scaleX="1" scaleY="1" height="140" source="carIconAltas_json.big_1" x="58" y="38"/>
+		<e:Image id="stateBgTicket" width="119" height="43" y="2" scaleX="1" scaleY="1" x="138" source="uiCarAltas_json.ticket"/>
+		<e:Image id="stateBgPark" width="119" height="43" y="99" scaleX="1" scaleY="1" x="138" source="uiCarAltas_json.park"/>
+		<e:Label id="infoTxt" text="" x="8.83" y="182.34" size="20" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="379.84" anchorOffsetY="0" height="50.16" stroke="0" textColor="0xffffff" bold="true"/>
+		<e:Label id="timeTxt" text="" x="109.83" y="155.34" size="24" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="187.84" anchorOffsetY="0" height="30.16" stroke="0" textColor="0xFFFFFF"/>
+		<game:IconButton id="btn_select" width="284" height="130" x="-15" y="5" skinName="IconButtonSkin" anchorOffsetX="0" anchorOffsetY="0" visible="false"/>
 	</e:Group>
 </e:Skin>

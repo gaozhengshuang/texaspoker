@@ -81,6 +81,12 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRandHouseList{}, on_C2GW_ReqRandHouseList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqOtherUserHouseData{}, on_C2GW_ReqOtherUserHouseData)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqResetRobCheckFlag{}, on_C2GW_ReqResetRobCheckFlag)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseDataByHouseId{}, on_C2GW_ReqHouseDataByHouseId)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuyHouseFromBuilding{}, on_C2GW_ReqBuyHouseFromBuilding)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuildingCanBuyInfo{}, on_C2GW_ReqBuildingCanBuyInfo)
+
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
@@ -88,6 +94,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ParkCar{}, on_C2GW_ParkCar)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TakeBackCar{}, on_C2GW_TakeBackCar)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TicketCar{}, on_C2GW_TicketCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeCarAutoBackReward{}, on_C2GW_ReqTakeCarAutoBackReward)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -139,6 +146,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyTimeStamp{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckOtherUserHouseData{})
 	this.msgparser.RegistSendProto(msg.GW2C_NotifyAddRobCountTime{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckHouseDataByHouseId{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckBuyHouseFromBuilding{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckBuildingCanBuyInfo{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
@@ -146,6 +156,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TicketCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_SynParkingRecord{})
+	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
+	this.msgparser.RegistSendProto(msg.GW2C_SendCarShopInfo{})
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
 	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
@@ -182,7 +194,6 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	user.SetHeartBeat(util.CURTIMEMS())
-
 	curtime := util.CURTIME()
 	//log.Info("receive heart beat msg now=%d", curtime)
 	user.SendMsg(&msg.GW2C_HeartBeat{
@@ -836,6 +847,30 @@ func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}
 	user.image.SendShowImage()
 }
 
+
+func on_C2GW_ReqCarShopInfo(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	Carshop().SendShopInfo(user)
+}
+
+func on_C2GW_BuyCarFromShop(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_BuyCarFromShop)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	Carshop().BuyCar(user, tmsg.GetShopid(), tmsg.GetPid())
+}
+
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)
 	user := ExtractSessionUser(session)
@@ -876,7 +911,6 @@ func on_C2GW_ReqHouseData(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 	user.ReqMatchHouseData()
-	//user.SendHouseData()
 }
 
 func on_C2GW_ReqHouseLevelUp(session network.IBaseNetSession, message interface{}) {
@@ -931,13 +965,15 @@ func on_C2GW_ReqTakeOtherHouseGold(session network.IBaseNetSession, message inte
 }
 
 func on_C2GW_ReqRandHouseList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqRandHouseList)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.ReqRandHouseList()
+	carflag := tmsg.GetCarflag()
+	user.ReqRandHouseList(carflag)
 }
 
 func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
@@ -960,7 +996,8 @@ func on_C2GW_ReqCarInfo(session network.IBaseNetSession, message interface{}) {
 		session.Close()
 		return
 	}
-	user.ReqMatchCarData()
+	log.Info("on_C2GW_ReqCarInfo %d", user.Id())
+	user.SynCarData()
 }
 
 //请求我的车位信息
@@ -971,72 +1008,99 @@ func on_C2GW_ReqMyParkingInfo(session network.IBaseNetSession, message interface
 		session.Close()
 		return
 	}
-	sendmatch := &msg.GW2MS_ReqMyParkingInfo{}
-	sendmatch.Userid = pb.Uint64(user.Id())
-	Match().SendCmd(sendmatch)
+	log.Info("on_C2GW_ReqMyParkingInfo %d", user.Id())
+	user.SynParkingData()
 }
 
 //请求指定车位信息
 func on_C2GW_ReqParkingInfoByType(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqParkingInfoByType)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	sendmatch := &msg.GW2MS_ReqParkingInfoByType{}
-	sendmatch.Userid = pb.Uint64(user.Id())
-	sendmatch.Type = pb.Int32(tmsg.GetType())
-	sendmatch.Playerid = pb.Uint64(tmsg.GetPlayerid())
-	Match().SendCmd(sendmatch)
+	tmsg := message.(*msg.C2GW_ReqParkingInfoByType)
+	parkinginfo := CarMgr().GetParkingByCondition(uint32(tmsg.GetType()), uint64(tmsg.GetPlayerid()), tmsg.GetHouseids())
+	send := &msg.GW2C_ResParkingInfo{}
+	for _, v := range parkinginfo {
+		tmp := v.PackBin()
+		send.Parkingdatas = append(send.Parkingdatas, tmp)
+	}
+	user.SendMsg(send)
 }
 
 //请求停车
 func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ParkCar)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	sendmatch := &msg.GW2MS_ParkCar{}
-	sendmatch.Userid = pb.Uint64(user.Id())
-	sendmatch.Username = pb.String(user.Name())
-	sendmatch.Carid = pb.Uint64(tmsg.GetCarid())
-	sendmatch.Parkingid = pb.Uint64(tmsg.GetParkingid())
-	Match().SendCmd(sendmatch)
+	tmsg := message.(*msg.C2GW_ParkCar)
+	cid := tmsg.GetCarid()
+	pid := tmsg.GetParkingid()
+	send := &msg.GW2C_ParkCarResult{}
+	result := CarMgr().ParkingCar(cid, pid, user.Name())
+	send.Result = pb.Int32(result)
+	user.SendMsg(send)
+
 }
 
-//请求收回车辆
+//请求收回车辆 / 领取自动回收收益
 func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_TakeBackCar)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	sendmatch := &msg.GW2MS_TakeBackCar{}
-	sendmatch.Userid = pb.Uint64(user.Id())
-	sendmatch.Carid = pb.Uint64(tmsg.GetCarid())
-	Match().SendCmd(sendmatch)
+	tmsg := message.(*msg.C2GW_TakeBackCar)
+	send := &msg.GW2C_TakeBackCarResult{}
+	var result, reward uint32 = 0, 0
+	car := CarMgr().GetCar(tmsg.GetCarid())
+	if car == nil {
+		result, reward = 1, 0
+	}else {
+		result, reward = CarMgr().TakeBackFromParking(user, car.parkingid, uint32(msg.CarOperatorType_TakeBack))
+	}
+	send.Result = pb.Int32(int32(result))
+	send.Reward = pb.Int32(int32(reward))
+	user.SendMsg(send)
 }
 
 //请求贴条
 func on_C2GW_TicketCar(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_TicketCar)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	sendmatch := &msg.GW2MS_TicketCar{}
-	sendmatch.Userid = pb.Uint64(user.Id())
-	sendmatch.Parkingid = pb.Uint64(tmsg.GetParkingid())
-	Match().SendCmd(sendmatch)
+	tmsg := message.(*msg.C2GW_TicketCar)
+	send := &msg.GW2C_TicketCarResult{}
+	result, reward := CarMgr().TakeBackFromParking(user, tmsg.GetParkingid(), uint32(msg.CarOperatorType_Ticket))
+	send.Result = pb.Int32(int32(result))
+	send.Reward = pb.Int32(int32(reward))
+	user.SendMsg(send)
+}
+
+// 请求领取自动收益
+func on_C2GW_ReqTakeCarAutoBackReward(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTakeCarAutoBackReward)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_TakeBackCarResult{}
+	result, reward := CarMgr().TakeCarAutoBackReward(user, tmsg.GetCarid())
+	send.Result = pb.Int32(int32(result))
+	send.Reward = pb.Int32(int32(reward))
+	user.SendMsg(send)
 }
 
 func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message interface{}) {
@@ -1049,4 +1113,41 @@ func on_C2GW_ReqResetRobCheckFlag(session network.IBaseNetSession, message inter
 	}
 	houseid := tmsg.GetHouseid()
 	user.ResetRobCheckFlag(houseid)
+}
+
+func on_C2GW_ReqHouseDataByHouseId(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqHouseDataByHouseId)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	houseid := tmsg.GetHouseid()
+	user.ReqHouseDataByHouseId(houseid)
+}
+
+func on_C2GW_ReqBuyHouseFromBuilding(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqBuyHouseFromBuilding)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	buildingid := tmsg.GetBuildingid()
+	index := tmsg.GetIndex()
+	user.BuyHouseFromBuilding(buildingid, index)
+}
+
+func on_C2GW_ReqBuildingCanBuyInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqBuildingCanBuyInfo)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	buildingid := tmsg.GetBuildingid()
+	user.ReqBuildingCanBuyInfo(buildingid)
 }

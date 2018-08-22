@@ -62,6 +62,10 @@ type GateServer struct {
 	gracefulquit bool
 	runtimestamp  int64
 	hourmonitor   *util.IntHourMonitorPool
+	carmgr        CarManager
+	housesvrmgr   HouseManager
+	buildingmgr   BuildingManager
+	carshop       CarShop
 }
 
 var g_GateServer *GateServer = nil
@@ -95,6 +99,20 @@ func RoomSvrMgr() *RoomSvrManager {
 
 func RoomMgr() *RoomManager {
 	return &GateSvr().roommgr
+}
+
+func CarMgr() *CarManager {
+	return &GateSvr().carmgr
+}
+func HouseSvrMgr() *HouseManager {
+	return &GateSvr().housesvrmgr
+}
+func BuildSvrMgr() *BuildingManager {
+	return &GateSvr().buildingmgr
+}
+
+func Carshop() *CarShop {
+	return &GateSvr().carshop
 }
 
 //func CountMgr() *CountManager {
@@ -220,6 +238,7 @@ func (this *GateServer) Init(fileconf string) bool {
 	this.waitpool.Init()
 	this.roomsvrmgr.Init()
 	this.roommgr.Init()
+	//this.carmgr.Init()
 	//this.countmgr.Init()
 	//this.gamemgr.Init()
 	this.tickers = append(this.tickers, util.NewGameTicker(60*time.Second, this.Handler1mTick))
@@ -328,6 +347,10 @@ func (this *GateServer) OnStart() {
 
 	//
 	this.runtimestamp = util.CURTIMEMS()
+	this.buildingmgr.Init()
+	this.housesvrmgr.Init()
+	this.carmgr.Init()
+	this.carshop.Init()
 	log.Info("结束执行OnStart")
 }
 
@@ -336,6 +359,9 @@ func (this *GateServer) OnStop() {
 	for _, t := range this.tickers {
 		t.Stop()
 	}
+	this.housesvrmgr.SaveAllHousesData()
+	this.buildingmgr.SaveAllBuildings()
+	this.carshop.SaveAll()
 	this.hredis.Close()
 }
 
@@ -362,6 +388,8 @@ func (this *GateServer) Run() {
 	//
 	this.usermgr.Tick(now)
 	this.roommgr.Tick(now)
+	this.carmgr.Tick(now)
+	this.carshop.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 
 	//
@@ -371,11 +399,14 @@ func (this *GateServer) Run() {
 	}
 	tm_svrticker := util.CURTIMEMS()
 
+	this.housesvrmgr.Tick(now)
+	tm_houseticker := util.CURTIMEMS()
+
 	// 每帧统计耗时
-	delay := tm_svrticker - now
+	delay := tm_houseticker - now
 	if lastrun+delay > 20 { // 20毫秒
-		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d]",
-			lastrun, delay, tm_dispath-now, tm_usrticker-tm_dispath, tm_svrticker-tm_usrticker)
+		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d] houseticker[%d]",
+			lastrun, delay, tm_dispath-now, tm_usrticker-tm_dispath, tm_svrticker-tm_usrticker, tm_houseticker-tm_svrticker)
 	}
 	this.runtimestamp = util.CURTIMEMS()
 }

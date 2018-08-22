@@ -14,10 +14,11 @@ module game {
 		public init(rVo: HouseVO) {
 			this.roomInfo = rVo;
 			this.huxingImage = new egret.Bitmap();
+			console.log(RES.getRes("hx_4001_png"));
 			this.huxingImage.texture = RES.getRes(/*roomType.rImage+*/"hx_4001_png");
 			console.log(this.huxingImage.width);
-			this.huxingImage.width = this.huxingImage.width* 2;
-			this.huxingImage.height = this.huxingImage.height* 2;
+			this.huxingImage.width = this.huxingImage.width * 2;
+			this.huxingImage.height = this.huxingImage.height * 2;
 			console.log(this.huxingImage.width);
 			this.width = this.huxingImage.width;
 			this.height = this.huxingImage.height;
@@ -44,10 +45,13 @@ module game {
 					let oldY: number = qipao.y;
 					let timeNum: number = 800 + Math.floor(Math.random() * 500);
 					qipao.updataInfo(bubble[i]);
-					egret.Tween.get(qipao, { loop: true })
-						.to({ y: oldY + 10 }, timeNum)
-						.to({ y: oldY }, timeNum);
-					//this.bubbleList.push(bubble[i].status);
+					if (bubble[i].state < 2) {
+						egret.Tween.get(qipao, { loop: true })
+							.to({ y: oldY + 10 }, timeNum)
+							.to({ y: oldY }, timeNum);
+					} else {
+
+					}
 					this.qiPaoList.push(qipao);
 				}
 			}
@@ -59,6 +63,13 @@ module game {
 					for (let i: number = 0; i < this.qiPaoList.length; i++) {
 						for (let k: number = 0; k < bubble.length; k++) {
 							if (this.qiPaoList[i].bubble.index == bubble[k].index) {
+								if (this.qiPaoList[i].bubble.state == 2 && bubble[k].state < 2) {
+									let oldY: number = this.qiPaoList[i].y;
+									let timeNum: number = 800 + Math.floor(Math.random() * 500);
+									egret.Tween.get(this.qiPaoList[i], { loop: true })
+										.to({ y: oldY + 10 }, timeNum)
+										.to({ y: oldY }, timeNum);
+								}
 								this.qiPaoList[i].updataInfo(bubble[k]);
 								break;
 							}
@@ -105,7 +116,7 @@ module game {
 			}
 		}
 		private plunderFloatWord(qipao: QipaoPanel, num: number) {
-			let FloatSpr:egret.Sprite=new egret.Sprite();
+			let FloatSpr: egret.Sprite = new egret.Sprite();
 			let textField: egret.TextField = new egret.TextField();
 			textField.size = 30;
 			textField.textColor = 0x69470F;
@@ -113,28 +124,28 @@ module game {
 			textField.strokeColor = 0xffffff;
 			textField.width = qipao.width;
 			textField.height = 30;
-			textField.textAlign ="left";
+			textField.textAlign = "left";
 			textField.text = "+" + num;
 			//textField.scaleX = textField.scaleY = GameConfig.innerScale;
-			let goldImg:egret.Bitmap = new egret.Bitmap();
-			goldImg.texture=RES.getRes("smallGoldIcon1_png");
-			goldImg.anchorOffsetY=goldImg.height/2;
-			goldImg.x=0;goldImg.y=0;
+			let goldImg: egret.Bitmap = new egret.Bitmap();
+			goldImg.texture = RES.getRes("smallGoldIcon1_png");
+			goldImg.anchorOffsetY = goldImg.height / 2;
+			goldImg.x = 0; goldImg.y = 0;
 			FloatSpr.addChild(goldImg);
-			textField.anchorOffsetY=textField.height/2;
-			textField.x=goldImg.width;
-			textField.y=0;
+			textField.anchorOffsetY = textField.height / 2;
+			textField.x = goldImg.width;
+			textField.y = 0;
 			FloatSpr.addChild(textField);
-			FloatSpr.width=goldImg.width+60;
-			FloatSpr.anchorOffsetX=FloatSpr.width/2;
-			
+			FloatSpr.width = goldImg.width + 60;
+			FloatSpr.anchorOffsetX = FloatSpr.width / 2;
+
 
 			FloatSpr.alpha = 1;
 			this.addChild(FloatSpr);
-			FloatSpr.x = qipao.x+130/2;;
+			FloatSpr.x = qipao.x + 130 / 2;;
 			FloatSpr.y = qipao.y;
 			egret.Tween.get(FloatSpr)
-				.to({ scaleX:2,scaleY:2, y: FloatSpr.y - 30,alpha: 0 }, 500)
+				.to({ scaleX: 2, scaleY: 2, y: FloatSpr.y - 30, alpha: 0 }, 500)
 				.call(this.FloatWordOnComplete, this, [FloatSpr]);//设置回调函数及作用域，可用于侦听动画完成
 
 		}

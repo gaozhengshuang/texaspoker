@@ -2,28 +2,28 @@
 <e:Skin class="UserInfoUISkin" width="560" height="180" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="roomBg" source="roomUserInfo-bg_png" anchorOffsetX="0" left="0" top="0" width="547" anchorOffsetY="0" height="146.67" alpha="0.8"/>
 	<e:Image source="userInfo_bg1_png" anchorOffsetX="0" width="430" anchorOffsetY="0" height="122" y="0"/>
-	<e:Label id="name_txt" text="七宝王思聪思" x="116" y="22" anchorOffsetX="0" width="165" anchorOffsetY="0" height="32.67" size="25" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404a58" bold="true"/>
-	<e:Label id="level_txt" text="Lv.99" x="293.67" y="26" anchorOffsetX="0" anchorOffsetY="0" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x2b7deb" bold="true"/>
-	<e:Label id="qiang_txt" text="30/50" x="127.66" y="117" anchorOffsetX="0" width="81.87" anchorOffsetY="0" height="22.58" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="1" textColor="0xf7f7f7"/>
-	<e:Group id="timeGroup" x="218.31" y="116">
-		<e:Label id="time_txt" text="30:50" x="0" y="1" anchorOffsetX="0" width="83.85" anchorOffsetY="0" height="22.58" size="25" textAlign="right" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="1" textColor="0xf7f7f7"/>
-		<e:Label id="qiang_txt1" text="+5" x="87.93" y="0" anchorOffsetX="0" anchorOffsetY="0" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xfc2c07" stroke="1"/>
+	<e:Label id="name_txt" text="七宝王思聪思" x="128" y="22" anchorOffsetX="0" width="165" anchorOffsetY="0" height="32.67" size="25" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404a58" bold="true"/>
+	<e:Label id="level_txt" text="Lv.99" x="37" y="81.55" anchorOffsetX="0" anchorOffsetY="0" size="20" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x2b7deb" bold="true"/>
+	<e:Label id="qiang_txt" text="30/50" x="323.63" y="27" anchorOffsetX="0" width="81.87" anchorOffsetY="0" height="22.58" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="0" textColor="0x14b05e"/>
+	<e:Group id="timeGroup" x="323.63" y="39.64">
+		<e:Label id="time_txt" text="30:50" x="0" y="1" anchorOffsetX="0" width="63.18" anchorOffsetY="0" height="22.58" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="0" textColor="0x5987af"/>
+		<e:Label id="qiang_txt1" text="+5" x="63.22" y="0" anchorOffsetX="0" anchorOffsetY="0" size="22" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" stroke="0" textColor="0x14b05e"/>
 	</e:Group>
-	<e:Label id="vip_txt" text="99" x="59.05" y="85.66" anchorOffsetX="0" width="29.88" anchorOffsetY="0" height="23.6" size="20" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" strokeColor="0xffffff" stroke="2" textColor="0x720afd"/>
-	<e:Label id="coin_txt" text="99999999" x="147.42" y="76" anchorOffsetX="0" width="130.51" anchorOffsetY="0" height="26.48" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404A58" fontFamily="Microsoft YaHei"/>
-	<e:Label id="gold_txt" text="99999" x="311.46" y="77" anchorOffsetX="0" width="98.5" anchorOffsetY="0" height="25.48" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404A58" fontFamily="Microsoft YaHei"/>
-	<e:Image x="113.5" y="75" source="ui_comn_icon_gold_png" scaleX="0.6" scaleY="0.6"/>
-	<e:Image source="diamondIcon_png" x="279" y="76" scaleX="0.6" scaleY="0.6"/>
-	<e:Image source="vipIcon_png" x="84.5" y="87.13"/>
+	<e:Label id="vip_txt" text="99" x="59.05" y="85.66" anchorOffsetX="0" width="29.88" anchorOffsetY="0" height="23.6" size="20" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" strokeColor="0xffffff" stroke="2" textColor="0x720afd" visible="false"/>
+	<e:Label id="coin_txt" text="99999999" x="147.42" y="74" anchorOffsetX="0" width="130.51" anchorOffsetY="0" height="26.48" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404A58" fontFamily="Microsoft YaHei"/>
+	<e:Label id="gold_txt" text="99999" x="311.46" y="74" anchorOffsetX="0" width="98.5" anchorOffsetY="0" height="25.48" size="25" textAlign="left" rotation="359.84" verticalAlign="middle" textColor="0x404A58" fontFamily="Microsoft YaHei"/>
+	<e:Image x="109.5" y="69" scaleX="1" scaleY="1" source="smallGoldIcon1_png"/>
+	<e:Image source="diamondIcon_png" x="267" y="69" scaleX="1" scaleY="1"/>
+	<e:Image source="vipIcon_png" x="84.5" y="87.13" visible="false"/>
 	<e:Group id="roomWeizhiGroup" x="134" y="112" visible="false">
 		<e:Label id="bName_txt" text="万科城市花园" x="2" y="0" size="28" fontFamily="Microsoft YaHei" textAlign="left" anchorOffsetX="0" width="217" stroke="1.4"/>
 		<e:Label id="bWeizhi_txt" text="上海闵行区" x="19" y="34" size="25" fontFamily="Microsoft YaHei" textAlign="left" width="153" textColor="0xECB700" rotation="0.09" anchorOffsetX="0"/>
 		<e:Image source="room_weizhi_icon1_png" x="0" y="31" scaleX="0.5" scaleY="0.5"/>
 	</e:Group>
-	<e:Group id="roomNumGroup" y="14.7" right="31">
+	<e:Group id="roomNumGroup" y="14.7" left="416">
 		<e:Image source="userRoomNoBg_png" x="0" y="0" scaleX="1.2" scaleY="1.2"/>
 		<e:Label text="Room" x="26.02" y="24.32" anchorOffsetX="0" width="69.88" anchorOffsetY="0" height="22.58" size="24" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
 		<e:Label id="roomNum_txt" text="808" x="26.02" y="54.48" anchorOffsetX="0" width="69.88" anchorOffsetY="0" height="22.58" size="24" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>
 	</e:Group>
-	<e:Image source="tilingIcon1_png" x="91.03" y="114"/>
+	<e:Image source="tilingIcon1_png" x="283.99" y="21"/>
 </e:Skin>

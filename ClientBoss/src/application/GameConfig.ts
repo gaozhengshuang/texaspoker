@@ -47,8 +47,6 @@ module game {
         public static innerScaleW:number=1;
         public static innerScaleH:number=1;
 
-        public static appContainer: AppContainer;
-
         /**
          * 生产服务器
          */
@@ -72,7 +70,7 @@ module game {
 
         public static errorJson: string = "errorCode_json";
         public static errorObj: any;
-
+        
         public static sceneType: number = 0;
 
         public static pageType: number = 0;

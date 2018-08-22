@@ -582,27 +582,20 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	send := &msg.GW2MS_ReqCreateHouse{}
-	send.Userid = pb.Uint64(this.Id())
-	send.Housetid = pb.Uint32(1001)
-	send.Ownername = pb.String(this.Name())
-	Match().SendCmd(send)
+	//send := &msg.GW2MS_ReqCreateHouse{}
+	//send.Userid = pb.Uint64(this.Id())
+	//send.Housetid = pb.Uint32(1001)
+	//send.Ownername = pb.String(this.Name())
+	//Match().SendCmd(send)
+	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0)
 
-	createcarsend := &msg.GW2MS_ReqCreateCar{}
-	createcarsend.Userid = pb.Uint64(this.Id())
-	createcarsend.Cartid = pb.Uint32(1001)
-	createcarsend.Username = pb.String(this.Name())
-	Match().SendCmd(createcarsend)
+	if houseData != nil {
+		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
+		CarMgr().CreateNewParking(this.Id(), 1002, this.Name(), houseData.id)
+	}
 
-	createparksend := &msg.GW2MS_ReqCreateParking{}
-	createparksend.Userid = pb.Uint64(this.Id())
-	createparksend.Parkid = pb.Uint32(1002)
-	createparksend.Username = pb.String(this.Name())
-	Match().SendCmd(createparksend)
-
-	//this.newplayerstep = 0
-	//this.robcount = 10
-
+	this.newplayerstep = 0
+	this.robcount = 10
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -637,7 +630,7 @@ func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
 	//上线通知MatchServer
-	this.OnlineMatchServer()
+	//this.OnlineMatchServer()
 	this.ReqMatchHouseData()
 	this.CheckAddRobCount()
 	return true
@@ -649,8 +642,9 @@ func (this *GateUser) Syn() {
 	//this.CheckGiveFreeStep(util.CURTIME(), "上线跨整点")
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
-	this.ReqMatchCarData()
-	this.ReqRecordData()
+	this.SynCarData()
+	this.SynParkingData()
+	this.SynParkingRecord()
 	//this.QueryPlatformCoins()
 }
 
@@ -723,7 +717,7 @@ func (this *GateUser) Logout() {
 	this.asynev.Shutdown()
 
 	//下线通知MatchServer
-	this.OnDisconnectMatchServer()
+	//this.OnDisconnectMatchServer()
 	log.Info("账户%s 玩家[%s %d] 存盘下线", this.account, this.Name(), this.Id())
 }
 
@@ -1016,23 +1010,6 @@ func (this *GateUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount
 	if errmsg != "" {
 		log.Error("玩家[%s %d] midas加钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
 	}
-}
-
-func (this *GateUser) OnlineMatchServer() {
-	send := &msg.GW2MS_UserOnlineState{
-		Userid: pb.Uint64(this.Id()),
-		State:  pb.Uint32(1),
-	}
-	Match().SendCmd(send)
-
-}
-
-func (this *GateUser) OnDisconnectMatchServer() {
-	send := &msg.GW2MS_UserOnlineState{
-		Userid: pb.Uint64(this.Id()),
-		State:  pb.Uint32(0),
-	}
-	Match().SendCmd(send)
 }
 
 func (this *GateUser) SyncTimeStamp() {
