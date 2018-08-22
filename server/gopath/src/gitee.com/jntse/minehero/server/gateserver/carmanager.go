@@ -247,16 +247,7 @@ func (this *CarManager) Init() {
 	this.ticker1Second = util.NewGameTicker(time.Second, this.Handler1SecondTick)
 	this.ticker1Second.Start()
 
-	carsIds, err := Redis().SMembers(CarIdSetKey).Result()
-	if err != nil {
-		log.Error("启动加载车辆数据失败 err: %s", err)
-	} else {
-		for _, v := range carsIds {
-			carid, _ := strconv.Atoi(v)
-			this.GetCar(uint64(carid))
-		}
-	}
-
+	this.LoadCarFromDB()
 	parkingIds, err := Redis().SMembers(ParkingIdSetKey).Result()
 	if err != nil {
 		log.Error("启动加载车位数据失败 err: %s", err)
