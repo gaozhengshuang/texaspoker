@@ -41,14 +41,6 @@ module game {
 			return SceneAssetsViewUI;
 		}
 		protected beforeShow() {
-			this._notify = [
-				{
-					source: DataManager.playerModel,
-					target: this,
-					callBackFunc: this.OnGW2C_ResCarInfo,
-					notifyName: "msg.GW2C_ResCarInfo"
-				}
-			];
 			this.radioGroup = this.titleRadio1.group;
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			this.radioGroup.selectedValue = this.titleRadio1.value;
@@ -56,6 +48,8 @@ module game {
 			this.contentStarck.selectedChild = this["stackGroup" + this.currentGroupId];
 
 			this.view_bg.height = gameConfig.curHeight();
+
+			NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
 		}
 
 		protected resetSize() {
