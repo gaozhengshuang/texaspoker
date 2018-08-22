@@ -4,7 +4,7 @@ module game {
 
 	export class ApplicationFacade extends puremvc.Facade implements puremvc.IFacade {
 
-		public mediatorMap: game.Map<string, any> = new game.Map<string, any>();
+		public mediatorMap: game.Map<string, puremvc.Mediator> = new game.Map<string, puremvc.Mediator>();
 
 		public constructor() {
 			super("game");
@@ -32,7 +32,7 @@ module game {
 		public getMediator(key: any) {
 			return this.mediatorMap.getValue(key);
 		}
-		public registerMdt(name: string, cls: any, view: any) {
+		public registerMdt<T extends puremvc.Mediator>(name: string, cls: { new (param: any): T }, view: any) {
 			let mdt;
 			mdt = this.getMediator(name)
 			if (!mdt) {

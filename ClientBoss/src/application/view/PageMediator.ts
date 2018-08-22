@@ -39,7 +39,7 @@ module game {
 
                             this.pageView = GameRoomView.getInstance();
 
-                            ApplicationFacade.getInstance().registerMdt(RoomMediator.NAME, RoomMediator, this.pageView);
+                            ApplicationFacade.getInstance().registerMdt<RoomMediator>(RoomMediator.NAME, RoomMediator, this.pageView);
 
                             this.pageMediatorName = RoomMediator.NAME;
                             GameRoomView.getInstance().initInfo(data.room, userProxy.getUserInfo().userid, houseProxy.returnType);
@@ -70,7 +70,7 @@ module game {
                             this.pageView = new GameSmallGameView();
                             this.sceneGroup.addChild(this.pageView);
                             // ApplicationFacade.getInstance().registerMediator(new SmallGameMediator(this.pageView));
-                            ApplicationFacade.getInstance().registerMdt(SmallGameMediator.NAME, SmallGameMediator, this.pageView);
+                            ApplicationFacade.getInstance().registerMdt<SmallGameMediator>(SmallGameMediator.NAME, SmallGameMediator, this.pageView);
 
                             this.pageMediatorName = SmallGameMediator.NAME;
                             (this.pageView as GameSmallGameView).initGame(data.game);

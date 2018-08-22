@@ -57,7 +57,7 @@ module game {
                         view.initView();
                         this._lastPanelView = view;
                         // ApplicationFacade.getInstance().registerMediator(new MapContentMediator(this._lastPanelView));
-                        ApplicationFacade.getInstance().registerMdt(MapContentMediator.NAME, MapContentMediator, this._lastPanelView);
+                        ApplicationFacade.getInstance().registerMdt<MapContentMediator>(MapContentMediator.NAME, MapContentMediator, this._lastPanelView);
                         
                         this.sceneMediatorName = MapContentMediator.NAME;
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_UPDATED_POINT, { require: 1 });
@@ -76,7 +76,7 @@ module game {
                         openPanel(PanelType.GameSceneAssetsView);
                         this._lastPanelView = GameSceneAssetsView.getInstance();
                         // ApplicationFacade.getInstance().registerMediator(new SceneAssetsMediator(this._lastPanelView));
-                        ApplicationFacade.getInstance().registerMdt(SceneAssetsMediator.NAME, SceneAssetsMediator, this._lastPanelView);
+                        ApplicationFacade.getInstance().registerMdt<SceneAssetsMediator>(SceneAssetsMediator.NAME, SceneAssetsMediator, this._lastPanelView);
                         
                         this.sceneMediatorName = SceneAssetsMediator.NAME;
 
@@ -98,7 +98,7 @@ module game {
                         this._lastPanelView = GameDiscoveryView.getInstance();
 
                         // ApplicationFacade.getInstance().registerMediator(new DiscoveryMediator(this._lastPanelView));
-                        ApplicationFacade.getInstance().registerMdt(DiscoveryMediator.NAME, DiscoveryMediator, this._lastPanelView);
+                        ApplicationFacade.getInstance().registerMdt<DiscoveryMediator>(DiscoveryMediator.NAME, DiscoveryMediator, this._lastPanelView);
                         
                         this.sceneMediatorName = DiscoveryMediator.NAME;
                         GameDiscoveryView.getInstance().initGameList(smallGameProxy.getSmallGame());
@@ -119,7 +119,7 @@ module game {
                         openPanel(PanelType.GameMineView);
                         this._lastPanelView = GameMineView.getInstance();
                         // ApplicationFacade.getInstance().registerMediator(new MineMediator(this._lastPanelView));
-                        ApplicationFacade.getInstance().registerMdt(MineMediator.NAME, MineMediator, this._lastPanelView);
+                        ApplicationFacade.getInstance().registerMdt<MineMediator>(MineMediator.NAME, MineMediator, this._lastPanelView);
 
                         this.sceneMediatorName = MineMediator.NAME;
                         GameMineView.getInstance().updateView(userProxy.getUserInfo());

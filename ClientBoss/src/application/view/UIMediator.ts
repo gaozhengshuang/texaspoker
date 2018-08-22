@@ -35,7 +35,7 @@ module game {
                         this.uiView.initView(game.DataManager.playerModel.getUserInfo());
                         this.sceneGroup.addChild(this.uiView);
                         // ApplicationFacade.getInstance().registerMediator(new MapUIMediator(this.uiView));
-                        ApplicationFacade.getInstance().registerMdt(MapUIMediator.NAME, MapUIMediator, this.uiView);
+                        ApplicationFacade.getInstance().registerMdt<MapUIMediator>(MapUIMediator.NAME, MapUIMediator, this.uiView);
 
                         this.uiMediatorName = MapUIMediator.NAME;
                         break;
