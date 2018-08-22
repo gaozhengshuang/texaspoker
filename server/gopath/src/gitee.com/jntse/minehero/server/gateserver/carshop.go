@@ -117,6 +117,7 @@ func (shop *CarShop) InitOnce() {
 // DB加载
 func (shop* CarShop) LoadDB() {
 	pipe := Redis().Pipeline()
+	defer pipe.Close()
 	for _, v := range tbl.CarShopBase.TCarShopById {
 		pid := strconv.FormatUint(uint64(v.Id), 10)
 		pipe.HGet("carshop", pid)
@@ -141,6 +142,7 @@ func (shop* CarShop) LoadDB() {
 // 保存
 func (shop *CarShop) SaveAll() {
 	pipe := Redis().Pipeline()
+	defer pipe.Close()
 	for _, v := range shop.products {
 		v.SaveBin(pipe)
 	}

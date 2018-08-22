@@ -275,6 +275,7 @@ func (this *CarManager) LoadCarFromDB() {
 	} 
 
 	pipe := Redis().Pipeline() 
+	defer pipe.Close()
 	for _, v := range carsIds {
 		carid, _ := strconv.Atoi(v)
 		pipe.Get(fmt.Sprintf("cars_%d", carid))
@@ -305,6 +306,7 @@ func (this *CarManager) LoadParkingFromDB() {
 	} 
 
 	pipe := Redis().Pipeline()
+	defer pipe.Close()
 	for _, v := range parkingIds {
 		parkingid, _ := strconv.Atoi(v)
 		pipe.Get(fmt.Sprintf("parkings_%d", parkingid))
@@ -663,6 +665,7 @@ func (this *CarManager) SaveAllData() {
 	if err != nil {
 		log.Error("保存数据失败 redis pipe操作失败")
 	}
+	pipe.Close()
 }
 
 func (this *CarManager) AppendHouseData(houses []*msg.HouseData) {
