@@ -46,7 +46,7 @@ module game {
         //登录完成关闭loading界面
         NotificationCenter.postNotification("closeLoadingSkin");
         NotificationCenter.once(this, connectFailed, ClientNet.SOCKET_CONNECT_CLOSE);
-        this.startHeart();
+        startHeart();
         window.onbeforeunload = () => {
             stopHeart();
             ClientNet.getInstance().onConnectClose();

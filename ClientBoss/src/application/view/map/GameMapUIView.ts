@@ -94,8 +94,8 @@ module game {
         public initView(info:IUserInfo):void{
             this.userInfo=info;
             if(this.userInfoPanel==null){
-                this.userInfoPanel=new GameUserInfoPanel();
-                this.addChild(this.userInfoPanel);
+                openPanel(PanelType.GameUserInfoPanel);
+                this.userInfoPanel= GameUserInfoPanel.getInstance();
                 this.userInfoPanel.x=0;
                 this.userInfoPanel.y=0;
             }

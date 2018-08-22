@@ -52,11 +52,12 @@ module game {
         public selfIdNum: number | Long;
 
         private huxingPanel: RoomHuxingPanel;
+        private scrollView: egret.ScrollView;
         private sussImg: eui.Image;
 
         private xuanBgPointX: number[] = [-9, 137, 284];
-        private static _instance: GameRoomView = null;
         private static _inMyRoom: boolean = false;
+        private static _instance: GameRoomView = null;
         public static getInstance(): GameRoomView {
             if (!GameRoomView._instance) {
                 GameRoomView._instance = new GameRoomView();
@@ -145,36 +146,31 @@ module game {
                 this.showOthers();
                 this.lingju_btn.visible = false;
             }
+            if (!this.huxingPanel) {
+                this.huxingPanel = new RoomHuxingPanel(this);
 
-            this.huxingPanel = new RoomHuxingPanel(this);
+                this.scrollView = new egret.ScrollView();
+                //设置滚动内容
+                this.scrollView.setContent(this.huxingPanel);
 
-
-            var scrollView: egret.ScrollView = new egret.ScrollView();
-            //设置滚动内容
-            scrollView.setContent(this.huxingPanel);
+                //垂直滚动设置为 on 
+                this.scrollView.verticalScrollPolicy = "on";
+                //水平滚动设置为 auto
+                this.scrollView.horizontalScrollPolicy = "on";
+                this.scrollView.bounces = false;
+                //scrollView.y=100;
+                this.addChild(this.scrollView);
+                this.swapChildren(this.scrollView, this.huxingGroup);
+            }
             //设置滚动区域宽高
-            scrollView.width = gameConfig.curWidth();
-            scrollView.height = gameConfig.curHeight();
-            //垂直滚动设置为 on 
-            scrollView.verticalScrollPolicy = "on";
-            //水平滚动设置为 auto
-            scrollView.horizontalScrollPolicy = "on";
-            //scrollView.y=100;
-
+            this.scrollView.width = gameConfig.curWidth();
+            this.scrollView.height = gameConfig.curHeight();
+            this.scrollView.setScrollLeft(this.huxingPanel.width / 2 - this.scrollView.width / 2, 0)
             this.huxingPanel.init(this.roomInfo);
-
-            scrollView.bounces = false;
-
-            scrollView.setScrollLeft(this.huxingPanel.width / 2 - scrollView.width / 2, 0)
 
             //scrollView.setScrollTop(this.huxingPanel.height / 2 - scrollView.height / 2, 0)
 
-            this.addChild(scrollView);
-            this.swapChildren(scrollView, this.huxingGroup);
-
             this.showParkingLotList();
-
-
         }
 
         public haveNewDongtai(isRed: number) {

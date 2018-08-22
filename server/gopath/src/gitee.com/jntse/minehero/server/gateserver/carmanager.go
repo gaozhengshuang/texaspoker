@@ -189,6 +189,24 @@ func (this *ParkingData) Parking(car *CarData, username string) {
 	this.parkingcartid = car.tid
 }
 
+// 是否公共车位
+func (this *ParkingData) IsPublic() bool {
+	return this.template.Type == uint32(msg.ParkingType_Public)
+}
+
+// 是否私有车位
+func (this *ParkingData) IsPrivate() bool {
+	return this.template.Type == uint32(msg.ParkingType_Private)
+}
+
+func (this *ParkingData) IsRewardFull(car *CarData) bool {
+	if car != nil && car.template != nil {
+		return this.parkingreward >= car.template.Capacity
+	}
+	return false
+}
+
+
 //车辆管理器
 type CarManager struct {
 	cars     map[uint64]*CarData //已加载的所有车辆的map
@@ -196,6 +214,7 @@ type CarManager struct {
 
 	parkings     map[uint64]*ParkingData //已加载的所有车位map
 	userparkings map[uint64][]uint64     //玩家id 关联的车位id
+	publicparkings uint32		// 公共车位数
 
 	ticker1Minite *util.GameTicker
 	ticker1Second *util.GameTicker
@@ -233,12 +252,14 @@ func (this *CarManager) Init() {
 		}
 	}
 
-	if len(this.parkings) == 0 {
-		//创建公共车位
-		for i := 0; i < 20; i++ {
-			this.CreateNewParking(0, 1001, "公共车位", 0)
-		}
+	//创建公共车位
+	for _, v := range this.parkings {
+		if v.IsPublic() { this.publicparkings += 1 }
 	}
+	for i := this.publicparkings; i < uint32(tbl.Car.PulicParkingNum); i++ {
+		this.CreateNewParking(0, 1001, "公共车位", 0)
+	}
+	this.publicparkings = uint32(tbl.Car.PulicParkingNum)
 }
 
 func (this *CarManager) GetCar(id uint64) *CarData {
@@ -341,16 +362,19 @@ func (this *CarManager) CreateNewRecord(handleid uint64,ownerid uint64, car *Car
 	prefix := fmt.Sprintf("%d_%d_%s  ", handleid,opttype,time.Now().Format("15:04"))
 	data := ""
 	switch opttype {
-	case 1:
+	case uint32(msg.CarOperatorType_Park):
 		//停车
 		data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
 		break
-	case 2:
+	case uint32(msg.CarOperatorType_TakeBack):
 		//收车
 		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
 		break
-	case 3:
+	case uint32(msg.CarOperatorType_Ticket):
 		data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
+		break
+	case uint32(msg.CarOperatorType_AutoBack):
+		data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
 		break
 	}
 	// 保存数据
@@ -452,6 +476,7 @@ func (this *CarManager) AddParking(parking *ParkingData) {
 	this.userparkings[parking.ownerid] = append(this.userparkings[parking.ownerid], parking.id)
 }
 
+// 停车到车位
 func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username string) (result int32) {
 	car := this.GetCar(carid)
 	parking := this.GetParking(parkingid)
@@ -480,35 +505,35 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	return 0
 }
 
-func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32) {
-	car := this.GetCar(carid)
-	if car == nil {
-		return 1, 0
-	}
-	if car.parkingid == 0 {
-		return 2, 0
-	}
-	parking := this.GetParking(car.parkingid)
-	if parking == nil {
-		return 3, 0
-	}
-	//可以收回
-	reward = parking.TakeBack()
-	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
-	car.SetParking(0)
-	car.modified = true
-	parking.modified = true
-	//发送操作记录
-	sendOwner := UserMgr().FindById(parking.ownerid)
-	if sendOwner != nil {
-		sendRecord := &msg.GW2C_SynParkingRecord{}
-		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
-		sendOwner.SendMsg(sendRecord)
-	}
-	return 0, reward
-}
+//func (this *CarManager) TakeBackCar(carid uint64) (result uint32, reward uint32) {
+//	car := this.GetCar(carid)
+//	if car == nil {
+//		return 1, 0
+//	}
+//	if car.parkingid == 0 {
+//		return 2, 0
+//	}
+//	parking := this.GetParking(car.parkingid)
+//	if parking == nil {
+//		return 3, 0
+//	}
+//	//可以收回
+//	reward = parking.TakeBack()
+//	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
+//	car.SetParking(0)
+//	car.modified = true
+//	parking.modified = true
+//	//发送操作记录
+//	sendOwner := UserMgr().FindById(parking.ownerid)
+//	if sendOwner != nil {
+//		sendRecord := &msg.GW2C_SynParkingRecord{}
+//		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
+//		sendOwner.SendMsg(sendRecord)
+//	}
+//	return 0, reward
+//}
 
-func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, reward uint32) {
+func (this *CarManager) TakeBackFromParking(parkingid uint64, optype uint32) (result uint32, reward uint32) {
 	parking := this.GetParking(parkingid)
 	if parking == nil {
 		return 1, 0
@@ -521,14 +546,25 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64) (result uint32, re
 		return 3, 0
 	}
 	//可以收回
-	reward = parking.TakeBack()
-	record := this.CreateNewRecord(parking.ownerid,car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
+	reward = parking.TakeBack() 
+	record, notifyuser := "", uint64(0)
+	if optype == uint32(msg.CarOperatorType_TakeBack) {
+		record = this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
+		notifyuser = parking.ownerid
+	}else if optype == uint32(msg.CarOperatorType_Ticket) {
+		record = this.CreateNewRecord(parking.ownerid, car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
+		notifyuser = car.ownerid
+	}else if optype == uint32(msg.CarOperatorType_AutoBack) {
+		record = this.CreateNewRecord(parking.id, car.ownerid, car, parking, uint32(msg.CarOperatorType_AutoBack), reward)
+		notifyuser = car.ownerid
+	}
+
 	car.SetParking(0)
 	car.modified = true
 	parking.modified = true
 
 	//发送操作记录
-	sendOwner := UserMgr().FindById(car.ownerid)
+	sendOwner := UserMgr().FindById(notifyuser)
 	if sendOwner != nil {
 		sendRecord := &msg.GW2C_SynParkingRecord{}
 		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
@@ -590,5 +626,8 @@ func (this *CarManager) Handler1SecondTick(now int64) {
 		}
 		car := this.GetCar(v.parkingcar)
 		v.UpdateReward(car, uint64(now))
+		if v.IsRewardFull(car) == true {
+			this.TakeBackFromParking(car.parkingid, uint32(msg.CarOperatorType_AutoBack))
+		}
 	}
 }

@@ -31,6 +31,7 @@ var TCarBase = table.InsTCarBaseTable
 var NameBase = table.InsNameBaseTable
 var TBallBase = table.InsTBallBaseTable
 var TEquipBase = table.InsTEquipBaseTable
+var TCitysBase = table.InsTCitysBaseTable
 var TaskBase = table.InsTaskBaseTable
 var TSkillpBase = table.InsTSkillpBaseTable
 var TBuildingsBase = table.InsTBuildingsBaseTable
