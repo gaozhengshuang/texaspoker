@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"time"
+	"strings"
 	"github.com/go-redis/redis"
 	pb "github.com/golang/protobuf/proto"
 	"gitee.com/jntse/testgo/testredis/proto"
@@ -12,6 +13,7 @@ import (
 
 var g_KeyBordInput util.KeyBordInput
 var g_Quit bool
+var Split = strings.Split
 
 func main() {
 	fmt.Println("vim-go")
@@ -341,29 +343,59 @@ func TestBin() {
 
 // 管道技术
 func TestPipeline() {
-	key1, key2, count := "pipe_test1", "pipe_test2", 10
+	key, count, value := "pipe_test2", 10000, make([]byte, 100)
+	value = value
 
 	// 普通方式
+	t1 := util.CURTIMEMS()
 	for i:=0; i < count; i++ {
-		_, err := GRedis.Get(fmt.Sprintf("%s_%d",key1,i)).Result()
+		_, err := GRedis.Set(fmt.Sprintf("%s_%d",key,value), i, 0).Result()
+		if err != nil { log.Println("Redis Set Error: ", err) }
+	}
+	log.Printf("TestPipeline Set data Sucess Size=%d cost:%dms", count, util.CURTIMEMS() - t1)
+
+	// 普通方式
+	t1 = util.CURTIMEMS()
+	for i:=0; i < count; i++ {
+		_, err := GRedis.Get(fmt.Sprintf("%s_%d",key,i)).Result()
 		if err != nil { log.Println("Redis Get Error: ", err) }
 	}
+	log.Printf("TestPipeline Get data Sucess Size=%d cost:%dms", count, util.CURTIMEMS() - t1)
 
 	// 管道方式
+	t1 = util.CURTIMEMS()
 	pipe := GRedis.Pipeline()
 	for i:=0; i < count; i++ {
-		_, err := pipe.Get(fmt.Sprintf("%s_%d",key2,i)).Result()
+		pipe.Set(fmt.Sprintf("%s_%d",key,i), value, 0).Result()
+	}
+	if _, err := pipe.Exec(); err != nil {
+		log.Println("Pipeline Set Exec RedisError: ", err)
+		return
+	}
+	pipe.Close()
+	log.Printf("TestPipeline Set data Success Size=%d cost:%dms", count, util.CURTIMEMS() - t1)
+
+
+	// 管道方式
+	t1 = util.CURTIMEMS()
+	pipe = GRedis.Pipeline()
+	for i:=0; i < count; i++ {
+		_, err := pipe.Get(fmt.Sprintf("%s_%d",key,i)).Result()
 		if err != nil { log.Println("Redis Get Error: ", err) }
 	}
 	cmds, err := pipe.Exec()
-	if err != nil {
-		log.Println("Pipe Exec Error: ", err)
-		for _, v := range cmds { log.Printf("%#v\n",v) }
-		for _, v := range cmds { 
-			log.Printf("name[%s] string[%s] args[%s]\n", v.Name(), v.String(), v.Args())
-		}
+	if err != nil && err != redis.Nil {
+		log.Println("Pipeline Get Exec RedisError: ", err)
+		return
 	}
-
+	log.Printf("TestPipeline Get Data Success Size=%d cost:%dms", len(cmds), util.CURTIMEMS() - t1)
+	//for _, v := range cmds { log.Printf("%#v\n",v) }
+	//for _, v := range cmds {
+	//	log.Printf("name[%s] string[%s] args[%s]\n", v.Name(), v.String(), v.Args())
+	//	keys := v.Args()[1].(string)
+	//	log.Println(strings.TrimLeft(keys, "pipe_test2_"))
+	//}
+	pipe.Close()
 }
 
 
