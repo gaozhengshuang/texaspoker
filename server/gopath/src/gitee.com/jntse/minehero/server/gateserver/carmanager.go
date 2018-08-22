@@ -290,7 +290,7 @@ func (this *CarManager) LoadCarFromDB() {
 		if v.Err() == redis.Nil { continue }
 		rbuf, _ := v.(*redis.StringCmd).Bytes()
 		car := &CarData{}
-		if car.LoadBin(rbuf) != nil {
+		if car.LoadBin(rbuf) == nil {
 			this.AddCar(car)
 		}
 	}
