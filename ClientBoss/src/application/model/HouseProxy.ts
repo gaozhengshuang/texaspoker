@@ -41,15 +41,26 @@ module game {
 		public linjuList:any[]=[];
 		private OnGW2C_AckRandHouseList(data: msg.GW2C_AckRandHouseList) {
 			if(data.datas && data.datas.length>0){
-				let houseList=[];
+				//房屋邻居列表
+				let houseList:HouseVO[]=[];
 				for(let i:number=0;i<data.datas.length;i++){
 					let house:HouseVO=new HouseVO();
 					house.setObject(data.datas[i]);
 					houseList.push(house);
 				}
+				//console.log("收到随机邻居列表------>",data.datas2.length,"  ",JSON.stringify(data.datas2));
+				//自己车停放的车位邻居列表
+				let carHouseList = data.datas2.map(data=>{
+					let house:HouseVO=new HouseVO();
+					house.setObject(data);
+					return house;
+				});
+				//去掉重复
+				carHouseList = carHouseList.concat(houseList.filter(data=>{return !carHouseList.some(idata=>{return data.rId==idata.rId;})}));
+
 				this.linjuList=houseList;
 				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_ROOM_NEIGHBOR,{ list: houseList});
-				CarDetailView.getInstance().showLinjuList(houseList);
+				CarDetailView.getInstance().showLinjuList(carHouseList);
 			}
 		}
 		private OnGW2C_AckTakeSelfHouseGoldRet(data: msg.GW2C_AckTakeSelfHouseGoldRet) {
