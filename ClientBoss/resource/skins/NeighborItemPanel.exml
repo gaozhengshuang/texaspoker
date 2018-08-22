@@ -6,7 +6,7 @@
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" left="0" height="2"/>
 	<e:Image source="have_coin_icon_png" x="1044" y="8"/>
 	<e:Image source="have_quan_icon_png" x="1238" y="8"/>
-	<e:Image source="headImgBg1_png" x="13" y="7" scaleX="0.25" scaleY="0.25" touchEnabled="false"/>
+	<e:Image x="13" scaleX="0.4" scaleY="0.4" touchEnabled="false" source="defaultHead1_png" verticalCenter="0"/>
 	<e:Button id="lveduo_btn" label="进 入" x="517" y="19">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
