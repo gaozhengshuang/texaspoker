@@ -29,6 +29,7 @@ type CarData struct {
 	createtime uint64 //创建时间
 	parkingid  uint64 //车位id
 	ownername  string //拥有者名字
+	parkingreward uint32 // 停车收益(自动回收)
 	modified   bool   //是否需要保存
 
 	template *table.TCarDefine
@@ -41,6 +42,7 @@ func (this *CarData) LoadBin(bin *msg.CarData) {
 	this.createtime = bin.GetCreatetime()
 	this.parkingid = bin.GetParkingid()
 	this.ownername = bin.GetOwnername()
+	this.parkingreward = bin.GetParkingreward()
 	this.modified = false
 	template, find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
@@ -54,6 +56,10 @@ func (this *CarData) SetParking(id uint64) {
 	this.parkingid = id
 }
 
+func (this *CarData) SetParkingReward(reward uint32) {
+	this.parkingreward = reward
+}
+
 func (this *CarData) PackBin() *msg.CarData {
 	bin := &msg.CarData{}
 	bin.Id = pb.Uint64(this.id)
@@ -62,6 +68,7 @@ func (this *CarData) PackBin() *msg.CarData {
 	bin.Createtime = pb.Uint64(this.createtime)
 	bin.Parkingid = pb.Uint64(this.parkingid)
 	bin.Ownername = pb.String(this.ownername)
+	bin.Parkingreward = pb.Uint32(this.parkingreward)
 	return bin
 }
 
@@ -300,6 +307,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	car.parkingid = 0
 	car.createtime = uint64(util.CURTIMEMS())
 	car.ownername = name
+	car.parkingreward = 0
 	car.modified = false
 
 	car.SaveBin(nil)
@@ -533,7 +541,7 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 //	return 0, reward
 //}
 
-func (this *CarManager) TakeBackFromParking(parkingid uint64, optype uint32) (result uint32, reward uint32) {
+func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, optype uint32) (result uint32, reward uint32) {
 	parking := this.GetParking(parkingid)
 	if parking == nil {
 		return 1, 0
@@ -548,25 +556,26 @@ func (this *CarManager) TakeBackFromParking(parkingid uint64, optype uint32) (re
 	//可以收回
 	reward = parking.TakeBack() 
 	record, notifyuser := "", uint64(0)
-	if optype == uint32(msg.CarOperatorType_TakeBack) {
+	switch optype {
+	case uint32(msg.CarOperatorType_TakeBack):
 		record = this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 		notifyuser = parking.ownerid
-		reaper := UserMgr().FindById(car.ownerid)
-		if reaper != nil {
-			reaper.AddGold(reward,"收回车辆收益",true)
-		}
-	}else if optype == uint32(msg.CarOperatorType_Ticket) {
+		user.AddGold(reward,"收回车辆收益",true)
+		break
+	case uint32(msg.CarOperatorType_Ticket):
 		record = this.CreateNewRecord(parking.ownerid, car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 		notifyuser = car.ownerid
+		user.AddGold(reward,"贴条车辆收益",true)
 		reaper := UserMgr().FindById(parking.ownerid)
-		if reaper != nil {
-			reaper.AddGold(reward,"贴条车辆收益",true)
-		}
-	}else if optype == uint32(msg.CarOperatorType_AutoBack) {
+		if reaper != nil { reaper.AddGold(reward,"贴条车辆收益",true) }
+		break
+	case uint32(msg.CarOperatorType_AutoBack):
 		record = this.CreateNewRecord(parking.id, car.ownerid, car, parking, uint32(msg.CarOperatorType_AutoBack), reward)
 		notifyuser = car.ownerid
+		car.SetParkingReward(reward)
+		log.Info("玩家[%s %d] 公共车位自动回收车辆[%d]", car.ownername, car.ownerid, car.id)
+		break
 	}
-
 	car.SetParking(0)
 	car.modified = true
 	parking.modified = true
@@ -635,7 +644,7 @@ func (this *CarManager) Handler1SecondTick(now int64) {
 		car := this.GetCar(v.parkingcar)
 		v.UpdateReward(car, uint64(now))
 		if v.IsRewardFull(car) == true {
-			this.TakeBackFromParking(car.parkingid, uint32(msg.CarOperatorType_AutoBack))
+			this.TakeBackFromParking(UserMgr().FindById(car.ownerid), car.parkingid, uint32(msg.CarOperatorType_AutoBack))
 		}
 	}
 }
