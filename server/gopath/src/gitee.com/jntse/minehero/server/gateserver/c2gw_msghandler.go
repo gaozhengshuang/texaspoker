@@ -94,6 +94,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ParkCar{}, on_C2GW_ParkCar)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TakeBackCar{}, on_C2GW_TakeBackCar)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TicketCar{}, on_C2GW_TicketCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeCarAutoBackReward{}, on_C2GW_ReqTakeCarAutoBackReward)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -1043,7 +1044,7 @@ func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 
 }
 
-//请求收回车辆
+//请求收回车辆 / 领取自动回收收益
 func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -1076,6 +1077,23 @@ func on_C2GW_TicketCar(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_TicketCar)
 	send := &msg.GW2C_TicketCarResult{}
 	result, reward := CarMgr().TakeBackFromParking(user, tmsg.GetParkingid(), uint32(msg.CarOperatorType_Ticket))
+	send.Result = pb.Int32(int32(result))
+	send.Reward = pb.Int32(int32(reward))
+	user.SendMsg(send)
+}
+
+// 请求领取自动收益
+func on_C2GW_ReqTakeCarAutoBackReward(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTakeCarAutoBackReward)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_TakeBackCarResult{}
+	result, reward := CarMgr().TakeCarAutoBackReward(user, tmsg.GetCarid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
 	user.SendMsg(send)

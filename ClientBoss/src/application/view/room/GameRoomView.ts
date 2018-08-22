@@ -72,12 +72,12 @@ module game {
             super();
             this._isShowDark = false;
             this._isShowEffect = false;
+            this.adaptive();
         }
         protected getSkinName() {
             return RoomViewUISkin;
         }
         protected init() {
-            this.adaptive();
             this.hideList_btn.visible = false;
             this.shualingju_btn.visible = false;
             this.xuanBtnBg.visible = false;
@@ -429,6 +429,7 @@ module game {
                      }
                      break;*/
                 case 3:
+                    this.onclick_hideList();
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
                         this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { userid: item.ownerid, return: this.roomInfo, type: 2 }));
