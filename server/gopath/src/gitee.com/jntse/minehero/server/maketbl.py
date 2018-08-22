@@ -229,11 +229,12 @@ gen.maketbl_excel('TCarBase','carbase','TCar.xlsx')
 gen.maketbl_excel('TParkingBase','parkingbase','TParking.xlsx')
 gen.maketbl_excel('TBuildingsBase', 'buildingsbase', 'TBuildings.xlsx')
 gen.maketbl_excel('CarShopBase','carshop','TCarShop.xlsx')
-
+gen.maketbl_excel('TCitysBase','citysbase','TCitys.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')
 gen.maketbl_json('table', 'Game', 'game.json')
+gen.maketbl_json('table', 'Car', 'car.json')
 
 #// --------------------------------------------------------------------------
 #/// @brief 生成自动加载代码

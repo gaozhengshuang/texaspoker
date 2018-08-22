@@ -95,6 +95,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(NameBase, "namebase.json")
 	this.LoadExcel(TBallBase, "ballbase.json")
 	this.LoadExcel(TEquipBase, "equipbase.json")
+	this.LoadExcel(TCitysBase, "citysbase.json")
 	this.LoadExcel(TaskBase, "taskbase.json")
 	this.LoadExcel(TSkillpBase, "skillbase.json")
 	this.LoadExcel(TBuildingsBase, "buildingsbase.json")
@@ -105,7 +106,8 @@ func (this *TblLoader) Init() {
 	
 
 	// load jsons
-    this.LoadJson(Game, "game.json")
+    this.LoadJson(Car, "car.json")
+	this.LoadJson(Game, "game.json")
 	this.LoadJson(Global, "global.json")
 	this.LoadJson(Room, "room.json")
 	
