@@ -592,8 +592,14 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 }
 
 
-func (this *CarManager) TakeBackAutoBackReward(user *GateUser, car *CarData) (result uint32, reward uint32) {
+func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (result uint32, reward uint32) {
+	car := CarMgr().GetCar(carid)
 	if user == nil || car == nil {
+		return 0, 0
+	}
+
+	if user.Id() != car.ownerid {
+		user.SendNotify("这不是您的车辆")
 		return 0, 0
 	}
 
@@ -603,7 +609,7 @@ func (this *CarManager) TakeBackAutoBackReward(user *GateUser, car *CarData) (re
 	}
 
 	reward = car.parkingreward
-	user.AddGold(car.parkingreward, "领取自动回收收益", true)
+	user.AddGold(reward, "领取自动回收收益", true)
 	car.SetParkingReward(0)
 	return 0, reward
 }
