@@ -56,8 +56,8 @@ module game {
         private sussImg: eui.Image;
 
         private xuanBgPointX: number[] = [-9, 137, 284];
-        private static _instance: GameRoomView = null;
         private static _inMyRoom: boolean = false;
+        private static _instance: GameRoomView = null;
         public static getInstance(): GameRoomView {
             if (!GameRoomView._instance) {
                 GameRoomView._instance = new GameRoomView();

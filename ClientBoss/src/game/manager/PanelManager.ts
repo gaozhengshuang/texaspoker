@@ -59,6 +59,12 @@ module game {
             case PanelType.GameRoomView:
                 panel = GameRoomView.getInstance();
                 break;
+            case PanelType.GameUserInfoPanel:
+                panel = GameUserInfoPanel.getInstance();
+                break;
+            case PanelType.WelcomeNewPlayersPanel:
+                panel = WelcomeNewPlayersPanel.getInstance();
+                break;
         }
         if (panel) {
             panel.show();
@@ -84,6 +90,8 @@ module game {
         GameSceneAssetsView,
         GameDiscoveryView,
         GameMineView,
-        GameRoomView
+        GameRoomView,
+        GameUserInfoPanel,
+        WelcomeNewPlayersPanel
     }
 }
