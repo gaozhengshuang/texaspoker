@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="SceneAssetsViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<w:Config id="16347cd01ff"/>
-	<e:Rect id="view_bg" width="720" height="1280" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e6e6"/>
+	<e:Rect id="view_bg" width="720" height="100%" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e6e6"/>
 	<e:Group id="titleRadioGroup" x="0" y="200" width="720" height="120">
 		<e:Rect width="720" height="120" x="0" y="0" fillColor="0xfedee3"/>
 		<e:RadioButton id="titleRadio1" label="" x="67" value="1" width="75" height="113" y="4">

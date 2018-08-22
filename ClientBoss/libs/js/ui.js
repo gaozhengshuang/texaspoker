@@ -8,6 +8,7 @@ jiaoyiBtnW,jiaoyiBtnH,
 wodeBtnW,wodeBtnH,
 xiaoxiBtnW,xiaoxiBtnH,
 dingweiBtnW,dingweiBtnH,
+shouyiBtnW,shouyiBtnH,
 fujinSwitchBtnW,fujinSwitchBtnH,
 returnBtnW,returnBtnH,
 gameCloseW,gameCloseH;
@@ -43,6 +44,10 @@ window.onload=function(){
     dingweiBtnW=document.getElementById("dingweiBtn").clientWidth;
     dingweiBtnH=document.getElementById("dingweiBtn").clientHeight;
     document.getElementById("dingweiBtn").style.display='none';
+
+    shouyiBtnW=document.getElementById("shouyiBtn").clientWidth;
+    shouyiBtnH=document.getElementById("shouyiBtn").clientHeight;
+    document.getElementById("shouyiBtn").style.display='none';
 
     fujinSwitchBtnW=document.getElementById("fujinSwitchBtn").clientWidth;
     fujinSwitchBtnH=document.getElementById("fujinSwitchBtn").clientHeight;
@@ -102,7 +107,7 @@ function adaptive(scale){
     let crucialX5=equalW*5-equalW/2;
     document.getElementById("wodeBtn").style.left=(crucialX5-wodeBtnW*scale/2)+'px';
 
-    document.getElementById("xiaoxiBtn").style.display='block';
+    //document.getElementById("xiaoxiBtn").style.display='block';
     document.getElementById("xiaoxiBtn").style.width=xiaoxiBtnW*scale+"px";
     document.getElementById("xiaoxiBtn").style.height=xiaoxiBtnH*scale+"px";
     document.getElementById("xiaoxiBtn").style.top=(346*scale)+'px';
@@ -112,9 +117,16 @@ function adaptive(scale){
     document.getElementById("dingweiBtn").style.display='block';
     document.getElementById("dingweiBtn").style.width=dingweiBtnW*scale+"px";
     document.getElementById("dingweiBtn").style.height=dingweiBtnH*scale+"px";
-    document.getElementById("dingweiBtn").style.bottom=(downPanelH*scale+70*scale)+'px';
+    let dingweiBottom=downPanelH*scale+70*scale;
+    document.getElementById("dingweiBtn").style.bottom=dingweiBottom+'px';
 
-    document.getElementById("fujinSwitchBtn").style.display='block';
+
+    document.getElementById("shouyiBtn").style.display='block';
+    document.getElementById("shouyiBtn").style.width=shouyiBtnW*scale+"px";
+    document.getElementById("shouyiBtn").style.height=shouyiBtnH*scale+"px";
+    document.getElementById("shouyiBtn").style.bottom=(dingweiBottom+20+shouyiBtnH*scale)+'px';
+
+    //document.getElementById("fujinSwitchBtn").style.display='block';
     document.getElementById("fujinSwitchBtn").style.width=fujinSwitchBtnW*scale+"px";
     document.getElementById("fujinSwitchBtn").style.height=fujinSwitchBtnH*scale+"px";
     document.getElementById("fujinSwitchBtn").style.top=(window.innerHeight-fujinSwitchBtnH*scale)/2+'px';
@@ -151,6 +163,12 @@ function setBtnCallbackFun(fun,body){
         console.log(e.type,e.target);
         if (btnCallBackFun != null) {
             btnCallBackFun('dingwei',btnCallBackBody);
+        }
+    });
+    document.getElementById("shouyiBtn").addEventListener("mousedown", function (e) {
+        console.log(e.type,e.target);
+        if (btnCallBackFun != null) {
+            btnCallBackFun('shouyi',btnCallBackBody);
         }
     });
     document.getElementById("returnBtn").addEventListener("mousedown", function (e) {
@@ -293,6 +311,15 @@ function showAssetsRedIcon(isShow){
     }
     else {
         document.getElementById("zichanRedIcon").style.display = 'none';
+    }
+}
+
+function showShouyiIcon(isHas){
+    if (isHas) {
+        document.getElementById("shouyiBtn").setAttribute("class", "haveShouyi");
+    }
+    else {
+        document.getElementById("shouyiBtn").setAttribute("class", "noShouyi");
     }
 }
 

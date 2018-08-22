@@ -19,25 +19,28 @@ message THouseDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID
+	optional uint32 Id = 1; // 房屋ID*100+房屋等级
 	
 	
-	optional uint32 Type = 2; 
+	optional uint32 ImageId = 2; // 户型图ID
 	
 	
-	optional uint32 MaxLevel = 3; // 最大等级
+	optional uint32 Type = 3; 
 	
 	
-	optional uint32 MaxCells = 4; // 包含区域数
+	optional uint32 MaxLevel = 4; // 房屋最大等级
 	
 	
-	optional string Cells = 5; // 区域类型
+	optional uint32 MaxCells = 5; // 包含区域数（暂时无用字段）
 	
 	
-	optional uint32 LevelUpCost = 6; // 升级花费
+	optional string Cells = 6; // 区域类型
 	
 	
-	optional string Des = 7; // 描述
+	optional uint32 LevelUpCost = 7; // 升级花费
+	
+	
+	optional string Des = 8; // 描述
 
 }
 

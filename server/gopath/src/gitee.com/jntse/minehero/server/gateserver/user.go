@@ -74,6 +74,7 @@ type DBUserData struct {
 	totalrecharge  uint32 // 总充值
 	newplayerstep  uint32 // 新手引导步骤
 	robcount       uint32 // 抢钱次数
+	tmaddrobcount  int64  // 下次涨抢钱次数的时间戳
 }
 
 // --------------------------------------------------------------------------
@@ -335,15 +336,26 @@ func (this *GateUser) GetRobCount() uint32 {
 }
 
 func (this *GateUser) SetRobCount(count uint32) {
-	if count > 10 {
-		this.robcount = 10
+	before := this.robcount
+	if count > 20 {
+		this.robcount = 20
 	} else {
 		this.robcount = count
 	}
-
+	//log.Info("SetRobCount!!! robcount:%d", this.robcount)
 	send := &msg.GW2C_NotifyRobCount{}
 	send.Value = pb.Uint32(this.robcount)
 	this.SendMsg(send)
+
+	if this.robcount == 20 {
+		this.tmaddrobcount = 0
+		this.NotifyRobAddTime()
+	} else {
+		if before == 20 && this.robcount < before {
+			this.tmaddrobcount = util.CURTIME() + 3600
+			this.NotifyRobAddTime()
+		}
+	}
 }
 
 func (this *GateUser) SendMsg(msg pb.Message) {
@@ -483,6 +495,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.TotalRecharge = pb.Uint32(this.totalrecharge)
 	userbase.Newplayerstep = pb.Uint32(this.newplayerstep)
 	userbase.Robcount = pb.Uint32(this.robcount)
+	userbase.Tmaddrobcount = pb.Int64(this.tmaddrobcount)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -527,6 +540,7 @@ func (this *GateUser) LoadBin() {
 	this.totalrecharge = userbase.GetTotalRecharge()
 	this.newplayerstep = userbase.GetNewplayerstep()
 	this.robcount = userbase.GetRobcount()
+	this.tmaddrobcount = userbase.GetTmaddrobcount()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -564,22 +578,17 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	send := &msg.GW2MS_ReqCreateHouse{}
-	send.Userid = pb.Uint64(this.Id())
-	send.Housetid = pb.Uint32(1001)
-	send.Ownername = pb.String(this.Name())
-	Match().SendCmd(send)
+	//send := &msg.GW2MS_ReqCreateHouse{}
+	//send.Userid = pb.Uint64(this.Id())
+	//send.Housetid = pb.Uint32(1001)
+	//send.Ownername = pb.String(this.Name())
+	//Match().SendCmd(send)
+	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0)
 
-	createcarsend := &msg.GW2MS_ReqCreateCar{}
-	createcarsend.Userid = pb.Uint64(this.Id())
-	createcarsend.Cartid = pb.Uint32(1001)
-	Match().SendCmd(createcarsend)
-
-	createparksend := &msg.GW2MS_ReqCreateParking{}
-	createparksend.Userid = pb.Uint64(this.Id())
-	createparksend.Parkid = pb.Uint32(1002)
-	createparksend.Username = pb.String(this.Name())
-	Match().SendCmd(createparksend)
+	if houseData != nil {
+		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
+		CarMgr().CreateNewParking(this.Id(), 1002, this.Name(), houseData.id)
+	}
 
 	this.newplayerstep = 0
 	this.robcount = 10
@@ -618,8 +627,9 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
 	//上线通知MatchServer
-	this.OnlineMatchServer()
+	//this.OnlineMatchServer()
 	this.ReqMatchHouseData()
+	this.CheckAddRobCount()
 	return true
 }
 
@@ -629,7 +639,9 @@ func (this *GateUser) Syn() {
 	//this.CheckGiveFreeStep(util.CURTIME(), "上线跨整点")
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
-	this.ReqMatchCarData()
+	this.SynCarData()
+	this.SynParkingData()
+	this.SynParkingRecord()
 	//this.QueryPlatformCoins()
 }
 
@@ -708,7 +720,7 @@ func (this *GateUser) Logout() {
 	this.asynev.Shutdown()
 
 	//下线通知MatchServer
-	this.OnDisconnectMatchServer()
+	//this.OnDisconnectMatchServer()
 	log.Info("账户%s 玩家[%s %d] 存盘下线", this.account, this.Name(), this.Id())
 }
 
@@ -1003,26 +1015,28 @@ func (this *GateUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount
 	}
 }
 
-func (this *GateUser) OnlineMatchServer() {
-	send := &msg.GW2MS_UserOnlineState{
-		Userid: pb.Uint64(this.Id()),
-		State:  pb.Uint32(1),
-	}
-	Match().SendCmd(send)
-
-}
-
-func (this *GateUser) OnDisconnectMatchServer() {
-	send := &msg.GW2MS_UserOnlineState{
-		Userid: pb.Uint64(this.Id()),
-		State:  pb.Uint32(0),
-	}
-	Match().SendCmd(send)
-}
-
 func (this *GateUser) SyncTimeStamp() {
 	now := util.CURTIME()
 	send := &msg.GW2C_NotifyTimeStamp{}
 	send.Timestamp = pb.Uint64(uint64(now))
+	this.SendMsg(send)
+}
+
+func (this *GateUser) CheckAddRobCount() {
+	now := util.CURTIME()
+	if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
+		this.SetRobCount(this.GetRobCount() + 5)
+		if this.robcount < 20 {
+			this.tmaddrobcount = now + 3600
+		} else {
+			this.tmaddrobcount = 0
+		}
+		this.NotifyRobAddTime()
+	}
+}
+
+func (this *GateUser) NotifyRobAddTime() {
+	send := &msg.GW2C_NotifyAddRobCountTime{}
+	send.Time = pb.Int64(this.tmaddrobcount)
 	this.SendMsg(send)
 }

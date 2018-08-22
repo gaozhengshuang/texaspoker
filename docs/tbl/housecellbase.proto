@@ -19,25 +19,31 @@ message THouseCellDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID
+	optional uint32 Id = 1; // 区域类型*100+区域等级
 	
 	
-	optional uint32 Type = 2; // 类型
+	optional uint32 Type = 2; // 区域类型
 	
 	
 	optional uint32 MaxLevel = 3; // 最大等级
 	
 	
-	optional uint32 ProduceGold = 4; // 产出金币
+	optional uint32 ProduceGold = 4; // 单周期产生金币
 	
 	
-	optional uint32 ProduceTime = 5; // 生产时间
+	optional uint32 ProduceTime = 5; // 单周期生产时间（单位秒）
 	
 	
-	optional uint32 LevelUpCost = 6; // 升级花费
+	optional uint32 LevelUpCost = 6; // 升至下一级所需金币，满级后下一级为0
 	
 	
-	optional string Des = 7; // 描述
+	optional string Des = 7; // 区域描述
+	
+	
+	optional uint32 IncomePerSecond = 8; // 每秒效率
+	
+	
+	optional uint32 UnlockGold = 9; // 解锁花费金币
 
 }
 

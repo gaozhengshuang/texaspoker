@@ -6,10 +6,13 @@ module game {
         private weizhi_txt: eui.Label;
         private huxing_txt: eui.Label;
         private junjia_txt: eui.Label;
+        private channeng_txt: eui.Label;
 
         private hCoin_icon: eui.Image;
         private hQuan_icon: eui.Image;
         private chushou_icon: eui.Image;
+        private jiaoBiaoIcon: eui.Image;
+        private bg_mc:eui.Rect;
 
         public constructor(data: any = null) {
             super();
@@ -18,6 +21,19 @@ module game {
             this.hCoin_icon.visible=false;
             this.hQuan_icon.visible=false;
             this.chushou_icon.visible=false;
+            this.jiaoBiaoIcon.visible=false;
+            this.bg_mc.alpha=0;
+            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onclick_begin, this);
+            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_END, this.onclick_begin, this);
+            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onclick_begin, this);
+
+        }
+        private onclick_begin(eve:egret.TouchEvent){
+            if(eve.type==egret.TouchEvent.TOUCH_BEGIN){
+                this.bg_mc.alpha=1;
+            }else{
+                this.bg_mc.alpha=0;
+            }
 
         }
         private adaptive(){
@@ -30,7 +46,18 @@ module game {
             this.itemDate = this.data;
             if (this.itemDate) {
                 console.log(this.itemDate);
-                this.name_txt.text = this.itemDate.rId+"号房间";
+                if(this.itemDate.bId<=0){
+                    this.name_txt.text = this.itemDate.rId+"号房间(租)";
+                }else{
+                    this.name_txt.text = this.itemDate.rId+"号房间";
+                }
+                
+                this.huxing_txt.text="户型：一室一厅";
+                if(this.itemDate.isHave){
+                    this.jiaoBiaoIcon.visible=true;
+                }else{
+                    this.jiaoBiaoIcon.visible=false;
+                }
                 /*let weizhiTxt = this.weizhi_txt;
                 GameConfig.getCityNameFun(this.itemDate.bLatLng[0],
                     this.itemDate.bLatLng[1], function (txt: string) {

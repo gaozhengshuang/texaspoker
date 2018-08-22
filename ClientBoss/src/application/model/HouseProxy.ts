@@ -17,6 +17,7 @@ module game {
 
 		public returnRoomInfo:HouseVO=null;
 		public returnPlayersId:number=0;
+		public returnType:number=0;
 
 		public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_AckOtherUserHouseData, "msg.GW2C_AckOtherUserHouseData");
@@ -30,22 +31,36 @@ module game {
         }
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
 			if(GameConfig.pageType==1){
-				//this.updateRoomInfo(data.datas);
+				this.updateRoomInfo(data.datas[0]);
 			}
 		}
 		private OnGW2C_AckOtherUserHouseData(data: msg.GW2C_AckOtherUserHouseData) {
 			this.setCurrentHouse(data.datas);
             ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM,{ room: this.currentHouse});
 		}
+		public linjuList:any[]=[];
 		private OnGW2C_AckRandHouseList(data: msg.GW2C_AckRandHouseList) {
 			if(data.datas && data.datas.length>0){
-				let houseList=[];
+				//房屋邻居列表
+				let houseList:HouseVO[]=[];
 				for(let i:number=0;i<data.datas.length;i++){
 					let house:HouseVO=new HouseVO();
 					house.setObject(data.datas[i]);
 					houseList.push(house);
 				}
+				//console.log("收到随机邻居列表------>",data.datas2.length,"  ",JSON.stringify(data.datas2));
+				//自己车停放的车位邻居列表
+				let carHouseList = data.datas2.map(data=>{
+					let house:HouseVO=new HouseVO();
+					house.setObject(data);
+					return house;
+				});
+				//去掉重复
+				carHouseList = carHouseList.concat(houseList.filter(data=>{return !carHouseList.some(idata=>{return data.rId==idata.rId;})}));
+
+				this.linjuList=houseList;
 				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_ROOM_NEIGHBOR,{ list: houseList});
+				CarDetailView.getInstance().showLinjuList(carHouseList);
 			}
 		}
 		private OnGW2C_AckTakeSelfHouseGoldRet(data: msg.GW2C_AckTakeSelfHouseGoldRet) {
@@ -69,18 +84,39 @@ module game {
 			this.updateRoomInfo(data.data);
 		}
 		private updateRoomInfo(datas: any) {
-			this.currentHouse.setObject(datas);
-			console.log(datas);
-			console.log(this.currentHouse);
-			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
+			if (datas.id == this.currentHouse.rId) {
+				this.currentHouse.setObject(datas);
+				console.log(datas);
+				console.log(this.currentHouse);
+				ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
+			}
 		}
 		
         public currentHouse:HouseVO;
+		public selfHouse:HouseVO;
         public setCurrentHouse(info:any[]){
 			if(info && info.length>0){
                 this.currentHouse=new HouseVO();
                 this.currentHouse.setObject(info[0]);
+				if(info[0].ownerid==DataManager.playerModel.getUserInfo().userid){
+					this.setSelfHouse(info[0]);
+				}
             }
+		}
+		public setSelfHouse(house:HouseVO){
+			if(house){
+                this.selfHouse=new HouseVO();
+                this.selfHouse.setObject(house);
+				//this.updateSelfDongtaiList(this.selfHouse.visitinfo);
+            }
+		}
+
+		public selfDongtaiList:any[]
+		public updateSelfDongtaiList(list:any[]){
+			if(this.selfDongtaiList && list.length>this.selfDongtaiList.length){
+				ApplicationFacade.getInstance().sendNotification(CommandName.HAVE_NEW_DONGTAI);
+			}
+			this.selfDongtaiList=list;
 		}
 	}
 }

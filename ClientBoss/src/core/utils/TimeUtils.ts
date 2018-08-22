@@ -60,4 +60,14 @@ module game {
             return d + "天  " + h + "时" + (m >= 10 ? m : `0${m}`) + "分" + (s >= 10 ? s : `0${s}`) + "秒";
         }
     }
+    export function sDhFilter(second: number,unitStr: string= null) {
+        let d = Math.floor(second / (3600 * 24));
+        let h = Math.floor(second % (3600 * 24) / 3600);
+        let m = Math.floor(second % (3600 * 24) % 3600 / 60);
+        let s = Math.floor(second % (3600 * 24) % 3600 % 60);
+        let timeStr : string = "";
+
+        timeStr = (d>0 && d+(unitStr||"天") || "") + (h >= 10 ? h+(unitStr||"时") : (h>0 ? `0${h}`+(unitStr||"时"):"")) + (m >= 10 ? m : `0${m}`) + (unitStr||"分") +  (s >= 10 ? s : `0${s}`) + (unitStr ? "":"秒");
+        return timeStr;
+    }
 }

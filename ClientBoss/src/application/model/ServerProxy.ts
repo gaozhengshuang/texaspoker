@@ -15,7 +15,11 @@ module game {
 		public RegisterEvent() {
             NotificationCenter.addObserver(this, this.netConnectionError, CommandName.NET_CONNECTION_ERROR);
 			NotificationCenter.addObserver(this, this.OnGW2C_NotifyTimeStamp, "msg.GW2C_NotifyTimeStamp");
+			NotificationCenter.addObserver(this, this.OnGW2C_HeartBeat, "msg.GW2C_HeartBeat");
         }
+		private OnGW2C_HeartBeat(data: msg.GW2C_HeartBeat) {
+			SysTimeEventManager.getInstance().systimeNum=Number(data.time);
+		}
 		private OnGW2C_NotifyTimeStamp(data: msg.GW2C_NotifyTimeStamp) {
 			SysTimeEventManager.getInstance().systimeNum=Number(data.timestamp);
 			
@@ -29,7 +33,8 @@ module game {
 	 		console.log('时差------->',offset_dateTime);
 		}
 		private netConnectionError(){
-			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
+			// ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
+			NetFailed.getInstance().show();
 		}
 
 		private loginUserInfo: msg.IC2L_ReqLogin;
@@ -139,7 +144,7 @@ module game {
 				// showTips("测试心跳", true);
 				this.heartTimeout = null;
 				this.startHeart();
-			}, 3000);
+			}, 1000);
 		}
 	}
 }

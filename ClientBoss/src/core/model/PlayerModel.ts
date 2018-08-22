@@ -28,7 +28,8 @@ module game {
             newplayerstep:0,
             cardatas : [],
             parkingdatas : [],
-            robcount:0
+            robcount:0,
+            tmaddrobcount:0
         };
         public sex: number = 0;
         public bagList: Array<msg.IItemData> = [];
@@ -36,6 +37,7 @@ module game {
         public totalMoney: number | Long = 0;
         private _tasks;
         private _houses;
+        private _carRecords:string[] = [];
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -51,11 +53,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
             NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
-        }
-
-        private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
-            this.userInfo.cardatas = data.cardatas;
-            this.userInfo.parkingdatas = data.parkingdatas;
+            NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord,"msg.GW2C_SynParkingRecord");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -69,6 +67,8 @@ module game {
             this.userInfo.level=data.base.level;
             this.userInfo.newplayerstep=data.base.newplayerstep;
             this.userInfo.robcount=data.base.robcount;
+            this.userInfo.tmaddrobcount=Number(data.base.tmaddrobcount);
+            console.log("抢夺次数:"+data.base.robcount);
             GameConfig.newPlayerStep=this.userInfo.newplayerstep;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;
@@ -76,6 +76,56 @@ module game {
             this.totalMoney = data.base.luckydraw.totalvalue;
             this._tasks = data.base.task.tasks;
         }
+
+        private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
+            this.userInfo.cardatas = data.cardatas;
+            this.userInfo.parkingdatas = data.parkingdatas;
+        }
+
+        private OnGW2C_SynParkingRecord(msgs:msg.GW2C_SynParkingRecord)
+        {
+            console.log("OnGW2C_SynParkingRecord---------->",msgs.records.length,JSON.stringify(msgs));
+         
+            this.setCarRecords(msgs.records);
+
+            if (GameConfig.sceneType == 3) //资产主界面打开
+             {  
+                //车辆信息界面
+                if( CarDetailView.getInstance())
+                {
+                    if( CarDetailView.getInstance().visible && CarDetailView.getInstance().Inited())
+                    {   
+                        //车辆信息界面刷新
+                        if(msgs.records.some(str=>{return str.split("_"[0])[1] == msg.CarOperatorType.Ticket.toString();}))
+                        {
+                            CarManager.getInstance().ReqMyCarInfo(function(){
+                                CarDetailView.getInstance().setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
+                                    return data.id == CarDetailView.getInstance().carData.id;
+                                })[0]);
+                            });
+                        }
+                        //刷新动态列表
+                        if(CarDetailView.getInstance().isDongTaiPanelView())
+                        {
+                            CarDetailView.getInstance().showDongtaiList();
+                        }
+                    }
+                }
+                //房屋信息界面
+                if(GameRoomView.getInstance()) 
+                {
+                    //房屋信息界面刷新
+                    if(GameRoomView.getInstance().visible && GameRoomView.getInstance().IsInMyRoom())
+                    {
+                        //if(msgs.records.some(str=>{return str.split("_"[0])[1] == msg.CarOperatorType.Ticket.toString();}))
+                        {
+                            ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);
+                        }                        
+                    }
+                }
+
+            }
+         }
 
         private OnGW2C_SendTaskList(data: msg.IGW2C_SendTaskList) {
             this._tasks = data.tasks;
@@ -416,6 +466,14 @@ module game {
 
         public getHouse() {
             return this._houses;
+        }
+
+        public setCarRecords(datas: string[]) {
+             datas.forEach(data=>{this._carRecords.push(data);});
+        }
+
+        public getCarRecords() {
+            return this._carRecords;
         }
 
         //我的车辆是否停靠

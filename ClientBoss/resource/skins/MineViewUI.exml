@@ -4,9 +4,9 @@
 	<e:Group id="userInfoGroup" x="0" y="0" width="720" height="225">
 		<e:Image source="titleBg1_png" x="0" y="0" width="720" height="225"/>
 		<e:Label id="qiang_txt" text="500" x="547.47" y="146.97" anchorOffsetX="0" width="100" anchorOffsetY="0" height="40" size="38" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
-		<e:Image source="qiangIcon_png" x="456.58" y="135.88" width="42" height="42"/>
+		<e:Image source="qiangIcon_png" x="485.58" y="145.88" width="42" height="42"/>
 		<e:Image source="crownIcon1_png" x="143.16" y="0" scaleX="0.5" scaleY="0.5"/>
-		<e:Image id="headImg" source="defaultHead2_png" x="19.34" y="24.79" width="185" height="185"/>
+		<e:Image id="headImg" x="19.34" y="24.79" width="185" height="185" source="defaultHead1_png"/>
 		<e:Label id="name_txt" text="七宝王思聪思" x="248.51" y="53.64" anchorOffsetX="0" width="300" anchorOffsetY="0" height="50" size="42" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xFFFFFF" textAlign="left"/>
 		<e:Label id="level_txt" text="Lv.159" x="260.63" y="146.97" anchorOffsetX="0" width="150" anchorOffsetY="0" height="40" size="38" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>
 		<e:Group x="521.3" y="29" visible="false">

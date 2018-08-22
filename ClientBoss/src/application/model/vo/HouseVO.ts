@@ -36,6 +36,22 @@ module game {
                 this.visitinfo = obj.visitinfo;
             }
 
+            if (obj.empty != null) {
+                this.empty = obj.empty;
+            }
+
+            if (obj.robcheckflag != null) {
+                this.robcheckflag = obj.robcheckflag;
+            }
+
+            if (obj.myCarPark != null) {
+                this.myCarPark = obj.myCarPark;
+            }
+
+            if(obj.parkings!=null){
+                this.parkings = obj.parkings;
+            }
+            
         }
         public rId:number;
 
@@ -45,19 +61,23 @@ module game {
 
         public ownername:string = ""; //主人的名字
 
-        public bId:number = 4; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
+        public bId:number = 0; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
 
-        public level:number = 5; //房屋等级
+        public level:number = 0; //房屋等级
+
+        public empty : number = 0;  
 
         public housecells:any[] = []; //每个房间信息 
 
         public visitinfo:any[] = []; //操作记录 要限定条数 
 	
+        public robcheckflag : number = 0;  //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 
-        
+        public isHave:boolean=false;
 
-        
-
+        public myCarPark : number = 0;//是否有我的车停
+    
+        public parkings : msg.IParkingData[] = [];//房间的车位信息列表
         
     }
 }

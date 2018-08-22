@@ -5,981 +5,543 @@
 		{
 			"gap":4,
 			"name":"ui",
-			"res":[
-				{
-					"compress":false,
-					"key":"ball/1"
-				},
-				{
-					"compress":false,
-					"key":"ball/2"
-				},
-				{
-					"compress":false,
-					"key":"cube/crack1"
-				},
-				{
-					"compress":false,
-					"key":"cube/crack2"
-				},
-				{
-					"compress":false,
-					"key":"cube/crack3"
-				},
-				{
-					"compress":false,
-					"key":"cube/1/1"
-				},
-				{
-					"compress":false,
-					"key":"cube/1/2"
-				},
-				{
-					"compress":false,
-					"key":"cube/1/3"
-				},
-				{
-					"compress":false,
-					"key":"cube/1/4"
-				},
-				{
-					"compress":false,
-					"key":"cube/1/5"
-				},
-				{
-					"compress":false,
-					"key":"paddle/1"
-				},
-				{
-					"compress":false,
-					"key":"paddle/bg"
-				},
-				{
-					"compress":false,
-					"key":"paddle/pao"
-				},
-				{
-					"compress":false,
-					"key":"paddle/paota"
-				},
-				{
-					"compress":false,
-					"key":"ui/main/guangquan"
-				},
-				{
-					"compress":false,
-					"key":"ui/main/paihang"
-				},
-				{
-					"compress":false,
-					"key":"ui/main/play"
-				},
-				{
-					"compress":false,
-					"key":"ui/main/tantanle"
-				},
-				{
-					"compress":false,
-					"key":"ui/main/tou"
-				},
-				{
-					"compress":false,
-					"key":"cube/break/1"
-				},
-				{
-					"compress":false,
-					"key":"cube/break/2"
-				},
-				{
-					"compress":false,
-					"key":"cube/break/3"
-				},
-				{
-					"compress":false,
-					"key":"cube/break/4"
-				},
-				{
-					"compress":false,
-					"key":"cube/break/5"
-				},
-				{
-					"compress":false,
-					"key":"ui/rank/haoyou"
-				},
-				{
-					"compress":false,
-					"key":"ui/rank/shijie"
-				},
-				{
-					"compress":false,
-					"key":"ui/win/again"
-				},
-				{
-					"compress":false,
-					"key":"ui/win/anniudi"
-				},
-				{
-					"compress":false,
-					"key":"ui/win/back"
-				},
-				{
-					"compress":false,
-					"key":"ui/win/fenxiang"
-				},
-				{
-					"compress":false,
-					"key":"ui/win/touxiangkuang"
-				}
-			],
+			"res":[],
 			"sort":0
 		},
 		{
 			"gap":20,
 			"name":"ui2",
-			"res":[
-				{
-					"compress":false,
-					"key":"ball/3"
-				},
-				{
-					"compress":false,
-					"key":"cube/2"
-				},
-				{
-					"compress":false,
-					"key":"cube/3"
-				},
-				{
-					"compress":false,
-					"key":"cube/4"
-				},
-				{
-					"compress":false,
-					"key":"cube/5"
-				},
-				{
-					"compress":false,
-					"key":"cube/8"
-				},
-				{
-					"compress":false,
-					"key":"ui/yindao"
-				},
-				{
-					"compress":false,
-					"key":"paddle/di"
-				},
-				{
-					"compress":false,
-					"key":"paddle/light"
-				},
-				{
-					"compress":false,
-					"key":"ui/sp"
-				},
-				{
-					"compress":false,
-					"key":"ui/spBar"
-				},
-				{
-					"compress":false,
-					"key":"ui/spBg"
-				},
-				{
-					"compress":false,
-					"key":"ui/spGray"
-				},
-				{
-					"compress":false,
-					"key":"cube/6"
-				},
-				{
-					"compress":false,
-					"key":"cube/fire"
-				},
-				{
-					"compress":false,
-					"key":"cube/7"
-				},
-				{
-					"compress":false,
-					"key":"cube/frozen"
-				},
-				{
-					"compress":false,
-					"key":"paddle/pao2"
-				},
-				{
-					"compress":false,
-					"key":"paddle/bg2"
-				}
-			],
+			"res":[],
 			"sort":0
 		}
 	],
 	"publishCopyAll":true,
-	"publishPath":"D:/h5Project/brickcrush/ClientBoss/resource_Publish/",
-	"sourcePath":"D:/h5Project/brickcrush/ClientBoss/resource/",
+	"publishPath":"D:/h5Project/treasure/ClientBoss/resource_Publish/",
+	"sourcePath":"D:/h5Project/treasure/ClientBoss/resource/",
 	"unPackGroup":[
 		{
 			"compress":false,
-			"key":"ui/bg"
+			"key":"1_png"
 		},
 		{
 			"compress":false,
-			"key":"font/goldGame_png"
+			"key":"loadingMain_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/win/jiesuan"
+			"key":"loadingMainYs_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/rank/bg"
+			"key":"boybg_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/win/xinjilu"
+			"key":"grilbg_png"
 		},
 		{
 			"compress":false,
-			"key":"1"
+			"key":"shopbg_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00000"
+			"key":"girl_tex_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00001"
+			"key":"boy_tex_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00002"
+			"key":"shopItemButtonBg_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00003"
+			"key":"gameLoading_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00004"
+			"key":"gameLoadingBg_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00005"
+			"key":"gameLoading2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00006"
+			"key":"gameLoadingBg2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blackHole/00007"
+			"key":"addFriend_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blueBoom/00000"
+			"key":"assetsBar1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blueBoom/00001"
+			"key":"assets_car_tabBar1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blueBoom/00002"
+			"key":"assets_car_tabBar2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blueBoom/00003"
+			"key":"assets_fangchan_tabBar1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blueBoom/00004"
+			"key":"assets_fangchan_tabBar2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/blueBoom/00005"
+			"key":"assets_stock_tabBar1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00000"
+			"key":"assets_stock_tabBar2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00001"
+			"key":"bCoinIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00002"
+			"key":"btnBg_blue1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00003"
+			"key":"btnBg_red1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00004"
+			"key":"btnBg_red2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00005"
+			"key":"btnBg_red3_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00006"
+			"key":"btnBg_yellow1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/boom/00007"
+			"key":"building_title_bg1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00000"
+			"key":"buyRoom_title_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00001"
+			"key":"chushouzhong_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00002"
+			"key":"close_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00003"
+			"key":"crownIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00004"
+			"key":"defaultHead1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00005"
+			"key":"defaultHead2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00006"
+			"key":"defaultHead3_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/redBoom/00007"
+			"key":"diamondIcon_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/timeBoom/00000"
+			"key":"dongtaiWord1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/timeBoom/00001"
+			"key":"dongtaiWord2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/timeBoom/00002"
+			"key":"game90001_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/timeBoom/00003"
+			"key":"gameTantanle_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/timeBoom/00004"
+			"key":"game_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00000"
+			"key":"have_coin_icon_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00001"
+			"key":"have_quan_icon_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00002"
+			"key":"headImgBg1_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00003"
+			"key":"hx_4001_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00004"
+			"key":"hx_4002_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00005"
+			"key":"hx_4003_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00006"
+			"key":"hx_4004_png"
 		},
 		{
 			"compress":false,
-			"key":"ball/break/00007"
+			"key":"jiantou1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00000"
+			"key":"jiantou2_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00001"
+			"key":"jiaoyi_title_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00002"
+			"key":"jinruFang_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00003"
+			"key":"linjuInfo_bg1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00004"
+			"key":"loading_txt1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00005"
+			"key":"main_loading1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00006"
+			"key":"mineIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00007"
+			"key":"mineIcon2_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00008"
+			"key":"mineIcon3_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wave/00009"
+			"key":"mineIcon4_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00000"
+			"key":"mineIcon5_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00001"
+			"key":"myAssetsBg1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00002"
+			"key":"myAssets_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00003"
+			"key":"qiangIcon_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00004"
+			"key":"qipaoIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00005"
+			"key":"qipaoIcon2_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00006"
+			"key":"qipaoIcon3_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/sp/00007"
+			"key":"redDianIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/guanchuan"
+			"key":"roomLevelIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/moreFire"
+			"key":"roomLevelIcon2_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/topBg"
+			"key":"roomLevelIcon3_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wuxianpao"
+			"key":"roomLevelIcon4_png"
 		},
 		{
 			"compress":false,
-			"key":"paddle/wuxianpaobg"
+			"key":"roomLevelIcon5_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/rank/rankitembg"
+			"key":"room_baifang_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/win/rankBg"
+			"key":"room_canku_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/1/6"
+			"key":"room_dongtai_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/break/6"
+			"key":"room_dongtai_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/goldShark/00000"
+			"key":"room_down_bg1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/goldShark/00001"
+			"key":"room_headBg1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/goldShark/00002"
+			"key":"room_level_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/goldShark/00003"
+			"key":"room_line1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/goldShark/00004"
+			"key":"room_lingju_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/goldShark/00005"
+			"key":"room_linju_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/gold"
+			"key":"room_quit_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/bagBtn"
+			"key":"room_quit_btn2_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/itemNameBg"
+			"key":"room_tansuo_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/itemNumBg"
+			"key":"room_tansuo_btn2_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/luckyBg"
+			"key":"room_weizhi_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/luckyBtn"
+			"key":"room_zicang_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/luckycloseBtn"
+			"key":"room_zicang_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/luckyGo"
+			"key":"sellRoomListBg1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/luckyIMG"
+			"key":"suolou_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/luckyItemBg"
+			"key":"tansuofangwei_bg1_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/luckyLight"
+			"key":"tantanleTitle_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/sharkPop/00001"
+			"key":"titleBg1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/sharkPop/00002"
+			"key":"titleIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/sharkPop/00003"
+			"key":"title_img1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/sharkPop/00004"
+			"key":"trading_car_tabBar1_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/sharkPop/00005"
+			"key":"trading_car_tabBar2_png"
 		},
 		{
 			"compress":false,
-			"key":"cube/sharkPop/00006"
+			"key":"trading_fangchan_tabBar1_png"
 		},
 		{
 			"compress":false,
-			"key":"login/loginBtn"
+			"key":"trading_fangchan_tabBar2_png"
 		},
 		{
 			"compress":false,
-			"key":"login/loginInput"
+			"key":"trading_stock_tabBar1_png"
 		},
 		{
 			"compress":false,
-			"key":"login/loginstar"
+			"key":"trading_stock_tabBar2_png"
 		},
 		{
 			"compress":false,
-			"key":"login/loginTitle"
+			"key":"ui_comn_icon_gold_png"
 		},
 		{
 			"compress":false,
-			"key":"login/registerBtn"
+			"key":"ui_login_button_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/bagget"
+			"key":"ui_login_button_forget_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/bagline"
+			"key":"ui_login_button_go_login_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/bagshopbg"
+			"key":"ui_login_button_go_register_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/bagtitle"
+			"key":"ui_login_button_qq_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/shopbg"
+			"key":"ui_login_button_weibo_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/shoplight"
+			"key":"ui_login_button_weixin_png"
 		},
 		{
 			"compress":false,
-			"key":"lucky/shopnumbg"
+			"key":"ui_login_logo_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/dialogBg"
+			"key":"ui_login_passwordbg_png"
 		},
 		{
 			"compress":false,
-			"key":"ui/duanxian"
+			"key":"ui_login_thirdpartytex_png"
 		},
 		{
 			"compress":false,
-			"key":"user/userButton"
+			"key":"ui_login_usernamebg_png"
 		},
 		{
 			"compress":false,
-			"key":"user/userOk"
+			"key":"userInfo_bg1_png"
 		},
 		{
 			"compress":false,
-			"key":"user/userTitle"
+			"key":"userRoomNoBg_png"
 		},
 		{
 			"compress":false,
-			"key":"login/wxwbd"
+			"key":"vertical_line1_png"
 		},
 		{
 			"compress":false,
-			"key":"login/wxyjbd"
+			"key":"vipIcon_png"
 		},
 		{
 			"compress":false,
-			"key":"login/loginbg"
+			"key":"welcmoe_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"login/passwdicon"
+			"key":"welcome_bg1_png"
 		},
 		{
 			"compress":false,
-			"key":"login/phoneicon"
+			"key":"zichan_btn1_png"
 		},
 		{
 			"compress":false,
-			"key":"login/yqmicon"
+			"key":"zichan_title_icon1_png"
 		},
 		{
 			"compress":false,
-			"key":"login/yzmbutton"
+			"key":"xuanzhongBtn_bg_png"
 		},
 		{
 			"compress":false,
-			"key":"login/yzmicon"
+			"key":"carParkBg_png"
 		},
 		{
 			"compress":false,
-			"key":"user/comeonBg"
+			"key":"jiaobiao3_png"
 		},
 		{
 			"compress":false,
-			"key":"user/copyButton"
+			"key":"jiaobiaoIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"user/getMoneyImg"
+			"key":"jiaobiaoIcon2_png"
 		},
 		{
 			"compress":false,
-			"key":"user/taskRewardImg"
+			"key":"levelSuccessImg1_png"
 		},
 		{
 			"compress":false,
-			"key":"user/userBg"
+			"key":"roomUserInfo-bg_png"
 		},
 		{
 			"compress":false,
-			"key":"item/1001"
+			"key":"smallGoldIcon1_png"
 		},
 		{
 			"compress":false,
-			"key":"item/2004"
-		},
-		{
-			"compress":false,
-			"key":"item/2006"
-		},
-		{
-			"compress":false,
-			"key":"item/3018"
-		},
-		{
-			"compress":false,
-			"key":"item/5003"
-		},
-		{
-			"compress":false,
-			"key":"item/5004"
-		},
-		{
-			"compress":false,
-			"key":"item/6003"
-		},
-		{
-			"compress":false,
-			"key":"login/nicknameImg"
-		},
-		{
-			"compress":false,
-			"key":"login/notreachImg"
-		},
-		{
-			"compress":false,
-			"key":"lucky/loginrewardBtn"
-		},
-		{
-			"compress":false,
-			"key":"lucky/luckyTitle"
-		},
-		{
-			"compress":false,
-			"key":"lucky/badBox/0000"
-		},
-		{
-			"compress":false,
-			"key":"lucky/badBox/0001"
-		},
-		{
-			"compress":false,
-			"key":"lucky/badBox/0002"
-		},
-		{
-			"compress":false,
-			"key":"lucky/badBox/0003"
-		},
-		{
-			"compress":false,
-			"key":"lucky/badBox/0004"
-		},
-		{
-			"compress":false,
-			"key":"lucky/badBox/0005"
-		},
-		{
-			"compress":false,
-			"key":"lucky/badBox/0006"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0000"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0001"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0002"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0003"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0004"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0005"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0006"
-		},
-		{
-			"compress":false,
-			"key":"ui/badBuffProgress"
-		},
-		{
-			"compress":false,
-			"key":"ui/badBuffProgressBg"
-		},
-		{
-			"compress":false,
-			"key":"ui/boxBuff1"
-		},
-		{
-			"compress":false,
-			"key":"ui/boxBuff2.png"
-		},
-		{
-			"compress":false,
-			"key":"ui/boxBuff3"
-		},
-		{
-			"compress":false,
-			"key":"ui/boxBuffBg"
-		},
-		{
-			"compress":false,
-			"key":"ui/dialogMBg"
-		},
-		{
-			"compress":false,
-			"key":"ui/gameBack"
-		},
-		{
-			"compress":false,
-			"key":"ui/gameBtnBg"
-		},
-		{
-			"compress":false,
-			"key":"ui/loginRewardGold"
-		},
-		{
-			"compress":false,
-			"key":"ui/rechargeGo"
-		},
-		{
-			"compress":false,
-			"key":"ui/userGo"
-		},
-		{
-			"compress":false,
-			"key":"ui/main/common_luckyBtnBg"
-		},
-		{
-			"compress":false,
-			"key":"ui/main/common_userBtnBg"
-		},
-		{
-			"compress":false,
-			"key":"ui/main/luckMainBtn"
-		},
-		{
-			"compress":false,
-			"key":"ui/main/userMainBtn"
-		},
-		{
-			"compress":false,
-			"key":"lucky/goldAni/0007"
-		},
-		{
-			"compress":false,
-			"key":"login/inviteFriendsImg"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/backBagBtn"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/bagGo"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/deliveryBtn"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/deliverybtnBg"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/deliveryNoTxt"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/deliveryOkTxt"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/deliverySel"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/deliveryTitle"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/historyMoneyBtn"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/historyMoneyTitle"
-		},
-		{
-			"compress":false,
-			"key":"ui/bag/historyMoneyTitleBg"
-		},
-		{
-			"compress":false,
-			"key":"user/addressBg"
-		},
-		{
-			"compress":false,
-			"key":"user/addressImg"
-		},
-		{
-			"compress":false,
-			"key":"user/adrBg"
-		},
-		{
-			"compress":false,
-			"key":"user/deliveryAdressBtn"
-		},
-		{
-			"compress":false,
-			"key":"user/headBg"
-		},
-		{
-			"compress":false,
-			"key":"user/headBorder"
-		},
-		{
-			"compress":false,
-			"key":"user/updateBtn"
+			"key":"tilingIcon1_png"
 		}
 	]
 }

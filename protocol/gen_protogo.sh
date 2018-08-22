@@ -3,7 +3,7 @@ set -e
 
 #!/bin/bash
 pbmsg_path=$JUMPGAME_SERVER/pbmsg
-rm $pbmsg_path"/*" -rvf
+rm $pbmsg_path/*.go -rvf
 mkdir -pv $pbmsg_path
 
 #protoc -I=./ --go_out=$pbmsg_path *.proto
