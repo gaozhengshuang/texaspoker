@@ -212,9 +212,13 @@ type HouseData struct {
 	ticker1Sec *util.GameTicker
 }
 
-func (this *HouseData) LoadBin(bin *msg.HouseData) {
+func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.housecells = make(map[uint32]*HouseCell)
 	this.visitinfo = make([]*HouseVisitInfo, 0)
+	bin := &msg.HouseData{}
+	if err := pb.Unmarshal(rbuf, bin); err != nil {
+		return nil
+	}
 	this.id = bin.GetId()
 	this.tid = bin.GetTid()
 	this.ownerid = bin.GetOwnerid()
@@ -234,8 +238,9 @@ func (this *HouseData) LoadBin(bin *msg.HouseData) {
 		info.LoadBin(v)
 		this.visitinfo = append(this.visitinfo, info)
 	}
-	log.Info("读取房屋[%d] ", this.id)
+	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
+	return bin
 }
 
 func (this *HouseData) Tick(now int64) {
@@ -413,22 +418,36 @@ func (this *HouseManager) Init() {
 	this.userhouses = make(map[uint64][]uint64)
 	this.housesIdList = make([]uint64, 0)
 	this.useronlne = make(map[uint64]int)
+	this.LoadDB()
+}
+
+func (this *HouseManager) LoadDB() {
 	data, err := Redis().SMembers("houses_idset").Result()
 	if err != nil {
 		log.Error("启动加载放假数据失败 err: %s", err)
 	} else {
-
+		pipe := Redis().Pipeline()
 		for _, v := range data {
 			houseid, _ := strconv.Atoi(v)
-			key, bin := fmt.Sprintf("houses_%d", uint64(houseid)), &msg.HouseData{}
-			if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
-				log.Error("加载房屋信息失败无此房屋数据 id%d ，err: %s", uint64(houseid), err)
-			} else {
-				house := &HouseData{}
-				house.LoadBin(bin)
+			key := fmt.Sprintf("houses_%d", uint64(houseid))
+			pipe.Get(key)
+		}
+		cmds, err := pipe.Exec()
+		if err != nil && err != redis.Nil {
+			log.Error("HouseManager LoadDB Error:%s ", err)
+			return
+		}
+		for _, v := range cmds {
+			if v.Err() == redis.Nil {
+				continue
+			}
+			rbuf, _ := v.(*redis.StringCmd).Bytes()
+			house := &HouseData{}
+			if house.LoadBin(rbuf) != nil {
 				this.AddHouse(house)
 			}
 		}
+		log.Info("房屋DB加载数据 size=%d", len(this.houses))
 	}
 }
 
@@ -861,10 +880,12 @@ func (this *GateUser) ReqRandHouseList(carflag uint32) {
 			if house == nil {
 				continue
 			}
-			send.Datas = append(send.Datas, house.PackBin())
+			send.Datas2 = append(send.Datas2, house.PackBin())
+
 		}
 	}
 	CarMgr().AppendHouseData(send.Datas)
+	CarMgr().AppendHouseData(send.Datas2)
 	this.SendMsg(send)
 }
 

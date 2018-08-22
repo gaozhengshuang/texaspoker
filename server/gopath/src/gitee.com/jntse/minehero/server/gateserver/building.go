@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/redis"
-	_ "gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	_ "gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
@@ -28,8 +28,12 @@ func (this *BuildingData) Init() {
 	this.data = make(map[uint32][]uint64)
 }
 
-func (this *BuildingData) LoadBin(bin *msg.BuildingData) {
+func (this *BuildingData) LoadBin(rbuf []byte) *msg.BuildingData {
 	this.Init()
+	bin := &msg.BuildingData{}
+	if err := pb.Unmarshal(rbuf, bin); err != nil {
+		return nil
+	}
 	this.id = bin.GetId()
 	for _, v := range bin.GetData() {
 		index := v.GetIndex()
@@ -39,6 +43,7 @@ func (this *BuildingData) LoadBin(bin *msg.BuildingData) {
 			this.data[index] = append(this.data[index], w)
 		}
 	}
+	return bin
 }
 
 func (this *BuildingData) PackBin() *msg.BuildingData {
@@ -71,11 +76,6 @@ func (this *BuildingData) SaveBin(pipe redis.Pipeliner) {
 	}
 }
 
-//购买楼中的房屋
-func (this *BuildingData) UserBuyHouse(userid uint64, floor, index uint32) bool {
-	return true
-}
-
 //-------------------------------------------------------------------------------------------
 //楼的管理器
 type BuildingManager struct {
@@ -85,18 +85,38 @@ type BuildingManager struct {
 //启动初始化
 func (this *BuildingManager) Init() {
 	this.buildings = make(map[uint32]*BuildingData)
+	this.LoadDB()
+}
+
+func (this *BuildingManager) LoadDB() {
 	//跟据配置加载或创建所有的楼
+	pipe := Redis().Pipeline()
 	newbuildings := make([]*BuildingData, 0)
 	for _, v := range tbl.TBuildingsBase.TBuildingsById {
-		key, bin := fmt.Sprintf("buildings_%d", v.Id), &msg.BuildingData{}
-		if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
-			newbuildings = append(newbuildings, this.CreateBuilding(v.Id))
+		key := fmt.Sprintf("buildings_%d", v.Id)
+		pipe.Get(key)
+	}
+	cmds, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("BuildingManager LoadDB RedisError:%s ", err)
+		return
+	}
+
+	for _, v := range cmds {
+		if v.Err() == redis.Nil {
+			key := v.Args()[1].(string)
+			ids := strings.TrimLeft(key, "buildings_")
+			id, _ := strconv.Atoi(ids)
+			newbuildings = append(newbuildings, this.CreateBuilding(uint32(id)))
 		} else {
+			rbuf, _ := v.(*redis.StringCmd).Bytes()
 			building := &BuildingData{}
-			building.LoadBin(bin)
-			this.AddBuilding(building)
+			if building.LoadBin(rbuf) != nil {
+				this.AddBuilding(building)
+			}
 		}
 	}
+
 	//新创建的楼批量存一次
 	if len(newbuildings) > 0 {
 		log.Info("新建楼 批量储存")
@@ -126,6 +146,7 @@ func (this *BuildingManager) CreateBuilding(buildingid uint32) *BuildingData {
 	building := &BuildingData{}
 	building.id = buildingid
 	building.Init()
+	log.Info("CreateBuilding buildingid:%d", buildingid)
 	this.AddBuilding(building)
 	return building
 }
@@ -149,6 +170,7 @@ func (this *BuildingManager) AddBuilding(building *BuildingData) {
 	} else {
 		building.tbl = base
 		this.buildings[building.id] = building
+		log.Info("AddBuilding buildingid:%d", building.id)
 	}
 
 }
@@ -165,7 +187,18 @@ func (this *BuildingManager) GetBuilding(buildingid uint32) *BuildingData {
 
 //存储所有楼信息
 func (this *BuildingManager) SaveAllBuildings() {
+	log.Info("储存所有的楼信息 SaveAllBuildings")
+	pipe := Redis().Pipeline()
+	for _, v := range this.buildings {
+		v.SaveBin(pipe)
+	}
 
+	_, err := pipe.Exec()
+	if err != nil {
+		log.Error("储存所有的楼信息失败 [%s]", err)
+	} else {
+		log.Info("储存所有的楼信息成功")
+	}
 }
 
 //获取楼还有多少房屋未售
@@ -225,7 +258,9 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 	}
 	slicestr := strings.Split(strhouse, "-")
 	housetid, _ := strconv.Atoi(slicestr[0])
-	cost, _ := strconv.Atoi(slicestr[0])
+	costper, _ := strconv.Atoi(slicestr[1])
+	square, _ := strconv.Atoi(slicestr[2])
+	cost := uint32(costper) * uint32(square)
 	if user.RemoveGold(uint32(cost), "购买房屋", true) == false {
 		return 0
 	}
@@ -236,21 +271,54 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		log.Error("购买房屋失败创建房屋nil userid:%d buildingid:%d index:%d", userid, buildingid, index)
 		return 0
 	}
+	if _, ok := building.data[index]; ok {
+		building.data[index] = append(building.data[index], house.id)
+	} else {
+		building.data[index] = make([]uint64, 0)
+		building.data[index] = append(building.data[index], house.id)
+	}
+
 	return 1
+}
+
+//获取楼中所有入住的房屋 userid为除了某玩家之外 userid=0 为此楼所有房屋
+func (this *BuildingManager) GetAllHouseDataFromBuilding(buildingid uint32, userid uint64) []*HouseData {
+	data := make([]*HouseData, 0)
+	building := this.GetBuilding(buildingid)
+	if building == nil {
+		log.Error("GetAllHouseDataFromBuilding Err building nil buildingid:%d", buildingid)
+		return data
+	}
+	for _, v := range building.data {
+		for _, w := range v {
+			house := HouseSvrMgr().GetHouse(w)
+			if house == nil {
+				continue
+			}
+			if userid != 0 && house.ownerid == userid {
+				continue
+			}
+			data = append(data, house)
+		}
+	}
+	return data
 }
 
 //----------------------------------------------------------------------
 //user相关接口
 func (this *GateUser) BuyHouseFromBuilding(buildingid, index uint32) {
+	log.Info("玩家[%s]id:% 请求购买房屋 buildingid:%d index:%d", this.Name(), this.Id(), buildingid, index)
 	ret := BuildSvrMgr().UserBuyHouseFromBuilding(this.Id(), buildingid, index)
 	send := &msg.GW2C_AckBuyHouseFromBuilding{}
 	send.Buildingid = pb.Uint32(buildingid)
 	send.Index = pb.Uint32(index)
 	send.Ret = pb.Uint32(ret)
 	this.SendMsg(send)
+	this.ReqMatchHouseData()
 }
 
 func (this *GateUser) ReqBuildingCanBuyInfo(buildingid uint32) {
+	log.Info("ReqBuildingCanBuyInfo buildingid:%d", buildingid)
 	building := BuildSvrMgr().GetBuilding(buildingid)
 	if building == nil || building.tbl == nil {
 		log.Error("ReqBuildingCanBuyInfo GetBuilding nil buildingid:%d", buildingid)
@@ -275,4 +343,24 @@ func (this *GateUser) ReqBuildingCanBuyInfo(buildingid uint32) {
 		send.Data = append(send.Data, info)
 	}
 	this.SendMsg(send)
+}
+
+//获取楼中最多10个除了自己之外房屋信息
+func (this *GateUser) ReqBuildingRandHouseList(buildingid uint32) []*msg.HouseData {
+	alldata := BuildSvrMgr().GetAllHouseDataFromBuilding(buildingid, this.Id())
+	count := len(alldata)
+	data := make([]*msg.HouseData, 0)
+	if count <= 10 {
+		for _, v := range alldata {
+			data = append(data, v.PackBin())
+		}
+	} else {
+		tmprand := util.SelectRandNumbers(int32(count-1), 10)
+		for _, v := range tmprand {
+			house := alldata[int(v)]
+			data = append(data, house.PackBin())
+		}
+	}
+	CarMgr().AppendHouseData(data)
+	return data
 }
