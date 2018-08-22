@@ -35,7 +35,12 @@ type CarData struct {
 	template *table.TCarDefine
 }
 
-func (this *CarData) LoadBin(bin *msg.CarData) {
+func (this *CarData) LoadBin(rbuf []byte) error {
+	bin := &msg.CarData{}
+	if err := pb.Unmarshal(rbuf, bin); err != nil {
+		return fmt.Errorf("pb反序列化失败")
+	}
+
 	this.id = bin.GetId()
 	this.tid = bin.GetTid()
 	this.ownerid = bin.GetOwnerid()
@@ -50,7 +55,9 @@ func (this *CarData) LoadBin(bin *msg.CarData) {
 	} else {
 		this.template = template
 	}
+	return nil
 }
+
 
 func (this *CarData) SetParking(id uint64) {
 	this.parkingid = id
@@ -270,21 +277,40 @@ func (this *CarManager) Init() {
 	this.publicparkings = uint32(tbl.Car.PulicParkingNum)
 }
 
+func (this *CarManager) LoadCarFromDB() {
+	carsIds, err := Redis().SMembers(CarIdSetKey).Result()
+	if err != nil {
+		log.Error("启动加载车辆数据失败 err: %s", err)
+		return
+	} 
+
+	pipe := Redis().Pipeline() 
+	for _, v := range carsIds {
+		carid, _ := strconv.Atoi(v)
+		pipe.Get(fmt.Sprintf("cars_%d", carid))
+	}
+	cmds, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("加载车辆信息失败 RedisError: %s", err)
+		return
+	}
+
+	for _, v := range cmds {
+		if v.Err() == redis.Nil { continue }
+		rbuf, _ := v.(*redis.StringCmd).Bytes()
+		car := &CarData{}
+		if car.LoadBin(rbuf) != nil {
+			this.AddCar(car)
+		}
+	}
+	log.Info("加载所有车辆DB数据 size=%d", len(this.cars))
+}
+ 
 func (this *CarManager) GetCar(id uint64) *CarData {
 	if _, ok := this.cars[id]; ok {
 		return this.cars[id]
-	} else {
-		//尝试从内存加载 如果没有返回nil
-		key, bin := fmt.Sprintf("cars_%d", id), &msg.CarData{}
-		if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
-			log.Error("加载车辆信息失败无此车辆数据 id%d ，err: %s", id, err)
-			return nil
-		}
-		car := &CarData{}
-		car.LoadBin(bin)
-		this.AddCar(car)
-		return car
 	}
+	return nil
 }
 
 func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *CarData {

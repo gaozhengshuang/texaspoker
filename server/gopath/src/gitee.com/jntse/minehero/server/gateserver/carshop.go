@@ -123,7 +123,7 @@ func (shop* CarShop) LoadDB() {
 	}
 	cmds, err := pipe.Exec()
 	if err != nil && err != redis.Nil {
-		log.Error("CarShop LoadDB Error:%s ", err)
+		log.Error("CarShop LoadDB RedisError:%s ", err)
 		return
 	}
 
