@@ -429,6 +429,7 @@ module game {
                      }
                      break;*/
                 case 3:
+                    this.onclick_hideList();
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
                         this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { userid: item.ownerid, return: this.roomInfo, type: 2 }));
