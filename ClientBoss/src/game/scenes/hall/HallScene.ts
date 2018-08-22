@@ -9,7 +9,8 @@ module game {
 			return HallSceneSkin;
 		}
 		protected init() {
-			ApplicationFacade.getInstance().registerMediator(new SceneMediator(this));
+			// ApplicationFacade.getInstance().registerMediator(new SceneMediator(this));
+			ApplicationFacade.getInstance().registerMdt(SceneMediator.NAME, SceneMediator, this);
 		}
 
 		private static _instance: HallScene;

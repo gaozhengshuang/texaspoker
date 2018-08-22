@@ -105,7 +105,14 @@ module game {
         }
         public showUserInfo(bool:boolean){
             if(this.userInfoPanel!=null){
-                this.userInfoPanel.visible=bool;
+                if(bool)
+                {
+                    openPanel(PanelType.GameUserInfoPanel);
+                }
+                else
+                {
+                    this.userInfoPanel.remove();
+                }
             }
         }
         public showRoomWeizhi(isShow:boolean,roomvo:HouseVO=null){

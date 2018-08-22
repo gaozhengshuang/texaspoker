@@ -14,7 +14,7 @@ module game {
         }
 
         public show(reason: string = null) {
-            setEgretEventsReply(true);
+            setEgretEventsReply(true); //出现重登界面 将egret div 事件激活
             if (!this._isShow) {
                 this._isShow = true;
                 this._touchEvent = [

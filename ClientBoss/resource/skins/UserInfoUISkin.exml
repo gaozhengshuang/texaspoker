@@ -20,7 +20,7 @@
 		<e:Label id="bWeizhi_txt" text="上海闵行区" x="19" y="34" size="25" fontFamily="Microsoft YaHei" textAlign="left" width="153" textColor="0xECB700" rotation="0.09" anchorOffsetX="0"/>
 		<e:Image source="room_weizhi_icon1_png" x="0" y="31" scaleX="0.5" scaleY="0.5"/>
 	</e:Group>
-	<e:Group id="roomNumGroup" y="14.7" right="31">
+	<e:Group id="roomNumGroup" y="14.7" left="416">
 		<e:Image source="userRoomNoBg_png" x="0" y="0" scaleX="1.2" scaleY="1.2"/>
 		<e:Label text="Room" x="26.02" y="24.32" anchorOffsetX="0" width="69.88" anchorOffsetY="0" height="22.58" size="24" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
 		<e:Label id="roomNum_txt" text="808" x="26.02" y="54.48" anchorOffsetX="0" width="69.88" anchorOffsetY="0" height="22.58" size="24" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>

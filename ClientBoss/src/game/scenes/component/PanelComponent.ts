@@ -2,8 +2,9 @@ module game {
     export abstract class PanelComponent extends GameComponent {
         protected _isShow: boolean = false;
         protected _isShowEffect: boolean = true;
-        protected _isShowDark:boolean = true;
+        protected _isShowDark: boolean = true;
         public darkRect: eui.Rect;
+        protected _layerType: PanelLayerType = PanelLayerType.Panel;
 
         public removeDarkRect() {
             if (this.darkRect) {
@@ -25,7 +26,16 @@ module game {
             this.playShowEffect(this._isShowDark);
             this._isShow = true;
         }
-
+        protected get panelParent() {
+            switch (this._layerType) {
+                case PanelLayerType.Panel:
+                    return GameLayer.panelLayer;
+                case PanelLayerType.Diy:
+                    return GameLayer.diyLayer;
+                default:
+                    return GameLayer.panelLayer;
+            }
+        }
         protected beforeShow() {
 
         }
@@ -53,11 +63,11 @@ module game {
                 darkRect.touchEnabled = true;
                 darkRect.visible = true;
                 egret.Tween.get(darkRect).to({ alpha: 1 }, 150);
-                GameLayer.panelLayer.addChild(darkRect);
+                this.panelParent.addChild(darkRect);
                 panel.darkRect = darkRect;
             }
 
-            GameLayer.panelLayer.addChild(panel);
+            this.panelParent.addChild(panel);
             if (this._isShowEffect) {
                 let popUpWidth = panel.width;
                 let popUpHeight = panel.height;
