@@ -64,3 +64,15 @@ message GW2C_SynParkingRecord
 {
     repeated string records = 1;         //记录们
 }
+
+// 领取自动回收收益
+message C2GW_ReqTakeCarAutoBackReward {
+    optional uint64 carid = 1;
+}
+
+message GW2C_RetTakeCarAutoBackReward {
+    optional int32 result = 1;                          //结果 0为成功 其他失败
+    optional int32 reward = 2;                          //获得的奖励
+}
+
+
