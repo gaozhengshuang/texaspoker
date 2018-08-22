@@ -58,6 +58,7 @@ func (this *CarData) SetParking(id uint64) {
 
 func (this *CarData) SetParkingReward(reward uint32) {
 	this.parkingreward = reward
+	this.modified = true
 }
 
 func (this *CarData) PackBin() *msg.CarData {
@@ -587,6 +588,23 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
 		sendOwner.SendMsg(sendRecord)
 	}
+	return 0, reward
+}
+
+
+func (this *CarManager) TakeBackAutoBackReward(user *GateUser, car *CarData) (result uint32, reward uint32) {
+	if user == nil || car == nil {
+		return 0, 0
+	}
+
+	if car.parkingreward != 0 {
+		user.SendNotify("车辆没有可领取收益")
+		return 0, 0
+	}
+
+	reward = car.parkingreward
+	user.AddGold(car.parkingreward, "领取自动回收收益", true)
+	car.SetParkingReward(0)
 	return 0, reward
 }
 

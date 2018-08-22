@@ -1043,7 +1043,7 @@ func on_C2GW_ParkCar(session network.IBaseNetSession, message interface{}) {
 
 }
 
-//请求收回车辆
+//请求收回车辆 / 领取自动回收收益
 func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -1057,8 +1057,10 @@ func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	car := CarMgr().GetCar(tmsg.GetCarid())
 	if car == nil {
 		result, reward = 1, 0
-	}else {
+	}else if car.parkingid != 0 {
 		result, reward = CarMgr().TakeBackFromParking(user, car.parkingid, uint32(msg.CarOperatorType_TakeBack))
+	}else if car.parkingreward !=0 {
+		result, reward = CarMgr().TakeBackAutoBackReward(user, car)
 	}
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
