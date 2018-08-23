@@ -578,20 +578,12 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	//send := &msg.GW2MS_ReqCreateHouse{}
-	//send.Userid = pb.Uint64(this.Id())
-	//send.Housetid = pb.Uint32(1001)
-	//send.Ownername = pb.String(this.Name())
-	//Match().SendCmd(send)
 	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0)
 
 	if houseData != nil {
 		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
 		CarMgr().CreateNewParking(this.Id(), 1002, this.Name(), houseData.id)
 	}
-
-	this.newplayerstep = 0
-	this.robcount = 10
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -626,8 +618,6 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.SyncTimeStamp()
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
-	//上线通知MatchServer
-	//this.OnlineMatchServer()
 	this.ReqMatchHouseData()
 	this.CheckAddRobCount()
 	return true
