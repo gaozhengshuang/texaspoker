@@ -9,8 +9,8 @@
 
 
 
-	<e:Image id="hCoin_icon" source="have_coin_icon_png" x="484" width="85" height="86" y="32" visible="false"/>
-	<e:Image id="hQuan_icon" source="have_quan_icon_png" x="592" width="85" height="86" y="32" visible="false"/>
+
+
 	<e:Image id="chushou_icon" source="chushouzhong_icon1_png" x="526.5" width="123" height="120" y="15" visible="false"/>
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
 	<e:Button id="goin_btn" label="进 入" width="150" height="56" x="538" verticalCenter="0">

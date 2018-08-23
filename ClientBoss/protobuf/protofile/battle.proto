@@ -83,6 +83,11 @@ message BT_ReqQuitGameRoom {
     optional uint32 gold = 3;
 }
 
+// 房间销毁
+message BT_GameRoomDestroy {
+    optional int64 roomid = 1;
+}
+
 // R2C 获得道具
 message BT_PickItem {
     optional uint64 userid = 1;
@@ -123,6 +128,10 @@ message BT_BulletEarnMoney {
     optional int64 bulletid = 2;
     optional uint32 gold = 3;
 }
+
+message BT_RetBulletEarnMoney { 
+}
+
 
 // C2R 使用大招
 message BT_UseUltimateSkil {

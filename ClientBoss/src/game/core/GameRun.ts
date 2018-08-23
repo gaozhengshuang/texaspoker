@@ -36,6 +36,7 @@ module game {
     export function createGameScene() {
 
         //进入大厅场景 由mvc来完成
+        Console.log("登录成功，进入大厅！");
         ApplicationFacade.getInstance().startUp(gamelayer);
         SceneManager.changeScene(SceneType.hall);
         

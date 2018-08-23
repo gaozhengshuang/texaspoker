@@ -8,8 +8,6 @@ module game {
         private junjia_txt: eui.Label;
         private channeng_txt: eui.Label;
 
-        private hCoin_icon: eui.Image;
-        private hQuan_icon: eui.Image;
         private chushou_icon: eui.Image;
         private jiaoBiaoIcon: eui.Image;
         private bg_mc:eui.Rect;
@@ -18,8 +16,6 @@ module game {
             super();
             this.skinName = "resource/skins/SceneAssetsItemSkin.exml";
             //this.adaptive();
-            this.hCoin_icon.visible=false;
-            this.hQuan_icon.visible=false;
             this.chushou_icon.visible=false;
             this.jiaoBiaoIcon.visible=false;
             this.bg_mc.alpha=0;

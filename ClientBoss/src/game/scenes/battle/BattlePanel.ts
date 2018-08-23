@@ -17,8 +17,8 @@ module game {
         ball1Price: eui.Label;
         ball2Price: eui.Label;
         hitLabel: eui.Label;
-        diamondNumTxt : eui.Label;
-        
+        diamondNumTxt: eui.Label;
+
         topImage: eui.Image;
         noticeLabel: eui.Label;
         brickInfoGroup: eui.Group;
@@ -41,7 +41,7 @@ module game {
         coin_money: game.Coins;
         coin_gold: game.Coins;
 
-        roleBoneGroup : eui.Group;
+        roleBoneGroup: eui.Group;
 
         private _nowSp: number = 0;
         private _spCool: number = 0;
@@ -70,7 +70,7 @@ module game {
         private _timeBoomPool: ObjectPool<BattleTimeBoom>;
         private _firewallPool: ObjectPool<BattleFirewall>;
         private _icePool: ObjectPool<BattleIce>;
-        private _roleBonePool : ObjectPool<RoleBone>;
+        private _roleBonePool: ObjectPool<RoleBone>;
 
         private _paddle: BattlePaddle;
 
@@ -98,7 +98,7 @@ module game {
         //private _debugDraw: p2DebugDraw;
         debugGroup: eui.Group;
         private _currentFrame: number;
-        private _badbuffDeltaTime:number;
+        private _badbuffDeltaTime: number;
         private _lootList;
         private _topColumn: number[];
         private _blackHoleList: BattleBlackHole[];
@@ -185,21 +185,11 @@ module game {
                 }
             }
             this.initWorld();
-            this.initNetHandle();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
             DataManager.playerModel.skillUpdate();
             this.updateScore();
             this.updateDiamond();
         }
-
-        private initNetHandle() {
-            NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
-            NotificationCenter.addObserver(this, this.onBT_RetStepOnBomb, "msg.BT_RetStepOnBomb");  // 定时炸弹
-            NotificationCenter.addObserver(this, this.onBT_RetCrushSuperBrick, "msg.BT_RetCrushSuperBrick");  // 定时炸弹
-            NotificationCenter.addObserver(this, this.updateScore, PlayerModel.SCORE_UPDATE);
-            NotificationCenter.addObserver(this, this.updateDiamond, PlayerModel.DIAMOND_UPDATE);
-        }
-
         protected getSkinName() {
             return BattleSceneSkin;
         }
@@ -315,6 +305,14 @@ module game {
         }
 
         protected beforeShow() {
+
+            NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
+            NotificationCenter.addObserver(this, this.onBT_RetStepOnBomb, "msg.BT_RetStepOnBomb");  // 定时炸弹
+            NotificationCenter.addObserver(this, this.onBT_RetCrushSuperBrick, "msg.BT_RetCrushSuperBrick");  // 黄金鲨
+            NotificationCenter.addObserver(this, this.onBT_GameRoomDestroy, "msg.BT_GameRoomDestroy");  // 房间退出
+            NotificationCenter.addObserver(this, this.updateScore, PlayerModel.SCORE_UPDATE);
+            NotificationCenter.addObserver(this, this.updateDiamond, PlayerModel.DIAMOND_UPDATE);
+
             this.curSpaceFire = _spaceFire + DataManager.playerModel.getScore();
             let paddle = this._paddlePool.createObject();
             paddle.setData(1);
@@ -331,11 +329,11 @@ module game {
             let _roleBone = this._roleBonePool.createObject();
             _roleBone.awake();
             this.roleBoneGroup.addChild(_roleBone);
-            this.roleBoneGroup.setChildIndex(_roleBone,1);
-        
+            this.roleBoneGroup.setChildIndex(_roleBone, 1);
+
             _roleBone.scaleX = 0.42;
             _roleBone.scaleY = 0.42;
-            _roleBone.rotation  = 12;
+            _roleBone.rotation = 12;
             _roleBone.x = 55;
             _roleBone.y = 30;
 
@@ -492,7 +490,7 @@ module game {
             }
             //更新能量
             let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
-            this._nowSp = Math.min(this._nowSp,maxSp);
+            this._nowSp = Math.min(this._nowSp, maxSp);
             if (this._nowSp <= maxSp) {
                 this.updateSp();
             }
@@ -512,7 +510,7 @@ module game {
         }
 
         private sendLaunchBulletMsg() {
-            sendMessage("msg.BT_ReqLaunchBullet", msg.BT_ReqLaunchBullet.encode({ userid: DataManager.playerModel.getUserId() }));
+            sendMessage("msg.BT_ReqLaunchBullet", msg.BT_ReqLaunchBullet.encode({ userid: DataManager.playerModel.getUserId() }), false);
         }
 
         private noticeFinish() {
@@ -556,9 +554,9 @@ module game {
         private updateScore() {
             let gold = DataManager.playerModel.getScore();
             this.scoreLabel.textFlow = [
-                 { text: "金币", style: { bold: true } },
-                 { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
-             ]
+                { text: "金币", style: { bold: true } },
+                { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
+            ]
             //this.coin_gold.coins = gold;
             if (gold >= this.curSpaceFire) {
                 this.curSpaceFire += _spaceFire;
@@ -569,7 +567,7 @@ module game {
 
         private updateDiamond() {
             //this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
-            this.diamondNumTxt.text = DataManager.playerModel.getDiamond().toString();      
+            this.diamondNumTxt.text = DataManager.playerModel.getDiamond().toString();
         }
 
         private ballHandle(ballButton: IconButton) {
@@ -716,11 +714,10 @@ module game {
                 }
                 this.sendSpMsg(totalGold);
             }
-            if(this._badbuffDeltaTime>0)
-            {
+            if (this._badbuffDeltaTime > 0) {
                 this._badbuffDeltaTime--;
             }
-            
+
             this._currentFrame++;
             this.moveBrick();
             if (this._currentFrame == 120) {
@@ -870,7 +867,7 @@ module game {
                     case BrickType.blackHole:
                     case BrickType.fireWall:
                     case BrickType.ice:
-                        if(this._badbuffDeltaTime>0) return;
+                        if (this._badbuffDeltaTime > 0) return;
                         if (this._topColumn.length <= (10 - limitNum)) return;
                         mapGridInfo.row = 0;
                         let index = Math.floor(Math.random() * this._topColumn.length);
@@ -1032,7 +1029,7 @@ module game {
         }
 
         private addSp() {
-            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));        
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
             if (this._spCool > 0) return;
             if (this._nowSp < maxSp) {
                 this._nowSp += 1;
@@ -1080,7 +1077,7 @@ module game {
         }
 
         private updateSp() {
-            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));        
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
             this._nowSp = Math.min(this._nowSp, maxSp);
             //console.log('更新SP：', this._nowSp,maxSp, this._nowSp/maxSp,this);
             this._paddle.setSp(this._nowSp / maxSp);
@@ -1121,6 +1118,13 @@ module game {
             this._roleBonePool.destroyAllObject();
             this.touchGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandle, this);
             egret.stopTick(this.updateView, this);
+
+            NotificationCenter.removeObserver(this, "msg.BT_RetLaunchBullet");
+            NotificationCenter.removeObserver(this, "msg.BT_RetStepOnBomb");  // 定时炸弹
+            NotificationCenter.removeObserver(this, "msg.BT_RetCrushSuperBrick");  // 黄金鲨
+            NotificationCenter.removeObserver(this, "msg.BT_GameRoomDestroy");  // 房间退出
+            NotificationCenter.removeObserver(this, PlayerModel.SCORE_UPDATE);
+            NotificationCenter.removeObserver(this, PlayerModel.DIAMOND_UPDATE);
         }
 
         public async showBoom(battleBrick: BattleBrick, isSmall: boolean = false) {
@@ -1309,7 +1313,7 @@ module game {
             this.playBreakAnim(brick);
             this.cleanBrick(brick);
 
-            score =  Math.floor(score*SkillManager.getInstance().SkillAddition(SkillType.BreakGoldGet)) ;
+            score = Math.floor(score * SkillManager.getInstance().SkillAddition(SkillType.BreakGoldGet));
             return score;
         }
         //TODO: 发送黄金鲨分数统计到服务器
@@ -1324,7 +1328,10 @@ module game {
             let score = this._curGoldSharkScore;
             DataManager.playerModel.addScore(score);
         }
-
+        private onBT_GameRoomDestroy(data: msg.BT_GameRoomDestroy) {
+            this.remove();
+            SceneManager.changeScene(SceneType.hall);
+        }
         private async playBreakAnim(brick: BattleBrick) {
             let breakItem = this._breakPool.createObject();
             breakItem.setData(brick);
@@ -1460,10 +1467,8 @@ module game {
                     gold: DataManager.playerModel.getScore(),
                 }));
 
-                this.remove();
-                SceneManager.changeScene(SceneType.hall);
             }.bind(this);
-            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));            
+            let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));
             if (this._nowSp >= maxSp / 2 || this._breakBad >= _breakBadBuffMax) {
                 showDialog("现在退出游戏，能量将不保存哦！", "确定", function () {
                     backFunc();
