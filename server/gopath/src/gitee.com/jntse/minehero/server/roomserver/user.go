@@ -326,7 +326,7 @@ func (this *RoomUser) GetGold() uint32 {
 }
 
 func (this *RoomUser) RemoveGold(gold uint32, reason string, syn bool) bool {
-	if this.GetGold() > gold {
+	if this.GetGold() >= gold {
 		userbase := this.UserBase()
 		userbase.Gold = pb.Uint32(this.GetGold() - gold)
 		if syn { this.SendGold() }
