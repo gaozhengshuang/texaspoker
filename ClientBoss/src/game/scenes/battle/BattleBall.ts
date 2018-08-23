@@ -48,7 +48,7 @@ module game {
                 userid: DataManager.playerModel.getUserId(),
                 bulletid: this.id,
                 gold: this.lifeValue,
-            }))
+            }), false);
         }
 
         public get id() {return this._id;}
