@@ -31,7 +31,7 @@ module game {
 			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_SMALL_GAME,eve.EventObj);
 		}
 		
-		public get sceneGroup():GameDiscoveryView
+		private get sceneGroup():GameDiscoveryView
         {
 			return <GameDiscoveryView><any> (this.viewComponent);
 		}

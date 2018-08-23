@@ -84,9 +84,5 @@ module game {
 				ApplicationFacade.getInstance().removeMediator(this.sceneMediatorName);
 			}
 		}
-
-		public get sceneGroup(): egret.Sprite {
-			return <egret.Sprite><any>(this.viewComponent);
-		}
 	}
 }

@@ -44,7 +44,7 @@ module game {
 			}
 		}
 
-		public get sceneGroup(): egret.Sprite {
+		private get sceneGroup(): egret.Sprite {
 			return <egret.Sprite><any>(this.viewComponent);
 		}
 	}

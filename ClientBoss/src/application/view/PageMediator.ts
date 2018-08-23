@@ -10,7 +10,8 @@ module game {
             super(PageMediator.NAME, viewComponent);
         }
 
-        public pageView: PanelComponent | eui.UILayer;
+        public pageView: PanelComponent | egret.EventDispatcher;
+        private _smallView:GameSmallGameView;
         public pageMediatorName: string = "";
         public listNotificationInterests(): Array<any> {
             return [
@@ -67,8 +68,13 @@ module game {
                             GameConfig.pageType = 4;
                             GameConfig.setEventsReply(true);
                             //GameConfig.closeGameFun(true);
-                            this.pageView = new GameSmallGameView();
-                            this.sceneGroup.addChild(this.pageView);
+                            if(!this._smallView)
+                            {
+                                this._smallView = new GameSmallGameView();
+                            }
+                            this._smallView.clear();
+                            this.pageView = this._smallView;
+                            // this.sceneGroup.addChild(this.pageView);
                             // ApplicationFacade.getInstance().registerMediator(new SmallGameMediator(this.pageView));
                             ApplicationFacade.getInstance().registerMdt<SmallGameMediator>(SmallGameMediator.NAME, SmallGameMediator, this.pageView);
 
@@ -108,17 +114,13 @@ module game {
                 this.pageView.remove();
             }
             else {
-                if (this.pageView && this.pageView.parent) {
-                    this.pageView.parent.removeChild(this.pageView);
+                if (this.pageView) {
+                    (this.pageView as GameSmallGameView).clear();
                 }
             }
             if (this.pageMediatorName != "") {
                 ApplicationFacade.getInstance().removeMediator(this.pageMediatorName);
             }
-        }
-
-        public get sceneGroup(): egret.Sprite {
-            return <egret.Sprite><any>(this.viewComponent);
         }
     }
 }

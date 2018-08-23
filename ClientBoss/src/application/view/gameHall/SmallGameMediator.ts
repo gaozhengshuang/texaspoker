@@ -30,7 +30,7 @@ module game {
 			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_SMALL_GAME_PAGE);
 		}
 		
-		public get sceneGroup():GameSmallGameView
+		private get sceneGroup():GameSmallGameView
         {
 			return <GameSmallGameView><any> (this.viewComponent);
 		}

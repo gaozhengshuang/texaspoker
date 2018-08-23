@@ -27,9 +27,5 @@ module game {
 			
 		}
 		
-		public get sceneGroup():GameMineView
-        {
-			return <GameMineView><any> (this.viewComponent);
-		}
 	}
 }

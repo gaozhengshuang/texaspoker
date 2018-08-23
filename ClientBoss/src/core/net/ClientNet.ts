@@ -97,7 +97,7 @@ module game {
     }
 
     //向服务端发送消息
-    export function sendMessage(msgName: string, msg: protobuf.Writer, isShowLoading: boolean = true): void {
+    export function sendMessage(msgName: string, msg: protobuf.Writer, isShowLoading: boolean = false): void {
         let msgId = findMsgId(msgName);
         if (msgId == 0) {
             egret.error("传入了错误的消息名或Proto文件没有初始化");

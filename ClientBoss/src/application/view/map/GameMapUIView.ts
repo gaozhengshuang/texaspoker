@@ -1,7 +1,7 @@
 declare function setBtnCallbackFun(fun:Function,body:any);
 declare function updataUserInfo(obj:any);
 module game {
-	export class GameMapUIView extends egret.Sprite {
+	export class GameMapUIView extends egret.EventDispatcher {
         public static FUJIN_SWITCH:string = "fujin_switch";
         public static MAP_POSITION:string = "map_position";
         public static OPEN_MAIN_ASSETS:string = "open_main_assets";
@@ -177,5 +177,12 @@ module game {
             this.fujinStatus=status;
             this.dispatchEvent(new BasicEvent(GameMapUIView.FUJIN_SWITCH,{index:this.fujinStatus}));
 		}
+        /**
+         * 释放事件与重置数据状态
+         */
+        public clear()
+        {
+
+        }
 	}
 }
