@@ -79,12 +79,13 @@ message GW2C_AckTakeOtherHouseGoldRet {
 
 //获取随机的房屋列表
 message C2GW_ReqRandHouseList {
-	
+	optional uint32 carflag = 1;
 }
 
 //返回随机的房屋列表
 message GW2C_AckRandHouseList {
 	repeated msg.HouseData datas = 1;
+	repeated msg.HouseData datas2 = 2; //车辆停靠的房间
 }
 
 //更新抢钱次数
@@ -110,4 +111,50 @@ message GW2C_NotifyTimeStamp {
 //请求重置访客查看状态
 message C2GW_ReqResetRobCheckFlag {
 	optional uint64 houseid = 1;
+}
+
+//同步恢复抢钱次数的时间
+message GW2C_NotifyAddRobCountTime {
+	optional int64 time = 1;
+}
+
+//请求单个房屋的数据
+message C2GW_ReqHouseDataByHouseId {
+	optional uint64 houseid = 1;
+}
+
+//返回单个房屋的查询数据
+message GW2C_AckHouseDataByHouseId {
+	optional uint64 houseid = 1;
+	optional msg.HouseData data = 2;
+}
+
+//从楼里买房屋
+message C2GW_ReqBuyHouseFromBuilding {
+	optional uint32 buildingid = 1; //楼id
+	optional uint32 index = 2;      //户型
+}
+
+//返回买楼
+message GW2C_AckBuyHouseFromBuilding {
+	optional uint32 buildingid = 1; //楼id
+	optional uint32 index = 2;      //户型
+	optional uint32 ret = 3; 		//0失败 1成功
+}
+
+//请求楼的待售信息
+message C2GW_ReqBuildingCanBuyInfo {
+	optional uint32 buildingid = 1; //楼id
+}
+
+//可买房屋结构体
+message CanBuyInfo {
+	optional uint32 index = 1; //户型
+	optional uint32 count = 2; //代售数量
+}
+
+//返回楼的待售信息
+message GW2C_AckBuildingCanBuyInfo {
+	optional uint32 buildingid = 1; //楼id
+	repeated CanBuyInfo data = 2; 
 }

@@ -155,7 +155,50 @@
 	background-image:url(../images/dingw.png);
 	background-size:cover;
 }
+#shouyiBtn{
+	width:240px;
+	height:260px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	right:10px;
+	bottom:520px;
+}
+.noShouyi{
+	background-image:url(../images/no_Shouyi_btn.png);
+	background-size:cover;
+}
+.haveShouyi{
+	background-image:url(../images/have_Shouyi_btn.png);
+	background-size:cover;
+}
 
+#buyHouseBtn{
+	width:200px;
+	height:224px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	bottom:220px;
+	background-image:url(../images/buy_house_btn1.png);
+	background-size:cover;
+}
+
+#buyCarBtn{
+	width:200px;
+	height:224px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	bottom:220px;
+	background-image:url(../images/buy_car_btn1.png);
+	background-size:cover;
+}
 
 #fujinSwitchBtn{
 	width:156px;

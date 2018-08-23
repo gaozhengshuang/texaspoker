@@ -10,7 +10,8 @@ module game {
             super(PageMediator.NAME, viewComponent);
         }
 
-        public pageView: any;
+        public pageView: PanelComponent | egret.EventDispatcher;
+        private _smallView:GameSmallGameView;
         public pageMediatorName: string = "";
         public listNotificationInterests(): Array<any> {
             return [
@@ -35,13 +36,16 @@ module game {
                             let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
                             GameConfig.pageType = 1;
                             GameConfig.setEventsReply(true);
-                            this.pageView = new GameRoomView();
-                            this.sceneGroup.addChild(this.pageView);
-                            ApplicationFacade.getInstance().registerMediator(new RoomMediator(this.pageView));
+                            openPanel(PanelType.GameRoomView);
+
+                            this.pageView = GameRoomView.getInstance();
+
+                            ApplicationFacade.getInstance().registerMdt<RoomMediator>(RoomMediator.NAME, RoomMediator, this.pageView);
+
                             this.pageMediatorName = RoomMediator.NAME;
-                            this.pageView.initInfo(data.room,userProxy.getUserInfo().userid,houseProxy.returnType);
-                            
-                            
+                            GameRoomView.getInstance().initInfo(data.room, userProxy.getUserInfo().userid, houseProxy.returnType);
+
+
                             /*if (GameConfig.exploring && data.room.rUserId == userProxy.getUserInfo().userid) {
                                 GameConfig.exploreUIFun(false);
                                 GameConfig.exploring = false;
@@ -64,24 +68,31 @@ module game {
                             GameConfig.pageType = 4;
                             GameConfig.setEventsReply(true);
                             //GameConfig.closeGameFun(true);
-                            this.pageView = new GameSmallGameView();
-                            this.sceneGroup.addChild(this.pageView);
-                            ApplicationFacade.getInstance().registerMediator(new SmallGameMediator(this.pageView));
+                            if(!this._smallView)
+                            {
+                                this._smallView = new GameSmallGameView();
+                            }
+                            this._smallView.clear();
+                            this.pageView = this._smallView;
+                            // this.sceneGroup.addChild(this.pageView);
+                            // ApplicationFacade.getInstance().registerMediator(new SmallGameMediator(this.pageView));
+                            ApplicationFacade.getInstance().registerMdt<SmallGameMediator>(SmallGameMediator.NAME, SmallGameMediator, this.pageView);
+
                             this.pageMediatorName = SmallGameMediator.NAME;
-                            this.pageView.initGame(data.game);
+                            (this.pageView as GameSmallGameView).initGame(data.game);
                         }
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
 
                         break;
                     }
-                    case CommandName.REMOVE_SMALL_GAME_PAGE:
+                case CommandName.REMOVE_SMALL_GAME_PAGE:
                     {
                         this.removeSceneView();
                         //GameConfig.closeGameFun(false);
                         //ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_DISCOVERY);
                         break;
                     }
-                    case CommandName.REMOVE_ROOM_PAGE:
+                case CommandName.REMOVE_ROOM_PAGE:
                     {
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
@@ -90,22 +101,26 @@ module game {
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
                         break;
                     }
-                    
-                
+
+
             }
 
         }
 
         private removeSceneView(): void {
             GameConfig.pageType = 0;
-            this.sceneGroup.removeChildren();
+            // this.sceneGroup.removeChildren();
+            if (this.pageView instanceof PanelComponent) {
+                this.pageView.remove();
+            }
+            else {
+                if (this.pageView) {
+                    (this.pageView as GameSmallGameView).clear();
+                }
+            }
             if (this.pageMediatorName != "") {
                 ApplicationFacade.getInstance().removeMediator(this.pageMediatorName);
             }
-        }
-
-        public get sceneGroup(): egret.Sprite {
-            return <egret.Sprite><any>(this.viewComponent);
         }
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="NewHouseItemSkin" width="720" height="180" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
+	<e:Button id="goin_btn" label="查看房型" width="150" height="56" x="538" verticalCenter="0">
+		<e:skinName>
+		<e:Skin states="up,down,disabled" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+			<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei" size="26"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Image x="25" verticalCenter="0" source="xiaoqu_2003001_png"/>
+	<e:Label id="name_txt" text="万科七宝国际" x="215" y="30" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="300" textColor="0x404A58" touchEnabled="false" bold="true" stroke="2" strokeColor="0xffffff"/>
+	<e:Label id="weizhi_txt2" text="上海市闵行区" x="215" y="79" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="300" textColor="0x404A58" touchEnabled="false"/>
+	<e:Label id="weizhi_txt0" text="当前均价30000元/平米" x="215" y="126" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="300" touchEnabled="false" textColor="0xe8425d"/>
+	<e:Image source="new_room_point1_png" x="177" y="63"/>
+</e:Skin>

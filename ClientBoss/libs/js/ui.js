@@ -8,6 +8,9 @@ jiaoyiBtnW,jiaoyiBtnH,
 wodeBtnW,wodeBtnH,
 xiaoxiBtnW,xiaoxiBtnH,
 dingweiBtnW,dingweiBtnH,
+shouyiBtnW,shouyiBtnH,
+buyHouseBtnW,buyHouseBtnH,
+buyCarBtnW,buyCarBtnH,
 fujinSwitchBtnW,fujinSwitchBtnH,
 returnBtnW,returnBtnH,
 gameCloseW,gameCloseH;
@@ -43,6 +46,18 @@ window.onload=function(){
     dingweiBtnW=document.getElementById("dingweiBtn").clientWidth;
     dingweiBtnH=document.getElementById("dingweiBtn").clientHeight;
     document.getElementById("dingweiBtn").style.display='none';
+
+    shouyiBtnW=document.getElementById("shouyiBtn").clientWidth;
+    shouyiBtnH=document.getElementById("shouyiBtn").clientHeight;
+    document.getElementById("shouyiBtn").style.display='none';
+
+    buyHouseBtnW=document.getElementById("buyHouseBtn").clientWidth;
+    buyHouseBtnH=document.getElementById("buyHouseBtn").clientHeight;
+    document.getElementById("buyHouseBtn").style.display='none';
+
+    buyCarBtnW=document.getElementById("buyCarBtn").clientWidth;
+    buyCarBtnH=document.getElementById("buyCarBtn").clientHeight;
+    document.getElementById("buyCarBtn").style.display='none';
 
     fujinSwitchBtnW=document.getElementById("fujinSwitchBtn").clientWidth;
     fujinSwitchBtnH=document.getElementById("fujinSwitchBtn").clientHeight;
@@ -112,7 +127,28 @@ function adaptive(scale){
     document.getElementById("dingweiBtn").style.display='block';
     document.getElementById("dingweiBtn").style.width=dingweiBtnW*scale+"px";
     document.getElementById("dingweiBtn").style.height=dingweiBtnH*scale+"px";
-    document.getElementById("dingweiBtn").style.bottom=(downPanelH*scale+70*scale)+'px';
+    let dingweiBottom=downPanelH*scale+70*scale;
+    document.getElementById("dingweiBtn").style.bottom=dingweiBottom+'px';
+
+
+    document.getElementById("shouyiBtn").style.display='block';
+    document.getElementById("shouyiBtn").style.width=shouyiBtnW*scale+"px";
+    document.getElementById("shouyiBtn").style.height=shouyiBtnH*scale+"px";
+    document.getElementById("shouyiBtn").style.bottom=(dingweiBottom+20+shouyiBtnH*scale)+'px';
+
+
+    document.getElementById("buyHouseBtn").style.display='block';
+    document.getElementById("buyHouseBtn").style.width=buyHouseBtnW*scale+"px";
+    document.getElementById("buyHouseBtn").style.height=buyHouseBtnH*scale+"px";
+    document.getElementById("buyHouseBtn").style.bottom=dingweiBottom+'px';
+
+
+    document.getElementById("buyCarBtn").style.display='block';
+    document.getElementById("buyCarBtn").style.width=buyCarBtnW*scale+"px";
+    document.getElementById("buyCarBtn").style.height=buyCarBtnH*scale+"px";
+    document.getElementById("buyCarBtn").style.bottom=(dingweiBottom+20+buyCarBtnH*scale)+'px';
+
+
 
     //document.getElementById("fujinSwitchBtn").style.display='block';
     document.getElementById("fujinSwitchBtn").style.width=fujinSwitchBtnW*scale+"px";
@@ -151,6 +187,24 @@ function setBtnCallbackFun(fun,body){
         console.log(e.type,e.target);
         if (btnCallBackFun != null) {
             btnCallBackFun('dingwei',btnCallBackBody);
+        }
+    });
+    document.getElementById("shouyiBtn").addEventListener("mousedown", function (e) {
+        console.log(e.type,e.target);
+        if (btnCallBackFun != null) {
+            btnCallBackFun('shouyi',btnCallBackBody);
+        }
+    });
+    document.getElementById("buyHouseBtn").addEventListener("mousedown", function (e) {
+        console.log(e.type,e.target);
+        if (btnCallBackFun != null) {
+            btnCallBackFun('buyHouse',btnCallBackBody);
+        }
+    });
+    document.getElementById("buyCarBtn").addEventListener("mousedown", function (e) {
+        console.log(e.type,e.target);
+        if (btnCallBackFun != null) {
+            btnCallBackFun('buyCar',btnCallBackBody);
         }
     });
     document.getElementById("returnBtn").addEventListener("mousedown", function (e) {
@@ -293,6 +347,15 @@ function showAssetsRedIcon(isShow){
     }
     else {
         document.getElementById("zichanRedIcon").style.display = 'none';
+    }
+}
+
+function showShouyiIcon(isHas){
+    if (isHas) {
+        document.getElementById("shouyiBtn").setAttribute("class", "haveShouyi");
+    }
+    else {
+        document.getElementById("shouyiBtn").setAttribute("class", "noShouyi");
     }
 }
 

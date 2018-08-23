@@ -3,11 +3,26 @@
 
 module table {
 export var THouse : table.ITHouseDefine[] = [
-		{ Id : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 400, Des : "" 	},
-		{ Id : 1002, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 6000, Des : "" 	},
-		{ Id : 1003, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 24400, Des : "" 	},
-		{ Id : 1004, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 63280, Des : "" 	},
-		{ Id : 1005, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-2-3-4", LevelUpCost : 0, Des : "" 	}
+		{ Id : 1001, ImageId : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 1002, ImageId : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 6000, Des : "1室1厅1厨1卫" 	},
+		{ Id : 1003, ImageId : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 24400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 1004, ImageId : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 63280, Des : "1室1厅1厨1卫" 	},
+		{ Id : 1005, ImageId : 1001, Type : 1, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 0, Des : "1室1厅1厨1卫" 	},
+		{ Id : 2001, ImageId : 2001, Type : 2, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 2002, ImageId : 2001, Type : 2, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 6000, Des : "1室1厅1厨1卫" 	},
+		{ Id : 2003, ImageId : 2001, Type : 2, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 24400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 2004, ImageId : 2001, Type : 2, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 63280, Des : "1室1厅1厨1卫" 	},
+		{ Id : 2005, ImageId : 2001, Type : 2, MaxLevel : 5, MaxCells : 4, Cells : "1-1|2-2|3-3|4-4", LevelUpCost : 0, Des : "1室1厅1厨1卫" 	},
+		{ Id : 3001, ImageId : 3001, Type : 3, MaxLevel : 5, MaxCells : 3, Cells : "1-1|2-2|3-3", LevelUpCost : 400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 3002, ImageId : 3001, Type : 3, MaxLevel : 5, MaxCells : 3, Cells : "1-1|2-2|3-3", LevelUpCost : 6000, Des : "1室1厅1厨1卫" 	},
+		{ Id : 3003, ImageId : 3001, Type : 3, MaxLevel : 5, MaxCells : 3, Cells : "1-1|2-2|3-3", LevelUpCost : 24400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 3004, ImageId : 3001, Type : 3, MaxLevel : 5, MaxCells : 3, Cells : "1-1|2-2|3-3", LevelUpCost : 63280, Des : "1室1厅1厨1卫" 	},
+		{ Id : 3005, ImageId : 3001, Type : 3, MaxLevel : 5, MaxCells : 3, Cells : "1-1|2-2|3-3", LevelUpCost : 0, Des : "1室1厅1厨1卫" 	},
+		{ Id : 4001, ImageId : 4001, Type : 4, MaxLevel : 5, MaxCells : 2, Cells : "1-1|2-2", LevelUpCost : 400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 4002, ImageId : 4001, Type : 4, MaxLevel : 5, MaxCells : 2, Cells : "1-1|2-2", LevelUpCost : 6000, Des : "1室1厅1厨1卫" 	},
+		{ Id : 4003, ImageId : 4001, Type : 4, MaxLevel : 5, MaxCells : 2, Cells : "1-1|2-2", LevelUpCost : 24400, Des : "1室1厅1厨1卫" 	},
+		{ Id : 4004, ImageId : 4001, Type : 4, MaxLevel : 5, MaxCells : 2, Cells : "1-1|2-2", LevelUpCost : 63280, Des : "1室1厅1厨1卫" 	},
+		{ Id : 4005, ImageId : 4001, Type : 4, MaxLevel : 5, MaxCells : 2, Cells : "1-1|2-2", LevelUpCost : 0, Des : "1室1厅1厨1卫" 	}
 	]
 
 

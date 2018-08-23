@@ -45,7 +45,7 @@ module game {
 				//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_REGISTER,eve.EventObj);
 			}
 		}
-		public get sceneGroup():GameLoginView
+		private get sceneGroup():GameLoginView
         {
 			return <GameLoginView><any> (this.viewComponent);
 		}

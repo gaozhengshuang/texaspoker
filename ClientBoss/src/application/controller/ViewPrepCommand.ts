@@ -6,7 +6,7 @@ module game {
 			super();
 		}
 		public execute(notification:puremvc.INotification):void{
-			var main:AppContainer = notification.getBody();
+			var main:game.GameLayer = notification.getBody();
 			this.facade().registerMediator( new ApplicationMediator(main) );
 		}
 	}

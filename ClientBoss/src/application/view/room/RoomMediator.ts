@@ -95,26 +95,29 @@ module game {
 			CarManager.getInstance().ReqMyCarInfo();
 		}
 		private closeRequset(eve: BasicEvent): void {
-			if(eve.EventObj){
+			if (eve.EventObj) {
 				let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
-				if(eve.EventObj.userid==DataManager.playerModel.getUserInfo().userid){
+				if (eve.EventObj.userid == DataManager.playerModel.getUserInfo().userid) {
 					houseProxy.returnType = 0;
 				}
 				if (houseProxy.returnRoomInfo != null) {
 					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
-						{ userid:houseProxy.returnRoomInfo.ownerid});
+						{ userid: houseProxy.returnRoomInfo.ownerid });
 					houseProxy.returnRoomInfo = null;
 					//houseProxy.returnType = 0;
 				} else {
 					ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_ROOM_PAGE);
-					if(CarDetailView._instance)
-					{
+					if (CarDetailView.getInstance().isDongTaiPanelView()) {
 						CarDetailView.getInstance().OnEnableHandle();
 					}
 				}
 			}
-			
 
+			if (GameConfig.sceneType == 2) {
+				GameConfig.setEventsReply(false);
+				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+                ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+			}
 		}
 		private showRoomNumRegister(eve: BasicEvent): void {
 			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_NUM, eve.EventObj);

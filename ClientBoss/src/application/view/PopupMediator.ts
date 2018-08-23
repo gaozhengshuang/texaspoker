@@ -11,7 +11,7 @@ module game {
 			this.init();
 		}
 
-		public sceneView: any;
+		public sceneView: PanelComponent;
 		public sceneMediatorName: string = "";
 
 		public listNotificationInterests(): Array<any> {
@@ -30,16 +30,18 @@ module game {
 						this.removeSceneView();
 						if (data) {
 							GameConfig.updataMaskBgFun('#000000', 0);
-							this.sceneView = new WelcomeNewPlayersPanel();
+							openPanel(PanelType.WelcomeNewPlayersPanel);
+							this.sceneView = WelcomeNewPlayersPanel.getInstance();
 							let goalScale: number = this.sceneView.scaleX;
 							this.sceneView.alpha = 0;
 							this.sceneView.scaleX = this.sceneView.scaleY = goalScale * 0.5;
 							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
-							this.sceneView.initInfo(data.room);
-							this.sceneGroup.addChild(this.sceneView);
-							this.sceneView.x = gameConfig.curWidth() / 2;
-							this.sceneView.y = gameConfig.curHeight() / 2;
-							ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
+							WelcomeNewPlayersPanel.getInstance().initInfo(data.room);
+							// this.sceneView.x = gameConfig.curWidth() / 2;
+							// this.sceneView.y = gameConfig.curHeight() / 2 - (this.sceneView.height * goalScale * 0.5) / 2;
+							// ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
+							ApplicationFacade.getInstance().registerMdt<PopupWelcomeMediator>(PopupWelcomeMediator.NAME, PopupWelcomeMediator, this.sceneView);
+
 							this.sceneMediatorName = PopupWelcomeMediator.NAME;
 						}
 						break;
@@ -75,15 +77,12 @@ module game {
 		}
 
 		private removeSceneView(): void {
-			this.sceneGroup.removeChildren();
-
+			if (this.sceneView) {
+				this.sceneView.remove();
+			}
 			if (this.sceneMediatorName != "") {
 				ApplicationFacade.getInstance().removeMediator(this.sceneMediatorName);
 			}
-		}
-
-		public get sceneGroup(): egret.Sprite {
-			return <egret.Sprite><any>(this.viewComponent);
 		}
 	}
 }

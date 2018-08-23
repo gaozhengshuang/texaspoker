@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"math/rand"
+	"reflect"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
@@ -143,37 +143,27 @@ func GenerateParkingId(redis *redis.Client) (id uint64,errcode string){
 	return uint64(newid),""
 }
 
-//生成记录的uuid
-func GenerateParkingRecordId(redis *redis.Client) (id uint64,errcode string){
-	key := "uuid_parkingrecord"
-	newid,err := redis.Incr(key).Result()
-	if err != nil {
-		log.Error("生成parkingrecordid redis报错, err: %s",err)
-		return 0,"redis不可用"
-	}
-	return uint64(newid),""
-}
-
 // --------------------------------------------------------------------------
-/// @brief 从指定范围total内，随机num个数据，不能重复
-/// @param total 范围大小 [0 - total)
-/// @param num 返回数据数量
+/// @brief 检查target中是否包含obj
+/// @param obj 检查的值
+/// @param target 检查的目标
 ///
 /// @return 
 // --------------------------------------------------------------------------
-func GetRandNumbers(total, num int32) []int32 {
-	all := make([]int32, 0, total)
-	for i := int32(0); i < total; i++ {
-		all = append(all, i)
-	}
-	rand.Shuffle(len(all), func(i, j int) {
-		all[i], all[j] = all[j], all[i]
-	})
+func IsContainObj(obj interface{}, target interface{}) bool {
+    targetValue := reflect.ValueOf(target)
+    switch reflect.TypeOf(target).Kind() {
+    case reflect.Slice, reflect.Array:
+        for i := 0; i < targetValue.Len(); i++ {
+            if targetValue.Index(i).Interface() == obj {
+                return true
+            }
+        }
+    case reflect.Map:
+        if targetValue.MapIndex(reflect.ValueOf(obj)).IsValid() {
+            return true
+        }
+    }
 
-	if num >= total {
-		return all
-	}
-
-	return all[0:num]
+    return false
 }
-

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarPublicParkingLotItemSkin" width="190" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<e:Image id="parkinglotBg" width="642" height="141" y="0" scaleX="1" scaleY="1" x="0" source="uiCarAltas_json.publiclot"/>
+	<e:Group id="center" width="0" height="0" x="0" y="0">
+		<e:Image id="parkingCarIcon" width="230.4" scaleX="1" scaleY="1" height="112" x="2" y="-17" source="carIconAltas_json.big_6"/>
+		<e:Image id="stateBgPark" width="119" height="43" y="60" scaleX="1" scaleY="1" x="53" source="uiCarAltas_json.park"/>
+		<e:Label id="infoTxt" text="玩家昵称七个子" x="15.83" y="84.34" size="22" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="191.84" anchorOffsetY="0" height="31.16" stroke="0" bold="true" textColor="0xffe776"/>
+		<e:Label id="timeTxt" text="00:00:00" x="38.83" y="123.34" size="20" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="141.84" anchorOffsetY="0" height="24.16" stroke="2" textColor="0xFFFFFF"/>
+	</e:Group>
+
+</e:Skin>

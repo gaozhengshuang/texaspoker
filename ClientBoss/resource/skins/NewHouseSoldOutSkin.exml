@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="NewHouseSoldOutSkin" width="700" height="668" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*">
+	<e:Rect width="680" height="636" fillColor="0xe4e4e5" y="32" x="0"/>
+	<e:Label id="name_txt" text="目前所有楼盘已售罄！" x="112" y="504" fontFamily="Microsoft YaHei" size="40" anchorOffsetX="0" width="457" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF" verticalAlign="middle" textAlign="center"/>
+	<game:IconButton id="loginButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" right="0" top="0"/>
+	<e:Image source="soldOutImg1_png" x="197" y="132"/>
+</e:Skin>

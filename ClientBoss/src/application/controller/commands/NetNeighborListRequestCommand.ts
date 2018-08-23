@@ -11,7 +11,7 @@ module game {
 			switch(notification.getName()){
 				case CommandName.SOCKET_REQ_NEIGHBOR_LIST:
 				{
-					sendMessage("msg.C2GW_ReqRandHouseList", msg.C2GW_ReqRandHouseList.encode({}));
+					sendMessage("msg.C2GW_ReqRandHouseList", msg.C2GW_ReqRandHouseList.encode({carflag:(data && data.carflag)&& 1 || 0}));
 					break;
 				}
 			}

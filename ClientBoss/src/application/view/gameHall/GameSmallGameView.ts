@@ -1,5 +1,5 @@
 module game {
-	export class GameSmallGameView extends eui.UILayer {
+	export class GameSmallGameView extends egret.EventDispatcher {
 		public static CLOSE: string = "close";
 
 		//private close_btn:eui.Button;
@@ -28,5 +28,9 @@ module game {
 		private onclick_begin() {
             this.dispatchEvent(new BasicEvent(GameSmallGameView.CLOSE));
         }
+		public clear()
+		{
+			
+		}
 	}
 }

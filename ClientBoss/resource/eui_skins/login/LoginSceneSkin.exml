@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="LoginSceneSkin" width="720" height="1100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:Image source="login_json.loginbg" height="100%" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image height="100%" horizontalCenter="0" verticalCenter="0" source="login_json.loginbg_png"/>
 
 
 
 
 	<e:Group id="registGroup" width="720" height="1100" horizontalCenter="0" y="0">
 
-		<e:Image id="titleImage" source="ui_json.tantanle" scaleX="1" scaleY="1" touchEnabled="false" y="54" horizontalCenter="0"/>
-		<e:Label id="btn_register" text="注册账号&gt;&gt;" touchEnabled="true" scaleX="1" scaleY="1" size="30" verticalCenter="485" textColor="0x8C5EDA" bold="true" horizontalCenter="0"/>
+		<e:Image id="titleImage" scaleX="1" scaleY="1" touchEnabled="false" y="184.3" horizontalCenter="0" source="ui_login_logo_png"/>
+		<e:Label id="btn_register" text="注册账号&gt;&gt;" touchEnabled="true" scaleX="1" scaleY="1" size="30" verticalCenter="485" textColor="0x8C5EDA" bold="true" horizontalCenter="0" visible="false"/>
 		<game:IconButton id="loginButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="263.5" horizontalCenter="0.5"/>
 		<e:Group id="username" width="517" height="75" y="428.97" anchorOffsetX="0" horizontalCenter="0.5">
-		<e:Image source="login_json.loginInput" x="0" y="0" anchorOffsetX="0" width="517" scaleX="1" scaleY="1"/>
-		<e:Image source="login_json.phoneicon" horizontalCenter="-211" verticalCenter="0"/>
-		<e:EditableText id="nameLabel" width="360.61" height="51.51" x="93" y="9.75" anchorOffsetX="0" anchorOffsetY="0" textAlign="left" verticalAlign="middle" scaleX="1" scaleY="1" size="24" prompt="请输入手机号" promptColor="0x9A9A9A" textColor="0x595959"/>
+		<e:Image x="0" y="0" anchorOffsetX="0" width="517" scaleX="1" scaleY="1" source="login_json.loginInput_png"/>
+		<e:Image horizontalCenter="-211" verticalCenter="0" source="login_json.phoneicon_png"/>
+		<e:EditableText id="nameLabel" width="360.61" height="51.51" x="93" y="9.75" anchorOffsetX="0" anchorOffsetY="0" textAlign="left" verticalAlign="middle" scaleX="1" scaleY="1" size="24" prompt="请输入账号" promptColor="0x9A9A9A" textColor="0x595959"/>
 		</e:Group>
 		<e:Group id="passwd" width="517" height="75" y="535.03" anchorOffsetX="0" horizontalCenter="0.5">
-			<e:Image source="login_json.loginInput" x="0" y="0" anchorOffsetX="0" width="517" scaleX="1" scaleY="1"/>
-			<e:Image x="24" source="login_json.passwdicon" verticalCenter="0"/>
+			<e:Image x="0" y="0" anchorOffsetX="0" width="517" scaleX="1" scaleY="1" source="login_json.loginInput_png"/>
+			<e:Image x="24" verticalCenter="0" source="login_json.passwdicon_png"/>
 			<e:EditableText id="passwordLabel" width="356.06" height="51.51" x="93" y="9.75" anchorOffsetX="0" anchorOffsetY="0" textAlign="left" verticalAlign="middle" scaleX="1" scaleY="1" size="24" prompt="请输入密码" promptColor="0x9A9A9A" textColor="0x595959"/>
 		</e:Group>
 	</e:Group>

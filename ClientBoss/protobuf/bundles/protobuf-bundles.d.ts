@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -1029,6 +1030,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a BT_GameRoomDestroy. */
+    interface IBT_GameRoomDestroy {
+
+        /** BT_GameRoomDestroy roomid */
+        roomid?: (number|Long|null);
+    }
+
+    /** Represents a BT_GameRoomDestroy. */
+    class BT_GameRoomDestroy implements IBT_GameRoomDestroy {
+
+        /**
+         * Constructs a new BT_GameRoomDestroy.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_GameRoomDestroy);
+
+        /** BT_GameRoomDestroy roomid. */
+        public roomid: (number|Long);
+
+        /**
+         * Creates a new BT_GameRoomDestroy instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_GameRoomDestroy instance
+         */
+        public static create(properties?: msg.IBT_GameRoomDestroy): msg.BT_GameRoomDestroy;
+
+        /**
+         * Encodes the specified BT_GameRoomDestroy message. Does not implicitly {@link msg.BT_GameRoomDestroy.verify|verify} messages.
+         * @param message BT_GameRoomDestroy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_GameRoomDestroy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_GameRoomDestroy message, length delimited. Does not implicitly {@link msg.BT_GameRoomDestroy.verify|verify} messages.
+         * @param message BT_GameRoomDestroy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_GameRoomDestroy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_GameRoomDestroy message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_GameRoomDestroy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_GameRoomDestroy;
+
+        /**
+         * Decodes a BT_GameRoomDestroy message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_GameRoomDestroy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_GameRoomDestroy;
+
+        /**
+         * Verifies a BT_GameRoomDestroy message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_GameRoomDestroy message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_GameRoomDestroy
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_GameRoomDestroy;
+
+        /**
+         * Creates a plain object from a BT_GameRoomDestroy message. Also converts values to other types if specified.
+         * @param message BT_GameRoomDestroy
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_GameRoomDestroy, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_GameRoomDestroy to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a BT_PickItem. */
     interface IBT_PickItem {
 
@@ -1588,6 +1679,90 @@ declare namespace msg {
 
         /**
          * Converts this BT_BulletEarnMoney to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_RetBulletEarnMoney. */
+    interface IBT_RetBulletEarnMoney {
+    }
+
+    /** Represents a BT_RetBulletEarnMoney. */
+    class BT_RetBulletEarnMoney implements IBT_RetBulletEarnMoney {
+
+        /**
+         * Constructs a new BT_RetBulletEarnMoney.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_RetBulletEarnMoney);
+
+        /**
+         * Creates a new BT_RetBulletEarnMoney instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_RetBulletEarnMoney instance
+         */
+        public static create(properties?: msg.IBT_RetBulletEarnMoney): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Encodes the specified BT_RetBulletEarnMoney message. Does not implicitly {@link msg.BT_RetBulletEarnMoney.verify|verify} messages.
+         * @param message BT_RetBulletEarnMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_RetBulletEarnMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_RetBulletEarnMoney message, length delimited. Does not implicitly {@link msg.BT_RetBulletEarnMoney.verify|verify} messages.
+         * @param message BT_RetBulletEarnMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_RetBulletEarnMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_RetBulletEarnMoney message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_RetBulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Decodes a BT_RetBulletEarnMoney message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_RetBulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Verifies a BT_RetBulletEarnMoney message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_RetBulletEarnMoney message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_RetBulletEarnMoney
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Creates a plain object from a BT_RetBulletEarnMoney message. Also converts values to other types if specified.
+         * @param message BT_RetBulletEarnMoney
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_RetBulletEarnMoney, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_RetBulletEarnMoney to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -2927,6 +3102,9 @@ declare namespace msg {
 
         /** UserBase robcount */
         robcount?: (number|null);
+
+        /** UserBase tmaddrobcount */
+        tmaddrobcount?: (number|Long|null);
     }
 
     /** Represents a UserBase. */
@@ -3003,6 +3181,9 @@ declare namespace msg {
 
         /** UserBase robcount. */
         public robcount: number;
+
+        /** UserBase tmaddrobcount. */
+        public tmaddrobcount: (number|Long);
 
         /**
          * Creates a new UserBase instance using the specified properties.
@@ -3471,6 +3652,282 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a CarData. */
+    interface ICarData {
+
+        /** CarData id */
+        id?: (number|Long|null);
+
+        /** CarData tid */
+        tid?: (number|null);
+
+        /** CarData ownerid */
+        ownerid?: (number|Long|null);
+
+        /** CarData createtime */
+        createtime?: (number|Long|null);
+
+        /** CarData parkingid */
+        parkingid?: (number|Long|null);
+
+        /** CarData ownername */
+        ownername?: (string|null);
+
+        /** CarData parkingreward */
+        parkingreward?: (number|null);
+    }
+
+    /** Represents a CarData. */
+    class CarData implements ICarData {
+
+        /**
+         * Constructs a new CarData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICarData);
+
+        /** CarData id. */
+        public id: (number|Long);
+
+        /** CarData tid. */
+        public tid: number;
+
+        /** CarData ownerid. */
+        public ownerid: (number|Long);
+
+        /** CarData createtime. */
+        public createtime: (number|Long);
+
+        /** CarData parkingid. */
+        public parkingid: (number|Long);
+
+        /** CarData ownername. */
+        public ownername: string;
+
+        /** CarData parkingreward. */
+        public parkingreward: number;
+
+        /**
+         * Creates a new CarData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarData instance
+         */
+        public static create(properties?: msg.ICarData): msg.CarData;
+
+        /**
+         * Encodes the specified CarData message. Does not implicitly {@link msg.CarData.verify|verify} messages.
+         * @param message CarData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICarData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarData message, length delimited. Does not implicitly {@link msg.CarData.verify|verify} messages.
+         * @param message CarData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICarData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarData;
+
+        /**
+         * Decodes a CarData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarData;
+
+        /**
+         * Verifies a CarData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CarData;
+
+        /**
+         * Creates a plain object from a CarData message. Also converts values to other types if specified.
+         * @param message CarData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CarData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ParkingData. */
+    interface IParkingData {
+
+        /** ParkingData id */
+        id?: (number|Long|null);
+
+        /** ParkingData tid */
+        tid?: (number|null);
+
+        /** ParkingData ownerid */
+        ownerid?: (number|Long|null);
+
+        /** ParkingData parkingcar */
+        parkingcar?: (number|Long|null);
+
+        /** ParkingData parkingcarownerid */
+        parkingcarownerid?: (number|Long|null);
+
+        /** ParkingData parkingcarownername */
+        parkingcarownername?: (string|null);
+
+        /** ParkingData parkingtime */
+        parkingtime?: (number|Long|null);
+
+        /** ParkingData parkingreward */
+        parkingreward?: (number|null);
+
+        /** ParkingData ownername */
+        ownername?: (string|null);
+
+        /** ParkingData parkingcartid */
+        parkingcartid?: (number|null);
+
+        /** ParkingData houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a ParkingData. */
+    class ParkingData implements IParkingData {
+
+        /**
+         * Constructs a new ParkingData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IParkingData);
+
+        /** ParkingData id. */
+        public id: (number|Long);
+
+        /** ParkingData tid. */
+        public tid: number;
+
+        /** ParkingData ownerid. */
+        public ownerid: (number|Long);
+
+        /** ParkingData parkingcar. */
+        public parkingcar: (number|Long);
+
+        /** ParkingData parkingcarownerid. */
+        public parkingcarownerid: (number|Long);
+
+        /** ParkingData parkingcarownername. */
+        public parkingcarownername: string;
+
+        /** ParkingData parkingtime. */
+        public parkingtime: (number|Long);
+
+        /** ParkingData parkingreward. */
+        public parkingreward: number;
+
+        /** ParkingData ownername. */
+        public ownername: string;
+
+        /** ParkingData parkingcartid. */
+        public parkingcartid: number;
+
+        /** ParkingData houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new ParkingData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ParkingData instance
+         */
+        public static create(properties?: msg.IParkingData): msg.ParkingData;
+
+        /**
+         * Encodes the specified ParkingData message. Does not implicitly {@link msg.ParkingData.verify|verify} messages.
+         * @param message ParkingData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IParkingData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ParkingData message, length delimited. Does not implicitly {@link msg.ParkingData.verify|verify} messages.
+         * @param message ParkingData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IParkingData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ParkingData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ParkingData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.ParkingData;
+
+        /**
+         * Decodes a ParkingData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ParkingData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.ParkingData;
+
+        /**
+         * Verifies a ParkingData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ParkingData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ParkingData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.ParkingData;
+
+        /**
+         * Creates a plain object from a ParkingData message. Also converts values to other types if specified.
+         * @param message ParkingData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.ParkingData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ParkingData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an HouseCell. */
     interface IHouseCell {
 
@@ -3746,6 +4203,9 @@ declare namespace msg {
 
         /** HouseData robcheckflag */
         robcheckflag?: (number|null);
+
+        /** HouseData parkings */
+        parkings?: (msg.IParkingData[]|null);
     }
 
     /** Represents an HouseData. */
@@ -3783,6 +4243,9 @@ declare namespace msg {
 
         /** HouseData robcheckflag. */
         public robcheckflag: number;
+
+        /** HouseData parkings. */
+        public parkings: msg.IParkingData[];
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -3855,397 +4318,295 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a CarData. */
-    interface ICarData {
+    /** Properties of a CarProductData. */
+    interface ICarProductData {
 
-        /** CarData id */
-        id?: (number|Long|null);
+        /** CarProductData pid */
+        pid?: (number|null);
 
-        /** CarData tid */
-        tid?: (number|null);
+        /** CarProductData sell */
+        sell?: (number|null);
 
-        /** CarData ownerid */
-        ownerid?: (number|Long|null);
-
-        /** CarData createtime */
-        createtime?: (number|Long|null);
-
-        /** CarData parkingid */
-        parkingid?: (number|Long|null);
-
-        /** CarData ownername */
-        ownername?: (string|null);
+        /** CarProductData sold */
+        sold?: (number|null);
     }
 
-    /** Represents a CarData. */
-    class CarData implements ICarData {
+    /** Represents a CarProductData. */
+    class CarProductData implements ICarProductData {
 
         /**
-         * Constructs a new CarData.
+         * Constructs a new CarProductData.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.ICarData);
+        constructor(properties?: msg.ICarProductData);
 
-        /** CarData id. */
-        public id: (number|Long);
+        /** CarProductData pid. */
+        public pid: number;
 
-        /** CarData tid. */
-        public tid: number;
+        /** CarProductData sell. */
+        public sell: number;
 
-        /** CarData ownerid. */
-        public ownerid: (number|Long);
-
-        /** CarData createtime. */
-        public createtime: (number|Long);
-
-        /** CarData parkingid. */
-        public parkingid: (number|Long);
-
-        /** CarData ownername. */
-        public ownername: string;
+        /** CarProductData sold. */
+        public sold: number;
 
         /**
-         * Creates a new CarData instance using the specified properties.
+         * Creates a new CarProductData instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns CarData instance
+         * @returns CarProductData instance
          */
-        public static create(properties?: msg.ICarData): msg.CarData;
+        public static create(properties?: msg.ICarProductData): msg.CarProductData;
 
         /**
-         * Encodes the specified CarData message. Does not implicitly {@link msg.CarData.verify|verify} messages.
-         * @param message CarData message or plain object to encode
+         * Encodes the specified CarProductData message. Does not implicitly {@link msg.CarProductData.verify|verify} messages.
+         * @param message CarProductData message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.ICarData, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.ICarProductData, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified CarData message, length delimited. Does not implicitly {@link msg.CarData.verify|verify} messages.
-         * @param message CarData message or plain object to encode
+         * Encodes the specified CarProductData message, length delimited. Does not implicitly {@link msg.CarProductData.verify|verify} messages.
+         * @param message CarProductData message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.ICarData, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.ICarProductData, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a CarData message from the specified reader or buffer.
+         * Decodes a CarProductData message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns CarData
+         * @returns CarProductData
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarData;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarProductData;
 
         /**
-         * Decodes a CarData message from the specified reader or buffer, length delimited.
+         * Decodes a CarProductData message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns CarData
+         * @returns CarProductData
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarData;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarProductData;
 
         /**
-         * Verifies a CarData message.
+         * Verifies a CarProductData message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a CarData message from a plain object. Also converts values to their respective internal types.
+         * Creates a CarProductData message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns CarData
+         * @returns CarProductData
          */
-        public static fromObject(object: { [k: string]: any }): msg.CarData;
+        public static fromObject(object: { [k: string]: any }): msg.CarProductData;
 
         /**
-         * Creates a plain object from a CarData message. Also converts values to other types if specified.
-         * @param message CarData
+         * Creates a plain object from a CarProductData message. Also converts values to other types if specified.
+         * @param message CarProductData
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.CarData, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.CarProductData, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this CarData to JSON.
+         * Converts this CarProductData to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a ParkingData. */
-    interface IParkingData {
+    /** Properties of a BuidingSoldData. */
+    interface IBuidingSoldData {
 
-        /** ParkingData id */
-        id?: (number|Long|null);
+        /** BuidingSoldData index */
+        index?: (number|null);
 
-        /** ParkingData tid */
-        tid?: (number|null);
-
-        /** ParkingData ownerid */
-        ownerid?: (number|Long|null);
-
-        /** ParkingData parkingcar */
-        parkingcar?: (number|Long|null);
-
-        /** ParkingData parkingcarownerid */
-        parkingcarownerid?: (number|Long|null);
-
-        /** ParkingData parkingcarownername */
-        parkingcarownername?: (string|null);
-
-        /** ParkingData parkingtime */
-        parkingtime?: (number|Long|null);
-
-        /** ParkingData parkingreward */
-        parkingreward?: (number|null);
-
-        /** ParkingData ownername */
-        ownername?: (string|null);
-
-        /** ParkingData parkingcartid */
-        parkingcartid?: (number|null);
+        /** BuidingSoldData houseid */
+        houseid?: ((number|Long)[]|null);
     }
 
-    /** Represents a ParkingData. */
-    class ParkingData implements IParkingData {
+    /** Represents a BuidingSoldData. */
+    class BuidingSoldData implements IBuidingSoldData {
 
         /**
-         * Constructs a new ParkingData.
+         * Constructs a new BuidingSoldData.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IParkingData);
+        constructor(properties?: msg.IBuidingSoldData);
 
-        /** ParkingData id. */
-        public id: (number|Long);
+        /** BuidingSoldData index. */
+        public index: number;
 
-        /** ParkingData tid. */
-        public tid: number;
-
-        /** ParkingData ownerid. */
-        public ownerid: (number|Long);
-
-        /** ParkingData parkingcar. */
-        public parkingcar: (number|Long);
-
-        /** ParkingData parkingcarownerid. */
-        public parkingcarownerid: (number|Long);
-
-        /** ParkingData parkingcarownername. */
-        public parkingcarownername: string;
-
-        /** ParkingData parkingtime. */
-        public parkingtime: (number|Long);
-
-        /** ParkingData parkingreward. */
-        public parkingreward: number;
-
-        /** ParkingData ownername. */
-        public ownername: string;
-
-        /** ParkingData parkingcartid. */
-        public parkingcartid: number;
+        /** BuidingSoldData houseid. */
+        public houseid: (number|Long)[];
 
         /**
-         * Creates a new ParkingData instance using the specified properties.
+         * Creates a new BuidingSoldData instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns ParkingData instance
+         * @returns BuidingSoldData instance
          */
-        public static create(properties?: msg.IParkingData): msg.ParkingData;
+        public static create(properties?: msg.IBuidingSoldData): msg.BuidingSoldData;
 
         /**
-         * Encodes the specified ParkingData message. Does not implicitly {@link msg.ParkingData.verify|verify} messages.
-         * @param message ParkingData message or plain object to encode
+         * Encodes the specified BuidingSoldData message. Does not implicitly {@link msg.BuidingSoldData.verify|verify} messages.
+         * @param message BuidingSoldData message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IParkingData, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IBuidingSoldData, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified ParkingData message, length delimited. Does not implicitly {@link msg.ParkingData.verify|verify} messages.
-         * @param message ParkingData message or plain object to encode
+         * Encodes the specified BuidingSoldData message, length delimited. Does not implicitly {@link msg.BuidingSoldData.verify|verify} messages.
+         * @param message BuidingSoldData message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IParkingData, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IBuidingSoldData, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a ParkingData message from the specified reader or buffer.
+         * Decodes a BuidingSoldData message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns ParkingData
+         * @returns BuidingSoldData
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.ParkingData;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BuidingSoldData;
 
         /**
-         * Decodes a ParkingData message from the specified reader or buffer, length delimited.
+         * Decodes a BuidingSoldData message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns ParkingData
+         * @returns BuidingSoldData
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.ParkingData;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BuidingSoldData;
 
         /**
-         * Verifies a ParkingData message.
+         * Verifies a BuidingSoldData message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a ParkingData message from a plain object. Also converts values to their respective internal types.
+         * Creates a BuidingSoldData message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns ParkingData
+         * @returns BuidingSoldData
          */
-        public static fromObject(object: { [k: string]: any }): msg.ParkingData;
+        public static fromObject(object: { [k: string]: any }): msg.BuidingSoldData;
 
         /**
-         * Creates a plain object from a ParkingData message. Also converts values to other types if specified.
-         * @param message ParkingData
+         * Creates a plain object from a BuidingSoldData message. Also converts values to other types if specified.
+         * @param message BuidingSoldData
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.ParkingData, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.BuidingSoldData, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this ParkingData to JSON.
+         * Converts this BuidingSoldData to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a ParkingRecordData. */
-    interface IParkingRecordData {
+    /** Properties of a BuildingData. */
+    interface IBuildingData {
 
-        /** ParkingRecordData recordtime */
-        recordtime?: (number|Long|null);
+        /** BuildingData id */
+        id?: (number|null);
 
-        /** ParkingRecordData operatortype */
-        operatortype?: (number|null);
-
-        /** ParkingRecordData parkingownerid */
-        parkingownerid?: (number|Long|null);
-
-        /** ParkingRecordData parkingownername */
-        parkingownername?: (string|null);
-
-        /** ParkingRecordData cartid */
-        cartid?: (number|null);
-
-        /** ParkingRecordData carownerid */
-        carownerid?: (number|Long|null);
-
-        /** ParkingRecordData carownername */
-        carownername?: (string|null);
-
-        /** ParkingRecordData recordparam */
-        recordparam?: (number|null);
+        /** BuildingData data */
+        data?: (msg.IBuidingSoldData[]|null);
     }
 
-    /** Represents a ParkingRecordData. */
-    class ParkingRecordData implements IParkingRecordData {
+    /** Represents a BuildingData. */
+    class BuildingData implements IBuildingData {
 
         /**
-         * Constructs a new ParkingRecordData.
+         * Constructs a new BuildingData.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IParkingRecordData);
+        constructor(properties?: msg.IBuildingData);
 
-        /** ParkingRecordData recordtime. */
-        public recordtime: (number|Long);
+        /** BuildingData id. */
+        public id: number;
 
-        /** ParkingRecordData operatortype. */
-        public operatortype: number;
-
-        /** ParkingRecordData parkingownerid. */
-        public parkingownerid: (number|Long);
-
-        /** ParkingRecordData parkingownername. */
-        public parkingownername: string;
-
-        /** ParkingRecordData cartid. */
-        public cartid: number;
-
-        /** ParkingRecordData carownerid. */
-        public carownerid: (number|Long);
-
-        /** ParkingRecordData carownername. */
-        public carownername: string;
-
-        /** ParkingRecordData recordparam. */
-        public recordparam: number;
+        /** BuildingData data. */
+        public data: msg.IBuidingSoldData[];
 
         /**
-         * Creates a new ParkingRecordData instance using the specified properties.
+         * Creates a new BuildingData instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns ParkingRecordData instance
+         * @returns BuildingData instance
          */
-        public static create(properties?: msg.IParkingRecordData): msg.ParkingRecordData;
+        public static create(properties?: msg.IBuildingData): msg.BuildingData;
 
         /**
-         * Encodes the specified ParkingRecordData message. Does not implicitly {@link msg.ParkingRecordData.verify|verify} messages.
-         * @param message ParkingRecordData message or plain object to encode
+         * Encodes the specified BuildingData message. Does not implicitly {@link msg.BuildingData.verify|verify} messages.
+         * @param message BuildingData message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IParkingRecordData, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IBuildingData, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified ParkingRecordData message, length delimited. Does not implicitly {@link msg.ParkingRecordData.verify|verify} messages.
-         * @param message ParkingRecordData message or plain object to encode
+         * Encodes the specified BuildingData message, length delimited. Does not implicitly {@link msg.BuildingData.verify|verify} messages.
+         * @param message BuildingData message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IParkingRecordData, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IBuildingData, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a ParkingRecordData message from the specified reader or buffer.
+         * Decodes a BuildingData message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns ParkingRecordData
+         * @returns BuildingData
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.ParkingRecordData;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BuildingData;
 
         /**
-         * Decodes a ParkingRecordData message from the specified reader or buffer, length delimited.
+         * Decodes a BuildingData message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns ParkingRecordData
+         * @returns BuildingData
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.ParkingRecordData;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BuildingData;
 
         /**
-         * Verifies a ParkingRecordData message.
+         * Verifies a BuildingData message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a ParkingRecordData message from a plain object. Also converts values to their respective internal types.
+         * Creates a BuildingData message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns ParkingRecordData
+         * @returns BuildingData
          */
-        public static fromObject(object: { [k: string]: any }): msg.ParkingRecordData;
+        public static fromObject(object: { [k: string]: any }): msg.BuildingData;
 
         /**
-         * Creates a plain object from a ParkingRecordData message. Also converts values to other types if specified.
-         * @param message ParkingRecordData
+         * Creates a plain object from a BuildingData message. Also converts values to other types if specified.
+         * @param message BuildingData
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.ParkingRecordData, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.BuildingData, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this ParkingRecordData to JSON.
+         * Converts this BuildingData to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -4523,6 +4884,9 @@ declare namespace msg {
 
         /** C2GW_ReqParkingInfoByType playerid */
         playerid?: (number|Long|null);
+
+        /** C2GW_ReqParkingInfoByType houseids */
+        houseids?: ((number|Long)[]|null);
     }
 
     /** Represents a C2GW_ReqParkingInfoByType. */
@@ -4539,6 +4903,9 @@ declare namespace msg {
 
         /** C2GW_ReqParkingInfoByType playerid. */
         public playerid: (number|Long);
+
+        /** C2GW_ReqParkingInfoByType houseids. */
+        public houseids: (number|Long)[];
 
         /**
          * Creates a new C2GW_ReqParkingInfoByType instance using the specified properties.
@@ -5263,7 +5630,7 @@ declare namespace msg {
     interface IGW2C_SynParkingRecord {
 
         /** GW2C_SynParkingRecord records */
-        records?: (msg.IParkingRecordData[]|null);
+        records?: (string[]|null);
     }
 
     /** Represents a GW2C_SynParkingRecord. */
@@ -5276,7 +5643,7 @@ declare namespace msg {
         constructor(properties?: msg.IGW2C_SynParkingRecord);
 
         /** GW2C_SynParkingRecord records. */
-        public records: msg.IParkingRecordData[];
+        public records: string[];
 
         /**
          * Creates a new GW2C_SynParkingRecord instance using the specified properties.
@@ -5344,6 +5711,558 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_SynParkingRecord to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTakeCarAutoBackReward. */
+    interface IC2GW_ReqTakeCarAutoBackReward {
+
+        /** C2GW_ReqTakeCarAutoBackReward carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqTakeCarAutoBackReward. */
+    class C2GW_ReqTakeCarAutoBackReward implements IC2GW_ReqTakeCarAutoBackReward {
+
+        /**
+         * Constructs a new C2GW_ReqTakeCarAutoBackReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTakeCarAutoBackReward);
+
+        /** C2GW_ReqTakeCarAutoBackReward carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqTakeCarAutoBackReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTakeCarAutoBackReward instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTakeCarAutoBackReward): msg.C2GW_ReqTakeCarAutoBackReward;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeCarAutoBackReward message. Does not implicitly {@link msg.C2GW_ReqTakeCarAutoBackReward.verify|verify} messages.
+         * @param message C2GW_ReqTakeCarAutoBackReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTakeCarAutoBackReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeCarAutoBackReward message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeCarAutoBackReward.verify|verify} messages.
+         * @param message C2GW_ReqTakeCarAutoBackReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTakeCarAutoBackReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTakeCarAutoBackReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTakeCarAutoBackReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTakeCarAutoBackReward;
+
+        /**
+         * Decodes a C2GW_ReqTakeCarAutoBackReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTakeCarAutoBackReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTakeCarAutoBackReward;
+
+        /**
+         * Verifies a C2GW_ReqTakeCarAutoBackReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTakeCarAutoBackReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTakeCarAutoBackReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTakeCarAutoBackReward;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeCarAutoBackReward message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTakeCarAutoBackReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTakeCarAutoBackReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTakeCarAutoBackReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetTakeCarAutoBackReward. */
+    interface IGW2C_RetTakeCarAutoBackReward {
+
+        /** GW2C_RetTakeCarAutoBackReward result */
+        result?: (number|null);
+
+        /** GW2C_RetTakeCarAutoBackReward reward */
+        reward?: (number|null);
+    }
+
+    /** Represents a GW2C_RetTakeCarAutoBackReward. */
+    class GW2C_RetTakeCarAutoBackReward implements IGW2C_RetTakeCarAutoBackReward {
+
+        /**
+         * Constructs a new GW2C_RetTakeCarAutoBackReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetTakeCarAutoBackReward);
+
+        /** GW2C_RetTakeCarAutoBackReward result. */
+        public result: number;
+
+        /** GW2C_RetTakeCarAutoBackReward reward. */
+        public reward: number;
+
+        /**
+         * Creates a new GW2C_RetTakeCarAutoBackReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetTakeCarAutoBackReward instance
+         */
+        public static create(properties?: msg.IGW2C_RetTakeCarAutoBackReward): msg.GW2C_RetTakeCarAutoBackReward;
+
+        /**
+         * Encodes the specified GW2C_RetTakeCarAutoBackReward message. Does not implicitly {@link msg.GW2C_RetTakeCarAutoBackReward.verify|verify} messages.
+         * @param message GW2C_RetTakeCarAutoBackReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetTakeCarAutoBackReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetTakeCarAutoBackReward message, length delimited. Does not implicitly {@link msg.GW2C_RetTakeCarAutoBackReward.verify|verify} messages.
+         * @param message GW2C_RetTakeCarAutoBackReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetTakeCarAutoBackReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetTakeCarAutoBackReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetTakeCarAutoBackReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetTakeCarAutoBackReward;
+
+        /**
+         * Decodes a GW2C_RetTakeCarAutoBackReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetTakeCarAutoBackReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetTakeCarAutoBackReward;
+
+        /**
+         * Verifies a GW2C_RetTakeCarAutoBackReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetTakeCarAutoBackReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetTakeCarAutoBackReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetTakeCarAutoBackReward;
+
+        /**
+         * Creates a plain object from a GW2C_RetTakeCarAutoBackReward message. Also converts values to other types if specified.
+         * @param message GW2C_RetTakeCarAutoBackReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetTakeCarAutoBackReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetTakeCarAutoBackReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqCarShopInfo. */
+    interface IC2GW_ReqCarShopInfo {
+
+        /** C2GW_ReqCarShopInfo shopid */
+        shopid?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqCarShopInfo. */
+    class C2GW_ReqCarShopInfo implements IC2GW_ReqCarShopInfo {
+
+        /**
+         * Constructs a new C2GW_ReqCarShopInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqCarShopInfo);
+
+        /** C2GW_ReqCarShopInfo shopid. */
+        public shopid: number;
+
+        /**
+         * Creates a new C2GW_ReqCarShopInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqCarShopInfo instance
+         */
+        public static create(properties?: msg.IC2GW_ReqCarShopInfo): msg.C2GW_ReqCarShopInfo;
+
+        /**
+         * Encodes the specified C2GW_ReqCarShopInfo message. Does not implicitly {@link msg.C2GW_ReqCarShopInfo.verify|verify} messages.
+         * @param message C2GW_ReqCarShopInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqCarShopInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqCarShopInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarShopInfo.verify|verify} messages.
+         * @param message C2GW_ReqCarShopInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqCarShopInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqCarShopInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqCarShopInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqCarShopInfo;
+
+        /**
+         * Decodes a C2GW_ReqCarShopInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqCarShopInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqCarShopInfo;
+
+        /**
+         * Verifies a C2GW_ReqCarShopInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqCarShopInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqCarShopInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqCarShopInfo;
+
+        /**
+         * Creates a plain object from a C2GW_ReqCarShopInfo message. Also converts values to other types if specified.
+         * @param message C2GW_ReqCarShopInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqCarShopInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqCarShopInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_SendCarShopInfo. */
+    interface IGW2C_SendCarShopInfo {
+
+        /** GW2C_SendCarShopInfo products */
+        products?: (msg.ICarProductData[]|null);
+    }
+
+    /** Represents a GW2C_SendCarShopInfo. */
+    class GW2C_SendCarShopInfo implements IGW2C_SendCarShopInfo {
+
+        /**
+         * Constructs a new GW2C_SendCarShopInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_SendCarShopInfo);
+
+        /** GW2C_SendCarShopInfo products. */
+        public products: msg.ICarProductData[];
+
+        /**
+         * Creates a new GW2C_SendCarShopInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_SendCarShopInfo instance
+         */
+        public static create(properties?: msg.IGW2C_SendCarShopInfo): msg.GW2C_SendCarShopInfo;
+
+        /**
+         * Encodes the specified GW2C_SendCarShopInfo message. Does not implicitly {@link msg.GW2C_SendCarShopInfo.verify|verify} messages.
+         * @param message GW2C_SendCarShopInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_SendCarShopInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_SendCarShopInfo message, length delimited. Does not implicitly {@link msg.GW2C_SendCarShopInfo.verify|verify} messages.
+         * @param message GW2C_SendCarShopInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_SendCarShopInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_SendCarShopInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_SendCarShopInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_SendCarShopInfo;
+
+        /**
+         * Decodes a GW2C_SendCarShopInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_SendCarShopInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_SendCarShopInfo;
+
+        /**
+         * Verifies a GW2C_SendCarShopInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_SendCarShopInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_SendCarShopInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_SendCarShopInfo;
+
+        /**
+         * Creates a plain object from a GW2C_SendCarShopInfo message. Also converts values to other types if specified.
+         * @param message GW2C_SendCarShopInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_SendCarShopInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_SendCarShopInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_BuyCarFromShop. */
+    interface IC2GW_BuyCarFromShop {
+
+        /** C2GW_BuyCarFromShop shopid */
+        shopid?: (number|null);
+
+        /** C2GW_BuyCarFromShop pid */
+        pid?: (number|null);
+    }
+
+    /** Represents a C2GW_BuyCarFromShop. */
+    class C2GW_BuyCarFromShop implements IC2GW_BuyCarFromShop {
+
+        /**
+         * Constructs a new C2GW_BuyCarFromShop.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_BuyCarFromShop);
+
+        /** C2GW_BuyCarFromShop shopid. */
+        public shopid: number;
+
+        /** C2GW_BuyCarFromShop pid. */
+        public pid: number;
+
+        /**
+         * Creates a new C2GW_BuyCarFromShop instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_BuyCarFromShop instance
+         */
+        public static create(properties?: msg.IC2GW_BuyCarFromShop): msg.C2GW_BuyCarFromShop;
+
+        /**
+         * Encodes the specified C2GW_BuyCarFromShop message. Does not implicitly {@link msg.C2GW_BuyCarFromShop.verify|verify} messages.
+         * @param message C2GW_BuyCarFromShop message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_BuyCarFromShop, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_BuyCarFromShop message, length delimited. Does not implicitly {@link msg.C2GW_BuyCarFromShop.verify|verify} messages.
+         * @param message C2GW_BuyCarFromShop message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_BuyCarFromShop, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_BuyCarFromShop message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_BuyCarFromShop
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_BuyCarFromShop;
+
+        /**
+         * Decodes a C2GW_BuyCarFromShop message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_BuyCarFromShop
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_BuyCarFromShop;
+
+        /**
+         * Verifies a C2GW_BuyCarFromShop message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_BuyCarFromShop message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_BuyCarFromShop
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_BuyCarFromShop;
+
+        /**
+         * Creates a plain object from a C2GW_BuyCarFromShop message. Also converts values to other types if specified.
+         * @param message C2GW_BuyCarFromShop
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_BuyCarFromShop, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_BuyCarFromShop to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_UpdateCarShopProduct. */
+    interface IGW2C_UpdateCarShopProduct {
+
+        /** GW2C_UpdateCarShopProduct product */
+        product?: (msg.ICarProductData|null);
+    }
+
+    /** Represents a GW2C_UpdateCarShopProduct. */
+    class GW2C_UpdateCarShopProduct implements IGW2C_UpdateCarShopProduct {
+
+        /**
+         * Constructs a new GW2C_UpdateCarShopProduct.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_UpdateCarShopProduct);
+
+        /** GW2C_UpdateCarShopProduct product. */
+        public product?: (msg.ICarProductData|null);
+
+        /**
+         * Creates a new GW2C_UpdateCarShopProduct instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_UpdateCarShopProduct instance
+         */
+        public static create(properties?: msg.IGW2C_UpdateCarShopProduct): msg.GW2C_UpdateCarShopProduct;
+
+        /**
+         * Encodes the specified GW2C_UpdateCarShopProduct message. Does not implicitly {@link msg.GW2C_UpdateCarShopProduct.verify|verify} messages.
+         * @param message GW2C_UpdateCarShopProduct message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_UpdateCarShopProduct, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_UpdateCarShopProduct message, length delimited. Does not implicitly {@link msg.GW2C_UpdateCarShopProduct.verify|verify} messages.
+         * @param message GW2C_UpdateCarShopProduct message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_UpdateCarShopProduct, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_UpdateCarShopProduct message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_UpdateCarShopProduct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_UpdateCarShopProduct;
+
+        /**
+         * Decodes a GW2C_UpdateCarShopProduct message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_UpdateCarShopProduct
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_UpdateCarShopProduct;
+
+        /**
+         * Verifies a GW2C_UpdateCarShopProduct message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_UpdateCarShopProduct message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_UpdateCarShopProduct
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_UpdateCarShopProduct;
+
+        /**
+         * Creates a plain object from a GW2C_UpdateCarShopProduct message. Also converts values to other types if specified.
+         * @param message GW2C_UpdateCarShopProduct
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_UpdateCarShopProduct, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_UpdateCarShopProduct to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -5604,7 +6523,14 @@ declare namespace msg {
     enum CarOperatorType {
         Park = 1,
         TakeBack = 2,
-        Ticket = 3
+        Ticket = 3,
+        AutoBack = 4
+    }
+
+    /** ParkingType enum. */
+    enum ParkingType {
+        Public = 1,
+        Private = 2
     }
 
     /** Properties of a C2GW_ReqHouseData. */
@@ -6767,6 +7693,9 @@ declare namespace msg {
 
     /** Properties of a C2GW_ReqRandHouseList. */
     interface IC2GW_ReqRandHouseList {
+
+        /** C2GW_ReqRandHouseList carflag */
+        carflag?: (number|null);
     }
 
     /** Represents a C2GW_ReqRandHouseList. */
@@ -6777,6 +7706,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_ReqRandHouseList);
+
+        /** C2GW_ReqRandHouseList carflag. */
+        public carflag: number;
 
         /**
          * Creates a new C2GW_ReqRandHouseList instance using the specified properties.
@@ -6854,6 +7786,9 @@ declare namespace msg {
 
         /** GW2C_AckRandHouseList datas */
         datas?: (msg.IHouseData[]|null);
+
+        /** GW2C_AckRandHouseList datas2 */
+        datas2?: (msg.IHouseData[]|null);
     }
 
     /** Represents a GW2C_AckRandHouseList. */
@@ -6867,6 +7802,9 @@ declare namespace msg {
 
         /** GW2C_AckRandHouseList datas. */
         public datas: msg.IHouseData[];
+
+        /** GW2C_AckRandHouseList datas2. */
+        public datas2: msg.IHouseData[];
 
         /**
          * Creates a new GW2C_AckRandHouseList instance using the specified properties.
@@ -7384,6 +8322,762 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_ReqResetRobCheckFlag to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_NotifyAddRobCountTime. */
+    interface IGW2C_NotifyAddRobCountTime {
+
+        /** GW2C_NotifyAddRobCountTime time */
+        time?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_NotifyAddRobCountTime. */
+    class GW2C_NotifyAddRobCountTime implements IGW2C_NotifyAddRobCountTime {
+
+        /**
+         * Constructs a new GW2C_NotifyAddRobCountTime.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_NotifyAddRobCountTime);
+
+        /** GW2C_NotifyAddRobCountTime time. */
+        public time: (number|Long);
+
+        /**
+         * Creates a new GW2C_NotifyAddRobCountTime instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_NotifyAddRobCountTime instance
+         */
+        public static create(properties?: msg.IGW2C_NotifyAddRobCountTime): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Encodes the specified GW2C_NotifyAddRobCountTime message. Does not implicitly {@link msg.GW2C_NotifyAddRobCountTime.verify|verify} messages.
+         * @param message GW2C_NotifyAddRobCountTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_NotifyAddRobCountTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_NotifyAddRobCountTime message, length delimited. Does not implicitly {@link msg.GW2C_NotifyAddRobCountTime.verify|verify} messages.
+         * @param message GW2C_NotifyAddRobCountTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_NotifyAddRobCountTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_NotifyAddRobCountTime message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_NotifyAddRobCountTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Decodes a GW2C_NotifyAddRobCountTime message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_NotifyAddRobCountTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Verifies a GW2C_NotifyAddRobCountTime message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_NotifyAddRobCountTime message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_NotifyAddRobCountTime
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_NotifyAddRobCountTime;
+
+        /**
+         * Creates a plain object from a GW2C_NotifyAddRobCountTime message. Also converts values to other types if specified.
+         * @param message GW2C_NotifyAddRobCountTime
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_NotifyAddRobCountTime, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_NotifyAddRobCountTime to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqHouseDataByHouseId. */
+    interface IC2GW_ReqHouseDataByHouseId {
+
+        /** C2GW_ReqHouseDataByHouseId houseid */
+        houseid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqHouseDataByHouseId. */
+    class C2GW_ReqHouseDataByHouseId implements IC2GW_ReqHouseDataByHouseId {
+
+        /**
+         * Constructs a new C2GW_ReqHouseDataByHouseId.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqHouseDataByHouseId);
+
+        /** C2GW_ReqHouseDataByHouseId houseid. */
+        public houseid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqHouseDataByHouseId instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqHouseDataByHouseId instance
+         */
+        public static create(properties?: msg.IC2GW_ReqHouseDataByHouseId): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseDataByHouseId message. Does not implicitly {@link msg.C2GW_ReqHouseDataByHouseId.verify|verify} messages.
+         * @param message C2GW_ReqHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqHouseDataByHouseId message, length delimited. Does not implicitly {@link msg.C2GW_ReqHouseDataByHouseId.verify|verify} messages.
+         * @param message C2GW_ReqHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqHouseDataByHouseId message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Decodes a C2GW_ReqHouseDataByHouseId message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Verifies a C2GW_ReqHouseDataByHouseId message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqHouseDataByHouseId message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqHouseDataByHouseId
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqHouseDataByHouseId;
+
+        /**
+         * Creates a plain object from a C2GW_ReqHouseDataByHouseId message. Also converts values to other types if specified.
+         * @param message C2GW_ReqHouseDataByHouseId
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqHouseDataByHouseId, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqHouseDataByHouseId to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckHouseDataByHouseId. */
+    interface IGW2C_AckHouseDataByHouseId {
+
+        /** GW2C_AckHouseDataByHouseId houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2C_AckHouseDataByHouseId data */
+        data?: (msg.IHouseData|null);
+    }
+
+    /** Represents a GW2C_AckHouseDataByHouseId. */
+    class GW2C_AckHouseDataByHouseId implements IGW2C_AckHouseDataByHouseId {
+
+        /**
+         * Constructs a new GW2C_AckHouseDataByHouseId.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckHouseDataByHouseId);
+
+        /** GW2C_AckHouseDataByHouseId houseid. */
+        public houseid: (number|Long);
+
+        /** GW2C_AckHouseDataByHouseId data. */
+        public data?: (msg.IHouseData|null);
+
+        /**
+         * Creates a new GW2C_AckHouseDataByHouseId instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckHouseDataByHouseId instance
+         */
+        public static create(properties?: msg.IGW2C_AckHouseDataByHouseId): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Encodes the specified GW2C_AckHouseDataByHouseId message. Does not implicitly {@link msg.GW2C_AckHouseDataByHouseId.verify|verify} messages.
+         * @param message GW2C_AckHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckHouseDataByHouseId message, length delimited. Does not implicitly {@link msg.GW2C_AckHouseDataByHouseId.verify|verify} messages.
+         * @param message GW2C_AckHouseDataByHouseId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckHouseDataByHouseId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckHouseDataByHouseId message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Decodes a GW2C_AckHouseDataByHouseId message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckHouseDataByHouseId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Verifies a GW2C_AckHouseDataByHouseId message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckHouseDataByHouseId message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckHouseDataByHouseId
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckHouseDataByHouseId;
+
+        /**
+         * Creates a plain object from a GW2C_AckHouseDataByHouseId message. Also converts values to other types if specified.
+         * @param message GW2C_AckHouseDataByHouseId
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckHouseDataByHouseId, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckHouseDataByHouseId to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqBuyHouseFromBuilding. */
+    interface IC2GW_ReqBuyHouseFromBuilding {
+
+        /** C2GW_ReqBuyHouseFromBuilding buildingid */
+        buildingid?: (number|null);
+
+        /** C2GW_ReqBuyHouseFromBuilding index */
+        index?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqBuyHouseFromBuilding. */
+    class C2GW_ReqBuyHouseFromBuilding implements IC2GW_ReqBuyHouseFromBuilding {
+
+        /**
+         * Constructs a new C2GW_ReqBuyHouseFromBuilding.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqBuyHouseFromBuilding);
+
+        /** C2GW_ReqBuyHouseFromBuilding buildingid. */
+        public buildingid: number;
+
+        /** C2GW_ReqBuyHouseFromBuilding index. */
+        public index: number;
+
+        /**
+         * Creates a new C2GW_ReqBuyHouseFromBuilding instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqBuyHouseFromBuilding instance
+         */
+        public static create(properties?: msg.IC2GW_ReqBuyHouseFromBuilding): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Encodes the specified C2GW_ReqBuyHouseFromBuilding message. Does not implicitly {@link msg.C2GW_ReqBuyHouseFromBuilding.verify|verify} messages.
+         * @param message C2GW_ReqBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqBuyHouseFromBuilding message, length delimited. Does not implicitly {@link msg.C2GW_ReqBuyHouseFromBuilding.verify|verify} messages.
+         * @param message C2GW_ReqBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqBuyHouseFromBuilding message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Decodes a C2GW_ReqBuyHouseFromBuilding message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Verifies a C2GW_ReqBuyHouseFromBuilding message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqBuyHouseFromBuilding message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqBuyHouseFromBuilding
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqBuyHouseFromBuilding;
+
+        /**
+         * Creates a plain object from a C2GW_ReqBuyHouseFromBuilding message. Also converts values to other types if specified.
+         * @param message C2GW_ReqBuyHouseFromBuilding
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqBuyHouseFromBuilding, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqBuyHouseFromBuilding to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckBuyHouseFromBuilding. */
+    interface IGW2C_AckBuyHouseFromBuilding {
+
+        /** GW2C_AckBuyHouseFromBuilding buildingid */
+        buildingid?: (number|null);
+
+        /** GW2C_AckBuyHouseFromBuilding index */
+        index?: (number|null);
+
+        /** GW2C_AckBuyHouseFromBuilding ret */
+        ret?: (number|null);
+    }
+
+    /** Represents a GW2C_AckBuyHouseFromBuilding. */
+    class GW2C_AckBuyHouseFromBuilding implements IGW2C_AckBuyHouseFromBuilding {
+
+        /**
+         * Constructs a new GW2C_AckBuyHouseFromBuilding.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckBuyHouseFromBuilding);
+
+        /** GW2C_AckBuyHouseFromBuilding buildingid. */
+        public buildingid: number;
+
+        /** GW2C_AckBuyHouseFromBuilding index. */
+        public index: number;
+
+        /** GW2C_AckBuyHouseFromBuilding ret. */
+        public ret: number;
+
+        /**
+         * Creates a new GW2C_AckBuyHouseFromBuilding instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckBuyHouseFromBuilding instance
+         */
+        public static create(properties?: msg.IGW2C_AckBuyHouseFromBuilding): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Encodes the specified GW2C_AckBuyHouseFromBuilding message. Does not implicitly {@link msg.GW2C_AckBuyHouseFromBuilding.verify|verify} messages.
+         * @param message GW2C_AckBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckBuyHouseFromBuilding message, length delimited. Does not implicitly {@link msg.GW2C_AckBuyHouseFromBuilding.verify|verify} messages.
+         * @param message GW2C_AckBuyHouseFromBuilding message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckBuyHouseFromBuilding, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckBuyHouseFromBuilding message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Decodes a GW2C_AckBuyHouseFromBuilding message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckBuyHouseFromBuilding
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Verifies a GW2C_AckBuyHouseFromBuilding message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckBuyHouseFromBuilding message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckBuyHouseFromBuilding
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckBuyHouseFromBuilding;
+
+        /**
+         * Creates a plain object from a GW2C_AckBuyHouseFromBuilding message. Also converts values to other types if specified.
+         * @param message GW2C_AckBuyHouseFromBuilding
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckBuyHouseFromBuilding, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckBuyHouseFromBuilding to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqBuildingCanBuyInfo. */
+    interface IC2GW_ReqBuildingCanBuyInfo {
+
+        /** C2GW_ReqBuildingCanBuyInfo buildingid */
+        buildingid?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqBuildingCanBuyInfo. */
+    class C2GW_ReqBuildingCanBuyInfo implements IC2GW_ReqBuildingCanBuyInfo {
+
+        /**
+         * Constructs a new C2GW_ReqBuildingCanBuyInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqBuildingCanBuyInfo);
+
+        /** C2GW_ReqBuildingCanBuyInfo buildingid. */
+        public buildingid: number;
+
+        /**
+         * Creates a new C2GW_ReqBuildingCanBuyInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqBuildingCanBuyInfo instance
+         */
+        public static create(properties?: msg.IC2GW_ReqBuildingCanBuyInfo): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Encodes the specified C2GW_ReqBuildingCanBuyInfo message. Does not implicitly {@link msg.C2GW_ReqBuildingCanBuyInfo.verify|verify} messages.
+         * @param message C2GW_ReqBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqBuildingCanBuyInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqBuildingCanBuyInfo.verify|verify} messages.
+         * @param message C2GW_ReqBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqBuildingCanBuyInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Decodes a C2GW_ReqBuildingCanBuyInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Verifies a C2GW_ReqBuildingCanBuyInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqBuildingCanBuyInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqBuildingCanBuyInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqBuildingCanBuyInfo;
+
+        /**
+         * Creates a plain object from a C2GW_ReqBuildingCanBuyInfo message. Also converts values to other types if specified.
+         * @param message C2GW_ReqBuildingCanBuyInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqBuildingCanBuyInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqBuildingCanBuyInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CanBuyInfo. */
+    interface ICanBuyInfo {
+
+        /** CanBuyInfo index */
+        index?: (number|null);
+
+        /** CanBuyInfo count */
+        count?: (number|null);
+    }
+
+    /** Represents a CanBuyInfo. */
+    class CanBuyInfo implements ICanBuyInfo {
+
+        /**
+         * Constructs a new CanBuyInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICanBuyInfo);
+
+        /** CanBuyInfo index. */
+        public index: number;
+
+        /** CanBuyInfo count. */
+        public count: number;
+
+        /**
+         * Creates a new CanBuyInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CanBuyInfo instance
+         */
+        public static create(properties?: msg.ICanBuyInfo): msg.CanBuyInfo;
+
+        /**
+         * Encodes the specified CanBuyInfo message. Does not implicitly {@link msg.CanBuyInfo.verify|verify} messages.
+         * @param message CanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CanBuyInfo message, length delimited. Does not implicitly {@link msg.CanBuyInfo.verify|verify} messages.
+         * @param message CanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CanBuyInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CanBuyInfo;
+
+        /**
+         * Decodes a CanBuyInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CanBuyInfo;
+
+        /**
+         * Verifies a CanBuyInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CanBuyInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CanBuyInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CanBuyInfo;
+
+        /**
+         * Creates a plain object from a CanBuyInfo message. Also converts values to other types if specified.
+         * @param message CanBuyInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CanBuyInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CanBuyInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckBuildingCanBuyInfo. */
+    interface IGW2C_AckBuildingCanBuyInfo {
+
+        /** GW2C_AckBuildingCanBuyInfo buildingid */
+        buildingid?: (number|null);
+
+        /** GW2C_AckBuildingCanBuyInfo data */
+        data?: (msg.ICanBuyInfo[]|null);
+    }
+
+    /** Represents a GW2C_AckBuildingCanBuyInfo. */
+    class GW2C_AckBuildingCanBuyInfo implements IGW2C_AckBuildingCanBuyInfo {
+
+        /**
+         * Constructs a new GW2C_AckBuildingCanBuyInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckBuildingCanBuyInfo);
+
+        /** GW2C_AckBuildingCanBuyInfo buildingid. */
+        public buildingid: number;
+
+        /** GW2C_AckBuildingCanBuyInfo data. */
+        public data: msg.ICanBuyInfo[];
+
+        /**
+         * Creates a new GW2C_AckBuildingCanBuyInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckBuildingCanBuyInfo instance
+         */
+        public static create(properties?: msg.IGW2C_AckBuildingCanBuyInfo): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Encodes the specified GW2C_AckBuildingCanBuyInfo message. Does not implicitly {@link msg.GW2C_AckBuildingCanBuyInfo.verify|verify} messages.
+         * @param message GW2C_AckBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckBuildingCanBuyInfo message, length delimited. Does not implicitly {@link msg.GW2C_AckBuildingCanBuyInfo.verify|verify} messages.
+         * @param message GW2C_AckBuildingCanBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckBuildingCanBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckBuildingCanBuyInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Decodes a GW2C_AckBuildingCanBuyInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckBuildingCanBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Verifies a GW2C_AckBuildingCanBuyInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckBuildingCanBuyInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckBuildingCanBuyInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckBuildingCanBuyInfo;
+
+        /**
+         * Creates a plain object from a GW2C_AckBuildingCanBuyInfo message. Also converts values to other types if specified.
+         * @param message GW2C_AckBuildingCanBuyInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckBuildingCanBuyInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckBuildingCanBuyInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -12741,3486 +14435,6 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2MS_UserOnlineState. */
-    interface IGW2MS_UserOnlineState {
-
-        /** GW2MS_UserOnlineState userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_UserOnlineState state */
-        state?: (number|null);
-    }
-
-    /** Represents a GW2MS_UserOnlineState. */
-    class GW2MS_UserOnlineState implements IGW2MS_UserOnlineState {
-
-        /**
-         * Constructs a new GW2MS_UserOnlineState.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_UserOnlineState);
-
-        /** GW2MS_UserOnlineState userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_UserOnlineState state. */
-        public state: number;
-
-        /**
-         * Creates a new GW2MS_UserOnlineState instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_UserOnlineState instance
-         */
-        public static create(properties?: msg.IGW2MS_UserOnlineState): msg.GW2MS_UserOnlineState;
-
-        /**
-         * Encodes the specified GW2MS_UserOnlineState message. Does not implicitly {@link msg.GW2MS_UserOnlineState.verify|verify} messages.
-         * @param message GW2MS_UserOnlineState message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_UserOnlineState, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_UserOnlineState message, length delimited. Does not implicitly {@link msg.GW2MS_UserOnlineState.verify|verify} messages.
-         * @param message GW2MS_UserOnlineState message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_UserOnlineState, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_UserOnlineState message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_UserOnlineState
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_UserOnlineState;
-
-        /**
-         * Decodes a GW2MS_UserOnlineState message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_UserOnlineState
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_UserOnlineState;
-
-        /**
-         * Verifies a GW2MS_UserOnlineState message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_UserOnlineState message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_UserOnlineState
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_UserOnlineState;
-
-        /**
-         * Creates a plain object from a GW2MS_UserOnlineState message. Also converts values to other types if specified.
-         * @param message GW2MS_UserOnlineState
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_UserOnlineState, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_UserOnlineState to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqCreateHouse. */
-    interface IGW2MS_ReqCreateHouse {
-
-        /** GW2MS_ReqCreateHouse userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqCreateHouse housetid */
-        housetid?: (number|null);
-
-        /** GW2MS_ReqCreateHouse ownername */
-        ownername?: (string|null);
-    }
-
-    /** Represents a GW2MS_ReqCreateHouse. */
-    class GW2MS_ReqCreateHouse implements IGW2MS_ReqCreateHouse {
-
-        /**
-         * Constructs a new GW2MS_ReqCreateHouse.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqCreateHouse);
-
-        /** GW2MS_ReqCreateHouse userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqCreateHouse housetid. */
-        public housetid: number;
-
-        /** GW2MS_ReqCreateHouse ownername. */
-        public ownername: string;
-
-        /**
-         * Creates a new GW2MS_ReqCreateHouse instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqCreateHouse instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqCreateHouse): msg.GW2MS_ReqCreateHouse;
-
-        /**
-         * Encodes the specified GW2MS_ReqCreateHouse message. Does not implicitly {@link msg.GW2MS_ReqCreateHouse.verify|verify} messages.
-         * @param message GW2MS_ReqCreateHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqCreateHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqCreateHouse message, length delimited. Does not implicitly {@link msg.GW2MS_ReqCreateHouse.verify|verify} messages.
-         * @param message GW2MS_ReqCreateHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqCreateHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqCreateHouse message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqCreateHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqCreateHouse;
-
-        /**
-         * Decodes a GW2MS_ReqCreateHouse message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqCreateHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqCreateHouse;
-
-        /**
-         * Verifies a GW2MS_ReqCreateHouse message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqCreateHouse message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqCreateHouse
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqCreateHouse;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqCreateHouse message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqCreateHouse
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqCreateHouse, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqCreateHouse to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckCreateHouse. */
-    interface IMS2GW_AckCreateHouse {
-
-        /** MS2GW_AckCreateHouse userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckCreateHouse housetid */
-        housetid?: (number|null);
-
-        /** MS2GW_AckCreateHouse ret */
-        ret?: (number|null);
-    }
-
-    /** Represents a MS2GW_AckCreateHouse. */
-    class MS2GW_AckCreateHouse implements IMS2GW_AckCreateHouse {
-
-        /**
-         * Constructs a new MS2GW_AckCreateHouse.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckCreateHouse);
-
-        /** MS2GW_AckCreateHouse userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckCreateHouse housetid. */
-        public housetid: number;
-
-        /** MS2GW_AckCreateHouse ret. */
-        public ret: number;
-
-        /**
-         * Creates a new MS2GW_AckCreateHouse instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckCreateHouse instance
-         */
-        public static create(properties?: msg.IMS2GW_AckCreateHouse): msg.MS2GW_AckCreateHouse;
-
-        /**
-         * Encodes the specified MS2GW_AckCreateHouse message. Does not implicitly {@link msg.MS2GW_AckCreateHouse.verify|verify} messages.
-         * @param message MS2GW_AckCreateHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckCreateHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckCreateHouse message, length delimited. Does not implicitly {@link msg.MS2GW_AckCreateHouse.verify|verify} messages.
-         * @param message MS2GW_AckCreateHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckCreateHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckCreateHouse message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckCreateHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckCreateHouse;
-
-        /**
-         * Decodes a MS2GW_AckCreateHouse message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckCreateHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckCreateHouse;
-
-        /**
-         * Verifies a MS2GW_AckCreateHouse message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckCreateHouse message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckCreateHouse
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckCreateHouse;
-
-        /**
-         * Creates a plain object from a MS2GW_AckCreateHouse message. Also converts values to other types if specified.
-         * @param message MS2GW_AckCreateHouse
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckCreateHouse, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckCreateHouse to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqUserHouse. */
-    interface IGW2MS_ReqUserHouse {
-
-        /** GW2MS_ReqUserHouse userid */
-        userid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqUserHouse. */
-    class GW2MS_ReqUserHouse implements IGW2MS_ReqUserHouse {
-
-        /**
-         * Constructs a new GW2MS_ReqUserHouse.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqUserHouse);
-
-        /** GW2MS_ReqUserHouse userid. */
-        public userid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqUserHouse instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqUserHouse instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqUserHouse): msg.GW2MS_ReqUserHouse;
-
-        /**
-         * Encodes the specified GW2MS_ReqUserHouse message. Does not implicitly {@link msg.GW2MS_ReqUserHouse.verify|verify} messages.
-         * @param message GW2MS_ReqUserHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqUserHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqUserHouse message, length delimited. Does not implicitly {@link msg.GW2MS_ReqUserHouse.verify|verify} messages.
-         * @param message GW2MS_ReqUserHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqUserHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqUserHouse message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqUserHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqUserHouse;
-
-        /**
-         * Decodes a GW2MS_ReqUserHouse message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqUserHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqUserHouse;
-
-        /**
-         * Verifies a GW2MS_ReqUserHouse message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqUserHouse message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqUserHouse
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqUserHouse;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqUserHouse message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqUserHouse
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqUserHouse, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqUserHouse to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckUserHouse. */
-    interface IMS2GW_AckUserHouse {
-
-        /** MS2GW_AckUserHouse userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckUserHouse data */
-        data?: (msg.IHouseData[]|null);
-    }
-
-    /** Represents a MS2GW_AckUserHouse. */
-    class MS2GW_AckUserHouse implements IMS2GW_AckUserHouse {
-
-        /**
-         * Constructs a new MS2GW_AckUserHouse.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckUserHouse);
-
-        /** MS2GW_AckUserHouse userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckUserHouse data. */
-        public data: msg.IHouseData[];
-
-        /**
-         * Creates a new MS2GW_AckUserHouse instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckUserHouse instance
-         */
-        public static create(properties?: msg.IMS2GW_AckUserHouse): msg.MS2GW_AckUserHouse;
-
-        /**
-         * Encodes the specified MS2GW_AckUserHouse message. Does not implicitly {@link msg.MS2GW_AckUserHouse.verify|verify} messages.
-         * @param message MS2GW_AckUserHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckUserHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckUserHouse message, length delimited. Does not implicitly {@link msg.MS2GW_AckUserHouse.verify|verify} messages.
-         * @param message MS2GW_AckUserHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckUserHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckUserHouse message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckUserHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckUserHouse;
-
-        /**
-         * Decodes a MS2GW_AckUserHouse message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckUserHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckUserHouse;
-
-        /**
-         * Verifies a MS2GW_AckUserHouse message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckUserHouse message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckUserHouse
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckUserHouse;
-
-        /**
-         * Creates a plain object from a MS2GW_AckUserHouse message. Also converts values to other types if specified.
-         * @param message MS2GW_AckUserHouse
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckUserHouse, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckUserHouse to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqHouseLevelUp. */
-    interface IGW2MS_ReqHouseLevelUp {
-
-        /** GW2MS_ReqHouseLevelUp userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqHouseLevelUp houseid */
-        houseid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqHouseLevelUp. */
-    class GW2MS_ReqHouseLevelUp implements IGW2MS_ReqHouseLevelUp {
-
-        /**
-         * Constructs a new GW2MS_ReqHouseLevelUp.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqHouseLevelUp);
-
-        /** GW2MS_ReqHouseLevelUp userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqHouseLevelUp houseid. */
-        public houseid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqHouseLevelUp instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqHouseLevelUp instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqHouseLevelUp): msg.GW2MS_ReqHouseLevelUp;
-
-        /**
-         * Encodes the specified GW2MS_ReqHouseLevelUp message. Does not implicitly {@link msg.GW2MS_ReqHouseLevelUp.verify|verify} messages.
-         * @param message GW2MS_ReqHouseLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqHouseLevelUp message, length delimited. Does not implicitly {@link msg.GW2MS_ReqHouseLevelUp.verify|verify} messages.
-         * @param message GW2MS_ReqHouseLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqHouseLevelUp message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqHouseLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqHouseLevelUp;
-
-        /**
-         * Decodes a GW2MS_ReqHouseLevelUp message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqHouseLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqHouseLevelUp;
-
-        /**
-         * Verifies a GW2MS_ReqHouseLevelUp message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqHouseLevelUp message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqHouseLevelUp
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqHouseLevelUp;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqHouseLevelUp message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqHouseLevelUp
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqHouseLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqHouseLevelUp to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckHouseLevelUp. */
-    interface IMS2GW_AckHouseLevelUp {
-
-        /** MS2GW_AckHouseLevelUp userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckHouseLevelUp houseid */
-        houseid?: (number|Long|null);
-
-        /** MS2GW_AckHouseLevelUp ret */
-        ret?: (number|null);
-
-        /** MS2GW_AckHouseLevelUp data */
-        data?: (msg.IHouseData|null);
-    }
-
-    /** Represents a MS2GW_AckHouseLevelUp. */
-    class MS2GW_AckHouseLevelUp implements IMS2GW_AckHouseLevelUp {
-
-        /**
-         * Constructs a new MS2GW_AckHouseLevelUp.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckHouseLevelUp);
-
-        /** MS2GW_AckHouseLevelUp userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckHouseLevelUp houseid. */
-        public houseid: (number|Long);
-
-        /** MS2GW_AckHouseLevelUp ret. */
-        public ret: number;
-
-        /** MS2GW_AckHouseLevelUp data. */
-        public data?: (msg.IHouseData|null);
-
-        /**
-         * Creates a new MS2GW_AckHouseLevelUp instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckHouseLevelUp instance
-         */
-        public static create(properties?: msg.IMS2GW_AckHouseLevelUp): msg.MS2GW_AckHouseLevelUp;
-
-        /**
-         * Encodes the specified MS2GW_AckHouseLevelUp message. Does not implicitly {@link msg.MS2GW_AckHouseLevelUp.verify|verify} messages.
-         * @param message MS2GW_AckHouseLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckHouseLevelUp message, length delimited. Does not implicitly {@link msg.MS2GW_AckHouseLevelUp.verify|verify} messages.
-         * @param message MS2GW_AckHouseLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckHouseLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckHouseLevelUp message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckHouseLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckHouseLevelUp;
-
-        /**
-         * Decodes a MS2GW_AckHouseLevelUp message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckHouseLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckHouseLevelUp;
-
-        /**
-         * Verifies a MS2GW_AckHouseLevelUp message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckHouseLevelUp message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckHouseLevelUp
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckHouseLevelUp;
-
-        /**
-         * Creates a plain object from a MS2GW_AckHouseLevelUp message. Also converts values to other types if specified.
-         * @param message MS2GW_AckHouseLevelUp
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckHouseLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckHouseLevelUp to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqHouseCellLevelUp. */
-    interface IGW2MS_ReqHouseCellLevelUp {
-
-        /** GW2MS_ReqHouseCellLevelUp userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqHouseCellLevelUp houseid */
-        houseid?: (number|Long|null);
-
-        /** GW2MS_ReqHouseCellLevelUp index */
-        index?: (number|null);
-    }
-
-    /** Represents a GW2MS_ReqHouseCellLevelUp. */
-    class GW2MS_ReqHouseCellLevelUp implements IGW2MS_ReqHouseCellLevelUp {
-
-        /**
-         * Constructs a new GW2MS_ReqHouseCellLevelUp.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqHouseCellLevelUp);
-
-        /** GW2MS_ReqHouseCellLevelUp userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqHouseCellLevelUp houseid. */
-        public houseid: (number|Long);
-
-        /** GW2MS_ReqHouseCellLevelUp index. */
-        public index: number;
-
-        /**
-         * Creates a new GW2MS_ReqHouseCellLevelUp instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqHouseCellLevelUp instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqHouseCellLevelUp): msg.GW2MS_ReqHouseCellLevelUp;
-
-        /**
-         * Encodes the specified GW2MS_ReqHouseCellLevelUp message. Does not implicitly {@link msg.GW2MS_ReqHouseCellLevelUp.verify|verify} messages.
-         * @param message GW2MS_ReqHouseCellLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.GW2MS_ReqHouseCellLevelUp.verify|verify} messages.
-         * @param message GW2MS_ReqHouseCellLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqHouseCellLevelUp message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqHouseCellLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqHouseCellLevelUp;
-
-        /**
-         * Decodes a GW2MS_ReqHouseCellLevelUp message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqHouseCellLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqHouseCellLevelUp;
-
-        /**
-         * Verifies a GW2MS_ReqHouseCellLevelUp message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqHouseCellLevelUp
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqHouseCellLevelUp;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqHouseCellLevelUp message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqHouseCellLevelUp
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqHouseCellLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqHouseCellLevelUp to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckHouseCellLevelUp. */
-    interface IMS2GW_AckHouseCellLevelUp {
-
-        /** MS2GW_AckHouseCellLevelUp userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckHouseCellLevelUp houseid */
-        houseid?: (number|Long|null);
-
-        /** MS2GW_AckHouseCellLevelUp index */
-        index?: (number|null);
-
-        /** MS2GW_AckHouseCellLevelUp ret */
-        ret?: (number|null);
-
-        /** MS2GW_AckHouseCellLevelUp data */
-        data?: (msg.IHouseData|null);
-    }
-
-    /** Represents a MS2GW_AckHouseCellLevelUp. */
-    class MS2GW_AckHouseCellLevelUp implements IMS2GW_AckHouseCellLevelUp {
-
-        /**
-         * Constructs a new MS2GW_AckHouseCellLevelUp.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckHouseCellLevelUp);
-
-        /** MS2GW_AckHouseCellLevelUp userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckHouseCellLevelUp houseid. */
-        public houseid: (number|Long);
-
-        /** MS2GW_AckHouseCellLevelUp index. */
-        public index: number;
-
-        /** MS2GW_AckHouseCellLevelUp ret. */
-        public ret: number;
-
-        /** MS2GW_AckHouseCellLevelUp data. */
-        public data?: (msg.IHouseData|null);
-
-        /**
-         * Creates a new MS2GW_AckHouseCellLevelUp instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckHouseCellLevelUp instance
-         */
-        public static create(properties?: msg.IMS2GW_AckHouseCellLevelUp): msg.MS2GW_AckHouseCellLevelUp;
-
-        /**
-         * Encodes the specified MS2GW_AckHouseCellLevelUp message. Does not implicitly {@link msg.MS2GW_AckHouseCellLevelUp.verify|verify} messages.
-         * @param message MS2GW_AckHouseCellLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckHouseCellLevelUp message, length delimited. Does not implicitly {@link msg.MS2GW_AckHouseCellLevelUp.verify|verify} messages.
-         * @param message MS2GW_AckHouseCellLevelUp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckHouseCellLevelUp, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckHouseCellLevelUp message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckHouseCellLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckHouseCellLevelUp;
-
-        /**
-         * Decodes a MS2GW_AckHouseCellLevelUp message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckHouseCellLevelUp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckHouseCellLevelUp;
-
-        /**
-         * Verifies a MS2GW_AckHouseCellLevelUp message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckHouseCellLevelUp message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckHouseCellLevelUp
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckHouseCellLevelUp;
-
-        /**
-         * Creates a plain object from a MS2GW_AckHouseCellLevelUp message. Also converts values to other types if specified.
-         * @param message MS2GW_AckHouseCellLevelUp
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckHouseCellLevelUp, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckHouseCellLevelUp to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqTakeSelfHouseGold. */
-    interface IGW2MS_ReqTakeSelfHouseGold {
-
-        /** GW2MS_ReqTakeSelfHouseGold userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqTakeSelfHouseGold houseid */
-        houseid?: (number|Long|null);
-
-        /** GW2MS_ReqTakeSelfHouseGold index */
-        index?: (number|null);
-    }
-
-    /** Represents a GW2MS_ReqTakeSelfHouseGold. */
-    class GW2MS_ReqTakeSelfHouseGold implements IGW2MS_ReqTakeSelfHouseGold {
-
-        /**
-         * Constructs a new GW2MS_ReqTakeSelfHouseGold.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqTakeSelfHouseGold);
-
-        /** GW2MS_ReqTakeSelfHouseGold userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqTakeSelfHouseGold houseid. */
-        public houseid: (number|Long);
-
-        /** GW2MS_ReqTakeSelfHouseGold index. */
-        public index: number;
-
-        /**
-         * Creates a new GW2MS_ReqTakeSelfHouseGold instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqTakeSelfHouseGold instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqTakeSelfHouseGold): msg.GW2MS_ReqTakeSelfHouseGold;
-
-        /**
-         * Encodes the specified GW2MS_ReqTakeSelfHouseGold message. Does not implicitly {@link msg.GW2MS_ReqTakeSelfHouseGold.verify|verify} messages.
-         * @param message GW2MS_ReqTakeSelfHouseGold message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqTakeSelfHouseGold, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqTakeSelfHouseGold message, length delimited. Does not implicitly {@link msg.GW2MS_ReqTakeSelfHouseGold.verify|verify} messages.
-         * @param message GW2MS_ReqTakeSelfHouseGold message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqTakeSelfHouseGold, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqTakeSelfHouseGold message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqTakeSelfHouseGold
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqTakeSelfHouseGold;
-
-        /**
-         * Decodes a GW2MS_ReqTakeSelfHouseGold message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqTakeSelfHouseGold
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqTakeSelfHouseGold;
-
-        /**
-         * Verifies a GW2MS_ReqTakeSelfHouseGold message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqTakeSelfHouseGold message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqTakeSelfHouseGold
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqTakeSelfHouseGold;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqTakeSelfHouseGold message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqTakeSelfHouseGold
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqTakeSelfHouseGold, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqTakeSelfHouseGold to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckTakeSelfHouseGoldRet. */
-    interface IMS2GW_AckTakeSelfHouseGoldRet {
-
-        /** MS2GW_AckTakeSelfHouseGoldRet userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckTakeSelfHouseGoldRet houseid */
-        houseid?: (number|Long|null);
-
-        /** MS2GW_AckTakeSelfHouseGoldRet index */
-        index?: (number|null);
-
-        /** MS2GW_AckTakeSelfHouseGoldRet gold */
-        gold?: (number|null);
-
-        /** MS2GW_AckTakeSelfHouseGoldRet data */
-        data?: (msg.IHouseData|null);
-    }
-
-    /** Represents a MS2GW_AckTakeSelfHouseGoldRet. */
-    class MS2GW_AckTakeSelfHouseGoldRet implements IMS2GW_AckTakeSelfHouseGoldRet {
-
-        /**
-         * Constructs a new MS2GW_AckTakeSelfHouseGoldRet.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckTakeSelfHouseGoldRet);
-
-        /** MS2GW_AckTakeSelfHouseGoldRet userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckTakeSelfHouseGoldRet houseid. */
-        public houseid: (number|Long);
-
-        /** MS2GW_AckTakeSelfHouseGoldRet index. */
-        public index: number;
-
-        /** MS2GW_AckTakeSelfHouseGoldRet gold. */
-        public gold: number;
-
-        /** MS2GW_AckTakeSelfHouseGoldRet data. */
-        public data?: (msg.IHouseData|null);
-
-        /**
-         * Creates a new MS2GW_AckTakeSelfHouseGoldRet instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckTakeSelfHouseGoldRet instance
-         */
-        public static create(properties?: msg.IMS2GW_AckTakeSelfHouseGoldRet): msg.MS2GW_AckTakeSelfHouseGoldRet;
-
-        /**
-         * Encodes the specified MS2GW_AckTakeSelfHouseGoldRet message. Does not implicitly {@link msg.MS2GW_AckTakeSelfHouseGoldRet.verify|verify} messages.
-         * @param message MS2GW_AckTakeSelfHouseGoldRet message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckTakeSelfHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckTakeSelfHouseGoldRet message, length delimited. Does not implicitly {@link msg.MS2GW_AckTakeSelfHouseGoldRet.verify|verify} messages.
-         * @param message MS2GW_AckTakeSelfHouseGoldRet message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckTakeSelfHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckTakeSelfHouseGoldRet message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckTakeSelfHouseGoldRet
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckTakeSelfHouseGoldRet;
-
-        /**
-         * Decodes a MS2GW_AckTakeSelfHouseGoldRet message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckTakeSelfHouseGoldRet
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckTakeSelfHouseGoldRet;
-
-        /**
-         * Verifies a MS2GW_AckTakeSelfHouseGoldRet message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckTakeSelfHouseGoldRet message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckTakeSelfHouseGoldRet
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckTakeSelfHouseGoldRet;
-
-        /**
-         * Creates a plain object from a MS2GW_AckTakeSelfHouseGoldRet message. Also converts values to other types if specified.
-         * @param message MS2GW_AckTakeSelfHouseGoldRet
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckTakeSelfHouseGoldRet, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckTakeSelfHouseGoldRet to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqTakeOtherHouseGold. */
-    interface IGW2MS_ReqTakeOtherHouseGold {
-
-        /** GW2MS_ReqTakeOtherHouseGold userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqTakeOtherHouseGold houseid */
-        houseid?: (number|Long|null);
-
-        /** GW2MS_ReqTakeOtherHouseGold index */
-        index?: (number|null);
-
-        /** GW2MS_ReqTakeOtherHouseGold username */
-        username?: (string|null);
-    }
-
-    /** Represents a GW2MS_ReqTakeOtherHouseGold. */
-    class GW2MS_ReqTakeOtherHouseGold implements IGW2MS_ReqTakeOtherHouseGold {
-
-        /**
-         * Constructs a new GW2MS_ReqTakeOtherHouseGold.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqTakeOtherHouseGold);
-
-        /** GW2MS_ReqTakeOtherHouseGold userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqTakeOtherHouseGold houseid. */
-        public houseid: (number|Long);
-
-        /** GW2MS_ReqTakeOtherHouseGold index. */
-        public index: number;
-
-        /** GW2MS_ReqTakeOtherHouseGold username. */
-        public username: string;
-
-        /**
-         * Creates a new GW2MS_ReqTakeOtherHouseGold instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqTakeOtherHouseGold instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqTakeOtherHouseGold): msg.GW2MS_ReqTakeOtherHouseGold;
-
-        /**
-         * Encodes the specified GW2MS_ReqTakeOtherHouseGold message. Does not implicitly {@link msg.GW2MS_ReqTakeOtherHouseGold.verify|verify} messages.
-         * @param message GW2MS_ReqTakeOtherHouseGold message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqTakeOtherHouseGold, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqTakeOtherHouseGold message, length delimited. Does not implicitly {@link msg.GW2MS_ReqTakeOtherHouseGold.verify|verify} messages.
-         * @param message GW2MS_ReqTakeOtherHouseGold message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqTakeOtherHouseGold, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqTakeOtherHouseGold message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqTakeOtherHouseGold
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqTakeOtherHouseGold;
-
-        /**
-         * Decodes a GW2MS_ReqTakeOtherHouseGold message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqTakeOtherHouseGold
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqTakeOtherHouseGold;
-
-        /**
-         * Verifies a GW2MS_ReqTakeOtherHouseGold message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqTakeOtherHouseGold message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqTakeOtherHouseGold
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqTakeOtherHouseGold;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqTakeOtherHouseGold message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqTakeOtherHouseGold
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqTakeOtherHouseGold, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqTakeOtherHouseGold to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckTakeOtherHouseGoldRet. */
-    interface IMS2GW_AckTakeOtherHouseGoldRet {
-
-        /** MS2GW_AckTakeOtherHouseGoldRet userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckTakeOtherHouseGoldRet houseid */
-        houseid?: (number|Long|null);
-
-        /** MS2GW_AckTakeOtherHouseGoldRet index */
-        index?: (number|null);
-
-        /** MS2GW_AckTakeOtherHouseGoldRet gold */
-        gold?: (number|null);
-
-        /** MS2GW_AckTakeOtherHouseGoldRet data */
-        data?: (msg.IHouseData|null);
-    }
-
-    /** Represents a MS2GW_AckTakeOtherHouseGoldRet. */
-    class MS2GW_AckTakeOtherHouseGoldRet implements IMS2GW_AckTakeOtherHouseGoldRet {
-
-        /**
-         * Constructs a new MS2GW_AckTakeOtherHouseGoldRet.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckTakeOtherHouseGoldRet);
-
-        /** MS2GW_AckTakeOtherHouseGoldRet userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckTakeOtherHouseGoldRet houseid. */
-        public houseid: (number|Long);
-
-        /** MS2GW_AckTakeOtherHouseGoldRet index. */
-        public index: number;
-
-        /** MS2GW_AckTakeOtherHouseGoldRet gold. */
-        public gold: number;
-
-        /** MS2GW_AckTakeOtherHouseGoldRet data. */
-        public data?: (msg.IHouseData|null);
-
-        /**
-         * Creates a new MS2GW_AckTakeOtherHouseGoldRet instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckTakeOtherHouseGoldRet instance
-         */
-        public static create(properties?: msg.IMS2GW_AckTakeOtherHouseGoldRet): msg.MS2GW_AckTakeOtherHouseGoldRet;
-
-        /**
-         * Encodes the specified MS2GW_AckTakeOtherHouseGoldRet message. Does not implicitly {@link msg.MS2GW_AckTakeOtherHouseGoldRet.verify|verify} messages.
-         * @param message MS2GW_AckTakeOtherHouseGoldRet message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckTakeOtherHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckTakeOtherHouseGoldRet message, length delimited. Does not implicitly {@link msg.MS2GW_AckTakeOtherHouseGoldRet.verify|verify} messages.
-         * @param message MS2GW_AckTakeOtherHouseGoldRet message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckTakeOtherHouseGoldRet, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckTakeOtherHouseGoldRet message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckTakeOtherHouseGoldRet
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckTakeOtherHouseGoldRet;
-
-        /**
-         * Decodes a MS2GW_AckTakeOtherHouseGoldRet message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckTakeOtherHouseGoldRet
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckTakeOtherHouseGoldRet;
-
-        /**
-         * Verifies a MS2GW_AckTakeOtherHouseGoldRet message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckTakeOtherHouseGoldRet message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckTakeOtherHouseGoldRet
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckTakeOtherHouseGoldRet;
-
-        /**
-         * Creates a plain object from a MS2GW_AckTakeOtherHouseGoldRet message. Also converts values to other types if specified.
-         * @param message MS2GW_AckTakeOtherHouseGoldRet
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckTakeOtherHouseGoldRet, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckTakeOtherHouseGoldRet to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqCreateCar. */
-    interface IGW2MS_ReqCreateCar {
-
-        /** GW2MS_ReqCreateCar userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqCreateCar cartid */
-        cartid?: (number|null);
-
-        /** GW2MS_ReqCreateCar username */
-        username?: (string|null);
-    }
-
-    /** Represents a GW2MS_ReqCreateCar. */
-    class GW2MS_ReqCreateCar implements IGW2MS_ReqCreateCar {
-
-        /**
-         * Constructs a new GW2MS_ReqCreateCar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqCreateCar);
-
-        /** GW2MS_ReqCreateCar userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqCreateCar cartid. */
-        public cartid: number;
-
-        /** GW2MS_ReqCreateCar username. */
-        public username: string;
-
-        /**
-         * Creates a new GW2MS_ReqCreateCar instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqCreateCar instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqCreateCar): msg.GW2MS_ReqCreateCar;
-
-        /**
-         * Encodes the specified GW2MS_ReqCreateCar message. Does not implicitly {@link msg.GW2MS_ReqCreateCar.verify|verify} messages.
-         * @param message GW2MS_ReqCreateCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqCreateCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqCreateCar message, length delimited. Does not implicitly {@link msg.GW2MS_ReqCreateCar.verify|verify} messages.
-         * @param message GW2MS_ReqCreateCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqCreateCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqCreateCar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqCreateCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqCreateCar;
-
-        /**
-         * Decodes a GW2MS_ReqCreateCar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqCreateCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqCreateCar;
-
-        /**
-         * Verifies a GW2MS_ReqCreateCar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqCreateCar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqCreateCar
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqCreateCar;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqCreateCar message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqCreateCar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqCreateCar, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqCreateCar to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckCreateCar. */
-    interface IMS2GW_AckCreateCar {
-
-        /** MS2GW_AckCreateCar userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckCreateCar cardata */
-        cardata?: (msg.ICarData|null);
-    }
-
-    /** Represents a MS2GW_AckCreateCar. */
-    class MS2GW_AckCreateCar implements IMS2GW_AckCreateCar {
-
-        /**
-         * Constructs a new MS2GW_AckCreateCar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckCreateCar);
-
-        /** MS2GW_AckCreateCar userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckCreateCar cardata. */
-        public cardata?: (msg.ICarData|null);
-
-        /**
-         * Creates a new MS2GW_AckCreateCar instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckCreateCar instance
-         */
-        public static create(properties?: msg.IMS2GW_AckCreateCar): msg.MS2GW_AckCreateCar;
-
-        /**
-         * Encodes the specified MS2GW_AckCreateCar message. Does not implicitly {@link msg.MS2GW_AckCreateCar.verify|verify} messages.
-         * @param message MS2GW_AckCreateCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckCreateCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckCreateCar message, length delimited. Does not implicitly {@link msg.MS2GW_AckCreateCar.verify|verify} messages.
-         * @param message MS2GW_AckCreateCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckCreateCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckCreateCar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckCreateCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckCreateCar;
-
-        /**
-         * Decodes a MS2GW_AckCreateCar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckCreateCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckCreateCar;
-
-        /**
-         * Verifies a MS2GW_AckCreateCar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckCreateCar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckCreateCar
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckCreateCar;
-
-        /**
-         * Creates a plain object from a MS2GW_AckCreateCar message. Also converts values to other types if specified.
-         * @param message MS2GW_AckCreateCar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckCreateCar, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckCreateCar to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqCarInfo. */
-    interface IGW2MS_ReqCarInfo {
-
-        /** GW2MS_ReqCarInfo userid */
-        userid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqCarInfo. */
-    class GW2MS_ReqCarInfo implements IGW2MS_ReqCarInfo {
-
-        /**
-         * Constructs a new GW2MS_ReqCarInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqCarInfo);
-
-        /** GW2MS_ReqCarInfo userid. */
-        public userid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqCarInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqCarInfo instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqCarInfo): msg.GW2MS_ReqCarInfo;
-
-        /**
-         * Encodes the specified GW2MS_ReqCarInfo message. Does not implicitly {@link msg.GW2MS_ReqCarInfo.verify|verify} messages.
-         * @param message GW2MS_ReqCarInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqCarInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqCarInfo message, length delimited. Does not implicitly {@link msg.GW2MS_ReqCarInfo.verify|verify} messages.
-         * @param message GW2MS_ReqCarInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqCarInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqCarInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqCarInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqCarInfo;
-
-        /**
-         * Decodes a GW2MS_ReqCarInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqCarInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqCarInfo;
-
-        /**
-         * Verifies a GW2MS_ReqCarInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqCarInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqCarInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqCarInfo;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqCarInfo message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqCarInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqCarInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqCarInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckCarInfo. */
-    interface IMS2GW_AckCarInfo {
-
-        /** MS2GW_AckCarInfo userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckCarInfo cardatas */
-        cardatas?: (msg.ICarData[]|null);
-
-        /** MS2GW_AckCarInfo parkingdatas */
-        parkingdatas?: (msg.IParkingData[]|null);
-    }
-
-    /** Represents a MS2GW_AckCarInfo. */
-    class MS2GW_AckCarInfo implements IMS2GW_AckCarInfo {
-
-        /**
-         * Constructs a new MS2GW_AckCarInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckCarInfo);
-
-        /** MS2GW_AckCarInfo userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckCarInfo cardatas. */
-        public cardatas: msg.ICarData[];
-
-        /** MS2GW_AckCarInfo parkingdatas. */
-        public parkingdatas: msg.IParkingData[];
-
-        /**
-         * Creates a new MS2GW_AckCarInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckCarInfo instance
-         */
-        public static create(properties?: msg.IMS2GW_AckCarInfo): msg.MS2GW_AckCarInfo;
-
-        /**
-         * Encodes the specified MS2GW_AckCarInfo message. Does not implicitly {@link msg.MS2GW_AckCarInfo.verify|verify} messages.
-         * @param message MS2GW_AckCarInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckCarInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckCarInfo message, length delimited. Does not implicitly {@link msg.MS2GW_AckCarInfo.verify|verify} messages.
-         * @param message MS2GW_AckCarInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckCarInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckCarInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckCarInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckCarInfo;
-
-        /**
-         * Decodes a MS2GW_AckCarInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckCarInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckCarInfo;
-
-        /**
-         * Verifies a MS2GW_AckCarInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckCarInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckCarInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckCarInfo;
-
-        /**
-         * Creates a plain object from a MS2GW_AckCarInfo message. Also converts values to other types if specified.
-         * @param message MS2GW_AckCarInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckCarInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckCarInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqCreateParking. */
-    interface IGW2MS_ReqCreateParking {
-
-        /** GW2MS_ReqCreateParking userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqCreateParking parkid */
-        parkid?: (number|null);
-
-        /** GW2MS_ReqCreateParking username */
-        username?: (string|null);
-    }
-
-    /** Represents a GW2MS_ReqCreateParking. */
-    class GW2MS_ReqCreateParking implements IGW2MS_ReqCreateParking {
-
-        /**
-         * Constructs a new GW2MS_ReqCreateParking.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqCreateParking);
-
-        /** GW2MS_ReqCreateParking userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqCreateParking parkid. */
-        public parkid: number;
-
-        /** GW2MS_ReqCreateParking username. */
-        public username: string;
-
-        /**
-         * Creates a new GW2MS_ReqCreateParking instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqCreateParking instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqCreateParking): msg.GW2MS_ReqCreateParking;
-
-        /**
-         * Encodes the specified GW2MS_ReqCreateParking message. Does not implicitly {@link msg.GW2MS_ReqCreateParking.verify|verify} messages.
-         * @param message GW2MS_ReqCreateParking message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqCreateParking, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqCreateParking message, length delimited. Does not implicitly {@link msg.GW2MS_ReqCreateParking.verify|verify} messages.
-         * @param message GW2MS_ReqCreateParking message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqCreateParking, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqCreateParking message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqCreateParking
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqCreateParking;
-
-        /**
-         * Decodes a GW2MS_ReqCreateParking message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqCreateParking
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqCreateParking;
-
-        /**
-         * Verifies a GW2MS_ReqCreateParking message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqCreateParking message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqCreateParking
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqCreateParking;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqCreateParking message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqCreateParking
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqCreateParking, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqCreateParking to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckCreateParking. */
-    interface IMS2GW_AckCreateParking {
-
-        /** MS2GW_AckCreateParking userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckCreateParking parkdata */
-        parkdata?: (msg.IParkingData|null);
-    }
-
-    /** Represents a MS2GW_AckCreateParking. */
-    class MS2GW_AckCreateParking implements IMS2GW_AckCreateParking {
-
-        /**
-         * Constructs a new MS2GW_AckCreateParking.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckCreateParking);
-
-        /** MS2GW_AckCreateParking userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckCreateParking parkdata. */
-        public parkdata?: (msg.IParkingData|null);
-
-        /**
-         * Creates a new MS2GW_AckCreateParking instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckCreateParking instance
-         */
-        public static create(properties?: msg.IMS2GW_AckCreateParking): msg.MS2GW_AckCreateParking;
-
-        /**
-         * Encodes the specified MS2GW_AckCreateParking message. Does not implicitly {@link msg.MS2GW_AckCreateParking.verify|verify} messages.
-         * @param message MS2GW_AckCreateParking message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckCreateParking, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckCreateParking message, length delimited. Does not implicitly {@link msg.MS2GW_AckCreateParking.verify|verify} messages.
-         * @param message MS2GW_AckCreateParking message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckCreateParking, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckCreateParking message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckCreateParking
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckCreateParking;
-
-        /**
-         * Decodes a MS2GW_AckCreateParking message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckCreateParking
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckCreateParking;
-
-        /**
-         * Verifies a MS2GW_AckCreateParking message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckCreateParking message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckCreateParking
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckCreateParking;
-
-        /**
-         * Creates a plain object from a MS2GW_AckCreateParking message. Also converts values to other types if specified.
-         * @param message MS2GW_AckCreateParking
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckCreateParking, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckCreateParking to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqMyParkingInfo. */
-    interface IGW2MS_ReqMyParkingInfo {
-
-        /** GW2MS_ReqMyParkingInfo userid */
-        userid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqMyParkingInfo. */
-    class GW2MS_ReqMyParkingInfo implements IGW2MS_ReqMyParkingInfo {
-
-        /**
-         * Constructs a new GW2MS_ReqMyParkingInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqMyParkingInfo);
-
-        /** GW2MS_ReqMyParkingInfo userid. */
-        public userid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqMyParkingInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqMyParkingInfo instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqMyParkingInfo): msg.GW2MS_ReqMyParkingInfo;
-
-        /**
-         * Encodes the specified GW2MS_ReqMyParkingInfo message. Does not implicitly {@link msg.GW2MS_ReqMyParkingInfo.verify|verify} messages.
-         * @param message GW2MS_ReqMyParkingInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqMyParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqMyParkingInfo message, length delimited. Does not implicitly {@link msg.GW2MS_ReqMyParkingInfo.verify|verify} messages.
-         * @param message GW2MS_ReqMyParkingInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqMyParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqMyParkingInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqMyParkingInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqMyParkingInfo;
-
-        /**
-         * Decodes a GW2MS_ReqMyParkingInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqMyParkingInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqMyParkingInfo;
-
-        /**
-         * Verifies a GW2MS_ReqMyParkingInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqMyParkingInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqMyParkingInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqMyParkingInfo;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqMyParkingInfo message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqMyParkingInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqMyParkingInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqMyParkingInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqParkingInfoByType. */
-    interface IGW2MS_ReqParkingInfoByType {
-
-        /** GW2MS_ReqParkingInfoByType userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqParkingInfoByType type */
-        type?: (number|null);
-
-        /** GW2MS_ReqParkingInfoByType playerid */
-        playerid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqParkingInfoByType. */
-    class GW2MS_ReqParkingInfoByType implements IGW2MS_ReqParkingInfoByType {
-
-        /**
-         * Constructs a new GW2MS_ReqParkingInfoByType.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqParkingInfoByType);
-
-        /** GW2MS_ReqParkingInfoByType userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqParkingInfoByType type. */
-        public type: number;
-
-        /** GW2MS_ReqParkingInfoByType playerid. */
-        public playerid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqParkingInfoByType instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqParkingInfoByType instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqParkingInfoByType): msg.GW2MS_ReqParkingInfoByType;
-
-        /**
-         * Encodes the specified GW2MS_ReqParkingInfoByType message. Does not implicitly {@link msg.GW2MS_ReqParkingInfoByType.verify|verify} messages.
-         * @param message GW2MS_ReqParkingInfoByType message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqParkingInfoByType, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqParkingInfoByType message, length delimited. Does not implicitly {@link msg.GW2MS_ReqParkingInfoByType.verify|verify} messages.
-         * @param message GW2MS_ReqParkingInfoByType message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqParkingInfoByType, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqParkingInfoByType message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqParkingInfoByType
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqParkingInfoByType;
-
-        /**
-         * Decodes a GW2MS_ReqParkingInfoByType message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqParkingInfoByType
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqParkingInfoByType;
-
-        /**
-         * Verifies a GW2MS_ReqParkingInfoByType message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqParkingInfoByType message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqParkingInfoByType
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqParkingInfoByType;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqParkingInfoByType message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqParkingInfoByType
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqParkingInfoByType, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqParkingInfoByType to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_ResParkingInfo. */
-    interface IMS2GW_ResParkingInfo {
-
-        /** MS2GW_ResParkingInfo userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_ResParkingInfo parkingdatas */
-        parkingdatas?: (msg.IParkingData[]|null);
-    }
-
-    /** Represents a MS2GW_ResParkingInfo. */
-    class MS2GW_ResParkingInfo implements IMS2GW_ResParkingInfo {
-
-        /**
-         * Constructs a new MS2GW_ResParkingInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_ResParkingInfo);
-
-        /** MS2GW_ResParkingInfo userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_ResParkingInfo parkingdatas. */
-        public parkingdatas: msg.IParkingData[];
-
-        /**
-         * Creates a new MS2GW_ResParkingInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_ResParkingInfo instance
-         */
-        public static create(properties?: msg.IMS2GW_ResParkingInfo): msg.MS2GW_ResParkingInfo;
-
-        /**
-         * Encodes the specified MS2GW_ResParkingInfo message. Does not implicitly {@link msg.MS2GW_ResParkingInfo.verify|verify} messages.
-         * @param message MS2GW_ResParkingInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_ResParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_ResParkingInfo message, length delimited. Does not implicitly {@link msg.MS2GW_ResParkingInfo.verify|verify} messages.
-         * @param message MS2GW_ResParkingInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_ResParkingInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_ResParkingInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_ResParkingInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_ResParkingInfo;
-
-        /**
-         * Decodes a MS2GW_ResParkingInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_ResParkingInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_ResParkingInfo;
-
-        /**
-         * Verifies a MS2GW_ResParkingInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_ResParkingInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_ResParkingInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_ResParkingInfo;
-
-        /**
-         * Creates a plain object from a MS2GW_ResParkingInfo message. Also converts values to other types if specified.
-         * @param message MS2GW_ResParkingInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_ResParkingInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_ResParkingInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ParkCar. */
-    interface IGW2MS_ParkCar {
-
-        /** GW2MS_ParkCar userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ParkCar username */
-        username?: (string|null);
-
-        /** GW2MS_ParkCar carid */
-        carid?: (number|Long|null);
-
-        /** GW2MS_ParkCar parkingid */
-        parkingid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ParkCar. */
-    class GW2MS_ParkCar implements IGW2MS_ParkCar {
-
-        /**
-         * Constructs a new GW2MS_ParkCar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ParkCar);
-
-        /** GW2MS_ParkCar userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ParkCar username. */
-        public username: string;
-
-        /** GW2MS_ParkCar carid. */
-        public carid: (number|Long);
-
-        /** GW2MS_ParkCar parkingid. */
-        public parkingid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ParkCar instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ParkCar instance
-         */
-        public static create(properties?: msg.IGW2MS_ParkCar): msg.GW2MS_ParkCar;
-
-        /**
-         * Encodes the specified GW2MS_ParkCar message. Does not implicitly {@link msg.GW2MS_ParkCar.verify|verify} messages.
-         * @param message GW2MS_ParkCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ParkCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ParkCar message, length delimited. Does not implicitly {@link msg.GW2MS_ParkCar.verify|verify} messages.
-         * @param message GW2MS_ParkCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ParkCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ParkCar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ParkCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ParkCar;
-
-        /**
-         * Decodes a GW2MS_ParkCar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ParkCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ParkCar;
-
-        /**
-         * Verifies a GW2MS_ParkCar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ParkCar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ParkCar
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ParkCar;
-
-        /**
-         * Creates a plain object from a GW2MS_ParkCar message. Also converts values to other types if specified.
-         * @param message GW2MS_ParkCar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ParkCar, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ParkCar to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_ParkCarResult. */
-    interface IMS2GW_ParkCarResult {
-
-        /** MS2GW_ParkCarResult userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_ParkCarResult result */
-        result?: (number|null);
-    }
-
-    /** Represents a MS2GW_ParkCarResult. */
-    class MS2GW_ParkCarResult implements IMS2GW_ParkCarResult {
-
-        /**
-         * Constructs a new MS2GW_ParkCarResult.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_ParkCarResult);
-
-        /** MS2GW_ParkCarResult userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_ParkCarResult result. */
-        public result: number;
-
-        /**
-         * Creates a new MS2GW_ParkCarResult instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_ParkCarResult instance
-         */
-        public static create(properties?: msg.IMS2GW_ParkCarResult): msg.MS2GW_ParkCarResult;
-
-        /**
-         * Encodes the specified MS2GW_ParkCarResult message. Does not implicitly {@link msg.MS2GW_ParkCarResult.verify|verify} messages.
-         * @param message MS2GW_ParkCarResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_ParkCarResult, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_ParkCarResult message, length delimited. Does not implicitly {@link msg.MS2GW_ParkCarResult.verify|verify} messages.
-         * @param message MS2GW_ParkCarResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_ParkCarResult, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_ParkCarResult message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_ParkCarResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_ParkCarResult;
-
-        /**
-         * Decodes a MS2GW_ParkCarResult message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_ParkCarResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_ParkCarResult;
-
-        /**
-         * Verifies a MS2GW_ParkCarResult message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_ParkCarResult message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_ParkCarResult
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_ParkCarResult;
-
-        /**
-         * Creates a plain object from a MS2GW_ParkCarResult message. Also converts values to other types if specified.
-         * @param message MS2GW_ParkCarResult
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_ParkCarResult, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_ParkCarResult to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_TakeBackCar. */
-    interface IGW2MS_TakeBackCar {
-
-        /** GW2MS_TakeBackCar userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_TakeBackCar carid */
-        carid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_TakeBackCar. */
-    class GW2MS_TakeBackCar implements IGW2MS_TakeBackCar {
-
-        /**
-         * Constructs a new GW2MS_TakeBackCar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_TakeBackCar);
-
-        /** GW2MS_TakeBackCar userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_TakeBackCar carid. */
-        public carid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_TakeBackCar instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_TakeBackCar instance
-         */
-        public static create(properties?: msg.IGW2MS_TakeBackCar): msg.GW2MS_TakeBackCar;
-
-        /**
-         * Encodes the specified GW2MS_TakeBackCar message. Does not implicitly {@link msg.GW2MS_TakeBackCar.verify|verify} messages.
-         * @param message GW2MS_TakeBackCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_TakeBackCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_TakeBackCar message, length delimited. Does not implicitly {@link msg.GW2MS_TakeBackCar.verify|verify} messages.
-         * @param message GW2MS_TakeBackCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_TakeBackCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_TakeBackCar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_TakeBackCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_TakeBackCar;
-
-        /**
-         * Decodes a GW2MS_TakeBackCar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_TakeBackCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_TakeBackCar;
-
-        /**
-         * Verifies a GW2MS_TakeBackCar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_TakeBackCar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_TakeBackCar
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_TakeBackCar;
-
-        /**
-         * Creates a plain object from a GW2MS_TakeBackCar message. Also converts values to other types if specified.
-         * @param message GW2MS_TakeBackCar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_TakeBackCar, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_TakeBackCar to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_TakeBackCarResult. */
-    interface IMS2GW_TakeBackCarResult {
-
-        /** MS2GW_TakeBackCarResult userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_TakeBackCarResult result */
-        result?: (number|null);
-
-        /** MS2GW_TakeBackCarResult reward */
-        reward?: (number|null);
-    }
-
-    /** Represents a MS2GW_TakeBackCarResult. */
-    class MS2GW_TakeBackCarResult implements IMS2GW_TakeBackCarResult {
-
-        /**
-         * Constructs a new MS2GW_TakeBackCarResult.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_TakeBackCarResult);
-
-        /** MS2GW_TakeBackCarResult userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_TakeBackCarResult result. */
-        public result: number;
-
-        /** MS2GW_TakeBackCarResult reward. */
-        public reward: number;
-
-        /**
-         * Creates a new MS2GW_TakeBackCarResult instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_TakeBackCarResult instance
-         */
-        public static create(properties?: msg.IMS2GW_TakeBackCarResult): msg.MS2GW_TakeBackCarResult;
-
-        /**
-         * Encodes the specified MS2GW_TakeBackCarResult message. Does not implicitly {@link msg.MS2GW_TakeBackCarResult.verify|verify} messages.
-         * @param message MS2GW_TakeBackCarResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_TakeBackCarResult, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_TakeBackCarResult message, length delimited. Does not implicitly {@link msg.MS2GW_TakeBackCarResult.verify|verify} messages.
-         * @param message MS2GW_TakeBackCarResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_TakeBackCarResult, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_TakeBackCarResult message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_TakeBackCarResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_TakeBackCarResult;
-
-        /**
-         * Decodes a MS2GW_TakeBackCarResult message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_TakeBackCarResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_TakeBackCarResult;
-
-        /**
-         * Verifies a MS2GW_TakeBackCarResult message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_TakeBackCarResult message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_TakeBackCarResult
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_TakeBackCarResult;
-
-        /**
-         * Creates a plain object from a MS2GW_TakeBackCarResult message. Also converts values to other types if specified.
-         * @param message MS2GW_TakeBackCarResult
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_TakeBackCarResult, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_TakeBackCarResult to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_TicketCar. */
-    interface IGW2MS_TicketCar {
-
-        /** GW2MS_TicketCar userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_TicketCar parkingid */
-        parkingid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_TicketCar. */
-    class GW2MS_TicketCar implements IGW2MS_TicketCar {
-
-        /**
-         * Constructs a new GW2MS_TicketCar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_TicketCar);
-
-        /** GW2MS_TicketCar userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_TicketCar parkingid. */
-        public parkingid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_TicketCar instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_TicketCar instance
-         */
-        public static create(properties?: msg.IGW2MS_TicketCar): msg.GW2MS_TicketCar;
-
-        /**
-         * Encodes the specified GW2MS_TicketCar message. Does not implicitly {@link msg.GW2MS_TicketCar.verify|verify} messages.
-         * @param message GW2MS_TicketCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_TicketCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_TicketCar message, length delimited. Does not implicitly {@link msg.GW2MS_TicketCar.verify|verify} messages.
-         * @param message GW2MS_TicketCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_TicketCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_TicketCar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_TicketCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_TicketCar;
-
-        /**
-         * Decodes a GW2MS_TicketCar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_TicketCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_TicketCar;
-
-        /**
-         * Verifies a GW2MS_TicketCar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_TicketCar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_TicketCar
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_TicketCar;
-
-        /**
-         * Creates a plain object from a GW2MS_TicketCar message. Also converts values to other types if specified.
-         * @param message GW2MS_TicketCar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_TicketCar, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_TicketCar to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_TicketCarResult. */
-    interface IMS2GW_TicketCarResult {
-
-        /** MS2GW_TicketCarResult userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_TicketCarResult result */
-        result?: (number|null);
-
-        /** MS2GW_TicketCarResult reward */
-        reward?: (number|null);
-    }
-
-    /** Represents a MS2GW_TicketCarResult. */
-    class MS2GW_TicketCarResult implements IMS2GW_TicketCarResult {
-
-        /**
-         * Constructs a new MS2GW_TicketCarResult.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_TicketCarResult);
-
-        /** MS2GW_TicketCarResult userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_TicketCarResult result. */
-        public result: number;
-
-        /** MS2GW_TicketCarResult reward. */
-        public reward: number;
-
-        /**
-         * Creates a new MS2GW_TicketCarResult instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_TicketCarResult instance
-         */
-        public static create(properties?: msg.IMS2GW_TicketCarResult): msg.MS2GW_TicketCarResult;
-
-        /**
-         * Encodes the specified MS2GW_TicketCarResult message. Does not implicitly {@link msg.MS2GW_TicketCarResult.verify|verify} messages.
-         * @param message MS2GW_TicketCarResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_TicketCarResult, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_TicketCarResult message, length delimited. Does not implicitly {@link msg.MS2GW_TicketCarResult.verify|verify} messages.
-         * @param message MS2GW_TicketCarResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_TicketCarResult, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_TicketCarResult message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_TicketCarResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_TicketCarResult;
-
-        /**
-         * Decodes a MS2GW_TicketCarResult message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_TicketCarResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_TicketCarResult;
-
-        /**
-         * Verifies a MS2GW_TicketCarResult message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_TicketCarResult message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_TicketCarResult
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_TicketCarResult;
-
-        /**
-         * Creates a plain object from a MS2GW_TicketCarResult message. Also converts values to other types if specified.
-         * @param message MS2GW_TicketCarResult
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_TicketCarResult, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_TicketCarResult to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqRecordData. */
-    interface IGW2MS_ReqRecordData {
-
-        /** GW2MS_ReqRecordData userid */
-        userid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqRecordData. */
-    class GW2MS_ReqRecordData implements IGW2MS_ReqRecordData {
-
-        /**
-         * Constructs a new GW2MS_ReqRecordData.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqRecordData);
-
-        /** GW2MS_ReqRecordData userid. */
-        public userid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqRecordData instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqRecordData instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqRecordData): msg.GW2MS_ReqRecordData;
-
-        /**
-         * Encodes the specified GW2MS_ReqRecordData message. Does not implicitly {@link msg.GW2MS_ReqRecordData.verify|verify} messages.
-         * @param message GW2MS_ReqRecordData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqRecordData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqRecordData message, length delimited. Does not implicitly {@link msg.GW2MS_ReqRecordData.verify|verify} messages.
-         * @param message GW2MS_ReqRecordData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqRecordData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqRecordData message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqRecordData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqRecordData;
-
-        /**
-         * Decodes a GW2MS_ReqRecordData message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqRecordData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqRecordData;
-
-        /**
-         * Verifies a GW2MS_ReqRecordData message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqRecordData message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqRecordData
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqRecordData;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqRecordData message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqRecordData
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqRecordData, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqRecordData to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckRecordData. */
-    interface IMS2GW_AckRecordData {
-
-        /** MS2GW_AckRecordData userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckRecordData records */
-        records?: (msg.IParkingRecordData[]|null);
-    }
-
-    /** Represents a MS2GW_AckRecordData. */
-    class MS2GW_AckRecordData implements IMS2GW_AckRecordData {
-
-        /**
-         * Constructs a new MS2GW_AckRecordData.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckRecordData);
-
-        /** MS2GW_AckRecordData userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckRecordData records. */
-        public records: msg.IParkingRecordData[];
-
-        /**
-         * Creates a new MS2GW_AckRecordData instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckRecordData instance
-         */
-        public static create(properties?: msg.IMS2GW_AckRecordData): msg.MS2GW_AckRecordData;
-
-        /**
-         * Encodes the specified MS2GW_AckRecordData message. Does not implicitly {@link msg.MS2GW_AckRecordData.verify|verify} messages.
-         * @param message MS2GW_AckRecordData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckRecordData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckRecordData message, length delimited. Does not implicitly {@link msg.MS2GW_AckRecordData.verify|verify} messages.
-         * @param message MS2GW_AckRecordData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckRecordData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckRecordData message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckRecordData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckRecordData;
-
-        /**
-         * Decodes a MS2GW_AckRecordData message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckRecordData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckRecordData;
-
-        /**
-         * Verifies a MS2GW_AckRecordData message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckRecordData message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckRecordData
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckRecordData;
-
-        /**
-         * Creates a plain object from a MS2GW_AckRecordData message. Also converts values to other types if specified.
-         * @param message MS2GW_AckRecordData
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckRecordData, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckRecordData to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqRandHouseList. */
-    interface IGW2MS_ReqRandHouseList {
-
-        /** GW2MS_ReqRandHouseList userid */
-        userid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqRandHouseList. */
-    class GW2MS_ReqRandHouseList implements IGW2MS_ReqRandHouseList {
-
-        /**
-         * Constructs a new GW2MS_ReqRandHouseList.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqRandHouseList);
-
-        /** GW2MS_ReqRandHouseList userid. */
-        public userid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqRandHouseList instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqRandHouseList instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqRandHouseList): msg.GW2MS_ReqRandHouseList;
-
-        /**
-         * Encodes the specified GW2MS_ReqRandHouseList message. Does not implicitly {@link msg.GW2MS_ReqRandHouseList.verify|verify} messages.
-         * @param message GW2MS_ReqRandHouseList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqRandHouseList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqRandHouseList message, length delimited. Does not implicitly {@link msg.GW2MS_ReqRandHouseList.verify|verify} messages.
-         * @param message GW2MS_ReqRandHouseList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqRandHouseList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqRandHouseList message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqRandHouseList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqRandHouseList;
-
-        /**
-         * Decodes a GW2MS_ReqRandHouseList message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqRandHouseList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqRandHouseList;
-
-        /**
-         * Verifies a GW2MS_ReqRandHouseList message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqRandHouseList message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqRandHouseList
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqRandHouseList;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqRandHouseList message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqRandHouseList
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqRandHouseList, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqRandHouseList to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckRandHouseList. */
-    interface IMS2GW_AckRandHouseList {
-
-        /** MS2GW_AckRandHouseList userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckRandHouseList datas */
-        datas?: (msg.IHouseData[]|null);
-    }
-
-    /** Represents a MS2GW_AckRandHouseList. */
-    class MS2GW_AckRandHouseList implements IMS2GW_AckRandHouseList {
-
-        /**
-         * Constructs a new MS2GW_AckRandHouseList.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckRandHouseList);
-
-        /** MS2GW_AckRandHouseList userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckRandHouseList datas. */
-        public datas: msg.IHouseData[];
-
-        /**
-         * Creates a new MS2GW_AckRandHouseList instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckRandHouseList instance
-         */
-        public static create(properties?: msg.IMS2GW_AckRandHouseList): msg.MS2GW_AckRandHouseList;
-
-        /**
-         * Encodes the specified MS2GW_AckRandHouseList message. Does not implicitly {@link msg.MS2GW_AckRandHouseList.verify|verify} messages.
-         * @param message MS2GW_AckRandHouseList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckRandHouseList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckRandHouseList message, length delimited. Does not implicitly {@link msg.MS2GW_AckRandHouseList.verify|verify} messages.
-         * @param message MS2GW_AckRandHouseList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckRandHouseList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckRandHouseList message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckRandHouseList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckRandHouseList;
-
-        /**
-         * Decodes a MS2GW_AckRandHouseList message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckRandHouseList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckRandHouseList;
-
-        /**
-         * Verifies a MS2GW_AckRandHouseList message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckRandHouseList message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckRandHouseList
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckRandHouseList;
-
-        /**
-         * Creates a plain object from a MS2GW_AckRandHouseList message. Also converts values to other types if specified.
-         * @param message MS2GW_AckRandHouseList
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckRandHouseList, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckRandHouseList to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqOtherUserHouseData. */
-    interface IGW2MS_ReqOtherUserHouseData {
-
-        /** GW2MS_ReqOtherUserHouseData userid */
-        userid?: (number|Long|null);
-
-        /** GW2MS_ReqOtherUserHouseData otherid */
-        otherid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqOtherUserHouseData. */
-    class GW2MS_ReqOtherUserHouseData implements IGW2MS_ReqOtherUserHouseData {
-
-        /**
-         * Constructs a new GW2MS_ReqOtherUserHouseData.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqOtherUserHouseData);
-
-        /** GW2MS_ReqOtherUserHouseData userid. */
-        public userid: (number|Long);
-
-        /** GW2MS_ReqOtherUserHouseData otherid. */
-        public otherid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqOtherUserHouseData instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqOtherUserHouseData instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqOtherUserHouseData): msg.GW2MS_ReqOtherUserHouseData;
-
-        /**
-         * Encodes the specified GW2MS_ReqOtherUserHouseData message. Does not implicitly {@link msg.GW2MS_ReqOtherUserHouseData.verify|verify} messages.
-         * @param message GW2MS_ReqOtherUserHouseData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqOtherUserHouseData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqOtherUserHouseData message, length delimited. Does not implicitly {@link msg.GW2MS_ReqOtherUserHouseData.verify|verify} messages.
-         * @param message GW2MS_ReqOtherUserHouseData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqOtherUserHouseData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqOtherUserHouseData message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqOtherUserHouseData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqOtherUserHouseData;
-
-        /**
-         * Decodes a GW2MS_ReqOtherUserHouseData message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqOtherUserHouseData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqOtherUserHouseData;
-
-        /**
-         * Verifies a GW2MS_ReqOtherUserHouseData message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqOtherUserHouseData message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqOtherUserHouseData
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqOtherUserHouseData;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqOtherUserHouseData message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqOtherUserHouseData
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqOtherUserHouseData, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqOtherUserHouseData to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a MS2GW_AckOtherUserHouseData. */
-    interface IMS2GW_AckOtherUserHouseData {
-
-        /** MS2GW_AckOtherUserHouseData userid */
-        userid?: (number|Long|null);
-
-        /** MS2GW_AckOtherUserHouseData otherid */
-        otherid?: (number|Long|null);
-
-        /** MS2GW_AckOtherUserHouseData datas */
-        datas?: (msg.IHouseData[]|null);
-    }
-
-    /** Represents a MS2GW_AckOtherUserHouseData. */
-    class MS2GW_AckOtherUserHouseData implements IMS2GW_AckOtherUserHouseData {
-
-        /**
-         * Constructs a new MS2GW_AckOtherUserHouseData.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IMS2GW_AckOtherUserHouseData);
-
-        /** MS2GW_AckOtherUserHouseData userid. */
-        public userid: (number|Long);
-
-        /** MS2GW_AckOtherUserHouseData otherid. */
-        public otherid: (number|Long);
-
-        /** MS2GW_AckOtherUserHouseData datas. */
-        public datas: msg.IHouseData[];
-
-        /**
-         * Creates a new MS2GW_AckOtherUserHouseData instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns MS2GW_AckOtherUserHouseData instance
-         */
-        public static create(properties?: msg.IMS2GW_AckOtherUserHouseData): msg.MS2GW_AckOtherUserHouseData;
-
-        /**
-         * Encodes the specified MS2GW_AckOtherUserHouseData message. Does not implicitly {@link msg.MS2GW_AckOtherUserHouseData.verify|verify} messages.
-         * @param message MS2GW_AckOtherUserHouseData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IMS2GW_AckOtherUserHouseData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified MS2GW_AckOtherUserHouseData message, length delimited. Does not implicitly {@link msg.MS2GW_AckOtherUserHouseData.verify|verify} messages.
-         * @param message MS2GW_AckOtherUserHouseData message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IMS2GW_AckOtherUserHouseData, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a MS2GW_AckOtherUserHouseData message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns MS2GW_AckOtherUserHouseData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_AckOtherUserHouseData;
-
-        /**
-         * Decodes a MS2GW_AckOtherUserHouseData message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns MS2GW_AckOtherUserHouseData
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_AckOtherUserHouseData;
-
-        /**
-         * Verifies a MS2GW_AckOtherUserHouseData message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a MS2GW_AckOtherUserHouseData message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns MS2GW_AckOtherUserHouseData
-         */
-        public static fromObject(object: { [k: string]: any }): msg.MS2GW_AckOtherUserHouseData;
-
-        /**
-         * Creates a plain object from a MS2GW_AckOtherUserHouseData message. Also converts values to other types if specified.
-         * @param message MS2GW_AckOtherUserHouseData
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.MS2GW_AckOtherUserHouseData, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this MS2GW_AckOtherUserHouseData to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2MS_ReqResetRobCheckFlag. */
-    interface IGW2MS_ReqResetRobCheckFlag {
-
-        /** GW2MS_ReqResetRobCheckFlag houseid */
-        houseid?: (number|Long|null);
-    }
-
-    /** Represents a GW2MS_ReqResetRobCheckFlag. */
-    class GW2MS_ReqResetRobCheckFlag implements IGW2MS_ReqResetRobCheckFlag {
-
-        /**
-         * Constructs a new GW2MS_ReqResetRobCheckFlag.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2MS_ReqResetRobCheckFlag);
-
-        /** GW2MS_ReqResetRobCheckFlag houseid. */
-        public houseid: (number|Long);
-
-        /**
-         * Creates a new GW2MS_ReqResetRobCheckFlag instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2MS_ReqResetRobCheckFlag instance
-         */
-        public static create(properties?: msg.IGW2MS_ReqResetRobCheckFlag): msg.GW2MS_ReqResetRobCheckFlag;
-
-        /**
-         * Encodes the specified GW2MS_ReqResetRobCheckFlag message. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
-         * @param message GW2MS_ReqResetRobCheckFlag message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2MS_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2MS_ReqResetRobCheckFlag message, length delimited. Does not implicitly {@link msg.GW2MS_ReqResetRobCheckFlag.verify|verify} messages.
-         * @param message GW2MS_ReqResetRobCheckFlag message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2MS_ReqResetRobCheckFlag, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2MS_ReqResetRobCheckFlag
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_ReqResetRobCheckFlag;
-
-        /**
-         * Decodes a GW2MS_ReqResetRobCheckFlag message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2MS_ReqResetRobCheckFlag
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_ReqResetRobCheckFlag;
-
-        /**
-         * Verifies a GW2MS_ReqResetRobCheckFlag message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2MS_ReqResetRobCheckFlag message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2MS_ReqResetRobCheckFlag
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2MS_ReqResetRobCheckFlag;
-
-        /**
-         * Creates a plain object from a GW2MS_ReqResetRobCheckFlag message. Also converts values to other types if specified.
-         * @param message GW2MS_ReqResetRobCheckFlag
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2MS_ReqResetRobCheckFlag, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2MS_ReqResetRobCheckFlag to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a RS2GW_ReqRegist. */
     interface IRS2GW_ReqRegist {
 
@@ -20377,6 +18591,270 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a TBuildingsBase. */
+    interface ITBuildingsBase {
+
+        /** TBuildingsBase TBuildings */
+        TBuildings?: (table.ITBuildingsDefine[]|null);
+    }
+
+    /** Represents a TBuildingsBase. */
+    class TBuildingsBase implements ITBuildingsBase {
+
+        /**
+         * Constructs a new TBuildingsBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITBuildingsBase);
+
+        /** TBuildingsBase TBuildings. */
+        public TBuildings: table.ITBuildingsDefine[];
+
+        /**
+         * Creates a new TBuildingsBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TBuildingsBase instance
+         */
+        public static create(properties?: table.ITBuildingsBase): table.TBuildingsBase;
+
+        /**
+         * Encodes the specified TBuildingsBase message. Does not implicitly {@link table.TBuildingsBase.verify|verify} messages.
+         * @param message TBuildingsBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITBuildingsBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TBuildingsBase message, length delimited. Does not implicitly {@link table.TBuildingsBase.verify|verify} messages.
+         * @param message TBuildingsBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITBuildingsBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TBuildingsBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TBuildingsBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TBuildingsBase;
+
+        /**
+         * Decodes a TBuildingsBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TBuildingsBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TBuildingsBase;
+
+        /**
+         * Verifies a TBuildingsBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TBuildingsBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TBuildingsBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TBuildingsBase;
+
+        /**
+         * Creates a plain object from a TBuildingsBase message. Also converts values to other types if specified.
+         * @param message TBuildingsBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TBuildingsBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TBuildingsBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TBuildingsDefine. */
+    interface ITBuildingsDefine {
+
+        /** TBuildingsDefine Id */
+        Id?: (number|null);
+
+        /** TBuildingsDefine Province */
+        Province?: (number|null);
+
+        /** TBuildingsDefine City */
+        City?: (number|null);
+
+        /** TBuildingsDefine CommunityId */
+        CommunityId?: (number|null);
+
+        /** TBuildingsDefine Community */
+        Community?: (string|null);
+
+        /** TBuildingsDefine Number */
+        Number?: (number|null);
+
+        /** TBuildingsDefine MaxFloor */
+        MaxFloor?: (number|null);
+
+        /** TBuildingsDefine NumPerFloor */
+        NumPerFloor?: (number|null);
+
+        /** TBuildingsDefine Houses1 */
+        Houses1?: (string|null);
+
+        /** TBuildingsDefine Houses2 */
+        Houses2?: (string|null);
+
+        /** TBuildingsDefine Houses3 */
+        Houses3?: (string|null);
+
+        /** TBuildingsDefine Houses4 */
+        Houses4?: (string|null);
+
+        /** TBuildingsDefine PosX */
+        PosX?: (number|null);
+
+        /** TBuildingsDefine PosY */
+        PosY?: (number|null);
+
+        /** TBuildingsDefine Des */
+        Des?: (string|null);
+    }
+
+    /** Represents a TBuildingsDefine. */
+    class TBuildingsDefine implements ITBuildingsDefine {
+
+        /**
+         * Constructs a new TBuildingsDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITBuildingsDefine);
+
+        /** TBuildingsDefine Id. */
+        public Id: number;
+
+        /** TBuildingsDefine Province. */
+        public Province: number;
+
+        /** TBuildingsDefine City. */
+        public City: number;
+
+        /** TBuildingsDefine CommunityId. */
+        public CommunityId: number;
+
+        /** TBuildingsDefine Community. */
+        public Community: string;
+
+        /** TBuildingsDefine Number. */
+        public Number: number;
+
+        /** TBuildingsDefine MaxFloor. */
+        public MaxFloor: number;
+
+        /** TBuildingsDefine NumPerFloor. */
+        public NumPerFloor: number;
+
+        /** TBuildingsDefine Houses1. */
+        public Houses1: string;
+
+        /** TBuildingsDefine Houses2. */
+        public Houses2: string;
+
+        /** TBuildingsDefine Houses3. */
+        public Houses3: string;
+
+        /** TBuildingsDefine Houses4. */
+        public Houses4: string;
+
+        /** TBuildingsDefine PosX. */
+        public PosX: number;
+
+        /** TBuildingsDefine PosY. */
+        public PosY: number;
+
+        /** TBuildingsDefine Des. */
+        public Des: string;
+
+        /**
+         * Creates a new TBuildingsDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TBuildingsDefine instance
+         */
+        public static create(properties?: table.ITBuildingsDefine): table.TBuildingsDefine;
+
+        /**
+         * Encodes the specified TBuildingsDefine message. Does not implicitly {@link table.TBuildingsDefine.verify|verify} messages.
+         * @param message TBuildingsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITBuildingsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TBuildingsDefine message, length delimited. Does not implicitly {@link table.TBuildingsDefine.verify|verify} messages.
+         * @param message TBuildingsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITBuildingsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TBuildingsDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TBuildingsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TBuildingsDefine;
+
+        /**
+         * Decodes a TBuildingsDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TBuildingsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TBuildingsDefine;
+
+        /**
+         * Verifies a TBuildingsDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TBuildingsDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TBuildingsDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TBuildingsDefine;
+
+        /**
+         * Creates a plain object from a TBuildingsDefine message. Also converts values to other types if specified.
+         * @param message TBuildingsDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TBuildingsDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TBuildingsDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TCarBase. */
     interface ITCarBase {
 
@@ -20606,6 +19084,408 @@ declare namespace table {
 
         /**
          * Converts this TCarDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CarShopBase. */
+    interface ICarShopBase {
+
+        /** CarShopBase TCarShop */
+        TCarShop?: (table.ITCarShopDefine[]|null);
+    }
+
+    /** Represents a CarShopBase. */
+    class CarShopBase implements ICarShopBase {
+
+        /**
+         * Constructs a new CarShopBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ICarShopBase);
+
+        /** CarShopBase TCarShop. */
+        public TCarShop: table.ITCarShopDefine[];
+
+        /**
+         * Creates a new CarShopBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarShopBase instance
+         */
+        public static create(properties?: table.ICarShopBase): table.CarShopBase;
+
+        /**
+         * Encodes the specified CarShopBase message. Does not implicitly {@link table.CarShopBase.verify|verify} messages.
+         * @param message CarShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ICarShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarShopBase message, length delimited. Does not implicitly {@link table.CarShopBase.verify|verify} messages.
+         * @param message CarShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ICarShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarShopBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.CarShopBase;
+
+        /**
+         * Decodes a CarShopBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.CarShopBase;
+
+        /**
+         * Verifies a CarShopBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarShopBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarShopBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.CarShopBase;
+
+        /**
+         * Creates a plain object from a CarShopBase message. Also converts values to other types if specified.
+         * @param message CarShopBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.CarShopBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarShopBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarShopDefine. */
+    interface ITCarShopDefine {
+
+        /** TCarShopDefine Id */
+        Id?: (number|null);
+
+        /** TCarShopDefine ShopId */
+        ShopId?: (number|null);
+
+        /** TCarShopDefine Carid */
+        Carid?: (number|null);
+
+        /** TCarShopDefine Price */
+        Price?: (number|null);
+
+        /** TCarShopDefine Nums */
+        Nums?: (number|null);
+    }
+
+    /** Represents a TCarShopDefine. */
+    class TCarShopDefine implements ITCarShopDefine {
+
+        /**
+         * Constructs a new TCarShopDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarShopDefine);
+
+        /** TCarShopDefine Id. */
+        public Id: number;
+
+        /** TCarShopDefine ShopId. */
+        public ShopId: number;
+
+        /** TCarShopDefine Carid. */
+        public Carid: number;
+
+        /** TCarShopDefine Price. */
+        public Price: number;
+
+        /** TCarShopDefine Nums. */
+        public Nums: number;
+
+        /**
+         * Creates a new TCarShopDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarShopDefine instance
+         */
+        public static create(properties?: table.ITCarShopDefine): table.TCarShopDefine;
+
+        /**
+         * Encodes the specified TCarShopDefine message. Does not implicitly {@link table.TCarShopDefine.verify|verify} messages.
+         * @param message TCarShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarShopDefine message, length delimited. Does not implicitly {@link table.TCarShopDefine.verify|verify} messages.
+         * @param message TCarShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarShopDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarShopDefine;
+
+        /**
+         * Decodes a TCarShopDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarShopDefine;
+
+        /**
+         * Verifies a TCarShopDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarShopDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarShopDefine;
+
+        /**
+         * Creates a plain object from a TCarShopDefine message. Also converts values to other types if specified.
+         * @param message TCarShopDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarShopDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarShopDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCitysBase. */
+    interface ITCitysBase {
+
+        /** TCitysBase TCitys */
+        TCitys?: (table.ITCitysDefine[]|null);
+    }
+
+    /** Represents a TCitysBase. */
+    class TCitysBase implements ITCitysBase {
+
+        /**
+         * Constructs a new TCitysBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCitysBase);
+
+        /** TCitysBase TCitys. */
+        public TCitys: table.ITCitysDefine[];
+
+        /**
+         * Creates a new TCitysBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCitysBase instance
+         */
+        public static create(properties?: table.ITCitysBase): table.TCitysBase;
+
+        /**
+         * Encodes the specified TCitysBase message. Does not implicitly {@link table.TCitysBase.verify|verify} messages.
+         * @param message TCitysBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCitysBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCitysBase message, length delimited. Does not implicitly {@link table.TCitysBase.verify|verify} messages.
+         * @param message TCitysBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCitysBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCitysBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCitysBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCitysBase;
+
+        /**
+         * Decodes a TCitysBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCitysBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCitysBase;
+
+        /**
+         * Verifies a TCitysBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCitysBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCitysBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCitysBase;
+
+        /**
+         * Creates a plain object from a TCitysBase message. Also converts values to other types if specified.
+         * @param message TCitysBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCitysBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCitysBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCitysDefine. */
+    interface ITCitysDefine {
+
+        /** TCitysDefine Id */
+        Id?: (number|null);
+
+        /** TCitysDefine Type */
+        Type?: (number|null);
+
+        /** TCitysDefine Superior */
+        Superior?: (number|null);
+
+        /** TCitysDefine Name */
+        Name?: (string|null);
+    }
+
+    /** Represents a TCitysDefine. */
+    class TCitysDefine implements ITCitysDefine {
+
+        /**
+         * Constructs a new TCitysDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCitysDefine);
+
+        /** TCitysDefine Id. */
+        public Id: number;
+
+        /** TCitysDefine Type. */
+        public Type: number;
+
+        /** TCitysDefine Superior. */
+        public Superior: number;
+
+        /** TCitysDefine Name. */
+        public Name: string;
+
+        /**
+         * Creates a new TCitysDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCitysDefine instance
+         */
+        public static create(properties?: table.ITCitysDefine): table.TCitysDefine;
+
+        /**
+         * Encodes the specified TCitysDefine message. Does not implicitly {@link table.TCitysDefine.verify|verify} messages.
+         * @param message TCitysDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCitysDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCitysDefine message, length delimited. Does not implicitly {@link table.TCitysDefine.verify|verify} messages.
+         * @param message TCitysDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCitysDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCitysDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCitysDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCitysDefine;
+
+        /**
+         * Decodes a TCitysDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCitysDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCitysDefine;
+
+        /**
+         * Verifies a TCitysDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCitysDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCitysDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCitysDefine;
+
+        /**
+         * Creates a plain object from a TCitysDefine message. Also converts values to other types if specified.
+         * @param message TCitysDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCitysDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCitysDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -21151,6 +20031,9 @@ declare namespace table {
         /** THouseDefine Id */
         Id?: (number|null);
 
+        /** THouseDefine ImageId */
+        ImageId?: (number|null);
+
         /** THouseDefine Type */
         Type?: (number|null);
 
@@ -21181,6 +20064,9 @@ declare namespace table {
 
         /** THouseDefine Id. */
         public Id: number;
+
+        /** THouseDefine ImageId. */
+        public ImageId: number;
 
         /** THouseDefine Type. */
         public Type: number;
@@ -21387,6 +20273,9 @@ declare namespace table {
 
         /** THouseCellDefine IncomePerSecond */
         IncomePerSecond?: (number|null);
+
+        /** THouseCellDefine UnlockGold */
+        UnlockGold?: (number|null);
     }
 
     /** Represents a THouseCellDefine. */
@@ -21421,6 +20310,9 @@ declare namespace table {
 
         /** THouseCellDefine IncomePerSecond. */
         public IncomePerSecond: number;
+
+        /** THouseCellDefine UnlockGold. */
+        public UnlockGold: number;
 
         /**
          * Creates a new THouseCellDefine instance using the specified properties.
