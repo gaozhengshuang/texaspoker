@@ -1,5 +1,5 @@
 module game {
-	export class GameMapContentView extends egret.DisplayObjectContainer {
+	export class GameMapContentView extends egret.EventDispatcher {
 
 		public constructor() {
 			super();
@@ -18,6 +18,10 @@ module game {
 		}
 		public initExploreView(isShow: boolean): void {
 			GameConfig.exploreUIFun(isShow);
+		}
+		public clear()
+		{
+			
 		}
 	}
 }

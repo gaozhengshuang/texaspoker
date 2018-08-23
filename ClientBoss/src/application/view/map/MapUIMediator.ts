@@ -162,7 +162,7 @@ module game {
 				}
 			}
 		}
-		public get sceneGroup():GameMapUIView
+		private get sceneGroup():GameMapUIView
         {
 			return <GameMapUIView><any> (this.viewComponent);
 		}
