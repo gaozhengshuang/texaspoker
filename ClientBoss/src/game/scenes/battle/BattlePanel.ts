@@ -308,8 +308,8 @@ module game {
 
             NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
             NotificationCenter.addObserver(this, this.onBT_RetStepOnBomb, "msg.BT_RetStepOnBomb");  // 定时炸弹
-            NotificationCenter.addObserver(this, this.onBT_RetCrushSuperBrick, "msg.BT_RetCrushSuperBrick");  // 定时炸弹
-            NotificationCenter.addObserver(this, this.onBT_GameRoomDestroy, "msg.BT_GameRoomDestroy");  // 定时炸弹
+            NotificationCenter.addObserver(this, this.onBT_RetCrushSuperBrick, "msg.BT_RetCrushSuperBrick");  // 黄金鲨
+            NotificationCenter.addObserver(this, this.onBT_GameRoomDestroy, "msg.BT_GameRoomDestroy");  // 房间退出
             NotificationCenter.addObserver(this, this.updateScore, PlayerModel.SCORE_UPDATE);
             NotificationCenter.addObserver(this, this.updateDiamond, PlayerModel.DIAMOND_UPDATE);
 
@@ -1121,8 +1121,8 @@ module game {
 
             NotificationCenter.removeObserver(this, "msg.BT_RetLaunchBullet");
             NotificationCenter.removeObserver(this, "msg.BT_RetStepOnBomb");  // 定时炸弹
-            NotificationCenter.removeObserver(this, "msg.BT_RetCrushSuperBrick");  // 定时炸弹
-            NotificationCenter.removeObserver(this, "msg.BT_GameRoomDestroy");  // 定时炸弹
+            NotificationCenter.removeObserver(this, "msg.BT_RetCrushSuperBrick");  // 黄金鲨
+            NotificationCenter.removeObserver(this, "msg.BT_GameRoomDestroy");  // 房间退出
             NotificationCenter.removeObserver(this, PlayerModel.SCORE_UPDATE);
             NotificationCenter.removeObserver(this, PlayerModel.DIAMOND_UPDATE);
         }
