@@ -665,7 +665,6 @@ func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{})
 	if tantan, ok := room.(*TanTanLe); ok == true {
 		tantan.BulletEarnMoney(tmsg.GetGold())
 	}
-
 }
 
 func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{}) {

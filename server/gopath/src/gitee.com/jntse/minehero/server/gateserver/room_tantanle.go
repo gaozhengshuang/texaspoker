@@ -282,6 +282,9 @@ func (this *TanTanLe) BulletEarnMoney(gold uint32) {
 		inviter := user.Inviter()
 		if inviter != 0 { Redis().SAdd(fmt.Sprintf("task_invitee_topscorefinish_%d", inviter), user.Id()) }
 	}
+
+	send := &msg.BT_RetBulletEarnMoney{}
+	this.SendMsg(send)
 }
 
 func (this *TanTanLe) UseUltimateSkil(gold uint32) {
