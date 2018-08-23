@@ -181,7 +181,7 @@ func (shop *CarShop) BuyCar(user *GateUser, shopid, pid uint32) {
 	}
 
 	// 限量
-	if product.Sell() >= product.Sold() {
+	if product.Sell() <= product.Sold() {
 		user.SendNotify("车辆数量不足")
 		return
 	}
