@@ -11,6 +11,33 @@ module gameConfig {
         openRank = 1,
         setUserRank = 2,
     }
+    
+    /**
+     * 资源组枚举
+     */
+    export class ResGroupEnum
+    {
+        /**
+         * 预加载
+         */
+        public static readonly Preload:string = 'preload';
+        /**
+         * 登录场景
+         */
+        public static readonly Login:string = 'login';
+        /**
+         * 通用资源
+         */
+        public static readonly Common:string = 'common';
+        /**
+         * 大厅
+         */
+        public static readonly Hall:string = 'hall';
+        /**
+         * 小游戏1
+         */
+        public static readonly Game1:string = 'game1';
+    }
 
     //全局字体颜色表--可以扩展
     export let TextColors = {

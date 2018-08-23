@@ -78,6 +78,12 @@ module game {
             case PanelType.WelcomeNewPlayersPanel:
                 panel = WelcomeNewPlayersPanel.getInstance();
                 break;
+            case PanelType.SimpleLoadingPanel:
+                panel = SimpleLoadingPanel.getInstance();
+                break;
+            case PanelType.LoadingScenePanel:
+                panel = LoadingScenePanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -105,6 +111,8 @@ module game {
         GameMineView,
         GameRoomView,
         GameUserInfoPanel,
-        WelcomeNewPlayersPanel
+        WelcomeNewPlayersPanel,
+        SimpleLoadingPanel,
+        LoadingScenePanel,
     }
 }

@@ -1,0 +1,6 @@
+{"file":"preload.png","frames":{
+"1_png":{"x":295,"y":1,"w":190,"h":183,"offX":0,"offY":0,"sourceW":190,"sourceH":183},
+"gameLoading_png":{"x":1,"y":224,"w":586,"h":18,"offX":9,"offY":7,"sourceW":604,"sourceH":36},
+"gameLoadingBg_png":{"x":1,"y":186,"w":604,"h":36,"offX":0,"offY":0,"sourceW":604,"sourceH":36},
+"jiazai_2_png":{"x":487,"y":1,"w":94,"h":96,"offX":0,"offY":0,"sourceW":94,"sourceH":96},
+"ui_login_logo_png":{"x":1,"y":1,"w":292,"h":130,"offX":0,"offY":0,"sourceW":292,"sourceH":130}}}

@@ -57,14 +57,6 @@ module game {
 
         private xuanBgPointX: number[] = [-9, 137, 284];
         private static _inMyRoom: boolean = false;
-        private static _instance: GameRoomView = null;
-        public static getInstance(): GameRoomView {
-            if (!GameRoomView._instance) {
-                GameRoomView._instance = new GameRoomView();
-            }
-            return GameRoomView._instance;
-        }
-
         public IsInMyRoom(): boolean {
             return this.roomLevelGroup.visible && GameRoomView._inMyRoom;
         }
@@ -624,6 +616,14 @@ module game {
             this.parkingLots.forEach(item => {
                 item.removeTimer();
             })
+        }
+
+        private static _instance: GameRoomView = null;
+        public static getInstance(): GameRoomView {
+            if (!GameRoomView._instance) {
+                GameRoomView._instance = new GameRoomView();
+            }
+            return GameRoomView._instance;
         }
 
     }
