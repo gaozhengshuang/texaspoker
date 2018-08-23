@@ -78,14 +78,14 @@ module game {
             case PanelType.WelcomeNewPlayersPanel:
                 panel = WelcomeNewPlayersPanel.getInstance();
                 break;
-            case PanelType.CarShop:
-                panel = CarShop.getInstance();
-                break; 
-	            case PanelType.SimpleLoadingPanel:
+            case PanelType.SimpleLoadingPanel:
                 panel = SimpleLoadingPanel.getInstance();
                 break;
             case PanelType.LoadingScenePanel:
                 panel = LoadingScenePanel.getInstance();
+                break;
+            case PanelType.PageNewHouseView:
+                panel = PageNewHouseView.getInstance();
                 break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
@@ -109,14 +109,14 @@ module game {
         battle,
         carDetail,
         carPublicLot,
-        CarShop,
         GameSceneAssetsView,
         GameDiscoveryView,
         GameMineView,
         GameRoomView,
+        PageNewHouseView,
         GameUserInfoPanel,
         WelcomeNewPlayersPanel,
-	    SimpleLoadingPanel,
+        SimpleLoadingPanel,
         LoadingScenePanel,
     }
 }
