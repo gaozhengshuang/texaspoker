@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "preload_json,carPublicLotBg_png",
+			"keys": "preload_json,carPublicLotBg_png,carShopBuyBg_png,carParkBg_png,carIconAltas_json,uiCarAltas_json",
 			"name": "preload"
 		},
 		{
@@ -285,7 +285,7 @@
 			"url": "assets/texpack/car/uiCarAltas.json",
 			"type": "sheet",
 			"name": "uiCarAltas_json",
-			"subkeys": "arrowDownL,arrowUpRed,arrowdown,backBtn,closeBtn,closeBtn2,coin_icon,dialogBg,diamonds_icon,driveBtn,emptybg,fangjianxinxi_di,fengexian,filterBg,filterBg_2,filterBg_3,filterBg_4,goldBg,infobg,lightning_icon,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,publicArea,publiclot,scrollviewBg,selectBtn,stateBtn,ticket,ziyuan_di"
+			"subkeys": "arrowDownL,arrowUpRed,arrowdown,backBtn,buyBtn1,buyBtn2,buyBtn3,buyItemInfoBg,closeBtn,closeBtn2,coin_icon,dialogBg,diamonds_icon,driveBtn,emptybg,fangjianxinxi_di,fengexian,filterBg,filterBg_2,filterBg_3,filterBg_4,goldBg,infobg,lightning_icon,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,publicArea,publiclot,scrollviewBg,selectBtn,shopBtn,stateBtn,ticket,ziyuan_di"
 		},
 		{
 			"url": "assets/bg/carParkBg.png",
@@ -296,11 +296,6 @@
 			"url": "assets/bg/carPublicLotBg.png",
 			"type": "image",
 			"name": "carPublicLotBg_png"
-		},
-		{
-			"url": "assets/bg/sellRoomListBg1.png",
-			"type": "image",
-			"name": "sellRoomListBg1_png"
 		},
 		{
 			"url": "assets/texpack/hall_2.json",
@@ -337,6 +332,11 @@
 			"type": "sheet",
 			"name": "hall_3_json",
 			"subkeys": "2003001_b_png,assetsBar1_png,gameTantanle_png,tantanleTitle_png"
+		},
+		{
+			"url": "assets/bg/carShopBuyBg.png",
+			"type": "image",
+			"name": "carShopBuyBg_png"
 		}
 	]
 }
