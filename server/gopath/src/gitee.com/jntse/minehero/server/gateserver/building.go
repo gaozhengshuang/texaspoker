@@ -280,7 +280,7 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		building.data[index] = make([]uint64, 0)
 		building.data[index] = append(building.data[index], house.id)
 	}
-
+	building.SaveBin(nil)
 	return 1
 }
 
