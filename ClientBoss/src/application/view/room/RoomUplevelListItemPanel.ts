@@ -27,7 +27,7 @@ module game {
 
             this.itemDate = this.data;
             if (this.itemDate) {
-                this.quyuImg.source = "resource/assets2/roomLevelIcon" + (this.itemDate.index + 1) + ".png";
+                this.quyuImg.source = "roomLevelIcon" + (this.itemDate.index + 1) + "_png";
                 let type: any;
                 let typeNext: any;
                 if (this.itemDate.index == 0) {

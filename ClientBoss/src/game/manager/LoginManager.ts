@@ -67,8 +67,7 @@ module game {
 
     var tvmTimeout: number;
 
-    export async function Login() {
-        await RES.loadGroup(gameConfig.ResGroupEnum.Preload);
+    export function Login() {
         NotificationCenter.postNotification("closeLoadingSkin");
         SceneManager.changeScene(SceneType.login, false);
     }

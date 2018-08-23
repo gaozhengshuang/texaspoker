@@ -557,13 +557,13 @@ var _ = Describe("ClusterClient", func() {
 		It("removes idle connections", func() {
 			stats := client.PoolStats()
 			Expect(stats.TotalConns).NotTo(BeZero())
-			Expect(stats.FreeConns).NotTo(BeZero())
+			Expect(stats.IdleConns).NotTo(BeZero())
 
 			time.Sleep(2 * time.Second)
 
 			stats = client.PoolStats()
 			Expect(stats.TotalConns).To(BeZero())
-			Expect(stats.FreeConns).To(BeZero())
+			Expect(stats.IdleConns).To(BeZero())
 		})
 
 		It("returns an error when there are no attempts left", func() {
@@ -985,7 +985,7 @@ func newClusterScenario() *clusterScenario {
 	}
 }
 
-func BenchmarkRedisClusterPing(b *testing.B) {
+func BenchmarkClusterPing(b *testing.B) {
 	if testing.Short() {
 		b.Skip("skipping in short mode")
 	}
@@ -1011,7 +1011,7 @@ func BenchmarkRedisClusterPing(b *testing.B) {
 	})
 }
 
-func BenchmarkRedisClusterSetString(b *testing.B) {
+func BenchmarkClusterSetString(b *testing.B) {
 	if testing.Short() {
 		b.Skip("skipping in short mode")
 	}
@@ -1039,7 +1039,7 @@ func BenchmarkRedisClusterSetString(b *testing.B) {
 	})
 }
 
-func BenchmarkRedisClusterReloadState(b *testing.B) {
+func BenchmarkClusterReloadState(b *testing.B) {
 	if testing.Short() {
 		b.Skip("skipping in short mode")
 	}
