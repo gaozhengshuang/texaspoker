@@ -10,7 +10,7 @@ module game {
         }
 
         protected init() {
-            this.loginButton.icon = "login_json.loginBtn";
+            this.loginButton.icon = "login_json.loginBtn_png";
     }
 
         protected beforeShow() {
@@ -28,7 +28,7 @@ module game {
         }
 
 
-        private async loginHandle() {
+        private loginHandle() {
             let realName = deleteBlank(this.nameLabel.text);
             if (realName == "") {
                 showTips("请输入您的用户名!", true);

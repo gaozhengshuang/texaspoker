@@ -1461,6 +1461,7 @@ module game {
                 }));
 
                 this.remove();
+                SceneManager.changeScene(SceneType.hall);
             }.bind(this);
             let maxSp = Math.ceil(_maxSp * SkillManager.getInstance().SkillAddition(SkillType.BigBoom));            
             if (this._nowSp >= maxSp / 2 || this._breakBad >= _breakBadBuffMax) {

@@ -15,6 +15,7 @@ module game {
                 msg += `\n${error.stack}`;
             //todo 客户端错误上传
         };
+        Console.enabled = true;
         gamelayer = new GameLayer();
         stage.addChild(gamelayer);
         //配置表加载
@@ -68,7 +69,7 @@ module game {
         }
     }
 
-    export async function startHeart() {
+    export function startHeart() {
         if (heartTimeout) return;
         if (leaveTime) {
             let now = new Date().getTime();
@@ -78,7 +79,7 @@ module game {
             }
         }
 
-        sendMessage("msg.C2GW_HeartBeat", msg.C2GW_HeartBeat.encode({}));
+        sendMessage("msg.C2GW_HeartBeat", msg.C2GW_HeartBeat.encode({}), false); //心跳频繁，不显示loading
         heartTimeout = setTimeout(() => {
             // showTips("测试心跳", true);
             heartTimeout = null;

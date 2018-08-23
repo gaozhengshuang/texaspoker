@@ -129,7 +129,7 @@ module game {
 			}
 		}
 
-		private async startHeart() {
+		private startHeart() {
 			if (this.heartTimeout) return;
 			if (game.leaveTime) {
 				let now = new Date().getTime();

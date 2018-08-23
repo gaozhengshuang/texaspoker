@@ -32,7 +32,7 @@ module game {
             }
         }
         private _isOnRelogin: boolean; //防止玩家重复点击
-        private async reconnectHandle() {
+        private reconnectHandle() {
             // Login();
             if (!this._isOnRelogin) {
                 this._isOnRelogin = true;
