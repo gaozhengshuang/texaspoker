@@ -69,7 +69,9 @@ module game {
                 RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, SceneManager.onItemLoadError, this);
 
                 SceneManager._resLoadStateMap.add(sceneType, true);
-                LoadingScenePanel.getInstance().remove();
+                if (panelIsShow(PanelType.LoadingScenePanel)) {
+                    LoadingScenePanel.getInstance().remove();
+                }
                 SceneManager.showScene(sceneType);
             }
         }
