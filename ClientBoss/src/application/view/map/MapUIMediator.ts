@@ -136,7 +136,11 @@ module game {
 		}
 		private buyCarRoomRequset(eve:BasicEvent):void
 		{
-			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_SALE_ROOM_LIST,{action:1});
+			openPanel(PanelType.CarShop);
+			GameConfig.showDownBtnFun(false);
+			CarManager.getInstance().ReqCarShopInfo(1,function(carProducts:msg.ICarProductData[]){
+				CarShop.getInstance().UpdateData(carProducts);
+			})
 		}
 		private fujinSwitchRequset(eve:BasicEvent):void
 		{

@@ -78,7 +78,10 @@ module game {
             case PanelType.WelcomeNewPlayersPanel:
                 panel = WelcomeNewPlayersPanel.getInstance();
                 break;
-            case PanelType.SimpleLoadingPanel:
+            case PanelType.CarShop:
+                panel = CarShop.getInstance();
+                break; 
+	            case PanelType.SimpleLoadingPanel:
                 panel = SimpleLoadingPanel.getInstance();
                 break;
             case PanelType.LoadingScenePanel:
@@ -106,13 +109,14 @@ module game {
         battle,
         carDetail,
         carPublicLot,
+        CarShop,
         GameSceneAssetsView,
         GameDiscoveryView,
         GameMineView,
         GameRoomView,
         GameUserInfoPanel,
         WelcomeNewPlayersPanel,
-        SimpleLoadingPanel,
+	    SimpleLoadingPanel,
         LoadingScenePanel,
     }
 }
