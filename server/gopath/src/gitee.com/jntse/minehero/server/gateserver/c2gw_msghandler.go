@@ -159,6 +159,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendCarShopInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateCarShopProduct{})
+	this.msgparser.RegistSendProto(msg.GW2C_AddNewCar{})
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
