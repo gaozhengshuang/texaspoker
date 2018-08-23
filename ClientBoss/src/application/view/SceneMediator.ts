@@ -58,7 +58,7 @@ module game {
                         this._lastPanelView = view;
                         // ApplicationFacade.getInstance().registerMediator(new MapContentMediator(this._lastPanelView));
                         ApplicationFacade.getInstance().registerMdt<MapContentMediator>(MapContentMediator.NAME, MapContentMediator, this._lastPanelView);
-                        
+
                         this.sceneMediatorName = MapContentMediator.NAME;
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_UPDATED_POINT, { require: 1 });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
@@ -77,7 +77,7 @@ module game {
                         this._lastPanelView = GameSceneAssetsView.getInstance();
                         // ApplicationFacade.getInstance().registerMediator(new SceneAssetsMediator(this._lastPanelView));
                         ApplicationFacade.getInstance().registerMdt<SceneAssetsMediator>(SceneAssetsMediator.NAME, SceneAssetsMediator, this._lastPanelView);
-                        
+
                         this.sceneMediatorName = SceneAssetsMediator.NAME;
 
                         if (data) { GameSceneAssetsView.getInstance().updateAssetsList(data.roomlist); }
@@ -99,7 +99,7 @@ module game {
 
                         // ApplicationFacade.getInstance().registerMediator(new DiscoveryMediator(this._lastPanelView));
                         ApplicationFacade.getInstance().registerMdt<DiscoveryMediator>(DiscoveryMediator.NAME, DiscoveryMediator, this._lastPanelView);
-                        
+
                         this.sceneMediatorName = DiscoveryMediator.NAME;
                         GameDiscoveryView.getInstance().initGameList(smallGameProxy.getSmallGame());
                         //}

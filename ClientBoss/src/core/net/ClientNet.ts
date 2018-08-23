@@ -22,6 +22,7 @@ module game {
 
         //添加收到数据侦听，收到数据会调用此方法
         private onReceiveMessage() {
+            this.closeLoading();
             var _arr: egret.ByteArray = new egret.ByteArray();
             _arr.endian = egret.Endian.LITTLE_ENDIAN;
             this.socket.readBytes(_arr);
@@ -48,12 +49,14 @@ module game {
 
         //添加链接关闭侦听，手动关闭或者服务器关闭连接会调用此方法
         private onSocketClose() {
+            this.closeLoading();
             this.isConnect = false;
             NotificationCenter.postNotification(ClientNet.SOCKET_CONNECT_CLOSE);
         }
 
         //添加异常侦听，出现异常会调用此方法
         private onSocketError() {
+            this.closeLoading();
             NetFailed.getInstance().show();
         }
 
@@ -69,6 +72,7 @@ module game {
 
         //关闭链接
         public onConnectClose() {
+            this.closeLoading();
             if (this.isConnect)
                 this.socket.close();
         }
@@ -77,7 +81,11 @@ module game {
         public onWriteBytes(sendMsg: egret.ByteArray) {
             this.socket.writeBytes(sendMsg);
         }
-
+        private closeLoading() {
+            if (panelIsShow(PanelType.SimpleLoadingPanel)) {
+                SimpleLoadingPanel.getInstance().remove();
+            }
+        }
         private static _instance: ClientNet;
 
         public static getInstance(): ClientNet {
@@ -89,11 +97,14 @@ module game {
     }
 
     //向服务端发送消息
-    export function sendMessage(msgName: string, msg: protobuf.Writer): void {
+    export function sendMessage(msgName: string, msg: protobuf.Writer, isShowLoading: boolean = true): void {
         let msgId = findMsgId(msgName);
         if (msgId == 0) {
             egret.error("传入了错误的消息名或Proto文件没有初始化");
             return;
+        }
+        if (isShowLoading) {
+            openPanel(PanelType.SimpleLoadingPanel);
         }
         let buffer = msg.finish();
 
@@ -112,7 +123,7 @@ module game {
         }
         return 0;
     }
-    
+
     export function ajax(url, args, method = "GET") {
         let d = defer();
         var x = new XMLHttpRequest();

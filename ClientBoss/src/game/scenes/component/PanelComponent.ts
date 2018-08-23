@@ -3,6 +3,7 @@ module game {
         protected _isShow: boolean = false;
         protected _isShowEffect: boolean = true;
         protected _isShowDark: boolean = true;
+        protected _darkAlpha:number = 0.5;
         public darkRect: eui.Rect;
         protected _layerType: PanelLayerType = PanelLayerType.Panel;
 
@@ -55,7 +56,7 @@ module game {
 
             if (dark) {
                 let darkRect = DarkRectPool.createObject();
-                darkRect.fillAlpha = 0.5;
+                darkRect.fillAlpha = this._darkAlpha;
                 darkRect.fillColor = 0;
                 darkRect.width = gameConfig.curWidth();
                 darkRect.height = gameConfig.curHeight();
