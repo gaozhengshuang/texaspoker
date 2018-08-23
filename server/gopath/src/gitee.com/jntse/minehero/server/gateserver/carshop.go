@@ -45,8 +45,8 @@ func (cp *CarProduct) Sell() uint32 {
 	return cp.bin.GetSell()
 }
 
-func (cp *CarProduct) AddSell(n uint32) {
-	cp.bin.Sell = pb.Uint32(cp.Sell() + 1)
+func (cp *CarProduct) AddSold(n uint32) {
+	cp.bin.Sold = pb.Uint32(cp.Sold() + 1)
 	cp.dirty = true
 }
 
@@ -181,16 +181,19 @@ func (shop *CarShop) BuyCar(user *GateUser, shopid, pid uint32) {
 	}
 
 	// 限量
-	if product.Sell() >= product.Sold() {
+	if product.Sell() <= product.Sold() {
 		user.SendNotify("车辆数量不足")
 		return
 	}
 
 
 	user.RemoveGold(config.Price, "购买车辆", true)
-	product.AddSell(1)
-	CarMgr().CreateNewCar(user.Id(), cartemplate.Id, user.Name())
+	product.AddSold(1)
+	cardata := CarMgr().CreateNewCar(user.Id(), cartemplate.Id, user.Name())
 
+	carmsg := &msg.GW2C_AddNewCar{}
+	carmsg.Car = pb.Clone(cardata.PackBin()).(*msg.CarData)
+	user.SendMsg(carmsg)
 
 	// 刷新单条数据
 	send := &msg.GW2C_UpdateCarShopProduct{Product:pb.Clone(product.Bin()).(*msg.CarProductData)}

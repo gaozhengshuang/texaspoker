@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -1029,6 +1030,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a BT_GameRoomDestroy. */
+    interface IBT_GameRoomDestroy {
+
+        /** BT_GameRoomDestroy roomid */
+        roomid?: (number|Long|null);
+    }
+
+    /** Represents a BT_GameRoomDestroy. */
+    class BT_GameRoomDestroy implements IBT_GameRoomDestroy {
+
+        /**
+         * Constructs a new BT_GameRoomDestroy.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_GameRoomDestroy);
+
+        /** BT_GameRoomDestroy roomid. */
+        public roomid: (number|Long);
+
+        /**
+         * Creates a new BT_GameRoomDestroy instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_GameRoomDestroy instance
+         */
+        public static create(properties?: msg.IBT_GameRoomDestroy): msg.BT_GameRoomDestroy;
+
+        /**
+         * Encodes the specified BT_GameRoomDestroy message. Does not implicitly {@link msg.BT_GameRoomDestroy.verify|verify} messages.
+         * @param message BT_GameRoomDestroy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_GameRoomDestroy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_GameRoomDestroy message, length delimited. Does not implicitly {@link msg.BT_GameRoomDestroy.verify|verify} messages.
+         * @param message BT_GameRoomDestroy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_GameRoomDestroy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_GameRoomDestroy message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_GameRoomDestroy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_GameRoomDestroy;
+
+        /**
+         * Decodes a BT_GameRoomDestroy message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_GameRoomDestroy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_GameRoomDestroy;
+
+        /**
+         * Verifies a BT_GameRoomDestroy message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_GameRoomDestroy message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_GameRoomDestroy
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_GameRoomDestroy;
+
+        /**
+         * Creates a plain object from a BT_GameRoomDestroy message. Also converts values to other types if specified.
+         * @param message BT_GameRoomDestroy
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_GameRoomDestroy, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_GameRoomDestroy to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a BT_PickItem. */
     interface IBT_PickItem {
 
@@ -1588,6 +1679,90 @@ declare namespace msg {
 
         /**
          * Converts this BT_BulletEarnMoney to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BT_RetBulletEarnMoney. */
+    interface IBT_RetBulletEarnMoney {
+    }
+
+    /** Represents a BT_RetBulletEarnMoney. */
+    class BT_RetBulletEarnMoney implements IBT_RetBulletEarnMoney {
+
+        /**
+         * Constructs a new BT_RetBulletEarnMoney.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IBT_RetBulletEarnMoney);
+
+        /**
+         * Creates a new BT_RetBulletEarnMoney instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BT_RetBulletEarnMoney instance
+         */
+        public static create(properties?: msg.IBT_RetBulletEarnMoney): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Encodes the specified BT_RetBulletEarnMoney message. Does not implicitly {@link msg.BT_RetBulletEarnMoney.verify|verify} messages.
+         * @param message BT_RetBulletEarnMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IBT_RetBulletEarnMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BT_RetBulletEarnMoney message, length delimited. Does not implicitly {@link msg.BT_RetBulletEarnMoney.verify|verify} messages.
+         * @param message BT_RetBulletEarnMoney message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IBT_RetBulletEarnMoney, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BT_RetBulletEarnMoney message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BT_RetBulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Decodes a BT_RetBulletEarnMoney message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BT_RetBulletEarnMoney
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Verifies a BT_RetBulletEarnMoney message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BT_RetBulletEarnMoney message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BT_RetBulletEarnMoney
+         */
+        public static fromObject(object: { [k: string]: any }): msg.BT_RetBulletEarnMoney;
+
+        /**
+         * Creates a plain object from a BT_RetBulletEarnMoney message. Also converts values to other types if specified.
+         * @param message BT_RetBulletEarnMoney
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.BT_RetBulletEarnMoney, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BT_RetBulletEarnMoney to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
