@@ -41,7 +41,7 @@ module game {
         }
 
         private touchWave() {
-            BattleScene.getInstance().useSp();
+            BattlePanel.getInstance().useSp();
         }
 
         public playWave() {

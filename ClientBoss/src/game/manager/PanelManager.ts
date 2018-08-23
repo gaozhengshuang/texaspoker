@@ -52,7 +52,7 @@ module game {
                 panel = RoleDressShopCart.getInstance();
                 break;
             case PanelType.battle:
-                panel = BattleScene.getInstance();
+                panel = BattlePanel.getInstance();
                 break;
             case PanelType.carDetail:
                 panel = CarDetailView.getInstance();

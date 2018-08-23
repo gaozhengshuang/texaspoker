@@ -1,7 +1,7 @@
 module game {
     export class SceneManager {
         private static _curSceneType: SceneType;
-        private static _curScene: SceneComponent | PanelComponent;
+        private static _curScene: SceneComponent;
         private static _lastSceneType: SceneType;
 
         private static _resLoadStateMap: game.Map<SceneType, boolean> = new game.Map<SceneType, boolean>();
