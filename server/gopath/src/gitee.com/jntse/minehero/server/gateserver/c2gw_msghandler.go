@@ -168,6 +168,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.BT_RetStepOnBomb{})
 	//this.msgparser.RegistSendProto(msg.BT_SynUserRechargeMoney{})
 	this.msgparser.RegistSendProto(msg.BT_RetCrushSuperBrick{})
+	this.msgparser.RegistSendProto(msg.BT_RetBulletEarnMoney{})
+	this.msgparser.RegistSendProto(msg.BT_GameRoomDestroy{})
 }
 
 // 客户端心跳
