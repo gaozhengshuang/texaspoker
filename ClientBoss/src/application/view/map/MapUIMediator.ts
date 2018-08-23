@@ -96,6 +96,8 @@ module game {
 			this.sceneGroup.addEventListener(GameMapUIView.OPEN_MINE,this.openMineRequset,this);
 			this.sceneGroup.addEventListener(GameMapUIView.CLOSE_SMALL_GAME,this.closeGameRequset,this);
 			this.sceneGroup.addEventListener(GameMapUIView.GOTO_SHOUYI_ROOM,this.gotoShouyiRoomRequset,this);
+			this.sceneGroup.addEventListener(GameMapUIView.BUY_HOUSE,this.buyHouseRequset,this);
+			this.sceneGroup.addEventListener(GameMapUIView.BUY_CAR,this.buyCarRoomRequset,this);
 		}
 		private openMainAssetsRequset(eve:BasicEvent):void
 		{
@@ -125,6 +127,14 @@ module game {
 			//ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_SMALL_GAME_PAGE);
 		}
 		private openTransactionRequset(eve:BasicEvent):void
+		{
+			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_SALE_ROOM_LIST,{action:1});
+		}
+		private buyHouseRequset(eve:BasicEvent):void
+		{
+			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_NEW_HOUSE);
+		}
+		private buyCarRoomRequset(eve:BasicEvent):void
 		{
 			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_SALE_ROOM_LIST,{action:1});
 		}
@@ -162,7 +172,7 @@ module game {
 				}
 			}
 		}
-		private get sceneGroup():GameMapUIView
+		public get sceneGroup():GameMapUIView
         {
 			return <GameMapUIView><any> (this.viewComponent);
 		}
