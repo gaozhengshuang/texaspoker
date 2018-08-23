@@ -13,6 +13,8 @@ module game {
         public static OPEN_MINE: string = "open_mine";
         public static CLOSE_SMALL_GAME: string = "close_small_game";
         public static GOTO_SHOUYI_ROOM: string = "goto_shouyi_room";
+        public static BUY_HOUSE: string = "buy_house";
+        public static BUY_CAR: string = "buy_car";
 
         private eventMask:eui.Rect;
         private fujinLabelList:string[]=['附近的人','附近建筑'];
@@ -84,6 +86,16 @@ module game {
                 case 'shouyi':
 
                     body.onclick_shouyi();
+                    
+                break;
+                case 'buyHouse':
+
+                    body.onclick_buyHouse();
+                    
+                break;
+                case 'buyCar':
+
+                    body.onclick_buyCar();
                     
                 break;
 
@@ -171,6 +183,14 @@ module game {
         private onclick_shouyi(){
 
             this.dispatchEvent(new BasicEvent(GameMapUIView.GOTO_SHOUYI_ROOM));
+		}
+        private onclick_buyHouse(){
+
+            this.dispatchEvent(new BasicEvent(GameMapUIView.BUY_HOUSE));
+		}
+        private onclick_buyCar(){
+
+            this.dispatchEvent(new BasicEvent(GameMapUIView.BUY_CAR));
 		}
         private onclick_fujinSwitch(status:number){
             console.log(this.fujinStatus+"//"+(this.fujinStatus==1));
