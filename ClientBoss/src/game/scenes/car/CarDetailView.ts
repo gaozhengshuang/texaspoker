@@ -71,7 +71,6 @@ module game {
 
             this.listIndex = 0;
             this._inited   = true;
-            //this.addEventListener(CarDetailView.POPUP_ROOM_NEIGHBOR,this.showLinjuList,this);
         }
 
         private adaptive() {
@@ -106,15 +105,6 @@ module game {
             }
             //名字+价格
             this.carNameTxt.text = carItemData.Brand+""+carItemData.Model + "  价值" + carItemData.Price;
-
-            //容量和收益
-            // this.carInfoTxt.textFlow = [
-            //     { text: "汽车容量", style: { bold: true,size: 30 }},
-            //     { text: carItemData.Capacity+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
-            //     { text: "\n"+"收益", style: { bold: true,size: 30 } },
-            //     { text: carItemData.RewardPerH+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
-            //     { text: "/小时", style: { bold: true,size: 30}},
-            // ]
             this.carInfoTxt.text = "汽车容量" + carItemData.Capacity + "\n"+"收益" + carItemData.RewardPerH + "/分钟";
 
             //停放状态
@@ -255,8 +245,6 @@ module game {
             if (this.goalY == -1) { this.goalY = GameConfig.innerHeight / 4 };
             if (this.goalH == -1) { this.goalH = GameConfig.innerHeight * 3 /4 };
             if (this.btnGoalY == -1) {
-/*                  this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
-                    - 20 * GameConfig.innerScaleW;  */
                 this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20
             }
             this.listIndex = index;
@@ -348,18 +336,6 @@ module game {
         private linjuList: HouseVO[];
         public showLinjuList(list: HouseVO[]) {
             console.log("showLinjuList--------------->",list.length+" "+JSON.stringify(list));
-        
-/*             let self = this;
-            CarManager.getInstance().ReqMyCarInfo(function(){
-                DataManager.playerModel.getUserInfo().parkingdatas.forEach(data=>{
-                    if(data.parkingcarownerid!=0 && data.ownerid== DataManager.playerModel.getUserId()){
-                        CarManager.getInstance().ReqCarParkingHouseData(data.parkingcarownerid,function(houseDatas:msg.IHouseData[]){
-                            //
-                        });
-                    }
-                })
-            }); */
-
             this._showLinjuList(list);
         }
 
