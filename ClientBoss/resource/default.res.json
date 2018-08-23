@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall3_json,hall_2_json,hall_1_json",
+			"keys": "hall_2_json,hall_1_json,hall_3_json",
 			"name": "hall"
 		},
 		{
@@ -303,12 +303,6 @@
 			"name": "sellRoomListBg1_png"
 		},
 		{
-			"url": "assets/texpack/hall3.json",
-			"type": "sheet",
-			"name": "hall3_json",
-			"subkeys": "2003001_b_png,assetsBar1_png,tantanleTitle_png"
-		},
-		{
 			"url": "assets/texpack/hall_2.json",
 			"type": "sheet",
 			"name": "hall_2_json",
@@ -325,6 +319,24 @@
 			"type": "sheet",
 			"name": "preload_json",
 			"subkeys": "1_png,gameLoadingBg_png,gameLoading_png,jiazai_2_png,ui_login_logo_png"
+		},
+		{
+			"url": "assets/texpack/win.json",
+			"type": "sheet",
+			"name": "win_json",
+			"subkeys": "again,anniudi,back,fenxiang,haoyou,jiesuan,rankBg,rank_bg,rankitembg,shijie,touxiangkuang,xinjilu"
+		},
+		{
+			"url": "assets/texpack/user.json",
+			"type": "sheet",
+			"name": "user_json",
+			"subkeys": "addressBg,addressImg,adrBg,comeonBg,copyButton,deliveryAdressBtn,getMoneyImg,headBg,headBorder,taskRewardImg,updateBtn,userBg,userButton,userOk,userTitle"
+		},
+		{
+			"url": "assets/texpack/hall_3.json",
+			"type": "sheet",
+			"name": "hall_3_json",
+			"subkeys": "2003001_b_png,assetsBar1_png,gameTantanle_png,tantanleTitle_png"
 		}
 	]
 }
