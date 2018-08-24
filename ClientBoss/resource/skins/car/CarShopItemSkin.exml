@@ -18,7 +18,7 @@
 	</e:Group>
 	<e:Group id="btnDetail" width="720" height="150" x="0" y="0" touchEnabled="true">
 		<e:Image id="btnBg" width="156" height="60" y="43" x="541" touchEnabled="true" source="uiCarAltas_json.buyBtn1"/>
-		<e:Label id="stateTxt" text="金币不" size="26" anchorOffsetX="-2.65" textColor="0xffffff" x="556.35" y="55" scaleX="1" scaleY="1" touchEnabled="false" verticalAlign="justify" width="122" textAlign="center" bold="true"/>
+		<e:Label id="stateTxt" text="金币不" size="26" anchorOffsetX="-2.65" textColor="0xffffff" x="556.35" y="47" scaleX="1" scaleY="1" touchEnabled="false" verticalAlign="middle" width="122" textAlign="center" bold="true" anchorOffsetY="0" height="46"/>
 		<e:Image width="720" scaleY="1" horizontalCenter="0" height="5" source="uiCarAltas_json.line" y="144"/>
 		<game:IconButton id="btnBuy" width="20" height="20" x="602" y="66" skinName="IconButtonSkin" touchEnabled="true" visible="false"/>
 	</e:Group>
