@@ -408,7 +408,7 @@ module game {
                             CarPublicParkingLotManager.getInstance().UpdateData(item.parkings);
                             return;
                         }
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:item.ownerid});
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{houseid:item.rId});
                         this.OnDisableHandle();
                     }
                     break;

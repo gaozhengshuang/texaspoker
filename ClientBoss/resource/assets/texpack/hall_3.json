@@ -1,6 +1,7 @@
 {"file":"hall_3.png","frames":{
 "2003001_b_png":{"x":0,"y":0,"w":720,"h":292,"offX":0,"offY":0,"sourceW":720,"sourceH":292},
 "assetsBar1_png":{"x":0,"y":580,"w":720,"h":199,"offX":0,"offY":0,"sourceW":720,"sourceH":199},
+"build_2003001_m_png":{"x":720,"y":503,"w":150,"h":128,"offX":0,"offY":22,"sourceW":150,"sourceH":150},
 "gameTantanle_png":{"x":720,"y":317,"w":186,"h":186,"offX":0,"offY":0,"sourceW":186,"sourceH":186},
 "soldOutImg1_png":{"x":720,"y":0,"w":286,"h":317,"offX":0,"offY":0,"sourceW":286,"sourceH":317},
 "tantanleTitle_png":{"x":0,"y":292,"w":720,"h":288,"offX":0,"offY":0,"sourceW":720,"sourceH":288}}}

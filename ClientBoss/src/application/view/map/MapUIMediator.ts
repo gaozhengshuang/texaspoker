@@ -175,11 +175,11 @@ module game {
 				let getHaveGoldRoom: HouseVO = GetHaveGoldHouse(assetsProxy.houseAssetsList, 1);
 				if (getHaveGoldRoom) {
 					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
-						{ userid: getHaveGoldRoom.ownerid });
+						{ houseid: getHaveGoldRoom.rId });
 				} else {
 					getHaveGoldRoom = assetsProxy.houseAssetsList[0];
 					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
-						{ userid: getHaveGoldRoom.ownerid });
+						{ houseid: getHaveGoldRoom.rId });
 				}
 			}
 		}

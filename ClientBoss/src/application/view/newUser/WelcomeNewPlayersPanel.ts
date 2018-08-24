@@ -57,7 +57,7 @@ module game {
 
         private goinRoom_begin() {
             this.dispatchEvent(new BasicEvent(WelcomeNewPlayersPanel.GOIN_NEW_ROOM,
-                { userid: this.roomInfo.ownerid }));
+                { houseid: this.roomInfo.rId }));
             this.onclick_begin();
         }
         private onclick_begin() {
