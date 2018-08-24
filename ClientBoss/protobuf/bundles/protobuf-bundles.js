@@ -47984,7 +47984,7 @@ $root.table = (function() {
             if (message.Des != null && message.hasOwnProperty("Des"))
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.Des);
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
-                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.IncomePerSecond);
+                writer.uint32(/* id 8, wireType 5 =*/69).float(message.IncomePerSecond);
             if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
                 writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.UnlockGold);
             return writer;
@@ -48043,7 +48043,7 @@ $root.table = (function() {
                     message.Des = reader.string();
                     break;
                 case 8:
-                    message.IncomePerSecond = reader.uint32();
+                    message.IncomePerSecond = reader.float();
                     break;
                 case 9:
                     message.UnlockGold = reader.uint32();
@@ -48105,8 +48105,8 @@ $root.table = (function() {
                 if (!$util.isString(message.Des))
                     return "Des: string expected";
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
-                if (!$util.isInteger(message.IncomePerSecond))
-                    return "IncomePerSecond: integer expected";
+                if (typeof message.IncomePerSecond !== "number")
+                    return "IncomePerSecond: number expected";
             if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
                 if (!$util.isInteger(message.UnlockGold))
                     return "UnlockGold: integer expected";
@@ -48140,7 +48140,7 @@ $root.table = (function() {
             if (object.Des != null)
                 message.Des = String(object.Des);
             if (object.IncomePerSecond != null)
-                message.IncomePerSecond = object.IncomePerSecond >>> 0;
+                message.IncomePerSecond = Number(object.IncomePerSecond);
             if (object.UnlockGold != null)
                 message.UnlockGold = object.UnlockGold >>> 0;
             return message;
@@ -48185,7 +48185,7 @@ $root.table = (function() {
             if (message.Des != null && message.hasOwnProperty("Des"))
                 object.Des = message.Des;
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
-                object.IncomePerSecond = message.IncomePerSecond;
+                object.IncomePerSecond = options.json && !isFinite(message.IncomePerSecond) ? String(message.IncomePerSecond) : message.IncomePerSecond;
             if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
                 object.UnlockGold = message.UnlockGold;
             return object;
