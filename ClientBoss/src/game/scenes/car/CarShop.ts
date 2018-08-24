@@ -116,8 +116,14 @@ module game {
         }
         public UpdateData(datas:msg.ICarProductData[]) {
             if(!datas) return;
+            //默认价格升序
+            datas.sort(function(a,b){
+                let carShopData_a :table.ITCarDefine = table.TCarShopById[a.pid];
+                let carShopData_b :table.ITCarDefine = table.TCarShopById[b.pid];
+                return  carShopData_a.Price - carShopData_b.Price;
+            });
+
             this.shopDatas = datas;
-        
             let userInfo = DataManager.playerModel.getUserInfo();
             this.goldNum.text    = userInfo.gold.toString();
             this.diamondNum.text = userInfo.diamond.toString();

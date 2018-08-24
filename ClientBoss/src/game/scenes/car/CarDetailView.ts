@@ -369,8 +369,9 @@ module game {
                     return houseData;
                 }); 
 
-                self.linjuList.sort((a,b)=>{return b.myCarPark - a.myCarPark;}).sort((a,b)=>{return a.empty-b.empty});
-            
+                let EmptyList = this.linjuList.filter(data=>{return data.empty;});                
+                let notEmptyList = this.linjuList.filter(data=>{return !data.empty;});
+                this.linjuList = notEmptyList.sort((a,b)=>{return b.myCarPark - a.myCarPark;}).concat(EmptyList);
                 //第一栏显示公共车位
                  CarManager.getInstance().ReqParkingInfoByType(1,0,function(parkingDatas:msg.IParkingData[]){
                     let emptyLots  = parkingDatas.some(data=>{return data.parkingcar==0});
