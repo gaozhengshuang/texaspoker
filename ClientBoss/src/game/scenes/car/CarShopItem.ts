@@ -24,7 +24,7 @@ module game {
             this.itemData=this.data;
             if(this.itemData){
              
-                console.log("内容--------------->",this.itemData);
+                //console.log("内容--------------->",this.itemData);
                 let tCarShopData = table.TCarShopById[this.itemData.pid];
                 if(!tCarShopData) return;
                 
