@@ -64,7 +64,9 @@ module game {
         public UpdateData(parkingDatas:msg.IParkingData[]) {
             if(!parkingDatas) return;
             //设置并排序
-            this.parkingDatas = parkingDatas.filter(data=>{return data.parkingcar!=0}).concat(parkingDatas.filter(data=>{return data.parkingcar==0}));
+            let userId = Number(DataManager.playerModel.getUserId());
+            this.parkingDatas = parkingDatas.sort((a,b)=>{return Number(b.parkingcar)-Number(a.parkingcar);})
+            .sort((a,b)=>{return (Number(b.parkingcarownerid)-userId)-(Number(a.parkingcarownerid)-userId)});
             this.updateView();
         }
         private updateView()
