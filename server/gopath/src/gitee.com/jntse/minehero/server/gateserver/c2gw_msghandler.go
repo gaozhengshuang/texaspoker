@@ -851,7 +851,6 @@ func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}
 	user.image.SendShowImage()
 }
 
-
 func on_C2GW_ReqCarShopInfo(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -977,7 +976,8 @@ func on_C2GW_ReqRandHouseList(session network.IBaseNetSession, message interface
 		return
 	}
 	carflag := tmsg.GetCarflag()
-	user.ReqRandHouseList(carflag)
+	buildingid := tmsg.GetBuildingid()
+	user.ReqRandHouseList(carflag, buildingid)
 }
 
 func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
@@ -1066,7 +1066,7 @@ func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	car := CarMgr().GetCar(tmsg.GetCarid())
 	if car == nil {
 		result, reward = 1, 0
-	}else {
+	} else {
 		result, reward = CarMgr().TakeBackFromParking(user, car.parkingid, uint32(msg.CarOperatorType_TakeBack))
 	}
 	send.Result = pb.Int32(int32(result))

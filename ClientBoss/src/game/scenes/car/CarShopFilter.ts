@@ -59,8 +59,8 @@ module game {
         {   
             if(!this.brandFilterDatas) return;
             console.log("updateView---->",this.brandFilterDatas.length);
-
             this._dataProv_brand.removeAll();
+            this._dataProv_model.removeAll();
             this.brandFilterDatas.forEach(data=>{this._dataProv_brand.addItem(data)});
 
             console.log("-------------->",this.ls_items_brand.numChildren+" "+this.ls_items_brand.numElements);
@@ -93,12 +93,12 @@ module game {
             console.log("onItemTouchBrand------------->")
             let _CarFilterData = <CarFilterData>eve.itemRenderer.data;
             this.updateViewModel(_CarFilterData.brand);
-            CarShop.getInstance().sortShopItem(CarShop.sortType.BRAND,_CarFilterData.brand);
+            CarShop.getInstance().sortItem(CarShop.sortType.BRAND,_CarFilterData.brand);
         }
         private onItemTouchModel(eve: eui.ItemTapEvent) {   
             console.log("onItemTouchModel------------->")
             let _CarFilterData = <CarFilterData>eve.itemRenderer.data;
-            CarShop.getInstance().sortShopItem(CarShop.sortType.MODEL,_CarFilterData.brand+""+_CarFilterData.model);
+            CarShop.getInstance().sortItem(CarShop.sortType.MODEL,_CarFilterData.brand+""+_CarFilterData.model);
         }
 
     }

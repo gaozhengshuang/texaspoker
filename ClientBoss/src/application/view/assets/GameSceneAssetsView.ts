@@ -67,7 +67,6 @@ module game {
 			} else if (this.currentGroupId == 1) {
 				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.PAGE_SWITCH, { pageIndex: 1 }));
 			}
-
 		}
 		private assetsItemList: utils.ScrollerPanel;
 		private assetsList: any[] = [];

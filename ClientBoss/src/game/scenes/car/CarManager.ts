@@ -235,6 +235,11 @@ module game {
         //请求购买汽车
         public ReqBuyCarShopItem(shopId:number=1,pid:number,callFunc:Function=null)
         {
+            let carShopData = table.TCarShopById[pid];
+            if(DataManager.playerModel.getUserInfo().gold < carShopData.Price){
+                showTips("金币不足！");
+                return;
+            }
             if(callFunc && !this.GW2C_UpdateCarShopProduct_BackCalls.some(func=>{return func==callFunc;}))
             {
                 this.GW2C_UpdateCarShopProduct_BackCalls.push(callFunc);
