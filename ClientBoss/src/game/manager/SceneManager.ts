@@ -1,6 +1,9 @@
 module game {
     export class SceneManager {
         private static _curSceneType: SceneType;
+        public static get curSceneType(): SceneType {
+            return this._curSceneType;
+        }
         private static _curScene: SceneComponent;
         private static _lastSceneType: SceneType;
 

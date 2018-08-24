@@ -43,25 +43,28 @@ message TBuildingsDefine
 	optional uint32 NumPerFloor = 8; // 每层多少户最多4户
 	
 	
-	optional string Houses1 = 9; // 户型1
+	optional uint32 BuildingPrice = 9; // 楼盘均价（单价）
 	
 	
-	optional string Houses2 = 10; // 户型2
+	optional string Houses1 = 10; // 户型1
 	
 	
-	optional string Houses3 = 11; // 户型3
+	optional string Houses2 = 11; // 户型2
 	
 	
-	optional string Houses4 = 12; // 户型4
+	optional string Houses3 = 12; // 户型3
 	
 	
-	optional float PosX = 13; // 坐标x
+	optional string Houses4 = 13; // 户型4
 	
 	
-	optional float PosY = 14; // 坐标y
+	optional float PosX = 14; // 坐标x
 	
 	
-	optional string Des = 15; // 描述
+	optional float PosY = 15; // 坐标y
+	
+	
+	optional string Des = 16; // 描述
 
 }
 
