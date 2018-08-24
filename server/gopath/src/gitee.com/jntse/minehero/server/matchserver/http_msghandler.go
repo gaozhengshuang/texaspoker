@@ -140,6 +140,9 @@ func DoGMCmd(cmd map[string]string, origin string) {
 	case "reload":
 		DoReload(cmd, origin)
 		break
+	case "carshop":
+		DoCarShopOpt(cmd, origin)
+		break
 	}
 }
 
@@ -306,4 +309,10 @@ func DoReload(cmd map[string]string, origin string) {
 	GateSvrMgr().Broadcast(send)
 }
 
+func DoCarShopOpt(cmd map[string]string, origin string) {	
+	send := &msg.MS2Server_BroadCast{}
+	send.Cmd = pb.String(origin)
+	RoomSvrMgr().BroadCast(send)
+	GateSvrMgr().Broadcast(send)
+}
 
