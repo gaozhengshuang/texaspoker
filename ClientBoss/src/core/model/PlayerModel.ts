@@ -54,6 +54,8 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord,"msg.GW2C_SynParkingRecord");
+            NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack,"msg.GW2C_CarAutoBack");
+            
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -126,7 +128,36 @@ module game {
 
             }
          }
+        private OnGW2C_CarAutoBack(msgs:msg.GW2C_CarAutoBack){
+            console.log("公共车位收益满自动回收");
+            if (GameConfig.sceneType == 3) //资产主界面打开
+            {  
+               //车辆信息界面
+               if( CarDetailView.getInstance())
+               {
+                   if( CarDetailView.getInstance().visible && CarDetailView.getInstance().Inited())
+                   {   
+                       //车辆信息界面刷新
+                       if(msgs.carid==CarDetailView.getInstance().getSelectCarID())
+                       {
+                           CarManager.getInstance().ReqMyCarInfo(function(){
+                               CarDetailView.getInstance().setData(DataManager.playerModel.getUserInfo().cardatas.filter(data=>{
+                                   return data.id == CarDetailView.getInstance().carData.id;
+                               })[0]);
+                           });
+                       }
+                   }
+               }
+               //刷新公共车位界面
+               if(CarPublicParkingLotManager.getInstance().Inited())
+               {
+                    CarManager.getInstance().ReqMyCarInfo(
+                        function(){CarPublicParkingLotManager.getInstance().refreshData();}
+                    );
+               }
+            }
 
+        }
         private OnGW2C_SendTaskList(data: msg.IGW2C_SendTaskList) {
             this._tasks = data.tasks;
             this.postNotification(PlayerModel.TASK_UPDATE);

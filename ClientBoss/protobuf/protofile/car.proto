@@ -75,4 +75,14 @@ message GW2C_RetTakeCarAutoBackReward {
     optional int32 reward = 2;                          //获得的奖励
 }
 
+// 汽车自动从车位回收
+message GW2C_CarAutoBack {
+    optional uint64 carid = 1;
+}
+
+// 获得新车
+message GW2C_AddNewCar {
+    optional msg.CarData car = 1;
+}
+
 

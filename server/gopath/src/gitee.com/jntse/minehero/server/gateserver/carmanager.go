@@ -179,7 +179,8 @@ func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 
 func (this *ParkingData) UpdateReward(car *CarData, now uint64) bool {
 	//计算经过了几个小时了
-	passedMinute := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Minutes()))
+	//passedMinute := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Minutes()))
+	passedMinute := uint32((now - this.parkingtime) / 1000 / 60)		// benchmark 效率更好(10倍)
 	reward := (passedMinute * car.template.RewardPerH * this.template.RewardPercent) / 100
 	reward = uint32(math.Min(float64(reward), float64(car.template.Capacity)))
 	if this.parkingreward != reward {
@@ -652,7 +653,7 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 		return 0, 0
 	}
 
-	if car.parkingreward != 0 {
+	if car.parkingreward == 0 {
 		user.SendNotify("车辆没有可领取收益")
 		return 0, 0
 	}
@@ -660,7 +661,23 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 	reward = car.parkingreward
 	user.AddGold(reward, "领取自动回收收益", true)
 	car.SetParkingReward(0)
+	user.SendNotify("领取成功")
 	return 0, reward
+}
+
+// 自动从公共车位回收汽车
+func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
+	if car == nil || parking.IsRewardFull(car) == false {
+		return
+	}
+
+	user := UserMgr().FindById(car.ownerid)
+	this.TakeBackFromParking(user, car.parkingid, uint32(msg.CarOperatorType_AutoBack))
+
+	if user != nil {
+		automsg := &msg.GW2C_CarAutoBack{Carid:pb.Uint64(car.id)}
+		user.SendMsg(automsg)
+	}
 }
 
 func (this *CarManager) SaveAllData() {
@@ -717,8 +734,6 @@ func (this *CarManager) Handler1SecondTick(now int64) {
 		}
 		car := this.GetCar(v.parkingcar)
 		v.UpdateReward(car, uint64(now))
-		if v.IsRewardFull(car) == true {
-			this.TakeBackFromParking(UserMgr().FindById(car.ownerid), car.parkingid, uint32(msg.CarOperatorType_AutoBack))
-		}
+		this.AutoTakeBackCar(car, v)
 	}
 }
