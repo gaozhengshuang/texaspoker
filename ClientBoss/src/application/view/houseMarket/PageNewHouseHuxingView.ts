@@ -49,6 +49,7 @@ module game {
             this.filterPanel.addEventListener(CommonFilterPanel.SELECT, this.select_begin, this);
         }
         protected beforeRemove() {
+            this.delBuyPanel();
             this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
             this.filterPanel.removeEventListener(CommonFilterPanel.PRICE_SORT, this.price_sort_begin, this);
             this.filterPanel.removeEventListener(CommonFilterPanel.SELECT, this.select_begin, this);

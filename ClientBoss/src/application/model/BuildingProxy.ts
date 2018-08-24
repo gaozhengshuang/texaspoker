@@ -26,6 +26,7 @@ module game {
         private OnGW2C_AckBuyHouseFromBuilding(data: msg.GW2C_AckBuyHouseFromBuilding) {
 			console.log(data);
             if(data.ret==1){
+                sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({houseid:data.houseid}));
                 //sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({houseid:data.houseid}));
             }
 		}

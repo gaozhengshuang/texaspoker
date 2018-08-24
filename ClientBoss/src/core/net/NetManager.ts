@@ -7,7 +7,7 @@ module game {
     export var $goodsPath: string = "/v1/logistics/query";
 
     //外网IP
-      //export var $registIp: string = "http://210.73.214.74:7003";
+     // export var $registIp: string = "http://210.73.214.74:7003";
       //export var $netIp: string = "ws://210.73.214.74:7002/ws_handler";
      // export var $gameNetIp: string = "ws://210.73.214.74:{gamePort}/ws_handler";
 
