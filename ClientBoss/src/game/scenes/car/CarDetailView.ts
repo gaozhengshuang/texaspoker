@@ -145,6 +145,7 @@ module game {
             if(!this.Inited()) return;
             this.remove();
             this._inited  = false;
+            this.carData = null;
             GameConfig.showDownBtnFun(true); 
             delete CarDetailView._instance;
             CarDetailView._instance = null;
@@ -240,17 +241,17 @@ module game {
         public roomInfo: HouseVO;
 
         private showlist(index) {
-            console.log("展示列表showlist----------->",index);
+            //console.log("展示列表showlist----------->",index);
             //if (this.listIndex == index) return;
             if (this.goalY == -1) { this.goalY = GameConfig.innerHeight / 2 };
             if (this.goalH == -1) { this.goalH = GameConfig.innerHeight * 3 /4 };
             if (this.btnGoalY == -1) {
-                //this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20;
+            //this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20;
                 this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
                 - 20 * GameConfig.innerScaleW; 
             }
             this.listIndex = index;
-			console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
+			//console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
 
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
@@ -301,7 +302,7 @@ module game {
             }
         }
         private bindDataList(index: number) {
-            console.log("绑定数据--------->",index);
+            //console.log("绑定数据--------->",index);
             switch (index) {
                 case 1:
                     this.showDongtaiList();
@@ -314,9 +315,9 @@ module game {
  
         private dongtaiList: string[];
         public showDongtaiList() {
-            console.log("总共记录条数--->", DataManager.playerModel.getCarRecords().length);
+            //console.log("总共记录条数--->", DataManager.playerModel.getCarRecords().length);
             this.dongtaiList =  DataManager.playerModel.getCarRecords().filter(data=>{
-                console.log("记录类型-->",data);
+                //console.log("记录类型-->",data);
                 //筛选出自己被操作的记录
 /*                 switch(data.operatortype) 
                 {
@@ -329,7 +330,7 @@ module game {
                 } */
                 return true;
             });
-            console.log("dongtaiList.......",this.dongtaiList.length);
+            //console.log("dongtaiList.......",this.dongtaiList.length);
             if (this.itemList && this.listIndex == 1) {
                 this.itemList.bindData(this.dongtaiList);
             }
@@ -337,7 +338,7 @@ module game {
 
         private linjuList: HouseVO[];
         public showLinjuList(list: HouseVO[]) {
-            console.log("showLinjuList--------------->",list.length+" "+JSON.stringify(list));
+            //console.log("showLinjuList--------------->",list.length+" "+JSON.stringify(list));
             this._showLinjuList(list);
         }
 
@@ -464,6 +465,9 @@ module game {
                     }
                     break;
             }
+        }
+        public getSelectCarID(){
+            return  this.carData ? this.carData.id : 0;
         }
         //-----------------------------------------------------------------------------//
         public isDongTaiPanelView()
