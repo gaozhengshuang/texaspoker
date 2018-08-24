@@ -23,14 +23,14 @@ const (
 
 //车辆信息
 type CarData struct {
-	id         uint64 //车辆id
-	tid        uint32 //车的配置id
-	ownerid    uint64 //拥有者id
-	createtime uint64 //创建时间
-	parkingid  uint64 //车位id
-	ownername  string //拥有者名字
+	id            uint64 //车辆id
+	tid           uint32 //车的配置id
+	ownerid       uint64 //拥有者id
+	createtime    uint64 //创建时间
+	parkingid     uint64 //车位id
+	ownername     string //拥有者名字
 	parkingreward uint32 // 停车收益(自动回收)
-	modified   bool   //是否需要保存
+	modified      bool   //是否需要保存
 
 	template *table.TCarDefine
 }
@@ -57,7 +57,6 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 	}
 	return nil
 }
-
 
 func (this *CarData) SetParking(id uint64) {
 	this.parkingid = id
@@ -90,7 +89,7 @@ func (this *CarData) SaveBin(pipe redis.Pipeliner) {
 			}
 			this.modified = false
 		}
-	}else{
+	} else {
 		if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
 			log.Error("保存车辆[%d]数据失败", this.id)
 			return
@@ -111,7 +110,7 @@ type ParkingData struct {
 	parkingreward       uint32 //停车获得收益
 	parkingcartid       uint32 //停的车的配置id
 	houseid             uint64 //所属房屋id
-	modified   			bool   //是否需要保存
+	modified            bool   //是否需要保存
 
 	template *table.TParkingDefine
 }
@@ -170,7 +169,7 @@ func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 			}
 			this.modified = false
 		}
-	}else{
+	} else {
 		if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
 			log.Error("保存车位[%d]数据失败", this.id)
 			return
@@ -182,7 +181,7 @@ func (this *ParkingData) UpdateReward(car *CarData, now uint64) bool {
 	//计算经过了几个小时了
 	passedMinute := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Minutes()))
 	reward := (passedMinute * car.template.RewardPerH * this.template.RewardPercent) / 100
-	reward = uint32(math.Min(float64(reward),float64(car.template.Capacity)))
+	reward = uint32(math.Min(float64(reward), float64(car.template.Capacity)))
 	if this.parkingreward != reward {
 		this.parkingreward = reward
 		return true
@@ -227,15 +226,14 @@ func (this *ParkingData) IsRewardFull(car *CarData) bool {
 	return false
 }
 
-
 //车辆管理器
 type CarManager struct {
 	cars     map[uint64]*CarData //已加载的所有车辆的map
 	usercars map[uint64][]uint64 //玩家id 关联的车辆id
 
-	parkings     map[uint64]*ParkingData //已加载的所有车位map
-	userparkings map[uint64][]uint64     //玩家id 关联的车位id
-	publicparkings uint32		// 公共车位数
+	parkings       map[uint64]*ParkingData //已加载的所有车位map
+	userparkings   map[uint64][]uint64     //玩家id 关联的车位id
+	publicparkings uint32                  // 公共车位数
 
 	ticker1Minite *util.GameTicker
 	ticker1Second *util.GameTicker
@@ -258,7 +256,9 @@ func (this *CarManager) Init() {
 
 	//创建公共车位
 	for _, v := range this.parkings {
-		if v.IsPublic() { this.publicparkings += 1 }
+		if v.IsPublic() {
+			this.publicparkings += 1
+		}
 	}
 	for i := this.publicparkings; i < uint32(tbl.Car.PulicParkingNum); i++ {
 		this.CreateNewParking(0, 1001, "公共车位", 0)
@@ -272,9 +272,9 @@ func (this *CarManager) LoadCarFromDB() {
 	if err != nil {
 		log.Error("启动加载车辆数据失败 err: %s", err)
 		return
-	} 
+	}
 
-	pipe := Redis().Pipeline() 
+	pipe := Redis().Pipeline()
 	defer pipe.Close()
 	for _, v := range carsIds {
 		carid, _ := strconv.Atoi(v)
@@ -287,7 +287,9 @@ func (this *CarManager) LoadCarFromDB() {
 	}
 
 	for _, v := range cmds {
-		if v.Err() == redis.Nil { continue }
+		if v.Err() == redis.Nil {
+			continue
+		}
 		rbuf, _ := v.(*redis.StringCmd).Bytes()
 		car := &CarData{}
 		if car.LoadBin(rbuf) == nil {
@@ -303,7 +305,7 @@ func (this *CarManager) LoadParkingFromDB() {
 	if err != nil {
 		log.Error("启动加载车位数据失败 err: %s", err)
 		return
-	} 
+	}
 
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
@@ -318,7 +320,9 @@ func (this *CarManager) LoadParkingFromDB() {
 	}
 
 	for _, v := range cmds {
-		if v.Err() == redis.Nil { continue }
+		if v.Err() == redis.Nil {
+			continue
+		}
 		rbuf, _ := v.(*redis.StringCmd).Bytes()
 		parking := &ParkingData{}
 		if parking.LoadBin(rbuf) == nil {
@@ -405,8 +409,8 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 	return rlist
 }
 
-func (this *CarManager) CreateNewRecord(handleid uint64,ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
-	prefix := fmt.Sprintf("%d_%d_%s  ", handleid,opttype,time.Now().Format("15:04"))
+func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
+	prefix := fmt.Sprintf("%d_%d_%s  ", handleid, opttype, time.Now().Format("15:04"))
 	data := ""
 	switch opttype {
 	case uint32(msg.CarOperatorType_Park):
@@ -474,7 +478,13 @@ func (this *CarManager) GetParkingByCondition(parkingtype uint32, playerid uint6
 		if playerid != 0 && v.ownerid != playerid {
 			continue
 		}
-		if len(houseids) > 0 && !def.IsContainObj(v.houseid, houseids) {
+		bhas := false
+		for _, w := range houseids {
+			if v.houseid == w {
+				bhas = true
+			}
+		}
+		if len(houseids) > 0 && !bhas {
 			continue
 		}
 		data = append(data, v)
@@ -538,7 +548,7 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	}
 	//可以了
 	parking.Parking(car, username)
-	record := this.CreateNewRecord(car.ownerid,parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
+	record := this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
 	car.modified = true
 	parking.modified = true
 
@@ -546,7 +556,7 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	sendOwner := UserMgr().FindById(parking.ownerid)
 	if sendOwner != nil {
 		sendRecord := &msg.GW2C_SynParkingRecord{}
-		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
+		sendRecord.Records = append(sendRecord.Records, *pb.String(record))
 		sendOwner.SendMsg(sendRecord)
 	}
 	return 0
@@ -593,20 +603,22 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 		return 3, 0
 	}
 	//可以收回
-	reward = parking.TakeBack() 
+	reward = parking.TakeBack()
 	record, notifyuser := "", uint64(0)
 	switch optype {
 	case uint32(msg.CarOperatorType_TakeBack):
 		record = this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
 		notifyuser = parking.ownerid
-		user.AddGold(reward,"收回车辆收益",true)
+		user.AddGold(reward, "收回车辆收益", true)
 		break
 	case uint32(msg.CarOperatorType_Ticket):
 		record = this.CreateNewRecord(parking.ownerid, car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
 		notifyuser = car.ownerid
-		user.AddGold(reward,"贴条车辆收益",true)
+		user.AddGold(reward, "贴条车辆收益", true)
 		reaper := UserMgr().FindById(parking.ownerid)
-		if reaper != nil { reaper.AddGold(reward,"贴条车辆收益",true) }
+		if reaper != nil {
+			reaper.AddGold(reward, "贴条车辆收益", true)
+		}
 		break
 	case uint32(msg.CarOperatorType_AutoBack):
 		record = this.CreateNewRecord(parking.id, car.ownerid, car, parking, uint32(msg.CarOperatorType_AutoBack), reward)
@@ -623,12 +635,11 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 	sendOwner := UserMgr().FindById(notifyuser)
 	if sendOwner != nil {
 		sendRecord := &msg.GW2C_SynParkingRecord{}
-		sendRecord.Records = append(sendRecord.Records,*pb.String(record))
+		sendRecord.Records = append(sendRecord.Records, *pb.String(record))
 		sendOwner.SendMsg(sendRecord)
 	}
 	return 0, reward
 }
-
 
 func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (result uint32, reward uint32) {
 	car := CarMgr().GetCar(carid)
@@ -654,7 +665,7 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 
 func (this *CarManager) SaveAllData() {
 	pipe := Redis().Pipeline()
-		
+
 	for _, v := range this.cars {
 		v.SaveBin(pipe)
 	}
@@ -677,13 +688,13 @@ func (this *CarManager) AppendHouseData(houses []*msg.HouseData) {
 	}
 }
 
-func (this *CarManager) GetParkingHouseList(uid uint64) []uint64{
+func (this *CarManager) GetParkingHouseList(uid uint64) []uint64 {
 	retIds := make([]uint64, 0)
 	cars := this.GetCarByUser(uid)
-	for _,c := range cars {
+	for _, c := range cars {
 		if c.parkingid != 0 {
 			parking := this.GetParking(c.parkingid)
-			retIds = append(retIds,parking.houseid)
+			retIds = append(retIds, parking.houseid)
 		}
 	}
 	return retIds
