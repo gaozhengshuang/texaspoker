@@ -117,7 +117,7 @@ module game {
         public UpdateData(datas:msg.ICarProductData[]) {
             if(!datas) return;
             this.shopDatas = datas;
-
+        
             let userInfo = DataManager.playerModel.getUserInfo();
             this.goldNum.text    = userInfo.gold.toString();
             this.diamondNum.text = userInfo.diamond.toString();
@@ -125,7 +125,9 @@ module game {
 
             if(this.SortTypes.length>0){
                 //按照之前的类型刷新商品列表
-                this.SortTypes.forEach(data=>{
+                this.sortShopDatas = [];
+                let SortTypes = this.SortTypes.map(data=>{return data;});
+                SortTypes.forEach(data=>{
                     let value = data.type==CarShop.sortType.BRAND ? data.brand : (data.type==CarShop.sortType.MODEL ? data.brand+""+data.model : "");
                     this.sortShopItem(data.type,value);
                 });
@@ -202,13 +204,41 @@ module game {
 
             this.sortShopItem(this.awardSortType);
         }
-
+        //排序和筛选
+        public sortItem(type:number,value:any=null)
+        {
+            if(type==CarShop.sortType.BRAND || type==CarShop.sortType.MODEL){
+                this.sortByBrandOrModel(type,value);
+            }
+            else{
+                this.sortShopItem(type,value);
+            }
+        }
+        //按照品牌刷新
+        private sortByBrandOrModel(type:number,value:any=null)
+        {
+            if(type==CarShop.sortType.BRAND || type==CarShop.sortType.MODEL)
+            {
+                //按照之前的类型刷新商品列表
+                if(this.SortTypes.length>0){
+                    this.sortShopDatas = [];
+                    this.addSortType(type,value);
+                    let SortTypes = this.SortTypes.map(data=>{return data;});
+                    SortTypes.forEach(data=>{
+                        let value = data.type==CarShop.sortType.BRAND ? data.brand : (data.type==CarShop.sortType.MODEL ? data.brand+""+data.model : "");
+                        this.sortShopItem(data.type,value);
+                    });    
+                }else{
+                    this.sortShopItem(type,value); 
+                }
+            }
+        }
         //按类型排序
-        public sortShopItem(type:number,value:any=null)
+        private sortShopItem(type:number,value:any=null)
         {   
             this.addSortType(type,value);
-            //let datas: msg.ICarProductData[] = this.shopDatas.map(data=>{return data;});
-            let datas: msg.ICarProductData[] = this.sortShopDatas.length==0 ? this.shopDatas.map(data=>{return data;}) : this.sortShopDatas.map(data=>{return data;})
+            let datas: msg.ICarProductData[] = [];
+            datas = this.sortShopDatas.length==0 ? this.shopDatas : this.sortShopDatas;
             if(type == CarShop.sortType.BRAND)
             {
                 datas =  datas.filter(data=>{
@@ -228,17 +258,17 @@ module game {
             else if(type == CarShop.sortType.PRICEUP)
             {
                 datas.sort(function(a,b){
-                    let carItemData_a :table.ITCarDefine = table.TCarById[table.TCarShopById[a.pid].Carid];
-                    let carItemData_b :table.ITCarDefine = table.TCarById[table.TCarShopById[b.pid].Carid];
-                    return  carItemData_a.Price - carItemData_b.Price;
+                    let carShopData_a :table.ITCarDefine = table.TCarShopById[a.pid];
+                    let carShopData_b :table.ITCarDefine = table.TCarShopById[b.pid];
+                    return  carShopData_a.Price - carShopData_b.Price;
                 });
             }
             else if(type == CarShop.sortType.PRICEDOWN)
             {
                 datas.sort(function(a,b){
-                    let carItemData_a :table.ITCarDefine = table.TCarById[table.TCarShopById[a.pid].Carid];
-                    let carItemData_b :table.ITCarDefine = table.TCarById[table.TCarShopById[b.pid].Carid];
-                    return  carItemData_b.Price - carItemData_a.Price;
+                    let carShopData_a :table.ITCarDefine = table.TCarShopById[a.pid];
+                    let carShopData_b :table.ITCarDefine = table.TCarShopById[b.pid];
+                    return  carShopData_b.Price - carShopData_a.Price;
                 });
             }
             else if(type == CarShop.sortType.AWARDUP)
@@ -272,12 +302,24 @@ module game {
             switch (type) {
                 case CarShop.sortType.BRAND:
                 {
+                    for (let i = 0; i < this.SortTypes.length; i++) {
+                        if(this.SortTypes[i].type==CarShop.sortType.MODEL){
+                            this.SortTypes.splice(i,1);
+                            break;
+                        }
+                    }
                     _CarFilterData  = new CarFilterData(type,value,""); 
                     this.SortTypes.push(_CarFilterData);
                 }
                 break;
                 case CarShop.sortType.MODEL:
                 {
+                    for (let i = 0; i < this.SortTypes.length; i++) {
+                        if(this.SortTypes[i].type==CarShop.sortType.BRAND){
+                            this.SortTypes.splice(i,1);
+                            break;
+                        }
+                    }
                     _CarFilterData  = new CarFilterData(type,"",value); 
                     this.SortTypes.push(_CarFilterData);
                 }
@@ -336,6 +378,7 @@ module game {
             this.SortTypes = [];
             this.sortShopDatas = [];
         }
+
         private oldY: number = 0;
         private oldH: number = 0;
   
