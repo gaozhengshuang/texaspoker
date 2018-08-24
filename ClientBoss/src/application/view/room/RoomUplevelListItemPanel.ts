@@ -35,7 +35,7 @@ module game {
                     this.goldImg.visible=true;
                     this.lock_txt.visible=false;
                     type = table.THouseById[this.itemDate.data.tId];
-                    if (this.itemDate.data.level < 5) {
+                    if (this.itemDate.data.level < this.itemDate.MaxLv) {
                         this.spend_txt.visible = true;
                         this.btnGruop.visible = true;
                         this.manji_txt.visible = false;
@@ -59,7 +59,7 @@ module game {
                     type = table.THouseCellById[this.itemDate.data.tid];
                     typeNext = table.THouseCellById[this.itemDate.data.tid + 1];
                     this.chanliang_txt.visible = true;
-                    if (this.itemDate.data.level < 5) {
+                    if (this.itemDate.data.level < this.itemDate.MaxLv) {
                         this.btnGruop.visible = true;
                         this.manji_txt.visible = false;
 

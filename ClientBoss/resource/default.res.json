@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall_3_json,hall_2_json,hall_1_json,uiCarAltas_json,carIconAltas_json,carParkBg_png,carShopBuyBg_png",
+			"keys": "hall_3_json,hall_2_json,hall_1_json,uiCarAltas_json,carIconAltas_json,carParkBg_png,carShopBuyBg_png,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png",
 			"name": "hall"
 		},
 		{
@@ -337,6 +337,26 @@
 			"url": "assets/bg/carShopBuyBg.png",
 			"type": "image",
 			"name": "carShopBuyBg_png"
+		},
+		{
+			"url": "assets/bg/huxing_1001_b.png",
+			"type": "image",
+			"name": "huxing_1001_b_png"
+		},
+		{
+			"url": "assets/bg/huxing_2001_b.png",
+			"type": "image",
+			"name": "huxing_2001_b_png"
+		},
+		{
+			"url": "assets/bg/huxing_3001_b.png",
+			"type": "image",
+			"name": "huxing_3001_b_png"
+		},
+		{
+			"url": "assets/bg/huxing_4001_b.png",
+			"type": "image",
+			"name": "huxing_4001_b_png"
 		}
 	]
 }

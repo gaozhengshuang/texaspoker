@@ -117,7 +117,7 @@ module game {
                         GameConfig.showDownBtnFun(true);
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_NUM, { isShow: false });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
-                        if(GameConfig.pageType==2){
+                        if(GameConfig.pageType==3){
                             GameConfig.setEventsReply(false);
                             ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
                         }else{

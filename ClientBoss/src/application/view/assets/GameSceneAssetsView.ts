@@ -100,7 +100,7 @@ module game {
 		private onItemTouch(eve: eui.ItemTapEvent) {
 			let item: HouseVO = this.assetsList[eve.itemIndex];
 			if (item) {
-				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { userid: item.ownerid }));
+				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { houseid: item.rId }));
 			}
 		}
 		private OnGW2C_ResCarInfo(msgs: msg.GW2C_ResCarInfo) {

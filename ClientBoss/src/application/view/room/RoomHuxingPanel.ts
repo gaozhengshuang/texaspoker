@@ -6,25 +6,32 @@ module game {
 			this.roomView = rView;
 		}
 		private roomInfo: HouseVO;
+		private roomTypeInfo: any;
 		private bubbleList: any[] = [];
 		private qiPaoList: QipaoPanel[] = [];
 		private huxingImage: egret.Bitmap;
 
-		private qipaoWeizhi: any[] = [{ x: 190, y: 198 }, { x: 460, y: 330 }, { x: 630, y: 90 }, { x: 448, y: 0 }]
+		private qipaoWeizhi1: any[] = [{ x: 351, y: 175 }, { x: 472, y: 2 }, { x: 178, y: 17 }, { x: 25, y: 20 }]
+		private qipaoWeizhi2: any[] = [{ x: 348, y: 254 }, { x: 187, y: 0 }, { x: 184, y: 139 }, { x: 30, y: 142 }, { x: 473, y: 64 }]
+		private qipaoWeizhi3: any[] = [{ x: 338, y: 367 }, { x: 180, y: 64 }, { x: 185, y: 238 }, { x: 28, y: 253 }, { x: 268, y: 0 }, { x: 470, y: 150 }]
+		private qipaoWeizhi4: any[] = [{ x: 338, y: 367 }, { x: 180, y: 64 }, { x: 185, y: 238 }, { x: 28, y: 253 }, { x: 268, y: 0 }, { x: 470, y: 150 }, { x: 496, y: 0 }]
 		public init(rVo: HouseVO) {
 			this.roomInfo = rVo;
-			this.huxingImage = new egret.Bitmap();
-			console.log(RES.getRes("hx_4001_png"));
-			this.huxingImage.texture = RES.getRes(/*roomType.rImage+*/"hx_4001_png");
-			console.log(this.huxingImage.width);
-			this.huxingImage.width = this.huxingImage.width * 2;
-			this.huxingImage.height = this.huxingImage.height * 2;
-			console.log(this.huxingImage.width);
-			this.width = this.huxingImage.width;
-			this.height = this.huxingImage.height;
-			this.addChild(this.huxingImage);
-			this.y = this.parent.height / 2 - this.height / 2 + 30;
-			this.initQipao(this.roomInfo.housecells);
+			this.roomTypeInfo = table.THouseById[this.roomInfo.tId];
+			if (this.roomTypeInfo) {
+				this.huxingImage = new egret.Bitmap();
+				console.log(RES.getRes("hx_4001_png"));
+				this.huxingImage.texture = RES.getRes("huxing_" + this.roomTypeInfo.ImageId + "_b_png");
+				console.log(this.huxingImage.width);
+				this.huxingImage.width = this.huxingImage.width;
+				this.huxingImage.height = this.huxingImage.height;
+				console.log(this.huxingImage.width);
+				this.width = this.huxingImage.width;
+				this.height = this.huxingImage.height;
+				this.addChild(this.huxingImage);
+				this.y = this.parent.height / 2 - this.height / 2 + 30;
+				this.initQipao(this.roomInfo.housecells);
+			}
 		}
 		public update(rVo: HouseVO) {
 			this.roomInfo = rVo;
@@ -39,7 +46,7 @@ module game {
 				for (let i: number = 0; i < bubble.length; i++) {
 					let qipao: QipaoPanel = new QipaoPanel(this.roomView);
 					this.addChild(qipao);
-					let point: any = this.qipaoWeizhi[bubble[i].index - 1];
+					let point: any = this["qipaoWeizhi" + (this.roomTypeInfo.MaxCells - 3)][bubble[i].index - 1];
 					qipao.x = point.x;
 					qipao.y = point.y;
 					let oldY: number = qipao.y;
