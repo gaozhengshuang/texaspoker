@@ -8895,6 +8895,9 @@ declare namespace msg {
 
         /** GW2C_AckBuyHouseFromBuilding ret */
         ret?: (number|null);
+
+        /** GW2C_AckBuyHouseFromBuilding houseid */
+        houseid?: (number|Long|null);
     }
 
     /** Represents a GW2C_AckBuyHouseFromBuilding. */
@@ -8914,6 +8917,9 @@ declare namespace msg {
 
         /** GW2C_AckBuyHouseFromBuilding ret. */
         public ret: number;
+
+        /** GW2C_AckBuyHouseFromBuilding houseid. */
+        public houseid: (number|Long);
 
         /**
          * Creates a new GW2C_AckBuyHouseFromBuilding instance using the specified properties.

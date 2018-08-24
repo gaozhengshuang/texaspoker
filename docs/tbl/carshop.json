@@ -2,14 +2,14 @@
 	"Tool": "github.com/davyxu/tabtoy",
 	"Version": "2.8.10",
 	"TCarShop":[
-		{ "Id": 10001, "ShopId": 1, "Carid": 1001, "Price": 240, "Nums": 100 },
-		{ "Id": 10002, "ShopId": 1, "Carid": 1002, "Price": 2400, "Nums": 100 },
-		{ "Id": 10003, "ShopId": 1, "Carid": 1003, "Price": 5400, "Nums": 100 },
-		{ "Id": 10004, "ShopId": 1, "Carid": 1004, "Price": 9600, "Nums": 100 },
-		{ "Id": 10005, "ShopId": 1, "Carid": 1005, "Price": 15000, "Nums": 100 },
-		{ "Id": 10006, "ShopId": 1, "Carid": 1006, "Price": 21600, "Nums": 100 },
-		{ "Id": 10007, "ShopId": 2, "Carid": 1007, "Price": 29400, "Nums": 101 },
-		{ "Id": 10008, "ShopId": 3, "Carid": 1008, "Price": 38400, "Nums": 102 },
-		{ "Id": 10009, "ShopId": 4, "Carid": 1009, "Price": 48600, "Nums": 103 },
-		{ "Id": 10010, "ShopId": 5, "Carid": 1010, "Price": 60000, "Nums": 104 }
+		{ "Id": 10001, "ShopId": 1, "Carid": 1001, "Price": 720, "Nums": 100 },
+		{ "Id": 10002, "ShopId": 1, "Carid": 1002, "Price": 2880, "Nums": 100 },
+		{ "Id": 10003, "ShopId": 1, "Carid": 1003, "Price": 6480, "Nums": 100 },
+		{ "Id": 10004, "ShopId": 1, "Carid": 1004, "Price": 17280, "Nums": 100 },
+		{ "Id": 10005, "ShopId": 1, "Carid": 1005, "Price": 43200, "Nums": 100 },
+		{ "Id": 10006, "ShopId": 1, "Carid": 1006, "Price": 77760, "Nums": 100 },
+		{ "Id": 10007, "ShopId": 2, "Carid": 1007, "Price": 151200, "Nums": 101 },
+		{ "Id": 10008, "ShopId": 3, "Carid": 1008, "Price": 241920, "Nums": 102 },
+		{ "Id": 10009, "ShopId": 4, "Carid": 1009, "Price": 349920, "Nums": 103 },
+		{ "Id": 10010, "ShopId": 5, "Carid": 1010, "Price": 540000, "Nums": 104 }
 	]}
