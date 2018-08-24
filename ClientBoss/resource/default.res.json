@@ -307,7 +307,7 @@
 			"url": "assets/texpack/hall_1.json",
 			"type": "sheet",
 			"name": "hall_1_json",
-			"subkeys": "mineIcon1_png,mineIcon2_png,mineIcon3_png,mineIcon4_png,mineIcon5_png,myAssetsBg1_png,new_room_point1_png,qiangIcon_png,qipaoIcon1_png,roomLevelIcon1_png,roomLevelIcon2_png,roomLevelIcon3_png,roomLevelIcon4_png,roomLevelIcon5_png,roomLock1_png,roomUnlock1_png,roomUserInfo-bg_png,room_baifang_btn1_png,room_dongtai_btn1_png,room_headBg1_png,room_level_btn1_png,room_lingju_btn1_png,room_quit_btn2_png,room_weizhi_icon1_png,smallGoldIcon1_png,tilingIcon1_png,titleBg1_png,ui_comn_icon_gold_png,ui_login_button_forget_png,ui_login_button_go_login_png,ui_login_button_go_register_png,ui_login_button_png,ui_login_logo_png,userInfo_bg1_png,userRoomNoBg_png,vertical_line1_png,vipIcon_png,welcmoe_btn1_png,welcome_bg1_png,ziyuan_top_di_png"
+			"subkeys": "filterBg1_png,filterTriangle1_png,mineIcon1_png,mineIcon2_png,mineIcon3_png,mineIcon4_png,mineIcon5_png,myAssetsBg1_png,new_room_point1_png,qiangIcon_png,qipaoIcon1_png,roomLevelIcon1_png,roomLevelIcon2_png,roomLevelIcon3_png,roomLevelIcon4_png,roomLevelIcon5_png,roomLock1_png,roomUnlock1_png,roomUserInfo-bg_png,room_baifang_btn1_png,room_dongtai_btn1_png,room_headBg1_png,room_level_btn1_png,room_lingju_btn1_png,room_quit_btn2_png,room_weizhi_icon1_png,smallGoldIcon1_png,tilingIcon1_png,titleBg1_png,ui_comn_icon_gold_png,ui_login_button_forget_png,ui_login_button_go_login_png,ui_login_button_go_register_png,ui_login_button_png,ui_login_logo_png,userInfo_bg1_png,userRoomNoBg_png,vertical_line1_png,vipIcon_png,welcmoe_btn1_png,welcome_bg1_png,ziyuan_top_di_png"
 		},
 		{
 			"url": "assets/texpack/preload.json",
