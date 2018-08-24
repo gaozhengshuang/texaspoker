@@ -11,8 +11,8 @@ module game {
         }
 
         public sceneMediatorName: string = "";
-        private _lastPanelView: PanelComponent | egret.DisplayObjectContainer;
-
+        private _lastPanelView: PanelComponent | GameMapContentView;
+        private _gameMapView: GameMapContentView;
         public listNotificationInterests(): Array<any> {
             return [
                 CommandName.SCENE_SWITCH_LOGIN,
@@ -52,10 +52,13 @@ module game {
                         GameConfig.sceneType = 2;
                         GameConfig.updataMaskBgFun('#f5f5f5', 0);
                         GameConfig.setEventsReply(false);
-                        let view = new GameMapContentView();
-                        this.sceneGroup.addChild(view);
-                        view.initView();
-                        this._lastPanelView = view;
+                        if (!this._gameMapView) {
+                            this._gameMapView = new GameMapContentView();
+                        }
+                        // this.sceneGroup.addChild(view);
+                        this._gameMapView.clear();
+                        this._gameMapView.initView();
+                        this._lastPanelView = this._gameMapView;
                         // ApplicationFacade.getInstance().registerMediator(new MapContentMediator(this._lastPanelView));
                         ApplicationFacade.getInstance().registerMdt<MapContentMediator>(MapContentMediator.NAME, MapContentMediator, this._lastPanelView);
 
@@ -148,8 +151,8 @@ module game {
                 this._lastPanelView.remove();
             }
             else {
-                if (this._lastPanelView && this._lastPanelView.parent) {
-                    this._lastPanelView.parent.removeChild(this._lastPanelView);
+                if (this._lastPanelView instanceof GameMapContentView) {
+                    this._lastPanelView.clear();
                 }
             }
             if (this.sceneMediatorName != "") {
@@ -157,10 +160,6 @@ module game {
             }
             ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
             ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_INFO, { isShow: false });
-        }
-
-        public get sceneGroup(): egret.Sprite {
-            return <egret.Sprite><any>(this.viewComponent);
         }
     }
 }

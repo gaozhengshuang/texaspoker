@@ -37,22 +37,24 @@ module game {
 
         //进入大厅场景 由mvc来完成
         ApplicationFacade.getInstance().startUp(gamelayer);
-        SceneManager.changeScene(SceneType.hall);
-        
-        let mapProxy = <MapProxy>ApplicationFacade.getInstance().retrieveProxy(MapProxy.NAME);
-        mapProxy.LoginBtnClick();
+        egret.callLater(() => {
+            SceneManager.changeScene(SceneType.hall);
 
-        // SceneManager.changeScene(SceneType.main);
+            let mapProxy = <MapProxy>ApplicationFacade.getInstance().retrieveProxy(MapProxy.NAME);
+            mapProxy.LoginBtnClick();
 
-        //登录完成关闭loading界面
-        NotificationCenter.postNotification("closeLoadingSkin");
-        NotificationCenter.once(this, connectFailed, ClientNet.SOCKET_CONNECT_CLOSE);
-        startHeart();
-        window.onbeforeunload = () => {
-            stopHeart();
-            ClientNet.getInstance().onConnectClose();
-            return;
-        }
+            // SceneManager.changeScene(SceneType.main);
+
+            //登录完成关闭loading界面
+            NotificationCenter.postNotification("closeLoadingSkin");
+            NotificationCenter.once(this, connectFailed, ClientNet.SOCKET_CONNECT_CLOSE);
+            startHeart();
+            window.onbeforeunload = () => {
+                stopHeart();
+                ClientNet.getInstance().onConnectClose();
+                return;
+            }
+        }, this);
     }
 
     export function connectFailed() {

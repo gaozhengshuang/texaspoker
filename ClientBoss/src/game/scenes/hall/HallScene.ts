@@ -8,10 +8,6 @@ module game {
 		protected getSkinName() {
 			return HallSceneSkin;
 		}
-		protected init() {
-			// ApplicationFacade.getInstance().registerMediator(new SceneMediator(this));
-			ApplicationFacade.getInstance().registerMdt<SceneMediator>(SceneMediator.NAME, SceneMediator, this);
-		}
 
 		private static _instance: HallScene;
 

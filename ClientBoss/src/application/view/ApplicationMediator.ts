@@ -32,6 +32,8 @@ module game {
             ApplicationFacade.getInstance().registerMdt<UIMediator>(UIMediator.NAME, UIMediator, GameLayer.panelLayer);
             // ApplicationFacade.getInstance().registerMediator(new PopupMediator(GameLayer.effectLayer));
             ApplicationFacade.getInstance().registerMdt<PopupMediator>(PopupMediator.NAME, PopupMediator, GameLayer.effectLayer);
+
+            ApplicationFacade.getInstance().registerMdt<SceneMediator>(SceneMediator.NAME, SceneMediator, GameLayer.sceneLayer);
             //ApplicationFacade.getInstance().registerMediator(new SceneSwitchMediator(this.loadingView));
             // ApplicationFacade.getInstance().registerMediator(new AlertMediator(GameLayer.alertLayer));
 

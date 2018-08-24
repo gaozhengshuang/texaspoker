@@ -51,7 +51,7 @@ func (this *GateUser) AddGold(gold uint32, reason string, syn bool) {
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
 func (this *GateUser) RemoveGold(gold uint32, reason string, syn bool) bool {
-	if this.GetGold() > gold {
+	if this.GetGold() >= gold {
 		this.gold = this.GetGold() - gold
 		if syn {
 			send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetGold())}

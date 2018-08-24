@@ -3,8 +3,8 @@
 	<e:Label id="name_txt" text="七宝土豪宝土豪" x="108.04" textColor="0x3d4558" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="207.33" y="34.5"/>
 	<e:Label id="roomNum_txt" text="房间号 : 123456" x="312.67" textColor="0x3D4558" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="234.33" y="34.5"/>
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" left="0" height="2"/>
-	<e:Image source="have_coin_icon_png" x="1044" y="8"/>
-	<e:Image source="have_quan_icon_png" x="1238" y="8"/>
+
+
 	<e:Image x="13" scaleX="0.4" scaleY="0.4" source="defaultHead1_png" verticalCenter="0"/>
 	<e:Button label="掠夺" x="559" y="19" visible="false">
 		<e:skinName>

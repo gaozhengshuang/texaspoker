@@ -54,7 +54,7 @@ module game {
 				break;
 			}
 		}
-		public get sceneGroup():GameSceneAssetsView
+		private get sceneGroup():GameSceneAssetsView
         {
 			return <GameSceneAssetsView><any> (this.viewComponent);
 		}

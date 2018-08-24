@@ -881,8 +881,13 @@ func (this *GateUser) StartGameFail(err string) {
 func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
 
 	// 重置房间数据
+	send := &msg.BT_GameRoomDestroy{Roomid:pb.Int64(this.RoomId())}
+	this.SendMsg(send)
+
 	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", this.Name(), this.Id(), this.RoomId(), reason)
 	this.roomdata.Reset()
+
+
 
 	// 加载玩家最新数据
 	//if bin != nil {

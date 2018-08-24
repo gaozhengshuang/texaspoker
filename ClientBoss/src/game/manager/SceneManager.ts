@@ -1,7 +1,7 @@
 module game {
     export class SceneManager {
         private static _curSceneType: SceneType;
-        private static _curScene: SceneComponent|PanelComponent;
+        private static _curScene: SceneComponent;
         private static _lastSceneType: SceneType;
 
         private static _resLoadStateMap: game.Map<SceneType, boolean> = new game.Map<SceneType, boolean>();
@@ -69,7 +69,9 @@ module game {
                 RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, SceneManager.onItemLoadError, this);
 
                 SceneManager._resLoadStateMap.add(sceneType, true);
-                LoadingScenePanel.getInstance().remove();
+                if (panelIsShow(PanelType.LoadingScenePanel)) {
+                    LoadingScenePanel.getInstance().remove();
+                }
                 SceneManager.showScene(sceneType);
             }
         }

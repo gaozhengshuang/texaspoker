@@ -33,7 +33,7 @@ module game {
 		{
 			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
 		}
-		public get sceneGroup():WelcomeNewPlayersPanel
+		private get sceneGroup():WelcomeNewPlayersPanel
         {
 			return <WelcomeNewPlayersPanel><any> (this.viewComponent);
 		}
