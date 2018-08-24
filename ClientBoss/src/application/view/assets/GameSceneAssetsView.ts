@@ -67,6 +67,14 @@ module game {
 			} else if (this.currentGroupId == 1) {
 				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.PAGE_SWITCH, { pageIndex: 1 }));
 			}
+			else{
+				openPanel(PanelType.CarShop);
+				GameConfig.showDownBtnFun(false);
+				CarManager.getInstance().ReqCarShopInfo(1,function(carProducts:msg.ICarProductData[]){
+					CarShop.getInstance().UpdateData(carProducts);
+				})
+			}
+
 		}
 		private assetsItemList: utils.ScrollerPanel;
 		private assetsList: any[] = [];
