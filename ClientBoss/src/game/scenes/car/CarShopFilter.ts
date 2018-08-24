@@ -73,7 +73,7 @@ module game {
             console.log("updateView---->",this.filterDatas.length);
             this._dataProv_model.removeAll();
 
-            let modelFilterDatas : CarFilterData[] = this.brandFilterDatas.filter(data=>{return data.brand == brand;}).map(data=>{
+            let modelFilterDatas : CarFilterData[] = this.filterDatas.filter(data=>{return data.brand == brand;}).map(data=>{
                 let _data : CarFilterData = new CarFilterData(CarShop.sortType.MODEL,data.brand,data.model);
                 return _data;
             });

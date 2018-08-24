@@ -181,9 +181,19 @@ module game {
                 this.hideList();
                 //清除筛选Types
                 this.SortTypes = this.SortTypes.filter(data=>{return data.type!=CarShop.sortType.BRAND && data.type!=CarShop.sortType.MODEL;});
-                this.sortShopDatas = [];
                 //重新刷新商品列表
-                this.updateView(this.shopDatas);
+                if(this.SortTypes.length>0){
+                    //按照之前的类型刷新商品列表
+                    this.sortShopDatas = [];
+                    let SortTypes = this.SortTypes.map(data=>{return data;});
+                    SortTypes.forEach(data=>{
+                        let value = data.type==CarShop.sortType.BRAND ? data.brand : (data.type==CarShop.sortType.MODEL ? data.brand+""+data.model : "");
+                        this.sortShopItem(data.type,value);
+                    });
+                }
+                else{
+                    this.updateView(this.shopDatas);
+                }
             }
         }
         private OnSortPriceHandle(){
