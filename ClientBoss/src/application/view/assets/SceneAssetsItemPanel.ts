@@ -47,13 +47,17 @@ module game {
                 }else{
                     this.name_txt.text = this.itemDate.rId+"号房间";
                 }
-                
-                this.huxing_txt.text="户型：一室一厅";
+                let houseType:any=table.THouseById[this.itemDate.tId];
+                if(houseType){
+                    this.huxing_txt.text="户型："+houseType.Des;
+                    this.build_img.source=RES.getRes("huxing_"+houseType.ImageId+"_s_png");
+                }
                 if(this.itemDate.isHave){
                     this.jiaoBiaoIcon.visible=true;
                 }else{
                     this.jiaoBiaoIcon.visible=false;
                 }
+                
                 /*let weizhiTxt = this.weizhi_txt;
                 GameConfig.getCityNameFun(this.itemDate.bLatLng[0],
                     this.itemDate.bLatLng[1], function (txt: string) {

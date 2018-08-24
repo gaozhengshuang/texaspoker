@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="NewHousehHuxingItemSkin" width="720" height="200" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="bg_mc" width="720" height="200" x="0" y="0" fillAlpha="1" fillColor="0xD8D8D8"/>
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
-	<e:Button id="goin_btn" label="购 买" width="150" height="56" x="538" y="89">
+	<e:Button id="buy_btn" label="购 买" width="150" height="56" x="538" y="89">
 		<e:skinName>
 		<e:Skin states="up,down,disabled" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
 			<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
@@ -9,19 +10,19 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Image x="25" verticalCenter="0" source="huxing_1001_s_png"/>
-	<e:Label id="weizhi_txt5" text="剩余100套" x="548" y="148" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="130" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center"/>
+	<e:Image id="huxingImg" x="25" verticalCenter="0" source="huxing_1001_s_png"/>
+	<e:Label id="shengyu_txt" text="剩余100套" x="548" y="148" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="130" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center"/>
 	<e:Label id="name_txt" text="1室厅1厨1卫(50平)" x="215" y="29" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="294" textColor="0x404A58" touchEnabled="false" bold="true" stroke="2" strokeColor="0xffffff"/>
 	<e:Group x="215" y="73">
 		<e:Label id="weizhi_txt" text="单价：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="weizhi_txt2" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="danjia_txt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
 	</e:Group>
 	<e:Group x="215" y="106">
-		<e:Label id="weizhi_txt3" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="shouyi_txt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
 		<e:Label id="weizhi_txt0" text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
 	</e:Group>
 	<e:Group x="215" y="138">
-		<e:Label id="weizhi_txt4" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="zongjia_txt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
 		<e:Label id="weizhi_txt1" text="总价：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
 	</e:Group>
 </e:Skin>

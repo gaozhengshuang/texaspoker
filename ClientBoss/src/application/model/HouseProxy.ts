@@ -27,8 +27,12 @@ module game {
 			NotificationCenter.addObserver(this, this.OnGW2C_AckTakeOtherHouseGoldRet, "msg.GW2C_AckTakeOtherHouseGoldRet");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseLevelUp, "msg.GW2C_AckHouseLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseCellLevelUp, "msg.GW2C_AckHouseCellLevelUp");
+			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseDataByHouseId, "msg.GW2C_AckHouseDataByHouseId");
 			
         }
+		private OnGW2C_AckHouseDataByHouseId(data: msg.GW2C_AckHouseDataByHouseId) {
+			
+		}
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
 			if(GameConfig.pageType==1){
 				this.updateRoomInfo(data.datas[0]);
