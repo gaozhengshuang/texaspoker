@@ -59,8 +59,8 @@ module game {
         {   
             if(!this.brandFilterDatas) return;
             console.log("updateView---->",this.brandFilterDatas.length);
-
             this._dataProv_brand.removeAll();
+            this._dataProv_model.removeAll();
             this.brandFilterDatas.forEach(data=>{this._dataProv_brand.addItem(data)});
 
             console.log("-------------->",this.ls_items_brand.numChildren+" "+this.ls_items_brand.numElements);
