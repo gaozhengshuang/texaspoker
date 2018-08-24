@@ -93,7 +93,7 @@ type CarShop struct {
 
 func (shop* CarShop) Init() {
 	shop.products = make(map[uint32] *CarProduct)
-	shop.ticker1Minite = util.NewGameTicker(time.Minute, shop.Handler1MiniteTick)
+	shop.ticker1Minite = util.NewGameTicker(time.Second, shop.Handler1MiniteTick)
 	shop.ticker1Minite.Start()
 
 	shop.LoadDB()
@@ -105,6 +105,15 @@ func (shop* CarShop) Tick(now int64) {
 }
 
 func (shop *CarShop) Handler1MiniteTick(now int64) {
+	pipe := Redis().Pipeline()
+	for _, v := range shop.products {
+		if v.Dirty() == true { v.SaveBin(pipe) }
+	}
+	_, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("CarShop LoadDB RedisError:%s", err)
+	}
+	pipe.Close()
 }
 
 // 第一次初始化
