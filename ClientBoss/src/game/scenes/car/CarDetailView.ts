@@ -369,7 +369,7 @@ module game {
                     return houseData;
                 }); 
 
-                self.linjuList.sort((a,b)=>{return b.myCarPark - a.myCarPark;}).sort((a,b)=>{return a.empty-b.empty});
+                self.linjuList.sort((a,b)=>{return a.empty-b.empty}).sort((a,b)=>{return b.myCarPark - a.myCarPark;});
             
                 //第一栏显示公共车位
                  CarManager.getInstance().ReqParkingInfoByType(1,0,function(parkingDatas:msg.IParkingData[]){
