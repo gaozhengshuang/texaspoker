@@ -34,10 +34,15 @@ module game {
         private _isOnRelogin: boolean; //防止玩家重复点击
         private reconnectHandle() {
             // Login();
-            if (!this._isOnRelogin) {
-                this._isOnRelogin = true;
-                NotificationCenter.addObserver(this, this.onReLoginResult, LoginManager.LOGIN_STATE);
-                LoginManager.getInstance().login();
+            if (SceneManager.curSceneType == SceneType.login) {
+                this.close();
+            }
+            else {
+                if (!this._isOnRelogin) {
+                    this._isOnRelogin = true;
+                    NotificationCenter.addObserver(this, this.onReLoginResult, LoginManager.LOGIN_STATE);
+                    LoginManager.getInstance().login();
+                }
             }
             // NotificationCenter.postNotification(CommandName.NET_CONNECTION_ERROR);
         }
