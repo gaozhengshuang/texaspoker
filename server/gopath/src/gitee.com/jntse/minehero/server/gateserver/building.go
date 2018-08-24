@@ -364,6 +364,5 @@ func (this *GateUser) ReqBuildingRandHouseList(buildingid uint32) []*msg.HouseDa
 			data = append(data, house.PackBin())
 		}
 	}
-	CarMgr().AppendHouseData(data)
 	return data
 }
