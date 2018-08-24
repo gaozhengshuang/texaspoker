@@ -669,7 +669,7 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 
 // 自动从公共车位回收汽车
 func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
-	if car == nil || parking.IsRewardFull(car) == false {
+	if !parking.IsPublic() || car == nil || parking.IsRewardFull(car) == false {
 		return
 	}
 
