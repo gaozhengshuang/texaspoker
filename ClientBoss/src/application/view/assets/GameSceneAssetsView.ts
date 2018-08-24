@@ -45,6 +45,7 @@ module game {
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			this.radioGroup.selectedValue = this.titleRadio1.value;
 			this.currentGroupId = this.radioGroup.selectedValue;
+			if (this.currentGroupId == 2) {CarManager.getInstance().ReqMyCarInfo();}
 			this.contentStarck.selectedChild = this["stackGroup" + this.currentGroupId];
 
 			this.view_bg.height = gameConfig.curHeight();

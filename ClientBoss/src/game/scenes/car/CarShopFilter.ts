@@ -58,19 +58,19 @@ module game {
         private updateViewBrand()
         {   
             if(!this.brandFilterDatas) return;
-            console.log("updateView---->",this.brandFilterDatas.length);
+            //console.log("updateView---->",this.brandFilterDatas.length);
             this._dataProv_brand.removeAll();
             this._dataProv_model.removeAll();
             this.brandFilterDatas.forEach(data=>{this._dataProv_brand.addItem(data)});
 
-            console.log("-------------->",this.ls_items_brand.numChildren+" "+this.ls_items_brand.numElements);
+           // console.log("-------------->",this.ls_items_brand.numChildren+" "+this.ls_items_brand.numElements);
             
          }
          //显示对应品牌的型号列表
         private updateViewModel(brand:string)
         {   
             if(!this.filterDatas) return;
-            console.log("updateView---->",this.filterDatas.length);
+            //console.log("updateView---->",this.filterDatas.length);
             this._dataProv_model.removeAll();
 
             let modelFilterDatas : CarFilterData[] = this.filterDatas.filter(data=>{return data.brand == brand;}).map(data=>{
@@ -79,7 +79,7 @@ module game {
             });
 
             modelFilterDatas.forEach(data=>{this._dataProv_model.addItem(data)});
-            console.log("-------------->",this.ls_items_model.numChildren+" "+this.ls_items_model.numElements);
+            //console.log("-------------->",this.ls_items_model.numChildren+" "+this.ls_items_model.numElements);
         }
 
         public OnCloseHandle() {
@@ -90,13 +90,13 @@ module game {
         }
         //点击事件，选中并且筛选
         private onItemTouchBrand(eve: eui.ItemTapEvent) {
-            console.log("onItemTouchBrand------------->")
+            //console.log("onItemTouchBrand------------->")
             let _CarFilterData = <CarFilterData>eve.itemRenderer.data;
             this.updateViewModel(_CarFilterData.brand);
             CarShop.getInstance().sortItem(CarShop.sortType.BRAND,_CarFilterData.brand);
         }
         private onItemTouchModel(eve: eui.ItemTapEvent) {   
-            console.log("onItemTouchModel------------->")
+            //console.log("onItemTouchModel------------->")
             let _CarFilterData = <CarFilterData>eve.itemRenderer.data;
             CarShop.getInstance().sortItem(CarShop.sortType.MODEL,_CarFilterData.brand+""+_CarFilterData.model);
         }

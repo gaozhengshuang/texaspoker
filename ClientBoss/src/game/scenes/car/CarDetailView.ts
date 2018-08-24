@@ -287,7 +287,7 @@ module game {
         }
 
         private onComplete(index: number): void {
-            console.log ("onComplete");
+            //console.log ("onComplete");
             this.hideList_btn.visible = true;
             this.showItemList(index);
             egret.Tween.removeTweens(this.downBtnGroup);
@@ -296,7 +296,7 @@ module game {
 
         private itemList: utils.ScrollerPanel;
         private showItemList(index: number) {
-            console.log("showItemList---->",this.itemList == null);
+            //console.log("showItemList---->",this.itemList == null);
             this.hideItemList();
             if (this.itemList == null) {
                 this.itemList = new utils.VScrollerPanel();
@@ -359,70 +359,6 @@ module game {
             CarManager.getInstance().clearBackFunc_ResParkingInfo();
             if (this.itemList && this.listIndex == 3) {
                 let self = this; 
-
-                let _sortFunc : Function  = function(a:HouseVO,b:HouseVO){
-                    let empty_a  = a.empty;
-                    let empty_b  = b.empty;
-                    let myCar_a  = a.myCarPark;
-                    let myCar_b  = b.myCarPark;
-                    if(myCar_a && !myCar_b)
-                    {
-                        return 0;
-                    }
-                    else if(!myCar_a && myCar_b)
-                    {
-                        return 1;
-                    }
-                    else if(myCar_a && myCar_b)
-                    {
-                       if(empty_a&&!empty_b){
-                           return 1;
-                       }
-                       else if(!empty_a&&empty_b){
-                           return 0;
-                       }
-                       else if(!empty_a&&!empty_b){
-                           return 0;
-                      }
-                    }
-                    else if(!myCar_a &&!myCar_b)
-                    {
-                       if(empty_a&&!empty_b){
-                           return 1;
-                       }
-                       else if(!empty_a&&empty_b){
-                           return 0;
-                       }
-                       else if(!empty_a&&!empty_b){
-                           return 0;
-                      }
-                    }
-                }
-                //房屋和车位数据分离
-/*                 list.forEach((houseData,index,array)=>{  
-                    CarManager.getInstance().ReqParkingInfoByType(2,houseData.ownerid,function(parkingDatas:msg.IParkingData[]){
-                        if(parkingDatas.length>0)
-                        {
-                            let isBelong :boolean = parkingDatas[0].ownerid == houseData.ownerid;
-                            if(isBelong)
-                            {
-                                //空
-                                let _empty:number = Number(parkingDatas.some(data=>{return data.parkingcar==0;}));                                            
-                                //我车
-                                let _mycarPark:number = Number(parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();}));        
-                                houseData.setObject({empty:_empty,myCarPark:_mycarPark});
-                                self.linjuList.push(houseData);  
-                            }
-                        }
-                        //console.log("回调执行------>",index);
-                        //if(index==self.linjuList.length-1){ //等待所有邻居停车位数据返回后在显示
-                            self.linjuList.sort(function(a,b){return _sortFunc(a,b);});
-                            self.itemList.bindData(self.linjuList);
-                        //} 
-                       
-                    }.bind(this));
-                }); */
-            
                 //房屋和车位绑定后
                 this.linjuList = list.map(houseData=>{
                     //空
@@ -433,7 +369,7 @@ module game {
                     return houseData;
                 }); 
 
-                self.linjuList.sort(function(a,b){return _sortFunc(a,b);});
+                self.linjuList.sort((a,b)=>{return b.myCarPark - a.myCarPark;}).sort((a,b)=>{return a.empty-b.empty});
             
                 //第一栏显示公共车位
                  CarManager.getInstance().ReqParkingInfoByType(1,0,function(parkingDatas:msg.IParkingData[]){
@@ -449,7 +385,7 @@ module game {
             }
         }
         private onItemTouch(eve: eui.ItemTapEvent) {
-            console.log("onItemTouch------------->",this.listIndex)
+            //console.log("onItemTouch------------->",this.listIndex)
             let item :any = null;
             switch (this.listIndex) {
                 case 1:
