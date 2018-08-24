@@ -181,7 +181,7 @@ func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 func (this *ParkingData) UpdateReward(car *CarData, now uint64) bool {
 	//计算经过了几个小时了
 	//passedMinute := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Minutes()))
-	passedMinute := uint32((now - this.parkingtime) / 1000 / 60)		// benchmark 效率比上面写法快10倍
+	passedMinute := uint32((now - this.parkingtime) / 1000 / 60)		// benchmark 效率更好(10倍)
 	reward := (passedMinute * car.template.RewardPerH * this.template.RewardPercent) / 100
 	reward = uint32(math.Min(float64(reward),float64(car.template.Capacity)))
 	if this.parkingreward != reward {
@@ -642,7 +642,7 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 		return 0, 0
 	}
 
-	if car.parkingreward != 0 {
+	if car.parkingreward == 0 {
 		user.SendNotify("车辆没有可领取收益")
 		return 0, 0
 	}
@@ -650,6 +650,7 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 	reward = car.parkingreward
 	user.AddGold(reward, "领取自动回收收益", true)
 	car.SetParkingReward(0)
+	user.SendNotify("领取成功")
 	return 0, reward
 }
 
