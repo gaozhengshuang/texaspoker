@@ -479,15 +479,17 @@ func (this *CarManager) GetParkingByCondition(parkingtype uint32, playerid uint6
 		if playerid != 0 && v.ownerid != playerid {
 			continue
 		}
-		bhas := false
-		for _, w := range houseids {
-			if v.houseid == w {
-				bhas = true
+
+		findHouse := func(houseid uint64) bool {
+			for _, w := range houseids {
+				if houseid == w { return true }
 			}
+			return false
 		}
-		if len(houseids) > 0 && !bhas {
+		if findHouse(v.houseid) == false {
 			continue
 		}
+
 		data = append(data, v)
 	}
 	return data
