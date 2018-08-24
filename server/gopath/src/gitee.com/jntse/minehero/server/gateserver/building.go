@@ -225,7 +225,7 @@ func (this *BuildingManager) GetHouseNotSoldNumFromBuilding(buildingid uint32) u
 }
 
 //玩家从楼中购买房屋
-func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid, index uint32) uint32 {
+func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid, index uint32) uint64 {
 	user := UserMgr().FindById(userid)
 	if user == nil {
 		return 0
@@ -281,7 +281,7 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		building.data[index] = append(building.data[index], house.id)
 	}
 	building.SaveBin(nil)
-	return 1
+	return house.id
 }
 
 //获取楼中所有入住的房屋 userid为除了某玩家之外 userid=0 为此楼所有房屋
@@ -311,13 +311,18 @@ func (this *BuildingManager) GetAllHouseDataFromBuilding(buildingid uint32, user
 //user相关接口
 func (this *GateUser) BuyHouseFromBuilding(buildingid, index uint32) {
 	log.Info("玩家[%s]id:% 请求购买房屋 buildingid:%d index:%d", this.Name(), this.Id(), buildingid, index)
-	ret := BuildSvrMgr().UserBuyHouseFromBuilding(this.Id(), buildingid, index)
+	houseid := BuildSvrMgr().UserBuyHouseFromBuilding(this.Id(), buildingid, index)
+	ret := 0
+	if houseid > 0 {
+		this.ReqMatchHouseData()
+		ret = 1
+	}
 	send := &msg.GW2C_AckBuyHouseFromBuilding{}
 	send.Buildingid = pb.Uint32(buildingid)
 	send.Index = pb.Uint32(index)
-	send.Ret = pb.Uint32(ret)
+	send.Ret = pb.Uint32(uint32(ret))
+	send.Houseid = pb.Uint64(houseid)
 	this.SendMsg(send)
-	this.ReqMatchHouseData()
 }
 
 func (this *GateUser) ReqBuildingCanBuyInfo(buildingid uint32) {
