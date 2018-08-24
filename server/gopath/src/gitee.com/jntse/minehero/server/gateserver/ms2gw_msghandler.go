@@ -108,24 +108,27 @@ func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}
 
 	// GM指令
 	if _, ok := cmdmap["gmcmd"]; ok {
-		gmcommands := make(map[string]string)
+		gmcommands := make(map[string]*util.VarType)
 		for k, v := range cmdmap {
-			gmcommands[k] = v.(string)
+			gmcommands[k] = util.NewVarType(v.(string))
 		}
 		DoGMCmd(gmcommands)
 	}
 }
 
-func DoGMCmd(cmd map[string]string) {
+func DoGMCmd(cmd map[string]*util.VarType) {
 	value, ok := cmd["gmcmd"]
 	if !ok {
 		log.Error("找不到gmcmd字段")
 		return
 	}
 
-	switch value {
+	switch value.String() {
 	case "reload":
 		GateSvr().Reload()
+		break
+	case "carshop":
+		Carshop().DoGMCmd(cmd)
 		break
 	}
 }
