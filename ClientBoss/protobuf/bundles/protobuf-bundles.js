@@ -21335,6 +21335,7 @@ $root.msg = (function() {
          * @property {number|null} [buildingid] GW2C_AckBuyHouseFromBuilding buildingid
          * @property {number|null} [index] GW2C_AckBuyHouseFromBuilding index
          * @property {number|null} [ret] GW2C_AckBuyHouseFromBuilding ret
+         * @property {number|Long|null} [houseid] GW2C_AckBuyHouseFromBuilding houseid
          */
 
         /**
@@ -21377,6 +21378,14 @@ $root.msg = (function() {
         GW2C_AckBuyHouseFromBuilding.prototype.ret = 0;
 
         /**
+         * GW2C_AckBuyHouseFromBuilding houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2C_AckBuyHouseFromBuilding
+         * @instance
+         */
+        GW2C_AckBuyHouseFromBuilding.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
          * Creates a new GW2C_AckBuyHouseFromBuilding instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckBuyHouseFromBuilding
@@ -21406,6 +21415,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
             if (message.ret != null && message.hasOwnProperty("ret"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ret);
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.houseid);
             return writer;
         };
 
@@ -21448,6 +21459,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.ret = reader.uint32();
+                    break;
+                case 4:
+                    message.houseid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -21493,6 +21507,9 @@ $root.msg = (function() {
             if (message.ret != null && message.hasOwnProperty("ret"))
                 if (!$util.isInteger(message.ret))
                     return "ret: integer expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
             return null;
         };
 
@@ -21514,6 +21531,15 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.ret != null)
                 message.ret = object.ret >>> 0;
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -21534,6 +21560,11 @@ $root.msg = (function() {
                 object.buildingid = 0;
                 object.index = 0;
                 object.ret = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
             }
             if (message.buildingid != null && message.hasOwnProperty("buildingid"))
                 object.buildingid = message.buildingid;
@@ -21541,6 +21572,11 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.ret != null && message.hasOwnProperty("ret"))
                 object.ret = message.ret;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
             return object;
         };
 

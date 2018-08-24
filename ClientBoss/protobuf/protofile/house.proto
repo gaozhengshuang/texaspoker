@@ -141,6 +141,7 @@ message GW2C_AckBuyHouseFromBuilding {
 	optional uint32 buildingid = 1; //楼id
 	optional uint32 index = 2;      //户型
 	optional uint32 ret = 3; 		//0失败 1成功
+	optional uint64 houseid = 4;    //成功后返回房屋id
 }
 
 //请求楼的待售信息
