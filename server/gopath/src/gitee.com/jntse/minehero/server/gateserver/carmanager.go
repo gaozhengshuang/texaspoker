@@ -486,7 +486,7 @@ func (this *CarManager) GetParkingByCondition(parkingtype uint32, playerid uint6
 			}
 			return false
 		}
-		if findHouse(v.houseid) == false {
+		if len(houseids) > 0 && findHouse(v.houseid) == false {
 			continue
 		}
 
