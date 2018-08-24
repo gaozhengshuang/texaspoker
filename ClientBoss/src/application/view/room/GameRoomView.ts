@@ -612,6 +612,9 @@ module game {
 
         protected beforeRemove() {
             console.log("房屋界面关闭");
+            if (this.hideList_btn.visible) {
+                this.onclick_hideList();
+            }
             GameRoomView._inMyRoom = false;
             this.parkingLots.forEach(item => {
                 item.removeTimer();
