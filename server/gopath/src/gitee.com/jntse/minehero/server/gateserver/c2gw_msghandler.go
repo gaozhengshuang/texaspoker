@@ -157,6 +157,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_TicketCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_SynParkingRecord{})
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetTakeCarAutoBackReward{})
+	this.msgparser.RegistSendProto(msg.GW2C_CarAutoBack{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendCarShopInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateCarShopProduct{})
 	this.msgparser.RegistSendProto(msg.GW2C_AddNewCar{})
@@ -1098,7 +1100,7 @@ func on_C2GW_ReqTakeCarAutoBackReward(session network.IBaseNetSession, message i
 		return
 	}
 
-	send := &msg.GW2C_TakeBackCarResult{}
+	send := &msg.GW2C_RetTakeCarAutoBackReward{}
 	result, reward := CarMgr().TakeCarAutoBackReward(user, tmsg.GetCarid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
