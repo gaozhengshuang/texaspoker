@@ -1,49 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="PageNewHouseViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="PageNewHouseViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
 	<w:Config id="165605e516c"/>
 	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xe4e4e5"/>
-	<e:Rect width="720" height="260" x="0" y="0" fillColor="0xffffff"/>
-	<e:Group x="0" y="70">
+	<e:Rect id="top_bg" width="720" height="260" x="0" y="0" fillColor="0xffffff"/>
+	<e:Group x="0" y="69">
 		<e:Image x="0" y="0" source="ziyuan_top_di_png"/>
 		<e:Rect width="5" height="64" x="479" y="20" fillColor="0xFFFFFF" fillAlpha="0.5"/>
 		<e:Rect width="5" height="64" x="239.27" y="20" fillColor="0xffffff" fillAlpha="0.5"/>
 		<e:Image source="uiCarAltas_json.diamonds_icon" x="95" y="0"/>
-		<e:Label text="999999999" x="40" y="47" width="160" verticalAlign="middle" textAlign="center"/>
+		<e:Label id="diamond_txt" text="999999999" x="40" y="47" width="160" verticalAlign="middle" textAlign="center"/>
 		<e:Image source="uiCarAltas_json.coin_icon" x="336" y="0"/>
-		<e:Label text="999999" x="281" y="49" width="160" verticalAlign="middle" textAlign="center"/>
+		<e:Label id="gold_txt" text="999999" x="281" y="49" width="160" verticalAlign="middle" textAlign="center"/>
 		<e:Image source="uiCarAltas_json.lightning_icon" x="576" y="0"/>
-		<e:Label text="999999" x="521" y="47" width="160" verticalAlign="middle" textAlign="center"/>
-		<e:Rect width="110" height="22" x="546" y="77" ellipseWidth="26" ellipseHeight="26" fillAlpha="0.3"/>
-		<e:Label text="00:00 +5" x="551" y="78" width="100" verticalAlign="middle" textAlign="center" size="20" fontFamily="Microsoft YaHei" textColor="0x00ff1e" anchorOffsetX="0"/>
+		<e:Label id="energy_txt" text="999999" x="521" y="47" width="160" verticalAlign="middle" textAlign="center"/>
+		<e:Group id="addEnergyGroup" x="546" y="77" visible="false">
+			<e:Rect width="110" height="22" x="0" y="0" ellipseWidth="26" ellipseHeight="26" fillAlpha="0.3"/>
+			<e:Label id="addEnergy_txt" text="00:00" x="5" y="1" width="65" verticalAlign="middle" textAlign="center" size="20" fontFamily="Microsoft YaHei" textColor="0x00ff1e" anchorOffsetX="0"/>
+			<e:Label id="addNum_txt" text="+5" x="70.5" y="1" verticalAlign="middle" textAlign="center" size="20" fontFamily="Microsoft YaHei" textColor="0x00FF1E" anchorOffsetX="0"/>
+		</e:Group>
 	</e:Group>
 	<e:Group x="0" y="0">
 		<e:Rect width="720" height="70" x="0" y="0" fillColor="0x19b5f4"/>
-		<e:Label text="&lt;返回" x="16" y="20" fontFamily="Microsoft YaHei"/>
-	</e:Group>
-	<e:Group x="10" y="201">
-		<e:Group x="200" y="8">
-			<e:Image source="uiCarAltas_json.arrowdown" x="0" y="0"/>
-			<e:Image source="uiCarAltas_json.arrowdown" x="0" scaleY="-1" y="36" visible="false"/>
-		</e:Group>
-		<e:Label text="上海市闵行区" x="0" y="11" width="195" verticalAlign="middle" textAlign="center" textColor="0x606060" fontFamily="Microsoft YaHei" anchorOffsetX="0"/>
-		<e:Label text="价格" x="580" y="11" width="66" verticalAlign="middle" textAlign="center" textColor="0x606060" fontFamily="Microsoft YaHei" anchorOffsetX="0"/>
-		<e:Group x="655" y="0">
-			<e:RadioButton label="" x="0" y="0" width="24">
+		<e:Button id="return_btn" label="&lt;返回" x="16" y="20" width="84" height="30">
 			<e:skinName>
-				<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="jiantou1_png" source.down="uiCarAltas_json.arrowUpRed"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-				</e:Skin>
+			<e:Skin states="up,down,disabled">
+				<e:Rect width="100%" height="100%" fillColor="0x19b5f4" fillAlpha="0"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+			</e:Skin>
 			</e:skinName>
-			</e:RadioButton>
-			<e:RadioButton label="" x="0" y="52" scaleY="-1" width="24">
-			<e:skinName>
-				<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="jiantou1_png" source.down="uiCarAltas_json.arrowUpRed"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-				</e:Skin>
-			</e:skinName>
-			</e:RadioButton>
-		</e:Group>
+		</e:Button>
 	</e:Group>
+	<e:Group id="buildingGroup" x="0" y="260" width="720" anchorOffsetY="0" height="1020"/>
+	<game:CommonFilterPanel id="filterPanel" width="720" height="400" x="0" y="192"/>
 </e:Skin>

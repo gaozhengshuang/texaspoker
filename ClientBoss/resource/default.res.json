@@ -279,7 +279,7 @@
 			"url": "assets/texpack/car/carIconAltas.json",
 			"type": "sheet",
 			"name": "carIconAltas_json",
-			"subkeys": "big_1,big_2,big_3,big_4,big_5,big_6,small_1,small_2,small_3,small_4,small_5,small_6"
+			"subkeys": "big_1,big_10,big_2,big_3,big_4,big_5,big_6,big_7,big_8,big_9,small_1,small_10,small_2,small_3,small_4,small_5,small_6,small_7,small_8,small_9"
 		},
 		{
 			"url": "assets/texpack/car/uiCarAltas.json",
@@ -301,7 +301,7 @@
 			"url": "assets/texpack/hall_2.json",
 			"type": "sheet",
 			"name": "hall_2_json",
-			"subkeys": "assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,game_icon1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,hx_4001_png,jiantou1_png,jiantou2_png,jiantouBlack2_png,jiantouRed2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,jiaoyi_title_icon1_png,levelSuccessImg1_png,linjuInfo_bg1_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,room_quit_btn1_png,soldOutImg1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xuanzhongBtn_bg_png"
+			"subkeys": "assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,game_icon1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,hx_4001_png,jiantou1_png,jiantou2_png,jiantouBlack2_png,jiantouRed2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,jiaoyi_title_icon1_png,levelSuccessImg1_png,linjuInfo_bg1_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,room_quit_btn1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xuanzhongBtn_bg_png"
 		},
 		{
 			"url": "assets/texpack/hall_1.json",
@@ -331,7 +331,7 @@
 			"url": "assets/texpack/hall_3.json",
 			"type": "sheet",
 			"name": "hall_3_json",
-			"subkeys": "2003001_b_png,assetsBar1_png,gameTantanle_png,tantanleTitle_png"
+			"subkeys": "2003001_b_png,assetsBar1_png,gameTantanle_png,soldOutImg1_png,tantanleTitle_png"
 		},
 		{
 			"url": "assets/bg/carShopBuyBg.png",

@@ -87,6 +87,9 @@ module game {
             case PanelType.PageNewHouseView:
                 panel = PageNewHouseView.getInstance();
                 break;
+                case PanelType.PageNewHouseHuxingView:
+                panel = PageNewHouseHuxingView.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -118,5 +121,7 @@ module game {
         WelcomeNewPlayersPanel,
         SimpleLoadingPanel,
         LoadingScenePanel,
+        CarShop,
+        PageNewHouseHuxingView
     }
 }
