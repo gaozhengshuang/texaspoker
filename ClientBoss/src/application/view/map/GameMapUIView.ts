@@ -1,7 +1,7 @@
 declare function setBtnCallbackFun(fun:Function,body:any);
 declare function updataUserInfo(obj:any);
 module game {
-	export class GameMapUIView extends egret.Sprite {
+	export class GameMapUIView extends egret.EventDispatcher {
         public static FUJIN_SWITCH:string = "fujin_switch";
         public static MAP_POSITION:string = "map_position";
         public static OPEN_MAIN_ASSETS:string = "open_main_assets";
@@ -13,6 +13,8 @@ module game {
         public static OPEN_MINE: string = "open_mine";
         public static CLOSE_SMALL_GAME: string = "close_small_game";
         public static GOTO_SHOUYI_ROOM: string = "goto_shouyi_room";
+        public static BUY_HOUSE: string = "buy_house";
+        public static BUY_CAR: string = "buy_car";
 
         private eventMask:eui.Rect;
         private fujinLabelList:string[]=['附近的人','附近建筑'];
@@ -84,6 +86,16 @@ module game {
                 case 'shouyi':
 
                     body.onclick_shouyi();
+                    
+                break;
+                case 'buyHouse':
+
+                    body.onclick_buyHouse();
+                    
+                break;
+                case 'buyCar':
+
+                    body.onclick_buyCar();
                     
                 break;
 
@@ -172,10 +184,25 @@ module game {
 
             this.dispatchEvent(new BasicEvent(GameMapUIView.GOTO_SHOUYI_ROOM));
 		}
+        private onclick_buyHouse(){
+
+            this.dispatchEvent(new BasicEvent(GameMapUIView.BUY_HOUSE));
+		}
+        private onclick_buyCar(){
+
+            this.dispatchEvent(new BasicEvent(GameMapUIView.BUY_CAR));
+		}
         private onclick_fujinSwitch(status:number){
             console.log(this.fujinStatus+"//"+(this.fujinStatus==1));
             this.fujinStatus=status;
             this.dispatchEvent(new BasicEvent(GameMapUIView.FUJIN_SWITCH,{index:this.fujinStatus}));
 		}
+        /**
+         * 释放事件与重置数据状态
+         */
+        public clear()
+        {
+
+        }
 	}
 }

@@ -96,6 +96,8 @@ module game {
 			this.sceneGroup.addEventListener(GameMapUIView.OPEN_MINE,this.openMineRequset,this);
 			this.sceneGroup.addEventListener(GameMapUIView.CLOSE_SMALL_GAME,this.closeGameRequset,this);
 			this.sceneGroup.addEventListener(GameMapUIView.GOTO_SHOUYI_ROOM,this.gotoShouyiRoomRequset,this);
+			this.sceneGroup.addEventListener(GameMapUIView.BUY_HOUSE,this.buyHouseRequset,this);
+			this.sceneGroup.addEventListener(GameMapUIView.BUY_CAR,this.buyCarRoomRequset,this);
 		}
 		private openMainAssetsRequset(eve:BasicEvent):void
 		{
@@ -127,6 +129,25 @@ module game {
 		private openTransactionRequset(eve:BasicEvent):void
 		{
 			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_SALE_ROOM_LIST,{action:1});
+		}
+		private buyHouseRequset(eve:BasicEvent):void
+		{
+			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_NEW_HOUSE);
+		}
+		private buyCarRoomRequset(eve:BasicEvent):void
+		{
+			openPanel(PanelType.CarShop);
+			//激活按钮事件
+			GameConfig.setEventsReply(true);
+			//关闭主页个人信息界面
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false});
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+			//隐藏下方菜单栏
+			GameConfig.showDownBtnFun(false);
+			//请求商店并刷新界面
+			CarManager.getInstance().ReqCarShopInfo(1,function(carProducts:msg.ICarProductData[]){
+				CarShop.getInstance().UpdateData(carProducts);
+			})
 		}
 		private fujinSwitchRequset(eve:BasicEvent):void
 		{

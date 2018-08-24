@@ -18,6 +18,8 @@ module game {
         private GW2C_ParkCarResult_BackCalls            : Function[];
         private GW2C_TakeBackCarResult_BackCalls        : Function[];
         private GW2C_TicketCarResult_BackCalls          : Function[]; 
+        private GW2C_SendCarShopInfo_BackCalls          : Function[]; 
+        private GW2C_UpdateCarShopProduct_BackCalls     : Function[];
 
         private GW2C_ResParkingInfo_BackCalls           : CarFunData[];
         private GW2C_AckOtherUserHouseData_BackCalls    : CarFunData[];
@@ -31,13 +33,17 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_TicketCarResult, "msg.GW2C_TicketCarResult");
             NotificationCenter.addObserver(this, this.OnGW2C_ResParkingInfo, "msg.GW2C_ResParkingInfo");
             //NotificationCenter.addObserver(this, this.OnGW2C_AckOtherUserHouseData, "msg.GW2C_AckOtherUserHouseData");
+            NotificationCenter.addObserver(this, this.OnGW2C_UpdateCarShopProduct, "msg.GW2C_UpdateCarShopProduct");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendCarShopInfo, "msg.GW2C_SendCarShopInfo");
             
         
-            this.GW2C_ResCarInfo_BackCalls          = [];
-            this.GW2C_ResParkingInfo_BackCalls      = [];
-            this.GW2C_ParkCarResult_BackCalls       = [];
-            this.GW2C_TakeBackCarResult_BackCalls   = [];
-            this.GW2C_TicketCarResult_BackCalls     = [];
+            this.GW2C_ResCarInfo_BackCalls           = [];
+            this.GW2C_ResParkingInfo_BackCalls       = [];
+            this.GW2C_ParkCarResult_BackCalls        = [];
+            this.GW2C_TakeBackCarResult_BackCalls    = [];
+            this.GW2C_TicketCarResult_BackCalls      = [];
+            this.GW2C_SendCarShopInfo_BackCalls      = [];
+            this.GW2C_UpdateCarShopProduct_BackCalls = [];
         }
     
 
@@ -126,7 +132,7 @@ module game {
         //请求符合条件的车位列表 0 所有类型 1 公共车位 2 普通车位
         public ReqParkingInfoByType(infotype:number,uid:number|Long,callFunc:Function=null)
         {
-            //console.log("ReqParkingInfoByType---->",infotype," ",uid);
+            console.log("ReqParkingInfoByType---->",infotype," ",uid);
             let callFuncData : CarFunData = new  CarFunData();
             callFuncData.uid   = uid;
             callFuncData.func  = callFunc;
@@ -200,6 +206,59 @@ module game {
                 console.warn("玩家没有对应的房屋数据");
             }
         }
+
+
+        //请求商店列表
+        public ReqCarShopInfo(shopId:number=1,callFunc:Function=null)
+        {
+            if(callFunc && !this.GW2C_SendCarShopInfo_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_SendCarShopInfo_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_ReqCarShopInfo", msg.C2GW_ReqCarShopInfo.encode({
+                shopid : shopId,
+             }));
+        }
+
+        private OnGW2C_SendCarShopInfo(msgs:msg.GW2C_SendCarShopInfo)
+        {   
+            console.log("OnGW2C_SendCarShopInfo--->",msgs.products.length+" "+JSON.stringify(msgs.products));
+            this.GW2C_SendCarShopInfo_BackCalls.forEach(func=>{if(func){func(msgs.products)};});
+            this.GW2C_SendCarShopInfo_BackCalls = [];
+
+            if(CarShop._instance && CarShop.getInstance().visible &&CarShop.getInstance().Inited()){
+                CarShop.getInstance().UpdateData(msgs.products);
+            }
+        }
+
+
+        //请求购买汽车
+        public ReqBuyCarShopItem(shopId:number=1,pid:number,callFunc:Function=null)
+        {
+            let carShopData = table.TCarShopById[pid];
+            if(DataManager.playerModel.getUserInfo().gold < carShopData.Price){
+                showTips("金币不足！");
+                return;
+            }
+            if(callFunc && !this.GW2C_UpdateCarShopProduct_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_UpdateCarShopProduct_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_BuyCarFromShop", msg.C2GW_BuyCarFromShop.encode({
+                shopid : shopId,
+                pid    : pid,
+             }));
+        }
+
+        //刷新单个车辆商品信息
+        private OnGW2C_UpdateCarShopProduct(msgs:msg.GW2C_UpdateCarShopProduct)
+        {
+            console.log("OnGW2C_UpdateCarShopProduct--->",msgs.product+" "+JSON.stringify(msgs.product));
+            this.GW2C_UpdateCarShopProduct_BackCalls.forEach(func=>{if(func){func(msgs.product)};});
+            this.GW2C_UpdateCarShopProduct_BackCalls = [];
+
+        }
+
         //-------------------
 
 

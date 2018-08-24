@@ -871,24 +871,31 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) ReqRandHouseList(carflag uint32) {
-	data := HouseSvrMgr().GetRandHouseList(this.Id())
+func (this *GateUser) ReqRandHouseList(carflag, buildingid uint32) {
 	send := &msg.GW2C_AckRandHouseList{}
-	send.Datas = data
-	if carflag == 1 {
-		carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
-		for _, v := range carParkHouseIds {
-			house := HouseSvrMgr().GetHouse(v)
-			if house == nil {
-				continue
-			}
-			send.Datas2 = append(send.Datas2, house.PackBin())
+	if buildingid == 0 {
+		data := HouseSvrMgr().GetRandHouseList(this.Id())
+		send.Datas = data
+		if carflag == 1 {
+			carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
+			for _, v := range carParkHouseIds {
+				house := HouseSvrMgr().GetHouse(v)
+				if house == nil {
+					continue
+				}
+				send.Datas2 = append(send.Datas2, house.PackBin())
 
+			}
 		}
+		CarMgr().AppendHouseData(send.Datas)
+		CarMgr().AppendHouseData(send.Datas2)
+		this.SendMsg(send)
+	} else {
+		data := this.ReqBuildingRandHouseList(buildingid)
+		send.Datas = data
+		CarMgr().AppendHouseData(send.Datas)
+		this.SendMsg(send)
 	}
-	CarMgr().AppendHouseData(send.Datas)
-	CarMgr().AppendHouseData(send.Datas2)
-	this.SendMsg(send)
 }
 
 func (this *GateUser) ReqOtherUserHouse(otherid uint64) {

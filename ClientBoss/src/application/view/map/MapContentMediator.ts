@@ -24,9 +24,5 @@ module game {
 		{
 			//this.sceneGroup.initView();
 		}
-		public get sceneGroup():GameMapContentView
-        {
-			return <GameMapContentView><any> (this.viewComponent);
-		}
 	}
 }

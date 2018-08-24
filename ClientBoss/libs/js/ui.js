@@ -9,6 +9,8 @@ wodeBtnW,wodeBtnH,
 xiaoxiBtnW,xiaoxiBtnH,
 dingweiBtnW,dingweiBtnH,
 shouyiBtnW,shouyiBtnH,
+buyHouseBtnW,buyHouseBtnH,
+buyCarBtnW,buyCarBtnH,
 fujinSwitchBtnW,fujinSwitchBtnH,
 returnBtnW,returnBtnH,
 gameCloseW,gameCloseH;
@@ -48,6 +50,14 @@ window.onload=function(){
     shouyiBtnW=document.getElementById("shouyiBtn").clientWidth;
     shouyiBtnH=document.getElementById("shouyiBtn").clientHeight;
     document.getElementById("shouyiBtn").style.display='none';
+
+    buyHouseBtnW=document.getElementById("buyHouseBtn").clientWidth;
+    buyHouseBtnH=document.getElementById("buyHouseBtn").clientHeight;
+    document.getElementById("buyHouseBtn").style.display='none';
+
+    buyCarBtnW=document.getElementById("buyCarBtn").clientWidth;
+    buyCarBtnH=document.getElementById("buyCarBtn").clientHeight;
+    document.getElementById("buyCarBtn").style.display='none';
 
     fujinSwitchBtnW=document.getElementById("fujinSwitchBtn").clientWidth;
     fujinSwitchBtnH=document.getElementById("fujinSwitchBtn").clientHeight;
@@ -126,6 +136,20 @@ function adaptive(scale){
     document.getElementById("shouyiBtn").style.height=shouyiBtnH*scale+"px";
     document.getElementById("shouyiBtn").style.bottom=(dingweiBottom+20+shouyiBtnH*scale)+'px';
 
+
+    document.getElementById("buyHouseBtn").style.display='block';
+    document.getElementById("buyHouseBtn").style.width=buyHouseBtnW*scale+"px";
+    document.getElementById("buyHouseBtn").style.height=buyHouseBtnH*scale+"px";
+    document.getElementById("buyHouseBtn").style.bottom=dingweiBottom+'px';
+
+
+    document.getElementById("buyCarBtn").style.display='block';
+    document.getElementById("buyCarBtn").style.width=buyCarBtnW*scale+"px";
+    document.getElementById("buyCarBtn").style.height=buyCarBtnH*scale+"px";
+    document.getElementById("buyCarBtn").style.bottom=(dingweiBottom+20+buyCarBtnH*scale)+'px';
+
+
+
     //document.getElementById("fujinSwitchBtn").style.display='block';
     document.getElementById("fujinSwitchBtn").style.width=fujinSwitchBtnW*scale+"px";
     document.getElementById("fujinSwitchBtn").style.height=fujinSwitchBtnH*scale+"px";
@@ -169,6 +193,18 @@ function setBtnCallbackFun(fun,body){
         console.log(e.type,e.target);
         if (btnCallBackFun != null) {
             btnCallBackFun('shouyi',btnCallBackBody);
+        }
+    });
+    document.getElementById("buyHouseBtn").addEventListener("mousedown", function (e) {
+        console.log(e.type,e.target);
+        if (btnCallBackFun != null) {
+            btnCallBackFun('buyHouse',btnCallBackBody);
+        }
+    });
+    document.getElementById("buyCarBtn").addEventListener("mousedown", function (e) {
+        console.log(e.type,e.target);
+        if (btnCallBackFun != null) {
+            btnCallBackFun('buyCar',btnCallBackBody);
         }
     });
     document.getElementById("returnBtn").addEventListener("mousedown", function (e) {

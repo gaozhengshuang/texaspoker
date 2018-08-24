@@ -10,7 +10,7 @@ module game {
             super(UIMediator.NAME, viewComponent);
         }
 
-        public uiView: any;
+        public uiView: GameMapUIView;
         public uiMediatorName: string = "";
         public listNotificationInterests(): Array<any> {
             return [
@@ -30,10 +30,13 @@ module game {
                 case CommandName.SCENE_SWITCH_MAP:
                     {
                         this.removeSceneView();
-                        this.uiView = new GameMapUIView();
+                        if (!this.uiView) {
+                            this.uiView = new GameMapUIView();
+                        }
                         //var userProxy:UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+                        (this.uiView as GameMapUIView).clear();
                         this.uiView.initView(game.DataManager.playerModel.getUserInfo());
-                        this.sceneGroup.addChild(this.uiView);
+                        // this.sceneGroup.addChild(this.uiView);
                         // ApplicationFacade.getInstance().registerMediator(new MapUIMediator(this.uiView));
                         ApplicationFacade.getInstance().registerMdt<MapUIMediator>(MapUIMediator.NAME, MapUIMediator, this.uiView);
 
@@ -44,13 +47,13 @@ module game {
 
         }
         private removeSceneView(): void {
-            this.sceneGroup.removeChildren();
+            if(this.uiView)
+            {
+                this.uiView.clear();
+            }
             if (this.uiMediatorName != "") {
                 ApplicationFacade.getInstance().removeMediator(this.uiMediatorName);
             }
-        }
-        public get sceneGroup(): egret.Sprite {
-            return <egret.Sprite><any>(this.viewComponent);
         }
     }
 }

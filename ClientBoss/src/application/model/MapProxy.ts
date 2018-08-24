@@ -1,3 +1,4 @@
+declare var map;
 declare function init(lat: any, lng: any, zoom: number);
 declare function moveMap(lat: any, lng: any);
 declare function getPoSition(fun: Function, error: Function)
@@ -63,7 +64,7 @@ module game {
 		/**
 		 * 地图上添加建筑
 		 */
-		public addMapBuilding(dataList: BuildingVO[],players:UserVO) {
+		public addMapBuilding(dataList: BuildingVO[], players: UserVO) {
 			if (dataList && dataList.length > 0) {
 				for (let i: number = 0; i < dataList.length; i++) {
 					let data: BuildingVO = dataList[i];
@@ -71,12 +72,12 @@ module game {
 					let bName = data.bName;
 					let imageUrl = 'resource/assets/' + data.bImage1 + '.png';
 					let position = [data.lat, data.lng];
-					let isHas:boolean=false;
-					if(players.bId.indexOf(data.bId)!=-1){
-						isHas=true;
+					let isHas: boolean = false;
+					if (players.bId.indexOf(data.bId) != -1) {
+						isHas = true;
 					}
 
-					addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position,isHas:isHas});
+					addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position, isHas: isHas });
 				}
 			}
 		}
@@ -114,11 +115,16 @@ module game {
 		/**
 		 * 玩家本身定位坐标
 		 */
-		public getPos(position: JSON) {
+		private getPos(position: JSON) {
 			let position_str = JSON.stringify(position, null, 4);
 			let realobj = eval('(' + position_str + ')');
 			console.log(position_str);
-			init(realobj.lat, realobj.lng, 16);
+			if (map) {
+				moveMap(realobj.lat, realobj.lng);
+			}
+			else {
+				init(realobj.lat, realobj.lng, 16);
+			}
 			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: realobj.lat, lng: realobj.lng });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);
@@ -142,13 +148,14 @@ module game {
 		public showErr() {
 			console.log('初始化地图定位错误！！');
 			init(31.2303695678711, 121.473701477051, 15);
+			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: 31.2303695678711, lng: 121.473701477051 });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: 31.2303695678711, lng: 121.473701477051 });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);
 		}
 		public againShowErr() {
 			console.log('重新定位地图定位错误！！');
- 			moveMap(31.2303695678711, 121.473701477051);
+			moveMap(31.2303695678711, 121.473701477051);
 
 		}
 		/**

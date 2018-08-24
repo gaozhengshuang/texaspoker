@@ -47,10 +47,10 @@ module game {
                     this._playInterval = null;
                 }
 
-                BattleScene.getInstance().setBadPower(0);
+                BattlePanel.getInstance().setBadPower(0);
                 this.refreshView(0);
 
-                BattleScene.getInstance().openBadBox(_score);
+                BattlePanel.getInstance().openBadBox(_score);
             } else {
                 showTips("能量积满时，将获得大量金币...", true);
             }
