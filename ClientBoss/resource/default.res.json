@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "preload_json,carPublicLotBg_png,carShopBuyBg_png,carParkBg_png,carIconAltas_json,uiCarAltas_json",
+			"keys": "preload_json,carPublicLotBg_png",
 			"name": "preload"
 		},
 		{
@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall_3_json,hall_2_json,hall_1_json",
+			"keys": "hall_3_json,hall_2_json,hall_1_json,uiCarAltas_json,carIconAltas_json,carParkBg_png,carShopBuyBg_png",
 			"name": "hall"
 		},
 		{

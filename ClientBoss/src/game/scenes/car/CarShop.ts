@@ -155,7 +155,13 @@ module game {
             console.log("商店界面关闭");
             
             this._inited  = false;
+            //显示主页个人信息界面
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true});
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: true });
+			//显示下方菜单栏
             GameConfig.showDownBtnFun(true); 
+            //显示地图关闭event
+            GameConfig.setEventsReply(false);
             this.carFilter.visible = false;
             this.Filter.visible =false;
             this.clearSortTypes();

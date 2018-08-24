@@ -137,7 +137,14 @@ module game {
 		private buyCarRoomRequset(eve:BasicEvent):void
 		{
 			openPanel(PanelType.CarShop);
+			//激活按钮事件
+			GameConfig.setEventsReply(true);
+			//关闭主页个人信息界面
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false});
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+			//隐藏下方菜单栏
 			GameConfig.showDownBtnFun(false);
+			//请求商店并刷新界面
 			CarManager.getInstance().ReqCarShopInfo(1,function(carProducts:msg.ICarProductData[]){
 				CarShop.getInstance().UpdateData(carProducts);
 			})
