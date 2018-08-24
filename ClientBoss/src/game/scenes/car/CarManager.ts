@@ -20,6 +20,7 @@ module game {
         private GW2C_TicketCarResult_BackCalls          : Function[]; 
         private GW2C_SendCarShopInfo_BackCalls          : Function[]; 
         private GW2C_UpdateCarShopProduct_BackCalls     : Function[];
+        private GW2C_RetTakeCarAutoBackReward_BackCalls : Function[];
 
         private GW2C_ResParkingInfo_BackCalls           : CarFunData[];
         private GW2C_AckOtherUserHouseData_BackCalls    : CarFunData[];
@@ -35,15 +36,16 @@ module game {
             //NotificationCenter.addObserver(this, this.OnGW2C_AckOtherUserHouseData, "msg.GW2C_AckOtherUserHouseData");
             NotificationCenter.addObserver(this, this.OnGW2C_UpdateCarShopProduct, "msg.GW2C_UpdateCarShopProduct");
             NotificationCenter.addObserver(this, this.OnGW2C_SendCarShopInfo, "msg.GW2C_SendCarShopInfo");
-            
+            NotificationCenter.addObserver(this, this.OnGW2C_RetTakeCarAutoBackReward, "msg.GW2C_RetTakeCarAutoBackReward");
         
-            this.GW2C_ResCarInfo_BackCalls           = [];
-            this.GW2C_ResParkingInfo_BackCalls       = [];
-            this.GW2C_ParkCarResult_BackCalls        = [];
-            this.GW2C_TakeBackCarResult_BackCalls    = [];
-            this.GW2C_TicketCarResult_BackCalls      = [];
-            this.GW2C_SendCarShopInfo_BackCalls      = [];
-            this.GW2C_UpdateCarShopProduct_BackCalls = [];
+            this.GW2C_ResCarInfo_BackCalls               = [];
+            this.GW2C_ResParkingInfo_BackCalls           = [];
+            this.GW2C_ParkCarResult_BackCalls            = [];
+            this.GW2C_TakeBackCarResult_BackCalls        = [];
+            this.GW2C_TicketCarResult_BackCalls          = [];
+            this.GW2C_SendCarShopInfo_BackCalls          = [];
+            this.GW2C_UpdateCarShopProduct_BackCalls     = [];
+            this.GW2C_RetTakeCarAutoBackReward_BackCalls = [];
         }
     
 
@@ -259,6 +261,23 @@ module game {
 
         }
 
+        //请求领取公共车位收益
+        public ReqTakeCarReward(carId:number|Long,callFunc:Function=null)
+        {
+            if(callFunc && !this.GW2C_RetTakeCarAutoBackReward_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_RetTakeCarAutoBackReward_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_ReqTakeCarAutoBackReward", msg.C2GW_ReqTakeCarAutoBackReward.encode({
+                carid : carId,
+             }));
+        }
+
+        public OnGW2C_RetTakeCarAutoBackReward(msgs:msg.GW2C_RetTakeCarAutoBackReward)
+        {
+            this.GW2C_RetTakeCarAutoBackReward_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.reward)};});
+            this.GW2C_RetTakeCarAutoBackReward_BackCalls = [];
+        }
         //-------------------
 
 

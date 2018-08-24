@@ -285,7 +285,7 @@
 			"url": "assets/texpack/car/uiCarAltas.json",
 			"type": "sheet",
 			"name": "uiCarAltas_json",
-			"subkeys": "arrowDownL,arrowUpRed,arrowdown,backBtn,buyBtn1,buyBtn2,buyBtn3,buyItemInfoBg,closeBtn,closeBtn2,coin_icon,dialogBg,diamonds_icon,driveBtn,emptybg,fangjianxinxi_di,fengexian,filterBg,filterBg_2,filterBg_3,filterBg_4,goldBg,infobg,lightning_icon,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,publicArea,publiclot,scrollviewBg,selectBtn,shopBtn,stateBtn,ticket,ziyuan_di"
+			"subkeys": "arrowDownL,arrowUpRed,arrowdown,backBtn,buyBtn1,buyBtn2,buyBtn3,buyItemInfoBg,closeBtn,closeBtn2,coin_icon,dialogBg,diamonds_icon,driveBtn,emptybg,fangjianxinxi_di,fengexian,filterBg,filterBg_2,filterBg_3,filterBg_4,goldBg,infobg,lightning_icon,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,publicArea,publiclot,recieveBtn,scrollviewBg,selectBtn,shopBtn,stateBtn,ticket,ziyuan_di"
 		},
 		{
 			"url": "assets/bg/carParkBg.png",

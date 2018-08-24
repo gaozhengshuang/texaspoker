@@ -79,13 +79,14 @@ message GW2C_AckTakeOtherHouseGoldRet {
 
 //获取随机的房屋列表
 message C2GW_ReqRandHouseList {
-	optional uint32 carflag = 1;
+	optional uint32 carflag = 1;   //0来自房屋请求  1来自车库的请求
+	optional uint32 buildingid = 2;
 }
 
 //返回随机的房屋列表
 message GW2C_AckRandHouseList {
 	repeated msg.HouseData datas = 1;
-	repeated msg.HouseData datas2 = 2; //车辆停靠的房间
+	repeated msg.HouseData datas2 = 2; //自己车辆停靠的房间
 }
 
 //更新抢钱次数

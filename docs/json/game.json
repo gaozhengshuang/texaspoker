@@ -13,7 +13,7 @@
     },
 
     "//":"游戏内规则",
-    "BulletPrice":20,
+    "BulletPrice":10,
 
     "//":"踩炸弹扣除",
     "BombDeductMoney":500,

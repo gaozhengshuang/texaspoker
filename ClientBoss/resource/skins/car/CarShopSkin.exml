@@ -44,7 +44,7 @@
 
 
 	</e:Group>
-	<e:Group id="Filter" width="720" height="300" x="0" y="270" visible="false">
+	<e:Group id="Filter" width="720" height="300" x="0" y="256" visible="false">
 		<game:CarShopFilter id="carFilter" width="20" height="20" x="0" y="0" skinName="CarShopFilterSkin" visible="false"/>
 	</e:Group>
 	<e:Group id="BuyInfo" width="720" height="1280" x="0" y="0" visible="false">
