@@ -187,9 +187,8 @@ module game {
             this.initWorld();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
             DataManager.playerModel.skillUpdate();
-            this.updateScore();
-            this.updateDiamond();
         }
+
         protected getSkinName() {
             return BattleSceneSkin;
         }
@@ -305,7 +304,6 @@ module game {
         }
 
         protected beforeShow() {
-
             NotificationCenter.addObserver(this, this.OnBT_RetLaunchBullet, "msg.BT_RetLaunchBullet");
             NotificationCenter.addObserver(this, this.onBT_RetStepOnBomb, "msg.BT_RetStepOnBomb");  // 定时炸弹
             NotificationCenter.addObserver(this, this.onBT_RetCrushSuperBrick, "msg.BT_RetCrushSuperBrick");  // 黄金鲨
@@ -336,7 +334,6 @@ module game {
             _roleBone.rotation = 12;
             _roleBone.x = 55;
             _roleBone.y = 30;
-
 
             this.doubleGroup.visible = false;
             this._leftFirewall = [];
@@ -410,6 +407,10 @@ module game {
 
             //初始化消除事件进度条
             this.badbuffPanel.initView();
+
+            //金币同步
+            this.updateScore();
+            this.updateDiamond();
         }
 
         private finishGuide() {
