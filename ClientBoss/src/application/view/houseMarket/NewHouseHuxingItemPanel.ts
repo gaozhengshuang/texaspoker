@@ -16,9 +16,9 @@ module game {
             this.skinName = "resource/skins/NewHousehHuxingItemSkin.exml";
             //this.adaptive();
             this.bg_mc.alpha = 0;
-            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onclick_begin, this);
-            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_END, this.onclick_begin, this);
-            this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onclick_begin, this);
+            this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onclick_begin, this);
+            this.addEventListener(egret.TouchEvent.TOUCH_END, this.onclick_begin, this);
+            this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onclick_begin, this);
             this.buy_btn.name = "buyBtn";
 
         }
@@ -45,9 +45,9 @@ module game {
             this.itemDate = this.data;
             if (this.itemDate) {
                 this.name_txt.text = this.itemDate.data.Des+"("+this.itemDate.area+"平)";
-                this.danjia_txt.text=this.itemDate.price+"金币";
-                this.shouyi_txt.text=this.getTotalChanLiang()+"金币";
-                this.zongjia_txt.text=this.itemDate.price*this.itemDate.area+"金币";
+                this.danjia_txt.text=this.itemDate.price+"金/平米";
+                this.shouyi_txt.text=this.getTotalChanLiang()+"金";
+                this.zongjia_txt.text=this.itemDate.price*this.itemDate.area+"金";
                 this.shengyu_txt.text="剩余"+this.itemDate.count+"套";
                 this.huxingImg.source=RES.getRes("huxing_"+this.itemDate.data.ImageId+"_s_png");
             }

@@ -36,7 +36,11 @@ module game {
 
 					break;
 				case 4:
-				this.word_txt.text = this.itemDate.Des;
+					this.word_txt.text = this.itemDate.Des;
+					this.word_txt.textColor = 0x606060;
+					break;
+				case 5:
+					this.word_txt.text = this.itemDate.Name;
 					this.word_txt.textColor = 0x606060;
 
 					break;
@@ -49,14 +53,13 @@ module game {
 		public showBg(isShow: boolean) {
 			if (this.itemType == 2) {
 				this.word_bg.alpha = isShow ? 1 : 0;
-			}else{
-				this.word_bg.alpha=0;
+			} else {
+				this.word_bg.alpha = 0;
 			}
 		}
 		public delPanel() {
 			this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.tap_begin, this);
-			if(this.parent)
-			{
+			if (this.parent) {
 				this.parent.removeChild(this);
 			}
 		}

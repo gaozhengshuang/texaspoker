@@ -485,7 +485,7 @@ bTitleIcon.prototype.draw = function () {
   if (position) {
     var pixel = this.getProjection().fromLatLngToDivPixel(position);
     this.dom.style.left = pixel.getX()-60 + 'px';
-    this.dom.style.top = pixel.getY()-160-50 + 'px';
+    this.dom.style.top = pixel.getY()-160 + 'px';
   }
 }
 

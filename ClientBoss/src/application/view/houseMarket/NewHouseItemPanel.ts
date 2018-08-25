@@ -42,7 +42,7 @@ module game {
                 let City:any=table.TCitysById[this.itemDate.City];
                 this.weizhi_txt.text=Province.Name+City.Name;
                 this.buildingImg.source=RES.getRes("xiaoqu_"+this.itemDate.CommunityId+"_png");
-                this.junjia_txt.text="当前均价"+this.itemDate.BuildingPrice+"元/平米";
+                this.junjia_txt.text="当前均价"+this.itemDate.BuildingPrice+"金/平米";
             }
         }
     }

@@ -28,7 +28,7 @@ module game {
 		private listGroup2: eui.Group;
 		private listScroller1: eui.Scroller;
 		private listScroller2: eui.Scroller;
-		public sortCondition:number=0;
+		public sortCondition: number = 0;
 
 		public constructor() {
 			super();
@@ -40,15 +40,15 @@ module game {
 			this.radioGroup = this.priceRadio1.group;
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			//this.radioGroup.selectedValue = this.priceRadio1.value;
-			this.sortCondition=0;
+			this.sortCondition = 0;
 			console.log(this.down_bg.y);
 
 		}
-		
+
 		private onChangeSex(e: egret.Event) {
 			var rbGroup: eui.RadioButtonGroup = e.target;
 			console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
-			this.sortCondition=rbGroup.selectedValue;
+			this.sortCondition = rbGroup.selectedValue;
 			this.dispatchEvent(new BasicEvent(CommonFilterPanel.PRICE_SORT, { value: rbGroup.selectedValue }))
 
 		}
@@ -62,7 +62,7 @@ module game {
 		private secondLevelList: any[] = [];
 		private firstItemList: CommonFilterItemPanel[] = [];
 		private secondItemList: CommonFilterItemPanel[] = [];
-		public selectCondition:any=null;
+		public selectCondition: any = null;
 
 		public init(type: number, list: any[]) {
 			this.viewType = type;
@@ -85,22 +85,24 @@ module game {
 							}
 						}
 					}
-					this.selectCondition={first:this.firstLevelList[0]};
+					this.selectCondition = { first: this.firstLevelList[0] };
 					break;
 				case 2:
-					this.select_txt.text = "房型";
+					this.select_txt.text = "全部";
 					if (this.selectlist && this.selectlist.length > 0) {
 						this.firstLevelList = [];
+						let item: any = { data: { Type: 0, Name: "全部" }, index: 0, type: 5 }
+						this.firstLevelList.push(item);
 						for (let i: number = 0; i < this.selectlist.length; i++) {
-								let selectItem: any = {
-									data: this.selectlist[i],
-									index: i,
-									type: 4
-								}
-								this.firstLevelList.push(selectItem);
+							let selectItem: any = {
+								data: this.selectlist[i],
+								index: (i+1),
+								type: 4
+							}
+							this.firstLevelList.push(selectItem);
 						}
 					}
-					this.selectCondition={first:null};
+					this.selectCondition = { first: null };
 					break;
 			}
 
@@ -159,12 +161,12 @@ module game {
 					if (index == 0) {
 						this.select_txt.text = this.firstSelectResult.data.Name;
 						this.childGroup.visible = false;
-				//this.listGroup.visible=false;
-				this.selectStatus = 1;
-				this.selectStatus1.visible = true;
-				this.selectStatus2.visible = false;
-				this.hideSelectList();
-						this.selectCondition={first:this.firstSelectResult};
+						//this.listGroup.visible=false;
+						this.selectStatus = 1;
+						this.selectStatus1.visible = true;
+						this.selectStatus2.visible = false;
+						this.hideSelectList();
+						this.selectCondition = { first: this.firstSelectResult };
 						this.dispatchEvent(new BasicEvent(CommonFilterPanel.SELECT, { first: this.firstSelectResult, viewType: this.viewType }));
 					} else {
 						this.firstItemList[index].showBg(true);
@@ -172,14 +174,21 @@ module game {
 					}
 					break;
 				case 2:
-					this.select_txt.text = this.firstSelectResult.data.Des;
+					if (index == 0) {
+						this.select_txt.text = this.firstSelectResult.data.Name;
+						this.selectCondition = { first: null};
+					} else {
+						this.select_txt.text = this.firstSelectResult.data.Des;
+						this.selectCondition = { first: this.firstSelectResult };
+					}
+
 					this.childGroup.visible = false;
-				//this.listGroup.visible=false;
-				this.selectStatus = 1;
-				this.selectStatus1.visible = true;
-				this.selectStatus2.visible = false;
-				this.hideSelectList();
-					this.selectCondition={first:this.firstSelectResult};
+					//this.listGroup.visible=false;
+					this.selectStatus = 1;
+					this.selectStatus1.visible = true;
+					this.selectStatus2.visible = false;
+					this.hideSelectList();
+					
 					this.dispatchEvent(new BasicEvent(CommonFilterPanel.SELECT, { first: this.firstSelectResult, viewType: this.viewType }));
 					break;
 			}
@@ -259,7 +268,7 @@ module game {
 				this.selectStatus2.visible = false;
 				this.hideSelectList();
 				this.select_txt.text = this.firstSelectResult.data.Name + this.secondSelectResult.data.Name;
-				this.selectCondition={first:this.firstSelectResult,second:this.secondSelectResult};
+				this.selectCondition = { first: this.firstSelectResult, second: this.secondSelectResult };
 				this.dispatchEvent(new BasicEvent(CommonFilterPanel.SELECT,
 					{ first: this.firstSelectResult, second: this.secondSelectResult, viewType: this.viewType }));
 			}
