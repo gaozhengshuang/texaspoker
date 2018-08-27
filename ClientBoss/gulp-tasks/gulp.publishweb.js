@@ -4,7 +4,6 @@ const GulpConcat = require('gulp-concat');
 const GulpJsonMinify = require('gulp-json-minify');
 const GulpZip = require('gulp-zip');
 const Path = require('path');
-const FS = require("fs");
 const Htmlmin = require('htmlmin');
 const GulpUtil = require('../plugins/gulp-util');
 var GulpEgret = require('../plugins/gulp-egret');
@@ -29,13 +28,6 @@ if (!fs.existsSync(out_path)) {
     console.log("项目版本目录不存在！请确认版本号是否正确!");
     return;
 }
-
-const ProjectLibsPath = 'libs';
-const ProjectResourcePath = 'resource';
-const ProjectAssetsPath = Path.join(ProjectResourcePath, 'assets');
-const ProjectBinReleasePath = 'bin-release';
-const ProjectBinPublishPath = 'bin-publish';
-const ProjectMicroPath = 'micro';
 
 let sthList = [
     out_path + 'DynoBold.eot',
@@ -87,23 +79,6 @@ Gulp.task('version', function (cb) {
         cb);
 });
 
-Gulp.task('res-process', function () {
-    let path = Path.join(ProjectResourcePath, 'default.res.json');
-    let resStr = FS.readFileSync(path).toString();
-    let resObj = resStr ? JSON.parse(resStr) : null;
-    if (resObj == null) {
-        resObj = {};
-    }
-    if (resObj.resources == null) {
-        resObj.resources = [];
-    }
-    //
-    let resFiles = GulpUtil.getAllFilePath(ProjectAssetsPath);
-    //添加资源文件到default.res.json
-    GulpEgret.addResFilesToResJson(resFiles, resObj);
-    FS.writeFileSync(path, JSON.stringify(resObj, null, '\t'));
-    console.log("资源压缩完毕！");
-});
 //版本处理
 //通用资源
 Gulp.task('version-resource1', function () {
@@ -163,7 +138,7 @@ Gulp.task('bones-rev', function () {
         .pipe(tap(function (file) {
             let outData = file.contents.toString();
             outData = outData.replace(/\"[.*]+\//g, '"');
-            FS.writeFileSync(jsonPath, outData);
+            fs.writeFileSync(jsonPath, outData);
         }));
 });
 Gulp.task('version-bones2', function () {

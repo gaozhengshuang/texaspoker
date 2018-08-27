@@ -17,14 +17,20 @@ exports.addResFilesToResJson = function(fileList, resObj)
         fileList[i] = fileUrl;
         if(Path.extname(filePath) == '.json')
         {
-            let obj = JSON.parse(FS.readFileSync(filePath).toString());
-            if(obj.file && obj.frames)
+            try
             {
-                if(FS.existsSync(Path.join(Path.dirname(filePath),obj.file)))
+                let obj = JSON.parse(FS.readFileSync(filePath).toString());
+                if(obj.file && obj.frames)
                 {
-                    sheetList.push(Path.dirname(fileUrl) + '/' + obj.file);
-                    sheetSubKeysMap[fileUrl] = Object.getOwnPropertyNames(obj.frames).join(',');
+                    if(FS.existsSync(Path.join(Path.dirname(filePath),obj.file)))
+                    {
+                        sheetList.push(Path.dirname(fileUrl) + '/' + obj.file);
+                        sheetSubKeysMap[fileUrl] = Object.getOwnPropertyNames(obj.frames).join(',');
+                    }
                 }
+            }catch(e)
+            {
+              console.log('json解析出错！文件名：',Path.basename(filePath));
             }
         }
     }
