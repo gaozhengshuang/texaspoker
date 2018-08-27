@@ -53,7 +53,7 @@ module game {
         public roomTypeInfo: any;
         public selfIdNum: number | Long;
 
-        private huxingPanel: RoomHuxingPanel;
+        public huxingPanel: RoomHuxingPanel;
         private scrollView: egret.ScrollView;
         private sussImg: eui.Image;
 
