@@ -96,6 +96,9 @@ module game {
             CarPublicParkingLotManager._instance = null;
             //关闭后刷新邻居列表
             CarDetailView.getInstance().refrehLinJu();
+            if (CarDetailView.getInstance().isDongTaiPanelView()) {
+                CarDetailView.getInstance().OnEnableHandle();
+            }
         }
 
 /*         private onItemTouch(eve: eui.ItemTapEvent) {

@@ -152,7 +152,10 @@ module game {
                if(CarPublicParkingLotManager.getInstance().Inited())
                {
                     CarManager.getInstance().ReqMyCarInfo(
-                        function(){CarPublicParkingLotManager.getInstance().refreshData();}
+                        function(){
+                            CarPublicParkingLotManager.getInstance().refreshData();
+                            showTips("公共车位收益满已自动回收！");
+                        }
                     );
                }
             }

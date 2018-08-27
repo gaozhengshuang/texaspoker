@@ -347,7 +347,7 @@ module game {
             }
         }
 
-        private linjuList: HouseVO[];
+        private linjuList: HouseVO[] = [];
         public showLinjuList(list: HouseVO[]) {
             //console.log("showLinjuList--------------->",list.length+" "+JSON.stringify(list));
             this._showLinjuList(list);
@@ -392,10 +392,30 @@ module game {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];
                     let operatortype =  parseInt(item.split("_"[0])[1]);
-                    let _userId = operatortype==msg.CarOperatorType.Park ? DataManager.playerModel.getUserId() : parseInt(item.split("_"[0])[0]);
+                    let _houseId    =  parseInt(item.split("_"[0])[2]);
                     //console.log("前往玩家ID------>",_userId);
                     if (item) {
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:_userId});
+                        if(operatortype==msg.CarOperatorType.AutoBack){ //前往公共车位
+                            let houseVO : HouseVO = new HouseVO();
+                            if(this.linjuList.length==0){
+                                CarManager.getInstance().ReqParkingInfoByType(1,0,[],function(parkingDatas:msg.IParkingData[]){
+                                    let emptyLots  = parkingDatas.some(data=>{return data.parkingcar==0});
+                                    let _mycarPark = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();});                             
+                                    let obj = {rId:0,tId:0,ownerid:0,ownername:"公共车位",empty:Number(emptyLots),myCarPark:Number(_mycarPark),parkings:parkingDatas};
+                                    houseVO.setObject(obj);
+                                    openPanel(PanelType.carPublicLot);
+                                    CarPublicParkingLotManager.getInstance().UpdateData(houseVO.parkings);
+                                });
+                            }
+                            else{
+                                houseVO = this.linjuList[0];
+                                openPanel(PanelType.carPublicLot);
+                                CarPublicParkingLotManager.getInstance().UpdateData(houseVO.parkings);
+                            }
+                        }
+                        else{
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{houseid:_houseId}); 
+                        }
                         this.OnDisableHandle();
                     }
                     break;
