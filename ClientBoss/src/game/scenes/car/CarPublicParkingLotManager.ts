@@ -32,7 +32,7 @@ module game {
         constructor()
         {
             super();
-            this.skinName = "resource/skins/car/CarPublicParkinglotSkin.exml";
+            this.skinName = CarPublicParkinglotSkin;
             this.initItemList();
         }
         public init() 

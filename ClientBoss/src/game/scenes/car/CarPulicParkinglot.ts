@@ -17,7 +17,7 @@ module game {
         public constructor() {
             super();
             this._select = false;
-            this.skinName = "resource/skins/car/CarPublicParkingLotItemSkin.exml";
+            this.skinName = CarPublicParkingLotItemSkin;
             this.center.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
         }
         

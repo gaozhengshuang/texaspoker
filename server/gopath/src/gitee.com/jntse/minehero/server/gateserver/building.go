@@ -321,7 +321,7 @@ func (this *BuildingManager) GetAllHouseDataFromBuilding(buildingid uint32, user
 //----------------------------------------------------------------------
 //user相关接口
 func (this *GateUser) BuyHouseFromBuilding(buildingid, index uint32) {
-	log.Info("玩家[%s]id:% 请求购买房屋 buildingid:%d index:%d", this.Name(), this.Id(), buildingid, index)
+	log.Info("玩家[%s]id:%d 请求购买房屋 buildingid:%d index:%d", this.Name(), this.Id(), buildingid, index)
 	houseid := BuildSvrMgr().UserBuyHouseFromBuilding(this.Id(), buildingid, index)
 	ret := 0
 	if houseid > 0 {

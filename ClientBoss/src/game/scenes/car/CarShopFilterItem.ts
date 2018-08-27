@@ -6,7 +6,7 @@ module game {
 
 		public constructor(data:any=null) {
             super();
-            this.skinName = "resource/skins/car/CarShopFilterItemSkin.exml";
+            this.skinName = CarShopFilterItemSkin;
 		}
 
         private itemData: CarFilterData;

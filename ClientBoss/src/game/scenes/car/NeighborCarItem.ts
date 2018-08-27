@@ -11,7 +11,7 @@ module game {
 
 		public constructor(data:any=null) {
 			super();
-			this.skinName = "resource/skins/car/NeighborCarItem.exml"; 
+			this.skinName = NeighborCarItemSkin; 
 		}
 
         private itemData:HouseVO;

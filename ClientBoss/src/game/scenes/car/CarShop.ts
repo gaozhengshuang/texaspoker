@@ -75,7 +75,7 @@ module game {
         constructor()
         {
             super();
-            this.skinName = "resource/skins/car/CarShopSkin.exml";
+            this.skinName = CarShopSkin;
         }
         public init() 
         {
