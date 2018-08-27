@@ -82,7 +82,7 @@ module game {
         }
 
         protected beforeShow() {
-            this.btnClose.icon = "uiCarAltas_json.backBtn";
+            this.btnClose.icon = "uiCarAltas_json.backBtn2";
        
             this._touchEvent = [
                 { target: this.btnClose,         callBackFunc: this.OnCloseHandle },
@@ -106,7 +106,6 @@ module game {
             //this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this);
             this.oldY = this.center.y;
             this.oldH = this.center.height;
-    
         }
         public refreshData(){
             let self = this;
@@ -141,6 +140,10 @@ module game {
             else{
                 this.updateView(this.shopDatas);
             }
+            //scroller适配
+            this.sr_item.height =  gameConfig.curHeight()* 0.79;
+
+            //this.goldNum.text = this.sr_item.y+" "+this.sr_item.height;
         }
         private updateView(datas:msg.ICarProductData[])
         {   
@@ -151,8 +154,6 @@ module game {
             datas.forEach(data=>{self._dataProv.addItem(data)});
 
            // console.log("-------------->",this.ls_items.numChildren+" "+this.ls_items.numElements);
-         
-            
          }
   
         public OnCloseHandle() {
