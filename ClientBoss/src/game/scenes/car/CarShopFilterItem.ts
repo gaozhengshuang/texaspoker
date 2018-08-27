@@ -24,6 +24,11 @@ module game {
                         this.selectedBg.scaleX = 500;
                         this.selectedBg.fillColor = 0xC9C7C7;
                     break;
+                    case CarShop.sortType.BRANDALL:
+                    this.selectionTxt.text = "全部";
+                    this.selectedBg.scaleX = 300;
+                    this.selectedBg.fillColor = 0xEDEDED;                        
+                    break;
                 }
                    
             }

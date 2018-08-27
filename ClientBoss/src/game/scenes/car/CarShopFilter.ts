@@ -52,7 +52,12 @@ module game {
                     this.brandFilterDatas.push(data);
                 }
             });
+            //品牌筛选增加“全部”选项
+            if(this.brandFilterDatas[0].type!=CarShop.sortType.BRANDALL){
+                this.brandFilterDatas.unshift(new CarFilterData(CarShop.sortType.BRANDALL,"",""));                       
+            }
             this.updateViewBrand();
+            this.ls_items_brand.selectedIndex = 0;
         }
         //显示品牌列表
         private updateViewBrand()
@@ -93,7 +98,9 @@ module game {
             //console.log("onItemTouchBrand------------->")
             let _CarFilterData = <CarFilterData>eve.itemRenderer.data;
             this.updateViewModel(_CarFilterData.brand);
-            CarShop.getInstance().sortItem(CarShop.sortType.BRAND,_CarFilterData.brand);
+            //CarShop.getInstance().sortItem(CarShop.sortType.BRAND,_CarFilterData.brand);
+            CarShop.getInstance().sortItem(_CarFilterData.type,_CarFilterData.brand);
+            
         }
         private onItemTouchModel(eve: eui.ItemTapEvent) {   
             //console.log("onItemTouchModel------------->")

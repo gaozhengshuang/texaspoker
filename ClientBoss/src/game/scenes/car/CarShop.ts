@@ -58,7 +58,8 @@ module game {
             PRICEUP     : 2,
             PRICEDOWN   : 3,
             AWARDUP     : 4,
-            AWARDDOWN   : 5
+            AWARDDOWN   : 5,
+            BRANDALL    : 6
         };
         private shopDatas           : msg.ICarProductData[] = [];
         private sortShopDatas       : msg.ICarProductData[] = [];
@@ -97,7 +98,7 @@ module game {
             this.carFilter.initItemList();
             this.CarFilterDatas = table.TCar.map(data=>{
                 return new CarFilterData(CarShop.sortType.BRAND,data.Brand,data.Model); 
-            });            
+            });     
         }
         public initItemList() {
             this._dataProv = new eui.ArrayCollection();
@@ -180,6 +181,7 @@ module game {
             let _IsFilter = !this.carFilter.visible;
             this.Filter.visible = this.carFilter.visible = _IsFilter;
             this.arrowBrand.rotation = _IsFilter && 180 || 0;
+            this.sr_item.viewport.scrollV = 0;
             if(_IsFilter){
                 this.carFilter.UpdateData(this.CarFilterDatas);
                 this.showlist();
@@ -230,7 +232,7 @@ module game {
         //排序和筛选
         public sortItem(type:number,value:any=null)
         {
-            if(type==CarShop.sortType.BRAND || type==CarShop.sortType.MODEL){
+            if(type==CarShop.sortType.BRAND || type==CarShop.sortType.MODEL || type==CarShop.sortType.BRANDALL){
                 this.sortByBrandOrModel(type,value);
             }
             else{
@@ -240,18 +242,28 @@ module game {
         //按照品牌刷新
         private sortByBrandOrModel(type:number,value:any=null)
         {
-            if(type==CarShop.sortType.BRAND || type==CarShop.sortType.MODEL)
+            if(type==CarShop.sortType.BRAND || type==CarShop.sortType.MODEL || type==CarShop.sortType.BRANDALL)
             {
+                this.sr_item.viewport.scrollV = 0;
                 //按照之前的类型刷新商品列表
                 if(this.SortTypes.length>0){
                     this.sortShopDatas = [];
                     this.addSortType(type,value);
                     let SortTypes = this.SortTypes.map(data=>{return data;});
-                    SortTypes.forEach(data=>{
-                        let value = data.type==CarShop.sortType.BRAND ? data.brand : (data.type==CarShop.sortType.MODEL ? data.brand+""+data.model : "");
-                        this.sortShopItem(data.type,value);
-                    });    
+                    if(SortTypes.length==0 &&  type==CarShop.sortType.BRANDALL){
+                        this.sortShopItem(type,value); 
+                    }
+                    else{
+                        SortTypes.forEach(data=>{
+                            let value = data.type==CarShop.sortType.BRAND ? data.brand : (data.type==CarShop.sortType.MODEL ? data.brand+""+data.model : "");
+                            this.sortShopItem(data.type,value);
+                        }); 
+                    }
+   
                 }else{
+                    if(type==CarShop.sortType.BRANDALL){
+                        this.sortShopDatas = [];
+                    }
                     this.sortShopItem(type,value); 
                 }
             }
@@ -262,7 +274,14 @@ module game {
             this.addSortType(type,value);
             let datas: msg.ICarProductData[] = [];
             datas = this.sortShopDatas.length==0 ? this.shopDatas : this.sortShopDatas;
-            if(type == CarShop.sortType.BRAND)
+
+            if(type == CarShop.sortType.BRANDALL)
+            {
+                datas =  datas.filter(data=>{
+                    return true;
+                });
+            }
+            else if(type == CarShop.sortType.BRAND)
             {
                 datas =  datas.filter(data=>{
                     let carShopItemData :table.ITCarShopDefine = table.TCarShopById[data.pid];
@@ -323,6 +342,11 @@ module game {
             }
             let _CarFilterData : CarFilterData = null;
             switch (type) {
+                case CarShop.sortType.BRANDALL:
+                {
+                    this.SortTypes = this.SortTypes.filter(data=>{return data.type!=CarShop.sortType.BRAND && data.type!=CarShop.sortType.MODEL;});
+                }
+                break;
                 case CarShop.sortType.BRAND:
                 {
                     for (let i = 0; i < this.SortTypes.length; i++) {
@@ -413,11 +437,10 @@ module game {
         private showlist() {
             console.log("展示列表showlist----------->");
             if (this.btnGoalY == -1) {
-                //this.btnGoalY = gameConfig.curHeight() / 4 + this.center.height / 2 + 20
-                this.btnGoalY = 300;
+                this.btnGoalY = 300/1280 * gameConfig.curHeight();
             }
-         
-			console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
+            
+			//console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
 
             if (this.center.y != this.btnGoalY) {
                 egret.Tween.get(this.center).to({ y: this.btnGoalY }, 300).
@@ -428,10 +451,13 @@ module game {
         }
         private onComplete() {
             console.log ("onComplete");
+            this.sr_item.height  -=  this.btnGoalY; 
             egret.Tween.removeTweens(this.center);
         }
 
         private hideList() {
+            //scroller适配
+            this.sr_item.height =  gameConfig.curHeight()* 0.79;
             egret.Tween.get(this.center).to({ y: this.oldY }, 300);
         }
 
