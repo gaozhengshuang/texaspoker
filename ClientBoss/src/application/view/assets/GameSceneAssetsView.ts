@@ -56,6 +56,7 @@ module game {
 		protected resetSize() {
 			super.resetSize();
 			this.view_bg.height = gameConfig.curHeight();
+			this.contentStarck.height=GameConfig.innerPageHeight-this.contentStarck.y-20;
 		}
 		private onChangeSex(e: egret.Event) {
 			var rbGroup: eui.RadioButtonGroup = e.target;

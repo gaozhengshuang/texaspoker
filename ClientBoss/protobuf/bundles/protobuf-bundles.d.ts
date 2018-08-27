@@ -4206,6 +4206,9 @@ declare namespace msg {
 
         /** HouseData parkings */
         parkings?: (msg.IParkingData[]|null);
+
+        /** HouseData roommember */
+        roommember?: (number|null);
     }
 
     /** Represents an HouseData. */
@@ -4246,6 +4249,9 @@ declare namespace msg {
 
         /** HouseData parkings. */
         public parkings: msg.IParkingData[];
+
+        /** HouseData roommember. */
+        public roommember: number;
 
         /**
          * Creates a new HouseData instance using the specified properties.

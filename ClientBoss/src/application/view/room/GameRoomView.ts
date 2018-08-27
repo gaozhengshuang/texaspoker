@@ -112,7 +112,7 @@ module game {
 
             this.down_bg.y = gameConfig.curHeight() - this.down_bg.height;
 
-            this.bootomGroup.y = gameConfig.curHeight() - this.bootomGroup.height - 200;
+            this.bootomGroup.y = gameConfig.curHeight() - this.bootomGroup.height - 100;
             this.downBtnGroup.y = this.down_bg.y - this.downBtnGroup.height / 2 + 20;
 
             this.hideList_btn.y = gameConfig.curHeight() - 60 - this.hideList_btn.height / 2;
@@ -296,7 +296,7 @@ module game {
             this.showlist(2);
         }
         private onclick_shualingju() {
-            this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU));
+            this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU,{buildingid:this.roomInfo.bId}));
         }
 
         private onclick_hideList() {
@@ -403,9 +403,9 @@ module game {
                     break;
                 case 3:
                     if (type == 1) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU,{buildingid:this.roomInfo.bId}));
                     } else {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST,{buildingid:this.roomInfo.bId}));
                     }
 
                     this.shualingju_btn.visible = true;
@@ -502,23 +502,6 @@ module game {
                     }
                 }
             }
-
-            /*this.levelInfoList[1] = {
-                index: 1, data: this.getCellInfo(1),
-                name: "客厅", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(1)
-            };
-            this.levelInfoList[2] = {
-                index: 2, data: this.getCellInfo(2),
-                name: "卧室", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(2)
-            };
-            this.levelInfoList[3] = {
-                index: 3, data: this.getCellInfo(3),
-                name: "厕所", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(3)
-            };
-            this.levelInfoList[4] = {
-                index: 4, data: this.getCellInfo(4),
-                name: "厨房", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(4)
-            };*/
             this.itemList.bindData(this.levelInfoList);
         }
         private getOpenLockLevel(index): number {

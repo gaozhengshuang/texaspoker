@@ -91,7 +91,7 @@ module game {
         public static newPlayerStep:number=0;
 
         public static adaptiveUI(scale: number){
-            this.innerPageHeight=this.innerHeight-adaptive(scale);
+            this.innerPageHeight=gameConfig.curHeight()-adaptive(scale);
             console.log(this.innerPageHeight+"//"+this.innerHeight);
         }
 
