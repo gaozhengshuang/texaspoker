@@ -18,7 +18,7 @@ module game {
       
         public constructor() {
             super();
-            this.skinName = "resource/skins/car/CarShopBuySkin.exml";
+            this.skinName = CarShopBuySkin;
         }
         public setData(data:msg.CarProductData) {
             let userInfo = DataManager.playerModel.getUserInfo();

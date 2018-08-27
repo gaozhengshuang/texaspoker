@@ -5,7 +5,7 @@ module game {
 
 		public constructor(data: any = null) {
 			super();
-			this.skinName = "resource/skins/DiscoveryGameItemUI.exml";
+			this.skinName = DiscoveryGameItemUI;
 			this.adaptive();
 
 		}

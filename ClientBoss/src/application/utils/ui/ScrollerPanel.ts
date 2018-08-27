@@ -9,7 +9,7 @@ module utils{
 			}
 			else if(type==2)
 			{
-				this.skinName = "resource/skins/VScrollBarPanelSkin.exml";
+				this.skinName = VScrollBarPanelSkin;
 			}
 			
 			this.viewport = this.dataList;
