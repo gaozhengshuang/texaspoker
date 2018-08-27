@@ -33,6 +33,7 @@ module game {
 		public static POPUP_NEW_HOUSE_HUXING: string = "popup_new_house_huxing";
 		public static POPUP_NEW_MAP_BUILDING: string = "popup_map_building";
 		public static REMOVE_POPUP: string = "remove_popup";
+		public static REMOVE_POPUP_NEW_HOUSE: string = "remove_popup_new_house";
 		public static ERROR_ALERT: string = "error_alert";
 		public static REMOVE_ALERT_ERROR: string = "remove_error_alert";
 		

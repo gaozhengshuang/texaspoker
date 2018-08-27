@@ -88,7 +88,7 @@ module game {
 					let bId = data.Id;
 					let bName = data.Community;
 					let imageUrl = 'resource/others/images/build_'+data.CommunityId + '_m.png';
-					let position = [data.PosY, data.PosX];
+					let position = [data.PosX, data.PosY];
 					let isHas: boolean = false;
 					addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position, isHas: isHas });
 				}
@@ -199,7 +199,7 @@ module game {
 			console.log(type);
 			console.log(data);
 			setEgretEventsReply(true);
-			ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEW_MAP_BUILDING, { bId: data.bId });
+			ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEW_MAP_BUILDING, { buildingId: data.bId });
 
 		}
 		/**

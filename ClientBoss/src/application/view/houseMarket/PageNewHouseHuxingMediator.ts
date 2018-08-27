@@ -32,10 +32,11 @@ module game {
 		}
 		private closeRequset(eve:BasicEvent):void
 		{
-			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
+			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP_NEW_HOUSE);
 		}
 		private buyRequset(eve:BasicEvent):void
 		{
+			
 			if(eve.EventObj){
 				let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
 				buildingProxy.buyHouse(eve.EventObj.build,eve.EventObj.index);

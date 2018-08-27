@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="NewHousehHuxingItemSkin" width="720" height="200" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect id="bg_mc" width="720" height="200" x="0" y="0" fillAlpha="1" fillColor="0xD8D8D8"/>
+	<e:Rect id="bg_mc" width="720" height="200" x="0" y="0" fillColor="0xd8d8d8"/>
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
 	<e:Button id="buy_btn" label="购 买" width="150" height="56" x="538" y="89">
 		<e:skinName>

@@ -49,6 +49,7 @@ module game {
             this.filterPanel.addEventListener(CommonFilterPanel.SELECT, this.select_begin, this);
         }
         protected beforeRemove() {
+            this.delBuyPanel();
             this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
             this.filterPanel.removeEventListener(CommonFilterPanel.PRICE_SORT, this.price_sort_begin, this);
             this.filterPanel.removeEventListener(CommonFilterPanel.SELECT, this.select_begin, this);
@@ -144,7 +145,7 @@ module game {
                 this.huxingItemList.y = 0;
                 this.huxingItemList.height = this.huxingGroup.height;
                 this.huxingItemList.initItemRenderer(NewHouseHuxingItemPanel);
-                this.huxingItemList.dataList.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onItemTouchTap, this);
+                this.huxingItemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this);
             }
             this.huxingList = [];
             if (this.filterPanel.viewType == 2 && this.filterPanel.selectCondition) {
@@ -160,16 +161,14 @@ module game {
             }
             this.huxingItemList.bindData(this.huxingList);
         }
-        private onItemTouchTap(eve: TouchEvent) {
-            console.log(eve.target["name"]);
-            if (eve.target["name"] == "buyBtn") {
-                let item: any = eve.target["parent"].itemDate;
-                if(item){
-                    this.showBuyPanel(item);
-                }
-
+        
+        private onItemTouch(eve: eui.ItemTapEvent) {
+            let item: any = this.huxingList[eve.itemIndex];
+            if (item) {
+                this.showBuyPanel(item);
             }
         }
+
         private buyPanel:BuyNewHousePanel;
         private showBuyPanel(info:any){
             this.delBuyPanel();

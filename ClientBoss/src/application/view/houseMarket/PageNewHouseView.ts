@@ -5,27 +5,26 @@ module game {
 
         private return_btn: eui.Button;
         private top_bg: eui.Rect;
-        
+
         private diamond_txt: eui.Label;
         private gold_txt: eui.Label;
         private energy_txt: eui.Label;
         private addEnergy_txt: eui.Label;
         private addNum_txt: eui.Label;
-        
+
         private addEnergyGroup: eui.Group;
-        
+
         private filterPanel: CommonFilterPanel;
         private buildingGroup: eui.Group;
-        
-        
-        
+
+
+
 
         private userInfo: IUserInfo;
         private isTime: boolean = false;
-        
-        
-        constructor()
-        {
+
+
+        constructor() {
             super();
             this._isShowDark = false;
             this._isShowEffect = false;
@@ -54,9 +53,9 @@ module game {
         protected init() {
             //this.horizontalCenter = this.verticalCenter = 0;
             this.addEnergyGroup.visible = false;
-            this.filterPanel.init(1,table.TCitys);
-            this.buildingGroup.height=gameConfig.curHeight()-(this.filterPanel.y+60);
-            
+            this.filterPanel.init(1, table.TCitys);
+            this.buildingGroup.height = gameConfig.curHeight() - (this.filterPanel.y + 60);
+
         }
         private adaptive() {
             //this.scaleX = this.scaleY = GameConfig.innerScale;
@@ -65,34 +64,34 @@ module game {
         }
 
 
-        private price_sort_begin(eve:BasicEvent){
+        private price_sort_begin(eve: BasicEvent) {
             this.showBuildingList();
         }
-        private select_begin(eve:BasicEvent){
+        private select_begin(eve: BasicEvent) {
             this.showBuildingList();
         }
-        private return_begin(){
+        private return_begin() {
             this.dispatchEvent(new BasicEvent(PageNewHouseView.CLOSE));
         }
 
         private buildingItemList: utils.ScrollerPanel;
-		private buildingList: any[] = [];
-        private showBuildingList(){
-			if (this.buildingItemList == null) {
-				this.buildingItemList = new utils.VScrollerPanel();
-				this.buildingGroup.addChild(this.buildingItemList);
-				this.buildingItemList.y = 0;
-				this.buildingItemList.height = this.buildingGroup.height;
-				this.buildingItemList.initItemRenderer(NewHouseItemPanel);
-				this.buildingItemList.dataList.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onItemTouchTap, this);
-			}
-			this.buildingList=[];
-            if(this.filterPanel.viewType==1 && this.filterPanel.selectCondition){
-                if(this.filterPanel.selectCondition.second){
-                    this.buildingList=this.filterList(this.filterPanel.selectCondition.first,
-                    this.filterPanel.selectCondition.second)
-                }else{
-                    this.buildingList=this.filterList(this.filterPanel.selectCondition.first);
+        private buildingList: any[] = [];
+        private showBuildingList() {
+            if (this.buildingItemList == null) {
+                this.buildingItemList = new utils.VScrollerPanel();
+                this.buildingGroup.addChild(this.buildingItemList);
+                this.buildingItemList.y = 0;
+                this.buildingItemList.height = this.buildingGroup.height;
+                this.buildingItemList.initItemRenderer(NewHouseItemPanel);
+                this.buildingItemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this);
+            }
+            this.buildingList = [];
+            if (this.filterPanel.viewType == 1 && this.filterPanel.selectCondition) {
+                if (this.filterPanel.selectCondition.second) {
+                    this.buildingList = this.filterList(this.filterPanel.selectCondition.first,
+                        this.filterPanel.selectCondition.second)
+                } else {
+                    this.buildingList = this.filterList(this.filterPanel.selectCondition.first);
                 }
                 if (this.buildingList) {
                     if (this.filterPanel.sortCondition == 1) {
@@ -105,34 +104,32 @@ module game {
             }
             this.buildingItemList.bindData(this.buildingList);
         }
-        private onItemTouchTap(eve: TouchEvent) {
-            console.log(eve.target["name"]);
-            if (eve.target["name"] == "huxingBtn") {
-                let item: any = eve.target["parent"].itemDate;
-                if(item){
-                    this.dispatchEvent(new BasicEvent(PageNewHouseView.LOOK_HUXING,{building:item}));
-                }
+        private onItemTouch(eve: eui.ItemTapEvent) {
+            let item: any = this.buildingList[eve.itemIndex]
+            if (item) {
+                this.dispatchEvent(new BasicEvent(PageNewHouseView.LOOK_HUXING, { building: item }));
             }
         }
-        
 
-        private filterList(first:any,second:any=null):any[]{
-            let list:any[]=null;
-            let basisList:any[]=table.TBuildings;
-            if(first && basisList){
-                if(first.data.Type==0){
-                    list=basisList;
+
+
+        private filterList(first: any, second: any = null): any[] {
+            let list: any[] = null;
+            let basisList: any[] = table.TBuildings;
+            if (first && basisList) {
+                if (first.data.Type == 0) {
+                    list = basisList;
                     return list;
-                }else{
-                    list=[];
-                    for(let i:number=0;i<basisList.length;i++){
-                        if(second){
-                            if(basisList[i].Province==first.data.Id &&
-                            basisList[i].City==second.data.Id ){
+                } else {
+                    list = [];
+                    for (let i: number = 0; i < basisList.length; i++) {
+                        if (second) {
+                            if (basisList[i].Province == first.data.Id &&
+                                basisList[i].City == second.data.Id) {
                                 list.push(basisList[i]);
                             }
-                        }else{
-                            if(basisList[i].Province==first.data.Id){
+                        } else {
+                            if (basisList[i].Province == first.data.Id) {
                                 list.push(basisList[i]);
                             }
                         }
@@ -145,35 +142,35 @@ module game {
         /**
 		 * 降序排序
 		 */
-		public sortOn(a: any, b: any): number {
+        public sortOn(a: any, b: any): number {
 
-			if (a.BuildingPrice > b.BuildingPrice) {
-				return -1;
-			} else if (a.BuildingPrice < b.BuildingPrice) {
-				return 1;
-			} else {
-				
-				return 0;
-			}
-		}
+            if (a.BuildingPrice > b.BuildingPrice) {
+                return -1;
+            } else if (a.BuildingPrice < b.BuildingPrice) {
+                return 1;
+            } else {
+
+                return 0;
+            }
+        }
 		/**
 		 * 升序排序
 		 */
-		public sortRise(a: any, b: any): number {
+        public sortRise(a: any, b: any): number {
 
-			if (a.BuildingPrice > b.BuildingPrice) {
-				return 1;
-			} else if (a.BuildingPrice < b.BuildingPrice) {
-				return -1;
-			} else {
-				
-				return 0;
-			}
-		}
-        
+            if (a.BuildingPrice > b.BuildingPrice) {
+                return 1;
+            } else if (a.BuildingPrice < b.BuildingPrice) {
+                return -1;
+            } else {
 
-        public updateUserInfo(uInfo:IUserInfo){
-            this.userInfo=uInfo;
+                return 0;
+            }
+        }
+
+
+        public updateUserInfo(uInfo: IUserInfo) {
+            this.userInfo = uInfo;
             this.gold_txt.text = String(this.userInfo.gold);
             this.diamond_txt.text = String(this.userInfo.diamond);
             this.energy_txt.text = this.userInfo.robcount + "/" + 20;
@@ -215,6 +212,6 @@ module game {
         public removeTimer(): void {
             SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
         }
-        
+
     }
 }

@@ -35,9 +35,9 @@ module game {
             this.houseInfo = data;
             if (this.houseInfo) {
                 this.name_txt.text = this.houseInfo.data.Des+"("+this.houseInfo.area+"平)";
-                this.danjia_txt.text=this.houseInfo.price+"金币";
-                this.shouyi_txt.text=this.getTotalChanLiang()+"金币";
-                this.zongjia_txt.text=this.houseInfo.price*this.houseInfo.area+"金币";
+                this.danjia_txt.text=this.houseInfo.price+"金/平米";
+                this.shouyi_txt.text=this.getTotalChanLiang()+"金";
+                this.zongjia_txt.text=this.houseInfo.price*this.houseInfo.area+"金";
                 this.huxingImg.source=RES.getRes("huxing_"+this.houseInfo.data.ImageId+"_s_png");
             }
         }
