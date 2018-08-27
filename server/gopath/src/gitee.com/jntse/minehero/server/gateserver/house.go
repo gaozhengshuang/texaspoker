@@ -207,6 +207,7 @@ type HouseData struct {
 	housecells   map[uint32]*HouseCell //每个房间信息
 	visitinfo    []*HouseVisitInfo
 	ownername    string
+	roommember 	 uint32 //房间号
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 
 	ticker1Sec *util.GameTicker
@@ -226,6 +227,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.level = bin.GetLevel()
 	this.ownername = bin.GetOwnername()
 	this.robcheckflag = bin.GetRobcheckflag()
+	this.roommember = bin.GetRoommember()
 	for _, v := range bin.GetHousecells() {
 		cell := &HouseCell{}
 		cell.LoadBin(v)
@@ -262,6 +264,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Ownername = pb.String(this.ownername)
 	bin.Housecells = make([]*msg.HouseCell, 0)
 	bin.Robcheckflag = pb.Uint32(this.robcheckflag)
+	bin.Roommember = pb.Uint32(this.roommember)
 	for _, v := range this.housecells {
 		bin.Housecells = append(bin.Housecells, v.PackBin())
 	}
@@ -479,7 +482,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid uint32) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -525,6 +528,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.ownerid = ownerid
 	house.ownername = ownername
 	house.buildingid = buildingid
+	house.roommember = roommember
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
