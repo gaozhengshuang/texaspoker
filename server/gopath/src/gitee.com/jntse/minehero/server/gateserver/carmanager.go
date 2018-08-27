@@ -340,6 +340,22 @@ func (this *CarManager) GetCar(id uint64) *CarData {
 	return nil
 }
 
+// 获得车辆对应house(目前没有一一绑定关系，车主house第一个house)
+func (this *CarManager) GetCarHouseId(carid uint64) uint64 {
+	car := this.GetCar(carid)
+	if car == nil {
+		return 0
+	}
+
+	houses := HouseSvrMgr().GetHousesByUser(car.ownerid)
+	if len(houses) != 0 {
+		return houses[0].id
+	}
+
+	return 0
+}
+
+
 func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *CarData {
 	carid, errcode := def.GenerateCarId(Redis())
 	if errcode != "" {
@@ -411,21 +427,24 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 }
 
 func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
-	prefix := fmt.Sprintf("%d_%d_%s  ", handleid, opttype, time.Now().Format("15:04"))
-	data := ""
+	prefix, data := "", ""
 	switch opttype {
 	case uint32(msg.CarOperatorType_Park):
 		//停车
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
 		data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
 		break
 	case uint32(msg.CarOperatorType_TakeBack):
 		//收车
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
 		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
 		break
 	case uint32(msg.CarOperatorType_Ticket):
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
 		data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
 		break
 	case uint32(msg.CarOperatorType_AutoBack):
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
 		data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
 		break
 	}

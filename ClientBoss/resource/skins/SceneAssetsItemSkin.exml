@@ -3,8 +3,8 @@
 	<e:Rect id="bg_mc" width="720" height="150" x="0" y="0" fillAlpha="1" fillColor="0xd8d8d8"/>
 	<e:Image id="build_img" x="19" scaleX="1" scaleY="1" verticalCenter="0" touchEnabled="false" source="huxing_1001_s_png"/>
 	<e:Label id="name_txt" text="万科城市花园808房间" x="213" y="21" fontFamily="Arial" size="26" anchorOffsetX="0" width="294" bold="true" textColor="0x404a58" touchEnabled="false"/>
-	<e:Label id="junjia_txt" text="现价：20000金币" x="213" y="106" fontFamily="Arial" size="23" width="250" textColor="0xec5339" touchEnabled="false"/>
-	<e:Label id="channeng_txt" text="产能：2000金币/小时" x="213" y="79" fontFamily="Arial" size="23" width="250" textColor="0xec5339" touchEnabled="false"/>
+	<e:Label id="junjia_txt" text="现价：20000金" x="213" y="106" fontFamily="Arial" size="23" width="250" textColor="0xec5339" touchEnabled="false"/>
+	<e:Label id="channeng_txt" text="产能：2000金/小时" x="213" y="79" fontFamily="Arial" size="23" width="250" textColor="0xec5339" touchEnabled="false"/>
 	<e:Label id="huxing_txt" text="户型：一室一厅" x="213" y="52" fontFamily="Arial" size="23" width="250" textColor="0xEC5339" touchEnabled="false"/>
 
 
