@@ -12,7 +12,7 @@ module game {
 				case CommandName.SOCKET_REQ_GOIN_ROOM:
 				{
 					if(data!=null){
-                        sendMessage("msg.C2GW_ReqOtherUserHouseData", msg.C2GW_ReqOtherUserHouseData.encode({userid:data.userid}));
+                        sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({houseid:data.houseid}));
                     }
 					break;
 				}

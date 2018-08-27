@@ -13,7 +13,7 @@ module game {
     //游戏内配置支持
     export var _buyLucky: number = 2000;    //转一次奖消耗金币数量
     export var _maxSp: number = 250;       //大招点击次数
-    export var _paddlePrice: number = 20;      //每发子弹消耗的金币数
+    export var _paddlePrice: number = 15;      //每发子弹消耗的金币数
     export var _maxEvent: number = 300;     //出现事件金币段
     export var _eventAddMin: number = 100;     //前多少金币出现增益
     export var _spaceFire: number = 5000;       //无限火力金币数

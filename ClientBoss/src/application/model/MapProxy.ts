@@ -1,3 +1,4 @@
+declare var map;
 declare function init(lat: any, lng: any, zoom: number);
 declare function moveMap(lat: any, lng: any);
 declare function getPoSition(fun: Function, error: Function)
@@ -63,7 +64,7 @@ module game {
 		/**
 		 * 地图上添加建筑
 		 */
-		public addMapBuilding(dataList: BuildingVO[],players:UserVO) {
+		/*public addMapBuilding(dataList: any[], players: UserVO) {
 			if (dataList && dataList.length > 0) {
 				for (let i: number = 0; i < dataList.length; i++) {
 					let data: BuildingVO = dataList[i];
@@ -71,15 +72,29 @@ module game {
 					let bName = data.bName;
 					let imageUrl = 'resource/assets/' + data.bImage1 + '.png';
 					let position = [data.lat, data.lng];
-					let isHas:boolean=false;
-					if(players.bId.indexOf(data.bId)!=-1){
-						isHas=true;
+					let isHas: boolean = false;
+					if (players.bId.indexOf(data.bId) != -1) {
+						isHas = true;
 					}
 
-					addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position,isHas:isHas});
+					addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position, isHas: isHas });
+				}
+			}
+		}*/
+		public addMapBuilding(dataList: any[]) {
+			if (dataList && dataList.length > 0) {
+				for (let i: number = 0; i < dataList.length; i++) {
+					let data: any = dataList[i];
+					let bId = data.Id;
+					let bName = data.Community;
+					let imageUrl = 'resource/others/images/build_'+data.CommunityId + '_m.png';
+					let position = [data.PosX, data.PosY];
+					let isHas: boolean = false;
+					addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position, isHas: isHas });
 				}
 			}
 		}
+
 		/**
 		 * 地图上添加玩家图标
 		 */
@@ -114,14 +129,39 @@ module game {
 		/**
 		 * 玩家本身定位坐标
 		 */
-		public getPos(position: JSON) {
+		private getPos(position: JSON) {
 			let position_str = JSON.stringify(position, null, 4);
 			let realobj = eval('(' + position_str + ')');
 			console.log(position_str);
-			init(realobj.lat, realobj.lng, 16);
+			if (map) {
+				moveMap(realobj.lat, realobj.lng);
+			}
+			else {
+				init(realobj.lat, realobj.lng, 16);
+			}
 			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: realobj.lat, lng: realobj.lng });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);
+		}
+
+		//pointStr = top + "@" + down + "@" + left + "@" + right;
+		public addBuilding(){
+			let RangePoint:string= getRectRangePoint([this.currentPoint.lat,this.currentPoint.lng],2000);
+			if(RangePoint){
+				let Range:string[]=RangePoint.split("@");
+				let build:any[]=table.TBuildings;
+				let getBuild:any[]=[];
+				for(let i:number=0;i<build.length;i++){
+					let item:any=build[i];
+					if(item.PosX<Number(Range[0]) && item.PosX>Number(Range[1]) 
+					&& item.PosY>Number(Range[2]) && item.PosY<Number(Range[3])){
+						getBuild.push(build[i]);
+					}
+				}
+				if(getBuild && getBuild.length>0){
+					this.addMapBuilding(getBuild);
+				}
+			}
 		}
 		/**
 		 * 玩家重新定位坐标
@@ -142,13 +182,14 @@ module game {
 		public showErr() {
 			console.log('初始化地图定位错误！！');
 			init(31.2303695678711, 121.473701477051, 15);
+			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: 31.2303695678711, lng: 121.473701477051 });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: 31.2303695678711, lng: 121.473701477051 });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);
 		}
 		public againShowErr() {
 			console.log('重新定位地图定位错误！！');
- 			moveMap(31.2303695678711, 121.473701477051);
+			moveMap(31.2303695678711, 121.473701477051);
 
 		}
 		/**
@@ -158,18 +199,7 @@ module game {
 			console.log(type);
 			console.log(data);
 			setEgretEventsReply(true);
-			if (GameConfig.exploring && GameConfig.explorRId > 0 && GameConfig.explorLimit != null) {
-				let startObj = { lat: GameConfig.explorLimit.lat, lng: GameConfig.explorLimit.lng };
-				let endObj = { lat: data.position[0], lng: data.position[1] }
-				let juli: number = getDistance(startObj, endObj);
-				if (juli > GameConfig.explorLimit.radius) {
-					//ApplicationFacade.getInstance().sendNotification(CommandName.ERROR_ALERT, { eid: 124 });
-				} else {
-					//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_BUILDING, { bId: data.bId })
-				}
-			} else {
-				//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_BUILDING, { bId: data.bId });
-			}
+			ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEW_MAP_BUILDING, { buildingId: data.bId });
 
 		}
 		/**
@@ -212,7 +242,7 @@ module game {
 		 */
 		public actionCallBackFun(type: string, data: any) {
 
-			//ApplicationFacade.getInstance().sendNotification(CommandName.MAP_ACTION, { type: type, content: data });
+			ApplicationFacade.getInstance().sendNotification(CommandName.MAP_ACTION, { type: type, content: data });
 		}
 	}
 }

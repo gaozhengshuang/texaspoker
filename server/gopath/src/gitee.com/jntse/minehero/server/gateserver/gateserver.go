@@ -343,7 +343,7 @@ func (this *GateServer) OnStart() {
 
 	//
 	this.runtimestamp = util.CURTIMEMS()
-	//this.buildingmgr.Init()
+	this.buildingmgr.Init()
 	this.housesvrmgr.Init()
 	this.carmgr.Init()
 	this.carshop.Init()
@@ -356,7 +356,7 @@ func (this *GateServer) OnStop() {
 		t.Stop()
 	}
 	this.housesvrmgr.SaveAllHousesData()
-	//this.buildingmgr.SaveAllBuildings()
+	this.buildingmgr.SaveAllBuildings()
 	this.carshop.SaveAll()
 	this.hredis.Close()
 }

@@ -1,5 +1,18 @@
 module game {
     export function openPanel(panelType: PanelType, data: any = null) {
+        let panel = getPanel(panelType);
+        if (panel) {
+            panel.show();
+        }
+    }
+    export function panelIsShow(panelType: PanelType): boolean {
+        let panel = getPanel(panelType);
+        if (panel && panel.parent) {
+            return true;
+        }
+        return false;
+    }
+    function getPanel(panelType: PanelType): PanelComponent {
         let panel: PanelComponent;
         switch (panelType) {
             case PanelType.win:
@@ -39,7 +52,7 @@ module game {
                 panel = RoleDressShopCart.getInstance();
                 break;
             case PanelType.battle:
-                panel = BattleScene.getInstance();
+                panel = BattlePanel.getInstance();
                 break;
             case PanelType.carDetail:
                 panel = CarDetailView.getInstance();
@@ -65,12 +78,30 @@ module game {
             case PanelType.WelcomeNewPlayersPanel:
                 panel = WelcomeNewPlayersPanel.getInstance();
                 break;
+            case PanelType.SimpleLoadingPanel:
+                panel = SimpleLoadingPanel.getInstance();
+                break;
+            case PanelType.LoadingScenePanel:
+                panel = LoadingScenePanel.getInstance();
+                break;
+            case PanelType.PageNewHouseView:
+                panel = PageNewHouseView.getInstance();
+                break;
+            case PanelType.PageNewHouseHuxingView:
+                panel = PageNewHouseHuxingView.getInstance();
+                break;
+            case PanelType.CarShop:
+                panel = CarShop.getInstance();
+                break;
+            case PanelType.MapBuildingPopupPanel:
+                panel = MapBuildingPopupPanel.getInstance();
+                break;
+            default:
+                Console.log("未找到面板！面板名：", panelType);
+                break;
         }
-        if (panel) {
-            panel.show();
-        }
+        return panel;
     }
-
     export const enum PanelType {
         win = 1,
         rank,
@@ -91,7 +122,13 @@ module game {
         GameDiscoveryView,
         GameMineView,
         GameRoomView,
+        PageNewHouseView,
         GameUserInfoPanel,
-        WelcomeNewPlayersPanel
+        WelcomeNewPlayersPanel,
+        SimpleLoadingPanel,
+        LoadingScenePanel,
+        CarShop,
+        PageNewHouseHuxingView,
+        MapBuildingPopupPanel
     }
 }

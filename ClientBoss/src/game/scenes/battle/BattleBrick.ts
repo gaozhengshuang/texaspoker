@@ -169,18 +169,18 @@ module game {
             switch (this.buffType) {
                 case BrickType.timeBoom:
                     this.needCountdown = false;
-                    BattleScene.getInstance().showTimeBoom(this);
+                    BattlePanel.getInstance().showTimeBoom(this);
                     break;
                 case BrickType.blackHole:
                     SoundManager.playEffect("heidong", 0.5);
-                    BattleScene.getInstance().addBlackHole(this);
+                    BattlePanel.getInstance().addBlackHole(this);
                     break;
                 case BrickType.fireWall:
-                    BattleScene.getInstance().addFire(this);
+                    BattlePanel.getInstance().addFire(this);
                     break;
                 case BrickType.ice:
                     SoundManager.playEffect("bingqiang", 0.5);
-                    BattleScene.getInstance().addIce(this);
+                    BattlePanel.getInstance().addIce(this);
                     break;
             }
         }
@@ -189,16 +189,16 @@ module game {
             let time = 0;
             switch (this.buffType) {
                 case BrickType.timeBoom:
-                    time = _timeBoomTime[BattleScene.getInstance().getCurScoreTimeSp()] * 60;
+                    time = _timeBoomTime[BattlePanel.getInstance().getCurScoreTimeSp()] * 60;
                     break;
                 case BrickType.blackHole:
-                    time = _blackHoleTime[BattleScene.getInstance().getCurScoreTimeSp()] * 60;
+                    time = _blackHoleTime[BattlePanel.getInstance().getCurScoreTimeSp()] * 60;
                     break;
                 case BrickType.fireWall:
-                    time = _fireWallTime[BattleScene.getInstance().getCurScoreTimeSp()] * 60;
+                    time = _fireWallTime[BattlePanel.getInstance().getCurScoreTimeSp()] * 60;
                     break;
                 case BrickType.ice:
-                    time = _iceTime[BattleScene.getInstance().getCurScoreTimeSp()] * 60;
+                    time = _iceTime[BattlePanel.getInstance().getCurScoreTimeSp()] * 60;
                     break;
             }
             return time;
@@ -284,7 +284,7 @@ module game {
                 this.crackImage.source = "cube_json.crack3";
             }
             if (value < 0) {
-                BattleScene.getInstance().destroyBrick(this);
+                BattlePanel.getInstance().destroyBrick(this);
             }
         }
 
@@ -327,7 +327,7 @@ module game {
             let now = time;
             if (this._hitTime == now) return;
             if (!this._frozen) {
-                BattleScene.getInstance().addHit(this,ball);
+                BattlePanel.getInstance().addHit(this,ball);
             }
             this.shakeAnim.play(0);
             this._hitTime = now;

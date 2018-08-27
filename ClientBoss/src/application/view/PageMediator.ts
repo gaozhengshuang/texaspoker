@@ -10,13 +10,15 @@ module game {
             super(PageMediator.NAME, viewComponent);
         }
 
-        public pageView: PanelComponent | eui.UILayer;
+        public pageView: PanelComponent | egret.EventDispatcher;
+        private _smallView:GameSmallGameView;
         public pageMediatorName: string = "";
         public listNotificationInterests(): Array<any> {
             return [
                 CommandName.PAGE_SWITCH_SMALL_GAME,
                 CommandName.REMOVE_SMALL_GAME_PAGE,
                 CommandName.PAGE_SWITCH_ROOM,
+                CommandName.PAGE_SWITCH_NEW_HOUSE,
                 CommandName.REMOVE_ROOM_PAGE,
             ];
         }
@@ -38,7 +40,9 @@ module game {
                             openPanel(PanelType.GameRoomView);
 
                             this.pageView = GameRoomView.getInstance();
-                            ApplicationFacade.getInstance().registerMediator(new RoomMediator(this.pageView));
+
+                            ApplicationFacade.getInstance().registerMdt<RoomMediator>(RoomMediator.NAME, RoomMediator, this.pageView);
+
                             this.pageMediatorName = RoomMediator.NAME;
                             GameRoomView.getInstance().initInfo(data.room, userProxy.getUserInfo().userid, houseProxy.returnType);
 
@@ -56,6 +60,25 @@ module game {
 
                         break;
                     }
+                case CommandName.PAGE_SWITCH_NEW_HOUSE:
+                    {
+                        //GameConfig.updataMaskBgFun('#404A58', 1);
+                        let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+                        this.removeSceneView();
+                        GameConfig.showDownBtnFun(false);
+                        GameConfig.pageType = 3;
+                        GameConfig.setEventsReply(true);
+                        openPanel(PanelType.PageNewHouseView);
+                        this.pageView = PageNewHouseView.getInstance();
+                        ApplicationFacade.getInstance().registerMdt<PageNewHouseMediator>(PageNewHouseMediator.NAME, PageNewHouseMediator, this.pageView);
+                        PageNewHouseView.getInstance().updateUserInfo(userProxy.getUserInfo());
+
+                        this.pageMediatorName = PageNewHouseMediator.NAME;
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+
+                        break;
+                    }
                 case CommandName.PAGE_SWITCH_SMALL_GAME:
                     {
                         //GameConfig.updataMaskBgFun('#404A58', 1);
@@ -65,9 +88,16 @@ module game {
                             GameConfig.pageType = 4;
                             GameConfig.setEventsReply(true);
                             //GameConfig.closeGameFun(true);
-                            this.pageView = new GameSmallGameView();
-                            this.sceneGroup.addChild(this.pageView);
-                            ApplicationFacade.getInstance().registerMediator(new SmallGameMediator(this.pageView));
+                            if(!this._smallView)
+                            {
+                                this._smallView = new GameSmallGameView();
+                            }
+                            this._smallView.clear();
+                            this.pageView = this._smallView;
+                            // this.sceneGroup.addChild(this.pageView);
+                            // ApplicationFacade.getInstance().registerMediator(new SmallGameMediator(this.pageView));
+                            ApplicationFacade.getInstance().registerMdt<SmallGameMediator>(SmallGameMediator.NAME, SmallGameMediator, this.pageView);
+
                             this.pageMediatorName = SmallGameMediator.NAME;
                             (this.pageView as GameSmallGameView).initGame(data.game);
                         }
@@ -84,11 +114,16 @@ module game {
                     }
                 case CommandName.REMOVE_ROOM_PAGE:
                     {
-                        this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_NUM, { isShow: false });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        if(GameConfig.pageType==3){
+                            GameConfig.setEventsReply(false);
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+                        }else{
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        }
+                        this.removeSceneView();
                         break;
                     }
 
@@ -104,8 +139,8 @@ module game {
                 this.pageView.remove();
             }
             else {
-                if (this.pageView && this.pageView.parent) {
-                    this.pageView.parent.removeChild(this.pageView);
+                if (this.pageView) {
+                    (this.pageView as GameSmallGameView).clear();
                 }
             }
             if (this.pageMediatorName != "") {

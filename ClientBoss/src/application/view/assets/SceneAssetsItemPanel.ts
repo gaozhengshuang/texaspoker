@@ -8,8 +8,6 @@ module game {
         private junjia_txt: eui.Label;
         private channeng_txt: eui.Label;
 
-        private hCoin_icon: eui.Image;
-        private hQuan_icon: eui.Image;
         private chushou_icon: eui.Image;
         private jiaoBiaoIcon: eui.Image;
         private bg_mc:eui.Rect;
@@ -18,8 +16,6 @@ module game {
             super();
             this.skinName = "resource/skins/SceneAssetsItemSkin.exml";
             //this.adaptive();
-            this.hCoin_icon.visible=false;
-            this.hQuan_icon.visible=false;
             this.chushou_icon.visible=false;
             this.jiaoBiaoIcon.visible=false;
             this.bg_mc.alpha=0;
@@ -51,13 +47,17 @@ module game {
                 }else{
                     this.name_txt.text = this.itemDate.rId+"号房间";
                 }
-                
-                this.huxing_txt.text="户型：一室一厅";
+                let houseType:any=table.THouseById[this.itemDate.tId];
+                if(houseType){
+                    this.huxing_txt.text="户型："+houseType.Des;
+                    this.build_img.source=RES.getRes("huxing_"+houseType.ImageId+"_s_png");
+                }
                 if(this.itemDate.isHave){
                     this.jiaoBiaoIcon.visible=true;
                 }else{
                     this.jiaoBiaoIcon.visible=false;
                 }
+                
                 /*let weizhiTxt = this.weizhi_txt;
                 GameConfig.getCityNameFun(this.itemDate.bLatLng[0],
                     this.itemDate.bLatLng[1], function (txt: string) {

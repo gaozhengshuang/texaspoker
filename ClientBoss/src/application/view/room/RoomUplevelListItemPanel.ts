@@ -27,7 +27,7 @@ module game {
 
             this.itemDate = this.data;
             if (this.itemDate) {
-                this.quyuImg.source = "resource/assets2/roomLevelIcon" + (this.itemDate.index + 1) + ".png";
+                this.quyuImg.source = "roomLevelIcon" + (this.itemDate.index + 1) + "_png";
                 let type: any;
                 let typeNext: any;
                 if (this.itemDate.index == 0) {
@@ -35,7 +35,7 @@ module game {
                     this.goldImg.visible=true;
                     this.lock_txt.visible=false;
                     type = table.THouseById[this.itemDate.data.tId];
-                    if (this.itemDate.data.level < 5) {
+                    if (this.itemDate.data.level < this.itemDate.MaxLv) {
                         this.spend_txt.visible = true;
                         this.btnGruop.visible = true;
                         this.manji_txt.visible = false;
@@ -59,7 +59,7 @@ module game {
                     type = table.THouseCellById[this.itemDate.data.tid];
                     typeNext = table.THouseCellById[this.itemDate.data.tid + 1];
                     this.chanliang_txt.visible = true;
-                    if (this.itemDate.data.level < 5) {
+                    if (this.itemDate.data.level < this.itemDate.MaxLv) {
                         this.btnGruop.visible = true;
                         this.manji_txt.visible = false;
 

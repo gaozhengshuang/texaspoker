@@ -207,14 +207,19 @@ type HouseData struct {
 	housecells   map[uint32]*HouseCell //每个房间信息
 	visitinfo    []*HouseVisitInfo
 	ownername    string
+	roommember 	 uint32 //房间号
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 
 	ticker1Sec *util.GameTicker
 }
 
-func (this *HouseData) LoadBin(bin *msg.HouseData) {
+func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.housecells = make(map[uint32]*HouseCell)
 	this.visitinfo = make([]*HouseVisitInfo, 0)
+	bin := &msg.HouseData{}
+	if err := pb.Unmarshal(rbuf, bin); err != nil {
+		return nil
+	}
 	this.id = bin.GetId()
 	this.tid = bin.GetTid()
 	this.ownerid = bin.GetOwnerid()
@@ -222,6 +227,7 @@ func (this *HouseData) LoadBin(bin *msg.HouseData) {
 	this.level = bin.GetLevel()
 	this.ownername = bin.GetOwnername()
 	this.robcheckflag = bin.GetRobcheckflag()
+	this.roommember = bin.GetRoommember()
 	for _, v := range bin.GetHousecells() {
 		cell := &HouseCell{}
 		cell.LoadBin(v)
@@ -234,8 +240,9 @@ func (this *HouseData) LoadBin(bin *msg.HouseData) {
 		info.LoadBin(v)
 		this.visitinfo = append(this.visitinfo, info)
 	}
-	log.Info("读取房屋[%d] ", this.id)
+	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
+	return bin
 }
 
 func (this *HouseData) Tick(now int64) {
@@ -257,6 +264,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Ownername = pb.String(this.ownername)
 	bin.Housecells = make([]*msg.HouseCell, 0)
 	bin.Robcheckflag = pb.Uint32(this.robcheckflag)
+	bin.Roommember = pb.Uint32(this.roommember)
 	for _, v := range this.housecells {
 		bin.Housecells = append(bin.Housecells, v.PackBin())
 	}
@@ -413,22 +421,37 @@ func (this *HouseManager) Init() {
 	this.userhouses = make(map[uint64][]uint64)
 	this.housesIdList = make([]uint64, 0)
 	this.useronlne = make(map[uint64]int)
+	this.LoadDB()
+}
+
+func (this *HouseManager) LoadDB() {
 	data, err := Redis().SMembers("houses_idset").Result()
 	if err != nil {
 		log.Error("启动加载放假数据失败 err: %s", err)
 	} else {
-
+		pipe := Redis().Pipeline()
+		defer pipe.Close()
 		for _, v := range data {
 			houseid, _ := strconv.Atoi(v)
-			key, bin := fmt.Sprintf("houses_%d", uint64(houseid)), &msg.HouseData{}
-			if err := utredis.GetProtoBin(Redis(), key, bin); err != nil {
-				log.Error("加载房屋信息失败无此房屋数据 id%d ，err: %s", uint64(houseid), err)
-			} else {
-				house := &HouseData{}
-				house.LoadBin(bin)
+			key := fmt.Sprintf("houses_%d", uint64(houseid))
+			pipe.Get(key)
+		}
+		cmds, err := pipe.Exec()
+		if err != nil && err != redis.Nil {
+			log.Error("HouseManager LoadDB Error:%s ", err)
+			return
+		}
+		for _, v := range cmds {
+			if v.Err() == redis.Nil {
+				continue
+			}
+			rbuf, _ := v.(*redis.StringCmd).Bytes()
+			house := &HouseData{}
+			if house.LoadBin(rbuf) != nil {
 				this.AddHouse(house)
 			}
 		}
+		log.Info("房屋DB加载数据 size=%d", len(this.houses))
 	}
 }
 
@@ -459,7 +482,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid uint32) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -505,6 +528,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.ownerid = ownerid
 	house.ownername = ownername
 	house.buildingid = buildingid
+	house.roommember = roommember
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
@@ -533,6 +557,7 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 func (this *HouseManager) SaveAllHousesData() {
 	log.Info("储存所有的房屋信息 SaveAllHousesData")
 	pipe := Redis().Pipeline()
+	defer pipe.Close()
 	for _, v := range this.houses {
 		v.SaveBin(pipe)
 	}
@@ -850,22 +875,31 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) ReqRandHouseList(carflag uint32) {
-	data := HouseSvrMgr().GetRandHouseList(this.Id())
+func (this *GateUser) ReqRandHouseList(carflag, buildingid uint32) {
 	send := &msg.GW2C_AckRandHouseList{}
-	send.Datas = data
-	if carflag == 1 {
-		carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
-		for _, v := range carParkHouseIds {
-			house := HouseSvrMgr().GetHouse(v)
-			if house == nil {
-				continue
+	if buildingid == 0 {
+		data := HouseSvrMgr().GetRandHouseList(this.Id())
+		send.Datas = data
+		if carflag == 1 {
+			carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
+			for _, v := range carParkHouseIds {
+				house := HouseSvrMgr().GetHouse(v)
+				if house == nil {
+					continue
+				}
+				send.Datas2 = append(send.Datas2, house.PackBin())
+
 			}
-			send.Datas = append(send.Datas, house.PackBin())
 		}
+		CarMgr().AppendHouseData(send.Datas)
+		CarMgr().AppendHouseData(send.Datas2)
+		this.SendMsg(send)
+	} else {
+		data := this.ReqBuildingRandHouseList(buildingid)
+		send.Datas = data
+		CarMgr().AppendHouseData(send.Datas)
+		this.SendMsg(send)
 	}
-	CarMgr().AppendHouseData(send.Datas)
-	this.SendMsg(send)
 }
 
 func (this *GateUser) ReqOtherUserHouse(otherid uint64) {

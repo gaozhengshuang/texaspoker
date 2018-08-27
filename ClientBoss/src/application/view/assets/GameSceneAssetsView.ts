@@ -41,21 +41,16 @@ module game {
 			return SceneAssetsViewUI;
 		}
 		protected beforeShow() {
-			this._notify = [
-				{
-					source: DataManager.playerModel,
-					target: this,
-					callBackFunc: this.OnGW2C_ResCarInfo,
-					notifyName: "msg.GW2C_ResCarInfo"
-				}
-			];
 			this.radioGroup = this.titleRadio1.group;
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			this.radioGroup.selectedValue = this.titleRadio1.value;
 			this.currentGroupId = this.radioGroup.selectedValue;
+			if (this.currentGroupId == 2) {CarManager.getInstance().ReqMyCarInfo();}
 			this.contentStarck.selectedChild = this["stackGroup" + this.currentGroupId];
 
 			this.view_bg.height = gameConfig.curHeight();
+
+			NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
 		}
 
 		protected resetSize() {
@@ -105,7 +100,7 @@ module game {
 		private onItemTouch(eve: eui.ItemTapEvent) {
 			let item: HouseVO = this.assetsList[eve.itemIndex];
 			if (item) {
-				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { userid: item.ownerid }));
+				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { houseid: item.rId }));
 			}
 		}
 		private OnGW2C_ResCarInfo(msgs: msg.GW2C_ResCarInfo) {

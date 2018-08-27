@@ -26,12 +26,18 @@ module game {
          *
          */
         private drawAssets(): void {
-            ApplicationFacade.getInstance().registerMediator(new PageMediator(GameLayer.sceneUiLayer));
-            ApplicationFacade.getInstance().registerMediator(new UIMediator(GameLayer.panelLayer)); //todo
-            ApplicationFacade.getInstance().registerMediator(new PopupMediator(GameLayer.effectLayer));
-            //ApplicationFacade.getInstance().registerMediator(new SceneSwitchMediator(this.loadingView));
-            ApplicationFacade.getInstance().registerMediator(new AlertMediator(GameLayer.alertLayer));
+            // ApplicationFacade.getInstance().registerMediator(new PageMediator(GameLayer.sceneUiLayer));
+            ApplicationFacade.getInstance().registerMdt<PageMediator>(PageMediator.NAME, PageMediator, GameLayer.sceneUiLayer);
+            // ApplicationFacade.getInstance().registerMediator(new UIMediator(GameLayer.panelLayer)); //todo
+            ApplicationFacade.getInstance().registerMdt<UIMediator>(UIMediator.NAME, UIMediator, GameLayer.panelLayer);
+            // ApplicationFacade.getInstance().registerMediator(new PopupMediator(GameLayer.effectLayer));
+            ApplicationFacade.getInstance().registerMdt<PopupMediator>(PopupMediator.NAME, PopupMediator, GameLayer.effectLayer);
 
+            ApplicationFacade.getInstance().registerMdt<SceneMediator>(SceneMediator.NAME, SceneMediator, GameLayer.sceneLayer);
+            //ApplicationFacade.getInstance().registerMediator(new SceneSwitchMediator(this.loadingView));
+            // ApplicationFacade.getInstance().registerMediator(new AlertMediator(GameLayer.alertLayer));
+
+            ApplicationFacade.getInstance().registerMdt<AlertMediator>(AlertMediator.NAME, AlertMediator, GameLayer.alertLayer);
         }
 
         public get main(): GameLayer {

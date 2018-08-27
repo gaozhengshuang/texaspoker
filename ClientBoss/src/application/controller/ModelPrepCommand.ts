@@ -14,6 +14,7 @@ module game {
 			this.facade().registerProxy( new SmallGameProxy() );
 			this.facade().registerProxy( new AssetsProxy() );
 			this.facade().registerProxy( new HouseProxy() );
+			this.facade().registerProxy( new BuildingProxy() );
 		}
 	}
 }

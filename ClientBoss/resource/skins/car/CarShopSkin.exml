@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarShopSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="view_bg" width="720" height="1280" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e5e5"/>
+	<e:Image id="Bg2" width="720" height="94" x="0" scaleX="1" scaleY="1" y="161" anchorOffsetY="0" source="uiCarAltas_json.filterBg_3"/>
+	<e:Image id="Bg" width="720" height="215.42" x="0" scaleX="1" scaleY="1" y="0" source="uiCarAltas_json.ziyuan_di" anchorOffsetY="0"/>
+	<e:Group id="top" height="1280" width="720" x="0" y="21">
+		<e:Image id="diamondBg" width="50" height="50" scaleX="1" scaleY="1" y="73" source="uiCarAltas_json.diamonds_icon" x="89"/>
+		<e:Image id="goldbg" width="50" height="50" scaleX="1" scaleY="1" y="73" x="361" source="uiCarAltas_json.coin_icon"/>
+		<e:Image id="percentBg" width="50" height="50" scaleX="1" scaleY="1" y="73" x="588" source="uiCarAltas_json.lightning_icon"/>
+		<e:Label id="diamondNum" text="999999" y="122" anchorOffsetY="0" height="39.76" anchorOffsetX="0" width="135.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0xffffff" x="47"/>
+		<e:Label id="goldNum" text="999999" y="122" anchorOffsetY="0" height="39.76" anchorOffsetX="0" width="135.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0xFFFFFF" x="319"/>
+		<e:Label id="percentNum" text="999999" y="122" anchorOffsetY="0" height="39.76" anchorOffsetX="0" width="135.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0xFFFFFF" x="546"/>
+		<e:Image width="4" height="62" scaleX="1" scaleY="1" y="94" x="232" source="uiCarAltas_json.fengexian"/>
+		<e:Image width="4" height="62" scaleX="1" scaleY="1" y="94" source="uiCarAltas_json.fengexian" x="529"/>
+		<e:Label id="carInfoTxt" text="公共车位效率只有个人的50%" y="5" anchorOffsetY="0" height="65.76" anchorOffsetX="0" width="346.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" horizontalCenter="0" textColor="0x006a81" bold="true" visible="false"/>
+
+	</e:Group>
+	<e:Group id="center" width="720" height="1280" x="0" y="0">
+		<e:Scroller id="sr_item" width="720" height="1018.18" x="0" y="257" enabled="true" touchEnabled="true" anchorOffsetY="0">
+		<e:List id="ls_items" anchorOffsetY="0" height="1018.18" x="0" y="178.79" itemRendererSkinName="CarShopItemSkin"/>
+		</e:Scroller>
+	</e:Group>
+	<e:Group id="menu" width="720" height="60.24" x="0" y="195" anchorOffsetY="0">
+		<e:Group id="btnFilterBrand" width="163" height="59" x="50" y="1" anchorOffsetY="0" touchEnabled="true">
+		<e:Label id="brand" text="品牌" y="6" anchorOffsetY="0" height="43.03" anchorOffsetX="0" width="143.67" size="30" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0x717a7a" x="-16" touchEnabled="false" scaleX="1" scaleY="1"/>
+		<e:Image id="arrowBrand" width="36" height="21" scaleX="1" scaleY="1" y="25" x="135" source="uiCarAltas_json.arrowdown" touchEnabled="false" rotation="180" anchorOffsetX="18" anchorOffsetY="10"/>
+		</e:Group>
+		<e:Group id="btnFilterPrice" width="150" height="59" x="217" y="1">
+		<e:Label id="price" text="价格" y="6" anchorOffsetY="0" height="43.03" anchorOffsetX="0" width="143.67" size="30" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0x717A7A" x="-21" touchEnabled="false" scaleX="1" scaleY="1"/>
+		<e:Image id="arrowUpPrice" width="23" height="13" scaleX="1" scaleY="1" y="19" x="114" touchEnabled="false" rotation="180" anchorOffsetX="11.5" anchorOffsetY="6.5" source="uiCarAltas_json.arrowDownL"/>
+		<e:Image id="arrowDownPrice" width="23" height="13" scaleX="1" scaleY="1" y="36" x="114" source="uiCarAltas_json.arrowDownL" touchEnabled="false" anchorOffsetX="11.5" anchorOffsetY="6.5"/>
+		</e:Group>
+		<e:Group id="btnFilterPercent" width="150" height="59" x="414" y="1" anchorOffsetY="0">
+		<e:Label id="percent" text="收益" y="6" anchorOffsetY="0" height="43.03" anchorOffsetX="0" width="143.67" size="30" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0x717A7A" x="-24" touchEnabled="false" scaleX="1" scaleY="1"/>
+		<e:Image id="arrowUpPercent" width="23" height="13" scaleX="1" scaleY="1" y="19" x="114" touchEnabled="false" anchorOffsetX="11.5" anchorOffsetY="6.5" source="uiCarAltas_json.arrowDownL" rotation="180"/>
+		<e:Image id="arrowDownPercent" width="23" height="13" scaleX="1" scaleY="1" y="36" x="114" source="uiCarAltas_json.arrowDownL" touchEnabled="false" anchorOffsetX="11.5" anchorOffsetY="6.5"/>
+		</e:Group>
+	</e:Group>
+
+
+	<e:Group id="bottom" width="200" height="200" bottom="1080" verticalCenter="-540" horizontalCenter="-260" right="520">
+
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="4" y="6" scaleX="1" scaleY="1"/>
+
+
+	</e:Group>
+	<e:Group id="Filter" width="720" height="300" x="0" y="256" visible="false">
+		<game:CarShopFilter id="carFilter" width="20" height="20" x="0" y="0" skinName="CarShopFilterSkin" visible="false"/>
+	</e:Group>
+	<e:Group id="BuyInfo" width="720" height="1280" x="0" y="0" visible="false">
+		<game:CarShopBuy id="carBuyInfo" width="720" height="1280" x="0" y="0" skinName="CarShopBuySkin"/>
+	</e:Group>
+
+
+
+</e:Skin>

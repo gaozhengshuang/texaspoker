@@ -14,10 +14,11 @@ module game {
         }
 
         public show(reason: string = null) {
+            setEgretEventsReply(true); //出现重登界面 将egret div 事件激活
             if (!this._isShow) {
                 this._isShow = true;
                 this._touchEvent = [
-                    {target: this.reconnectButton, callBackFunc: this.reconnectHandle},
+                    { target: this.reconnectButton, callBackFunc: this.reconnectHandle },
                 ];
                 this.addEventAndNotify();
                 GameLayer.maskLayer.addChild(this);
@@ -30,14 +31,28 @@ module game {
                 showTips(reason, true);
             }
         }
-
-        private async reconnectHandle() {
-            this.close();
-            Login();
+        private _isOnRelogin: boolean; //防止玩家重复点击
+        private reconnectHandle() {
+            // Login();
+            if (SceneManager.curSceneType == SceneType.login) {
+                this.close();
+            }
+            else {
+                if (!this._isOnRelogin) {
+                    this._isOnRelogin = true;
+                    NotificationCenter.addObserver(this, this.onReLoginResult, LoginManager.LOGIN_STATE);
+                    LoginManager.getInstance().login();
+                }
+            }
             // NotificationCenter.postNotification(CommandName.NET_CONNECTION_ERROR);
         }
-
-        public close() {
+        private onReLoginResult(state: boolean) {
+            if (state) {
+                this.close();
+            }
+            this._isOnRelogin = false;
+        }
+        private close() {
             this.removeEventAndNotify();
             this.removeFromParent();
             this._isShow = false;

@@ -30,7 +30,7 @@ module game {
             this.body.mass = 1;
             this.battleBodyType = BattleBodyType.ball;
             this._shape.radius = 16 / gameConfig.factor;
-            this._shape.material = BattleScene.getInstance().ballMaterial;
+            this._shape.material = BattlePanel.getInstance().ballMaterial;
             this._shape.collisionGroup = ballCollisionGroup;
             this._shape.collisionMask = wallCollisionGroup | paddleCollisionGroup | brickCollisionGroup;
             this.body.addShape(this._shape);
@@ -48,7 +48,7 @@ module game {
                 userid: DataManager.playerModel.getUserId(),
                 bulletid: this.id,
                 gold: this.lifeValue,
-            }))
+            }), false);
         }
 
         public get id() {return this._id;}

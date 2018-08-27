@@ -31,7 +31,8 @@ module game {
         private OnBT_GameStart(data: msg.BT_GameStart) {
             DataManager.playerModel.battleStart();
             SoundManager.playEffect("play");
-            openPanel(PanelType.battle);
+            SceneManager.changeScene(SceneType.battle);
+            // openPanel(PanelType.battle);
         }
 
         public getRoomId() {
