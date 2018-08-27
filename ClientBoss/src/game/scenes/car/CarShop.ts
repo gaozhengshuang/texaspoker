@@ -70,7 +70,8 @@ module game {
         private awardSortType       : number  = -1;
         
         private CarFilterDatas      : CarFilterData[]= [];
-        private _inited             : boolean;
+        private _inited             : Boolean;
+        private _tweenCompleted     : Boolean = true;
         private _runingTimers = [];
         constructor()
         {
@@ -172,12 +173,14 @@ module game {
             GameConfig.setEventsReply(false);
             this.carFilter.visible = false;
             this.Filter.visible =false;
+            this._tweenCompleted = true;
             this.clearSortTypes();
             delete CarShop._instance;
             CarShop._instance = null;
         }
 
         private OnSortBrandHandle(){
+            if(!this._tweenCompleted) return;
             let _IsFilter = !this.carFilter.visible;
             this.Filter.visible = this.carFilter.visible = _IsFilter;
             this.arrowBrand.rotation = _IsFilter && 180 || 0;
@@ -443,6 +446,7 @@ module game {
 			//console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
 
             if (this.center.y != this.btnGoalY) {
+                this._tweenCompleted = false;
                 egret.Tween.get(this.center).to({ y: this.btnGoalY }, 300).
                 call(this.onComplete, this, []);  
             }else{
@@ -451,14 +455,19 @@ module game {
         }
         private onComplete() {
             console.log ("onComplete");
+            this._tweenCompleted = true;
             this.sr_item.height  -=  this.btnGoalY; 
             egret.Tween.removeTweens(this.center);
         }
 
         private hideList() {
             //scroller适配
-            this.sr_item.height =  gameConfig.curHeight()* 0.79;
-            egret.Tween.get(this.center).to({ y: this.oldY }, 300);
+            let self = this;
+            self._tweenCompleted = false;
+            self.sr_item.height  =  gameConfig.curHeight()* 0.79;
+            egret.Tween.get(this.center).to({ y: this.oldY }, 300).call(function(){
+                self._tweenCompleted = true;
+            });
         }
 
 /*         private onItemTouch(eve: eui.ItemTapEvent) {
