@@ -13,9 +13,10 @@ module game {
 
         public constructor(data: any = null) {
             super();
-            this.skinName = NewHousehHuxingItemSkin;
+            this.skinName = "resource/skins/NewHousehHuxingItemSkin.exml";
             //this.adaptive();
             this.bg_mc.alpha = 0;
+            this.touchChildren=false;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onclick_begin, this);
             this.addEventListener(egret.TouchEvent.TOUCH_END, this.onclick_begin, this);
             this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onclick_begin, this);

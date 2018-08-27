@@ -10482,6 +10482,7 @@ $root.msg = (function() {
          * @property {string|null} [ownername] HouseData ownername
          * @property {number|null} [robcheckflag] HouseData robcheckflag
          * @property {Array.<msg.IParkingData>|null} [parkings] HouseData parkings
+         * @property {number|null} [roommember] HouseData roommember
          */
 
         /**
@@ -10583,6 +10584,14 @@ $root.msg = (function() {
         HouseData.prototype.parkings = $util.emptyArray;
 
         /**
+         * HouseData roommember.
+         * @member {number} roommember
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.roommember = 0;
+
+        /**
          * Creates a new HouseData instance using the specified properties.
          * @function create
          * @memberof msg.HouseData
@@ -10629,6 +10638,8 @@ $root.msg = (function() {
             if (message.parkings != null && message.parkings.length)
                 for (var i = 0; i < message.parkings.length; ++i)
                     $root.msg.ParkingData.encode(message.parkings[i], writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+            if (message.roommember != null && message.hasOwnProperty("roommember"))
+                writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.roommember);
             return writer;
         };
 
@@ -10698,6 +10709,9 @@ $root.msg = (function() {
                     if (!(message.parkings && message.parkings.length))
                         message.parkings = [];
                     message.parkings.push($root.msg.ParkingData.decode(reader, reader.uint32()));
+                    break;
+                case 11:
+                    message.roommember = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -10782,6 +10796,9 @@ $root.msg = (function() {
                         return "parkings." + error;
                 }
             }
+            if (message.roommember != null && message.hasOwnProperty("roommember"))
+                if (!$util.isInteger(message.roommember))
+                    return "roommember: integer expected";
             return null;
         };
 
@@ -10855,6 +10872,8 @@ $root.msg = (function() {
                     message.parkings[i] = $root.msg.ParkingData.fromObject(object.parkings[i]);
                 }
             }
+            if (object.roommember != null)
+                message.roommember = object.roommember >>> 0;
             return message;
         };
 
@@ -10892,6 +10911,7 @@ $root.msg = (function() {
                 object.level = 0;
                 object.ownername = "";
                 object.robcheckflag = 0;
+                object.roommember = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -10928,6 +10948,8 @@ $root.msg = (function() {
                 for (var j = 0; j < message.parkings.length; ++j)
                     object.parkings[j] = $root.msg.ParkingData.toObject(message.parkings[j], options);
             }
+            if (message.roommember != null && message.hasOwnProperty("roommember"))
+                object.roommember = message.roommember;
             return object;
         };
 

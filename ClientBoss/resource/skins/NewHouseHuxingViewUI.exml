@@ -33,6 +33,6 @@
 	</e:Group>
 	<e:Label id="dec_txt" text="汤臣一品由汤臣集团有限公司开发的楼盘，\n位于上海市陆家嘴滨江大道旁。占地2万多平方，米，总建筑\n面积达11.5万多平方米" y="290" width="640" verticalAlign="top" textAlign="left" anchorOffsetX="0" anchorOffsetY="0" height="96" size="24" fontFamily="Microsoft YaHei" textColor="0x404a58" stroke="2" strokeColor="0xffffff" lineSpacing="4" horizontalCenter="0"/>
 	<e:Group id="huxingGroup" x="0" y="480" width="720" anchorOffsetY="0" height="800"/>
-	<game:CommonFilterPanel id="filterPanel" width="720" height="400" x="0" y="414"/>
+	<game:CommonFilterPanel id="filterPanel" width="720" height="400" x="0" y="407"/>
 	<e:Rect id="mask_bg" width="100%" height="100%" x="0" y="0" fillAlpha="0.5" visible="false"/>
 </e:Skin>

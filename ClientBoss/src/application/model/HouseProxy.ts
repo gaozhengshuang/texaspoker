@@ -42,7 +42,23 @@ module game {
 		}
 		private OnGW2C_AckOtherUserHouseData(data: msg.GW2C_AckOtherUserHouseData) {
 			//this.setCurrentHouse(data.datas);
-			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
+			if(data && data.datas && data.datas.length>0){
+				let otherHouse:HouseVO[]=[]
+				for(let i:number=0;i<data.datas.length;i++){
+					let item:HouseVO=new HouseVO();
+					item.setObject(data.datas[i]);
+					otherHouse.push(item);
+				}
+				if(otherHouse && otherHouse.length>0){
+					let house:HouseVO=GetHaveGoldHouse(otherHouse,1);
+					if(house!=null){
+						this.setCurrentHouse(house);
+					}else{
+						this.setCurrentHouse(otherHouse[0]);
+					}
+					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
+				}
+			}
 		}
 		public linjuList: any[] = [];
 		private OnGW2C_AckRandHouseList(data: msg.GW2C_AckRandHouseList) {
