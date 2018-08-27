@@ -16,7 +16,7 @@ module game {
         private parentView:PageNewHouseHuxingView;
 		public constructor(view:PageNewHouseHuxingView) {
 			super();
-			this.skinName = "resource/skins/BuyNewHouseSkin.exml";
+			this.skinName = BuyNewHouseSkin;
             this.parentView=view;
 			this.close_btn.icon="lucky_json.leftBack";
 			this.buy_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_buy, this);

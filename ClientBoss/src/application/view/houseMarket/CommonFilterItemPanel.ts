@@ -10,7 +10,7 @@ module game {
 
 		public constructor() {
 			super();
-			this.skinName = "resource/skins/CommonFilterListItemSkin.exml";
+			this.skinName = CommonFilterListItemSkin;
 			this.word_bg.alpha = 0;
 			this.touchChildren = false;
 			this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.tap_begin, this);

@@ -49,7 +49,7 @@ module game {
         public init() 
         {
             this.btnDriveAway.icon = "shopItemButtonBg_png";
-            this.btnClose.icon = "uiCarAltas_json.backBtn";
+            this.btnClose.icon = "uiCarAltas_json.backBtn2";
             this.btnNeighbor.icon = "uiCarAltas_json.neighbor";
             this.btnState.icon = "uiCarAltas_json.stateBtn";
             this.btnDriveAwayBg.source = "uiCarAltas_json.driveBtn";
@@ -268,18 +268,18 @@ module game {
 
         private showlist(index) {
             //console.log("展示列表showlist----------->",index);
-            if (this.goalY == -1) { this.goalY = GameConfig.innerHeight / 2 };
-            if (this.goalH == -1) { this.goalH = GameConfig.innerHeight * 3 /4 };
+            if (this.goalY == -1) { this.goalY = gameConfig.curHeight() / 4 };
+            if (this.goalH == -1) { this.goalH = gameConfig.curHeight() * 3 / 4 };
             if (this.btnGoalY == -1) {
-            //this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20;
-                this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
-                - 20 * GameConfig.innerScaleW; 
+            this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20;
+/*             this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
+                - 20 * GameConfig.innerScaleW;  */
             }
             this.listIndex = index;
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
                 call(this.onComplete, this, [this.listIndex]);
-                egret.Tween.get(this.down_bg).to({ height: this.goalH+GameConfig.innerHeight / 2, y: this.goalY }, 300)
+                egret.Tween.get(this.down_bg).to({ height: this.goalH, y: this.goalY }, 300)
                     
             }else{
                 this.onComplete(this.listIndex);
@@ -373,7 +373,7 @@ module game {
                 let notEmptyList = this.linjuList.filter(data=>{return !data.empty;});
                 this.linjuList = notEmptyList.sort((a,b)=>{return b.myCarPark - a.myCarPark;}).concat(EmptyList);
                 //第一栏显示公共车位
-                 CarManager.getInstance().ReqParkingInfoByType(1,0,function(parkingDatas:msg.IParkingData[]){
+                 CarManager.getInstance().ReqParkingInfoByType(1,0,[],function(parkingDatas:msg.IParkingData[]){
                     let emptyLots  = parkingDatas.some(data=>{return data.parkingcar==0});
                     let _mycarPark = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();});                             
                     let obj = {rId:0,tId:0,ownerid:0,ownername:"公共车位",empty:Number(emptyLots),myCarPark:Number(_mycarPark),parkings:parkingDatas};

@@ -6,7 +6,7 @@ module game {
 
 		public constructor(data:any=null) {
 			super();
-			this.skinName = "resource/skins/RoomMessageItemSkin2.exml";
+			this.skinName = RoomMessageItemSkin2;
             this.adaptive();
 		}
         private adaptive() {

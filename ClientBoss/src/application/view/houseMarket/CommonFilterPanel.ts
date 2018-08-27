@@ -32,7 +32,7 @@ module game {
 
 		public constructor() {
 			super();
-			this.skinName = "resource/skins/CommonFilterPanelUI.exml";
+			this.skinName = CommonFilterPanelUI;
 			this.listGroup.visible = false;
 			this.selectGroup.touchChildren = false;
 			this.selectGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.select_begin, this);
