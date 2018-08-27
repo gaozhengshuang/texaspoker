@@ -162,7 +162,7 @@ Gulp.task('bones-rev', function () {
     return Gulp.src([jsonPath])
         .pipe(tap(function (file) {
             let outData = file.contents.toString();
-            outData = outData.replace(/\"[\w]+\//g, '"');
+            outData = outData.replace(/\"[.*]+\//g, '"');
             FS.writeFileSync(jsonPath, outData);
         }));
 });
