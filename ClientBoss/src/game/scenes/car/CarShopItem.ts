@@ -14,7 +14,7 @@ module game {
 
 		public constructor(data:any=null) {
 			super();
-            this.skinName = "resource/skins/car/CarShopItemSkin.exml";
+            this.skinName = CarShopItemSkin;
             this.btnDetail.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnClickBuy,this);
             
 		}

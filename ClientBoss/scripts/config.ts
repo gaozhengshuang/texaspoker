@@ -2,7 +2,7 @@
 ///<reference path="api.d.ts"/>
 
 import * as path from 'path';
-import { UglifyPlugin, IncrementCompilePlugin, CompilePlugin, ManifestPlugin, ExmlPlugin, EmitResConfigFilePlugin, TextureMergerPlugin } from 'built-in';
+import { UglifyPlugin, IncrementCompilePlugin, CompilePlugin, ManifestPlugin, ExmlPlugin, EmitResConfigFilePlugin, TextureMergerPlugin, RenamePlugin, CleanPlugin } from 'built-in';
 import { WxgamePlugin } from './wxgame/wxgame';
 import { BricksPlugin } from './bricks/bricks';
 import { CustomPlugin } from './myplugin';
@@ -35,6 +35,7 @@ const config: ResourceManagerConfig = {
             return {
                 outputDir,
                 commands: [
+                    new CleanPlugin({ matchers: ['js', 'resource'] }),
                     new CustomPlugin(),
                     new CompilePlugin({ libraryType: "release", defines: { DEBUG: false, RELEASE: true } }),
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
@@ -42,7 +43,12 @@ const config: ResourceManagerConfig = {
                         sources: ["main.js"],
                         target: "main.min.js"
                     }]),
-                    new ManifestPlugin({ output: "manifest.json", hash: "crc32" })
+                    // new RenamePlugin({
+                    //     hash: 'crc32', matchers: [
+                    //         { from: "**/*.js", to: "[path][name]_[hash].[ext]" }
+                    //     ]
+                    // }),
+                    new ManifestPlugin({ output: "manifest.json", hash: "crc32" }),
                 ]
             }
         }

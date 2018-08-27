@@ -19,7 +19,7 @@ module game {
         public constructor(rView: GameRoomView) {
             super();
             this.roomView = rView
-            this.skinName = "resource/skins/QipaoPanelSkin.exml";
+            this.skinName = QipaoPanelSkin;
             this.adaptive();
             this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickFun, this);
         }

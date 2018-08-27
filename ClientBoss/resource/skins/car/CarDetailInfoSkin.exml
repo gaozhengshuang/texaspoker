@@ -18,9 +18,9 @@
 		<e:Label id="btnDriveAwayTxt" text="收回" x="565" y="872" size="35" verticalAlign="middle" textAlign="center" anchorOffsetX="0" width="88.79" height="45" bold="true" anchorOffsetY="0" visible="false"/>
 		<game:IconButton id="btnDriveAway" height="60.88" enabled="true" skinName="IconButtonSkin" width="122.79" x="558" y="906" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0"/>
 	</e:Group>
-	<e:Group id="bottom" width="200" height="200" bottom="1080" verticalCenter="-540" horizontalCenter="-260" right="520">
+	<e:Group id="bottom" width="0" height="0" horizontalCenter="-360" top="0">
 		<e:Image width="1440" height="440" scaleX="1" scaleY="1" source="uiCarAltas_json.scrollviewBg" y="1042" x="-4" visible="false"/>
-		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="94" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="0" scaleX="1" scaleY="1"/>
 		<game:IconButton id="btnState" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="85" y="994" scaleX="1" scaleY="1" visible="false"/>
 		<game:IconButton id="btnNeighbor" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="270" y="994" scaleX="1" scaleY="1" visible="false"/>
 	</e:Group>

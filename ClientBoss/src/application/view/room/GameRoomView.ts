@@ -112,7 +112,7 @@ module game {
 
             this.down_bg.y = gameConfig.curHeight() - this.down_bg.height;
 
-            this.bootomGroup.y = gameConfig.curHeight() - this.bootomGroup.height - 100;
+            this.bootomGroup.y = gameConfig.curHeight() - this.bootomGroup.height - 200;
             this.downBtnGroup.y = this.down_bg.y - this.downBtnGroup.height / 2 + 20;
 
             this.hideList_btn.y = gameConfig.curHeight() - 60 - this.hideList_btn.height / 2;
@@ -558,7 +558,7 @@ module game {
                 //console.log("回调_showParkingLotList------->",parkingDatas.length);
                 if (parkingDatas && parkingDatas.length > 0) {
                     parkingDatas.forEach((data, index, array) => {
-                        //console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
+                        console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
                         if (data.houseid == self.roomInfo.rId) {
                             if (self.parkingLots.length == 0) {
                                 self.parkingLot.setData(data);
@@ -577,7 +577,7 @@ module game {
                     });
                 };
             };
-            CarManager.getInstance().ReqParkingInfoByType(0, this.roomInfo.ownerid, _showParkingLotList);
+            CarManager.getInstance().ReqParkingInfoByType(0, this.roomInfo.ownerid,[this.roomInfo.rId] ,_showParkingLotList);
         }
 
         private getCellInfo(index: number): any {

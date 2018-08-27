@@ -15,9 +15,9 @@
 		<e:Label id="carInfoTxt" text="公共车位效率只有个人的50%" y="5" anchorOffsetY="0" height="65.76" anchorOffsetX="0" width="346.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" horizontalCenter="0" textColor="0x006a81" bold="true" visible="false"/>
 
 	</e:Group>
-	<e:Group id="center" width="720" height="1280" x="0" y="0">
-		<e:Scroller id="sr_item" width="720" height="1018.18" x="0" y="257" enabled="true" touchEnabled="true" anchorOffsetY="0">
-		<e:List id="ls_items" anchorOffsetY="0" height="1018.18" x="0" y="178.79" itemRendererSkinName="CarShopItemSkin"/>
+	<e:Group id="center" height="1280" width="720" horizontalCenter="0" top="0">
+		<e:Scroller id="sr_item" width="720" height="1024" enabled="true" touchEnabled="true" anchorOffsetY="0" y="256" x="0">
+		<e:List id="ls_items" anchorOffsetY="0" height="1024" x="0" y="178.79" itemRendererSkinName="CarShopItemSkin"/>
 		</e:Scroller>
 	</e:Group>
 	<e:Group id="menu" width="720" height="60.24" x="0" y="195" anchorOffsetY="0">
@@ -38,9 +38,9 @@
 	</e:Group>
 
 
-	<e:Group id="bottom" width="200" height="200" bottom="1080" verticalCenter="-540" horizontalCenter="-260" right="520">
+	<e:Group width="0" height="0" horizontalCenter="-360" top="0">
 
-		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="4" y="6" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="0" scaleX="1" scaleY="1"/>
 
 
 	</e:Group>

@@ -18,7 +18,7 @@ module game {
       
         public constructor() {
             super();
-            this.skinName = "resource/skins/car/CarShopBuySkin.exml";
+            this.skinName = CarShopBuySkin;
         }
         public setData(data:msg.CarProductData) {
             let userInfo = DataManager.playerModel.getUserInfo();
@@ -26,7 +26,7 @@ module game {
             this.diamondNum.text = userInfo.diamond.toString();
             this.percentNum.text = userInfo.robcount + "/" + 20;
 
-            this.btnClose.icon = "uiCarAltas_json.backBtn";
+            this.btnClose.icon = "uiCarAltas_json.backBtn2";
             this.buyBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnClickBuy,this);
             this.btnClose.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnCloseHandle,this);
 

@@ -32,7 +32,7 @@ module game {
         constructor()
         {
             super();
-            this.skinName = "resource/skins/car/CarPublicParkinglotSkin.exml";
+            this.skinName = CarPublicParkinglotSkin;
             this.initItemList();
         }
         public init() 
@@ -41,7 +41,7 @@ module game {
         }
 
         protected beforeShow() {
-            this.btnClose.icon = "uiCarAltas_json.backBtn";
+            this.btnClose.icon = "uiCarAltas_json.backBtn2";
             this._touchEvent = [
                 { target: this.btnClose, callBackFunc: this.OnCloseHandle },
             ];
@@ -57,7 +57,7 @@ module game {
         }
         public refreshData(){
             let self = this;
-            CarManager.getInstance().ReqParkingInfoByType(1,0,function(parkingDatas:msg.IParkingData[]){
+            CarManager.getInstance().ReqParkingInfoByType(1,0,[],function(parkingDatas:msg.IParkingData[]){
                 self.UpdateData(parkingDatas);
             });
         }
@@ -68,6 +68,7 @@ module game {
             this.parkingDatas = parkingDatas.sort((a,b)=>{return Number(b.parkingcar)-Number(a.parkingcar);})
             .sort((a,b)=>{return (Number(b.parkingcarownerid)-userId)-(Number(a.parkingcarownerid)-userId)});
             this.updateView();
+            this.sr_item.height = gameConfig.curHeight() * 0.689;
         }
         private updateView()
         {   
@@ -76,7 +77,7 @@ module game {
             this._dataProv.removeAll();
             let self = this;
             this.parkingDatas.forEach(data=>{self._dataProv.addItem(data)});
-
+           
             console.log("-------------->",this.ls_items.numChildren+" "+this.ls_items.numElements);
             SysTimeEventManager.getInstance().addFunction(this.runningTimer,this);
             
