@@ -98,7 +98,8 @@ module game {
                 this.bName_txt.text=this.buildInfo.Community;
                 for (let i: number = 1; i <= 4; i++) {
                     let item: any = {};
-                    let strList: string[] = this.buildInfo["Houses" + i].split("-");
+                    let houseStr:string[]=this.buildInfo["Houses" + i].split("|")
+                    let strList: string[] = houseStr[0].split("-");
                     if (strList && strList.length >= 3) {
                         let type: any = table.THouseById[Number(strList[0])];
                         let count: number = this.getSalesInfo(sales, i);

@@ -296,7 +296,7 @@ module game {
             this.showlist(2);
         }
         private onclick_shualingju() {
-            this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU));
+            this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU,{buildingid:this.roomInfo.bId}));
         }
 
         private onclick_hideList() {
@@ -403,9 +403,9 @@ module game {
                     break;
                 case 3:
                     if (type == 1) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU,{buildingid:this.roomInfo.bId}));
                     } else {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST,{buildingid:this.roomInfo.bId}));
                     }
 
                     this.shualingju_btn.visible = true;
@@ -502,23 +502,6 @@ module game {
                     }
                 }
             }
-
-            /*this.levelInfoList[1] = {
-                index: 1, data: this.getCellInfo(1),
-                name: "客厅", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(1)
-            };
-            this.levelInfoList[2] = {
-                index: 2, data: this.getCellInfo(2),
-                name: "卧室", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(2)
-            };
-            this.levelInfoList[3] = {
-                index: 3, data: this.getCellInfo(3),
-                name: "厕所", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(3)
-            };
-            this.levelInfoList[4] = {
-                index: 4, data: this.getCellInfo(4),
-                name: "厨房", hLevel: this.roomInfo.level, lockLevel: this.getOpenLockLevel(4)
-            };*/
             this.itemList.bindData(this.levelInfoList);
         }
         private getOpenLockLevel(index): number {
@@ -558,7 +541,7 @@ module game {
                 //console.log("回调_showParkingLotList------->",parkingDatas.length);
                 if (parkingDatas && parkingDatas.length > 0) {
                     parkingDatas.forEach((data, index, array) => {
-                        //console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
+                        console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
                         if (data.houseid == self.roomInfo.rId) {
                             if (self.parkingLots.length == 0) {
                                 self.parkingLot.setData(data);
@@ -577,7 +560,7 @@ module game {
                     });
                 };
             };
-            CarManager.getInstance().ReqParkingInfoByType(0, this.roomInfo.ownerid, _showParkingLotList);
+            CarManager.getInstance().ReqParkingInfoByType(0, this.roomInfo.ownerid,[this.roomInfo.rId] ,_showParkingLotList);
         }
 
         private getCellInfo(index: number): any {

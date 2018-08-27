@@ -132,7 +132,7 @@ module game {
         }
 
         //请求符合条件的车位列表 0 所有类型 1 公共车位 2 普通车位
-        public ReqParkingInfoByType(infotype:number,uid:number|Long,callFunc:Function=null)
+        public ReqParkingInfoByType(infotype:number,uid:number|Long,houseIds:(number|Long)[]=[],callFunc:Function=null)
         {
             console.log("ReqParkingInfoByType---->",infotype," ",uid);
             let callFuncData : CarFunData = new  CarFunData();
@@ -145,6 +145,7 @@ module game {
             sendMessage("msg.C2GW_ReqParkingInfoByType", msg.C2GW_ReqParkingInfoByType.encode({
                type : infotype,
                playerid : uid,
+               houseids : houseIds
             }));
         }
 

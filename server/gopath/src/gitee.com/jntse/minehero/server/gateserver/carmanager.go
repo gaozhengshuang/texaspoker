@@ -478,6 +478,22 @@ func (this *CarManager) GetParkingByUser(id uint64) []*ParkingData {
 	return data
 }
 
+func (this* CarManager) GetParkingByHouse(uid uint64,hid uint64) []*ParkingData {
+	data := make([]*ParkingData, 0)
+	if _, ok := this.userparkings[uid]; !ok {
+		return data
+	}
+	ids := this.userparkings[uid]
+	for _, v := range ids {
+		parkingInfo := this.GetParking(v)
+		if(parkingInfo.houseid != hid){
+			continue
+		}
+		data = append(data, parkingInfo)
+	}
+	return data
+}
+
 func (this *CarManager) GetParkingById(ids []uint64) []*ParkingData {
 	data := make([]*ParkingData, 0)
 	for _, v := range ids {
@@ -719,7 +735,7 @@ func (this *CarManager) SaveAllData() {
 
 func (this *CarManager) AppendHouseData(houses []*msg.HouseData) {
 	for _, v := range houses {
-		parkings := this.GetParkingByUser(v.GetOwnerid())
+		parkings := this.GetParkingByHouse(v.GetOwnerid(),v.GetId())
 		for _, p := range parkings {
 			v.Parkings = append(v.Parkings, p.PackBin())
 		}

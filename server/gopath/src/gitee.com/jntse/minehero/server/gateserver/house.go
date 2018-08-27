@@ -207,6 +207,7 @@ type HouseData struct {
 	housecells   map[uint32]*HouseCell //每个房间信息
 	visitinfo    []*HouseVisitInfo
 	ownername    string
+	roommember 	 uint32 //房间号
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 
 	ticker1Sec *util.GameTicker
@@ -226,6 +227,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.level = bin.GetLevel()
 	this.ownername = bin.GetOwnername()
 	this.robcheckflag = bin.GetRobcheckflag()
+	this.roommember = bin.GetRoommember()
 	for _, v := range bin.GetHousecells() {
 		cell := &HouseCell{}
 		cell.LoadBin(v)
@@ -262,6 +264,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Ownername = pb.String(this.ownername)
 	bin.Housecells = make([]*msg.HouseCell, 0)
 	bin.Robcheckflag = pb.Uint32(this.robcheckflag)
+	bin.Roommember = pb.Uint32(this.roommember)
 	for _, v := range this.housecells {
 		bin.Housecells = append(bin.Housecells, v.PackBin())
 	}
@@ -404,12 +407,9 @@ func (this *HouseData) ResetRobcheckflag() {
 //房屋管理器
 type HouseManager struct {
 	houses map[uint64]*HouseData //已加载的所有房屋的map
-
 	userhouses map[uint64][]uint64 //玩家id 关联的房屋id
-
-	housesIdList []uint64 //房屋id列表
-
-	useronlne map[uint64]int //玩家id session
+	housesIdList []uint64 //所有房屋id列表
+	nobuildinghouseIds []uint64 //仅租房的房屋id列表
 }
 
 func (this *HouseManager) Init() {
@@ -417,7 +417,7 @@ func (this *HouseManager) Init() {
 	this.houses = make(map[uint64]*HouseData)
 	this.userhouses = make(map[uint64][]uint64)
 	this.housesIdList = make([]uint64, 0)
-	this.useronlne = make(map[uint64]int)
+	this.nobuildinghouseIds = make([]uint64, 0)
 	this.LoadDB()
 }
 
@@ -479,7 +479,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid uint32) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -525,6 +525,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.ownerid = ownerid
 	house.ownername = ownername
 	house.buildingid = buildingid
+	house.roommember = roommember
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
@@ -540,6 +541,9 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 	} else {
 		this.houses[house.id] = house
 		this.housesIdList = append(this.housesIdList, house.id)
+		if house.buildingid == 0 {
+			this.nobuildinghouseIds = append(this.nobuildinghouseIds, house.id)
+		}
 	}
 	if _, ok := this.userhouses[house.ownerid]; ok {
 		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
@@ -654,15 +658,18 @@ func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visit
 	return 0
 }
 
-//获取随机的房屋列表
+//获取租房的随机的房屋列表
 func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 	data := make([]*msg.HouseData, 0)
-	count := len(this.housesIdList)
+	count := len(this.nobuildinghouseIds)
 	if count <= 11 {
 		i := 0
 		for _, v := range this.houses {
 			if i >= 11 {
 				break
+			}
+			if v.buildingid != 0 {
+				continue
 			}
 			if v.ownerid != uid {
 				data = append(data, v.PackBin())
@@ -672,7 +679,7 @@ func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 	} else {
 		tmprand := util.SelectRandNumbers(int32(count-1), 11)
 		for _, v := range tmprand {
-			houseid := this.housesIdList[int(v)]
+			houseid := this.nobuildinghouseIds[int(v)]
 			house := this.GetHouse(houseid)
 			if house != nil && house.ownerid != uid {
 				data = append(data, house.PackBin())
@@ -876,26 +883,25 @@ func (this *GateUser) ReqRandHouseList(carflag, buildingid uint32) {
 	if buildingid == 0 {
 		data := HouseSvrMgr().GetRandHouseList(this.Id())
 		send.Datas = data
-		if carflag == 1 {
-			carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
-			for _, v := range carParkHouseIds {
-				house := HouseSvrMgr().GetHouse(v)
-				if house == nil {
-					continue
-				}
-				send.Datas2 = append(send.Datas2, house.PackBin())
-
-			}
-		}
-		CarMgr().AppendHouseData(send.Datas)
-		CarMgr().AppendHouseData(send.Datas2)
-		this.SendMsg(send)
 	} else {
 		data := this.ReqBuildingRandHouseList(buildingid)
 		send.Datas = data
-		CarMgr().AppendHouseData(send.Datas)
-		this.SendMsg(send)
 	}
+	
+	if carflag == 1 {
+		carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
+		for _, v := range carParkHouseIds {
+			house := HouseSvrMgr().GetHouse(v)
+			if house == nil {
+				continue
+			}
+			send.Datas2 = append(send.Datas2, house.PackBin())
+
+		}
+		CarMgr().AppendHouseData(send.Datas2)
+	}
+	CarMgr().AppendHouseData(send.Datas)
+	this.SendMsg(send)
 }
 
 func (this *GateUser) ReqOtherUserHouse(otherid uint64) {

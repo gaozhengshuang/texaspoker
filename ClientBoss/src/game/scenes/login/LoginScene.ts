@@ -41,6 +41,7 @@ module game {
             };
             LoginManager.getInstance().login();
 
+            console.log(this.nameLabel.text+"//"+this.passwordLabel.text);
             egret.localStorage.setItem("userName", this.nameLabel.text);
             egret.localStorage.setItem("password", this.passwordLabel.text);
         }

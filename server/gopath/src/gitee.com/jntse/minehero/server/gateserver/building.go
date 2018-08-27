@@ -246,7 +246,7 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		curnum = len(building.data[index])
 	}
 	//判断所买户型是否还有剩余
-	if uint32(curnum) > building.tbl.MaxFloor {
+	if uint32(curnum) >= building.tbl.MaxFloor {
 		return 0
 	}
 	strhouse := ""
@@ -259,16 +259,19 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 	} else if index == 4 {
 		strhouse = building.tbl.Houses4
 	}
-	slicestr := strings.Split(strhouse, "-")
-	housetid, _ := strconv.Atoi(slicestr[0])
-	costper, _ := strconv.Atoi(slicestr[1])
-	square, _ := strconv.Atoi(slicestr[2])
+	slicestr := strings.Split(strhouse, "|")
+	slicehouse := strings.Split(slicestr[0], "-")
+	housetid, _ := strconv.Atoi(slicehouse[0])
+	costper, _ := strconv.Atoi(slicehouse[1])
+	square, _ := strconv.Atoi(slicehouse[2])
 	cost := uint32(costper) * uint32(square)
 	if user.RemoveGold(uint32(cost), "购买房屋", true) == false {
 		return 0
 	}
+	
+	roommember := (uint32(curnum) + 1)*100 + uint32(index)
 
-	house := HouseSvrMgr().CreateNewHouse(userid, uint32(housetid), user.Name(), building.id)
+	house := HouseSvrMgr().CreateNewHouse(userid, uint32(housetid), user.Name(), building.id, uint32(roommember))
 	if house == nil {
 		user.AddGold(uint32(cost), "购买房屋创建失败返还金币", true)
 		log.Error("购买房屋失败创建房屋nil userid:%d buildingid:%d index:%d", userid, buildingid, index)
@@ -281,6 +284,14 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		building.data[index] = append(building.data[index], house.id)
 	}
 	building.SaveBin(nil)
+
+	if len(slicestr) > 1 {
+		slicecarparking := strings.Split(slicestr[1], "-")
+		for _, v := range slicecarparking {
+			parkingtid, _ := strconv.Atoi(v)
+			CarMgr().CreateNewParking(userid, uint32(parkingtid), user.Name(), house.id)
+		}
+	}
 	return house.id
 }
 

@@ -31,3 +31,4 @@ git
 /ClientBoss/resource/default.thm.json
 /ClientBoss/manifest.json
 /ClientBoss/resource/default.res.json
+/ClientBoss/node_modules

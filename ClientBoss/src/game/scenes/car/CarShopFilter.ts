@@ -29,7 +29,7 @@ module game {
         constructor()
         {
             super();
-            this.skinName = "resource/skins/car/CarShopFilterSkin.exml";
+            this.skinName = CarShopFilterSkin;
         }
         public initItemList() {
             this._dataProv_brand = new eui.ArrayCollection();
