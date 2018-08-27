@@ -407,12 +407,9 @@ func (this *HouseData) ResetRobcheckflag() {
 //房屋管理器
 type HouseManager struct {
 	houses map[uint64]*HouseData //已加载的所有房屋的map
-
 	userhouses map[uint64][]uint64 //玩家id 关联的房屋id
-
-	housesIdList []uint64 //房屋id列表
-
-	useronlne map[uint64]int //玩家id session
+	housesIdList []uint64 //所有房屋id列表
+	nobuildinghouseIds []uint64 //仅租房的房屋id列表
 }
 
 func (this *HouseManager) Init() {
@@ -420,7 +417,7 @@ func (this *HouseManager) Init() {
 	this.houses = make(map[uint64]*HouseData)
 	this.userhouses = make(map[uint64][]uint64)
 	this.housesIdList = make([]uint64, 0)
-	this.useronlne = make(map[uint64]int)
+	this.nobuildinghouseIds = make([]uint64, 0)
 	this.LoadDB()
 }
 
@@ -544,6 +541,9 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 	} else {
 		this.houses[house.id] = house
 		this.housesIdList = append(this.housesIdList, house.id)
+		if house.buildingid == 0 {
+			this.nobuildinghouseIds = append(this.nobuildinghouseIds, house.id)
+		}
 	}
 	if _, ok := this.userhouses[house.ownerid]; ok {
 		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
@@ -658,15 +658,18 @@ func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visit
 	return 0
 }
 
-//获取随机的房屋列表
+//获取租房的随机的房屋列表
 func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 	data := make([]*msg.HouseData, 0)
-	count := len(this.housesIdList)
+	count := len(this.nobuildinghouseIds)
 	if count <= 11 {
 		i := 0
 		for _, v := range this.houses {
 			if i >= 11 {
 				break
+			}
+			if v.buildingid != 0 {
+				continue
 			}
 			if v.ownerid != uid {
 				data = append(data, v.PackBin())
@@ -676,7 +679,7 @@ func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 	} else {
 		tmprand := util.SelectRandNumbers(int32(count-1), 11)
 		for _, v := range tmprand {
-			houseid := this.housesIdList[int(v)]
+			houseid := this.nobuildinghouseIds[int(v)]
 			house := this.GetHouse(houseid)
 			if house != nil && house.ownerid != uid {
 				data = append(data, house.PackBin())
@@ -880,26 +883,25 @@ func (this *GateUser) ReqRandHouseList(carflag, buildingid uint32) {
 	if buildingid == 0 {
 		data := HouseSvrMgr().GetRandHouseList(this.Id())
 		send.Datas = data
-		if carflag == 1 {
-			carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
-			for _, v := range carParkHouseIds {
-				house := HouseSvrMgr().GetHouse(v)
-				if house == nil {
-					continue
-				}
-				send.Datas2 = append(send.Datas2, house.PackBin())
-
-			}
-		}
-		CarMgr().AppendHouseData(send.Datas)
-		CarMgr().AppendHouseData(send.Datas2)
-		this.SendMsg(send)
 	} else {
 		data := this.ReqBuildingRandHouseList(buildingid)
 		send.Datas = data
-		CarMgr().AppendHouseData(send.Datas)
-		this.SendMsg(send)
 	}
+	
+	if carflag == 1 {
+		carParkHouseIds := CarMgr().GetParkingHouseList(this.Id())
+		for _, v := range carParkHouseIds {
+			house := HouseSvrMgr().GetHouse(v)
+			if house == nil {
+				continue
+			}
+			send.Datas2 = append(send.Datas2, house.PackBin())
+
+		}
+		CarMgr().AppendHouseData(send.Datas2)
+	}
+	CarMgr().AppendHouseData(send.Datas)
+	this.SendMsg(send)
 }
 
 func (this *GateUser) ReqOtherUserHouse(otherid uint64) {
