@@ -10,27 +10,88 @@ module game {
 		private bubbleList: any[] = [];
 		private qiPaoList: QipaoPanel[] = [];
 		private huxingImage: egret.Bitmap;
+		private huxingSprite: egret.Sprite;
+		public lockMaskSprite: egret.Sprite;
+		public lockMaskItemList:any[]=[];
 
 		private qipaoWeizhi1: any[] = [{ x: 351, y: 175 }, { x: 472, y: 2 }, { x: 178, y: 17 }, { x: 25, y: 20 }]
 		private qipaoWeizhi2: any[] = [{ x: 348, y: 254 }, { x: 187, y: 0 }, { x: 184, y: 139 }, { x: 30, y: 142 }, { x: 473, y: 64 }]
 		private qipaoWeizhi3: any[] = [{ x: 338, y: 367 }, { x: 180, y: 64 }, { x: 185, y: 238 }, { x: 28, y: 253 }, { x: 268, y: 0 }, { x: 470, y: 150 }]
 		private qipaoWeizhi4: any[] = [{ x: 338, y: 367 }, { x: 180, y: 64 }, { x: 185, y: 238 }, { x: 28, y: 253 }, { x: 268, y: 0 }, { x: 470, y: 150 }, { x: 496, y: 0 }]
+
+		public lockMask: any[] = [{ x: 410, y: -426 }, { x: 157, y: -344 }, { x: 15, y: -383 }, { x: 167, y: -515 }, { x: 260, y: -617 }, { x: 407, y: -581 }]
 		public init(rVo: HouseVO) {
 			this.roomInfo = rVo;
+			if (this.huxingSprite == null) {
+				this.huxingSprite = new egret.Sprite();
+				this.addChild(this.huxingSprite);
+			}
+
 			this.roomTypeInfo = table.THouseById[this.roomInfo.tId];
 			if (this.roomTypeInfo) {
 				this.huxingImage = new egret.Bitmap();
 				console.log(RES.getRes("hx_4001_png"));
 				this.huxingImage.texture = RES.getRes("huxing_" + this.roomTypeInfo.ImageId + "_b_png");
-				console.log(this.huxingImage.width);
-				this.huxingImage.width = this.huxingImage.width;
-				this.huxingImage.height = this.huxingImage.height;
-				console.log(this.huxingImage.width);
+				//console.log(this.huxingImage.width);
+				//this.huxingImage.width = this.huxingImage.width;
+				//this.huxingImage.height = this.huxingImage.height;
+				//console.log(this.huxingImage.width);
+				this.huxingSprite.addChild(this.huxingImage);
+				this.huxingImage.y = -this.huxingImage.height;
+				this.huxingSprite.y = this.huxingImage.height;
 				this.width = this.huxingImage.width;
 				this.height = this.huxingImage.height;
-				this.addChild(this.huxingImage);
+				if (this.lockMaskSprite == null) {
+					this.lockMaskSprite = new egret.Sprite();
+					this.huxingSprite.addChild(this.lockMaskSprite);
+				}
+				this.lockMaskSprite.removeChildren();
+				this.lockMaskItemList=[];
 				this.y = this.parent.height / 2 - this.height / 2 + 30;
 				this.initQipao(this.roomInfo.housecells);
+			}
+		}
+		public addLockMask(index:number){
+			let ishave:Boolean=false;
+			if(this.lockMaskItemList && this.lockMaskItemList.length>0){
+				for(let i:number=0;i<this.lockMaskItemList.length;i++){
+					if(this.lockMaskItemList[i].index==index){
+						ishave=true;
+						return;
+					}
+				}
+			}
+			if(!ishave){
+				let lockMaskItem:egret.Bitmap = new egret.Bitmap();
+				console.log(("hall_3_json.lockMask"+index+"_png"));
+				lockMaskItem.texture = RES.getRes("hall_3_json.lockMask"+index+"_png");
+				lockMaskItem.x=this.lockMask[(index-1)].x;
+				lockMaskItem.y=this.lockMask[(index-1)].y;
+				this.lockMaskSprite.addChild(lockMaskItem);
+				this.lockMaskItemList.push({item:lockMaskItem,index:index});
+			}
+
+		}
+		public delLockMask(index:number){
+			let itemObj:any=null;
+			if(this.lockMaskItemList && this.lockMaskItemList.length>0){
+				let k:number=-1;
+				for(let i:number=0;i<this.lockMaskItemList.length;i++){
+					if(this.lockMaskItemList[i].index==index){
+						itemObj=this.lockMaskItemList[i];
+						k=i;
+						break;
+					}
+				}
+				if(k>-1){
+					this.lockMaskItemList.splice(k,1);
+				}
+			}
+			if(itemObj!=null){
+				if(itemObj.item && itemObj.item.parent){
+					itemObj.item.parent.removeChild(itemObj.item);
+					itemObj.item=null;
+				}
 			}
 		}
 		public update(rVo: HouseVO) {

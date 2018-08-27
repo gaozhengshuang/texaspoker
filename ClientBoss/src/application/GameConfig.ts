@@ -69,7 +69,7 @@ module game {
         public static logining: boolean = false;
 
         public static errorJson: string = "errorCode_json";
-        public static errorObj: any;
+        //public static errorObj: any;
         
         public static sceneType: number = 0;
 
@@ -122,13 +122,13 @@ module game {
             setEgretEventsReply(bool);
         }
 
-        public static getErrorStr(eid: number): string {
+        /*public static getErrorStr(eid: number): string {
             var str: string = "";
             if (this.errorObj && eid > 1) {
                 return this.errorObj[String(eid)];
             }
             return str;
-        }
+        }*/
 
         public static getCityNameFun(lat:number,lng:number,fun:Function) {
             getCityName(lat,lng,fun);

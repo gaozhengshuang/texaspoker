@@ -70,6 +70,7 @@ module game {
             this.txt2.text = "";
             switch (state) {
                 case 0:
+                    this.roomView.huxingPanel.delLockMask((this.bubble.index - 1));
                     this.goldGroup.visible = true;
                     this.lockGroup.visible = false;
                     this.txt2.text = "生产中";
@@ -79,8 +80,10 @@ module game {
                     SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
                     this.runningTimer(SysTimeEventManager.getInstance().systimeNum, this);
                     this.changeWordcolor(2, this);
+
                     break;
                 case 1:
+                    this.roomView.huxingPanel.delLockMask((this.bubble.index - 1));
                     this.goldGroup.visible = true;
                     this.lockGroup.visible = false;
                     this.txt1.text = this.bubble.gold + "/" + this.roomTypeObj.ProduceGold;
@@ -108,13 +111,15 @@ module game {
                             }
                         }
                     }
+
                     break;
                 case 2:
                     {
+                        this.roomView.huxingPanel.addLockMask((this.bubble.index - 1));
                         this.goldGroup.visible = false;
                         this.lockGroup.visible = true;
-                        this.lock_txt.text=this.roomTypeObj.Des+"\n需"+
-                        this.getopenLockLevel(this.bubble.index)+"解锁";
+                        this.lock_txt.text = this.roomTypeObj.Des + "\n需" +
+                            this.getopenLockLevel(this.bubble.index) + "解锁";
                         this.lock_txt.strokeColor = 0x000000;
                     }
                     break;
@@ -130,7 +135,7 @@ module game {
                         let item: string[] = cStrArr[i].split("-");
                         if (item && item.length >= 2) {
                             if (index == Number(item[0])) {
-                                level=Number(item[1]);
+                                level = Number(item[1]);
                                 return level;
                             }
                         }
