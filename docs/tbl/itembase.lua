@@ -3,15 +3,30 @@
 
 module table {
 export var ItemBaseData : table.IItemBaseDataDefine[] = [
-		{ Id : 1, Type : 1, Color : 1, Name : "客厅图纸", Desc : "用于客厅升级" 	},
-		{ Id : 2, Type : 1, Color : 1, Name : "卧室图纸", Desc : "用于卧室升级" 	},
-		{ Id : 3, Type : 1, Color : 1, Name : "厨房图纸", Desc : "用于厨房升级" 	},
-		{ Id : 4, Type : 1, Color : 1, Name : "卫生间图纸", Desc : "用于卫生间升级" 	},
+		{ Id : 1, Type : 1, Color : 1, Name : "乳胶漆", Desc : "用于客厅，卧室升级" 	},
+		{ Id : 2, Type : 1, Color : 1, Name : "木地板", Desc : "用于客厅，卧室升级" 	},
+		{ Id : 3, Type : 1, Color : 1, Name : "瓷砖", Desc : "用于厨房，卫生间升级" 	},
+		{ Id : 4, Type : 1, Color : 1, Name : "房屋设计图纸", Desc : "用于房屋升级" 	},
 		{ Id : 5, Type : 1, Color : 1, Name : "发动机零件", Desc : "用于发动机升级" 	},
 		{ Id : 6, Type : 1, Color : 1, Name : "电瓶零件", Desc : "用于电瓶升级" 	},
 		{ Id : 7, Type : 1, Color : 1, Name : "后备箱零件", Desc : "用于后备箱升级" 	},
-		{ Id : 8, Type : 1, Color : 1, Name : "邮箱零件", Desc : "用于邮箱升级" 	},
-		{ Id : 9, Type : 1, Color : 1, Name : "轮胎零件", Desc : "用于轮胎升级" 	}
+		{ Id : 8, Type : 1, Color : 1, Name : "油箱零件", Desc : "用于邮箱升级" 	},
+		{ Id : 9, Type : 1, Color : 1, Name : "轮胎零件", Desc : "用于轮胎升级" 	},
+		{ Id : 10, Type : 1, Color : 1, Name : "吊顶", Desc : "用于厨房，卫生间升级" 	},
+		{ Id : 11, Type : 1, Color : 1, Name : "鲜花", Desc : "用于女仆升级" 	},
+		{ Id : 12, Type : 1, Color : 1, Name : "少女红发碎片", Desc : "用于少女红发合成" 	},
+		{ Id : 13, Type : 1, Color : 1, Name : "少女紫发碎片", Desc : "用于少女紫发合成" 	},
+		{ Id : 14, Type : 1, Color : 1, Name : "少女蓝发碎片", Desc : "用于少女蓝发合成" 	},
+		{ Id : 15, Type : 1, Color : 1, Name : "星星无袖碎片", Desc : "用于星星无袖合成" 	},
+		{ Id : 16, Type : 1, Color : 1, Name : "绿色夹克碎片", Desc : "用于绿色夹克合成" 	},
+		{ Id : 17, Type : 1, Color : 1, Name : "蓝色短袖碎片", Desc : "用于蓝色短袖合成" 	},
+		{ Id : 18, Type : 1, Color : 1, Name : "牛仔短裤碎片", Desc : "用于牛仔短裤合成" 	},
+		{ Id : 19, Type : 1, Color : 1, Name : "粉色短裙碎片", Desc : "用于粉色短裙合成" 	},
+		{ Id : 20, Type : 1, Color : 1, Name : "灰色短裤碎片", Desc : "用于灰色短裤合成" 	},
+		{ Id : 21, Type : 1, Color : 1, Name : "小白鞋碎片", Desc : "用于小白鞋合成" 	},
+		{ Id : 22, Type : 1, Color : 1, Name : "少女鞋(黑)碎片", Desc : "用于少女鞋(黑)合成" 	},
+		{ Id : 23, Type : 1, Color : 1, Name : "少女鞋(蓝)碎片", Desc : "用于少女鞋(蓝)合成" 	},
+		{ Id : 24, Type : 1, Color : 1, Name : "樱碎片", Desc : "用于樱碎片合成" 	}
 	]
 
 
