@@ -747,6 +747,20 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 			//房屋到最高等级
 			return
 		}
+		needitem := make(map[uint32]uint32)
+		strneeditem := base.LevelUpNeedItem
+		slicetmp := strings.Split(strneeditem, "|")
+		for _, v := range slicetmp {
+			info := strings.Split(v, "-")
+			itemid, _ := strconv.Atoi(info[0])
+			num, _ := strconv.Atoi(info[1])
+			needitem[uint32(itemid)] = uint32(num)
+		}
+		if this.CheckEnoughItems(needitem) == false {
+			//需求道具不足
+			return
+		}
+
 		needgold := base.LevelUpCost
 		if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 			//钱不够
@@ -756,6 +770,11 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 			house := HouseSvrMgr().GetHouse(houseid)
 			if house == nil {
 				return
+			}
+			if len(needitem) > 0 {
+				for itemid, num := range needitem {
+					this.RemoveItem(itemid, num, "房屋升级消耗道具")
+				}
 			}
 			this.ReqMatchHouseData()
 			send := &msg.GW2C_AckHouseLevelUp{}
@@ -788,6 +807,21 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					//房屋等级不足
 					return
 				}
+
+				needitem := make(map[uint32]uint32)
+				strneeditem := base.LevelUpNeedItem
+				slicetmp := strings.Split(strneeditem, "|")
+				for _, v := range slicetmp {
+					info := strings.Split(v, "-")
+					itemid, _ := strconv.Atoi(info[0])
+					num, _ := strconv.Atoi(info[1])
+					needitem[uint32(itemid)] = uint32(num)
+				}
+				if this.CheckEnoughItems(needitem) == false {
+					//需求道具不足
+					return
+				}
+
 				needgold := base.LevelUpCost
 				if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 					//钱不够
@@ -797,6 +831,11 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					house := HouseSvrMgr().GetHouse(houseid)
 					if house == nil {
 						return
+					}
+					if len(needitem) > 0 {
+						for itemid, num := range needitem {
+							this.RemoveItem(itemid, num, "房屋升级消耗道具")
+						}
 					}
 					this.ReqMatchHouseData()
 					send := &msg.GW2C_AckHouseCellLevelUp{}

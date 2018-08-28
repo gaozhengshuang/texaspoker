@@ -456,18 +456,18 @@ func on_C2GW_ReqRechargeMoney(session network.IBaseNetSession, message interface
 }
 
 func on_C2GW_SellBagItem(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_SellBagItem)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
+	//tmsg := message.(*msg.C2GW_SellBagItem)
+	//user := ExtractSessionUser(session)
+	//if user == nil {
+	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+	//	session.Close()
+	//	return
+	//}
 
-	for _, v := range tmsg.GetList() {
-		itemid, num := v.GetItemid(), v.GetNum()
-		user.SellBagItem(itemid, num)
-	}
+	//for _, v := range tmsg.GetList() {
+	//	itemid, num := v.GetItemid(), v.GetNum()
+	//	user.SellBagItem(itemid, num)
+	//}
 }
 
 // 玩家充值完成(大厅和房间都自己获取金币返回)
