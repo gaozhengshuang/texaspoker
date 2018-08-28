@@ -1,38 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="NewHouseHuxingViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<w:Config id="165605e516c"/>
 	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xe4e4e5"/>
 	<e:Rect width="720" height="480" x="0" y="0" fillColor="0xffffff"/>
 	<e:Image id="topBarImg" source="2003001_b_png" x="0" y="110" scaleX="1" scaleY="1"/>
-	<e:Group x="0" y="69">
-		<e:Image x="0" y="0" source="ziyuan_top_di_png"/>
-		<e:Rect width="5" height="64" x="479" y="20" fillColor="0xFFFFFF" fillAlpha="0.5"/>
-		<e:Rect width="5" height="64" x="239.27" y="20" fillColor="0xffffff" fillAlpha="0.5"/>
-		<e:Image source="uiCarAltas_json.diamonds_icon" x="95" y="0"/>
-		<e:Label id="diamond_txt" text="999999999" x="40" y="47" width="160" verticalAlign="middle" textAlign="center"/>
-		<e:Image source="uiCarAltas_json.coin_icon" x="336" y="0"/>
-		<e:Label id="gold_txt" text="999999" x="281" y="49" width="160" verticalAlign="middle" textAlign="center"/>
-		<e:Image source="uiCarAltas_json.lightning_icon" x="576" y="0"/>
-		<e:Label id="energy_txt" text="999999" x="521" y="47" width="160" verticalAlign="middle" textAlign="center"/>
-		<e:Group id="addEnergyGroup" x="546" y="77">
-			<e:Rect width="110" height="22" x="0" y="0" ellipseWidth="26" ellipseHeight="26" fillAlpha="0.3"/>
-			<e:Label id="addEnergy_txt" text="00:00 +5" x="5" y="1" width="100" verticalAlign="middle" textAlign="center" size="20" fontFamily="Microsoft YaHei" textColor="0x00ff1e" anchorOffsetX="0"/>
-		</e:Group>
-	</e:Group>
-	<e:Group x="0" y="0">
-		<e:Rect width="720" height="70" x="0" y="0" fillColor="0x19b5f4"/>
-		<e:Button id="return_btn" label="&lt;返回" x="16" y="5" width="160" height="60" anchorOffsetX="0" anchorOffsetY="0">
-			<e:skinName>
-			<e:Skin states="up,down,disabled">
-				<e:Rect width="100%" height="100%" fillColor="0x19b5f4" fillAlpha="0"/>
-				<e:Label id="labelDisplay" verticalCenter="0" fontFamily="Microsoft YaHei" left="0"/>
-			</e:Skin>
-			</e:skinName>
-		</e:Button>
-		<e:Label id="bName_txt" text="万科城市花园" width="388" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" height="37" verticalCenter="0"/>
-	</e:Group>
 	<e:Label id="dec_txt" text="汤臣一品由汤臣集团有限公司开发的楼盘，\n位于上海市陆家嘴滨江大道旁。占地2万多平方，米，总建筑\n面积达11.5万多平方米" y="290" width="640" verticalAlign="top" textAlign="left" anchorOffsetX="0" anchorOffsetY="0" height="96" size="24" fontFamily="Microsoft YaHei" textColor="0x404a58" stroke="2" strokeColor="0xffffff" lineSpacing="4" horizontalCenter="0"/>
 	<e:Group id="huxingGroup" x="0" y="480" width="720" anchorOffsetY="0" height="800"/>
 	<game:CommonFilterPanel id="filterPanel" width="720" height="400" x="0" y="407"/>
 	<e:Rect id="mask_bg" width="100%" height="100%" x="0" y="0" fillAlpha="0.5" visible="false"/>
+	<game:PageTitlePanel id="titlePanel" width="720" height="200" x="0" y="0"/>
 </e:Skin>

@@ -276,8 +276,8 @@ module game {
             this.updateCoins();
             this.updateItemList(this._typeIdx);
           
-            this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
-            this.shopNum.text = this.getCartItems().length.toString();
+            // this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
+            // this.shopNum.text = this.getCartItems().length.toString();
         }
 
         // TODO: 穿上装备
@@ -420,8 +420,8 @@ module game {
                 );
             })
 
-            this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
-            this.shopNum.text = this.getCartItems().length.toString();
+            // this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
+            // this.shopNum.text = this.getCartItems().length.toString();
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;
         }
