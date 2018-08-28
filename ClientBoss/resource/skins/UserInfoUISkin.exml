@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="UserInfoUISkin" width="560" height="180" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="roomBg" source="roomUserInfo-bg_png" anchorOffsetX="0" left="0" top="0" width="547" anchorOffsetY="0" height="146.67" alpha="0.8"/>
+	<e:Image id="roomBg" source="roomUserInfo-bg_png" anchorOffsetX="0" left="0" top="0" width="547" anchorOffsetY="0" height="146.67" alpha="0.8" visible="false"/>
 	<e:Image source="userInfo_bg1_png" anchorOffsetX="0" width="430" anchorOffsetY="0" height="122" y="0"/>
 	<e:Label id="name_txt" text="七宝王思聪思" x="128" y="22" anchorOffsetX="0" width="165" anchorOffsetY="0" height="32.67" size="25" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404a58" bold="true"/>
 	<e:Label id="level_txt" text="Lv.99" x="37" y="81.55" anchorOffsetX="0" anchorOffsetY="0" size="20" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x2b7deb" bold="true"/>
@@ -20,7 +20,7 @@
 		<e:Label id="bWeizhi_txt" text="上海闵行区" x="19" y="34" size="25" fontFamily="Microsoft YaHei" textAlign="left" width="153" textColor="0xECB700" rotation="0.09" anchorOffsetX="0"/>
 		<e:Image source="room_weizhi_icon1_png" x="0" y="31" scaleX="0.5" scaleY="0.5"/>
 	</e:Group>
-	<e:Group id="roomNumGroup" y="14.7" left="416">
+	<e:Group id="roomNumGroup" y="14.7" left="416" visible="false">
 		<e:Image source="userRoomNoBg_png" x="0" y="0" scaleX="1.2" scaleY="1.2"/>
 		<e:Label text="Room" x="26.02" y="24.32" anchorOffsetX="0" width="69.88" anchorOffsetY="0" height="22.58" size="24" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
 		<e:Label id="roomNum_txt" text="808" x="26.02" y="54.48" anchorOffsetX="0" width="69.88" anchorOffsetY="0" height="22.58" size="24" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>
