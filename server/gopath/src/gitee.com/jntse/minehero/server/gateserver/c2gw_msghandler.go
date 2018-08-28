@@ -69,7 +69,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
+	//this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetNewPlayerStep{}, on_C2GW_ReqSetNewPlayerStep)
 
@@ -125,7 +125,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
 	//this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendShowImage{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendShowImage{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendTaskList{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
@@ -134,7 +134,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseData{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckNewPlayerStep{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseLevelUp{})
@@ -824,32 +824,32 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 	user.image.UnDressClothes(tmsg.GetPos(), true)
 }
 
-func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ChangeImageSex)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
-
-	if user.Sex() == tmsg.GetSex() {
-		user.SendNotify("和当前性别一致，无需切换")
-		return
-	}
-
-	user.SetSex(tmsg.GetSex())
-	send := &msg.GW2C_RetChangeImageSex{Sex: pb.Int32(user.Sex())}
-	user.SendMsg(send)
-
-	user.image.SendShowImage()
-}
+//func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.C2GW_ChangeImageSex)
+//	user := ExtractSessionUser(session)
+//	if user == nil {
+//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+//		session.Close()
+//		return
+//	}
+//
+//	if user.IsInRoom() {
+//		//user.SendRoomMsg(tmsg)
+//		user.SendNotify("正在游戏中")
+//		return
+//	}
+//
+//	if user.Sex() == tmsg.GetSex() {
+//		user.SendNotify("和当前性别一致，无需切换")
+//		return
+//	}
+//
+//	user.SetSex(tmsg.GetSex())
+//	send := &msg.GW2C_RetChangeImageSex{Sex: pb.Int32(user.Sex())}
+//	user.SendMsg(send)
+//
+//	user.image.SendShowImage()
+//}
 
 func on_C2GW_ReqCarShopInfo(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)

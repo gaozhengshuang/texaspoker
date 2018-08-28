@@ -1,0 +1,35 @@
+package msg
+
+// 当前形象数据
+//message GW2C_SendShowImage {
+//    optional ImageData images = 1;
+//}
+//
+//// 切换男女形象
+//message C2GW_ChangeImageSex {
+//    optional int32 sex = 1;
+//}
+//
+//// 切换男女形象
+//message GW2C_RetChangeImageSex {
+//    optional int32 sex = 1;
+//}
+
+// 购买服饰
+message C2GW_BuyClothes {
+    repeated int32 item_list = 1;
+}
+
+// 穿戴服饰
+message C2GW_DressClothes {
+    optional int32 pos = 1;
+    optional int32 itemid = 2;
+}
+
+// 脱下服饰
+message C2GW_UnDressClothes {
+    optional int32 pos = 1;
+}
+
+// ;
+
