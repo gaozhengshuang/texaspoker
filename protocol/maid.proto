@@ -1,4 +1,6 @@
-package msg
+syntax = "proto2";
+package msg;
+import "serialize.proto";
 
 // 当前形象数据
 //message GW2C_SendShowImage {
@@ -31,5 +33,46 @@ message C2GW_UnDressClothes {
     optional int32 pos = 1;
 }
 
-// ;
+// 合成打造服装
+message C2GW_MakeClothes {
+    optional int32 debris = 1;  // 碎片id
+}
+
+// 升级女仆
+message C2GW_MaidUpgrade {
+    optional uint64 id = 1;     // 女仆id
+}
+
+// 收取女仆收益
+message C2GW_TakeMaidEarning {
+    optional uint64 id = 1;     // 女仆id
+}
+
+// 掠夺女仆
+message C2GW_RobMaid {
+    optional uint64 id = 1;     // 女仆id
+    optional uint64 dropto = 2; // house id
+}
+
+// 女仆可放置房产列表
+message C2GW_EnableMaidDropTo {
+    repeated msg.HouseData datas = 1;
+}
+
+// 多个房产需要选择放置在哪个房子
+message C2GW_RobMaidToHouse {
+    optional uint64 id = 1;     // 女仆id
+    optional uint64 dropto = 2; // house id
+}
+
+// 取回被掠夺的女仆
+message C2GW_TackBackMaid {
+    optional uint64 id = 1;     // 女仆id
+}
+
+// 送回女仆并领取奖励
+message C2GW_SendBackMaid {
+    optional uint64 id = 1;     // 女仆id
+}
+
 
