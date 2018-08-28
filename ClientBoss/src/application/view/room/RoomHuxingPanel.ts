@@ -30,7 +30,6 @@ module game {
 			this.roomTypeInfo = table.THouseById[this.roomInfo.tId];
 			if (this.roomTypeInfo) {
 				this.huxingImage = new egret.Bitmap();
-				console.log(RES.getRes("hx_4001_png"));
 				this.huxingImage.texture = RES.getRes("huxing_" + this.roomTypeInfo.ImageId + "_b_png");
 				//console.log(this.huxingImage.width);
 				//this.huxingImage.width = this.huxingImage.width;

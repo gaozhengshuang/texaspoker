@@ -10,9 +10,9 @@ module game {
         public bName_txt: eui.Label;
         public bWeizhi_txt: eui.Label;
         public roomNum_txt: eui.Label;
-        public roomWeizhiGroup: eui.Group;
-        public roomNumGroup: eui.Group;
-        public roomBg: eui.Image;
+        //public roomWeizhiGroup: eui.Group;
+        //public roomNumGroup: eui.Group;
+        //public roomBg: eui.Image;
         public timeGroup: eui.Group;
         public time_txt: eui.Label;
 
@@ -25,24 +25,15 @@ module game {
             return UserInfoUISkin;
         }
         protected init() {
-            this.roomWeizhiGroup.visible = false;
-            //this.adaptive();
-            this.roomNumGroup.visible = false;
-            this.roomBg.visible = false;
+            //this.roomWeizhiGroup.visible = false;
+            //this.roomNumGroup.visible = false;
+            //this.roomBg.visible = false;
             this.timeGroup.visible = false;
         }
         protected beforeShow() {
-            GameConfig.goldGPoint = this.localToGlobal(this.coin_txt.x, this.coin_txt.y);
+            //GameConfig.goldGPoint = this.localToGlobal(this.coin_txt.x, this.coin_txt.y);
         }
 
-        private adaptive() {
-            let innerScaleH: number = GameConfig.innerHeight / 1280;
-            let innerScaleW: number = GameConfig.innerWidth / 720;
-
-            let expHeight: number = GameConfig.innerWidth * 1280 / 720;
-            let innerScale: number = expHeight > GameConfig.innerHeight ? innerScaleH : innerScaleW;
-            //this.scaleX = this.scaleY = innerScale;
-        }
         private isTime: boolean = false;
         public updataInfo(info: IUserInfo) {
             this.userInfo = info;
@@ -92,36 +83,30 @@ module game {
         public removeTimer(): void {
             SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
         }
-        public showRoomWeizhi(isShow: boolean, roomvo: HouseVO = null) {
+        /*public showRoomWeizhi(isShow: boolean, roomvo: HouseVO = null) {
             if (isShow) {
                 if (roomvo) {
                     this.roomWeizhiGroup.visible = true;
-                    /*this.bName_txt.text = roomvo.bName;
-                    let weizhiTxt = this.bWeizhi_txt;
-                    GameConfig.getCityNameFun(roomvo.bLatLng[0],
-                        roomvo.bLatLng[1], function (txt: string) {
-                            weizhiTxt.text = txt;
-                        });*/
                 }
             } else {
                 this.roomWeizhiGroup.visible = false;
             }
-        }
-        public showRoomNum(isShow: boolean, rId: number = 0) {
+        }*/
+        /*public showRoomNum(isShow: boolean, rId: number = 0) {
             if (isShow) {
                 this.roomNumGroup.visible = true;
                 this.roomNum_txt.text = "" + rId;
             } else {
                 this.roomNumGroup.visible = false;
             }
-        }
-        public showRoomBg(isShow: boolean) {
-            /*if (isShow) {
+        }*/
+        /*public showRoomBg(isShow: boolean) {
+            if (isShow) {
                 this.roomBg.visible = true;
             } else {
                 this.roomBg.visible = false;
-            }*/
-        }
+            }
+        }*/
         public removePanel() {
             this.removeTimer();
         }
