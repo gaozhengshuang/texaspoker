@@ -116,11 +116,11 @@ module game {
             }
         }
         public showRoomBg(isShow: boolean) {
-            if (isShow) {
+            /*if (isShow) {
                 this.roomBg.visible = true;
             } else {
                 this.roomBg.visible = false;
-            }
+            }*/
         }
         public removePanel() {
             this.removeTimer();
