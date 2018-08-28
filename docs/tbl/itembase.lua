@@ -3,15 +3,15 @@
 
 module table {
 export var ItemBaseData : table.IItemBaseDataDefine[] = [
-		{ Id : 1, Type : 1, Name : "客厅图纸", Desc : "用于客厅升级" 	},
-		{ Id : 2, Type : 1, Name : "卧室图纸", Desc : "用于卧室升级" 	},
-		{ Id : 3, Type : 1, Name : "厨房图纸", Desc : "用于厨房升级" 	},
-		{ Id : 4, Type : 1, Name : "卫生间图纸", Desc : "用于卫生间升级" 	},
-		{ Id : 5, Type : 1, Name : "发动机零件", Desc : "用于发动机升级" 	},
-		{ Id : 6, Type : 1, Name : "电瓶零件", Desc : "用于电瓶升级" 	},
-		{ Id : 7, Type : 1, Name : "后备箱零件", Desc : "用于后备箱升级" 	},
-		{ Id : 8, Type : 1, Name : "邮箱零件", Desc : "用于邮箱升级" 	},
-		{ Id : 9, Type : 1, Name : "轮胎零件", Desc : "用于轮胎升级" 	}
+		{ Id : 1, Type : 1, Color : 1, Name : "客厅图纸", Desc : "用于客厅升级" 	},
+		{ Id : 2, Type : 1, Color : 1, Name : "卧室图纸", Desc : "用于卧室升级" 	},
+		{ Id : 3, Type : 1, Color : 1, Name : "厨房图纸", Desc : "用于厨房升级" 	},
+		{ Id : 4, Type : 1, Color : 1, Name : "卫生间图纸", Desc : "用于卫生间升级" 	},
+		{ Id : 5, Type : 1, Color : 1, Name : "发动机零件", Desc : "用于发动机升级" 	},
+		{ Id : 6, Type : 1, Color : 1, Name : "电瓶零件", Desc : "用于电瓶升级" 	},
+		{ Id : 7, Type : 1, Color : 1, Name : "后备箱零件", Desc : "用于后备箱升级" 	},
+		{ Id : 8, Type : 1, Color : 1, Name : "邮箱零件", Desc : "用于邮箱升级" 	},
+		{ Id : 9, Type : 1, Color : 1, Name : "轮胎零件", Desc : "用于轮胎升级" 	}
 	]
 
 

@@ -770,58 +770,58 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 }
 
 func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_DressClothes)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
+	//tmsg := message.(*msg.C2GW_DressClothes)
+	//user := ExtractSessionUser(session)
+	//if user == nil {
+	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+	//	session.Close()
+	//	return
+	//}
 
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
+	//if user.IsInRoom() {
+	//	//user.SendRoomMsg(tmsg)
+	//	user.SendNotify("正在游戏中")
+	//	return
+	//}
 
-	if def.IsValidEquipPos(tmsg.GetPos()) == false {
-		user.SendNotify("无效的穿戴部位")
-		return
-	}
+	//if def.IsValidEquipPos(tmsg.GetPos()) == false {
+	//	user.SendNotify("无效的穿戴部位")
+	//	return
+	//}
 
-	// 套装
-	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || user.image.IsHaveDressSuit() == true {
-		user.image.UnDressAll(false)
-	} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
-		user.image.UnDressClothes(int32(msg.ItemPos_Clothes), false) // 脱掉上衣
-		user.image.UnDressClothes(int32(msg.ItemPos_Pants), false)   // 脱掉裤子
-	} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
-		user.image.UnDressClothes(int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
-		user.image.UnDressClothes(tmsg.GetPos(), false)
-	} else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
-		user.image.UnDressClothes(tmsg.GetPos(), false)
-	}
+	//// 套装
+	//if tmsg.GetPos() == int32(msg.ItemPos_Suit) || user.image.IsHaveDressSuit() == true {
+	//	user.image.UnDressAll(false)
+	//} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
+	//	user.image.UnDressClothes(int32(msg.ItemPos_Clothes), false) // 脱掉上衣
+	//	user.image.UnDressClothes(int32(msg.ItemPos_Pants), false)   // 脱掉裤子
+	//} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
+	//	user.image.UnDressClothes(int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
+	//	user.image.UnDressClothes(tmsg.GetPos(), false)
+	//} else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
+	//	user.image.UnDressClothes(tmsg.GetPos(), false)
+	//}
 
-	user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
+	//user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
 }
 
 func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_UnDressClothes)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
+	//tmsg := message.(*msg.C2GW_UnDressClothes)
+	//user := ExtractSessionUser(session)
+	//if user == nil {
+	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+	//	session.Close()
+	//	return
+	//}
 
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
+	//if user.IsInRoom() {
+	//	//user.SendRoomMsg(tmsg)
+	//	user.SendNotify("正在游戏中")
+	//	return
+	//}
 
 	// 脱下
-	user.image.UnDressClothes(tmsg.GetPos(), true)
+	//user.image.UnDressClothes(tmsg.GetPos(), true)
 }
 
 //func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
