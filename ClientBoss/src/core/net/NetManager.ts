@@ -7,14 +7,14 @@ module game {
     export var $goodsPath: string = "/v1/logistics/query";
 
     //外网IP
-    //  export var $registIp: string = "http://210.73.214.74:7003";
-    //  export var $netIp: string = "ws://210.73.214.74:7002/ws_handler";
-    //  export var $gameNetIp: string = "ws://210.73.214.74:{gamePort}/ws_handler";
+     // export var $registIp: string = "http://210.73.214.74:7003";
+     // export var $netIp: string = "ws://210.73.214.74:7002/ws_handler";
+     // export var $gameNetIp: string = "ws://210.73.214.74:{gamePort}/ws_handler";
 
     //策划服务器
-    export var $registIp: string = "http://192.168.30.204:7003";
-    export var $netIp: string = "ws://192.168.30.204:7002/ws_handler";
-    export var $gameNetIp: string = "ws://192.168.30.204:{gamePort}/ws_handler";
+    //export var $registIp: string = "http://192.168.30.204:7003";
+    //export var $netIp: string = "ws://192.168.30.204:7002/ws_handler";
+    //export var $gameNetIp: string = "ws://192.168.30.204:{gamePort}/ws_handler";
 
     //谢建服务器
     //export var $registIp: string = "http://192.168.30.203:7003";
@@ -22,9 +22,9 @@ module game {
     //export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler";
 
     //毕强服务器
-    //   export var $registIp: string = "http://192.168.30.205:7003";
-    //   export var $netIp: string = "ws://192.168.30.205:7002/ws_handler";
-    //   export var $gameNetIp: string = "ws://192.168.30.205:{gamePort}/ws_handler"; 
+       export var $registIp: string = "http://192.168.30.205:7003";
+       export var $netIp: string = "ws://192.168.30.205:7002/ws_handler";
+       export var $gameNetIp: string = "ws://192.168.30.205:{gamePort}/ws_handler"; 
 
     //刘凯服务器
     //export var $registIp: string = "http://192.168.30.206:7002";

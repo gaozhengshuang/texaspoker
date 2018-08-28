@@ -17,7 +17,10 @@ module game {
 		public listNotificationInterests(): Array<any> {
 			return [
 				CommandName.POPUP_WELCOME,
-				CommandName.REMOVE_POPUP
+				CommandName.POPUP_NEW_HOUSE_HUXING,
+				CommandName.POPUP_NEW_MAP_BUILDING,
+				CommandName.REMOVE_POPUP,
+				CommandName.REMOVE_POPUP_NEW_HOUSE
 			];
 		}
 
@@ -46,11 +49,74 @@ module game {
 						}
 						break;
 					}
+				case CommandName.POPUP_NEW_HOUSE_HUXING:
+					{
+						let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+						GameConfig.setEventsReply(true);
+						GameConfig.showDownBtnFun(false);
+						this.removeSceneView();
+						if (data) {
+							GameConfig.updataMaskBgFun('#000000', 0);
+							
+							openPanel(PanelType.PageNewHouseHuxingView);
+							this.sceneView = PageNewHouseHuxingView.getInstance();
+							//PageNewHouseHuxingView.getInstance().initInfo(data.room);
+							PageNewHouseHuxingView.getInstance().updateBuildingInfo(data.bId, data.sales);
+							PageNewHouseHuxingView.getInstance().updateUserInfo(userProxy.getUserInfo());
+
+							ApplicationFacade.getInstance().registerMdt<PageNewHouseHuxingMediator>(PageNewHouseHuxingMediator.NAME, PageNewHouseHuxingMediator, this.sceneView);
+
+							this.sceneMediatorName = PageNewHouseHuxingMediator.NAME;
+							ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        	ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+						}
+						break;
+					}
+					case CommandName.POPUP_NEW_MAP_BUILDING:
+					{
+						GameConfig.setEventsReply(true);
+						this.removeSceneView();
+						if (data) {
+							GameConfig.updataMaskBgFun('#000000', 0);
+							//GameConfig.showDownBtnFun(false);
+							openPanel(PanelType.MapBuildingPopupPanel);
+							this.sceneView = MapBuildingPopupPanel.getInstance();
+							let goalScale: number = this.sceneView.scaleX;
+							this.sceneView.alpha = 0;
+							this.sceneView.scaleX = this.sceneView.scaleY = goalScale * 0.5;
+							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
+							MapBuildingPopupPanel.getInstance().dataChanged(data.buildingId);
+							 //this.sceneView.x = gameConfig.curWidth() / 2;
+							 //this.sceneView.y = gameConfig.curHeight() / 2 ;
+							// ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
+							ApplicationFacade.getInstance().registerMdt<MapBuildingPopupMediator>(MapBuildingPopupMediator.NAME, MapBuildingPopupMediator, this.sceneView);
+
+							this.sceneMediatorName = MapBuildingPopupMediator.NAME;
+
+							
+						}
+						break;
+					}
 				case CommandName.REMOVE_POPUP:
 					{
-						if (GameConfig.sceneType == 2 || GameConfig.pageType == 2) {
-							GameConfig.updataMaskBgFun('#000000', 0);
-							GameConfig.setEventsReply(false);
+						if (GameConfig.sceneType == 2) {
+							if (GameConfig.pageType != 3) {
+								GameConfig.updataMaskBgFun('#000000', 0);
+								GameConfig.setEventsReply(false);
+							}
+						}
+						this.removeSceneView();
+						break;
+					}
+					case CommandName.REMOVE_POPUP_NEW_HOUSE:
+					{
+						if (GameConfig.sceneType == 2) {
+							if (GameConfig.pageType != 3) {
+								GameConfig.updataMaskBgFun('#000000', 0);
+								GameConfig.setEventsReply(false);
+								GameConfig.showDownBtnFun(true);
+								ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+							}
 						}
 						this.removeSceneView();
 						break;

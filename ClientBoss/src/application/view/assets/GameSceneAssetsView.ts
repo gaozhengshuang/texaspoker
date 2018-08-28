@@ -45,6 +45,7 @@ module game {
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			this.radioGroup.selectedValue = this.titleRadio1.value;
 			this.currentGroupId = this.radioGroup.selectedValue;
+			if (this.currentGroupId == 2) {CarManager.getInstance().ReqMyCarInfo();}
 			this.contentStarck.selectedChild = this["stackGroup" + this.currentGroupId];
 
 			this.view_bg.height = gameConfig.curHeight();
@@ -55,6 +56,7 @@ module game {
 		protected resetSize() {
 			super.resetSize();
 			this.view_bg.height = gameConfig.curHeight();
+			this.contentStarck.height=GameConfig.innerPageHeight-this.contentStarck.y-20;
 		}
 		private onChangeSex(e: egret.Event) {
 			var rbGroup: eui.RadioButtonGroup = e.target;
@@ -99,7 +101,7 @@ module game {
 		private onItemTouch(eve: eui.ItemTapEvent) {
 			let item: HouseVO = this.assetsList[eve.itemIndex];
 			if (item) {
-				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { userid: item.ownerid }));
+				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { houseid: item.rId }));
 			}
 		}
 		private OnGW2C_ResCarInfo(msgs: msg.GW2C_ResCarInfo) {

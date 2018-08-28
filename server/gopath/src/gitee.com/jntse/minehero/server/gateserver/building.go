@@ -225,7 +225,7 @@ func (this *BuildingManager) GetHouseNotSoldNumFromBuilding(buildingid uint32) u
 }
 
 //玩家从楼中购买房屋
-func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid, index uint32) uint32 {
+func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid, index uint32) uint64 {
 	user := UserMgr().FindById(userid)
 	if user == nil {
 		return 0
@@ -246,7 +246,7 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		curnum = len(building.data[index])
 	}
 	//判断所买户型是否还有剩余
-	if uint32(curnum) > building.tbl.MaxFloor {
+	if uint32(curnum) >= building.tbl.MaxFloor {
 		return 0
 	}
 	strhouse := ""
@@ -259,16 +259,19 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 	} else if index == 4 {
 		strhouse = building.tbl.Houses4
 	}
-	slicestr := strings.Split(strhouse, "-")
-	housetid, _ := strconv.Atoi(slicestr[0])
-	costper, _ := strconv.Atoi(slicestr[1])
-	square, _ := strconv.Atoi(slicestr[2])
+	slicestr := strings.Split(strhouse, "|")
+	slicehouse := strings.Split(slicestr[0], "-")
+	housetid, _ := strconv.Atoi(slicehouse[0])
+	costper, _ := strconv.Atoi(slicehouse[1])
+	square, _ := strconv.Atoi(slicehouse[2])
 	cost := uint32(costper) * uint32(square)
 	if user.RemoveGold(uint32(cost), "购买房屋", true) == false {
 		return 0
 	}
+	
+	roommember := (uint32(curnum) + 1)*100 + uint32(index)
 
-	house := HouseSvrMgr().CreateNewHouse(userid, uint32(housetid), user.Name(), building.id)
+	house := HouseSvrMgr().CreateNewHouse(userid, uint32(housetid), user.Name(), building.id, uint32(roommember))
 	if house == nil {
 		user.AddGold(uint32(cost), "购买房屋创建失败返还金币", true)
 		log.Error("购买房屋失败创建房屋nil userid:%d buildingid:%d index:%d", userid, buildingid, index)
@@ -281,7 +284,15 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		building.data[index] = append(building.data[index], house.id)
 	}
 	building.SaveBin(nil)
-	return 1
+
+	if len(slicestr) > 1 {
+		slicecarparking := strings.Split(slicestr[1], "-")
+		for _, v := range slicecarparking {
+			parkingtid, _ := strconv.Atoi(v)
+			CarMgr().CreateNewParking(userid, uint32(parkingtid), user.Name(), house.id)
+		}
+	}
+	return house.id
 }
 
 //获取楼中所有入住的房屋 userid为除了某玩家之外 userid=0 为此楼所有房屋
@@ -310,14 +321,19 @@ func (this *BuildingManager) GetAllHouseDataFromBuilding(buildingid uint32, user
 //----------------------------------------------------------------------
 //user相关接口
 func (this *GateUser) BuyHouseFromBuilding(buildingid, index uint32) {
-	log.Info("玩家[%s]id:% 请求购买房屋 buildingid:%d index:%d", this.Name(), this.Id(), buildingid, index)
-	ret := BuildSvrMgr().UserBuyHouseFromBuilding(this.Id(), buildingid, index)
+	log.Info("玩家[%s]id:%d 请求购买房屋 buildingid:%d index:%d", this.Name(), this.Id(), buildingid, index)
+	houseid := BuildSvrMgr().UserBuyHouseFromBuilding(this.Id(), buildingid, index)
+	ret := 0
+	if houseid > 0 {
+		this.ReqMatchHouseData()
+		ret = 1
+	}
 	send := &msg.GW2C_AckBuyHouseFromBuilding{}
 	send.Buildingid = pb.Uint32(buildingid)
 	send.Index = pb.Uint32(index)
-	send.Ret = pb.Uint32(ret)
+	send.Ret = pb.Uint32(uint32(ret))
+	send.Houseid = pb.Uint64(houseid)
 	this.SendMsg(send)
-	this.ReqMatchHouseData()
 }
 
 func (this *GateUser) ReqBuildingCanBuyInfo(buildingid uint32) {
@@ -364,6 +380,5 @@ func (this *GateUser) ReqBuildingRandHouseList(buildingid uint32) []*msg.HouseDa
 			data = append(data, house.PackBin())
 		}
 	}
-	CarMgr().AppendHouseData(data)
 	return data
 }

@@ -91,7 +91,8 @@ module game {
 			this.sceneGroup.addEventListener(GameRoomView.RECEIVE, this.receiveRegister, this);
 			this.sceneGroup.addEventListener(GameRoomView.LEVEL, this.levelRegister, this);
 			this.sceneGroup.addEventListener(GameRoomView.SHOW_TOP_ROOM_NUM, this.showRoomNumRegister, this);
-			this.sceneGroup.addEventListener(GameRoomView.REFRESH_LINJU, this.refreshLinjuRegister, this);				
+			this.sceneGroup.addEventListener(GameRoomView.REFRESH_LINJU, this.refreshLinjuRegister, this);		
+			this.sceneGroup.addEventListener(GameRoomView.GOIN_MESSAGE_ROOM, this.goinMessageRoomRegister, this);			
 			CarManager.getInstance().ReqMyCarInfo();
 		}
 		private closeRequset(eve: BasicEvent): void {
@@ -102,7 +103,7 @@ module game {
 				}
 				if (houseProxy.returnRoomInfo != null) {
 					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
-						{ userid: houseProxy.returnRoomInfo.ownerid });
+						{ houseid: houseProxy.returnRoomInfo.rId });
 					houseProxy.returnRoomInfo = null;
 					//houseProxy.returnType = 0;
 				} else {
@@ -142,7 +143,6 @@ module game {
 			else{
 				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST, eve.EventObj);
 			}
-			
 		}
 		private refreshLinjuRegister(eve: BasicEvent): void {
 			ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST, eve.EventObj);
@@ -153,7 +153,18 @@ module game {
 				houseProxy.returnRoomInfo=eve.EventObj.return;
 				houseProxy.returnType=eve.EventObj.type;
 				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
-				 {userid:eve.EventObj.userid});
+				 {houseid:eve.EventObj.houseid});
+			}
+		}
+		private goinMessageRoomRegister(eve: BasicEvent): void {
+			if(eve.EventObj){
+				let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
+				houseProxy.returnRoomInfo=eve.EventObj.return;
+				houseProxy.returnType=eve.EventObj.type;
+				//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
+				// {houseid:eve.EventObj.houseid});
+				sendMessage("msg.C2GW_ReqOtherUserHouseData", msg.C2GW_ReqOtherUserHouseData.encode({
+                userid : eve.EventObj.userid}));
 			}
 		}
 		private showRoomInfoRegister(eve: BasicEvent): void {

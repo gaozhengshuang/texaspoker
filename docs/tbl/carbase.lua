@@ -3,12 +3,16 @@
 
 module table {
 export var TCar : table.ITCarDefine[] = [
-		{ Id : 1001, Brand : "奔驰", Model : "smart", MoveRange : 1000, Capacity : 1200, RewardPerH : 120, Price : 2400, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	},
-		{ Id : 1002, Brand : "宝马", Model : "mini", MoveRange : 1500, Capacity : 12000, RewardPerH : 600, Price : 24000, Des : "", path : "carIconAltas_json.small_2", bigpath : "carIconAltas_json.big_2" 	},
-		{ Id : 1003, Brand : "雪佛莱", Model : "科迈罗", MoveRange : 2000, Capacity : 27000, RewardPerH : 900, Price : 54000, Des : "", path : "carIconAltas_json.small_3", bigpath : "carIconAltas_json.big_3" 	},
-		{ Id : 1004, Brand : "保时捷", Model : "911", MoveRange : 2500, Capacity : 72000, RewardPerH : 1200, Price : 96000, Des : "", path : "carIconAltas_json.small_4", bigpath : "carIconAltas_json.big_4" 	},
-		{ Id : 1005, Brand : "奔驰", Model : "G级", MoveRange : 3000, Capacity : 180000, RewardPerH : 1500, Price : 150000, Des : "", path : "carIconAltas_json.small_5", bigpath : "carIconAltas_json.big_5" 	},
-		{ Id : 1006, Brand : "劳斯劳斯", Model : "古斯特", MoveRange : 4000, Capacity : 324000, RewardPerH : 1800, Price : 216000, Des : "", path : "carIconAltas_json.small_6", bigpath : "carIconAltas_json.big_6" 	}
+		{ Id : 1001, Brand : "奔驰", Model : "smart", MoveRange : 1000, Capacity : 120, RewardPerH : 12, Price : 720, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1" 	},
+		{ Id : 1002, Brand : "本田", Model : "思域", MoveRange : 1500, Capacity : 480, RewardPerH : 24, Price : 2880, Des : "", path : "carIconAltas_json.small_2", bigpath : "carIconAltas_json.big_2" 	},
+		{ Id : 1003, Brand : "大众", Model : "polo", MoveRange : 2000, Capacity : 1080, RewardPerH : 36, Price : 6480, Des : "", path : "carIconAltas_json.small_3", bigpath : "carIconAltas_json.big_3" 	},
+		{ Id : 1004, Brand : "丰田", Model : "汉兰达", MoveRange : 2500, Capacity : 2880, RewardPerH : 48, Price : 17280, Des : "", path : "carIconAltas_json.small_4", bigpath : "carIconAltas_json.big_4" 	},
+		{ Id : 1005, Brand : "奥迪", Model : "A4L", MoveRange : 3000, Capacity : 7200, RewardPerH : 60, Price : 43200, Des : "", path : "carIconAltas_json.small_5", bigpath : "carIconAltas_json.big_5" 	},
+		{ Id : 1006, Brand : "宝马", Model : "mini", MoveRange : 4000, Capacity : 12960, RewardPerH : 72, Price : 77760, Des : "", path : "carIconAltas_json.small_6", bigpath : "carIconAltas_json.big_6" 	},
+		{ Id : 1007, Brand : "雪佛莱", Model : "科迈罗", MoveRange : 5000, Capacity : 20160, RewardPerH : 84, Price : 151200, Des : "", path : "carIconAltas_json.small_7", bigpath : "carIconAltas_json.big_7" 	},
+		{ Id : 1008, Brand : "保时捷", Model : "911", MoveRange : 6000, Capacity : 28800, RewardPerH : 96, Price : 241920, Des : "", path : "carIconAltas_json.small_8", bigpath : "carIconAltas_json.big_8" 	},
+		{ Id : 1009, Brand : "奔驰", Model : "G级", MoveRange : 7000, Capacity : 38880, RewardPerH : 108, Price : 349920, Des : "", path : "carIconAltas_json.small_9", bigpath : "carIconAltas_json.big_9" 	},
+		{ Id : 1010, Brand : "劳斯劳斯", Model : "古斯特", MoveRange : 8000, Capacity : 50400, RewardPerH : 120, Price : 540000, Des : "", path : "carIconAltas_json.small_10", bigpath : "carIconAltas_json.big_10" 	}
 	]
 
 

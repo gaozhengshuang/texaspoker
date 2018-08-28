@@ -51,7 +51,7 @@ class Main extends eui.UILayer {
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
 
-        
+
         this.runGame().catch(e => {
             console.log(e);
         })
@@ -64,14 +64,16 @@ class Main extends eui.UILayer {
 
     private async loadResource() {
         try {
-            await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
-            await this.loadTheme();
+            await RES.loadConfig(resUrl, "resource/");
+            if (DEBUG) {
+                await this.loadTheme();
+            }
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
             if (document && document.getElementById("preloading")) {
                 document.getElementById("preloading").style.display = "none";
             }
-            await RES.loadGroup("preload", 0, loadingView);
+            await RES.loadGroup(gameConfig.ResGroupEnum.Preload, 0, loadingView);
             this.stage.removeChild(loadingView);
         }
         catch (e) {

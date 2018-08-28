@@ -31,7 +31,9 @@ module game {
 		public static POPUP_ROOM_NEIGHBOR: string = "popup_room_neighbor";
 		public static POPUP_ROOM_DONGTAI: string = "popup_room_dongtai";
 		public static POPUP_NEW_HOUSE_HUXING: string = "popup_new_house_huxing";
+		public static POPUP_NEW_MAP_BUILDING: string = "popup_map_building";
 		public static REMOVE_POPUP: string = "remove_popup";
+		public static REMOVE_POPUP_NEW_HOUSE: string = "remove_popup_new_house";
 		public static ERROR_ALERT: string = "error_alert";
 		public static REMOVE_ALERT_ERROR: string = "remove_error_alert";
 		
@@ -45,6 +47,7 @@ module game {
 		public static ROOM_LEVEL_SUCCESS: string = "room_level_success";
 		public static ROOM_PARKINGLOT_UPDATE : string = "roome_parkinglot_update";
 		public static MAIN_ASSETS_UPDATE : string = "main_assets_update";
+		public static MAP_ACTION: string = "map_action";
 
 		/////////////////////
 		/////请求服务器///////

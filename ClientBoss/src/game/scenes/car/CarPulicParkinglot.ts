@@ -17,7 +17,7 @@ module game {
         public constructor() {
             super();
             this._select = false;
-            this.skinName = "resource/skins/car/CarPublicParkingLotItemSkin.exml";
+            this.skinName = CarPublicParkingLotItemSkin;
             this.center.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnSelect,this);
         }
         
@@ -114,10 +114,9 @@ module game {
                 //console.log("车位操作----------->",this.itemData.parkingcar,DataManager.playerModel.userInfo.cardatas.length);
                 if(this.itemData.parkingcar==0){
                     let _canPark = false;
-                   
-                    for(let carData of DataManager.playerModel.userInfo.cardatas)
-                    {
-                        if(carData.parkingid==0){
+                    if(CarDetailView.getInstance().carData){
+                        let carData = CarDetailView.getInstance().carData;
+                        if(carData.parkingid==0 && carData.parkingreward==0){
                             _canPark = true;
                             CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                 if(result==0){
@@ -125,10 +124,24 @@ module game {
                                     CarManager.getInstance().ReqMyCarInfo(function(){CarPublicParkingLotManager.getInstance().refreshData();});
                                 }
                             });
-                            break;
                         }
                     }
-
+                    else
+                    {
+                        for(let carData of DataManager.playerModel.userInfo.cardatas)
+                        {
+                            if(carData.parkingid==0){
+                                _canPark = true;
+                                CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
+                                    if(result==0){
+                                        showTips("停车成功！");
+                                        CarManager.getInstance().ReqMyCarInfo(function(){CarPublicParkingLotManager.getInstance().refreshData();});
+                                    }
+                                });
+                                break;
+                            }
+                        }
+                    }
                     if(!_canPark) {showTips("没有可以停的车辆");}
                 }
                 else{   

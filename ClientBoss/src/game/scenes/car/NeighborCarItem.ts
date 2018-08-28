@@ -11,7 +11,7 @@ module game {
 
 		public constructor(data:any=null) {
 			super();
-			this.skinName = "resource/skins/car/NeighborCarItem.exml"; 
+			this.skinName = NeighborCarItemSkin; 
 		}
 
         private itemData:HouseVO;
@@ -19,7 +19,8 @@ module game {
             this.itemData=this.data;
             if(this.itemData){
                     //console.log(this.itemData.ownername+"-----设置车位空满-----", this.data.empty);
-                this.name_txt.text=this.itemData.ownername;
+                //this.name_txt.text= this.itemData.ownerid==0 && "进入公共车位" || this.itemData.ownername;
+                this.name_txt.text= this.itemData.ownername;
 
                 this.imageEmpty.visible  = this.data.empty && true;
                 this.imageFull.visible   = ! (this.data.empty && true);

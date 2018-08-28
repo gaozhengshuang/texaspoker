@@ -115,23 +115,41 @@ module game {
                 //console.log("车位操作----------->",this.itemData.parkingcar,DataManager.playerModel.userInfo.cardatas.length);
                 if(this.itemData.parkingcar==0){
                     let _canPark = false;
-                   
-                    for(let carData of DataManager.playerModel.userInfo.cardatas)
+                    //if(CarDetailView.getInstance().Inited())
+                    //{
+                        if(CarDetailView.getInstance().carData){
+                            let carData = CarDetailView.getInstance().carData;
+                            if(carData.parkingid==0 && carData.parkingreward==0){
+                                _canPark = true;
+                                CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
+                                    if(result==0){
+                                        showTips("停车成功！");
+                                        CarManager.getInstance().ReqMyCarInfo(
+                                            function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);}
+                                        );
+                                    }
+                                });
+                            }
+                        }
+                    //}
+                    else
                     {
-                        if(carData.parkingid==0){
-                            _canPark = true;
-                            CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
-                                if(result==0){
-                                    showTips("停车成功！");
-                                    CarManager.getInstance().ReqMyCarInfo(
-                                        function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);}
-                                    );
-                                }
-                            });
-                            break;
+                        for(let carData of DataManager.playerModel.userInfo.cardatas)
+                        {
+                            if(carData.parkingid==0){
+                                _canPark = true;
+                                CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
+                                    if(result==0){
+                                        showTips("停车成功！");
+                                        CarManager.getInstance().ReqMyCarInfo(
+                                            function(){ ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_PARKINGLOT_UPDATE);}
+                                        );
+                                    }
+                                });
+                                break;
+                            }
                         }
                     }
-
                     if(!_canPark) {showTips("没有可以停的车辆");}
                 }
                 else{   

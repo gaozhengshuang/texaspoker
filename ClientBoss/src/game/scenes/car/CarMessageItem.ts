@@ -6,7 +6,7 @@ module game {
 
 		public constructor(data:any=null) {
 			super();
-            this.skinName = "resource/skins/car/CarMessageItemSkin.exml";
+            this.skinName = CarMessageItemSkin;
 		}
 
         private itemData:string;
@@ -15,7 +15,7 @@ module game {
             if(this.itemData){
                 //内容
                 console.log("内容--------------->",this.itemData);
-                let _contentStr : egret.ITextElement[] = [{text:this.itemData.split("_"[0])[2]}];
+                let _contentStr : egret.ITextElement[] = [{text:this.itemData.split("_"[0])[3]}];
                 this.content_txt.textFlow = <Array<egret.ITextElement>>_contentStr;
 
                 //Type

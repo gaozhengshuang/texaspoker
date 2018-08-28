@@ -3,7 +3,7 @@ module utils{
 		public dataList: eui.List;
 		public constructor(type:number=1) {
 			super();
-			this.skinName = "resource/skins/AllScrollerSkin.exml";
+			this.skinName = AllScrollerSkin;
 			this.viewport = this.dataList;
 		}
 		/**

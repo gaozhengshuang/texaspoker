@@ -5,11 +5,11 @@ module utils{
 			super();
 			if(type==1)
 			{
-				this.skinName = "resource/skins/ScrollerPanelSkin.exml";
+				this.skinName = ScrollerPanelSkin;
 			}
 			else if(type==2)
 			{
-				this.skinName = "resource/skins/VScrollBarPanelSkin.exml";
+				this.skinName = VScrollBarPanelSkin;
 			}
 			
 			this.viewport = this.dataList;

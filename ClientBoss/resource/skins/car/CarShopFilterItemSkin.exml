@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarShopFilterItemSkin" width="226" height="47" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+
+
+	<e:Group id="center" width="226" height="47" x="0" y="0" touchEnabled="true">
+		<e:Rect id="selectedBg" width="226" height="47" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xededed"/>
+
+		<e:Label id="selectionTxt" text="奥迪-车标" textAlign="center" size="28" anchorOffsetX="0" x="0" y="0" scaleX="1" scaleY="1" touchEnabled="false" width="226" height="47" verticalAlign="middle" textColor="0x686565" bold="true"/>
+	</e:Group>
+
+</e:Skin>

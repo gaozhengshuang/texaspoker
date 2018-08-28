@@ -49,10 +49,10 @@ module game {
         public init() 
         {
             this.btnDriveAway.icon = "shopItemButtonBg_png";
-            this.btnClose.icon = "uiCarAltas_json.backBtn";
+            this.btnClose.icon = "uiCarAltas_json.backBtn2";
             this.btnNeighbor.icon = "uiCarAltas_json.neighbor";
             this.btnState.icon = "uiCarAltas_json.stateBtn";
-
+            this.btnDriveAwayBg.source = "uiCarAltas_json.driveBtn";
             this.hideList_btn.visible = false;
             this._inited   = false;
         }
@@ -71,7 +71,6 @@ module game {
 
             this.listIndex = 0;
             this._inited   = true;
-            //this.addEventListener(CarDetailView.POPUP_ROOM_NEIGHBOR,this.showLinjuList,this);
         }
 
         private adaptive() {
@@ -106,19 +105,12 @@ module game {
             }
             //名字+价格
             this.carNameTxt.text = carItemData.Brand+""+carItemData.Model + "  价值" + carItemData.Price;
-
-            //容量和收益
-            // this.carInfoTxt.textFlow = [
-            //     { text: "汽车容量", style: { bold: true,size: 30 }},
-            //     { text: carItemData.Capacity+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
-            //     { text: "\n"+"收益", style: { bold: true,size: 30 } },
-            //     { text: carItemData.RewardPerH+"", style: { bold: true,size: 35,"textColor": 0xFF3207}},
-            //     { text: "/小时", style: { bold: true,size: 30}},
-            // ]
             this.carInfoTxt.text = "汽车容量" + carItemData.Capacity + "\n"+"收益" + carItemData.RewardPerH + "/分钟";
 
             //停放状态
             let _parkingData = DataManager.playerModel.getMyCarPakingInfo(this.carData.id);
+            let haveParked = _parkingData!=null || this.carData.parkingreward!=0;
+            
             if(_parkingData){
                 //this.parkingInfoTxt.text = "停在" + _parkingData.ownername + "车位" +"预计收益"+_parkingData.parkingreward+"金币";
                 let dateTime = new Date(Math.max(new Date().getTime() - <number>_parkingData.parkingtime - SysTimeEventManager.getInstance().systimeoffset,0));
@@ -145,16 +137,25 @@ module game {
             }
             else{
                 if(this.carData.parkingid!=0){console.warn("不在parkingdatas中",this.carData.parkingid);}
-               
+                if(this.carData.parkingreward!=0){
+                    this.parkingInfoTxt.textFlow = [
+                        { text: "在公共车位已获得 "},
+                        { text: this.carData.parkingreward+"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
+                        { text: " 金币的收益"},
+                    ]
+                }
             }
-            this.btnDriveAway.visible = this.btnDriveAwayBg.visible  = this.parkingInfoTxt.visible = _parkingData && true;
-            this.infoBgImage.source = (_parkingData && true) ? "uiCarAltas_json.infobg" : "uiCarAltas_json.emptybg";
-            this.parkingEmptyTxt.visible = !(_parkingData && true);
+            
+            this.btnDriveAway.visible = this.btnDriveAwayBg.visible  = this.parkingInfoTxt.visible = haveParked;
+            this.infoBgImage.source = haveParked ? "uiCarAltas_json.infobg" : "uiCarAltas_json.emptybg";
+            this.btnDriveAwayBg.source = this.carData.parkingreward==0 && "uiCarAltas_json.driveBtn" || "uiCarAltas_json.recieveBtn";
+            this.parkingEmptyTxt.visible = !haveParked;
          }
         public OnCloseHandle() {
             if(!this.Inited()) return;
             this.remove();
             this._inited  = false;
+            this.carData = null;
             GameConfig.showDownBtnFun(true); 
             delete CarDetailView._instance;
             CarDetailView._instance = null;
@@ -176,24 +177,40 @@ module game {
         private OnDriveAwayHandle(){
             let _carDataId = this.carData.id;
             let self = this;
-            CarManager.getInstance().driveAway(_carDataId,null,function(result:number,reward:number){
-                if(result==0){
-
-                    CarManager.getInstance().ReqMyCarInfo(function(){
-                        self.setData(DataManager.playerModel.userInfo.cardatas.filter(data=>{return data.id== _carDataId})[0]);});
-            
-                    if(reward!=0){
-                        egret.setTimeout(() => {
-                        showTips("获得"+reward+"金币！");   
-                        }, this, 0.5);
+            if(this.carData.parkingreward==0){ //未满收益
+                if(this.carData.parkingid==0) return;
+                CarManager.getInstance().driveAway(_carDataId,null,function(result:number,reward:number){
+                    if(result==0){
+                        CarManager.getInstance().ReqMyCarInfo(function(){
+                            self.setData(DataManager.playerModel.userInfo.cardatas.filter(data=>{return data.id== _carDataId})[0]);});
+                            if(reward!=0){
+                                egret.setTimeout(() => {
+                                showTips("获得"+reward+"金币！");   
+                                }, this, 0.5);
+                            }
+                            else{
+                                showTips("收回成功！");  
+                            }      
                     }
-                    else{
-                        showTips("收回成功！");  
-                    }     
-                }
-            });
+                });
+            }
+            else{ //有值的话为公共车位收益满-自动回收
+                CarManager.getInstance().ReqTakeCarReward(_carDataId,function(result:number,reward:number){
+                    if(result==0){
+                        CarManager.getInstance().ReqMyCarInfo(function(){
+                            self.setData(DataManager.playerModel.userInfo.cardatas.filter(data=>{return data.id== _carDataId})[0]);});
+/*                             if(reward!=0){
+                                egret.setTimeout(() => {
+                                showTips("领取"+reward+"金币！");   
+                                }, this, 0.5);
+                            }
+                            else{
+                                showTips("领取成功！");  
+                            }   */   
+                    }
+                });
+            }
         }
-    
  
     //--------------邻居和动态列表----------------------------------//
         public refrehLinJu()
@@ -250,22 +267,19 @@ module game {
         public roomInfo: HouseVO;
 
         private showlist(index) {
-            console.log("展示列表showlist----------->",index);
-            //if (this.listIndex == index) return;
-            if (this.goalY == -1) { this.goalY = GameConfig.innerHeight / 4 };
-            if (this.goalH == -1) { this.goalH = GameConfig.innerHeight * 3 /4 };
+            //console.log("展示列表showlist----------->",index);
+            if (this.goalY == -1) { this.goalY = gameConfig.curHeight() / 4 };
+            if (this.goalH == -1) { this.goalH = gameConfig.curHeight() * 3 / 4 };
             if (this.btnGoalY == -1) {
-/*                  this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
-                    - 20 * GameConfig.innerScaleW;  */
-                this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20
+            this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20;
+/*             this.btnGoalY = this.goalY - (this.downBtnGroup.height * GameConfig.innerScale / 2)
+                - 20 * GameConfig.innerScaleW;  */
             }
             this.listIndex = index;
-			console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
-
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
                 call(this.onComplete, this, [this.listIndex]);
-                egret.Tween.get(this.down_bg).to({ height: this.goalH+GameConfig.innerHeight / 2, y: this.goalY }, 300)
+                egret.Tween.get(this.down_bg).to({ height: this.goalH, y: this.goalY }, 300)
                     
             }else{
                 this.onComplete(this.listIndex);
@@ -273,7 +287,7 @@ module game {
         }
 
         private onComplete(index: number): void {
-            console.log ("onComplete");
+            //console.log ("onComplete");
             this.hideList_btn.visible = true;
             this.showItemList(index);
             egret.Tween.removeTweens(this.downBtnGroup);
@@ -282,7 +296,7 @@ module game {
 
         private itemList: utils.ScrollerPanel;
         private showItemList(index: number) {
-            console.log("showItemList---->",this.itemList == null);
+            //console.log("showItemList---->",this.itemList == null);
             this.hideItemList();
             if (this.itemList == null) {
                 this.itemList = new utils.VScrollerPanel();
@@ -311,7 +325,7 @@ module game {
             }
         }
         private bindDataList(index: number) {
-            console.log("绑定数据--------->",index);
+            //console.log("绑定数据--------->",index);
             switch (index) {
                 case 1:
                     this.showDongtaiList();
@@ -324,42 +338,18 @@ module game {
  
         private dongtaiList: string[];
         public showDongtaiList() {
-            console.log("总共记录条数--->", DataManager.playerModel.getCarRecords().length);
+            //console.log("总共记录条数--->", DataManager.playerModel.getCarRecords().length);
             this.dongtaiList =  DataManager.playerModel.getCarRecords().filter(data=>{
-                console.log("记录类型-->",data);
-                //筛选出自己被操作的记录
-/*                 switch(data.operatortype) 
-                {
-                    case msg.CarOperatorType.Park:
-                        return  data.parkingownerid == DataManager.playerModel.getUserId();
-                    case msg.CarOperatorType.TakeBack:
-                        return  data.parkingownerid == DataManager.playerModel.getUserId();
-                    case msg.CarOperatorType.Ticket:
-                        return  data.carownerid == DataManager.playerModel.getUserId();
-                } */
                 return true;
             });
-            console.log("dongtaiList.......",this.dongtaiList.length);
             if (this.itemList && this.listIndex == 1) {
                 this.itemList.bindData(this.dongtaiList);
             }
         }
 
-        private linjuList: HouseVO[];
+        private linjuList: HouseVO[] = [];
         public showLinjuList(list: HouseVO[]) {
-            console.log("showLinjuList--------------->",list.length+" "+JSON.stringify(list));
-        
-/*             let self = this;
-            CarManager.getInstance().ReqMyCarInfo(function(){
-                DataManager.playerModel.getUserInfo().parkingdatas.forEach(data=>{
-                    if(data.parkingcarownerid!=0 && data.ownerid== DataManager.playerModel.getUserId()){
-                        CarManager.getInstance().ReqCarParkingHouseData(data.parkingcarownerid,function(houseDatas:msg.IHouseData[]){
-                            //
-                        });
-                    }
-                })
-            }); */
-
+            //console.log("showLinjuList--------------->",list.length+" "+JSON.stringify(list));
             this._showLinjuList(list);
         }
 
@@ -369,70 +359,6 @@ module game {
             CarManager.getInstance().clearBackFunc_ResParkingInfo();
             if (this.itemList && this.listIndex == 3) {
                 let self = this; 
-
-                let _sortFunc : Function  = function(a:HouseVO,b:HouseVO){
-                    let empty_a  = a.empty;
-                    let empty_b  = b.empty;
-                    let myCar_a  = a.myCarPark;
-                    let myCar_b  = b.myCarPark;
-                    if(myCar_a && !myCar_b)
-                    {
-                        return 0;
-                    }
-                    else if(!myCar_a && myCar_b)
-                    {
-                        return 1;
-                    }
-                    else if(myCar_a && myCar_b)
-                    {
-                       if(empty_a&&!empty_b){
-                           return 1;
-                       }
-                       else if(!empty_a&&empty_b){
-                           return 0;
-                       }
-                       else if(!empty_a&&!empty_b){
-                           return 0;
-                      }
-                    }
-                    else if(!myCar_a &&!myCar_b)
-                    {
-                       if(empty_a&&!empty_b){
-                           return 1;
-                       }
-                       else if(!empty_a&&empty_b){
-                           return 0;
-                       }
-                       else if(!empty_a&&!empty_b){
-                           return 0;
-                      }
-                    }
-                }
-                //房屋和车位数据分离
-/*                 list.forEach((houseData,index,array)=>{  
-                    CarManager.getInstance().ReqParkingInfoByType(2,houseData.ownerid,function(parkingDatas:msg.IParkingData[]){
-                        if(parkingDatas.length>0)
-                        {
-                            let isBelong :boolean = parkingDatas[0].ownerid == houseData.ownerid;
-                            if(isBelong)
-                            {
-                                //空
-                                let _empty:number = Number(parkingDatas.some(data=>{return data.parkingcar==0;}));                                            
-                                //我车
-                                let _mycarPark:number = Number(parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();}));        
-                                houseData.setObject({empty:_empty,myCarPark:_mycarPark});
-                                self.linjuList.push(houseData);  
-                            }
-                        }
-                        //console.log("回调执行------>",index);
-                        //if(index==self.linjuList.length-1){ //等待所有邻居停车位数据返回后在显示
-                            self.linjuList.sort(function(a,b){return _sortFunc(a,b);});
-                            self.itemList.bindData(self.linjuList);
-                        //} 
-                       
-                    }.bind(this));
-                }); */
-            
                 //房屋和车位绑定后
                 this.linjuList = list.map(houseData=>{
                     //空
@@ -443,10 +369,11 @@ module game {
                     return houseData;
                 }); 
 
-                self.linjuList.sort(function(a,b){return _sortFunc(a,b);});
-            
+                let EmptyList = this.linjuList.filter(data=>{return data.empty;});                
+                let notEmptyList = this.linjuList.filter(data=>{return !data.empty;});
+                this.linjuList = notEmptyList.sort((a,b)=>{return b.myCarPark - a.myCarPark;}).concat(EmptyList);
                 //第一栏显示公共车位
-                 CarManager.getInstance().ReqParkingInfoByType(1,0,function(parkingDatas:msg.IParkingData[]){
+                 CarManager.getInstance().ReqParkingInfoByType(1,0,[],function(parkingDatas:msg.IParkingData[]){
                     let emptyLots  = parkingDatas.some(data=>{return data.parkingcar==0});
                     let _mycarPark = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();});                             
                     let obj = {rId:0,tId:0,ownerid:0,ownername:"公共车位",empty:Number(emptyLots),myCarPark:Number(_mycarPark),parkings:parkingDatas};
@@ -459,16 +386,36 @@ module game {
             }
         }
         private onItemTouch(eve: eui.ItemTapEvent) {
-            console.log("onItemTouch------------->",this.listIndex)
+            //console.log("onItemTouch------------->",this.listIndex)
             let item :any = null;
             switch (this.listIndex) {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];
                     let operatortype =  parseInt(item.split("_"[0])[1]);
-                    let _userId = operatortype==msg.CarOperatorType.Park ? DataManager.playerModel.getUserId() : parseInt(item.split("_"[0])[0]);
+                    let _houseId    =  parseInt(item.split("_"[0])[2]);
                     //console.log("前往玩家ID------>",_userId);
                     if (item) {
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:_userId});
+                        if(operatortype==msg.CarOperatorType.AutoBack){ //前往公共车位
+                            let houseVO : HouseVO = new HouseVO();
+                            if(this.linjuList.length==0){
+                                CarManager.getInstance().ReqParkingInfoByType(1,0,[],function(parkingDatas:msg.IParkingData[]){
+                                    let emptyLots  = parkingDatas.some(data=>{return data.parkingcar==0});
+                                    let _mycarPark = parkingDatas.some(data=>{return data.parkingcarownerid==DataManager.playerModel.getUserId();});                             
+                                    let obj = {rId:0,tId:0,ownerid:0,ownername:"公共车位",empty:Number(emptyLots),myCarPark:Number(_mycarPark),parkings:parkingDatas};
+                                    houseVO.setObject(obj);
+                                    openPanel(PanelType.carPublicLot);
+                                    CarPublicParkingLotManager.getInstance().UpdateData(houseVO.parkings);
+                                });
+                            }
+                            else{
+                                houseVO = this.linjuList[0];
+                                openPanel(PanelType.carPublicLot);
+                                CarPublicParkingLotManager.getInstance().UpdateData(houseVO.parkings);
+                            }
+                        }
+                        else{
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{houseid:_houseId}); 
+                        }
                         this.OnDisableHandle();
                     }
                     break;
@@ -481,11 +428,14 @@ module game {
                             CarPublicParkingLotManager.getInstance().UpdateData(item.parkings);
                             return;
                         }
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{userid:item.ownerid});
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,{houseid:item.rId});
                         this.OnDisableHandle();
                     }
                     break;
             }
+        }
+        public getSelectCarID(){
+            return  this.carData ? this.carData.id : 0;
         }
         //-----------------------------------------------------------------------------//
         public isDongTaiPanelView()

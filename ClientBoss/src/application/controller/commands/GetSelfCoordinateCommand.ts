@@ -22,6 +22,7 @@ module game {
             }
             this.mapProxy.selfPoint.setObject(data);
 			this.mapProxy.currentPoint.setObject(data);
+			this.mapProxy.addBuilding();
 			
             ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_MAP);
 			if(GameConfig.newPlayerStep==0){

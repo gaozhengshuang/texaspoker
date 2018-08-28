@@ -10482,6 +10482,7 @@ $root.msg = (function() {
          * @property {string|null} [ownername] HouseData ownername
          * @property {number|null} [robcheckflag] HouseData robcheckflag
          * @property {Array.<msg.IParkingData>|null} [parkings] HouseData parkings
+         * @property {number|null} [roommember] HouseData roommember
          */
 
         /**
@@ -10583,6 +10584,14 @@ $root.msg = (function() {
         HouseData.prototype.parkings = $util.emptyArray;
 
         /**
+         * HouseData roommember.
+         * @member {number} roommember
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.roommember = 0;
+
+        /**
          * Creates a new HouseData instance using the specified properties.
          * @function create
          * @memberof msg.HouseData
@@ -10629,6 +10638,8 @@ $root.msg = (function() {
             if (message.parkings != null && message.parkings.length)
                 for (var i = 0; i < message.parkings.length; ++i)
                     $root.msg.ParkingData.encode(message.parkings[i], writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+            if (message.roommember != null && message.hasOwnProperty("roommember"))
+                writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.roommember);
             return writer;
         };
 
@@ -10698,6 +10709,9 @@ $root.msg = (function() {
                     if (!(message.parkings && message.parkings.length))
                         message.parkings = [];
                     message.parkings.push($root.msg.ParkingData.decode(reader, reader.uint32()));
+                    break;
+                case 11:
+                    message.roommember = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -10782,6 +10796,9 @@ $root.msg = (function() {
                         return "parkings." + error;
                 }
             }
+            if (message.roommember != null && message.hasOwnProperty("roommember"))
+                if (!$util.isInteger(message.roommember))
+                    return "roommember: integer expected";
             return null;
         };
 
@@ -10855,6 +10872,8 @@ $root.msg = (function() {
                     message.parkings[i] = $root.msg.ParkingData.fromObject(object.parkings[i]);
                 }
             }
+            if (object.roommember != null)
+                message.roommember = object.roommember >>> 0;
             return message;
         };
 
@@ -10892,6 +10911,7 @@ $root.msg = (function() {
                 object.level = 0;
                 object.ownername = "";
                 object.robcheckflag = 0;
+                object.roommember = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -10928,6 +10948,8 @@ $root.msg = (function() {
                 for (var j = 0; j < message.parkings.length; ++j)
                     object.parkings[j] = $root.msg.ParkingData.toObject(message.parkings[j], options);
             }
+            if (message.roommember != null && message.hasOwnProperty("roommember"))
+                object.roommember = message.roommember;
             return object;
         };
 
@@ -14566,6 +14588,399 @@ $root.msg = (function() {
         };
 
         return GW2C_RetTakeCarAutoBackReward;
+    })();
+
+    msg.GW2C_CarAutoBack = (function() {
+
+        /**
+         * Properties of a GW2C_CarAutoBack.
+         * @memberof msg
+         * @interface IGW2C_CarAutoBack
+         * @property {number|Long|null} [carid] GW2C_CarAutoBack carid
+         */
+
+        /**
+         * Constructs a new GW2C_CarAutoBack.
+         * @memberof msg
+         * @classdesc Represents a GW2C_CarAutoBack.
+         * @implements IGW2C_CarAutoBack
+         * @constructor
+         * @param {msg.IGW2C_CarAutoBack=} [properties] Properties to set
+         */
+        function GW2C_CarAutoBack(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_CarAutoBack carid.
+         * @member {number|Long} carid
+         * @memberof msg.GW2C_CarAutoBack
+         * @instance
+         */
+        GW2C_CarAutoBack.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_CarAutoBack instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {msg.IGW2C_CarAutoBack=} [properties] Properties to set
+         * @returns {msg.GW2C_CarAutoBack} GW2C_CarAutoBack instance
+         */
+        GW2C_CarAutoBack.create = function create(properties) {
+            return new GW2C_CarAutoBack(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_CarAutoBack message. Does not implicitly {@link msg.GW2C_CarAutoBack.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {msg.IGW2C_CarAutoBack} message GW2C_CarAutoBack message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_CarAutoBack.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_CarAutoBack message, length delimited. Does not implicitly {@link msg.GW2C_CarAutoBack.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {msg.IGW2C_CarAutoBack} message GW2C_CarAutoBack message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_CarAutoBack.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_CarAutoBack message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_CarAutoBack} GW2C_CarAutoBack
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_CarAutoBack.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_CarAutoBack();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_CarAutoBack message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_CarAutoBack} GW2C_CarAutoBack
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_CarAutoBack.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_CarAutoBack message.
+         * @function verify
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_CarAutoBack.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_CarAutoBack message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_CarAutoBack} GW2C_CarAutoBack
+         */
+        GW2C_CarAutoBack.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_CarAutoBack)
+                return object;
+            var message = new $root.msg.GW2C_CarAutoBack();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_CarAutoBack message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_CarAutoBack
+         * @static
+         * @param {msg.GW2C_CarAutoBack} message GW2C_CarAutoBack
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_CarAutoBack.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_CarAutoBack to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_CarAutoBack
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_CarAutoBack.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_CarAutoBack;
+    })();
+
+    msg.GW2C_AddNewCar = (function() {
+
+        /**
+         * Properties of a GW2C_AddNewCar.
+         * @memberof msg
+         * @interface IGW2C_AddNewCar
+         * @property {msg.ICarData|null} [car] GW2C_AddNewCar car
+         */
+
+        /**
+         * Constructs a new GW2C_AddNewCar.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AddNewCar.
+         * @implements IGW2C_AddNewCar
+         * @constructor
+         * @param {msg.IGW2C_AddNewCar=} [properties] Properties to set
+         */
+        function GW2C_AddNewCar(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AddNewCar car.
+         * @member {msg.ICarData|null|undefined} car
+         * @memberof msg.GW2C_AddNewCar
+         * @instance
+         */
+        GW2C_AddNewCar.prototype.car = null;
+
+        /**
+         * Creates a new GW2C_AddNewCar instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {msg.IGW2C_AddNewCar=} [properties] Properties to set
+         * @returns {msg.GW2C_AddNewCar} GW2C_AddNewCar instance
+         */
+        GW2C_AddNewCar.create = function create(properties) {
+            return new GW2C_AddNewCar(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AddNewCar message. Does not implicitly {@link msg.GW2C_AddNewCar.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {msg.IGW2C_AddNewCar} message GW2C_AddNewCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AddNewCar.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.car != null && message.hasOwnProperty("car"))
+                $root.msg.CarData.encode(message.car, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AddNewCar message, length delimited. Does not implicitly {@link msg.GW2C_AddNewCar.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {msg.IGW2C_AddNewCar} message GW2C_AddNewCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AddNewCar.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AddNewCar message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AddNewCar} GW2C_AddNewCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AddNewCar.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AddNewCar();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.car = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AddNewCar message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AddNewCar} GW2C_AddNewCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AddNewCar.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AddNewCar message.
+         * @function verify
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AddNewCar.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.car != null && message.hasOwnProperty("car")) {
+                var error = $root.msg.CarData.verify(message.car);
+                if (error)
+                    return "car." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AddNewCar message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AddNewCar} GW2C_AddNewCar
+         */
+        GW2C_AddNewCar.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AddNewCar)
+                return object;
+            var message = new $root.msg.GW2C_AddNewCar();
+            if (object.car != null) {
+                if (typeof object.car !== "object")
+                    throw TypeError(".msg.GW2C_AddNewCar.car: object expected");
+                message.car = $root.msg.CarData.fromObject(object.car);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AddNewCar message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AddNewCar
+         * @static
+         * @param {msg.GW2C_AddNewCar} message GW2C_AddNewCar
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AddNewCar.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.car = null;
+            if (message.car != null && message.hasOwnProperty("car"))
+                object.car = $root.msg.CarData.toObject(message.car, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AddNewCar to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AddNewCar
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AddNewCar.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AddNewCar;
     })();
 
     msg.C2GW_ReqCarShopInfo = (function() {
@@ -18639,6 +19054,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IC2GW_ReqRandHouseList
          * @property {number|null} [carflag] C2GW_ReqRandHouseList carflag
+         * @property {number|null} [buildingid] C2GW_ReqRandHouseList buildingid
          */
 
         /**
@@ -18663,6 +19079,14 @@ $root.msg = (function() {
          * @instance
          */
         C2GW_ReqRandHouseList.prototype.carflag = 0;
+
+        /**
+         * C2GW_ReqRandHouseList buildingid.
+         * @member {number} buildingid
+         * @memberof msg.C2GW_ReqRandHouseList
+         * @instance
+         */
+        C2GW_ReqRandHouseList.prototype.buildingid = 0;
 
         /**
          * Creates a new C2GW_ReqRandHouseList instance using the specified properties.
@@ -18690,6 +19114,8 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.carflag != null && message.hasOwnProperty("carflag"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.carflag);
+            if (message.buildingid != null && message.hasOwnProperty("buildingid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.buildingid);
             return writer;
         };
 
@@ -18726,6 +19152,9 @@ $root.msg = (function() {
                 switch (tag >>> 3) {
                 case 1:
                     message.carflag = reader.uint32();
+                    break;
+                case 2:
+                    message.buildingid = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -18765,6 +19194,9 @@ $root.msg = (function() {
             if (message.carflag != null && message.hasOwnProperty("carflag"))
                 if (!$util.isInteger(message.carflag))
                     return "carflag: integer expected";
+            if (message.buildingid != null && message.hasOwnProperty("buildingid"))
+                if (!$util.isInteger(message.buildingid))
+                    return "buildingid: integer expected";
             return null;
         };
 
@@ -18782,6 +19214,8 @@ $root.msg = (function() {
             var message = new $root.msg.C2GW_ReqRandHouseList();
             if (object.carflag != null)
                 message.carflag = object.carflag >>> 0;
+            if (object.buildingid != null)
+                message.buildingid = object.buildingid >>> 0;
             return message;
         };
 
@@ -18798,10 +19232,14 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults)
+            if (options.defaults) {
                 object.carflag = 0;
+                object.buildingid = 0;
+            }
             if (message.carflag != null && message.hasOwnProperty("carflag"))
                 object.carflag = message.carflag;
+            if (message.buildingid != null && message.hasOwnProperty("buildingid"))
+                object.buildingid = message.buildingid;
             return object;
         };
 
@@ -20919,6 +21357,7 @@ $root.msg = (function() {
          * @property {number|null} [buildingid] GW2C_AckBuyHouseFromBuilding buildingid
          * @property {number|null} [index] GW2C_AckBuyHouseFromBuilding index
          * @property {number|null} [ret] GW2C_AckBuyHouseFromBuilding ret
+         * @property {number|Long|null} [houseid] GW2C_AckBuyHouseFromBuilding houseid
          */
 
         /**
@@ -20961,6 +21400,14 @@ $root.msg = (function() {
         GW2C_AckBuyHouseFromBuilding.prototype.ret = 0;
 
         /**
+         * GW2C_AckBuyHouseFromBuilding houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2C_AckBuyHouseFromBuilding
+         * @instance
+         */
+        GW2C_AckBuyHouseFromBuilding.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
          * Creates a new GW2C_AckBuyHouseFromBuilding instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckBuyHouseFromBuilding
@@ -20990,6 +21437,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
             if (message.ret != null && message.hasOwnProperty("ret"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ret);
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.houseid);
             return writer;
         };
 
@@ -21032,6 +21481,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.ret = reader.uint32();
+                    break;
+                case 4:
+                    message.houseid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -21077,6 +21529,9 @@ $root.msg = (function() {
             if (message.ret != null && message.hasOwnProperty("ret"))
                 if (!$util.isInteger(message.ret))
                     return "ret: integer expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
             return null;
         };
 
@@ -21098,6 +21553,15 @@ $root.msg = (function() {
                 message.index = object.index >>> 0;
             if (object.ret != null)
                 message.ret = object.ret >>> 0;
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -21118,6 +21582,11 @@ $root.msg = (function() {
                 object.buildingid = 0;
                 object.index = 0;
                 object.ret = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
             }
             if (message.buildingid != null && message.hasOwnProperty("buildingid"))
                 object.buildingid = message.buildingid;
@@ -21125,6 +21594,11 @@ $root.msg = (function() {
                 object.index = message.index;
             if (message.ret != null && message.hasOwnProperty("ret"))
                 object.ret = message.ret;
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
             return object;
         };
 
@@ -43484,6 +43958,7 @@ $root.table = (function() {
          * @property {number|null} [Number] TBuildingsDefine Number
          * @property {number|null} [MaxFloor] TBuildingsDefine MaxFloor
          * @property {number|null} [NumPerFloor] TBuildingsDefine NumPerFloor
+         * @property {number|null} [BuildingPrice] TBuildingsDefine BuildingPrice
          * @property {string|null} [Houses1] TBuildingsDefine Houses1
          * @property {string|null} [Houses2] TBuildingsDefine Houses2
          * @property {string|null} [Houses3] TBuildingsDefine Houses3
@@ -43571,6 +44046,14 @@ $root.table = (function() {
          * @instance
          */
         TBuildingsDefine.prototype.NumPerFloor = 0;
+
+        /**
+         * TBuildingsDefine BuildingPrice.
+         * @member {number} BuildingPrice
+         * @memberof table.TBuildingsDefine
+         * @instance
+         */
+        TBuildingsDefine.prototype.BuildingPrice = 0;
 
         /**
          * TBuildingsDefine Houses1.
@@ -43668,20 +44151,22 @@ $root.table = (function() {
                 writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.MaxFloor);
             if (message.NumPerFloor != null && message.hasOwnProperty("NumPerFloor"))
                 writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.NumPerFloor);
+            if (message.BuildingPrice != null && message.hasOwnProperty("BuildingPrice"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.BuildingPrice);
             if (message.Houses1 != null && message.hasOwnProperty("Houses1"))
-                writer.uint32(/* id 9, wireType 2 =*/74).string(message.Houses1);
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.Houses1);
             if (message.Houses2 != null && message.hasOwnProperty("Houses2"))
-                writer.uint32(/* id 10, wireType 2 =*/82).string(message.Houses2);
+                writer.uint32(/* id 11, wireType 2 =*/90).string(message.Houses2);
             if (message.Houses3 != null && message.hasOwnProperty("Houses3"))
-                writer.uint32(/* id 11, wireType 2 =*/90).string(message.Houses3);
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Houses3);
             if (message.Houses4 != null && message.hasOwnProperty("Houses4"))
-                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Houses4);
+                writer.uint32(/* id 13, wireType 2 =*/106).string(message.Houses4);
             if (message.PosX != null && message.hasOwnProperty("PosX"))
-                writer.uint32(/* id 13, wireType 5 =*/109).float(message.PosX);
+                writer.uint32(/* id 14, wireType 5 =*/117).float(message.PosX);
             if (message.PosY != null && message.hasOwnProperty("PosY"))
-                writer.uint32(/* id 14, wireType 5 =*/117).float(message.PosY);
+                writer.uint32(/* id 15, wireType 5 =*/125).float(message.PosY);
             if (message.Des != null && message.hasOwnProperty("Des"))
-                writer.uint32(/* id 15, wireType 2 =*/122).string(message.Des);
+                writer.uint32(/* id 16, wireType 2 =*/130).string(message.Des);
             return writer;
         };
 
@@ -43741,24 +44226,27 @@ $root.table = (function() {
                     message.NumPerFloor = reader.uint32();
                     break;
                 case 9:
-                    message.Houses1 = reader.string();
+                    message.BuildingPrice = reader.uint32();
                     break;
                 case 10:
-                    message.Houses2 = reader.string();
+                    message.Houses1 = reader.string();
                     break;
                 case 11:
-                    message.Houses3 = reader.string();
+                    message.Houses2 = reader.string();
                     break;
                 case 12:
-                    message.Houses4 = reader.string();
+                    message.Houses3 = reader.string();
                     break;
                 case 13:
-                    message.PosX = reader.float();
+                    message.Houses4 = reader.string();
                     break;
                 case 14:
-                    message.PosY = reader.float();
+                    message.PosX = reader.float();
                     break;
                 case 15:
+                    message.PosY = reader.float();
+                    break;
+                case 16:
                     message.Des = reader.string();
                     break;
                 default:
@@ -43820,6 +44308,9 @@ $root.table = (function() {
             if (message.NumPerFloor != null && message.hasOwnProperty("NumPerFloor"))
                 if (!$util.isInteger(message.NumPerFloor))
                     return "NumPerFloor: integer expected";
+            if (message.BuildingPrice != null && message.hasOwnProperty("BuildingPrice"))
+                if (!$util.isInteger(message.BuildingPrice))
+                    return "BuildingPrice: integer expected";
             if (message.Houses1 != null && message.hasOwnProperty("Houses1"))
                 if (!$util.isString(message.Houses1))
                     return "Houses1: string expected";
@@ -43872,6 +44363,8 @@ $root.table = (function() {
                 message.MaxFloor = object.MaxFloor >>> 0;
             if (object.NumPerFloor != null)
                 message.NumPerFloor = object.NumPerFloor >>> 0;
+            if (object.BuildingPrice != null)
+                message.BuildingPrice = object.BuildingPrice >>> 0;
             if (object.Houses1 != null)
                 message.Houses1 = String(object.Houses1);
             if (object.Houses2 != null)
@@ -43911,6 +44404,7 @@ $root.table = (function() {
                 object.Number = 0;
                 object.MaxFloor = 0;
                 object.NumPerFloor = 0;
+                object.BuildingPrice = 0;
                 object.Houses1 = "";
                 object.Houses2 = "";
                 object.Houses3 = "";
@@ -43935,6 +44429,8 @@ $root.table = (function() {
                 object.MaxFloor = message.MaxFloor;
             if (message.NumPerFloor != null && message.hasOwnProperty("NumPerFloor"))
                 object.NumPerFloor = message.NumPerFloor;
+            if (message.BuildingPrice != null && message.hasOwnProperty("BuildingPrice"))
+                object.BuildingPrice = message.BuildingPrice;
             if (message.Houses1 != null && message.hasOwnProperty("Houses1"))
                 object.Houses1 = message.Houses1;
             if (message.Houses2 != null && message.hasOwnProperty("Houses2"))
@@ -47558,7 +48054,7 @@ $root.table = (function() {
             if (message.Des != null && message.hasOwnProperty("Des"))
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.Des);
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
-                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.IncomePerSecond);
+                writer.uint32(/* id 8, wireType 5 =*/69).float(message.IncomePerSecond);
             if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
                 writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.UnlockGold);
             return writer;
@@ -47617,7 +48113,7 @@ $root.table = (function() {
                     message.Des = reader.string();
                     break;
                 case 8:
-                    message.IncomePerSecond = reader.uint32();
+                    message.IncomePerSecond = reader.float();
                     break;
                 case 9:
                     message.UnlockGold = reader.uint32();
@@ -47679,8 +48175,8 @@ $root.table = (function() {
                 if (!$util.isString(message.Des))
                     return "Des: string expected";
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
-                if (!$util.isInteger(message.IncomePerSecond))
-                    return "IncomePerSecond: integer expected";
+                if (typeof message.IncomePerSecond !== "number")
+                    return "IncomePerSecond: number expected";
             if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
                 if (!$util.isInteger(message.UnlockGold))
                     return "UnlockGold: integer expected";
@@ -47714,7 +48210,7 @@ $root.table = (function() {
             if (object.Des != null)
                 message.Des = String(object.Des);
             if (object.IncomePerSecond != null)
-                message.IncomePerSecond = object.IncomePerSecond >>> 0;
+                message.IncomePerSecond = Number(object.IncomePerSecond);
             if (object.UnlockGold != null)
                 message.UnlockGold = object.UnlockGold >>> 0;
             return message;
@@ -47759,7 +48255,7 @@ $root.table = (function() {
             if (message.Des != null && message.hasOwnProperty("Des"))
                 object.Des = message.Des;
             if (message.IncomePerSecond != null && message.hasOwnProperty("IncomePerSecond"))
-                object.IncomePerSecond = message.IncomePerSecond;
+                object.IncomePerSecond = options.json && !isFinite(message.IncomePerSecond) ? String(message.IncomePerSecond) : message.IncomePerSecond;
             if (message.UnlockGold != null && message.hasOwnProperty("UnlockGold"))
                 object.UnlockGold = message.UnlockGold;
             return object;
