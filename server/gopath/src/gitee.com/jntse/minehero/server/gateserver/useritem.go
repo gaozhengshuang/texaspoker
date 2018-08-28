@@ -224,27 +224,25 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 
 
 // 道具换元宝
-/*
-func (this *GateUser) SellBagItem(itemid, num uint32) {
-	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
-	if ok == false {
-		log.Error("[道具换元宝] 玩家[%s %d] 无效的道具[%d]", this.Name(), this.Id(), itemid)
-		return
-	}
-
-	have := this.bag.GetItemNum(itemid)
-	if have < num {
-		this.SendNotify("道具数量不足")
-		return
-	}
-	this.RemoveItem(itemid, num, "出售道具");
-
-	//
-	yuanbao := uint32(item.Sold) * num		// 价值，元宝
-	this.AddYuanbao(yuanbao, "出售道具", true)
-	this.SendNotify("出售成功")
-}
-*/
+//func (this *GateUser) SellBagItem(itemid, num uint32) {
+//	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
+//	if ok == false {
+//		log.Error("[道具换元宝] 玩家[%s %d] 无效的道具[%d]", this.Name(), this.Id(), itemid)
+//		return
+//	}
+//
+//	have := this.bag.GetItemNum(itemid)
+//	if have < num {
+//		this.SendNotify("道具数量不足")
+//		return
+//	}
+//	this.RemoveItem(itemid, num, "出售道具");
+//
+//	//
+//	yuanbao := uint32(item.Sold) * num		// 价值，元宝
+//	this.AddYuanbao(yuanbao, "出售道具", true)
+//	this.SendNotify("出售成功")
+//}
 
 // 使用道具
 func (this* GateUser) UseItem(itemid , num uint32) {
