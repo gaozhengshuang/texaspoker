@@ -22,22 +22,13 @@ message ItemBaseDataDefine
 	optional uint32 Id = 1; // 道具ID
 	
 	
-	optional string Name = 2; // 道具名
+	optional int32 Type = 2; // 道具类型
 	
 	
-	optional string Desc = 3; // 道具简介
+	optional string Name = 3; // 道具名
 	
 	
-	optional int32 Sort = 4; // 排序(从小到大,默认最后)
-	
-	
-	optional int32 Type = 5; // 道具类型:11装备
-	
-	
-	optional int32 Sold = 6; // 卖出价格元宝
-	
-	
-	optional int32 RealPrice = 7; // 真实价格
+	optional string Desc = 4; // 道具简介
 
 }
 
