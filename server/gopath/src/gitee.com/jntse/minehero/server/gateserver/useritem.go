@@ -224,6 +224,7 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 
 
 // 道具换元宝
+/*
 func (this *GateUser) SellBagItem(itemid, num uint32) {
 	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
 	if ok == false {
@@ -243,7 +244,7 @@ func (this *GateUser) SellBagItem(itemid, num uint32) {
 	this.AddYuanbao(yuanbao, "出售道具", true)
 	this.SendNotify("出售成功")
 }
-
+*/
 
 // 使用道具
 func (this* GateUser) UseItem(itemid , num uint32) {
@@ -254,6 +255,17 @@ func (this* GateUser) UseItem(itemid , num uint32) {
 	}
 
 	this.bag.RemoveItem(itemid, num, "使用背包道具")
+}
+
+// 检查玩家身上是否有哪些道具 参数info 为道具id做key 数量做Value的map
+func (this* GateUser) CheckEnoughItems(info map[uint32] uint32) bool {
+	for itemid, num := range info {
+		have := this.bag.GetItemNum(itemid)
+		if have < num {
+			return false
+		}
+	}
+	return true
 }
 
 
