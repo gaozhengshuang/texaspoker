@@ -64,7 +64,7 @@ message PersonalImage {
 
 // 女仆
 message HouseMaidData { 
-    repeated ItemData clothes = 1;  // 女仆装扮
+    repeated ImageData images = 1;  // 女仆装扮
     optional uint64 id = 2;         // uuid
     optional int32  level = 3;      // 等级
     optional uint64 ownerid = 4;    // 主人id
@@ -72,6 +72,7 @@ message HouseMaidData {
     optional uint64 robberid = 6;   // 掠夺者id
     optional string robbername = 7; // 掠夺者name
     optional uint32 earning = 8;    // 收益
+    optional uint64 houseid = 9;    // 所在房间
 }
 
 message UserBase {
