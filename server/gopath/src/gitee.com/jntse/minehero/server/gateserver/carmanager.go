@@ -11,7 +11,6 @@ import (
 	"gitee.com/jntse/minehero/server/tbl/excel"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	"math"
 	"strconv"
 	"time"
 )
@@ -49,7 +48,6 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 	this.parkingid = bin.GetParkingid()
 	this.ownername = bin.GetOwnername()
 	this.parkingreward = bin.GetParkingreward()
-	this.level = bin.GetLevel()
 	this.modified = false
 	template, find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
@@ -78,7 +76,6 @@ func (this *CarData) PackBin() *msg.CarData {
 	bin.Parkingid = pb.Uint64(this.parkingid)
 	bin.Ownername = pb.String(this.ownername)
 	bin.Parkingreward = pb.Uint32(this.parkingreward)
-	bin.Level = pb.Uint32(this.level)
 	return bin
 }
 
@@ -183,7 +180,7 @@ func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 func (this *ParkingData) UpdateReward(car *CarData, now uint64) bool {
 	//计算经过了几个小时了
 	//passedMinute := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Minutes()))
-	passedMinute := uint32((now - this.parkingtime) / 1000 / 60)		// benchmark 效率更好(10倍)
+	//passedMinute := uint32((now - this.parkingtime) / 1000 / 60)		// benchmark 效率更好(10倍)
 	// reward := (passedMinute * car.template.RewardPerH * this.template.RewardPercent) / 100
 	// reward = uint32(math.Min(float64(reward), float64(car.template.Capacity)))
 	// if this.parkingreward != reward {
