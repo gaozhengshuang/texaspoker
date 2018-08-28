@@ -220,7 +220,7 @@ module game {
             return num;
         }
         private showSelf() {
-            console.log("sssaa:" + this.roomInfo.robcheckflag);
+            //console.log("sssaa:" + this.roomInfo.robcheckflag);
             this.haveNewDongtai(this.roomInfo.robcheckflag);
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_INFO, { isShow: true, room: this.roomInfo }));
             this.linjuInfoGroup.visible = false;
@@ -326,7 +326,7 @@ module game {
                 this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20
             }
             this.listIndex = index;
-            console.log(this.goalH + "//" + this.goalY + "//" + GameConfig.innerHeight);
+            //console.log(this.goalH + "//" + this.goalY + "//" + GameConfig.innerHeight);
 
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
@@ -438,7 +438,7 @@ module game {
             }
         }
         private onItemTouchTap(eve: TouchEvent) {
-            console.log(eve.target["name"]);
+            //console.log(eve.target["name"]);
             let item: any = eve.target["parent"].itemDate;
             switch (this.listIndex) {
                 case 2:
@@ -541,7 +541,7 @@ module game {
                 //console.log("回调_showParkingLotList------->",parkingDatas.length);
                 if (parkingDatas && parkingDatas.length > 0) {
                     parkingDatas.forEach((data, index, array) => {
-                        console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
+                        //console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
                         if (data.houseid == self.roomInfo.rId) {
                             if (self.parkingLots.length == 0) {
                                 self.parkingLot.setData(data);
@@ -621,7 +621,7 @@ module game {
         }
 
         protected beforeRemove() {
-            console.log("房屋界面关闭");
+            //console.log("房屋界面关闭");
             if (this.hideList_btn.visible) {
                 this.onclick_hideList();
             }
