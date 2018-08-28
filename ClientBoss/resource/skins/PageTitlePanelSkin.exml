@@ -25,6 +25,6 @@
 			</e:Skin>
 		</e:skinName>
 		</e:Button>
-		<e:Label id="bName_txt" text="万科城市花园" width="388" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" height="37" verticalCenter="0"/>
+		<e:Label id="bName_txt" text="" width="388" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" height="37" verticalCenter="0"/>
 	</e:Group>
 </e:Skin>

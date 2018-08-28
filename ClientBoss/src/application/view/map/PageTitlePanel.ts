@@ -17,14 +17,16 @@ module game {
         private isTime: boolean = false;
 
         private returnFun:Function;
-        private returnBody:Function;
+        private returnBody:any;
 
 
         public constructor() {
             super();
             this.skinName = "resource/skins/PageTitlePanelSkin.exml";
+            
         }
         public init(backFun:Function=null,backBody:any=null){
+            this.bName_txt.text="";
             this.returnFun=backFun;
             this.returnBody=backBody;
             this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
@@ -35,7 +37,7 @@ module game {
         private return_begin() {
             //this.dispatchEvent(new BasicEvent(PageNewHouseView.CLOSE));
             if(this.returnFun && this.returnBody){
-                this.returnFun(this.returnBody);
+                this.returnFun.call(this,this.returnBody);
             }
         }
         public updateUserInfo(uInfo: IUserInfo) {
@@ -86,6 +88,7 @@ module game {
         
         public removePanel() {
             this.removeTimer();
+            this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
         }
     }
 }
