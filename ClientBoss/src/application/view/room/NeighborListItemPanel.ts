@@ -9,7 +9,7 @@ module game {
 
         public constructor(data: any = null) {
             super();
-            this.skinName = "resource/skins/NeighborItemPanel.exml";
+            this.skinName = NeighborItemPanelSkin;
             this.adaptive();
             this.youIcon.visible = false;
             this.timeGroup.visible = false;

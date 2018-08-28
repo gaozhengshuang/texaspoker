@@ -14,7 +14,7 @@ module game {
 
         public constructor(data: any = null) {
             super();
-            this.skinName = "resource/skins/SceneAssetsItemSkin.exml";
+            this.skinName = SceneAssetsItemSkin;
             //this.adaptive();
             this.chushou_icon.visible=false;
             this.jiaoBiaoIcon.visible=false;
