@@ -86,7 +86,7 @@ func (this *CarData) AddRewardItem(id uint32, num uint32) {
 
 func (this *CarData) ClearReward() {
 	rewardData := this.data.Reward
-	rewardData.Money = pb.Uint32(
+	rewardData.Money = pb.Uint32(0)
 	rewardData.Items = make([]*msg.CarPartPiece,0)
 	this.modified = true
 }
