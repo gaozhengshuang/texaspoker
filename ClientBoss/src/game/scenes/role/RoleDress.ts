@@ -1,7 +1,6 @@
 module game {
 
     export class RoleDress extends PanelComponent {
-
         grp_coins       : eui.Group;
         grp_dressinfo   : eui.Group;
         grp_role        : eui.Group;
@@ -15,11 +14,7 @@ module game {
         img_girlbg      : eui.Image;
         img_boybg       : eui.Image;
         img_iconmask    : eui.Image;
-        shopNumBg       : eui.Image;
 
-        shopNum         : eui.Label;
-
-        btn_cart        : IconButton;
         btn_close       : IconButton;
 
         sr_item         : eui.Scroller;
@@ -35,7 +30,6 @@ module game {
         
         coin_money      : game.Coins;
         coin_gold       : game.Coins;
-       
 
         test_itemprice  : game.ItemPrice;
         dress_info      : game.EquipInfo;
@@ -86,7 +80,6 @@ module game {
             }
             this.height = gameConfig.curHeight();
 
-            this.btn_cart.icon = "dress_01_json.dress_01_29";
             this.btn_close.icon = "dress_01_json.dress_01_16"
 
             this.initItemList();
@@ -110,7 +103,6 @@ module game {
         protected beforeShow() {
             this._touchEvent = [
                 { target: this.img_iconmask, callBackFunc: this.switchGender },
-                { target: this.btn_cart, callBackFunc: this.OnCartHandle },
                 { target: this.btn_close, callBackFunc: this.OnCloseHandle },
             ];
 
@@ -189,7 +181,7 @@ module game {
             //刷新对应装扮列表
             this.updateItemList(this._typeIdx);
             //更新已穿戴装扮属性
-            this.setDressInfo();
+            // this.setDressInfo();
         }
 
         private initWears() {
@@ -287,9 +279,6 @@ module game {
             
             this.updateCoins();
             this.updateItemList(this._typeIdx);
-          
-            // this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
-            // this.shopNum.text = this.getCartItems().length.toString();
         }
 
         // TODO: 穿上装备
@@ -393,7 +382,7 @@ module game {
 
                 }
             }
-            this.setDressInfo();
+            // this.setDressInfo();
         }
 
         //检测女连衣裙
@@ -428,8 +417,6 @@ module game {
                 );
             })
 
-            // this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
-            // this.shopNum.text = this.getCartItems().length.toString();
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;
         }
@@ -451,26 +438,14 @@ module game {
         }
 
         //打开并刷新购物车界面
-        private OnCartHandle() {
-            openPanel(PanelType.dressShopCarts);
-            RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
-        }
+        // private OnCartHandle() {
+        //     openPanel(PanelType.dressShopCarts);
+        //     RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
+        // }
 
         private OnCloseHandle() {
-            let _closeHandle: Function = function () {
-                this.remove();
-                RoleDress.destroyInstance();
-            }.bind(this);
-
-            if (this.getCartItems().length > 0) {
-                showDialog("您还有未购买的商品，是否前往购买?", "前去购买", this.OnCartHandle.bind(this), function () {
-                    this._selItems = [];
-                    _closeHandle();
-                }.bind(this));
-            }
-            else {
-                _closeHandle();
-            }
+            this.remove();
+            RoleDress.destroyInstance();
         } 
 
         private changePartWithNet(item: table.IEquipDefine) {
