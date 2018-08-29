@@ -716,6 +716,28 @@ func (this *GateUser) OnLevelUp() {
 }
 
 // 合成时装
-func (this *GateUser) MakeClothes(debris uint64) {
-	//item, ok := tbl.ItemBase.ItemBaseDataById[debris]
+func (this *GateUser) MakeClothes(debris uint32) {
+	base, ok := tbl.ItemBase.ItemBaseDataById[debris]
+	if ok == false {
+		log.Error("[时装] 玩家[%s %d] 使用了不存在的道具", this.Name(), this.Id())
+		return
+	}
+
+	if base.Type != int32(msg.ItemType_ClothesParts) || base.Clothes == 0 {
+		log.Error("[时装] 玩家[%s %d] 合成使用的不是时装碎片")
+		return
+	}
+
+	clothebase, ok := tbl.TEquipBase.EquipById[int32(base.Clothes)]
+	if ok == false {
+		log.Error("[时装] 玩家[%s %d] 合成无效的时装")
+		return
+	}
+
+	if clothebase.DebrisID != debris {
+		log.Error("[时装] 玩家[%s %d] 合成时装异常，时装表和道具表不匹配")
+		return
+	}
+
+	//have := this.bag.GetItemNum(itemid)
 }

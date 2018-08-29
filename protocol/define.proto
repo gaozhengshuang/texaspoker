@@ -34,10 +34,11 @@ enum ItemType {
     Advertisement   = 8;    // 广告
     Smallware       = 9;    // 小商品
     DiamondItem     = 10;   // 钻石道具
-    ClothesItem     = 11;   // 时装
+    ClothesParts    = 11;   // 时装配件
     HouseParts      = 12;   // 房子配件
     CarParts        = 13;   // 车子配件
     MaidParts       = 14;   // 仆人配件
+    ClothesItem     = 15;   // 时装道具
 }
 
 message PairNumItem {
