@@ -24,13 +24,15 @@ message C2GW_BuyClothes {
 
 // 女仆穿戴服饰
 message C2GW_DressClothes {
-    optional int32 pos = 1;
-    optional int32 itemid = 2;
+    optional uint64 id = 1;          // 女仆id
+    optional int32 pos = 2;         // 穿戴位置
+    optional int32 itemid = 3;      // 服装id
 }
 
 // 女仆脱下服饰
 message C2GW_UnDressClothes {
-    optional int32 pos = 1;
+    optional uint64 id = 1;          // 女仆id
+    optional int32 pos = 2;         // 位置
 }
 
 // 发送房屋女仆信息
@@ -47,7 +49,7 @@ message GW2C_SendUserMaidInfo {
 
 // 合成打造服装
 message C2GW_MakeClothes {
-    optional int32 debris = 1;  // 碎片id
+    optional uint32 debris = 1; // 碎片id
 }
 
 // 升级女仆

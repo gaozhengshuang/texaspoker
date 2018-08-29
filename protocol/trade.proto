@@ -53,10 +53,11 @@ message GW2C_RetHouseTradeList
 message C2GW_TradeHouse
 {
     optional uint64 houseuid = 1;        //房屋唯一id
+    optional uint32 price = 2;           //价格
 }
 
 //交易返回
-message C2GW_RetTradeHouse
+message GW2C_RetTradeHouse
 {
     optional uint64 tradeuid = 1;    
 }
@@ -89,6 +90,7 @@ message TradeHouseHistory
     optional uint32 housetype = 7;      //房屋类型
     optional uint32 housebaseid = 8;    //房屋表id
     optional uint32 state = 9;          //状态
+    optional uint64 tradeuid = 10;      //交易id
 }
 
 //返回交易记录
@@ -104,6 +106,18 @@ message C2GW_GetTradeHouseReward
 }
 
 message GW2C_RetGetTradeHouseReward
+{
+    optional uint64 tradeuid = 2;
+}
+
+//取消订单
+message C2GW_CancelTradeHouse
+{
+    optional uint64 tradeuid = 1;
+}
+
+//取消订单返回
+message GW2C_RetCancelTradeHouse
 {
     optional uint64 tradeuid = 2;
 }

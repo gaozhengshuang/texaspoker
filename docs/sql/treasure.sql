@@ -14,6 +14,7 @@ CREATE TABLE `housetrade` (
     `posx` int(10) unsigned NOT NULL DEFAULT '0',
     `posy` int(10) unsigned NOT NULL DEFAULT '0',
     `state` int(10) unsigned NOT NULL DEFAULT '0',
+    `housetype` int(10) unsigned NOT NULL DEFAULT '0',
     PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

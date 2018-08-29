@@ -348,12 +348,12 @@ func (this *User) UnDressClothes() {
 	this.SendGateMsg(send)
 }
 
-func (this *User) ChangeSex() {
-	newsex := int32(msg.Sex_Female)
-	if this.Sex() == int32(msg.Sex_Female) { newsex = int32(msg.Sex_Male) }
-	send := &msg.C2GW_ChangeImageSex{ Sex:pb.Int32(newsex) }
-	this.SendGateMsg(send)
-}
+//func (this *User) ChangeSex() {
+//	newsex := int32(msg.Sex_Female)
+//	if this.Sex() == int32(msg.Sex_Female) { newsex = int32(msg.Sex_Male) }
+//	send := &msg.C2GW_ChangeImageSex{ Sex:pb.Int32(newsex) }
+//	this.SendGateMsg(send)
+//}
 
 
 //func (this *User) ReqMatch() {
@@ -397,7 +397,7 @@ func (this *User) DoInputCmd(cmd string) {
 	case "undress":
 		this.UnDressClothes()
 	case "sex":
-		this.ChangeSex()
+		//this.ChangeSex()
 	case "rechargedone":
 		this.RechargeDone()
 	}

@@ -128,15 +128,21 @@ func (this *HouseCell) GiveItemWhenTakeGold() map[uint32]uint32 {
 	}
 
 	stritem := base.ProduceItem
-	slicestr := strings.Split(stritem, "|")
-	for _, v := range slicestr {
-		info := strings.Split(v, "-")
-		itemid, _ := strconv.Atoi(info[0])
-		per, _ := strconv.Atoi(info[1])
-		num, _ := strconv.Atoi(info[2])
-		temp := util.RandBetween(0,10000)
-		if uint32(temp) <= uint32(per) {
-			items[uint32(itemid)] = uint32(num)
+	if stritem != "" {
+		slicestr := strings.Split(stritem, "|")
+		for _, v := range slicestr {
+			info := strings.Split(v, "-")
+			if len(info) != 3{
+				log.Error("房间产出道具配置格式错误!!   tid[%d]", this.tid)
+				continue
+			}
+			itemid, _ := strconv.Atoi(info[0])
+			per, _ := strconv.Atoi(info[1])
+			num, _ := strconv.Atoi(info[2])
+			temp := util.RandBetween(0,10000)
+			if uint32(temp) <= uint32(per) {
+				items[uint32(itemid)] = uint32(num)
+			}
 		}
 	}
 	return items
@@ -166,7 +172,7 @@ func (this *HouseCell) CkeckGoldProduce(now int64) {
 
 func (this *HouseCell) GetIncome() uint32{
 	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
-	if find == false {
+	if find == false {		
 		return 0
 	}
 	return base.ProduceGold
@@ -245,7 +251,7 @@ type HouseData struct {
 	roommember 	 uint32 //房间号
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 	area		 uint32	//面积
-
+	issell		 bool	//出售
 	ticker1Sec *util.GameTicker
 }
 
@@ -277,6 +283,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 		this.visitinfo = append(this.visitinfo, info)
 	}
 	this.area = bin.GetArea()
+	this.issell = bin.GetIssell()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -311,7 +318,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 		bin.Visitinfo = append(bin.Visitinfo, v.PackBin())
 	}
 	bin.Area = pb.Uint32(this.area)
-
+	bin.Issell = pb.Bool(this.issell)
 	return bin
 }
 
@@ -329,6 +336,15 @@ func (this *HouseData) SaveBin(pipe redis.Pipeliner) {
 		}
 		log.Info("保存房屋[%d]数据成功", this.id)
 	}
+}
+
+func (this *HouseData) GetType() uint32 {
+	base, find := tbl.THouseBase.THouseById[uint32(this.tid)]
+	if find == false {
+		log.Error("House LevelUp 无效的房屋tid[%d]", this.tid)
+		return 1
+	}
+	return base.Type
 }
 
 func (this *HouseData) GetIncome() uint32 {
@@ -818,18 +834,23 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 		}
 		needitem := make(map[uint32]uint32)
 		strneeditem := base.LevelUpNeedItem
-		slicetmp := strings.Split(strneeditem, "|")
-		for _, v := range slicetmp {
-			info := strings.Split(v, "-")
-			itemid, _ := strconv.Atoi(info[0])
-			num, _ := strconv.Atoi(info[1])
-			needitem[uint32(itemid)] = uint32(num)
+		if strneeditem != "" {
+			slicetmp := strings.Split(strneeditem, "|")
+			for _, v := range slicetmp {
+				info := strings.Split(v, "-")
+				if len(info) < 2 {
+					log.Error("房屋升级 配置需求道具格式错误  tid[%d]", house.GetTid())
+					return
+				}
+				itemid, _ := strconv.Atoi(info[0])
+				num, _ := strconv.Atoi(info[1])
+				needitem[uint32(itemid)] = uint32(num)
+			}
+			if this.CheckEnoughItems(needitem) == false {
+				//需求道具不足
+				return
+			}
 		}
-		if this.CheckEnoughItems(needitem) == false {
-			//需求道具不足
-			return
-		}
-
 		needgold := base.LevelUpCost
 		if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 			//钱不够
@@ -879,18 +900,23 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 
 				needitem := make(map[uint32]uint32)
 				strneeditem := base.LevelUpNeedItem
-				slicetmp := strings.Split(strneeditem, "|")
-				for _, v := range slicetmp {
-					info := strings.Split(v, "-")
-					itemid, _ := strconv.Atoi(info[0])
-					num, _ := strconv.Atoi(info[1])
-					needitem[uint32(itemid)] = uint32(num)
+				if strneeditem != "" {
+					slicetmp := strings.Split(strneeditem, "|")
+					for _, w := range slicetmp {
+						info := strings.Split(w, "-")
+						if len(info) < 2 {
+							log.Error("房间Cell升级 配置需求道具格式错误  tid[%d]", v.GetTid())
+							return
+						}
+						itemid, _ := strconv.Atoi(info[0])
+						num, _ := strconv.Atoi(info[1])
+						needitem[uint32(itemid)] = uint32(num)
+					}
+					if this.CheckEnoughItems(needitem) == false {
+						//需求道具不足
+						return
+					}
 				}
-				if this.CheckEnoughItems(needitem) == false {
-					//需求道具不足
-					return
-				}
-
 				needgold := base.LevelUpCost
 				if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 					//钱不够
