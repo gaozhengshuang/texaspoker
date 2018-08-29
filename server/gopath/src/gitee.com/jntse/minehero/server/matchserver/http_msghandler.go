@@ -162,7 +162,14 @@ func DoConsumeCount(cmd map[string]*util.VarType) {
 	}
 
 	starttime, _ := time.Parse("2006-01-02", strdate.String())
-	currencylist := []int32{6001, 6002, 6003, 10001, 10002}
+	currencylist := []int32{ 
+		int32(msg.ItemId_YuanBao),
+		int32(msg.ItemId_Diamond),
+		int32(msg.ItemId_Gold),
+		int32(msg.ItemId_FreeStep),
+		int32(msg.ItemId_RedDiamond),
+		int32(msg.ItemId_RedDiamondParts),
+	}
 	for i := 0; i < strday.Int(); i++ {
 		newtime := starttime.AddDate(0, 0, 0+i)
 		if newtime.YearDay() > time.Now().YearDay() {

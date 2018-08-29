@@ -1,7 +1,7 @@
 module game {
     export class ItemPrice extends eui.ItemRenderer {
-        
         grp_price           : eui.Group;
+        grp_item           : eui.Group;
       
         img_equip           : eui.Image;
         img_price           : eui.Image;
@@ -10,6 +10,7 @@ module game {
 
         txt_obtained        : eui.Label;
         txt_price           : eui.Label;
+        txt_item            : eui.Label;
 
         chk_item            : eui.CheckBox;
 
@@ -31,26 +32,40 @@ module game {
         }
     
         private updateData() {
-            let  itemData =  <table.IEquipDefine> this.data;
-            if(!itemData) return;
+            let equipData = <table.IEquipDefine> this.data;
+            let itemData = DataManager.playerModel.getBagItem(equipData.DebrisId);
+            if(!equipData) return;
 
             //Icon
-            let txtr:egret.Texture = RES.getRes(itemData.Path);
-            let factor = itemData.Pos==7 ? 0.7 : 0.8;
+            let txtr:egret.Texture = RES.getRes(equipData.Path);
+            let factor = equipData.Pos==7 ? 0.7 : 0.8;
             if(txtr)
             {
                 this.img_equip.source    = txtr;
                 this.img_equip.width     = txtr.textureWidth * factor;
                 this.img_equip.height    = txtr.textureHeight * factor;
             }
-
-            //价格
-            this.img_price.source =  itemData.CoinType == msg.MoneyType._Gold ? "dress_01_json.dress_gold" : "dress_01_json.dress_01_19";
-            this.txt_price.text = itemData.Price.toString();
- 
-            //已获得
-            this.grp_price.visible = !DataManager.playerModel.IsHaveItem(itemData.Id);
-            this.txt_obtained.visible = DataManager.playerModel.IsHaveItem(itemData.Id);
+            
+            if (DataManager.playerModel.IsHaveItem(equipData.Id)) {
+                this.txt_obtained.visible = true;
+                this.grp_price.visible = false;
+                this.grp_item.visible = false;
+            } else {
+                //获得类型
+                this.txt_obtained.visible = false;
+                if (equipData.CoinType == (msg.MoneyType._Gold || msg.MoneyType._Diamond)) {
+                    this.grp_price.visible = true;
+                    this.img_price.source =  equipData.CoinType == msg.MoneyType._Gold ? "dress_01_json.dress_gold" : "dress_01_json.dress_01_19";
+                    this.txt_price.text = equipData.Price.toString();
+                } else {
+                    this.grp_item.visible = true;
+                    let itemNum = 0;
+                    if(itemData) {
+                        itemNum = itemData.num;
+                    }
+                    this.txt_item.text = itemNum+"/"+equipData.DebrisNum;
+                }
+            }
         }
 
         public set selected(b: boolean) {

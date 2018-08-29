@@ -86,6 +86,14 @@ func (m *Maid) HouseId() uint64 {
 	return m.bin.GetHouseid()
 }
 
+func (m *Maid) TimeStart() int64 {
+	return m.bin.GetTmworking()
+}
+
+func (m *Maid) SetTimeStart(t int64) {
+	m.bin.Tmworking = pb.Int64(t)
+}
+
 func (m *Maid) SaveBin(pipe redis.Pipeliner) {
 	id := strconv.FormatUint(uint64(m.Id()), 10)
 	m.dirty = false
