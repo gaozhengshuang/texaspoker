@@ -15,6 +15,8 @@ import (
 	"runtime/debug"
 	"strings"
 	"time"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func SignalInt(signal os.Signal) {
@@ -66,6 +68,7 @@ type GateServer struct {
 	housesvrmgr   HouseManager
 	buildingmgr   BuildingManager
 	carshop       CarShop
+	mysqldb		  *sql.DB
 }
 
 var g_GateServer *GateServer = nil
@@ -87,6 +90,10 @@ func Match() network.IBaseNetSession {
 
 func UserMgr() *UserManager {
 	return &GateSvr().usermgr
+}
+
+func MysqlDB() *sql.DB{
+	return GateSvr().mysqldb
 }
 
 func WaitPool() *LoginWaitPool {
@@ -252,6 +259,17 @@ func (this *GateServer) Init(fileconf string) bool {
 	return true
 }
 
+func (this *GateServer) InitMySql(){
+	strsql := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=utf8", tbl.Mysql.User, tbl.Mysql.Passwd, tbl.Mysql.Address, tbl.Mysql.Port, tbl.Mysql.Database)
+	db, err := sql.Open("mysql", strsql)
+	if err != nil{
+		log.Error("数据库连接失败")
+	}else {
+		this.mysqldb = db
+		this.mysqldb.SetMaxIdleConns(int(tbl.Mysql.Connectnum))
+	}
+}
+
 func (this *GateServer) Handler1mTick(now int64) {
 	this.rcounter.BatchSave(20)
 }
@@ -359,6 +377,7 @@ func (this *GateServer) OnStop() {
 	this.buildingmgr.SaveAllBuildings()
 	this.carshop.SaveAll()
 	this.hredis.Close()
+	this.mysqldb.Close()
 }
 
 func (this *GateServer) ClientListenerConf() *network.WsListenConf {
