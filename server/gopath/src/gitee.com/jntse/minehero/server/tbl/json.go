@@ -15,4 +15,5 @@ var Car *table.Car = new(table.Car)
 var Game *table.Game = new(table.Game)
 var Global *table.Global = new(table.Global)
 var Room *table.Room = new(table.Room)
+var Mysql *table.Mysql = new(table.Mysql)
 

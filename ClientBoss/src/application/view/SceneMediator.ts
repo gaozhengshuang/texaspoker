@@ -18,6 +18,7 @@ module game {
                 CommandName.SCENE_SWITCH_LOGIN,
                 CommandName.SCENE_SWITCH_MAP,
                 CommandName.SCENE_SWITCH_DISCOVERY,
+                CommandName.SCENE_SWITCH_TRADING,
                 CommandName.SCENE_SWITCH_MINE,
                 CommandName.SCENE_MAIN_ASSETS,
                 CommandName.GOTO_HOME_PAGE,
@@ -109,6 +110,16 @@ module game {
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
                         break;
                     }
+                case CommandName.SCENE_SWITCH_TRADING:
+                    GameConfig.updataMaskBgFun('#E5E6E6', 1);
+                    this.removeSceneView();
+                    GameConfig.showDownBtnFun(true);
+                    GameConfig.sceneType = 7;
+                    GameConfig.setEventsReply(true);
+                    openPanel(PanelType.TradePanel);
+                    this._lastPanelView = TradePanel.getInstance();
+                    ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                    break;
                 case CommandName.SCENE_SWITCH_MINE:
                     {
                         GameConfig.updataMaskBgFun('#E5E6E6', 1);
