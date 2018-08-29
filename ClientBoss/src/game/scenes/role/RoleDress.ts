@@ -39,6 +39,7 @@ module game {
         lvLabel         : eui.Label;
         produceGoldLabel: eui.Label;
         maxGoldLabel    : eui.Label;
+        levelUpLabel    : eui.Label;
 
         private _dataProv: eui.ArrayCollection;
 
@@ -159,6 +160,7 @@ module game {
                 this.lvLabel.text = "Lv."+DataManager.playerModel.getMaidInfo().level;
                 this.produceGoldLabel.text = "产能：" + levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60) + "/分钟";
                 this.maxGoldLabel.text = "上限：" + levelInfo.ProduceGold + "金币";
+                this.levelUpLabel.text = DataManager.playerModel.getItemNum(levelInfo.UpgradeID) + "/" + levelInfo.Upgradenum;
             }
         }
 
@@ -414,7 +416,7 @@ module game {
         }
 
         private OnLevelUpHandle() {
-            
+
         }
 
         private OnCloseHandle() {

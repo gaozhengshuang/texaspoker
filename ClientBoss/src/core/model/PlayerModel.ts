@@ -301,6 +301,18 @@ module game {
             });
             return null;
         }
+
+        //获取背包中物品的个数
+        public getItemNum(itemId: number) {
+            let num = 0;
+            this.bagList.forEach(item => {
+                if (item.id === itemId) {
+                    num = item.num;
+                    return num;
+                }
+            });
+            return num;
+        }
         
         //背包是否有这个物品
         public IsHaveItem(itemId: number) {
