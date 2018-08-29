@@ -129,17 +129,17 @@ module game {
         }
         public showRoomWeizhi(isShow:boolean,roomvo:HouseVO=null){
             if(this.userInfoPanel){
-                this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
+                //this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
             }
         }
         public showRoomNum(isShow: boolean, rId: number = 0) {
             if(this.userInfoPanel){
-                this.userInfoPanel.showRoomNum(isShow,rId);
+                //this.userInfoPanel.showRoomNum(isShow,rId);
             }
         }
         public showRoomBg(isShow: boolean) {
             if(this.userInfoPanel){
-                this.userInfoPanel.showRoomBg(isShow);
+               // this.userInfoPanel.showRoomBg(isShow);
             }
         }
         private onclick_begin(){

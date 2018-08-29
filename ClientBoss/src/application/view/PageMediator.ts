@@ -45,6 +45,7 @@ module game {
 
                             this.pageMediatorName = RoomMediator.NAME;
                             GameRoomView.getInstance().initInfo(data.room, userProxy.getUserInfo().userid, houseProxy.returnType);
+                            GameRoomView.getInstance().updateUserInfo(userProxy.getUserInfo());
 
 
                             /*if (GameConfig.exploring && data.room.rUserId == userProxy.getUserInfo().userid) {
@@ -55,8 +56,8 @@ module game {
                                 mapProxy.removeMapCircle();
                             }*/
                         }
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: true });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
 
                         break;
                     }
