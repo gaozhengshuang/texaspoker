@@ -190,6 +190,9 @@ message HouseData {
 	optional uint32 roommember = 11; //房间号
     optional uint32 area = 12;      //面积
     optional bool issell = 13;      //出售中
+    optional uint32 tradeendtime = 14;  //交易结束时间
+    optional uint32 income = 15;        //收益    
+    optional uint32 sumvalue = 16;      //总价值
 }
 
 // 汽车商店出售信息
