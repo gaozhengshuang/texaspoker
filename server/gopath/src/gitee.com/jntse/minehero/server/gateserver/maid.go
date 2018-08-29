@@ -28,15 +28,12 @@ const (
 // --------------------------------------------------------------------------
 type Maid struct {
 	bin 	*msg.HouseMaidData
-	//clothes map[int32]*msg.ItemData
-	clothes map[int32]map[int32]*msg.ItemData	// 客户端强烈要去保留男女2套服装
+	clothes map[int32]*msg.ItemData		// 衣服装扮
 	dirty 	bool
 }
 
 func (m *Maid) Init() {
-	m.clothes = make(map[int32]map[int32]*msg.ItemData)
-	m.clothes[int32(msg.Sex_Female)] = make(map[int32]*msg.ItemData)
-	m.clothes[int32(msg.Sex_Male)] = make(map[int32]*msg.ItemData)
+	m.clothes = make(map[int32]*msg.ItemData)
 }
 
 func (m *Maid) Bin() *msg.HouseMaidData {
@@ -108,50 +105,27 @@ func (m *Maid) LoadBin(rbuf []byte) *msg.HouseMaidData {
 		return nil
 	}
 
-	for _, image := range data.Images {
-		for _, item := range image.Clothes {
-			m.clothes[image.GetSex()][item.GetPos()] = item
-		}
+	for _, item := range data.Clothes {
+		m.clothes[item.GetPos()] = item
 	}
 	m.bin = data
 	return data
 }
 
 func (m *Maid) PackBin() *msg.HouseMaidData {
-	images := make([]*msg.ImageData, 2)
-	images[0] = &msg.ImageData{Sex:pb.Int32(int32(msg.Sex_Female))}
-	images[0].Clothes = make([]*msg.ItemData, 0)
-	images[1] = &msg.ImageData{Sex:pb.Int32(int32(msg.Sex_Male))}
-	images[1].Clothes = make([]*msg.ItemData, 0)
-
-	for sex, image := range m.clothes {
-		for _, item := range image {
-			if sex == int32(msg.Sex_Female) {
-				images[0].Clothes = append(images[0].Clothes, item)
-			}else if sex == int32(msg.Sex_Male) {
-				images[1].Clothes = append(images[1].Clothes, item)
-			}
-		}
+	m.bin.Clothes = make([]*msg.ItemData, 0)
+	for _, item := range m.clothes {
+		m.bin.Clothes = append(m.bin.Clothes, item)
 	}
-	m.bin.Images = make([]*msg.ImageData, 0)
-	m.bin.Images = append(m.bin.Images, images[0])
-	m.bin.Images = append(m.bin.Images, images[1])
 	return m.bin
 }
 
 func (m *Maid) Clean() {
-	m.clothes = make(map[int32]map[int32]*msg.ItemData)
-	m.clothes[int32(msg.Sex_Female)] = make(map[int32]*msg.ItemData)
-	m.clothes[int32(msg.Sex_Male)] = make(map[int32]*msg.ItemData)
+	m.clothes = make(map[int32]*msg.ItemData)
 }
 
-func (m *Maid) GetClothesByPos(owner *GateUser, pos int32) *msg.ItemData {
-	image, find := m.clothes[owner.Sex()]
-	if find == false {
-		return nil
-	}
-
-	if item, find := image[pos]; find == true {
+func (m *Maid) GetClothesByPos(pos int32) *msg.ItemData {
+	if item, find := m.clothes[pos]; find == true {
 		return item
 	}
 	return nil
@@ -182,17 +156,17 @@ func (m *Maid) DressClothes(owner *GateUser, pos int32, itemid int32) {
 
 	copyItem := pb.Clone(newEquip.Bin()).(*msg.ItemData)
 	copyItem.Pos = pb.Int32(pos)
-	m.clothes[owner.Sex()][pos] = copyItem
+	m.clothes[pos] = copyItem
 	MaidMgr().SendUserMaids(owner)
 }
 
 // 脱下服装
 func (m *Maid) UnDressClothes(owner *GateUser, pos int32, syn bool) {
-	if clothes := m.GetClothesByPos(owner, pos); clothes == nil {
+	if clothes := m.GetClothesByPos(pos); clothes == nil {
 		return
 	}
 
-	delete(m.clothes[owner.Sex()], pos)
+	delete(m.clothes, pos)
 	if syn {
 		MaidMgr().SendUserMaids(owner)
 	}
@@ -200,16 +174,15 @@ func (m *Maid) UnDressClothes(owner *GateUser, pos int32, syn bool) {
 
 // 脱下全部
 func (m *Maid) UnDressAll(owner *GateUser, syn bool) {
-	m.clothes[owner.Sex()] = make(map[int32]*msg.ItemData)
+	m.clothes = make(map[int32]*msg.ItemData)
 	if syn {
 		MaidMgr().SendUserMaids(owner)
 	}
 }
 
-//
-func (m *Maid) IsHaveDressSuit(owner *GateUser) bool {
-	clothes := m.clothes[owner.Sex()]
-	for _, v := range clothes {
+// 是否穿戴套装
+func (m *Maid) IsHaveDressSuit() bool {
+	for _, v := range m.clothes {
 		if v.GetPos() == int32(msg.ItemPos_Suit) {
 			return true 
 		}
@@ -217,14 +190,10 @@ func (m *Maid) IsHaveDressSuit(owner *GateUser) bool {
 	return false
 }
 
+// 获得时装技能属性
 func (m *Maid) GetEquipSkills(owner *GateUser) []int32 {
-	clothes, find := m.clothes[owner.Sex()]
-	if find == false {
-		return nil
-	}
-
 	skills := make([]int32, 10)
-	for _, item := range clothes {
+	for _, item := range m.clothes {
 		equip, find := tbl.TEquipBase.EquipById[int32(item.GetId())]
 		if find == false { continue }
 		for _, skill := range equip.Skill { 
@@ -253,7 +222,7 @@ func (ma *MaidManager) CreateNewMaid(ownerid uint64, ownername string, houseid u
 	}
 
 	bin := &msg.HouseMaidData{}
-	bin.Images = make([]*msg.ImageData, 0)
+	bin.Clothes = make([]*msg.ItemData, 0)
 	bin.Id = pb.Uint64(uint64(uuid))
 	bin.Level = pb.Int32(1)
 	bin.Ownerid = pb.Uint64(ownerid)
