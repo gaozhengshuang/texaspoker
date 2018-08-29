@@ -33,7 +33,7 @@ module game {
     
         private updateData() {
             let equipData = <table.IEquipDefine> this.data;
-            let itemData = DataManager.playerModel.getBagItem(equipData.DebrisID);
+            let itemData = DataManager.playerModel.getBagItem(equipData.DebrisId);
             if(!equipData) return;
 
             //Icon
@@ -63,7 +63,7 @@ module game {
                     if(itemData) {
                         itemNum = itemData.num;
                     }
-                    this.txt_item.text = itemNum+"/"+equipData.MakeNum;
+                    this.txt_item.text = itemNum+"/"+equipData.DebrisNum;
                 }
             }
         }
