@@ -812,7 +812,7 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	}
 
 	// 套装
-	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || maid.IsHaveDressSuit(user) == true {
+	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || maid.IsHaveDressSuit() == true {
 		maid.UnDressAll(user, false)
 	} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
 		maid.UnDressClothes(user, int32(msg.ItemPos_Clothes), false) // 脱掉上衣
@@ -820,7 +820,7 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
 		maid.UnDressClothes(user, int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
 		maid.UnDressClothes(user, tmsg.GetPos(), false)
-	} else if maid.GetClothesByPos(user, tmsg.GetPos()) != nil {
+	} else if maid.GetClothesByPos(tmsg.GetPos()) != nil {
 		maid.UnDressClothes(user, tmsg.GetPos(), false)
 	}
 
