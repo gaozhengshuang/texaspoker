@@ -400,8 +400,8 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	data.State = pb.Uint32(uint32(msg.CarState_Idle))
 	data.Starttime = pb.Uint64(0)
 	data.Endtime = pb.Uint64(0)
-	data.Latitude = pb.Float64(0.0)
-	data.Longitude = pb.Float64(0.0)
+	data.Latitude = pb.Float32(0.0)
+	data.Longitude = pb.Float32(0.0)
 	//创建部件
 	this.CreateCarPart(template.Tyre,uint32(msg.CarPartType_Tyre),data)
 	this.CreateCarPart(template.Tank,uint32(msg.CarPartType_Tank),data)
@@ -441,14 +441,14 @@ func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttrib
 	for _, v := range data.Parts {
 		partConf, ok := tbl.TCarPartBase.TCarPartById[v.GetPartid()]
 		if ok == false {
-			log.Error("无效的配件id[%d]", id)
+			log.Error("无效的配件id[%d]", v.GetPartid())
 		}else {
-			attr.Reward = attr.Reward + (partConf.RewardInit + partConf.RewardAddition * v.GetLevel())
-			attr.Range = attr.Range + (partConf.RangeInit + partConf.RangeAddition * v.GetLevel())
-			attr.Itemlimit = attr.Itemlimit + (partConf.ItemLimitInit + partConf.ItemLimitAddition * v.GetLevel())
-			attr.Moneylimit = attr.Moneylimit + (partConf.MoneyLimitInit + partConf.MoneyLimitAddition * v.GetLevel())
-			attr.Speed = attr.Speed + (partConf.SpeedInit + partConf.SpeedAddition * v.GetLevel())
-			attr.Stoptime = attr.Stoptime + (partConf.StopTimeInit + partConf.StopTimeAddition * v.GetLevel())
+			attr.Reward = attr.GetReward() + (partConf.RewardInit + partConf.RewardAddition * v.GetLevel())
+			attr.Range = attr.GetRange() + (partConf.RangeInit + partConf.RangeAddition * v.GetLevel())
+			attr.Itemlimit = attr.GetItemlimit() + (partConf.ItemLimitInit + partConf.ItemLimitAddition * v.GetLevel())
+			attr.Moneylimit = attr.GetMoneylimit() + (partConf.MoneyLimitInit + partConf.MoneyLimitAddition * v.GetLevel())
+			attr.Speed = attr.GetSpeed() + (partConf.SpeedInit + partConf.SpeedAddition * v.GetLevel())
+			attr.Stoptime = attr.GetStoptime() + (partConf.StopTimeInit + partConf.StopTimeAddition * v.GetLevel())
 		}
 	}
 	//星级属性 暂未
@@ -501,7 +501,7 @@ func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *Ca
 	switch opttype {
 	case uint32(msg.CarOperatorType_Park):
 		//停车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
 		data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
 		break
 	case uint32(msg.CarOperatorType_TakeBack):
@@ -510,7 +510,7 @@ func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *Ca
 		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
 		break
 	case uint32(msg.CarOperatorType_Ticket):
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
 		data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
 		break
 	case uint32(msg.CarOperatorType_AutoBack):
