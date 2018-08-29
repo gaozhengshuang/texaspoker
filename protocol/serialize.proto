@@ -186,6 +186,7 @@ message HouseData {
 	optional uint32 robcheckflag = 9; //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
     repeated ParkingData parkings = 10;
 	optional uint32 roommember = 11; //房间号
+    optional uint32 area = 12;      //面积
 }
 
 // 汽车商店出售信息

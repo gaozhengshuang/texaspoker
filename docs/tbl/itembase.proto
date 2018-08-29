@@ -19,7 +19,7 @@ message ItemBaseDataDefine
 {	
 	
 	
-	optional uint32 Id = 1; // 道具ID
+	optional uint32 Id = 1; // 道具ID(规则：类型x10000+自然递增)
 	
 	
 	optional int32 Type = 2; // 道具类型
@@ -28,10 +28,13 @@ message ItemBaseDataDefine
 	optional uint32 Color = 3; // 1白2绿3蓝4紫5橙
 	
 	
-	optional string Name = 4; // 道具名
+	optional uint32 ImageId = 4; 
 	
 	
-	optional string Desc = 5; // 道具简介
+	optional string Name = 5; // 道具名
+	
+	
+	optional string Desc = 6; // 道具简介
 
 }
 
