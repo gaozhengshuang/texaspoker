@@ -3036,8 +3036,8 @@ declare namespace msg {
     /** Properties of an HouseMaidData. */
     interface IHouseMaidData {
 
-        /** HouseMaidData images */
-        images?: (msg.IImageData[]|null);
+        /** HouseMaidData clothes */
+        clothes?: (msg.IItemData[]|null);
 
         /** HouseMaidData id */
         id?: (number|Long|null);
@@ -3062,6 +3062,9 @@ declare namespace msg {
 
         /** HouseMaidData houseid */
         houseid?: (number|Long|null);
+
+        /** HouseMaidData sex */
+        sex?: (number|null);
     }
 
     /** Represents an HouseMaidData. */
@@ -3073,8 +3076,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IHouseMaidData);
 
-        /** HouseMaidData images. */
-        public images: msg.IImageData[];
+        /** HouseMaidData clothes. */
+        public clothes: msg.IItemData[];
 
         /** HouseMaidData id. */
         public id: (number|Long);
@@ -3099,6 +3102,9 @@ declare namespace msg {
 
         /** HouseMaidData houseid. */
         public houseid: (number|Long);
+
+        /** HouseMaidData sex. */
+        public sex: number;
 
         /**
          * Creates a new HouseMaidData instance using the specified properties.
@@ -4340,6 +4346,9 @@ declare namespace msg {
 
         /** HouseData roommember */
         roommember?: (number|null);
+
+        /** HouseData area */
+        area?: (number|null);
     }
 
     /** Represents an HouseData. */
@@ -4383,6 +4392,9 @@ declare namespace msg {
 
         /** HouseData roommember. */
         public roommember: number;
+
+        /** HouseData area. */
+        public area: number;
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -7710,6 +7722,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeSelfHouseGoldRet data */
         data?: (msg.IHouseData|null);
+
+        /** GW2C_AckTakeSelfHouseGoldRet items */
+        items?: (msg.IPairNumItem[]|null);
     }
 
     /** Represents a GW2C_AckTakeSelfHouseGoldRet. */
@@ -7732,6 +7747,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeSelfHouseGoldRet data. */
         public data?: (msg.IHouseData|null);
+
+        /** GW2C_AckTakeSelfHouseGoldRet items. */
+        public items: msg.IPairNumItem[];
 
         /**
          * Creates a new GW2C_AckTakeSelfHouseGoldRet instance using the specified properties.
@@ -7914,6 +7932,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeOtherHouseGoldRet data */
         data?: (msg.IHouseData|null);
+
+        /** GW2C_AckTakeOtherHouseGoldRet items */
+        items?: (msg.IPairNumItem[]|null);
     }
 
     /** Represents a GW2C_AckTakeOtherHouseGoldRet. */
@@ -7936,6 +7957,9 @@ declare namespace msg {
 
         /** GW2C_AckTakeOtherHouseGoldRet data. */
         public data?: (msg.IHouseData|null);
+
+        /** GW2C_AckTakeOtherHouseGoldRet items. */
+        public items: msg.IPairNumItem[];
 
         /**
          * Creates a new GW2C_AckTakeOtherHouseGoldRet instance using the specified properties.
@@ -12643,6 +12667,9 @@ declare namespace msg {
     /** Properties of a C2GW_DressClothes. */
     interface IC2GW_DressClothes {
 
+        /** C2GW_DressClothes id */
+        id?: (number|Long|null);
+
         /** C2GW_DressClothes pos */
         pos?: (number|null);
 
@@ -12658,6 +12685,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_DressClothes);
+
+        /** C2GW_DressClothes id. */
+        public id: (number|Long);
 
         /** C2GW_DressClothes pos. */
         public pos: number;
@@ -12739,6 +12769,9 @@ declare namespace msg {
     /** Properties of a C2GW_UnDressClothes. */
     interface IC2GW_UnDressClothes {
 
+        /** C2GW_UnDressClothes id */
+        id?: (number|Long|null);
+
         /** C2GW_UnDressClothes pos */
         pos?: (number|null);
     }
@@ -12751,6 +12784,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_UnDressClothes);
+
+        /** C2GW_UnDressClothes id. */
+        public id: (number|Long);
 
         /** C2GW_UnDressClothes pos. */
         public pos: number;
@@ -17068,11 +17104,23 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** TradeState enum. */
+    enum TradeState {
+        Tradeing = 1,
+        CanReward = 2,
+        SellOk = 3,
+        BuyOk = 4,
+        TradeCancel = 5
+    }
+
     /** Properties of a C2GW_ReqHouseTradeList. */
     interface IC2GW_ReqHouseTradeList {
 
         /** C2GW_ReqHouseTradeList location */
         location?: (number|null);
+
+        /** C2GW_ReqHouseTradeList sublocation */
+        sublocation?: (number|null);
 
         /** C2GW_ReqHouseTradeList housetype */
         housetype?: (number|null);
@@ -17088,6 +17136,12 @@ declare namespace msg {
 
         /** C2GW_ReqHouseTradeList name */
         name?: (string|null);
+
+        /** C2GW_ReqHouseTradeList pricedec */
+        pricedec?: (boolean|null);
+
+        /** C2GW_ReqHouseTradeList startnum */
+        startnum?: (number|null);
     }
 
     /** Represents a C2GW_ReqHouseTradeList. */
@@ -17101,6 +17155,9 @@ declare namespace msg {
 
         /** C2GW_ReqHouseTradeList location. */
         public location: number;
+
+        /** C2GW_ReqHouseTradeList sublocation. */
+        public sublocation: number;
 
         /** C2GW_ReqHouseTradeList housetype. */
         public housetype: number;
@@ -17116,6 +17173,12 @@ declare namespace msg {
 
         /** C2GW_ReqHouseTradeList name. */
         public name: string;
+
+        /** C2GW_ReqHouseTradeList pricedec. */
+        public pricedec: boolean;
+
+        /** C2GW_ReqHouseTradeList startnum. */
+        public startnum: number;
 
         /**
          * Creates a new C2GW_ReqHouseTradeList instance using the specified properties.
@@ -17221,11 +17284,20 @@ declare namespace msg {
         /** SimpleHouseTrade location */
         location?: (number|null);
 
+        /** SimpleHouseTrade sublocation */
+        sublocation?: (number|null);
+
         /** SimpleHouseTrade posx */
         posx?: (number|null);
 
         /** SimpleHouseTrade posy */
         posy?: (number|null);
+
+        /** SimpleHouseTrade state */
+        state?: (number|null);
+
+        /** SimpleHouseTrade housetype */
+        housetype?: (number|null);
     }
 
     /** Represents a SimpleHouseTrade. */
@@ -17267,11 +17339,20 @@ declare namespace msg {
         /** SimpleHouseTrade location. */
         public location: number;
 
+        /** SimpleHouseTrade sublocation. */
+        public sublocation: number;
+
         /** SimpleHouseTrade posx. */
         public posx: number;
 
         /** SimpleHouseTrade posy. */
         public posy: number;
+
+        /** SimpleHouseTrade state. */
+        public state: number;
+
+        /** SimpleHouseTrade housetype. */
+        public housetype: number;
 
         /**
          * Creates a new SimpleHouseTrade instance using the specified properties.
@@ -17348,7 +17429,7 @@ declare namespace msg {
     interface IGW2C_RetHouseTradeList {
 
         /** GW2C_RetHouseTradeList list */
-        list?: (msg.ISimpleHouseTrade|null);
+        list?: (msg.ISimpleHouseTrade[]|null);
     }
 
     /** Represents a GW2C_RetHouseTradeList. */
@@ -17361,7 +17442,7 @@ declare namespace msg {
         constructor(properties?: msg.IGW2C_RetHouseTradeList);
 
         /** GW2C_RetHouseTradeList list. */
-        public list?: (msg.ISimpleHouseTrade|null);
+        public list: msg.ISimpleHouseTrade[];
 
         /**
          * Creates a new GW2C_RetHouseTradeList instance using the specified properties.
@@ -17706,6 +17787,9 @@ declare namespace msg {
 
     /** Properties of a GW2C_RetBuyTradeHouse. */
     interface IGW2C_RetBuyTradeHouse {
+
+        /** GW2C_RetBuyTradeHouse tradeuid */
+        tradeuid?: (number|Long|null);
     }
 
     /** Represents a GW2C_RetBuyTradeHouse. */
@@ -17716,6 +17800,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IGW2C_RetBuyTradeHouse);
+
+        /** GW2C_RetBuyTradeHouse tradeuid. */
+        public tradeuid: (number|Long);
 
         /**
          * Creates a new GW2C_RetBuyTradeHouse instance using the specified properties.
@@ -17783,6 +17870,498 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_RetBuyTradeHouse to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTradeHouseHistory. */
+    interface IC2GW_ReqTradeHouseHistory {
+    }
+
+    /** Represents a C2GW_ReqTradeHouseHistory. */
+    class C2GW_ReqTradeHouseHistory implements IC2GW_ReqTradeHouseHistory {
+
+        /**
+         * Constructs a new C2GW_ReqTradeHouseHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTradeHouseHistory);
+
+        /**
+         * Creates a new C2GW_ReqTradeHouseHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTradeHouseHistory instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTradeHouseHistory): msg.C2GW_ReqTradeHouseHistory;
+
+        /**
+         * Encodes the specified C2GW_ReqTradeHouseHistory message. Does not implicitly {@link msg.C2GW_ReqTradeHouseHistory.verify|verify} messages.
+         * @param message C2GW_ReqTradeHouseHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTradeHouseHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTradeHouseHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeHouseHistory.verify|verify} messages.
+         * @param message C2GW_ReqTradeHouseHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTradeHouseHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTradeHouseHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTradeHouseHistory;
+
+        /**
+         * Decodes a C2GW_ReqTradeHouseHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTradeHouseHistory;
+
+        /**
+         * Verifies a C2GW_ReqTradeHouseHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTradeHouseHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTradeHouseHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTradeHouseHistory;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTradeHouseHistory message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTradeHouseHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTradeHouseHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTradeHouseHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TradeHouseHistory. */
+    interface ITradeHouseHistory {
+
+        /** TradeHouseHistory name */
+        name?: (string|null);
+
+        /** TradeHouseHistory houselevel */
+        houselevel?: (number|null);
+
+        /** TradeHouseHistory price */
+        price?: (number|null);
+
+        /** TradeHouseHistory area */
+        area?: (number|null);
+
+        /** TradeHouseHistory income */
+        income?: (number|null);
+
+        /** TradeHouseHistory tradetime */
+        tradetime?: (number|null);
+
+        /** TradeHouseHistory housetype */
+        housetype?: (number|null);
+
+        /** TradeHouseHistory housebaseid */
+        housebaseid?: (number|null);
+
+        /** TradeHouseHistory state */
+        state?: (number|null);
+    }
+
+    /** Represents a TradeHouseHistory. */
+    class TradeHouseHistory implements ITradeHouseHistory {
+
+        /**
+         * Constructs a new TradeHouseHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ITradeHouseHistory);
+
+        /** TradeHouseHistory name. */
+        public name: string;
+
+        /** TradeHouseHistory houselevel. */
+        public houselevel: number;
+
+        /** TradeHouseHistory price. */
+        public price: number;
+
+        /** TradeHouseHistory area. */
+        public area: number;
+
+        /** TradeHouseHistory income. */
+        public income: number;
+
+        /** TradeHouseHistory tradetime. */
+        public tradetime: number;
+
+        /** TradeHouseHistory housetype. */
+        public housetype: number;
+
+        /** TradeHouseHistory housebaseid. */
+        public housebaseid: number;
+
+        /** TradeHouseHistory state. */
+        public state: number;
+
+        /**
+         * Creates a new TradeHouseHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TradeHouseHistory instance
+         */
+        public static create(properties?: msg.ITradeHouseHistory): msg.TradeHouseHistory;
+
+        /**
+         * Encodes the specified TradeHouseHistory message. Does not implicitly {@link msg.TradeHouseHistory.verify|verify} messages.
+         * @param message TradeHouseHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ITradeHouseHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TradeHouseHistory message, length delimited. Does not implicitly {@link msg.TradeHouseHistory.verify|verify} messages.
+         * @param message TradeHouseHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ITradeHouseHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TradeHouseHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.TradeHouseHistory;
+
+        /**
+         * Decodes a TradeHouseHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.TradeHouseHistory;
+
+        /**
+         * Verifies a TradeHouseHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TradeHouseHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TradeHouseHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.TradeHouseHistory;
+
+        /**
+         * Creates a plain object from a TradeHouseHistory message. Also converts values to other types if specified.
+         * @param message TradeHouseHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.TradeHouseHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TradeHouseHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetTradeHouseHistory. */
+    interface IGW2C_RetTradeHouseHistory {
+
+        /** GW2C_RetTradeHouseHistory list */
+        list?: (msg.ITradeHouseHistory[]|null);
+    }
+
+    /** Represents a GW2C_RetTradeHouseHistory. */
+    class GW2C_RetTradeHouseHistory implements IGW2C_RetTradeHouseHistory {
+
+        /**
+         * Constructs a new GW2C_RetTradeHouseHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetTradeHouseHistory);
+
+        /** GW2C_RetTradeHouseHistory list. */
+        public list: msg.ITradeHouseHistory[];
+
+        /**
+         * Creates a new GW2C_RetTradeHouseHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetTradeHouseHistory instance
+         */
+        public static create(properties?: msg.IGW2C_RetTradeHouseHistory): msg.GW2C_RetTradeHouseHistory;
+
+        /**
+         * Encodes the specified GW2C_RetTradeHouseHistory message. Does not implicitly {@link msg.GW2C_RetTradeHouseHistory.verify|verify} messages.
+         * @param message GW2C_RetTradeHouseHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetTradeHouseHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetTradeHouseHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeHouseHistory.verify|verify} messages.
+         * @param message GW2C_RetTradeHouseHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetTradeHouseHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetTradeHouseHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetTradeHouseHistory;
+
+        /**
+         * Decodes a GW2C_RetTradeHouseHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetTradeHouseHistory;
+
+        /**
+         * Verifies a GW2C_RetTradeHouseHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetTradeHouseHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetTradeHouseHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetTradeHouseHistory;
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeHouseHistory message. Also converts values to other types if specified.
+         * @param message GW2C_RetTradeHouseHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetTradeHouseHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetTradeHouseHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_GetTradeHouseReward. */
+    interface IC2GW_GetTradeHouseReward {
+
+        /** C2GW_GetTradeHouseReward tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_GetTradeHouseReward. */
+    class C2GW_GetTradeHouseReward implements IC2GW_GetTradeHouseReward {
+
+        /**
+         * Constructs a new C2GW_GetTradeHouseReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_GetTradeHouseReward);
+
+        /** C2GW_GetTradeHouseReward tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new C2GW_GetTradeHouseReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_GetTradeHouseReward instance
+         */
+        public static create(properties?: msg.IC2GW_GetTradeHouseReward): msg.C2GW_GetTradeHouseReward;
+
+        /**
+         * Encodes the specified C2GW_GetTradeHouseReward message. Does not implicitly {@link msg.C2GW_GetTradeHouseReward.verify|verify} messages.
+         * @param message C2GW_GetTradeHouseReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_GetTradeHouseReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_GetTradeHouseReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeHouseReward.verify|verify} messages.
+         * @param message C2GW_GetTradeHouseReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_GetTradeHouseReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_GetTradeHouseReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_GetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_GetTradeHouseReward;
+
+        /**
+         * Decodes a C2GW_GetTradeHouseReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_GetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_GetTradeHouseReward;
+
+        /**
+         * Verifies a C2GW_GetTradeHouseReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_GetTradeHouseReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_GetTradeHouseReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_GetTradeHouseReward;
+
+        /**
+         * Creates a plain object from a C2GW_GetTradeHouseReward message. Also converts values to other types if specified.
+         * @param message C2GW_GetTradeHouseReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_GetTradeHouseReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_GetTradeHouseReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGetTradeHouseReward. */
+    interface IGW2C_RetGetTradeHouseReward {
+
+        /** GW2C_RetGetTradeHouseReward tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetGetTradeHouseReward. */
+    class GW2C_RetGetTradeHouseReward implements IGW2C_RetGetTradeHouseReward {
+
+        /**
+         * Constructs a new GW2C_RetGetTradeHouseReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGetTradeHouseReward);
+
+        /** GW2C_RetGetTradeHouseReward tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetGetTradeHouseReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGetTradeHouseReward instance
+         */
+        public static create(properties?: msg.IGW2C_RetGetTradeHouseReward): msg.GW2C_RetGetTradeHouseReward;
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeHouseReward message. Does not implicitly {@link msg.GW2C_RetGetTradeHouseReward.verify|verify} messages.
+         * @param message GW2C_RetGetTradeHouseReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGetTradeHouseReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeHouseReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetTradeHouseReward.verify|verify} messages.
+         * @param message GW2C_RetGetTradeHouseReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGetTradeHouseReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGetTradeHouseReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGetTradeHouseReward;
+
+        /**
+         * Decodes a GW2C_RetGetTradeHouseReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGetTradeHouseReward;
+
+        /**
+         * Verifies a GW2C_RetGetTradeHouseReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGetTradeHouseReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGetTradeHouseReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGetTradeHouseReward;
+
+        /**
+         * Creates a plain object from a GW2C_RetGetTradeHouseReward message. Also converts values to other types if specified.
+         * @param message GW2C_RetGetTradeHouseReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGetTradeHouseReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGetTradeHouseReward to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -21353,8 +21932,11 @@ declare namespace table {
         /** EquipDefine Suit */
         Suit?: (string|null);
 
-        /** EquipDefine Make */
-        Make?: (string|null);
+        /** EquipDefine DebrisID */
+        DebrisID?: (number|null);
+
+        /** EquipDefine MakeNum */
+        MakeNum?: (number|null);
     }
 
     /** Represents an EquipDefine. */
@@ -21402,8 +21984,11 @@ declare namespace table {
         /** EquipDefine Suit. */
         public Suit: string;
 
-        /** EquipDefine Make. */
-        public Make: string;
+        /** EquipDefine DebrisID. */
+        public DebrisID: number;
+
+        /** EquipDefine MakeNum. */
+        public MakeNum: number;
 
         /**
          * Creates a new EquipDefine instance using the specified properties.
@@ -22256,11 +22841,17 @@ declare namespace table {
         /** ItemBaseDataDefine Color */
         Color?: (number|null);
 
+        /** ItemBaseDataDefine ImageId */
+        ImageId?: (number|null);
+
         /** ItemBaseDataDefine Name */
         Name?: (string|null);
 
         /** ItemBaseDataDefine Desc */
         Desc?: (string|null);
+
+        /** ItemBaseDataDefine Clothes */
+        Clothes?: (number|null);
     }
 
     /** Represents an ItemBaseDataDefine. */
@@ -22281,11 +22872,17 @@ declare namespace table {
         /** ItemBaseDataDefine Color. */
         public Color: number;
 
+        /** ItemBaseDataDefine ImageId. */
+        public ImageId: number;
+
         /** ItemBaseDataDefine Name. */
         public Name: string;
 
         /** ItemBaseDataDefine Desc. */
         public Desc: string;
+
+        /** ItemBaseDataDefine Clothes. */
+        public Clothes: number;
 
         /**
          * Creates a new ItemBaseDataDefine instance using the specified properties.

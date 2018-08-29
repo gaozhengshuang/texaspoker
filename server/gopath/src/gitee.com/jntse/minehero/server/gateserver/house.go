@@ -168,6 +168,14 @@ func (this *HouseCell) CkeckGoldProduce(now int64) {
 	}
 }
 
+func (this *HouseCell) GetIncome() uint32{
+	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
+	if find == false {
+		return 0
+	}
+	return base.ProduceGold
+}
+
 func (this *HouseCell) PackBin() *msg.HouseCell {
 	bin := &msg.HouseCell{}
 	bin.Tid = pb.Uint32(this.tid)
@@ -240,6 +248,7 @@ type HouseData struct {
 	ownername    string
 	roommember 	 uint32 //房间号
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
+	area		 uint32	//面积
 
 	ticker1Sec *util.GameTicker
 }
@@ -271,6 +280,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 		info.LoadBin(v)
 		this.visitinfo = append(this.visitinfo, info)
 	}
+	this.area = bin.GetArea()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -304,6 +314,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	for _, v := range this.visitinfo {
 		bin.Visitinfo = append(bin.Visitinfo, v.PackBin())
 	}
+	bin.Area = pb.Uint32(this.area)
 
 	return bin
 }
@@ -322,6 +333,26 @@ func (this *HouseData) SaveBin(pipe redis.Pipeliner) {
 		}
 		log.Info("保存房屋[%d]数据成功", this.id)
 	}
+}
+
+func (this *HouseData) GetIncome() uint32 {
+	var sum uint32
+	for _, v := range this.housecells {
+		sum += v.GetIncome()
+	}
+	return sum
+}
+
+func (this *HouseData) ChangeOwner(user *GateUser) {
+	HouseSvrMgr().DelUserHouse(this.ownerid, this.id)
+	HouseSvrMgr().SyncUserHouseData(this.ownerid)
+	this.ownerid = user.Id()
+	this.ownername = user.Name()
+	for _, v := range this.housecells {
+		v.ownerid = user.Id()
+	}
+	HouseSvrMgr().AddUserHouse(this.ownerid, this.id)
+	HouseSvrMgr().SyncUserHouseData(user.Id())
 }
 
 //每秒的Tick回调
@@ -438,7 +469,7 @@ func (this *HouseData) ResetRobcheckflag() {
 //房屋管理器
 type HouseManager struct {
 	houses map[uint64]*HouseData //已加载的所有房屋的map
-	userhouses map[uint64][]uint64 //玩家id 关联的房屋id
+	userhouses map[uint64]map[uint64]uint64 //玩家id 关联的房屋id
 	housesIdList []uint64 //所有房屋id列表
 	nobuildinghouseIds []uint64 //仅租房的房屋id列表
 }
@@ -446,7 +477,7 @@ type HouseManager struct {
 func (this *HouseManager) Init() {
 	log.Info("HouseManager Init")
 	this.houses = make(map[uint64]*HouseData)
-	this.userhouses = make(map[uint64][]uint64)
+	this.userhouses = make(map[uint64]map[uint64]uint64)
 	this.housesIdList = make([]uint64, 0)
 	this.nobuildinghouseIds = make([]uint64, 0)
 	this.LoadDB()
@@ -510,7 +541,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32, square uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -557,6 +588,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.ownername = ownername
 	house.buildingid = buildingid
 	house.roommember = roommember
+	house.area = square
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
@@ -576,11 +608,21 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 			this.nobuildinghouseIds = append(this.nobuildinghouseIds, house.id)
 		}
 	}
-	if _, ok := this.userhouses[house.ownerid]; ok {
-		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
+	this.AddUserHouse(house.ownerid, house.id)
+}
+
+func (this *HouseManager) AddUserHouse(userid uint64, houseid uint64){
+	if _, ok := this.userhouses[userid]; ok {
+		this.userhouses[userid][houseid] = houseid
 	} else {
-		this.userhouses[house.ownerid] = make([]uint64, 0)
-		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
+		this.userhouses[userid] = make(map[uint64]uint64)
+		this.userhouses[userid][houseid] = houseid
+	}
+}
+
+func (this *HouseManager) DelUserHouse(userid uint64, houseid uint64){
+	if _, ok := this.userhouses[userid]; ok {
+		delete(this.userhouses[userid], houseid) 
 	}
 }
 
