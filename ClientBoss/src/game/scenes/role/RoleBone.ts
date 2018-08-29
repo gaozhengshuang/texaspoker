@@ -126,22 +126,14 @@ module game {
             if (!clothes) {
                 return;
             }
+            if (clothes.length == 0) {
+                this.resetParts();
+                return;
+            }
+
             for (let l of clothes) {
-                if (l.sex == DataManager.playerModel.sex) 
-                {
-                    if (l.clothes.length == 0) 
-                    {
-                        this.resetParts();
-                        return;
-                    }
-                    else
-                    {
-                        for (let m of l.clothes) {
-                            let item = table.EquipById[m.id];
-                            this.changePart(item);
-                        }
-                    }
-                }
+                let item = table.EquipById[l.id];
+                this.changePart(item);
             }
         }
 

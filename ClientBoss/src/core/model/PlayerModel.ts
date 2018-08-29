@@ -37,8 +37,9 @@ module game {
         private _tasks;
         private _houses;
         private _carRecords: string[] = [];
-        private _personalImage: msg.IImageData[];
+        private _personalImage: msg.IItemData[];
         private _houseMaidInfo: msg.GW2C_SendHouseMaidInfo;
+        private _myMaidInfo: msg.IHouseMaidData;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -83,7 +84,8 @@ module game {
 
             for (let i=0; i<data.maids.length; i++) {
                 if (this.userInfo.userid == data.maids[i].ownerid) {
-                    this._personalImage = data.maids[i].images;
+                    this._personalImage = data.maids[i].clothes;
+                    this._myMaidInfo = data.maids[i];
                     break;
                 }
             }
@@ -374,20 +376,14 @@ module game {
             if (!clothes) return;
             SkillManager.getInstance().resetEquipSKill();
             clothes.forEach(
-                imageData => {
-                    if (imageData.sex == this.sex) {
-                        imageData.clothes.forEach(
-                            itemData => {
-                                let equipData = table.EquipById[itemData.id];
-                                equipData.Skill.forEach(
-                                    skillId => {
-                                        let skillData = table.TSkillById[parseInt(skillId)];
-                                        SkillManager.getInstance().checkEquipSkill(skillData.Type, skillData.Num, skillData.NumPer);
-                                    }
-                                );
-                            }
-                        );
-                    }
+                itemData => {
+                    let equipData = table.EquipById[itemData.id];
+                    equipData.Skill.forEach(
+                        skillId => {
+                            let skillData = table.TSkillById[parseInt(skillId)];
+                            SkillManager.getInstance().checkEquipSkill(skillData.Type, skillData.Num, skillData.NumPer);
+                        }
+                    );
                 }
             );
         }
@@ -522,5 +518,8 @@ module game {
            return _parkingdatas[0]; 
         }
 
+        public getMaidInfo() {
+            return this._myMaidInfo;
+        }
     }
 }

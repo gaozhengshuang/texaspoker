@@ -1,5 +1,4 @@
 module game {
-
     export class RoleDress extends PanelComponent {
         grp_coins       : eui.Group;
         grp_dressinfo   : eui.Group;
@@ -16,6 +15,7 @@ module game {
         img_iconmask    : eui.Image;
 
         btn_close       : IconButton;
+        btn_compose     : IconButton;
 
         sr_item         : eui.Scroller;
         ls_items        : eui.List;
@@ -34,6 +34,9 @@ module game {
         test_itemprice  : game.ItemPrice;
         dress_info      : game.EquipInfo;
 
+        composeGroup    : eui.Group;
+        uncomposeGroup  : eui.Group;
+
         private _dataProv: eui.ArrayCollection;
 
         //部位RadioButton列表
@@ -49,6 +52,10 @@ module game {
 
         private _roleBonePool: ObjectPool<RoleBone>;
         private _roleBone: RoleBone;
+
+        private _curEquipInfo: table.IEquipDefine;
+
+//-------------------------------数据分割------------------------------------------------------------
 
         protected getSkinName() {
             return RoleDressSkin;
@@ -68,19 +75,18 @@ module game {
             RoleDress._instance = null;
         }
 
-        public get partRadioBtnGroup()
-        {
+        public get partRadioBtnGroup() {
             return this._partRadioBtnGroup;
         }
 
         public init() {
             if (gameConfig.isIphoneX()) {
                 this.topGroup.y = this.topGroup.y + 80;
-                // this.roleGroup.y = this.roleGroup.y + 150;
             }
             this.height = gameConfig.curHeight();
 
-            this.btn_close.icon = "dress_01_json.dress_01_16"
+            this.btn_close.icon = "dress_01_json.dress_01_16";
+            this.btn_compose.icon = "dress_01_json.composeBtn";
 
             this.initItemList();
 
@@ -104,6 +110,7 @@ module game {
             this._touchEvent = [
                 { target: this.img_iconmask, callBackFunc: this.switchGender },
                 { target: this.btn_close, callBackFunc: this.OnCloseHandle },
+                { target: this.btn_compose, callBackFunc: this.OnComposeHandle },
             ];
 
             this._partsToggles = [
@@ -114,7 +121,6 @@ module game {
                 {type:msg.ItemPos.Shoe,target:this.part_foot},
                 {type:msg.ItemPos.Wing,target:this.part_waist},
                 {type:msg.ItemPos.Suit,target:this.part_back},
-                
             ];
 
             NotificationCenter.addObserver(this, this.OnBagUpdate, PlayerModel.BAG_UPDATE);
@@ -173,7 +179,6 @@ module game {
 
             //穿戴已获得装扮
             this.initWears();
-
             //切换模型骨骼
             this._roleBone.useGirlSpine(this.gender, actionType.Idle);
             //切换部位Icon
@@ -187,15 +192,11 @@ module game {
         private initWears() {
             let clothes = DataManager.playerModel.clothes;
             if (!clothes) return;
-            clothes.forEach(imagedata=>{
-                imagedata.clothes.forEach(
-                    itemdata =>
-                    {
-                        //console.log("服务器记录穿戴",itemdata);
-                        let _item = table.EquipById[itemdata.id];
-                        if(_item) this._selItems.push(_item);
-                    }
-                )
+            clothes.forEach(itemdata =>
+            {
+                //console.log("服务器记录穿戴",itemdata);
+                let _item = table.EquipById[itemdata.id];
+                if(_item) this._selItems.push(_item);
             });
         }
 
@@ -383,6 +384,7 @@ module game {
                 }
             }
             // this.setDressInfo();
+            this.updateBtnState();
         }
 
         //检测女连衣裙
@@ -443,6 +445,12 @@ module game {
         //     RoleDressShopCart.getInstance().UpdateData(this.getCartItems());
         // }
 
+        private OnComposeHandle() {
+            sendMessage("msg.C2GW_MakeClothes", msg.C2GW_MakeClothes.encode({
+                debris: this._curEquipInfo.DebrisID
+            }));
+        }
+
         private OnCloseHandle() {
             this.remove();
             RoleDress.destroyInstance();
@@ -472,6 +480,26 @@ module game {
                 this.sendmsg_UnDressCloth({
                     pos: item.Pos
                 })
+            }
+        }
+
+        private updateBtnState() {
+            this._curEquipInfo = null; 
+            for (let i = 0; i < this._selItems.length; i++) {
+                let itemInfo = this._selItems[i];
+                if (itemInfo.Pos == this._typeIdx) {
+                    this._curEquipInfo = itemInfo;
+                    break;
+                }
+            }
+
+            if (this._curEquipInfo) {
+                if (DataManager.playerModel.IsHaveItem(this._curEquipInfo.Id)) {
+                    this.composeGroup.visible = false;
+                    this.uncomposeGroup.visible = false;
+                } else {
+
+                }
             }
         }
     }
