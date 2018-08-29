@@ -96,6 +96,16 @@ func (this *CarData) SaveBin(pipe redis.Pipeliner) {
 		}
 	}
 }
+//获得星级
+func (this *CarData) GetStar() {
+	//TODO
+	return 0
+}
+//获得每分钟收益数量
+func (this *CarData) GetRewardPerM() {
+	//TODO 
+	return 0
+}
 
 //车位信息
 type ParkingData struct {
