@@ -79,7 +79,6 @@ func (this *TblLoader) Init() {
 	// load excels
     this.LoadExcel(MusicBase, "music.json")
 	this.LoadExcel(LevelBasee, "levelbase.json")
-	this.LoadExcel(LevelMaid, "levelmaid.json")
 	this.LoadExcel(TbirckInfobase, "birckinfobase.json")
 	this.LoadExcel(GiftProBase, "giftprobase.json")
 	this.LoadExcel(CarShopBase, "carshop.json")
@@ -103,6 +102,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TParkingBase, "parkingbase.json")
 	this.LoadExcel(ShopBase, "shopbase.json")
 	this.LoadExcel(TbirckRefreshbase, "birckrefreshbase.json")
+	this.LoadExcel(LevelMaidBase, "levelmaid.json")
 	this.LoadExcel(ItemBase, "itembase.json")
 	
 
