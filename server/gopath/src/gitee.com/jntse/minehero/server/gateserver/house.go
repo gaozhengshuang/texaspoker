@@ -341,6 +341,7 @@ func (this *HouseData) GetIncome() uint32 {
 
 func (this *HouseData) ChangeOwner(user *GateUser) {
 	HouseSvrMgr().DelUserHouse(this.ownerid, this.id)
+	HouseSvrMgr().SyncUserHouseData(this.ownerid)
 	this.ownerid = user.Id()
 	this.ownername = user.Name()
 	for _, v := range this.housecells {
