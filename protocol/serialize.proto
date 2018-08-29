@@ -113,8 +113,9 @@ message Serialize {
 message CarPartData
 {
     optional uint32 partid = 1;             //部件id
-    optional uint32 level = 2;              //部件等级
-    optional uint32 exp = 3;                //部件经验
+    optional uint32 parttype = 2;           //部件类型
+    optional uint32 level = 3;              //部件等级
+    optional uint32 exp = 4;                //部件经验
 }
 
 message CarAttribute 
@@ -135,7 +136,7 @@ message CarPartPiece
 message CarReward
 {
     optional uint32 money = 1;              //货币
-    repeated CarPartPiece items = 2;            //物品
+    repeated CarPartPiece items = 2;        //物品
 }
 //车的相关信息
 message CarData 
@@ -166,11 +167,9 @@ message ParkingData
     optional uint64 parkingcar = 4;         //停的车辆id
     optional uint64 parkingcarownerid = 5;  //停的车主人id
     optional string parkingcarownername = 6;//停的车主人名字
-    optional uint64 parkingtime = 7;        //开始停车时间戳
-    optional uint32 parkingreward = 8 ;     //停车获得收益
-    optional string ownername = 9;          //车位主人名字
-    optional uint32 parkingcartid = 10;     //停的车辆配置id
-    optional uint64 houseid = 11;           //所属房屋id
+    optional string ownername = 7;          //车位主人名字
+    optional uint32 parkingcartid = 8;     //停的车辆配置id
+    optional uint64 houseid = 9;           //所属房屋id
 }
 
 //单个房间信息
