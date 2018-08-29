@@ -187,6 +187,7 @@ message HouseData {
     repeated ParkingData parkings = 10;
 	optional uint32 roommember = 11; //房间号
     optional uint32 area = 12;      //面积
+    optional bool issell = 13;      //出售中
 }
 
 // 汽车商店出售信息
