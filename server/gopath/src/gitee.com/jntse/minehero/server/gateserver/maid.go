@@ -369,3 +369,16 @@ func (ma *MaidManager) SendUserMaids(user *GateUser) {
 	}
 	user.SendMsg(send)
 }
+
+// 升级女仆
+func (this *MaidManager) UpgradeMaid(user *GateUser, maidid uint64) {
+	if user == nil { return }
+	maid := this.GetMaidsById(maidid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	;
+}
+
