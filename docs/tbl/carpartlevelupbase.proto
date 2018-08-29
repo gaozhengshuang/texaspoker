@@ -19,16 +19,19 @@ message TCarPartLevelupDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID
+	optional uint32 Id = 1; // ID唯一id
 	
 	
-	optional uint32 Level = 2; // 升级前等级
+	optional uint32 Partid = 2; // 部件id
 	
 	
-	optional uint32 Exp = 3; // 需要经验
+	optional uint32 Level = 3; // 升级前等级
 	
 	
-	optional uint32 Cost = 4; // 需要金币
+	optional uint32 Exp = 4; // 需要经验
+	
+	
+	optional uint32 Cost = 5; // 需要金币
 
 }
 

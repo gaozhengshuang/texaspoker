@@ -186,7 +186,7 @@ module game {
             }
             this.initWorld();
             //this.showGroup.top = this.paddleGroup.top = this.debugGroup.top = gameConfig.curHeight() * 0.1;
-            DataManager.playerModel.skillUpdate();
+            // DataManager.playerModel.skillUpdate();
         }
 
         protected getSkinName() {

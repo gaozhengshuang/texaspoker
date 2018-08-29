@@ -1,0 +1,61 @@
+syntax = "proto2";
+package msg;
+
+//请求房屋交易列表
+message C2GW_ReqHouseTradeList
+{
+    optional int32 location = 1;        //区域
+    optional int32 housetype = 2;       //房屋类型 1-5 1房2房。。。
+    optional int32 pricemin = 3;        //价格区间小
+    optional int32 pricemax = 4;        //价格区间大
+    optional int32 houselevel = 5;      //房屋等级 1-5
+    optional string name = 6;           //房屋名字
+}
+
+//房屋交易信息
+message SimpleHouseTrade
+{
+    optional int64 tradeuid = 1;        //交易唯一id
+    optional string name = 2;           //房产名字
+    optional int32 houselevel = 3;      //房屋等级
+    optional int32 price = 4;           //房屋总价
+    optional int32 area = 5;            //房屋面积
+    optional int32 income = 6;          //房屋收益
+    optional int32 houseuid = 7;        //房屋唯一id
+    optional int32 housebaseid = 8;     //房屋表id
+    optional int32 endtime = 9;         //交易结束时间
+    optional int32 location = 10;       //区域
+    optional int32 posx = 11;           //x坐标
+    optional int32 posy = 12;           //y坐标
+}
+
+//返回房屋交易列表
+message GW2C_RetHouseTradeList
+{
+    optional SimpleHouseTrade list = 1; //
+}
+
+//交易房屋
+message C2GW_TradeHouse
+{
+    optional int64 houseuid = 1;        //房屋唯一id
+}
+
+//交易返回
+message C2GW_RetTradeHouse
+{
+    optional int64 tradeuid = 1;    
+}
+
+//买房屋
+message C2GW_BuyTradeHouse
+{
+    optional int64 tradeuid = 1;
+}
+
+//买房屋返回
+message GW2C_RetBuyTradeHouse
+{    
+}
+
+

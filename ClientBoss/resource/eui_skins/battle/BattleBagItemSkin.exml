@@ -6,7 +6,7 @@
 	<e:Image id="shoplight" anchorOffsetX="82" anchorOffsetY="82" source="lucky_json.shoplight" verticalCenter="4" horizontalCenter="-240"/>
 	<e:Label id="itemName" text="道具名" size="26" textAlign="left" anchorOffsetX="0" verticalCenter="-43" bold="true" textColor="0x8c5eda" strokeColor="0xdcadff" left="160"/>
 	<e:Label id="itemDesc" text="商品描述：巴拉巴拉" size="18" textAlign="left" anchorOffsetX="0" verticalCenter="11" strokeColor="0xDCADFF" left="160" textColor="0x4d4d4d" width="350" anchorOffsetY="0" height="52"/>
-	<e:Label id="itemMoney" text="价值：100RMB" textColor="0x47b3fc" bold="true" size="20" verticalCenter="56" textAlign="left" x="160"/>
+
 
 	<game:IconButton id="getButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="46.5" horizontalCenter="227"/>
 	<e:Image id="itemNumBg" source="lucky_json.shopnumbg" touchEnabled="false" horizontalCenter="97.5" verticalCenter="-42"/>

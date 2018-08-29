@@ -3,7 +3,7 @@
 
 module table {
 export var TCarPartLevelup : table.ITCarPartLevelupDefine[] = [
-		{ Id : 1001, Level : 1, Exp : 1000, Cost : 1000 	}
+		{ Id : 1, Partid : 1001, Level : 1, Exp : 1000, Cost : 1000 	}
 	]
 
 
