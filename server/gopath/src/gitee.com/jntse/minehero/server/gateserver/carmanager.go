@@ -13,6 +13,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	"time"
+	"math"
 )
 
 const (
@@ -49,10 +50,10 @@ func (this *CarData) ParkingCar(id uint64,poid uint64) {
 	this.data.Parkingid = pb.Uint64(id)
 	if poid == this.data.GetOwnerid() {
 		//停在自己的停车位上 可以出征咯
-		this.data.State = pb.Uint32(msg.CarState_Ready)
+		this.data.State = pb.Uint32(uint32(msg.CarState_Ready))
 	}else {
 		//停在公共车位上 获得奖励的
-		this.data.State = pb.Uint32(msg.CarState_Parking)
+		this.data.State = pb.Uint32(uint32(msg.CarState_Parking))
 		this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
 	}
 	this.modified = true
@@ -60,7 +61,7 @@ func (this *CarData) ParkingCar(id uint64,poid uint64) {
 
 func (this *CarData) TakeBack() {
 	this.data.Parkingid = pb.Uint64(0)
-	this.data.State = pb.Uint32(msg.CarState_Idle)
+	this.data.State = pb.Uint32(uint32(msg.CarState_Idle))
 	this.modified = true
 }
 
@@ -78,15 +79,15 @@ func (this *CarData) AddRewardItem(id uint32, num uint32) {
 	item := &msg.CarPartPiece{}
 	item.Id = pb.Uint32(id)
 	item.Num = pb.Uint32(num)
-	reawrdData := this.data.Reward
+	rewardData := this.data.Reward
 	rewardData.Items = append(rewardData.Items,item)
 	this.modified = true
 }
 
 func (this *CarData) ClearReward() {
-	reawrdData := this.data.Reward
+	rewardData := this.data.Reward
 	rewardData.Money = 0
-	rewardData.Items = make([]*msg.CarPartPiece)
+	rewardData.Items = make([]*msg.CarPartPiece,0)
 	this.modified = true
 }
 
@@ -122,7 +123,7 @@ func (this *CarData) SetAttribute(attr *msg.CarAttribute){
 }
 
 func (this *CarData) UpdateReward(now uint64) {
-	if this.data.GetState() == msg.CarState_Parking {
+	if this.data.GetState() == uint32(msg.CarState_Parking) {
 		//计算停靠公共车位的奖励
 		passedMinute := uint32((now - this.data.GetStarttime()) / 1000 / 60)      // benchmark 效率更好(10倍)
 		reward := (passedMinute * this.GetAttribut().GetReward())
@@ -204,13 +205,12 @@ func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 	}
 }
 
-func (this *ParkingData) TakeBack() uint32 {
+func (this *ParkingData) TakeBack() {
 	this.data.Parkingcar = pb.Uint64(0)
 	this.data.Parkingcarownerid = pb.Uint64(0)
 	this.data.Parkingcarownername = pb.String("")
 	this.data.Parkingcartid = pb.Uint32(0)
 	this.modified = true
-	return reward
 }
 
 func (this *ParkingData) Parking(car *CarData, username string) {
@@ -398,7 +398,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	data.Ownername = pb.String(name)
 	data.Reward.Money = pb.Uint32(0)
 	data.Star = pb.Uint32(0)
-	data.State = pb.Uint32(msg.CarState_Idle)
+	data.State = pb.Uint32(uint32(msg.CarState_Idle))
 	data.Starttime = pb.Uint64(0)
 	data.Endtime = pb.Uint64(0)
 	data.Latitude = pb.Float(0.0)
@@ -688,7 +688,9 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 		return 3, 0
 	}
 	//可以收回
-	reward = parking.TakeBack()
+	parking.TakeBack()
+	car.TakeBack()
+	reward = car.data.Reward.GetMoney()
 	record, notifyuser := "", uint64(0)
 	switch optype {
 	case uint32(msg.CarOperatorType_TakeBack):
@@ -712,7 +714,6 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 		log.Info("玩家[%s %d] 公共车位自动回收车辆[%d]", car.ownername, car.data.GetOwnerid(), car.id)
 		break
 	}
-	car.ParkingCar(0,0)
 
 	//发送操作记录
 	sendOwner := UserMgr().FindById(notifyuser)
