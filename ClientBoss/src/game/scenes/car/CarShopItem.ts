@@ -61,7 +61,7 @@ module game {
                 ]
                 //收益
                 this.percentTxt.textFlow = [
-                    {text:tCarItemData.RewardPerH+"金币"},
+                    //{text:tCarItemData.RewardPerH+"金币"},
                     {text:"\n"+"每分钟"}
                 ]
                 //Icon
