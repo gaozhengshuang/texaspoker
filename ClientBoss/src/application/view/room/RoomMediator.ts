@@ -48,14 +48,14 @@ module game {
 				case CommandName.PLUNDER_SUCCESS:
 					{
 						if (data) {
-							this.sceneGroup.plunderSuccess(data.houseid, data.index, data.gold);
+							this.sceneGroup.plunderSuccess(data.houseid, data.index, data.gold,data.items);
 						}
 						break;
 					}
 				case CommandName.RECEIVE_SUCCESS:
 					{
 						if (data) {
-							this.sceneGroup.receiveSuccess(data.houseid, data.index, data.gold);
+							this.sceneGroup.receiveSuccess(data.houseid, data.index, data.gold,data.items );
 						}
 						break;
 					}
