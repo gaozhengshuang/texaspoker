@@ -47,7 +47,7 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 	this.createtime = bin.GetCreatetime()
 	this.parkingid = bin.GetParkingid()
 	this.ownername = bin.GetOwnername()
-	this.parkingreward = bin.GetParkingreward()
+	// this.parkingreward = bin.GetParkingreward()
 	this.modified = false
 	template, find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
@@ -75,7 +75,7 @@ func (this *CarData) PackBin() *msg.CarData {
 	bin.Createtime = pb.Uint64(this.createtime)
 	bin.Parkingid = pb.Uint64(this.parkingid)
 	bin.Ownername = pb.String(this.ownername)
-	bin.Parkingreward = pb.Uint32(this.parkingreward)
+	// bin.Parkingreward = pb.Uint32(this.parkingreward)
 	return bin
 }
 
