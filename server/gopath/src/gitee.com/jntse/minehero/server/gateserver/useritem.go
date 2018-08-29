@@ -749,3 +749,4 @@ func (this *GateUser) MakeClothes(debris uint32) {
 	this.AddItem(uint32(clothebase.Id), 1, "合成时装", true)
 	return
 }
+
