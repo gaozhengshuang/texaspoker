@@ -163,6 +163,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateCarShopProduct{})
 	this.msgparser.RegistSendProto(msg.GW2C_AddNewCar{})
 
+	// 女仆
+	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
+
+
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
 	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})

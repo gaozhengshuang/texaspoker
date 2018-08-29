@@ -21,7 +21,9 @@ const (
 	RedisKeyMaidRawData = "maidrawdata"
 )
 
-// 女仆
+// --------------------------------------------------------------------------
+/// @brief 女仆
+// --------------------------------------------------------------------------
 type Maid struct {
 	bin *msg.HouseMaidData
 	dirty bool
@@ -95,11 +97,14 @@ func (m *Maid) LoadBin(rbuf []byte) *msg.HouseMaidData {
 }
 
 
-// 女仆管理器
+// --------------------------------------------------------------------------
+/// @brief 女仆管理器
+// --------------------------------------------------------------------------
 type MaidManager struct {
 	ticker1Minite *util.GameTicker
-	maids map[uint64]*Maid					// 所有女佣
-	usermaids map[uint64]map[uint64]*Maid	// 玩家女佣
+	maids map[uint64]*Maid					// 所有女仆
+	usermaids map[uint64]map[uint64]*Maid	// 玩家女仆
+	housemaids map[uint64]map[uint64]*Maid	// 房屋女仆
 }
 
 func (ma *MaidManager) Init() {
@@ -107,6 +112,7 @@ func (ma *MaidManager) Init() {
 	ma.ticker1Minite.Start()
 	ma.maids = make(map[uint64]*Maid)
 	ma.usermaids = make(map[uint64]map[uint64]*Maid)
+	ma.housemaids = make(map[uint64]map[uint64]*Maid)
 }
 
 // 加载所有db女仆
@@ -188,6 +194,5 @@ func (ma *MaidManager) GetUserMaids(uid uint64) map[uint64]*Maid {
 	return maids
 }
 
-
-//
-
+func (ma *MaidManager) SendHouseMaids(houseid uint64) {
+}

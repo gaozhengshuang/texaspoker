@@ -22,15 +22,21 @@ message C2GW_BuyClothes {
     repeated int32 item_list = 1;
 }
 
-// 穿戴服饰
+// 女仆穿戴服饰
 message C2GW_DressClothes {
     optional int32 pos = 1;
     optional int32 itemid = 2;
 }
 
-// 脱下服饰
+// 女仆脱下服饰
 message C2GW_UnDressClothes {
     optional int32 pos = 1;
+}
+
+// 发送玩家房屋女仆信息
+message GW2C_SendHouseMaidInfo {
+    optional uint64 houseid = 1;
+    repeated HouseMaidData maids = 2;
 }
 
 // 合成打造服装
