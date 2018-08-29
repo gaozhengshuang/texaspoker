@@ -108,7 +108,6 @@ module game {
 
         protected beforeShow() {
             this._touchEvent = [
-                { target: this.img_iconmask, callBackFunc: this.switchGender },
                 { target: this.btn_close, callBackFunc: this.OnCloseHandle },
                 { target: this.btn_compose, callBackFunc: this.OnComposeHandle },
             ];
@@ -124,7 +123,6 @@ module game {
             ];
 
             NotificationCenter.addObserver(this, this.OnBagUpdate, PlayerModel.BAG_UPDATE);
-            // NotificationCenter.addObserver(this, this.OnGW2C_RetChangeImageSex, "msg.GW2C_RetChangeImageSex");
 
             //小人动画
             this._roleBone = this._roleBonePool.createObject();
@@ -139,8 +137,6 @@ module game {
 
         protected beforeRemove() {
             NotificationCenter.removeObserver(this, PlayerModel.BAG_UPDATE);
-            // NotificationCenter.removeObserver(this, "msg.GW2C_RetChangeImageSex");
-
             this._roleBonePool.destroyAllObject();
         }
 
@@ -157,19 +153,6 @@ module game {
             this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
         }
 
-        //请求切换性别
-        private switchGender() {
-            // let sex = this.gender == 0 ? 1 : 0;
-            // this.sendmsg_SwitchGender({ sex: sex })
-        }
-
-        //收到消息可以切换性别
-        // private postSwitchGender(data: msg.GW2C_RetChangeImageSex) {
-        //     this._selItems = [];
-        //     this.gender = data.sex;
-        //     this.switchSex();
-        // }
-
         private switchSex()
         {
             this.icon_boy.visible = !this.isGirl;
@@ -177,7 +160,7 @@ module game {
             this.img_boybg.visible = !this.isGirl;
             this.img_girlbg.visible = this.isGirl;
 
-            //穿戴已获得装扮
+            //初始化勾选项
             this.initWears();
             //切换模型骨骼
             this._roleBone.useGirlSpine(this.gender, actionType.Idle);
@@ -234,34 +217,21 @@ module game {
         }
 
         private updateShelf(posType:msg.ItemPos =  msg.ItemPos.Helmet) {
-            this._typeIdx = (this._typeIdx && posType  ) || posType;
+            this._typeIdx = (this._typeIdx && posType) || posType;
 
             let  _partToggle = <ChooseIcon>this._partsToggles.filter(item=>{return item.type==this._typeIdx;})[0].target;
             _partToggle.radioButton.selected = true;
 
-            let _orignDressId = 0;
-            switch (this._typeIdx) {
-                case msg.ItemPos.Helmet:    _orignDressId = 101; break;
-                case msg.ItemPos.Clothes:   _orignDressId = 201; break;
-                case msg.ItemPos.Pants:     _orignDressId = 301; break;
-                case msg.ItemPos.Shoe:      _orignDressId = 401; break;
-                case msg.ItemPos.Hand:      _orignDressId = 601; break;
-                case msg.ItemPos.Wing:      _orignDressId = 501; break;
-                case msg.ItemPos.Suit:      _orignDressId = 701; break;
-            }
-
-            this.setShelf(_orignDressId);
+            this.setShelf();
         }
 
         // 设置装备列表
-        private setShelf(id: number) {
+        private setShelf() {
             this._dataProv.removeAll();
 
-            let dressItem: table.IEquipDefine = null;
-       
-            while ((dressItem = table.EquipById[id++])) {
-                if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
-                    this._dataProv.addItem(dressItem);
+            for (let i = 0; i < table.Equip.length; i++) {
+                if (this._typeIdx == table.Equip[i].Pos && (this.gender == table.Equip[i].Sex || table.Equip[i].Sex == 2)) {
+                    this._dataProv.addItem(table.Equip[i]);
                 }
             }
 
@@ -283,18 +253,6 @@ module game {
             this.updateCoins();
             this.updateItemList(this._typeIdx);
         }
-
-        // private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-        //     DataManager.playerModel.sex = data.sex;
-        //     this.postSwitchGender(data);
-        // }
-
-        //TODO: 发送切换性别消息
-        // private sendmsg_SwitchGender(data: { sex }) {
-        //     sendMessage("msg.C2GW_ChangeImageSex", msg.C2GW_ChangeImageSex.encode({
-        //         sex: data.sex
-        //     }))
-        // }
 
         // 选择项改变
         private onSelItem(e: eui.ItemTapEvent) {
