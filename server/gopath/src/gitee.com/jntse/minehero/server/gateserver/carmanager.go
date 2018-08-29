@@ -766,6 +766,10 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 		user.SendNotify("没有这辆车")
 		return 1,nil
 	}
+	if car.data.GetState() != uint32(msg.CarState_Ready) {
+		user.SendNotify(fmt.Sprintf("当前状态不可以升级 : %d", car.data.GetState()))
+		return 10,nil
+	}
 	partData := car.GetPartByType(parttype)
 	if partData == nil {
 		user.SendNotify("没有这个部件")
@@ -828,7 +832,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	//预测完事了 钱够不够啊
 	if user.GetGold() < costMoney {
 		user.SendNotify("升级货币不足")
-		return 8,nil
+		return 9,nil
 	}
 	//升级
 	leveluped := (partData.GetLevel() != targetlevel)
