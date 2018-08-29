@@ -271,7 +271,7 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 	
 	roommember := (uint32(curnum) + 1)*100 + uint32(index)
 
-	house := HouseSvrMgr().CreateNewHouse(userid, uint32(housetid), user.Name(), building.id, uint32(roommember))
+	house := HouseSvrMgr().CreateNewHouse(userid, uint32(housetid), user.Name(), building.id, uint32(roommember), uint32(square))
 	if house == nil {
 		user.AddGold(uint32(cost), "购买房屋创建失败返还金币", true)
 		log.Error("购买房屋失败创建房屋nil userid:%d buildingid:%d index:%d", userid, buildingid, index)

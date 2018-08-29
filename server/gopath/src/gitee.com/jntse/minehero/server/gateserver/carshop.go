@@ -111,7 +111,7 @@ func (shop *CarShop) Handler1MiniteTick(now int64) {
 	}
 	_, err := pipe.Exec()
 	if err != nil && err != redis.Nil {
-		log.Error("CarShop LoadDB RedisError:%s", err)
+		log.Error("[汽车商店] 定时存盘RedisError:%s", err)
 	}
 	pipe.Close()
 }
@@ -157,7 +157,7 @@ func (shop* CarShop) LoadDB() {
 	}
 	cmds, err := pipe.Exec()
 	if err != nil && err != redis.Nil {
-		log.Error("CarShop LoadDB RedisError:%s ", err)
+		log.Error("[汽车商店] CarShop LoadDB RedisError:%s ", err)
 		return
 	}
 
@@ -181,7 +181,7 @@ func (shop *CarShop) SaveAll() {
 	}
 	_, err := pipe.Exec()
 	if err != nil {
-		log.Error("CarShop SaveAll Error:%s", err)
+		log.Error("[汽车商店] CarShop SaveAll Error:%s", err)
 		return
 	}
 	log.Info("[汽车商店] 保存所有数据")

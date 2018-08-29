@@ -1,5 +1,6 @@
 syntax = "proto2";
 package msg;
+import "define.proto";
 import "serialize.proto";
 
 // 请求房屋信息
@@ -61,6 +62,7 @@ message GW2C_AckTakeSelfHouseGoldRet {
 	optional uint32 index = 2;
 	optional uint32 gold = 3;
 	optional msg.HouseData data = 4;
+	repeated msg.PairNumItem items =5;
 }
 
 //玩家请求抢别人金币
@@ -75,6 +77,7 @@ message GW2C_AckTakeOtherHouseGoldRet {
 	optional uint32 index = 2;
 	optional uint32 gold = 3;
 	optional msg.HouseData data = 4;
+	repeated msg.PairNumItem items =5;
 }
 
 //获取随机的房屋列表

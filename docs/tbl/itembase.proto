@@ -28,10 +28,16 @@ message ItemBaseDataDefine
 	optional uint32 Color = 3; // 1白2绿3蓝4紫5橙
 	
 	
-	optional string Name = 4; // 道具名
+	optional uint32 ImageId = 4; 
 	
 	
-	optional string Desc = 5; // 道具简介
+	optional string Name = 5; // 道具名
+	
+	
+	optional string Desc = 6; // 道具简介
+	
+	
+	optional uint32 Clothes = 7; // 合成时装
 
 }
 

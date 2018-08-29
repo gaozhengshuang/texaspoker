@@ -239,6 +239,7 @@ gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')
 gen.maketbl_json('table', 'Game', 'game.json')
 gen.maketbl_json('table', 'Car', 'car.json')
+gen.maketbl_json('table', 'Mysql', 'mysql.json')
 
 #// --------------------------------------------------------------------------
 #/// @brief 生成自动加载代码
