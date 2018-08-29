@@ -23,6 +23,7 @@ enum ItemId {
 }
 
 enum ItemType {
+    Normal          = 0;    // 普通道具
     Digital         = 1;    // 数码产品
     ShoppingCard    = 2;    // 购物卡
     DailyUse        = 3;    // 生活用品
@@ -34,6 +35,9 @@ enum ItemType {
     Smallware       = 9;    // 小商品
     DiamondItem     = 10;   // 钻石道具
     ClothesItem     = 11;   // 时装
+    HouseParts      = 12;   // 房子配件
+    CarParts        = 13;   // 车子配件
+    MaidParts       = 14;   // 仆人配件
 }
 
 message PairNumItem {

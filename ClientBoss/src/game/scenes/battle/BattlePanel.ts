@@ -325,7 +325,7 @@ module game {
 
             //小人动画
             let _roleBone = this._roleBonePool.createObject();
-            _roleBone.awake();
+            _roleBone.useGirlSpine(SexType.Girl, actionType.Game);
             this.roleBoneGroup.addChild(_roleBone);
             this.roleBoneGroup.setChildIndex(_roleBone, 1);
 
