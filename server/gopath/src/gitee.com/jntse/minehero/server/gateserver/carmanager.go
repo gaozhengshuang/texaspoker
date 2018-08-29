@@ -11,7 +11,6 @@ import (
 	"gitee.com/jntse/minehero/server/tbl/excel"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	"math"
 	"strconv"
 	"time"
 )
@@ -30,6 +29,7 @@ type CarData struct {
 	parkingid     uint64 //车位id
 	ownername     string //拥有者名字
 	parkingreward uint32 // 停车收益(自动回收)
+	level		  uint32 //等级
 	modified      bool   //是否需要保存
 
 	template *table.TCarDefine
@@ -180,13 +180,13 @@ func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 func (this *ParkingData) UpdateReward(car *CarData, now uint64) bool {
 	//计算经过了几个小时了
 	//passedMinute := uint32(math.Floor(time.Duration((now - this.parkingtime) * 1000000).Minutes()))
-	passedMinute := uint32((now - this.parkingtime) / 1000 / 60)		// benchmark 效率更好(10倍)
-	reward := (passedMinute * car.template.RewardPerH * this.template.RewardPercent) / 100
-	reward = uint32(math.Min(float64(reward), float64(car.template.Capacity)))
-	if this.parkingreward != reward {
-		this.parkingreward = reward
-		return true
-	}
+	//passedMinute := uint32((now - this.parkingtime) / 1000 / 60)		// benchmark 效率更好(10倍)
+	// reward := (passedMinute * car.template.RewardPerH * this.template.RewardPercent) / 100
+	// reward = uint32(math.Min(float64(reward), float64(car.template.Capacity)))
+	// if this.parkingreward != reward {
+	// 	this.parkingreward = reward
+	// 	return true
+	// }
 	return false
 }
 func (this *ParkingData) TakeBack() uint32 {
@@ -221,9 +221,9 @@ func (this *ParkingData) IsPrivate() bool {
 }
 
 func (this *ParkingData) IsRewardFull(car *CarData) bool {
-	if car != nil && car.template != nil {
-		return this.parkingreward >= car.template.Capacity
-	}
+	// if car != nil && car.template != nil {
+	// 	return this.parkingreward >= car.template.Capacity
+	// }
 	return false
 }
 

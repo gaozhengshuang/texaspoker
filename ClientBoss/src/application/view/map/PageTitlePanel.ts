@@ -88,7 +88,7 @@ module game {
         
         public removePanel() {
             this.removeTimer();
-            this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+            //this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
         }
     }
 }
