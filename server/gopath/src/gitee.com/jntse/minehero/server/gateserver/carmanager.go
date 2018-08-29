@@ -25,8 +25,6 @@ const (
 type CarData struct {
 	data 		  *msg.CarData
 	modified      bool   //是否需要保存
-
-	template *table.TCarDefine
 }
 
 func (this *CarData) LoadBin(rbuf []byte) error {
@@ -37,12 +35,6 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 
 	this.data = bin
 	this.modified = false
-	template, find := tbl.TCarBase.TCarById[bin.GetTid()]
-	if find == false {
-		log.Error("玩家[%d] 找不到车辆配置[%d]", bin.GetOwnerid(), bin.GetTid())
-	} else {
-		this.template = template
-	}
 	return nil
 }
 
@@ -171,8 +163,6 @@ func (this *CarData) GetRewardPerM() uint32{
 type ParkingData struct {
 	data				*msg.ParkingData
 	modified            bool   //是否需要保存
-
-	template *table.TParkingDefine
 }
 
 func (this *ParkingData) LoadBin(rbuf []byte) error {
@@ -184,12 +174,6 @@ func (this *ParkingData) LoadBin(rbuf []byte) error {
 	this.data = bin
 	this.modified = false
 
-	template, find := tbl.TParkingBase.TParkingById[this.data.GetTid()]
-	if find == false {
-		log.Error("玩家[%d] 找不到车位配置[%d]", this.data.GetOwnerid(), this.data.GetTid())
-	} else {
-		this.template = template
-	}
 	return nil
 }
 
@@ -233,12 +217,12 @@ func (this *ParkingData) Parking(car *CarData, username string) {
 
 // 是否公共车位
 func (this *ParkingData) IsPublic() bool {
-	return this.template.Type == uint32(msg.ParkingType_Public)
+	return this.data.GetParkingtype() == uint32(msg.ParkingType_Public)
 }
 
 // 是否私有车位
 func (this *ParkingData) IsPrivate() bool {
-	return this.template.Type == uint32(msg.ParkingType_Private)
+	return this.data.GetParkingtype() == uint32(msg.ParkingType_Private)
 }
 
 //车辆管理器
@@ -421,7 +405,6 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	//计算属性
 	attr := this.CalculateCarAttribute(data)
 	car.data = data
-	car.template = template
 	car.SetAttribute(attr)
 
 	car.modified = false
@@ -509,24 +492,28 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 
 func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
 	prefix, data := "", ""
+	template, find := tbl.TCarBase.TCarById[car.data.GetTid()]
+	if find == false {
+		return ""
+	}
 	switch opttype {
 	case uint32(msg.CarOperatorType_Park):
 		//停车
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
-		data = prefix + car.data.GetOwnername() + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
+		data = prefix + car.data.GetOwnername() + "将他的" + template.Brand + template.Model + "停在了你的车位"
 		break
 	case uint32(msg.CarOperatorType_TakeBack):
 		//收车
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.data.GetId()), time.Now().Format("15:04"))
-		data = prefix + car.data.GetOwnername() + "开走了他的" + car.template.Brand + car.template.Model
+		data = prefix + car.data.GetOwnername() + "开走了他的" + template.Brand + template.Model
 		break
 	case uint32(msg.CarOperatorType_Ticket):
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
-		data = prefix + parking.data.GetOwnername() + "对你的" + car.template.Brand + car.template.Model + "贴条"
+		data = prefix + parking.data.GetOwnername() + "对你的" + template.Brand + template.Model + "贴条"
 		break
 	case uint32(msg.CarOperatorType_AutoBack):
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
-		data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
+		data = prefix + "公共车位收益满自动回收你的" + template.Brand + template.Model
 		break
 	}
 	// 保存数据
@@ -589,7 +576,7 @@ func (this *CarManager) GetParkingById(ids []uint64) []*ParkingData {
 func (this *CarManager) GetParkingByCondition(parkingtype uint32, playerid uint64, houseids []uint64) []*ParkingData {
 	data := make([]*ParkingData, 0)
 	for _, v := range this.parkings {
-		if parkingtype != 0 && v.template.Type != parkingtype {
+		if parkingtype != 0 && v.data.GetParkingtype() != parkingtype {
 			continue
 		}
 		if playerid != 0 && v.data.GetOwnerid() != playerid {
@@ -628,6 +615,7 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	data := &msg.ParkingData{}
 	data.Id = pb.Uint64(parkingid)
 	data.Tid = pb.Uint32(tid)
+	data.Parkingtype = pb.Uint32(template.Type)
 	data.Ownerid = pb.Uint64(ownerid)
 	data.Parkingcar = pb.Uint64(0)
 	data.Parkingcarownerid = pb.Uint64(0)
@@ -639,7 +627,6 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	data.Houseid = pb.Uint64(hid)
 	parking.data = data
 	parking.modified = false
-	parking.template = template
 	parking.SaveBin(nil)
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
