@@ -29680,198 +29680,6 @@ $root.msg = (function() {
         return GW2C_RetGoldExchange;
     })();
 
-    msg.GW2C_SendShowImage = (function() {
-
-        /**
-         * Properties of a GW2C_SendShowImage.
-         * @memberof msg
-         * @interface IGW2C_SendShowImage
-         * @property {msg.IImageData|null} [images] GW2C_SendShowImage images
-         */
-
-        /**
-         * Constructs a new GW2C_SendShowImage.
-         * @memberof msg
-         * @classdesc Represents a GW2C_SendShowImage.
-         * @implements IGW2C_SendShowImage
-         * @constructor
-         * @param {msg.IGW2C_SendShowImage=} [properties] Properties to set
-         */
-        function GW2C_SendShowImage(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * GW2C_SendShowImage images.
-         * @member {msg.IImageData|null|undefined} images
-         * @memberof msg.GW2C_SendShowImage
-         * @instance
-         */
-        GW2C_SendShowImage.prototype.images = null;
-
-        /**
-         * Creates a new GW2C_SendShowImage instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {msg.IGW2C_SendShowImage=} [properties] Properties to set
-         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage instance
-         */
-        GW2C_SendShowImage.create = function create(properties) {
-            return new GW2C_SendShowImage(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_SendShowImage message. Does not implicitly {@link msg.GW2C_SendShowImage.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {msg.IGW2C_SendShowImage} message GW2C_SendShowImage message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_SendShowImage.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.images != null && message.hasOwnProperty("images"))
-                $root.msg.ImageData.encode(message.images, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_SendShowImage message, length delimited. Does not implicitly {@link msg.GW2C_SendShowImage.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {msg.IGW2C_SendShowImage} message GW2C_SendShowImage message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_SendShowImage.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_SendShowImage message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_SendShowImage.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_SendShowImage();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.images = $root.msg.ImageData.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_SendShowImage message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_SendShowImage.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_SendShowImage message.
-         * @function verify
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_SendShowImage.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.images != null && message.hasOwnProperty("images")) {
-                var error = $root.msg.ImageData.verify(message.images);
-                if (error)
-                    return "images." + error;
-            }
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_SendShowImage message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_SendShowImage} GW2C_SendShowImage
-         */
-        GW2C_SendShowImage.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_SendShowImage)
-                return object;
-            var message = new $root.msg.GW2C_SendShowImage();
-            if (object.images != null) {
-                if (typeof object.images !== "object")
-                    throw TypeError(".msg.GW2C_SendShowImage.images: object expected");
-                message.images = $root.msg.ImageData.fromObject(object.images);
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a GW2C_SendShowImage message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_SendShowImage
-         * @static
-         * @param {msg.GW2C_SendShowImage} message GW2C_SendShowImage
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_SendShowImage.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                object.images = null;
-            if (message.images != null && message.hasOwnProperty("images"))
-                object.images = $root.msg.ImageData.toObject(message.images, options);
-            return object;
-        };
-
-        /**
-         * Converts this GW2C_SendShowImage to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_SendShowImage
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_SendShowImage.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_SendShowImage;
-    })();
-
     msg.C2GW_BuyClothes = (function() {
 
         /**
@@ -30720,6 +30528,251 @@ $root.msg = (function() {
         };
 
         return GW2C_SendHouseMaidInfo;
+    })();
+
+    msg.GW2C_SendUserMaidInfo = (function() {
+
+        /**
+         * Properties of a GW2C_SendUserMaidInfo.
+         * @memberof msg
+         * @interface IGW2C_SendUserMaidInfo
+         * @property {number|Long|null} [userid] GW2C_SendUserMaidInfo userid
+         * @property {Array.<msg.IHouseMaidData>|null} [maids] GW2C_SendUserMaidInfo maids
+         */
+
+        /**
+         * Constructs a new GW2C_SendUserMaidInfo.
+         * @memberof msg
+         * @classdesc Represents a GW2C_SendUserMaidInfo.
+         * @implements IGW2C_SendUserMaidInfo
+         * @constructor
+         * @param {msg.IGW2C_SendUserMaidInfo=} [properties] Properties to set
+         */
+        function GW2C_SendUserMaidInfo(properties) {
+            this.maids = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_SendUserMaidInfo userid.
+         * @member {number|Long} userid
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @instance
+         */
+        GW2C_SendUserMaidInfo.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_SendUserMaidInfo maids.
+         * @member {Array.<msg.IHouseMaidData>} maids
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @instance
+         */
+        GW2C_SendUserMaidInfo.prototype.maids = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_SendUserMaidInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {msg.IGW2C_SendUserMaidInfo=} [properties] Properties to set
+         * @returns {msg.GW2C_SendUserMaidInfo} GW2C_SendUserMaidInfo instance
+         */
+        GW2C_SendUserMaidInfo.create = function create(properties) {
+            return new GW2C_SendUserMaidInfo(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_SendUserMaidInfo message. Does not implicitly {@link msg.GW2C_SendUserMaidInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {msg.IGW2C_SendUserMaidInfo} message GW2C_SendUserMaidInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendUserMaidInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.userid);
+            if (message.maids != null && message.maids.length)
+                for (var i = 0; i < message.maids.length; ++i)
+                    $root.msg.HouseMaidData.encode(message.maids[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_SendUserMaidInfo message, length delimited. Does not implicitly {@link msg.GW2C_SendUserMaidInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {msg.IGW2C_SendUserMaidInfo} message GW2C_SendUserMaidInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendUserMaidInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_SendUserMaidInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_SendUserMaidInfo} GW2C_SendUserMaidInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendUserMaidInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_SendUserMaidInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.uint64();
+                    break;
+                case 2:
+                    if (!(message.maids && message.maids.length))
+                        message.maids = [];
+                    message.maids.push($root.msg.HouseMaidData.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_SendUserMaidInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_SendUserMaidInfo} GW2C_SendUserMaidInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendUserMaidInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_SendUserMaidInfo message.
+         * @function verify
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_SendUserMaidInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.maids != null && message.hasOwnProperty("maids")) {
+                if (!Array.isArray(message.maids))
+                    return "maids: array expected";
+                for (var i = 0; i < message.maids.length; ++i) {
+                    var error = $root.msg.HouseMaidData.verify(message.maids[i]);
+                    if (error)
+                        return "maids." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_SendUserMaidInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_SendUserMaidInfo} GW2C_SendUserMaidInfo
+         */
+        GW2C_SendUserMaidInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_SendUserMaidInfo)
+                return object;
+            var message = new $root.msg.GW2C_SendUserMaidInfo();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
+            if (object.maids) {
+                if (!Array.isArray(object.maids))
+                    throw TypeError(".msg.GW2C_SendUserMaidInfo.maids: array expected");
+                message.maids = [];
+                for (var i = 0; i < object.maids.length; ++i) {
+                    if (typeof object.maids[i] !== "object")
+                        throw TypeError(".msg.GW2C_SendUserMaidInfo.maids: object expected");
+                    message.maids[i] = $root.msg.HouseMaidData.fromObject(object.maids[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_SendUserMaidInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @static
+         * @param {msg.GW2C_SendUserMaidInfo} message GW2C_SendUserMaidInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_SendUserMaidInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.maids = [];
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
+            if (message.maids && message.maids.length) {
+                object.maids = [];
+                for (var j = 0; j < message.maids.length; ++j)
+                    object.maids[j] = $root.msg.HouseMaidData.toObject(message.maids[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_SendUserMaidInfo to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_SendUserMaidInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_SendUserMaidInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_SendUserMaidInfo;
     })();
 
     msg.C2GW_MakeClothes = (function() {

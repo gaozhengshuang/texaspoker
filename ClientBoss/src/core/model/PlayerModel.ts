@@ -37,7 +37,7 @@ module game {
         private _tasks;
         private _houses;
         private _carRecords: string[] = [];
-        private _personalImage: msg.IPersonalImage;
+        private _personalImage: msg.IImageData[];
         private _houseMaidInfo: msg.GW2C_SendHouseMaidInfo;
 
         public RegisterEvent() {
@@ -52,7 +52,6 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
             NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
-            NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord, "msg.GW2C_SynParkingRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack, "msg.GW2C_CarAutoBack");
@@ -215,17 +214,7 @@ module game {
         }
         
         public get clothes() {
-            return this._personalImage && this._personalImage.lists;
-        }
-
-        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-            this._personalImage.lists = this._personalImage.lists.map(
-                item => {
-                    if (item.sex == data.images.sex) return data.images;
-                    return item;
-                }
-            );
-            // this.skillUpdate();
+            return this._personalImage;
         }
 
         public setScore(count: number) {
