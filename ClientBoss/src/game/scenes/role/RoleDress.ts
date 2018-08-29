@@ -395,7 +395,7 @@ module game {
 
         private OnComposeHandle() {
             sendMessage("msg.C2GW_MakeClothes", msg.C2GW_MakeClothes.encode({
-                debris: this._curEquipInfo.DebrisID
+                debris: this._curEquipInfo.DebrisId
             }));
         }
 
@@ -448,10 +448,10 @@ module game {
                     this.composeGroup.visible = false;
                     this.uncomposeGroup.visible = false;
                 } else {
-                    let itemInfo = DataManager.playerModel.getBagItem(this._curEquipInfo.DebrisID);
+                    let itemInfo = DataManager.playerModel.getBagItem(this._curEquipInfo.DebrisId);
                     if (itemInfo) {
-                        this.composeGroup.visible = itemInfo.num >= this._curEquipInfo.MakeNum;
-                        this.uncomposeGroup.visible = itemInfo.num < this._curEquipInfo.MakeNum;
+                        this.composeGroup.visible = itemInfo.num >= this._curEquipInfo.DebrisNum;
+                        this.uncomposeGroup.visible = itemInfo.num < this._curEquipInfo.DebrisNum;
                     } else {
                         this.composeGroup.visible = false;
                         this.uncomposeGroup.visible = true;
