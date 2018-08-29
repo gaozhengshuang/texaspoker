@@ -760,9 +760,105 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 	return 0, reward
 }
 
+func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint32,pieces []*msg.CarPartPiece) (result uint32,data *msg.CarData){
+	car := this.GetCar(carid)
+	if car == nil {
+		user.SendNotify("没有这辆车")
+		return 1,nil
+	}
+	partData := car.GetPartByType(parttype)
+	if partData == nil {
+		user.SendNotify("没有这个部件")
+		return 2,nil
+	}
+	parttemplate,find := tbl.TCarPartBase.TCarPartById[partData.GetPartid()]
+	if find == false {
+		user.SendNotify("没有这个部件的配置文件")
+		return 3,nil
+	}
+	if partData.GetLevel() >= parttemplate.MaxLevel {
+		user.SendNotify("该部件已经满级啦")
+		return 4,nil
+	}
+	//计算可以获得的经验
+	addExp := 0
+	for _,v := range pieces {
+		levelcarpart,find := tbl.TLevelCarPartBase.TLevelCarPartById[v.GetId()]
+		if find == false {
+			user.SendNotify(fmt.Sprintf("没有经验道具 : %d", v.GetId()))
+			return 5,nil
+		}
+		if levelcarpart.PartType != parttype {
+			user.SendNotify(fmt.Sprintf("经验道具不能升级该部件 : %d", v.GetId()))
+			return 6,nil
+		}
+		if user.bag.GetItemNum(v.GetId()) < v.GetNum() {
+			user.SendNotify(fmt.Sprintf("经验道具数量不足 : %d", v.GetId()))
+			return 7,nil
+		}
+		addExp = addExp + (levelcarpart.Exp * v.GetNum())
+	}
+	//预测一下可以升几级
+	targetlevel := partData.GetLevel()
+	targetExp := partData.GetExp()
+	costMoney := 0
+	targetExp = targetExp + addExp
+	levelupConf := this.GetCarPartLevelupConf(partData.GetPartid(),targetlevel)
+	if levelupConf == nil {
+		user.SendNotify("没有升级到这一级的配置")
+		return 8,nil
+	}
+	for {
+		if targetlevel >= parttemplate.MaxLevel || targetExp < levelupConf.Exp {
+			//经验升不了一级啦
+			break
+		}
+		//可以升一级
+		targetlevel = targetlevel + 1
+		targetExp = targetExp - levelupConf.Exp
+		costMoney = costMoney + levelupConf.Cost
+		if targetlevel < parttemplate.MaxLevel {
+			levelupConf = this.GetCarPartLevelupConf(partData.GetPartid(),targetlevel)
+			if levelupConf == nil {
+				user.SendNotify("没有升级到这一级的配置")
+				return 8,nil
+			}
+		}
+	}
+	//预测完事了 钱够不够啊
+	if user.GetGold() < costMoney {
+		user.SendNotify("升级货币不足")
+		return 8,nil
+	}
+	//升级
+	leveluped := (partData.GetLevel() != targetlevel)
+	partData.Level = pb.Uint32(targetlevel)
+	partData.Exp = pb.Uint32(targetExp)
+	if leveluped {
+		attr := this.CalculateCarAttribute(car.data)
+		car.SetAttribute(attr)
+	}
+	//扣钱扣道具
+	user.RemoveGold(costMoney)
+	for _,v := range pieces {
+		user.RemoveItem(v.GetId(),v.GetNum(),"车辆部件升级消耗碎片");
+	}
+
+	return 0,car.data
+}
+
+func (this *CarManager) GetCarPartLevelupConf(partid uint32,level uint32) *table.TCarPartLevelupDefine {
+	partLevelupGroup := this.partlevelupconfs[partid]
+	if partLevelupGroup == nil {
+		return nil
+	}else{
+		return partLevelupGroup[level]
+	}
+}
+
 // 自动从公共车位回收汽车
 func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
-	if !parking.IsPublic() || car == nil || car.IsRewardFull() == false {
+	if parking == nil || !parking.IsPublic() || car == nil || car.IsRewardFull() == false {
 		return
 	}
 
@@ -823,12 +919,11 @@ func (this *CarManager) Handler1MiniteTick(now int64) {
 }
 
 func (this *CarManager) Handler1SecondTick(now int64) {
-	for _, v := range this.parkings {
-		if v.data.GetParkingcar() == 0 {
-			continue
+	for _, v := range this.cars {
+		if v.data.GetState() == uint32(msg.CarState_Parking) {
+			v.UpdateReward(uint64(now))
+			parking := this.GetParking(v.data.GetParkingid())
+			this.AutoTakeBackCar(v, parking)
 		}
-		car := this.GetCar(v.data.GetParkingcar())
-		car.UpdateReward(uint64(now))
-		this.AutoTakeBackCar(car, v)
 	}
 }
