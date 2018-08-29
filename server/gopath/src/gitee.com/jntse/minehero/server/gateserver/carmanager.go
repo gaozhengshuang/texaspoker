@@ -411,6 +411,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	//计算属性
 	attr := this.CalculateCarAttribute(data)
 	car.data = data
+	car.template = template
 	car.SetAttribute(attr)
 
 	car.modified = false
@@ -422,7 +423,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 }
 
 func (this *CarManager) CreateCarPart(id uint32,parttype uint32,data *msg.CarData) {
-	tyreConf, ok := tbl.TCarPartBase.TCarPartById[id]
+	_, ok := tbl.TCarPartBase.TCarPartById[id]
 	if ok == false {
 		log.Error("无效的配件id[%d]", id)
 	}else {
@@ -628,6 +629,7 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	data.Houseid = pb.Uint64(hid)
 	parking.data = data
 	parking.modified = false
+	parking.template = template
 	parking.SaveBin(nil)
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
