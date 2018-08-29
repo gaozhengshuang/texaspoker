@@ -288,12 +288,15 @@ module game {
 
         //获取背包中的物品
         public getBagItem(itemId: number) {
+            let itm:any=null;
             this.bagList.forEach(item => {
+                //egret.log("item.id---->", item.id);
                 if (item.id === itemId) {
-                    return item;
+                    egret.log("itemId--->", itemId);
+                    itm=item;
                 }
             });
-            return null;
+            return itm;
         }
         
         //背包是否有这个物品
