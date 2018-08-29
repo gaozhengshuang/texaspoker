@@ -86,6 +86,14 @@ func (m *Maid) HouseId() uint64 {
 	return m.bin.GetHouseid()
 }
 
+func (m *Maid) TimeStart() int64 {
+	return m.bin.GetTmworking()
+}
+
+func (m *Maid) SetTimeStart(t int64) {
+	m.bin.Tmworking = pb.Int64(t)
+}
+
 func (m *Maid) SaveBin(pipe redis.Pipeliner) {
 	id := strconv.FormatUint(uint64(m.Id()), 10)
 	m.dirty = false
@@ -112,6 +120,7 @@ func (m *Maid) LoadBin(rbuf []byte) *msg.HouseMaidData {
 	return data
 }
 
+// pack时装数据到二进制
 func (m *Maid) PackBin() *msg.HouseMaidData {
 	m.bin.Clothes = make([]*msg.ItemData, 0)
 	for _, item := range m.clothes {
@@ -157,6 +166,8 @@ func (m *Maid) DressClothes(owner *GateUser, pos int32, itemid int32) {
 	copyItem := pb.Clone(newEquip.Bin()).(*msg.ItemData)
 	copyItem.Pos = pb.Int32(pos)
 	m.clothes[pos] = copyItem
+	m.dirty = true
+	m.PackBin()
 	MaidMgr().SendUserMaids(owner)
 }
 
@@ -165,8 +176,10 @@ func (m *Maid) UnDressClothes(owner *GateUser, pos int32, syn bool) {
 	if clothes := m.GetClothesByPos(pos); clothes == nil {
 		return
 	}
-
 	delete(m.clothes, pos)
+	m.dirty = true
+	m.PackBin()
+
 	if syn {
 		MaidMgr().SendUserMaids(owner)
 	}
@@ -175,6 +188,8 @@ func (m *Maid) UnDressClothes(owner *GateUser, pos int32, syn bool) {
 // 脱下全部
 func (m *Maid) UnDressAll(owner *GateUser, syn bool) {
 	m.clothes = make(map[int32]*msg.ItemData)
+	m.dirty = true
+	m.PackBin()
 	if syn {
 		MaidMgr().SendUserMaids(owner)
 	}
@@ -361,3 +376,35 @@ func (ma *MaidManager) SendUserMaids(user *GateUser) {
 	}
 	user.SendMsg(send)
 }
+
+// 升级女仆
+func (this *MaidManager) UpgradeMaid(user *GateUser, maidid uint64) {
+	if user == nil { return }
+	maid := this.GetMaidsById(maidid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆升级配置")
+		return
+	}
+
+	if levelbase.NextLevel == 0 {
+		user.SendNotify("已达到最大等级")
+		return
+	}
+
+	item := user.bag.FindById(levelbase.UpgradeID)
+	if item == nil || item.Num() < levelbase.Upgradenum {
+		user.SendNotify("碎片不足")
+		return
+	}
+
+	user.RemoveItem(levelbase.UpgradeID, levelbase.Upgradenum, "升级女仆")
+	maid.SetLevel(maid.Level() + 1)
+	this.SendUserMaids(user)
+}
+
