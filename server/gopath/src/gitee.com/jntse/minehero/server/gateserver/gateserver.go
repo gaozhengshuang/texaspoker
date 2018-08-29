@@ -250,6 +250,7 @@ func (this *GateServer) Init(fileconf string) bool {
 	this.waitpool.Init()
 	this.roomsvrmgr.Init()
 	this.roommgr.Init()
+	this.InitMySql()
 	//this.carmgr.Init()
 	//this.countmgr.Init()
 	//this.gamemgr.Init()
@@ -268,10 +269,15 @@ func (this *GateServer) InitMySql(){
 	strsql := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=utf8", tbl.Mysql.User, tbl.Mysql.Passwd, tbl.Mysql.Address, tbl.Mysql.Port, tbl.Mysql.Database)
 	db, err := sql.Open("mysql", strsql)
 	if err != nil{
-		log.Error("数据库连接失败")
+		log.Error("数据库连接失败 %s", strsql)
 	}else {
 		this.mysqldb = db
 		this.mysqldb.SetMaxIdleConns(int(tbl.Mysql.Connectnum))
+		if err := this.mysqldb.Ping(); err != nil{
+			log.Error("数据库连接失败 %s", strsql)
+			return
+		}
+		log.Info("数据库连接成功")
 	}
 }
 
