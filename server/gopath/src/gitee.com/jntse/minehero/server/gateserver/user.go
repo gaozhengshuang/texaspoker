@@ -583,6 +583,7 @@ func (this *GateUser) OnCreateNew() {
 	if houseData != nil {
 		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
 		CarMgr().CreateNewParking(this.Id(), 1002, this.Name(), houseData.id)
+		MaidMgr().CreateNewMaid(this.Id(), this.Name(), houseData.id)
 	}
 }
 

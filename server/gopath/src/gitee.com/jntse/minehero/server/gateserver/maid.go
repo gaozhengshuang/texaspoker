@@ -15,6 +15,7 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 
 	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/def"
 )
 
 const (
@@ -75,6 +76,10 @@ func (m *Maid) Dirty() bool {
 	return m.dirty
 }
 
+func (m *Maid) HouseId() uint64 {
+	return m.bin.GetHouseid()
+}
+
 func (m *Maid) SaveBin(pipe redis.Pipeliner) {
 	id := strconv.FormatUint(uint64(m.Id()), 10)
 	m.dirty = false
@@ -105,6 +110,26 @@ type MaidManager struct {
 	maids map[uint64]*Maid					// 所有女仆
 	usermaids map[uint64]map[uint64]*Maid	// 玩家女仆
 	housemaids map[uint64]map[uint64]*Maid	// 房屋女仆
+	//robbermaids map[uint64]map[uint64]*Maid	// 玩家掠夺女仆
+}
+
+func (ma *MaidManager) CreateNewMaid(ownerid uint64, ownername string, houseid uint64) *Maid {
+	uuid, err := def.GenerateMaidId(Redis())
+	if err != "" {
+		return nil
+	}
+
+	bin := &msg.HouseMaidData{}
+	bin.Images = make([]*msg.ImageData, 0)
+	bin.Id = pb.Uint64(uint64(uuid))
+	bin.Level = pb.Int32(1)
+	bin.Ownerid = pb.Uint64(ownerid)
+	bin.Ownername = pb.String(ownername)
+	bin.Houseid = pb.Uint64(houseid)
+
+	maid := &Maid{bin:bin, dirty:true}
+	ma.AddMaid(maid)
+	return maid
 }
 
 func (ma *MaidManager) Init() {
@@ -113,6 +138,7 @@ func (ma *MaidManager) Init() {
 	ma.maids = make(map[uint64]*Maid)
 	ma.usermaids = make(map[uint64]map[uint64]*Maid)
 	ma.housemaids = make(map[uint64]map[uint64]*Maid)
+	ma.LoadDB()
 }
 
 // 加载所有db女仆
@@ -181,11 +207,15 @@ func (ma *MaidManager) Handler1MiniteTick(now int64) {
 
 // 
 func (ma *MaidManager) AddMaid(maid *Maid) {
-	ma.maids[maid.Id()] = maid
 	if _, ok := ma.usermaids[maid.OwnerId()]; ok == false {
 		ma.usermaids[maid.OwnerId()] = make(map[uint64]*Maid)
 	}
+	if _, ok := ma.housemaids[maid.HouseId()]; ok == false {
+		ma.housemaids[maid.HouseId()][maid.Id()] = maid
+	}
+	ma.maids[maid.Id()] = maid
 	ma.usermaids[maid.OwnerId()][maid.Id()] = maid
+	ma.housemaids[maid.OwnerId()][maid.Id()] = maid
 }
 
 // 获得玩家女仆
@@ -194,5 +224,22 @@ func (ma *MaidManager) GetUserMaids(uid uint64) map[uint64]*Maid {
 	return maids
 }
 
+// 发送房子女仆
 func (ma *MaidManager) SendHouseMaids(houseid uint64) {
+}
+
+// 发送玩家女仆
+func (ma *MaidManager) SendUserMaids(user *GateUser) {
+	if user == nil {
+		return
+	}
+	send := &msg.GW2C_SendUserMaidInfo{Userid:pb.Uint64(user.Id()),Maids:make([]*msg.HouseMaidData,0)}
+	maids, ok := ma.usermaids[user.Id()]
+	if ok == true {
+		for _, v := range maids {
+			//send.Maids = append(send.Maids, v.Bin())
+			send.Maids = append(send.Maids, pb.Clone(v.Bin()).(*msg.HouseMaidData))
+		}
+	}
+	user.SendMsg(send)
 }

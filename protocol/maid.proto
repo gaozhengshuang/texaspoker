@@ -4,7 +4,8 @@ import "serialize.proto";
 
 // 当前形象数据
 message GW2C_SendShowImage {
-    optional ImageData images = 1;
+    //optional ImageData images = 1;
+    optional HouseMaidData maids = 1;
 }
 
 //// 切换男女形象
@@ -33,9 +34,15 @@ message C2GW_UnDressClothes {
     optional int32 pos = 1;
 }
 
-// 发送玩家房屋女仆信息
+// 发送房屋女仆信息
 message GW2C_SendHouseMaidInfo {
     optional uint64 houseid = 1;
+    repeated HouseMaidData maids = 2;
+}
+
+// 发送玩家女仆信息
+message GW2C_SendUserMaidInfo {
+    optional uint64 userid = 1;
     repeated HouseMaidData maids = 2;
 }
 
