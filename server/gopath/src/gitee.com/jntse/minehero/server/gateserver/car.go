@@ -14,8 +14,8 @@ func (this *GateUser) SynCarData() {
 	for _, v := range carinfo {
 		tmp := v.PackBin()
 		send.Cardatas = append(send.Cardatas, tmp)
-		if v.parkingid != 0 {
-			carids = append(carids, v.parkingid)
+		if v.data.GetParkingid() != 0 {
+			carids = append(carids, v.data.GetParkingid())
 		}
 	}
 	parkinginfo := CarMgr().GetParkingById(carids)

@@ -13,6 +13,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	"time"
+	"math"
 )
 
 const (
@@ -47,12 +48,12 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 
 func (this *CarData) ParkingCar(id uint64,poid uint64) {
 	this.data.Parkingid = pb.Uint64(id)
-	if poid == this.data.GetOwnerId() {
+	if poid == this.data.GetOwnerid() {
 		//停在自己的停车位上 可以出征咯
-		this.data.State = msg.CarState_Ready
+		this.data.State = pb.Uint32(uint32(msg.CarState_Ready))
 	}else {
 		//停在公共车位上 获得奖励的
-		this.data.State = msg.CarState_Parking
+		this.data.State = pb.Uint32(uint32(msg.CarState_Parking))
 		this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
 	}
 	this.modified = true
@@ -60,12 +61,12 @@ func (this *CarData) ParkingCar(id uint64,poid uint64) {
 
 func (this *CarData) TakeBack() {
 	this.data.Parkingid = pb.Uint64(0)
-	this.data.State = msg.CarState_Idle
+	this.data.State = pb.Uint32(uint32(msg.CarState_Idle))
 	this.modified = true
 }
 
 func (this *CarData) SetRewardMoney(money uint32){
-	reawrdData = this.data.Reward
+	reawrdData := this.data.Reward
 	reawrdData.Money = pb.Uint32(money)
 	this.modified = true
 }
@@ -78,15 +79,15 @@ func (this *CarData) AddRewardItem(id uint32, num uint32) {
 	item := &msg.CarPartPiece{}
 	item.Id = pb.Uint32(id)
 	item.Num = pb.Uint32(num)
-	reawrdData = this.data.Reward
+	rewardData := this.data.Reward
 	rewardData.Items = append(rewardData.Items,item)
 	this.modified = true
 }
 
 func (this *CarData) ClearReward() {
-	reawrdData = this.data.Reward
+	rewardData := this.data.Reward
 	rewardData.Money = 0
-	rewardData.Items = make([]*msg.CarPartPiece)
+	rewardData.Items = make([]*msg.CarPartPiece,0)
 	this.modified = true
 }
 
@@ -113,16 +114,16 @@ func (this *CarData) GetAttribut() *msg.CarAttribute {
 }
 
 func (this *CarData) SetAttribute(attr *msg.CarAttribute){
-	this.data.Attr.Reward = pb.uint32(attr.GetReward())
-	this.data.Attr.Range = pb.uint32(attr.GetRange())
-	this.data.Attr.Itemlimit = pb.uint32(attr.GetItemlimit())
-	this.data.Attr.Moneylimit = pb.uint32(attr.GetMoneylimit())
-	this.data.Attr.Speed = pb.uint32(attr.GetSpeed())
-	this.data.Attr.Stoptime = pb.uint32(attr.GetStoptime())
+	this.data.Attr.Reward = pb.Uint32(attr.GetReward())
+	this.data.Attr.Range = pb.Uint32(attr.GetRange())
+	this.data.Attr.Itemlimit = pb.Uint32(attr.GetItemlimit())
+	this.data.Attr.Moneylimit = pb.Uint32(attr.GetMoneylimit())
+	this.data.Attr.Speed = pb.Uint32(attr.GetSpeed())
+	this.data.Attr.Stoptime = pb.Uint32(attr.GetStoptime())
 }
 
-func (this *CarData) UpdateReward(uint64 now) {
-	if this.data.GetState() == msg.CarState_Parking {
+func (this *CarData) UpdateReward(now uint64) {
+	if this.data.GetState() == uint32(msg.CarState_Parking) {
 		//计算停靠公共车位的奖励
 		passedMinute := uint32((now - this.data.GetStarttime()) / 1000 / 60)      // benchmark 效率更好(10倍)
 		reward := (passedMinute * this.GetAttribut().GetReward())
@@ -204,12 +205,12 @@ func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
 	}
 }
 
-func (this *ParkingData) TakeBack() uint32 {
+func (this *ParkingData) TakeBack() {
 	this.data.Parkingcar = pb.Uint64(0)
 	this.data.Parkingcarownerid = pb.Uint64(0)
 	this.data.Parkingcarownername = pb.String("")
 	this.data.Parkingcartid = pb.Uint32(0)
-	return reward
+	this.modified = true
 }
 
 func (this *ParkingData) Parking(car *CarData, username string) {
@@ -217,6 +218,7 @@ func (this *ParkingData) Parking(car *CarData, username string) {
 	this.data.Parkingcarownerid = pb.Uint64(car.data.GetOwnerid())
 	this.data.Parkingcarownername = pb.String(username)
 	this.data.Parkingcartid = pb.Uint32(car.data.GetTid())
+	this.modified = true
 }
 
 // 是否公共车位
@@ -239,6 +241,7 @@ type CarManager struct {
 	publicparkings uint32                  // 公共车位数
 
 	//配置
+	partlevelupconfs map[uint32]map[uint32]*table.TCarPartLevelupDefine
 
 	ticker1Minite *util.GameTicker
 	ticker1Second *util.GameTicker
@@ -337,6 +340,18 @@ func (this *CarManager) LoadParkingFromDB() {
 	log.Info("加载所有车位DB数据 size=%d", len(this.parkings))
 }
 
+func (this *CarManager) LoadLevelupConf() {
+	tbl.TCarBase.TCarById[bin.GetTid()]
+	for _, v := range tbl.TCarPartLevelupById {
+		levelupConfForPart = this.partlevelupconfs[v.Partid]
+		if levelupConfForPart == nil {
+			levelupConfForPart := make(map[uint32]*table.TCarPartLevelupDefine,0)
+			this.partlevelupconfs[v.Partid] = levelupConfForPart
+		}
+		levelupConfForPart[v.Level] = v
+	}
+}
+
 func (this *CarManager) GetCar(id uint64) *CarData {
 	if _, ok := this.cars[id]; ok {
 		return this.cars[id]
@@ -374,14 +389,31 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	}
 	//查表去获取房屋的配置信息创建
 	car := &CarData{}
-	car.id = carid
-	car.ownerid = ownerid
-	car.tid = tid
-	car.template = template
-	car.parkingid = 0
-	car.createtime = uint64(util.CURTIMEMS())
-	car.ownername = name
-	car.parkingreward = 0
+	data := &msg.CarData{}
+	data.Id = pb.Uint64(carid)
+	data.Tid = pb.Uint32(tid)
+	data.Ownerid = pb.Uint64(ownerid)
+	data.Createtime = pb.Uint64(uint64(util.CURTIMEMS()))
+	data.Parkingid = pb.Uint64(0)
+	data.Ownername = pb.String(name)
+	data.Reward.Money = pb.Uint32(0)
+	data.Star = pb.Uint32(0)
+	data.State = pb.Uint32(uint32(msg.CarState_Idle))
+	data.Starttime = pb.Uint64(0)
+	data.Endtime = pb.Uint64(0)
+	data.Latitude = pb.Float(0.0)
+	data.Longitude = pb.Float(0.0)
+	//创建部件
+	this.CreateCarPart(template.Tyre,msg.CarPartType_Tyre,data)
+	this.CreateCarPart(template.Tank,msg.CarPartType_Tank,data)
+	this.CreateCarPart(template.Trunk,msg.CarPartType_Trunk,data)
+	this.CreateCarPart(template.Engine,msg.CarPartType_Engine,data)
+	this.CreateCarPart(template.Battery,msg.CarPartType_Battery,data)
+	//计算属性
+	attr := this.CalculateCarAttribute(data)
+	car.data = data
+	car.SetAttribute(attr)
+
 	car.modified = false
 
 	car.SaveBin(nil)
@@ -390,12 +422,47 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	return car
 }
 
-func (this *CarManager) AddCar(car *CarData) {
-	this.cars[car.id] = car
-	if _, ok := this.usercars[car.ownerid]; !ok {
-		this.usercars[car.ownerid] = make([]uint64, 0)
+func (this *CarManager) CreateCarPart(id uint32,parttype uint32,data *msg.CarData) {
+	tyreConf, ok := tbl.TCarPartBase.TCarPartById[id]
+	if ok == false {
+		log.Error("无效的配件id[%d]", id)
+	}else {
+		partData := &msg.CarPartData{}
+		partData.Partid = pb.Uint32(id)
+		partData.Parttype = pb.Uint32(parttype)
+		partData.Level = pb.Uint32(1)
+		partData.Exp = pb.Uint32(0)
+		data.Parts = append(data.Parts, partData)
 	}
-	this.usercars[car.ownerid] = append(this.usercars[car.ownerid], car.id)
+}
+
+func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttribute {
+	attr := &msg.CarAttribute{}
+	//部件属性
+	for _, v := range data.Parts {
+		partConf, ok := tbl.TCarPartBase.TCarPartById[v.GetPartid()]
+		if ok == false {
+			log.Error("无效的配件id[%d]", id)
+		}else {
+			attr.Reward = attr.Reward + (partConf.RewardInit + partConf.RewardAddition * v.GetLevel())
+			attr.Range = attr.Range + (partConf.RangeInit + partConf.RangeAddition * v.GetLevel())
+			attr.Itemlimit = attr.Itemlimit + (partConf.ItemLimitInit + partConf.ItemLimitAddition * v.GetLevel())
+			attr.Moneylimit = attr.Moneylimit + (partConf.MoneyLimitInit + partConf.MoneyLimitAddition * v.GetLevel())
+			attr.Speed = attr.Speed + (partConf.SpeedInit + partConf.SpeedAddition * v.GetLevel())
+			attr.Stoptime = attr.Stoptime + (partConf.StopTimeInit + partConf.StopTimeAddition * v.GetLevel())
+		}
+	}
+	//星级属性 暂未
+	return attr
+}
+
+
+func (this *CarManager) AddCar(car *CarData) {
+	this.cars[car.data.GetId()] = car
+	if _, ok := this.usercars[car.data.GetOwnerid()]; !ok {
+		this.usercars[car.data.GetOwnerid()] = make([]uint64, 0)
+	}
+	this.usercars[car.data.GetOwnerid()] = append(this.usercars[car.data.GetOwnerid()], car.data.GetId())
 }
 
 func (this *CarManager) GetCarByUser(uid uint64) []*CarData {
@@ -490,7 +557,7 @@ func (this* CarManager) GetParkingByHouse(uid uint64,hid uint64) []*ParkingData 
 	ids := this.userparkings[uid]
 	for _, v := range ids {
 		parkingInfo := this.GetParking(v)
-		if(parkingInfo.houseid != hid){
+		if(parkingInfo.data.GetHouseid() != hid){
 			continue
 		}
 		data = append(data, parkingInfo)
@@ -515,7 +582,7 @@ func (this *CarManager) GetParkingByCondition(parkingtype uint32, playerid uint6
 		if parkingtype != 0 && v.template.Type != parkingtype {
 			continue
 		}
-		if playerid != 0 && v.ownerid != playerid {
+		if playerid != 0 && v.data.GetOwnerid() != playerid {
 			continue
 		}
 
@@ -525,7 +592,7 @@ func (this *CarManager) GetParkingByCondition(parkingtype uint32, playerid uint6
 			}
 			return false
 		}
-		if len(houseids) > 0 && findHouse(v.houseid) == false {
+		if len(houseids) > 0 && findHouse(v.data.GetHouseid()) == false {
 			continue
 		}
 
@@ -548,18 +615,19 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	}
 	//查表去获取房屋的配置信息创建
 	parking := &ParkingData{}
-	parking.id = parkingid
-	parking.ownerid = ownerid
-	parking.ownername = name
-	parking.tid = tid
-	parking.template = template
-	parking.parkingcar = 0
-	parking.parkingcarownerid = 0
-	parking.parkingcarownername = ""
-	parking.parkingtime = 0
-	parking.parkingreward = 0
-	parking.parkingcartid = 0
-	parking.houseid = hid
+	data := &msg.ParkingData{}
+	data.Id = pb.Uint64(parkingid)
+	data.Tid = pb.Uint32(tid)
+	data.Ownerid = pb.Uint64(ownerid)
+	data.Parkingcar = pb.Uint64(0)
+	data.Parkingcarownerid = pb.Uint64(0)
+	data.Parkingcarownername = pb.String("")
+	data.Parkingtime = pb.Uint64(0)
+	data.Parkingreward = pb.Uint32(0)
+	data.Ownername = pb.String(name)
+	data.Parkingcartid = pb.Uint32(0)
+	data.Houseid = pb.Uint64(hid)
+	parking.data = data
 	parking.modified = false
 	parking.SaveBin(nil)
 	Redis().SAdd(ParkingIdSetKey, parkingid)
@@ -568,11 +636,11 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 }
 
 func (this *CarManager) AddParking(parking *ParkingData) {
-	this.parkings[parking.id] = parking
-	if _, ok := this.userparkings[parking.ownerid]; !ok {
-		this.userparkings[parking.ownerid] = make([]uint64, 0)
+	this.parkings[parking.data.GetId()] = parking
+	if _, ok := this.userparkings[parking.data.GetOwnerid()]; !ok {
+		this.userparkings[parking.data.GetOwnerid()] = make([]uint64, 0)
 	}
-	this.userparkings[parking.ownerid] = append(this.userparkings[parking.ownerid], parking.id)
+	this.userparkings[parking.data.GetOwnerid()] = append(this.userparkings[parking.data.GetOwnerid()], parking.data.GetId())
 }
 
 // 停车到车位
@@ -582,18 +650,20 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	if car == nil || parking == nil {
 		return 1
 	}
-	if car.parkingid != 0 {
+	if car.data.GetParkingid() != 0 {
 		return 2
 	}
-	if parking.parkingcar != 0 {
+	if parking.data.GetParkingcar() != 0 {
 		return 3
+	}
+	if parking.data.GetOwnerid() != 0 && parking.data.GetOwnerid() != car.data.GetOwnerid() {
+		//既不是公共车位 也不是自己的车位
+		return 4
 	}
 	//可以了
 	car.ParkingCar(parkingid,parking.data.GetOwnerid())
 	parking.Parking(car, username)
 	record := this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
-	car.modified = true
-	parking.modified = true
 
 	//发送操作记录
 	sendOwner := UserMgr().FindById(parking.ownerid)
@@ -610,41 +680,40 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 	if parking == nil {
 		return 1, 0
 	}
-	if parking.parkingcar == 0 {
+	if parking.data.GetParkingcar() == 0 {
 		return 2, 0
 	}
-	car := this.GetCar(parking.parkingcar)
+	car := this.GetCar(parking.data.GetParkingcar())
 	if car == nil {
 		return 3, 0
 	}
 	//可以收回
-	reward = parking.TakeBack()
+	parking.TakeBack()
+	car.TakeBack()
+	reward = car.data.Reward.GetMoney()
 	record, notifyuser := "", uint64(0)
 	switch optype {
 	case uint32(msg.CarOperatorType_TakeBack):
-		record = this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
-		notifyuser = parking.ownerid
+		record = this.CreateNewRecord(car.data.GetOwnerid(), parking.data.GetOwnerid(), car, parking, uint32(msg.CarOperatorType_TakeBack), reward)
+		notifyuser = parking.data.GetOwnerid()
 		user.AddGold(reward, "收回车辆收益", true)
 		break
 	case uint32(msg.CarOperatorType_Ticket):
-		record = this.CreateNewRecord(parking.ownerid, car.ownerid, car, parking, uint32(msg.CarOperatorType_Ticket), reward)
-		notifyuser = car.ownerid
+		record = this.CreateNewRecord(parking.data.GetOwnerid(), car.data.GetOwnerid(), car, parking, uint32(msg.CarOperatorType_Ticket), reward)
+		notifyuser = car.data.GetOwnerid()
 		user.AddGold(reward, "贴条车辆收益", true)
-		reaper := UserMgr().FindById(parking.ownerid)
+		reaper := UserMgr().FindById(parking.data.GetOwnerid())
 		if reaper != nil {
 			reaper.AddGold(reward, "贴条车辆收益", true)
 		}
 		break
 	case uint32(msg.CarOperatorType_AutoBack):
-		record = this.CreateNewRecord(parking.id, car.ownerid, car, parking, uint32(msg.CarOperatorType_AutoBack), reward)
-		notifyuser = car.ownerid
+		record = this.CreateNewRecord(parking.data.GetId(), car.data.GetOwnerid(), car, parking, uint32(msg.CarOperatorType_AutoBack), reward)
+		notifyuser = car.data.GetOwnerid()
 		car.SetRewardMoney(reward)
-		log.Info("玩家[%s %d] 公共车位自动回收车辆[%d]", car.ownername, car.ownerid, car.id)
+		log.Info("玩家[%s %d] 公共车位自动回收车辆[%d]", car.ownername, car.data.GetOwnerid(), car.id)
 		break
 	}
-	car.ParkingCar(0,0)
-	car.modified = true
-	parking.modified = true
 
 	//发送操作记录
 	sendOwner := UserMgr().FindById(notifyuser)
@@ -662,17 +731,18 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 		return 0, 0
 	}
 
-	if user.Id() != car.ownerid {
+	if user.Id() != car.data.GetOwnerid() {
 		user.SendNotify("这不是您的车辆")
 		return 0, 0
 	}
 
-	if car.parkingreward == 0 {
+	if car.data.Reward.GetMoney() == 0 {
 		user.SendNotify("车辆没有可领取收益")
 		return 0, 0
 	}
 
-	reward = car.parkingreward
+	reward = car.data.Reward.GetMoney()
+	//TODO 还有物品哦
 	user.AddGold(reward, "领取自动回收收益", true)
 	car.ClearReward()
 	user.SendNotify("领取成功")
@@ -681,15 +751,15 @@ func (this *CarManager) TakeCarAutoBackReward(user *GateUser, carid uint64) (res
 
 // 自动从公共车位回收汽车
 func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
-	if !parking.IsPublic() || car == nil || parking.IsRewardFull(car) == false {
+	if !parking.IsPublic() || car == nil || car.IsRewardFull() == false {
 		return
 	}
 
-	user := UserMgr().FindById(car.ownerid)
-	this.TakeBackFromParking(user, car.parkingid, uint32(msg.CarOperatorType_AutoBack))
+	user := UserMgr().FindById(car.data.GetOwnerid())
+	this.TakeBackFromParking(user, car.data.GetParkingid(), uint32(msg.CarOperatorType_AutoBack))
 
 	if user != nil {
-		automsg := &msg.GW2C_CarAutoBack{Carid:pb.Uint64(car.id)}
+		automsg := &msg.GW2C_CarAutoBack{Carid:pb.Uint64(car.data.GetId())}
 		user.SendMsg(automsg)
 	}
 }
@@ -723,9 +793,9 @@ func (this *CarManager) GetParkingHouseList(uid uint64) []uint64 {
 	retIds := make([]uint64, 0)
 	cars := this.GetCarByUser(uid)
 	for _, c := range cars {
-		if c.parkingid != 0 {
-			parking := this.GetParking(c.parkingid)
-			retIds = append(retIds, parking.houseid)
+		if c.data.GetParkingid() != 0 {
+			parking := this.GetParking(c.data.GetParkingid())
+			retIds = append(retIds, parking.data.GetHouseid())
 		}
 	}
 	return retIds
@@ -743,11 +813,11 @@ func (this *CarManager) Handler1MiniteTick(now int64) {
 
 func (this *CarManager) Handler1SecondTick(now int64) {
 	for _, v := range this.parkings {
-		if v.parkingcar == 0 {
+		if v.data.GetParkingcar() == 0 {
 			continue
 		}
-		car := this.GetCar(v.parkingcar)
-		v.UpdateReward(car, uint64(now))
+		car := this.GetCar(v.data.GetParkingcar())
+		car.UpdateReward(uint64(now))
 		this.AutoTakeBackCar(car, v)
 	}
 }

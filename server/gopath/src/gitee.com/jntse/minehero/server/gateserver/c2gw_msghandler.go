@@ -1072,7 +1072,7 @@ func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	if car == nil {
 		result, reward = 1, 0
 	} else {
-		result, reward = CarMgr().TakeBackFromParking(user, car.parkingid, uint32(msg.CarOperatorType_TakeBack))
+		result, reward = CarMgr().TakeBackFromParking(user, car.data.GetParkingid(), uint32(msg.CarOperatorType_TakeBack))
 	}
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
