@@ -182,7 +182,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_ParkCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TicketCarResult{})
-	this.msgparser.RegistSendProto(msg.GW2C_SynParkingRecord{})11
+	this.msgparser.RegistSendProto(msg.GW2C_SynParkingRecord{})
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetTakeCarAutoBackReward{})
 	this.msgparser.RegistSendProto(msg.GW2C_CarAutoBack{})
