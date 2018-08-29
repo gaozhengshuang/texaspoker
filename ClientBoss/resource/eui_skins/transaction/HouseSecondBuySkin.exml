@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HouseSecondBuySkin" width="720" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" top="0" alpha="0.9" source="trading_bottom_bar_png"/>
+	<e:Group x="30" y="192">
+		<e:Label text="单价：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="unitPrice" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="30" y="227">
+		<e:Label text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="baseInconmeTxt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="30" y="262">
+		<e:Label text="目前估值：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="curTotalPriceTxt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="551.5" y="192">
+		<e:Label text="客房：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="guestRoom" text="Lv5" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="551.5" y="228">
+		<e:Label text="厨房：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="kitchenTxt" text="Lv5" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="551.5" y="263">
+		<e:Label text="卫生间：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="bathroomTxt" text="Lv5" x="80" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="408" y="192">
+		<e:Label text="客厅：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="livingRoomTxt" text="Lv5" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="408" y="227">
+		<e:Label text="餐厅：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="diningHallTxt" text="Lv5" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="408" y="263">
+		<e:Label text="主卧：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="masterBedroomTxt" text="Lv5" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="408" y="298">
+		<e:Label text="次卧：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="secondBedroom" text="Lv5" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Label id="priceLabel" text="500,000金币" x="317.5" y="405" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF"/>
+	<e:Label text="价格：" x="233.18" y="405" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF"/>
+	<e:Label id="typeTxt" text="1室厅1厨1卫(50平)" y="100" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" x="248"/>
+	<e:Label text="资产详情" y="142" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" horizontalCenter="0"/>
+	<e:Label id="typeTxt0" text="城市花园1" fontFamily="Microsoft YaHei" size="20" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" stroke="2" textAlign="center" verticalAlign="middle" anchorOffsetY="10" y="33" scaleX="1" scaleY="1" horizontalCenter="0"/>
+	<e:Group horizontalCenter="0" y="53">
+		<e:Image id="star5" x="433.5" y="69" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star0" x="443.5" y="79" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star1" x="453.5" y="-2" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star2" x="463.5" y="99" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star3" x="473.5" y="109" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:layout>
+		<e:HorizontalLayout/>
+		</e:layout>
+	</e:Group>
+	<e:Button id="buyBtn" label="购买" skinName="CommonBtnSkin" horizontalCenter="0" bottom="30"/>
+	<e:Label id="timeLabel" text="00:00:00" x="556.68" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="14"/>
+	<e:Label text="交易结束" x="633" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="14"/>
+	<e:Label id="posTxt" text="上海市闵行区" x="52.02" y="106" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center"/>
+	<e:Image x="17.5" y="81" source="trading_pos_png"/>
+	<e:Image x="0" y="335" source="room_line1_png" width="720"/>
+	<e:Image x="0" y="135" source="room_line1_png" width="720"/>
+</e:Skin>
