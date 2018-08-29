@@ -69,7 +69,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
+	//this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetNewPlayerStep{}, on_C2GW_ReqSetNewPlayerStep)
 
@@ -87,6 +87,16 @@ func (this *C2GWMsgHandler) Init() {
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
+
+	// 女仆
+	this.msgparser.RegistProtoMsg(msg.C2GW_MakeClothes{}, 		on_C2GW_MakeClothes)
+	this.msgparser.RegistProtoMsg(msg.C2GW_MaidUpgrade{}, 		on_C2GW_MaidUpgrade)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TakeMaidEarning{}, 	on_C2GW_TakeMaidEarning)
+	this.msgparser.RegistProtoMsg(msg.C2GW_RobMaid{}, 			on_C2GW_RobMaid)
+	this.msgparser.RegistProtoMsg(msg.C2GW_EnableMaidDropTo{}, 	on_C2GW_EnableMaidDropTo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_RobMaidToHouse{}, 	on_C2GW_RobMaidToHouse)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TackBackMaid{}, 		on_C2GW_TackBackMaid)
+	this.msgparser.RegistProtoMsg(msg.C2GW_SendBackMaid{}, 		on_C2GW_SendBackMaid)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
@@ -125,7 +135,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
 	//this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendShowImage{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendShowImage{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendTaskList{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
@@ -134,7 +144,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseData{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckNewPlayerStep{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseLevelUp{})
@@ -162,6 +172,11 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendCarShopInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateCarShopProduct{})
 	this.msgparser.RegistSendProto(msg.GW2C_AddNewCar{})
+
+	// 女仆
+	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
+	this.msgparser.RegistSendProto(msg.GW2C_SendUserMaidInfo{})
+
 
 	// Room
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
@@ -778,31 +793,38 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
+	//if user.IsInRoom() {
+	//	//user.SendRoomMsg(tmsg)
+	//	user.SendNotify("正在游戏中")
+	//	return
+	//}
 
 	if def.IsValidEquipPos(tmsg.GetPos()) == false {
 		user.SendNotify("无效的穿戴部位")
 		return
 	}
 
-	// 套装
-	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || user.image.IsHaveDressSuit() == true {
-		user.image.UnDressAll(false)
-	} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
-		user.image.UnDressClothes(int32(msg.ItemPos_Clothes), false) // 脱掉上衣
-		user.image.UnDressClothes(int32(msg.ItemPos_Pants), false)   // 脱掉裤子
-	} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
-		user.image.UnDressClothes(int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
-		user.image.UnDressClothes(tmsg.GetPos(), false)
-	} else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
-		user.image.UnDressClothes(tmsg.GetPos(), false)
+	// 获得女仆
+	maid := MaidMgr().GetMaidsById(tmsg.GetId())
+	if maid == nil {
+		user.SendNotify("您没有任何女仆")
+		return
 	}
 
-	user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
+	// 套装
+	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || maid.IsHaveDressSuit() == true {
+		maid.UnDressAll(user, false)
+	} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
+		maid.UnDressClothes(user, int32(msg.ItemPos_Clothes), false) // 脱掉上衣
+		maid.UnDressClothes(user, int32(msg.ItemPos_Pants), false)   // 脱掉裤子
+	} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
+		maid.UnDressClothes(user, int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
+		maid.UnDressClothes(user, tmsg.GetPos(), false)
+	} else if maid.GetClothesByPos(tmsg.GetPos()) != nil {
+		maid.UnDressClothes(user, tmsg.GetPos(), false)
+	}
+
+	maid.DressClothes(user, tmsg.GetPos(), tmsg.GetItemid())
 }
 
 func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
@@ -814,42 +836,47 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 		return
 	}
 
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
+	//if user.IsInRoom() {
+	//	//user.SendRoomMsg(tmsg)
+	//	user.SendNotify("正在游戏中")
+	//	return
+	//}
+
+	// 获得女仆
+	maid := MaidMgr().GetMaidsById(tmsg.GetId())
+	if maid == nil {
+		user.SendNotify("您没有任何女仆")
 		return
 	}
-
-	// 脱下
-	user.image.UnDressClothes(tmsg.GetPos(), true)
+	maid.UnDressClothes(user, tmsg.GetPos(), true)
 }
 
-func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ChangeImageSex)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
-
-	if user.Sex() == tmsg.GetSex() {
-		user.SendNotify("和当前性别一致，无需切换")
-		return
-	}
-
-	user.SetSex(tmsg.GetSex())
-	send := &msg.GW2C_RetChangeImageSex{Sex: pb.Int32(user.Sex())}
-	user.SendMsg(send)
-
-	user.image.SendShowImage()
-}
+//func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.C2GW_ChangeImageSex)
+//	user := ExtractSessionUser(session)
+//	if user == nil {
+//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+//		session.Close()
+//		return
+//	}
+//
+//	if user.IsInRoom() {
+//		//user.SendRoomMsg(tmsg)
+//		user.SendNotify("正在游戏中")
+//		return
+//	}
+//
+//	if user.Sex() == tmsg.GetSex() {
+//		user.SendNotify("和当前性别一致，无需切换")
+//		return
+//	}
+//
+//	user.SetSex(tmsg.GetSex())
+//	send := &msg.GW2C_RetChangeImageSex{Sex: pb.Int32(user.Sex())}
+//	user.SendMsg(send)
+//
+//	maid.SendShowImage()
+//}
 
 func on_C2GW_ReqCarShopInfo(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
@@ -873,6 +900,27 @@ func on_C2GW_BuyCarFromShop(session network.IBaseNetSession, message interface{}
 
 	Carshop().BuyCar(user, tmsg.GetShopid(), tmsg.GetPid())
 }
+
+// 合成时装
+func on_C2GW_MakeClothes(session network.IBaseNetSession, message interface{}) {
+	;
+}
+func on_C2GW_MaidUpgrade(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_TakeMaidEarning(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_EnableMaidDropTo(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_RobMaidToHouse(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_TackBackMaid(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
+}
+
+
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)

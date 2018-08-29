@@ -1,4 +1,5 @@
 package main
+/*
 import (
 	"strconv"
 	"gitee.com/jntse/minehero/pbmsg"
@@ -160,4 +161,4 @@ func (this *UserImage) GetEquipSkills() []int32 {
 	return skills
 }
 
-
+*/

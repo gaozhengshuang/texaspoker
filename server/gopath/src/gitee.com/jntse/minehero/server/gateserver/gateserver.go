@@ -15,6 +15,8 @@ import (
 	"runtime/debug"
 	"strings"
 	"time"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func SignalInt(signal os.Signal) {
@@ -66,6 +68,8 @@ type GateServer struct {
 	housesvrmgr   HouseManager
 	buildingmgr   BuildingManager
 	carshop       CarShop
+	mysqldb		  *sql.DB
+	maidmgr		MaidManager
 }
 
 var g_GateServer *GateServer = nil
@@ -89,6 +93,10 @@ func UserMgr() *UserManager {
 	return &GateSvr().usermgr
 }
 
+func MysqlDB() *sql.DB{
+	return GateSvr().mysqldb
+}
+
 func WaitPool() *LoginWaitPool {
 	return &GateSvr().waitpool
 }
@@ -109,6 +117,10 @@ func HouseSvrMgr() *HouseManager {
 }
 func BuildSvrMgr() *BuildingManager {
 	return &GateSvr().buildingmgr
+}
+
+func MaidMgr() *MaidManager {
+	return &GateSvr().maidmgr
 }
 
 func Carshop() *CarShop {
@@ -252,6 +264,17 @@ func (this *GateServer) Init(fileconf string) bool {
 	return true
 }
 
+func (this *GateServer) InitMySql(){
+	strsql := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=utf8", tbl.Mysql.User, tbl.Mysql.Passwd, tbl.Mysql.Address, tbl.Mysql.Port, tbl.Mysql.Database)
+	db, err := sql.Open("mysql", strsql)
+	if err != nil{
+		log.Error("数据库连接失败")
+	}else {
+		this.mysqldb = db
+		this.mysqldb.SetMaxIdleConns(int(tbl.Mysql.Connectnum))
+	}
+}
+
 func (this *GateServer) Handler1mTick(now int64) {
 	this.rcounter.BatchSave(20)
 }
@@ -346,6 +369,7 @@ func (this *GateServer) OnStart() {
 	this.buildingmgr.Init()
 	this.housesvrmgr.Init()
 	this.carmgr.Init()
+	this.maidmgr.Init()
 	this.carshop.Init()
 	log.Info("结束执行OnStart")
 }
@@ -357,8 +381,10 @@ func (this *GateServer) OnStop() {
 	}
 	this.housesvrmgr.SaveAllHousesData()
 	this.buildingmgr.SaveAllBuildings()
+	this.maidmgr.SaveAll()
 	this.carshop.SaveAll()
 	this.hredis.Close()
+	this.mysqldb.Close()
 }
 
 func (this *GateServer) ClientListenerConf() *network.WsListenConf {
@@ -385,6 +411,7 @@ func (this *GateServer) Run() {
 	this.usermgr.Tick(now)
 	this.roommgr.Tick(now)
 	this.carmgr.Tick(now)
+	this.maidmgr.Tick(now)
 	this.carshop.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 

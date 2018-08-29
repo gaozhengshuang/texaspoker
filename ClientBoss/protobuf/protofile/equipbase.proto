@@ -53,6 +53,12 @@ message EquipDefine
 	
 	
 	optional string Suit = 12; // 图集名称
+	
+	
+	optional int32 DebrisID = 13; // 碎片ID
+	
+	
+	optional int32 MakeNum = 14; // 合成数量
 
 }
 

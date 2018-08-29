@@ -128,7 +128,7 @@ module game {
 		}
 		private openTransactionRequset(eve:BasicEvent):void
 		{
-			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_SALE_ROOM_LIST,{action:1});
+			ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_TRADING);
 		}
 		private buyHouseRequset(eve:BasicEvent):void
 		{

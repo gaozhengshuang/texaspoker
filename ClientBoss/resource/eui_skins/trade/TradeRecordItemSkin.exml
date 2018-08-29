@@ -14,11 +14,7 @@
 		<e:Label id="baseIncomeTxt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
 		<e:Label text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
 	</e:Group>
-	<e:Group x="13" verticalCenter="0">
-		<e:Image id="iconImg" verticalCenter="0" source="huxing_1001_s_png" y="-90" scaleX="1" scaleY="1"/>
-		<e:Label id="typeTxt0" text="城市花园1" fontFamily="Microsoft YaHei" size="20" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" stroke="2" textAlign="center" verticalAlign="middle" anchorOffsetY="10" y="12" scaleX="1" scaleY="1" horizontalCenter="0"/>
-		<game:TradeStar id="tradeStar" skinName="TradeStarSkin" x="4" y="33"/>
-	</e:Group>
+    <game:TradeIcon id="icon" skinName="TradeIconSkin" verticalCenter="0" x="13"/>
 	<e:Image id="dealDoneFlag" x="672.52" y="9" source="trading_pos_png"/>
 	<e:Image id="returnedFlag" x="672.52" y="9" source="trading_pos_png"/>
 	<e:Image id="buySuccessFlag" x="335" y="0" source="trading_pos_png"/>
