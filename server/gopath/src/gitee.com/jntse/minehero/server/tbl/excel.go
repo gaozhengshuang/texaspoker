@@ -15,10 +15,12 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 var MusicBase = table.InsMusicBaseTable
 var LevelBasee = table.InsLevelBaseeTable
+var TCarStarAttrBase = table.InsTCarStarAttrBaseTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var CarShopBase = table.InsCarShopBaseTable
 var TBirckBase = table.InsTBirckBaseTable
+var TLevelCarPartBase = table.InsTLevelCarPartBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
@@ -29,6 +31,8 @@ var SignBase = table.InsSignBaseTable
 var THouseCellBase = table.InsTHouseCellBaseTable
 var TCarBase = table.InsTCarBaseTable
 var NameBase = table.InsNameBaseTable
+var TCarPartBase = table.InsTCarPartBaseTable
+var TCarPartLevelupBase = table.InsTCarPartLevelupBaseTable
 var TBallBase = table.InsTBallBaseTable
 var TEquipBase = table.InsTEquipBaseTable
 var TCitysBase = table.InsTCitysBaseTable
