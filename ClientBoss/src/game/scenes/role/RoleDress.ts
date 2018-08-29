@@ -217,34 +217,21 @@ module game {
         }
 
         private updateShelf(posType:msg.ItemPos =  msg.ItemPos.Helmet) {
-            this._typeIdx = (this._typeIdx && posType  ) || posType;
+            this._typeIdx = (this._typeIdx && posType) || posType;
 
             let  _partToggle = <ChooseIcon>this._partsToggles.filter(item=>{return item.type==this._typeIdx;})[0].target;
             _partToggle.radioButton.selected = true;
 
-            let _orignDressId = 0;
-            switch (this._typeIdx) {
-                case msg.ItemPos.Helmet:    _orignDressId = 101; break;
-                case msg.ItemPos.Clothes:   _orignDressId = 201; break;
-                case msg.ItemPos.Pants:     _orignDressId = 301; break;
-                case msg.ItemPos.Shoe:      _orignDressId = 401; break;
-                case msg.ItemPos.Hand:      _orignDressId = 601; break;
-                case msg.ItemPos.Wing:      _orignDressId = 501; break;
-                case msg.ItemPos.Suit:      _orignDressId = 701; break;
-            }
-
-            this.setShelf(_orignDressId);
+            this.setShelf();
         }
 
         // 设置装备列表
-        private setShelf(id: number) {
+        private setShelf() {
             this._dataProv.removeAll();
 
-            let dressItem: table.IEquipDefine = null;
-       
-            while ((dressItem = table.EquipById[id++])) {
-                if (dressItem.Sex == this.gender || dressItem.Sex == 2) {
-                    this._dataProv.addItem(dressItem);
+            for (let i = 0; i < table.Equip.length; i++) {
+                if (this._typeIdx == table.Equip[i].Pos && (this.gender == table.Equip[i].Sex || table.Equip[i].Sex == 2)) {
+                    this._dataProv.addItem(table.Equip[i]);
                 }
             }
 

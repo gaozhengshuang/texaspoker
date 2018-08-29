@@ -7237,6 +7237,7 @@ $root.msg = (function() {
          * @property {number|null} [earning] HouseMaidData earning
          * @property {number|Long|null} [houseid] HouseMaidData houseid
          * @property {number|null} [sex] HouseMaidData sex
+         * @property {number|Long|null} [tmworking] HouseMaidData tmworking
          */
 
         /**
@@ -7336,6 +7337,14 @@ $root.msg = (function() {
         HouseMaidData.prototype.sex = 0;
 
         /**
+         * HouseMaidData tmworking.
+         * @member {number|Long} tmworking
+         * @memberof msg.HouseMaidData
+         * @instance
+         */
+        HouseMaidData.prototype.tmworking = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
          * Creates a new HouseMaidData instance using the specified properties.
          * @function create
          * @memberof msg.HouseMaidData
@@ -7380,6 +7389,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 9, wireType 0 =*/72).uint64(message.houseid);
             if (message.sex != null && message.hasOwnProperty("sex"))
                 writer.uint32(/* id 10, wireType 0 =*/80).int32(message.sex);
+            if (message.tmworking != null && message.hasOwnProperty("tmworking"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int64(message.tmworking);
             return writer;
         };
 
@@ -7445,6 +7456,9 @@ $root.msg = (function() {
                     break;
                 case 10:
                     message.sex = reader.int32();
+                    break;
+                case 11:
+                    message.tmworking = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7517,6 +7531,9 @@ $root.msg = (function() {
             if (message.sex != null && message.hasOwnProperty("sex"))
                 if (!$util.isInteger(message.sex))
                     return "sex: integer expected";
+            if (message.tmworking != null && message.hasOwnProperty("tmworking"))
+                if (!$util.isInteger(message.tmworking) && !(message.tmworking && $util.isInteger(message.tmworking.low) && $util.isInteger(message.tmworking.high)))
+                    return "tmworking: integer|Long expected";
             return null;
         };
 
@@ -7588,6 +7605,15 @@ $root.msg = (function() {
                     message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
             if (object.sex != null)
                 message.sex = object.sex | 0;
+            if (object.tmworking != null)
+                if ($util.Long)
+                    (message.tmworking = $util.Long.fromValue(object.tmworking)).unsigned = false;
+                else if (typeof object.tmworking === "string")
+                    message.tmworking = parseInt(object.tmworking, 10);
+                else if (typeof object.tmworking === "number")
+                    message.tmworking = object.tmworking;
+                else if (typeof object.tmworking === "object")
+                    message.tmworking = new $util.LongBits(object.tmworking.low >>> 0, object.tmworking.high >>> 0).toNumber();
             return message;
         };
 
@@ -7632,6 +7658,11 @@ $root.msg = (function() {
                 } else
                     object.houseid = options.longs === String ? "0" : 0;
                 object.sex = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.tmworking = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tmworking = options.longs === String ? "0" : 0;
             }
             if (message.clothes && message.clothes.length) {
                 object.clothes = [];
@@ -7668,6 +7699,11 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
             if (message.sex != null && message.hasOwnProperty("sex"))
                 object.sex = message.sex;
+            if (message.tmworking != null && message.hasOwnProperty("tmworking"))
+                if (typeof message.tmworking === "number")
+                    object.tmworking = options.longs === String ? String(message.tmworking) : message.tmworking;
+                else
+                    object.tmworking = options.longs === String ? $util.Long.prototype.toString.call(message.tmworking) : options.longs === Number ? new $util.LongBits(message.tmworking.low >>> 0, message.tmworking.high >>> 0).toNumber() : message.tmworking;
             return object;
         };
 
@@ -16453,21 +16489,21 @@ $root.msg = (function() {
      * ItemId enum.
      * @name msg.ItemId
      * @enum {string}
-     * @property {number} YuanBao=6001 YuanBao value
-     * @property {number} Diamond=6002 Diamond value
-     * @property {number} Gold=6003 Gold value
-     * @property {number} FreeStep=6005 FreeStep value
-     * @property {number} RedDiamond=10001 RedDiamond value
-     * @property {number} RedDiamondParts=10002 RedDiamondParts value
+     * @property {number} YuanBao=60001 YuanBao value
+     * @property {number} Diamond=60002 Diamond value
+     * @property {number} Gold=60003 Gold value
+     * @property {number} FreeStep=60005 FreeStep value
+     * @property {number} RedDiamond=100001 RedDiamond value
+     * @property {number} RedDiamondParts=100002 RedDiamondParts value
      */
     msg.ItemId = (function() {
         var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[6001] = "YuanBao"] = 6001;
-        values[valuesById[6002] = "Diamond"] = 6002;
-        values[valuesById[6003] = "Gold"] = 6003;
-        values[valuesById[6005] = "FreeStep"] = 6005;
-        values[valuesById[10001] = "RedDiamond"] = 10001;
-        values[valuesById[10002] = "RedDiamondParts"] = 10002;
+        values[valuesById[60001] = "YuanBao"] = 60001;
+        values[valuesById[60002] = "Diamond"] = 60002;
+        values[valuesById[60003] = "Gold"] = 60003;
+        values[valuesById[60005] = "FreeStep"] = 60005;
+        values[valuesById[100001] = "RedDiamond"] = 100001;
+        values[valuesById[100002] = "RedDiamondParts"] = 100002;
         return values;
     })();
 
@@ -16475,6 +16511,7 @@ $root.msg = (function() {
      * ItemType enum.
      * @name msg.ItemType
      * @enum {string}
+     * @property {number} Normal=0 Normal value
      * @property {number} Digital=1 Digital value
      * @property {number} ShoppingCard=2 ShoppingCard value
      * @property {number} DailyUse=3 DailyUse value
@@ -16485,10 +16522,15 @@ $root.msg = (function() {
      * @property {number} Advertisement=8 Advertisement value
      * @property {number} Smallware=9 Smallware value
      * @property {number} DiamondItem=10 DiamondItem value
-     * @property {number} ClothesItem=11 ClothesItem value
+     * @property {number} ClothesParts=11 ClothesParts value
+     * @property {number} HouseParts=12 HouseParts value
+     * @property {number} CarParts=13 CarParts value
+     * @property {number} MaidParts=14 MaidParts value
+     * @property {number} ClothesItem=15 ClothesItem value
      */
     msg.ItemType = (function() {
         var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "Normal"] = 0;
         values[valuesById[1] = "Digital"] = 1;
         values[valuesById[2] = "ShoppingCard"] = 2;
         values[valuesById[3] = "DailyUse"] = 3;
@@ -16499,7 +16541,11 @@ $root.msg = (function() {
         values[valuesById[8] = "Advertisement"] = 8;
         values[valuesById[9] = "Smallware"] = 9;
         values[valuesById[10] = "DiamondItem"] = 10;
-        values[valuesById[11] = "ClothesItem"] = 11;
+        values[valuesById[11] = "ClothesParts"] = 11;
+        values[valuesById[12] = "HouseParts"] = 12;
+        values[valuesById[13] = "CarParts"] = 13;
+        values[valuesById[14] = "MaidParts"] = 14;
+        values[valuesById[15] = "ClothesItem"] = 15;
         return values;
     })();
 
@@ -31037,7 +31083,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.debris != null && message.hasOwnProperty("debris"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.debris);
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.debris);
             return writer;
         };
 
@@ -31073,7 +31119,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.debris = reader.int32();
+                    message.debris = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -31129,7 +31175,7 @@ $root.msg = (function() {
                 return object;
             var message = new $root.msg.C2GW_MakeClothes();
             if (object.debris != null)
-                message.debris = object.debris | 0;
+                message.debris = object.debris >>> 0;
             return message;
         };
 
@@ -51747,9 +51793,9 @@ $root.table = (function() {
             if (message.Suit != null && message.hasOwnProperty("Suit"))
                 writer.uint32(/* id 12, wireType 2 =*/98).string(message.Suit);
             if (message.DebrisID != null && message.hasOwnProperty("DebrisID"))
-                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.DebrisID);
+                writer.uint32(/* id 13, wireType 0 =*/104).uint32(message.DebrisID);
             if (message.MakeNum != null && message.hasOwnProperty("MakeNum"))
-                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.MakeNum);
+                writer.uint32(/* id 14, wireType 0 =*/112).uint32(message.MakeNum);
             return writer;
         };
 
@@ -51825,10 +51871,10 @@ $root.table = (function() {
                     message.Suit = reader.string();
                     break;
                 case 13:
-                    message.DebrisID = reader.int32();
+                    message.DebrisID = reader.uint32();
                     break;
                 case 14:
-                    message.MakeNum = reader.int32();
+                    message.MakeNum = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -51965,9 +52011,9 @@ $root.table = (function() {
             if (object.Suit != null)
                 message.Suit = String(object.Suit);
             if (object.DebrisID != null)
-                message.DebrisID = object.DebrisID | 0;
+                message.DebrisID = object.DebrisID >>> 0;
             if (object.MakeNum != null)
-                message.MakeNum = object.MakeNum | 0;
+                message.MakeNum = object.MakeNum >>> 0;
             return message;
         };
 
@@ -54730,6 +54776,521 @@ $root.table = (function() {
         };
 
         return TLevelDefine;
+    })();
+
+    table.LevelMaid = (function() {
+
+        /**
+         * Properties of a LevelMaid.
+         * @memberof table
+         * @interface ILevelMaid
+         * @property {Array.<table.ITLevelMaidDefine>|null} [TLevelMaid] LevelMaid TLevelMaid
+         */
+
+        /**
+         * Constructs a new LevelMaid.
+         * @memberof table
+         * @classdesc Represents a LevelMaid.
+         * @implements ILevelMaid
+         * @constructor
+         * @param {table.ILevelMaid=} [properties] Properties to set
+         */
+        function LevelMaid(properties) {
+            this.TLevelMaid = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * LevelMaid TLevelMaid.
+         * @member {Array.<table.ITLevelMaidDefine>} TLevelMaid
+         * @memberof table.LevelMaid
+         * @instance
+         */
+        LevelMaid.prototype.TLevelMaid = $util.emptyArray;
+
+        /**
+         * Creates a new LevelMaid instance using the specified properties.
+         * @function create
+         * @memberof table.LevelMaid
+         * @static
+         * @param {table.ILevelMaid=} [properties] Properties to set
+         * @returns {table.LevelMaid} LevelMaid instance
+         */
+        LevelMaid.create = function create(properties) {
+            return new LevelMaid(properties);
+        };
+
+        /**
+         * Encodes the specified LevelMaid message. Does not implicitly {@link table.LevelMaid.verify|verify} messages.
+         * @function encode
+         * @memberof table.LevelMaid
+         * @static
+         * @param {table.ILevelMaid} message LevelMaid message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LevelMaid.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TLevelMaid != null && message.TLevelMaid.length)
+                for (var i = 0; i < message.TLevelMaid.length; ++i)
+                    $root.table.TLevelMaidDefine.encode(message.TLevelMaid[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified LevelMaid message, length delimited. Does not implicitly {@link table.LevelMaid.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.LevelMaid
+         * @static
+         * @param {table.ILevelMaid} message LevelMaid message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LevelMaid.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a LevelMaid message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.LevelMaid
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.LevelMaid} LevelMaid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LevelMaid.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.LevelMaid();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TLevelMaid && message.TLevelMaid.length))
+                        message.TLevelMaid = [];
+                    message.TLevelMaid.push($root.table.TLevelMaidDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a LevelMaid message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.LevelMaid
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.LevelMaid} LevelMaid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LevelMaid.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a LevelMaid message.
+         * @function verify
+         * @memberof table.LevelMaid
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        LevelMaid.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TLevelMaid != null && message.hasOwnProperty("TLevelMaid")) {
+                if (!Array.isArray(message.TLevelMaid))
+                    return "TLevelMaid: array expected";
+                for (var i = 0; i < message.TLevelMaid.length; ++i) {
+                    var error = $root.table.TLevelMaidDefine.verify(message.TLevelMaid[i]);
+                    if (error)
+                        return "TLevelMaid." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a LevelMaid message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.LevelMaid
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.LevelMaid} LevelMaid
+         */
+        LevelMaid.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.LevelMaid)
+                return object;
+            var message = new $root.table.LevelMaid();
+            if (object.TLevelMaid) {
+                if (!Array.isArray(object.TLevelMaid))
+                    throw TypeError(".table.LevelMaid.TLevelMaid: array expected");
+                message.TLevelMaid = [];
+                for (var i = 0; i < object.TLevelMaid.length; ++i) {
+                    if (typeof object.TLevelMaid[i] !== "object")
+                        throw TypeError(".table.LevelMaid.TLevelMaid: object expected");
+                    message.TLevelMaid[i] = $root.table.TLevelMaidDefine.fromObject(object.TLevelMaid[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a LevelMaid message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.LevelMaid
+         * @static
+         * @param {table.LevelMaid} message LevelMaid
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        LevelMaid.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TLevelMaid = [];
+            if (message.TLevelMaid && message.TLevelMaid.length) {
+                object.TLevelMaid = [];
+                for (var j = 0; j < message.TLevelMaid.length; ++j)
+                    object.TLevelMaid[j] = $root.table.TLevelMaidDefine.toObject(message.TLevelMaid[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this LevelMaid to JSON.
+         * @function toJSON
+         * @memberof table.LevelMaid
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        LevelMaid.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return LevelMaid;
+    })();
+
+    table.TLevelMaidDefine = (function() {
+
+        /**
+         * Properties of a TLevelMaidDefine.
+         * @memberof table
+         * @interface ITLevelMaidDefine
+         * @property {number|null} [Id] TLevelMaidDefine Id
+         * @property {Array.<string>|null} [Upgrade] TLevelMaidDefine Upgrade
+         * @property {number|null} [ProduceGold] TLevelMaidDefine ProduceGold
+         * @property {number|Long|null} [ProduceTime] TLevelMaidDefine ProduceTime
+         * @property {number|null} [NextLevel] TLevelMaidDefine NextLevel
+         */
+
+        /**
+         * Constructs a new TLevelMaidDefine.
+         * @memberof table
+         * @classdesc Represents a TLevelMaidDefine.
+         * @implements ITLevelMaidDefine
+         * @constructor
+         * @param {table.ITLevelMaidDefine=} [properties] Properties to set
+         */
+        function TLevelMaidDefine(properties) {
+            this.Upgrade = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TLevelMaidDefine Id.
+         * @member {number} Id
+         * @memberof table.TLevelMaidDefine
+         * @instance
+         */
+        TLevelMaidDefine.prototype.Id = 0;
+
+        /**
+         * TLevelMaidDefine Upgrade.
+         * @member {Array.<string>} Upgrade
+         * @memberof table.TLevelMaidDefine
+         * @instance
+         */
+        TLevelMaidDefine.prototype.Upgrade = $util.emptyArray;
+
+        /**
+         * TLevelMaidDefine ProduceGold.
+         * @member {number} ProduceGold
+         * @memberof table.TLevelMaidDefine
+         * @instance
+         */
+        TLevelMaidDefine.prototype.ProduceGold = 0;
+
+        /**
+         * TLevelMaidDefine ProduceTime.
+         * @member {number|Long} ProduceTime
+         * @memberof table.TLevelMaidDefine
+         * @instance
+         */
+        TLevelMaidDefine.prototype.ProduceTime = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * TLevelMaidDefine NextLevel.
+         * @member {number} NextLevel
+         * @memberof table.TLevelMaidDefine
+         * @instance
+         */
+        TLevelMaidDefine.prototype.NextLevel = 0;
+
+        /**
+         * Creates a new TLevelMaidDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {table.ITLevelMaidDefine=} [properties] Properties to set
+         * @returns {table.TLevelMaidDefine} TLevelMaidDefine instance
+         */
+        TLevelMaidDefine.create = function create(properties) {
+            return new TLevelMaidDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TLevelMaidDefine message. Does not implicitly {@link table.TLevelMaidDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {table.ITLevelMaidDefine} message TLevelMaidDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TLevelMaidDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Upgrade != null && message.Upgrade.length)
+                for (var i = 0; i < message.Upgrade.length; ++i)
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.Upgrade[i]);
+            if (message.ProduceGold != null && message.hasOwnProperty("ProduceGold"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ProduceGold);
+            if (message.ProduceTime != null && message.hasOwnProperty("ProduceTime"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.ProduceTime);
+            if (message.NextLevel != null && message.hasOwnProperty("NextLevel"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.NextLevel);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TLevelMaidDefine message, length delimited. Does not implicitly {@link table.TLevelMaidDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {table.ITLevelMaidDefine} message TLevelMaidDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TLevelMaidDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TLevelMaidDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TLevelMaidDefine} TLevelMaidDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TLevelMaidDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TLevelMaidDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    if (!(message.Upgrade && message.Upgrade.length))
+                        message.Upgrade = [];
+                    message.Upgrade.push(reader.string());
+                    break;
+                case 3:
+                    message.ProduceGold = reader.uint32();
+                    break;
+                case 4:
+                    message.ProduceTime = reader.int64();
+                    break;
+                case 5:
+                    message.NextLevel = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TLevelMaidDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TLevelMaidDefine} TLevelMaidDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TLevelMaidDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TLevelMaidDefine message.
+         * @function verify
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TLevelMaidDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Upgrade != null && message.hasOwnProperty("Upgrade")) {
+                if (!Array.isArray(message.Upgrade))
+                    return "Upgrade: array expected";
+                for (var i = 0; i < message.Upgrade.length; ++i)
+                    if (!$util.isString(message.Upgrade[i]))
+                        return "Upgrade: string[] expected";
+            }
+            if (message.ProduceGold != null && message.hasOwnProperty("ProduceGold"))
+                if (!$util.isInteger(message.ProduceGold))
+                    return "ProduceGold: integer expected";
+            if (message.ProduceTime != null && message.hasOwnProperty("ProduceTime"))
+                if (!$util.isInteger(message.ProduceTime) && !(message.ProduceTime && $util.isInteger(message.ProduceTime.low) && $util.isInteger(message.ProduceTime.high)))
+                    return "ProduceTime: integer|Long expected";
+            if (message.NextLevel != null && message.hasOwnProperty("NextLevel"))
+                if (!$util.isInteger(message.NextLevel))
+                    return "NextLevel: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TLevelMaidDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TLevelMaidDefine} TLevelMaidDefine
+         */
+        TLevelMaidDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TLevelMaidDefine)
+                return object;
+            var message = new $root.table.TLevelMaidDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Upgrade) {
+                if (!Array.isArray(object.Upgrade))
+                    throw TypeError(".table.TLevelMaidDefine.Upgrade: array expected");
+                message.Upgrade = [];
+                for (var i = 0; i < object.Upgrade.length; ++i)
+                    message.Upgrade[i] = String(object.Upgrade[i]);
+            }
+            if (object.ProduceGold != null)
+                message.ProduceGold = object.ProduceGold >>> 0;
+            if (object.ProduceTime != null)
+                if ($util.Long)
+                    (message.ProduceTime = $util.Long.fromValue(object.ProduceTime)).unsigned = false;
+                else if (typeof object.ProduceTime === "string")
+                    message.ProduceTime = parseInt(object.ProduceTime, 10);
+                else if (typeof object.ProduceTime === "number")
+                    message.ProduceTime = object.ProduceTime;
+                else if (typeof object.ProduceTime === "object")
+                    message.ProduceTime = new $util.LongBits(object.ProduceTime.low >>> 0, object.ProduceTime.high >>> 0).toNumber();
+            if (object.NextLevel != null)
+                message.NextLevel = object.NextLevel | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TLevelMaidDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TLevelMaidDefine
+         * @static
+         * @param {table.TLevelMaidDefine} message TLevelMaidDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TLevelMaidDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Upgrade = [];
+            if (options.defaults) {
+                object.Id = 0;
+                object.ProduceGold = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.ProduceTime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.ProduceTime = options.longs === String ? "0" : 0;
+                object.NextLevel = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Upgrade && message.Upgrade.length) {
+                object.Upgrade = [];
+                for (var j = 0; j < message.Upgrade.length; ++j)
+                    object.Upgrade[j] = message.Upgrade[j];
+            }
+            if (message.ProduceGold != null && message.hasOwnProperty("ProduceGold"))
+                object.ProduceGold = message.ProduceGold;
+            if (message.ProduceTime != null && message.hasOwnProperty("ProduceTime"))
+                if (typeof message.ProduceTime === "number")
+                    object.ProduceTime = options.longs === String ? String(message.ProduceTime) : message.ProduceTime;
+                else
+                    object.ProduceTime = options.longs === String ? $util.Long.prototype.toString.call(message.ProduceTime) : options.longs === Number ? new $util.LongBits(message.ProduceTime.low >>> 0, message.ProduceTime.high >>> 0).toNumber() : message.ProduceTime;
+            if (message.NextLevel != null && message.hasOwnProperty("NextLevel"))
+                object.NextLevel = message.NextLevel;
+            return object;
+        };
+
+        /**
+         * Converts this TLevelMaidDefine to JSON.
+         * @function toJSON
+         * @memberof table.TLevelMaidDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TLevelMaidDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TLevelMaidDefine;
     })();
 
     table.MusicBase = (function() {

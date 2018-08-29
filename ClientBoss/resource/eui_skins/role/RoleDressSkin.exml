@@ -6,7 +6,7 @@
 
 	<e:Group id="roleGroup" width="721.21" height="53%" anchorOffsetX="0" anchorOffsetY="0" top="0" horizontalCenter="0.5">
 
-		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" verticalCenter="-20.5" horizontalCenter="247.39499999999998">
+		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" verticalCenter="-20.5" horizontalCenter="247.39499999999998" visible="false">
 		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" width="220" height="280" y="0" x="0"/>
 		</e:Group>
 		<e:Group id="topGroup" width="720" height="100" y="0" x="0" scaleX="1" scaleY="1">

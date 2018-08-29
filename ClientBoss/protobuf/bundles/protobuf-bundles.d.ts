@@ -3065,6 +3065,9 @@ declare namespace msg {
 
         /** HouseMaidData sex */
         sex?: (number|null);
+
+        /** HouseMaidData tmworking */
+        tmworking?: (number|Long|null);
     }
 
     /** Represents an HouseMaidData. */
@@ -3105,6 +3108,9 @@ declare namespace msg {
 
         /** HouseMaidData sex. */
         public sex: number;
+
+        /** HouseMaidData tmworking. */
+        public tmworking: (number|Long);
 
         /**
          * Creates a new HouseMaidData instance using the specified properties.
@@ -6695,16 +6701,17 @@ declare namespace msg {
 
     /** ItemId enum. */
     enum ItemId {
-        YuanBao = 6001,
-        Diamond = 6002,
-        Gold = 6003,
-        FreeStep = 6005,
-        RedDiamond = 10001,
-        RedDiamondParts = 10002
+        YuanBao = 60001,
+        Diamond = 60002,
+        Gold = 60003,
+        FreeStep = 60005,
+        RedDiamond = 100001,
+        RedDiamondParts = 100002
     }
 
     /** ItemType enum. */
     enum ItemType {
+        Normal = 0,
         Digital = 1,
         ShoppingCard = 2,
         DailyUse = 3,
@@ -6715,7 +6722,11 @@ declare namespace msg {
         Advertisement = 8,
         Smallware = 9,
         DiamondItem = 10,
-        ClothesItem = 11
+        ClothesParts = 11,
+        HouseParts = 12,
+        CarParts = 13,
+        MaidParts = 14,
+        ClothesItem = 15
     }
 
     /** Properties of a PairNumItem. */
@@ -23142,6 +23153,210 @@ declare namespace table {
 
         /**
          * Converts this TLevelDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a LevelMaid. */
+    interface ILevelMaid {
+
+        /** LevelMaid TLevelMaid */
+        TLevelMaid?: (table.ITLevelMaidDefine[]|null);
+    }
+
+    /** Represents a LevelMaid. */
+    class LevelMaid implements ILevelMaid {
+
+        /**
+         * Constructs a new LevelMaid.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ILevelMaid);
+
+        /** LevelMaid TLevelMaid. */
+        public TLevelMaid: table.ITLevelMaidDefine[];
+
+        /**
+         * Creates a new LevelMaid instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LevelMaid instance
+         */
+        public static create(properties?: table.ILevelMaid): table.LevelMaid;
+
+        /**
+         * Encodes the specified LevelMaid message. Does not implicitly {@link table.LevelMaid.verify|verify} messages.
+         * @param message LevelMaid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ILevelMaid, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified LevelMaid message, length delimited. Does not implicitly {@link table.LevelMaid.verify|verify} messages.
+         * @param message LevelMaid message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ILevelMaid, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a LevelMaid message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LevelMaid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.LevelMaid;
+
+        /**
+         * Decodes a LevelMaid message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LevelMaid
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.LevelMaid;
+
+        /**
+         * Verifies a LevelMaid message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LevelMaid message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LevelMaid
+         */
+        public static fromObject(object: { [k: string]: any }): table.LevelMaid;
+
+        /**
+         * Creates a plain object from a LevelMaid message. Also converts values to other types if specified.
+         * @param message LevelMaid
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.LevelMaid, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LevelMaid to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TLevelMaidDefine. */
+    interface ITLevelMaidDefine {
+
+        /** TLevelMaidDefine Id */
+        Id?: (number|null);
+
+        /** TLevelMaidDefine Upgrade */
+        Upgrade?: (string[]|null);
+
+        /** TLevelMaidDefine ProduceGold */
+        ProduceGold?: (number|null);
+
+        /** TLevelMaidDefine ProduceTime */
+        ProduceTime?: (number|Long|null);
+
+        /** TLevelMaidDefine NextLevel */
+        NextLevel?: (number|null);
+    }
+
+    /** Represents a TLevelMaidDefine. */
+    class TLevelMaidDefine implements ITLevelMaidDefine {
+
+        /**
+         * Constructs a new TLevelMaidDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITLevelMaidDefine);
+
+        /** TLevelMaidDefine Id. */
+        public Id: number;
+
+        /** TLevelMaidDefine Upgrade. */
+        public Upgrade: string[];
+
+        /** TLevelMaidDefine ProduceGold. */
+        public ProduceGold: number;
+
+        /** TLevelMaidDefine ProduceTime. */
+        public ProduceTime: (number|Long);
+
+        /** TLevelMaidDefine NextLevel. */
+        public NextLevel: number;
+
+        /**
+         * Creates a new TLevelMaidDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TLevelMaidDefine instance
+         */
+        public static create(properties?: table.ITLevelMaidDefine): table.TLevelMaidDefine;
+
+        /**
+         * Encodes the specified TLevelMaidDefine message. Does not implicitly {@link table.TLevelMaidDefine.verify|verify} messages.
+         * @param message TLevelMaidDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITLevelMaidDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TLevelMaidDefine message, length delimited. Does not implicitly {@link table.TLevelMaidDefine.verify|verify} messages.
+         * @param message TLevelMaidDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITLevelMaidDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TLevelMaidDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TLevelMaidDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TLevelMaidDefine;
+
+        /**
+         * Decodes a TLevelMaidDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TLevelMaidDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TLevelMaidDefine;
+
+        /**
+         * Verifies a TLevelMaidDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TLevelMaidDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TLevelMaidDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TLevelMaidDefine;
+
+        /**
+         * Creates a plain object from a TLevelMaidDefine message. Also converts values to other types if specified.
+         * @param message TLevelMaidDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TLevelMaidDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TLevelMaidDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
