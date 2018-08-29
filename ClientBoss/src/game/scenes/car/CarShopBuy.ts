@@ -50,7 +50,7 @@ module game {
                 { text: carItemData.Brand+"-"+carItemData.Model, style: { bold: true } },
             ]
             //属性
-            this.txt_info.text = "产能："+ carItemData.RewardPerH + "金币/小时" + "\n"+"价格："+ carItemData.Price+"金币";
+            //this.txt_info.text = "产能："+ carItemData.RewardPerH + "金币/小时" + "\n"+"价格："+ carItemData.Price+"金币";
         }
 
         private OnClickBuy(){

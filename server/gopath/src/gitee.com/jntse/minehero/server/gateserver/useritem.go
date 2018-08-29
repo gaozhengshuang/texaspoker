@@ -19,7 +19,7 @@ import (
 
 // 添加道具
 func (this *GateUser) AddItem(item uint32, num uint32, reason string, syn bool) {
-	log.Info("玩家[%d] 添加道具 itemid[%d] num[%d] reason:%s",this.Id(),item,num,reason)
+	//log.Info("玩家[%d] 添加道具 itemid[%d] num[%d] reason:%s",this.Id(),item,num,reason)
 	if item == uint32(msg.ItemId_YuanBao) {
 		this.AddYuanbao(num, reason, syn)
 	}else if item == uint32(msg.ItemId_Gold) {

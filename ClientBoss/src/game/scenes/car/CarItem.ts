@@ -72,7 +72,7 @@ module game {
             //价格
             //this.img_gold.visible  =  true;
             //this.img_diamond.visible = false;
-            this.txt_info.text = "产能："+ this.itemData.RewardPerH + "金币/分钟" + "\n"+"价值："+ this.itemData.Price+"金币";
+            //this.txt_info.text = "产能："+ this.itemData.RewardPerH + "金币/分钟" + "\n"+"价值："+ this.itemData.Price+"金币";
 
             //状态
             //this.stateTxt.text = this.data.parkingid == 0 ? "空闲" : "出征";
