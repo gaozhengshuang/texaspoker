@@ -717,5 +717,5 @@ func (this *GateUser) OnLevelUp() {
 
 // 合成时装
 func (this *GateUser) MakeClothes(debris uint64) {
-	;
+	//item, ok := tbl.ItemBase.ItemBaseDataById[debris]
 }
