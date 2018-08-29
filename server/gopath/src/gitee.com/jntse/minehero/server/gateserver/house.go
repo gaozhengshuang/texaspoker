@@ -128,19 +128,21 @@ func (this *HouseCell) GiveItemWhenTakeGold() map[uint32]uint32 {
 	}
 
 	stritem := base.ProduceItem
-	slicestr := strings.Split(stritem, "|")
-	for _, v := range slicestr {
-		info := strings.Split(v, "-")
-		if len(info) != 3{
-			log.Error("房间产出道具配置格式错误!!   tid[%d]", this.tid)
-			continue
-		}
-		itemid, _ := strconv.Atoi(info[0])
-		per, _ := strconv.Atoi(info[1])
-		num, _ := strconv.Atoi(info[2])
-		temp := util.RandBetween(0,10000)
-		if uint32(temp) <= uint32(per) {
-			items[uint32(itemid)] = uint32(num)
+	if stritem != "" {
+		slicestr := strings.Split(stritem, "|")
+		for _, v := range slicestr {
+			info := strings.Split(v, "-")
+			if len(info) != 3{
+				log.Error("房间产出道具配置格式错误!!   tid[%d]", this.tid)
+				continue
+			}
+			itemid, _ := strconv.Atoi(info[0])
+			per, _ := strconv.Atoi(info[1])
+			num, _ := strconv.Atoi(info[2])
+			temp := util.RandBetween(0,10000)
+			if uint32(temp) <= uint32(per) {
+				items[uint32(itemid)] = uint32(num)
+			}
 		}
 	}
 	return items
@@ -822,18 +824,23 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 		}
 		needitem := make(map[uint32]uint32)
 		strneeditem := base.LevelUpNeedItem
-		slicetmp := strings.Split(strneeditem, "|")
-		for _, v := range slicetmp {
-			info := strings.Split(v, "-")
-			itemid, _ := strconv.Atoi(info[0])
-			num, _ := strconv.Atoi(info[1])
-			needitem[uint32(itemid)] = uint32(num)
+		if strneeditem != "" {
+			slicetmp := strings.Split(strneeditem, "|")
+			for _, v := range slicetmp {
+				info := strings.Split(v, "-")
+				if len(info) < 2 {
+					log.Error("房屋升级 配置需求道具格式错误  tid[%d]", house.GetTid())
+					return
+				}
+				itemid, _ := strconv.Atoi(info[0])
+				num, _ := strconv.Atoi(info[1])
+				needitem[uint32(itemid)] = uint32(num)
+			}
+			if this.CheckEnoughItems(needitem) == false {
+				//需求道具不足
+				return
+			}
 		}
-		if this.CheckEnoughItems(needitem) == false {
-			//需求道具不足
-			return
-		}
-
 		needgold := base.LevelUpCost
 		if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 			//钱不够
@@ -883,18 +890,23 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 
 				needitem := make(map[uint32]uint32)
 				strneeditem := base.LevelUpNeedItem
-				slicetmp := strings.Split(strneeditem, "|")
-				for _, v := range slicetmp {
-					info := strings.Split(v, "-")
-					itemid, _ := strconv.Atoi(info[0])
-					num, _ := strconv.Atoi(info[1])
-					needitem[uint32(itemid)] = uint32(num)
+				if strneeditem != "" {
+					slicetmp := strings.Split(strneeditem, "|")
+					for _, w := range slicetmp {
+						info := strings.Split(w, "-")
+						if len(info) < 2 {
+							log.Error("房间Cell升级 配置需求道具格式错误  tid[%d]", v.GetTid())
+							return
+						}
+						itemid, _ := strconv.Atoi(info[0])
+						num, _ := strconv.Atoi(info[1])
+						needitem[uint32(itemid)] = uint32(num)
+					}
+					if this.CheckEnoughItems(needitem) == false {
+						//需求道具不足
+						return
+					}
 				}
-				if this.CheckEnoughItems(needitem) == false {
-					//需求道具不足
-					return
-				}
-
 				needgold := base.LevelUpCost
 				if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 					//钱不够

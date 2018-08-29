@@ -64,7 +64,10 @@ export var ItemBaseData : table.IItemBaseDataDefine[] = [
 		{ Id : 150010, Type : 15, Color : 1, ImageId : 150010, Name : "小白鞋", Desc : "", Clothes : 0 	},
 		{ Id : 150011, Type : 15, Color : 1, ImageId : 150011, Name : "少女鞋(黑)", Desc : "", Clothes : 0 	},
 		{ Id : 150012, Type : 15, Color : 1, ImageId : 150012, Name : "少女鞋(蓝)", Desc : "", Clothes : 0 	},
-		{ Id : 150013, Type : 15, Color : 1, ImageId : 150013, Name : "樱", Desc : "", Clothes : 0 	}
+		{ Id : 150013, Type : 15, Color : 1, ImageId : 150013, Name : "樱", Desc : "", Clothes : 0 	},
+		{ Id : 20006, Type : 2, Color : 1, ImageId : 2006, Name : "京东e卡50元", Desc : "实物50元京东卡", Clothes : 0 	},
+		{ Id : 50003, Type : 5, Color : 1, ImageId : 5003, Name : "30元话费", Desc : "提取直充30元电话卡", Clothes : 0 	},
+		{ Id : 50004, Type : 5, Color : 1, ImageId : 5004, Name : "10元话费", Desc : "提取直充10元电话卡", Clothes : 0 	}
 	]
 
 
