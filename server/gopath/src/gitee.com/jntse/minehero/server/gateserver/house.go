@@ -131,6 +131,10 @@ func (this *HouseCell) GiveItemWhenTakeGold() map[uint32]uint32 {
 	slicestr := strings.Split(stritem, "|")
 	for _, v := range slicestr {
 		info := strings.Split(v, "-")
+		if len(info) != 3{
+			log.Error("房间产出道具配置格式错误!!   tid[%d]", this.tid)
+			continue
+		}
 		itemid, _ := strconv.Atoi(info[0])
 		per, _ := strconv.Atoi(info[1])
 		num, _ := strconv.Atoi(info[2])
