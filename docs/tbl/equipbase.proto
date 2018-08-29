@@ -53,6 +53,9 @@ message EquipDefine
 	
 	
 	optional string Suit = 12; // 图集名称
+	
+	
+	optional string Make = 13; // 合成
 
 }
 
