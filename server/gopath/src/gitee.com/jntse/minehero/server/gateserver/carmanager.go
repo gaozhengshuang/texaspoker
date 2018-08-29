@@ -47,12 +47,12 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 
 func (this *CarData) ParkingCar(id uint64,poid uint64) {
 	this.data.Parkingid = pb.Uint64(id)
-	if poid == this.data.GetOwnerId() {
+	if poid == this.data.GetOwnerid() {
 		//停在自己的停车位上 可以出征咯
-		this.data.State = msg.CarState_Ready
+		this.data.State = pb.Uint32(msg.CarState_Ready)
 	}else {
 		//停在公共车位上 获得奖励的
-		this.data.State = msg.CarState_Parking
+		this.data.State = pb.Uint32(msg.CarState_Parking)
 		this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
 	}
 	this.modified = true
@@ -60,12 +60,12 @@ func (this *CarData) ParkingCar(id uint64,poid uint64) {
 
 func (this *CarData) TakeBack() {
 	this.data.Parkingid = pb.Uint64(0)
-	this.data.State = msg.CarState_Idle
+	this.data.State = pb.Uint32(msg.CarState_Idle)
 	this.modified = true
 }
 
 func (this *CarData) SetRewardMoney(money uint32){
-	reawrdData = this.data.Reward
+	reawrdData := this.data.Reward
 	reawrdData.Money = pb.Uint32(money)
 	this.modified = true
 }
@@ -78,13 +78,13 @@ func (this *CarData) AddRewardItem(id uint32, num uint32) {
 	item := &msg.CarPartPiece{}
 	item.Id = pb.Uint32(id)
 	item.Num = pb.Uint32(num)
-	reawrdData = this.data.Reward
+	reawrdData := this.data.Reward
 	rewardData.Items = append(rewardData.Items,item)
 	this.modified = true
 }
 
 func (this *CarData) ClearReward() {
-	reawrdData = this.data.Reward
+	reawrdData := this.data.Reward
 	rewardData.Money = 0
 	rewardData.Items = make([]*msg.CarPartPiece)
 	this.modified = true
