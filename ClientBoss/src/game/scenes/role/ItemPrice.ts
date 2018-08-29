@@ -39,8 +39,7 @@ module game {
             //Icon
             let txtr:egret.Texture = RES.getRes(equipData.Path);
             let factor = equipData.Pos==7 ? 0.7 : 0.8;
-            if(txtr)
-            {
+            if (txtr) {
                 this.img_equip.source    = txtr;
                 this.img_equip.width     = txtr.textureWidth * factor;
                 this.img_equip.height    = txtr.textureHeight * factor;
@@ -55,7 +54,7 @@ module game {
                 this.txt_obtained.visible = false;
                 if (equipData.CoinType == (msg.MoneyType._Gold || msg.MoneyType._Diamond)) {
                     this.grp_price.visible = true;
-                    this.img_price.source =  equipData.CoinType == msg.MoneyType._Gold ? "dress_01_json.dress_gold" : "dress_01_json.dress_01_19";
+                    this.img_price.source = equipData.CoinType == msg.MoneyType._Gold ? "dress_01_json.dress_gold" : "dress_01_json.dress_01_19";
                     this.txt_price.text = equipData.Price.toString();
                 } else {
                     this.grp_item.visible = true;
