@@ -166,7 +166,7 @@ func (this *HouseCell) CkeckGoldProduce(now int64) {
 
 func (this *HouseCell) GetIncome() uint32{
 	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
-	if find == false {
+	if find == false {		
 		return 0
 	}
 	return base.ProduceGold
@@ -245,7 +245,7 @@ type HouseData struct {
 	roommember 	 uint32 //房间号
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 	area		 uint32	//面积
-
+	issell		 bool	//出售
 	ticker1Sec *util.GameTicker
 }
 
@@ -277,6 +277,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 		this.visitinfo = append(this.visitinfo, info)
 	}
 	this.area = bin.GetArea()
+	this.issell = bin.GetIssell()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -311,7 +312,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 		bin.Visitinfo = append(bin.Visitinfo, v.PackBin())
 	}
 	bin.Area = pb.Uint32(this.area)
-
+	bin.Issell = pb.Bool(this.issell)
 	return bin
 }
 
@@ -329,6 +330,15 @@ func (this *HouseData) SaveBin(pipe redis.Pipeliner) {
 		}
 		log.Info("保存房屋[%d]数据成功", this.id)
 	}
+}
+
+func (this *HouseData) GetType() uint32 {
+	base, find := tbl.THouseBase.THouseById[uint32(this.tid)]
+	if find == false {
+		log.Error("House LevelUp 无效的房屋tid[%d]", this.tid)
+		return 1
+	}
+	return base.Type
 }
 
 func (this *HouseData) GetIncome() uint32 {

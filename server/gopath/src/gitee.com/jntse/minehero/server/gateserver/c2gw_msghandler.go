@@ -73,6 +73,14 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetNewPlayerStep{}, on_C2GW_ReqSetNewPlayerStep)
 
+	//交易收
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseTradeList{}, on_C2GW_ReqHouseTradeList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TradeHouse{}, on_C2GW_TradeHouse)
+	this.msgparser.RegistProtoMsg(msg.C2GW_BuyTradeHouse{}, on_C2GW_BuyTradeHouse)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTradeHouseHistory{}, on_C2GW_ReqTradeHouseHistory)
+	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeHouseReward{}, on_C2GW_GetTradeHouseReward)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeHouse{}, on_C2GW_CancelTradeHouse)
+
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseData{}, on_C2GW_ReqHouseData)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseLevelUp{}, on_C2GW_ReqHouseLevelUp)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseCellLevelUp{}, on_C2GW_ReqHouseCellLevelUp)
@@ -149,6 +157,14 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseDataByHouseId{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckBuyHouseFromBuilding{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckBuildingCanBuyInfo{})
+
+	//交易发
+	this.msgparser.RegistSendProto(msg.GW2C_RetHouseTradeList{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetTradeHouse{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetBuyTradeHouse{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetTradeHouseHistory{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeHouseReward{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCancelTradeHouse{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
@@ -1160,3 +1176,70 @@ func on_C2GW_ReqBuildingCanBuyInfo(session network.IBaseNetSession, message inte
 	buildingid := tmsg.GetBuildingid()
 	user.ReqBuildingCanBuyInfo(buildingid)
 }
+
+//交易消息
+func on_C2GW_ReqHouseTradeList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqHouseTradeList)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.ReqTradeHouseList(tmsg)
+}
+
+func on_C2GW_TradeHouse(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_TradeHouse)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.TradeHouse(tmsg.GetHouseuid(), tmsg.GetPrice())
+}
+
+func on_C2GW_BuyTradeHouse(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_BuyTradeHouse)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.BuyTradeHouse(tmsg.GetTradeuid())
+}
+
+func on_C2GW_ReqTradeHouseHistory(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.ReqTradeHouseHistory()
+}
+
+func on_C2GW_CancelTradeHouse(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CancelTradeHouse)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.CancelTradeHouse(tmsg.GetTradeuid())
+}
+
+func on_C2GW_GetTradeHouseReward(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_GetTradeHouseReward)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.GetTradeHouseReward(tmsg.GetTradeuid())
+}
+
