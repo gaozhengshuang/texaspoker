@@ -211,11 +211,11 @@ func (ma *MaidManager) AddMaid(maid *Maid) {
 		ma.usermaids[maid.OwnerId()] = make(map[uint64]*Maid)
 	}
 	if _, ok := ma.housemaids[maid.HouseId()]; ok == false {
-		ma.housemaids[maid.HouseId()][maid.Id()] = maid
+		ma.housemaids[maid.HouseId()] = make(map[uint64]*Maid)
 	}
 	ma.maids[maid.Id()] = maid
 	ma.usermaids[maid.OwnerId()][maid.Id()] = maid
-	ma.housemaids[maid.OwnerId()][maid.Id()] = maid
+	ma.housemaids[maid.HouseId()][maid.Id()] = maid
 }
 
 // 获得玩家女仆
@@ -224,22 +224,31 @@ func (ma *MaidManager) GetUserMaids(uid uint64) map[uint64]*Maid {
 	return maids
 }
 
+// 获得房屋女仆
+func (ma *MaidManager) GetHouseMaids(uid uint64) map[uint64]*Maid {
+	maids, _ := ma.housemaids[uid]
+	return maids
+}
+
+
 // 发送房子女仆
-func (ma *MaidManager) SendHouseMaids(houseid uint64) {
+func (ma *MaidManager) SendHouseMaids(user *GateUser, houseid uint64) {
+	if user == nil { return }
+	send := &msg.GW2C_SendHouseMaidInfo{Houseid:pb.Uint64(houseid), Maids:make([]*msg.HouseMaidData,0)}
+	maids := ma.GetHouseMaids(houseid)
+	for _, v := range maids {
+		send.Maids = append(send.Maids, pb.Clone(v.Bin()).(*msg.HouseMaidData))	// append(send.Maids, v.Bin())
+	}
+	user.SendMsg(send)
 }
 
 // 发送玩家女仆
 func (ma *MaidManager) SendUserMaids(user *GateUser) {
-	if user == nil {
-		return
-	}
-	send := &msg.GW2C_SendUserMaidInfo{Userid:pb.Uint64(user.Id()),Maids:make([]*msg.HouseMaidData,0)}
-	maids, ok := ma.usermaids[user.Id()]
-	if ok == true {
-		for _, v := range maids {
-			//send.Maids = append(send.Maids, v.Bin())
-			send.Maids = append(send.Maids, pb.Clone(v.Bin()).(*msg.HouseMaidData))
-		}
+	if user == nil { return }
+	send := &msg.GW2C_SendUserMaidInfo{Userid:pb.Uint64(user.Id()), Maids:make([]*msg.HouseMaidData,0)}
+	maids := ma.GetUserMaids(user.Id())
+	for _, v := range maids {
+		send.Maids = append(send.Maids, pb.Clone(v.Bin()).(*msg.HouseMaidData))	// append(send.Maids, v.Bin())
 	}
 	user.SendMsg(send)
 }
