@@ -5,7 +5,6 @@ module game {
         itemName: eui.Label;
         itemNum: eui.Label;
         itemDesc: eui.Label;
-        itemMoney: eui.Label;
         getButton: IconButton;
         data;
 
@@ -34,11 +33,6 @@ module game {
             this.itemImg.source = getItemIconSource(_data.Id);
             this.itemName.text = _data.Name;
             this.itemDesc.text = _data.Desc;
-            if (_data.Id == 6003) { //(代表这是金币)
-                this.itemMoney.text = "";
-            } else {
-                this.itemMoney.text = "价值：" + _data.Sold + "元";
-            }
             this.itemNum.text = "X" + this.data.num;
         }
     }
