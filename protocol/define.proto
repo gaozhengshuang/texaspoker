@@ -84,3 +84,20 @@ enum ParkingType {
     Public = 1;
     Private = 2;
 }
+
+enum CarPartType {
+    Tyre = 1;           //轮胎
+    Tank = 2;           //油箱
+    Trunk = 3;          //后备箱
+    Engine = 4;         //发动机
+    Battery = 5;        //电瓶
+}
+
+enum CarState {
+    Idle = 1;           //可以上车位
+    Ready = 2;          //上了自己的车位 可以出征
+    Parking = 3;        //停在公共车位上 等待着收益
+    Exped = 4;          //出征的路上
+    Robbing = 5;        //抢夺中
+    Back = 6;           //回城中
+}
