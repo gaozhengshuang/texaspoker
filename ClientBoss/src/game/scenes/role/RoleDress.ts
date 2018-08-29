@@ -211,8 +211,8 @@ module game {
             });
 
         }
-        private updateItemList(posType:msg.ItemPos=null)
-        {
+        
+        private updateItemList(posType:msg.ItemPos=null) {
             this._partsToggles.forEach(item=>{
                 let chooseIcon = <ChooseIcon> item.target;
                 if(!posType && chooseIcon.radioButton.selected)
@@ -229,6 +229,8 @@ module game {
      
                 chooseIcon.radioChangeHandler();
             });
+
+            this.updateBtnState();
         }
 
         private updateShelf(posType:msg.ItemPos =  msg.ItemPos.Helmet) {
@@ -282,23 +284,11 @@ module game {
             this.updateItemList(this._typeIdx);
         }
 
-        // TODO: 穿上装备
-        private sendmsg_DressCloth(data: { pos, itemid }) {
-            sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
-                pos: data.pos,
-                itemid: data.itemid
-            }));
-        }
         // private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
         //     DataManager.playerModel.sex = data.sex;
         //     this.postSwitchGender(data);
         // }
-        // TODO: 脱下装备
-        private sendmsg_UnDressCloth(data: { pos }) {
-            sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
-                pos: data.pos,
-            }));
-        }
+
         //TODO: 发送切换性别消息
         // private sendmsg_SwitchGender(data: { sex }) {
         //     sendMessage("msg.C2GW_ChangeImageSex", msg.C2GW_ChangeImageSex.encode({
@@ -459,10 +449,11 @@ module game {
         private changePartWithNet(item: table.IEquipDefine) {
             this._roleBone.changePart(item);
             if (DataManager.playerModel.IsHaveItem(item.Id)) {
-                this.sendmsg_DressCloth({
+                sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
+                    id: DataManager.playerModel.getMaidInfo().id,
                     pos: item.Pos,
                     itemid: item.Id,
-                })
+                }));
             }
         }
         
@@ -477,18 +468,19 @@ module game {
             this._roleBone.changeSlotsInSuit(["body1_1_02","body1_1_04"], suitName);
  
             if (DataManager.playerModel.IsHaveItem(item.Id)) {
-                this.sendmsg_UnDressCloth({
+                sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
+                    id: DataManager.playerModel.getMaidInfo().id,
                     pos: item.Pos
-                })
+                }));
             }
         }
 
         private updateBtnState() {
             this._curEquipInfo = null; 
             for (let i = 0; i < this._selItems.length; i++) {
-                let itemInfo = this._selItems[i];
-                if (itemInfo.Pos == this._typeIdx) {
-                    this._curEquipInfo = itemInfo;
+                let selInfo = this._selItems[i];
+                if (selInfo.Pos == this._typeIdx) {
+                    this._curEquipInfo = selInfo;
                     break;
                 }
             }
@@ -498,9 +490,20 @@ module game {
                     this.composeGroup.visible = false;
                     this.uncomposeGroup.visible = false;
                 } else {
-
+                    let itemInfo = DataManager.playerModel.getBagItem(this._curEquipInfo.DebrisID);
+                    if (itemInfo) {
+                        this.composeGroup.visible = itemInfo.num >= this._curEquipInfo.MakeNum;
+                        this.uncomposeGroup.visible = itemInfo.num < this._curEquipInfo.MakeNum;
+                    } else {
+                        this.composeGroup.visible = false;
+                        this.uncomposeGroup.visible = true;
+                    }
                 }
+            } else {
+                this.composeGroup.visible = false;
+                this.uncomposeGroup.visible = false;
             }
         }
+
     }
 }
