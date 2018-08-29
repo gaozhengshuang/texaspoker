@@ -39,7 +39,8 @@ module game {
         private _carRecords: string[] = [];
         private _personalImage: msg.IItemData[];
         private _houseMaidInfo: msg.GW2C_SendHouseMaidInfo;
-        private _myMaidInfo: msg.IHouseMaidData;
+        private _userMaidInfo: msg.GW2C_SendUserMaidInfo;
+        private _mainMaidInfo: msg.IHouseMaidData;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -56,6 +57,7 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord, "msg.GW2C_SynParkingRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack, "msg.GW2C_CarAutoBack");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendUserMaidInfo, "msg.GW2C_SendUserMaidInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SendHouseMaidInfo, "msg.GW2C_SendHouseMaidInfo");
         }
 
@@ -79,16 +81,20 @@ module game {
             this._tasks = data.base.task.tasks;
         }
 
-        private OnGW2C_SendHouseMaidInfo(data: msg.GW2C_SendHouseMaidInfo) {
-            this._houseMaidInfo = data;
+        private OnGW2C_SendUserMaidInfo(data: msg.GW2C_SendUserMaidInfo) {
+            this._userMaidInfo = data;
 
             for (let i=0; i<data.maids.length; i++) {
                 if (this.userInfo.userid == data.maids[i].ownerid) {
                     this._personalImage = data.maids[i].clothes;
-                    this._myMaidInfo = data.maids[i];
+                    this._mainMaidInfo = data.maids[i];
                     break;
                 }
             }
+        }
+
+        private OnGW2C_SendHouseMaidInfo(data: msg.GW2C_SendHouseMaidInfo) {
+            this._houseMaidInfo = data;
         }
 
         private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
@@ -288,12 +294,15 @@ module game {
 
         //获取背包中的物品
         public getBagItem(itemId: number) {
+            let itm:any=null;
             this.bagList.forEach(item => {
+                //egret.log("item.id---->", item.id);
                 if (item.id === itemId) {
-                    return item;
+                    egret.log("itemId--->", itemId);
+                    itm=item;
                 }
             });
-            return null;
+            return itm;
         }
         
         //背包是否有这个物品
@@ -519,7 +528,7 @@ module game {
         }
 
         public getMaidInfo() {
-            return this._myMaidInfo;
+            return this._mainMaidInfo;
         }
     }
 }

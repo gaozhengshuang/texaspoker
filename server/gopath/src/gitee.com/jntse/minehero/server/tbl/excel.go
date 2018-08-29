@@ -16,7 +16,6 @@ type IBaseExcel interface {
 var MusicBase = table.InsMusicBaseTable
 var LevelBasee = table.InsLevelBaseeTable
 var TCarStarAttrBase = table.InsTCarStarAttrBaseTable
-var LevelMaid = table.InsLevelMaidTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var CarShopBase = table.InsCarShopBaseTable
@@ -43,5 +42,6 @@ var TBuildingsBase = table.InsTBuildingsBaseTable
 var TParkingBase = table.InsTParkingBaseTable
 var ShopBase = table.InsShopBaseTable
 var TbirckRefreshbase = table.InsTbirckRefreshbaseTable
+var LevelMaidBase = table.InsLevelMaidBaseTable
 var ItemBase = table.InsItemBaseTable
 

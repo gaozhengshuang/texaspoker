@@ -10,6 +10,8 @@ import (
 	"fmt"
 )
 
+//////////////////////////////////////////////////房屋交易/////////////////////////////////////////////////////
+
 type HouseTradeInfo struct {
 	tradeuid int
 	name string
@@ -33,13 +35,13 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 	var ordersql string
 	var limitsql string
 	var strsql string
-	limitsql = fmt.Sprintf("limit %d 20", rev.GetStartnum())
-	wheresql = fmt.Sprintf(" endtime>%d ", util.CURTIME())
+	limitsql = fmt.Sprintf("limit %d,20", rev.GetStartnum())
+	wheresql = fmt.Sprintf("endtime>%d ", util.CURTIME())
 	if rev.GetLocation() != 0 {
-		wheresql += fmt.Sprintf("and loction=%d ", rev.GetLocation())
+		wheresql += fmt.Sprintf("and location=%d ", rev.GetLocation())
 	}
 	if rev.GetSublocation() != 0 {
-		wheresql += fmt.Sprintf("and suboction=%d ", rev.GetSublocation())
+		wheresql += fmt.Sprintf("and sublocation=%d ", rev.GetSublocation())
 	}
 	if rev.GetHousetype() != 0 {
 		wheresql += fmt.Sprintf("and housetype=%d ", rev.GetHousetype())
@@ -57,15 +59,15 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
 	}
 	if rev.GetPricedec() == true {
-		ordersql += "ORDER BY PRICE DEC"
+		ordersql += "ORDER BY PRICE DESC"
 	}else{
 		ordersql += "ORDER BY PRICE ASC"
 	}
 
 	if wheresql != "" {
-		strsql = fmt.Sprintf("SELECT * FROM treasure WHERE %s %s %s", wheresql, ordersql, limitsql)
+		strsql = fmt.Sprintf("SELECT * FROM housetrade WHERE %s %s %s", wheresql, ordersql, limitsql)
 	}else{
-		strsql = fmt.Sprintf("SELECT * FROM treasure %s %s", ordersql, limitsql)
+		strsql = fmt.Sprintf("SELECT * FROM housetrade %s %s", ordersql, limitsql)
 	}
 
 	log.Info("[房屋交易] 玩家[%d] 请求交易列表 SQL语句[%s]", this.Id(), strsql)
@@ -73,7 +75,7 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 	rows, err := MysqlDB().Query(strsql)
 	defer rows.Close()
 	if err != nil{
-		log.Info("查询表失败")
+		log.Info("查询表失败 %v", err)
 		return
 	}
 
@@ -122,7 +124,7 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 		return
 	}
 	endtime := util.CURTIME() + 86400 * 3
-	strsql := fmt.Sprintf("INSERT INTO TREASURE (name, houselevel, price, area, income, houseuid, housebaseid, endtime, location, sublocation, posx, posy, state, housetype) VALUES (%s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)", buildconf.Community, house.level, price, house.area, house.GetIncome(), house.id, house.tid, endtime, buildconf.Province, buildconf.City, buildconf.PosX, buildconf.PosY, 0, house.GetType())
+	strsql := fmt.Sprintf("INSERT INTO housetrade (name, houselevel, price, area, income, houseuid, housebaseid, endtime, location, sublocation, posx, posy, state, housetype) VALUES (%s, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)", buildconf.Community, house.level, price, house.area, house.GetIncome(), house.id, house.tid, endtime, buildconf.Province, buildconf.City, buildconf.PosX, buildconf.PosY, 0, house.GetType())
 	log.Info("[房屋交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
 	ret, err := MysqlDB().Exec(strsql)
 	if err != nil {
@@ -156,7 +158,7 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 }
 
 func (this *GateUser) BuyTradeHouse(tradeuid uint64){
-	strsql := fmt.Sprintf("SELECT * FROM treasure WHERE tradeid=%d", tradeuid)
+	strsql := fmt.Sprintf("SELECT * FROM housetrade WHERE tradeid=%d", tradeuid)
 	rows, err := MysqlDB().Query(strsql)
 	defer rows.Close()
 	if err != nil{
@@ -186,7 +188,7 @@ func (this *GateUser) BuyTradeHouse(tradeuid uint64){
 		return
 	}
 
-	delsql := fmt.Sprintf("DELETE FROM treasure WHERE tradeid=%d", tradeuid)
+	delsql := fmt.Sprintf("DELETE FROM housetrade WHERE tradeid=%d", tradeuid)
 	_, execerr := MysqlDB().Exec(delsql)
 	if execerr != nil {
 		log.Info("数据库删除失败")
@@ -275,7 +277,7 @@ func (this *GateUser) CancelTradeHouse(tradeuid uint64){
 	utredis.SetProtoBin(Redis(), historykey, history)
 	this.SendNotify("取消成功")
 
-	delsql := fmt.Sprintf("DELETE FROM treasure WHERE tradeid=%d", tradeuid)
+	delsql := fmt.Sprintf("DELETE FROM housetrade WHERE tradeid=%d", tradeuid)
 	_, execerr := MysqlDB().Exec(delsql)
 	if execerr != nil {
 		log.Info("数据库删除失败")
@@ -285,4 +287,8 @@ func (this *GateUser) CancelTradeHouse(tradeuid uint64){
 	send.Tradeuid = pb.Uint64(tradeuid)
 	this.SendMsg(send)
 }
+
+/////////////////////////////////////////////////////汽车交易/////////////////////////////////////////////////
+
+
 

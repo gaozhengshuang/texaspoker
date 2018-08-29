@@ -4,9 +4,10 @@ module game {
         grp_dressinfo   : eui.Group;
         grp_role        : eui.Group;
         grp_misc        : eui.Group;
-
         topGroup        : eui.Group;
         roleGroup       : eui.Group;
+        composeGroup    : eui.Group;
+        uncomposeGroup  : eui.Group;
 
         icon_boy        : eui.Image;
         icon_girl       : eui.Image;
@@ -16,6 +17,7 @@ module game {
 
         btn_close       : IconButton;
         btn_compose     : IconButton;
+        btn_level       : IconButton;
 
         sr_item         : eui.Scroller;
         ls_items        : eui.List;
@@ -34,8 +36,9 @@ module game {
         test_itemprice  : game.ItemPrice;
         dress_info      : game.EquipInfo;
 
-        composeGroup    : eui.Group;
-        uncomposeGroup  : eui.Group;
+        lvLabel         : eui.Label;
+        produceGoldLabel: eui.Label;
+        maxGoldLabel    : eui.Label;
 
         private _dataProv: eui.ArrayCollection;
 
@@ -54,7 +57,6 @@ module game {
         private _roleBone: RoleBone;
 
         private _curEquipInfo: table.IEquipDefine;
-
 //-------------------------------数据分割------------------------------------------------------------
 
         protected getSkinName() {
@@ -87,6 +89,7 @@ module game {
 
             this.btn_close.icon = "dress_01_json.dress_01_16";
             this.btn_compose.icon = "dress_01_json.composeBtn";
+            this.btn_level.icon = "dress_01_json.maidLevelUp"
 
             this.initItemList();
 
@@ -110,6 +113,7 @@ module game {
             this._touchEvent = [
                 { target: this.btn_close, callBackFunc: this.OnCloseHandle },
                 { target: this.btn_compose, callBackFunc: this.OnComposeHandle },
+                { target: this.btn_level, callBackFunc: this.OnLevelUpHandle },
             ];
 
             this._partsToggles = [
@@ -132,6 +136,8 @@ module game {
             this.updateCoins();
             this.switchSex();
            
+            //等级信息
+            this.initLevelMaid();
             // DataManager.playerModel.skillUpdate();
         }
 
@@ -140,12 +146,20 @@ module game {
             this._roleBonePool.destroyAllObject();
         }
 
-
         private initItemList() {
             this._dataProv = new eui.ArrayCollection();
             this.ls_items.dataProvider = this._dataProv;
             this.ls_items.itemRenderer = game.ItemPrice;
             this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onSelItem, this);
+        }
+
+        private initLevelMaid() {
+            let levelInfo = table.TLevelMaidById[DataManager.playerModel.getMaidInfo().level];
+            if (levelInfo) {
+                this.lvLabel.text = "Lv."+DataManager.playerModel.getMaidInfo().level;
+                this.produceGoldLabel.text = "产能：" + levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60) + "/分钟";
+                this.maxGoldLabel.text = "上限：" + levelInfo.ProduceGold + "金币";
+            }
         }
 
         private updateCoins() {
@@ -395,8 +409,12 @@ module game {
 
         private OnComposeHandle() {
             sendMessage("msg.C2GW_MakeClothes", msg.C2GW_MakeClothes.encode({
-                debris: this._curEquipInfo.DebrisID
+                debris: this._curEquipInfo.DebrisId
             }));
+        }
+
+        private OnLevelUpHandle() {
+            
         }
 
         private OnCloseHandle() {
@@ -448,10 +466,10 @@ module game {
                     this.composeGroup.visible = false;
                     this.uncomposeGroup.visible = false;
                 } else {
-                    let itemInfo = DataManager.playerModel.getBagItem(this._curEquipInfo.DebrisID);
+                    let itemInfo = DataManager.playerModel.getBagItem(this._curEquipInfo.DebrisId);
                     if (itemInfo) {
-                        this.composeGroup.visible = itemInfo.num >= this._curEquipInfo.MakeNum;
-                        this.uncomposeGroup.visible = itemInfo.num < this._curEquipInfo.MakeNum;
+                        this.composeGroup.visible = itemInfo.num >= this._curEquipInfo.DebrisNum;
+                        this.uncomposeGroup.visible = itemInfo.num < this._curEquipInfo.DebrisNum;
                     } else {
                         this.composeGroup.visible = false;
                         this.uncomposeGroup.visible = true;

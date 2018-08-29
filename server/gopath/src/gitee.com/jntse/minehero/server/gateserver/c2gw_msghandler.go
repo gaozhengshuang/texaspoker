@@ -921,9 +921,24 @@ func on_C2GW_BuyCarFromShop(session network.IBaseNetSession, message interface{}
 
 // 合成时装
 func on_C2GW_MakeClothes(session network.IBaseNetSession, message interface{}) {
-	;
+	tmsg := message.(*msg.C2GW_MakeClothes)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.MakeClothes(tmsg.GetDebris())
 }
 func on_C2GW_MaidUpgrade(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_MaidUpgrade)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().UpgradeMaid(user, tmsg.GetId())
 }
 func on_C2GW_TakeMaidEarning(session network.IBaseNetSession, message interface{}) {
 }
