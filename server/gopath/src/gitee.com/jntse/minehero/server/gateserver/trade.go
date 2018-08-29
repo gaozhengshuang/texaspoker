@@ -163,5 +163,19 @@ func (this *GateUser) BuyTradeHouse(tradeuid uint64){
 	send := &msg.GW2C_RetBuyTradeHouse{}
 	send.Tradeuid = pb.Uint64(tradeuid)
 	this.SendMsg(send)
+
+	optional string name = 1;           //房产名字
+	optional uint32 houselevel = 2;     //房屋等级
+	optional uint32 price = 3;          //房屋总价
+	optional uint32 area = 4;           //房屋面积
+	optional uint32 income = 5;         //房屋收益
+	optional uint32 tradetime = 6;      //交易结束时间
+	optional uint32 housetype = 7;      //房屋类型
+	optional uint32 housebaseid = 8;    //房屋表id
+	optional uint32 state = 9;          //状态
+	optional uint32 tradeuid = 10;      //交易id
+
+	//history := &msg.TradeHouseHistory{}
+	//history.Tradeuid 
 }
 
