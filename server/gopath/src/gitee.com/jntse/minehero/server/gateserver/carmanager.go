@@ -662,10 +662,10 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	//可以了
 	car.ParkingCar(parkingid,parking.data.GetOwnerid())
 	parking.Parking(car, username)
-	record := this.CreateNewRecord(car.ownerid, parking.ownerid, car, parking, uint32(msg.CarOperatorType_Park), 0)
+	record := this.CreateNewRecord(car.data.GetOwnerid(), parking.data.GetOwnerid(), car, parking, uint32(msg.CarOperatorType_Park), 0)
 
 	//发送操作记录
-	sendOwner := UserMgr().FindById(parking.ownerid)
+	sendOwner := UserMgr().FindById(parking.data.GetOwnerid())
 	if sendOwner != nil {
 		sendRecord := &msg.GW2C_SynParkingRecord{}
 		sendRecord.Records = append(sendRecord.Records, *pb.String(record))
@@ -710,7 +710,7 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 		record = this.CreateNewRecord(parking.data.GetId(), car.data.GetOwnerid(), car, parking, uint32(msg.CarOperatorType_AutoBack), reward)
 		notifyuser = car.data.GetOwnerid()
 		car.SetRewardMoney(reward)
-		log.Info("玩家[%s %d] 公共车位自动回收车辆[%d]", car.ownername, car.data.GetOwnerid(), car.id)
+		log.Info("玩家[%s %d] 公共车位自动回收车辆[%d]", car.data.GetOwnername(), car.data.GetOwnerid(), car.data.GetId())
 		break
 	}
 
