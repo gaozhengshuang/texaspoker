@@ -781,7 +781,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 		return 4,nil
 	}
 	//计算可以获得的经验
-	addExp := 0
+	addExp := uint32(0)
 	for _,v := range pieces {
 		levelcarpart,find := tbl.TLevelCarPartBase.TLevelCarPartById[v.GetId()]
 		if find == false {
@@ -801,7 +801,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	//预测一下可以升几级
 	targetlevel := partData.GetLevel()
 	targetExp := partData.GetExp()
-	costMoney := 0
+	costMoney := uint32(0)
 	targetExp = targetExp + addExp
 	levelupConf := this.GetCarPartLevelupConf(partData.GetPartid(),targetlevel)
 	if levelupConf == nil {
@@ -839,9 +839,9 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 		car.SetAttribute(attr)
 	}
 	//扣钱扣道具
-	user.RemoveGold(costMoney)
+	user.RemoveGold(costMoney,"车辆部件升级消耗碎片",true)
 	for _,v := range pieces {
-		user.RemoveItem(v.GetId(),v.GetNum(),"车辆部件升级消耗碎片");
+		user.RemoveItem(v.GetId(),v.GetNum(),"车辆部件升级消耗碎片")
 	}
 
 	return 0,car.data
