@@ -113,15 +113,15 @@ func (this *CarData) GetAttribut() *msg.CarAttribute {
 }
 
 func (this *CarData) SetAttribute(attr *msg.CarAttribute){
-	this.data.Attr.Reward = pb.uint32(attr.GetReward())
-	this.data.Attr.Range = pb.uint32(attr.GetRange())
-	this.data.Attr.Itemlimit = pb.uint32(attr.GetItemlimit())
-	this.data.Attr.Moneylimit = pb.uint32(attr.GetMoneylimit())
-	this.data.Attr.Speed = pb.uint32(attr.GetSpeed())
-	this.data.Attr.Stoptime = pb.uint32(attr.GetStoptime())
+	this.data.Attr.Reward = pb.Uint32(attr.GetReward())
+	this.data.Attr.Range = pb.Uint32(attr.GetRange())
+	this.data.Attr.Itemlimit = pb.Uint32(attr.GetItemlimit())
+	this.data.Attr.Moneylimit = pb.Uint32(attr.GetMoneylimit())
+	this.data.Attr.Speed = pb.Uint32(attr.GetSpeed())
+	this.data.Attr.Stoptime = pb.Uint32(attr.GetStoptime())
 }
 
-func (this *CarData) UpdateReward(uint64 now) {
+func (this *CarData) UpdateReward(now uint64) {
 	if this.data.GetState() == msg.CarState_Parking {
 		//计算停靠公共车位的奖励
 		passedMinute := uint32((now - this.data.GetStarttime()) / 1000 / 60)      // benchmark 效率更好(10倍)
@@ -816,7 +816,7 @@ func (this *CarManager) Handler1SecondTick(now int64) {
 			continue
 		}
 		car := this.GetCar(v.data.GetParkingcar())
-		v.UpdateReward(car, uint64(now))
+		car.UpdateReward(uint64(now))
 		this.AutoTakeBackCar(car, v)
 	}
 }
