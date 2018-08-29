@@ -3,10 +3,10 @@ package msg;
 import "serialize.proto";
 
 // 当前形象数据
-//message GW2C_SendShowImage {
-//    optional ImageData images = 1;
-//}
-//
+message GW2C_SendShowImage {
+    optional ImageData images = 1;
+}
+
 //// 切换男女形象
 //message C2GW_ChangeImageSex {
 //    optional int32 sex = 1;
