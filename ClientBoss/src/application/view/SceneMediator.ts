@@ -89,13 +89,13 @@ module game {
                         break;
                     }
                 case CommandName.SCENE_SWITCH_TRADING:
-                        GameConfig.updataMaskBgFun('#FFFFFF', 1);
+                        GameConfig.updataMaskBgFun('#E5E6E6', 1);
                         this.removeSceneView();
                         GameConfig.showDownBtnFun(true);
                         GameConfig.sceneType = 4;
                         GameConfig.setEventsReply(true);
-                        openPanel(PanelType.GameDiscoveryView);
-                        this._lastPanelView = GameDiscoveryView.getInstance();
+                        openPanel(PanelType.TradePanel);
+                        this._lastPanelView = TradePanel.getInstance();
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
                         break;
                 case CommandName.SCENE_SWITCH_DISCOVERY:
