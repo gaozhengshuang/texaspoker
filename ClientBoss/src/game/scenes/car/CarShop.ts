@@ -316,7 +316,7 @@ module game {
                     return  carShopData_b.Price - carShopData_a.Price;
                 });
             }
-            else if(type == CarShop.sortType.AWARDUP)
+/*             else if(type == CarShop.sortType.AWARDUP)
             {
                 datas.sort(function(a,b){
                     let carItemData_a :table.ITCarDefine = table.TCarById[table.TCarShopById[a.pid].Carid];
@@ -331,7 +331,7 @@ module game {
                     let carItemData_b :table.ITCarDefine = table.TCarById[table.TCarShopById[b.pid].Carid];
                     return  carItemData_b.RewardPerH - carItemData_a.RewardPerH;
                 });
-            }
+            } */
            this.sortShopDatas = datas;
            this.updateView(datas);
         }
