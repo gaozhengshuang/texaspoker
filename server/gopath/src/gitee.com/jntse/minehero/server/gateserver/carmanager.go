@@ -443,12 +443,12 @@ func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttrib
 		if ok == false {
 			log.Error("无效的配件id[%d]", v.GetPartid())
 		}else {
-			attr.Reward = attr.GetReward() + (partConf.RewardInit + partConf.RewardAddition * v.GetLevel())
-			attr.Range = attr.GetRange() + (partConf.RangeInit + partConf.RangeAddition * v.GetLevel())
-			attr.Itemlimit = attr.GetItemlimit() + (partConf.ItemLimitInit + partConf.ItemLimitAddition * v.GetLevel())
-			attr.Moneylimit = attr.GetMoneylimit() + (partConf.MoneyLimitInit + partConf.MoneyLimitAddition * v.GetLevel())
-			attr.Speed = attr.GetSpeed() + (partConf.SpeedInit + partConf.SpeedAddition * v.GetLevel())
-			attr.Stoptime = attr.GetStoptime() + (partConf.StopTimeInit + partConf.StopTimeAddition * v.GetLevel())
+			attr.Reward = pb.Uint32(attr.GetReward() + (partConf.RewardInit + partConf.RewardAddition * v.GetLevel()))
+			attr.Range = pb.Uint32(attr.GetRange() + (partConf.RangeInit + partConf.RangeAddition * v.GetLevel()))
+			attr.Itemlimit = pb.Uint32(attr.GetItemlimit() + (partConf.ItemLimitInit + partConf.ItemLimitAddition * v.GetLevel()))
+			attr.Moneylimit = pb.Uint32(attr.GetMoneylimit() + (partConf.MoneyLimitInit + partConf.MoneyLimitAddition * v.GetLevel()))
+			attr.Speed = pb.Uint32(attr.GetSpeed() + (partConf.SpeedInit + partConf.SpeedAddition * v.GetLevel()))
+			attr.Stoptime = pb.Uint32(attr.GetStoptime() + (partConf.StopTimeInit + partConf.StopTimeAddition * v.GetLevel()))
 		}
 	}
 	//星级属性 暂未
@@ -502,16 +502,16 @@ func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *Ca
 	case uint32(msg.CarOperatorType_Park):
 		//停车
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
-		data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
+		data = prefix + car.data.GetOwnername() + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
 		break
 	case uint32(msg.CarOperatorType_TakeBack):
 		//收车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
-		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.data.GetId()), time.Now().Format("15:04"))
+		data = prefix + car.data.GetOwnername() + "开走了他的" + car.template.Brand + car.template.Model
 		break
 	case uint32(msg.CarOperatorType_Ticket):
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
-		data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
+		data = prefix + parking.data.GetOwnername() + "对你的" + car.template.Brand + car.template.Model + "贴条"
 		break
 	case uint32(msg.CarOperatorType_AutoBack):
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
