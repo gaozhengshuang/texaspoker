@@ -715,4 +715,7 @@ func (this *GateUser) OnLevelUp() {
 	this.AddLevel(1)
 }
 
-
+// 合成时装
+func (this *GateUser) MakeClothes(debris uint64) {
+	;
+}

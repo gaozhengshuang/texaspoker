@@ -28,7 +28,8 @@ const (
 // --------------------------------------------------------------------------
 type Maid struct {
 	bin 	*msg.HouseMaidData
-	clothes map[int32]map[int32]*msg.ItemData
+	//clothes map[int32]*msg.ItemData
+	clothes map[int32]map[int32]*msg.ItemData	// 客户端强烈要去保留男女2套服装
 	dirty 	bool
 }
 
@@ -352,6 +353,12 @@ func (ma *MaidManager) AddMaid(maid *Maid) {
 	ma.housemaids[maid.HouseId()][maid.Id()] = maid
 }
 
+// 获得房屋女仆
+func (ma *MaidManager) GetMaidsById(uid uint64) *Maid {
+	maids, _ := ma.maids[uid]
+	return maids
+}
+
 // 获得玩家女仆
 func (ma *MaidManager) GetUserMaids(uid uint64) map[uint64]*Maid {
 	maids, _ := ma.usermaids[uid]
@@ -363,7 +370,6 @@ func (ma *MaidManager) GetHouseMaids(uid uint64) map[uint64]*Maid {
 	maids, _ := ma.housemaids[uid]
 	return maids
 }
-
 
 // 发送房子女仆
 func (ma *MaidManager) SendHouseMaids(user *GateUser, houseid uint64) {
