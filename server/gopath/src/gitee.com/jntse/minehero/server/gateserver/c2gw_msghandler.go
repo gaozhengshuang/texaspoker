@@ -182,7 +182,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_ParkCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TicketCarResult{})
-	this.msgparser.RegistSendProto(msg.GW2C_SynParkingRecord{})
+	this.msgparser.RegistSendProto(msg.GW2C_SynParkingRecord{})11
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetTakeCarAutoBackReward{})
 	this.msgparser.RegistSendProto(msg.GW2C_CarAutoBack{})
@@ -1184,7 +1184,7 @@ func on_C2GW_CarPartLevelup(session network.IBaseNetSession, message interface{}
 	}
 
 	send := &msg.GW2C_RetCarPartLevelup{}
-	result, data := CarMgr().CarPartLevelup(user, tmsg.GetCarid(), tmsg.GetParttype(),tmsg.pieces)
+	result, data := CarMgr().CarPartLevelup(user, tmsg.GetCarid(), tmsg.GetParttype(),tmsg.Pieces)
 	send.Result = pb.Uint32(result)
 	send.Car = data
 	user.SendMsg(send)
