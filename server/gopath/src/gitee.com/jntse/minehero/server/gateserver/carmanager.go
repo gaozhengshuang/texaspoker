@@ -86,7 +86,7 @@ func (this *CarData) AddRewardItem(id uint32, num uint32) {
 
 func (this *CarData) ClearReward() {
 	rewardData := this.data.Reward
-	rewardData.Money = 0
+	rewardData.Money = pb.Uint32(
 	rewardData.Items = make([]*msg.CarPartPiece,0)
 	this.modified = true
 }
@@ -341,11 +341,10 @@ func (this *CarManager) LoadParkingFromDB() {
 }
 
 func (this *CarManager) LoadLevelupConf() {
-	tbl.TCarBase.TCarById[bin.GetTid()]
-	for _, v := range tbl.TCarPartLevelupById {
-		levelupConfForPart = this.partlevelupconfs[v.Partid]
+	for _, v := range tbl.TCarPartLevelupBase.TCarPartLevelupById {
+		levelupConfForPart := this.partlevelupconfs[v.Partid]
 		if levelupConfForPart == nil {
-			levelupConfForPart := make(map[uint32]*table.TCarPartLevelupDefine,0)
+			levelupConfForPart = make(map[uint32]*table.TCarPartLevelupDefine,0)
 			this.partlevelupconfs[v.Partid] = levelupConfForPart
 		}
 		levelupConfForPart[v.Level] = v
@@ -366,7 +365,7 @@ func (this *CarManager) GetCarHouseId(carid uint64) uint64 {
 		return 0
 	}
 
-	houses := HouseSvrMgr().GetHousesByUser(car.ownerid)
+	houses := HouseSvrMgr().GetHousesByUser(car.data.GetOwnerid())
 	if len(houses) != 0 {
 		return houses[0].id
 	}
@@ -401,14 +400,14 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	data.State = pb.Uint32(uint32(msg.CarState_Idle))
 	data.Starttime = pb.Uint64(0)
 	data.Endtime = pb.Uint64(0)
-	data.Latitude = pb.Float(0.0)
-	data.Longitude = pb.Float(0.0)
+	data.Latitude = pb.Float64(0.0)
+	data.Longitude = pb.Float64(0.0)
 	//创建部件
-	this.CreateCarPart(template.Tyre,msg.CarPartType_Tyre,data)
-	this.CreateCarPart(template.Tank,msg.CarPartType_Tank,data)
-	this.CreateCarPart(template.Trunk,msg.CarPartType_Trunk,data)
-	this.CreateCarPart(template.Engine,msg.CarPartType_Engine,data)
-	this.CreateCarPart(template.Battery,msg.CarPartType_Battery,data)
+	this.CreateCarPart(template.Tyre,uint32(msg.CarPartType_Tyre),data)
+	this.CreateCarPart(template.Tank,uint32(msg.CarPartType_Tank),data)
+	this.CreateCarPart(template.Trunk,uint32(msg.CarPartType_Trunk),data)
+	this.CreateCarPart(template.Engine,uint32(msg.CarPartType_Engine),data)
+	this.CreateCarPart(template.Battery,uint32(msg.CarPartType_Battery),data)
 	//计算属性
 	attr := this.CalculateCarAttribute(data)
 	car.data = data
