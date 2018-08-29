@@ -49,9 +49,13 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateItemPos{}, on_GW2C_UpdateItemPos)
-	this.msgparser.RegistProtoMsg(msg.GW2C_SendShowImage{}, on_GW2C_SendShowImage)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetChangeImageSex{}, on_GW2C_RetChangeImageSex)
+	//this.msgparser.RegistProtoMsg(msg.GW2C_SendShowImage{}, on_GW2C_SendShowImage)
+	//this.msgparser.RegistProtoMsg(msg.GW2C_RetChangeImageSex{}, on_GW2C_RetChangeImageSex)
 	this.msgparser.RegistProtoMsg(msg.GW2C_FreePresentNotify{}, on_GW2C_FreePresentNotify)
+
+	// 女仆
+	this.msgparser.RegistProtoMsg(msg.GW2C_SendUserMaidInfo{}, on_GW2C_SendUserMaidInfo)
+
 
 	// 收room消息
 	this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
@@ -75,7 +79,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.C2GW_BuyClothes{})
 	this.msgparser.RegistSendProto(msg.C2GW_DressClothes{})
 	this.msgparser.RegistSendProto(msg.C2GW_UnDressClothes{})
-	this.msgparser.RegistSendProto(msg.C2GW_ChangeImageSex{})
+	//this.msgparser.RegistSendProto(msg.C2GW_ChangeImageSex{})
 
 	// 发room消息
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
@@ -240,23 +244,22 @@ func on_GW2C_UpdateItemPos(session network.IBaseNetSession, message interface{})
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_SendShowImage(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_SendShowImage)
+func on_GW2C_SendUserMaidInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_SendUserMaidInfo)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_RetChangeImageSex(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_RetChangeImageSex)
-	//log.Info(reflect.TypeOf(tmsg).String())
-	client, ok := session.UserDefData().(*User)
-	if ok == false {
-		panic("没有为Session设置UserDefData")
-	}
-	client.SetSex(tmsg.GetSex())
-
-	log.Info("%+v", tmsg)
-}
+//func on_GW2C_RetChangeImageSex(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.GW2C_RetChangeImageSex)
+//	//log.Info(reflect.TypeOf(tmsg).String())
+//	client, ok := session.UserDefData().(*User)
+//	if ok == false {
+//		panic("没有为Session设置UserDefData")
+//	}
+//	client.SetSex(tmsg.GetSex())
+//	log.Info("%+v", tmsg)
+//}
 
 func on_GW2C_FreePresentNotify(session network.IBaseNetSession, message interface{}) {
 }
