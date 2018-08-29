@@ -35,6 +35,9 @@ message ItemBaseDataDefine
 	
 	
 	optional string Desc = 6; // 道具简介
+	
+	
+	optional uint32 Clothes = 7; // 合成时装
 
 }
 

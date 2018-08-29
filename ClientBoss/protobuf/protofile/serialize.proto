@@ -62,9 +62,10 @@ message PersonalImage {
     repeated ImageData lists = 2;
 }
 
-// 女仆
+// 仆人对象
 message HouseMaidData { 
-    repeated ImageData images = 1;  // 女仆装扮
+    //repeated ImageData images = 1;  // 装扮
+    repeated ItemData clothes = 1;  // 服装装扮
     optional uint64 id = 2;         // uuid
     optional int32  level = 3;      // 等级
     optional uint64 ownerid = 4;    // 主人id
@@ -73,6 +74,7 @@ message HouseMaidData {
     optional string robbername = 7; // 掠夺者name
     optional uint32 earning = 8;    // 收益
     optional uint64 houseid = 9;    // 所在房间
+    optional int32  sex = 10;       // 仆人性别
 }
 
 message UserBase {
@@ -186,6 +188,7 @@ message HouseData {
 	optional uint32 robcheckflag = 9; //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
     repeated ParkingData parkings = 10;
 	optional uint32 roommember = 11; //房间号
+    optional uint32 area = 12;      //面积
 }
 
 // 汽车商店出售信息

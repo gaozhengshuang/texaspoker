@@ -96,6 +96,16 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
 
+	// 女仆
+	this.msgparser.RegistProtoMsg(msg.C2GW_MakeClothes{}, 		on_C2GW_MakeClothes)
+	this.msgparser.RegistProtoMsg(msg.C2GW_MaidUpgrade{}, 		on_C2GW_MaidUpgrade)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TakeMaidEarning{}, 	on_C2GW_TakeMaidEarning)
+	this.msgparser.RegistProtoMsg(msg.C2GW_RobMaid{}, 			on_C2GW_RobMaid)
+	this.msgparser.RegistProtoMsg(msg.C2GW_EnableMaidDropTo{}, 	on_C2GW_EnableMaidDropTo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_RobMaidToHouse{}, 	on_C2GW_RobMaidToHouse)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TackBackMaid{}, 		on_C2GW_TackBackMaid)
+	this.msgparser.RegistProtoMsg(msg.C2GW_SendBackMaid{}, 		on_C2GW_SendBackMaid)
+
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqParkingInfoByType{}, on_C2GW_ReqParkingInfoByType)
@@ -791,13 +801,13 @@ func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
 }
 
 func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_DressClothes)
-	//user := ExtractSessionUser(session)
-	//if user == nil {
-	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-	//	session.Close()
-	//	return
-	//}
+	tmsg := message.(*msg.C2GW_DressClothes)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
 
 	//if user.IsInRoom() {
 	//	//user.SendRoomMsg(tmsg)
@@ -805,35 +815,42 @@ func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) 
 	//	return
 	//}
 
-	//if def.IsValidEquipPos(tmsg.GetPos()) == false {
-	//	user.SendNotify("无效的穿戴部位")
-	//	return
-	//}
+	if def.IsValidEquipPos(tmsg.GetPos()) == false {
+		user.SendNotify("无效的穿戴部位")
+		return
+	}
 
-	//// 套装
-	//if tmsg.GetPos() == int32(msg.ItemPos_Suit) || user.image.IsHaveDressSuit() == true {
-	//	user.image.UnDressAll(false)
-	//} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
-	//	user.image.UnDressClothes(int32(msg.ItemPos_Clothes), false) // 脱掉上衣
-	//	user.image.UnDressClothes(int32(msg.ItemPos_Pants), false)   // 脱掉裤子
-	//} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
-	//	user.image.UnDressClothes(int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
-	//	user.image.UnDressClothes(tmsg.GetPos(), false)
-	//} else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
-	//	user.image.UnDressClothes(tmsg.GetPos(), false)
-	//}
+	// 获得女仆
+	maid := MaidMgr().GetMaidsById(tmsg.GetId())
+	if maid == nil {
+		user.SendNotify("您没有任何女仆")
+		return
+	}
 
-	//user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
+	// 套装
+	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || maid.IsHaveDressSuit() == true {
+		maid.UnDressAll(user, false)
+	} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
+		maid.UnDressClothes(user, int32(msg.ItemPos_Clothes), false) // 脱掉上衣
+		maid.UnDressClothes(user, int32(msg.ItemPos_Pants), false)   // 脱掉裤子
+	} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
+		maid.UnDressClothes(user, int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
+		maid.UnDressClothes(user, tmsg.GetPos(), false)
+	} else if maid.GetClothesByPos(tmsg.GetPos()) != nil {
+		maid.UnDressClothes(user, tmsg.GetPos(), false)
+	}
+
+	maid.DressClothes(user, tmsg.GetPos(), tmsg.GetItemid())
 }
 
 func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_UnDressClothes)
-	//user := ExtractSessionUser(session)
-	//if user == nil {
-	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-	//	session.Close()
-	//	return
-	//}
+	tmsg := message.(*msg.C2GW_UnDressClothes)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
 
 	//if user.IsInRoom() {
 	//	//user.SendRoomMsg(tmsg)
@@ -841,8 +858,13 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 	//	return
 	//}
 
-	// 脱下
-	//user.image.UnDressClothes(tmsg.GetPos(), true)
+	// 获得女仆
+	maid := MaidMgr().GetMaidsById(tmsg.GetId())
+	if maid == nil {
+		user.SendNotify("您没有任何女仆")
+		return
+	}
+	maid.UnDressClothes(user, tmsg.GetPos(), true)
 }
 
 //func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
@@ -869,7 +891,7 @@ func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}
 //	send := &msg.GW2C_RetChangeImageSex{Sex: pb.Int32(user.Sex())}
 //	user.SendMsg(send)
 //
-//	user.image.SendShowImage()
+//	maid.SendShowImage()
 //}
 
 func on_C2GW_ReqCarShopInfo(session network.IBaseNetSession, message interface{}) {
@@ -894,6 +916,27 @@ func on_C2GW_BuyCarFromShop(session network.IBaseNetSession, message interface{}
 
 	Carshop().BuyCar(user, tmsg.GetShopid(), tmsg.GetPid())
 }
+
+// 合成时装
+func on_C2GW_MakeClothes(session network.IBaseNetSession, message interface{}) {
+	;
+}
+func on_C2GW_MaidUpgrade(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_TakeMaidEarning(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_EnableMaidDropTo(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_RobMaidToHouse(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_TackBackMaid(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
+}
+
+
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)

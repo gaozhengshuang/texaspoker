@@ -3,7 +3,7 @@
 	<e:Rect id="room_bg" width="720" height="100%" x="0" y="0" fillColor="0xc3c6cb"/>
 	<e:Group id="huxingGroup">
 	</e:Group>
-	<e:Group id="bootomGroup" width="400" height="250" x="0" y="819">
+	<e:Group id="bootomGroup" width="400" height="250" horizontalCenter="-160" bottom="211">
 		<game:CarParkingLot id="parkingLot" width="20" height="20" scaleX="1" scaleY="1" skinName="CarParkingLotSkin" anchorOffsetX="0" x="380" y="-80" visible="false"/>
 		<e:layout>
 			<e:VerticalLayout paddingLeft="386" gap="166" horizontalAlign="center" verticalAlign="middle"/>

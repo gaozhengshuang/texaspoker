@@ -7227,7 +7227,7 @@ $root.msg = (function() {
          * Properties of an HouseMaidData.
          * @memberof msg
          * @interface IHouseMaidData
-         * @property {Array.<msg.IImageData>|null} [images] HouseMaidData images
+         * @property {Array.<msg.IItemData>|null} [clothes] HouseMaidData clothes
          * @property {number|Long|null} [id] HouseMaidData id
          * @property {number|null} [level] HouseMaidData level
          * @property {number|Long|null} [ownerid] HouseMaidData ownerid
@@ -7236,6 +7236,7 @@ $root.msg = (function() {
          * @property {string|null} [robbername] HouseMaidData robbername
          * @property {number|null} [earning] HouseMaidData earning
          * @property {number|Long|null} [houseid] HouseMaidData houseid
+         * @property {number|null} [sex] HouseMaidData sex
          */
 
         /**
@@ -7247,7 +7248,7 @@ $root.msg = (function() {
          * @param {msg.IHouseMaidData=} [properties] Properties to set
          */
         function HouseMaidData(properties) {
-            this.images = [];
+            this.clothes = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -7255,12 +7256,12 @@ $root.msg = (function() {
         }
 
         /**
-         * HouseMaidData images.
-         * @member {Array.<msg.IImageData>} images
+         * HouseMaidData clothes.
+         * @member {Array.<msg.IItemData>} clothes
          * @memberof msg.HouseMaidData
          * @instance
          */
-        HouseMaidData.prototype.images = $util.emptyArray;
+        HouseMaidData.prototype.clothes = $util.emptyArray;
 
         /**
          * HouseMaidData id.
@@ -7327,6 +7328,14 @@ $root.msg = (function() {
         HouseMaidData.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
+         * HouseMaidData sex.
+         * @member {number} sex
+         * @memberof msg.HouseMaidData
+         * @instance
+         */
+        HouseMaidData.prototype.sex = 0;
+
+        /**
          * Creates a new HouseMaidData instance using the specified properties.
          * @function create
          * @memberof msg.HouseMaidData
@@ -7350,9 +7359,9 @@ $root.msg = (function() {
         HouseMaidData.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.images != null && message.images.length)
-                for (var i = 0; i < message.images.length; ++i)
-                    $root.msg.ImageData.encode(message.images[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.clothes != null && message.clothes.length)
+                for (var i = 0; i < message.clothes.length; ++i)
+                    $root.msg.ItemData.encode(message.clothes[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             if (message.id != null && message.hasOwnProperty("id"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.id);
             if (message.level != null && message.hasOwnProperty("level"))
@@ -7369,6 +7378,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.earning);
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 writer.uint32(/* id 9, wireType 0 =*/72).uint64(message.houseid);
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.sex);
             return writer;
         };
 
@@ -7404,9 +7415,9 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    if (!(message.images && message.images.length))
-                        message.images = [];
-                    message.images.push($root.msg.ImageData.decode(reader, reader.uint32()));
+                    if (!(message.clothes && message.clothes.length))
+                        message.clothes = [];
+                    message.clothes.push($root.msg.ItemData.decode(reader, reader.uint32()));
                     break;
                 case 2:
                     message.id = reader.uint64();
@@ -7431,6 +7442,9 @@ $root.msg = (function() {
                     break;
                 case 9:
                     message.houseid = reader.uint64();
+                    break;
+                case 10:
+                    message.sex = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7467,13 +7481,13 @@ $root.msg = (function() {
         HouseMaidData.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.images != null && message.hasOwnProperty("images")) {
-                if (!Array.isArray(message.images))
-                    return "images: array expected";
-                for (var i = 0; i < message.images.length; ++i) {
-                    var error = $root.msg.ImageData.verify(message.images[i]);
+            if (message.clothes != null && message.hasOwnProperty("clothes")) {
+                if (!Array.isArray(message.clothes))
+                    return "clothes: array expected";
+                for (var i = 0; i < message.clothes.length; ++i) {
+                    var error = $root.msg.ItemData.verify(message.clothes[i]);
                     if (error)
-                        return "images." + error;
+                        return "clothes." + error;
                 }
             }
             if (message.id != null && message.hasOwnProperty("id"))
@@ -7500,6 +7514,9 @@ $root.msg = (function() {
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
                     return "houseid: integer|Long expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
             return null;
         };
 
@@ -7515,14 +7532,14 @@ $root.msg = (function() {
             if (object instanceof $root.msg.HouseMaidData)
                 return object;
             var message = new $root.msg.HouseMaidData();
-            if (object.images) {
-                if (!Array.isArray(object.images))
-                    throw TypeError(".msg.HouseMaidData.images: array expected");
-                message.images = [];
-                for (var i = 0; i < object.images.length; ++i) {
-                    if (typeof object.images[i] !== "object")
-                        throw TypeError(".msg.HouseMaidData.images: object expected");
-                    message.images[i] = $root.msg.ImageData.fromObject(object.images[i]);
+            if (object.clothes) {
+                if (!Array.isArray(object.clothes))
+                    throw TypeError(".msg.HouseMaidData.clothes: array expected");
+                message.clothes = [];
+                for (var i = 0; i < object.clothes.length; ++i) {
+                    if (typeof object.clothes[i] !== "object")
+                        throw TypeError(".msg.HouseMaidData.clothes: object expected");
+                    message.clothes[i] = $root.msg.ItemData.fromObject(object.clothes[i]);
                 }
             }
             if (object.id != null)
@@ -7569,6 +7586,8 @@ $root.msg = (function() {
                     message.houseid = object.houseid;
                 else if (typeof object.houseid === "object")
                     message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.sex != null)
+                message.sex = object.sex | 0;
             return message;
         };
 
@@ -7586,7 +7605,7 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.arrays || options.defaults)
-                object.images = [];
+                object.clothes = [];
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
@@ -7612,11 +7631,12 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.houseid = options.longs === String ? "0" : 0;
+                object.sex = 0;
             }
-            if (message.images && message.images.length) {
-                object.images = [];
-                for (var j = 0; j < message.images.length; ++j)
-                    object.images[j] = $root.msg.ImageData.toObject(message.images[j], options);
+            if (message.clothes && message.clothes.length) {
+                object.clothes = [];
+                for (var j = 0; j < message.clothes.length; ++j)
+                    object.clothes[j] = $root.msg.ItemData.toObject(message.clothes[j], options);
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -7646,6 +7666,8 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
                 else
                     object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
             return object;
         };
 
@@ -10898,6 +10920,7 @@ $root.msg = (function() {
          * @property {number|null} [robcheckflag] HouseData robcheckflag
          * @property {Array.<msg.IParkingData>|null} [parkings] HouseData parkings
          * @property {number|null} [roommember] HouseData roommember
+         * @property {number|null} [area] HouseData area
          */
 
         /**
@@ -11007,6 +11030,14 @@ $root.msg = (function() {
         HouseData.prototype.roommember = 0;
 
         /**
+         * HouseData area.
+         * @member {number} area
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.area = 0;
+
+        /**
          * Creates a new HouseData instance using the specified properties.
          * @function create
          * @memberof msg.HouseData
@@ -11055,6 +11086,8 @@ $root.msg = (function() {
                     $root.msg.ParkingData.encode(message.parkings[i], writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
             if (message.roommember != null && message.hasOwnProperty("roommember"))
                 writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.roommember);
+            if (message.area != null && message.hasOwnProperty("area"))
+                writer.uint32(/* id 12, wireType 0 =*/96).uint32(message.area);
             return writer;
         };
 
@@ -11127,6 +11160,9 @@ $root.msg = (function() {
                     break;
                 case 11:
                     message.roommember = reader.uint32();
+                    break;
+                case 12:
+                    message.area = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -11214,6 +11250,9 @@ $root.msg = (function() {
             if (message.roommember != null && message.hasOwnProperty("roommember"))
                 if (!$util.isInteger(message.roommember))
                     return "roommember: integer expected";
+            if (message.area != null && message.hasOwnProperty("area"))
+                if (!$util.isInteger(message.area))
+                    return "area: integer expected";
             return null;
         };
 
@@ -11289,6 +11328,8 @@ $root.msg = (function() {
             }
             if (object.roommember != null)
                 message.roommember = object.roommember >>> 0;
+            if (object.area != null)
+                message.area = object.area >>> 0;
             return message;
         };
 
@@ -11327,6 +11368,7 @@ $root.msg = (function() {
                 object.ownername = "";
                 object.robcheckflag = 0;
                 object.roommember = 0;
+                object.area = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -11365,6 +11407,8 @@ $root.msg = (function() {
             }
             if (message.roommember != null && message.hasOwnProperty("roommember"))
                 object.roommember = message.roommember;
+            if (message.area != null && message.hasOwnProperty("area"))
+                object.area = message.area;
             return object;
         };
 
@@ -18702,6 +18746,7 @@ $root.msg = (function() {
          * @property {number|null} [index] GW2C_AckTakeSelfHouseGoldRet index
          * @property {number|null} [gold] GW2C_AckTakeSelfHouseGoldRet gold
          * @property {msg.IHouseData|null} [data] GW2C_AckTakeSelfHouseGoldRet data
+         * @property {Array.<msg.IPairNumItem>|null} [items] GW2C_AckTakeSelfHouseGoldRet items
          */
 
         /**
@@ -18713,6 +18758,7 @@ $root.msg = (function() {
          * @param {msg.IGW2C_AckTakeSelfHouseGoldRet=} [properties] Properties to set
          */
         function GW2C_AckTakeSelfHouseGoldRet(properties) {
+            this.items = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -18752,6 +18798,14 @@ $root.msg = (function() {
         GW2C_AckTakeSelfHouseGoldRet.prototype.data = null;
 
         /**
+         * GW2C_AckTakeSelfHouseGoldRet items.
+         * @member {Array.<msg.IPairNumItem>} items
+         * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeSelfHouseGoldRet.prototype.items = $util.emptyArray;
+
+        /**
          * Creates a new GW2C_AckTakeSelfHouseGoldRet instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckTakeSelfHouseGoldRet
@@ -18783,6 +18837,9 @@ $root.msg = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
             if (message.data != null && message.hasOwnProperty("data"))
                 $root.msg.HouseData.encode(message.data, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+            if (message.items != null && message.items.length)
+                for (var i = 0; i < message.items.length; ++i)
+                    $root.msg.PairNumItem.encode(message.items[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             return writer;
         };
 
@@ -18828,6 +18885,11 @@ $root.msg = (function() {
                     break;
                 case 4:
                     message.data = $root.msg.HouseData.decode(reader, reader.uint32());
+                    break;
+                case 5:
+                    if (!(message.items && message.items.length))
+                        message.items = [];
+                    message.items.push($root.msg.PairNumItem.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -18878,6 +18940,15 @@ $root.msg = (function() {
                 if (error)
                     return "data." + error;
             }
+            if (message.items != null && message.hasOwnProperty("items")) {
+                if (!Array.isArray(message.items))
+                    return "items: array expected";
+                for (var i = 0; i < message.items.length; ++i) {
+                    var error = $root.msg.PairNumItem.verify(message.items[i]);
+                    if (error)
+                        return "items." + error;
+                }
+            }
             return null;
         };
 
@@ -18911,6 +18982,16 @@ $root.msg = (function() {
                     throw TypeError(".msg.GW2C_AckTakeSelfHouseGoldRet.data: object expected");
                 message.data = $root.msg.HouseData.fromObject(object.data);
             }
+            if (object.items) {
+                if (!Array.isArray(object.items))
+                    throw TypeError(".msg.GW2C_AckTakeSelfHouseGoldRet.items: array expected");
+                message.items = [];
+                for (var i = 0; i < object.items.length; ++i) {
+                    if (typeof object.items[i] !== "object")
+                        throw TypeError(".msg.GW2C_AckTakeSelfHouseGoldRet.items: object expected");
+                    message.items[i] = $root.msg.PairNumItem.fromObject(object.items[i]);
+                }
+            }
             return message;
         };
 
@@ -18927,6 +19008,8 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.items = [];
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
@@ -18948,6 +19031,11 @@ $root.msg = (function() {
                 object.gold = message.gold;
             if (message.data != null && message.hasOwnProperty("data"))
                 object.data = $root.msg.HouseData.toObject(message.data, options);
+            if (message.items && message.items.length) {
+                object.items = [];
+                for (var j = 0; j < message.items.length; ++j)
+                    object.items[j] = $root.msg.PairNumItem.toObject(message.items[j], options);
+            }
             return object;
         };
 
@@ -19199,6 +19287,7 @@ $root.msg = (function() {
          * @property {number|null} [index] GW2C_AckTakeOtherHouseGoldRet index
          * @property {number|null} [gold] GW2C_AckTakeOtherHouseGoldRet gold
          * @property {msg.IHouseData|null} [data] GW2C_AckTakeOtherHouseGoldRet data
+         * @property {Array.<msg.IPairNumItem>|null} [items] GW2C_AckTakeOtherHouseGoldRet items
          */
 
         /**
@@ -19210,6 +19299,7 @@ $root.msg = (function() {
          * @param {msg.IGW2C_AckTakeOtherHouseGoldRet=} [properties] Properties to set
          */
         function GW2C_AckTakeOtherHouseGoldRet(properties) {
+            this.items = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -19249,6 +19339,14 @@ $root.msg = (function() {
         GW2C_AckTakeOtherHouseGoldRet.prototype.data = null;
 
         /**
+         * GW2C_AckTakeOtherHouseGoldRet items.
+         * @member {Array.<msg.IPairNumItem>} items
+         * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
+         * @instance
+         */
+        GW2C_AckTakeOtherHouseGoldRet.prototype.items = $util.emptyArray;
+
+        /**
          * Creates a new GW2C_AckTakeOtherHouseGoldRet instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_AckTakeOtherHouseGoldRet
@@ -19280,6 +19378,9 @@ $root.msg = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.gold);
             if (message.data != null && message.hasOwnProperty("data"))
                 $root.msg.HouseData.encode(message.data, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+            if (message.items != null && message.items.length)
+                for (var i = 0; i < message.items.length; ++i)
+                    $root.msg.PairNumItem.encode(message.items[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             return writer;
         };
 
@@ -19325,6 +19426,11 @@ $root.msg = (function() {
                     break;
                 case 4:
                     message.data = $root.msg.HouseData.decode(reader, reader.uint32());
+                    break;
+                case 5:
+                    if (!(message.items && message.items.length))
+                        message.items = [];
+                    message.items.push($root.msg.PairNumItem.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -19375,6 +19481,15 @@ $root.msg = (function() {
                 if (error)
                     return "data." + error;
             }
+            if (message.items != null && message.hasOwnProperty("items")) {
+                if (!Array.isArray(message.items))
+                    return "items: array expected";
+                for (var i = 0; i < message.items.length; ++i) {
+                    var error = $root.msg.PairNumItem.verify(message.items[i]);
+                    if (error)
+                        return "items." + error;
+                }
+            }
             return null;
         };
 
@@ -19408,6 +19523,16 @@ $root.msg = (function() {
                     throw TypeError(".msg.GW2C_AckTakeOtherHouseGoldRet.data: object expected");
                 message.data = $root.msg.HouseData.fromObject(object.data);
             }
+            if (object.items) {
+                if (!Array.isArray(object.items))
+                    throw TypeError(".msg.GW2C_AckTakeOtherHouseGoldRet.items: array expected");
+                message.items = [];
+                for (var i = 0; i < object.items.length; ++i) {
+                    if (typeof object.items[i] !== "object")
+                        throw TypeError(".msg.GW2C_AckTakeOtherHouseGoldRet.items: object expected");
+                    message.items[i] = $root.msg.PairNumItem.fromObject(object.items[i]);
+                }
+            }
             return message;
         };
 
@@ -19424,6 +19549,8 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.items = [];
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
@@ -19445,6 +19572,11 @@ $root.msg = (function() {
                 object.gold = message.gold;
             if (message.data != null && message.hasOwnProperty("data"))
                 object.data = $root.msg.HouseData.toObject(message.data, options);
+            if (message.items && message.items.length) {
+                object.items = [];
+                for (var j = 0; j < message.items.length; ++j)
+                    object.items[j] = $root.msg.PairNumItem.toObject(message.items[j], options);
+            }
             return object;
         };
 
@@ -29894,6 +30026,7 @@ $root.msg = (function() {
          * Properties of a C2GW_DressClothes.
          * @memberof msg
          * @interface IC2GW_DressClothes
+         * @property {number|Long|null} [id] C2GW_DressClothes id
          * @property {number|null} [pos] C2GW_DressClothes pos
          * @property {number|null} [itemid] C2GW_DressClothes itemid
          */
@@ -29912,6 +30045,14 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * C2GW_DressClothes id.
+         * @member {number|Long} id
+         * @memberof msg.C2GW_DressClothes
+         * @instance
+         */
+        C2GW_DressClothes.prototype.id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * C2GW_DressClothes pos.
@@ -29953,10 +30094,12 @@ $root.msg = (function() {
         C2GW_DressClothes.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.id);
             if (message.pos != null && message.hasOwnProperty("pos"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.pos);
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.pos);
             if (message.itemid != null && message.hasOwnProperty("itemid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.itemid);
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.itemid);
             return writer;
         };
 
@@ -29992,9 +30135,12 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.pos = reader.int32();
+                    message.id = reader.uint64();
                     break;
                 case 2:
+                    message.pos = reader.int32();
+                    break;
+                case 3:
                     message.itemid = reader.int32();
                     break;
                 default:
@@ -30032,6 +30178,9 @@ $root.msg = (function() {
         C2GW_DressClothes.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
             if (message.pos != null && message.hasOwnProperty("pos"))
                 if (!$util.isInteger(message.pos))
                     return "pos: integer expected";
@@ -30053,6 +30202,15 @@ $root.msg = (function() {
             if (object instanceof $root.msg.C2GW_DressClothes)
                 return object;
             var message = new $root.msg.C2GW_DressClothes();
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = true;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber(true);
             if (object.pos != null)
                 message.pos = object.pos | 0;
             if (object.itemid != null)
@@ -30074,9 +30232,19 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
                 object.pos = 0;
                 object.itemid = 0;
             }
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber(true) : message.id;
             if (message.pos != null && message.hasOwnProperty("pos"))
                 object.pos = message.pos;
             if (message.itemid != null && message.hasOwnProperty("itemid"))
@@ -30104,6 +30272,7 @@ $root.msg = (function() {
          * Properties of a C2GW_UnDressClothes.
          * @memberof msg
          * @interface IC2GW_UnDressClothes
+         * @property {number|Long|null} [id] C2GW_UnDressClothes id
          * @property {number|null} [pos] C2GW_UnDressClothes pos
          */
 
@@ -30121,6 +30290,14 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * C2GW_UnDressClothes id.
+         * @member {number|Long} id
+         * @memberof msg.C2GW_UnDressClothes
+         * @instance
+         */
+        C2GW_UnDressClothes.prototype.id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * C2GW_UnDressClothes pos.
@@ -30154,8 +30331,10 @@ $root.msg = (function() {
         C2GW_UnDressClothes.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.id);
             if (message.pos != null && message.hasOwnProperty("pos"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.pos);
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.pos);
             return writer;
         };
 
@@ -30191,6 +30370,9 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
                     message.pos = reader.int32();
                     break;
                 default:
@@ -30228,6 +30410,9 @@ $root.msg = (function() {
         C2GW_UnDressClothes.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
             if (message.pos != null && message.hasOwnProperty("pos"))
                 if (!$util.isInteger(message.pos))
                     return "pos: integer expected";
@@ -30246,6 +30431,15 @@ $root.msg = (function() {
             if (object instanceof $root.msg.C2GW_UnDressClothes)
                 return object;
             var message = new $root.msg.C2GW_UnDressClothes();
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = true;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber(true);
             if (object.pos != null)
                 message.pos = object.pos | 0;
             return message;
@@ -30264,8 +30458,19 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults)
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
                 object.pos = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber(true) : message.id;
             if (message.pos != null && message.hasOwnProperty("pos"))
                 object.pos = message.pos;
             return object;
@@ -40056,6 +40261,26 @@ $root.msg = (function() {
         return MS2Server_BroadCast;
     })();
 
+    /**
+     * TradeState enum.
+     * @name msg.TradeState
+     * @enum {string}
+     * @property {number} Tradeing=1 Tradeing value
+     * @property {number} CanReward=2 CanReward value
+     * @property {number} SellOk=3 SellOk value
+     * @property {number} BuyOk=4 BuyOk value
+     * @property {number} TradeCancel=5 TradeCancel value
+     */
+    msg.TradeState = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1] = "Tradeing"] = 1;
+        values[valuesById[2] = "CanReward"] = 2;
+        values[valuesById[3] = "SellOk"] = 3;
+        values[valuesById[4] = "BuyOk"] = 4;
+        values[valuesById[5] = "TradeCancel"] = 5;
+        return values;
+    })();
+
     msg.C2GW_ReqHouseTradeList = (function() {
 
         /**
@@ -40063,11 +40288,14 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IC2GW_ReqHouseTradeList
          * @property {number|null} [location] C2GW_ReqHouseTradeList location
+         * @property {number|null} [sublocation] C2GW_ReqHouseTradeList sublocation
          * @property {number|null} [housetype] C2GW_ReqHouseTradeList housetype
          * @property {number|null} [pricemin] C2GW_ReqHouseTradeList pricemin
          * @property {number|null} [pricemax] C2GW_ReqHouseTradeList pricemax
          * @property {number|null} [houselevel] C2GW_ReqHouseTradeList houselevel
          * @property {string|null} [name] C2GW_ReqHouseTradeList name
+         * @property {boolean|null} [pricedec] C2GW_ReqHouseTradeList pricedec
+         * @property {number|null} [startnum] C2GW_ReqHouseTradeList startnum
          */
 
         /**
@@ -40092,6 +40320,14 @@ $root.msg = (function() {
          * @instance
          */
         C2GW_ReqHouseTradeList.prototype.location = 0;
+
+        /**
+         * C2GW_ReqHouseTradeList sublocation.
+         * @member {number} sublocation
+         * @memberof msg.C2GW_ReqHouseTradeList
+         * @instance
+         */
+        C2GW_ReqHouseTradeList.prototype.sublocation = 0;
 
         /**
          * C2GW_ReqHouseTradeList housetype.
@@ -40134,6 +40370,22 @@ $root.msg = (function() {
         C2GW_ReqHouseTradeList.prototype.name = "";
 
         /**
+         * C2GW_ReqHouseTradeList pricedec.
+         * @member {boolean} pricedec
+         * @memberof msg.C2GW_ReqHouseTradeList
+         * @instance
+         */
+        C2GW_ReqHouseTradeList.prototype.pricedec = false;
+
+        /**
+         * C2GW_ReqHouseTradeList startnum.
+         * @member {number} startnum
+         * @memberof msg.C2GW_ReqHouseTradeList
+         * @instance
+         */
+        C2GW_ReqHouseTradeList.prototype.startnum = 0;
+
+        /**
          * Creates a new C2GW_ReqHouseTradeList instance using the specified properties.
          * @function create
          * @memberof msg.C2GW_ReqHouseTradeList
@@ -40158,17 +40410,23 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.location != null && message.hasOwnProperty("location"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.location);
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.location);
+            if (message.sublocation != null && message.hasOwnProperty("sublocation"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.sublocation);
             if (message.housetype != null && message.hasOwnProperty("housetype"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.housetype);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.housetype);
             if (message.pricemin != null && message.hasOwnProperty("pricemin"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.pricemin);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.pricemin);
             if (message.pricemax != null && message.hasOwnProperty("pricemax"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.pricemax);
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.pricemax);
             if (message.houselevel != null && message.hasOwnProperty("houselevel"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.houselevel);
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.houselevel);
             if (message.name != null && message.hasOwnProperty("name"))
-                writer.uint32(/* id 6, wireType 2 =*/50).string(message.name);
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.name);
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                writer.uint32(/* id 8, wireType 0 =*/64).bool(message.pricedec);
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.startnum);
             return writer;
         };
 
@@ -40204,22 +40462,31 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.location = reader.int32();
+                    message.location = reader.uint32();
                     break;
                 case 2:
-                    message.housetype = reader.int32();
+                    message.sublocation = reader.uint32();
                     break;
                 case 3:
-                    message.pricemin = reader.int32();
+                    message.housetype = reader.uint32();
                     break;
                 case 4:
-                    message.pricemax = reader.int32();
+                    message.pricemin = reader.uint32();
                     break;
                 case 5:
-                    message.houselevel = reader.int32();
+                    message.pricemax = reader.uint32();
                     break;
                 case 6:
+                    message.houselevel = reader.uint32();
+                    break;
+                case 7:
                     message.name = reader.string();
+                    break;
+                case 8:
+                    message.pricedec = reader.bool();
+                    break;
+                case 9:
+                    message.startnum = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -40259,6 +40526,9 @@ $root.msg = (function() {
             if (message.location != null && message.hasOwnProperty("location"))
                 if (!$util.isInteger(message.location))
                     return "location: integer expected";
+            if (message.sublocation != null && message.hasOwnProperty("sublocation"))
+                if (!$util.isInteger(message.sublocation))
+                    return "sublocation: integer expected";
             if (message.housetype != null && message.hasOwnProperty("housetype"))
                 if (!$util.isInteger(message.housetype))
                     return "housetype: integer expected";
@@ -40274,6 +40544,12 @@ $root.msg = (function() {
             if (message.name != null && message.hasOwnProperty("name"))
                 if (!$util.isString(message.name))
                     return "name: string expected";
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                if (typeof message.pricedec !== "boolean")
+                    return "pricedec: boolean expected";
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                if (!$util.isInteger(message.startnum))
+                    return "startnum: integer expected";
             return null;
         };
 
@@ -40290,17 +40566,23 @@ $root.msg = (function() {
                 return object;
             var message = new $root.msg.C2GW_ReqHouseTradeList();
             if (object.location != null)
-                message.location = object.location | 0;
+                message.location = object.location >>> 0;
+            if (object.sublocation != null)
+                message.sublocation = object.sublocation >>> 0;
             if (object.housetype != null)
-                message.housetype = object.housetype | 0;
+                message.housetype = object.housetype >>> 0;
             if (object.pricemin != null)
-                message.pricemin = object.pricemin | 0;
+                message.pricemin = object.pricemin >>> 0;
             if (object.pricemax != null)
-                message.pricemax = object.pricemax | 0;
+                message.pricemax = object.pricemax >>> 0;
             if (object.houselevel != null)
-                message.houselevel = object.houselevel | 0;
+                message.houselevel = object.houselevel >>> 0;
             if (object.name != null)
                 message.name = String(object.name);
+            if (object.pricedec != null)
+                message.pricedec = Boolean(object.pricedec);
+            if (object.startnum != null)
+                message.startnum = object.startnum >>> 0;
             return message;
         };
 
@@ -40319,14 +40601,19 @@ $root.msg = (function() {
             var object = {};
             if (options.defaults) {
                 object.location = 0;
+                object.sublocation = 0;
                 object.housetype = 0;
                 object.pricemin = 0;
                 object.pricemax = 0;
                 object.houselevel = 0;
                 object.name = "";
+                object.pricedec = false;
+                object.startnum = 0;
             }
             if (message.location != null && message.hasOwnProperty("location"))
                 object.location = message.location;
+            if (message.sublocation != null && message.hasOwnProperty("sublocation"))
+                object.sublocation = message.sublocation;
             if (message.housetype != null && message.hasOwnProperty("housetype"))
                 object.housetype = message.housetype;
             if (message.pricemin != null && message.hasOwnProperty("pricemin"))
@@ -40337,6 +40624,10 @@ $root.msg = (function() {
                 object.houselevel = message.houselevel;
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                object.pricedec = message.pricedec;
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                object.startnum = message.startnum;
             return object;
         };
 
@@ -40370,8 +40661,11 @@ $root.msg = (function() {
          * @property {number|null} [housebaseid] SimpleHouseTrade housebaseid
          * @property {number|null} [endtime] SimpleHouseTrade endtime
          * @property {number|null} [location] SimpleHouseTrade location
+         * @property {number|null} [sublocation] SimpleHouseTrade sublocation
          * @property {number|null} [posx] SimpleHouseTrade posx
          * @property {number|null} [posy] SimpleHouseTrade posy
+         * @property {number|null} [state] SimpleHouseTrade state
+         * @property {number|null} [housetype] SimpleHouseTrade housetype
          */
 
         /**
@@ -40395,7 +40689,7 @@ $root.msg = (function() {
          * @memberof msg.SimpleHouseTrade
          * @instance
          */
-        SimpleHouseTrade.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        SimpleHouseTrade.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * SimpleHouseTrade name.
@@ -40470,6 +40764,14 @@ $root.msg = (function() {
         SimpleHouseTrade.prototype.location = 0;
 
         /**
+         * SimpleHouseTrade sublocation.
+         * @member {number} sublocation
+         * @memberof msg.SimpleHouseTrade
+         * @instance
+         */
+        SimpleHouseTrade.prototype.sublocation = 0;
+
+        /**
          * SimpleHouseTrade posx.
          * @member {number} posx
          * @memberof msg.SimpleHouseTrade
@@ -40484,6 +40786,22 @@ $root.msg = (function() {
          * @instance
          */
         SimpleHouseTrade.prototype.posy = 0;
+
+        /**
+         * SimpleHouseTrade state.
+         * @member {number} state
+         * @memberof msg.SimpleHouseTrade
+         * @instance
+         */
+        SimpleHouseTrade.prototype.state = 0;
+
+        /**
+         * SimpleHouseTrade housetype.
+         * @member {number} housetype
+         * @memberof msg.SimpleHouseTrade
+         * @instance
+         */
+        SimpleHouseTrade.prototype.housetype = 0;
 
         /**
          * Creates a new SimpleHouseTrade instance using the specified properties.
@@ -40510,29 +40828,35 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.tradeuid);
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
             if (message.name != null && message.hasOwnProperty("name"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
             if (message.houselevel != null && message.hasOwnProperty("houselevel"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.houselevel);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.houselevel);
             if (message.price != null && message.hasOwnProperty("price"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.price);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
             if (message.area != null && message.hasOwnProperty("area"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.area);
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.area);
             if (message.income != null && message.hasOwnProperty("income"))
-                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.income);
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.income);
             if (message.houseuid != null && message.hasOwnProperty("houseuid"))
-                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.houseuid);
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.houseuid);
             if (message.housebaseid != null && message.hasOwnProperty("housebaseid"))
-                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.housebaseid);
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.housebaseid);
             if (message.endtime != null && message.hasOwnProperty("endtime"))
-                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.endtime);
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.endtime);
             if (message.location != null && message.hasOwnProperty("location"))
-                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.location);
+                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.location);
+            if (message.sublocation != null && message.hasOwnProperty("sublocation"))
+                writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.sublocation);
             if (message.posx != null && message.hasOwnProperty("posx"))
-                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.posx);
+                writer.uint32(/* id 12, wireType 0 =*/96).uint32(message.posx);
             if (message.posy != null && message.hasOwnProperty("posy"))
-                writer.uint32(/* id 12, wireType 0 =*/96).int32(message.posy);
+                writer.uint32(/* id 13, wireType 0 =*/104).uint32(message.posy);
+            if (message.state != null && message.hasOwnProperty("state"))
+                writer.uint32(/* id 14, wireType 0 =*/112).uint32(message.state);
+            if (message.housetype != null && message.hasOwnProperty("housetype"))
+                writer.uint32(/* id 15, wireType 0 =*/120).uint32(message.housetype);
             return writer;
         };
 
@@ -40568,40 +40892,49 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.tradeuid = reader.int64();
+                    message.tradeuid = reader.uint64();
                     break;
                 case 2:
                     message.name = reader.string();
                     break;
                 case 3:
-                    message.houselevel = reader.int32();
+                    message.houselevel = reader.uint32();
                     break;
                 case 4:
-                    message.price = reader.int32();
+                    message.price = reader.uint32();
                     break;
                 case 5:
-                    message.area = reader.int32();
+                    message.area = reader.uint32();
                     break;
                 case 6:
-                    message.income = reader.int32();
+                    message.income = reader.uint32();
                     break;
                 case 7:
-                    message.houseuid = reader.int32();
+                    message.houseuid = reader.uint32();
                     break;
                 case 8:
-                    message.housebaseid = reader.int32();
+                    message.housebaseid = reader.uint32();
                     break;
                 case 9:
-                    message.endtime = reader.int32();
+                    message.endtime = reader.uint32();
                     break;
                 case 10:
-                    message.location = reader.int32();
+                    message.location = reader.uint32();
                     break;
                 case 11:
-                    message.posx = reader.int32();
+                    message.sublocation = reader.uint32();
                     break;
                 case 12:
-                    message.posy = reader.int32();
+                    message.posx = reader.uint32();
+                    break;
+                case 13:
+                    message.posy = reader.uint32();
+                    break;
+                case 14:
+                    message.state = reader.uint32();
+                    break;
+                case 15:
+                    message.housetype = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -40668,12 +41001,21 @@ $root.msg = (function() {
             if (message.location != null && message.hasOwnProperty("location"))
                 if (!$util.isInteger(message.location))
                     return "location: integer expected";
+            if (message.sublocation != null && message.hasOwnProperty("sublocation"))
+                if (!$util.isInteger(message.sublocation))
+                    return "sublocation: integer expected";
             if (message.posx != null && message.hasOwnProperty("posx"))
                 if (!$util.isInteger(message.posx))
                     return "posx: integer expected";
             if (message.posy != null && message.hasOwnProperty("posy"))
                 if (!$util.isInteger(message.posy))
                     return "posy: integer expected";
+            if (message.state != null && message.hasOwnProperty("state"))
+                if (!$util.isInteger(message.state))
+                    return "state: integer expected";
+            if (message.housetype != null && message.hasOwnProperty("housetype"))
+                if (!$util.isInteger(message.housetype))
+                    return "housetype: integer expected";
             return null;
         };
 
@@ -40691,35 +41033,41 @@ $root.msg = (function() {
             var message = new $root.msg.SimpleHouseTrade();
             if (object.tradeuid != null)
                 if ($util.Long)
-                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = false;
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
                 else if (typeof object.tradeuid === "string")
                     message.tradeuid = parseInt(object.tradeuid, 10);
                 else if (typeof object.tradeuid === "number")
                     message.tradeuid = object.tradeuid;
                 else if (typeof object.tradeuid === "object")
-                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber();
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
             if (object.name != null)
                 message.name = String(object.name);
             if (object.houselevel != null)
-                message.houselevel = object.houselevel | 0;
+                message.houselevel = object.houselevel >>> 0;
             if (object.price != null)
-                message.price = object.price | 0;
+                message.price = object.price >>> 0;
             if (object.area != null)
-                message.area = object.area | 0;
+                message.area = object.area >>> 0;
             if (object.income != null)
-                message.income = object.income | 0;
+                message.income = object.income >>> 0;
             if (object.houseuid != null)
-                message.houseuid = object.houseuid | 0;
+                message.houseuid = object.houseuid >>> 0;
             if (object.housebaseid != null)
-                message.housebaseid = object.housebaseid | 0;
+                message.housebaseid = object.housebaseid >>> 0;
             if (object.endtime != null)
-                message.endtime = object.endtime | 0;
+                message.endtime = object.endtime >>> 0;
             if (object.location != null)
-                message.location = object.location | 0;
+                message.location = object.location >>> 0;
+            if (object.sublocation != null)
+                message.sublocation = object.sublocation >>> 0;
             if (object.posx != null)
-                message.posx = object.posx | 0;
+                message.posx = object.posx >>> 0;
             if (object.posy != null)
-                message.posy = object.posy | 0;
+                message.posy = object.posy >>> 0;
+            if (object.state != null)
+                message.state = object.state >>> 0;
+            if (object.housetype != null)
+                message.housetype = object.housetype >>> 0;
             return message;
         };
 
@@ -40738,7 +41086,7 @@ $root.msg = (function() {
             var object = {};
             if (options.defaults) {
                 if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
+                    var long = new $util.Long(0, 0, true);
                     object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tradeuid = options.longs === String ? "0" : 0;
@@ -40751,14 +41099,17 @@ $root.msg = (function() {
                 object.housebaseid = 0;
                 object.endtime = 0;
                 object.location = 0;
+                object.sublocation = 0;
                 object.posx = 0;
                 object.posy = 0;
+                object.state = 0;
+                object.housetype = 0;
             }
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 if (typeof message.tradeuid === "number")
                     object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
                 else
-                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber() : message.tradeuid;
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
             if (message.houselevel != null && message.hasOwnProperty("houselevel"))
@@ -40777,10 +41128,16 @@ $root.msg = (function() {
                 object.endtime = message.endtime;
             if (message.location != null && message.hasOwnProperty("location"))
                 object.location = message.location;
+            if (message.sublocation != null && message.hasOwnProperty("sublocation"))
+                object.sublocation = message.sublocation;
             if (message.posx != null && message.hasOwnProperty("posx"))
                 object.posx = message.posx;
             if (message.posy != null && message.hasOwnProperty("posy"))
                 object.posy = message.posy;
+            if (message.state != null && message.hasOwnProperty("state"))
+                object.state = message.state;
+            if (message.housetype != null && message.hasOwnProperty("housetype"))
+                object.housetype = message.housetype;
             return object;
         };
 
@@ -40804,7 +41161,7 @@ $root.msg = (function() {
          * Properties of a GW2C_RetHouseTradeList.
          * @memberof msg
          * @interface IGW2C_RetHouseTradeList
-         * @property {msg.ISimpleHouseTrade|null} [list] GW2C_RetHouseTradeList list
+         * @property {Array.<msg.ISimpleHouseTrade>|null} [list] GW2C_RetHouseTradeList list
          */
 
         /**
@@ -40816,6 +41173,7 @@ $root.msg = (function() {
          * @param {msg.IGW2C_RetHouseTradeList=} [properties] Properties to set
          */
         function GW2C_RetHouseTradeList(properties) {
+            this.list = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -40824,11 +41182,11 @@ $root.msg = (function() {
 
         /**
          * GW2C_RetHouseTradeList list.
-         * @member {msg.ISimpleHouseTrade|null|undefined} list
+         * @member {Array.<msg.ISimpleHouseTrade>} list
          * @memberof msg.GW2C_RetHouseTradeList
          * @instance
          */
-        GW2C_RetHouseTradeList.prototype.list = null;
+        GW2C_RetHouseTradeList.prototype.list = $util.emptyArray;
 
         /**
          * Creates a new GW2C_RetHouseTradeList instance using the specified properties.
@@ -40854,8 +41212,9 @@ $root.msg = (function() {
         GW2C_RetHouseTradeList.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.list != null && message.hasOwnProperty("list"))
-                $root.msg.SimpleHouseTrade.encode(message.list, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.list != null && message.list.length)
+                for (var i = 0; i < message.list.length; ++i)
+                    $root.msg.SimpleHouseTrade.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
@@ -40891,7 +41250,9 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.list = $root.msg.SimpleHouseTrade.decode(reader, reader.uint32());
+                    if (!(message.list && message.list.length))
+                        message.list = [];
+                    message.list.push($root.msg.SimpleHouseTrade.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -40929,9 +41290,13 @@ $root.msg = (function() {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.list != null && message.hasOwnProperty("list")) {
-                var error = $root.msg.SimpleHouseTrade.verify(message.list);
-                if (error)
-                    return "list." + error;
+                if (!Array.isArray(message.list))
+                    return "list: array expected";
+                for (var i = 0; i < message.list.length; ++i) {
+                    var error = $root.msg.SimpleHouseTrade.verify(message.list[i]);
+                    if (error)
+                        return "list." + error;
+                }
             }
             return null;
         };
@@ -40948,10 +41313,15 @@ $root.msg = (function() {
             if (object instanceof $root.msg.GW2C_RetHouseTradeList)
                 return object;
             var message = new $root.msg.GW2C_RetHouseTradeList();
-            if (object.list != null) {
-                if (typeof object.list !== "object")
-                    throw TypeError(".msg.GW2C_RetHouseTradeList.list: object expected");
-                message.list = $root.msg.SimpleHouseTrade.fromObject(object.list);
+            if (object.list) {
+                if (!Array.isArray(object.list))
+                    throw TypeError(".msg.GW2C_RetHouseTradeList.list: array expected");
+                message.list = [];
+                for (var i = 0; i < object.list.length; ++i) {
+                    if (typeof object.list[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetHouseTradeList.list: object expected");
+                    message.list[i] = $root.msg.SimpleHouseTrade.fromObject(object.list[i]);
+                }
             }
             return message;
         };
@@ -40969,10 +41339,13 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults)
-                object.list = null;
-            if (message.list != null && message.hasOwnProperty("list"))
-                object.list = $root.msg.SimpleHouseTrade.toObject(message.list, options);
+            if (options.arrays || options.defaults)
+                object.list = [];
+            if (message.list && message.list.length) {
+                object.list = [];
+                for (var j = 0; j < message.list.length; ++j)
+                    object.list[j] = $root.msg.SimpleHouseTrade.toObject(message.list[j], options);
+            }
             return object;
         };
 
@@ -41020,7 +41393,7 @@ $root.msg = (function() {
          * @memberof msg.C2GW_TradeHouse
          * @instance
          */
-        C2GW_TradeHouse.prototype.houseuid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        C2GW_TradeHouse.prototype.houseuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_TradeHouse instance using the specified properties.
@@ -41047,7 +41420,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.houseuid != null && message.hasOwnProperty("houseuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.houseuid);
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseuid);
             return writer;
         };
 
@@ -41083,7 +41456,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.houseuid = reader.int64();
+                    message.houseuid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -41140,13 +41513,13 @@ $root.msg = (function() {
             var message = new $root.msg.C2GW_TradeHouse();
             if (object.houseuid != null)
                 if ($util.Long)
-                    (message.houseuid = $util.Long.fromValue(object.houseuid)).unsigned = false;
+                    (message.houseuid = $util.Long.fromValue(object.houseuid)).unsigned = true;
                 else if (typeof object.houseuid === "string")
                     message.houseuid = parseInt(object.houseuid, 10);
                 else if (typeof object.houseuid === "number")
                     message.houseuid = object.houseuid;
                 else if (typeof object.houseuid === "object")
-                    message.houseuid = new $util.LongBits(object.houseuid.low >>> 0, object.houseuid.high >>> 0).toNumber();
+                    message.houseuid = new $util.LongBits(object.houseuid.low >>> 0, object.houseuid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -41165,7 +41538,7 @@ $root.msg = (function() {
             var object = {};
             if (options.defaults)
                 if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
+                    var long = new $util.Long(0, 0, true);
                     object.houseuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.houseuid = options.longs === String ? "0" : 0;
@@ -41173,7 +41546,7 @@ $root.msg = (function() {
                 if (typeof message.houseuid === "number")
                     object.houseuid = options.longs === String ? String(message.houseuid) : message.houseuid;
                 else
-                    object.houseuid = options.longs === String ? $util.Long.prototype.toString.call(message.houseuid) : options.longs === Number ? new $util.LongBits(message.houseuid.low >>> 0, message.houseuid.high >>> 0).toNumber() : message.houseuid;
+                    object.houseuid = options.longs === String ? $util.Long.prototype.toString.call(message.houseuid) : options.longs === Number ? new $util.LongBits(message.houseuid.low >>> 0, message.houseuid.high >>> 0).toNumber(true) : message.houseuid;
             return object;
         };
 
@@ -41221,7 +41594,7 @@ $root.msg = (function() {
          * @memberof msg.C2GW_RetTradeHouse
          * @instance
          */
-        C2GW_RetTradeHouse.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        C2GW_RetTradeHouse.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_RetTradeHouse instance using the specified properties.
@@ -41248,7 +41621,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.tradeuid);
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
             return writer;
         };
 
@@ -41284,7 +41657,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.tradeuid = reader.int64();
+                    message.tradeuid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -41341,13 +41714,13 @@ $root.msg = (function() {
             var message = new $root.msg.C2GW_RetTradeHouse();
             if (object.tradeuid != null)
                 if ($util.Long)
-                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = false;
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
                 else if (typeof object.tradeuid === "string")
                     message.tradeuid = parseInt(object.tradeuid, 10);
                 else if (typeof object.tradeuid === "number")
                     message.tradeuid = object.tradeuid;
                 else if (typeof object.tradeuid === "object")
-                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber();
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -41366,7 +41739,7 @@ $root.msg = (function() {
             var object = {};
             if (options.defaults)
                 if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
+                    var long = new $util.Long(0, 0, true);
                     object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tradeuid = options.longs === String ? "0" : 0;
@@ -41374,7 +41747,7 @@ $root.msg = (function() {
                 if (typeof message.tradeuid === "number")
                     object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
                 else
-                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber() : message.tradeuid;
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
             return object;
         };
 
@@ -41422,7 +41795,7 @@ $root.msg = (function() {
          * @memberof msg.C2GW_BuyTradeHouse
          * @instance
          */
-        C2GW_BuyTradeHouse.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        C2GW_BuyTradeHouse.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_BuyTradeHouse instance using the specified properties.
@@ -41449,7 +41822,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.tradeuid);
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
             return writer;
         };
 
@@ -41485,7 +41858,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.tradeuid = reader.int64();
+                    message.tradeuid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -41542,13 +41915,13 @@ $root.msg = (function() {
             var message = new $root.msg.C2GW_BuyTradeHouse();
             if (object.tradeuid != null)
                 if ($util.Long)
-                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = false;
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
                 else if (typeof object.tradeuid === "string")
                     message.tradeuid = parseInt(object.tradeuid, 10);
                 else if (typeof object.tradeuid === "number")
                     message.tradeuid = object.tradeuid;
                 else if (typeof object.tradeuid === "object")
-                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber();
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -41567,7 +41940,7 @@ $root.msg = (function() {
             var object = {};
             if (options.defaults)
                 if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
+                    var long = new $util.Long(0, 0, true);
                     object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tradeuid = options.longs === String ? "0" : 0;
@@ -41575,7 +41948,7 @@ $root.msg = (function() {
                 if (typeof message.tradeuid === "number")
                     object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
                 else
-                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber() : message.tradeuid;
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
             return object;
         };
 
@@ -41599,6 +41972,7 @@ $root.msg = (function() {
          * Properties of a GW2C_RetBuyTradeHouse.
          * @memberof msg
          * @interface IGW2C_RetBuyTradeHouse
+         * @property {number|Long|null} [tradeuid] GW2C_RetBuyTradeHouse tradeuid
          */
 
         /**
@@ -41615,6 +41989,14 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * GW2C_RetBuyTradeHouse tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.GW2C_RetBuyTradeHouse
+         * @instance
+         */
+        GW2C_RetBuyTradeHouse.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new GW2C_RetBuyTradeHouse instance using the specified properties.
@@ -41640,6 +42022,8 @@ $root.msg = (function() {
         GW2C_RetBuyTradeHouse.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
             return writer;
         };
 
@@ -41674,6 +42058,9 @@ $root.msg = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -41709,6 +42096,9 @@ $root.msg = (function() {
         GW2C_RetBuyTradeHouse.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
             return null;
         };
 
@@ -41723,7 +42113,17 @@ $root.msg = (function() {
         GW2C_RetBuyTradeHouse.fromObject = function fromObject(object) {
             if (object instanceof $root.msg.GW2C_RetBuyTradeHouse)
                 return object;
-            return new $root.msg.GW2C_RetBuyTradeHouse();
+            var message = new $root.msg.GW2C_RetBuyTradeHouse();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
         };
 
         /**
@@ -41735,8 +42135,22 @@ $root.msg = (function() {
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_RetBuyTradeHouse.toObject = function toObject() {
-            return {};
+        GW2C_RetBuyTradeHouse.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
         };
 
         /**
@@ -41751,6 +42165,1140 @@ $root.msg = (function() {
         };
 
         return GW2C_RetBuyTradeHouse;
+    })();
+
+    msg.C2GW_ReqTradeHouseHistory = (function() {
+
+        /**
+         * Properties of a C2GW_ReqTradeHouseHistory.
+         * @memberof msg
+         * @interface IC2GW_ReqTradeHouseHistory
+         */
+
+        /**
+         * Constructs a new C2GW_ReqTradeHouseHistory.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqTradeHouseHistory.
+         * @implements IC2GW_ReqTradeHouseHistory
+         * @constructor
+         * @param {msg.IC2GW_ReqTradeHouseHistory=} [properties] Properties to set
+         */
+        function C2GW_ReqTradeHouseHistory(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2GW_ReqTradeHouseHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeHouseHistory=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqTradeHouseHistory} C2GW_ReqTradeHouseHistory instance
+         */
+        C2GW_ReqTradeHouseHistory.create = function create(properties) {
+            return new C2GW_ReqTradeHouseHistory(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTradeHouseHistory message. Does not implicitly {@link msg.C2GW_ReqTradeHouseHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeHouseHistory} message C2GW_ReqTradeHouseHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTradeHouseHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTradeHouseHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeHouseHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeHouseHistory} message C2GW_ReqTradeHouseHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTradeHouseHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqTradeHouseHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqTradeHouseHistory} C2GW_ReqTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTradeHouseHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqTradeHouseHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqTradeHouseHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqTradeHouseHistory} C2GW_ReqTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTradeHouseHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqTradeHouseHistory message.
+         * @function verify
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqTradeHouseHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqTradeHouseHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqTradeHouseHistory} C2GW_ReqTradeHouseHistory
+         */
+        C2GW_ReqTradeHouseHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqTradeHouseHistory)
+                return object;
+            return new $root.msg.C2GW_ReqTradeHouseHistory();
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqTradeHouseHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @static
+         * @param {msg.C2GW_ReqTradeHouseHistory} message C2GW_ReqTradeHouseHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqTradeHouseHistory.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2GW_ReqTradeHouseHistory to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqTradeHouseHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqTradeHouseHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqTradeHouseHistory;
+    })();
+
+    msg.TradeHouseHistory = (function() {
+
+        /**
+         * Properties of a TradeHouseHistory.
+         * @memberof msg
+         * @interface ITradeHouseHistory
+         * @property {string|null} [name] TradeHouseHistory name
+         * @property {number|null} [houselevel] TradeHouseHistory houselevel
+         * @property {number|null} [price] TradeHouseHistory price
+         * @property {number|null} [area] TradeHouseHistory area
+         * @property {number|null} [income] TradeHouseHistory income
+         * @property {number|null} [tradetime] TradeHouseHistory tradetime
+         * @property {number|null} [housetype] TradeHouseHistory housetype
+         * @property {number|null} [housebaseid] TradeHouseHistory housebaseid
+         * @property {number|null} [state] TradeHouseHistory state
+         */
+
+        /**
+         * Constructs a new TradeHouseHistory.
+         * @memberof msg
+         * @classdesc Represents a TradeHouseHistory.
+         * @implements ITradeHouseHistory
+         * @constructor
+         * @param {msg.ITradeHouseHistory=} [properties] Properties to set
+         */
+        function TradeHouseHistory(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TradeHouseHistory name.
+         * @member {string} name
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.name = "";
+
+        /**
+         * TradeHouseHistory houselevel.
+         * @member {number} houselevel
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.houselevel = 0;
+
+        /**
+         * TradeHouseHistory price.
+         * @member {number} price
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.price = 0;
+
+        /**
+         * TradeHouseHistory area.
+         * @member {number} area
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.area = 0;
+
+        /**
+         * TradeHouseHistory income.
+         * @member {number} income
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.income = 0;
+
+        /**
+         * TradeHouseHistory tradetime.
+         * @member {number} tradetime
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.tradetime = 0;
+
+        /**
+         * TradeHouseHistory housetype.
+         * @member {number} housetype
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.housetype = 0;
+
+        /**
+         * TradeHouseHistory housebaseid.
+         * @member {number} housebaseid
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.housebaseid = 0;
+
+        /**
+         * TradeHouseHistory state.
+         * @member {number} state
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         */
+        TradeHouseHistory.prototype.state = 0;
+
+        /**
+         * Creates a new TradeHouseHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {msg.ITradeHouseHistory=} [properties] Properties to set
+         * @returns {msg.TradeHouseHistory} TradeHouseHistory instance
+         */
+        TradeHouseHistory.create = function create(properties) {
+            return new TradeHouseHistory(properties);
+        };
+
+        /**
+         * Encodes the specified TradeHouseHistory message. Does not implicitly {@link msg.TradeHouseHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {msg.ITradeHouseHistory} message TradeHouseHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TradeHouseHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.houselevel != null && message.hasOwnProperty("houselevel"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.houselevel);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+            if (message.area != null && message.hasOwnProperty("area"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.area);
+            if (message.income != null && message.hasOwnProperty("income"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.income);
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.tradetime);
+            if (message.housetype != null && message.hasOwnProperty("housetype"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.housetype);
+            if (message.housebaseid != null && message.hasOwnProperty("housebaseid"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.housebaseid);
+            if (message.state != null && message.hasOwnProperty("state"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.state);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TradeHouseHistory message, length delimited. Does not implicitly {@link msg.TradeHouseHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {msg.ITradeHouseHistory} message TradeHouseHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TradeHouseHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TradeHouseHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.TradeHouseHistory} TradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TradeHouseHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.TradeHouseHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.name = reader.string();
+                    break;
+                case 2:
+                    message.houselevel = reader.uint32();
+                    break;
+                case 3:
+                    message.price = reader.uint32();
+                    break;
+                case 4:
+                    message.area = reader.uint32();
+                    break;
+                case 5:
+                    message.income = reader.uint32();
+                    break;
+                case 6:
+                    message.tradetime = reader.uint32();
+                    break;
+                case 7:
+                    message.housetype = reader.uint32();
+                    break;
+                case 8:
+                    message.housebaseid = reader.uint32();
+                    break;
+                case 9:
+                    message.state = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TradeHouseHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.TradeHouseHistory} TradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TradeHouseHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TradeHouseHistory message.
+         * @function verify
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TradeHouseHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.houselevel != null && message.hasOwnProperty("houselevel"))
+                if (!$util.isInteger(message.houselevel))
+                    return "houselevel: integer expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.area != null && message.hasOwnProperty("area"))
+                if (!$util.isInteger(message.area))
+                    return "area: integer expected";
+            if (message.income != null && message.hasOwnProperty("income"))
+                if (!$util.isInteger(message.income))
+                    return "income: integer expected";
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                if (!$util.isInteger(message.tradetime))
+                    return "tradetime: integer expected";
+            if (message.housetype != null && message.hasOwnProperty("housetype"))
+                if (!$util.isInteger(message.housetype))
+                    return "housetype: integer expected";
+            if (message.housebaseid != null && message.hasOwnProperty("housebaseid"))
+                if (!$util.isInteger(message.housebaseid))
+                    return "housebaseid: integer expected";
+            if (message.state != null && message.hasOwnProperty("state"))
+                if (!$util.isInteger(message.state))
+                    return "state: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TradeHouseHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.TradeHouseHistory} TradeHouseHistory
+         */
+        TradeHouseHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.TradeHouseHistory)
+                return object;
+            var message = new $root.msg.TradeHouseHistory();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.houselevel != null)
+                message.houselevel = object.houselevel >>> 0;
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.area != null)
+                message.area = object.area >>> 0;
+            if (object.income != null)
+                message.income = object.income >>> 0;
+            if (object.tradetime != null)
+                message.tradetime = object.tradetime >>> 0;
+            if (object.housetype != null)
+                message.housetype = object.housetype >>> 0;
+            if (object.housebaseid != null)
+                message.housebaseid = object.housebaseid >>> 0;
+            if (object.state != null)
+                message.state = object.state >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TradeHouseHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.TradeHouseHistory
+         * @static
+         * @param {msg.TradeHouseHistory} message TradeHouseHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TradeHouseHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.name = "";
+                object.houselevel = 0;
+                object.price = 0;
+                object.area = 0;
+                object.income = 0;
+                object.tradetime = 0;
+                object.housetype = 0;
+                object.housebaseid = 0;
+                object.state = 0;
+            }
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.houselevel != null && message.hasOwnProperty("houselevel"))
+                object.houselevel = message.houselevel;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.area != null && message.hasOwnProperty("area"))
+                object.area = message.area;
+            if (message.income != null && message.hasOwnProperty("income"))
+                object.income = message.income;
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                object.tradetime = message.tradetime;
+            if (message.housetype != null && message.hasOwnProperty("housetype"))
+                object.housetype = message.housetype;
+            if (message.housebaseid != null && message.hasOwnProperty("housebaseid"))
+                object.housebaseid = message.housebaseid;
+            if (message.state != null && message.hasOwnProperty("state"))
+                object.state = message.state;
+            return object;
+        };
+
+        /**
+         * Converts this TradeHouseHistory to JSON.
+         * @function toJSON
+         * @memberof msg.TradeHouseHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TradeHouseHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TradeHouseHistory;
+    })();
+
+    msg.GW2C_RetTradeHouseHistory = (function() {
+
+        /**
+         * Properties of a GW2C_RetTradeHouseHistory.
+         * @memberof msg
+         * @interface IGW2C_RetTradeHouseHistory
+         * @property {Array.<msg.ITradeHouseHistory>|null} [list] GW2C_RetTradeHouseHistory list
+         */
+
+        /**
+         * Constructs a new GW2C_RetTradeHouseHistory.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetTradeHouseHistory.
+         * @implements IGW2C_RetTradeHouseHistory
+         * @constructor
+         * @param {msg.IGW2C_RetTradeHouseHistory=} [properties] Properties to set
+         */
+        function GW2C_RetTradeHouseHistory(properties) {
+            this.list = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetTradeHouseHistory list.
+         * @member {Array.<msg.ITradeHouseHistory>} list
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @instance
+         */
+        GW2C_RetTradeHouseHistory.prototype.list = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_RetTradeHouseHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeHouseHistory=} [properties] Properties to set
+         * @returns {msg.GW2C_RetTradeHouseHistory} GW2C_RetTradeHouseHistory instance
+         */
+        GW2C_RetTradeHouseHistory.create = function create(properties) {
+            return new GW2C_RetTradeHouseHistory(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeHouseHistory message. Does not implicitly {@link msg.GW2C_RetTradeHouseHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeHouseHistory} message GW2C_RetTradeHouseHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeHouseHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.list != null && message.list.length)
+                for (var i = 0; i < message.list.length; ++i)
+                    $root.msg.TradeHouseHistory.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeHouseHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeHouseHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeHouseHistory} message GW2C_RetTradeHouseHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeHouseHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeHouseHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetTradeHouseHistory} GW2C_RetTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeHouseHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetTradeHouseHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.list && message.list.length))
+                        message.list = [];
+                    message.list.push($root.msg.TradeHouseHistory.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeHouseHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetTradeHouseHistory} GW2C_RetTradeHouseHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeHouseHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetTradeHouseHistory message.
+         * @function verify
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetTradeHouseHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.list != null && message.hasOwnProperty("list")) {
+                if (!Array.isArray(message.list))
+                    return "list: array expected";
+                for (var i = 0; i < message.list.length; ++i) {
+                    var error = $root.msg.TradeHouseHistory.verify(message.list[i]);
+                    if (error)
+                        return "list." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetTradeHouseHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetTradeHouseHistory} GW2C_RetTradeHouseHistory
+         */
+        GW2C_RetTradeHouseHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetTradeHouseHistory)
+                return object;
+            var message = new $root.msg.GW2C_RetTradeHouseHistory();
+            if (object.list) {
+                if (!Array.isArray(object.list))
+                    throw TypeError(".msg.GW2C_RetTradeHouseHistory.list: array expected");
+                message.list = [];
+                for (var i = 0; i < object.list.length; ++i) {
+                    if (typeof object.list[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetTradeHouseHistory.list: object expected");
+                    message.list[i] = $root.msg.TradeHouseHistory.fromObject(object.list[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeHouseHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @static
+         * @param {msg.GW2C_RetTradeHouseHistory} message GW2C_RetTradeHouseHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetTradeHouseHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.list = [];
+            if (message.list && message.list.length) {
+                object.list = [];
+                for (var j = 0; j < message.list.length; ++j)
+                    object.list[j] = $root.msg.TradeHouseHistory.toObject(message.list[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetTradeHouseHistory to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetTradeHouseHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetTradeHouseHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetTradeHouseHistory;
+    })();
+
+    msg.C2GW_GetTradeHouseReward = (function() {
+
+        /**
+         * Properties of a C2GW_GetTradeHouseReward.
+         * @memberof msg
+         * @interface IC2GW_GetTradeHouseReward
+         * @property {number|Long|null} [tradeuid] C2GW_GetTradeHouseReward tradeuid
+         */
+
+        /**
+         * Constructs a new C2GW_GetTradeHouseReward.
+         * @memberof msg
+         * @classdesc Represents a C2GW_GetTradeHouseReward.
+         * @implements IC2GW_GetTradeHouseReward
+         * @constructor
+         * @param {msg.IC2GW_GetTradeHouseReward=} [properties] Properties to set
+         */
+        function C2GW_GetTradeHouseReward(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_GetTradeHouseReward tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @instance
+         */
+        C2GW_GetTradeHouseReward.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_GetTradeHouseReward instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {msg.IC2GW_GetTradeHouseReward=} [properties] Properties to set
+         * @returns {msg.C2GW_GetTradeHouseReward} C2GW_GetTradeHouseReward instance
+         */
+        C2GW_GetTradeHouseReward.create = function create(properties) {
+            return new C2GW_GetTradeHouseReward(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_GetTradeHouseReward message. Does not implicitly {@link msg.C2GW_GetTradeHouseReward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {msg.IC2GW_GetTradeHouseReward} message C2GW_GetTradeHouseReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GetTradeHouseReward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_GetTradeHouseReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeHouseReward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {msg.IC2GW_GetTradeHouseReward} message C2GW_GetTradeHouseReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GetTradeHouseReward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_GetTradeHouseReward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_GetTradeHouseReward} C2GW_GetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GetTradeHouseReward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_GetTradeHouseReward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_GetTradeHouseReward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_GetTradeHouseReward} C2GW_GetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GetTradeHouseReward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_GetTradeHouseReward message.
+         * @function verify
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_GetTradeHouseReward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_GetTradeHouseReward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_GetTradeHouseReward} C2GW_GetTradeHouseReward
+         */
+        C2GW_GetTradeHouseReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_GetTradeHouseReward)
+                return object;
+            var message = new $root.msg.C2GW_GetTradeHouseReward();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_GetTradeHouseReward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @static
+         * @param {msg.C2GW_GetTradeHouseReward} message C2GW_GetTradeHouseReward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_GetTradeHouseReward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_GetTradeHouseReward to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_GetTradeHouseReward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_GetTradeHouseReward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_GetTradeHouseReward;
+    })();
+
+    msg.GW2C_RetGetTradeHouseReward = (function() {
+
+        /**
+         * Properties of a GW2C_RetGetTradeHouseReward.
+         * @memberof msg
+         * @interface IGW2C_RetGetTradeHouseReward
+         * @property {number|Long|null} [tradeuid] GW2C_RetGetTradeHouseReward tradeuid
+         */
+
+        /**
+         * Constructs a new GW2C_RetGetTradeHouseReward.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetGetTradeHouseReward.
+         * @implements IGW2C_RetGetTradeHouseReward
+         * @constructor
+         * @param {msg.IGW2C_RetGetTradeHouseReward=} [properties] Properties to set
+         */
+        function GW2C_RetGetTradeHouseReward(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetGetTradeHouseReward tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @instance
+         */
+        GW2C_RetGetTradeHouseReward.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RetGetTradeHouseReward instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeHouseReward=} [properties] Properties to set
+         * @returns {msg.GW2C_RetGetTradeHouseReward} GW2C_RetGetTradeHouseReward instance
+         */
+        GW2C_RetGetTradeHouseReward.create = function create(properties) {
+            return new GW2C_RetGetTradeHouseReward(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeHouseReward message. Does not implicitly {@link msg.GW2C_RetGetTradeHouseReward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeHouseReward} message GW2C_RetGetTradeHouseReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetTradeHouseReward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeHouseReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetTradeHouseReward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeHouseReward} message GW2C_RetGetTradeHouseReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetTradeHouseReward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetGetTradeHouseReward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetGetTradeHouseReward} GW2C_RetGetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetTradeHouseReward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetGetTradeHouseReward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 2:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetGetTradeHouseReward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetGetTradeHouseReward} GW2C_RetGetTradeHouseReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetTradeHouseReward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetGetTradeHouseReward message.
+         * @function verify
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetGetTradeHouseReward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetGetTradeHouseReward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetGetTradeHouseReward} GW2C_RetGetTradeHouseReward
+         */
+        GW2C_RetGetTradeHouseReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetGetTradeHouseReward)
+                return object;
+            var message = new $root.msg.GW2C_RetGetTradeHouseReward();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetGetTradeHouseReward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @static
+         * @param {msg.GW2C_RetGetTradeHouseReward} message GW2C_RetGetTradeHouseReward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetGetTradeHouseReward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetGetTradeHouseReward to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetGetTradeHouseReward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetGetTradeHouseReward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetGetTradeHouseReward;
     })();
 
     msg.C2GW_AddDeliveryAddress = (function() {
@@ -50015,7 +51563,8 @@ $root.table = (function() {
          * @property {number|null} [Price] EquipDefine Price
          * @property {number|null} [CoinType] EquipDefine CoinType
          * @property {string|null} [Suit] EquipDefine Suit
-         * @property {string|null} [Make] EquipDefine Make
+         * @property {number|null} [DebrisID] EquipDefine DebrisID
+         * @property {number|null} [MakeNum] EquipDefine MakeNum
          */
 
         /**
@@ -50132,12 +51681,20 @@ $root.table = (function() {
         EquipDefine.prototype.Suit = "";
 
         /**
-         * EquipDefine Make.
-         * @member {string} Make
+         * EquipDefine DebrisID.
+         * @member {number} DebrisID
          * @memberof table.EquipDefine
          * @instance
          */
-        EquipDefine.prototype.Make = "";
+        EquipDefine.prototype.DebrisID = 0;
+
+        /**
+         * EquipDefine MakeNum.
+         * @member {number} MakeNum
+         * @memberof table.EquipDefine
+         * @instance
+         */
+        EquipDefine.prototype.MakeNum = 0;
 
         /**
          * Creates a new EquipDefine instance using the specified properties.
@@ -50189,8 +51746,10 @@ $root.table = (function() {
                 writer.uint32(/* id 11, wireType 0 =*/88).int32(message.CoinType);
             if (message.Suit != null && message.hasOwnProperty("Suit"))
                 writer.uint32(/* id 12, wireType 2 =*/98).string(message.Suit);
-            if (message.Make != null && message.hasOwnProperty("Make"))
-                writer.uint32(/* id 13, wireType 2 =*/106).string(message.Make);
+            if (message.DebrisID != null && message.hasOwnProperty("DebrisID"))
+                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.DebrisID);
+            if (message.MakeNum != null && message.hasOwnProperty("MakeNum"))
+                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.MakeNum);
             return writer;
         };
 
@@ -50266,7 +51825,10 @@ $root.table = (function() {
                     message.Suit = reader.string();
                     break;
                 case 13:
-                    message.Make = reader.string();
+                    message.DebrisID = reader.int32();
+                    break;
+                case 14:
+                    message.MakeNum = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -50347,9 +51909,12 @@ $root.table = (function() {
             if (message.Suit != null && message.hasOwnProperty("Suit"))
                 if (!$util.isString(message.Suit))
                     return "Suit: string expected";
-            if (message.Make != null && message.hasOwnProperty("Make"))
-                if (!$util.isString(message.Make))
-                    return "Make: string expected";
+            if (message.DebrisID != null && message.hasOwnProperty("DebrisID"))
+                if (!$util.isInteger(message.DebrisID))
+                    return "DebrisID: integer expected";
+            if (message.MakeNum != null && message.hasOwnProperty("MakeNum"))
+                if (!$util.isInteger(message.MakeNum))
+                    return "MakeNum: integer expected";
             return null;
         };
 
@@ -50399,8 +51964,10 @@ $root.table = (function() {
                 message.CoinType = object.CoinType | 0;
             if (object.Suit != null)
                 message.Suit = String(object.Suit);
-            if (object.Make != null)
-                message.Make = String(object.Make);
+            if (object.DebrisID != null)
+                message.DebrisID = object.DebrisID | 0;
+            if (object.MakeNum != null)
+                message.MakeNum = object.MakeNum | 0;
             return message;
         };
 
@@ -50432,7 +51999,8 @@ $root.table = (function() {
                 object.Price = 0;
                 object.CoinType = 0;
                 object.Suit = "";
-                object.Make = "";
+                object.DebrisID = 0;
+                object.MakeNum = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -50464,8 +52032,10 @@ $root.table = (function() {
                 object.CoinType = message.CoinType;
             if (message.Suit != null && message.hasOwnProperty("Suit"))
                 object.Suit = message.Suit;
-            if (message.Make != null && message.hasOwnProperty("Make"))
-                object.Make = message.Make;
+            if (message.DebrisID != null && message.hasOwnProperty("DebrisID"))
+                object.DebrisID = message.DebrisID;
+            if (message.MakeNum != null && message.hasOwnProperty("MakeNum"))
+                object.MakeNum = message.MakeNum;
             return object;
         };
 
@@ -52411,8 +53981,10 @@ $root.table = (function() {
          * @property {number|null} [Id] ItemBaseDataDefine Id
          * @property {number|null} [Type] ItemBaseDataDefine Type
          * @property {number|null} [Color] ItemBaseDataDefine Color
+         * @property {number|null} [ImageId] ItemBaseDataDefine ImageId
          * @property {string|null} [Name] ItemBaseDataDefine Name
          * @property {string|null} [Desc] ItemBaseDataDefine Desc
+         * @property {number|null} [Clothes] ItemBaseDataDefine Clothes
          */
 
         /**
@@ -52455,6 +54027,14 @@ $root.table = (function() {
         ItemBaseDataDefine.prototype.Color = 0;
 
         /**
+         * ItemBaseDataDefine ImageId.
+         * @member {number} ImageId
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.ImageId = 0;
+
+        /**
          * ItemBaseDataDefine Name.
          * @member {string} Name
          * @memberof table.ItemBaseDataDefine
@@ -52469,6 +54049,14 @@ $root.table = (function() {
          * @instance
          */
         ItemBaseDataDefine.prototype.Desc = "";
+
+        /**
+         * ItemBaseDataDefine Clothes.
+         * @member {number} Clothes
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.Clothes = 0;
 
         /**
          * Creates a new ItemBaseDataDefine instance using the specified properties.
@@ -52500,10 +54088,14 @@ $root.table = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
             if (message.Color != null && message.hasOwnProperty("Color"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Color);
+            if (message.ImageId != null && message.hasOwnProperty("ImageId"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ImageId);
             if (message.Name != null && message.hasOwnProperty("Name"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Name);
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Name);
             if (message.Desc != null && message.hasOwnProperty("Desc"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Desc);
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Desc);
+            if (message.Clothes != null && message.hasOwnProperty("Clothes"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.Clothes);
             return writer;
         };
 
@@ -52548,10 +54140,16 @@ $root.table = (function() {
                     message.Color = reader.uint32();
                     break;
                 case 4:
-                    message.Name = reader.string();
+                    message.ImageId = reader.uint32();
                     break;
                 case 5:
+                    message.Name = reader.string();
+                    break;
+                case 6:
                     message.Desc = reader.string();
+                    break;
+                case 7:
+                    message.Clothes = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -52597,12 +54195,18 @@ $root.table = (function() {
             if (message.Color != null && message.hasOwnProperty("Color"))
                 if (!$util.isInteger(message.Color))
                     return "Color: integer expected";
+            if (message.ImageId != null && message.hasOwnProperty("ImageId"))
+                if (!$util.isInteger(message.ImageId))
+                    return "ImageId: integer expected";
             if (message.Name != null && message.hasOwnProperty("Name"))
                 if (!$util.isString(message.Name))
                     return "Name: string expected";
             if (message.Desc != null && message.hasOwnProperty("Desc"))
                 if (!$util.isString(message.Desc))
                     return "Desc: string expected";
+            if (message.Clothes != null && message.hasOwnProperty("Clothes"))
+                if (!$util.isInteger(message.Clothes))
+                    return "Clothes: integer expected";
             return null;
         };
 
@@ -52624,10 +54228,14 @@ $root.table = (function() {
                 message.Type = object.Type | 0;
             if (object.Color != null)
                 message.Color = object.Color >>> 0;
+            if (object.ImageId != null)
+                message.ImageId = object.ImageId >>> 0;
             if (object.Name != null)
                 message.Name = String(object.Name);
             if (object.Desc != null)
                 message.Desc = String(object.Desc);
+            if (object.Clothes != null)
+                message.Clothes = object.Clothes >>> 0;
             return message;
         };
 
@@ -52648,8 +54256,10 @@ $root.table = (function() {
                 object.Id = 0;
                 object.Type = 0;
                 object.Color = 0;
+                object.ImageId = 0;
                 object.Name = "";
                 object.Desc = "";
+                object.Clothes = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -52657,10 +54267,14 @@ $root.table = (function() {
                 object.Type = message.Type;
             if (message.Color != null && message.hasOwnProperty("Color"))
                 object.Color = message.Color;
+            if (message.ImageId != null && message.hasOwnProperty("ImageId"))
+                object.ImageId = message.ImageId;
             if (message.Name != null && message.hasOwnProperty("Name"))
                 object.Name = message.Name;
             if (message.Desc != null && message.hasOwnProperty("Desc"))
                 object.Desc = message.Desc;
+            if (message.Clothes != null && message.hasOwnProperty("Clothes"))
+                object.Clothes = message.Clothes;
             return object;
         };
 
