@@ -9,34 +9,34 @@
 			<e:VerticalLayout paddingLeft="386" gap="166" horizontalAlign="center" verticalAlign="middle"/>
 		</e:layout>
 	</e:Group>
-
-	<e:Button id="quit_btn" label="" y="160" anchorOffsetX="0" anchorOffsetY="0" left="0">
-		<e:skinName>
-		<e:Skin states="up,down,disabled">
-			<e:Image width="100%" height="100%" source="room_quit_btn1_png" source.down="room_quit_btn1_png"/>
-			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-		</e:Skin>
-		</e:skinName>
-	</e:Button>
-	<e:Group id="roomLevelGroup" y="160" width="320" height="110" horizontalCenter="0">
-		<e:Rect width="320" height="110" y="0" fillColor="0xb1b1b1" ellipseWidth="100" ellipseHeight="100" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
-		<e:Label id="roomLevel_txt" text="房屋等级4" y="17" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="26" horizontalCenter="0"/>
-		<e:Label id="totalChanLiang_txt" text="当前收益:10000" y="56.5" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="30" textColor="0xffe776" bold="true" horizontalCenter="0" width="300"/>
+	<e:Group id="houseNoGroup" y="208" scaleX="1" scaleY="1" left="0">
+		<e:Image id="houseNoBg1" source="hall_1_json.userRoomNoBg_png" y="0" x="0"/>
+		<e:Image id="houseNoBg2" y="0" x="0" source="hall_1_json.userRoomNoBg2_png"/>
+		<e:Label text="Room" y="14" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="20" x="12.5" anchorOffsetX="0" width="60"/>
+		<e:Label id="roomNo_txt" text="808" y="37.5" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="20" x="12" anchorOffsetX="0" width="60"/>
 	</e:Group>
-	<e:Group id="linjuInfoGroup" y="160" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" width="313" height="129" right="0">
-		<e:Image source="linjuInfo_bg1_png" y="20" x="0"/>
-		<e:Label id="ljName_txt" text="藏剑的小黄鸡" x="24.5" y="74.5" size="20" fontFamily="Microsoft YaHei" textAlign="left" anchorOffsetX="0" width="132" textColor="0x4b5151"/>
-		<e:Label id="ljbName_txt" text="万科城市花园" x="183.05" y="108.99" size="20" fontFamily="Microsoft YaHei" textAlign="left" anchorOffsetX="0" width="128.5" textColor="0x4b5151" visible="false"/>
-		<e:Label id="level_txt" text="Lv.99" x="145.07" y="68.3" anchorOffsetX="0" width="67.86" anchorOffsetY="0" height="32.59" size="20" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x2B7DEB" bold="true" visible="false"/>
-		<e:Label id="ljHuxing_txt" text="218" x="44.05" y="31" size="25" fontFamily="Microsoft YaHei" textAlign="center" anchorOffsetX="0" width="64" textColor="0xffffff" verticalAlign="middle"/>
-		<e:Image source="defaultHead1_png" x="203" y="0" width="100" height="100"/>
+
+
+	<e:Group id="roomLevelGroup" y="214" horizontalCenter="67">
+		<e:Image source="hall_2_json.houseInfo_bg1_png" x="0" y="0"/>
+		<e:Label id="roomLevel_txt" text="房屋等级4" y="15" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="30" x="46" anchorOffsetX="0" width="197"/>
+		<e:Label id="roomLevel_txt0" text="收益" y="15" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="30" x="261.5" anchorOffsetX="0" width="80"/>
+		<e:Label id="totalChanLiang_txt" text="10000" y="16" verticalAlign="middle" textAlign="left" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0x828282" size="30" textColor="0xffe776" bold="true" width="134" x="342.5" anchorOffsetX="0"/>
+	</e:Group>
+	<e:Group id="linjuInfoGroup" y="201" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0">
+		<e:Image x="0" source="hall_2_json.lingjuInfo_bg1_png" verticalCenter="0"/>
+		<e:Label id="ljName_txt" text="藏剑的小黄鸡" x="103" y="38" size="26" fontFamily="Microsoft YaHei" textAlign="center" anchorOffsetX="0" width="187" textColor="0xffffff" verticalAlign="middle"/>
+
+		<e:Label id="level_txt" text="Lv.99" x="147" y="52.3" anchorOffsetX="0" width="99.88" anchorOffsetY="0" height="32.59" size="26" textAlign="center" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" bold="true" textColor="0xffffff" visible="false"/>
+
+		<e:Image source="defaultHead1_png" width="100" height="100" left="0" verticalCenter="-8.5"/>
 		<e:Label id="vip_txt" text="99" x="247.8" y="76.29" anchorOffsetX="0" width="29.88" anchorOffsetY="0" height="23.6" size="20" textAlign="right" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" strokeColor="0xFFFFFF" stroke="2" textColor="0x720AFD" scaleX="1" scaleY="1" visible="false"/>
 		<e:Image source="vipIcon_png" x="278.25" y="77.05" scaleX="1" scaleY="1" visible="false"/>
 	</e:Group>
-	<e:Group id="down_bg" width="720" height="108" left="0" y="1172">
+	<e:Group id="down_bg" width="720" height="108" left="0" y="1172" locked="true">
 		<e:Image source="room_down_bg1_png" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" top="0" alpha="0.9"/>
 	</e:Group>
-	<e:Group id="downBtnGroup" y="1121" anchorOffsetX="0" width="415" height="125" x="50">
+	<e:Group id="downBtnGroup" y="1121" anchorOffsetX="0" width="415" height="125" x="50" locked="true">
 		<e:Image id="xuanBtnBg" source="xuanzhongBtn_bg_png" x="284" y="-12" anchorOffsetX="0" width="140" anchorOffsetY="0" height="140"/>
 		<e:Button id="dongtai_btn" label="" x="0" y="0">
 			<e:skinName>
@@ -85,6 +85,11 @@
 		</e:skinName>
 	</e:Button>
 	<e:Image id="sussImg" source="levelSuccessImg1_png" width="496" height="140" anchorOffsetY="70" anchorOffsetX="248" x="360" y="640" visible="false"/>
+	<game:PageTitlePanel id="titlePanel" width="720" height="200" x="0" y="0"/>
+	<e:Group id="ljXiaoquGroup" x="265.5" y="1214">
+		<e:Image source="hall_2_json.xiaoquming_bg_png" y="0" x="1"/>
+		<e:Label id="ljXiaoquName_txt" text="万科国际花园" x="1" y="10" size="26" fontFamily="Microsoft YaHei" textAlign="center" anchorOffsetX="0" width="187" textColor="0xFFFFFF" verticalAlign="middle"/>
+	</e:Group>
 
 
 </e:Skin>

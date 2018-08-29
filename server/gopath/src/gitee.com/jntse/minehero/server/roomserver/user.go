@@ -2,7 +2,7 @@ package main
 import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	"gitee.com/jntse/minehero/server/tbl/excel"
+	_"gitee.com/jntse/minehero/server/tbl/excel"
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/log"
@@ -26,7 +26,7 @@ type RoomUser struct {
 	bin 		*msg.Serialize
 	bag 		UserBag
 	task       	UserTask
-	image 		UserImage
+	//image 		UserImage
 	token		string
 	//coins		uint32
 	ticker1s  	*util.GameTicker
@@ -53,8 +53,8 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, room
 	user.task.Init(user)
 	user.bag.LoadBin(b)
 	user.task.LoadBin(b)
-	user.image.Init(user)
-	user.image.LoadBin(b)
+	//user.image.Init(user)
+	//user.image.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
 	user.maxenergy = tbl.Game.MaxEnergy
 	for _, v := range user.UserBase().Luckydraw.Drawlist { 
@@ -266,7 +266,7 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 	// 背包
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
-	this.image.PackBin(bin)
+	//this.image.PackBin(bin)
 
 
 	return bin
@@ -724,35 +724,35 @@ func (this *RoomUser) AddTopScore(score uint32) {
 }
 
 func (this *RoomUser) InitEquipSkills() {
-	skills := this.image.GetEquipSkills()
-	this.skills = make([]int32, 0, len(skills))
-	this.skills = append(this.skills, skills...)
+	//skills := this.image.GetEquipSkills()
+	//this.skills = make([]int32, 0, len(skills))
+	//this.skills = append(this.skills, skills...)
 
-	//
-	DoSkillEnergy := func(base *table.TSkillDefine) {
-		reduce := int64(base.Num)
-		reduce += int64(this.maxenergy * int64(base.NumPer) / 100)
-		if this.maxenergy >= reduce { 
-			this.maxenergy -= reduce 
-		}else {
-			this.maxenergy = 0
-		}
-	}
+	////
+	//DoSkillEnergy := func(base *table.TSkillDefine) {
+	//	reduce := int64(base.Num)
+	//	reduce += int64(this.maxenergy * int64(base.NumPer) / 100)
+	//	if this.maxenergy >= reduce { 
+	//		this.maxenergy -= reduce 
+	//	}else {
+	//		this.maxenergy = 0
+	//	}
+	//}
 
-	//1.贯穿弹2.延长双倍3.加快大招累计4.增加击碎金币5.延长事件间隔时间
-	for _, skill := range this.skills {
-		base, find := tbl.TSkillpBase.TSkillById[uint32(skill)]
-		if find == false { continue }
-		switch base.Type {
-		case 1: 
-			break
-		case 2: 
-			break
-		case 3:
-			DoSkillEnergy(base)
-			break
-		}
-	}
+	////1.贯穿弹2.延长双倍3.加快大招累计4.增加击碎金币5.延长事件间隔时间
+	//for _, skill := range this.skills {
+	//	base, find := tbl.TSkillpBase.TSkillById[uint32(skill)]
+	//	if find == false { continue }
+	//	switch base.Type {
+	//	case 1: 
+	//		break
+	//	case 2: 
+	//		break
+	//	case 3:
+	//		DoSkillEnergy(base)
+	//		break
+	//	}
+	//}
 }
 
 

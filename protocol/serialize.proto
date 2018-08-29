@@ -62,6 +62,19 @@ message PersonalImage {
     repeated ImageData lists = 2;
 }
 
+// 女仆
+message HouseMaidData { 
+    repeated ImageData images = 1;  // 女仆装扮
+    optional uint64 id = 2;         // uuid
+    optional int32  level = 3;      // 等级
+    optional uint64 ownerid = 4;    // 主人id
+    optional string ownername = 5;  // 主人name
+    optional uint64 robberid = 6;   // 掠夺者id
+    optional string robbername = 7; // 掠夺者name
+    optional uint32 earning = 8;    // 收益
+    optional uint64 houseid = 9;    // 所在房间
+}
+
 message UserBase {
     optional uint32     level   = 1;
     optional uint32     exp     = 2;
@@ -82,7 +95,7 @@ message UserBase {
     optional UserTask   task = 17;          // 任务
     optional LuckyDrawRecord luckydraw = 18;   // 抽奖
     optional uint32     total_recharge = 19; // 总充值
-    optional PersonalImage images = 20;     // 个人形象
+    //optional PersonalImage images = 20;     // 个人形象
 	optional uint32 	newplayerstep = 21; // 新手引导
 	optional uint32 	robcount = 22;		// 抢钱次数
 	optional int64 		tmaddrobcount = 23; // 下次涨抢钱次数的时间戳

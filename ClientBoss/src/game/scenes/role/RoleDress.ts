@@ -105,7 +105,7 @@ module game {
             this.coin_money.setCoinType(msg.MoneyType._Diamond);
 
             NotificationCenter.addObserver(this, this.OnGW2C_AddPackageItem, "msg.GW2C_AddPackageItem");
-            NotificationCenter.addObserver(this, this.OnGW2C_RetChangeImageSex, "msg.GW2C_RetChangeImageSex");
+            // NotificationCenter.addObserver(this, this.OnGW2C_RetChangeImageSex, "msg.GW2C_RetChangeImageSex");
             
         }
 
@@ -130,7 +130,7 @@ module game {
             this.updateCoins();
             this.switchSex();
            
-            DataManager.playerModel.skillUpdate();
+            // DataManager.playerModel.skillUpdate();
         }
 
 
@@ -148,16 +148,16 @@ module game {
 
         //请求切换性别
         private switchGender() {
-            let sex = this.gender == 0 ? 1 : 0;
-            this.sendmsg_SwitchGender({ sex: sex })
+            // let sex = this.gender == 0 ? 1 : 0;
+            // this.sendmsg_SwitchGender({ sex: sex })
         }
 
         //收到消息可以切换性别
-        private postSwitchGender(data: msg.GW2C_RetChangeImageSex) {
-            this._selItems = [];
-            this.gender = data.sex;
-            this.switchSex();
-        }
+        // private postSwitchGender(data: msg.GW2C_RetChangeImageSex) {
+        //     this._selItems = [];
+        //     this.gender = data.sex;
+        //     this.switchSex();
+        // }
 
         private switchSex()
         {
@@ -276,8 +276,8 @@ module game {
             this.updateCoins();
             this.updateItemList(this._typeIdx);
           
-            this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
-            this.shopNum.text = this.getCartItems().length.toString();
+            // this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
+            // this.shopNum.text = this.getCartItems().length.toString();
         }
 
         // TODO: 穿上装备
@@ -287,10 +287,10 @@ module game {
                 itemid: data.itemid
             }));
         }
-        private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
-            DataManager.playerModel.sex = data.sex;
-            this.postSwitchGender(data);
-        }
+        // private OnGW2C_RetChangeImageSex(data: msg.GW2C_RetChangeImageSex) {
+        //     DataManager.playerModel.sex = data.sex;
+        //     this.postSwitchGender(data);
+        // }
         // TODO: 脱下装备
         private sendmsg_UnDressCloth(data: { pos }) {
             sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
@@ -298,11 +298,11 @@ module game {
             }));
         }
         //TODO: 发送切换性别消息
-        private sendmsg_SwitchGender(data: { sex }) {
-            sendMessage("msg.C2GW_ChangeImageSex", msg.C2GW_ChangeImageSex.encode({
-                sex: data.sex
-            }))
-        }
+        // private sendmsg_SwitchGender(data: { sex }) {
+        //     sendMessage("msg.C2GW_ChangeImageSex", msg.C2GW_ChangeImageSex.encode({
+        //         sex: data.sex
+        //     }))
+        // }
 
         // 选择项改变
         private onSelItem(e: eui.ItemTapEvent) {
@@ -420,8 +420,8 @@ module game {
                 );
             })
 
-            this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
-            this.shopNum.text = this.getCartItems().length.toString();
+            // this.shopNumBg.visible = this.shopNum.visible = this.getCartItems().length > 0;
+            // this.shopNum.text = this.getCartItems().length.toString();
             this.dress_info.skillAddition = skillDes;
             this.dress_info.visible = dressInfos.length > 0;
         }

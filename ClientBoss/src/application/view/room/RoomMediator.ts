@@ -14,13 +14,21 @@ module game {
 				CommandName.HOUSE_LEVEL_SUCCESS,
 				CommandName.ROOM_LEVEL_SUCCESS,
 				CommandName.ROOM_PARKINGLOT_UPDATE,
-				CommandName.HAVE_NEW_DONGTAI
+				CommandName.HAVE_NEW_DONGTAI,
+				CommandName.UPDATE_USER_INFO
 			];
 		}
 
 		public handleNotification(notification: puremvc.INotification): void {
 			var data: any = notification.getBody();
 			switch (notification.getName()) {
+				case CommandName.UPDATE_USER_INFO:
+					{
+						if (data) {
+							this.sceneGroup.updateUserInfo(data);
+						}
+						break;
+					}
 				case CommandName.UPDATE_ROOM_INFO:
 					{
 						

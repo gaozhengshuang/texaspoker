@@ -23,7 +23,6 @@ module game {
             diamond: 0, 
             openid: "", 
             addrlist: [], 
-            PersonalImage: null ,
             level:1,
             newplayerstep:0,
             cardatas : [],
@@ -37,7 +36,9 @@ module game {
         public totalMoney: number | Long = 0;
         private _tasks;
         private _houses;
-        private _carRecords:string[] = [];
+        private _carRecords: string[] = [];
+        private _personalImage: msg.IImageData[];
+        private _houseMaidInfo: msg.GW2C_SendHouseMaidInfo;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -51,11 +52,10 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
             NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
-            NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
-            NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord,"msg.GW2C_SynParkingRecord");
-            NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack,"msg.GW2C_CarAutoBack");
-            
+            NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord, "msg.GW2C_SynParkingRecord");
+            NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack, "msg.GW2C_CarAutoBack");
+            NotificationCenter.addObserver(this, this.OnGW2C_SendHouseMaidInfo, "msg.GW2C_SendHouseMaidInfo");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -65,18 +65,28 @@ module game {
             this.userInfo.userid = data.entity.id;
             this.userInfo.openid = data.base.wechat.openid;
             this.userInfo.addrlist = data.base.addrlist;
-            this.userInfo.PersonalImage = data.base.images;
             this.userInfo.level=data.base.level;
             this.userInfo.newplayerstep=data.base.newplayerstep;
             this.userInfo.robcount=data.base.robcount;
             this.userInfo.tmaddrobcount=Number(data.base.tmaddrobcount);
-            console.log("抢夺次数:"+data.base.robcount);
+
             GameConfig.newPlayerStep=this.userInfo.newplayerstep;
             this.sex = data.entity.sex;
             this.bagList = data.item.items;
             this.historyMoneyList = data.base.luckydraw.drawlist;
             this.totalMoney = data.base.luckydraw.totalvalue;
             this._tasks = data.base.task.tasks;
+        }
+
+        private OnGW2C_SendHouseMaidInfo(data: msg.GW2C_SendHouseMaidInfo) {
+            this._houseMaidInfo = data;
+
+            for (let i=0; i<data.maids.length; i++) {
+                if (this.userInfo.userid == data.maids[i].ownerid) {
+                    this._personalImage = data.maids[i].images;
+                    break;
+                }
+            }
         }
 
         private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
@@ -86,8 +96,6 @@ module game {
 
         private OnGW2C_SynParkingRecord(msgs:msg.GW2C_SynParkingRecord)
         {
-            console.log("OnGW2C_SynParkingRecord---------->",msgs.records.length,JSON.stringify(msgs));
-         
             this.setCarRecords(msgs.records);
 
             if (GameConfig.sceneType == 3) //资产主界面打开
@@ -206,17 +214,7 @@ module game {
         }
         
         public get clothes() {
-            return this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists;
-        }
-
-        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-            this.userInfo.PersonalImage.lists = this.userInfo.PersonalImage.lists.map(
-                item => {
-                    if (item.sex == data.images.sex) return data.images;
-                    return item;
-                }
-            );
-            this.skillUpdate();
+            return this._personalImage;
         }
 
         public setScore(count: number) {

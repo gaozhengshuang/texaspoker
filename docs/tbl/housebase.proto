@@ -44,6 +44,12 @@ message THouseDefine
 	
 	
 	optional string Des = 9; // 描述
+	
+	
+	optional string RoomPosition = 10; // 金币坐标
+	
+	
+	optional string GirlsPosition = 11; // 女仆坐标
 
 }
 
