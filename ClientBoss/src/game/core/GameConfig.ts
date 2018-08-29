@@ -11,32 +11,31 @@ module gameConfig {
         openRank = 1,
         setUserRank = 2,
     }
-    
+
     /**
      * 资源组枚举
      */
-    export class ResGroupEnum
-    {
+    export class ResGroupEnum {
         /**
          * 预加载
          */
-        public static readonly Preload:string = 'preload';
+        public static readonly Preload: string = 'preload';
         /**
          * 登录场景
          */
-        public static readonly Login:string = 'login';
+        public static readonly Login: string = 'login';
         /**
          * 通用资源
          */
-        public static readonly Common:string = 'common';
+        public static readonly Common: string = 'common';
         /**
          * 大厅
          */
-        public static readonly Hall:string = 'hall';
+        public static readonly Hall: string = 'hall';
         /**
          * 小游戏1
          */
-        public static readonly Game1:string = 'game1';
+        public static readonly Game1: string = 'game1';
     }
 
     //全局字体颜色表--可以扩展
@@ -160,7 +159,10 @@ module gameConfig {
     export var buffCollisionGroup = Math.pow(2, 3);
     export var paddleCollisionGroup = Math.pow(2, 4);
     export var hang = 15;
-
+    /**
+     * 交易税率
+     */
+    export var tradeTaxRate = 0.1;
     export function isIphoneX() {
         return window.screen.availWidth == 375 && window.screen.availHeight == 812;
     }

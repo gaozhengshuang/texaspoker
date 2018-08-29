@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TransactionPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*" xmlns:utils="utils.*">
+	<w:Config id="16347cd01ff"/>
+	<e:Rect id="view_bg" width="720" height="100%" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e6e6"/>
+	<e:Group id="mainGroup" x="700" y="120">
+		<e:Group id="titleRadioGroup" x="-700" y="80" width="720" height="120" scaleX="1" scaleY="1">
+		<e:RadioButton id="radioBtn1" label="" x="55" value="1" y="34">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="trading_fangchan_tabBar2_png" source.down="trading_fangchan_tabBar1_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:RadioButton>
+		<e:RadioButton id="radioBtn3" label="" value="2" x="309" y="34">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="trading_car_tabBar2_png" source.down="trading_car_tabBar1_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:RadioButton>
+		<e:RadioButton id="itemBtn" label="" x="566" value="3" y="34">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="item_bar_png" source.down="item_bar_select_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:RadioButton>
+		<e:Image source="room_line1_png" width="720" scaleY="1" height="2" x="0" scaleX="1" bottom="0"/>
+		</e:Group>
+		<e:Button id="tradeRecordBtn" label="交易记录" x="-297.68" skinName="CommonBtnSkin" top="333" y="213" scaleX="1" scaleY="1"/>
+		<e:Button id="sellBtn" label="我要出售" x="-135.23000000000002" skinName="CommonBtnSkin" top="333" y="213" scaleX="1" scaleY="1"/>
+		<e:Image width="720" height="94" x="-700" scaleX="1" scaleY="1" y="285" anchorOffsetY="0" source="uiCarAltas_json.filterBg_3"/>
+		<e:Image x="-690" scaleX="1" scaleY="1" y="215" anchorOffsetY="0" source="trading_search_png"/>
+		<e:Group id="houseGroup" x="-700" y="281" anchorOffsetY="0" height="877" anchorOffsetX="0" width="720" scaleX="1" scaleY="1">
+		<game:FilterBtn id="houseAreaBtn" skinName="FilterBtnSkin" x="1" y="25"/>
+		<game:FilterBtn id="houseTypeBtn" skinName="FilterBtnSkin" x="201" y="25"/>
+		<game:SortBtn id="housePrice" skinName="SortBtnSkin" x="404.32" y="25"/>
+		<utils:VScrollerPanel id="houseScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720" anchorOffsetY="0" height="775"/>
+		</e:Group>
+		<e:Group id="carGroup" x="-700" y="281" anchorOffsetY="0" height="877" anchorOffsetX="0" width="720" scaleX="1" scaleY="1">
+		<game:FilterBtn id="carBrandBtn" skinName="FilterBtnSkin" x="1" y="25"/>
+		<game:SortBtn id="carPriceBtn" skinName="SortBtnSkin" x="201" y="25"/>
+		<game:SortBtn id="carIncomeBtn" skinName="SortBtnSkin" x="404.32" y="25"/>
+		<utils:VScrollerPanel id="carScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720" anchorOffsetY="0" height="775"/>
+		</e:Group>
+		<e:Group id="itemGroup" x="-700" y="281" anchorOffsetY="0" height="877" anchorOffsetX="0" width="720" scaleX="1" scaleY="1">
+		<game:FilterBtn id="itemTypeBtn" skinName="FilterBtnSkin" x="1" y="25"/>
+		<game:FilterBtn id="itemPartBtn" skinName="FilterBtnSkin" x="201" y="25"/>
+		<game:SortBtn id="itemPriceBtn" skinName="SortBtnSkin" x="404.32" y="25"/>
+		<utils:VScrollerPanel id="itemScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720" anchorOffsetY="0" height="775"/>
+		</e:Group>
+		<e:TextInput id="searchTxt" width="322" height="49" x="-633.98" y="215" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1"/>
+	</e:Group>
+	<e:Group id="recordGroup" x="0" y="217" anchorOffsetY="0" height="1061" anchorOffsetX="0" width="720">
+		<utils:VScrollerPanel id="recordScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720" anchorOffsetY="0" height="960"/>
+		<e:Image width="720" height="163" x="0" scaleX="1" scaleY="1" y="-59" anchorOffsetY="0" source="uiCarAltas_json.filterBg_3"/>
+		<e:Label text="交易记录" textColor="0x000000" fontFamily="Microsoft YaHei" x="300" top="30"/>
+	</e:Group>
+	<game:PageTitlePanel id="titlePanel" skinName="PageTitlePanelSkin"/>
+</e:Skin>

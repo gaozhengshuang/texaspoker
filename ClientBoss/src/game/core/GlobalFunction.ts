@@ -379,8 +379,8 @@ module game {
         return x < min ? min : x > max ? max : x;
     }
 
-    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null,func2 :Function = null) {
-        CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func,null,func2);
+    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null, func2: Function = null) {
+        CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func, null, func2);
     }
 
     export function TextCopy(message) {
@@ -431,15 +431,65 @@ module game {
         }
     }
 
-    export function setAnchor(e: egret.DisplayObject,x = 0.0,y=0.0) {
-        e.anchorOffsetX = e.width*x;
+    export function setAnchor(e: egret.DisplayObject, x = 0.0, y = 0.0) {
+        e.anchorOffsetX = e.width * x;
         e.anchorOffsetY = e.height * y;
     }
 
-    export function copyAnchor(to:egret.DisplayObject,from:egret.DisplayObject) {
+    export function copyAnchor(to: egret.DisplayObject, from: egret.DisplayObject) {
         let xp = from.anchorOffsetX / from.width;
         let yp = from.anchorOffsetY / from.height;
-        console.log(xp,yp)
-        setAnchor(to,xp,yp);
+        console.log(xp, yp)
+        setAnchor(to, xp, yp);
+    }
+
+    /**
+    * 将数字用逗号以 splitNum 进行分割(用于Label 显示空间大,数值有变化)
+    * 当 splitNum=3 :1234567=1,234,567
+    * num 为小数时向下取整,支持负数
+    */
+    export function numAddSpace(num: number): string {
+        let splitNum = 3;
+        num = Math.floor(num);
+        let isNegative: boolean = false;
+        if (num < 0) {
+            isNegative = true;
+            num *= -1;
+        }
+        let str: string = num.toString();
+        if (str.length <= splitNum || splitNum < 1) {
+            if (isNegative) {
+                return "-" + str;
+            }
+            return str;
+        }
+        let len = str.length % splitNum;
+        let strResult: string = "";
+        if (isNegative) {
+            strResult = "-"
+        }
+        let strList: Array<string> = new Array<string>();
+        for (let i: number = 0; i < str.length;) {
+            if (i == 0 && len > 0) {
+                let index = i + len;
+                if (index > str.length) {
+                    index = str.length;
+                }
+                strResult += str.substring(i, index);
+                i += len;
+            }
+            else {
+                let index = i + splitNum;
+                if (index > str.length) {
+                    index = str.length;
+                }
+                strResult += str.substring(i, index);
+                i += splitNum;
+            }
+            if (i <= str.length - splitNum) {
+                strResult += ",";
+            }
+        }
+        return strResult;
     }
 }
