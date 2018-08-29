@@ -1,0 +1,6 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"TCarPartLevelup":[
+		{ "Id": 1001, "Level": 1, "Exp": 1000, "Cost": 1000 }
+	]}

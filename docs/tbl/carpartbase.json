@@ -1,0 +1,6 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"TCarPart":[
+		{ "Id": 1001, "Type": 1, "Quality": 1, "RewardInit": 0, "RangeInit": 0, "ItemLimitInit": 0, "MoneyLimitInit": 0, "SpeedInit": 0, "StopTimeInit": 0, "MaxLevel": 10, "RewardAddition": 0, "RangeAddition": 0, "ItemLimitAddition": 0, "MoneyLimitAddition": 0, "SpeedAddition": 0, "StopTimeAddition": 0 }
+	]}
