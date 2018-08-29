@@ -734,10 +734,18 @@ func (this *GateUser) MakeClothes(debris uint32) {
 		return
 	}
 
-	if clothebase.DebrisID != debris {
+	if clothebase.DebrisId != debris {
 		log.Error("[时装] 玩家[%s %d] 合成时装异常，时装表和道具表不匹配")
 		return
 	}
 
-	//have := this.bag.GetItemNum(itemid)
+	if this.bag.GetItemNum(debris) < clothebase.DebrisNum {
+		this.SendNotify("碎片不足")
+		log.Error("[时装] 玩家[%s %d] 合成时装失败，碎片[%d]不足", debris)
+		return
+	}
+
+	this.RemoveItem(debris, clothebase.DebrisNum, "合成时装")
+	this.AddItem(uint32(clothebase.Id), 1, "合成时装", true)
+	return
 }
