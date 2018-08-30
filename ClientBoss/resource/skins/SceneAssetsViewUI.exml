@@ -4,7 +4,7 @@
 	<e:Rect id="view_bg" width="720" height="100%" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e6e6"/>
 	<e:Group id="titleRadioGroup" x="0" y="200" width="720" height="120">
 		<e:Rect width="720" height="120" x="0" y="0" fillColor="0xfedee3"/>
-		<e:RadioButton id="titleRadio1" label="" x="67" value="1" width="75" height="113" y="4">
+		<e:RadioButton id="titleRadio1" label="" x="120" value="1" y="10">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="assets_fangchan_tabBar2_png" source.down="assets_fangchan_tabBar1_png"/>
@@ -12,7 +12,7 @@
 			</e:Skin>
 			</e:skinName>
 		</e:RadioButton>
-		<e:RadioButton id="titleRadio2" label="" value="2" x="323" width="75" height="113" y="4">
+		<e:RadioButton id="titleRadio2" label="" value="2" x="326" y="10">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="assets_car_tabBar2_png" source.down="assets_car_tabBar1_png"/>
@@ -20,7 +20,7 @@
 			</e:Skin>
 			</e:skinName>
 		</e:RadioButton>
-		<e:RadioButton id="titleRadio3" label="" x="578" value="3" width="75" height="113" y="4">
+		<e:RadioButton id="titleRadio3" label="" x="531" value="3" y="10">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="assets_stock_tabBar2_png" source.down="assets_stock_tabBar1_png"/>
@@ -28,6 +28,9 @@
 			</e:Skin>
 			</e:skinName>
 		</e:RadioButton>
+
+
+
 		<e:Image source="room_line1_png" width="720" scaleY="1" height="2" x="0" scaleX="1" bottom="0"/>
 		<e:Image source="room_line1_png" width="720" scaleY="1" height="2" x="0" scaleX="1" top="0"/>
 	</e:Group>

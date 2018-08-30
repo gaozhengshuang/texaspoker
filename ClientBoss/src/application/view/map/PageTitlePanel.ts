@@ -72,7 +72,7 @@ module game {
         private runningTimer(time: number, body: any): void {
             if (time < body.endTime) {
                 body.addEnergy_txt.text = SysTimeEventManager.getInstance().
-                    getHourMinutesTime(body.endTime - time, true, true);
+                    getHourMinutesTime(body.endTime - time, true, true)+" +5";
             } else {
                 if (body.userInfo.robcount >= 20) {
                     body.removeTimer();

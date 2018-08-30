@@ -171,7 +171,7 @@
 			"url": "assets/texpack/hall_2.json",
 			"type": "sheet",
 			"name": "hall_2_json",
-			"subkeys": "assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,fullItemBoxBorder_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,itemBoxBg_png,jiantou1_png,jiantou2_png,jiantouBlack2_png,jiantouRed2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,jiaoyi_title_icon1_png,levelSuccessImg1_png,lingjuInfo_bg1_png,linjuInfo_bg1_png,noItemBoxBorder_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,room_quit_btn1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
+			"subkeys": "assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,fullItemBoxBorder_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,itemBoxBg_png,jiantou1_png,jiantou2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,levelSuccessImg1_png,lingjuInfo_bg1_png,noItemBoxBorder_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
 		},
 		{
 			"url": "assets/texpack/hall_1.json",

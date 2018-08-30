@@ -15,7 +15,8 @@ module game {
 				CommandName.ROOM_LEVEL_SUCCESS,
 				CommandName.ROOM_PARKINGLOT_UPDATE,
 				CommandName.HAVE_NEW_DONGTAI,
-				CommandName.UPDATE_USER_INFO
+				CommandName.UPDATE_USER_INFO,
+				CommandName.UPDATE_TILI_TIME
 			];
 		}
 
@@ -29,12 +30,19 @@ module game {
 						}
 						break;
 					}
+				case CommandName.UPDATE_TILI_TIME:
+					{
+						if (data) {
+							this.sceneGroup.updateUserInfo(data);
+						}
+						break;
+					}
 				case CommandName.UPDATE_ROOM_INFO:
 					{
-						
+
 						if (data) {
 							let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
-							this.sceneGroup.updateInfo(data.room,Number(userProxy.getUserInfo().userid));
+							this.sceneGroup.updateInfo(data.room, Number(userProxy.getUserInfo().userid));
 						}
 						break;
 					}
@@ -48,14 +56,14 @@ module game {
 				case CommandName.PLUNDER_SUCCESS:
 					{
 						if (data) {
-							this.sceneGroup.plunderSuccess(data.houseid, data.index, data.gold,data.items);
+							this.sceneGroup.plunderSuccess(data.houseid, data.index, data.gold, data.items);
 						}
 						break;
 					}
 				case CommandName.RECEIVE_SUCCESS:
 					{
 						if (data) {
-							this.sceneGroup.receiveSuccess(data.houseid, data.index, data.gold,data.items );
+							this.sceneGroup.receiveSuccess(data.houseid, data.index, data.gold, data.items);
 						}
 						break;
 					}
@@ -74,7 +82,7 @@ module game {
 						}
 						break;
 					}
-					case CommandName.HAVE_NEW_DONGTAI:
+				case CommandName.HAVE_NEW_DONGTAI:
 					{
 						//this.sceneGroup.haveNewDongtai();
 						break;
@@ -86,7 +94,7 @@ module game {
 						this.sceneGroup.showParkingLotList();
 						break;
 					}
-					
+
 			}
 		}
 		private init(): void {
@@ -99,8 +107,8 @@ module game {
 			this.sceneGroup.addEventListener(GameRoomView.RECEIVE, this.receiveRegister, this);
 			this.sceneGroup.addEventListener(GameRoomView.LEVEL, this.levelRegister, this);
 			this.sceneGroup.addEventListener(GameRoomView.SHOW_TOP_ROOM_NUM, this.showRoomNumRegister, this);
-			this.sceneGroup.addEventListener(GameRoomView.REFRESH_LINJU, this.refreshLinjuRegister, this);		
-			this.sceneGroup.addEventListener(GameRoomView.GOIN_MESSAGE_ROOM, this.goinMessageRoomRegister, this);			
+			this.sceneGroup.addEventListener(GameRoomView.REFRESH_LINJU, this.refreshLinjuRegister, this);
+			this.sceneGroup.addEventListener(GameRoomView.GOIN_MESSAGE_ROOM, this.goinMessageRoomRegister, this);
 			CarManager.getInstance().ReqMyCarInfo();
 		}
 		private closeRequset(eve: BasicEvent): void {
@@ -125,7 +133,7 @@ module game {
 			if (GameConfig.sceneType == 2) {
 				GameConfig.setEventsReply(false);
 				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
-                ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
 			}
 		}
 		private showRoomNumRegister(eve: BasicEvent): void {
@@ -145,10 +153,10 @@ module game {
 		}
 		private openNeighborRegister(eve: BasicEvent): void {
 			let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
-			if(houseProxy.linjuList && houseProxy.linjuList.length>0){
+			if (houseProxy.linjuList && houseProxy.linjuList.length > 0) {
 				this.sceneGroup.showLinjuList(houseProxy.linjuList);
 			}
-			else{
+			else {
 				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST, eve.EventObj);
 			}
 		}
@@ -156,23 +164,24 @@ module game {
 			ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST, eve.EventObj);
 		}
 		private gotoRoomRegister(eve: BasicEvent): void {
-			if(eve.EventObj){
+			if (eve.EventObj) {
 				let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
-				houseProxy.returnRoomInfo=eve.EventObj.return;
-				houseProxy.returnType=eve.EventObj.type;
+				houseProxy.returnRoomInfo = eve.EventObj.return;
+				houseProxy.returnType = eve.EventObj.type;
 				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
-				 {houseid:eve.EventObj.houseid});
+					{ houseid: eve.EventObj.houseid });
 			}
 		}
 		private goinMessageRoomRegister(eve: BasicEvent): void {
-			if(eve.EventObj){
+			if (eve.EventObj) {
 				let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
-				houseProxy.returnRoomInfo=eve.EventObj.return;
-				houseProxy.returnType=eve.EventObj.type;
+				houseProxy.returnRoomInfo = eve.EventObj.return;
+				houseProxy.returnType = eve.EventObj.type;
 				//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
 				// {houseid:eve.EventObj.houseid});
 				sendMessage("msg.C2GW_ReqOtherUserHouseData", msg.C2GW_ReqOtherUserHouseData.encode({
-                userid : eve.EventObj.userid}));
+					userid: eve.EventObj.userid
+				}));
 			}
 		}
 		private showRoomInfoRegister(eve: BasicEvent): void {
