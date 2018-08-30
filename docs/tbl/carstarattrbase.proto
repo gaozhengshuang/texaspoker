@@ -40,7 +40,7 @@ message TCarStarAttrDefine
 	optional float StopTimeInit = 7; // 停靠时间初始值
 	
 	
-	optional float RewardAddition = 8; // 每分钟收益增加值
+	optional uint32 RewardAddition = 8; // 每分钟收益增加值
 	
 	
 	optional float RangeAddition = 9; // 移动范围增加值
