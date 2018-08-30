@@ -252,6 +252,10 @@ type HouseData struct {
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 	area		 uint32	//面积
 	issell		 bool	//出售
+	income		 uint32 //收益
+	tradeendtime uint32 //交易结束时间
+	sumvalue	 uint32 //总价值
+	tradeuid	 uint64 //交易id 
 	ticker1Sec *util.GameTicker
 }
 
@@ -284,6 +288,10 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	}
 	this.area = bin.GetArea()
 	this.issell = bin.GetIssell()
+	this.income = bin.GetIncome()
+	this.tradeendtime = bin.GetTradeendtime()
+	this.sumvalue = bin.GetSumvalue()
+	this.tradeuid = bin.GetTradeuid()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -319,6 +327,10 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	}
 	bin.Area = pb.Uint32(this.area)
 	bin.Issell = pb.Bool(this.issell)
+	bin.Income = pb.Uint32(this.income)
+	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
+	bin.Sumvalue = pb.Uint32(this.sumvalue)
+	bin.Tradeuid = pb.Uint64(this.tradeuid)
 	return bin
 }
 
@@ -357,6 +369,10 @@ func (this *HouseData) GetIncome() uint32 {
 
 func (this *HouseData) ChangeOwner(user *GateUser) {
 	HouseSvrMgr().DelUserHouse(this.ownerid, this.id)
+	exowner := UserMgr().FindById(this.ownerid)
+	if exowner != nil {
+		exowner.UpdateHouseDataById(this.id, true)
+	}
 	HouseSvrMgr().SyncUserHouseData(this.ownerid)
 	this.ownerid = user.Id()
 	this.ownername = user.Name()
@@ -364,7 +380,7 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 		v.ownerid = user.Id()
 	}
 	HouseSvrMgr().AddUserHouse(this.ownerid, this.id)
-	HouseSvrMgr().SyncUserHouseData(user.Id())
+	user.UpdateHouseDataById(this.id, false)
 }
 
 //每秒的Tick回调
@@ -537,14 +553,14 @@ func (this *HouseManager) GetHouse(houseid uint64) *HouseData {
 }
 
 //获取玩家关联的房屋
-func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
-	data := make([]*HouseData, 0)
+func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
+	data := make(map[uint64]*HouseData)
 	if _, ok := this.userhouses[uid]; ok {
 		ids := this.userhouses[uid]
 		for _, v := range ids {
 			tmp := this.GetHouse(v)
 			if tmp != nil {
-				data = append(data, tmp)
+				data[tmp.id] = tmp
 			}
 		}
 	}
@@ -553,7 +569,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32, square uint32) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32, square uint32, cost uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -601,6 +617,8 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.buildingid = buildingid
 	house.roommember = roommember
 	house.area = square
+	house.sumvalue = cost
+	house.income = house.GetIncome()
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
@@ -700,6 +718,7 @@ func (this *HouseManager) HouseCellLevelUp(userid uint64, houseid uint64, index 
 		}
 		if cell.LevelUp() {
 			this.SyncUserHouseData(userid)
+			house.SaveBin(nil)
 			return 1
 		} else {
 			return 0
@@ -872,6 +891,8 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 			send.Ret = pb.Uint32(ret)
 			send.Data = house.PackBin()
 			this.SendMsg(send)
+			house.sumvalue += needgold
+			house.income = house.GetIncome()
 		}
 	} else {
 		log.Error("HouseLevelUp house not found id:%d", houseid)
@@ -939,7 +960,8 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					send.Ret = pb.Uint32(ret)
 					send.Data = house.PackBin()
 					this.SendMsg(send)
-
+					house.sumvalue += needgold
+					house.income = house.GetIncome()
 				}
 				return
 			}
@@ -1074,6 +1096,20 @@ func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
 		return
 	}
 	HouseSvrMgr().ResetRobcheckflag(houseid)
+}
+
+func (this *GateUser) UpdateHouseDataById(houseid uint64, del bool) {
+	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
+	send := &msg.GW2C_UpdateHouseDataOne{}
+	send.Houseuid = pb.Uint64(houseid)
+	if del == false {
+		send.Data = house.PackBin()
+	}
+	send.Isdel = pb.Bool(del)
+	this.SendMsg(send)
 }
 
 func (this *GateUser) ReqHouseDataByHouseId(houseid uint64) {

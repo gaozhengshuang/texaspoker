@@ -174,6 +174,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetTradeHouseHistory{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeHouseReward{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCancelTradeHouse{})
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateHouseDataOne{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
@@ -1305,7 +1306,7 @@ func on_C2GW_CancelTradeHouse(session network.IBaseNetSession, message interface
 		session.Close()
 		return
 	}
-	user.CancelTradeHouse(tmsg.GetTradeuid())
+	user.CancelTradeHouse(tmsg.GetHouseuid())
 }
 
 func on_C2GW_GetTradeHouseReward(session network.IBaseNetSession, message interface{}) {
