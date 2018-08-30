@@ -467,12 +467,12 @@ func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttrib
 	carstartattr,find := tbl.TCarStarAttrBase.TCarStarAttrById[data.GetTid()]
 	if find {
 		// 是有星级属性的
-		attr.Reward = pb.Uint32(attr.GetReward() + (carstartattr.RewardInit + carstartattr.RewardAddition * v.GetStar()))
-		attr.Range = pb.Uint32(attr.GetRange() + (carstartattr.RangeInit + carstartattr.RangeAddition * v.GetStar()))
-		attr.Itemlimit = pb.Uint32(attr.GetItemlimit() + (carstartattr.ItemLimitInit + carstartattr.ItemLimitAddition * v.GetStar()))
-		attr.Moneylimit = pb.Uint32(attr.GetMoneylimit() + (carstartattr.MoneyLimitInit + carstartattr.MoneyLimitAddition * v.GetStar()))
-		attr.Speed = pb.Uint32(attr.GetSpeed() + (carstartattr.SpeedInit + carstartattr.SpeedAddition * v.GetStar()))
-		attr.Stoptime = pb.Uint32(attr.GetStoptime() + (carstartattr.StopTimeInit + carstartattr.StopTimeAddition * v.GetStar()))
+		attr.Reward = pb.Uint32(attr.GetReward() + (carstartattr.RewardInit + carstartattr.RewardAddition * data.GetStar()))
+		attr.Range = pb.Uint32(attr.GetRange() + (carstartattr.RangeInit + carstartattr.RangeAddition * data.GetStar()))
+		attr.Itemlimit = pb.Uint32(attr.GetItemlimit() + (carstartattr.ItemLimitInit + carstartattr.ItemLimitAddition * data.GetStar()))
+		attr.Moneylimit = pb.Uint32(attr.GetMoneylimit() + (carstartattr.MoneyLimitInit + carstartattr.MoneyLimitAddition * data.GetStar()))
+		attr.Speed = pb.Uint32(attr.GetSpeed() + (carstartattr.SpeedInit + carstartattr.SpeedAddition * data.GetStar()))
+		attr.Stoptime = pb.Uint32(attr.GetStoptime() + (carstartattr.StopTimeInit + carstartattr.StopTimeAddition * data.GetStar()))
 	}
 	return attr
 }
