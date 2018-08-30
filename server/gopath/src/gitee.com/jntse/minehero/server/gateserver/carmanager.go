@@ -999,7 +999,7 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 		user.SendNotify(fmt.Sprintf("没有这辆车的配置 : %d", car.GetTid()))
 		return 3,nil
 	}
-	starLimit := uint32(math.Min(float64(car.GetMinPartsLevel(),template.MaxStar)))
+	starLimit := uint32(math.Min(float64(car.GetMinPartsLevel()),float64(template.MaxStar)))
 	if car.GetStar() >= starLimit {
 		user.SendNotify("已经满星了")
 		return 4,nil
