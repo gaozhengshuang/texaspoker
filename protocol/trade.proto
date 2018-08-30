@@ -186,10 +186,11 @@ message TradeCarHistory
     optional uint32 price = 3;              //车辆总价
     optional uint32 income = 4;             //车辆收益
     optional uint32 carbaseid = 5;          //车辆表id
-    optional uint32 tradetime = 6;          //交易结束时间
+    optional uint32 endtime = 6;            //交易结束时间
     optional uint32 carlevel = 7;           //车辆等级
     optional uint32 cartype = 8;            //车辆类型
     optional uint32 state = 9;
+    optional uint32 tradetime = 10;
 }
 
 //返回交易记录

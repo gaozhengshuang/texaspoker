@@ -76,6 +76,7 @@ message HouseMaidData {
     optional uint64 houseid = 9;    // 所在房间
     optional int32  sex = 10;       // 仆人性别
     optional int64  tmworking = 11; // 开始工作时间戳
+    optional uint64 robberto = 12;  // 被掠夺到house
 }
 
 message UserBase {

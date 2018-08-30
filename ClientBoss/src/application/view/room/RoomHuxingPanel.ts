@@ -297,7 +297,7 @@ module game {
 							houseMaid.x = Number(maidPos[0]);
 							houseMaid.y = Number(maidPos[1]);
 
-							houseMaid.initRole(maidInfo);
+							houseMaid.show(maidInfo);
 						}
 					}
 				}
