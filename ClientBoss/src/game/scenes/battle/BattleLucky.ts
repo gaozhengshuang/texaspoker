@@ -159,7 +159,7 @@ module game {
                 let giftInfo = table.TBallGiftById[this._giftIndex];
                 if (giftInfo) {
                     showTips("恭喜您获得: " + giftInfo.Name);
-                    if (giftInfo.ItemId == 6003) {
+                    if (giftInfo.ItemId == msg.ItemId.Gold) {
                         DataManager.playerModel.addScore(giftInfo.Num);
                     }
                 }

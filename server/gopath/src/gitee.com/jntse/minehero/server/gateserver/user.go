@@ -633,6 +633,7 @@ func (this *GateUser) Syn() {
 	this.SynCarData()
 	this.SynParkingData()
 	this.SynParkingRecord()
+	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
 }
 

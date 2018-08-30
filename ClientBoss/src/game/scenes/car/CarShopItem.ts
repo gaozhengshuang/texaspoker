@@ -62,7 +62,7 @@ module game {
                 //收益]
                 let _carPartItemData = table.TCarPartById[tCarItemData.Tyre];
                 this.percentTxt.textFlow = [
-                    {text:(_carPartItemData ? _carPartItemData.RewardInit : 0) +"金币"},
+                    //{text:tCarItemData.RewardPerH+"金币"},
                     {text:"\n"+"每分钟"}
                 ]
                 //Icon

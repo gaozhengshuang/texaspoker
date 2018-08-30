@@ -299,17 +299,10 @@ module game {
                 this.dispatchEvent(new BasicEvent(GameRoomView.LEVEL,
                     { index: 0, houseid: this.roomInfo.rId }));
             } else {
-                if (item.hLevel < item.lockLevel) {
-                    //game.showTips("房屋"+item.lockLevel+"级解锁，请先提升房屋等级!", true);
-                } else {
-                    if (item.data.level >= this.roomInfo.level) {
-                        // game.showTips("房屋等级不足，请先提升房屋等级!", true);
-                    } else {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.LEVEL,
+                if (item.isCan) {
+                    this.dispatchEvent(new BasicEvent(GameRoomView.LEVEL,
                             { index: item.index, houseid: this.roomInfo.rId }));
-                    }
-                }
-
+                } 
             }
         }
         public plunderCoinError(eid: number) {
@@ -613,15 +606,15 @@ module game {
             return cell;
         }
 
-        public receiveSuccess(houseid: number, index: number, getNum: number) {
+        public receiveSuccess(houseid: number, index: number, getNum: number,items:any[]) {
             if (houseid == this.roomInfo.rId) {
-                this.huxingPanel.receiveSuccess(index, getNum);
+                this.huxingPanel.receiveSuccess(index, getNum,items);
             }
 
         }
-        public plunderSuccess(houseid: number, index: number, getNum: number) {
+        public plunderSuccess(houseid: number, index: number, getNum: number,items:any[]) {
             if (houseid == this.roomInfo.rId) {
-                this.huxingPanel.plunderSuccess(index, getNum);
+                this.huxingPanel.plunderSuccess(index, getNum,items);
             }
         }
         public levelSuccess(index: number) {

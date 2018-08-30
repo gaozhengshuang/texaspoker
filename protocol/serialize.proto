@@ -62,9 +62,10 @@ message PersonalImage {
     repeated ImageData lists = 2;
 }
 
-// 女仆
+// 仆人对象
 message HouseMaidData { 
-    repeated ImageData images = 1;  // 女仆装扮
+    //repeated ImageData images = 1;  // 装扮
+    repeated ItemData clothes = 1;  // 服装装扮
     optional uint64 id = 2;         // uuid
     optional int32  level = 3;      // 等级
     optional uint64 ownerid = 4;    // 主人id
@@ -73,6 +74,8 @@ message HouseMaidData {
     optional string robbername = 7; // 掠夺者name
     optional uint32 earning = 8;    // 收益
     optional uint64 houseid = 9;    // 所在房间
+    optional int32  sex = 10;       // 仆人性别
+    optional int64  tmworking = 11; // 开始工作时间戳
 }
 
 message UserBase {
@@ -176,15 +179,16 @@ message ParkingData
 {
     optional uint64 id = 1;                 //车位id
     optional uint32 tid = 2;                //配置id
-    optional uint64 ownerid = 3;            //拥有者id 公共车位为0
-    optional uint64 parkingcar = 4;         //停的车辆id
-    optional uint64 parkingcarownerid = 5;  //停的车主人id
-    optional string parkingcarownername = 6;//停的车主人名字
-    optional uint64 parkingtime = 7;        //开始停车时间戳
-    optional uint32 parkingreward = 8 ;     //停车获得收益
-    optional string ownername = 9;          //车位主人名字
-    optional uint32 parkingcartid = 10;     //停的车辆配置id
-    optional uint64 houseid = 11;           //所属房屋id
+    optional uint32 parkingtype = 3;        //停车场类型
+    optional uint64 ownerid = 4;            //拥有者id 公共车位为0
+    optional uint64 parkingcar = 5;         //停的车辆id
+    optional uint64 parkingcarownerid = 6;  //停的车主人id
+    optional string parkingcarownername = 7;//停的车主人名字
+    optional uint64 parkingtime = 8;        //开始停车时间戳
+    optional uint32 parkingreward = 9;      //停车获得收益
+    optional string ownername = 10;         //车位主人名字
+    optional uint32 parkingcartid = 11;     //停的车辆配置id
+    optional uint64 houseid = 12;           //所属房屋id
 }
 
 //单个房间信息
@@ -222,6 +226,10 @@ message HouseData {
     repeated ParkingData parkings = 10;
 	optional uint32 roommember = 11; //房间号
     optional uint32 area = 12;      //面积
+    optional bool issell = 13;      //出售中
+    optional uint32 tradeendtime = 14;  //交易结束时间
+    optional uint32 income = 15;        //收益    
+    optional uint32 sumvalue = 16;      //总价值
 }
 
 // 汽车商店出售信息

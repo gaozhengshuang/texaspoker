@@ -42,5 +42,6 @@ var TBuildingsBase = table.InsTBuildingsBaseTable
 var TParkingBase = table.InsTParkingBaseTable
 var ShopBase = table.InsShopBaseTable
 var TbirckRefreshbase = table.InsTbirckRefreshbaseTable
+var LevelMaidBase = table.InsLevelMaidBaseTable
 var ItemBase = table.InsItemBaseTable
 

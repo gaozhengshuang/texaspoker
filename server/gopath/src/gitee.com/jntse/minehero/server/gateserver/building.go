@@ -8,7 +8,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	_ "gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
-	"gitee.com/jntse/minehero/server/tbl/excel"
+	_"gitee.com/jntse/minehero/server/tbl/excel"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
@@ -20,8 +20,6 @@ import (
 type BuildingData struct {
 	id   uint32
 	data map[uint32][]uint64
-
-	tbl *table.TBuildingsDefine
 }
 
 func (this *BuildingData) Init() {
@@ -160,7 +158,7 @@ func (this *BuildingManager) AddBuilding(building *BuildingData) {
 		return
 	}
 
-	base, find := tbl.TBuildingsBase.TBuildingsById[building.id]
+	_, find := tbl.TBuildingsBase.TBuildingsById[building.id]
 	if find == false {
 		log.Error("AddBuilding Err id not found in tbl id:%d", building.id)
 		return
@@ -170,7 +168,6 @@ func (this *BuildingManager) AddBuilding(building *BuildingData) {
 		log.Error("AddBuilding Err Same buildingid id:%", building.id)
 		return
 	} else {
-		building.tbl = base
 		this.buildings[building.id] = building
 		log.Info("AddBuilding buildingid:%d", building.id)
 	}
@@ -207,10 +204,15 @@ func (this *BuildingManager) SaveAllBuildings() {
 //获取楼还有多少房屋未售
 func (this *BuildingManager) GetHouseNotSoldNumFromBuilding(buildingid uint32) uint32 {
 	building := this.GetBuilding(buildingid)
-	if building == nil || building.tbl == nil {
+	if building == nil {
 		return 0
 	}
-	total := building.tbl.MaxFloor * building.tbl.NumPerFloor
+	base, find := tbl.TBuildingsBase.TBuildingsById[building.id]
+	if find == false {
+		return 0
+	}
+
+	total := base.MaxFloor * base.NumPerFloor
 	cur := 0
 	for _, v := range building.data {
 		cur = cur + len(v)
@@ -234,10 +236,16 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		return 0
 	}
 	building := this.GetBuilding(buildingid)
-	if building == nil || building.tbl == nil {
+	if building == nil {
 		return 0
 	}
-	if index > building.tbl.NumPerFloor || index < 1 {
+
+	base, find := tbl.TBuildingsBase.TBuildingsById[building.id]
+	if find == false {
+		return 0
+	}
+
+	if index > base.NumPerFloor || index < 1 {
 		return 0
 	}
 	//当前已售出
@@ -246,18 +254,18 @@ func (this *BuildingManager) UserBuyHouseFromBuilding(userid uint64, buildingid,
 		curnum = len(building.data[index])
 	}
 	//判断所买户型是否还有剩余
-	if uint32(curnum) >= building.tbl.MaxFloor {
+	if uint32(curnum) >= base.MaxFloor {
 		return 0
 	}
 	strhouse := ""
 	if index == 1 {
-		strhouse = building.tbl.Houses1
+		strhouse = base.Houses1
 	} else if index == 2 {
-		strhouse = building.tbl.Houses2
+		strhouse = base.Houses2
 	} else if index == 3 {
-		strhouse = building.tbl.Houses3
+		strhouse = base.Houses3
 	} else if index == 4 {
-		strhouse = building.tbl.Houses4
+		strhouse = base.Houses4
 	}
 	slicestr := strings.Split(strhouse, "|")
 	slicehouse := strings.Split(slicestr[0], "-")
@@ -339,14 +347,18 @@ func (this *GateUser) BuyHouseFromBuilding(buildingid, index uint32) {
 func (this *GateUser) ReqBuildingCanBuyInfo(buildingid uint32) {
 	log.Info("ReqBuildingCanBuyInfo buildingid:%d", buildingid)
 	building := BuildSvrMgr().GetBuilding(buildingid)
-	if building == nil || building.tbl == nil {
+	if building == nil {
 		log.Error("ReqBuildingCanBuyInfo GetBuilding nil buildingid:%d", buildingid)
 		return
 	}
-	count := building.tbl.MaxFloor
+	base, find := tbl.TBuildingsBase.TBuildingsById[building.id]
+	if find == false {
+		return
+	}
+	count := base.MaxFloor
 	send := &msg.GW2C_AckBuildingCanBuyInfo{}
 	send.Buildingid = pb.Uint32(buildingid)
-	for i := uint32(1); i <= building.tbl.NumPerFloor; i++ {
+	for i := uint32(1); i <= base.NumPerFloor; i++ {
 		info := &msg.CanBuyInfo{}
 		info.Index = pb.Uint32(i)
 		if v, ok := building.data[i]; ok {

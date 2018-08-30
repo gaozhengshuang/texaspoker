@@ -16,6 +16,7 @@ import (
 
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/tbl"
 )
 
 const (
@@ -26,8 +27,13 @@ const (
 /// @brief 女仆
 // --------------------------------------------------------------------------
 type Maid struct {
-	bin *msg.HouseMaidData
-	dirty bool
+	bin 	*msg.HouseMaidData
+	clothes map[int32]*msg.ItemData		// 衣服装扮
+	dirty 	bool
+}
+
+func (m *Maid) Init() {
+	m.clothes = make(map[int32]*msg.ItemData)
 }
 
 func (m *Maid) Bin() *msg.HouseMaidData {
@@ -80,13 +86,22 @@ func (m *Maid) HouseId() uint64 {
 	return m.bin.GetHouseid()
 }
 
+func (m *Maid) TimeStart() int64 {
+	return m.bin.GetTmworking()
+}
+
+func (m *Maid) SetTimeStart(t int64) {
+	m.bin.Tmworking = pb.Int64(t)
+}
+
 func (m *Maid) SaveBin(pipe redis.Pipeliner) {
 	id := strconv.FormatUint(uint64(m.Id()), 10)
 	m.dirty = false
 	if pipe == nil {
 		if err := utredis.HSetProtoBin(Redis(), RedisKeyMaidRawData, id, m.bin); err != nil {
-			log.Error("[汽车商店] 保存产品数据 Redis Error:%s", err)
+			log.Error("[女仆] 保存产品数据 Redis Error:%s", err)
 		}
+		log.Info("[女仆] 保存数据是成功 id=%d owner[%s %d]", m.Id(), m.OwnerName(), m.OwnerId())
 	}else {
 		utredis.HSetProtoBinPipeline(pipe, RedisKeyMaidRawData, id, m.bin)
 	}
@@ -97,10 +112,112 @@ func (m *Maid) LoadBin(rbuf []byte) *msg.HouseMaidData {
 	if err := pb.Unmarshal(rbuf, data); err != nil {
 		return nil
 	}
+
+	for _, item := range data.Clothes {
+		m.clothes[item.GetPos()] = item
+	}
 	m.bin = data
 	return data
 }
 
+// pack时装数据到二进制
+func (m *Maid) PackBin() *msg.HouseMaidData {
+	m.bin.Clothes = make([]*msg.ItemData, 0)
+	for _, item := range m.clothes {
+		m.bin.Clothes = append(m.bin.Clothes, item)
+	}
+	return m.bin
+}
+
+func (m *Maid) Clean() {
+	m.clothes = make(map[int32]*msg.ItemData)
+}
+
+func (m *Maid) GetClothesByPos(pos int32) *msg.ItemData {
+	if item, find := m.clothes[pos]; find == true {
+		return item
+	}
+	return nil
+}
+
+func (m *Maid) DressClothes(owner *GateUser, pos int32, itemid int32) {
+	newEquip := owner.bag.FindById(uint32(itemid))
+	if newEquip == nil {
+		owner.SendNotify("找不到穿戴的服装")
+		return
+	}
+
+	equipbase := newEquip.EquipBase()
+	if equipbase == nil {
+		owner.SendNotify("只能穿戴服装道具")
+		return 
+	}
+
+	if equipbase.Pos != pos {
+		owner.SendNotify("不能穿戴这个位置")
+		return
+	}
+
+	if equipbase.Sex != int32(msg.Sex_Neutral) && equipbase.Sex != owner.Sex() {
+		owner.SendNotify("性别不符合")
+		return
+	}
+
+	copyItem := pb.Clone(newEquip.Bin()).(*msg.ItemData)
+	copyItem.Pos = pb.Int32(pos)
+	m.clothes[pos] = copyItem
+	m.dirty = true
+	m.PackBin()
+	MaidMgr().SendUserMaids(owner)
+}
+
+// 脱下服装
+func (m *Maid) UnDressClothes(owner *GateUser, pos int32, syn bool) {
+	if clothes := m.GetClothesByPos(pos); clothes == nil {
+		return
+	}
+	delete(m.clothes, pos)
+	m.dirty = true
+	m.PackBin()
+
+	if syn {
+		MaidMgr().SendUserMaids(owner)
+	}
+}
+
+// 脱下全部
+func (m *Maid) UnDressAll(owner *GateUser, syn bool) {
+	m.clothes = make(map[int32]*msg.ItemData)
+	m.dirty = true
+	m.PackBin()
+	if syn {
+		MaidMgr().SendUserMaids(owner)
+	}
+}
+
+// 是否穿戴套装
+func (m *Maid) IsHaveDressSuit() bool {
+	for _, v := range m.clothes {
+		if v.GetPos() == int32(msg.ItemPos_Suit) {
+			return true 
+		}
+	}
+	return false
+}
+
+// 获得时装技能属性
+func (m *Maid) GetEquipSkills(owner *GateUser) []int32 {
+	skills := make([]int32, 10)
+	for _, item := range m.clothes {
+		equip, find := tbl.TEquipBase.EquipById[int32(item.GetId())]
+		if find == false { continue }
+		for _, skill := range equip.Skill { 
+			iskill, _ := strconv.ParseInt(skill, 10, 32)
+			skills = append(skills, int32(iskill))
+		}
+	}
+	return skills
+}
 
 // --------------------------------------------------------------------------
 /// @brief 女仆管理器
@@ -120,7 +237,7 @@ func (ma *MaidManager) CreateNewMaid(ownerid uint64, ownername string, houseid u
 	}
 
 	bin := &msg.HouseMaidData{}
-	bin.Images = make([]*msg.ImageData, 0)
+	bin.Clothes = make([]*msg.ItemData, 0)
 	bin.Id = pb.Uint64(uint64(uuid))
 	bin.Level = pb.Int32(1)
 	bin.Ownerid = pb.Uint64(ownerid)
@@ -128,12 +245,14 @@ func (ma *MaidManager) CreateNewMaid(ownerid uint64, ownername string, houseid u
 	bin.Houseid = pb.Uint64(houseid)
 
 	maid := &Maid{bin:bin, dirty:true}
+	maid.Init()
+	maid.SaveBin(nil)
 	ma.AddMaid(maid)
 	return maid
 }
 
 func (ma *MaidManager) Init() {
-	ma.ticker1Minite = util.NewGameTicker(time.Second, ma.Handler1MiniteTick)
+	ma.ticker1Minite = util.NewGameTicker(time.Minute, ma.Handler1MiniteTick)
 	ma.ticker1Minite.Start()
 	ma.maids = make(map[uint64]*Maid)
 	ma.usermaids = make(map[uint64]map[uint64]*Maid)
@@ -218,6 +337,12 @@ func (ma *MaidManager) AddMaid(maid *Maid) {
 	ma.housemaids[maid.HouseId()][maid.Id()] = maid
 }
 
+// 获得房屋女仆
+func (ma *MaidManager) GetMaidsById(uid uint64) *Maid {
+	maids, _ := ma.maids[uid]
+	return maids
+}
+
 // 获得玩家女仆
 func (ma *MaidManager) GetUserMaids(uid uint64) map[uint64]*Maid {
 	maids, _ := ma.usermaids[uid]
@@ -229,7 +354,6 @@ func (ma *MaidManager) GetHouseMaids(uid uint64) map[uint64]*Maid {
 	maids, _ := ma.housemaids[uid]
 	return maids
 }
-
 
 // 发送房子女仆
 func (ma *MaidManager) SendHouseMaids(user *GateUser, houseid uint64) {
@@ -252,3 +376,35 @@ func (ma *MaidManager) SendUserMaids(user *GateUser) {
 	}
 	user.SendMsg(send)
 }
+
+// 升级女仆
+func (this *MaidManager) UpgradeMaid(user *GateUser, maidid uint64) {
+	if user == nil { return }
+	maid := this.GetMaidsById(maidid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆升级配置")
+		return
+	}
+
+	if levelbase.NextLevel == 0 {
+		user.SendNotify("已达到最大等级")
+		return
+	}
+
+	item := user.bag.FindById(levelbase.UpgradeID)
+	if item == nil || item.Num() < levelbase.Upgradenum {
+		user.SendNotify("碎片不足")
+		return
+	}
+
+	user.RemoveItem(levelbase.UpgradeID, levelbase.Upgradenum, "升级女仆")
+	maid.SetLevel(maid.Level() + 1)
+	this.SendUserMaids(user)
+}
+

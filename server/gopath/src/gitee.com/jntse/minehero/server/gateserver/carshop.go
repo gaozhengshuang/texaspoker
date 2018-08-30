@@ -66,6 +66,7 @@ func (cp *CarProduct) SaveBin(pipe redis.Pipeliner) {
 		if err := utredis.HSetProtoBin(Redis(), "carshop", pid, cp.bin); err != nil {
 			log.Error("[汽车商店] 保存产品数据 Redis Error:%s", err)
 		}
+		log.Error("[汽车商店] 保存产品数据成功 pid[%d]", pid)
 	}else {
 		utredis.HSetProtoBinPipeline(pipe, "carshop", pid, cp.bin)
 	}
@@ -93,7 +94,7 @@ type CarShop struct {
 
 func (shop* CarShop) Init() {
 	shop.products = make(map[uint32] *CarProduct)
-	shop.ticker1Minite = util.NewGameTicker(time.Second, shop.Handler1MiniteTick)
+	shop.ticker1Minite = util.NewGameTicker(time.Minute, shop.Handler1MiniteTick)
 	shop.ticker1Minite.Start()
 
 	shop.LoadDB()
