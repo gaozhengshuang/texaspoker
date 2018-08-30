@@ -2,25 +2,31 @@ module game {
 	/**
 	 * 交易记录面板
 	 */
-	export class TradeRecordPanel extends PanelComponent{
+	export class TradeRecordPanel extends PanelComponent {
 
 		recordScroller: utils.VScrollerPanel;
 
+		private _flag: TradePanelFlag;
+
 		protected init() {
 			this.recordScroller.dataList.useVirtualLayout = true;
-			// this.recordScroller.initItemRenderer();
+			this.recordScroller.initItemRenderer(TradeRecordItem);
 		}
 		protected getSkinName() {
 			return TradeRecordPanelSkin;
 		}
 
-		protected beforeShow()
-		{
-			
+		protected beforeShow() {
+			//NotificationCenter.addObserver(this, this.onRefreshHouse, PlayerModel.HOUSE_UPDATE);
+			this.recordScroller.bindData(TradeManager.getInstance().tradeRecordInfo.list);
 		}
-		protected beforeRemove()
-		{
-
+		protected beforeRemove() {
+			//NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
+		}
+		private onRefreshHouse() {
+			if (this._flag == TradePanelFlag.House) {
+				this.recordScroller.bindData(TradeManager.getInstance().tradeRecordInfo.list);
+			}
 		}
 
 		private static _instance: TradeRecordPanel = null;

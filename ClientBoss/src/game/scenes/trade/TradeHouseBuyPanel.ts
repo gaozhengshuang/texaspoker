@@ -48,7 +48,7 @@ module game {
 		protected getSkinName() {
 			return TradeHouseBuyPanelSkin;
 		}
-		public setData(data: msg.SimpleHouseTrade) {
+		public setData(data: msg.SimpleHouseTrade, houseDetailData: msg.GW2C_UpdateHouseDataOne) {
 
 			this._data = data;
 
@@ -57,7 +57,8 @@ module game {
 
 				this.tradeStar.show(data.houselevel);
 
-				this.curTotalPriceTxt.text = numAddSpace(data.price) + "金币";
+				// this.curTotalPriceTxt.text = ; numAddSpace(data.price) + "金币";
+				this.curTotalPriceTxt.textFlow = TextUtil.parse(TradeManager.getInstance().getPriceStr(data.price));
 				this.baseInconmeTxt.text = numAddSpace(data.income) + "金币";
 				this.unitPrice.text = numAddSpace(Math.floor(data.price / data.area)) + "金币";
 				this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
@@ -84,15 +85,18 @@ module game {
 			// diningHallTxt: eui.Label; //餐厅
 			// masterBedroomTxt: eui.Label; //主卧 2
 
-			// this.cellGroup.removeChildren();
-			// if (data.housecells) {
-			// 	for (let i: number = 0; i < data.housecells.length; i++) {
-			// 		let cell = data.housecells[i];
-			// 		this.cellGroup.addChild(this["cell" + cell.index]);
-			// 		this['lvlTxt' + cell.index].text = "Lv" + cell.level.toString();
-			// 	}
-			// }
-
+			this.cellGroup.removeChildren();
+			if (houseDetailData.data.housecells) {
+				for (let i: number = 0; i < houseDetailData.data.housecells.length; i++) {
+					let cell = houseDetailData.data.housecells[i];
+					this.cellGroup.addChild(this["cell" + cell.index]);
+					this['lvlTxt' + cell.index].text = "Lv" + cell.level.toString();
+					let houseCellDef = TradeManager.getInstance().getHouseCellDefine(cell.tid);
+					if (houseCellDef) {
+						this['nameTxt' + cell.index].text = houseCellDef.Des + "：";
+					}
+				}
+			}
 			// this.guestRoom.text = data.housecells
 		}
 		protected beforeShow() {
@@ -112,10 +116,12 @@ module game {
 			if (userinfo.gold >= this._data.price) {
 				let data: msg.C2GW_BuyTradeHouse = new msg.C2GW_BuyTradeHouse();
 				data.tradeuid = this._data.tradeuid;
+				data.houseuid = this._data.houseuid;
 				sendMessage("msg.C2GW_BuyTradeHouse", msg.C2GW_BuyTradeHouse.encode(data));
 			}
 			else {
 				//提示金币不足
+				showTips('金币不足！')
 			}
 		}
 		private onSellResult(data: msg.GW2C_RetBuyTradeHouse) { //刷新我的房产
