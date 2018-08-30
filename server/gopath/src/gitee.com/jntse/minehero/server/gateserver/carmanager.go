@@ -175,11 +175,21 @@ func (this *CarData) GetRewardPerM() uint32{
 }
 //获得车辆品牌
 func (this *CarData) GetCarBrand() uint32 {
-	return 0;
+	template, find := tbl.TCarBase.TCarById[this.data.GetTid()]
+	if find == false {
+		log.Error("无效的车辆tid[%d]", tid)
+		return 0
+	}
+	return template.Brand
 }
 //获得车辆型号
 func (this *CarData) GetCarModel() uint32 {
-	return 0;
+	template, find := tbl.TCarBase.TCarById[this.data.GetTid()]
+	if find == false {
+		log.Error("无效的车辆tid[%d]", tid)
+		return 0
+	}
+	return template.Model
 }
 
 //车位信息
