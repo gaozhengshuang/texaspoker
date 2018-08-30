@@ -7,6 +7,7 @@ package main
 import (
 	"time"
 	"strconv"
+	"strings"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 
@@ -66,9 +67,14 @@ func (m *Maid) RobberName() string {
 	return m.bin.GetRobbername()
 }
 
-func (m *Maid) SetRobber(id uint64, name string) {
+func (m *Maid) RobberTo() uint64 {
+	return m.bin.GetRobberto()
+}
+
+func (m *Maid) SetRobber(id uint64, name string, dropto uint64) {
 	m.bin.Robberid = pb.Uint64(id)
 	m.bin.Robbername = pb.String(name)
+	m.bin.Robberto = pb.Uint64(dropto)
 }
 
 func (m *Maid) Earning() uint32 {
@@ -97,9 +103,9 @@ func (m *Maid) HouseId() uint64 {
 	return m.bin.GetHouseid()
 }
 
-func (m *Maid) SetHouseId(id uint64) {
-	m.bin.Houseid = pb.Uint64(id)
-}
+//func (m *Maid) SetHouseId(id uint64) {
+//	m.bin.Houseid = pb.Uint64(id)
+//}
 
 func (m *Maid) TimeStart() int64 {
 	return m.bin.GetTmworking()
@@ -311,7 +317,7 @@ func (ma *MaidManager) LoadDB() {
 	for _, v := range cmds {
 		if v.Err() == redis.Nil { continue }
 		rbuf, _ := v.(*redis.StringCmd).Bytes()
-		maid := &Maid{}
+		maid := &Maid{clothes:make(map[int32]*msg.ItemData)}
 		if maid.LoadBin(rbuf) != nil {
 			ma.AddMaid(maid)
 		}
@@ -359,9 +365,14 @@ func (ma *MaidManager) AddMaid(maid *Maid) {
 	if _, ok := ma.housemaids[maid.HouseId()]; ok == false {
 		ma.housemaids[maid.HouseId()] = make(map[uint64]*Maid)
 	}
+	if _, ok := ma.housemaids[maid.RobberTo()]; ok == false {
+		ma.housemaids[maid.RobberTo()] = make(map[uint64]*Maid)
+	}
+
 	ma.maids[maid.Id()] = maid
 	ma.usermaids[maid.OwnerId()][maid.Id()] = maid
 	ma.housemaids[maid.HouseId()][maid.Id()] = maid
+	ma.housemaids[maid.RobberTo()][maid.Id()] = maid
 }
 
 // 获得房屋女仆
@@ -433,6 +444,7 @@ func (ma *MaidManager) UpgradeMaid(user *GateUser, uid uint64) {
 	user.RemoveItem(levelbase.UpgradeID, levelbase.Upgradenum, "升级女仆")
 	maid.OnLevelUp()
 	ma.SendUserMaids(user)
+	user.SendNotify("女仆升级成功")
 }
 
 // 收取女仆收益
@@ -460,21 +472,35 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		return
 	}
 
-	now := util.CURTIME()
-	elapse := now - maid.TimeStart()
 	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
 	if ok == false {
 		log.Error("[女仆] 找不到女仆等级配置")
 		return
 	}
 
-	if elapse < levelbase.ProduceTime {
-		log.Error("[女仆] 生产时间未完成，不能领取")	// 客户端要预判断
+	// 已经被掠夺走了
+	if maid.RobberId() != 0 {
+		if maid.Earning() != 0 {
+			user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
+			ma.ItemProduce(user, maid, "领取女仆收益")
+		}else {
+			user.SendNotify("没有金币可以领取")
+		}
 		return
 	}
 
-	user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
-	maid.SetTimeStart(now)
+	// 送回来不会自动开始工作
+	if maid.TimeStart() != 0 {
+		now := util.CURTIME()
+		elapse := now - maid.TimeStart()
+		if elapse < levelbase.ProduceTime {
+			log.Error("[女仆] 生产时间未完成，不能领取")	// 客户端要预判断
+			return
+		}
+		user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
+		ma.ItemProduce(user, maid, "领取女仆收益")
+		maid.SetTimeStart(now)
+	}
 }
 
 // 掠夺他人女仆
@@ -486,19 +512,8 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 		return
 	}
 
-	house := HouseSvrMgr().GetHouse(maid.HouseId())
-	if house == nil {
-		user.SendNotify("不存在的房屋")
-		return
-	}
-
-	if house.ownerid == user.Id() {
-		user.SendNotify("这是您的房屋")
-		return
-	}
-
-	if house.id != maid.HouseId() {
-		user.SendNotify("女仆不在这个房屋")
+	if maid.RobberId() != 0 {
+		user.SendNotify("掠夺来的女仆不能抢走")
 		return
 	}
 
@@ -507,8 +522,14 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 		return
 	}
 
-	if maid.RobberId() != 0 {
-		user.SendNotify("掠夺来的女仆不能抢走")
+	house := HouseSvrMgr().GetHouse(maid.HouseId())
+	if house == nil {
+		user.SendNotify("不存在的房屋")
+		return
+	}
+
+	if house.ownerid == user.Id() {
+		user.SendNotify("这是您的房屋")
 		return
 	}
 
@@ -545,19 +566,123 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 		return false
 	}
 
-	maid.SetRobber(user.Id(), user.Name())
-	maid.SetTimeStart(util.CURTIME())
-	ma.ChangeMaidHouse(maid, dropto)
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return false
+	}
+
+	// 产生房屋记录，女仆已经产生的钱留给房主
+	if maid.Earning() != 0 {	// 上次产出还未领取
+		now := util.CURTIME()
+		elapse := now - maid.TimeStart()
+		total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
+		maid.SetEarning(uint32(total))
+	}
+
+	// 我有概率获得道具	
+	ma.ItemProduce(user, maid, "掠夺女仆")
+
+
+	// 掠夺到我的房间
+	ma.RobMaidToHouse(user, maid, dropto)
 	return true
 }
 
-//
-func (ma *MaidManager) ChangeMaidHouse(maid *Maid, houseid uint64) {
-	maid.SetHouseId(houseid)
-	delete(ma.housemaids[maid.HouseId()], maid.Id())
+// 夺回自己的女仆
+func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
+	if user == nil { return }
+	maid := ma.GetMaidsById(uid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	if maid.RobberId() == 0 {
+		user.SendNotify("不需要夺回")
+		return
+	}
+
+	if maid.OwnerId() != user.Id() {
+		user.SendNotify("这不是您的女仆")
+		return
+	}
+
+	house := HouseSvrMgr().GetHouse(maid.RobberTo())
+	if house == nil {
+		user.SendNotify("女仆所在的房屋无效")
+		return
+	}
+
+	if house.ownerid == user.Id() {
+		user.SendNotify("这是您自己的房屋")
+		return
+	}
+
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return
+	}
+
+	// 产生房屋记录，女仆已经产生的钱留给房主
+	now := util.CURTIME()
+	elapse := now - maid.TimeStart()
+	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
+	total = total
+
+	// 清除掠夺者
+	delete(ma.housemaids[maid.RobberTo()], maid.Id())
+	maid.SetRobber(0, "", 0)
+	maid.SetTimeStart(util.CURTIME())
+	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
+}
+
+// 送回女仆
+func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
+	if user == nil { return }
+	maid := ma.GetMaidsById(uid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	if maid.OwnerId() == user.Id() {
+		user.SendNotify("这是您的女仆呀")
+		return
+	}
+
+	if maid.RobberId() != user.Id() {
+		user.SendNotify("这不是您掠夺的女仆")
+		return
+	}
+
+	// 计算产出
+	now := util.CURTIME()
+	elapse := now - maid.TimeStart()
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return
+	}
+	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
+	user.AddGold(uint32(total), "领取掠夺女仆收益", true)
+	ma.ItemProduce(user, maid, "领取掠夺女仆")
+
+	// 清除掠夺者
+	delete(ma.housemaids[maid.RobberTo()], maid.Id())
+	maid.SetRobber(0, "", 0)
+	maid.SetTimeStart(0)	// 停止工作
+	log.Info("[女仆] 女仆[%d]被送回到房间", maid.Id())
+}
+
+// 设置掠夺者
+func (ma *MaidManager) RobMaidToHouse(user *GateUser, maid *Maid, houseid uint64) {
+	maid.SetRobber(user.Id(), user.Name(), houseid)
+	maid.SetTimeStart(util.CURTIME())
 	if ma.housemaids[houseid] == nil { ma.housemaids[houseid] = make(map[uint64]*Maid) }
 	ma.housemaids[houseid][maid.Id()] = maid
-	log.Info("[女仆] 女仆[%d]被放置到新房间[%d]", maid.Id(), houseid)
+	log.Info("[女仆] 女仆[%d]被掠夺到新房间[%d]", maid.Id(), houseid)
 }
 
 // 房子是否能否放置抢来的女仆(目前最多抢1个)
@@ -584,4 +709,49 @@ func (ma *MaidManager) CreateMaidRecord() string {
 	return ""
 }
 
+// 道具产出
+func (ma *MaidManager) ItemProduce(user *GateUser, maid *Maid, reason string) {
+	// 解析概率配置
+	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
+		for _ , strpro := range Pro {
+			slicepro := strings.Split(strpro, "-")
+			if len(slicepro) != 2 {
+				log.Error("[女仆] 解析道具产出概率配置异常 strpro=%s", strpro)
+				return false
+			}
+			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
+			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
+			num,    _ := strconv.ParseInt(slicepro[2], 10, 32)
+			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(num)})
+		}
+		return true
+	}
+
+	giftweight := make([]util.WeightOdds, 0)
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return
+	}
+
+	if ParseProString(&giftweight, levelbase.ProduceItem) == false { 
+		log.Error("[女仆] 解析道具产出配置失败")
+		return
+	}
+
+	index := util.SelectByWeightOdds(giftweight)
+	if index < 0 || index >= int32(len(giftweight)) {
+		log.Error("[女仆] 权重获得产出道具失败")
+		return
+	}
+
+	uid, num := giftweight[index].Uid, giftweight[index].Num
+	_, find := tbl.ItemBase.ItemBaseDataById[uint32(uid)]
+	if find == false {
+		log.Error("[女仆] 无效的道具id[%d]", uid)
+		return
+	}
+
+	user.AddItem(uint32(uid), uint32(num), reason, true)
+}
 

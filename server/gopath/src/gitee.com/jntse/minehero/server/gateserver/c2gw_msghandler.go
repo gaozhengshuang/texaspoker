@@ -954,6 +954,8 @@ func on_C2GW_TakeMaidEarning(session network.IBaseNetSession, message interface{
 	}
 	MaidMgr().TakeMaidEarning(user, tmsg.GetId())
 }
+
+// 掠夺女仆
 func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_RobMaid)
 	user := ExtractSessionUser(session)
@@ -964,11 +966,30 @@ func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
 	}
 	MaidMgr().RobMaid(user, tmsg.GetId(), tmsg.GetDropto())
 }
+
+// 夺回自己的女仆
 func on_C2GW_TackBackMaid(session network.IBaseNetSession, message interface{}) {
-}
-func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_RobMaid)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().TackBackMaid(user, tmsg.GetId())
 }
 
+// 送回夺取的女仆
+func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_SendBackMaid)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().SendBackMaid(user, tmsg.GetId())
+}
 
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
@@ -1242,6 +1263,7 @@ func on_C2GW_ReqHouseDataByHouseId(session network.IBaseNetSession, message inte
 		return
 	}
 	houseid := tmsg.GetHouseid()
+	MaidMgr().SendHouseMaids(user, houseid)
 	user.ReqHouseDataByHouseId(houseid)
 }
 
@@ -1301,7 +1323,7 @@ func on_C2GW_BuyTradeHouse(session network.IBaseNetSession, message interface{})
 		session.Close()
 		return
 	}
-	user.BuyTradeHouse(tmsg.GetTradeuid())
+	user.BuyTradeHouse(tmsg.GetTradeuid(), tmsg.GetHouseuid())
 }
 
 func on_C2GW_ReqTradeHouseHistory(session network.IBaseNetSession, message interface{}) {

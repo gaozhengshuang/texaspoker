@@ -25,6 +25,24 @@ const (
 type CarData struct {
 	data 		  *msg.CarData
 	modified      bool   //是否需要保存
+	template *table.TCarDefine
+}
+
+func (this *CarData) ChangeOwner(user *GateUser) {
+	CarMgr().DelCar(this)
+	exowner := UserMgr().FindById(this.data.GetOwnerid())
+	if exowner != nil {
+		CarMgr().UpdateCarByID(exowner, this.data.GetId(), true)
+	}
+	this.data.Ownerid = pb.Uint64(user.Id())
+	this.data.Ownername = pb.String(user.Name())
+	CarMgr().AddCar(this)
+	CarMgr().UpdateCarByID(exowner, this.data.GetId(), false)
+}
+
+func (this *CarData) ClearTrade() {
+	this.data.Tradeendtime = pb.Uint32(0)
+	this.data.Tradeuid = pb.Uint64(0)
 }
 
 func (this *CarData) LoadBin(rbuf []byte) error {
@@ -261,7 +279,7 @@ func (this *ParkingData) IsPrivate() bool {
 //车辆管理器
 type CarManager struct {
 	cars     map[uint64]*CarData //已加载的所有车辆的map
-	usercars map[uint64][]uint64 //玩家id 关联的车辆id
+	usercars map[uint64]map[uint64]uint64 //玩家id 关联的车辆id
 
 	parkings       map[uint64]*ParkingData //已加载的所有车位map
 	userparkings   map[uint64][]uint64     //玩家id 关联的车位id
@@ -276,7 +294,7 @@ type CarManager struct {
 
 func (this *CarManager) Init() {
 	this.cars = make(map[uint64]*CarData)
-	this.usercars = make(map[uint64][]uint64)
+	this.usercars = make(map[uint64]map[uint64]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
 
@@ -511,9 +529,15 @@ func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttrib
 func (this *CarManager) AddCar(car *CarData) {
 	this.cars[car.data.GetId()] = car
 	if _, ok := this.usercars[car.data.GetOwnerid()]; !ok {
-		this.usercars[car.data.GetOwnerid()] = make([]uint64, 0)
+		this.usercars[car.data.GetOwnerid()] = make(map[uint64]uint64)
 	}
-	this.usercars[car.data.GetOwnerid()] = append(this.usercars[car.data.GetOwnerid()], car.data.GetId())
+	this.usercars[car.data.GetOwnerid()][car.data.GetId()] = car.data.GetId()
+}
+
+func (this *CarManager) DelCar(car *CarData) {
+	if _, ok := this.usercars[car.data.GetOwnerid()]; ok {
+		delete(this.usercars[car.data.GetOwnerid()], car.data.GetId())
+	}
 }
 
 func (this *CarManager) GetCarByUser(uid uint64) []*CarData {
@@ -696,6 +720,20 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
 	return parking
+}
+
+func (this *CarManager) UpdateCarByID(user *GateUser, carid uint64, del bool) {
+	car := this.GetCar(carid)
+	if car == nil {
+		return
+	}
+	send := &msg.GW2C_UpdateCar{}
+	send.Carid = pb.Uint64(car.data.GetId())
+	if del == false {
+		send.Data = car.PackBin()
+	}
+	send.Isdel = pb.Bool(del)
+	user.SendMsg(send)
 }
 
 func (this *CarManager) AddParking(parking *ParkingData) {
