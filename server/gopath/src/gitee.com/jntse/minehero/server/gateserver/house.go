@@ -356,7 +356,8 @@ func (this *HouseData) GetType() uint32 {
 		log.Error("House LevelUp 无效的房屋tid[%d]", this.tid)
 		return 1
 	}
-	return base.Type
+	btype := base.Type
+	return btype
 }
 
 func (this *HouseData) GetIncome() uint32 {

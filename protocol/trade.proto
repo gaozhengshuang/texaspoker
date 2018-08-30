@@ -6,8 +6,8 @@ package msg;
 enum TradeState {
     Tradeing = 1;       //交易中
     CanReward = 2;      //交易完成能领金币
-    SellOk = 3;         //买成功
-    BuyOk = 4;          //卖成功
+    SellOk = 3;         //卖成功
+    BuyOk = 4;          //买成功
     TradeCancel = 5;    //交易取消 
 }
 
@@ -206,7 +206,7 @@ message C2GW_GetTradeCarReward
 }
 
 //取消订单
-message C2GW_CancelCarHouse
+message C2GW_CancelTradeCar
 {
     optional uint64 caruid = 1;
 }

@@ -201,7 +201,7 @@
 		{ "Id": 197, "Name": "msg.TradeCarHistory" },
 		{ "Id": 198, "Name": "msg.GW2C_RetTradeCarHistory" },
 		{ "Id": 199, "Name": "msg.C2GW_GetTradeCarReward" },
-		{ "Id": 200, "Name": "msg.C2GW_CancelCarHouse" },
+		{ "Id": 200, "Name": "msg.C2GW_CancelTradeCar" },
 		{ "Id": 201, "Name": "msg.C2GW_AddDeliveryAddress" },
 		{ "Id": 202, "Name": "msg.C2GW_DelDeliveryAddress" },
 		{ "Id": 203, "Name": "msg.C2GW_ChangeDeliveryAddress" },
