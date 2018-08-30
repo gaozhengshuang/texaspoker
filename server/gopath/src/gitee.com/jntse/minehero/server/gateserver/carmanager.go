@@ -177,7 +177,7 @@ func (this *CarData) GetRewardPerM() uint32{
 func (this *CarData) GetCarBrand() uint32 {
 	template, find := tbl.TCarBase.TCarById[this.data.GetTid()]
 	if find == false {
-		log.Error("无效的车辆tid[%d]", tid)
+		log.Error("无效的车辆tid[%d]", this.data.GetTid())
 		return 0
 	}
 	return template.Brand
@@ -186,7 +186,7 @@ func (this *CarData) GetCarBrand() uint32 {
 func (this *CarData) GetCarModel() uint32 {
 	template, find := tbl.TCarBase.TCarById[this.data.GetTid()]
 	if find == false {
-		log.Error("无效的车辆tid[%d]", tid)
+		log.Error("无效的车辆tid[%d]", this.data.GetTid())
 		return 0
 	}
 	return template.Model
@@ -385,10 +385,10 @@ func (this *CarManager) GetCar(id uint64) *CarData {
 	return nil
 }
 
-func (this *CarManager) GetCarTemplate(id uint32) *tbl.TCarDefine{
-	template, find := tbl.TCarBase.TCarById[tid]
+func (this *CarManager) GetCarTemplate(id uint32) *table.TCarDefine{
+	template, find := tbl.TCarBase.TCarById[id]
 	if find == false {
-		log.Error("无效的车辆tid[%d]", tid)
+		log.Error("无效的车辆tid[%d]", id)
 		return nil
 	}
 	return template
@@ -563,17 +563,17 @@ func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *Ca
 	switch opttype {
 	case uint32(msg.CarOperatorType_Park):
 		//停车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-		data = prefix + car.ownername + "将他的" + brand + model + "停在了你的车位"
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
+		data = prefix + car.data.GetOwnername() + "将他的" + brand + model + "停在了你的车位"
 		break
 	case uint32(msg.CarOperatorType_TakeBack):
 		//收车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
-		data = prefix + car.ownername + "开走了他的" + brand + model
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.data.GetId(), time.Now().Format("15:04"))
+		data = prefix + car.data.GetOwnername() + "开走了他的" + brand + model
 		break
 	case uint32(msg.CarOperatorType_Ticket):
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-		data = prefix + parking.ownername + "对你的" + brand + model + "贴条"
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.data.GetHouseid(), time.Now().Format("15:04"))
+		data = prefix + parking.data.GetOwnername() + "对你的" + brand + model + "贴条"
 		break
 	case uint32(msg.CarOperatorType_AutoBack):
 		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
