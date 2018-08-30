@@ -287,14 +287,19 @@ module game {
 		private initMaid(houseInfo: table.ITHouseDefine) {
 			let maidList: string[] = houseInfo.GirlsPosition.split(";");
 			if (maidList) {
-				let maidPos: string[] = maidList[0].split("-");
-				if (maidPos) {
-					let houseMaid = new HouseRolePanel();
-					this.addChild(houseMaid);
-					houseMaid.x = Number(maidPos[0]);
-					houseMaid.y = Number(maidPos[1]);
+				if (DataManager.playerModel.getHouseMaidInfo()) {
+					for(let i=0; i<DataManager.playerModel.getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
+						let maidInfo = DataManager.playerModel.getHouseMaidInfo().maids[i];
+						let maidPos: string[] = maidList[i].split("-");
+						if (maidPos) {
+							let houseMaid = new HouseRolePanel();
+							this.addChild(houseMaid);
+							houseMaid.x = Number(maidPos[0]);
+							houseMaid.y = Number(maidPos[1]);
 
-					houseMaid.initRole(houseInfo);
+							houseMaid.initRole(maidInfo);
+						}
+					}
 				}
 			}
 		}
