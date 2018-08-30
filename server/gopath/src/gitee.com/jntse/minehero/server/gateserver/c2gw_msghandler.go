@@ -101,7 +101,6 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_MaidUpgrade{}, 		on_C2GW_MaidUpgrade)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TakeMaidEarning{}, 	on_C2GW_TakeMaidEarning)
 	this.msgparser.RegistProtoMsg(msg.C2GW_RobMaid{}, 			on_C2GW_RobMaid)
-	this.msgparser.RegistProtoMsg(msg.C2GW_EnableMaidDropTo{}, 	on_C2GW_EnableMaidDropTo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_RobMaidToHouse{}, 	on_C2GW_RobMaidToHouse)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TackBackMaid{}, 		on_C2GW_TackBackMaid)
 	this.msgparser.RegistProtoMsg(msg.C2GW_SendBackMaid{}, 		on_C2GW_SendBackMaid)
@@ -192,6 +191,7 @@ func (this *C2GWMsgHandler) Init() {
 	// 女仆
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserMaidInfo{})
+	this.msgparser.RegistSendProto(msg.GW2C_EnableMaidDropTo{})
 
 
 	// Room
@@ -928,6 +928,8 @@ func on_C2GW_MakeClothes(session network.IBaseNetSession, message interface{}) {
 	}
 	user.MakeClothes(tmsg.GetDebris())
 }
+
+// 升级女仆
 func on_C2GW_MaidUpgrade(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_MaidUpgrade)
 	user := ExtractSessionUser(session)
@@ -938,11 +940,27 @@ func on_C2GW_MaidUpgrade(session network.IBaseNetSession, message interface{}) {
 	}
 	MaidMgr().UpgradeMaid(user, tmsg.GetId())
 }
+
+// 收取女仆收益
 func on_C2GW_TakeMaidEarning(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_TakeMaidEarning)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().TakeMaidEarning(user, tmsg.GetId())
 }
 func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
-}
-func on_C2GW_EnableMaidDropTo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_RobMaid)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().RobMaid(user, tmsg.GetId(), tmsg.GetDropto())
 }
 func on_C2GW_RobMaidToHouse(session network.IBaseNetSession, message interface{}) {
 }
