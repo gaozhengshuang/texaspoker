@@ -486,6 +486,7 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 	}
 
 	user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
+	ma.ItemProduce(user, maid, "领取女仆收益")
 	maid.SetTimeStart(now)
 }
 
@@ -552,7 +553,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 		return false
 	}
 
-	// 产生记录，女仆已经产生的钱留给房主
+	// 产生房屋记录，女仆已经产生的钱留给房主
 	;
 
 	// 我有概率获得道具	
@@ -564,7 +565,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 	return true
 }
 
-// 管理掠夺房间
+// 设置掠夺者
 func (ma *MaidManager) RobMaidToHouse(user *GateUser, maid *Maid, houseid uint64) {
 	maid.SetRobber(user.Id(), user.Name(), houseid)
 	maid.SetTimeStart(util.CURTIME())
@@ -673,12 +674,60 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 		return
 	}
 
-	// 产生房屋记录
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return
+	}
 
-	// 夺回
-	delete(ma.housemaids[maid.RobberTo()], maid.RobberTo())
+	// 产生房屋记录，女仆已经产生的钱留给房主
+	now := util.CURTIME()
+	elapse := now - maid.TimeStart()
+	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
+	total = total
+
+	// 清除掠夺者
+	delete(ma.housemaids[maid.RobberTo()], maid.Id())
 	maid.SetRobber(0, "", 0)
 	maid.SetTimeStart(util.CURTIME())
 	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
+}
+
+// 送回女仆
+func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
+	if user == nil { return }
+	maid := ma.GetMaidsById(uid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	if maid.OwnerId() == user.Id() {
+		user.SendNotify("这是您的女仆呀")
+		return
+	}
+
+	if maid.RobberId() != user.Id() {
+		user.SendNotify("这不是您掠夺的女仆")
+		return
+	}
+
+	// 计算产出
+	now := util.CURTIME()
+	elapse := now - maid.TimeStart()
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return
+	}
+	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
+	user.AddGold(uint32(total), "领取掠夺女仆收益", true)
+	ma.ItemProduce(user, maid, "领取掠夺女仆")
+
+	// 清除掠夺者
+	delete(ma.housemaids[maid.RobberTo()], maid.Id())
+	maid.SetRobber(0, "", 0)
+	maid.SetTimeStart(0)	// 停止工作
+	log.Info("[女仆] 女仆[%d]被送回到房间", maid.Id())
 }
 

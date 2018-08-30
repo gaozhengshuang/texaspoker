@@ -976,9 +976,18 @@ func on_C2GW_TackBackMaid(session network.IBaseNetSession, message interface{}) 
 	}
 	MaidMgr().TackBackMaid(user, tmsg.GetId())
 }
-func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
-}
 
+// 送回夺取的女仆
+func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_SendBackMaid)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().SendBackMaid(user, tmsg.GetId())
+}
 
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
