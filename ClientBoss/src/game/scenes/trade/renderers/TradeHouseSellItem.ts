@@ -68,7 +68,7 @@ module game {
 		private onBuyClick() {
 			if (this.data.state == TradeState.Tradeing) { //收回
 				let data: msg.C2GW_CancelTradeHouse = new msg.C2GW_CancelTradeHouse();
-				data.tradeuid = (this.data as msg.HouseData).id; //todo 实际上是交易ID 需要知道交易uID
+				data.houseuid = (this.data as msg.HouseData).id; //todo 实际上是交易ID 需要知道交易uID
 				sendMessage("msg.C2GW_CancelTradeHouse", msg.C2GW_CancelTradeHouse.encode(data));
 			}
 			else { //出售
