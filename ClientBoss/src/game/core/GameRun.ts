@@ -30,6 +30,8 @@ module game {
         BattleManager.getInstance().init();
         SysTimeEventManager.getInstance().delAllFunction();
         SysTimeEventManager.getInstance().stopTimer();
+
+        TickUtil.initialize(stage);
         //打开登录
         Login();
     }

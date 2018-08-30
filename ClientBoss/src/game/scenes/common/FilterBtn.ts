@@ -22,5 +22,8 @@ module game {
 			this.arrowFlag.rotation = this._isRotate ? 0 : 180;
 			this._isRotate = !this._isRotate;
 		}
+		public get isHide(): boolean {
+			return this._isRotate == true;
+		}
 	}
 }

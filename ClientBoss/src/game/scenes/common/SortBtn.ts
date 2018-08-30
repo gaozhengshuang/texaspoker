@@ -2,38 +2,25 @@ module game {
 	/**
 	 * 排序按钮
 	 */
-	export class SortBtn extends GameComponent {
+	export class SortBtn extends BaseUIComponent<any> {
 		infoLabel: eui.Label;
 		arrowUp: eui.Image;
 		arrowDown: eui.Image;
-		private _state: SortBtnState = SortBtnState.None;
-		/**
-		 * 选中的资源时的资源名
-		 */
-		private _selectResName: string;
-		/**
-		 * 默认时的资源名
-		 */
-		private _defaultResName: string | egret.Texture;
-
-		constructor(selectResName?: string) {
-			super();
-			if (selectResName) {
-				this._selectResName = selectResName;
-			}
-			else
-			{
-				this._selectResName = "uiCarAltas_json.arrowUpRed";
-			}
+		arrowUpRed: eui.Image;
+		arrowDownRed: eui.Image;
+		private _state: SortBtnState = SortBtnState.Down;
+		public get state(): SortBtnState {
+			return this._state;
 		}
-		protected init() {
-			this._defaultResName = this.arrowUp.source;
+
+		constructor() {
+			super();
 		}
 		/**
 		 * 每次显示界面需要调用一次
 		 */
 		public onShow() {
-			this._state = SortBtnState.None;
+			this._state = SortBtnState.Down;
 			this.changeState(this._state);
 		}
 		protected getSkinName() {
@@ -48,19 +35,33 @@ module game {
 		/**
 		 * 变更状态
 		 */
-		public changeState(state: SortBtnState) {
-			this._state = state;
-			switch (state) {
+		public changeState(state?: SortBtnState) {
+			if (state != undefined) {
+				this._state = state;
+			}
+			else {
+				if (this._state > 0) {
+					if (this._state == SortBtnState.Up) {
+						this._state = SortBtnState.Down;
+					}
+					else {
+						this._state = SortBtnState.Up;
+					}
+				}
+				else {
+					this._state = SortBtnState.Up;
+				}
+			}
+			this.arrowUp.visible = this.arrowUpRed.visible = this.arrowDown.visible = this.arrowDownRed.visible = false;
+			switch (this._state) {
 				case SortBtnState.None:
-					this.arrowUp.source = this.arrowDown.source = this._defaultResName;
+					this.arrowUp.visible = this.arrowDown.visible = true;
 					break;
 				case SortBtnState.Up:
-					this.arrowUp.source = this._selectResName;
-					this.arrowDown.source = this._defaultResName;
+					this.arrowUpRed.visible = this.arrowDown.visible = true;
 					break;
 				case SortBtnState.Down:
-					this.arrowUp.source = this._defaultResName;
-					this.arrowDown.source = this._selectResName;
+					this.arrowDownRed.visible = this.arrowUp.visible = true;
 					break;
 			}
 		}

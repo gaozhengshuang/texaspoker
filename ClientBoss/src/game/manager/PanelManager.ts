@@ -102,6 +102,15 @@ module game {
             case PanelType.TradeRecordPanel:
                 panel = TradeRecordPanel.getInstance();
                 break;
+            case PanelType.TradeMyAssetsPanel:
+                panel = TradeMyAssetsPanel.getInstance();
+                break;
+            case PanelType.TradeHouseBuyPanel:
+                panel = TradeHouseBuyPanel.getInstance();
+                break;
+            case PanelType.TradeHouseSellPanel:
+                panel = TradeHouseSellPanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -137,6 +146,9 @@ module game {
         PageNewHouseHuxingView,
         MapBuildingPopupPanel,
         TradePanel,
-        TradeRecordPanel
+        TradeRecordPanel,
+        TradeMyAssetsPanel,
+        TradeHouseBuyPanel,
+        TradeHouseSellPanel
     }
 }
