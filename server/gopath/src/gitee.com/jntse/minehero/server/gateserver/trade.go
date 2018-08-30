@@ -109,7 +109,7 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 
 func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 	house := HouseSvrMgr().GetHouse(houseuid)
-	if house != nil {
+	if house == nil {
 		this.SendNotify("房屋不存在")
 		return
 	}
@@ -164,7 +164,7 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 
 func (this *GateUser) BuyTradeHouse(tradeuid uint64, houseuid uint64){
 	house := HouseSvrMgr().GetHouse(uint64(houseuid))
-	if house != nil {
+	if house == nil {
 		this.SendNotify("房屋不存在")
 		return
 	}
@@ -253,7 +253,7 @@ func (this *GateUser) GetTradeHouseReward(tradeuid uint64){
 
 func (this *GateUser) CancelTradeHouse(houseuid uint64){
 	house := HouseSvrMgr().GetHouse(uint64(houseuid))
-	if house != nil {
+	if house == nil {
 		this.SendNotify("房屋不存在")
 		return
 	}
@@ -380,7 +380,7 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	}
 
 	endtime := util.CURTIME() + 86400 * 3
-	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s)",)
+	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s)",car.id, price, car.GetRewardPerM(), car.tid, endtime, car.ownerid, car.GetStar(), car.GetCarBrand(), "")
 	log.Info("[房屋交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
 	ret, err := MysqlDB().Exec(strsql)
 	if err != nil {
@@ -393,35 +393,31 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 		return
 	}
 
-	house.issell = true
-	house.tradeendtime = uint32(endtime)
-	house.tradeuid = uint64(LastInsertId)
 
-	this.UpdateHouseDataById(house.id, false)
+	this.UpdateCarByID(house.id, false)
 
-	history := &msg.TradeHouseHistory{}
+	history := &msg.TradeCarHistory{}
 	history.Tradeuid = pb.Uint64(uint64(LastInsertId))
-	history.Name = pb.String(buildconf.Community)
-	history.Houselevel = pb.Uint32(uint32(house.level))
+	history.Caruid = pb.Uint64(uint64(car.id))
+	history.Carlevel = pb.Uint32(uint32(car.GetStar()))
 	history.Price = pb.Uint32(uint32(price))
-	history.Area = pb.Uint32(uint32(house.area))
-	history.Income = pb.Uint32(uint32(house.GetIncome()))
+	history.Income = pb.Uint32(uint32(house.GetRewardPerM()))
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
-	history.Housetype = pb.Uint32(uint32(house.GetType()))
-	history.Housebaseid = pb.Uint32(uint32(house.tid))
+	history.Cartype = pb.Uint32(uint32(car.GetCarBrand()))
+	history.Carbaseid = pb.Uint32(uint32(car.tid))
 	history.State = pb.Uint32(uint32(2))
 
-	historykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), history.GetTradeuid())
+	historykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), history.GetTradeuid())
 	utredis.SetProtoBin(Redis(), historykey, history)
-	listkey := fmt.Sprintf("tradehousehistorylist_%d", this.Id())
+	listkey := fmt.Sprintf("tradecarhistorylist_%d", this.Id())
 	Redis().RPush(listkey, history.GetTradeuid())
 
 }
 
-func (this *GateUser) BuyTradeHouse(tradeuid uint64, houseuid uint64){
-	house := HouseSvrMgr().GetHouse(uint64(houseuid))
-	if house != nil {
-		this.SendNotify("房屋不存在")
+func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
+	car := CarMgr().GetCar(caruid)
+	if car != nil {
+		this.SendNotify("汽车不存在")
 		return
 	}
 

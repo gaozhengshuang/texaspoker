@@ -80,6 +80,13 @@ message GW2C_CarAutoBack {
     optional uint64 carid = 1;
 }
 
+//更新汽车
+message GW2C_UpdateCar {
+    optional uint64 carid = 1;
+    optional msg.CarData data = 2;
+    optional bool isdel = 3;
+}
+
 // 获得新车
 message GW2C_AddNewCar {
     optional msg.CarData car = 1;

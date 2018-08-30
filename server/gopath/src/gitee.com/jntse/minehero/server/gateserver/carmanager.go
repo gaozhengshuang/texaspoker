@@ -31,7 +31,8 @@ type CarData struct {
 	parkingreward uint32 // 停车收益(自动回收)
 	level		  uint32 //等级
 	modified      bool   //是否需要保存
-
+	tradeendtime  uint32
+	tradeuid	  uint64
 	template *table.TCarDefine
 }
 
@@ -49,6 +50,8 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 	this.ownername = bin.GetOwnername()
 	this.parkingreward = bin.GetParkingreward()
 	this.modified = false
+	this.tradeendtime = bin.GetTradeendtime()
+	this.tradeuid = bin.GetTradeuid()
 	template, find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
 		log.Error("玩家[%d] 找不到车辆配置[%d]", this.ownerid, this.tid)
@@ -76,6 +79,8 @@ func (this *CarData) PackBin() *msg.CarData {
 	bin.Parkingid = pb.Uint64(this.parkingid)
 	bin.Ownername = pb.String(this.ownername)
 	bin.Parkingreward = pb.Uint32(this.parkingreward)
+	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
+	bin.Tradeuid = pb.Uint64(this.tradeuid)
 	return bin
 }
 
@@ -582,6 +587,20 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
 	return parking
+}
+
+func (this *CarManager) UpdateCarByID(user *GateUser, carid uint64, del bool) {
+	car := this.GetCar(carid)
+	if car == nil {
+		return
+	}
+	send := &msg.GW2C_UpdateCar{}
+	send.Carid = pb.Uint64(car.id)
+	if del == false {
+		send.Data = car.PackBin()
+	}
+	send.Isdel = pb.Bool(del)
+	user.SendMsg(send)
 }
 
 func (this *CarManager) AddParking(parking *ParkingData) {
