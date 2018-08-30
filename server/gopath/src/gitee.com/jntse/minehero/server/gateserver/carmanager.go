@@ -51,9 +51,17 @@ func (this *CarData) ParkingCar(id uint64,poid uint64) {
 	this.modified = true
 }
 
-func (this *CarData) TakeBack() {
-	this.data.Parkingid = pb.Uint64(0)
-	this.data.State = pb.Uint32(uint32(msg.CarState_Idle))
+func (this *CarData) TakeBack(parking *ParkingData) {
+	if parking != nil {
+		//从公共车位回到我自己的车位上
+		this.data.Parkingid = pb.Uint64(parking.data.GetId())
+		this.data.State = pb.Uint32(uint32(msg.CarState_Ready))
+	}
+	else {
+		//下阵了
+		this.data.Parkingid = pb.Uint64(0)
+		this.data.State = pb.Uint32(uint32(msg.CarState_Idle))
+	}
 	this.modified = true
 }
 
@@ -648,15 +656,28 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	if car == nil || parking == nil {
 		return 1
 	}
-	if car.data.GetParkingid() != 0 {
-		return 2
-	}
 	if parking.data.GetParkingcar() != 0 {
 		return 3
 	}
 	if parking.data.GetOwnerid() != 0 && parking.data.GetOwnerid() != car.data.GetOwnerid() {
 		//既不是公共车位 也不是自己的车位
 		return 4
+	}
+	if parking.data.GetOwnerid() == 0 {
+		//要停公共车位了 看看车辆状态
+		if car.data.GetState() != uint32(msg.CarState_Ready) {
+			//不能停哦
+			return 5
+		}
+		if car.data.Reward.GetMoney() > 0 || len(car.data.Reward.GetItems()) > 0 {
+			//有奖励未领取
+			return 6
+		}
+	} else if parking.data.GetOwnerid() == car.data.GetOwnerid() {
+		//上自己的车位了
+		if car.data.GetParkingid() != 0 || car.data.GetState() != uint32(msg.CarState_Idle){
+			return 7
+		}
 	}
 	//可以了
 	car.ParkingCar(parkingid,parking.data.GetOwnerid())
@@ -687,7 +708,23 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 	}
 	//可以收回
 	parking.TakeBack()
-	car.TakeBack()
+	if parking.IsPublic() {
+		privateParkings := this.GetParkingByUser(user.Id())
+		takebacked := false
+		for _, v := range privateParkings {
+			if v.data.GetParkingcar() == car.data.Getid() {
+				car.TakeBack(v)
+				takebacked = true
+				break;
+			}
+		}
+		if !takebacked {
+			car.TakeBack(nil)
+		}
+	} else {
+		car.TakeBack(nil)
+	}
+	
 	reward = car.data.Reward.GetMoney()
 	record, notifyuser := "", uint64(0)
 	switch optype {
