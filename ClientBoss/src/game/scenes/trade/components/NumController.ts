@@ -3,13 +3,16 @@ module game {
 	 * 数字控制组件 支持长按增加减少
 	 */
 	export class NumController extends BaseUIComponent<number> {
-		public addBtn: eui.Button;
-		public reduceBtn: eui.Button;
+		public addBtn: eui.Image;
+		public reduceBtn: eui.Image;
 		public numTxt: eui.TextInput;
 		private _taxRateNum: number;
 		private _nowNum: number;
+		public get nowNum(): number {
+			return this._nowNum;
+		}
 
-		private _lastClickTarget: eui.Button;
+		private _lastClickTarget: eui.Image;
 		private _isDown: boolean;
 		private _lastDownTime: number;
 
@@ -18,8 +21,10 @@ module game {
 
 		private _onChange: CallBackHandler;
 
-		public constructor(callBack?: CallBackHandler) {
+		public constructor() {
 			super();
+		}
+		public setCallBack(callBack: CallBackHandler) {
 			this._onChange = callBack;
 		}
 		protected getSkinName() {

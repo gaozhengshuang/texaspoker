@@ -87,12 +87,12 @@ module game {
 		}
 		private OnGW2C_AckTakeSelfHouseGoldRet(data: msg.GW2C_AckTakeSelfHouseGoldRet) {
 			ApplicationFacade.getInstance().sendNotification(CommandName.RECEIVE_SUCCESS,
-				{ houseid: data.houseid, index: data.index, gold: data.gold });
+				{ houseid: data.houseid, index: data.index, gold: data.gold,items:data.items });
 			this.updateRoomInfo(data.data);
 		}
 		private OnGW2C_AckTakeOtherHouseGoldRet(data: msg.GW2C_AckTakeOtherHouseGoldRet) {
 			ApplicationFacade.getInstance().sendNotification(CommandName.PLUNDER_SUCCESS,
-				{ houseid: data.houseid, index: data.index, gold: data.gold });
+				{ houseid: data.houseid, index: data.index, gold: data.gold,items:data.items });
 			this.updateRoomInfo(data.data);
 		}
 		private OnGW2C_AckHouseLevelUp(data: msg.GW2C_AckHouseLevelUp) {

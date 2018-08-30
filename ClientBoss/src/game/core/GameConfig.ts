@@ -163,6 +163,10 @@ module gameConfig {
      * 交易税率
      */
     export var tradeTaxRate = 0.1;
+    /**
+     * 72小时的交易时间
+     */
+    export var tradeTime = 3600 * 72;
     export function isIphoneX() {
         return window.screen.availWidth == 375 && window.screen.availHeight == 812;
     }

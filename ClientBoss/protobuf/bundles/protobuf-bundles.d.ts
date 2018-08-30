@@ -4358,6 +4358,15 @@ declare namespace msg {
 
         /** HouseData issell */
         issell?: (boolean|null);
+
+        /** HouseData tradeendtime */
+        tradeendtime?: (number|null);
+
+        /** HouseData income */
+        income?: (number|null);
+
+        /** HouseData sumvalue */
+        sumvalue?: (number|null);
     }
 
     /** Represents an HouseData. */
@@ -4407,6 +4416,15 @@ declare namespace msg {
 
         /** HouseData issell. */
         public issell: boolean;
+
+        /** HouseData tradeendtime. */
+        public tradeendtime: number;
+
+        /** HouseData income. */
+        public income: number;
+
+        /** HouseData sumvalue. */
+        public sumvalue: number;
 
         /**
          * Creates a new HouseData instance using the specified properties.

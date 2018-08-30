@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="TradeRecordPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:utils="utils.*">
+	<e:Rect id="bg_mc" width="100%" height="100%" x="0" y="0" fillColor="0xD8D8D8"/>
 	<utils:VScrollerPanel id="recordScroller0" skinName="VScrollBarPanelSkin" x="0" y="325" anchorOffsetX="0" width="720" anchorOffsetY="0" height="955"/>
 	<e:Image width="720" height="163" x="0" scaleX="1" scaleY="1" y="163" anchorOffsetY="0" source="uiCarAltas_json.filterBg_3"/>
-	<e:Label text="交易记录" textColor="0x000000" fontFamily="Microsoft YaHei" x="300" top="252"/>
 	<game:PageTitlePanel id="titlePanel" skinName="PageTitlePanelSkin"/>
+	<e:Label text="交易记录" textColor="0x000000" fontFamily="Microsoft YaHei" x="300" top="252"/>
+	<e:Label text="消息保留一周" fontFamily="Microsoft YaHei" x="300" bottom="50" size="24" textColor="0x3d3b3b"/>
 </e:Skin>

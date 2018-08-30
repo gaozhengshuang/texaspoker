@@ -7,11 +7,22 @@ module game {
 		recordScroller: utils.VScrollerPanel;
 
 		protected init() {
-
+			this.recordScroller.dataList.useVirtualLayout = true;
+			// this.recordScroller.initItemRenderer();
 		}
 		protected getSkinName() {
-			return TradePanelSkin;
+			return TradeRecordPanelSkin;
 		}
+
+		protected beforeShow()
+		{
+			
+		}
+		protected beforeRemove()
+		{
+
+		}
+
 		private static _instance: TradeRecordPanel = null;
 		public static getInstance(): TradeRecordPanel {
 			if (!TradeRecordPanel._instance) {

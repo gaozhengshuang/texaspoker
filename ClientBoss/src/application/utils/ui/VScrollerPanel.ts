@@ -25,5 +25,10 @@ module utils{
 			let arrCollection: eui.ArrayCollection = new eui.ArrayCollection(data);
 			this.dataList.dataProvider = arrCollection;
 		}
+		/**直接刷新 */
+		public refreshData(collection:eui.ArrayCollection)
+		{
+			this.dataList.dataProvider = collection;
+		}
 	}
 }
