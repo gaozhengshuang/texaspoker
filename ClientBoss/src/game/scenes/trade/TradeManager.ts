@@ -10,7 +10,7 @@ module game {
 		/**
 		 * 交易记录
 		 */
-		public tradeRecordInfo:msg.GW2C_RetTradeHouseHistory;
+		public tradeRecordInfo: msg.GW2C_RetTradeHouseHistory;
 
 		/**
 		 * 根据交易ID，获取交易信息
@@ -69,6 +69,34 @@ module game {
 			}
 			return null;
 		}
+		/**
+		 * 获取房间信息
+		 */
+		public getHouseCellDefine(id: number): table.THouseCellDefine {
+			for (let info of table.THouseCell) {
+				if (info.Id == id) {
+					return <table.THouseCellDefine>info;
+				}
+			}
+			return null;
+		}
+		/**
+		 * 获取价格颜色
+		 */
+		public getPriceColor(price: number): string {
+			let userInfo = DataManager.playerModel.getUserInfo();
+			if (price > userInfo.gold) {
+				return '#f85959';
+			}
+			return '#000000';
+		}
+		/**
+		 * 获取价格字符串
+		 */
+		public getPriceStr(price: number): string {
+			let priceColor = TradeManager.getInstance().getPriceColor(price);
+			return '<font color="' + priceColor + '">' + numAddSpace(price) + '</font>' + '<font color="#00000">金币</font>';
+		}
 
 		private static _instance: TradeManager = null;
 		public static getInstance(): TradeManager {
@@ -86,22 +114,22 @@ module game {
 		/**
 		 * 交易中
 		 */
-		Tradeing = 1,       
+		Tradeing = 1,
 		/**
 		 * 交易完成能领金币
 		 */
-		CanReward = 2,      
+		CanReward = 2,
 		/**
 		 * 买成功
 		 */
-		SellOk = 3,      
+		SellOk = 3,
 		/**
 		 * 卖成功
 		 */
-		BuyOk = 4,          
+		BuyOk = 4,
 		/**
 		 * 交易取消 
 		 */
-		TradeCancel = 5,    
+		TradeCancel = 5,
 	}
 }

@@ -26,34 +26,47 @@ module game {
 		private update() {
 			let data: msg.SimpleHouseTrade = this.data;
 
-			let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
-			if (houseDef) {
-				this.icon.show({ name: data.name, icon: houseDef.ImageId.toString(), star: data.houselevel, type: TradeIconType.House });
-				this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
+			let listLen = TradeManager.getInstance().tradeHouseInfo.list.length;
+			if (listLen > 5) {
+				let signData = TradeManager.getInstance().tradeHouseInfo.list[listLen - 5];
+				if (data.houseuid == signData.houseuid) {
+					TradePanel.getInstance().startReqTradeList();
+				}
+
+				let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
+				if (houseDef) {
+					this.icon.show({ name: data.name, icon: houseDef.ImageId.toString(), star: data.houselevel, type: TradeIconType.House });
+					this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
+				}
+				this.priceLabel.textFlow = TextUtil.parse(TradeManager.getInstance().getPriceStr(data.price));
+				this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";
+				this.unitPrice.text = numAddSpace(Math.floor(data.price / data.area)) + "金币";
+
+				let posName = '';
+
+				let province = TradeManager.getInstance().getCityDefine(data.location);
+				if (province) {
+					posName = province.Name;
+				}
+				let city = TradeManager.getInstance().getCityDefine(data.sublocation);
+				if (city) {
+					posName += city.Name;
+				}
+				this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
+
 			}
-
-			this.priceLabel.text = numAddSpace(data.price) + "金币";
-			this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";
-			this.unitPrice.text = numAddSpace(Math.floor(data.price / data.area)) + "金币";
-
-			let posName = '';
-
-			let province = TradeManager.getInstance().getCityDefine(data.location);
-			if (province) {
-				posName = province.Name;
-			}
-			let city = TradeManager.getInstance().getCityDefine(data.sublocation);
-			if (city) {
-				posName += city.Name;
-			}
-			this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
-
-		}
 		private onBuyClick() {
 			//购买
-			openPanel(PanelType.TradeHouseBuyPanel);
-			TradeHouseBuyPanel.getInstance().setData(this.data);
+			NotificationCenter.addObserver(this, this.onGetHouseData, PlayerModel.HOUSE_UPDATE);
+			sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({ houseid: this.data.houseuid }));
 		}
+
+		private onGetHouseData(data: msg.GW2C_UpdateHouseDataOne) {
+			openPanel(PanelType.TradeHouseBuyPanel);
+			TradeHouseBuyPanel.getInstance().setData(this.data, data);
+			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
+		}
+
 		private onRemove() {
 			this.removeEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
 			this.buyBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyClick, this);
