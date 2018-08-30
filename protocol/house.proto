@@ -13,6 +13,13 @@ message GW2C_AckHouseData {
 	repeated msg.HouseData datas = 1;
 }
 
+// 更新一个房屋消息
+message GW2C_UpdateHouseDataOne {
+    optional uint64 houseuid = 1;
+    optional msg.HouseData data = 2;
+    optional bool isdel = 3;              //是否删除
+}
+
 // 请求设置引导标记
 message C2GW_ReqSetNewPlayerStep {
 	optional uint32 step = 1;
