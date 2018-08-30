@@ -19,6 +19,5 @@
 		<e:Label text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
 	</e:Group>
 	<game:TradeIcon id="icon" skinName="TradeIconSkin" verticalCenter="0" x="3"/>
-	<e:Image x="530.5" y="123" source="trading_pos_png"/>
-	<e:Image id="onSellFlag" x="672.52" y="9" source="trading_pos_png"/>
+	<e:Image x="524.5" y="123" source="trading_pos_png"/>
 </e:Skin>

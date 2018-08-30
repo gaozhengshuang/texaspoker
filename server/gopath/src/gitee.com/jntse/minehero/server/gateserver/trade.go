@@ -137,7 +137,8 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 		return
 	}
 
-	house.issell = true	
+	house.issell = true
+	house.tradeendtime = uint32(endtime)
 
 	history := &msg.TradeHouseHistory{}
 	history.Tradeuid = pb.Uint64(uint64(LastInsertId))

@@ -362,7 +362,7 @@
 			"url": "assets/texpack/hall_4.json",
 			"type": "sheet",
 			"name": "hall_4_json",
-			"subkeys": "item_10005_png,item_10006_png,item_10007_png,item_10008_png,item_10009_png,item_10011_png,item_120001_png,item_120002_png,item_120003_png,item_120004_png,item_120005_png,item_bar_png,item_bar_select_png,star_png,trading_bottom_bar_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_pos_png,trading_search_png"
+			"subkeys": "item_10005_png,item_10006_png,item_10007_png,item_10008_png,item_10009_png,item_10011_png,item_120001_png,item_120002_png,item_120003_png,item_120004_png,item_120005_png,item_bar_png,item_bar_select_png,star_png,trade_add_png,trade_coinnum_bg_png,trade_done_png,trade_reduce_png,trade_return_png,trade_selling_png,trading_bottom_bar_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_pos_png,trading_search_png"
 		}
 	]
 }
