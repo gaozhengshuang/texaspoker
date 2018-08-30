@@ -394,7 +394,7 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	}
 
 
-	CarMgr().UpdateCarByID(this, car.Getid(), false)
+	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
 	history := &msg.TradeCarHistory{}
 	history.Tradeuid = pb.Uint64(uint64(LastInsertId))

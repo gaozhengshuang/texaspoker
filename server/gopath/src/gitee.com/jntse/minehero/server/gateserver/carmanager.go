@@ -198,9 +198,9 @@ func (this *CarData) GetTid() uint32 {
 	return this.data.GetTid()
 }
 func (this *CarData) GetOwnerId() uint64 {
-	return this.data.GetOwnerId()
+	return this.data.GetOwnerid()
 }
-func (this *CarData) GetTradeuid uint64 {
+func (this *CarData) GetTradeuid() uint64 {
 	return this.data.GetTradeuid()
 }
 //获得车辆品牌
