@@ -3,6 +3,31 @@
 
 module table {
 export var TLevelCarPart : table.ITLevelCarPartDefine[] = [
+		{ Id : 130001, Exp : 0, PartType : 1 	},
+		{ Id : 130002, Exp : 0, PartType : 1 	},
+		{ Id : 130003, Exp : 0, PartType : 1 	},
+		{ Id : 130004, Exp : 0, PartType : 1 	},
+		{ Id : 130005, Exp : 0, PartType : 1 	},
+		{ Id : 130006, Exp : 0, PartType : 2 	},
+		{ Id : 130007, Exp : 0, PartType : 2 	},
+		{ Id : 130008, Exp : 0, PartType : 2 	},
+		{ Id : 130009, Exp : 0, PartType : 2 	},
+		{ Id : 130010, Exp : 0, PartType : 2 	},
+		{ Id : 130011, Exp : 0, PartType : 0 	},
+		{ Id : 130012, Exp : 0, PartType : 0 	},
+		{ Id : 130013, Exp : 0, PartType : 0 	},
+		{ Id : 130014, Exp : 0, PartType : 0 	},
+		{ Id : 130015, Exp : 0, PartType : 0 	},
+		{ Id : 130016, Exp : 0, PartType : 0 	},
+		{ Id : 130017, Exp : 0, PartType : 0 	},
+		{ Id : 130018, Exp : 0, PartType : 0 	},
+		{ Id : 130019, Exp : 0, PartType : 0 	},
+		{ Id : 130020, Exp : 0, PartType : 0 	},
+		{ Id : 130021, Exp : 0, PartType : 0 	},
+		{ Id : 130022, Exp : 0, PartType : 0 	},
+		{ Id : 130023, Exp : 0, PartType : 0 	},
+		{ Id : 130024, Exp : 0, PartType : 0 	},
+		{ Id : 130025, Exp : 0, PartType : 0 	}
 	]
 
 

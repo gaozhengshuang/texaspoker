@@ -173,6 +173,14 @@ func (this *CarData) GetRewardPerM() uint32{
 	//TODO 
 	return this.data.Attr.GetReward()
 }
+//获得车辆品牌
+func (this *CarData) GetCarBrand() uint32 {
+	return 0;
+}
+//获得车辆型号
+func (this *CarData) GetCarModel() uint32 {
+	return 0;
+}
 
 //车位信息
 type ParkingData struct {
@@ -376,9 +384,11 @@ func (this *CarManager) GetCarHouseId(carid uint64) uint64 {
 
 	houses := HouseSvrMgr().GetHousesByUser(car.data.GetOwnerid())
 	if len(houses) != 0 {
-		return houses[0].id
+		//return houses[0].id
+		for _, v := range houses {
+			return v.id
+		}
 	}
-
 	return 0
 }
 

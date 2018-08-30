@@ -31,7 +31,7 @@ message TCarPartDefine
 	optional uint32 RewardInit = 4; // 每分钟收益初始值
 	
 	
-	optional uint32 RangeInit = 5; // 移动范围初始值
+	optional float RangeInit = 5; // 移动范围初始值
 	
 	
 	optional uint32 ItemLimitInit = 6; // 物品上限初始值
@@ -40,10 +40,10 @@ message TCarPartDefine
 	optional uint32 MoneyLimitInit = 7; // 货币上限初始值
 	
 	
-	optional uint32 SpeedInit = 8; // 速度初始值
+	optional float SpeedInit = 8; // 速度初始值
 	
 	
-	optional uint32 StopTimeInit = 9; // 停靠时间初始值
+	optional float StopTimeInit = 9; // 停靠时间初始值
 	
 	
 	optional uint32 MaxLevel = 10; // 最大等级
@@ -52,7 +52,7 @@ message TCarPartDefine
 	optional uint32 RewardAddition = 11; // 每分钟收益增加值
 	
 	
-	optional uint32 RangeAddition = 12; // 移动范围增加值
+	optional float RangeAddition = 12; // 移动范围增加值
 	
 	
 	optional uint32 ItemLimitAddition = 13; // 物品上限增加值
@@ -61,10 +61,10 @@ message TCarPartDefine
 	optional uint32 MoneyLimitAddition = 14; // 货币上限增加值
 	
 	
-	optional uint32 SpeedAddition = 15; // 速度增加值
+	optional float SpeedAddition = 15; // 速度增加值
 	
 	
-	optional uint32 StopTimeAddition = 16; // 停靠时间增加值
+	optional float StopTimeAddition = 16; // 停靠时间增加值
 
 }
 

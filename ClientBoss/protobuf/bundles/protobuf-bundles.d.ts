@@ -4359,6 +4359,18 @@ declare namespace msg {
 
         /** HouseData issell */
         issell?: (boolean|null);
+
+        /** HouseData tradeendtime */
+        tradeendtime?: (number|null);
+
+        /** HouseData income */
+        income?: (number|null);
+
+        /** HouseData sumvalue */
+        sumvalue?: (number|null);
+
+        /** HouseData tradeuid */
+        tradeuid?: (number|Long|null);
     }
 
     /** Represents an HouseData. */
@@ -4408,6 +4420,18 @@ declare namespace msg {
 
         /** HouseData issell. */
         public issell: boolean;
+
+        /** HouseData tradeendtime. */
+        public tradeendtime: number;
+
+        /** HouseData income. */
+        public income: number;
+
+        /** HouseData sumvalue. */
+        public sumvalue: number;
+
+        /** HouseData tradeuid. */
+        public tradeuid: (number|Long);
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -7049,6 +7073,108 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_AckHouseData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_UpdateHouseDataOne. */
+    interface IGW2C_UpdateHouseDataOne {
+
+        /** GW2C_UpdateHouseDataOne houseuid */
+        houseuid?: (number|Long|null);
+
+        /** GW2C_UpdateHouseDataOne data */
+        data?: (msg.IHouseData|null);
+
+        /** GW2C_UpdateHouseDataOne isdel */
+        isdel?: (boolean|null);
+    }
+
+    /** Represents a GW2C_UpdateHouseDataOne. */
+    class GW2C_UpdateHouseDataOne implements IGW2C_UpdateHouseDataOne {
+
+        /**
+         * Constructs a new GW2C_UpdateHouseDataOne.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_UpdateHouseDataOne);
+
+        /** GW2C_UpdateHouseDataOne houseuid. */
+        public houseuid: (number|Long);
+
+        /** GW2C_UpdateHouseDataOne data. */
+        public data?: (msg.IHouseData|null);
+
+        /** GW2C_UpdateHouseDataOne isdel. */
+        public isdel: boolean;
+
+        /**
+         * Creates a new GW2C_UpdateHouseDataOne instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_UpdateHouseDataOne instance
+         */
+        public static create(properties?: msg.IGW2C_UpdateHouseDataOne): msg.GW2C_UpdateHouseDataOne;
+
+        /**
+         * Encodes the specified GW2C_UpdateHouseDataOne message. Does not implicitly {@link msg.GW2C_UpdateHouseDataOne.verify|verify} messages.
+         * @param message GW2C_UpdateHouseDataOne message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_UpdateHouseDataOne, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_UpdateHouseDataOne message, length delimited. Does not implicitly {@link msg.GW2C_UpdateHouseDataOne.verify|verify} messages.
+         * @param message GW2C_UpdateHouseDataOne message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_UpdateHouseDataOne, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_UpdateHouseDataOne message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_UpdateHouseDataOne
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_UpdateHouseDataOne;
+
+        /**
+         * Decodes a GW2C_UpdateHouseDataOne message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_UpdateHouseDataOne
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_UpdateHouseDataOne;
+
+        /**
+         * Verifies a GW2C_UpdateHouseDataOne message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_UpdateHouseDataOne message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_UpdateHouseDataOne
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_UpdateHouseDataOne;
+
+        /**
+         * Creates a plain object from a GW2C_UpdateHouseDataOne message. Also converts values to other types if specified.
+         * @param message GW2C_UpdateHouseDataOne
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_UpdateHouseDataOne, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_UpdateHouseDataOne to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -17724,6 +17850,9 @@ declare namespace msg {
 
         /** C2GW_BuyTradeHouse tradeuid */
         tradeuid?: (number|Long|null);
+
+        /** C2GW_BuyTradeHouse houseuid */
+        houseuid?: (number|Long|null);
     }
 
     /** Represents a C2GW_BuyTradeHouse. */
@@ -17737,6 +17866,9 @@ declare namespace msg {
 
         /** C2GW_BuyTradeHouse tradeuid. */
         public tradeuid: (number|Long);
+
+        /** C2GW_BuyTradeHouse houseuid. */
+        public houseuid: (number|Long);
 
         /**
          * Creates a new C2GW_BuyTradeHouse instance using the specified properties.
@@ -18400,8 +18532,8 @@ declare namespace msg {
     /** Properties of a C2GW_CancelTradeHouse. */
     interface IC2GW_CancelTradeHouse {
 
-        /** C2GW_CancelTradeHouse tradeuid */
-        tradeuid?: (number|Long|null);
+        /** C2GW_CancelTradeHouse houseuid */
+        houseuid?: (number|Long|null);
     }
 
     /** Represents a C2GW_CancelTradeHouse. */
@@ -18413,8 +18545,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IC2GW_CancelTradeHouse);
 
-        /** C2GW_CancelTradeHouse tradeuid. */
-        public tradeuid: (number|Long);
+        /** C2GW_CancelTradeHouse houseuid. */
+        public houseuid: (number|Long);
 
         /**
          * Creates a new C2GW_CancelTradeHouse instance using the specified properties.
@@ -23357,91 +23489,91 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a LevelMaid. */
-    interface ILevelMaid {
+    /** Properties of a LevelMaidBase. */
+    interface ILevelMaidBase {
 
-        /** LevelMaid TLevelMaid */
+        /** LevelMaidBase TLevelMaid */
         TLevelMaid?: (table.ITLevelMaidDefine[]|null);
     }
 
-    /** Represents a LevelMaid. */
-    class LevelMaid implements ILevelMaid {
+    /** Represents a LevelMaidBase. */
+    class LevelMaidBase implements ILevelMaidBase {
 
         /**
-         * Constructs a new LevelMaid.
+         * Constructs a new LevelMaidBase.
          * @param [properties] Properties to set
          */
-        constructor(properties?: table.ILevelMaid);
+        constructor(properties?: table.ILevelMaidBase);
 
-        /** LevelMaid TLevelMaid. */
+        /** LevelMaidBase TLevelMaid. */
         public TLevelMaid: table.ITLevelMaidDefine[];
 
         /**
-         * Creates a new LevelMaid instance using the specified properties.
+         * Creates a new LevelMaidBase instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns LevelMaid instance
+         * @returns LevelMaidBase instance
          */
-        public static create(properties?: table.ILevelMaid): table.LevelMaid;
+        public static create(properties?: table.ILevelMaidBase): table.LevelMaidBase;
 
         /**
-         * Encodes the specified LevelMaid message. Does not implicitly {@link table.LevelMaid.verify|verify} messages.
-         * @param message LevelMaid message or plain object to encode
+         * Encodes the specified LevelMaidBase message. Does not implicitly {@link table.LevelMaidBase.verify|verify} messages.
+         * @param message LevelMaidBase message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: table.ILevelMaid, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: table.ILevelMaidBase, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified LevelMaid message, length delimited. Does not implicitly {@link table.LevelMaid.verify|verify} messages.
-         * @param message LevelMaid message or plain object to encode
+         * Encodes the specified LevelMaidBase message, length delimited. Does not implicitly {@link table.LevelMaidBase.verify|verify} messages.
+         * @param message LevelMaidBase message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: table.ILevelMaid, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: table.ILevelMaidBase, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a LevelMaid message from the specified reader or buffer.
+         * Decodes a LevelMaidBase message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns LevelMaid
+         * @returns LevelMaidBase
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.LevelMaid;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.LevelMaidBase;
 
         /**
-         * Decodes a LevelMaid message from the specified reader or buffer, length delimited.
+         * Decodes a LevelMaidBase message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns LevelMaid
+         * @returns LevelMaidBase
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.LevelMaid;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.LevelMaidBase;
 
         /**
-         * Verifies a LevelMaid message.
+         * Verifies a LevelMaidBase message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a LevelMaid message from a plain object. Also converts values to their respective internal types.
+         * Creates a LevelMaidBase message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns LevelMaid
+         * @returns LevelMaidBase
          */
-        public static fromObject(object: { [k: string]: any }): table.LevelMaid;
+        public static fromObject(object: { [k: string]: any }): table.LevelMaidBase;
 
         /**
-         * Creates a plain object from a LevelMaid message. Also converts values to other types if specified.
-         * @param message LevelMaid
+         * Creates a plain object from a LevelMaidBase message. Also converts values to other types if specified.
+         * @param message LevelMaidBase
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: table.LevelMaid, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: table.LevelMaidBase, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this LevelMaid to JSON.
+         * Converts this LevelMaidBase to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

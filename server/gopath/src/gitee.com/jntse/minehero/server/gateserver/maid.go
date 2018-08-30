@@ -25,6 +25,12 @@ const (
 
 // --------------------------------------------------------------------------
 /// @brief 女仆
+/// @brief 
+/// @brief 
+/// @brief 
+/// @brief 
+/// @brief 
+/// @brief 
 // --------------------------------------------------------------------------
 type Maid struct {
 	bin 	*msg.HouseMaidData
@@ -60,6 +66,11 @@ func (m *Maid) RobberName() string {
 	return m.bin.GetRobbername()
 }
 
+func (m *Maid) SetRobber(id uint64, name string) {
+	m.bin.Robberid = pb.Uint64(id)
+	m.bin.Robbername = pb.String(name)
+}
+
 func (m *Maid) Earning() uint32 {
 	return m.bin.GetEarning()
 }
@@ -86,12 +97,20 @@ func (m *Maid) HouseId() uint64 {
 	return m.bin.GetHouseid()
 }
 
+func (m *Maid) SetHouseId(id uint64) {
+	m.bin.Houseid = pb.Uint64(id)
+}
+
 func (m *Maid) TimeStart() int64 {
 	return m.bin.GetTmworking()
 }
 
 func (m *Maid) SetTimeStart(t int64) {
 	m.bin.Tmworking = pb.Int64(t)
+}
+
+func (m *Maid) OnLevelUp() {
+	m.SetLevel(m.Level() + 1)
 }
 
 func (m *Maid) SaveBin(pipe redis.Pipeliner) {
@@ -140,6 +159,7 @@ func (m *Maid) GetClothesByPos(pos int32) *msg.ItemData {
 	return nil
 }
 
+// 穿衣服
 func (m *Maid) DressClothes(owner *GateUser, pos int32, itemid int32) {
 	newEquip := owner.bag.FindById(uint32(itemid))
 	if newEquip == nil {
@@ -219,8 +239,14 @@ func (m *Maid) GetEquipSkills(owner *GateUser) []int32 {
 	return skills
 }
 
+
+
 // --------------------------------------------------------------------------
 /// @brief 女仆管理器
+/// @brief 
+/// @brief 
+/// @brief 
+/// @brief 
 // --------------------------------------------------------------------------
 type MaidManager struct {
 	ticker1Minite *util.GameTicker
@@ -243,6 +269,7 @@ func (ma *MaidManager) CreateNewMaid(ownerid uint64, ownername string, houseid u
 	bin.Ownerid = pb.Uint64(ownerid)
 	bin.Ownername = pb.String(ownername)
 	bin.Houseid = pb.Uint64(houseid)
+	bin.Tmworking = pb.Int64(util.CURTIME())	// 秒
 
 	maid := &Maid{bin:bin, dirty:true}
 	maid.Init()
@@ -378,9 +405,9 @@ func (ma *MaidManager) SendUserMaids(user *GateUser) {
 }
 
 // 升级女仆
-func (this *MaidManager) UpgradeMaid(user *GateUser, maidid uint64) {
+func (ma *MaidManager) UpgradeMaid(user *GateUser, uid uint64) {
 	if user == nil { return }
-	maid := this.GetMaidsById(maidid)
+	maid := ma.GetMaidsById(uid)
 	if maid == nil {
 		user.SendNotify("不存在的女仆")
 		return
@@ -404,7 +431,157 @@ func (this *MaidManager) UpgradeMaid(user *GateUser, maidid uint64) {
 	}
 
 	user.RemoveItem(levelbase.UpgradeID, levelbase.Upgradenum, "升级女仆")
-	maid.SetLevel(maid.Level() + 1)
-	this.SendUserMaids(user)
+	maid.OnLevelUp()
+	ma.SendUserMaids(user)
 }
+
+// 收取女仆收益
+func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
+	if user == nil { return }
+	maid := ma.GetMaidsById(uid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	house := HouseSvrMgr().GetHouse(maid.HouseId())
+	if house == nil {
+		user.SendNotify("不存在的房屋")
+		return
+	}
+
+	if house.ownerid != user.Id() {
+		user.SendNotify("这不是您的房屋")
+		return
+	}
+
+	if maid.OwnerId() != user.Id() {
+		user.SendNotify("这不是您的自己的女仆")
+		return
+	}
+
+	now := util.CURTIME()
+	elapse := now - maid.TimeStart()
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return
+	}
+
+	if elapse < levelbase.ProduceTime {
+		log.Error("[女仆] 生产时间未完成，不能领取")	// 客户端要预判断
+		return
+	}
+
+	user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
+	maid.SetTimeStart(now)
+}
+
+// 掠夺他人女仆
+func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
+	if user == nil { return }
+	maid := ma.GetMaidsById(uid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	house := HouseSvrMgr().GetHouse(maid.HouseId())
+	if house == nil {
+		user.SendNotify("不存在的房屋")
+		return
+	}
+
+	if house.ownerid == user.Id() {
+		user.SendNotify("这是您的房屋")
+		return
+	}
+
+	if house.id != maid.HouseId() {
+		user.SendNotify("女仆不在这个房屋")
+		return
+	}
+
+	if maid.OwnerId() == user.Id() {
+		user.SendNotify("这是您自己的女仆")
+		return
+	}
+
+	if maid.RobberId() != 0 {
+		user.SendNotify("掠夺来的女仆不能抢走")
+		return
+	}
+
+	// 掠夺女仆到指定house
+	if dropto != 0 {
+		ma.RobMaidToHosue(user, maid, dropto)
+		return
+	}
+
+	// 从附近人进入抢夺，弹出自己可以放置女仆的房产列表
+	drophouses := ma.GetCanDropRobMaidHouse(user.Id())
+	if len(drophouses) == 0 {
+		user.SendNotify("没有多余可放置女仆的房产")
+		return
+	}
+
+	send := &msg.GW2C_EnableMaidDropTo{Houses:make([]*msg.HouseData,0)}
+	send.Houses = append(send.Houses, drophouses...)
+	user.SendMsg(send)
+}
+
+func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64) bool {
+	drophouse := HouseSvrMgr().GetHouse(dropto)
+	if drophouse == nil {
+		log.Error("[女仆] 掠夺dropid无效[%d]", dropto)
+		return false
+	}
+	if drophouse.ownerid != user.Id() {
+		log.Error("[女仆] 只能掠夺到自己的房产中")
+		return false
+	}
+	if ma.IsHouseCanDropRobMaid(dropto) == false {
+		user.SendNotify("这个房屋不能掠夺更多的女仆")
+		return false
+	}
+
+	maid.SetRobber(user.Id(), user.Name())
+	maid.SetTimeStart(util.CURTIME())
+	ma.ChangeMaidHouse(maid, dropto)
+	return true
+}
+
+//
+func (ma *MaidManager) ChangeMaidHouse(maid *Maid, houseid uint64) {
+	maid.SetHouseId(houseid)
+	delete(ma.housemaids[maid.HouseId()], maid.Id())
+	if ma.housemaids[houseid] == nil { ma.housemaids[houseid] = make(map[uint64]*Maid) }
+	ma.housemaids[houseid][maid.Id()] = maid
+	log.Info("[女仆] 女仆[%d]被放置到新房间[%d]", maid.Id(), houseid)
+}
+
+// 房子是否能否放置抢来的女仆(目前最多抢1个)
+func (ma *MaidManager) IsHouseCanDropRobMaid(houseid uint64) bool {
+	maids, count := ma.GetHouseMaids(houseid), 0
+	for _, v := range maids {
+		if v.RobberId() != 0 { count++ }
+	}
+	return count <= 0
+}
+
+// 可以放置抢夺女仆的所有房产
+func (ma *MaidManager) GetCanDropRobMaidHouse(userid uint64) []*msg.HouseData {
+	houses := HouseSvrMgr().GetHousesByUser(userid)
+	housedatas := make([]*msg.HouseData, 0)
+	for _, v := range houses {
+		if ma.IsHouseCanDropRobMaid(v.id) { housedatas = append(housedatas, v.PackBin()) }
+	}
+	return housedatas
+}
+
+// 女仆动态
+func (ma *MaidManager) CreateMaidRecord() string {
+	return ""
+}
+
 

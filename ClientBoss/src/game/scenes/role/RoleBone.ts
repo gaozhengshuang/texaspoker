@@ -17,6 +17,9 @@ module game {
         private _girlBone   : SkeletonBase;
         private _boyBone    : SkeletonBase;
 
+        private _sex         : SexType;
+        private _clothes     : msg.IItemData[];
+
         protected getSkinName()
         {
             return RoleBoneSkin;
@@ -26,6 +29,11 @@ module game {
         }
 
         protected beforeShow() {
+        }
+
+        public initRoleData(sex:SexType, clothes:msg.IItemData[]) {
+            this._sex = sex;
+            this._clothes = clothes;
         }
         
         public resetParts() {

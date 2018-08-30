@@ -3,16 +3,16 @@
 
 module table {
 export var TCar : table.ITCarDefine[] = [
-		{ Id : 1001, Brand : "奔驰", Model : "smart", Price : 0, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1", Tyre : 1001, Tank : 2001, Trunk : 3001, Engine : 4001, Battery : 5001, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1002, Brand : "本田", Model : "思域", Price : 0, Des : "", path : "carIconAltas_json.small_2", bigpath : "carIconAltas_json.big_2", Tyre : 1002, Tank : 2002, Trunk : 3002, Engine : 4002, Battery : 5002, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1003, Brand : "大众", Model : "polo", Price : 0, Des : "", path : "carIconAltas_json.small_3", bigpath : "carIconAltas_json.big_3", Tyre : 1003, Tank : 2003, Trunk : 3003, Engine : 4003, Battery : 5003, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1004, Brand : "丰田", Model : "汉兰达", Price : 0, Des : "", path : "carIconAltas_json.small_4", bigpath : "carIconAltas_json.big_4", Tyre : 1004, Tank : 2004, Trunk : 3004, Engine : 4004, Battery : 5004, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1005, Brand : "奥迪", Model : "A4L", Price : 0, Des : "", path : "carIconAltas_json.small_5", bigpath : "carIconAltas_json.big_5", Tyre : 1005, Tank : 2005, Trunk : 3005, Engine : 4005, Battery : 5005, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1006, Brand : "宝马", Model : "mini", Price : 0, Des : "", path : "carIconAltas_json.small_6", bigpath : "carIconAltas_json.big_6", Tyre : 1006, Tank : 2006, Trunk : 3006, Engine : 4006, Battery : 5006, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1007, Brand : "雪佛莱", Model : "科迈罗", Price : 0, Des : "", path : "carIconAltas_json.small_7", bigpath : "carIconAltas_json.big_7", Tyre : 1007, Tank : 2007, Trunk : 3007, Engine : 4007, Battery : 5007, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1008, Brand : "保时捷", Model : "911", Price : 0, Des : "", path : "carIconAltas_json.small_8", bigpath : "carIconAltas_json.big_8", Tyre : 1008, Tank : 2008, Trunk : 3008, Engine : 4008, Battery : 5008, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1009, Brand : "奔驰", Model : "G级", Price : 0, Des : "", path : "carIconAltas_json.small_9", bigpath : "carIconAltas_json.big_9", Tyre : 1009, Tank : 2009, Trunk : 3009, Engine : 4009, Battery : 5009, MaxStar : 0, StarAttrGroup : 0 	},
-		{ Id : 1010, Brand : "劳斯劳斯", Model : "古斯特", Price : 0, Des : "", path : "carIconAltas_json.small_10", bigpath : "carIconAltas_json.big_10", Tyre : 1010, Tank : 2010, Trunk : 3010, Engine : 4010, Battery : 5010, MaxStar : 0, StarAttrGroup : 0 	}
+		{ Id : 1001, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_1", bigpath : "carIconAltas_json.big_1", Tyre : 1001, Tank : 2001, Trunk : 3001, Engine : 4001, Battery : 5001, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1002, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_2", bigpath : "carIconAltas_json.big_2", Tyre : 1002, Tank : 2002, Trunk : 3002, Engine : 4002, Battery : 5002, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1003, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_3", bigpath : "carIconAltas_json.big_3", Tyre : 1003, Tank : 2003, Trunk : 3003, Engine : 4003, Battery : 5003, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1004, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_4", bigpath : "carIconAltas_json.big_4", Tyre : 1004, Tank : 2004, Trunk : 3004, Engine : 4004, Battery : 5004, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1005, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_5", bigpath : "carIconAltas_json.big_5", Tyre : 1005, Tank : 2005, Trunk : 3005, Engine : 4005, Battery : 5005, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1006, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_6", bigpath : "carIconAltas_json.big_6", Tyre : 1006, Tank : 2006, Trunk : 3006, Engine : 4006, Battery : 5006, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1007, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_7", bigpath : "carIconAltas_json.big_7", Tyre : 1007, Tank : 2007, Trunk : 3007, Engine : 4007, Battery : 5007, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1008, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_8", bigpath : "carIconAltas_json.big_8", Tyre : 1008, Tank : 2008, Trunk : 3008, Engine : 4008, Battery : 5008, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1009, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_9", bigpath : "carIconAltas_json.big_9", Tyre : 1009, Tank : 2009, Trunk : 3009, Engine : 4009, Battery : 5009, MaxStar : 0, StarAttrGroup : 0 	},
+		{ Id : 1010, Brand : 1, Model : 1, Price : 0, Des : "", path : "carIconAltas_json.small_10", bigpath : "carIconAltas_json.big_10", Tyre : 1010, Tank : 2010, Trunk : 3010, Engine : 4010, Battery : 5010, MaxStar : 0, StarAttrGroup : 0 	}
 	]
 
 
