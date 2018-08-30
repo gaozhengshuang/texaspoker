@@ -137,11 +137,11 @@ message CarPartData
 message CarAttribute 
 {
     optional uint32 reward = 1;             //每分钟收益
-    optional uint32 range = 2;              //移动范围
+    optional float range = 2;               //移动范围
     optional uint32 itemlimit = 3;          //物品上限
     optional uint32 moneylimit = 4;         //货币上限
-    optional uint32 speed = 5;              //速度
-    optional uint32 stoptime = 6;           //停靠时间
+    optional float speed = 5;              //速度
+    optional float stoptime = 6;           //停靠时间
 }
 
 message CarPartPiece 

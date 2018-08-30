@@ -114,11 +114,11 @@ func (this *CarData) GetAttribut() *msg.CarAttribute {
 
 func (this *CarData) SetAttribute(attr *msg.CarAttribute){
 	this.data.Attr.Reward = pb.Uint32(attr.GetReward())
-	this.data.Attr.Range = pb.Uint32(attr.GetRange())
+	this.data.Attr.Range = pb.Float32(attr.GetRange())
 	this.data.Attr.Itemlimit = pb.Uint32(attr.GetItemlimit())
 	this.data.Attr.Moneylimit = pb.Uint32(attr.GetMoneylimit())
-	this.data.Attr.Speed = pb.Uint32(attr.GetSpeed())
-	this.data.Attr.Stoptime = pb.Uint32(attr.GetStoptime())
+	this.data.Attr.Speed = pb.Float32(attr.GetSpeed())
+	this.data.Attr.Stoptime = pb.Float32(attr.GetStoptime())
 }
 
 func (this *CarData) UpdateReward(now uint64) {
@@ -375,6 +375,15 @@ func (this *CarManager) GetCar(id uint64) *CarData {
 	return nil
 }
 
+func (this *CarManager) GetCarTemplate(id uint32) *tbl.TCarDefine{
+	template, find := tbl.TCarBase.TCarById[tid]
+	if find == false {
+		log.Error("无效的车辆tid[%d]", tid)
+		return nil
+	}
+	return template
+}
+
 // 获得车辆对应house(目前没有一一绑定关系，车主house第一个house)
 func (this *CarManager) GetCarHouseId(carid uint64) uint64 {
 	car := this.GetCar(carid)
@@ -466,11 +475,11 @@ func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttrib
 			log.Error("无效的配件id[%d]", v.GetPartid())
 		}else {
 			attr.Reward = pb.Uint32(attr.GetReward() + (partConf.RewardInit + partConf.RewardAddition * v.GetLevel()))
-			attr.Range = pb.Uint32(attr.GetRange() + (partConf.RangeInit + partConf.RangeAddition * v.GetLevel()))
+			attr.Range = pb.Float32(attr.GetRange() + partConf.RangeInit + partConf.RangeAddition * float32(v.GetLevel()))
 			attr.Itemlimit = pb.Uint32(attr.GetItemlimit() + (partConf.ItemLimitInit + partConf.ItemLimitAddition * v.GetLevel()))
 			attr.Moneylimit = pb.Uint32(attr.GetMoneylimit() + (partConf.MoneyLimitInit + partConf.MoneyLimitAddition * v.GetLevel()))
-			attr.Speed = pb.Uint32(attr.GetSpeed() + (partConf.SpeedInit + partConf.SpeedAddition * v.GetLevel()))
-			attr.Stoptime = pb.Uint32(attr.GetStoptime() + (partConf.StopTimeInit + partConf.StopTimeAddition * v.GetLevel()))
+			attr.Speed = pb.Float32(attr.GetSpeed() + partConf.SpeedInit + partConf.SpeedAddition * float32(v.GetLevel()))
+			attr.Stoptime = pb.Float32(attr.GetStoptime() + partConf.StopTimeInit + partConf.StopTimeAddition * float32(v.GetLevel()))
 		}
 	}
 	//星级属性 暂未
@@ -478,11 +487,11 @@ func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttrib
 	if find {
 		// 是有星级属性的
 		attr.Reward = pb.Uint32(attr.GetReward() + (carstartattr.RewardInit + carstartattr.RewardAddition * data.GetStar()))
-		attr.Range = pb.Uint32(attr.GetRange() + (carstartattr.RangeInit + carstartattr.RangeAddition * data.GetStar()))
+		attr.Range = pb.Float32(attr.GetRange() + carstartattr.RangeInit + carstartattr.RangeAddition * float32(data.GetStar()))
 		attr.Itemlimit = pb.Uint32(attr.GetItemlimit() + (carstartattr.ItemLimitInit + carstartattr.ItemLimitAddition * data.GetStar()))
 		attr.Moneylimit = pb.Uint32(attr.GetMoneylimit() + (carstartattr.MoneyLimitInit + carstartattr.MoneyLimitAddition * data.GetStar()))
-		attr.Speed = pb.Uint32(attr.GetSpeed() + (carstartattr.SpeedInit + carstartattr.SpeedAddition * data.GetStar()))
-		attr.Stoptime = pb.Uint32(attr.GetStoptime() + (carstartattr.StopTimeInit + carstartattr.StopTimeAddition * data.GetStar()))
+		attr.Speed = pb.Float32(attr.GetSpeed() + carstartattr.SpeedInit + carstartattr.SpeedAddition * float32(data.GetStar()))
+		attr.Stoptime = pb.Float32(attr.GetStoptime() + carstartattr.StopTimeInit + carstartattr.StopTimeAddition * float32(data.GetStar()))
 	}
 	return attr
 }
@@ -529,28 +538,38 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 }
 
 func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
-	data := ""
-	//prefix, data := "", ""
-	//switch opttype {
-	//case uint32(msg.CarOperatorType_Park):
-	//	//停车
-	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-	//	data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
-	//	break
-	//case uint32(msg.CarOperatorType_TakeBack):
-	//	//收车
-	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
-	//	data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
-	//	break
-	//case uint32(msg.CarOperatorType_Ticket):
-	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-	//	data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
-	//	break
-	//case uint32(msg.CarOperatorType_AutoBack):
-	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
-	//	data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
-	//	break
-	//}
+	prefix, data,brand, model := "", "", "", ""
+	template := this.GetCarTemplate(car.data.GetTid())
+	if template != nil {
+		brandTemp, find := tbl.TCarBrandBase.TCarBrandById[template.Brand]
+		if find {
+			brand = brandTemp.Brand
+		}
+		modelTemp, find := tbl.TCarModelBase.TCarModelById[template.Model]
+		if find {
+			model = modelTemp.Model
+		}
+	}
+	switch opttype {
+	case uint32(msg.CarOperatorType_Park):
+		//停车
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+		data = prefix + car.ownername + "将他的" + brand + model + "停在了你的车位"
+		break
+	case uint32(msg.CarOperatorType_TakeBack):
+		//收车
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
+		data = prefix + car.ownername + "开走了他的" + brand + model
+		break
+	case uint32(msg.CarOperatorType_Ticket):
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+		data = prefix + parking.ownername + "对你的" + brand + model + "贴条"
+		break
+	case uint32(msg.CarOperatorType_AutoBack):
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
+		data = prefix + "公共车位收益满自动回收你的" + brand + model
+		break
+	}
 	// 保存数据
 	key := fmt.Sprintf("parkingrecord_%d", ownerid)
 	err := Redis().RPush(key, data).Err()
