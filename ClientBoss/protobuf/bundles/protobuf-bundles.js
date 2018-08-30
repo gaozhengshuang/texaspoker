@@ -32228,25 +32228,25 @@ $root.msg = (function() {
         return C2GW_RobMaid;
     })();
 
-    msg.C2GW_EnableMaidDropTo = (function() {
+    msg.GW2C_EnableMaidDropTo = (function() {
 
         /**
-         * Properties of a C2GW_EnableMaidDropTo.
+         * Properties of a GW2C_EnableMaidDropTo.
          * @memberof msg
-         * @interface IC2GW_EnableMaidDropTo
-         * @property {Array.<msg.IHouseData>|null} [datas] C2GW_EnableMaidDropTo datas
+         * @interface IGW2C_EnableMaidDropTo
+         * @property {Array.<msg.IHouseData>|null} [houses] GW2C_EnableMaidDropTo houses
          */
 
         /**
-         * Constructs a new C2GW_EnableMaidDropTo.
+         * Constructs a new GW2C_EnableMaidDropTo.
          * @memberof msg
-         * @classdesc Represents a C2GW_EnableMaidDropTo.
-         * @implements IC2GW_EnableMaidDropTo
+         * @classdesc Represents a GW2C_EnableMaidDropTo.
+         * @implements IGW2C_EnableMaidDropTo
          * @constructor
-         * @param {msg.IC2GW_EnableMaidDropTo=} [properties] Properties to set
+         * @param {msg.IGW2C_EnableMaidDropTo=} [properties] Properties to set
          */
-        function C2GW_EnableMaidDropTo(properties) {
-            this.datas = [];
+        function GW2C_EnableMaidDropTo(properties) {
+            this.houses = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -32254,78 +32254,78 @@ $root.msg = (function() {
         }
 
         /**
-         * C2GW_EnableMaidDropTo datas.
-         * @member {Array.<msg.IHouseData>} datas
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * GW2C_EnableMaidDropTo houses.
+         * @member {Array.<msg.IHouseData>} houses
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @instance
          */
-        C2GW_EnableMaidDropTo.prototype.datas = $util.emptyArray;
+        GW2C_EnableMaidDropTo.prototype.houses = $util.emptyArray;
 
         /**
-         * Creates a new C2GW_EnableMaidDropTo instance using the specified properties.
+         * Creates a new GW2C_EnableMaidDropTo instance using the specified properties.
          * @function create
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
-         * @param {msg.IC2GW_EnableMaidDropTo=} [properties] Properties to set
-         * @returns {msg.C2GW_EnableMaidDropTo} C2GW_EnableMaidDropTo instance
+         * @param {msg.IGW2C_EnableMaidDropTo=} [properties] Properties to set
+         * @returns {msg.GW2C_EnableMaidDropTo} GW2C_EnableMaidDropTo instance
          */
-        C2GW_EnableMaidDropTo.create = function create(properties) {
-            return new C2GW_EnableMaidDropTo(properties);
+        GW2C_EnableMaidDropTo.create = function create(properties) {
+            return new GW2C_EnableMaidDropTo(properties);
         };
 
         /**
-         * Encodes the specified C2GW_EnableMaidDropTo message. Does not implicitly {@link msg.C2GW_EnableMaidDropTo.verify|verify} messages.
+         * Encodes the specified GW2C_EnableMaidDropTo message. Does not implicitly {@link msg.GW2C_EnableMaidDropTo.verify|verify} messages.
          * @function encode
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
-         * @param {msg.IC2GW_EnableMaidDropTo} message C2GW_EnableMaidDropTo message or plain object to encode
+         * @param {msg.IGW2C_EnableMaidDropTo} message GW2C_EnableMaidDropTo message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2GW_EnableMaidDropTo.encode = function encode(message, writer) {
+        GW2C_EnableMaidDropTo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.datas != null && message.datas.length)
-                for (var i = 0; i < message.datas.length; ++i)
-                    $root.msg.HouseData.encode(message.datas[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.houses != null && message.houses.length)
+                for (var i = 0; i < message.houses.length; ++i)
+                    $root.msg.HouseData.encode(message.houses[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
         /**
-         * Encodes the specified C2GW_EnableMaidDropTo message, length delimited. Does not implicitly {@link msg.C2GW_EnableMaidDropTo.verify|verify} messages.
+         * Encodes the specified GW2C_EnableMaidDropTo message, length delimited. Does not implicitly {@link msg.GW2C_EnableMaidDropTo.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
-         * @param {msg.IC2GW_EnableMaidDropTo} message C2GW_EnableMaidDropTo message or plain object to encode
+         * @param {msg.IGW2C_EnableMaidDropTo} message GW2C_EnableMaidDropTo message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2GW_EnableMaidDropTo.encodeDelimited = function encodeDelimited(message, writer) {
+        GW2C_EnableMaidDropTo.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a C2GW_EnableMaidDropTo message from the specified reader or buffer.
+         * Decodes a GW2C_EnableMaidDropTo message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_EnableMaidDropTo} C2GW_EnableMaidDropTo
+         * @returns {msg.GW2C_EnableMaidDropTo} GW2C_EnableMaidDropTo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2GW_EnableMaidDropTo.decode = function decode(reader, length) {
+        GW2C_EnableMaidDropTo.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_EnableMaidDropTo();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_EnableMaidDropTo();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    if (!(message.datas && message.datas.length))
-                        message.datas = [];
-                    message.datas.push($root.msg.HouseData.decode(reader, reader.uint32()));
+                    if (!(message.houses && message.houses.length))
+                        message.houses = [];
+                    message.houses.push($root.msg.HouseData.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -32336,104 +32336,104 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a C2GW_EnableMaidDropTo message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_EnableMaidDropTo message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_EnableMaidDropTo} C2GW_EnableMaidDropTo
+         * @returns {msg.GW2C_EnableMaidDropTo} GW2C_EnableMaidDropTo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2GW_EnableMaidDropTo.decodeDelimited = function decodeDelimited(reader) {
+        GW2C_EnableMaidDropTo.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a C2GW_EnableMaidDropTo message.
+         * Verifies a GW2C_EnableMaidDropTo message.
          * @function verify
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        C2GW_EnableMaidDropTo.verify = function verify(message) {
+        GW2C_EnableMaidDropTo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.datas != null && message.hasOwnProperty("datas")) {
-                if (!Array.isArray(message.datas))
-                    return "datas: array expected";
-                for (var i = 0; i < message.datas.length; ++i) {
-                    var error = $root.msg.HouseData.verify(message.datas[i]);
+            if (message.houses != null && message.hasOwnProperty("houses")) {
+                if (!Array.isArray(message.houses))
+                    return "houses: array expected";
+                for (var i = 0; i < message.houses.length; ++i) {
+                    var error = $root.msg.HouseData.verify(message.houses[i]);
                     if (error)
-                        return "datas." + error;
+                        return "houses." + error;
                 }
             }
             return null;
         };
 
         /**
-         * Creates a C2GW_EnableMaidDropTo message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_EnableMaidDropTo message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_EnableMaidDropTo} C2GW_EnableMaidDropTo
+         * @returns {msg.GW2C_EnableMaidDropTo} GW2C_EnableMaidDropTo
          */
-        C2GW_EnableMaidDropTo.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_EnableMaidDropTo)
+        GW2C_EnableMaidDropTo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_EnableMaidDropTo)
                 return object;
-            var message = new $root.msg.C2GW_EnableMaidDropTo();
-            if (object.datas) {
-                if (!Array.isArray(object.datas))
-                    throw TypeError(".msg.C2GW_EnableMaidDropTo.datas: array expected");
-                message.datas = [];
-                for (var i = 0; i < object.datas.length; ++i) {
-                    if (typeof object.datas[i] !== "object")
-                        throw TypeError(".msg.C2GW_EnableMaidDropTo.datas: object expected");
-                    message.datas[i] = $root.msg.HouseData.fromObject(object.datas[i]);
+            var message = new $root.msg.GW2C_EnableMaidDropTo();
+            if (object.houses) {
+                if (!Array.isArray(object.houses))
+                    throw TypeError(".msg.GW2C_EnableMaidDropTo.houses: array expected");
+                message.houses = [];
+                for (var i = 0; i < object.houses.length; ++i) {
+                    if (typeof object.houses[i] !== "object")
+                        throw TypeError(".msg.GW2C_EnableMaidDropTo.houses: object expected");
+                    message.houses[i] = $root.msg.HouseData.fromObject(object.houses[i]);
                 }
             }
             return message;
         };
 
         /**
-         * Creates a plain object from a C2GW_EnableMaidDropTo message. Also converts values to other types if specified.
+         * Creates a plain object from a GW2C_EnableMaidDropTo message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @static
-         * @param {msg.C2GW_EnableMaidDropTo} message C2GW_EnableMaidDropTo
+         * @param {msg.GW2C_EnableMaidDropTo} message GW2C_EnableMaidDropTo
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2GW_EnableMaidDropTo.toObject = function toObject(message, options) {
+        GW2C_EnableMaidDropTo.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
             if (options.arrays || options.defaults)
-                object.datas = [];
-            if (message.datas && message.datas.length) {
-                object.datas = [];
-                for (var j = 0; j < message.datas.length; ++j)
-                    object.datas[j] = $root.msg.HouseData.toObject(message.datas[j], options);
+                object.houses = [];
+            if (message.houses && message.houses.length) {
+                object.houses = [];
+                for (var j = 0; j < message.houses.length; ++j)
+                    object.houses[j] = $root.msg.HouseData.toObject(message.houses[j], options);
             }
             return object;
         };
 
         /**
-         * Converts this C2GW_EnableMaidDropTo to JSON.
+         * Converts this GW2C_EnableMaidDropTo to JSON.
          * @function toJSON
-         * @memberof msg.C2GW_EnableMaidDropTo
+         * @memberof msg.GW2C_EnableMaidDropTo
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        C2GW_EnableMaidDropTo.prototype.toJSON = function toJSON() {
+        GW2C_EnableMaidDropTo.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return C2GW_EnableMaidDropTo;
+        return GW2C_EnableMaidDropTo;
     })();
 
     msg.C2GW_RobMaidToHouse = (function() {
@@ -55882,6 +55882,7 @@ $root.table = (function() {
          * @property {number|null} [Upgradenum] TLevelMaidDefine Upgradenum
          * @property {number|null} [ProduceGold] TLevelMaidDefine ProduceGold
          * @property {number|Long|null} [ProduceTime] TLevelMaidDefine ProduceTime
+         * @property {Array.<string>|null} [ProduceItem] TLevelMaidDefine ProduceItem
          * @property {number|null} [NextLevel] TLevelMaidDefine NextLevel
          */
 
@@ -55894,6 +55895,7 @@ $root.table = (function() {
          * @param {table.ITLevelMaidDefine=} [properties] Properties to set
          */
         function TLevelMaidDefine(properties) {
+            this.ProduceItem = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -55941,6 +55943,14 @@ $root.table = (function() {
         TLevelMaidDefine.prototype.ProduceTime = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
+         * TLevelMaidDefine ProduceItem.
+         * @member {Array.<string>} ProduceItem
+         * @memberof table.TLevelMaidDefine
+         * @instance
+         */
+        TLevelMaidDefine.prototype.ProduceItem = $util.emptyArray;
+
+        /**
          * TLevelMaidDefine NextLevel.
          * @member {number} NextLevel
          * @memberof table.TLevelMaidDefine
@@ -55982,8 +55992,11 @@ $root.table = (function() {
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ProduceGold);
             if (message.ProduceTime != null && message.hasOwnProperty("ProduceTime"))
                 writer.uint32(/* id 5, wireType 0 =*/40).int64(message.ProduceTime);
+            if (message.ProduceItem != null && message.ProduceItem.length)
+                for (var i = 0; i < message.ProduceItem.length; ++i)
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.ProduceItem[i]);
             if (message.NextLevel != null && message.hasOwnProperty("NextLevel"))
-                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.NextLevel);
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.NextLevel);
             return writer;
         };
 
@@ -56034,6 +56047,11 @@ $root.table = (function() {
                     message.ProduceTime = reader.int64();
                     break;
                 case 6:
+                    if (!(message.ProduceItem && message.ProduceItem.length))
+                        message.ProduceItem = [];
+                    message.ProduceItem.push(reader.string());
+                    break;
+                case 7:
                     message.NextLevel = reader.int32();
                     break;
                 default:
@@ -56086,6 +56104,13 @@ $root.table = (function() {
             if (message.ProduceTime != null && message.hasOwnProperty("ProduceTime"))
                 if (!$util.isInteger(message.ProduceTime) && !(message.ProduceTime && $util.isInteger(message.ProduceTime.low) && $util.isInteger(message.ProduceTime.high)))
                     return "ProduceTime: integer|Long expected";
+            if (message.ProduceItem != null && message.hasOwnProperty("ProduceItem")) {
+                if (!Array.isArray(message.ProduceItem))
+                    return "ProduceItem: array expected";
+                for (var i = 0; i < message.ProduceItem.length; ++i)
+                    if (!$util.isString(message.ProduceItem[i]))
+                        return "ProduceItem: string[] expected";
+            }
             if (message.NextLevel != null && message.hasOwnProperty("NextLevel"))
                 if (!$util.isInteger(message.NextLevel))
                     return "NextLevel: integer expected";
@@ -56121,6 +56146,13 @@ $root.table = (function() {
                     message.ProduceTime = object.ProduceTime;
                 else if (typeof object.ProduceTime === "object")
                     message.ProduceTime = new $util.LongBits(object.ProduceTime.low >>> 0, object.ProduceTime.high >>> 0).toNumber();
+            if (object.ProduceItem) {
+                if (!Array.isArray(object.ProduceItem))
+                    throw TypeError(".table.TLevelMaidDefine.ProduceItem: array expected");
+                message.ProduceItem = [];
+                for (var i = 0; i < object.ProduceItem.length; ++i)
+                    message.ProduceItem[i] = String(object.ProduceItem[i]);
+            }
             if (object.NextLevel != null)
                 message.NextLevel = object.NextLevel | 0;
             return message;
@@ -56139,6 +56171,8 @@ $root.table = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.ProduceItem = [];
             if (options.defaults) {
                 object.Id = 0;
                 object.UpgradeID = 0;
@@ -56164,6 +56198,11 @@ $root.table = (function() {
                     object.ProduceTime = options.longs === String ? String(message.ProduceTime) : message.ProduceTime;
                 else
                     object.ProduceTime = options.longs === String ? $util.Long.prototype.toString.call(message.ProduceTime) : options.longs === Number ? new $util.LongBits(message.ProduceTime.low >>> 0, message.ProduceTime.high >>> 0).toNumber() : message.ProduceTime;
+            if (message.ProduceItem && message.ProduceItem.length) {
+                object.ProduceItem = [];
+                for (var j = 0; j < message.ProduceItem.length; ++j)
+                    object.ProduceItem[j] = message.ProduceItem[j];
+            }
             if (message.NextLevel != null && message.hasOwnProperty("NextLevel"))
                 object.NextLevel = message.NextLevel;
             return object;
