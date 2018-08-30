@@ -590,6 +590,7 @@ module game {
                     });
                 };
             };
+            console.log("houseId-->",this.roomInfo.rId);
             CarManager.getInstance().ReqParkingInfoByType(0, this.roomInfo.ownerid, [this.roomInfo.rId], _showParkingLotList);
         }
 

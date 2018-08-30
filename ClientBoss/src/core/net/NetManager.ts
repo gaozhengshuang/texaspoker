@@ -14,7 +14,7 @@ module game {
     //策划服务器
     //export var $registIp: string = "http://192.168.30.204:7003";
     //export var $netIp: string = "ws://192.168.30.204:7002/ws_handler";
-   // export var $gameNetIp: string = "ws://192.168.30.204:{gamePort}/ws_handler";
+    //export var $gameNetIp: string = "ws://192.168.30.204:{gamePort}/ws_handler";
 
     //谢建服务器
     // export var $registIp: string = "http://192.168.30.203:7003";

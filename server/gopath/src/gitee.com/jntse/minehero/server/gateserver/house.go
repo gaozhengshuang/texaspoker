@@ -255,6 +255,7 @@ type HouseData struct {
 	income		 uint32 //收益
 	tradeendtime uint32 //交易结束时间
 	sumvalue	 uint32 //总价值
+	tradeuid	 uint64 //交易id 
 	ticker1Sec *util.GameTicker
 }
 
@@ -290,6 +291,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.income = bin.GetIncome()
 	this.tradeendtime = bin.GetTradeendtime()
 	this.sumvalue = bin.GetSumvalue()
+	this.tradeuid = bin.GetTradeuid()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -328,6 +330,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Income = pb.Uint32(this.income)
 	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
 	bin.Sumvalue = pb.Uint32(this.sumvalue)
+	bin.Tradeuid = pb.Uint64(this.tradeuid)
 	return bin
 }
 
@@ -366,6 +369,10 @@ func (this *HouseData) GetIncome() uint32 {
 
 func (this *HouseData) ChangeOwner(user *GateUser) {
 	HouseSvrMgr().DelUserHouse(this.ownerid, this.id)
+	exowner := UserMgr().FindById(this.ownerid)
+	if exowner != nil {
+		exowner.UpdateHouseDataById(this.id, true)
+	}
 	HouseSvrMgr().SyncUserHouseData(this.ownerid)
 	this.ownerid = user.Id()
 	this.ownername = user.Name()
@@ -373,7 +380,7 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 		v.ownerid = user.Id()
 	}
 	HouseSvrMgr().AddUserHouse(this.ownerid, this.id)
-	HouseSvrMgr().SyncUserHouseData(user.Id())
+	user.UpdateHouseDataById(this.id, false)
 }
 
 //每秒的Tick回调
@@ -1089,6 +1096,20 @@ func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
 		return
 	}
 	HouseSvrMgr().ResetRobcheckflag(houseid)
+}
+
+func (this *GateUser) UpdateHouseDataById(houseid uint64, del bool) {
+	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
+	send := &msg.GW2C_UpdateHouseDataOne{}
+	send.Houseuid = pb.Uint64(houseid)
+	if del == false {
+		send.Data = house.PackBin()
+	}
+	send.Isdel = pb.Bool(del)
+	this.SendMsg(send)
 }
 
 func (this *GateUser) ReqHouseDataByHouseId(houseid uint64) {
