@@ -2,6 +2,7 @@ module game {
     export class HouseRolePanel extends BaseUIComponent<any> {
         private grp_role: eui.Group;
         private _roleBone: RoleBone;
+        private _maidInfo: msg.IHouseMaidData;
 
         protected getSkinName() {
             return HouseRoleSkin;
@@ -26,14 +27,16 @@ module game {
             // NotificationCenter.removeObserver(this, PlayerModel.MAID_UPDATE);
         }
 
-        public initRole(houseInfo: table.ITHouseDefine) {
+        public initRole(maidInfo: msg.IHouseMaidData) {
+            this._maidInfo = maidInfo;
+            
             this._roleBone = new RoleBone();
-            this._roleBone.useGirlSpine(SexType.Girl, actionType.Idle);
-            this.grp_role.addChild(this._roleBone);
-            this.grp_role.setChildIndex(this._roleBone, 1);
-
+            this._roleBone.initRoleData(maidInfo.sex, maidInfo.clothes);
             this._roleBone.scaleX = 0.3;
             this._roleBone.scaleY = 0.3;
+            this.grp_role.addChild(this._roleBone);
+
+            this._roleBone.useGirlSpine(actionType.Idle);
         }
 
         private updateView() {

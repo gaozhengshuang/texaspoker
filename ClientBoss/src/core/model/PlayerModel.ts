@@ -543,5 +543,9 @@ module game {
         public getMaidInfo() {
             return this._mainMaidInfo;
         }
+
+        public getHouseMaidInfo () {
+            return this._houseMaidInfo;
+        }
     }
 }

@@ -66,6 +66,7 @@ message GW2C_RetTradeHouse
 message C2GW_BuyTradeHouse
 {
     optional uint64 tradeuid = 1;
+    optional uint64 houseuid = 2;
 }
 
 //买房屋返回
@@ -113,7 +114,7 @@ message GW2C_RetGetTradeHouseReward
 //取消订单
 message C2GW_CancelTradeHouse
 {
-    optional uint64 tradeuid = 1;
+    optional uint64 houseuid = 1;
 }
 
 //取消订单返回

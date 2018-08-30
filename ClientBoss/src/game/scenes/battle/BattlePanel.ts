@@ -325,15 +325,16 @@ module game {
 
             //小人动画
             let _roleBone = this._roleBonePool.createObject();
-            _roleBone.useGirlSpine(SexType.Girl, actionType.Game);
-            this.roleBoneGroup.addChild(_roleBone);
-            this.roleBoneGroup.setChildIndex(_roleBone, 1);
-
+            _roleBone.initRoleData(SexType.Girl, DataManager.playerModel.clothes);
             _roleBone.scaleX = 0.42;
             _roleBone.scaleY = 0.42;
             _roleBone.rotation = 12;
             _roleBone.x = 55;
             _roleBone.y = 30;
+            this.roleBoneGroup.addChild(_roleBone);
+            this.roleBoneGroup.setChildIndex(_roleBone, 1);
+            _roleBone.useGirlSpine(actionType.Game);
+
 
             this.doubleGroup.visible = false;
             this._leftFirewall = [];
