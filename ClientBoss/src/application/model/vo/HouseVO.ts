@@ -57,11 +57,11 @@ module game {
             }
 
         }
-        public rId:number;
+        public rId:number=0;
 
-        public tId:number;
+        public tId:number=0;
 
-        public ownerid:number;
+        public ownerid:number=0;
 
         public ownername:string = ""; //主人的名字
 
