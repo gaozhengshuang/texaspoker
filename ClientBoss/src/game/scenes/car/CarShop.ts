@@ -321,7 +321,10 @@ module game {
                 datas.sort(function(a,b){
                     let carItemData_a :table.ITCarDefine = table.TCarById[table.TCarShopById[a.pid].Carid];
                     let carItemData_b :table.ITCarDefine = table.TCarById[table.TCarShopById[b.pid].Carid];
-                    return  carItemData_a.RewardPerH - carItemData_b.RewardPerH;
+                    let _carPartItemData_a = table.TCarPartById[carItemData_a.Tyre];
+                    let _carPartItemData_b = table.TCarPartById[carItemData_b.Tyre];
+                    
+                    return  (_carPartItemData_a&&_carPartItemData_b) ? _carPartItemData_a.RewardInit - _carPartItemData_b.RewardInit : 0;    ;
                 });
             }
             else if(type == CarShop.sortType.AWARDDOWN)
@@ -329,7 +332,10 @@ module game {
                 datas.sort(function(a,b){
                     let carItemData_a :table.ITCarDefine = table.TCarById[table.TCarShopById[a.pid].Carid];
                     let carItemData_b :table.ITCarDefine = table.TCarById[table.TCarShopById[b.pid].Carid];
-                    return  carItemData_b.RewardPerH - carItemData_a.RewardPerH;
+                    let _carPartItemData_a = table.TCarPartById[carItemData_a.Tyre];
+                    let _carPartItemData_b = table.TCarPartById[carItemData_b.Tyre];
+    
+                    return  (_carPartItemData_a&&_carPartItemData_b) ? _carPartItemData_b.RewardInit - _carPartItemData_a.RewardInit : 0;
                 });
             } */
            this.sortShopDatas = datas;

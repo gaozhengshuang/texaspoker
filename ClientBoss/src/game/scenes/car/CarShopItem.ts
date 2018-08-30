@@ -59,7 +59,8 @@ module game {
                 this.ItemName.textFlow = [
                     {text:""+tCarItemData.Brand+"-"+tCarItemData.Model}
                 ]
-                //收益
+                //收益]
+                let _carPartItemData = table.TCarPartById[tCarItemData.Tyre];
                 this.percentTxt.textFlow = [
                     //{text:tCarItemData.RewardPerH+"金币"},
                     {text:"\n"+"每分钟"}
