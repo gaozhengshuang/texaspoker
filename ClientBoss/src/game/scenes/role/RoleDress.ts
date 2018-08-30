@@ -131,8 +131,8 @@ module game {
 
             //小人动画
             this._roleBone = this._roleBonePool.createObject();
+            this._roleBone.initRoleData(this.gender, DataManager.playerModel.clothes);
             this.grp_role.addChild(this._roleBone);
-            this.grp_role.setChildIndex(this._roleBone, 1);
 
             this.updateCoins();
             this.switchSex();
@@ -179,7 +179,7 @@ module game {
             //初始化勾选项
             this.initWears();
             //切换模型骨骼
-            this._roleBone.useGirlSpine(this.gender, actionType.Idle);
+            this._roleBone.useGirlSpine(actionType.Idle);
             //切换部位Icon
             this.changePartIcons();
             //刷新对应装扮列表

@@ -28,7 +28,9 @@ CREATE TABLE `cartrade` (
     `carbaseid` int(10) unsigned NOT NULL DEFAULT '0',
     `endtime` int(10) unsigned NOT NULL DEFAULT '0',
     `ownerid` int(20) unsigned NOT NULL DEFAULT '0',
-    `starlevel` int(10) unsigned NOT NULL DEFAULT '0',
+    `carlevel` int(10) unsigned NOT NULL DEFAULT '0',
+    `cartype` int(10) unsigned NOT NULL DEFAULT '0',
+    `name` int(10) unsigned NOT NULL DEFAULT '0',
     PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

@@ -30,10 +30,5 @@ module utils{
 		{
 			this.dataList.dataProvider = collection;
 		}
-		/**设置滚动窗口目标对象 */
-		public setViewPort()
-		{
-			this.viewport = this.dataList;
-		}
 	}
 }

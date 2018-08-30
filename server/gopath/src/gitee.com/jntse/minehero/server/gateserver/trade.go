@@ -28,6 +28,7 @@ type HouseTradeInfo struct {
 	posy int
 	state int
 	housetype int
+	ownerid int
 }
 
 func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
@@ -81,7 +82,7 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 	send := &msg.GW2C_RetHouseTradeList{} 
 	for rows.Next() {
 		trade := HouseTradeInfo{}
-		err := rows.Scan(&trade.tradeuid, &trade.name, &trade.houselevel, &trade.price, &trade.area, &trade.income, &trade.houseuid, &trade.housebaseid, &trade.endtime, &trade.location, &trade.sublocation, &trade.posx, &trade.posy, &trade.state, &trade.housetype)
+		err := rows.Scan(&trade.tradeuid, &trade.name, &trade.houselevel, &trade.price, &trade.area, &trade.income, &trade.houseuid, &trade.housebaseid, &trade.endtime, &trade.location, &trade.sublocation, &trade.posx, &trade.posy, &trade.state, &trade.housetype, &trade.ownerid)
 		if nil != err {
 			log.Info("获取表值失败")
 			continue
@@ -161,33 +162,30 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 
 }
 
-func (this *GateUser) BuyTradeHouse(tradeuid uint64){
-	strsql := fmt.Sprintf("SELECT * FROM housetrade WHERE tradeid=%d", tradeuid)
-	rows, err := MysqlDB().Query(strsql)
-	if err != nil{
-		log.Info("查询表失败")
-		return
-	}
-	defer rows.Close()
-	trade := HouseTradeInfo{}
-	if rows.Next() {
-		err := rows.Scan(&trade.tradeuid, &trade.name, &trade.houselevel, &trade.price, &trade.area, &trade.income, &trade.houseuid, &trade.housebaseid, &trade.endtime, &trade.location, &trade.sublocation, &trade.posx, &trade.posy, &trade.state)
-		if nil != err {
-			log.Info("获取表值失败")
-			return
-		}
-	}else{
-		log.Info("查询表失败2")
-		return
-	}
-
-	house := HouseSvrMgr().GetHouse(uint64(trade.houseuid))
+func (this *GateUser) BuyTradeHouse(tradeuid uint64, houseuid uint64){
+	house := HouseSvrMgr().GetHouse(uint64(houseuid))
 	if house != nil {
 		this.SendNotify("房屋不存在")
 		return
 	}
 
-	if this.RemoveGold(uint32(trade.price), "交易房屋", true) == false {
+	if house.tradeuid != tradeuid {
+		this.SendNotify("房屋不在交易中")
+		return 
+	}
+
+	if house.ownerid == this.Id() {
+		this.SendNotify("不能买自己的房子")
+		return
+	}
+
+	historykey := fmt.Sprintf("tradehousehistory_%d_%d", house.ownerid, house.tradeuid)
+	history := &msg.TradeHouseHistory{}
+	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
+		return
+	}
+
+	if this.RemoveGold(uint32(history.GetPrice()), "交易房屋", true) == false {
 		return
 	}
 
@@ -200,29 +198,21 @@ func (this *GateUser) BuyTradeHouse(tradeuid uint64){
 	exownerid := house.ownerid
 
 	house.ChangeOwner(this)
+	house.ClearTrade()
 
-	history := &msg.TradeHouseHistory{}
-	history.Tradeuid = pb.Uint64(uint64(trade.tradeuid))
-	history.Name = pb.String(trade.name)
-	history.Houselevel = pb.Uint32(uint32(trade.houselevel))
-	history.Price = pb.Uint32(uint32(trade.price))
-	history.Area = pb.Uint32(uint32(trade.area))
-	history.Income = pb.Uint32(uint32(trade.income))
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
-	history.Housetype = pb.Uint32(uint32(house.GetType()))
-	history.Housebaseid = pb.Uint32(uint32(trade.housebaseid))
 	history.State = pb.Uint32(uint32(2))
 
-	sellkey := fmt.Sprintf("tradehousehistory_%d_%d", exownerid, trade.tradeuid)
+	sellkey := fmt.Sprintf("tradehousehistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
 	selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
-	Redis().RPush(selllistkey, trade.tradeuid)
+	Redis().RPush(selllistkey, tradeuid)
 
 	history.State = pb.Uint32(uint32(4))
-	buykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), trade.tradeuid)
+	buykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), tradeuid)
 	utredis.SetProtoBin(Redis(), buykey, history)
 	buylistkey := fmt.Sprintf("tradehousehistorylist_%d", this.Id())
-	Redis().RPush(buylistkey, trade.tradeuid)
+	Redis().RPush(buylistkey, tradeuid)
 	
 }
 
@@ -292,9 +282,7 @@ func (this *GateUser) CancelTradeHouse(houseuid uint64){
 		return
 	}
 
-	house.tradeendtime = 0
-	house.tradeuid = 0
-	house.issell = false
+	house.ClearTrade()
 	this.UpdateHouseDataById(house.id, false)
 
 	//send := &msg.GW2C_RetCancelTradeHouse{}
@@ -304,5 +292,183 @@ func (this *GateUser) CancelTradeHouse(houseuid uint64){
 
 /////////////////////////////////////////////////////汽车交易/////////////////////////////////////////////////
 
+type CarTradeInfo struct {
+	tradeuid int
+	caruid int
+	price int
+	income int
+	carbaseid int
+	endtime int
+	ownerid int
+	carlevel int
+	cartype int
+	name string
+}
 
+func (this *GateUser) ReqTradeCarList(rev *msg.C2GW_ReqCarTradeList){
+	var wheresql string
+	var ordersql string
+	var limitsql string
+	var strsql string
+	limitsql = fmt.Sprintf("limit %d,20", rev.GetStartnum())
+	wheresql = fmt.Sprintf("endtime>%d ", util.CURTIME())
+	if rev.GetCartype() != 0 {
+		wheresql += fmt.Sprintf("and cartype=%d ", rev.GetCartype())
+	}
+	if rev.GetPricemin() != 0 {
+		wheresql += fmt.Sprintf("and price>=%d ", rev.GetPricemin())
+	}
+	if rev.GetPricemax() != 0 {
+		wheresql += fmt.Sprintf("and price<=%d ", rev.GetPricemax())
+	}
+	if rev.GetCarlevel() != 0 {
+		wheresql += fmt.Sprintf("and carlevel=%d ", rev.GetCarlevel())
+	}
+	if rev.GetName() != "" {
+		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
+	}
+	if rev.GetPricedec() == true {
+		ordersql += "ORDER BY PRICE DESC"
+	}else{
+		ordersql += "ORDER BY PRICE ASC"
+	}
 
+	if wheresql != "" {
+		strsql = fmt.Sprintf("SELECT * FROM cartrade WHERE %s %s %s", wheresql, ordersql, limitsql)
+	}else{
+		strsql = fmt.Sprintf("SELECT * FROM cartrade %s %s", ordersql, limitsql)
+	}
+
+	log.Info("[汽车交易] 玩家[%d] 请求交易列表 SQL语句[%s]", this.Id(), strsql)
+
+	rows, err := MysqlDB().Query(strsql)
+	if err != nil{
+		log.Info("查询表失败 %v", err)
+		return
+	}
+	defer rows.Close()
+	send := &msg.GW2C_RetCarTradeList{} 
+	for rows.Next() {
+		trade := CarTradeInfo{}
+		err := rows.Scan(&trade.tradeuid, &trade.caruid, &trade.price, &trade.income, &trade.carbaseid, &trade.endtime, &trade.ownerid, &trade.carlevel, &trade.cartype, &trade.name)
+		if nil != err {
+			log.Info("获取表值失败")
+			continue
+		}
+
+		send.List = append(send.List, &msg.SimpleCarTrade{
+			Tradeuid : pb.Uint64(uint64(trade.tradeuid)),
+			Caruid : pb.Uint32(uint32(trade.caruid)),
+			Price : pb.Uint32(uint32(trade.price)),
+			Income : pb.Uint32(uint32(trade.income)),
+			Carbaseid : pb.Uint32(uint32(trade.carbaseid)),
+			Endtime : pb.Uint32(uint32(trade.endtime)),
+			Ownerid : pb.Uint32(uint32(trade.ownerid)),
+			Carlevel : pb.Uint32(uint32(trade.carlevel)),
+			Cartype : pb.Uint32(uint32(trade.cartype)),
+			Name : pb.String(trade.name),
+			})
+	}
+	this.SendMsg(send)
+}
+/*
+func (this *GateUser) TradeCar(caruid uint64, price uint32){
+	car := CarMgr().GetCar(caruid)
+	if car != nil {
+		this.SendNotify("汽车不存在")
+		return
+	}
+
+	endtime := util.CURTIME() + 86400 * 3
+	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s)",)
+	log.Info("[房屋交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
+	ret, err := MysqlDB().Exec(strsql)
+	if err != nil {
+		log.Info("数据库插入失败")
+		return
+	}
+	LastInsertId, inserterr := ret.LastInsertId()
+	if inserterr != nil {
+		log.Info("数据库插入失败2")
+		return
+	}
+
+	house.issell = true
+	house.tradeendtime = uint32(endtime)
+	house.tradeuid = uint64(LastInsertId)
+
+	this.UpdateHouseDataById(house.id, false)
+
+	history := &msg.TradeHouseHistory{}
+	history.Tradeuid = pb.Uint64(uint64(LastInsertId))
+	history.Name = pb.String(buildconf.Community)
+	history.Houselevel = pb.Uint32(uint32(house.level))
+	history.Price = pb.Uint32(uint32(price))
+	history.Area = pb.Uint32(uint32(house.area))
+	history.Income = pb.Uint32(uint32(house.GetIncome()))
+	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
+	history.Housetype = pb.Uint32(uint32(house.GetType()))
+	history.Housebaseid = pb.Uint32(uint32(house.tid))
+	history.State = pb.Uint32(uint32(2))
+
+	historykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), history.GetTradeuid())
+	utredis.SetProtoBin(Redis(), historykey, history)
+	listkey := fmt.Sprintf("tradehousehistorylist_%d", this.Id())
+	Redis().RPush(listkey, history.GetTradeuid())
+
+}
+
+func (this *GateUser) BuyTradeHouse(tradeuid uint64, houseuid uint64){
+	house := HouseSvrMgr().GetHouse(uint64(houseuid))
+	if house != nil {
+		this.SendNotify("房屋不存在")
+		return
+	}
+
+	if house.tradeuid != tradeuid {
+		this.SendNotify("房屋不在交易中")
+		return 
+	}
+
+	if house.ownerid == this.Id() {
+		this.SendNotify("不能买自己的房子")
+		return
+	}
+
+	historykey := fmt.Sprintf("tradehousehistory_%d_%d", house.ownerid, house.tradeuid)
+	history := &msg.TradeHouseHistory{}
+	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
+		return
+	}
+
+	if this.RemoveGold(uint32(history.GetPrice()), "交易房屋", true) == false {
+		return
+	}
+
+	delsql := fmt.Sprintf("DELETE FROM housetrade WHERE tradeid=%d", tradeuid)
+	_, execerr := MysqlDB().Exec(delsql)
+	if execerr != nil {
+		log.Info("数据库删除失败")
+	}
+
+	exownerid := house.ownerid
+
+	house.ChangeOwner(this)
+	house.ClearTrade()
+
+	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
+	history.State = pb.Uint32(uint32(2))
+
+	sellkey := fmt.Sprintf("tradehousehistory_%d_%d", exownerid, tradeuid)
+	utredis.SetProtoBin(Redis(), sellkey, history)
+	selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
+	Redis().RPush(selllistkey, tradeuid)
+
+	history.State = pb.Uint32(uint32(4))
+	buykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), tradeuid)
+	utredis.SetProtoBin(Redis(), buykey, history)
+	buylistkey := fmt.Sprintf("tradehousehistorylist_%d", this.Id())
+	Redis().RPush(buylistkey, tradeuid)
+	
+}
+*/
