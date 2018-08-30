@@ -546,14 +546,14 @@ func (this *HouseManager) GetHouse(houseid uint64) *HouseData {
 }
 
 //获取玩家关联的房屋
-func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
-	data := make([]*HouseData, 0)
+func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
+	data := make(map[uint64]*HouseData)
 	if _, ok := this.userhouses[uid]; ok {
 		ids := this.userhouses[uid]
 		for _, v := range ids {
 			tmp := this.GetHouse(v)
 			if tmp != nil {
-				data = append(data, tmp)
+				data[tmp.id] = tmp
 			}
 		}
 	}
