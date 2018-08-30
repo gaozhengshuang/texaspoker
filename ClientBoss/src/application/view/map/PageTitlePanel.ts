@@ -23,22 +23,28 @@ module game {
         public constructor() {
             super();
             this.skinName = "resource/skins/PageTitlePanelSkin.exml";
-            
         }
         public init(backFun:Function=null,backBody:any=null){
             this.bName_txt.text="";
             this.returnFun=backFun;
             this.returnBody=backBody;
             this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+
+            this.updateUserInfo(DataManager.playerModel.getUserInfo());
         }
         public updateTitleStr(name:string=""){
             this.bName_txt.text=name;
         }
         private return_begin() {
             //this.dispatchEvent(new BasicEvent(PageNewHouseView.CLOSE));
+            this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
             if(this.returnFun && this.returnBody){
-                this.returnFun.call(this,this.returnBody);
+                this.returnFun.call(this.returnBody);
             }
+        }
+        public returnBtnShow(flag:boolean)
+        {
+            this.return_btn.visible = flag;
         }
         public updateUserInfo(uInfo: IUserInfo) {
             this.userInfo = uInfo;
@@ -82,7 +88,7 @@ module game {
                 }
             }
         }
-        public removeTimer(): void {
+        private removeTimer(): void {
             SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
         }
         
