@@ -36,6 +36,23 @@ type CarData struct {
 	template *table.TCarDefine
 }
 
+func (this *CarData) ChangeOwner(user *GateUser) {
+	CarMgr().DelCar(this)
+	exowner := UserMgr().FindById(this.ownerid)
+	if exowner != nil {
+		CarMgr().UpdateCarByID(exowner, this.id, true)
+	}
+	this.ownerid = user.Id()
+	this.ownername = user.Name()
+	CarMgr().AddCar(this)
+	CarMgr().UpdateCarByID(exowner, this.id, false)
+}
+
+func (this *CarData) ClearTrade() {
+	this.tradeendtime = 0
+	this.tradeuid = 0
+}
+
 func (this *CarData) LoadBin(rbuf []byte) error {
 	bin := &msg.CarData{}
 	if err := pb.Unmarshal(rbuf, bin); err != nil {
@@ -253,7 +270,7 @@ func (this *ParkingData) IsRewardFull(car *CarData) bool {
 //车辆管理器
 type CarManager struct {
 	cars     map[uint64]*CarData //已加载的所有车辆的map
-	usercars map[uint64][]uint64 //玩家id 关联的车辆id
+	usercars map[uint64]map[uint64]uint64 //玩家id 关联的车辆id
 
 	parkings       map[uint64]*ParkingData //已加载的所有车位map
 	userparkings   map[uint64][]uint64     //玩家id 关联的车位id
@@ -265,7 +282,7 @@ type CarManager struct {
 
 func (this *CarManager) Init() {
 	this.cars = make(map[uint64]*CarData)
-	this.usercars = make(map[uint64][]uint64)
+	this.usercars = make(map[uint64]map[uint64]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
 
@@ -414,9 +431,15 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 func (this *CarManager) AddCar(car *CarData) {
 	this.cars[car.id] = car
 	if _, ok := this.usercars[car.ownerid]; !ok {
-		this.usercars[car.ownerid] = make([]uint64, 0)
+		this.usercars[car.ownerid] = make(map[uint64]uint64)
 	}
-	this.usercars[car.ownerid] = append(this.usercars[car.ownerid], car.id)
+	this.usercars[car.ownerid][car.id] = car.id
+}
+
+func (this *CarManager) DelCar(car *CarData) {
+	if _, ok := this.usercars[car.ownerid]; ok {
+		delete(this.usercars[car.ownerid], car.id)
+	}
 }
 
 func (this *CarManager) GetCarByUser(uid uint64) []*CarData {

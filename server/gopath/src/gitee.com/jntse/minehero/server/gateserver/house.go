@@ -373,7 +373,6 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 	if exowner != nil {
 		exowner.UpdateHouseDataById(this.id, true)
 	}
-	HouseSvrMgr().SyncUserHouseData(this.ownerid)
 	this.ownerid = user.Id()
 	this.ownername = user.Name()
 	for _, v := range this.housecells {

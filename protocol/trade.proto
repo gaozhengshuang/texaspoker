@@ -182,7 +182,7 @@ message C2GW_ReqTradeCarHistory
 message TradeCarHistory
 {
     optional uint64 tradeuid = 1;           //交易唯一id
-    optional uint32 caruid = 2;             //唯一id
+    optional uint64 caruid = 2;             //唯一id
     optional uint32 price = 3;              //车辆总价
     optional uint32 income = 4;             //车辆收益
     optional uint32 carbaseid = 5;          //车辆表id

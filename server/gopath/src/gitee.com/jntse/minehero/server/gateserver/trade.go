@@ -371,7 +371,7 @@ func (this *GateUser) ReqTradeCarList(rev *msg.C2GW_ReqCarTradeList){
 	}
 	this.SendMsg(send)
 }
-/*
+
 func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	car := CarMgr().GetCar(caruid)
 	if car != nil {
@@ -394,14 +394,14 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	}
 
 
-	this.UpdateCarByID(house.id, false)
+	CarMgr().UpdateCarByID(this, car.id, false)
 
 	history := &msg.TradeCarHistory{}
 	history.Tradeuid = pb.Uint64(uint64(LastInsertId))
 	history.Caruid = pb.Uint64(uint64(car.id))
 	history.Carlevel = pb.Uint32(uint32(car.GetStar()))
 	history.Price = pb.Uint32(uint32(price))
-	history.Income = pb.Uint32(uint32(house.GetRewardPerM()))
+	history.Income = pb.Uint32(uint32(car.GetRewardPerM()))
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
 	history.Cartype = pb.Uint32(uint32(car.GetCarBrand()))
 	history.Carbaseid = pb.Uint32(uint32(car.tid))
@@ -421,50 +421,49 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 		return
 	}
 
-	if house.tradeuid != tradeuid {
-		this.SendNotify("房屋不在交易中")
+	if car.tradeuid != tradeuid {
+		this.SendNotify("汽车不在交易中")
 		return 
 	}
 
-	if house.ownerid == this.Id() {
-		this.SendNotify("不能买自己的房子")
+	if car.ownerid == this.Id() {
+		this.SendNotify("不能买自己的汽车")
 		return
 	}
 
-	historykey := fmt.Sprintf("tradehousehistory_%d_%d", house.ownerid, house.tradeuid)
-	history := &msg.TradeHouseHistory{}
+	historykey := fmt.Sprintf("tradecarhistory_%d_%d", car.ownerid, car.tradeuid)
+	history := &msg.TradeCarHistory{}
 	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
 		return
 	}
 
-	if this.RemoveGold(uint32(history.GetPrice()), "交易房屋", true) == false {
+	if this.RemoveGold(uint32(history.GetPrice()), "交易汽车", true) == false {
 		return
 	}
 
-	delsql := fmt.Sprintf("DELETE FROM housetrade WHERE tradeid=%d", tradeuid)
+	delsql := fmt.Sprintf("DELETE FROM cartrade WHERE tradeid=%d", tradeuid)
 	_, execerr := MysqlDB().Exec(delsql)
 	if execerr != nil {
 		log.Info("数据库删除失败")
 	}
 
-	exownerid := house.ownerid
+	exownerid := car.ownerid
 
-	house.ChangeOwner(this)
-	house.ClearTrade()
+	car.ChangeOwner(this)
+	car.ClearTrade()
 
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
 	history.State = pb.Uint32(uint32(2))
 
-	sellkey := fmt.Sprintf("tradehousehistory_%d_%d", exownerid, tradeuid)
+	sellkey := fmt.Sprintf("tradecarhistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
-	selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
+	selllistkey := fmt.Sprintf("tradecarhistorylist_%d", exownerid)
 	Redis().RPush(selllistkey, tradeuid)
 
 	history.State = pb.Uint32(uint32(4))
-	buykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), tradeuid)
+	buykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), tradeuid)
 	utredis.SetProtoBin(Redis(), buykey, history)
-	buylistkey := fmt.Sprintf("tradehousehistorylist_%d", this.Id())
+	buylistkey := fmt.Sprintf("tradecarhistorylist_%d", this.Id())
 	Redis().RPush(buylistkey, tradeuid)
 	
 }
-*/
