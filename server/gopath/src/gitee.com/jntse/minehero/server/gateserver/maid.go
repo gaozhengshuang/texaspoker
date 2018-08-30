@@ -672,6 +672,13 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 		user.SendNotify("这是您自己的房屋")
 		return
 	}
-}
 
+	// 产生房屋记录
+
+	// 夺回
+	delete(ma.housemaids[maid.RobberTo()], maid.RobberTo())
+	maid.SetRobber(0, "", 0)
+	maid.SetTimeStart(util.CURTIME())
+	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
+}
 
