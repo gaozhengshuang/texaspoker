@@ -191,6 +191,18 @@ func (this *CarData) GetRewardPerM() uint32{
 	//TODO 
 	return this.data.Attr.GetReward()
 }
+func (this *CarData) GetId() uint64 {
+	return this.data.GetId()
+}
+func (this *CarData) GetTid() uint32 {
+	return this.data.GetTid()
+}
+func (this *CarData) GetOwnerId() uint64 {
+	return this.data.GetOwnerId()
+}
+func (this *CarData) GetTradeuid uint64 {
+	return this.data.GetTradeuid()
+}
 //获得车辆品牌
 func (this *CarData) GetCarBrand() uint32 {
 	template, find := tbl.TCarBase.TCarById[this.data.GetTid()]
