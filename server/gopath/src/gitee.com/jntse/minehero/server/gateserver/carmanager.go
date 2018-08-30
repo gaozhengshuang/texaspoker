@@ -106,6 +106,14 @@ func (this *CarData) GetRewardPerM() uint32{
 	//TODO 
 	return 0
 }
+//获得车辆品牌
+func (this *CarData) GetCarBrand() uint32 {
+	return 0;
+}
+//获得车辆型号
+func (this *CarData) GetCarModel() uint32 {
+	return 0;
+}
 
 //车位信息
 type ParkingData struct {
