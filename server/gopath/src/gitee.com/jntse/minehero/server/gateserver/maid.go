@@ -7,6 +7,7 @@ package main
 import (
 	"time"
 	"strconv"
+	"strings"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 
@@ -545,6 +546,13 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 		return false
 	}
 
+	// 产生记录，女仆已经产生的钱留给房主
+	;
+
+	// 我有概率获得道具	
+	ma.ItemProduce(user, maid, "掠夺女仆")
+
+	//
 	maid.SetRobber(user.Id(), user.Name())
 	maid.SetTimeStart(util.CURTIME())
 	ma.ChangeMaidHouse(maid, dropto)
@@ -584,4 +592,49 @@ func (ma *MaidManager) CreateMaidRecord() string {
 	return ""
 }
 
+// 道具产出
+func (ma *MaidManager) ItemProduce(user *GateUser, maid *Maid, reason string) {
+	// 解析概率配置
+	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
+		for _ , strpro := range Pro {
+			slicepro := strings.Split(strpro, "-")
+			if len(slicepro) != 2 {
+				log.Error("[女仆] 解析道具产出概率配置异常 strpro=%s", strpro)
+				return false
+			}
+			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
+			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
+			num,    _ := strconv.ParseInt(slicepro[2], 10, 32)
+			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(num)})
+		}
+		return true
+	}
+
+	giftweight := make([]util.WeightOdds, 0)
+	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
+	if ok == false {
+		log.Error("[女仆] 找不到女仆等级配置")
+		return
+	}
+
+	if ParseProString(&giftweight, levelbase.ProduceItem) == false { 
+		log.Error("[女仆] 解析道具产出配置失败")
+		return
+	}
+
+	index := util.SelectByWeightOdds(giftweight)
+	if index < 0 || index >= int32(len(giftweight)) {
+		log.Error("[女仆] 权重获得产出道具失败")
+		return
+	}
+
+	uid, num := giftweight[index].Uid, giftweight[index].Num
+	_, find := tbl.ItemBase.ItemBaseDataById[uint32(uid)]
+	if find == false {
+		log.Error("[女仆] 无效的道具id[%d]", uid)
+		return
+	}
+
+	user.AddItem(uint32(uid), uint32(num), reason, true)
+}
 
