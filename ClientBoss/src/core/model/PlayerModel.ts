@@ -299,9 +299,7 @@ module game {
         public getBagItem(itemId: number) {
             let itm:any=null;
             this.bagList.forEach(item => {
-                //egret.log("item.id---->", item.id);
                 if (item.id === itemId) {
-                    egret.log("itemId--->", itemId);
                     itm=item;
                 }
             });
@@ -310,12 +308,13 @@ module game {
 
         //获取背包中物品的个数
         public getItemNum(itemId: number) {
+            let num = 0;
             this.bagList.forEach(item => {
                 if (item.id === itemId) {
-                    return item.num;
+                    num = item.num;
                 }
             });
-            return 0;
+            return num;
         }
         
         //背包是否有这个物品
