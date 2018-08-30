@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="NumControllerSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image width="179.2" height="46" x="74.94" y="5" source="filterBg_3" anchorOffsetX="0" anchorOffsetY="0"/>
-	<e:Button id="addBtn" label="+" x="0.94" y="0" skinName="CommonBtnSkin" anchorOffsetX="0" width="74"/>
-	<e:Button id="reduceBtn" label="-" x="254.94" y="0" skinName="CommonBtnSkin" anchorOffsetX="0" width="74"/>
-	<e:TextInput id="numTxt" width="174.67" height="39.33" x="76.94" y="8" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image x="75" anchorOffsetX="0" anchorOffsetY="0" source="trade_coinnum_bg_png"/>
+	<e:TextInput id="numTxt" width="217.2" height="63.86" x="76.94" y="3" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image id="reduceBtn" x="300.7" source="trade_reduce_png"/>
+	<e:Image id="addBtn" x="0" source="trade_add_png"/>
 </e:Skin>
