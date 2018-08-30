@@ -455,8 +455,8 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		return
 	}
 
-	if house.id != maid.HouseId() {
-		user.SendNotify("女仆不在这个房屋")
+	if maid.OwnerId() != user.Id() {
+		user.SendNotify("这不是您的自己的女仆")
 		return
 	}
 
@@ -512,24 +512,9 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 		return
 	}
 
-	// 从邻居列表进入抢夺
+	// 掠夺女仆到指定house
 	if dropto != 0 {
-		drophouse := HouseSvrMgr().GetHouse(dropto)
-		if drophouse == nil {
-			log.Error("[女仆] 掠夺dropid无效[%d]", dropto)
-			return
-		}
-		if drophouse.ownerid != user.Id() {
-			log.Error("[女仆] 只能掠夺到自己的房产中")
-			return
-		}
-		if ma.IsHouseCanDropRobMaid(dropto) == false {
-			user.SendNotify("这个房屋不能掠夺更多的女仆")
-			return
-		}
-		maid.SetRobber(user.Id(), user.Name())
-		maid.SetTimeStart(util.CURTIME())
-		ma.ChangeMaidHouse(maid, dropto)
+		ma.RobMaidToHosue(user, maid, dropto)
 		return
 	}
 
@@ -545,6 +530,27 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 	user.SendMsg(send)
 }
 
+func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64) bool {
+	drophouse := HouseSvrMgr().GetHouse(dropto)
+	if drophouse == nil {
+		log.Error("[女仆] 掠夺dropid无效[%d]", dropto)
+		return false
+	}
+	if drophouse.ownerid != user.Id() {
+		log.Error("[女仆] 只能掠夺到自己的房产中")
+		return false
+	}
+	if ma.IsHouseCanDropRobMaid(dropto) == false {
+		user.SendNotify("这个房屋不能掠夺更多的女仆")
+		return false
+	}
+
+	maid.SetRobber(user.Id(), user.Name())
+	maid.SetTimeStart(util.CURTIME())
+	ma.ChangeMaidHouse(maid, dropto)
+	return true
+}
+
 //
 func (ma *MaidManager) ChangeMaidHouse(maid *Maid, houseid uint64) {
 	maid.SetHouseId(houseid)
@@ -554,7 +560,7 @@ func (ma *MaidManager) ChangeMaidHouse(maid *Maid, houseid uint64) {
 	log.Info("[女仆] 女仆[%d]被放置到新房间[%d]", maid.Id(), houseid)
 }
 
-// 房子是否能否放置抢来的女仆(目前只能放置1个抢来的女仆)
+// 房子是否能否放置抢来的女仆(目前最多抢1个)
 func (ma *MaidManager) IsHouseCanDropRobMaid(houseid uint64) bool {
 	maids, count := ma.GetHouseMaids(houseid), 0
 	for _, v := range maids {
@@ -572,3 +578,9 @@ func (ma *MaidManager) GetCanDropRobMaidHouse(userid uint64) []*msg.HouseData {
 	}
 	return housedatas
 }
+
+// 女仆动态
+func (ma *MaidManager) CreateMaidRecord() string {
+}
+
+

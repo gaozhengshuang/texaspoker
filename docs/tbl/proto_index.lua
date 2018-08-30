@@ -116,7 +116,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 111, Name : "msg.C2GW_MaidUpgrade" 	},
 		{ Id : 112, Name : "msg.C2GW_TakeMaidEarning" 	},
 		{ Id : 113, Name : "msg.C2GW_RobMaid" 	},
-		{ Id : 114, Name : "msg.C2GW_EnableMaidDropTo" 	},
+		{ Id : 114, Name : "msg.GW2C_EnableMaidDropTo" 	},
 		{ Id : 115, Name : "msg.C2GW_RobMaidToHouse" 	},
 		{ Id : 116, Name : "msg.C2GW_TackBackMaid" 	},
 		{ Id : 117, Name : "msg.C2GW_SendBackMaid" 	},
