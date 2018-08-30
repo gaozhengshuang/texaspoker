@@ -10,6 +10,8 @@ module game {
 
 		private _dp: eui.ArrayCollection;
 
+		private _flag: TradePanelFlag;
+
 		public constructor() {
 			super();
 		}
@@ -17,10 +19,13 @@ module game {
 			this._dp = new eui.ArrayCollection();
 		}
 		protected beforeShow() {
+			NotificationCenter.addObserver(this, this.onRefreshHouse, PlayerModel.HOUSE_UPDATE);
 		}
 		protected beforeRemove() {
+			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
 		}
 		public setData(flag: TradePanelFlag) {
+			this._flag = flag;
 			switch (flag) {
 				case TradePanelFlag.House:
 					this.desLabel.text = '我的房产';
@@ -32,6 +37,14 @@ module game {
 					break;
 			}
 			this.scroller.refreshData(this._dp);
+		}
+
+		//刷新房屋显示
+		private onRefreshHouse(data: msg.GW2C_UpdateHouseDataOne) {
+			if (this._flag == TradePanelFlag.House) {
+				this._dp.source = DataManager.playerModel.getHouse();
+				this.scroller.refreshData(this._dp);
+			}
 		}
 
 		private static _instance: TradeMyAssetsPanel = null;
