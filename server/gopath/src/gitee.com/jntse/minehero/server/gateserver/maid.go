@@ -317,7 +317,7 @@ func (ma *MaidManager) LoadDB() {
 	for _, v := range cmds {
 		if v.Err() == redis.Nil { continue }
 		rbuf, _ := v.(*redis.StringCmd).Bytes()
-		maid := &Maid{}
+		maid := &Maid{clothes:make(map[int32]*msg.ItemData)}
 		if maid.LoadBin(rbuf) != nil {
 			ma.AddMaid(maid)
 		}
@@ -489,16 +489,18 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		return
 	}
 
-	now := util.CURTIME()
-	elapse := now - maid.TimeStart()
-	if elapse < levelbase.ProduceTime {
-		log.Error("[女仆] 生产时间未完成，不能领取")	// 客户端要预判断
-		return
+	// 送回来不会自动开始工作
+	if maid.TimeStart() != 0 {
+		now := util.CURTIME()
+		elapse := now - maid.TimeStart()
+		if elapse < levelbase.ProduceTime {
+			log.Error("[女仆] 生产时间未完成，不能领取")	// 客户端要预判断
+			return
+		}
+		user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
+		ma.ItemProduce(user, maid, "领取女仆收益")
+		maid.SetTimeStart(now)
 	}
-
-	user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
-	ma.ItemProduce(user, maid, "领取女仆收益")
-	maid.SetTimeStart(now)
 }
 
 // 掠夺他人女仆
