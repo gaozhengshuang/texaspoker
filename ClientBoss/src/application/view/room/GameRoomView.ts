@@ -309,9 +309,9 @@ module game {
             this.dispatchEvent(new BasicEvent(GameRoomView.PLUNDER_ERROR, { eid: eid }));
         }
 
-        private onclick_begin(body:any) {
-            body.beforeRemove();
-            body.dispatchEvent(new BasicEvent(GameRoomView.CLOSE, { userid: body.roomInfo.ownerid }));
+        private onclick_begin() {
+            this.beforeRemove();
+            this.dispatchEvent(new BasicEvent(GameRoomView.CLOSE, { userid: this.roomInfo.ownerid }));
         }
 
         private onclick_lingju() {

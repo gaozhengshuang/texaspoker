@@ -55,6 +55,7 @@ module game {
 				this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
 
 			}
+		}
 		private onBuyClick() {
 			//购买
 			NotificationCenter.addObserver(this, this.onGetHouseData, PlayerModel.HOUSE_UPDATE);
