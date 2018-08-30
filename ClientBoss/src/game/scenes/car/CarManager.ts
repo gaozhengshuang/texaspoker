@@ -1,4 +1,5 @@
 module game {
+
     export class CarFunData
     {
         public uid     :number|Long;
@@ -21,6 +22,7 @@ module game {
         private GW2C_SendCarShopInfo_BackCalls          : Function[]; 
         private GW2C_UpdateCarShopProduct_BackCalls     : Function[];
         private GW2C_RetTakeCarAutoBackReward_BackCalls : Function[];
+        private GW2C_RetCarPartLevelup_BackCalls        : Function[];
 
         private GW2C_ResParkingInfo_BackCalls           : CarFunData[];
         private GW2C_AckOtherUserHouseData_BackCalls    : CarFunData[];
@@ -37,7 +39,11 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_UpdateCarShopProduct, "msg.GW2C_UpdateCarShopProduct");
             NotificationCenter.addObserver(this, this.OnGW2C_SendCarShopInfo, "msg.GW2C_SendCarShopInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_RetTakeCarAutoBackReward, "msg.GW2C_RetTakeCarAutoBackReward");
-        
+            NotificationCenter.addObserver(this, this.OnGW2C_RetCarPartLevelup, "msg.GW2C_RetCarPartLevelup");
+            
+
+            
+
             this.GW2C_ResCarInfo_BackCalls               = [];
             this.GW2C_ResParkingInfo_BackCalls           = [];
             this.GW2C_ParkCarResult_BackCalls            = [];
@@ -46,6 +52,7 @@ module game {
             this.GW2C_SendCarShopInfo_BackCalls          = [];
             this.GW2C_UpdateCarShopProduct_BackCalls     = [];
             this.GW2C_RetTakeCarAutoBackReward_BackCalls = [];
+            this.GW2C_RetCarPartLevelup_BackCalls        = [];
         }
     
 
@@ -279,9 +286,30 @@ module game {
             this.GW2C_RetTakeCarAutoBackReward_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.reward)};});
             this.GW2C_RetTakeCarAutoBackReward_BackCalls = [];
         }
-        //-------------------
 
+        //请求升级部件
+        public ReqCarPartLevelup(carId:number|Long,partType:msg.CarPartType,pieces:msg.ICarPartPiece[],callFunc:Function=null)
+        {
+            if(callFunc && !this.GW2C_RetCarPartLevelup_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_RetCarPartLevelup_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_CarPartLevelup", msg.C2GW_CarPartLevelup.encode({
+                carid : carId,
+                parttype:partType,
+                pieces:pieces
+             }));
+        }
+        //部件升级结果
+        public OnGW2C_RetCarPartLevelup(msgs:msg.GW2C_RetCarPartLevelup)
+        {
+            this.GW2C_RetCarPartLevelup_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.car)};});
+            this.GW2C_RetCarPartLevelup_BackCalls = [];
+        }
 
+        
+
+        //-------------------抢车位返回----------
         //停车结果
         private OnGW2C_ParkCarResult(msgs:msg.GW2C_ParkCarResult)
         {

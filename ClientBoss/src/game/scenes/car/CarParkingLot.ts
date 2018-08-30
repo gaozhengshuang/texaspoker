@@ -119,7 +119,7 @@ module game {
                     //{
                         if(CarDetailView.getInstance().carData){
                             let carData = CarDetailView.getInstance().carData;
-                            if(carData.parkingid==0 && carData.parkingreward==0){
+                            if(carData.parkingid==0 && (!carData.reward || (carData.reward && carData.reward.money==0))){
                                 _canPark = true;
                                 CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                     if(result==0){
