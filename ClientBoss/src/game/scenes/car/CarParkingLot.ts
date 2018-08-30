@@ -28,7 +28,8 @@ module game {
             this.itemData = data;
             this.parkingCarIcon.visible = data.parkingcar!=0;
             this.stateBgPark.visible    = data.parkingcar==0;
-            this.stateBgTicket.visible  = data.parkingcar!=0 && data.ownerid == DataManager.playerModel.getUserId();
+            //this.stateBgTicket.visible  = data.parkingcar!=0 && data.ownerid == DataManager.playerModel.getUserId();
+            this.stateBgTicket.visible = false;
             //console.log("车位信息------->",data.parkingcar," ",data.parkingtime);
             if(data.parkingcar==0)
             {
@@ -56,7 +57,7 @@ module game {
                 }
 
                 //信息
-                console.log('计时器时间------->',SysTimeEventManager.getInstance().systimeNum);
+/*                 console.log('计时器时间------->',SysTimeEventManager.getInstance().systimeNum);
                 console.log('当前时间------->',new Date().getTime());
                 console.log('停车开始时间------->',<number>data.parkingtime);
                 let dateTime = new Date(Math.max(new Date().getTime() - <number>data.parkingtime - SysTimeEventManager.getInstance().systimeoffset,0));
@@ -67,14 +68,13 @@ module game {
                 console.log("累计时间---->",dateTime.getTime());
                 this.timeTxt.textFlow = [
                     { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
-                ]
+                ] */
                 this.infoTxt.textFlow = [
                     { text: data.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 20,"textColor":0x5f6163,bold:true} },
                     //{ text: "\n", style: { size : 18} },                    
                     //{ text: "\n"+ timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
                 ]
-                SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
-                //this.runningTimer(SysTimeEventManager.getInstance().systimeNum);
+                //SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
             }
 
         }
@@ -85,7 +85,7 @@ module game {
             this._select = !this._select;
 
             if(this.itemData.ownerid == DataManager.playerModel.getUserId()) {
-                //自己的车位被占用，贴条
+/*                 //自己的车位被占用，贴条
                 if(this.itemData.parkingcar!=0)
                 {
                     CarManager.getInstance().giveTicket(this.itemData,function(result:number,reward:number){
@@ -108,18 +108,16 @@ module game {
                 else
                 {
                     showTips("不能停靠自己的车位！");
-                }
-            }
-            else
-            {               
+                } */
+
                 //console.log("车位操作----------->",this.itemData.parkingcar,DataManager.playerModel.userInfo.cardatas.length);
                 if(this.itemData.parkingcar==0){
                     let _canPark = false;
-                    //if(CarDetailView.getInstance().Inited())
-                    //{
+                    if(CarDetailView.getInstance().Inited())
+                    {
                         if(CarDetailView.getInstance().carData){
                             let carData = CarDetailView.getInstance().carData;
-                            if(carData.parkingid==0 && (!carData.reward || (carData.reward && carData.reward.money==0))){
+                            if(carData.state==msg.CarState.Idle && (!carData.reward || (carData.reward && carData.reward.money==0))){
                                 _canPark = true;
                                 CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                     if(result==0){
@@ -131,12 +129,13 @@ module game {
                                 });
                             }
                         }
-                    //}
+                    }
                     else
                     {
+                        //从车库背包中选择一个空闲的车停放
                         for(let carData of DataManager.playerModel.userInfo.cardatas)
                         {
-                            if(carData.parkingid==0){
+                            if(carData.state == msg.CarState.Idle){
                                 _canPark = true;
                                 CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                     if(result==0){
@@ -172,6 +171,10 @@ module game {
                         });
                     } 
                 }
+
+            }
+            else
+            {               
             }
         }
 
@@ -204,7 +207,7 @@ module game {
         }
 
         public removeTimer(): void {
-            SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
+            //SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
         }
 
         

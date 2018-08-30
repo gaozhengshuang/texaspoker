@@ -4,11 +4,17 @@ module game {
 		constructor(ctx: TradePanel) {
 			this.context = ctx;
 		}
-		public beforeShow() {
+		public init() {
 
+		}
+		public beforeShow() {
 		}
 		public beforeRemove() {
 
+		}
+		public onClickHandler(event:egret.TouchEvent)
+		{
+			
 		}
 	}
 }

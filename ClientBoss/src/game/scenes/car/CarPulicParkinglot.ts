@@ -116,7 +116,7 @@ module game {
                     let _canPark = false;
                     if(CarDetailView.getInstance().carData){
                         let carData = CarDetailView.getInstance().carData;
-                        if(carData.parkingid==0 && (!carData.reward || (carData.reward && carData.reward.money==0))){
+                        if(carData.state==msg.CarState.Ready && (!carData.reward || (carData.reward && carData.reward.money==0))){
                             _canPark = true;
                             CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                 if(result==0){
@@ -130,7 +130,7 @@ module game {
                     {
                         for(let carData of DataManager.playerModel.userInfo.cardatas)
                         {
-                            if(carData.parkingid==0){
+                            if(carData.state==msg.CarState.Ready){
                                 _canPark = true;
                                 CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                     if(result==0){

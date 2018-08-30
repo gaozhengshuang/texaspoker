@@ -16,29 +16,37 @@ module game {
         private userInfo: IUserInfo;
         private isTime: boolean = false;
 
-        private returnFun:Function;
-        private returnBody:any;
+        private returnFun: Function;
+        private returnBody: any;
 
 
         public constructor() {
             super();
-            this.skinName = "resource/skins/PageTitlePanelSkin.exml";
-            
+            if (DEBUG) {
+                this.skinName = "resource/skins/PageTitlePanelSkin.exml";
+            }
+            else {
+                this.skinName = PageTitlePanelSkin;
+            }
         }
-        public init(backFun:Function=null,backBody:any=null){
-            this.bName_txt.text="";
-            this.returnFun=backFun;
-            this.returnBody=backBody;
+        public init(backFun: Function = null, backBody: any = null) {
+            this.bName_txt.text = "";
+            this.returnFun = backFun;
+            this.returnBody = backBody;
             this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+
+            this.updateUserInfo(DataManager.playerModel.getUserInfo());
         }
-        public updateTitleStr(name:string=""){
-            this.bName_txt.text=name;
+        public updateTitleStr(name: string = "") {
+            this.bName_txt.text = name;
         }
         private return_begin() {
-            //this.dispatchEvent(new BasicEvent(PageNewHouseView.CLOSE));
-            if(this.returnFun && this.returnBody){
-                this.returnFun.call(this,this.returnBody);
+            if (this.returnFun && this.returnBody) {
+                this.returnFun.call(this.returnBody);
             }
+        }
+        public returnBtnShow(flag: boolean) {
+            this.return_btn.visible = flag;
         }
         public updateUserInfo(uInfo: IUserInfo) {
             this.userInfo = uInfo;
@@ -49,13 +57,13 @@ module game {
                 this.addEnergyGroup.visible = true;
                 this.isTime = true;
                 this.showTime();
-                this.energy_txt.x=490;
+                this.energy_txt.x = 490;
             }
             else {
                 this.addEnergyGroup.visible = false;
                 this.removeTimer();
                 this.isTime = false;
-                this.energy_txt.x=540;
+                this.energy_txt.x = 540;
             }
         }
         private endTime: number;
@@ -72,20 +80,20 @@ module game {
         private runningTimer(time: number, body: any): void {
             if (time < body.endTime) {
                 body.addEnergy_txt.text = SysTimeEventManager.getInstance().
-                    getHourMinutesTime(body.endTime - time, true, true);
+                    getHourMinutesTime(body.endTime - time, true, true)+" +5";
             } else {
                 if (body.userInfo.robcount >= 20) {
                     body.removeTimer();
                     body.addEnergyGroup.visible = false;
                     body.isTime = false;
-                    this.energy_txt.x=540;
+                    this.energy_txt.x = 540;
                 }
             }
         }
-        public removeTimer(): void {
+        private removeTimer(): void {
             SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
         }
-        
+
         public removePanel() {
             this.removeTimer();
             //this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);

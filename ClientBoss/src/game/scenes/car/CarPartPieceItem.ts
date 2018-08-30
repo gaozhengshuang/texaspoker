@@ -15,6 +15,7 @@ module game {
         
         private itemData        : table.IItemBaseDataDefine;
         private partPieceType   : msg.CarPartType;
+        private restNum         : number   = 0;
         private nowTime         : number   = 0;
         private longPressed     : boolean  = false;
 
@@ -27,16 +28,18 @@ module game {
 
         protected dataChanged():void{
             this.itemData=this.data;
-            this.partPieceType = CarDetailView.CarPartPieceIDs.filter(data=>{return data.id==this.itemData.ImageId})[0].type;
+            //this.partPieceType = CarDetailView.CarPartPieceIDs.filter(data=>{return data.id==this.itemData.ImageId})[0].type;
+            this.partPieceType = msg.CarPartType.Tyre;
             this.btnJoin.icon = "uiCarAltas_json.buyBtn1";
             this.updateView();
         }
 
         private updateView()
         {
+            this.restNum =  DataManager.playerModel.getItemNum(this.itemData.Id);
             this.ItemName.textFlow = [
                 {text: this.itemData.Name},
-                {text: " 后备箱中 x"+DataManager.playerModel.getBagItemNum(this.itemData.Id)}
+                {text: " 后备箱中 x"+this.restNum}
             ];
         
            this.txt_info.textFlow = [this.colorStrs[this.itemData.Color-1]];
@@ -46,12 +49,17 @@ module game {
         private OnTouchBegin()
         {
             this.nowTime = egret.getTimer();
+            if(this.restNum==0) return;
             egret.startTick(this.countTimer,this);
         }
         //抬起
         private OnTouchEND()
         {
             if(!this.longPressed) {
+                if(this.restNum==0){
+                    showTips("碎片数量不足！");
+                    return;
+                }
                 this.usePartPiece();
             }
             else{
@@ -74,6 +82,12 @@ module game {
                 console.log("长按按钮经过了"+pass+"毫秒");
             }
             else{
+                if(this.restNum==0) {
+                    showTips("碎片数量不足！");                    
+                    this.longPressed = false;
+                    egret.stopTick(this.countTimer,this);  
+                    return false;
+                }
                 if(pass>=1000){
                     this.nowTime = now;
                     console.log("自动消耗碎片请求升级");

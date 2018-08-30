@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="TradeCarSecondSellSkin" width="720" height="470" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:Image width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" height="100%" top="0" alpha="0.9" source="trading_bottom_bar_png" scale9Grid="90,56,540,10"/>
-	<e:Label text="保留72小时交易时间" x="543" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="14"/>
-	<e:Label id="afterPriceLabel" text="500,000" x="439.5" y="368" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF"/>
-	<e:Label id="taxRateTxt" text="扣税（10%）" x="116.5" y="348" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF"/>
-	<e:Label text="成交到手价格：" x="251.18" y="368" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF"/>
-	<e:Label text="出售价格：" x="110" y="317" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF"/>
-	<e:Button id="sellBtn" label="出售" skinName="CommonBtnSkin" horizontalCenter="0" bottom="0"/>
-	<game:NumController id="numController" x="241" y="300" skinName="NumControllerSkin"/>
-	<e:Label text="车辆详情" y="111" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" horizontalCenter="0"/>
-	<e:Group x="30" y="149">
-		<e:Label text="指导价：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="unitPrice0" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+	<e:Group id="tweenGroup" width="720" height="470" x="0" y="0">
+		<e:Image width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" height="100%" top="0" alpha="0.9" source="trading_bottom_bar_png" scale9Grid="90,56,540,10" y="0" scaleX="1" scaleY="1"/>
+		<e:Label text="保留72小时交易时间" x="543" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="14" y="438" scaleX="1" scaleY="1"/>
+		<e:Label id="afterPriceLabel" text="500,000" x="439.5" y="368" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" scaleX="1" scaleY="1"/>
+		<e:Label id="taxRateTxt" text="扣税（10%）" x="116.5" y="348" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" scaleX="1" scaleY="1"/>
+		<e:Label text="成交到手价格：" x="251.18" y="368" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" scaleX="1" scaleY="1"/>
+		<e:Label text="出售价格：" x="110" y="317" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF" scaleX="1" scaleY="1"/>
+		<e:Button id="sellBtn" label="出售" skinName="CommonBtnSkin" horizontalCenter="0" bottom="0" x="282" y="410" scaleX="1" scaleY="1"/>
+		<game:NumController id="numController" x="241" y="300" skinName="NumControllerSkin" scaleX="1" scaleY="1"/>
+		<e:Label text="车辆详情" y="111" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" horizontalCenter="0" x="308" scaleX="1" scaleY="1"/>
+		<e:Group x="30" y="149" scaleX="1" scaleY="1">
+			<e:Label text="指导价：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="unitPrice0" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="30" y="184" scaleX="1" scaleY="1">
+			<e:Label text="停车：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="parkingTxt0" text="100金币/收益" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="30" y="219" scaleX="1" scaleY="1">
+			<e:Label text="速度：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="curTotalPriceTxt0" text="1公里/分钟" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="406" y="220" scaleX="1" scaleY="1">
+			<e:Label text="停靠：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="DockTxt0" text="10分钟" x="80" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="408" y="149" scaleX="1" scaleY="1">
+			<e:Label text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="baseIncomeTxt0" text="1500金币" x="100" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="408" y="184" scaleX="1" scaleY="1">
+			<e:Label text="区域：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="areaTxt0" text="2公里" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="30" y="257" scaleX="1" scaleY="1">
+			<e:Label text="容量：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="capacityTxt0" text="200金币/次" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Label id="typeTxt0" text="本田-思域" fontFamily="Microsoft YaHei" size="20" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" stroke="2" textAlign="center" verticalAlign="middle" anchorOffsetY="10" y="23" scaleX="1" scaleY="1" horizontalCenter="0" x="316"/>
+		<game:TradeStar skinName="TradeStarSkin" horizontalCenter="0" y="53" x="266" scaleX="1" scaleY="1"/>
+		<e:Image x="0" y="292" source="room_line1_png" width="720" scaleX="1" scaleY="1"/>
+		<e:Image x="0" y="95" source="room_line1_png" width="720" scaleX="1" scaleY="1"/>
 	</e:Group>
-	<e:Group x="30" y="184">
-		<e:Label text="停车：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="parkingTxt0" text="100金币/收益" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
-	<e:Group x="30" y="219">
-		<e:Label text="速度：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="curTotalPriceTxt0" text="1公里/分钟" x="120" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
-	<e:Group x="406" y="220">
-		<e:Label text="停靠：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="DockTxt0" text="10分钟" x="80" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
-	<e:Group x="408" y="149">
-		<e:Label text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="baseIncomeTxt0" text="1500金币" x="100" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
-	<e:Group x="408" y="184">
-		<e:Label text="区域：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="areaTxt0" text="2公里" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
-	<e:Group x="30" y="257">
-		<e:Label text="容量：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="capacityTxt0" text="200金币/次" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
-	<e:Label id="typeTxt0" text="本田-思域" fontFamily="Microsoft YaHei" size="20" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" stroke="2" textAlign="center" verticalAlign="middle" anchorOffsetY="10" y="33" scaleX="1" scaleY="1" horizontalCenter="0"/>
-	<game:TradeStar skinName="TradeStarSkin" horizontalCenter="0" y="53"/>
-	<e:Image x="0" y="292" source="room_line1_png" width="720"/>
-	<e:Image x="0" y="95" source="room_line1_png" width="720"/>
 </e:Skin>

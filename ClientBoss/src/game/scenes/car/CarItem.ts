@@ -72,7 +72,7 @@ module game {
             //价格
             //this.img_gold.visible  =  true;
             //this.img_diamond.visible = false;
-           let _carPartItemData = table.TCarPartById[this.itemData.Tyre];
+           let _carPartItemData = table.TCarPartById[this.itemData.Engine];
            this.txt_info.text = "产能："+ (_carPartItemData ?  _carPartItemData.RewardInit.toString() : "") + "金币/分钟" + "\n"+"价值："+ this.itemData.Price+"金币";
 
             //状态
@@ -81,7 +81,7 @@ module game {
         }
 
         private OnClickDetail(){
-            CarManager.getInstance().ReqMyCarInfo();
+            //CarManager.getInstance().ReqMyCarInfo();
             openPanel(PanelType.carDetail);
             ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);   
             GameConfig.showDownBtnFun(false);         

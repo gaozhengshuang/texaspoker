@@ -26,8 +26,6 @@ module game {
         btnNeighbor         : IconButton;
         btnState            : IconButton;
 
-        dongtai_btn         : eui.Button;
-        lingju_btn          : eui.Button;
         hideList_btn        : eui.Button;
 
         Battery             : CarPartInfoItem;
@@ -87,10 +85,9 @@ module game {
             this._touchEvent = [
                 { target: this.btnClose, callBackFunc: this.OnCloseHandle },
                 { target: this.btnDriveAway, callBackFunc: this.OnDriveAwayHandle },
-                { target: this.btnNeighbor, callBackFunc: this.OnClickNeighbor },
+                //{ target: this.btnNeighbor, callBackFunc: this.OnClickNeighbor },
+                { target: this.btnNeighbor, callBackFunc: this.goToPublicParkingLot },
                 { target: this.btnState, callBackFunc: this.OnClickState },
-                { target: this.lingju_btn, callBackFunc: this.OnClickNeighbor },
-                { target: this.dongtai_btn, callBackFunc: this.OnClickState },
                 { target: this.hideList_btn, callBackFunc: this.onclick_hideList },
                 
             ];
@@ -136,13 +133,13 @@ module game {
 
             this.InfoTxt_1.text = carItemData.Brand+""+carItemData.Model + "  起始价值" + carItemData.Price;
             this.InfoTxt_2.textFlow =[
-                {text:"停车："+"100金币/收益"},
-                {text:"\n"+"区域："+"10公里"},
-                {text:"\n"+"容量："+"10金币/次"}
+                {text:"停车："+this.carData.attr.reward+"金币/分钟"},
+                {text:"\n"+"区域："+this.carData.attr.range+"公里"},
+                {text:"\n"+"容量："+this.carData.attr.moneylimit+"金币/次"}
             ];
             this.InfoTxt_3.textFlow =[
-                {text:"速度："+"10公里/分钟"},
-                {text:"\n"+"停靠："+"10分钟"},
+                {text:"速度："+this.carData.attr.speed+"公里/分钟"},
+                {text:"\n"+"停靠："+this.carData.attr.stoptime+"分钟"},
                 {text:"\n"+"总价值："+"100000金币"}, 
             ];
 
@@ -174,27 +171,37 @@ module game {
             
             if(_parkingData){
                 //this.parkingInfoTxt.text = "停在" + _parkingData.ownername + "车位" +"预计收益"+_parkingData.parkingreward+"金币";
-                let dateTime = new Date(Math.max(new Date().getTime() - <number>_parkingData.parkingtime - SysTimeEventManager.getInstance().systimeoffset,0));
-               
-                let second = Math.round(dateTime.getTime() / 1000);
-                let d = Math.floor(second / (3600 * 24));
-                let h = Math.floor(second % (3600 * 24) / 3600);
-                let m = Math.floor(second % (3600 * 24) % 3600 / 60);
-                let s = Math.floor(second % (3600 * 24) % 3600 % 60);
                 
-                let timeStr = d + "天" + h + "时" + m + "分";
-                
-                this.parkingNameTxt.textFlow = [
+/*                 this.parkingNameTxt.textFlow = [
                     { text: _parkingData.ownername +"", style: { bold: true,"textColor": 0xffee9f}},
-                    { text: _parkingData.ownerid && " 家车位" || "" ,style: { bold: true,"textColor": 0xffffff}},
-                ]
-                this.parkingInfoTxt.textFlow = [
-                    { text: "已停放 "},
-                    { text: timeStr +"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
-                    { text: "预计收益 "},
-                    { text: _parkingData.parkingreward+"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
-                    { text: " 金币"},
-                ]
+                    //{ text: _parkingData.ownerid && " 家车位" || "" ,style: { bold: true,"textColor": 0xffffff}},
+                ] */
+
+                if(_parkingData.ownerid==0){//公共车位显示时间
+
+                    let dateTime = new Date(Math.max(new Date().getTime() - <number>_parkingData.parkingtime - SysTimeEventManager.getInstance().systimeoffset,0));
+                    let second = Math.round(dateTime.getTime() / 1000);
+
+                    let d = Math.floor(second / (3600 * 24));
+                    let h = Math.floor(second % (3600 * 24) / 3600);
+                    let m = Math.floor(second % (3600 * 24) % 3600 / 60);
+                    let s = Math.floor(second % (3600 * 24) % 3600 % 60);
+
+                    let timeStr = d + "天" + h + "时" + m + "分";
+
+                    this.parkingInfoTxt.textFlow = [
+                        { text: "已停放 "},
+                        { text: timeStr +"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
+                        { text: "预计收益 "},
+                        { text: _parkingData.parkingreward+"", style: { bold: true,"textColor": 0xFFFFFF,stroke:2,"strokeColor":0xFF573C}},
+                        { text: " 金币"},
+                    ]
+                }
+                else{
+                    this.parkingInfoTxt.textFlow = [
+                        { text: "准备出征"},
+                    ]
+                }
             }
             else{
                 if(this.carData.parkingid!=0){console.warn("不在parkingdatas中",this.carData.parkingid);}
@@ -217,6 +224,7 @@ module game {
             this.remove();
             this._inited  = false;
             this.carData = null;
+            CarManager.getInstance().ReqMyCarInfo();
             GameConfig.showDownBtnFun(true); 
             delete CarDetailView._instance;
             CarDetailView._instance = null;
@@ -495,14 +503,18 @@ module game {
                     break;
             }
         }
-        public getSelectCarID(){
-            return  this.carData ? this.carData.id : 0;
+        //去公共车位
+        private goToPublicParkingLot(){
+            CarManager.getInstance().ReqParkingInfoByType(1,0,[],function(parkingDatas:msg.IParkingData[]){
+                openPanel(PanelType.carPublicLot);
+                CarPublicParkingLotManager.getInstance().UpdateData(parkingDatas);
+            });
         }
         //-------------配件碎片-----------------------------------------------------------//
         public showPieceList(type:msg.CarPartType){
             this.curPartType = type;
             //获取背包中配件类型物品列表
-            let dataList = DataManager.playerModel.getBagItemsByType(msg.ItemType.CarAccessory);
+            let dataList = DataManager.playerModel.getBagItemsByType(msg.ItemType.CarParts);
             //获取对应配件碎片类型的物品列表
             let imageId = CarDetailView.CarPartPieceIDs.filter(data=>{return data.type==type})[0].id;
             dataList = dataList.filter(data=>{
@@ -511,18 +523,19 @@ module game {
             });
             
             let _newItemData = new msg.ItemData();
-            _newItemData.id = 4;
+            _newItemData.id = 130021;
             dataList.push(_newItemData);
 
             _newItemData = new msg.ItemData();
-            _newItemData.id = 5;
+            _newItemData.id = 130022;
             dataList.push(_newItemData);
 
             _newItemData = new msg.ItemData();
-            _newItemData.id = 6;
+            _newItemData.id = 130023;
             dataList.push(_newItemData);
 
             let dataBaseList : table.IItemBaseDataDefine[]= dataList.map(data=>{return table.ItemBaseDataById[data.id]});
+            this.partPieceList.visible = true;
             this.partPieceList.setData(dataBaseList);
         }
 
@@ -544,6 +557,9 @@ module game {
             });
         }
         //-----------------------------------------------------------------------------//
+        public getSelectCarID(){
+            return  this.carData ? this.carData.id : 0;
+        }
         public isDongTaiPanelView()
         {
             return this.hideList_btn.visible;

@@ -3,9 +3,12 @@ module game {
         
         downBtnGroup        : eui.Group;
         center              : eui.Group;
+        listGroup           : eui.Group;
+
         hideList_btn        : eui.Button;
         
-       
+        down_bg             : eui.Image;
+
         private oldY        : number = 0;
         private oldH        : number = 0;
         private oldBtnY     : number = 0;
@@ -57,22 +60,25 @@ module game {
             this.ls_items.itemRenderer = CarPartPieceItem;
             
             //this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this);
-            this.oldY = this.center.y;
-            this.oldH = this.center.height;
+            this.oldY = this.listGroup.y;
+            this.oldH = this.down_bg.height;
         }
 
 
         private showlist() {
             console.log("展示列表showlist----------->");
-            if (this.btnGoalY == -1) {
-                this.btnGoalY = 300/1280 * gameConfig.curHeight();
+            let offsetY = 1280 - this.oldY;
+            if (this.goalH == -1) {
+                this.goalH = this.dataList.length * 150 + this.hideList_btn.height;//按钮贴边
             }
+            if (this.btnGoalY == -1) {this.btnGoalY = this.oldY-this.goalH + offsetY}
 			//console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
 
-            if (this.center.y != this.btnGoalY) {
+            if (this.listGroup.y != this.btnGoalY) {
                 this._tweenCompleted = false;
-                egret.Tween.get(this.center).to({ y: this.btnGoalY }, 300).
+                egret.Tween.get(this.listGroup).to({ y: this.btnGoalY }, 300).
                 call(this.onComplete, this, []);  
+                egret.Tween.get(this.down_bg).to({ height: this.goalH}, 300);
             }else{
                 this.onComplete();
             }
@@ -80,8 +86,10 @@ module game {
         private onComplete() {
             console.log ("onComplete");
             this._tweenCompleted = true;
-            this.sr_item.height  -=  this.btnGoalY; 
-            egret.Tween.removeTweens(this.center);
+            this.hideList_btn.visible = true;
+            //this.sr_item.height  -=  this.btnGoalY; 
+            egret.Tween.removeTweens(this.listGroup);
+            egret.Tween.removeTweens(this.down_bg);
             this.bindData();
         }
         private bindData()
@@ -91,17 +99,19 @@ module game {
             this._dataProv.removeAll();
             let self = this;
             this.dataList.forEach(data=>{self._dataProv.addItem(data)});
-
+            this.sr_item.height = this.dataList.length * 150;
            // console.log("-------------->",this.ls_items.numChildren+" "+this.ls_items.numElements);
          }
         private hideList() {
             //scroller适配
             let self = this;
             self._tweenCompleted = false;
-            self.sr_item.height  =  gameConfig.curHeight()* 0.79;
-            egret.Tween.get(this.center).to({ y: this.oldY }, 300).call(function(){
+            //self.sr_item.height  =  gameConfig.curHeight()* 0.79;
+            egret.Tween.get(this.listGroup).to({ y: this.oldY }, 300).call(function(){
                 self._tweenCompleted = true;
             });
+            egret.Tween.get(this.down_bg).to({ height: this.oldH }, 300);
+            this.visible = false;
         }
 
         public OnCloseHandle() {
