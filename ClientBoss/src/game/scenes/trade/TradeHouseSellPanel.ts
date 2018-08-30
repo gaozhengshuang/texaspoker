@@ -101,24 +101,25 @@ module game {
 					let cell = data.housecells[i];
 					this.cellGroup.addChild(this["cell" + cell.index]);
 					this['lvlTxt' + cell.index].text = "Lv" + cell.level.toString();
-					
+
 					let houseCellDef = TradeManager.getInstance().getHouseCellDefine(cell.tid);
 					if (houseCellDef) {
 						this['nameTxt' + cell.index].text = houseCellDef.Des + "：";
 					}
 				}
 			}
+
 			// this.guestRoom.text = data.housecells
 		}
 		protected beforeShow() {
 			super.beforeShow();
 			this.sellBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSellBtnClick, this);
-			NotificationCenter.addObserver(this, this.onSellResult, "msg.GW2C_RetTradeHouse");
+			NotificationCenter.addObserver(this, this.onSellResult, PlayerModel.HOUSE_UPDATE);
 		}
 		protected beforeRemove() {
 			super.beforeRemove();
 			this.sellBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onSellBtnClick, this);
-			NotificationCenter.removeObserver(this, "msg.GW2C_RetTradeHouse");
+			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
 		}
 		private onNumChange() {
 			this.afterPriceLabel.text = numAddSpace(this.numController.nowNum * (1 - gameConfig.tradeTaxRate)) + "金币";
@@ -130,21 +131,13 @@ module game {
 			let price: number = this.numController.nowNum;
 			if (price <= 0) {
 				//价格不合法 提示 todo
+				showTips("价格必须大于0!");
 				return;
 			}
 			data.price = price;
 			sendMessage("msg.C2GW_TradeHouse", msg.C2GW_TradeHouse.encode(data));
 		}
-		private onSellResult(data: msg.GW2C_RetTradeHouse) { //刷新我的房产
-			let houseList: msg.HouseData[] = DataManager.playerModel.getHouse();
-			for (let house of houseList) {
-				if (house.id == data.tradeuid) {
-					house.tradeendtime = SysTimeEventManager.getInstance().systimeNum + gameConfig.tradeTime;
-					house.issell = true;
-					NotificationCenter.postNotification("TradeHouseSuccess", house);
-					break;
-				}
-			}
+		private onSellResult(data: msg.GW2C_UpdateHouseDataOne) { //刷新我的房产
 			this.remove();//todo
 		}
 

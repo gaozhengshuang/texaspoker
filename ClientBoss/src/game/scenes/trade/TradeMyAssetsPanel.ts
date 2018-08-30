@@ -20,7 +20,7 @@ module game {
 		}
 		protected init() {
 			this._dp = new eui.ArrayCollection();
-
+			this.scroller.setViewPort();
 			this.titlePanel.init(this.remove, this);
 		}
 		protected beforeShow() {
@@ -31,6 +31,7 @@ module game {
 		}
 		public setData(flag: TradePanelFlag) {
 			this._flag = flag;
+			this.titlePanel.updateUserInfo(DataManager.playerModel.getUserInfo());
 			switch (flag) {
 				case TradePanelFlag.House:
 					this.desLabel.text = '我的房产';

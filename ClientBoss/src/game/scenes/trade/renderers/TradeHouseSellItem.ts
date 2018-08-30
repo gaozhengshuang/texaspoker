@@ -22,8 +22,7 @@ module game {
 			this.buyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyClick, this);
 			this.posTxt.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPosTxt, this);
 			TickUtil.AddSecondsInvoke(this.onTimeCountDown, this);
-			NotificationCenter.addObserver(this, this.onRefreshItem, "TradeHouseSuccess");
-			NotificationCenter.addObserver(this, this.onCancel, PlayerModel.HOUSE_UPDATE);
+			NotificationCenter.addObserver(this, this.onRefreshItem, PlayerModel.HOUSE_UPDATE);
 			this.update();
 		}
 		private onRemove() {
@@ -31,7 +30,6 @@ module game {
 			this.buyBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyClick, this);
 			this.posTxt.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onPosTxt, this);
 			TickUtil.RemoveSecondsInvoke(this.onTimeCountDown, this);
-			NotificationCenter.removeObserver(this, "TradeHouseSuccess");
 			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
 		}
 		private update() {
@@ -97,14 +95,9 @@ module game {
 				TickUtil.RemoveSecondsInvoke(this.onTimeCountDown, this);
 			}
 		}
-		private onRefreshItem(data: msg.HouseData) {
-			if (data.id == this.data.id) {
+		private onRefreshItem(data: msg.GW2C_UpdateHouseDataOne) {
+			if (data.houseuid == this.data.id) {
 				this.update();
-			}
-		}
-		private onCancel(data: msg.GW2C_UpdateHouseDataOne) {
-			if ((this.data as msg.HouseData).id == data.houseuid) {
-				this.hideTakeBack();
 			}
 		}
 		private hideTakeBack() {
