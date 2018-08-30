@@ -379,7 +379,7 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 	for _, v := range this.housecells {
 		v.ownerid = user.Id()
 	}
-	HouseSvrMgr().AddUserHouse(this.ownerid, this.id)
+	HouseSvrMgr().AddUserHouse(this.ownerid, this)
 	user.UpdateHouseDataById(this.id, false)
 }
 
@@ -503,7 +503,7 @@ func (this *HouseData) ResetRobcheckflag() {
 //房屋管理器
 type HouseManager struct {
 	houses map[uint64]*HouseData //已加载的所有房屋的map
-	userhouses map[uint64]map[uint64]uint64 //玩家id 关联的房屋id
+	userhouses map[uint64]map[uint64]*HouseData //玩家id 关联的房屋id
 	housesIdList []uint64 //所有房屋id列表
 	nobuildinghouseIds []uint64 //仅租房的房屋id列表
 }
@@ -511,7 +511,7 @@ type HouseManager struct {
 func (this *HouseManager) Init() {
 	log.Info("HouseManager Init")
 	this.houses = make(map[uint64]*HouseData)
-	this.userhouses = make(map[uint64]map[uint64]uint64)
+	this.userhouses = make(map[uint64]map[uint64]*HouseData)
 	this.housesIdList = make([]uint64, 0)
 	this.nobuildinghouseIds = make([]uint64, 0)
 	this.LoadDB()
@@ -559,18 +559,19 @@ func (this *HouseManager) GetHouse(houseid uint64) *HouseData {
 }
 
 //获取玩家关联的房屋
-func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
-	data := make([]*HouseData, 0)
+func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
+	data := make(map[uint64]*HouseData)
 	if _, ok := this.userhouses[uid]; ok {
-		ids := this.userhouses[uid]
+		return this.userhouses[uid]
+		/*
 		for _, v := range ids {
 			tmp := this.GetHouse(v)
 			if tmp != nil {
-				data = append(data, tmp)
+				data[tmp.id] = tmp
 			}
 		}
+		*/
 	}
-
 	return data
 }
 
@@ -644,15 +645,18 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 			this.nobuildinghouseIds = append(this.nobuildinghouseIds, house.id)
 		}
 	}
-	this.AddUserHouse(house.ownerid, house.id)
+	this.AddUserHouse(house.ownerid, house)
 }
 
-func (this *HouseManager) AddUserHouse(userid uint64, houseid uint64){
+func (this *HouseManager) AddUserHouse(userid uint64, house *HouseData){
+	if house == nil {
+		return
+	}
 	if _, ok := this.userhouses[userid]; ok {
-		this.userhouses[userid][houseid] = houseid
+		this.userhouses[userid][house.id] = house
 	} else {
-		this.userhouses[userid] = make(map[uint64]uint64)
-		this.userhouses[userid][houseid] = houseid
+		this.userhouses[userid] = make(map[uint64]*HouseData)
+		this.userhouses[userid][house.id] = house
 	}
 }
 

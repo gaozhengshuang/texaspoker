@@ -114,11 +114,11 @@ module game {
 			this.typeFilter.visible = false;
 
 			this.context.housePriceBtn.onShow();
-			NotificationCenter.addObserver(this, this.onTradeList, 'GW2C_RetHouseTradeList');
+			NotificationCenter.addObserver(this, this.onTradeList, 'msg.GW2C_RetHouseTradeList');
 		}
 		public beforeRemove() {
 			super.beforeRemove();
-			NotificationCenter.removeObserver(this, 'GW2C_RetHouseTradeList');
+			NotificationCenter.removeObserver(this, 'msg.GW2C_RetHouseTradeList');
 		}
 		public onClickHandler(event: egret.TouchEvent) {
 			switch (event.target) {
@@ -149,7 +149,8 @@ module game {
 					break;
 				case this.context.sellBtn:
 					if (this.context.panelFlag == TradePanelFlag.House) { //出售房产
-
+						openPanel(PanelType.TradeMyAssetsPanel);
+						TradeMyAssetsPanel.getInstance().setData(TradePanelFlag.House);
 					}
 					break;
 			}
@@ -199,7 +200,7 @@ module game {
 		/**
 		 * 请求数据
 		 */
-		private startReqTradeList() {
+		public startReqTradeList() {
 			let data: msg.C2GW_ReqHouseTradeList = new msg.C2GW_ReqHouseTradeList();
 			// let data: any = {};
 			let pro = this.selectProvince;

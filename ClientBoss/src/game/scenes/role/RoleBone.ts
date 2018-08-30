@@ -17,6 +17,9 @@ module game {
         private _girlBone   : SkeletonBase;
         private _boyBone    : SkeletonBase;
 
+        private _sex         : SexType;
+        private _clothes     : msg.IItemData[];
+
         protected getSkinName()
         {
             return RoleBoneSkin;
@@ -26,6 +29,11 @@ module game {
         }
 
         protected beforeShow() {
+        }
+
+        public initRoleData(sex:SexType, clothes:msg.IItemData[]) {
+            this._sex = sex;
+            this._clothes = clothes;
         }
         
         public resetParts() {
@@ -53,7 +61,7 @@ module game {
             this.changeSlotsInSuit(slotNames, suit);
 
             //强制重置替换左右手贴图
-            let suitName = DataManager.playerModel.sex == SexType.Girl ? "girl_suit2" :"boy_suit2";
+            let suitName = this._sex == SexType.Girl ? "girl_suit2" :"boy_suit2";
             this.changeSlotsInSuit(["body1_1_02","body1_1_04"], suitName);
         }
 
@@ -71,9 +79,9 @@ module game {
         }
     
         //TODO: 切换模型骨骼
-        public async useGirlSpine(sex: SexType, action: actionType) {
+        public async useGirlSpine(action: actionType) {
             hideAllChildren(this.grp_role);
-            if (sex == SexType.Girl) {
+            if (this._sex == SexType.Girl) {
                 if (!this._girlBone) {
                     this._girlBone = await game.getBone("girl");
                     this.grp_role.addChild(this._girlBone);
@@ -97,11 +105,11 @@ module game {
             let r = 1;
             switch(action) {
                 case actionType.Game:
-                    if(DataManager.playerModel.sex == SexType.Girl)
+                    if(this._sex == SexType.Girl)
                     {
                         if(!this._girlBone) return;
                     }
-                    else if(DataManager.playerModel.sex == SexType.Boy)
+                    else if(this._sex == SexType.Boy)
                     {
                         if(!this._boyBone) return;                      
                     }
@@ -111,7 +119,7 @@ module game {
 
                 case actionType.Idle:
                     r = randRange(1, this._girlBone.animNum);
-                    let suitName = DataManager.playerModel.sex == SexType.Girl ? "girl_suit2" :"boy_suit2";
+                    let suitName = this._sex == SexType.Girl ? "girl_suit2" :"boy_suit2";
                     this.changeSlotsInSuit(["body1_1_02","body1_1_04"], suitName);
                     break;
             }
@@ -122,7 +130,7 @@ module game {
 
         // 更新骨骼动画
         public updateBones() {
-            let clothes = DataManager.playerModel.clothes;
+            let clothes = this._clothes;
             if (!clothes) {
                 return;
             }
@@ -139,7 +147,7 @@ module game {
 
         private getBone() {
             let bone = this._girlBone;
-            if (DataManager.playerModel.sex == SexType.Boy) {
+            if (this._sex == SexType.Boy) {
                 bone = this._boyBone;
             }
             return bone;

@@ -106,6 +106,14 @@ func (this *CarData) GetRewardPerM() uint32{
 	//TODO 
 	return 0
 }
+//获得车辆品牌
+func (this *CarData) GetCarBrand() uint32 {
+	return 0;
+}
+//获得车辆型号
+func (this *CarData) GetCarModel() uint32 {
+	return 0;
+}
 
 //车位信息
 type ParkingData struct {
@@ -359,9 +367,11 @@ func (this *CarManager) GetCarHouseId(carid uint64) uint64 {
 
 	houses := HouseSvrMgr().GetHousesByUser(car.ownerid)
 	if len(houses) != 0 {
-		return houses[0].id
+		//return houses[0].id
+		for _, v := range houses {
+			return v.id
+		}
 	}
-
 	return 0
 }
 
@@ -437,27 +447,28 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 }
 
 func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
-	prefix, data := "", ""
-	switch opttype {
-	case uint32(msg.CarOperatorType_Park):
-		//停车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-		data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
-		break
-	case uint32(msg.CarOperatorType_TakeBack):
-		//收车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
-		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
-		break
-	case uint32(msg.CarOperatorType_Ticket):
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-		data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
-		break
-	case uint32(msg.CarOperatorType_AutoBack):
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
-		data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
-		break
-	}
+	data := ""
+	//prefix, data := "", ""
+	//switch opttype {
+	//case uint32(msg.CarOperatorType_Park):
+	//	//停车
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+	//	data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
+	//	break
+	//case uint32(msg.CarOperatorType_TakeBack):
+	//	//收车
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
+	//	data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
+	//	break
+	//case uint32(msg.CarOperatorType_Ticket):
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+	//	data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
+	//	break
+	//case uint32(msg.CarOperatorType_AutoBack):
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
+	//	data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
+	//	break
+	//}
 	// 保存数据
 	key := fmt.Sprintf("parkingrecord_%d", ownerid)
 	err := Redis().RPush(key, data).Err()

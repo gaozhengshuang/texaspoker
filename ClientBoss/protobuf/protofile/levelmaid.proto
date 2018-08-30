@@ -34,7 +34,10 @@ message TLevelMaidDefine
 	optional int64 ProduceTime = 5; // 单周期生产时间（单位秒）
 	
 	
-	optional int32 NextLevel = 6; // 下一等级
+	repeated string ProduceItem = 6; // 产出额外道具(道具id-万分比权重;道具id-万分比权重)
+	
+	
+	optional int32 NextLevel = 7; // 下一等级
 
 }
 

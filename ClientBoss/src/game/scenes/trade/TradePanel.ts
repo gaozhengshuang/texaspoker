@@ -148,6 +148,14 @@ module game {
 			TradeManager.getInstance().tradeRecordInfo = data;
 			openPanel(PanelType.TradeRecordPanel);
 		}
+		/**
+		 * 请求交易列表
+		 */
+		public startReqTradeList()
+		{
+			this._tradeHouseVst.startReqTradeList();
+		}
+
 		private static _instance: TradePanel = null;
 		public static getInstance(): TradePanel {
 			if (!TradePanel._instance) {
