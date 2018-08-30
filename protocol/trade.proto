@@ -1,11 +1,13 @@
 syntax = "proto2";
 package msg;
 
+////////////////////////////////////////////////房屋交易/////////////////////////////////////////////
+
 enum TradeState {
     Tradeing = 1;       //交易中
     CanReward = 2;      //交易完成能领金币
-    SellOk = 3;         //买成功
-    BuyOk = 4;          //卖成功
+    SellOk = 3;         //卖成功
+    BuyOk = 4;          //买成功
     TradeCancel = 5;    //交易取消 
 }
 
@@ -122,4 +124,93 @@ message GW2C_RetCancelTradeHouse
 {
     optional uint64 tradeuid = 2;
 }
+
+///////////////////////////////////////////////车辆交易////////////////////////////////////////////
+
+//请求车辆交易列表
+message C2GW_ReqCarTradeList
+{
+    optional uint32 cartype = 3;       //类型类型
+    optional uint32 pricemin = 4;        //价格区间小
+    optional uint32 pricemax = 5;        //价格区间大
+    optional uint32 carlevel = 6;      //汽车等级 1-5
+    optional string name = 7;           //汽车名字
+    optional bool pricedec = 8;         //价格降序
+    optional uint32 startnum = 9;       //开始行数 从0开始
+}
+
+//车辆交易信息
+message SimpleCarTrade
+{
+    optional uint64 tradeuid = 1;           //交易唯一id
+    optional uint32 caruid = 2;             //唯一id
+    optional uint32 price = 3;              //车辆总价
+    optional uint32 income = 4;             //车辆收益
+    optional uint32 carbaseid = 5;          //车辆表id
+    optional uint32 endtime = 6;            //交易结束时间
+    optional uint32 ownerid = 7;
+    optional uint32 carlevel = 8;           //车辆等级
+    optional uint32 cartype = 9;            //车辆类型
+    optional string name = 10;              //名字 
+}
+
+//返回车辆交易列表
+message GW2C_RetCarTradeList
+{
+    repeated SimpleCarTrade list = 1; //
+}
+
+//交易车辆
+message C2GW_TradeCar
+{
+    optional uint64 caruid = 1;             //汽车唯一id
+    optional uint32 price = 2;              //价格
+}
+
+//买车
+message C2GW_BuyTradeCar
+{
+    optional uint64 tradeuid = 1;
+    optional uint64 caruid = 2;
+}
+
+//查询交易记录
+message C2GW_ReqTradeCarHistory
+{
+}
+
+message TradeCarHistory
+{
+    optional uint64 tradeuid = 1;           //交易唯一id
+    optional uint64 caruid = 2;             //唯一id
+    optional uint32 price = 3;              //车辆总价
+    optional uint32 income = 4;             //车辆收益
+    optional uint32 carbaseid = 5;          //车辆表id
+    optional uint32 endtime = 6;            //交易结束时间
+    optional uint32 carlevel = 7;           //车辆等级
+    optional uint32 cartype = 8;            //车辆类型
+    optional uint32 state = 9;
+    optional uint32 tradetime = 10;
+}
+
+//返回交易记录
+message GW2C_RetTradeCarHistory
+{
+    repeated TradeCarHistory list = 1;    //交易列表
+}
+
+//领取交易奖励
+message C2GW_GetTradeCarReward
+{
+    optional uint64 tradeuid = 1;
+}
+
+//取消订单
+message C2GW_CancelTradeCar
+{
+    optional uint64 caruid = 1;
+}
+
+
+
 

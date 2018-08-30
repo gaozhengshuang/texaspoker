@@ -80,6 +80,13 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTradeHouseHistory{}, on_C2GW_ReqTradeHouseHistory)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeHouseReward{}, on_C2GW_GetTradeHouseReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeHouse{}, on_C2GW_CancelTradeHouse)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarTradeList{}, on_C2GW_ReqCarTradeList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TradeCar{}, on_C2GW_TradeCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_BuyTradeCar{}, on_C2GW_BuyTradeCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTradeCarHistory{}, on_C2GW_ReqTradeCarHistory)
+	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeCarReward{}, on_C2GW_GetTradeCarReward)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeCar{}, on_C2GW_CancelTradeCar)
+
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseData{}, on_C2GW_ReqHouseData)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseLevelUp{}, on_C2GW_ReqHouseLevelUp)
@@ -174,6 +181,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeHouseReward{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCancelTradeHouse{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateHouseDataOne{})
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateCar{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCarTradeList{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetTradeCarHistory{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
@@ -952,6 +962,8 @@ func on_C2GW_TakeMaidEarning(session network.IBaseNetSession, message interface{
 	}
 	MaidMgr().TakeMaidEarning(user, tmsg.GetId())
 }
+
+// 掠夺女仆
 func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_RobMaid)
 	user := ExtractSessionUser(session)
@@ -962,11 +974,30 @@ func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
 	}
 	MaidMgr().RobMaid(user, tmsg.GetId(), tmsg.GetDropto())
 }
+
+// 夺回自己的女仆
 func on_C2GW_TackBackMaid(session network.IBaseNetSession, message interface{}) {
-}
-func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_RobMaid)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().TackBackMaid(user, tmsg.GetId())
 }
 
+// 送回夺取的女仆
+func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_SendBackMaid)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().SendBackMaid(user, tmsg.GetId())
+}
 
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
@@ -1223,6 +1254,7 @@ func on_C2GW_ReqHouseDataByHouseId(session network.IBaseNetSession, message inte
 		return
 	}
 	houseid := tmsg.GetHouseid()
+	MaidMgr().SendHouseMaids(user, houseid)
 	user.ReqHouseDataByHouseId(houseid)
 }
 
@@ -1282,7 +1314,7 @@ func on_C2GW_BuyTradeHouse(session network.IBaseNetSession, message interface{})
 		session.Close()
 		return
 	}
-	user.BuyTradeHouse(tmsg.GetTradeuid())
+	user.BuyTradeHouse(tmsg.GetTradeuid(), tmsg.GetHouseuid())
 }
 
 func on_C2GW_ReqTradeHouseHistory(session network.IBaseNetSession, message interface{}) {
@@ -1315,5 +1347,70 @@ func on_C2GW_GetTradeHouseReward(session network.IBaseNetSession, message interf
 		return
 	}
 	user.GetTradeHouseReward(tmsg.GetTradeuid())
+}
+
+func on_C2GW_ReqCarTradeList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqCarTradeList)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.ReqTradeCarList(tmsg)
+}
+
+func on_C2GW_TradeCar(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_TradeCar)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.TradeCar(tmsg.GetCaruid(), tmsg.GetPrice())
+}
+
+func on_C2GW_BuyTradeCar(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_BuyTradeCar)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.BuyTradeCar(tmsg.GetTradeuid(), tmsg.GetCaruid())
+}
+
+func on_C2GW_ReqTradeCarHistory(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.ReqTradeCarHistory()
+}
+
+func on_C2GW_CancelTradeCar(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CancelTradeCar)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.CancelTradeCar(tmsg.GetCaruid())
+}
+
+func on_C2GW_GetTradeCarReward(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_GetTradeCarReward)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.GetTradeCarReward(tmsg.GetTradeuid())
 }
 
