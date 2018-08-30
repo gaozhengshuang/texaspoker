@@ -970,11 +970,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	partData.Level = pb.Uint32(targetlevel)
 	partData.Exp = pb.Uint32(targetExp)
 	if leveluped {
-		//重新计算星级 后面要主动升星 
-		targetStar := car.GetMinPartsLevel()
-		if targetStar != car.GetStar() {
-			car.data.Star = pb.Uint32(targetStar)
-		}
+		//重新计算星级 
 		attr := this.CalculateCarAttribute(car.data)
 		car.SetAttribute(attr)
 	}
@@ -985,6 +981,32 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	}
 	car.data.Price = pb.Uint32(car.data.GetPrice() + costMoney)
 
+	return 0,car.data
+}
+
+func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,data *msg.CarData){
+	car := this.GetCar(carid)
+	if car == nil {
+		user.SendNotify("没有这辆车")
+		return 1,nil
+	}
+	if car.data.GetState() != uint32(msg.CarState_Ready) {
+		user.SendNotify(fmt.Sprintf("当前状态不可以升级 : %d", car.data.GetState()))
+		return 2,nil
+	}
+	template := this.GetCarTemplate(car.GetTid())
+	if template == nil {
+		user.SendNotify(fmt.Sprintf("没有这辆车的配置 : %d", car.GetTid()))
+		return 3,nil
+	}
+	starLimit := uint32(math.Min(float64(car.GetMinPartsLevel(),template.MaxStar)))
+	if car.GetStar() >= starLimit {
+		user.SendNotify("已经满星了")
+		return 4,nil
+	}
+	car.data.Star = pb.Uint32(car.GetStar() + 1)
+	attr := this.CalculateCarAttribute(car.data)
+	car.SetAttribute(attr)
 	return 0,car.data
 }
 
