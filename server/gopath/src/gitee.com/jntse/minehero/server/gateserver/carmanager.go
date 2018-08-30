@@ -396,6 +396,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	data.Createtime = pb.Uint64(uint64(util.CURTIMEMS()))
 	data.Parkingid = pb.Uint64(0)
 	data.Ownername = pb.String(name)
+	data.Reward = &msg.CarReward{}
 	data.Reward.Money = pb.Uint32(0)
 	data.Star = pb.Uint32(0)
 	data.State = pb.Uint32(uint32(msg.CarState_Idle))
@@ -404,6 +405,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	data.Latitude = pb.Float32(0.0)
 	data.Longitude = pb.Float32(0.0)
 	//创建部件
+	data.Parts = make([]*msg.CarPartData, 0)
 	this.CreateCarPart(template.Tyre,uint32(msg.CarPartType_Tyre),data)
 	this.CreateCarPart(template.Tank,uint32(msg.CarPartType_Tank),data)
 	this.CreateCarPart(template.Trunk,uint32(msg.CarPartType_Trunk),data)
@@ -412,6 +414,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	//计算属性
 	attr := this.CalculateCarAttribute(data)
 	car.data = data
+	data.Attr = &msg.CarAttribute{}
 	car.SetAttribute(attr)
 
 	car.modified = false
