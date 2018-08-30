@@ -104,7 +104,8 @@ module game {
                     }
                 }
                 if (haveHouse > 0) {
-                    obj = { state: 2, time: Math.round(haveHouse / 60) };
+                    egret.log("time-->",haveHouse,SysTimeEventManager.getInstance().systimeNum);
+                    obj = { state: 2, time: Math.round((haveHouse-SysTimeEventManager.getInstance().systimeNum) / 60) };
                     return obj;
                 }
                 obj = { state: 3 }

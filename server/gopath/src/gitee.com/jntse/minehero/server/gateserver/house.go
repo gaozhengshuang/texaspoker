@@ -718,6 +718,7 @@ func (this *HouseManager) HouseCellLevelUp(userid uint64, houseid uint64, index 
 		}
 		if cell.LevelUp() {
 			this.SyncUserHouseData(userid)
+			house.SaveBin(nil)
 			return 1
 		} else {
 			return 0

@@ -5,8 +5,8 @@
 package table;
 
 
-// Defined in table: LevelMaid
-message LevelMaid
+// Defined in table: LevelMaidBase
+message LevelMaidBase
 {	
 	
 	
