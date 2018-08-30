@@ -150,6 +150,7 @@ module game {
 				case this.context.sellBtn:
 					if (this.context.panelFlag == TradePanelFlag.House) { //出售房产
 						openPanel(PanelType.TradeMyAssetsPanel);
+						TradeMyAssetsPanel.getInstance().setData(TradePanelFlag.House);
 					}
 					break;
 			}

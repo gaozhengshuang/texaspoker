@@ -53,7 +53,7 @@ module game {
 			if (method == null || TickUtil.isExists(TickUtil._frameList, method, thisObject)) {
 				return;
 			}
-			TickUtil._frameList.push(new CallBackHandler(method, thisObject));
+			TickUtil._frameList.push(new CallBackHandler(thisObject, method));
 		}
 
 		/**
@@ -69,7 +69,7 @@ module game {
 			if (method == null || TickUtil.isExists(TickUtil._secondsList, method, thisObject)) {
 				return;
 			}
-			TickUtil._secondsList.push(new CallBackHandler(method, thisObject));
+			TickUtil._secondsList.push(new CallBackHandler(thisObject, method));
 		}
 
 		/**

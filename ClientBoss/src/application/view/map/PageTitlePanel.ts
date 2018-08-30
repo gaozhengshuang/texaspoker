@@ -42,7 +42,7 @@ module game {
         }
         private return_begin() {
             if (this.returnFun && this.returnBody) {
-                this.returnFun.call(this,this.returnBody);
+                this.returnFun.call(this.returnBody);
             }
         }
         public returnBtnShow(flag: boolean) {

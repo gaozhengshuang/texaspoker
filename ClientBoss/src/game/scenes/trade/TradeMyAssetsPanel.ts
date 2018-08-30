@@ -7,16 +7,21 @@ module game {
 		desLabel: eui.Label;
 		scroller: utils.VScrollerPanel;
 		titlePanel: PageTitlePanel;
-
 		private _dp: eui.ArrayCollection;
 
 		private _flag: TradePanelFlag;
 
+
 		public constructor() {
 			super();
 		}
+		protected getSkinName() {
+			return TradeMyAssetsPanelSkin;
+		}
 		protected init() {
 			this._dp = new eui.ArrayCollection();
+
+			this.titlePanel.init(this.remove, this);
 		}
 		protected beforeShow() {
 			NotificationCenter.addObserver(this, this.onRefreshHouse, PlayerModel.HOUSE_UPDATE);
@@ -30,7 +35,15 @@ module game {
 				case TradePanelFlag.House:
 					this.desLabel.text = '我的房产';
 					this.scroller.initItemRenderer(TradeHouseSellItem);
-					this._dp.source = DataManager.playerModel.getHouse();
+					let list = [];
+					let house: msg.HouseData[] = DataManager.playerModel.getHouse();
+					for (let i: number = 0; i < house.length; i++) {
+						let data = house[i];
+						if (data.buildingid > 0) {
+							list.push(data);
+						}
+					}
+					this._dp.source = list;
 					break;
 				case TradePanelFlag.Car:
 					this.desLabel.text = '我的车库';
