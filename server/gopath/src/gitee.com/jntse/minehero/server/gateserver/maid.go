@@ -638,3 +638,40 @@ func (ma *MaidManager) ItemProduce(user *GateUser, maid *Maid, reason string) {
 	user.AddItem(uint32(uid), uint32(num), reason, true)
 }
 
+// 夺回自己的女仆
+func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
+	if user == nil { return }
+	maid := ma.GetMaidsById(uid)
+	if maid == nil {
+		user.SendNotify("不存在的女仆")
+		return
+	}
+
+	house := HouseSvrMgr().GetHouse(maid.HouseId())
+	if house == nil {
+		user.SendNotify("女仆所在的房屋无效")
+		return
+	}
+
+	if house.ownerid == user.Id() {
+		user.SendNotify("这是您的房屋")
+		return
+	}
+
+	if house.id != maid.HouseId() {
+		user.SendNotify("女仆不在这个房屋")
+		return
+	}
+
+	if maid.OwnerId() == user.Id() {
+		user.SendNotify("这是您自己的女仆")
+		return
+	}
+
+	if maid.RobberId() != 0 {
+		user.SendNotify("掠夺来的女仆不能抢走")
+		return
+	}
+}
+
+
