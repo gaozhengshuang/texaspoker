@@ -252,6 +252,9 @@ type HouseData struct {
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
 	area		 uint32	//面积
 	issell		 bool	//出售
+	income		 uint32 //收益
+	tradeendtime uint32 //交易结束时间
+	sumvalue	 uint32 //总价值
 	ticker1Sec *util.GameTicker
 }
 
@@ -284,6 +287,9 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	}
 	this.area = bin.GetArea()
 	this.issell = bin.GetIssell()
+	this.income = bin.GetIncome()
+	this.tradeendtime = bin.GetTradeendtime()
+	this.sumvalue = bin.GetSumvalue()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -319,6 +325,9 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	}
 	bin.Area = pb.Uint32(this.area)
 	bin.Issell = pb.Bool(this.issell)
+	bin.Income = pb.Uint32(this.income)
+	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
+	bin.Sumvalue = pb.Uint32(this.sumvalue)
 	return bin
 }
 
@@ -553,7 +562,7 @@ func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32, square uint32) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32, square uint32, cost uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -601,6 +610,8 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.buildingid = buildingid
 	house.roommember = roommember
 	house.area = square
+	house.sumvalue = cost
+	house.income = house.GetIncome()
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
@@ -872,6 +883,8 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 			send.Ret = pb.Uint32(ret)
 			send.Data = house.PackBin()
 			this.SendMsg(send)
+			house.sumvalue += needgold
+			house.income = house.GetIncome()
 		}
 	} else {
 		log.Error("HouseLevelUp house not found id:%d", houseid)
@@ -939,7 +952,8 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					send.Ret = pb.Uint32(ret)
 					send.Data = house.PackBin()
 					this.SendMsg(send)
-
+					house.sumvalue += needgold
+					house.income = house.GetIncome()
 				}
 				return
 			}

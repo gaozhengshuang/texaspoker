@@ -578,7 +578,7 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0, 0, 0)
+	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0, 0, 0, 0)
 
 	if houseData != nil {
 		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
