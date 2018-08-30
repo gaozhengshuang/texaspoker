@@ -56,8 +56,7 @@ func (this *CarData) TakeBack(parking *ParkingData) {
 		//从公共车位回到我自己的车位上
 		this.data.Parkingid = pb.Uint64(parking.data.GetId())
 		this.data.State = pb.Uint32(uint32(msg.CarState_Ready))
-	}
-	else {
+	} else {
 		//下阵了
 		this.data.Parkingid = pb.Uint64(0)
 		this.data.State = pb.Uint32(uint32(msg.CarState_Idle))
@@ -712,7 +711,7 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 		privateParkings := this.GetParkingByUser(user.Id())
 		takebacked := false
 		for _, v := range privateParkings {
-			if v.data.GetParkingcar() == car.data.Getid() {
+			if v.data.GetParkingcar() == car.data.GetId() {
 				car.TakeBack(v)
 				takebacked = true
 				break;
