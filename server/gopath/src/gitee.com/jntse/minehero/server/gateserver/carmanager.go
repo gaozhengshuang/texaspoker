@@ -134,6 +134,14 @@ func (this *CarData) UpdateReward(now uint64) {
 	}
 }
 
+func (this *CarData) GetMinPartsLevel() uint32 {
+	ret := uint32(100)
+	for _, v := range this.data.GetParts() {
+		ret = uint32(math.Min(float64(ret), float64(v.GetLevel())))
+	}
+	return ret
+}
+
 func (this *CarData) PackBin() *msg.CarData {
 	return this.data
 }
@@ -398,7 +406,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	data.Ownername = pb.String(name)
 	data.Reward = &msg.CarReward{}
 	data.Reward.Money = pb.Uint32(0)
-	data.Star = pb.Uint32(0)
+	data.Star = pb.Uint32(1)
 	data.State = pb.Uint32(uint32(msg.CarState_Idle))
 	data.Starttime = pb.Uint64(0)
 	data.Endtime = pb.Uint64(0)
@@ -456,6 +464,16 @@ func (this *CarManager) CalculateCarAttribute (data *msg.CarData) *msg.CarAttrib
 		}
 	}
 	//星级属性 暂未
+	carstartattr,find := tbl.TCarStarAttrBase.TCarStarAttrById[data.GetTid()]
+	if find {
+		// 是有星级属性的
+		attr.Reward = pb.Uint32(attr.GetReward() + (carstartattr.RewardInit + carstartattr.RewardAddition * v.GetStar()))
+		attr.Range = pb.Uint32(attr.GetRange() + (carstartattr.RangeInit + carstartattr.RangeAddition * v.GetStar()))
+		attr.Itemlimit = pb.Uint32(attr.GetItemlimit() + (carstartattr.ItemLimitInit + carstartattr.ItemLimitAddition * v.GetStar()))
+		attr.Moneylimit = pb.Uint32(attr.GetMoneylimit() + (carstartattr.MoneyLimitInit + carstartattr.MoneyLimitAddition * v.GetStar()))
+		attr.Speed = pb.Uint32(attr.GetSpeed() + (carstartattr.SpeedInit + carstartattr.SpeedAddition * v.GetStar()))
+		attr.Stoptime = pb.Uint32(attr.GetStoptime() + (carstartattr.StopTimeInit + carstartattr.StopTimeAddition * v.GetStar()))
+	}
 	return attr
 }
 
@@ -865,6 +883,11 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	partData.Level = pb.Uint32(targetlevel)
 	partData.Exp = pb.Uint32(targetExp)
 	if leveluped {
+		//重新计算星级 后面要主动升星 
+		targetStar := car.GetMinPartsLevel()
+		if targetStar != car.GetStar() {
+			car.data.Star = pb.Uint32(targetStar)
+		}
 		attr := this.CalculateCarAttribute(car.data)
 		car.SetAttribute(attr)
 	}
