@@ -37,39 +37,38 @@ module game {
 		private update() {
 			let data: msg.HouseData = this.data;
 
-				this.priceLabel.text = numAddSpace(data.sumvalue) + "金币";
-				this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";
-				this.unitPrice.text = numAddSpace(Math.floor(data.sumvalue / data.area)) + "金币";
+			this.priceLabel.text = numAddSpace(data.sumvalue) + "金币";
+			this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";
+			this.unitPrice.text = numAddSpace(Math.floor(data.sumvalue / data.area)) + "金币";
 
 
-				let buildingDef = TradeManager.getInstance().getBuildingDefById(data.buildingid);
-				if (buildingDef) {
+			let buildingDef = TradeManager.getInstance().getBuildingDefById(data.buildingid);
+			if (buildingDef) {
 
-					let houseDef = TradeManager.getInstance().getHouseDefine(data.tid);
-					if (houseDef) {
-						this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
-						this.icon.show({ name: buildingDef.Community, icon: houseDef.ImageId.toString(), star: data.level, type: TradeIconType.House }); //todo
-					}
-					let posName = '';
-					let province = TradeManager.getInstance().getCityDefine(buildingDef.Province);
-					if (province) {
-						posName = province.Name;
-					}
-					let city = TradeManager.getInstance().getCityDefine(buildingDef.City);
-					if (city) {
-						posName += city.Name;
-					}
-					// this.posTxt.text = posName;
-					this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
+				let houseDef = TradeManager.getInstance().getHouseDefine(data.tid);
+				if (houseDef) {
+					this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
+					this.icon.show({ name: buildingDef.Community, icon: houseDef.ImageId.toString(), star: data.level, type: TradeIconType.House }); //todo
 				}
+				let posName = '';
+				let province = TradeManager.getInstance().getCityDefine(buildingDef.Province);
+				if (province) {
+					posName = province.Name;
+				}
+				let city = TradeManager.getInstance().getCityDefine(buildingDef.City);
+				if (city) {
+					posName += city.Name;
+				}
+				// this.posTxt.text = posName;
+				this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
+			}
 
-				this.onSellFlag.visible = false;
-				if (data.issell) {
-					this.showTakeBack();
-				}
-				else {
-					this.hideTakeBack();
-				}
+			this.onSellFlag.visible = false;
+			if (data.issell) {
+				this.showTakeBack();
+			}
+			else {
+				this.hideTakeBack();
 			}
 		}
 		private onBuyClick() {
