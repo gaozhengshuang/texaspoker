@@ -125,8 +125,8 @@ module game {
         private select_begin(eve: BasicEvent) {
             this.showHuxingList();
         }
-        private return_begin(body:any) {
-            body.dispatchEvent(new BasicEvent(PageNewHouseView.CLOSE));
+        private return_begin() {
+            this.dispatchEvent(new BasicEvent(PageNewHouseView.CLOSE));
         }
 
         private huxingItemList: utils.ScrollerPanel;

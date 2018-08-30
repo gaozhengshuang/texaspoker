@@ -373,7 +373,6 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 	if exowner != nil {
 		exowner.UpdateHouseDataById(this.id, true)
 	}
-	HouseSvrMgr().SyncUserHouseData(this.ownerid)
 	this.ownerid = user.Id()
 	this.ownername = user.Name()
 	for _, v := range this.housecells {
@@ -381,6 +380,12 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 	}
 	HouseSvrMgr().AddUserHouse(this.ownerid, this)
 	user.UpdateHouseDataById(this.id, false)
+}
+
+func (this *HouseData) ClearTrade() {
+	this.tradeendtime = 0
+	this.tradeuid = 0
+	this.issell = false
 }
 
 //每秒的Tick回调

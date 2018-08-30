@@ -1304,7 +1304,7 @@ func on_C2GW_BuyTradeHouse(session network.IBaseNetSession, message interface{})
 		session.Close()
 		return
 	}
-	user.BuyTradeHouse(tmsg.GetTradeuid())
+	user.BuyTradeHouse(tmsg.GetTradeuid(), tmsg.GetHouseuid())
 }
 
 func on_C2GW_ReqTradeHouseHistory(session network.IBaseNetSession, message interface{}) {

@@ -101,6 +101,11 @@ module game {
 					let cell = data.housecells[i];
 					this.cellGroup.addChild(this["cell" + cell.index]);
 					this['lvlTxt' + cell.index].text = "Lv" + cell.level.toString();
+					
+					let houseCellDef = TradeManager.getInstance().getHouseCellDefine(cell.tid);
+					if (houseCellDef) {
+						this['nameTxt' + cell.index].text = houseCellDef.Des + "：";
+					}
 				}
 			}
 			// this.guestRoom.text = data.housecells

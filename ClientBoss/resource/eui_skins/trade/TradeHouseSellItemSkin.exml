@@ -6,7 +6,7 @@
 	</e:Button>
 	<e:Label id="posTxt" text="上海市闵行区" x="565.02" y="136" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center"/>
 	<e:Label id="timeLabel" text="00:00:00" x="546.68" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="2"/>
-	<e:Label text="交易结束" x="623" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="2"/>
+	<e:Label id="timeDesLabel" text="交易结束" x="623" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="2"/>
 	<e:Label id="typeTxt" text="1室厅1厨1卫(50平)" x="215" y="49" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="294" textColor="0x404A58" touchEnabled="false" strokeColor="0xffffff"/>
 	<e:Label id="priceLabel" text="500,000金币" x="299.32" y="13" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF"/>
 	<e:Label text="价格：" x="215" y="13" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF"/>

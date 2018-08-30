@@ -31,8 +31,26 @@ type CarData struct {
 	parkingreward uint32 // 停车收益(自动回收)
 	level		  uint32 //等级
 	modified      bool   //是否需要保存
-
+	tradeendtime  uint32
+	tradeuid	  uint64
 	template *table.TCarDefine
+}
+
+func (this *CarData) ChangeOwner(user *GateUser) {
+	CarMgr().DelCar(this)
+	exowner := UserMgr().FindById(this.ownerid)
+	if exowner != nil {
+		CarMgr().UpdateCarByID(exowner, this.id, true)
+	}
+	this.ownerid = user.Id()
+	this.ownername = user.Name()
+	CarMgr().AddCar(this)
+	CarMgr().UpdateCarByID(exowner, this.id, false)
+}
+
+func (this *CarData) ClearTrade() {
+	this.tradeendtime = 0
+	this.tradeuid = 0
 }
 
 func (this *CarData) LoadBin(rbuf []byte) error {
@@ -49,6 +67,8 @@ func (this *CarData) LoadBin(rbuf []byte) error {
 	this.ownername = bin.GetOwnername()
 	this.parkingreward = bin.GetParkingreward()
 	this.modified = false
+	this.tradeendtime = bin.GetTradeendtime()
+	this.tradeuid = bin.GetTradeuid()
 	template, find := tbl.TCarBase.TCarById[this.tid]
 	if find == false {
 		log.Error("玩家[%d] 找不到车辆配置[%d]", this.ownerid, this.tid)
@@ -76,6 +96,8 @@ func (this *CarData) PackBin() *msg.CarData {
 	bin.Parkingid = pb.Uint64(this.parkingid)
 	bin.Ownername = pb.String(this.ownername)
 	bin.Parkingreward = pb.Uint32(this.parkingreward)
+	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
+	bin.Tradeuid = pb.Uint64(this.tradeuid)
 	return bin
 }
 
@@ -105,6 +127,14 @@ func (this *CarData) GetStar() uint32{
 func (this *CarData) GetRewardPerM() uint32{
 	//TODO 
 	return 0
+}
+//获得车辆品牌
+func (this *CarData) GetCarBrand() uint32 {
+	return 0;
+}
+//获得车辆型号
+func (this *CarData) GetCarModel() uint32 {
+	return 0;
 }
 
 //车位信息
@@ -240,7 +270,7 @@ func (this *ParkingData) IsRewardFull(car *CarData) bool {
 //车辆管理器
 type CarManager struct {
 	cars     map[uint64]*CarData //已加载的所有车辆的map
-	usercars map[uint64][]uint64 //玩家id 关联的车辆id
+	usercars map[uint64]map[uint64]uint64 //玩家id 关联的车辆id
 
 	parkings       map[uint64]*ParkingData //已加载的所有车位map
 	userparkings   map[uint64][]uint64     //玩家id 关联的车位id
@@ -252,7 +282,7 @@ type CarManager struct {
 
 func (this *CarManager) Init() {
 	this.cars = make(map[uint64]*CarData)
-	this.usercars = make(map[uint64][]uint64)
+	this.usercars = make(map[uint64]map[uint64]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
 
@@ -401,9 +431,15 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 func (this *CarManager) AddCar(car *CarData) {
 	this.cars[car.id] = car
 	if _, ok := this.usercars[car.ownerid]; !ok {
-		this.usercars[car.ownerid] = make([]uint64, 0)
+		this.usercars[car.ownerid] = make(map[uint64]uint64)
 	}
-	this.usercars[car.ownerid] = append(this.usercars[car.ownerid], car.id)
+	this.usercars[car.ownerid][car.id] = car.id
+}
+
+func (this *CarManager) DelCar(car *CarData) {
+	if _, ok := this.usercars[car.ownerid]; ok {
+		delete(this.usercars[car.ownerid], car.id)
+	}
 }
 
 func (this *CarManager) GetCarByUser(uid uint64) []*CarData {
@@ -439,27 +475,28 @@ func (this *CarManager) GetRecordByUser(id uint64) []string {
 }
 
 func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *CarData, parking *ParkingData, opttype uint32, param uint32) string {
-	prefix, data := "", ""
-	switch opttype {
-	case uint32(msg.CarOperatorType_Park):
-		//停车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-		data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
-		break
-	case uint32(msg.CarOperatorType_TakeBack):
-		//收车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
-		data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
-		break
-	case uint32(msg.CarOperatorType_Ticket):
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
-		data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
-		break
-	case uint32(msg.CarOperatorType_AutoBack):
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
-		data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
-		break
-	}
+	data := ""
+	//prefix, data := "", ""
+	//switch opttype {
+	//case uint32(msg.CarOperatorType_Park):
+	//	//停车
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+	//	data = prefix + car.ownername + "将他的" + car.template.Brand + car.template.Model + "停在了你的车位"
+	//	break
+	//case uint32(msg.CarOperatorType_TakeBack):
+	//	//收车
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.id), time.Now().Format("15:04"))
+	//	data = prefix + car.ownername + "开走了他的" + car.template.Brand + car.template.Model
+	//	break
+	//case uint32(msg.CarOperatorType_Ticket):
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, parking.houseid, time.Now().Format("15:04"))
+	//	data = prefix + parking.ownername + "对你的" + car.template.Brand + car.template.Model + "贴条"
+	//	break
+	//case uint32(msg.CarOperatorType_AutoBack):
+	//	prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, 0, time.Now().Format("15:04"))
+	//	data = prefix + "公共车位收益满自动回收你的" + car.template.Brand + car.template.Model
+	//	break
+	//}
 	// 保存数据
 	key := fmt.Sprintf("parkingrecord_%d", ownerid)
 	err := Redis().RPush(key, data).Err()
@@ -573,6 +610,20 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
 	return parking
+}
+
+func (this *CarManager) UpdateCarByID(user *GateUser, carid uint64, del bool) {
+	car := this.GetCar(carid)
+	if car == nil {
+		return
+	}
+	send := &msg.GW2C_UpdateCar{}
+	send.Carid = pb.Uint64(car.id)
+	if del == false {
+		send.Data = car.PackBin()
+	}
+	send.Isdel = pb.Bool(del)
+	user.SendMsg(send)
 }
 
 func (this *CarManager) AddParking(parking *ParkingData) {

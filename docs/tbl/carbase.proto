@@ -22,10 +22,10 @@ message TCarDefine
 	optional uint32 Id = 1; // ID
 	
 	
-	optional string Brand = 2; // 品牌
+	optional uint32 Brand = 2; // 品牌
 	
 	
-	optional string Model = 3; // 型号
+	optional uint32 Model = 3; // 型号
 	
 	
 	optional uint32 Price = 4; // 价值
