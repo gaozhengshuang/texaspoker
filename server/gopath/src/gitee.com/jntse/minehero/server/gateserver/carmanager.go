@@ -359,9 +359,11 @@ func (this *CarManager) GetCarHouseId(carid uint64) uint64 {
 
 	houses := HouseSvrMgr().GetHousesByUser(car.ownerid)
 	if len(houses) != 0 {
-		return houses[0].id
+		//return houses[0].id
+		for _, v := range houses {
+			return v.id
+		}
 	}
-
 	return 0
 }
 
