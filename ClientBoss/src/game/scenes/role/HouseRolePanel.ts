@@ -13,6 +13,7 @@ module game {
 
         protected beforeShow() {
             this.registerEvent();
+            this.initRole();
         }
 
         protected beforeRemove() {
@@ -20,27 +21,32 @@ module game {
         }
 
         private registerEvent() {
-            // NotificationCenter.addObserver(this, this.OnMaidUpdate, PlayerModel.MAID_UPDATE);
+            this.grp_role.addEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
         }
 
         private removeEvent() {
-            // NotificationCenter.removeObserver(this, PlayerModel.MAID_UPDATE);
+            this.grp_role.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
         }
 
-        public initRole(maidInfo: msg.IHouseMaidData) {
-            this._maidInfo = maidInfo;
-            
+        public initRole() {
+            this._maidInfo = this.data;
+
             this._roleBone = new RoleBone();
-            this._roleBone.initRoleData(maidInfo.sex, maidInfo.clothes);
+            this._roleBone.initRoleData(this._maidInfo.sex, this._maidInfo.clothes);
             this._roleBone.scaleX = 0.3;
             this._roleBone.scaleY = 0.3;
             this.grp_role.addChild(this._roleBone);
-
             this._roleBone.useGirlSpine(actionType.Idle);
         }
 
         private updateView() {
             
+        }
+
+        private roleTouchEvent() {
+            if (this._maidInfo.ownerid == DataManager.playerModel.getUserId() && this._maidInfo.robberid == 0) {
+                openPanel(PanelType.dress);
+            }
         }
     }
 }
