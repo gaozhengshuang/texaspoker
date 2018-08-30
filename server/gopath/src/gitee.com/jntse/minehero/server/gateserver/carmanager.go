@@ -568,7 +568,7 @@ func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *Ca
 		break
 	case uint32(msg.CarOperatorType_TakeBack):
 		//收车
-		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.data.GetId(), time.Now().Format("15:04"))
+		prefix = fmt.Sprintf("%d_%d_%d_%s  ", handleid, opttype, this.GetCarHouseId(car.data.GetId()), time.Now().Format("15:04"))
 		data = prefix + car.data.GetOwnername() + "开走了他的" + brand + model
 		break
 	case uint32(msg.CarOperatorType_Ticket):
