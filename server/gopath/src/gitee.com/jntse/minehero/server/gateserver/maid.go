@@ -581,6 +581,7 @@ func (ma *MaidManager) GetCanDropRobMaidHouse(userid uint64) []*msg.HouseData {
 
 // 女仆动态
 func (ma *MaidManager) CreateMaidRecord() string {
+	return ""
 }
 
 
