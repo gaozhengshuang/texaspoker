@@ -40,7 +40,7 @@
 			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" source="shopItemButtonBg_png" right="0" left="0" top="0" bottom="0"/>
 		</e:Group>
 		<game:IconButton id="btn_level" width="80" height="68" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="243" bottom="6"/>
-		<e:Label id="levelUpLabel" text="0/10" textColor="0xc96b20" size="24" textAlign="center" horizontalCenter="245.5" bottom="7"/>
+		<e:Label id="levelUpLabel" text="0/10" textColor="0xc96b20" size="24" textAlign="center" horizontalCenter="245.5" bottom="7" touchEnabled="false"/>
 
 
 

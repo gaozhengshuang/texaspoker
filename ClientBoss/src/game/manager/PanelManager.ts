@@ -102,6 +102,9 @@ module game {
             case PanelType.TradeRecordPanel:
                 panel = TradeRecordPanel.getInstance();
                 break;
+            case PanelType.MaidLevelUp:
+                panel = RoleLevelUpPanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -137,6 +140,7 @@ module game {
         PageNewHouseHuxingView,
         MapBuildingPopupPanel,
         TradePanel,
-        TradeRecordPanel
+        TradeRecordPanel,
+        MaidLevelUp,
     }
 }

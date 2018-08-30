@@ -11,7 +11,8 @@ module game {
         static BAG_UPDATE = "PlayerModel_BAG_UPDATE";
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
-        static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE"
+        static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE";
+        static MAID_UPDATE = "MAID_UPDATE";
 
         public penetration: number = 0;
         public userInfo: IUserInfo = { 
@@ -91,6 +92,8 @@ module game {
                     break;
                 }
             }
+
+            NotificationCenter.postNotification(PlayerModel.MAID_UPDATE);
         }
 
         private OnGW2C_SendHouseMaidInfo(data: msg.GW2C_SendHouseMaidInfo) {

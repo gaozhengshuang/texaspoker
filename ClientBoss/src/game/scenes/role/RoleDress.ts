@@ -416,7 +416,7 @@ module game {
         }
 
         private OnLevelUpHandle() {
-
+            openPanel(PanelType.MaidLevelUp);
         }
 
         private OnCloseHandle() {
