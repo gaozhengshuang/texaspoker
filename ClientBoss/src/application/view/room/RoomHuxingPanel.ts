@@ -294,10 +294,12 @@ module game {
 						if (maidPos) {
 							let houseMaid = new HouseRolePanel();
 							this.addChild(houseMaid);
-							houseMaid.x = Number(maidPos[0]);
-							houseMaid.y = Number(maidPos[1]);
+							// houseMaid.x = Number(maidPos[0]);
+							// houseMaid.y = Number(maidPos[1]);
+							houseMaid.x = 100;
+							houseMaid.y = 20;
 
-							houseMaid.initRole(maidInfo);
+							houseMaid.show(maidInfo);
 						}
 					}
 				}
