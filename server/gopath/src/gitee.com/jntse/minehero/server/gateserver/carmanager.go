@@ -412,7 +412,7 @@ func (this *CarManager) GetCarHouseId(carid uint64) uint64 {
 }
 
 
-func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *CarData {
+func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string,price uint32) *CarData {
 	carid, errcode := def.GenerateCarId(Redis())
 	if errcode != "" {
 		log.Error("创建新的车辆生成新的车辆id出错，error:%s", errcode)
@@ -441,6 +441,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string) *C
 	data.Endtime = pb.Uint64(0)
 	data.Latitude = pb.Float32(0.0)
 	data.Longitude = pb.Float32(0.0)
+	data.Price = pb.Uint32(price)
 	//创建部件
 	data.Parts = make([]*msg.CarPartData, 0)
 	this.CreateCarPart(template.Tyre,uint32(msg.CarPartType_Tyre),data)
@@ -932,6 +933,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	for _,v := range pieces {
 		user.RemoveItem(v.GetId(),v.GetNum(),"车辆部件升级消耗碎片")
 	}
+	car.data.Price = pb.Uint32(car.data.GetPrice() + costMoney)
 
 	return 0,car.data
 }

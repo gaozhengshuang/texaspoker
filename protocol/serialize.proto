@@ -172,6 +172,7 @@ message CarData
     optional uint64 endtime = 13;           //预计结束时间
     optional float latitude = 14;           //维度
     optional float longitude = 15;          //经度
+    optional uint32 price = 16;             //价值
 }
 
 //车位信息
