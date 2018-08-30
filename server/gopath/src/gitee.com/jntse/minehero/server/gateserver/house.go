@@ -383,6 +383,12 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 	user.UpdateHouseDataById(this.id, false)
 }
 
+func (this *HouseData) ClearTrade() {
+	this.tradeendtime = 0
+	this.tradeuid = 0
+	this.issell = false
+}
+
 //每秒的Tick回调
 func (this *HouseData) Handler1SecTick(now int64) {
 	for _, v := range this.housecells {
