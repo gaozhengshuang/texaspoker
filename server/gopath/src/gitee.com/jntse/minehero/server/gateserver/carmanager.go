@@ -1069,6 +1069,7 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 	car.data.Star = pb.Uint32(car.GetStar() + 1)
 	attr := this.CalculateCarAttribute(car.data)
 	car.SetAttribute(attr)
+	car.data.Price = pb.Uint32(car.data.GetPrice() + starupCarBase.Money)
 	car.modified = true
 
 	//扣东西
