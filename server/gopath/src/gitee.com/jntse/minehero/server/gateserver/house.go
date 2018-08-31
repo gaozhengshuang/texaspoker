@@ -211,12 +211,13 @@ func (this *HouseCell) LevelUp() bool {
 
 //房屋访问者操作信息
 type HouseVisitInfo struct {
-	visitorid   uint64 //来访玩家的id
-	tmvisit     int64  //来访时间
-	optindex    uint32 //操作的房间编号
-	opttype     uint32 //操作类型 1主人收钱 2别人抢钱
-	optparam    uint32 //操作附加参数 例如主人收了多少钱 别人抢了多少钱
-	visitorname string //来访玩家的名字
+	visitorid   uint64 	//来访玩家的id
+	tmvisit     int64  	//来访时间
+	optindex    uint32 	//操作的房间编号
+	opttype     uint32 	//操作类型 1主人收钱 2别人抢钱
+	optparam    uint32 	//操作附加参数 例如主人收了多少钱 别人抢了多少钱
+	visitorname string 	//来访玩家的名字
+	visitorhouse uint64 	//来访玩家的house，用于直接拜访house
 }
 
 func (this *HouseVisitInfo) LoadBin(bin *msg.HouseVisitInfo) {
@@ -226,6 +227,7 @@ func (this *HouseVisitInfo) LoadBin(bin *msg.HouseVisitInfo) {
 	this.opttype = bin.GetOpttype()
 	this.optparam = bin.GetOptparam()
 	this.visitorname = bin.GetVisitorname()
+	this.visitorhouse = bin.GetVisitorhouse()
 }
 
 func (this *HouseVisitInfo) PackBin() *msg.HouseVisitInfo {
@@ -236,6 +238,7 @@ func (this *HouseVisitInfo) PackBin() *msg.HouseVisitInfo {
 	bin.Opttype = pb.Uint32(this.opttype)
 	bin.Optparam = pb.Uint32(this.optparam)
 	bin.Visitorname = pb.String(this.visitorname)
+	bin.Visitorhouse = pb.Uint64(this.visitorhouse)
 	return bin
 }
 
@@ -425,7 +428,7 @@ func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visit
 		gold,items := this.housecells[cellindex].VisitorTakeGold(visitorid)
 		if gold > 0 {
 			//加偷钱的记录
-			this.AddVisitInfo(visitorid, cellindex, 2, gold, visitorname)
+			this.AddVisitInfo(visitorid, 0, cellindex, uint32(msg.HouseVisitType_RobMoney), gold, visitorname)
 		}
 		return gold,items
 	} else {
@@ -485,14 +488,15 @@ func (this *HouseData) LevelUp() bool {
 }
 
 //添加记录
-func (this *HouseData) AddVisitInfo(visitorid uint64, optindex uint32, opttype uint32, optparam uint32, visitorname string) {
+func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string) {
 	data := &HouseVisitInfo{}
 	data.visitorid = visitorid
 	data.tmvisit = util.CURTIME()
 	data.optindex = optindex
 	data.opttype = opttype
 	data.optparam = optparam
-	data.visitorname = visitorname
+	data.visitorname = vistor
+	data.visitorhouse = visitorhouse
 	this.visitinfo = append(this.visitinfo, data)
 	infolen := len(this.visitinfo)
 
