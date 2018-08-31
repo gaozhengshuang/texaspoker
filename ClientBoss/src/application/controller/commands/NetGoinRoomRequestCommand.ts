@@ -18,8 +18,6 @@ module game {
 							houseProxy.returnRoomId = data.return;
 							houseProxy.returnType = 0;
 						}
-						
-				
                     }
 					break;
 				}
