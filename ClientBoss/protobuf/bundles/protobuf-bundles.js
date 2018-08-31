@@ -7238,6 +7238,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] HouseMaidData houseid
          * @property {number|null} [sex] HouseMaidData sex
          * @property {number|Long|null} [tmworking] HouseMaidData tmworking
+         * @property {number|Long|null} [robberto] HouseMaidData robberto
          */
 
         /**
@@ -7345,6 +7346,14 @@ $root.msg = (function() {
         HouseMaidData.prototype.tmworking = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
+         * HouseMaidData robberto.
+         * @member {number|Long} robberto
+         * @memberof msg.HouseMaidData
+         * @instance
+         */
+        HouseMaidData.prototype.robberto = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
          * Creates a new HouseMaidData instance using the specified properties.
          * @function create
          * @memberof msg.HouseMaidData
@@ -7391,6 +7400,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 10, wireType 0 =*/80).int32(message.sex);
             if (message.tmworking != null && message.hasOwnProperty("tmworking"))
                 writer.uint32(/* id 11, wireType 0 =*/88).int64(message.tmworking);
+            if (message.robberto != null && message.hasOwnProperty("robberto"))
+                writer.uint32(/* id 12, wireType 0 =*/96).uint64(message.robberto);
             return writer;
         };
 
@@ -7459,6 +7470,9 @@ $root.msg = (function() {
                     break;
                 case 11:
                     message.tmworking = reader.int64();
+                    break;
+                case 12:
+                    message.robberto = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7534,6 +7548,9 @@ $root.msg = (function() {
             if (message.tmworking != null && message.hasOwnProperty("tmworking"))
                 if (!$util.isInteger(message.tmworking) && !(message.tmworking && $util.isInteger(message.tmworking.low) && $util.isInteger(message.tmworking.high)))
                     return "tmworking: integer|Long expected";
+            if (message.robberto != null && message.hasOwnProperty("robberto"))
+                if (!$util.isInteger(message.robberto) && !(message.robberto && $util.isInteger(message.robberto.low) && $util.isInteger(message.robberto.high)))
+                    return "robberto: integer|Long expected";
             return null;
         };
 
@@ -7614,6 +7631,15 @@ $root.msg = (function() {
                     message.tmworking = object.tmworking;
                 else if (typeof object.tmworking === "object")
                     message.tmworking = new $util.LongBits(object.tmworking.low >>> 0, object.tmworking.high >>> 0).toNumber();
+            if (object.robberto != null)
+                if ($util.Long)
+                    (message.robberto = $util.Long.fromValue(object.robberto)).unsigned = true;
+                else if (typeof object.robberto === "string")
+                    message.robberto = parseInt(object.robberto, 10);
+                else if (typeof object.robberto === "number")
+                    message.robberto = object.robberto;
+                else if (typeof object.robberto === "object")
+                    message.robberto = new $util.LongBits(object.robberto.low >>> 0, object.robberto.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -7663,6 +7689,11 @@ $root.msg = (function() {
                     object.tmworking = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tmworking = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.robberto = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.robberto = options.longs === String ? "0" : 0;
             }
             if (message.clothes && message.clothes.length) {
                 object.clothes = [];
@@ -7704,6 +7735,11 @@ $root.msg = (function() {
                     object.tmworking = options.longs === String ? String(message.tmworking) : message.tmworking;
                 else
                     object.tmworking = options.longs === String ? $util.Long.prototype.toString.call(message.tmworking) : options.longs === Number ? new $util.LongBits(message.tmworking.low >>> 0, message.tmworking.high >>> 0).toNumber() : message.tmworking;
+            if (message.robberto != null && message.hasOwnProperty("robberto"))
+                if (typeof message.robberto === "number")
+                    object.robberto = options.longs === String ? String(message.robberto) : message.robberto;
+                else
+                    object.robberto = options.longs === String ? $util.Long.prototype.toString.call(message.robberto) : options.longs === Number ? new $util.LongBits(message.robberto.low >>> 0, message.robberto.high >>> 0).toNumber(true) : message.robberto;
             return object;
         };
 
@@ -9737,15 +9773,15 @@ $root.msg = (function() {
             if (message.reward != null && message.hasOwnProperty("reward"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.reward);
             if (message.range != null && message.hasOwnProperty("range"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.range);
+                writer.uint32(/* id 2, wireType 5 =*/21).float(message.range);
             if (message.itemlimit != null && message.hasOwnProperty("itemlimit"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.itemlimit);
             if (message.moneylimit != null && message.hasOwnProperty("moneylimit"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.moneylimit);
             if (message.speed != null && message.hasOwnProperty("speed"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.speed);
+                writer.uint32(/* id 5, wireType 5 =*/45).float(message.speed);
             if (message.stoptime != null && message.hasOwnProperty("stoptime"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.stoptime);
+                writer.uint32(/* id 6, wireType 5 =*/53).float(message.stoptime);
             return writer;
         };
 
@@ -9784,7 +9820,7 @@ $root.msg = (function() {
                     message.reward = reader.uint32();
                     break;
                 case 2:
-                    message.range = reader.uint32();
+                    message.range = reader.float();
                     break;
                 case 3:
                     message.itemlimit = reader.uint32();
@@ -9793,10 +9829,10 @@ $root.msg = (function() {
                     message.moneylimit = reader.uint32();
                     break;
                 case 5:
-                    message.speed = reader.uint32();
+                    message.speed = reader.float();
                     break;
                 case 6:
-                    message.stoptime = reader.uint32();
+                    message.stoptime = reader.float();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -9837,8 +9873,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.reward))
                     return "reward: integer expected";
             if (message.range != null && message.hasOwnProperty("range"))
-                if (!$util.isInteger(message.range))
-                    return "range: integer expected";
+                if (typeof message.range !== "number")
+                    return "range: number expected";
             if (message.itemlimit != null && message.hasOwnProperty("itemlimit"))
                 if (!$util.isInteger(message.itemlimit))
                     return "itemlimit: integer expected";
@@ -9846,11 +9882,11 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.moneylimit))
                     return "moneylimit: integer expected";
             if (message.speed != null && message.hasOwnProperty("speed"))
-                if (!$util.isInteger(message.speed))
-                    return "speed: integer expected";
+                if (typeof message.speed !== "number")
+                    return "speed: number expected";
             if (message.stoptime != null && message.hasOwnProperty("stoptime"))
-                if (!$util.isInteger(message.stoptime))
-                    return "stoptime: integer expected";
+                if (typeof message.stoptime !== "number")
+                    return "stoptime: number expected";
             return null;
         };
 
@@ -9869,15 +9905,15 @@ $root.msg = (function() {
             if (object.reward != null)
                 message.reward = object.reward >>> 0;
             if (object.range != null)
-                message.range = object.range >>> 0;
+                message.range = Number(object.range);
             if (object.itemlimit != null)
                 message.itemlimit = object.itemlimit >>> 0;
             if (object.moneylimit != null)
                 message.moneylimit = object.moneylimit >>> 0;
             if (object.speed != null)
-                message.speed = object.speed >>> 0;
+                message.speed = Number(object.speed);
             if (object.stoptime != null)
-                message.stoptime = object.stoptime >>> 0;
+                message.stoptime = Number(object.stoptime);
             return message;
         };
 
@@ -9905,15 +9941,15 @@ $root.msg = (function() {
             if (message.reward != null && message.hasOwnProperty("reward"))
                 object.reward = message.reward;
             if (message.range != null && message.hasOwnProperty("range"))
-                object.range = message.range;
+                object.range = options.json && !isFinite(message.range) ? String(message.range) : message.range;
             if (message.itemlimit != null && message.hasOwnProperty("itemlimit"))
                 object.itemlimit = message.itemlimit;
             if (message.moneylimit != null && message.hasOwnProperty("moneylimit"))
                 object.moneylimit = message.moneylimit;
             if (message.speed != null && message.hasOwnProperty("speed"))
-                object.speed = message.speed;
+                object.speed = options.json && !isFinite(message.speed) ? String(message.speed) : message.speed;
             if (message.stoptime != null && message.hasOwnProperty("stoptime"))
-                object.stoptime = message.stoptime;
+                object.stoptime = options.json && !isFinite(message.stoptime) ? String(message.stoptime) : message.stoptime;
             return object;
         };
 
@@ -10393,6 +10429,10 @@ $root.msg = (function() {
          * @property {number|Long|null} [endtime] CarData endtime
          * @property {number|null} [latitude] CarData latitude
          * @property {number|null} [longitude] CarData longitude
+         * @property {number|null} [price] CarData price
+         * @property {number|null} [tradeendtime] CarData tradeendtime
+         * @property {number|Long|null} [tradeuid] CarData tradeuid
+         * @property {number|null} [tradeprice] CarData tradeprice
          */
 
         /**
@@ -10532,6 +10572,38 @@ $root.msg = (function() {
         CarData.prototype.longitude = 0;
 
         /**
+         * CarData price.
+         * @member {number} price
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.price = 0;
+
+        /**
+         * CarData tradeendtime.
+         * @member {number} tradeendtime
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.tradeendtime = 0;
+
+        /**
+         * CarData tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * CarData tradeprice.
+         * @member {number} tradeprice
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.tradeprice = 0;
+
+        /**
          * Creates a new CarData instance using the specified properties.
          * @function create
          * @memberof msg.CarData
@@ -10586,6 +10658,14 @@ $root.msg = (function() {
                 writer.uint32(/* id 14, wireType 5 =*/117).float(message.latitude);
             if (message.longitude != null && message.hasOwnProperty("longitude"))
                 writer.uint32(/* id 15, wireType 5 =*/125).float(message.longitude);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 16, wireType 0 =*/128).uint32(message.price);
+            if (message.tradeendtime != null && message.hasOwnProperty("tradeendtime"))
+                writer.uint32(/* id 17, wireType 0 =*/136).uint32(message.tradeendtime);
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 18, wireType 0 =*/144).uint64(message.tradeuid);
+            if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
+                writer.uint32(/* id 19, wireType 0 =*/152).uint32(message.tradeprice);
             return writer;
         };
 
@@ -10666,6 +10746,18 @@ $root.msg = (function() {
                     break;
                 case 15:
                     message.longitude = reader.float();
+                    break;
+                case 16:
+                    message.price = reader.uint32();
+                    break;
+                case 17:
+                    message.tradeendtime = reader.uint32();
+                    break;
+                case 18:
+                    message.tradeuid = reader.uint64();
+                    break;
+                case 19:
+                    message.tradeprice = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -10757,6 +10849,18 @@ $root.msg = (function() {
             if (message.longitude != null && message.hasOwnProperty("longitude"))
                 if (typeof message.longitude !== "number")
                     return "longitude: number expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.tradeendtime != null && message.hasOwnProperty("tradeendtime"))
+                if (!$util.isInteger(message.tradeendtime))
+                    return "tradeendtime: integer expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
+                if (!$util.isInteger(message.tradeprice))
+                    return "tradeprice: integer expected";
             return null;
         };
 
@@ -10858,6 +10962,21 @@ $root.msg = (function() {
                 message.latitude = Number(object.latitude);
             if (object.longitude != null)
                 message.longitude = Number(object.longitude);
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.tradeendtime != null)
+                message.tradeendtime = object.tradeendtime >>> 0;
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.tradeprice != null)
+                message.tradeprice = object.tradeprice >>> 0;
             return message;
         };
 
@@ -10915,6 +11034,14 @@ $root.msg = (function() {
                     object.endtime = options.longs === String ? "0" : 0;
                 object.latitude = 0;
                 object.longitude = 0;
+                object.price = 0;
+                object.tradeendtime = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+                object.tradeprice = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -10967,6 +11094,17 @@ $root.msg = (function() {
                 object.latitude = options.json && !isFinite(message.latitude) ? String(message.latitude) : message.latitude;
             if (message.longitude != null && message.hasOwnProperty("longitude"))
                 object.longitude = options.json && !isFinite(message.longitude) ? String(message.longitude) : message.longitude;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.tradeendtime != null && message.hasOwnProperty("tradeendtime"))
+                object.tradeendtime = message.tradeendtime;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
+                object.tradeprice = message.tradeprice;
             return object;
         };
 
@@ -11876,6 +12014,7 @@ $root.msg = (function() {
          * @property {number|null} [opttype] HouseVisitInfo opttype
          * @property {number|null} [optparam] HouseVisitInfo optparam
          * @property {string|null} [visitorname] HouseVisitInfo visitorname
+         * @property {number|Long|null} [visitorhouse] HouseVisitInfo visitorhouse
          */
 
         /**
@@ -11942,6 +12081,14 @@ $root.msg = (function() {
         HouseVisitInfo.prototype.visitorname = "";
 
         /**
+         * HouseVisitInfo visitorhouse.
+         * @member {number|Long} visitorhouse
+         * @memberof msg.HouseVisitInfo
+         * @instance
+         */
+        HouseVisitInfo.prototype.visitorhouse = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
          * Creates a new HouseVisitInfo instance using the specified properties.
          * @function create
          * @memberof msg.HouseVisitInfo
@@ -11977,6 +12124,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.optparam);
             if (message.visitorname != null && message.hasOwnProperty("visitorname"))
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.visitorname);
+            if (message.visitorhouse != null && message.hasOwnProperty("visitorhouse"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint64(message.visitorhouse);
             return writer;
         };
 
@@ -12028,6 +12177,9 @@ $root.msg = (function() {
                     break;
                 case 6:
                     message.visitorname = reader.string();
+                    break;
+                case 7:
+                    message.visitorhouse = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -12082,6 +12234,9 @@ $root.msg = (function() {
             if (message.visitorname != null && message.hasOwnProperty("visitorname"))
                 if (!$util.isString(message.visitorname))
                     return "visitorname: string expected";
+            if (message.visitorhouse != null && message.hasOwnProperty("visitorhouse"))
+                if (!$util.isInteger(message.visitorhouse) && !(message.visitorhouse && $util.isInteger(message.visitorhouse.low) && $util.isInteger(message.visitorhouse.high)))
+                    return "visitorhouse: integer|Long expected";
             return null;
         };
 
@@ -12123,6 +12278,15 @@ $root.msg = (function() {
                 message.optparam = object.optparam >>> 0;
             if (object.visitorname != null)
                 message.visitorname = String(object.visitorname);
+            if (object.visitorhouse != null)
+                if ($util.Long)
+                    (message.visitorhouse = $util.Long.fromValue(object.visitorhouse)).unsigned = true;
+                else if (typeof object.visitorhouse === "string")
+                    message.visitorhouse = parseInt(object.visitorhouse, 10);
+                else if (typeof object.visitorhouse === "number")
+                    message.visitorhouse = object.visitorhouse;
+                else if (typeof object.visitorhouse === "object")
+                    message.visitorhouse = new $util.LongBits(object.visitorhouse.low >>> 0, object.visitorhouse.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -12154,6 +12318,11 @@ $root.msg = (function() {
                 object.opttype = 0;
                 object.optparam = 0;
                 object.visitorname = "";
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.visitorhouse = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.visitorhouse = options.longs === String ? "0" : 0;
             }
             if (message.visitorid != null && message.hasOwnProperty("visitorid"))
                 if (typeof message.visitorid === "number")
@@ -12173,6 +12342,11 @@ $root.msg = (function() {
                 object.optparam = message.optparam;
             if (message.visitorname != null && message.hasOwnProperty("visitorname"))
                 object.visitorname = message.visitorname;
+            if (message.visitorhouse != null && message.hasOwnProperty("visitorhouse"))
+                if (typeof message.visitorhouse === "number")
+                    object.visitorhouse = options.longs === String ? String(message.visitorhouse) : message.visitorhouse;
+                else
+                    object.visitorhouse = options.longs === String ? $util.Long.prototype.toString.call(message.visitorhouse) : options.longs === Number ? new $util.LongBits(message.visitorhouse.low >>> 0, message.visitorhouse.high >>> 0).toNumber(true) : message.visitorhouse;
             return object;
         };
 
@@ -12213,6 +12387,7 @@ $root.msg = (function() {
          * @property {number|null} [income] HouseData income
          * @property {number|null} [sumvalue] HouseData sumvalue
          * @property {number|Long|null} [tradeuid] HouseData tradeuid
+         * @property {number|null} [tradeprice] HouseData tradeprice
          */
 
         /**
@@ -12370,6 +12545,14 @@ $root.msg = (function() {
         HouseData.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
+         * HouseData tradeprice.
+         * @member {number} tradeprice
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.tradeprice = 0;
+
+        /**
          * Creates a new HouseData instance using the specified properties.
          * @function create
          * @memberof msg.HouseData
@@ -12430,6 +12613,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 16, wireType 0 =*/128).uint32(message.sumvalue);
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 writer.uint32(/* id 17, wireType 0 =*/136).uint64(message.tradeuid);
+            if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
+                writer.uint32(/* id 18, wireType 0 =*/144).uint32(message.tradeprice);
             return writer;
         };
 
@@ -12520,6 +12705,9 @@ $root.msg = (function() {
                     break;
                 case 17:
                     message.tradeuid = reader.uint64();
+                    break;
+                case 18:
+                    message.tradeprice = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -12625,6 +12813,9 @@ $root.msg = (function() {
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
                     return "tradeuid: integer|Long expected";
+            if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
+                if (!$util.isInteger(message.tradeprice))
+                    return "tradeprice: integer expected";
             return null;
         };
 
@@ -12719,6 +12910,8 @@ $root.msg = (function() {
                     message.tradeuid = object.tradeuid;
                 else if (typeof object.tradeuid === "object")
                     message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.tradeprice != null)
+                message.tradeprice = object.tradeprice >>> 0;
             return message;
         };
 
@@ -12767,6 +12960,7 @@ $root.msg = (function() {
                     object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tradeuid = options.longs === String ? "0" : 0;
+                object.tradeprice = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -12820,6 +13014,8 @@ $root.msg = (function() {
                     object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
                 else
                     object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
+                object.tradeprice = message.tradeprice;
             return object;
         };
 
@@ -13701,6 +13897,207 @@ $root.msg = (function() {
         return C2GW_ReqCarInfo;
     })();
 
+    msg.C2GW_ReqCarInfoById = (function() {
+
+        /**
+         * Properties of a C2GW_ReqCarInfoById.
+         * @memberof msg
+         * @interface IC2GW_ReqCarInfoById
+         * @property {number|Long|null} [carid] C2GW_ReqCarInfoById carid
+         */
+
+        /**
+         * Constructs a new C2GW_ReqCarInfoById.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqCarInfoById.
+         * @implements IC2GW_ReqCarInfoById
+         * @constructor
+         * @param {msg.IC2GW_ReqCarInfoById=} [properties] Properties to set
+         */
+        function C2GW_ReqCarInfoById(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqCarInfoById carid.
+         * @member {number|Long} carid
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @instance
+         */
+        C2GW_ReqCarInfoById.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_ReqCarInfoById instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.IC2GW_ReqCarInfoById=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById instance
+         */
+        C2GW_ReqCarInfoById.create = function create(properties) {
+            return new C2GW_ReqCarInfoById(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.IC2GW_ReqCarInfoById} message C2GW_ReqCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqCarInfoById.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.IC2GW_ReqCarInfoById} message C2GW_ReqCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqCarInfoById.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqCarInfoById.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqCarInfoById();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqCarInfoById.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqCarInfoById message.
+         * @function verify
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqCarInfoById.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById
+         */
+        C2GW_ReqCarInfoById.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqCarInfoById)
+                return object;
+            var message = new $root.msg.C2GW_ReqCarInfoById();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqCarInfoById message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.C2GW_ReqCarInfoById} message C2GW_ReqCarInfoById
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqCarInfoById.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqCarInfoById to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqCarInfoById.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqCarInfoById;
+    })();
+
     msg.GW2C_ResCarInfo = (function() {
 
         /**
@@ -13951,6 +14348,198 @@ $root.msg = (function() {
         };
 
         return GW2C_ResCarInfo;
+    })();
+
+    msg.GW2C_ResCarInfoById = (function() {
+
+        /**
+         * Properties of a GW2C_ResCarInfoById.
+         * @memberof msg
+         * @interface IGW2C_ResCarInfoById
+         * @property {msg.ICarData|null} [cardata] GW2C_ResCarInfoById cardata
+         */
+
+        /**
+         * Constructs a new GW2C_ResCarInfoById.
+         * @memberof msg
+         * @classdesc Represents a GW2C_ResCarInfoById.
+         * @implements IGW2C_ResCarInfoById
+         * @constructor
+         * @param {msg.IGW2C_ResCarInfoById=} [properties] Properties to set
+         */
+        function GW2C_ResCarInfoById(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_ResCarInfoById cardata.
+         * @member {msg.ICarData|null|undefined} cardata
+         * @memberof msg.GW2C_ResCarInfoById
+         * @instance
+         */
+        GW2C_ResCarInfoById.prototype.cardata = null;
+
+        /**
+         * Creates a new GW2C_ResCarInfoById instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.IGW2C_ResCarInfoById=} [properties] Properties to set
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById instance
+         */
+        GW2C_ResCarInfoById.create = function create(properties) {
+            return new GW2C_ResCarInfoById(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.IGW2C_ResCarInfoById} message GW2C_ResCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_ResCarInfoById.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.cardata != null && message.hasOwnProperty("cardata"))
+                $root.msg.CarData.encode(message.cardata, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message, length delimited. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.IGW2C_ResCarInfoById} message GW2C_ResCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_ResCarInfoById.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_ResCarInfoById.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_ResCarInfoById();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.cardata = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_ResCarInfoById.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_ResCarInfoById message.
+         * @function verify
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_ResCarInfoById.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.cardata != null && message.hasOwnProperty("cardata")) {
+                var error = $root.msg.CarData.verify(message.cardata);
+                if (error)
+                    return "cardata." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_ResCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById
+         */
+        GW2C_ResCarInfoById.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_ResCarInfoById)
+                return object;
+            var message = new $root.msg.GW2C_ResCarInfoById();
+            if (object.cardata != null) {
+                if (typeof object.cardata !== "object")
+                    throw TypeError(".msg.GW2C_ResCarInfoById.cardata: object expected");
+                message.cardata = $root.msg.CarData.fromObject(object.cardata);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_ResCarInfoById message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.GW2C_ResCarInfoById} message GW2C_ResCarInfoById
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_ResCarInfoById.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.cardata = null;
+            if (message.cardata != null && message.hasOwnProperty("cardata"))
+                object.cardata = $root.msg.CarData.toObject(message.cardata, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_ResCarInfoById to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_ResCarInfoById
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_ResCarInfoById.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_ResCarInfoById;
     })();
 
     msg.C2GW_ReqMyParkingInfo = (function() {
@@ -16661,6 +17250,257 @@ $root.msg = (function() {
         return GW2C_CarAutoBack;
     })();
 
+    msg.GW2C_UpdateCar = (function() {
+
+        /**
+         * Properties of a GW2C_UpdateCar.
+         * @memberof msg
+         * @interface IGW2C_UpdateCar
+         * @property {number|Long|null} [carid] GW2C_UpdateCar carid
+         * @property {msg.ICarData|null} [data] GW2C_UpdateCar data
+         * @property {boolean|null} [isdel] GW2C_UpdateCar isdel
+         */
+
+        /**
+         * Constructs a new GW2C_UpdateCar.
+         * @memberof msg
+         * @classdesc Represents a GW2C_UpdateCar.
+         * @implements IGW2C_UpdateCar
+         * @constructor
+         * @param {msg.IGW2C_UpdateCar=} [properties] Properties to set
+         */
+        function GW2C_UpdateCar(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_UpdateCar carid.
+         * @member {number|Long} carid
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         */
+        GW2C_UpdateCar.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_UpdateCar data.
+         * @member {msg.ICarData|null|undefined} data
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         */
+        GW2C_UpdateCar.prototype.data = null;
+
+        /**
+         * GW2C_UpdateCar isdel.
+         * @member {boolean} isdel
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         */
+        GW2C_UpdateCar.prototype.isdel = false;
+
+        /**
+         * Creates a new GW2C_UpdateCar instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.IGW2C_UpdateCar=} [properties] Properties to set
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar instance
+         */
+        GW2C_UpdateCar.create = function create(properties) {
+            return new GW2C_UpdateCar(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateCar message. Does not implicitly {@link msg.GW2C_UpdateCar.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.IGW2C_UpdateCar} message GW2C_UpdateCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateCar.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.CarData.encode(message.data, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.isdel != null && message.hasOwnProperty("isdel"))
+                writer.uint32(/* id 3, wireType 0 =*/24).bool(message.isdel);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateCar message, length delimited. Does not implicitly {@link msg.GW2C_UpdateCar.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.IGW2C_UpdateCar} message GW2C_UpdateCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateCar.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_UpdateCar message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateCar.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_UpdateCar();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                case 2:
+                    message.data = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.isdel = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_UpdateCar message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateCar.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_UpdateCar message.
+         * @function verify
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_UpdateCar.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.CarData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
+            if (message.isdel != null && message.hasOwnProperty("isdel"))
+                if (typeof message.isdel !== "boolean")
+                    return "isdel: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_UpdateCar message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar
+         */
+        GW2C_UpdateCar.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_UpdateCar)
+                return object;
+            var message = new $root.msg.GW2C_UpdateCar();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.GW2C_UpdateCar.data: object expected");
+                message.data = $root.msg.CarData.fromObject(object.data);
+            }
+            if (object.isdel != null)
+                message.isdel = Boolean(object.isdel);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_UpdateCar message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.GW2C_UpdateCar} message GW2C_UpdateCar
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_UpdateCar.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+                object.data = null;
+                object.isdel = false;
+            }
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.CarData.toObject(message.data, options);
+            if (message.isdel != null && message.hasOwnProperty("isdel"))
+                object.isdel = message.isdel;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_UpdateCar to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_UpdateCar.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_UpdateCar;
+    })();
+
     msg.GW2C_AddNewCar = (function() {
 
         /**
@@ -17334,6 +18174,422 @@ $root.msg = (function() {
         };
 
         return GW2C_RetCarPartLevelup;
+    })();
+
+    msg.C2GW_CarStarup = (function() {
+
+        /**
+         * Properties of a C2GW_CarStarup.
+         * @memberof msg
+         * @interface IC2GW_CarStarup
+         * @property {number|Long|null} [carid] C2GW_CarStarup carid
+         */
+
+        /**
+         * Constructs a new C2GW_CarStarup.
+         * @memberof msg
+         * @classdesc Represents a C2GW_CarStarup.
+         * @implements IC2GW_CarStarup
+         * @constructor
+         * @param {msg.IC2GW_CarStarup=} [properties] Properties to set
+         */
+        function C2GW_CarStarup(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_CarStarup carid.
+         * @member {number|Long} carid
+         * @memberof msg.C2GW_CarStarup
+         * @instance
+         */
+        C2GW_CarStarup.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_CarStarup instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.IC2GW_CarStarup=} [properties] Properties to set
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup instance
+         */
+        C2GW_CarStarup.create = function create(properties) {
+            return new C2GW_CarStarup(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_CarStarup message. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.IC2GW_CarStarup} message C2GW_CarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CarStarup.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_CarStarup message, length delimited. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.IC2GW_CarStarup} message C2GW_CarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CarStarup.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CarStarup.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CarStarup();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CarStarup.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_CarStarup message.
+         * @function verify
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_CarStarup.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_CarStarup message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup
+         */
+        C2GW_CarStarup.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_CarStarup)
+                return object;
+            var message = new $root.msg.C2GW_CarStarup();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_CarStarup message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.C2GW_CarStarup} message C2GW_CarStarup
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_CarStarup.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_CarStarup to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_CarStarup
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_CarStarup.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_CarStarup;
+    })();
+
+    msg.GW2C_RetCarStarup = (function() {
+
+        /**
+         * Properties of a GW2C_RetCarStarup.
+         * @memberof msg
+         * @interface IGW2C_RetCarStarup
+         * @property {number|null} [result] GW2C_RetCarStarup result
+         * @property {msg.ICarData|null} [car] GW2C_RetCarStarup car
+         */
+
+        /**
+         * Constructs a new GW2C_RetCarStarup.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetCarStarup.
+         * @implements IGW2C_RetCarStarup
+         * @constructor
+         * @param {msg.IGW2C_RetCarStarup=} [properties] Properties to set
+         */
+        function GW2C_RetCarStarup(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetCarStarup result.
+         * @member {number} result
+         * @memberof msg.GW2C_RetCarStarup
+         * @instance
+         */
+        GW2C_RetCarStarup.prototype.result = 0;
+
+        /**
+         * GW2C_RetCarStarup car.
+         * @member {msg.ICarData|null|undefined} car
+         * @memberof msg.GW2C_RetCarStarup
+         * @instance
+         */
+        GW2C_RetCarStarup.prototype.car = null;
+
+        /**
+         * Creates a new GW2C_RetCarStarup instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.IGW2C_RetCarStarup=} [properties] Properties to set
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup instance
+         */
+        GW2C_RetCarStarup.create = function create(properties) {
+            return new GW2C_RetCarStarup(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.IGW2C_RetCarStarup} message GW2C_RetCarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarStarup.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.result != null && message.hasOwnProperty("result"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.result);
+            if (message.car != null && message.hasOwnProperty("car"))
+                $root.msg.CarData.encode(message.car, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message, length delimited. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.IGW2C_RetCarStarup} message GW2C_RetCarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarStarup.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarStarup.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetCarStarup();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.result = reader.uint32();
+                    break;
+                case 2:
+                    message.car = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarStarup.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetCarStarup message.
+         * @function verify
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetCarStarup.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.result != null && message.hasOwnProperty("result"))
+                if (!$util.isInteger(message.result))
+                    return "result: integer expected";
+            if (message.car != null && message.hasOwnProperty("car")) {
+                var error = $root.msg.CarData.verify(message.car);
+                if (error)
+                    return "car." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetCarStarup message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup
+         */
+        GW2C_RetCarStarup.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetCarStarup)
+                return object;
+            var message = new $root.msg.GW2C_RetCarStarup();
+            if (object.result != null)
+                message.result = object.result >>> 0;
+            if (object.car != null) {
+                if (typeof object.car !== "object")
+                    throw TypeError(".msg.GW2C_RetCarStarup.car: object expected");
+                message.car = $root.msg.CarData.fromObject(object.car);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetCarStarup message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.GW2C_RetCarStarup} message GW2C_RetCarStarup
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetCarStarup.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.result = 0;
+                object.car = null;
+            }
+            if (message.result != null && message.hasOwnProperty("result"))
+                object.result = message.result;
+            if (message.car != null && message.hasOwnProperty("car"))
+                object.car = $root.msg.CarData.toObject(message.car, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetCarStarup to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetCarStarup
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetCarStarup.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetCarStarup;
     })();
 
     msg.C2GW_ReqCarShopInfo = (function() {
@@ -18664,6 +19920,24 @@ $root.msg = (function() {
     })();
 
     /**
+     * HouseVisitType enum.
+     * @name msg.HouseVisitType
+     * @enum {string}
+     * @property {number} TakeMoney=1 TakeMoney value
+     * @property {number} RobMoney=2 RobMoney value
+     * @property {number} RobMaid=5 RobMaid value
+     * @property {number} TakeBackMaid=6 TakeBackMaid value
+     */
+    msg.HouseVisitType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1] = "TakeMoney"] = 1;
+        values[valuesById[2] = "RobMoney"] = 2;
+        values[valuesById[5] = "RobMaid"] = 5;
+        values[valuesById[6] = "TakeBackMaid"] = 6;
+        return values;
+    })();
+
+    /**
      * Sex enum.
      * @name msg.Sex
      * @enum {string}
@@ -19384,6 +20658,235 @@ $root.msg = (function() {
         };
 
         return GW2C_UpdateHouseDataOne;
+    })();
+
+    msg.GW2C_UpdateHouseVisitInfo = (function() {
+
+        /**
+         * Properties of a GW2C_UpdateHouseVisitInfo.
+         * @memberof msg
+         * @interface IGW2C_UpdateHouseVisitInfo
+         * @property {number|Long|null} [houseid] GW2C_UpdateHouseVisitInfo houseid
+         * @property {msg.IHouseVisitInfo|null} [info] GW2C_UpdateHouseVisitInfo info
+         */
+
+        /**
+         * Constructs a new GW2C_UpdateHouseVisitInfo.
+         * @memberof msg
+         * @classdesc Represents a GW2C_UpdateHouseVisitInfo.
+         * @implements IGW2C_UpdateHouseVisitInfo
+         * @constructor
+         * @param {msg.IGW2C_UpdateHouseVisitInfo=} [properties] Properties to set
+         */
+        function GW2C_UpdateHouseVisitInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_UpdateHouseVisitInfo houseid.
+         * @member {number|Long} houseid
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @instance
+         */
+        GW2C_UpdateHouseVisitInfo.prototype.houseid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_UpdateHouseVisitInfo info.
+         * @member {msg.IHouseVisitInfo|null|undefined} info
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @instance
+         */
+        GW2C_UpdateHouseVisitInfo.prototype.info = null;
+
+        /**
+         * Creates a new GW2C_UpdateHouseVisitInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {msg.IGW2C_UpdateHouseVisitInfo=} [properties] Properties to set
+         * @returns {msg.GW2C_UpdateHouseVisitInfo} GW2C_UpdateHouseVisitInfo instance
+         */
+        GW2C_UpdateHouseVisitInfo.create = function create(properties) {
+            return new GW2C_UpdateHouseVisitInfo(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateHouseVisitInfo message. Does not implicitly {@link msg.GW2C_UpdateHouseVisitInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {msg.IGW2C_UpdateHouseVisitInfo} message GW2C_UpdateHouseVisitInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateHouseVisitInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
+            if (message.info != null && message.hasOwnProperty("info"))
+                $root.msg.HouseVisitInfo.encode(message.info, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateHouseVisitInfo message, length delimited. Does not implicitly {@link msg.GW2C_UpdateHouseVisitInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {msg.IGW2C_UpdateHouseVisitInfo} message GW2C_UpdateHouseVisitInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateHouseVisitInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_UpdateHouseVisitInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_UpdateHouseVisitInfo} GW2C_UpdateHouseVisitInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateHouseVisitInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_UpdateHouseVisitInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.houseid = reader.uint64();
+                    break;
+                case 2:
+                    message.info = $root.msg.HouseVisitInfo.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_UpdateHouseVisitInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_UpdateHouseVisitInfo} GW2C_UpdateHouseVisitInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateHouseVisitInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_UpdateHouseVisitInfo message.
+         * @function verify
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_UpdateHouseVisitInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
+                    return "houseid: integer|Long expected";
+            if (message.info != null && message.hasOwnProperty("info")) {
+                var error = $root.msg.HouseVisitInfo.verify(message.info);
+                if (error)
+                    return "info." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_UpdateHouseVisitInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_UpdateHouseVisitInfo} GW2C_UpdateHouseVisitInfo
+         */
+        GW2C_UpdateHouseVisitInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_UpdateHouseVisitInfo)
+                return object;
+            var message = new $root.msg.GW2C_UpdateHouseVisitInfo();
+            if (object.houseid != null)
+                if ($util.Long)
+                    (message.houseid = $util.Long.fromValue(object.houseid)).unsigned = true;
+                else if (typeof object.houseid === "string")
+                    message.houseid = parseInt(object.houseid, 10);
+                else if (typeof object.houseid === "number")
+                    message.houseid = object.houseid;
+                else if (typeof object.houseid === "object")
+                    message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
+            if (object.info != null) {
+                if (typeof object.info !== "object")
+                    throw TypeError(".msg.GW2C_UpdateHouseVisitInfo.info: object expected");
+                message.info = $root.msg.HouseVisitInfo.fromObject(object.info);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_UpdateHouseVisitInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @static
+         * @param {msg.GW2C_UpdateHouseVisitInfo} message GW2C_UpdateHouseVisitInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_UpdateHouseVisitInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.houseid = options.longs === String ? "0" : 0;
+                object.info = null;
+            }
+            if (message.houseid != null && message.hasOwnProperty("houseid"))
+                if (typeof message.houseid === "number")
+                    object.houseid = options.longs === String ? String(message.houseid) : message.houseid;
+                else
+                    object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
+            if (message.info != null && message.hasOwnProperty("info"))
+                object.info = $root.msg.HouseVisitInfo.toObject(message.info, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_UpdateHouseVisitInfo to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_UpdateHouseVisitInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_UpdateHouseVisitInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_UpdateHouseVisitInfo;
     })();
 
     msg.C2GW_ReqSetNewPlayerStep = (function() {
@@ -33766,6 +35269,166 @@ $root.msg = (function() {
         return C2GW_TakeMaidEarning;
     })();
 
+    msg.C2GW_TakeRobMaidEarning = (function() {
+
+        /**
+         * Properties of a C2GW_TakeRobMaidEarning.
+         * @memberof msg
+         * @interface IC2GW_TakeRobMaidEarning
+         */
+
+        /**
+         * Constructs a new C2GW_TakeRobMaidEarning.
+         * @memberof msg
+         * @classdesc Represents a C2GW_TakeRobMaidEarning.
+         * @implements IC2GW_TakeRobMaidEarning
+         * @constructor
+         * @param {msg.IC2GW_TakeRobMaidEarning=} [properties] Properties to set
+         */
+        function C2GW_TakeRobMaidEarning(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2GW_TakeRobMaidEarning instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.IC2GW_TakeRobMaidEarning=} [properties] Properties to set
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning instance
+         */
+        C2GW_TakeRobMaidEarning.create = function create(properties) {
+            return new C2GW_TakeRobMaidEarning(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.IC2GW_TakeRobMaidEarning} message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TakeRobMaidEarning.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message, length delimited. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.IC2GW_TakeRobMaidEarning} message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TakeRobMaidEarning.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TakeRobMaidEarning.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_TakeRobMaidEarning();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TakeRobMaidEarning.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_TakeRobMaidEarning message.
+         * @function verify
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_TakeRobMaidEarning.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_TakeRobMaidEarning message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning
+         */
+        C2GW_TakeRobMaidEarning.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_TakeRobMaidEarning)
+                return object;
+            return new $root.msg.C2GW_TakeRobMaidEarning();
+        };
+
+        /**
+         * Creates a plain object from a C2GW_TakeRobMaidEarning message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.C2GW_TakeRobMaidEarning} message C2GW_TakeRobMaidEarning
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_TakeRobMaidEarning.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2GW_TakeRobMaidEarning to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_TakeRobMaidEarning.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_TakeRobMaidEarning;
+    })();
+
     msg.C2GW_RobMaid = (function() {
 
         /**
@@ -39813,13 +41476,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -40068,13 +41725,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -46008,6 +47659,5462 @@ $root.msg = (function() {
         return GW2C_RetCancelTradeHouse;
     })();
 
+    msg.C2GW_ReqCarTradeList = (function() {
+
+        /**
+         * Properties of a C2GW_ReqCarTradeList.
+         * @memberof msg
+         * @interface IC2GW_ReqCarTradeList
+         * @property {number|null} [cartype] C2GW_ReqCarTradeList cartype
+         * @property {number|null} [carsubtype] C2GW_ReqCarTradeList carsubtype
+         * @property {number|null} [pricemin] C2GW_ReqCarTradeList pricemin
+         * @property {number|null} [pricemax] C2GW_ReqCarTradeList pricemax
+         * @property {number|null} [carlevel] C2GW_ReqCarTradeList carlevel
+         * @property {string|null} [name] C2GW_ReqCarTradeList name
+         * @property {boolean|null} [pricedec] C2GW_ReqCarTradeList pricedec
+         * @property {number|null} [startnum] C2GW_ReqCarTradeList startnum
+         */
+
+        /**
+         * Constructs a new C2GW_ReqCarTradeList.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqCarTradeList.
+         * @implements IC2GW_ReqCarTradeList
+         * @constructor
+         * @param {msg.IC2GW_ReqCarTradeList=} [properties] Properties to set
+         */
+        function C2GW_ReqCarTradeList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqCarTradeList cartype.
+         * @member {number} cartype
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.cartype = 0;
+
+        /**
+         * C2GW_ReqCarTradeList carsubtype.
+         * @member {number} carsubtype
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.carsubtype = 0;
+
+        /**
+         * C2GW_ReqCarTradeList pricemin.
+         * @member {number} pricemin
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.pricemin = 0;
+
+        /**
+         * C2GW_ReqCarTradeList pricemax.
+         * @member {number} pricemax
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.pricemax = 0;
+
+        /**
+         * C2GW_ReqCarTradeList carlevel.
+         * @member {number} carlevel
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.carlevel = 0;
+
+        /**
+         * C2GW_ReqCarTradeList name.
+         * @member {string} name
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.name = "";
+
+        /**
+         * C2GW_ReqCarTradeList pricedec.
+         * @member {boolean} pricedec
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.pricedec = false;
+
+        /**
+         * C2GW_ReqCarTradeList startnum.
+         * @member {number} startnum
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         */
+        C2GW_ReqCarTradeList.prototype.startnum = 0;
+
+        /**
+         * Creates a new C2GW_ReqCarTradeList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {msg.IC2GW_ReqCarTradeList=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList instance
+         */
+        C2GW_ReqCarTradeList.create = function create(properties) {
+            return new C2GW_ReqCarTradeList(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqCarTradeList message. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {msg.IC2GW_ReqCarTradeList} message C2GW_ReqCarTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqCarTradeList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.cartype);
+            if (message.carsubtype != null && message.hasOwnProperty("carsubtype"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.carsubtype);
+            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.pricemin);
+            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.pricemax);
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.carlevel);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.name);
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                writer.uint32(/* id 8, wireType 0 =*/64).bool(message.pricedec);
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.startnum);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqCarTradeList message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {msg.IC2GW_ReqCarTradeList} message C2GW_ReqCarTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqCarTradeList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqCarTradeList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqCarTradeList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 2:
+                    message.cartype = reader.uint32();
+                    break;
+                case 3:
+                    message.carsubtype = reader.uint32();
+                    break;
+                case 4:
+                    message.pricemin = reader.uint32();
+                    break;
+                case 5:
+                    message.pricemax = reader.uint32();
+                    break;
+                case 6:
+                    message.carlevel = reader.uint32();
+                    break;
+                case 7:
+                    message.name = reader.string();
+                    break;
+                case 8:
+                    message.pricedec = reader.bool();
+                    break;
+                case 9:
+                    message.startnum = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqCarTradeList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqCarTradeList message.
+         * @function verify
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqCarTradeList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                if (!$util.isInteger(message.cartype))
+                    return "cartype: integer expected";
+            if (message.carsubtype != null && message.hasOwnProperty("carsubtype"))
+                if (!$util.isInteger(message.carsubtype))
+                    return "carsubtype: integer expected";
+            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
+                if (!$util.isInteger(message.pricemin))
+                    return "pricemin: integer expected";
+            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
+                if (!$util.isInteger(message.pricemax))
+                    return "pricemax: integer expected";
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                if (!$util.isInteger(message.carlevel))
+                    return "carlevel: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                if (typeof message.pricedec !== "boolean")
+                    return "pricedec: boolean expected";
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                if (!$util.isInteger(message.startnum))
+                    return "startnum: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqCarTradeList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList
+         */
+        C2GW_ReqCarTradeList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqCarTradeList)
+                return object;
+            var message = new $root.msg.C2GW_ReqCarTradeList();
+            if (object.cartype != null)
+                message.cartype = object.cartype >>> 0;
+            if (object.carsubtype != null)
+                message.carsubtype = object.carsubtype >>> 0;
+            if (object.pricemin != null)
+                message.pricemin = object.pricemin >>> 0;
+            if (object.pricemax != null)
+                message.pricemax = object.pricemax >>> 0;
+            if (object.carlevel != null)
+                message.carlevel = object.carlevel >>> 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.pricedec != null)
+                message.pricedec = Boolean(object.pricedec);
+            if (object.startnum != null)
+                message.startnum = object.startnum >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqCarTradeList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @static
+         * @param {msg.C2GW_ReqCarTradeList} message C2GW_ReqCarTradeList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqCarTradeList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.cartype = 0;
+                object.carsubtype = 0;
+                object.pricemin = 0;
+                object.pricemax = 0;
+                object.carlevel = 0;
+                object.name = "";
+                object.pricedec = false;
+                object.startnum = 0;
+            }
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                object.cartype = message.cartype;
+            if (message.carsubtype != null && message.hasOwnProperty("carsubtype"))
+                object.carsubtype = message.carsubtype;
+            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
+                object.pricemin = message.pricemin;
+            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
+                object.pricemax = message.pricemax;
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                object.carlevel = message.carlevel;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                object.pricedec = message.pricedec;
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                object.startnum = message.startnum;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqCarTradeList to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqCarTradeList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqCarTradeList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqCarTradeList;
+    })();
+
+    msg.SimpleCarTrade = (function() {
+
+        /**
+         * Properties of a SimpleCarTrade.
+         * @memberof msg
+         * @interface ISimpleCarTrade
+         * @property {number|Long|null} [tradeuid] SimpleCarTrade tradeuid
+         * @property {number|null} [caruid] SimpleCarTrade caruid
+         * @property {number|null} [price] SimpleCarTrade price
+         * @property {number|null} [income] SimpleCarTrade income
+         * @property {number|null} [carbaseid] SimpleCarTrade carbaseid
+         * @property {number|null} [endtime] SimpleCarTrade endtime
+         * @property {number|null} [ownerid] SimpleCarTrade ownerid
+         * @property {number|null} [carlevel] SimpleCarTrade carlevel
+         * @property {number|null} [cartype] SimpleCarTrade cartype
+         * @property {string|null} [name] SimpleCarTrade name
+         */
+
+        /**
+         * Constructs a new SimpleCarTrade.
+         * @memberof msg
+         * @classdesc Represents a SimpleCarTrade.
+         * @implements ISimpleCarTrade
+         * @constructor
+         * @param {msg.ISimpleCarTrade=} [properties] Properties to set
+         */
+        function SimpleCarTrade(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SimpleCarTrade tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * SimpleCarTrade caruid.
+         * @member {number} caruid
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.caruid = 0;
+
+        /**
+         * SimpleCarTrade price.
+         * @member {number} price
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.price = 0;
+
+        /**
+         * SimpleCarTrade income.
+         * @member {number} income
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.income = 0;
+
+        /**
+         * SimpleCarTrade carbaseid.
+         * @member {number} carbaseid
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.carbaseid = 0;
+
+        /**
+         * SimpleCarTrade endtime.
+         * @member {number} endtime
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.endtime = 0;
+
+        /**
+         * SimpleCarTrade ownerid.
+         * @member {number} ownerid
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.ownerid = 0;
+
+        /**
+         * SimpleCarTrade carlevel.
+         * @member {number} carlevel
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.carlevel = 0;
+
+        /**
+         * SimpleCarTrade cartype.
+         * @member {number} cartype
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.cartype = 0;
+
+        /**
+         * SimpleCarTrade name.
+         * @member {string} name
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         */
+        SimpleCarTrade.prototype.name = "";
+
+        /**
+         * Creates a new SimpleCarTrade instance using the specified properties.
+         * @function create
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {msg.ISimpleCarTrade=} [properties] Properties to set
+         * @returns {msg.SimpleCarTrade} SimpleCarTrade instance
+         */
+        SimpleCarTrade.create = function create(properties) {
+            return new SimpleCarTrade(properties);
+        };
+
+        /**
+         * Encodes the specified SimpleCarTrade message. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
+         * @function encode
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {msg.ISimpleCarTrade} message SimpleCarTrade message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SimpleCarTrade.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.caruid);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+            if (message.income != null && message.hasOwnProperty("income"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.income);
+            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.carbaseid);
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.endtime);
+            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.ownerid);
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.carlevel);
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.cartype);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.name);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SimpleCarTrade message, length delimited. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {msg.ISimpleCarTrade} message SimpleCarTrade message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SimpleCarTrade.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SimpleCarTrade message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.SimpleCarTrade} SimpleCarTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SimpleCarTrade.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.SimpleCarTrade();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                case 2:
+                    message.caruid = reader.uint32();
+                    break;
+                case 3:
+                    message.price = reader.uint32();
+                    break;
+                case 4:
+                    message.income = reader.uint32();
+                    break;
+                case 5:
+                    message.carbaseid = reader.uint32();
+                    break;
+                case 6:
+                    message.endtime = reader.uint32();
+                    break;
+                case 7:
+                    message.ownerid = reader.uint32();
+                    break;
+                case 8:
+                    message.carlevel = reader.uint32();
+                    break;
+                case 9:
+                    message.cartype = reader.uint32();
+                    break;
+                case 10:
+                    message.name = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SimpleCarTrade message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.SimpleCarTrade} SimpleCarTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SimpleCarTrade.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SimpleCarTrade message.
+         * @function verify
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SimpleCarTrade.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (!$util.isInteger(message.caruid))
+                    return "caruid: integer expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.income != null && message.hasOwnProperty("income"))
+                if (!$util.isInteger(message.income))
+                    return "income: integer expected";
+            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
+                if (!$util.isInteger(message.carbaseid))
+                    return "carbaseid: integer expected";
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                if (!$util.isInteger(message.endtime))
+                    return "endtime: integer expected";
+            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
+                if (!$util.isInteger(message.ownerid))
+                    return "ownerid: integer expected";
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                if (!$util.isInteger(message.carlevel))
+                    return "carlevel: integer expected";
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                if (!$util.isInteger(message.cartype))
+                    return "cartype: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a SimpleCarTrade message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.SimpleCarTrade} SimpleCarTrade
+         */
+        SimpleCarTrade.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.SimpleCarTrade)
+                return object;
+            var message = new $root.msg.SimpleCarTrade();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.caruid != null)
+                message.caruid = object.caruid >>> 0;
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.income != null)
+                message.income = object.income >>> 0;
+            if (object.carbaseid != null)
+                message.carbaseid = object.carbaseid >>> 0;
+            if (object.endtime != null)
+                message.endtime = object.endtime >>> 0;
+            if (object.ownerid != null)
+                message.ownerid = object.ownerid >>> 0;
+            if (object.carlevel != null)
+                message.carlevel = object.carlevel >>> 0;
+            if (object.cartype != null)
+                message.cartype = object.cartype >>> 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SimpleCarTrade message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.SimpleCarTrade
+         * @static
+         * @param {msg.SimpleCarTrade} message SimpleCarTrade
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SimpleCarTrade.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+                object.caruid = 0;
+                object.price = 0;
+                object.income = 0;
+                object.carbaseid = 0;
+                object.endtime = 0;
+                object.ownerid = 0;
+                object.carlevel = 0;
+                object.cartype = 0;
+                object.name = "";
+            }
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                object.caruid = message.caruid;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.income != null && message.hasOwnProperty("income"))
+                object.income = message.income;
+            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
+                object.carbaseid = message.carbaseid;
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                object.endtime = message.endtime;
+            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
+                object.ownerid = message.ownerid;
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                object.carlevel = message.carlevel;
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                object.cartype = message.cartype;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            return object;
+        };
+
+        /**
+         * Converts this SimpleCarTrade to JSON.
+         * @function toJSON
+         * @memberof msg.SimpleCarTrade
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SimpleCarTrade.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return SimpleCarTrade;
+    })();
+
+    msg.GW2C_RetCarTradeList = (function() {
+
+        /**
+         * Properties of a GW2C_RetCarTradeList.
+         * @memberof msg
+         * @interface IGW2C_RetCarTradeList
+         * @property {Array.<msg.ISimpleCarTrade>|null} [list] GW2C_RetCarTradeList list
+         */
+
+        /**
+         * Constructs a new GW2C_RetCarTradeList.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetCarTradeList.
+         * @implements IGW2C_RetCarTradeList
+         * @constructor
+         * @param {msg.IGW2C_RetCarTradeList=} [properties] Properties to set
+         */
+        function GW2C_RetCarTradeList(properties) {
+            this.list = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetCarTradeList list.
+         * @member {Array.<msg.ISimpleCarTrade>} list
+         * @memberof msg.GW2C_RetCarTradeList
+         * @instance
+         */
+        GW2C_RetCarTradeList.prototype.list = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_RetCarTradeList instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {msg.IGW2C_RetCarTradeList=} [properties] Properties to set
+         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList instance
+         */
+        GW2C_RetCarTradeList.create = function create(properties) {
+            return new GW2C_RetCarTradeList(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarTradeList message. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {msg.IGW2C_RetCarTradeList} message GW2C_RetCarTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarTradeList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.list != null && message.list.length)
+                for (var i = 0; i < message.list.length; ++i)
+                    $root.msg.SimpleCarTrade.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarTradeList message, length delimited. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {msg.IGW2C_RetCarTradeList} message GW2C_RetCarTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarTradeList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarTradeList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetCarTradeList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.list && message.list.length))
+                        message.list = [];
+                    message.list.push($root.msg.SimpleCarTrade.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarTradeList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetCarTradeList message.
+         * @function verify
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetCarTradeList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.list != null && message.hasOwnProperty("list")) {
+                if (!Array.isArray(message.list))
+                    return "list: array expected";
+                for (var i = 0; i < message.list.length; ++i) {
+                    var error = $root.msg.SimpleCarTrade.verify(message.list[i]);
+                    if (error)
+                        return "list." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetCarTradeList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList
+         */
+        GW2C_RetCarTradeList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetCarTradeList)
+                return object;
+            var message = new $root.msg.GW2C_RetCarTradeList();
+            if (object.list) {
+                if (!Array.isArray(object.list))
+                    throw TypeError(".msg.GW2C_RetCarTradeList.list: array expected");
+                message.list = [];
+                for (var i = 0; i < object.list.length; ++i) {
+                    if (typeof object.list[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetCarTradeList.list: object expected");
+                    message.list[i] = $root.msg.SimpleCarTrade.fromObject(object.list[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetCarTradeList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetCarTradeList
+         * @static
+         * @param {msg.GW2C_RetCarTradeList} message GW2C_RetCarTradeList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetCarTradeList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.list = [];
+            if (message.list && message.list.length) {
+                object.list = [];
+                for (var j = 0; j < message.list.length; ++j)
+                    object.list[j] = $root.msg.SimpleCarTrade.toObject(message.list[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetCarTradeList to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetCarTradeList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetCarTradeList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetCarTradeList;
+    })();
+
+    msg.C2GW_TradeCar = (function() {
+
+        /**
+         * Properties of a C2GW_TradeCar.
+         * @memberof msg
+         * @interface IC2GW_TradeCar
+         * @property {number|Long|null} [caruid] C2GW_TradeCar caruid
+         * @property {number|null} [price] C2GW_TradeCar price
+         */
+
+        /**
+         * Constructs a new C2GW_TradeCar.
+         * @memberof msg
+         * @classdesc Represents a C2GW_TradeCar.
+         * @implements IC2GW_TradeCar
+         * @constructor
+         * @param {msg.IC2GW_TradeCar=} [properties] Properties to set
+         */
+        function C2GW_TradeCar(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_TradeCar caruid.
+         * @member {number|Long} caruid
+         * @memberof msg.C2GW_TradeCar
+         * @instance
+         */
+        C2GW_TradeCar.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_TradeCar price.
+         * @member {number} price
+         * @memberof msg.C2GW_TradeCar
+         * @instance
+         */
+        C2GW_TradeCar.prototype.price = 0;
+
+        /**
+         * Creates a new C2GW_TradeCar instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {msg.IC2GW_TradeCar=} [properties] Properties to set
+         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar instance
+         */
+        C2GW_TradeCar.create = function create(properties) {
+            return new C2GW_TradeCar(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_TradeCar message. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {msg.IC2GW_TradeCar} message C2GW_TradeCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TradeCar.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.caruid);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_TradeCar message, length delimited. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {msg.IC2GW_TradeCar} message C2GW_TradeCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TradeCar.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_TradeCar message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TradeCar.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_TradeCar();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.caruid = reader.uint64();
+                    break;
+                case 2:
+                    message.price = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_TradeCar message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TradeCar.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_TradeCar message.
+         * @function verify
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_TradeCar.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
+                    return "caruid: integer|Long expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_TradeCar message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar
+         */
+        C2GW_TradeCar.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_TradeCar)
+                return object;
+            var message = new $root.msg.C2GW_TradeCar();
+            if (object.caruid != null)
+                if ($util.Long)
+                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
+                else if (typeof object.caruid === "string")
+                    message.caruid = parseInt(object.caruid, 10);
+                else if (typeof object.caruid === "number")
+                    message.caruid = object.caruid;
+                else if (typeof object.caruid === "object")
+                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_TradeCar message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_TradeCar
+         * @static
+         * @param {msg.C2GW_TradeCar} message C2GW_TradeCar
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_TradeCar.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.caruid = options.longs === String ? "0" : 0;
+                object.price = 0;
+            }
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (typeof message.caruid === "number")
+                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
+                else
+                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_TradeCar to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_TradeCar
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_TradeCar.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_TradeCar;
+    })();
+
+    msg.C2GW_BuyTradeCar = (function() {
+
+        /**
+         * Properties of a C2GW_BuyTradeCar.
+         * @memberof msg
+         * @interface IC2GW_BuyTradeCar
+         * @property {number|Long|null} [tradeuid] C2GW_BuyTradeCar tradeuid
+         * @property {number|Long|null} [caruid] C2GW_BuyTradeCar caruid
+         */
+
+        /**
+         * Constructs a new C2GW_BuyTradeCar.
+         * @memberof msg
+         * @classdesc Represents a C2GW_BuyTradeCar.
+         * @implements IC2GW_BuyTradeCar
+         * @constructor
+         * @param {msg.IC2GW_BuyTradeCar=} [properties] Properties to set
+         */
+        function C2GW_BuyTradeCar(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_BuyTradeCar tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.C2GW_BuyTradeCar
+         * @instance
+         */
+        C2GW_BuyTradeCar.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_BuyTradeCar caruid.
+         * @member {number|Long} caruid
+         * @memberof msg.C2GW_BuyTradeCar
+         * @instance
+         */
+        C2GW_BuyTradeCar.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_BuyTradeCar instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {msg.IC2GW_BuyTradeCar=} [properties] Properties to set
+         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar instance
+         */
+        C2GW_BuyTradeCar.create = function create(properties) {
+            return new C2GW_BuyTradeCar(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_BuyTradeCar message. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {msg.IC2GW_BuyTradeCar} message C2GW_BuyTradeCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_BuyTradeCar.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.caruid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_BuyTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {msg.IC2GW_BuyTradeCar} message C2GW_BuyTradeCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_BuyTradeCar.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_BuyTradeCar.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_BuyTradeCar();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                case 2:
+                    message.caruid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_BuyTradeCar.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_BuyTradeCar message.
+         * @function verify
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_BuyTradeCar.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
+                    return "caruid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_BuyTradeCar message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar
+         */
+        C2GW_BuyTradeCar.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_BuyTradeCar)
+                return object;
+            var message = new $root.msg.C2GW_BuyTradeCar();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.caruid != null)
+                if ($util.Long)
+                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
+                else if (typeof object.caruid === "string")
+                    message.caruid = parseInt(object.caruid, 10);
+                else if (typeof object.caruid === "number")
+                    message.caruid = object.caruid;
+                else if (typeof object.caruid === "object")
+                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_BuyTradeCar message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_BuyTradeCar
+         * @static
+         * @param {msg.C2GW_BuyTradeCar} message C2GW_BuyTradeCar
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_BuyTradeCar.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.caruid = options.longs === String ? "0" : 0;
+            }
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (typeof message.caruid === "number")
+                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
+                else
+                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_BuyTradeCar to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_BuyTradeCar
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_BuyTradeCar.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_BuyTradeCar;
+    })();
+
+    msg.C2GW_ReqTradeCarHistory = (function() {
+
+        /**
+         * Properties of a C2GW_ReqTradeCarHistory.
+         * @memberof msg
+         * @interface IC2GW_ReqTradeCarHistory
+         */
+
+        /**
+         * Constructs a new C2GW_ReqTradeCarHistory.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqTradeCarHistory.
+         * @implements IC2GW_ReqTradeCarHistory
+         * @constructor
+         * @param {msg.IC2GW_ReqTradeCarHistory=} [properties] Properties to set
+         */
+        function C2GW_ReqTradeCarHistory(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2GW_ReqTradeCarHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeCarHistory=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory instance
+         */
+        C2GW_ReqTradeCarHistory.create = function create(properties) {
+            return new C2GW_ReqTradeCarHistory(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTradeCarHistory message. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeCarHistory} message C2GW_ReqTradeCarHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTradeCarHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTradeCarHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeCarHistory} message C2GW_ReqTradeCarHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTradeCarHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTradeCarHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqTradeCarHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTradeCarHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqTradeCarHistory message.
+         * @function verify
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqTradeCarHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqTradeCarHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory
+         */
+        C2GW_ReqTradeCarHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqTradeCarHistory)
+                return object;
+            return new $root.msg.C2GW_ReqTradeCarHistory();
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqTradeCarHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @static
+         * @param {msg.C2GW_ReqTradeCarHistory} message C2GW_ReqTradeCarHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqTradeCarHistory.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2GW_ReqTradeCarHistory to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqTradeCarHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqTradeCarHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqTradeCarHistory;
+    })();
+
+    msg.TradeCarHistory = (function() {
+
+        /**
+         * Properties of a TradeCarHistory.
+         * @memberof msg
+         * @interface ITradeCarHistory
+         * @property {number|Long|null} [tradeuid] TradeCarHistory tradeuid
+         * @property {number|Long|null} [caruid] TradeCarHistory caruid
+         * @property {number|null} [price] TradeCarHistory price
+         * @property {number|null} [income] TradeCarHistory income
+         * @property {number|null} [carbaseid] TradeCarHistory carbaseid
+         * @property {number|null} [endtime] TradeCarHistory endtime
+         * @property {number|null} [carlevel] TradeCarHistory carlevel
+         * @property {number|null} [cartype] TradeCarHistory cartype
+         * @property {number|null} [state] TradeCarHistory state
+         * @property {number|null} [tradetime] TradeCarHistory tradetime
+         */
+
+        /**
+         * Constructs a new TradeCarHistory.
+         * @memberof msg
+         * @classdesc Represents a TradeCarHistory.
+         * @implements ITradeCarHistory
+         * @constructor
+         * @param {msg.ITradeCarHistory=} [properties] Properties to set
+         */
+        function TradeCarHistory(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TradeCarHistory tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * TradeCarHistory caruid.
+         * @member {number|Long} caruid
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * TradeCarHistory price.
+         * @member {number} price
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.price = 0;
+
+        /**
+         * TradeCarHistory income.
+         * @member {number} income
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.income = 0;
+
+        /**
+         * TradeCarHistory carbaseid.
+         * @member {number} carbaseid
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.carbaseid = 0;
+
+        /**
+         * TradeCarHistory endtime.
+         * @member {number} endtime
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.endtime = 0;
+
+        /**
+         * TradeCarHistory carlevel.
+         * @member {number} carlevel
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.carlevel = 0;
+
+        /**
+         * TradeCarHistory cartype.
+         * @member {number} cartype
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.cartype = 0;
+
+        /**
+         * TradeCarHistory state.
+         * @member {number} state
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.state = 0;
+
+        /**
+         * TradeCarHistory tradetime.
+         * @member {number} tradetime
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.tradetime = 0;
+
+        /**
+         * Creates a new TradeCarHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {msg.ITradeCarHistory=} [properties] Properties to set
+         * @returns {msg.TradeCarHistory} TradeCarHistory instance
+         */
+        TradeCarHistory.create = function create(properties) {
+            return new TradeCarHistory(properties);
+        };
+
+        /**
+         * Encodes the specified TradeCarHistory message. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {msg.ITradeCarHistory} message TradeCarHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TradeCarHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.caruid);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+            if (message.income != null && message.hasOwnProperty("income"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.income);
+            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.carbaseid);
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.endtime);
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.carlevel);
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.cartype);
+            if (message.state != null && message.hasOwnProperty("state"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.state);
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.tradetime);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TradeCarHistory message, length delimited. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {msg.ITradeCarHistory} message TradeCarHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TradeCarHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TradeCarHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.TradeCarHistory} TradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TradeCarHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.TradeCarHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                case 2:
+                    message.caruid = reader.uint64();
+                    break;
+                case 3:
+                    message.price = reader.uint32();
+                    break;
+                case 4:
+                    message.income = reader.uint32();
+                    break;
+                case 5:
+                    message.carbaseid = reader.uint32();
+                    break;
+                case 6:
+                    message.endtime = reader.uint32();
+                    break;
+                case 7:
+                    message.carlevel = reader.uint32();
+                    break;
+                case 8:
+                    message.cartype = reader.uint32();
+                    break;
+                case 9:
+                    message.state = reader.uint32();
+                    break;
+                case 10:
+                    message.tradetime = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TradeCarHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.TradeCarHistory} TradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TradeCarHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TradeCarHistory message.
+         * @function verify
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TradeCarHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
+                    return "caruid: integer|Long expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.income != null && message.hasOwnProperty("income"))
+                if (!$util.isInteger(message.income))
+                    return "income: integer expected";
+            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
+                if (!$util.isInteger(message.carbaseid))
+                    return "carbaseid: integer expected";
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                if (!$util.isInteger(message.endtime))
+                    return "endtime: integer expected";
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                if (!$util.isInteger(message.carlevel))
+                    return "carlevel: integer expected";
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                if (!$util.isInteger(message.cartype))
+                    return "cartype: integer expected";
+            if (message.state != null && message.hasOwnProperty("state"))
+                if (!$util.isInteger(message.state))
+                    return "state: integer expected";
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                if (!$util.isInteger(message.tradetime))
+                    return "tradetime: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TradeCarHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.TradeCarHistory} TradeCarHistory
+         */
+        TradeCarHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.TradeCarHistory)
+                return object;
+            var message = new $root.msg.TradeCarHistory();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.caruid != null)
+                if ($util.Long)
+                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
+                else if (typeof object.caruid === "string")
+                    message.caruid = parseInt(object.caruid, 10);
+                else if (typeof object.caruid === "number")
+                    message.caruid = object.caruid;
+                else if (typeof object.caruid === "object")
+                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.income != null)
+                message.income = object.income >>> 0;
+            if (object.carbaseid != null)
+                message.carbaseid = object.carbaseid >>> 0;
+            if (object.endtime != null)
+                message.endtime = object.endtime >>> 0;
+            if (object.carlevel != null)
+                message.carlevel = object.carlevel >>> 0;
+            if (object.cartype != null)
+                message.cartype = object.cartype >>> 0;
+            if (object.state != null)
+                message.state = object.state >>> 0;
+            if (object.tradetime != null)
+                message.tradetime = object.tradetime >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TradeCarHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.TradeCarHistory
+         * @static
+         * @param {msg.TradeCarHistory} message TradeCarHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TradeCarHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.caruid = options.longs === String ? "0" : 0;
+                object.price = 0;
+                object.income = 0;
+                object.carbaseid = 0;
+                object.endtime = 0;
+                object.carlevel = 0;
+                object.cartype = 0;
+                object.state = 0;
+                object.tradetime = 0;
+            }
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (typeof message.caruid === "number")
+                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
+                else
+                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.income != null && message.hasOwnProperty("income"))
+                object.income = message.income;
+            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
+                object.carbaseid = message.carbaseid;
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                object.endtime = message.endtime;
+            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
+                object.carlevel = message.carlevel;
+            if (message.cartype != null && message.hasOwnProperty("cartype"))
+                object.cartype = message.cartype;
+            if (message.state != null && message.hasOwnProperty("state"))
+                object.state = message.state;
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                object.tradetime = message.tradetime;
+            return object;
+        };
+
+        /**
+         * Converts this TradeCarHistory to JSON.
+         * @function toJSON
+         * @memberof msg.TradeCarHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TradeCarHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TradeCarHistory;
+    })();
+
+    msg.GW2C_RetTradeCarHistory = (function() {
+
+        /**
+         * Properties of a GW2C_RetTradeCarHistory.
+         * @memberof msg
+         * @interface IGW2C_RetTradeCarHistory
+         * @property {Array.<msg.ITradeCarHistory>|null} [list] GW2C_RetTradeCarHistory list
+         */
+
+        /**
+         * Constructs a new GW2C_RetTradeCarHistory.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetTradeCarHistory.
+         * @implements IGW2C_RetTradeCarHistory
+         * @constructor
+         * @param {msg.IGW2C_RetTradeCarHistory=} [properties] Properties to set
+         */
+        function GW2C_RetTradeCarHistory(properties) {
+            this.list = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetTradeCarHistory list.
+         * @member {Array.<msg.ITradeCarHistory>} list
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @instance
+         */
+        GW2C_RetTradeCarHistory.prototype.list = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_RetTradeCarHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeCarHistory=} [properties] Properties to set
+         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory instance
+         */
+        GW2C_RetTradeCarHistory.create = function create(properties) {
+            return new GW2C_RetTradeCarHistory(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeCarHistory message. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeCarHistory} message GW2C_RetTradeCarHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeCarHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.list != null && message.list.length)
+                for (var i = 0; i < message.list.length; ++i)
+                    $root.msg.TradeCarHistory.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeCarHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeCarHistory} message GW2C_RetTradeCarHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeCarHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeCarHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetTradeCarHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.list && message.list.length))
+                        message.list = [];
+                    message.list.push($root.msg.TradeCarHistory.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeCarHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetTradeCarHistory message.
+         * @function verify
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetTradeCarHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.list != null && message.hasOwnProperty("list")) {
+                if (!Array.isArray(message.list))
+                    return "list: array expected";
+                for (var i = 0; i < message.list.length; ++i) {
+                    var error = $root.msg.TradeCarHistory.verify(message.list[i]);
+                    if (error)
+                        return "list." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetTradeCarHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory
+         */
+        GW2C_RetTradeCarHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetTradeCarHistory)
+                return object;
+            var message = new $root.msg.GW2C_RetTradeCarHistory();
+            if (object.list) {
+                if (!Array.isArray(object.list))
+                    throw TypeError(".msg.GW2C_RetTradeCarHistory.list: array expected");
+                message.list = [];
+                for (var i = 0; i < object.list.length; ++i) {
+                    if (typeof object.list[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetTradeCarHistory.list: object expected");
+                    message.list[i] = $root.msg.TradeCarHistory.fromObject(object.list[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeCarHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @static
+         * @param {msg.GW2C_RetTradeCarHistory} message GW2C_RetTradeCarHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetTradeCarHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.list = [];
+            if (message.list && message.list.length) {
+                object.list = [];
+                for (var j = 0; j < message.list.length; ++j)
+                    object.list[j] = $root.msg.TradeCarHistory.toObject(message.list[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetTradeCarHistory to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetTradeCarHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetTradeCarHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetTradeCarHistory;
+    })();
+
+    msg.C2GW_GetTradeCarReward = (function() {
+
+        /**
+         * Properties of a C2GW_GetTradeCarReward.
+         * @memberof msg
+         * @interface IC2GW_GetTradeCarReward
+         * @property {number|Long|null} [tradeuid] C2GW_GetTradeCarReward tradeuid
+         */
+
+        /**
+         * Constructs a new C2GW_GetTradeCarReward.
+         * @memberof msg
+         * @classdesc Represents a C2GW_GetTradeCarReward.
+         * @implements IC2GW_GetTradeCarReward
+         * @constructor
+         * @param {msg.IC2GW_GetTradeCarReward=} [properties] Properties to set
+         */
+        function C2GW_GetTradeCarReward(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_GetTradeCarReward tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @instance
+         */
+        C2GW_GetTradeCarReward.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_GetTradeCarReward instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {msg.IC2GW_GetTradeCarReward=} [properties] Properties to set
+         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward instance
+         */
+        C2GW_GetTradeCarReward.create = function create(properties) {
+            return new C2GW_GetTradeCarReward(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_GetTradeCarReward message. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {msg.IC2GW_GetTradeCarReward} message C2GW_GetTradeCarReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GetTradeCarReward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_GetTradeCarReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {msg.IC2GW_GetTradeCarReward} message C2GW_GetTradeCarReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GetTradeCarReward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GetTradeCarReward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_GetTradeCarReward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GetTradeCarReward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_GetTradeCarReward message.
+         * @function verify
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_GetTradeCarReward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_GetTradeCarReward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward
+         */
+        C2GW_GetTradeCarReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_GetTradeCarReward)
+                return object;
+            var message = new $root.msg.C2GW_GetTradeCarReward();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_GetTradeCarReward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @static
+         * @param {msg.C2GW_GetTradeCarReward} message C2GW_GetTradeCarReward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_GetTradeCarReward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_GetTradeCarReward to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_GetTradeCarReward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_GetTradeCarReward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_GetTradeCarReward;
+    })();
+
+    msg.GW2C_RetGetTradeCarReward = (function() {
+
+        /**
+         * Properties of a GW2C_RetGetTradeCarReward.
+         * @memberof msg
+         * @interface IGW2C_RetGetTradeCarReward
+         * @property {number|Long|null} [tradeuid] GW2C_RetGetTradeCarReward tradeuid
+         */
+
+        /**
+         * Constructs a new GW2C_RetGetTradeCarReward.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetGetTradeCarReward.
+         * @implements IGW2C_RetGetTradeCarReward
+         * @constructor
+         * @param {msg.IGW2C_RetGetTradeCarReward=} [properties] Properties to set
+         */
+        function GW2C_RetGetTradeCarReward(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetGetTradeCarReward tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @instance
+         */
+        GW2C_RetGetTradeCarReward.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RetGetTradeCarReward instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeCarReward=} [properties] Properties to set
+         * @returns {msg.GW2C_RetGetTradeCarReward} GW2C_RetGetTradeCarReward instance
+         */
+        GW2C_RetGetTradeCarReward.create = function create(properties) {
+            return new GW2C_RetGetTradeCarReward(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeCarReward message. Does not implicitly {@link msg.GW2C_RetGetTradeCarReward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeCarReward} message GW2C_RetGetTradeCarReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetTradeCarReward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeCarReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetTradeCarReward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeCarReward} message GW2C_RetGetTradeCarReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetTradeCarReward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetGetTradeCarReward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetGetTradeCarReward} GW2C_RetGetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetTradeCarReward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetGetTradeCarReward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetGetTradeCarReward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetGetTradeCarReward} GW2C_RetGetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetTradeCarReward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetGetTradeCarReward message.
+         * @function verify
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetGetTradeCarReward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetGetTradeCarReward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetGetTradeCarReward} GW2C_RetGetTradeCarReward
+         */
+        GW2C_RetGetTradeCarReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetGetTradeCarReward)
+                return object;
+            var message = new $root.msg.GW2C_RetGetTradeCarReward();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetGetTradeCarReward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @static
+         * @param {msg.GW2C_RetGetTradeCarReward} message GW2C_RetGetTradeCarReward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetGetTradeCarReward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetGetTradeCarReward to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetGetTradeCarReward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetGetTradeCarReward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetGetTradeCarReward;
+    })();
+
+    msg.C2GW_CancelTradeCar = (function() {
+
+        /**
+         * Properties of a C2GW_CancelTradeCar.
+         * @memberof msg
+         * @interface IC2GW_CancelTradeCar
+         * @property {number|Long|null} [caruid] C2GW_CancelTradeCar caruid
+         */
+
+        /**
+         * Constructs a new C2GW_CancelTradeCar.
+         * @memberof msg
+         * @classdesc Represents a C2GW_CancelTradeCar.
+         * @implements IC2GW_CancelTradeCar
+         * @constructor
+         * @param {msg.IC2GW_CancelTradeCar=} [properties] Properties to set
+         */
+        function C2GW_CancelTradeCar(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_CancelTradeCar caruid.
+         * @member {number|Long} caruid
+         * @memberof msg.C2GW_CancelTradeCar
+         * @instance
+         */
+        C2GW_CancelTradeCar.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_CancelTradeCar instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {msg.IC2GW_CancelTradeCar=} [properties] Properties to set
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar instance
+         */
+        C2GW_CancelTradeCar.create = function create(properties) {
+            return new C2GW_CancelTradeCar(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_CancelTradeCar message. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {msg.IC2GW_CancelTradeCar} message C2GW_CancelTradeCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CancelTradeCar.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.caruid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_CancelTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {msg.IC2GW_CancelTradeCar} message C2GW_CancelTradeCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CancelTradeCar.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CancelTradeCar.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CancelTradeCar();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.caruid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CancelTradeCar.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_CancelTradeCar message.
+         * @function verify
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_CancelTradeCar.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
+                    return "caruid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_CancelTradeCar message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar
+         */
+        C2GW_CancelTradeCar.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_CancelTradeCar)
+                return object;
+            var message = new $root.msg.C2GW_CancelTradeCar();
+            if (object.caruid != null)
+                if ($util.Long)
+                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
+                else if (typeof object.caruid === "string")
+                    message.caruid = parseInt(object.caruid, 10);
+                else if (typeof object.caruid === "number")
+                    message.caruid = object.caruid;
+                else if (typeof object.caruid === "object")
+                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_CancelTradeCar message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_CancelTradeCar
+         * @static
+         * @param {msg.C2GW_CancelTradeCar} message C2GW_CancelTradeCar
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_CancelTradeCar.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.caruid = options.longs === String ? "0" : 0;
+            if (message.caruid != null && message.hasOwnProperty("caruid"))
+                if (typeof message.caruid === "number")
+                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
+                else
+                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_CancelTradeCar to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_CancelTradeCar
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_CancelTradeCar.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_CancelTradeCar;
+    })();
+
+    msg.C2GW_ReqItemTradeList = (function() {
+
+        /**
+         * Properties of a C2GW_ReqItemTradeList.
+         * @memberof msg
+         * @interface IC2GW_ReqItemTradeList
+         * @property {number|null} [itemtype] C2GW_ReqItemTradeList itemtype
+         * @property {number|null} [itemsubtype] C2GW_ReqItemTradeList itemsubtype
+         * @property {number|null} [pricemin] C2GW_ReqItemTradeList pricemin
+         * @property {number|null} [pricemax] C2GW_ReqItemTradeList pricemax
+         * @property {string|null} [name] C2GW_ReqItemTradeList name
+         * @property {boolean|null} [pricedec] C2GW_ReqItemTradeList pricedec
+         * @property {number|null} [startnum] C2GW_ReqItemTradeList startnum
+         */
+
+        /**
+         * Constructs a new C2GW_ReqItemTradeList.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqItemTradeList.
+         * @implements IC2GW_ReqItemTradeList
+         * @constructor
+         * @param {msg.IC2GW_ReqItemTradeList=} [properties] Properties to set
+         */
+        function C2GW_ReqItemTradeList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqItemTradeList itemtype.
+         * @member {number} itemtype
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.itemtype = 0;
+
+        /**
+         * C2GW_ReqItemTradeList itemsubtype.
+         * @member {number} itemsubtype
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.itemsubtype = 0;
+
+        /**
+         * C2GW_ReqItemTradeList pricemin.
+         * @member {number} pricemin
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.pricemin = 0;
+
+        /**
+         * C2GW_ReqItemTradeList pricemax.
+         * @member {number} pricemax
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.pricemax = 0;
+
+        /**
+         * C2GW_ReqItemTradeList name.
+         * @member {string} name
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.name = "";
+
+        /**
+         * C2GW_ReqItemTradeList pricedec.
+         * @member {boolean} pricedec
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.pricedec = false;
+
+        /**
+         * C2GW_ReqItemTradeList startnum.
+         * @member {number} startnum
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.startnum = 0;
+
+        /**
+         * Creates a new C2GW_ReqItemTradeList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {msg.IC2GW_ReqItemTradeList=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqItemTradeList} C2GW_ReqItemTradeList instance
+         */
+        C2GW_ReqItemTradeList.create = function create(properties) {
+            return new C2GW_ReqItemTradeList(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqItemTradeList message. Does not implicitly {@link msg.C2GW_ReqItemTradeList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {msg.IC2GW_ReqItemTradeList} message C2GW_ReqItemTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqItemTradeList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.itemtype != null && message.hasOwnProperty("itemtype"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.itemtype);
+            if (message.itemsubtype != null && message.hasOwnProperty("itemsubtype"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.itemsubtype);
+            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.pricemin);
+            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.pricemax);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.name);
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                writer.uint32(/* id 8, wireType 0 =*/64).bool(message.pricedec);
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.startnum);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqItemTradeList message, length delimited. Does not implicitly {@link msg.C2GW_ReqItemTradeList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {msg.IC2GW_ReqItemTradeList} message C2GW_ReqItemTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqItemTradeList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqItemTradeList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqItemTradeList} C2GW_ReqItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqItemTradeList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqItemTradeList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.itemtype = reader.uint32();
+                    break;
+                case 2:
+                    message.itemsubtype = reader.uint32();
+                    break;
+                case 4:
+                    message.pricemin = reader.uint32();
+                    break;
+                case 5:
+                    message.pricemax = reader.uint32();
+                    break;
+                case 7:
+                    message.name = reader.string();
+                    break;
+                case 8:
+                    message.pricedec = reader.bool();
+                    break;
+                case 9:
+                    message.startnum = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqItemTradeList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqItemTradeList} C2GW_ReqItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqItemTradeList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqItemTradeList message.
+         * @function verify
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqItemTradeList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.itemtype != null && message.hasOwnProperty("itemtype"))
+                if (!$util.isInteger(message.itemtype))
+                    return "itemtype: integer expected";
+            if (message.itemsubtype != null && message.hasOwnProperty("itemsubtype"))
+                if (!$util.isInteger(message.itemsubtype))
+                    return "itemsubtype: integer expected";
+            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
+                if (!$util.isInteger(message.pricemin))
+                    return "pricemin: integer expected";
+            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
+                if (!$util.isInteger(message.pricemax))
+                    return "pricemax: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                if (typeof message.pricedec !== "boolean")
+                    return "pricedec: boolean expected";
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                if (!$util.isInteger(message.startnum))
+                    return "startnum: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqItemTradeList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqItemTradeList} C2GW_ReqItemTradeList
+         */
+        C2GW_ReqItemTradeList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqItemTradeList)
+                return object;
+            var message = new $root.msg.C2GW_ReqItemTradeList();
+            if (object.itemtype != null)
+                message.itemtype = object.itemtype >>> 0;
+            if (object.itemsubtype != null)
+                message.itemsubtype = object.itemsubtype >>> 0;
+            if (object.pricemin != null)
+                message.pricemin = object.pricemin >>> 0;
+            if (object.pricemax != null)
+                message.pricemax = object.pricemax >>> 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.pricedec != null)
+                message.pricedec = Boolean(object.pricedec);
+            if (object.startnum != null)
+                message.startnum = object.startnum >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqItemTradeList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @static
+         * @param {msg.C2GW_ReqItemTradeList} message C2GW_ReqItemTradeList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqItemTradeList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.itemtype = 0;
+                object.itemsubtype = 0;
+                object.pricemin = 0;
+                object.pricemax = 0;
+                object.name = "";
+                object.pricedec = false;
+                object.startnum = 0;
+            }
+            if (message.itemtype != null && message.hasOwnProperty("itemtype"))
+                object.itemtype = message.itemtype;
+            if (message.itemsubtype != null && message.hasOwnProperty("itemsubtype"))
+                object.itemsubtype = message.itemsubtype;
+            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
+                object.pricemin = message.pricemin;
+            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
+                object.pricemax = message.pricemax;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
+                object.pricedec = message.pricedec;
+            if (message.startnum != null && message.hasOwnProperty("startnum"))
+                object.startnum = message.startnum;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqItemTradeList to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqItemTradeList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqItemTradeList;
+    })();
+
+    msg.SimpleItemTrade = (function() {
+
+        /**
+         * Properties of a SimpleItemTrade.
+         * @memberof msg
+         * @interface ISimpleItemTrade
+         * @property {number|Long|null} [tradeuid] SimpleItemTrade tradeuid
+         * @property {number|null} [itemid] SimpleItemTrade itemid
+         * @property {number|null} [itemnum] SimpleItemTrade itemnum
+         * @property {number|null} [price] SimpleItemTrade price
+         * @property {number|null} [endtime] SimpleItemTrade endtime
+         * @property {number|null} [ownerid] SimpleItemTrade ownerid
+         * @property {number|null} [itemtype] SimpleItemTrade itemtype
+         * @property {number|null} [itemsubtype] SimpleItemTrade itemsubtype
+         * @property {string|null} [name] SimpleItemTrade name
+         */
+
+        /**
+         * Constructs a new SimpleItemTrade.
+         * @memberof msg
+         * @classdesc Represents a SimpleItemTrade.
+         * @implements ISimpleItemTrade
+         * @constructor
+         * @param {msg.ISimpleItemTrade=} [properties] Properties to set
+         */
+        function SimpleItemTrade(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * SimpleItemTrade tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * SimpleItemTrade itemid.
+         * @member {number} itemid
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.itemid = 0;
+
+        /**
+         * SimpleItemTrade itemnum.
+         * @member {number} itemnum
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.itemnum = 0;
+
+        /**
+         * SimpleItemTrade price.
+         * @member {number} price
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.price = 0;
+
+        /**
+         * SimpleItemTrade endtime.
+         * @member {number} endtime
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.endtime = 0;
+
+        /**
+         * SimpleItemTrade ownerid.
+         * @member {number} ownerid
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.ownerid = 0;
+
+        /**
+         * SimpleItemTrade itemtype.
+         * @member {number} itemtype
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.itemtype = 0;
+
+        /**
+         * SimpleItemTrade itemsubtype.
+         * @member {number} itemsubtype
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.itemsubtype = 0;
+
+        /**
+         * SimpleItemTrade name.
+         * @member {string} name
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         */
+        SimpleItemTrade.prototype.name = "";
+
+        /**
+         * Creates a new SimpleItemTrade instance using the specified properties.
+         * @function create
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {msg.ISimpleItemTrade=} [properties] Properties to set
+         * @returns {msg.SimpleItemTrade} SimpleItemTrade instance
+         */
+        SimpleItemTrade.create = function create(properties) {
+            return new SimpleItemTrade(properties);
+        };
+
+        /**
+         * Encodes the specified SimpleItemTrade message. Does not implicitly {@link msg.SimpleItemTrade.verify|verify} messages.
+         * @function encode
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {msg.ISimpleItemTrade} message SimpleItemTrade message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SimpleItemTrade.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.itemid);
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.itemnum);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.endtime);
+            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.ownerid);
+            if (message.itemtype != null && message.hasOwnProperty("itemtype"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.itemtype);
+            if (message.itemsubtype != null && message.hasOwnProperty("itemsubtype"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.itemsubtype);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.name);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified SimpleItemTrade message, length delimited. Does not implicitly {@link msg.SimpleItemTrade.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {msg.ISimpleItemTrade} message SimpleItemTrade message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        SimpleItemTrade.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a SimpleItemTrade message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.SimpleItemTrade} SimpleItemTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SimpleItemTrade.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.SimpleItemTrade();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                case 2:
+                    message.itemid = reader.uint32();
+                    break;
+                case 3:
+                    message.itemnum = reader.uint32();
+                    break;
+                case 4:
+                    message.price = reader.uint32();
+                    break;
+                case 5:
+                    message.endtime = reader.uint32();
+                    break;
+                case 6:
+                    message.ownerid = reader.uint32();
+                    break;
+                case 7:
+                    message.itemtype = reader.uint32();
+                    break;
+                case 8:
+                    message.itemsubtype = reader.uint32();
+                    break;
+                case 9:
+                    message.name = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a SimpleItemTrade message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.SimpleItemTrade} SimpleItemTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        SimpleItemTrade.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a SimpleItemTrade message.
+         * @function verify
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        SimpleItemTrade.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                if (!$util.isInteger(message.itemid))
+                    return "itemid: integer expected";
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                if (!$util.isInteger(message.itemnum))
+                    return "itemnum: integer expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                if (!$util.isInteger(message.endtime))
+                    return "endtime: integer expected";
+            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
+                if (!$util.isInteger(message.ownerid))
+                    return "ownerid: integer expected";
+            if (message.itemtype != null && message.hasOwnProperty("itemtype"))
+                if (!$util.isInteger(message.itemtype))
+                    return "itemtype: integer expected";
+            if (message.itemsubtype != null && message.hasOwnProperty("itemsubtype"))
+                if (!$util.isInteger(message.itemsubtype))
+                    return "itemsubtype: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a SimpleItemTrade message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.SimpleItemTrade} SimpleItemTrade
+         */
+        SimpleItemTrade.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.SimpleItemTrade)
+                return object;
+            var message = new $root.msg.SimpleItemTrade();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.itemid != null)
+                message.itemid = object.itemid >>> 0;
+            if (object.itemnum != null)
+                message.itemnum = object.itemnum >>> 0;
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.endtime != null)
+                message.endtime = object.endtime >>> 0;
+            if (object.ownerid != null)
+                message.ownerid = object.ownerid >>> 0;
+            if (object.itemtype != null)
+                message.itemtype = object.itemtype >>> 0;
+            if (object.itemsubtype != null)
+                message.itemsubtype = object.itemsubtype >>> 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a SimpleItemTrade message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.SimpleItemTrade
+         * @static
+         * @param {msg.SimpleItemTrade} message SimpleItemTrade
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        SimpleItemTrade.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+                object.itemid = 0;
+                object.itemnum = 0;
+                object.price = 0;
+                object.endtime = 0;
+                object.ownerid = 0;
+                object.itemtype = 0;
+                object.itemsubtype = 0;
+                object.name = "";
+            }
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                object.itemid = message.itemid;
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                object.itemnum = message.itemnum;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                object.endtime = message.endtime;
+            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
+                object.ownerid = message.ownerid;
+            if (message.itemtype != null && message.hasOwnProperty("itemtype"))
+                object.itemtype = message.itemtype;
+            if (message.itemsubtype != null && message.hasOwnProperty("itemsubtype"))
+                object.itemsubtype = message.itemsubtype;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            return object;
+        };
+
+        /**
+         * Converts this SimpleItemTrade to JSON.
+         * @function toJSON
+         * @memberof msg.SimpleItemTrade
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        SimpleItemTrade.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return SimpleItemTrade;
+    })();
+
+    msg.GW2C_RetItemTradeList = (function() {
+
+        /**
+         * Properties of a GW2C_RetItemTradeList.
+         * @memberof msg
+         * @interface IGW2C_RetItemTradeList
+         * @property {Array.<msg.ISimpleItemTrade>|null} [list] GW2C_RetItemTradeList list
+         */
+
+        /**
+         * Constructs a new GW2C_RetItemTradeList.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetItemTradeList.
+         * @implements IGW2C_RetItemTradeList
+         * @constructor
+         * @param {msg.IGW2C_RetItemTradeList=} [properties] Properties to set
+         */
+        function GW2C_RetItemTradeList(properties) {
+            this.list = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetItemTradeList list.
+         * @member {Array.<msg.ISimpleItemTrade>} list
+         * @memberof msg.GW2C_RetItemTradeList
+         * @instance
+         */
+        GW2C_RetItemTradeList.prototype.list = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_RetItemTradeList instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {msg.IGW2C_RetItemTradeList=} [properties] Properties to set
+         * @returns {msg.GW2C_RetItemTradeList} GW2C_RetItemTradeList instance
+         */
+        GW2C_RetItemTradeList.create = function create(properties) {
+            return new GW2C_RetItemTradeList(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetItemTradeList message. Does not implicitly {@link msg.GW2C_RetItemTradeList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {msg.IGW2C_RetItemTradeList} message GW2C_RetItemTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetItemTradeList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.list != null && message.list.length)
+                for (var i = 0; i < message.list.length; ++i)
+                    $root.msg.SimpleItemTrade.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetItemTradeList message, length delimited. Does not implicitly {@link msg.GW2C_RetItemTradeList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {msg.IGW2C_RetItemTradeList} message GW2C_RetItemTradeList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetItemTradeList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetItemTradeList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetItemTradeList} GW2C_RetItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetItemTradeList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetItemTradeList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.list && message.list.length))
+                        message.list = [];
+                    message.list.push($root.msg.SimpleItemTrade.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetItemTradeList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetItemTradeList} GW2C_RetItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetItemTradeList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetItemTradeList message.
+         * @function verify
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetItemTradeList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.list != null && message.hasOwnProperty("list")) {
+                if (!Array.isArray(message.list))
+                    return "list: array expected";
+                for (var i = 0; i < message.list.length; ++i) {
+                    var error = $root.msg.SimpleItemTrade.verify(message.list[i]);
+                    if (error)
+                        return "list." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetItemTradeList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetItemTradeList} GW2C_RetItemTradeList
+         */
+        GW2C_RetItemTradeList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetItemTradeList)
+                return object;
+            var message = new $root.msg.GW2C_RetItemTradeList();
+            if (object.list) {
+                if (!Array.isArray(object.list))
+                    throw TypeError(".msg.GW2C_RetItemTradeList.list: array expected");
+                message.list = [];
+                for (var i = 0; i < object.list.length; ++i) {
+                    if (typeof object.list[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetItemTradeList.list: object expected");
+                    message.list[i] = $root.msg.SimpleItemTrade.fromObject(object.list[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetItemTradeList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetItemTradeList
+         * @static
+         * @param {msg.GW2C_RetItemTradeList} message GW2C_RetItemTradeList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetItemTradeList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.list = [];
+            if (message.list && message.list.length) {
+                object.list = [];
+                for (var j = 0; j < message.list.length; ++j)
+                    object.list[j] = $root.msg.SimpleItemTrade.toObject(message.list[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetItemTradeList to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetItemTradeList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetItemTradeList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetItemTradeList;
+    })();
+
+    msg.C2GW_TradeItem = (function() {
+
+        /**
+         * Properties of a C2GW_TradeItem.
+         * @memberof msg
+         * @interface IC2GW_TradeItem
+         * @property {number|null} [itemid] C2GW_TradeItem itemid
+         * @property {number|null} [itemnum] C2GW_TradeItem itemnum
+         * @property {number|null} [price] C2GW_TradeItem price
+         */
+
+        /**
+         * Constructs a new C2GW_TradeItem.
+         * @memberof msg
+         * @classdesc Represents a C2GW_TradeItem.
+         * @implements IC2GW_TradeItem
+         * @constructor
+         * @param {msg.IC2GW_TradeItem=} [properties] Properties to set
+         */
+        function C2GW_TradeItem(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_TradeItem itemid.
+         * @member {number} itemid
+         * @memberof msg.C2GW_TradeItem
+         * @instance
+         */
+        C2GW_TradeItem.prototype.itemid = 0;
+
+        /**
+         * C2GW_TradeItem itemnum.
+         * @member {number} itemnum
+         * @memberof msg.C2GW_TradeItem
+         * @instance
+         */
+        C2GW_TradeItem.prototype.itemnum = 0;
+
+        /**
+         * C2GW_TradeItem price.
+         * @member {number} price
+         * @memberof msg.C2GW_TradeItem
+         * @instance
+         */
+        C2GW_TradeItem.prototype.price = 0;
+
+        /**
+         * Creates a new C2GW_TradeItem instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {msg.IC2GW_TradeItem=} [properties] Properties to set
+         * @returns {msg.C2GW_TradeItem} C2GW_TradeItem instance
+         */
+        C2GW_TradeItem.create = function create(properties) {
+            return new C2GW_TradeItem(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_TradeItem message. Does not implicitly {@link msg.C2GW_TradeItem.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {msg.IC2GW_TradeItem} message C2GW_TradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TradeItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.itemid);
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.itemnum);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_TradeItem message, length delimited. Does not implicitly {@link msg.C2GW_TradeItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {msg.IC2GW_TradeItem} message C2GW_TradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TradeItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_TradeItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_TradeItem} C2GW_TradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TradeItem.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_TradeItem();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.itemid = reader.uint32();
+                    break;
+                case 2:
+                    message.itemnum = reader.uint32();
+                    break;
+                case 3:
+                    message.price = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_TradeItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_TradeItem} C2GW_TradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TradeItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_TradeItem message.
+         * @function verify
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_TradeItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                if (!$util.isInteger(message.itemid))
+                    return "itemid: integer expected";
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                if (!$util.isInteger(message.itemnum))
+                    return "itemnum: integer expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_TradeItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_TradeItem} C2GW_TradeItem
+         */
+        C2GW_TradeItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_TradeItem)
+                return object;
+            var message = new $root.msg.C2GW_TradeItem();
+            if (object.itemid != null)
+                message.itemid = object.itemid >>> 0;
+            if (object.itemnum != null)
+                message.itemnum = object.itemnum >>> 0;
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_TradeItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_TradeItem
+         * @static
+         * @param {msg.C2GW_TradeItem} message C2GW_TradeItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_TradeItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.itemid = 0;
+                object.itemnum = 0;
+                object.price = 0;
+            }
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                object.itemid = message.itemid;
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                object.itemnum = message.itemnum;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_TradeItem to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_TradeItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_TradeItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_TradeItem;
+    })();
+
+    msg.C2GW_BuyTradeItem = (function() {
+
+        /**
+         * Properties of a C2GW_BuyTradeItem.
+         * @memberof msg
+         * @interface IC2GW_BuyTradeItem
+         * @property {number|Long|null} [tradeuid] C2GW_BuyTradeItem tradeuid
+         * @property {number|Long|null} [itemid] C2GW_BuyTradeItem itemid
+         */
+
+        /**
+         * Constructs a new C2GW_BuyTradeItem.
+         * @memberof msg
+         * @classdesc Represents a C2GW_BuyTradeItem.
+         * @implements IC2GW_BuyTradeItem
+         * @constructor
+         * @param {msg.IC2GW_BuyTradeItem=} [properties] Properties to set
+         */
+        function C2GW_BuyTradeItem(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_BuyTradeItem tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.C2GW_BuyTradeItem
+         * @instance
+         */
+        C2GW_BuyTradeItem.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_BuyTradeItem itemid.
+         * @member {number|Long} itemid
+         * @memberof msg.C2GW_BuyTradeItem
+         * @instance
+         */
+        C2GW_BuyTradeItem.prototype.itemid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_BuyTradeItem instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {msg.IC2GW_BuyTradeItem=} [properties] Properties to set
+         * @returns {msg.C2GW_BuyTradeItem} C2GW_BuyTradeItem instance
+         */
+        C2GW_BuyTradeItem.create = function create(properties) {
+            return new C2GW_BuyTradeItem(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_BuyTradeItem message. Does not implicitly {@link msg.C2GW_BuyTradeItem.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {msg.IC2GW_BuyTradeItem} message C2GW_BuyTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_BuyTradeItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.itemid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_BuyTradeItem message, length delimited. Does not implicitly {@link msg.C2GW_BuyTradeItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {msg.IC2GW_BuyTradeItem} message C2GW_BuyTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_BuyTradeItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_BuyTradeItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_BuyTradeItem} C2GW_BuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_BuyTradeItem.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_BuyTradeItem();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                case 2:
+                    message.itemid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_BuyTradeItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_BuyTradeItem} C2GW_BuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_BuyTradeItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_BuyTradeItem message.
+         * @function verify
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_BuyTradeItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                if (!$util.isInteger(message.itemid) && !(message.itemid && $util.isInteger(message.itemid.low) && $util.isInteger(message.itemid.high)))
+                    return "itemid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_BuyTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_BuyTradeItem} C2GW_BuyTradeItem
+         */
+        C2GW_BuyTradeItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_BuyTradeItem)
+                return object;
+            var message = new $root.msg.C2GW_BuyTradeItem();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.itemid != null)
+                if ($util.Long)
+                    (message.itemid = $util.Long.fromValue(object.itemid)).unsigned = true;
+                else if (typeof object.itemid === "string")
+                    message.itemid = parseInt(object.itemid, 10);
+                else if (typeof object.itemid === "number")
+                    message.itemid = object.itemid;
+                else if (typeof object.itemid === "object")
+                    message.itemid = new $util.LongBits(object.itemid.low >>> 0, object.itemid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_BuyTradeItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_BuyTradeItem
+         * @static
+         * @param {msg.C2GW_BuyTradeItem} message C2GW_BuyTradeItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_BuyTradeItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.itemid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.itemid = options.longs === String ? "0" : 0;
+            }
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                if (typeof message.itemid === "number")
+                    object.itemid = options.longs === String ? String(message.itemid) : message.itemid;
+                else
+                    object.itemid = options.longs === String ? $util.Long.prototype.toString.call(message.itemid) : options.longs === Number ? new $util.LongBits(message.itemid.low >>> 0, message.itemid.high >>> 0).toNumber(true) : message.itemid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_BuyTradeItem to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_BuyTradeItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_BuyTradeItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_BuyTradeItem;
+    })();
+
+    msg.C2GW_ReqTradeItemHistory = (function() {
+
+        /**
+         * Properties of a C2GW_ReqTradeItemHistory.
+         * @memberof msg
+         * @interface IC2GW_ReqTradeItemHistory
+         */
+
+        /**
+         * Constructs a new C2GW_ReqTradeItemHistory.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqTradeItemHistory.
+         * @implements IC2GW_ReqTradeItemHistory
+         * @constructor
+         * @param {msg.IC2GW_ReqTradeItemHistory=} [properties] Properties to set
+         */
+        function C2GW_ReqTradeItemHistory(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2GW_ReqTradeItemHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeItemHistory=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqTradeItemHistory} C2GW_ReqTradeItemHistory instance
+         */
+        C2GW_ReqTradeItemHistory.create = function create(properties) {
+            return new C2GW_ReqTradeItemHistory(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTradeItemHistory message. Does not implicitly {@link msg.C2GW_ReqTradeItemHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeItemHistory} message C2GW_ReqTradeItemHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTradeItemHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTradeItemHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeItemHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {msg.IC2GW_ReqTradeItemHistory} message C2GW_ReqTradeItemHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTradeItemHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqTradeItemHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqTradeItemHistory} C2GW_ReqTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTradeItemHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqTradeItemHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqTradeItemHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqTradeItemHistory} C2GW_ReqTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTradeItemHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqTradeItemHistory message.
+         * @function verify
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqTradeItemHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqTradeItemHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqTradeItemHistory} C2GW_ReqTradeItemHistory
+         */
+        C2GW_ReqTradeItemHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqTradeItemHistory)
+                return object;
+            return new $root.msg.C2GW_ReqTradeItemHistory();
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqTradeItemHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @static
+         * @param {msg.C2GW_ReqTradeItemHistory} message C2GW_ReqTradeItemHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqTradeItemHistory.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2GW_ReqTradeItemHistory to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqTradeItemHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqTradeItemHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqTradeItemHistory;
+    })();
+
+    msg.TradeItemHistory = (function() {
+
+        /**
+         * Properties of a TradeItemHistory.
+         * @memberof msg
+         * @interface ITradeItemHistory
+         * @property {number|Long|null} [tradeuid] TradeItemHistory tradeuid
+         * @property {number|null} [itemid] TradeItemHistory itemid
+         * @property {number|null} [itemnum] TradeItemHistory itemnum
+         * @property {number|null} [price] TradeItemHistory price
+         * @property {number|null} [tradetime] TradeItemHistory tradetime
+         * @property {number|null} [state] TradeItemHistory state
+         */
+
+        /**
+         * Constructs a new TradeItemHistory.
+         * @memberof msg
+         * @classdesc Represents a TradeItemHistory.
+         * @implements ITradeItemHistory
+         * @constructor
+         * @param {msg.ITradeItemHistory=} [properties] Properties to set
+         */
+        function TradeItemHistory(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TradeItemHistory tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.TradeItemHistory
+         * @instance
+         */
+        TradeItemHistory.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * TradeItemHistory itemid.
+         * @member {number} itemid
+         * @memberof msg.TradeItemHistory
+         * @instance
+         */
+        TradeItemHistory.prototype.itemid = 0;
+
+        /**
+         * TradeItemHistory itemnum.
+         * @member {number} itemnum
+         * @memberof msg.TradeItemHistory
+         * @instance
+         */
+        TradeItemHistory.prototype.itemnum = 0;
+
+        /**
+         * TradeItemHistory price.
+         * @member {number} price
+         * @memberof msg.TradeItemHistory
+         * @instance
+         */
+        TradeItemHistory.prototype.price = 0;
+
+        /**
+         * TradeItemHistory tradetime.
+         * @member {number} tradetime
+         * @memberof msg.TradeItemHistory
+         * @instance
+         */
+        TradeItemHistory.prototype.tradetime = 0;
+
+        /**
+         * TradeItemHistory state.
+         * @member {number} state
+         * @memberof msg.TradeItemHistory
+         * @instance
+         */
+        TradeItemHistory.prototype.state = 0;
+
+        /**
+         * Creates a new TradeItemHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {msg.ITradeItemHistory=} [properties] Properties to set
+         * @returns {msg.TradeItemHistory} TradeItemHistory instance
+         */
+        TradeItemHistory.create = function create(properties) {
+            return new TradeItemHistory(properties);
+        };
+
+        /**
+         * Encodes the specified TradeItemHistory message. Does not implicitly {@link msg.TradeItemHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {msg.ITradeItemHistory} message TradeItemHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TradeItemHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.itemid);
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.itemnum);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.price);
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.tradetime);
+            if (message.state != null && message.hasOwnProperty("state"))
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.state);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TradeItemHistory message, length delimited. Does not implicitly {@link msg.TradeItemHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {msg.ITradeItemHistory} message TradeItemHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TradeItemHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TradeItemHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.TradeItemHistory} TradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TradeItemHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.TradeItemHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                case 2:
+                    message.itemid = reader.uint32();
+                    break;
+                case 3:
+                    message.itemnum = reader.uint32();
+                    break;
+                case 4:
+                    message.price = reader.uint32();
+                    break;
+                case 5:
+                    message.tradetime = reader.uint32();
+                    break;
+                case 9:
+                    message.state = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TradeItemHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.TradeItemHistory} TradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TradeItemHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TradeItemHistory message.
+         * @function verify
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TradeItemHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                if (!$util.isInteger(message.itemid))
+                    return "itemid: integer expected";
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                if (!$util.isInteger(message.itemnum))
+                    return "itemnum: integer expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                if (!$util.isInteger(message.tradetime))
+                    return "tradetime: integer expected";
+            if (message.state != null && message.hasOwnProperty("state"))
+                if (!$util.isInteger(message.state))
+                    return "state: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TradeItemHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.TradeItemHistory} TradeItemHistory
+         */
+        TradeItemHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.TradeItemHistory)
+                return object;
+            var message = new $root.msg.TradeItemHistory();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            if (object.itemid != null)
+                message.itemid = object.itemid >>> 0;
+            if (object.itemnum != null)
+                message.itemnum = object.itemnum >>> 0;
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.tradetime != null)
+                message.tradetime = object.tradetime >>> 0;
+            if (object.state != null)
+                message.state = object.state >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TradeItemHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.TradeItemHistory
+         * @static
+         * @param {msg.TradeItemHistory} message TradeItemHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TradeItemHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+                object.itemid = 0;
+                object.itemnum = 0;
+                object.price = 0;
+                object.tradetime = 0;
+                object.state = 0;
+            }
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            if (message.itemid != null && message.hasOwnProperty("itemid"))
+                object.itemid = message.itemid;
+            if (message.itemnum != null && message.hasOwnProperty("itemnum"))
+                object.itemnum = message.itemnum;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                object.tradetime = message.tradetime;
+            if (message.state != null && message.hasOwnProperty("state"))
+                object.state = message.state;
+            return object;
+        };
+
+        /**
+         * Converts this TradeItemHistory to JSON.
+         * @function toJSON
+         * @memberof msg.TradeItemHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TradeItemHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TradeItemHistory;
+    })();
+
+    msg.GW2C_RetTradeItemHistory = (function() {
+
+        /**
+         * Properties of a GW2C_RetTradeItemHistory.
+         * @memberof msg
+         * @interface IGW2C_RetTradeItemHistory
+         * @property {Array.<msg.ITradeItemHistory>|null} [list] GW2C_RetTradeItemHistory list
+         */
+
+        /**
+         * Constructs a new GW2C_RetTradeItemHistory.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetTradeItemHistory.
+         * @implements IGW2C_RetTradeItemHistory
+         * @constructor
+         * @param {msg.IGW2C_RetTradeItemHistory=} [properties] Properties to set
+         */
+        function GW2C_RetTradeItemHistory(properties) {
+            this.list = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetTradeItemHistory list.
+         * @member {Array.<msg.ITradeItemHistory>} list
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @instance
+         */
+        GW2C_RetTradeItemHistory.prototype.list = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_RetTradeItemHistory instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeItemHistory=} [properties] Properties to set
+         * @returns {msg.GW2C_RetTradeItemHistory} GW2C_RetTradeItemHistory instance
+         */
+        GW2C_RetTradeItemHistory.create = function create(properties) {
+            return new GW2C_RetTradeItemHistory(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeItemHistory message. Does not implicitly {@link msg.GW2C_RetTradeItemHistory.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeItemHistory} message GW2C_RetTradeItemHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeItemHistory.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.list != null && message.list.length)
+                for (var i = 0; i < message.list.length; ++i)
+                    $root.msg.TradeItemHistory.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeItemHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeItemHistory.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {msg.IGW2C_RetTradeItemHistory} message GW2C_RetTradeItemHistory message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeItemHistory.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeItemHistory message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetTradeItemHistory} GW2C_RetTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeItemHistory.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetTradeItemHistory();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.list && message.list.length))
+                        message.list = [];
+                    message.list.push($root.msg.TradeItemHistory.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeItemHistory message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetTradeItemHistory} GW2C_RetTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeItemHistory.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetTradeItemHistory message.
+         * @function verify
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetTradeItemHistory.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.list != null && message.hasOwnProperty("list")) {
+                if (!Array.isArray(message.list))
+                    return "list: array expected";
+                for (var i = 0; i < message.list.length; ++i) {
+                    var error = $root.msg.TradeItemHistory.verify(message.list[i]);
+                    if (error)
+                        return "list." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetTradeItemHistory message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetTradeItemHistory} GW2C_RetTradeItemHistory
+         */
+        GW2C_RetTradeItemHistory.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetTradeItemHistory)
+                return object;
+            var message = new $root.msg.GW2C_RetTradeItemHistory();
+            if (object.list) {
+                if (!Array.isArray(object.list))
+                    throw TypeError(".msg.GW2C_RetTradeItemHistory.list: array expected");
+                message.list = [];
+                for (var i = 0; i < object.list.length; ++i) {
+                    if (typeof object.list[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetTradeItemHistory.list: object expected");
+                    message.list[i] = $root.msg.TradeItemHistory.fromObject(object.list[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeItemHistory message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @static
+         * @param {msg.GW2C_RetTradeItemHistory} message GW2C_RetTradeItemHistory
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetTradeItemHistory.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.list = [];
+            if (message.list && message.list.length) {
+                object.list = [];
+                for (var j = 0; j < message.list.length; ++j)
+                    object.list[j] = $root.msg.TradeItemHistory.toObject(message.list[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetTradeItemHistory to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetTradeItemHistory
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetTradeItemHistory.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetTradeItemHistory;
+    })();
+
+    msg.C2GW_GetTradeItemReward = (function() {
+
+        /**
+         * Properties of a C2GW_GetTradeItemReward.
+         * @memberof msg
+         * @interface IC2GW_GetTradeItemReward
+         * @property {number|Long|null} [tradeuid] C2GW_GetTradeItemReward tradeuid
+         */
+
+        /**
+         * Constructs a new C2GW_GetTradeItemReward.
+         * @memberof msg
+         * @classdesc Represents a C2GW_GetTradeItemReward.
+         * @implements IC2GW_GetTradeItemReward
+         * @constructor
+         * @param {msg.IC2GW_GetTradeItemReward=} [properties] Properties to set
+         */
+        function C2GW_GetTradeItemReward(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_GetTradeItemReward tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @instance
+         */
+        C2GW_GetTradeItemReward.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_GetTradeItemReward instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {msg.IC2GW_GetTradeItemReward=} [properties] Properties to set
+         * @returns {msg.C2GW_GetTradeItemReward} C2GW_GetTradeItemReward instance
+         */
+        C2GW_GetTradeItemReward.create = function create(properties) {
+            return new C2GW_GetTradeItemReward(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_GetTradeItemReward message. Does not implicitly {@link msg.C2GW_GetTradeItemReward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {msg.IC2GW_GetTradeItemReward} message C2GW_GetTradeItemReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GetTradeItemReward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_GetTradeItemReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeItemReward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {msg.IC2GW_GetTradeItemReward} message C2GW_GetTradeItemReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_GetTradeItemReward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_GetTradeItemReward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_GetTradeItemReward} C2GW_GetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GetTradeItemReward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_GetTradeItemReward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_GetTradeItemReward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_GetTradeItemReward} C2GW_GetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_GetTradeItemReward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_GetTradeItemReward message.
+         * @function verify
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_GetTradeItemReward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_GetTradeItemReward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_GetTradeItemReward} C2GW_GetTradeItemReward
+         */
+        C2GW_GetTradeItemReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_GetTradeItemReward)
+                return object;
+            var message = new $root.msg.C2GW_GetTradeItemReward();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_GetTradeItemReward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @static
+         * @param {msg.C2GW_GetTradeItemReward} message C2GW_GetTradeItemReward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_GetTradeItemReward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_GetTradeItemReward to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_GetTradeItemReward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_GetTradeItemReward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_GetTradeItemReward;
+    })();
+
+    msg.GW2C_RetGetTradeItemReward = (function() {
+
+        /**
+         * Properties of a GW2C_RetGetTradeItemReward.
+         * @memberof msg
+         * @interface IGW2C_RetGetTradeItemReward
+         * @property {number|Long|null} [tradeuid] GW2C_RetGetTradeItemReward tradeuid
+         */
+
+        /**
+         * Constructs a new GW2C_RetGetTradeItemReward.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetGetTradeItemReward.
+         * @implements IGW2C_RetGetTradeItemReward
+         * @constructor
+         * @param {msg.IGW2C_RetGetTradeItemReward=} [properties] Properties to set
+         */
+        function GW2C_RetGetTradeItemReward(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetGetTradeItemReward tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @instance
+         */
+        GW2C_RetGetTradeItemReward.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RetGetTradeItemReward instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeItemReward=} [properties] Properties to set
+         * @returns {msg.GW2C_RetGetTradeItemReward} GW2C_RetGetTradeItemReward instance
+         */
+        GW2C_RetGetTradeItemReward.create = function create(properties) {
+            return new GW2C_RetGetTradeItemReward(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeItemReward message. Does not implicitly {@link msg.GW2C_RetGetTradeItemReward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeItemReward} message GW2C_RetGetTradeItemReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetTradeItemReward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeItemReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetTradeItemReward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {msg.IGW2C_RetGetTradeItemReward} message GW2C_RetGetTradeItemReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetTradeItemReward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetGetTradeItemReward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetGetTradeItemReward} GW2C_RetGetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetTradeItemReward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetGetTradeItemReward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetGetTradeItemReward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetGetTradeItemReward} GW2C_RetGetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetTradeItemReward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetGetTradeItemReward message.
+         * @function verify
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetGetTradeItemReward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetGetTradeItemReward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetGetTradeItemReward} GW2C_RetGetTradeItemReward
+         */
+        GW2C_RetGetTradeItemReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetGetTradeItemReward)
+                return object;
+            var message = new $root.msg.GW2C_RetGetTradeItemReward();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetGetTradeItemReward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @static
+         * @param {msg.GW2C_RetGetTradeItemReward} message GW2C_RetGetTradeItemReward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetGetTradeItemReward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetGetTradeItemReward to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetGetTradeItemReward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetGetTradeItemReward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetGetTradeItemReward;
+    })();
+
+    msg.C2GW_CancelTradeItem = (function() {
+
+        /**
+         * Properties of a C2GW_CancelTradeItem.
+         * @memberof msg
+         * @interface IC2GW_CancelTradeItem
+         * @property {number|Long|null} [tradeuid] C2GW_CancelTradeItem tradeuid
+         */
+
+        /**
+         * Constructs a new C2GW_CancelTradeItem.
+         * @memberof msg
+         * @classdesc Represents a C2GW_CancelTradeItem.
+         * @implements IC2GW_CancelTradeItem
+         * @constructor
+         * @param {msg.IC2GW_CancelTradeItem=} [properties] Properties to set
+         */
+        function C2GW_CancelTradeItem(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_CancelTradeItem tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.C2GW_CancelTradeItem
+         * @instance
+         */
+        C2GW_CancelTradeItem.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_CancelTradeItem instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {msg.IC2GW_CancelTradeItem=} [properties] Properties to set
+         * @returns {msg.C2GW_CancelTradeItem} C2GW_CancelTradeItem instance
+         */
+        C2GW_CancelTradeItem.create = function create(properties) {
+            return new C2GW_CancelTradeItem(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_CancelTradeItem message. Does not implicitly {@link msg.C2GW_CancelTradeItem.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {msg.IC2GW_CancelTradeItem} message C2GW_CancelTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CancelTradeItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_CancelTradeItem message, length delimited. Does not implicitly {@link msg.C2GW_CancelTradeItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {msg.IC2GW_CancelTradeItem} message C2GW_CancelTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CancelTradeItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_CancelTradeItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_CancelTradeItem} C2GW_CancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CancelTradeItem.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CancelTradeItem();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_CancelTradeItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_CancelTradeItem} C2GW_CancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CancelTradeItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_CancelTradeItem message.
+         * @function verify
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_CancelTradeItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_CancelTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_CancelTradeItem} C2GW_CancelTradeItem
+         */
+        C2GW_CancelTradeItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_CancelTradeItem)
+                return object;
+            var message = new $root.msg.C2GW_CancelTradeItem();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_CancelTradeItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_CancelTradeItem
+         * @static
+         * @param {msg.C2GW_CancelTradeItem} message C2GW_CancelTradeItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_CancelTradeItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_CancelTradeItem to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_CancelTradeItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_CancelTradeItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_CancelTradeItem;
+    })();
+
     msg.C2GW_AddDeliveryAddress = (function() {
 
         /**
@@ -47617,2549 +54724,7 @@ $root.msg = (function() {
         return GW2C_SendWechatInfo;
     })();
 
-<<<<<<< HEAD
     msg.C2GW_StartLuckyDraw = (function() {
-=======
-    msg.C2GW_ReqCarTradeList = (function() {
-
-        /**
-         * Properties of a C2GW_ReqCarTradeList.
-         * @memberof msg
-         * @interface IC2GW_ReqCarTradeList
-         * @property {number|null} [cartype] C2GW_ReqCarTradeList cartype
-         * @property {number|null} [pricemin] C2GW_ReqCarTradeList pricemin
-         * @property {number|null} [pricemax] C2GW_ReqCarTradeList pricemax
-         * @property {number|null} [carlevel] C2GW_ReqCarTradeList carlevel
-         * @property {string|null} [name] C2GW_ReqCarTradeList name
-         * @property {boolean|null} [pricedec] C2GW_ReqCarTradeList pricedec
-         * @property {number|null} [startnum] C2GW_ReqCarTradeList startnum
-         */
-
-        /**
-         * Constructs a new C2GW_ReqCarTradeList.
-         * @memberof msg
-         * @classdesc Represents a C2GW_ReqCarTradeList.
-         * @implements IC2GW_ReqCarTradeList
-         * @constructor
-         * @param {msg.IC2GW_ReqCarTradeList=} [properties] Properties to set
-         */
-        function C2GW_ReqCarTradeList(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_ReqCarTradeList cartype.
-         * @member {number} cartype
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         */
-        C2GW_ReqCarTradeList.prototype.cartype = 0;
-
-        /**
-         * C2GW_ReqCarTradeList pricemin.
-         * @member {number} pricemin
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         */
-        C2GW_ReqCarTradeList.prototype.pricemin = 0;
-
-        /**
-         * C2GW_ReqCarTradeList pricemax.
-         * @member {number} pricemax
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         */
-        C2GW_ReqCarTradeList.prototype.pricemax = 0;
-
-        /**
-         * C2GW_ReqCarTradeList carlevel.
-         * @member {number} carlevel
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         */
-        C2GW_ReqCarTradeList.prototype.carlevel = 0;
-
-        /**
-         * C2GW_ReqCarTradeList name.
-         * @member {string} name
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         */
-        C2GW_ReqCarTradeList.prototype.name = "";
-
-        /**
-         * C2GW_ReqCarTradeList pricedec.
-         * @member {boolean} pricedec
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         */
-        C2GW_ReqCarTradeList.prototype.pricedec = false;
-
-        /**
-         * C2GW_ReqCarTradeList startnum.
-         * @member {number} startnum
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         */
-        C2GW_ReqCarTradeList.prototype.startnum = 0;
-
-        /**
-         * Creates a new C2GW_ReqCarTradeList instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {msg.IC2GW_ReqCarTradeList=} [properties] Properties to set
-         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList instance
-         */
-        C2GW_ReqCarTradeList.create = function create(properties) {
-            return new C2GW_ReqCarTradeList(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqCarTradeList message. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {msg.IC2GW_ReqCarTradeList} message C2GW_ReqCarTradeList message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqCarTradeList.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.cartype);
-            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.pricemin);
-            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.pricemax);
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.carlevel);
-            if (message.name != null && message.hasOwnProperty("name"))
-                writer.uint32(/* id 7, wireType 2 =*/58).string(message.name);
-            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
-                writer.uint32(/* id 8, wireType 0 =*/64).bool(message.pricedec);
-            if (message.startnum != null && message.hasOwnProperty("startnum"))
-                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.startnum);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqCarTradeList message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {msg.IC2GW_ReqCarTradeList} message C2GW_ReqCarTradeList message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqCarTradeList.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqCarTradeList.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqCarTradeList();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 3:
-                    message.cartype = reader.uint32();
-                    break;
-                case 4:
-                    message.pricemin = reader.uint32();
-                    break;
-                case 5:
-                    message.pricemax = reader.uint32();
-                    break;
-                case 6:
-                    message.carlevel = reader.uint32();
-                    break;
-                case 7:
-                    message.name = reader.string();
-                    break;
-                case 8:
-                    message.pricedec = reader.bool();
-                    break;
-                case 9:
-                    message.startnum = reader.uint32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqCarTradeList.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_ReqCarTradeList message.
-         * @function verify
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_ReqCarTradeList.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                if (!$util.isInteger(message.cartype))
-                    return "cartype: integer expected";
-            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
-                if (!$util.isInteger(message.pricemin))
-                    return "pricemin: integer expected";
-            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
-                if (!$util.isInteger(message.pricemax))
-                    return "pricemax: integer expected";
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                if (!$util.isInteger(message.carlevel))
-                    return "carlevel: integer expected";
-            if (message.name != null && message.hasOwnProperty("name"))
-                if (!$util.isString(message.name))
-                    return "name: string expected";
-            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
-                if (typeof message.pricedec !== "boolean")
-                    return "pricedec: boolean expected";
-            if (message.startnum != null && message.hasOwnProperty("startnum"))
-                if (!$util.isInteger(message.startnum))
-                    return "startnum: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_ReqCarTradeList message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_ReqCarTradeList} C2GW_ReqCarTradeList
-         */
-        C2GW_ReqCarTradeList.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_ReqCarTradeList)
-                return object;
-            var message = new $root.msg.C2GW_ReqCarTradeList();
-            if (object.cartype != null)
-                message.cartype = object.cartype >>> 0;
-            if (object.pricemin != null)
-                message.pricemin = object.pricemin >>> 0;
-            if (object.pricemax != null)
-                message.pricemax = object.pricemax >>> 0;
-            if (object.carlevel != null)
-                message.carlevel = object.carlevel >>> 0;
-            if (object.name != null)
-                message.name = String(object.name);
-            if (object.pricedec != null)
-                message.pricedec = Boolean(object.pricedec);
-            if (object.startnum != null)
-                message.startnum = object.startnum >>> 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_ReqCarTradeList message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @static
-         * @param {msg.C2GW_ReqCarTradeList} message C2GW_ReqCarTradeList
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_ReqCarTradeList.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                object.cartype = 0;
-                object.pricemin = 0;
-                object.pricemax = 0;
-                object.carlevel = 0;
-                object.name = "";
-                object.pricedec = false;
-                object.startnum = 0;
-            }
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                object.cartype = message.cartype;
-            if (message.pricemin != null && message.hasOwnProperty("pricemin"))
-                object.pricemin = message.pricemin;
-            if (message.pricemax != null && message.hasOwnProperty("pricemax"))
-                object.pricemax = message.pricemax;
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                object.carlevel = message.carlevel;
-            if (message.name != null && message.hasOwnProperty("name"))
-                object.name = message.name;
-            if (message.pricedec != null && message.hasOwnProperty("pricedec"))
-                object.pricedec = message.pricedec;
-            if (message.startnum != null && message.hasOwnProperty("startnum"))
-                object.startnum = message.startnum;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_ReqCarTradeList to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_ReqCarTradeList
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_ReqCarTradeList.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_ReqCarTradeList;
-    })();
-
-    msg.SimpleCarTrade = (function() {
-
-        /**
-         * Properties of a SimpleCarTrade.
-         * @memberof msg
-         * @interface ISimpleCarTrade
-         * @property {number|Long|null} [tradeuid] SimpleCarTrade tradeuid
-         * @property {number|null} [caruid] SimpleCarTrade caruid
-         * @property {number|null} [price] SimpleCarTrade price
-         * @property {number|null} [income] SimpleCarTrade income
-         * @property {number|null} [carbaseid] SimpleCarTrade carbaseid
-         * @property {number|null} [endtime] SimpleCarTrade endtime
-         * @property {number|null} [ownerid] SimpleCarTrade ownerid
-         * @property {number|null} [carlevel] SimpleCarTrade carlevel
-         * @property {number|null} [cartype] SimpleCarTrade cartype
-         * @property {string|null} [name] SimpleCarTrade name
-         */
-
-        /**
-         * Constructs a new SimpleCarTrade.
-         * @memberof msg
-         * @classdesc Represents a SimpleCarTrade.
-         * @implements ISimpleCarTrade
-         * @constructor
-         * @param {msg.ISimpleCarTrade=} [properties] Properties to set
-         */
-        function SimpleCarTrade(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * SimpleCarTrade tradeuid.
-         * @member {number|Long} tradeuid
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * SimpleCarTrade caruid.
-         * @member {number} caruid
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.caruid = 0;
-
-        /**
-         * SimpleCarTrade price.
-         * @member {number} price
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.price = 0;
-
-        /**
-         * SimpleCarTrade income.
-         * @member {number} income
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.income = 0;
-
-        /**
-         * SimpleCarTrade carbaseid.
-         * @member {number} carbaseid
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.carbaseid = 0;
-
-        /**
-         * SimpleCarTrade endtime.
-         * @member {number} endtime
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.endtime = 0;
-
-        /**
-         * SimpleCarTrade ownerid.
-         * @member {number} ownerid
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.ownerid = 0;
-
-        /**
-         * SimpleCarTrade carlevel.
-         * @member {number} carlevel
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.carlevel = 0;
-
-        /**
-         * SimpleCarTrade cartype.
-         * @member {number} cartype
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.cartype = 0;
-
-        /**
-         * SimpleCarTrade name.
-         * @member {string} name
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         */
-        SimpleCarTrade.prototype.name = "";
-
-        /**
-         * Creates a new SimpleCarTrade instance using the specified properties.
-         * @function create
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {msg.ISimpleCarTrade=} [properties] Properties to set
-         * @returns {msg.SimpleCarTrade} SimpleCarTrade instance
-         */
-        SimpleCarTrade.create = function create(properties) {
-            return new SimpleCarTrade(properties);
-        };
-
-        /**
-         * Encodes the specified SimpleCarTrade message. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
-         * @function encode
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {msg.ISimpleCarTrade} message SimpleCarTrade message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        SimpleCarTrade.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.caruid);
-            if (message.price != null && message.hasOwnProperty("price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
-            if (message.income != null && message.hasOwnProperty("income"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.income);
-            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.carbaseid);
-            if (message.endtime != null && message.hasOwnProperty("endtime"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.endtime);
-            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.ownerid);
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.carlevel);
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.cartype);
-            if (message.name != null && message.hasOwnProperty("name"))
-                writer.uint32(/* id 10, wireType 2 =*/82).string(message.name);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified SimpleCarTrade message, length delimited. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {msg.ISimpleCarTrade} message SimpleCarTrade message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        SimpleCarTrade.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a SimpleCarTrade message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.SimpleCarTrade} SimpleCarTrade
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        SimpleCarTrade.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.SimpleCarTrade();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.tradeuid = reader.uint64();
-                    break;
-                case 2:
-                    message.caruid = reader.uint32();
-                    break;
-                case 3:
-                    message.price = reader.uint32();
-                    break;
-                case 4:
-                    message.income = reader.uint32();
-                    break;
-                case 5:
-                    message.carbaseid = reader.uint32();
-                    break;
-                case 6:
-                    message.endtime = reader.uint32();
-                    break;
-                case 7:
-                    message.ownerid = reader.uint32();
-                    break;
-                case 8:
-                    message.carlevel = reader.uint32();
-                    break;
-                case 9:
-                    message.cartype = reader.uint32();
-                    break;
-                case 10:
-                    message.name = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a SimpleCarTrade message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.SimpleCarTrade} SimpleCarTrade
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        SimpleCarTrade.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a SimpleCarTrade message.
-         * @function verify
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        SimpleCarTrade.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
-                    return "tradeuid: integer|Long expected";
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (!$util.isInteger(message.caruid))
-                    return "caruid: integer expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
-            if (message.income != null && message.hasOwnProperty("income"))
-                if (!$util.isInteger(message.income))
-                    return "income: integer expected";
-            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
-                if (!$util.isInteger(message.carbaseid))
-                    return "carbaseid: integer expected";
-            if (message.endtime != null && message.hasOwnProperty("endtime"))
-                if (!$util.isInteger(message.endtime))
-                    return "endtime: integer expected";
-            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
-                if (!$util.isInteger(message.ownerid))
-                    return "ownerid: integer expected";
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                if (!$util.isInteger(message.carlevel))
-                    return "carlevel: integer expected";
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                if (!$util.isInteger(message.cartype))
-                    return "cartype: integer expected";
-            if (message.name != null && message.hasOwnProperty("name"))
-                if (!$util.isString(message.name))
-                    return "name: string expected";
-            return null;
-        };
-
-        /**
-         * Creates a SimpleCarTrade message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.SimpleCarTrade} SimpleCarTrade
-         */
-        SimpleCarTrade.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.SimpleCarTrade)
-                return object;
-            var message = new $root.msg.SimpleCarTrade();
-            if (object.tradeuid != null)
-                if ($util.Long)
-                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
-                else if (typeof object.tradeuid === "string")
-                    message.tradeuid = parseInt(object.tradeuid, 10);
-                else if (typeof object.tradeuid === "number")
-                    message.tradeuid = object.tradeuid;
-                else if (typeof object.tradeuid === "object")
-                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
-            if (object.caruid != null)
-                message.caruid = object.caruid >>> 0;
-            if (object.price != null)
-                message.price = object.price >>> 0;
-            if (object.income != null)
-                message.income = object.income >>> 0;
-            if (object.carbaseid != null)
-                message.carbaseid = object.carbaseid >>> 0;
-            if (object.endtime != null)
-                message.endtime = object.endtime >>> 0;
-            if (object.ownerid != null)
-                message.ownerid = object.ownerid >>> 0;
-            if (object.carlevel != null)
-                message.carlevel = object.carlevel >>> 0;
-            if (object.cartype != null)
-                message.cartype = object.cartype >>> 0;
-            if (object.name != null)
-                message.name = String(object.name);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a SimpleCarTrade message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.SimpleCarTrade
-         * @static
-         * @param {msg.SimpleCarTrade} message SimpleCarTrade
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        SimpleCarTrade.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.tradeuid = options.longs === String ? "0" : 0;
-                object.caruid = 0;
-                object.price = 0;
-                object.income = 0;
-                object.carbaseid = 0;
-                object.endtime = 0;
-                object.ownerid = 0;
-                object.carlevel = 0;
-                object.cartype = 0;
-                object.name = "";
-            }
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (typeof message.tradeuid === "number")
-                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
-                else
-                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                object.caruid = message.caruid;
-            if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
-            if (message.income != null && message.hasOwnProperty("income"))
-                object.income = message.income;
-            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
-                object.carbaseid = message.carbaseid;
-            if (message.endtime != null && message.hasOwnProperty("endtime"))
-                object.endtime = message.endtime;
-            if (message.ownerid != null && message.hasOwnProperty("ownerid"))
-                object.ownerid = message.ownerid;
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                object.carlevel = message.carlevel;
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                object.cartype = message.cartype;
-            if (message.name != null && message.hasOwnProperty("name"))
-                object.name = message.name;
-            return object;
-        };
-
-        /**
-         * Converts this SimpleCarTrade to JSON.
-         * @function toJSON
-         * @memberof msg.SimpleCarTrade
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        SimpleCarTrade.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return SimpleCarTrade;
-    })();
-
-    msg.GW2C_RetCarTradeList = (function() {
-
-        /**
-         * Properties of a GW2C_RetCarTradeList.
-         * @memberof msg
-         * @interface IGW2C_RetCarTradeList
-         * @property {Array.<msg.ISimpleCarTrade>|null} [list] GW2C_RetCarTradeList list
-         */
-
-        /**
-         * Constructs a new GW2C_RetCarTradeList.
-         * @memberof msg
-         * @classdesc Represents a GW2C_RetCarTradeList.
-         * @implements IGW2C_RetCarTradeList
-         * @constructor
-         * @param {msg.IGW2C_RetCarTradeList=} [properties] Properties to set
-         */
-        function GW2C_RetCarTradeList(properties) {
-            this.list = [];
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * GW2C_RetCarTradeList list.
-         * @member {Array.<msg.ISimpleCarTrade>} list
-         * @memberof msg.GW2C_RetCarTradeList
-         * @instance
-         */
-        GW2C_RetCarTradeList.prototype.list = $util.emptyArray;
-
-        /**
-         * Creates a new GW2C_RetCarTradeList instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {msg.IGW2C_RetCarTradeList=} [properties] Properties to set
-         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList instance
-         */
-        GW2C_RetCarTradeList.create = function create(properties) {
-            return new GW2C_RetCarTradeList(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_RetCarTradeList message. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {msg.IGW2C_RetCarTradeList} message GW2C_RetCarTradeList message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetCarTradeList.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.list != null && message.list.length)
-                for (var i = 0; i < message.list.length; ++i)
-                    $root.msg.SimpleCarTrade.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_RetCarTradeList message, length delimited. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {msg.IGW2C_RetCarTradeList} message GW2C_RetCarTradeList message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetCarTradeList.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetCarTradeList.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetCarTradeList();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    if (!(message.list && message.list.length))
-                        message.list = [];
-                    message.list.push($root.msg.SimpleCarTrade.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetCarTradeList.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_RetCarTradeList message.
-         * @function verify
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_RetCarTradeList.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.list != null && message.hasOwnProperty("list")) {
-                if (!Array.isArray(message.list))
-                    return "list: array expected";
-                for (var i = 0; i < message.list.length; ++i) {
-                    var error = $root.msg.SimpleCarTrade.verify(message.list[i]);
-                    if (error)
-                        return "list." + error;
-                }
-            }
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_RetCarTradeList message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_RetCarTradeList} GW2C_RetCarTradeList
-         */
-        GW2C_RetCarTradeList.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_RetCarTradeList)
-                return object;
-            var message = new $root.msg.GW2C_RetCarTradeList();
-            if (object.list) {
-                if (!Array.isArray(object.list))
-                    throw TypeError(".msg.GW2C_RetCarTradeList.list: array expected");
-                message.list = [];
-                for (var i = 0; i < object.list.length; ++i) {
-                    if (typeof object.list[i] !== "object")
-                        throw TypeError(".msg.GW2C_RetCarTradeList.list: object expected");
-                    message.list[i] = $root.msg.SimpleCarTrade.fromObject(object.list[i]);
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a GW2C_RetCarTradeList message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_RetCarTradeList
-         * @static
-         * @param {msg.GW2C_RetCarTradeList} message GW2C_RetCarTradeList
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_RetCarTradeList.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.arrays || options.defaults)
-                object.list = [];
-            if (message.list && message.list.length) {
-                object.list = [];
-                for (var j = 0; j < message.list.length; ++j)
-                    object.list[j] = $root.msg.SimpleCarTrade.toObject(message.list[j], options);
-            }
-            return object;
-        };
-
-        /**
-         * Converts this GW2C_RetCarTradeList to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_RetCarTradeList
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_RetCarTradeList.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_RetCarTradeList;
-    })();
-
-    msg.C2GW_TradeCar = (function() {
-
-        /**
-         * Properties of a C2GW_TradeCar.
-         * @memberof msg
-         * @interface IC2GW_TradeCar
-         * @property {number|Long|null} [caruid] C2GW_TradeCar caruid
-         * @property {number|null} [price] C2GW_TradeCar price
-         */
-
-        /**
-         * Constructs a new C2GW_TradeCar.
-         * @memberof msg
-         * @classdesc Represents a C2GW_TradeCar.
-         * @implements IC2GW_TradeCar
-         * @constructor
-         * @param {msg.IC2GW_TradeCar=} [properties] Properties to set
-         */
-        function C2GW_TradeCar(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_TradeCar caruid.
-         * @member {number|Long} caruid
-         * @memberof msg.C2GW_TradeCar
-         * @instance
-         */
-        C2GW_TradeCar.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * C2GW_TradeCar price.
-         * @member {number} price
-         * @memberof msg.C2GW_TradeCar
-         * @instance
-         */
-        C2GW_TradeCar.prototype.price = 0;
-
-        /**
-         * Creates a new C2GW_TradeCar instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {msg.IC2GW_TradeCar=} [properties] Properties to set
-         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar instance
-         */
-        C2GW_TradeCar.create = function create(properties) {
-            return new C2GW_TradeCar(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_TradeCar message. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {msg.IC2GW_TradeCar} message C2GW_TradeCar message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_TradeCar.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.caruid);
-            if (message.price != null && message.hasOwnProperty("price"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.price);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_TradeCar message, length delimited. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {msg.IC2GW_TradeCar} message C2GW_TradeCar message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_TradeCar.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_TradeCar message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_TradeCar.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_TradeCar();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.caruid = reader.uint64();
-                    break;
-                case 2:
-                    message.price = reader.uint32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_TradeCar message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_TradeCar.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_TradeCar message.
-         * @function verify
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_TradeCar.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
-                    return "caruid: integer|Long expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_TradeCar message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_TradeCar} C2GW_TradeCar
-         */
-        C2GW_TradeCar.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_TradeCar)
-                return object;
-            var message = new $root.msg.C2GW_TradeCar();
-            if (object.caruid != null)
-                if ($util.Long)
-                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
-                else if (typeof object.caruid === "string")
-                    message.caruid = parseInt(object.caruid, 10);
-                else if (typeof object.caruid === "number")
-                    message.caruid = object.caruid;
-                else if (typeof object.caruid === "object")
-                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
-            if (object.price != null)
-                message.price = object.price >>> 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_TradeCar message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_TradeCar
-         * @static
-         * @param {msg.C2GW_TradeCar} message C2GW_TradeCar
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_TradeCar.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.caruid = options.longs === String ? "0" : 0;
-                object.price = 0;
-            }
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (typeof message.caruid === "number")
-                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
-                else
-                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
-            if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_TradeCar to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_TradeCar
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_TradeCar.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_TradeCar;
-    })();
-
-    msg.C2GW_BuyTradeCar = (function() {
-
-        /**
-         * Properties of a C2GW_BuyTradeCar.
-         * @memberof msg
-         * @interface IC2GW_BuyTradeCar
-         * @property {number|Long|null} [tradeuid] C2GW_BuyTradeCar tradeuid
-         * @property {number|Long|null} [caruid] C2GW_BuyTradeCar caruid
-         */
-
-        /**
-         * Constructs a new C2GW_BuyTradeCar.
-         * @memberof msg
-         * @classdesc Represents a C2GW_BuyTradeCar.
-         * @implements IC2GW_BuyTradeCar
-         * @constructor
-         * @param {msg.IC2GW_BuyTradeCar=} [properties] Properties to set
-         */
-        function C2GW_BuyTradeCar(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_BuyTradeCar tradeuid.
-         * @member {number|Long} tradeuid
-         * @memberof msg.C2GW_BuyTradeCar
-         * @instance
-         */
-        C2GW_BuyTradeCar.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * C2GW_BuyTradeCar caruid.
-         * @member {number|Long} caruid
-         * @memberof msg.C2GW_BuyTradeCar
-         * @instance
-         */
-        C2GW_BuyTradeCar.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * Creates a new C2GW_BuyTradeCar instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {msg.IC2GW_BuyTradeCar=} [properties] Properties to set
-         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar instance
-         */
-        C2GW_BuyTradeCar.create = function create(properties) {
-            return new C2GW_BuyTradeCar(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_BuyTradeCar message. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {msg.IC2GW_BuyTradeCar} message C2GW_BuyTradeCar message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_BuyTradeCar.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.caruid);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_BuyTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {msg.IC2GW_BuyTradeCar} message C2GW_BuyTradeCar message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_BuyTradeCar.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_BuyTradeCar.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_BuyTradeCar();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.tradeuid = reader.uint64();
-                    break;
-                case 2:
-                    message.caruid = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_BuyTradeCar.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_BuyTradeCar message.
-         * @function verify
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_BuyTradeCar.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
-                    return "tradeuid: integer|Long expected";
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
-                    return "caruid: integer|Long expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_BuyTradeCar message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_BuyTradeCar} C2GW_BuyTradeCar
-         */
-        C2GW_BuyTradeCar.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_BuyTradeCar)
-                return object;
-            var message = new $root.msg.C2GW_BuyTradeCar();
-            if (object.tradeuid != null)
-                if ($util.Long)
-                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
-                else if (typeof object.tradeuid === "string")
-                    message.tradeuid = parseInt(object.tradeuid, 10);
-                else if (typeof object.tradeuid === "number")
-                    message.tradeuid = object.tradeuid;
-                else if (typeof object.tradeuid === "object")
-                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
-            if (object.caruid != null)
-                if ($util.Long)
-                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
-                else if (typeof object.caruid === "string")
-                    message.caruid = parseInt(object.caruid, 10);
-                else if (typeof object.caruid === "number")
-                    message.caruid = object.caruid;
-                else if (typeof object.caruid === "object")
-                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_BuyTradeCar message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_BuyTradeCar
-         * @static
-         * @param {msg.C2GW_BuyTradeCar} message C2GW_BuyTradeCar
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_BuyTradeCar.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.tradeuid = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.caruid = options.longs === String ? "0" : 0;
-            }
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (typeof message.tradeuid === "number")
-                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
-                else
-                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (typeof message.caruid === "number")
-                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
-                else
-                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_BuyTradeCar to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_BuyTradeCar
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_BuyTradeCar.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_BuyTradeCar;
-    })();
-
-    msg.C2GW_ReqTradeCarHistory = (function() {
-
-        /**
-         * Properties of a C2GW_ReqTradeCarHistory.
-         * @memberof msg
-         * @interface IC2GW_ReqTradeCarHistory
-         */
-
-        /**
-         * Constructs a new C2GW_ReqTradeCarHistory.
-         * @memberof msg
-         * @classdesc Represents a C2GW_ReqTradeCarHistory.
-         * @implements IC2GW_ReqTradeCarHistory
-         * @constructor
-         * @param {msg.IC2GW_ReqTradeCarHistory=} [properties] Properties to set
-         */
-        function C2GW_ReqTradeCarHistory(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * Creates a new C2GW_ReqTradeCarHistory instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {msg.IC2GW_ReqTradeCarHistory=} [properties] Properties to set
-         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory instance
-         */
-        C2GW_ReqTradeCarHistory.create = function create(properties) {
-            return new C2GW_ReqTradeCarHistory(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqTradeCarHistory message. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {msg.IC2GW_ReqTradeCarHistory} message C2GW_ReqTradeCarHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqTradeCarHistory.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqTradeCarHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {msg.IC2GW_ReqTradeCarHistory} message C2GW_ReqTradeCarHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqTradeCarHistory.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqTradeCarHistory.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqTradeCarHistory();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqTradeCarHistory.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_ReqTradeCarHistory message.
-         * @function verify
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_ReqTradeCarHistory.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_ReqTradeCarHistory message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_ReqTradeCarHistory} C2GW_ReqTradeCarHistory
-         */
-        C2GW_ReqTradeCarHistory.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_ReqTradeCarHistory)
-                return object;
-            return new $root.msg.C2GW_ReqTradeCarHistory();
-        };
-
-        /**
-         * Creates a plain object from a C2GW_ReqTradeCarHistory message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @static
-         * @param {msg.C2GW_ReqTradeCarHistory} message C2GW_ReqTradeCarHistory
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_ReqTradeCarHistory.toObject = function toObject() {
-            return {};
-        };
-
-        /**
-         * Converts this C2GW_ReqTradeCarHistory to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_ReqTradeCarHistory
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_ReqTradeCarHistory.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_ReqTradeCarHistory;
-    })();
-
-    msg.TradeCarHistory = (function() {
-
-        /**
-         * Properties of a TradeCarHistory.
-         * @memberof msg
-         * @interface ITradeCarHistory
-         * @property {number|Long|null} [tradeuid] TradeCarHistory tradeuid
-         * @property {number|null} [caruid] TradeCarHistory caruid
-         * @property {number|null} [price] TradeCarHistory price
-         * @property {number|null} [income] TradeCarHistory income
-         * @property {number|null} [carbaseid] TradeCarHistory carbaseid
-         * @property {number|null} [endtime] TradeCarHistory endtime
-         * @property {number|null} [carlevel] TradeCarHistory carlevel
-         * @property {number|null} [cartype] TradeCarHistory cartype
-         * @property {number|null} [state] TradeCarHistory state
-         */
-
-        /**
-         * Constructs a new TradeCarHistory.
-         * @memberof msg
-         * @classdesc Represents a TradeCarHistory.
-         * @implements ITradeCarHistory
-         * @constructor
-         * @param {msg.ITradeCarHistory=} [properties] Properties to set
-         */
-        function TradeCarHistory(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * TradeCarHistory tradeuid.
-         * @member {number|Long} tradeuid
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * TradeCarHistory caruid.
-         * @member {number} caruid
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.caruid = 0;
-
-        /**
-         * TradeCarHistory price.
-         * @member {number} price
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.price = 0;
-
-        /**
-         * TradeCarHistory income.
-         * @member {number} income
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.income = 0;
-
-        /**
-         * TradeCarHistory carbaseid.
-         * @member {number} carbaseid
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.carbaseid = 0;
-
-        /**
-         * TradeCarHistory endtime.
-         * @member {number} endtime
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.endtime = 0;
-
-        /**
-         * TradeCarHistory carlevel.
-         * @member {number} carlevel
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.carlevel = 0;
-
-        /**
-         * TradeCarHistory cartype.
-         * @member {number} cartype
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.cartype = 0;
-
-        /**
-         * TradeCarHistory state.
-         * @member {number} state
-         * @memberof msg.TradeCarHistory
-         * @instance
-         */
-        TradeCarHistory.prototype.state = 0;
-
-        /**
-         * Creates a new TradeCarHistory instance using the specified properties.
-         * @function create
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {msg.ITradeCarHistory=} [properties] Properties to set
-         * @returns {msg.TradeCarHistory} TradeCarHistory instance
-         */
-        TradeCarHistory.create = function create(properties) {
-            return new TradeCarHistory(properties);
-        };
-
-        /**
-         * Encodes the specified TradeCarHistory message. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
-         * @function encode
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {msg.ITradeCarHistory} message TradeCarHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        TradeCarHistory.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.caruid);
-            if (message.price != null && message.hasOwnProperty("price"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
-            if (message.income != null && message.hasOwnProperty("income"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.income);
-            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.carbaseid);
-            if (message.endtime != null && message.hasOwnProperty("endtime"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.endtime);
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.carlevel);
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.cartype);
-            if (message.state != null && message.hasOwnProperty("state"))
-                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.state);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified TradeCarHistory message, length delimited. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {msg.ITradeCarHistory} message TradeCarHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        TradeCarHistory.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a TradeCarHistory message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.TradeCarHistory} TradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        TradeCarHistory.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.TradeCarHistory();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.tradeuid = reader.uint64();
-                    break;
-                case 2:
-                    message.caruid = reader.uint32();
-                    break;
-                case 3:
-                    message.price = reader.uint32();
-                    break;
-                case 4:
-                    message.income = reader.uint32();
-                    break;
-                case 5:
-                    message.carbaseid = reader.uint32();
-                    break;
-                case 6:
-                    message.endtime = reader.uint32();
-                    break;
-                case 7:
-                    message.carlevel = reader.uint32();
-                    break;
-                case 8:
-                    message.cartype = reader.uint32();
-                    break;
-                case 9:
-                    message.state = reader.uint32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a TradeCarHistory message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.TradeCarHistory} TradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        TradeCarHistory.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a TradeCarHistory message.
-         * @function verify
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        TradeCarHistory.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
-                    return "tradeuid: integer|Long expected";
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (!$util.isInteger(message.caruid))
-                    return "caruid: integer expected";
-            if (message.price != null && message.hasOwnProperty("price"))
-                if (!$util.isInteger(message.price))
-                    return "price: integer expected";
-            if (message.income != null && message.hasOwnProperty("income"))
-                if (!$util.isInteger(message.income))
-                    return "income: integer expected";
-            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
-                if (!$util.isInteger(message.carbaseid))
-                    return "carbaseid: integer expected";
-            if (message.endtime != null && message.hasOwnProperty("endtime"))
-                if (!$util.isInteger(message.endtime))
-                    return "endtime: integer expected";
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                if (!$util.isInteger(message.carlevel))
-                    return "carlevel: integer expected";
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                if (!$util.isInteger(message.cartype))
-                    return "cartype: integer expected";
-            if (message.state != null && message.hasOwnProperty("state"))
-                if (!$util.isInteger(message.state))
-                    return "state: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a TradeCarHistory message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.TradeCarHistory} TradeCarHistory
-         */
-        TradeCarHistory.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.TradeCarHistory)
-                return object;
-            var message = new $root.msg.TradeCarHistory();
-            if (object.tradeuid != null)
-                if ($util.Long)
-                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
-                else if (typeof object.tradeuid === "string")
-                    message.tradeuid = parseInt(object.tradeuid, 10);
-                else if (typeof object.tradeuid === "number")
-                    message.tradeuid = object.tradeuid;
-                else if (typeof object.tradeuid === "object")
-                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
-            if (object.caruid != null)
-                message.caruid = object.caruid >>> 0;
-            if (object.price != null)
-                message.price = object.price >>> 0;
-            if (object.income != null)
-                message.income = object.income >>> 0;
-            if (object.carbaseid != null)
-                message.carbaseid = object.carbaseid >>> 0;
-            if (object.endtime != null)
-                message.endtime = object.endtime >>> 0;
-            if (object.carlevel != null)
-                message.carlevel = object.carlevel >>> 0;
-            if (object.cartype != null)
-                message.cartype = object.cartype >>> 0;
-            if (object.state != null)
-                message.state = object.state >>> 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a TradeCarHistory message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.TradeCarHistory
-         * @static
-         * @param {msg.TradeCarHistory} message TradeCarHistory
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        TradeCarHistory.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.tradeuid = options.longs === String ? "0" : 0;
-                object.caruid = 0;
-                object.price = 0;
-                object.income = 0;
-                object.carbaseid = 0;
-                object.endtime = 0;
-                object.carlevel = 0;
-                object.cartype = 0;
-                object.state = 0;
-            }
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (typeof message.tradeuid === "number")
-                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
-                else
-                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                object.caruid = message.caruid;
-            if (message.price != null && message.hasOwnProperty("price"))
-                object.price = message.price;
-            if (message.income != null && message.hasOwnProperty("income"))
-                object.income = message.income;
-            if (message.carbaseid != null && message.hasOwnProperty("carbaseid"))
-                object.carbaseid = message.carbaseid;
-            if (message.endtime != null && message.hasOwnProperty("endtime"))
-                object.endtime = message.endtime;
-            if (message.carlevel != null && message.hasOwnProperty("carlevel"))
-                object.carlevel = message.carlevel;
-            if (message.cartype != null && message.hasOwnProperty("cartype"))
-                object.cartype = message.cartype;
-            if (message.state != null && message.hasOwnProperty("state"))
-                object.state = message.state;
-            return object;
-        };
-
-        /**
-         * Converts this TradeCarHistory to JSON.
-         * @function toJSON
-         * @memberof msg.TradeCarHistory
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        TradeCarHistory.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return TradeCarHistory;
-    })();
-
-    msg.GW2C_RetTradeCarHistory = (function() {
-
-        /**
-         * Properties of a GW2C_RetTradeCarHistory.
-         * @memberof msg
-         * @interface IGW2C_RetTradeCarHistory
-         * @property {Array.<msg.ITradeCarHistory>|null} [list] GW2C_RetTradeCarHistory list
-         */
-
-        /**
-         * Constructs a new GW2C_RetTradeCarHistory.
-         * @memberof msg
-         * @classdesc Represents a GW2C_RetTradeCarHistory.
-         * @implements IGW2C_RetTradeCarHistory
-         * @constructor
-         * @param {msg.IGW2C_RetTradeCarHistory=} [properties] Properties to set
-         */
-        function GW2C_RetTradeCarHistory(properties) {
-            this.list = [];
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * GW2C_RetTradeCarHistory list.
-         * @member {Array.<msg.ITradeCarHistory>} list
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @instance
-         */
-        GW2C_RetTradeCarHistory.prototype.list = $util.emptyArray;
-
-        /**
-         * Creates a new GW2C_RetTradeCarHistory instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {msg.IGW2C_RetTradeCarHistory=} [properties] Properties to set
-         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory instance
-         */
-        GW2C_RetTradeCarHistory.create = function create(properties) {
-            return new GW2C_RetTradeCarHistory(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_RetTradeCarHistory message. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {msg.IGW2C_RetTradeCarHistory} message GW2C_RetTradeCarHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetTradeCarHistory.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.list != null && message.list.length)
-                for (var i = 0; i < message.list.length; ++i)
-                    $root.msg.TradeCarHistory.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_RetTradeCarHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {msg.IGW2C_RetTradeCarHistory} message GW2C_RetTradeCarHistory message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetTradeCarHistory.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetTradeCarHistory.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetTradeCarHistory();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    if (!(message.list && message.list.length))
-                        message.list = [];
-                    message.list.push($root.msg.TradeCarHistory.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetTradeCarHistory.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_RetTradeCarHistory message.
-         * @function verify
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_RetTradeCarHistory.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.list != null && message.hasOwnProperty("list")) {
-                if (!Array.isArray(message.list))
-                    return "list: array expected";
-                for (var i = 0; i < message.list.length; ++i) {
-                    var error = $root.msg.TradeCarHistory.verify(message.list[i]);
-                    if (error)
-                        return "list." + error;
-                }
-            }
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_RetTradeCarHistory message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_RetTradeCarHistory} GW2C_RetTradeCarHistory
-         */
-        GW2C_RetTradeCarHistory.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_RetTradeCarHistory)
-                return object;
-            var message = new $root.msg.GW2C_RetTradeCarHistory();
-            if (object.list) {
-                if (!Array.isArray(object.list))
-                    throw TypeError(".msg.GW2C_RetTradeCarHistory.list: array expected");
-                message.list = [];
-                for (var i = 0; i < object.list.length; ++i) {
-                    if (typeof object.list[i] !== "object")
-                        throw TypeError(".msg.GW2C_RetTradeCarHistory.list: object expected");
-                    message.list[i] = $root.msg.TradeCarHistory.fromObject(object.list[i]);
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a GW2C_RetTradeCarHistory message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @static
-         * @param {msg.GW2C_RetTradeCarHistory} message GW2C_RetTradeCarHistory
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_RetTradeCarHistory.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.arrays || options.defaults)
-                object.list = [];
-            if (message.list && message.list.length) {
-                object.list = [];
-                for (var j = 0; j < message.list.length; ++j)
-                    object.list[j] = $root.msg.TradeCarHistory.toObject(message.list[j], options);
-            }
-            return object;
-        };
-
-        /**
-         * Converts this GW2C_RetTradeCarHistory to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_RetTradeCarHistory
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_RetTradeCarHistory.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_RetTradeCarHistory;
-    })();
-
-    msg.C2GW_GetTradeCarReward = (function() {
-
-        /**
-         * Properties of a C2GW_GetTradeCarReward.
-         * @memberof msg
-         * @interface IC2GW_GetTradeCarReward
-         * @property {number|Long|null} [tradeuid] C2GW_GetTradeCarReward tradeuid
-         */
-
-        /**
-         * Constructs a new C2GW_GetTradeCarReward.
-         * @memberof msg
-         * @classdesc Represents a C2GW_GetTradeCarReward.
-         * @implements IC2GW_GetTradeCarReward
-         * @constructor
-         * @param {msg.IC2GW_GetTradeCarReward=} [properties] Properties to set
-         */
-        function C2GW_GetTradeCarReward(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_GetTradeCarReward tradeuid.
-         * @member {number|Long} tradeuid
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @instance
-         */
-        C2GW_GetTradeCarReward.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * Creates a new C2GW_GetTradeCarReward instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {msg.IC2GW_GetTradeCarReward=} [properties] Properties to set
-         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward instance
-         */
-        C2GW_GetTradeCarReward.create = function create(properties) {
-            return new C2GW_GetTradeCarReward(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_GetTradeCarReward message. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {msg.IC2GW_GetTradeCarReward} message C2GW_GetTradeCarReward message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_GetTradeCarReward.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_GetTradeCarReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {msg.IC2GW_GetTradeCarReward} message C2GW_GetTradeCarReward message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_GetTradeCarReward.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_GetTradeCarReward.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_GetTradeCarReward();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.tradeuid = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_GetTradeCarReward.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_GetTradeCarReward message.
-         * @function verify
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_GetTradeCarReward.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
-                    return "tradeuid: integer|Long expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_GetTradeCarReward message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_GetTradeCarReward} C2GW_GetTradeCarReward
-         */
-        C2GW_GetTradeCarReward.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_GetTradeCarReward)
-                return object;
-            var message = new $root.msg.C2GW_GetTradeCarReward();
-            if (object.tradeuid != null)
-                if ($util.Long)
-                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
-                else if (typeof object.tradeuid === "string")
-                    message.tradeuid = parseInt(object.tradeuid, 10);
-                else if (typeof object.tradeuid === "number")
-                    message.tradeuid = object.tradeuid;
-                else if (typeof object.tradeuid === "object")
-                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_GetTradeCarReward message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @static
-         * @param {msg.C2GW_GetTradeCarReward} message C2GW_GetTradeCarReward
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_GetTradeCarReward.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.tradeuid = options.longs === String ? "0" : 0;
-            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
-                if (typeof message.tradeuid === "number")
-                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
-                else
-                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_GetTradeCarReward to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_GetTradeCarReward
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_GetTradeCarReward.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_GetTradeCarReward;
-    })();
-
-    msg.C2GW_CancelCarHouse = (function() {
-
-        /**
-         * Properties of a C2GW_CancelCarHouse.
-         * @memberof msg
-         * @interface IC2GW_CancelCarHouse
-         * @property {number|Long|null} [caruid] C2GW_CancelCarHouse caruid
-         */
-
-        /**
-         * Constructs a new C2GW_CancelCarHouse.
-         * @memberof msg
-         * @classdesc Represents a C2GW_CancelCarHouse.
-         * @implements IC2GW_CancelCarHouse
-         * @constructor
-         * @param {msg.IC2GW_CancelCarHouse=} [properties] Properties to set
-         */
-        function C2GW_CancelCarHouse(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_CancelCarHouse caruid.
-         * @member {number|Long} caruid
-         * @memberof msg.C2GW_CancelCarHouse
-         * @instance
-         */
-        C2GW_CancelCarHouse.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-        /**
-         * Creates a new C2GW_CancelCarHouse instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {msg.IC2GW_CancelCarHouse=} [properties] Properties to set
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse instance
-         */
-        C2GW_CancelCarHouse.create = function create(properties) {
-            return new C2GW_CancelCarHouse(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_CancelCarHouse message. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {msg.IC2GW_CancelCarHouse} message C2GW_CancelCarHouse message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_CancelCarHouse.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.caruid);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_CancelCarHouse message, length delimited. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {msg.IC2GW_CancelCarHouse} message C2GW_CancelCarHouse message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_CancelCarHouse.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_CancelCarHouse.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CancelCarHouse();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.caruid = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_CancelCarHouse.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_CancelCarHouse message.
-         * @function verify
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_CancelCarHouse.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
-                    return "caruid: integer|Long expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_CancelCarHouse message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse
-         */
-        C2GW_CancelCarHouse.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_CancelCarHouse)
-                return object;
-            var message = new $root.msg.C2GW_CancelCarHouse();
-            if (object.caruid != null)
-                if ($util.Long)
-                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
-                else if (typeof object.caruid === "string")
-                    message.caruid = parseInt(object.caruid, 10);
-                else if (typeof object.caruid === "number")
-                    message.caruid = object.caruid;
-                else if (typeof object.caruid === "object")
-                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_CancelCarHouse message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_CancelCarHouse
-         * @static
-         * @param {msg.C2GW_CancelCarHouse} message C2GW_CancelCarHouse
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_CancelCarHouse.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, true);
-                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.caruid = options.longs === String ? "0" : 0;
-            if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (typeof message.caruid === "number")
-                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
-                else
-                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_CancelCarHouse to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_CancelCarHouse
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_CancelCarHouse.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_CancelCarHouse;
-    })();
-
-    msg.C2GW_AddDeliveryAddress = (function() {
->>>>>>> dev
 
         /**
          * Properties of a C2GW_StartLuckyDraw.
@@ -61935,6 +66500,7 @@ $root.table = (function() {
          * @interface IItemBaseDataDefine
          * @property {number|null} [Id] ItemBaseDataDefine Id
          * @property {number|null} [Type] ItemBaseDataDefine Type
+         * @property {number|null} [SubType] ItemBaseDataDefine SubType
          * @property {number|null} [Color] ItemBaseDataDefine Color
          * @property {number|null} [ImageId] ItemBaseDataDefine ImageId
          * @property {string|null} [Name] ItemBaseDataDefine Name
@@ -61972,6 +66538,14 @@ $root.table = (function() {
          * @instance
          */
         ItemBaseDataDefine.prototype.Type = 0;
+
+        /**
+         * ItemBaseDataDefine SubType.
+         * @member {number} SubType
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.SubType = 0;
 
         /**
          * ItemBaseDataDefine Color.
@@ -62041,16 +66615,18 @@ $root.table = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
             if (message.Type != null && message.hasOwnProperty("Type"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.SubType);
             if (message.Color != null && message.hasOwnProperty("Color"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Color);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.Color);
             if (message.ImageId != null && message.hasOwnProperty("ImageId"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ImageId);
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.ImageId);
             if (message.Name != null && message.hasOwnProperty("Name"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Name);
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Name);
             if (message.Desc != null && message.hasOwnProperty("Desc"))
-                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Desc);
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.Desc);
             if (message.Clothes != null && message.hasOwnProperty("Clothes"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.Clothes);
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.Clothes);
             return writer;
         };
 
@@ -62092,18 +66668,21 @@ $root.table = (function() {
                     message.Type = reader.int32();
                     break;
                 case 3:
-                    message.Color = reader.uint32();
+                    message.SubType = reader.uint32();
                     break;
                 case 4:
-                    message.ImageId = reader.uint32();
+                    message.Color = reader.uint32();
                     break;
                 case 5:
-                    message.Name = reader.string();
+                    message.ImageId = reader.uint32();
                     break;
                 case 6:
-                    message.Desc = reader.string();
+                    message.Name = reader.string();
                     break;
                 case 7:
+                    message.Desc = reader.string();
+                    break;
+                case 8:
                     message.Clothes = reader.uint32();
                     break;
                 default:
@@ -62147,6 +66726,9 @@ $root.table = (function() {
             if (message.Type != null && message.hasOwnProperty("Type"))
                 if (!$util.isInteger(message.Type))
                     return "Type: integer expected";
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                if (!$util.isInteger(message.SubType))
+                    return "SubType: integer expected";
             if (message.Color != null && message.hasOwnProperty("Color"))
                 if (!$util.isInteger(message.Color))
                     return "Color: integer expected";
@@ -62181,6 +66763,8 @@ $root.table = (function() {
                 message.Id = object.Id >>> 0;
             if (object.Type != null)
                 message.Type = object.Type | 0;
+            if (object.SubType != null)
+                message.SubType = object.SubType >>> 0;
             if (object.Color != null)
                 message.Color = object.Color >>> 0;
             if (object.ImageId != null)
@@ -62210,6 +66794,7 @@ $root.table = (function() {
             if (options.defaults) {
                 object.Id = 0;
                 object.Type = 0;
+                object.SubType = 0;
                 object.Color = 0;
                 object.ImageId = 0;
                 object.Name = "";
@@ -62220,6 +66805,8 @@ $root.table = (function() {
                 object.Id = message.Id;
             if (message.Type != null && message.hasOwnProperty("Type"))
                 object.Type = message.Type;
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                object.SubType = message.SubType;
             if (message.Color != null && message.hasOwnProperty("Color"))
                 object.Color = message.Color;
             if (message.ImageId != null && message.hasOwnProperty("ImageId"))

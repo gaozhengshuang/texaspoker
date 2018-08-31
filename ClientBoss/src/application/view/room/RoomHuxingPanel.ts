@@ -6,11 +6,12 @@ module game {
 			this.roomView = rView;
 		}
 		private roomInfo: HouseVO;
-		private roomTypeInfo: any;
+		private roomTypeInfo: table.ITHouseDefine;
 		private bubbleList: any[] = [];
 		private qiPaoList: QipaoPanel[] = [];
 		private huxingImage: egret.Bitmap;
 		private huxingSprite: egret.Sprite;
+		private maidGroup: eui.Group;
 		public lockMaskSprite: egret.Sprite;
 		public lockMaskItemList: any[] = [];
 
@@ -26,7 +27,13 @@ module game {
 				this.huxingSprite = new egret.Sprite();
 				this.addChild(this.huxingSprite);
 			}
-
+			if (this.maidGroup == null) {
+				this.maidGroup = new eui.Group;
+				this.maidGroup.width = this.width;
+				this.maidGroup.height = this.height;
+				this.maidGroup.touchEnabled = false;
+				this.addChild(this.maidGroup);
+			}
 			this.roomTypeInfo = table.THouseById[this.roomInfo.tId];
 			if (this.roomTypeInfo) {
 				this.huxingImage = new egret.Bitmap();
@@ -48,7 +55,7 @@ module game {
 				this.lockMaskItemList = [];
 				this.y = this.parent.height / 2 - this.height / 2 + 30;
 				this.initQipao(this.roomInfo.housecells);
-				this.initMaid(this.roomTypeInfo);
+				this.updateMaid();
 			}
 		}
 		public addLockMask(index: number) {
@@ -63,7 +70,7 @@ module game {
 			}
 			if (!ishave) {
 				let lockMaskItem: egret.Bitmap = new egret.Bitmap();
-				console.log(("hall_3_json.lockMask" + index + "_png"));
+				//console.log(("hall_3_json.lockMask" + index + "_png"));
 				lockMaskItem.texture = RES.getRes("hall_3_json.lockMask" + index + "_png");
 				lockMaskItem.x = this.lockMask[(index - 1)].x;
 				lockMaskItem.y = this.lockMask[(index - 1)].y;
@@ -100,16 +107,17 @@ module game {
 		}
 		private initQipao(bubble) {
 			//let origin:egret.Point=this.globalToLocal(0,0);
-
+			let roomPosList: string[] = this.roomTypeInfo.RoomPosition.split(";");
 			this.bubbleList = [];
 			this.qiPaoList = [];
 			if (bubble && bubble.length > 0) {
 				for (let i: number = 0; i < bubble.length; i++) {
 					let qipao: QipaoPanel = new QipaoPanel(this.roomView);
 					this.addChild(qipao);
-					let point: any = this["qipaoWeizhi" + (this.roomTypeInfo.MaxCells - 3)][bubble[i].index - 1];
-					qipao.x = point.x;
-					qipao.y = point.y;
+					let roomPos: string[] = roomPosList[bubble[i].index - 1].split("-");
+					//let point: any = this["qipaoWeizhi" + (this.roomTypeInfo.MaxCells - 3)][bubble[i].index - 1];
+					qipao.x = Number(roomPos[0]);
+					qipao.y = Number(roomPos[1]);
 					let oldY: number = qipao.y;
 					let timeNum: number = 800 + Math.floor(Math.random() * 500);
 					qipao.updataInfo(bubble[i]);
@@ -284,19 +292,27 @@ module game {
 				}
 			}
 		}
-		private initMaid(houseInfo: table.ITHouseDefine) {
-			let maidList: string[] = houseInfo.GirlsPosition.split(";");
+
+		public updateMaid() {
+			if (this.maidGroup) {
+				this.maidGroup.removeChildren();
+			}
+			let maidList: string[] = this.roomTypeInfo.GirlsPosition.split(";");
 			if (maidList) {
-				if (DataManager.playerModel.getHouseMaidInfo()) {
-					for(let i=0; i<DataManager.playerModel.getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
-						let maidInfo = DataManager.playerModel.getHouseMaidInfo().maids[i];
+				if (MaidManager.getInstance().getHouseMaidInfo()) {
+					for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
+						let maidInfo = MaidManager.getInstance().getHouseMaidInfo().maids[i];
 						let maidPos: string[] = maidList[i].split("-");
 						if (maidPos) {
 							let houseMaid = new HouseRolePanel();
-							this.addChild(houseMaid);
+							this.maidGroup.addChild(houseMaid);
+
+							houseMaid.anchorOffsetX = houseMaid.width / 2;
+							houseMaid.anchorOffsetY = houseMaid.height;
 							houseMaid.x = Number(maidPos[0]);
 							houseMaid.y = Number(maidPos[1]);
 
+							MaidManager.getInstance()._curSelHouse = this.roomInfo.rId;
 							houseMaid.show(maidInfo);
 						}
 					}

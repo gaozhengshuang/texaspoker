@@ -14,6 +14,9 @@ module game {
 				case TradeIconType.House:
 					this.iconImg.source = "huxing_" + this.data.icon + "_s_png";
 					break;
+				case TradeIconType.Car:
+					this.iconImg.source = this.data.icon;
+					break;
 			}
 			this.nameTxt.text = this.data.name;
 			this.tradeStar.show(this.data.star);

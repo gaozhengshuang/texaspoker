@@ -211,12 +211,13 @@ func (this *HouseCell) LevelUp() bool {
 
 //房屋访问者操作信息
 type HouseVisitInfo struct {
-	visitorid   uint64 //来访玩家的id
-	tmvisit     int64  //来访时间
-	optindex    uint32 //操作的房间编号
-	opttype     uint32 //操作类型 1主人收钱 2别人抢钱
-	optparam    uint32 //操作附加参数 例如主人收了多少钱 别人抢了多少钱
-	visitorname string //来访玩家的名字
+	visitorid   uint64 	//来访玩家的id
+	tmvisit     int64  	//来访时间
+	optindex    uint32 	//操作的房间编号
+	opttype     uint32 	//操作类型 1主人收钱 2别人抢钱
+	optparam    uint32 	//操作附加参数 例如主人收了多少钱 别人抢了多少钱
+	visitorname string 	//来访玩家的名字
+	visitorhouse uint64 	//来访玩家的house，用于直接拜访house
 }
 
 func (this *HouseVisitInfo) LoadBin(bin *msg.HouseVisitInfo) {
@@ -226,6 +227,7 @@ func (this *HouseVisitInfo) LoadBin(bin *msg.HouseVisitInfo) {
 	this.opttype = bin.GetOpttype()
 	this.optparam = bin.GetOptparam()
 	this.visitorname = bin.GetVisitorname()
+	this.visitorhouse = bin.GetVisitorhouse()
 }
 
 func (this *HouseVisitInfo) PackBin() *msg.HouseVisitInfo {
@@ -236,6 +238,7 @@ func (this *HouseVisitInfo) PackBin() *msg.HouseVisitInfo {
 	bin.Opttype = pb.Uint32(this.opttype)
 	bin.Optparam = pb.Uint32(this.optparam)
 	bin.Visitorname = pb.String(this.visitorname)
+	bin.Visitorhouse = pb.Uint64(this.visitorhouse)
 	return bin
 }
 
@@ -255,7 +258,8 @@ type HouseData struct {
 	income		 uint32 //收益
 	tradeendtime uint32 //交易结束时间
 	sumvalue	 uint32 //总价值
-	tradeuid	 uint64 //交易id 
+	tradeuid	 uint64 //交易id
+	tradeprice   uint32 
 	ticker1Sec *util.GameTicker
 }
 
@@ -292,6 +296,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.tradeendtime = bin.GetTradeendtime()
 	this.sumvalue = bin.GetSumvalue()
 	this.tradeuid = bin.GetTradeuid()
+	this.tradeprice = bin.GetTradeprice()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -334,6 +339,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
 	bin.Sumvalue = pb.Uint32(this.sumvalue)
 	bin.Tradeuid = pb.Uint64(this.tradeuid)
+	bin.Tradeprice = pb.Uint32(this.tradeprice)
 	return bin
 }
 
@@ -375,8 +381,8 @@ func (this *HouseData) CanOperate(userid uint64) bool {
 	if this.issell == true {
 		if user := UserMgr().FindById(userid); user != nil {
 			user.SendNotify("房屋出售中，不能操作")
-			return false
 		}
+		return false
 	}
 	return true
 }
@@ -425,7 +431,7 @@ func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visit
 		gold,items := this.housecells[cellindex].VisitorTakeGold(visitorid)
 		if gold > 0 {
 			//加偷钱的记录
-			this.AddVisitInfo(visitorid, cellindex, 2, gold, visitorname)
+			this.AddVisitInfo(visitorid, 0, cellindex, uint32(msg.HouseVisitType_RobMoney), gold, visitorname, false)
 		}
 		return gold,items
 	} else {
@@ -485,14 +491,15 @@ func (this *HouseData) LevelUp() bool {
 }
 
 //添加记录
-func (this *HouseData) AddVisitInfo(visitorid uint64, optindex uint32, opttype uint32, optparam uint32, visitorname string) {
+func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string, syn bool) {
 	data := &HouseVisitInfo{}
 	data.visitorid = visitorid
 	data.tmvisit = util.CURTIME()
 	data.optindex = optindex
 	data.opttype = opttype
 	data.optparam = optparam
-	data.visitorname = visitorname
+	data.visitorname = vistor
+	data.visitorhouse = visitorhouse
 	this.visitinfo = append(this.visitinfo, data)
 	infolen := len(this.visitinfo)
 
@@ -504,6 +511,14 @@ func (this *HouseData) AddVisitInfo(visitorid uint64, optindex uint32, opttype u
 		infolen = len(this.visitinfo)
 	}
 	this.robcheckflag = 1
+	
+	// 同步访问记录
+	if syn {
+		send := &msg.GW2C_UpdateHouseVisitInfo{Houseid:pb.Uint64(this.id), Info:data.PackBin()}
+		if user := UserMgr().FindById(this.ownerid); user != nil {
+			user.SendMsg(send) 
+		}
+	}
 }
 
 //客户端查看记录重置查看状态
@@ -576,14 +591,6 @@ func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
 	data := make(map[uint64]*HouseData)
 	if _, ok := this.userhouses[uid]; ok {
 		return this.userhouses[uid]
-		/*
-		for _, v := range ids {
-			tmp := this.GetHouse(v)
-			if tmp != nil {
-				data[tmp.id] = tmp
-			}
-		}
-		*/
 	}
 	return data
 }

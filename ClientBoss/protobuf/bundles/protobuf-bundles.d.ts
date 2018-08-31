@@ -1,5 +1,4 @@
 type Long = protobuf.Long;
-// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -3069,6 +3068,9 @@ declare namespace msg {
 
         /** HouseMaidData tmworking */
         tmworking?: (number|Long|null);
+
+        /** HouseMaidData robberto */
+        robberto?: (number|Long|null);
     }
 
     /** Represents an HouseMaidData. */
@@ -3112,6 +3114,9 @@ declare namespace msg {
 
         /** HouseMaidData tmworking. */
         public tmworking: (number|Long);
+
+        /** HouseMaidData robberto. */
+        public robberto: (number|Long);
 
         /**
          * Creates a new HouseMaidData instance using the specified properties.
@@ -4263,6 +4268,18 @@ declare namespace msg {
 
         /** CarData longitude */
         longitude?: (number|null);
+
+        /** CarData price */
+        price?: (number|null);
+
+        /** CarData tradeendtime */
+        tradeendtime?: (number|null);
+
+        /** CarData tradeuid */
+        tradeuid?: (number|Long|null);
+
+        /** CarData tradeprice */
+        tradeprice?: (number|null);
     }
 
     /** Represents a CarData. */
@@ -4318,6 +4335,18 @@ declare namespace msg {
 
         /** CarData longitude. */
         public longitude: number;
+
+        /** CarData price. */
+        public price: number;
+
+        /** CarData tradeendtime. */
+        public tradeendtime: number;
+
+        /** CarData tradeuid. */
+        public tradeuid: (number|Long);
+
+        /** CarData tradeprice. */
+        public tradeprice: number;
 
         /**
          * Creates a new CarData instance using the specified properties.
@@ -4692,6 +4721,9 @@ declare namespace msg {
 
         /** HouseVisitInfo visitorname */
         visitorname?: (string|null);
+
+        /** HouseVisitInfo visitorhouse */
+        visitorhouse?: (number|Long|null);
     }
 
     /** Represents an HouseVisitInfo. */
@@ -4720,6 +4752,9 @@ declare namespace msg {
 
         /** HouseVisitInfo visitorname. */
         public visitorname: string;
+
+        /** HouseVisitInfo visitorhouse. */
+        public visitorhouse: (number|Long);
 
         /**
          * Creates a new HouseVisitInfo instance using the specified properties.
@@ -4845,6 +4880,9 @@ declare namespace msg {
 
         /** HouseData tradeuid */
         tradeuid?: (number|Long|null);
+
+        /** HouseData tradeprice */
+        tradeprice?: (number|null);
     }
 
     /** Represents an HouseData. */
@@ -4906,6 +4944,9 @@ declare namespace msg {
 
         /** HouseData tradeuid. */
         public tradeuid: (number|Long);
+
+        /** HouseData tradeprice. */
+        public tradeprice: number;
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -5356,6 +5397,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqCarInfoById. */
+    interface IC2GW_ReqCarInfoById {
+
+        /** C2GW_ReqCarInfoById carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqCarInfoById. */
+    class C2GW_ReqCarInfoById implements IC2GW_ReqCarInfoById {
+
+        /**
+         * Constructs a new C2GW_ReqCarInfoById.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqCarInfoById);
+
+        /** C2GW_ReqCarInfoById carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqCarInfoById instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqCarInfoById instance
+         */
+        public static create(properties?: msg.IC2GW_ReqCarInfoById): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @param message C2GW_ReqCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @param message C2GW_ReqCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Verifies a C2GW_ReqCarInfoById message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqCarInfoById
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Creates a plain object from a C2GW_ReqCarInfoById message. Also converts values to other types if specified.
+         * @param message C2GW_ReqCarInfoById
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqCarInfoById, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqCarInfoById to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2C_ResCarInfo. */
     interface IGW2C_ResCarInfo {
 
@@ -5447,6 +5578,96 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_ResCarInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_ResCarInfoById. */
+    interface IGW2C_ResCarInfoById {
+
+        /** GW2C_ResCarInfoById cardata */
+        cardata?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_ResCarInfoById. */
+    class GW2C_ResCarInfoById implements IGW2C_ResCarInfoById {
+
+        /**
+         * Constructs a new GW2C_ResCarInfoById.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_ResCarInfoById);
+
+        /** GW2C_ResCarInfoById cardata. */
+        public cardata?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_ResCarInfoById instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_ResCarInfoById instance
+         */
+        public static create(properties?: msg.IGW2C_ResCarInfoById): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @param message GW2C_ResCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_ResCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message, length delimited. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @param message GW2C_ResCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_ResCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Verifies a GW2C_ResCarInfoById message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_ResCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_ResCarInfoById
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Creates a plain object from a GW2C_ResCarInfoById message. Also converts values to other types if specified.
+         * @param message GW2C_ResCarInfoById
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_ResCarInfoById, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_ResCarInfoById to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -6652,6 +6873,108 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2C_UpdateCar. */
+    interface IGW2C_UpdateCar {
+
+        /** GW2C_UpdateCar carid */
+        carid?: (number|Long|null);
+
+        /** GW2C_UpdateCar data */
+        data?: (msg.ICarData|null);
+
+        /** GW2C_UpdateCar isdel */
+        isdel?: (boolean|null);
+    }
+
+    /** Represents a GW2C_UpdateCar. */
+    class GW2C_UpdateCar implements IGW2C_UpdateCar {
+
+        /**
+         * Constructs a new GW2C_UpdateCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_UpdateCar);
+
+        /** GW2C_UpdateCar carid. */
+        public carid: (number|Long);
+
+        /** GW2C_UpdateCar data. */
+        public data?: (msg.ICarData|null);
+
+        /** GW2C_UpdateCar isdel. */
+        public isdel: boolean;
+
+        /**
+         * Creates a new GW2C_UpdateCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_UpdateCar instance
+         */
+        public static create(properties?: msg.IGW2C_UpdateCar): msg.GW2C_UpdateCar;
+
+        /**
+         * Encodes the specified GW2C_UpdateCar message. Does not implicitly {@link msg.GW2C_UpdateCar.verify|verify} messages.
+         * @param message GW2C_UpdateCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_UpdateCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_UpdateCar message, length delimited. Does not implicitly {@link msg.GW2C_UpdateCar.verify|verify} messages.
+         * @param message GW2C_UpdateCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_UpdateCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_UpdateCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_UpdateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_UpdateCar;
+
+        /**
+         * Decodes a GW2C_UpdateCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_UpdateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_UpdateCar;
+
+        /**
+         * Verifies a GW2C_UpdateCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_UpdateCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_UpdateCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_UpdateCar;
+
+        /**
+         * Creates a plain object from a GW2C_UpdateCar message. Also converts values to other types if specified.
+         * @param message GW2C_UpdateCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_UpdateCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_UpdateCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2C_AddNewCar. */
     interface IGW2C_AddNewCar {
 
@@ -6935,6 +7258,192 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_RetCarPartLevelup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_CarStarup. */
+    interface IC2GW_CarStarup {
+
+        /** C2GW_CarStarup carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_CarStarup. */
+    class C2GW_CarStarup implements IC2GW_CarStarup {
+
+        /**
+         * Constructs a new C2GW_CarStarup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CarStarup);
+
+        /** C2GW_CarStarup carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_CarStarup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CarStarup instance
+         */
+        public static create(properties?: msg.IC2GW_CarStarup): msg.C2GW_CarStarup;
+
+        /**
+         * Encodes the specified C2GW_CarStarup message. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @param message C2GW_CarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CarStarup message, length delimited. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @param message C2GW_CarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CarStarup;
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CarStarup;
+
+        /**
+         * Verifies a C2GW_CarStarup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CarStarup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CarStarup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CarStarup;
+
+        /**
+         * Creates a plain object from a C2GW_CarStarup message. Also converts values to other types if specified.
+         * @param message C2GW_CarStarup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CarStarup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CarStarup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarStarup. */
+    interface IGW2C_RetCarStarup {
+
+        /** GW2C_RetCarStarup result */
+        result?: (number|null);
+
+        /** GW2C_RetCarStarup car */
+        car?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_RetCarStarup. */
+    class GW2C_RetCarStarup implements IGW2C_RetCarStarup {
+
+        /**
+         * Constructs a new GW2C_RetCarStarup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarStarup);
+
+        /** GW2C_RetCarStarup result. */
+        public result: number;
+
+        /** GW2C_RetCarStarup car. */
+        public car?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_RetCarStarup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarStarup instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarStarup): msg.GW2C_RetCarStarup;
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @param message GW2C_RetCarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message, length delimited. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @param message GW2C_RetCarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarStarup;
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarStarup;
+
+        /**
+         * Verifies a GW2C_RetCarStarup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarStarup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarStarup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarStarup;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarStarup message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarStarup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarStarup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarStarup to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -7549,6 +8058,14 @@ declare namespace msg {
         LongClothes = 8
     }
 
+    /** HouseVisitType enum. */
+    enum HouseVisitType {
+        TakeMoney = 1,
+        RobMoney = 2,
+        RobMaid = 5,
+        TakeBackMaid = 6
+    }
+
     /** Sex enum. */
     enum Sex {
         Female = 0,
@@ -7866,6 +8383,102 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_UpdateHouseDataOne to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_UpdateHouseVisitInfo. */
+    interface IGW2C_UpdateHouseVisitInfo {
+
+        /** GW2C_UpdateHouseVisitInfo houseid */
+        houseid?: (number|Long|null);
+
+        /** GW2C_UpdateHouseVisitInfo info */
+        info?: (msg.IHouseVisitInfo|null);
+    }
+
+    /** Represents a GW2C_UpdateHouseVisitInfo. */
+    class GW2C_UpdateHouseVisitInfo implements IGW2C_UpdateHouseVisitInfo {
+
+        /**
+         * Constructs a new GW2C_UpdateHouseVisitInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_UpdateHouseVisitInfo);
+
+        /** GW2C_UpdateHouseVisitInfo houseid. */
+        public houseid: (number|Long);
+
+        /** GW2C_UpdateHouseVisitInfo info. */
+        public info?: (msg.IHouseVisitInfo|null);
+
+        /**
+         * Creates a new GW2C_UpdateHouseVisitInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_UpdateHouseVisitInfo instance
+         */
+        public static create(properties?: msg.IGW2C_UpdateHouseVisitInfo): msg.GW2C_UpdateHouseVisitInfo;
+
+        /**
+         * Encodes the specified GW2C_UpdateHouseVisitInfo message. Does not implicitly {@link msg.GW2C_UpdateHouseVisitInfo.verify|verify} messages.
+         * @param message GW2C_UpdateHouseVisitInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_UpdateHouseVisitInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_UpdateHouseVisitInfo message, length delimited. Does not implicitly {@link msg.GW2C_UpdateHouseVisitInfo.verify|verify} messages.
+         * @param message GW2C_UpdateHouseVisitInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_UpdateHouseVisitInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_UpdateHouseVisitInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_UpdateHouseVisitInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_UpdateHouseVisitInfo;
+
+        /**
+         * Decodes a GW2C_UpdateHouseVisitInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_UpdateHouseVisitInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_UpdateHouseVisitInfo;
+
+        /**
+         * Verifies a GW2C_UpdateHouseVisitInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_UpdateHouseVisitInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_UpdateHouseVisitInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_UpdateHouseVisitInfo;
+
+        /**
+         * Creates a plain object from a GW2C_UpdateHouseVisitInfo message. Also converts values to other types if specified.
+         * @param message GW2C_UpdateHouseVisitInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_UpdateHouseVisitInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_UpdateHouseVisitInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -14159,6 +14772,90 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_TakeRobMaidEarning. */
+    interface IC2GW_TakeRobMaidEarning {
+    }
+
+    /** Represents a C2GW_TakeRobMaidEarning. */
+    class C2GW_TakeRobMaidEarning implements IC2GW_TakeRobMaidEarning {
+
+        /**
+         * Constructs a new C2GW_TakeRobMaidEarning.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_TakeRobMaidEarning);
+
+        /**
+         * Creates a new C2GW_TakeRobMaidEarning instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_TakeRobMaidEarning instance
+         */
+        public static create(properties?: msg.IC2GW_TakeRobMaidEarning): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @param message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_TakeRobMaidEarning, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message, length delimited. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @param message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_TakeRobMaidEarning, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Verifies a C2GW_TakeRobMaidEarning message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_TakeRobMaidEarning message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_TakeRobMaidEarning
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Creates a plain object from a C2GW_TakeRobMaidEarning message. Also converts values to other types if specified.
+         * @param message C2GW_TakeRobMaidEarning
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_TakeRobMaidEarning, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_TakeRobMaidEarning to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_RobMaid. */
     interface IC2GW_RobMaid {
 
@@ -19400,6 +20097,2268 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqCarTradeList. */
+    interface IC2GW_ReqCarTradeList {
+
+        /** C2GW_ReqCarTradeList cartype */
+        cartype?: (number|null);
+
+        /** C2GW_ReqCarTradeList carsubtype */
+        carsubtype?: (number|null);
+
+        /** C2GW_ReqCarTradeList pricemin */
+        pricemin?: (number|null);
+
+        /** C2GW_ReqCarTradeList pricemax */
+        pricemax?: (number|null);
+
+        /** C2GW_ReqCarTradeList carlevel */
+        carlevel?: (number|null);
+
+        /** C2GW_ReqCarTradeList name */
+        name?: (string|null);
+
+        /** C2GW_ReqCarTradeList pricedec */
+        pricedec?: (boolean|null);
+
+        /** C2GW_ReqCarTradeList startnum */
+        startnum?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqCarTradeList. */
+    class C2GW_ReqCarTradeList implements IC2GW_ReqCarTradeList {
+
+        /**
+         * Constructs a new C2GW_ReqCarTradeList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqCarTradeList);
+
+        /** C2GW_ReqCarTradeList cartype. */
+        public cartype: number;
+
+        /** C2GW_ReqCarTradeList carsubtype. */
+        public carsubtype: number;
+
+        /** C2GW_ReqCarTradeList pricemin. */
+        public pricemin: number;
+
+        /** C2GW_ReqCarTradeList pricemax. */
+        public pricemax: number;
+
+        /** C2GW_ReqCarTradeList carlevel. */
+        public carlevel: number;
+
+        /** C2GW_ReqCarTradeList name. */
+        public name: string;
+
+        /** C2GW_ReqCarTradeList pricedec. */
+        public pricedec: boolean;
+
+        /** C2GW_ReqCarTradeList startnum. */
+        public startnum: number;
+
+        /**
+         * Creates a new C2GW_ReqCarTradeList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqCarTradeList instance
+         */
+        public static create(properties?: msg.IC2GW_ReqCarTradeList): msg.C2GW_ReqCarTradeList;
+
+        /**
+         * Encodes the specified C2GW_ReqCarTradeList message. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
+         * @param message C2GW_ReqCarTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqCarTradeList message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
+         * @param message C2GW_ReqCarTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqCarTradeList;
+
+        /**
+         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqCarTradeList;
+
+        /**
+         * Verifies a C2GW_ReqCarTradeList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqCarTradeList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqCarTradeList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqCarTradeList;
+
+        /**
+         * Creates a plain object from a C2GW_ReqCarTradeList message. Also converts values to other types if specified.
+         * @param message C2GW_ReqCarTradeList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqCarTradeList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqCarTradeList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a SimpleCarTrade. */
+    interface ISimpleCarTrade {
+
+        /** SimpleCarTrade tradeuid */
+        tradeuid?: (number|Long|null);
+
+        /** SimpleCarTrade caruid */
+        caruid?: (number|null);
+
+        /** SimpleCarTrade price */
+        price?: (number|null);
+
+        /** SimpleCarTrade income */
+        income?: (number|null);
+
+        /** SimpleCarTrade carbaseid */
+        carbaseid?: (number|null);
+
+        /** SimpleCarTrade endtime */
+        endtime?: (number|null);
+
+        /** SimpleCarTrade ownerid */
+        ownerid?: (number|null);
+
+        /** SimpleCarTrade carlevel */
+        carlevel?: (number|null);
+
+        /** SimpleCarTrade cartype */
+        cartype?: (number|null);
+
+        /** SimpleCarTrade name */
+        name?: (string|null);
+    }
+
+    /** Represents a SimpleCarTrade. */
+    class SimpleCarTrade implements ISimpleCarTrade {
+
+        /**
+         * Constructs a new SimpleCarTrade.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ISimpleCarTrade);
+
+        /** SimpleCarTrade tradeuid. */
+        public tradeuid: (number|Long);
+
+        /** SimpleCarTrade caruid. */
+        public caruid: number;
+
+        /** SimpleCarTrade price. */
+        public price: number;
+
+        /** SimpleCarTrade income. */
+        public income: number;
+
+        /** SimpleCarTrade carbaseid. */
+        public carbaseid: number;
+
+        /** SimpleCarTrade endtime. */
+        public endtime: number;
+
+        /** SimpleCarTrade ownerid. */
+        public ownerid: number;
+
+        /** SimpleCarTrade carlevel. */
+        public carlevel: number;
+
+        /** SimpleCarTrade cartype. */
+        public cartype: number;
+
+        /** SimpleCarTrade name. */
+        public name: string;
+
+        /**
+         * Creates a new SimpleCarTrade instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SimpleCarTrade instance
+         */
+        public static create(properties?: msg.ISimpleCarTrade): msg.SimpleCarTrade;
+
+        /**
+         * Encodes the specified SimpleCarTrade message. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
+         * @param message SimpleCarTrade message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ISimpleCarTrade, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified SimpleCarTrade message, length delimited. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
+         * @param message SimpleCarTrade message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ISimpleCarTrade, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a SimpleCarTrade message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SimpleCarTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.SimpleCarTrade;
+
+        /**
+         * Decodes a SimpleCarTrade message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SimpleCarTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.SimpleCarTrade;
+
+        /**
+         * Verifies a SimpleCarTrade message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SimpleCarTrade message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SimpleCarTrade
+         */
+        public static fromObject(object: { [k: string]: any }): msg.SimpleCarTrade;
+
+        /**
+         * Creates a plain object from a SimpleCarTrade message. Also converts values to other types if specified.
+         * @param message SimpleCarTrade
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.SimpleCarTrade, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SimpleCarTrade to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarTradeList. */
+    interface IGW2C_RetCarTradeList {
+
+        /** GW2C_RetCarTradeList list */
+        list?: (msg.ISimpleCarTrade[]|null);
+    }
+
+    /** Represents a GW2C_RetCarTradeList. */
+    class GW2C_RetCarTradeList implements IGW2C_RetCarTradeList {
+
+        /**
+         * Constructs a new GW2C_RetCarTradeList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarTradeList);
+
+        /** GW2C_RetCarTradeList list. */
+        public list: msg.ISimpleCarTrade[];
+
+        /**
+         * Creates a new GW2C_RetCarTradeList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarTradeList instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarTradeList): msg.GW2C_RetCarTradeList;
+
+        /**
+         * Encodes the specified GW2C_RetCarTradeList message. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
+         * @param message GW2C_RetCarTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarTradeList message, length delimited. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
+         * @param message GW2C_RetCarTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarTradeList;
+
+        /**
+         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarTradeList;
+
+        /**
+         * Verifies a GW2C_RetCarTradeList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarTradeList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarTradeList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarTradeList;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarTradeList message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarTradeList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarTradeList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarTradeList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_TradeCar. */
+    interface IC2GW_TradeCar {
+
+        /** C2GW_TradeCar caruid */
+        caruid?: (number|Long|null);
+
+        /** C2GW_TradeCar price */
+        price?: (number|null);
+    }
+
+    /** Represents a C2GW_TradeCar. */
+    class C2GW_TradeCar implements IC2GW_TradeCar {
+
+        /**
+         * Constructs a new C2GW_TradeCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_TradeCar);
+
+        /** C2GW_TradeCar caruid. */
+        public caruid: (number|Long);
+
+        /** C2GW_TradeCar price. */
+        public price: number;
+
+        /**
+         * Creates a new C2GW_TradeCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_TradeCar instance
+         */
+        public static create(properties?: msg.IC2GW_TradeCar): msg.C2GW_TradeCar;
+
+        /**
+         * Encodes the specified C2GW_TradeCar message. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
+         * @param message C2GW_TradeCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_TradeCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_TradeCar message, length delimited. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
+         * @param message C2GW_TradeCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_TradeCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_TradeCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_TradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_TradeCar;
+
+        /**
+         * Decodes a C2GW_TradeCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_TradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_TradeCar;
+
+        /**
+         * Verifies a C2GW_TradeCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_TradeCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_TradeCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_TradeCar;
+
+        /**
+         * Creates a plain object from a C2GW_TradeCar message. Also converts values to other types if specified.
+         * @param message C2GW_TradeCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_TradeCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_TradeCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_BuyTradeCar. */
+    interface IC2GW_BuyTradeCar {
+
+        /** C2GW_BuyTradeCar tradeuid */
+        tradeuid?: (number|Long|null);
+
+        /** C2GW_BuyTradeCar caruid */
+        caruid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_BuyTradeCar. */
+    class C2GW_BuyTradeCar implements IC2GW_BuyTradeCar {
+
+        /**
+         * Constructs a new C2GW_BuyTradeCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_BuyTradeCar);
+
+        /** C2GW_BuyTradeCar tradeuid. */
+        public tradeuid: (number|Long);
+
+        /** C2GW_BuyTradeCar caruid. */
+        public caruid: (number|Long);
+
+        /**
+         * Creates a new C2GW_BuyTradeCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_BuyTradeCar instance
+         */
+        public static create(properties?: msg.IC2GW_BuyTradeCar): msg.C2GW_BuyTradeCar;
+
+        /**
+         * Encodes the specified C2GW_BuyTradeCar message. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
+         * @param message C2GW_BuyTradeCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_BuyTradeCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_BuyTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
+         * @param message C2GW_BuyTradeCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_BuyTradeCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_BuyTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_BuyTradeCar;
+
+        /**
+         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_BuyTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_BuyTradeCar;
+
+        /**
+         * Verifies a C2GW_BuyTradeCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_BuyTradeCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_BuyTradeCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_BuyTradeCar;
+
+        /**
+         * Creates a plain object from a C2GW_BuyTradeCar message. Also converts values to other types if specified.
+         * @param message C2GW_BuyTradeCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_BuyTradeCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_BuyTradeCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTradeCarHistory. */
+    interface IC2GW_ReqTradeCarHistory {
+    }
+
+    /** Represents a C2GW_ReqTradeCarHistory. */
+    class C2GW_ReqTradeCarHistory implements IC2GW_ReqTradeCarHistory {
+
+        /**
+         * Constructs a new C2GW_ReqTradeCarHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTradeCarHistory);
+
+        /**
+         * Creates a new C2GW_ReqTradeCarHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTradeCarHistory instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTradeCarHistory): msg.C2GW_ReqTradeCarHistory;
+
+        /**
+         * Encodes the specified C2GW_ReqTradeCarHistory message. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
+         * @param message C2GW_ReqTradeCarHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTradeCarHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
+         * @param message C2GW_ReqTradeCarHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTradeCarHistory;
+
+        /**
+         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTradeCarHistory;
+
+        /**
+         * Verifies a C2GW_ReqTradeCarHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTradeCarHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTradeCarHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTradeCarHistory;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTradeCarHistory message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTradeCarHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTradeCarHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTradeCarHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TradeCarHistory. */
+    interface ITradeCarHistory {
+
+        /** TradeCarHistory tradeuid */
+        tradeuid?: (number|Long|null);
+
+        /** TradeCarHistory caruid */
+        caruid?: (number|Long|null);
+
+        /** TradeCarHistory price */
+        price?: (number|null);
+
+        /** TradeCarHistory income */
+        income?: (number|null);
+
+        /** TradeCarHistory carbaseid */
+        carbaseid?: (number|null);
+
+        /** TradeCarHistory endtime */
+        endtime?: (number|null);
+
+        /** TradeCarHistory carlevel */
+        carlevel?: (number|null);
+
+        /** TradeCarHistory cartype */
+        cartype?: (number|null);
+
+        /** TradeCarHistory state */
+        state?: (number|null);
+
+        /** TradeCarHistory tradetime */
+        tradetime?: (number|null);
+    }
+
+    /** Represents a TradeCarHistory. */
+    class TradeCarHistory implements ITradeCarHistory {
+
+        /**
+         * Constructs a new TradeCarHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ITradeCarHistory);
+
+        /** TradeCarHistory tradeuid. */
+        public tradeuid: (number|Long);
+
+        /** TradeCarHistory caruid. */
+        public caruid: (number|Long);
+
+        /** TradeCarHistory price. */
+        public price: number;
+
+        /** TradeCarHistory income. */
+        public income: number;
+
+        /** TradeCarHistory carbaseid. */
+        public carbaseid: number;
+
+        /** TradeCarHistory endtime. */
+        public endtime: number;
+
+        /** TradeCarHistory carlevel. */
+        public carlevel: number;
+
+        /** TradeCarHistory cartype. */
+        public cartype: number;
+
+        /** TradeCarHistory state. */
+        public state: number;
+
+        /** TradeCarHistory tradetime. */
+        public tradetime: number;
+
+        /**
+         * Creates a new TradeCarHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TradeCarHistory instance
+         */
+        public static create(properties?: msg.ITradeCarHistory): msg.TradeCarHistory;
+
+        /**
+         * Encodes the specified TradeCarHistory message. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
+         * @param message TradeCarHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ITradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TradeCarHistory message, length delimited. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
+         * @param message TradeCarHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ITradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TradeCarHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.TradeCarHistory;
+
+        /**
+         * Decodes a TradeCarHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.TradeCarHistory;
+
+        /**
+         * Verifies a TradeCarHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TradeCarHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TradeCarHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.TradeCarHistory;
+
+        /**
+         * Creates a plain object from a TradeCarHistory message. Also converts values to other types if specified.
+         * @param message TradeCarHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.TradeCarHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TradeCarHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetTradeCarHistory. */
+    interface IGW2C_RetTradeCarHistory {
+
+        /** GW2C_RetTradeCarHistory list */
+        list?: (msg.ITradeCarHistory[]|null);
+    }
+
+    /** Represents a GW2C_RetTradeCarHistory. */
+    class GW2C_RetTradeCarHistory implements IGW2C_RetTradeCarHistory {
+
+        /**
+         * Constructs a new GW2C_RetTradeCarHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetTradeCarHistory);
+
+        /** GW2C_RetTradeCarHistory list. */
+        public list: msg.ITradeCarHistory[];
+
+        /**
+         * Creates a new GW2C_RetTradeCarHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetTradeCarHistory instance
+         */
+        public static create(properties?: msg.IGW2C_RetTradeCarHistory): msg.GW2C_RetTradeCarHistory;
+
+        /**
+         * Encodes the specified GW2C_RetTradeCarHistory message. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
+         * @param message GW2C_RetTradeCarHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetTradeCarHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
+         * @param message GW2C_RetTradeCarHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetTradeCarHistory;
+
+        /**
+         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetTradeCarHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetTradeCarHistory;
+
+        /**
+         * Verifies a GW2C_RetTradeCarHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetTradeCarHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetTradeCarHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetTradeCarHistory;
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeCarHistory message. Also converts values to other types if specified.
+         * @param message GW2C_RetTradeCarHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetTradeCarHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetTradeCarHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_GetTradeCarReward. */
+    interface IC2GW_GetTradeCarReward {
+
+        /** C2GW_GetTradeCarReward tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_GetTradeCarReward. */
+    class C2GW_GetTradeCarReward implements IC2GW_GetTradeCarReward {
+
+        /**
+         * Constructs a new C2GW_GetTradeCarReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_GetTradeCarReward);
+
+        /** C2GW_GetTradeCarReward tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new C2GW_GetTradeCarReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_GetTradeCarReward instance
+         */
+        public static create(properties?: msg.IC2GW_GetTradeCarReward): msg.C2GW_GetTradeCarReward;
+
+        /**
+         * Encodes the specified C2GW_GetTradeCarReward message. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
+         * @param message C2GW_GetTradeCarReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_GetTradeCarReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_GetTradeCarReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
+         * @param message C2GW_GetTradeCarReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_GetTradeCarReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_GetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_GetTradeCarReward;
+
+        /**
+         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_GetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_GetTradeCarReward;
+
+        /**
+         * Verifies a C2GW_GetTradeCarReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_GetTradeCarReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_GetTradeCarReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_GetTradeCarReward;
+
+        /**
+         * Creates a plain object from a C2GW_GetTradeCarReward message. Also converts values to other types if specified.
+         * @param message C2GW_GetTradeCarReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_GetTradeCarReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_GetTradeCarReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGetTradeCarReward. */
+    interface IGW2C_RetGetTradeCarReward {
+
+        /** GW2C_RetGetTradeCarReward tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetGetTradeCarReward. */
+    class GW2C_RetGetTradeCarReward implements IGW2C_RetGetTradeCarReward {
+
+        /**
+         * Constructs a new GW2C_RetGetTradeCarReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGetTradeCarReward);
+
+        /** GW2C_RetGetTradeCarReward tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetGetTradeCarReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGetTradeCarReward instance
+         */
+        public static create(properties?: msg.IGW2C_RetGetTradeCarReward): msg.GW2C_RetGetTradeCarReward;
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeCarReward message. Does not implicitly {@link msg.GW2C_RetGetTradeCarReward.verify|verify} messages.
+         * @param message GW2C_RetGetTradeCarReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGetTradeCarReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeCarReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetTradeCarReward.verify|verify} messages.
+         * @param message GW2C_RetGetTradeCarReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGetTradeCarReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGetTradeCarReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGetTradeCarReward;
+
+        /**
+         * Decodes a GW2C_RetGetTradeCarReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGetTradeCarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGetTradeCarReward;
+
+        /**
+         * Verifies a GW2C_RetGetTradeCarReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGetTradeCarReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGetTradeCarReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGetTradeCarReward;
+
+        /**
+         * Creates a plain object from a GW2C_RetGetTradeCarReward message. Also converts values to other types if specified.
+         * @param message GW2C_RetGetTradeCarReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGetTradeCarReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGetTradeCarReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_CancelTradeCar. */
+    interface IC2GW_CancelTradeCar {
+
+        /** C2GW_CancelTradeCar caruid */
+        caruid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_CancelTradeCar. */
+    class C2GW_CancelTradeCar implements IC2GW_CancelTradeCar {
+
+        /**
+         * Constructs a new C2GW_CancelTradeCar.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CancelTradeCar);
+
+        /** C2GW_CancelTradeCar caruid. */
+        public caruid: (number|Long);
+
+        /**
+         * Creates a new C2GW_CancelTradeCar instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CancelTradeCar instance
+         */
+        public static create(properties?: msg.IC2GW_CancelTradeCar): msg.C2GW_CancelTradeCar;
+
+        /**
+         * Encodes the specified C2GW_CancelTradeCar message. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
+         * @param message C2GW_CancelTradeCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CancelTradeCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CancelTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
+         * @param message C2GW_CancelTradeCar message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CancelTradeCar, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CancelTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CancelTradeCar;
+
+        /**
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CancelTradeCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CancelTradeCar;
+
+        /**
+         * Verifies a C2GW_CancelTradeCar message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CancelTradeCar message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CancelTradeCar
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CancelTradeCar;
+
+        /**
+         * Creates a plain object from a C2GW_CancelTradeCar message. Also converts values to other types if specified.
+         * @param message C2GW_CancelTradeCar
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CancelTradeCar, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CancelTradeCar to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqItemTradeList. */
+    interface IC2GW_ReqItemTradeList {
+
+        /** C2GW_ReqItemTradeList itemtype */
+        itemtype?: (number|null);
+
+        /** C2GW_ReqItemTradeList itemsubtype */
+        itemsubtype?: (number|null);
+
+        /** C2GW_ReqItemTradeList pricemin */
+        pricemin?: (number|null);
+
+        /** C2GW_ReqItemTradeList pricemax */
+        pricemax?: (number|null);
+
+        /** C2GW_ReqItemTradeList name */
+        name?: (string|null);
+
+        /** C2GW_ReqItemTradeList pricedec */
+        pricedec?: (boolean|null);
+
+        /** C2GW_ReqItemTradeList startnum */
+        startnum?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqItemTradeList. */
+    class C2GW_ReqItemTradeList implements IC2GW_ReqItemTradeList {
+
+        /**
+         * Constructs a new C2GW_ReqItemTradeList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqItemTradeList);
+
+        /** C2GW_ReqItemTradeList itemtype. */
+        public itemtype: number;
+
+        /** C2GW_ReqItemTradeList itemsubtype. */
+        public itemsubtype: number;
+
+        /** C2GW_ReqItemTradeList pricemin. */
+        public pricemin: number;
+
+        /** C2GW_ReqItemTradeList pricemax. */
+        public pricemax: number;
+
+        /** C2GW_ReqItemTradeList name. */
+        public name: string;
+
+        /** C2GW_ReqItemTradeList pricedec. */
+        public pricedec: boolean;
+
+        /** C2GW_ReqItemTradeList startnum. */
+        public startnum: number;
+
+        /**
+         * Creates a new C2GW_ReqItemTradeList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqItemTradeList instance
+         */
+        public static create(properties?: msg.IC2GW_ReqItemTradeList): msg.C2GW_ReqItemTradeList;
+
+        /**
+         * Encodes the specified C2GW_ReqItemTradeList message. Does not implicitly {@link msg.C2GW_ReqItemTradeList.verify|verify} messages.
+         * @param message C2GW_ReqItemTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqItemTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqItemTradeList message, length delimited. Does not implicitly {@link msg.C2GW_ReqItemTradeList.verify|verify} messages.
+         * @param message C2GW_ReqItemTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqItemTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqItemTradeList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqItemTradeList;
+
+        /**
+         * Decodes a C2GW_ReqItemTradeList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqItemTradeList;
+
+        /**
+         * Verifies a C2GW_ReqItemTradeList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqItemTradeList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqItemTradeList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqItemTradeList;
+
+        /**
+         * Creates a plain object from a C2GW_ReqItemTradeList message. Also converts values to other types if specified.
+         * @param message C2GW_ReqItemTradeList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqItemTradeList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqItemTradeList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a SimpleItemTrade. */
+    interface ISimpleItemTrade {
+
+        /** SimpleItemTrade tradeuid */
+        tradeuid?: (number|Long|null);
+
+        /** SimpleItemTrade itemid */
+        itemid?: (number|null);
+
+        /** SimpleItemTrade itemnum */
+        itemnum?: (number|null);
+
+        /** SimpleItemTrade price */
+        price?: (number|null);
+
+        /** SimpleItemTrade endtime */
+        endtime?: (number|null);
+
+        /** SimpleItemTrade ownerid */
+        ownerid?: (number|null);
+
+        /** SimpleItemTrade itemtype */
+        itemtype?: (number|null);
+
+        /** SimpleItemTrade itemsubtype */
+        itemsubtype?: (number|null);
+
+        /** SimpleItemTrade name */
+        name?: (string|null);
+    }
+
+    /** Represents a SimpleItemTrade. */
+    class SimpleItemTrade implements ISimpleItemTrade {
+
+        /**
+         * Constructs a new SimpleItemTrade.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ISimpleItemTrade);
+
+        /** SimpleItemTrade tradeuid. */
+        public tradeuid: (number|Long);
+
+        /** SimpleItemTrade itemid. */
+        public itemid: number;
+
+        /** SimpleItemTrade itemnum. */
+        public itemnum: number;
+
+        /** SimpleItemTrade price. */
+        public price: number;
+
+        /** SimpleItemTrade endtime. */
+        public endtime: number;
+
+        /** SimpleItemTrade ownerid. */
+        public ownerid: number;
+
+        /** SimpleItemTrade itemtype. */
+        public itemtype: number;
+
+        /** SimpleItemTrade itemsubtype. */
+        public itemsubtype: number;
+
+        /** SimpleItemTrade name. */
+        public name: string;
+
+        /**
+         * Creates a new SimpleItemTrade instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SimpleItemTrade instance
+         */
+        public static create(properties?: msg.ISimpleItemTrade): msg.SimpleItemTrade;
+
+        /**
+         * Encodes the specified SimpleItemTrade message. Does not implicitly {@link msg.SimpleItemTrade.verify|verify} messages.
+         * @param message SimpleItemTrade message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ISimpleItemTrade, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified SimpleItemTrade message, length delimited. Does not implicitly {@link msg.SimpleItemTrade.verify|verify} messages.
+         * @param message SimpleItemTrade message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ISimpleItemTrade, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a SimpleItemTrade message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SimpleItemTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.SimpleItemTrade;
+
+        /**
+         * Decodes a SimpleItemTrade message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SimpleItemTrade
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.SimpleItemTrade;
+
+        /**
+         * Verifies a SimpleItemTrade message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SimpleItemTrade message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SimpleItemTrade
+         */
+        public static fromObject(object: { [k: string]: any }): msg.SimpleItemTrade;
+
+        /**
+         * Creates a plain object from a SimpleItemTrade message. Also converts values to other types if specified.
+         * @param message SimpleItemTrade
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.SimpleItemTrade, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SimpleItemTrade to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetItemTradeList. */
+    interface IGW2C_RetItemTradeList {
+
+        /** GW2C_RetItemTradeList list */
+        list?: (msg.ISimpleItemTrade[]|null);
+    }
+
+    /** Represents a GW2C_RetItemTradeList. */
+    class GW2C_RetItemTradeList implements IGW2C_RetItemTradeList {
+
+        /**
+         * Constructs a new GW2C_RetItemTradeList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetItemTradeList);
+
+        /** GW2C_RetItemTradeList list. */
+        public list: msg.ISimpleItemTrade[];
+
+        /**
+         * Creates a new GW2C_RetItemTradeList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetItemTradeList instance
+         */
+        public static create(properties?: msg.IGW2C_RetItemTradeList): msg.GW2C_RetItemTradeList;
+
+        /**
+         * Encodes the specified GW2C_RetItemTradeList message. Does not implicitly {@link msg.GW2C_RetItemTradeList.verify|verify} messages.
+         * @param message GW2C_RetItemTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetItemTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetItemTradeList message, length delimited. Does not implicitly {@link msg.GW2C_RetItemTradeList.verify|verify} messages.
+         * @param message GW2C_RetItemTradeList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetItemTradeList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetItemTradeList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetItemTradeList;
+
+        /**
+         * Decodes a GW2C_RetItemTradeList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetItemTradeList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetItemTradeList;
+
+        /**
+         * Verifies a GW2C_RetItemTradeList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetItemTradeList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetItemTradeList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetItemTradeList;
+
+        /**
+         * Creates a plain object from a GW2C_RetItemTradeList message. Also converts values to other types if specified.
+         * @param message GW2C_RetItemTradeList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetItemTradeList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetItemTradeList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_TradeItem. */
+    interface IC2GW_TradeItem {
+
+        /** C2GW_TradeItem itemid */
+        itemid?: (number|null);
+
+        /** C2GW_TradeItem itemnum */
+        itemnum?: (number|null);
+
+        /** C2GW_TradeItem price */
+        price?: (number|null);
+    }
+
+    /** Represents a C2GW_TradeItem. */
+    class C2GW_TradeItem implements IC2GW_TradeItem {
+
+        /**
+         * Constructs a new C2GW_TradeItem.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_TradeItem);
+
+        /** C2GW_TradeItem itemid. */
+        public itemid: number;
+
+        /** C2GW_TradeItem itemnum. */
+        public itemnum: number;
+
+        /** C2GW_TradeItem price. */
+        public price: number;
+
+        /**
+         * Creates a new C2GW_TradeItem instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_TradeItem instance
+         */
+        public static create(properties?: msg.IC2GW_TradeItem): msg.C2GW_TradeItem;
+
+        /**
+         * Encodes the specified C2GW_TradeItem message. Does not implicitly {@link msg.C2GW_TradeItem.verify|verify} messages.
+         * @param message C2GW_TradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_TradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_TradeItem message, length delimited. Does not implicitly {@link msg.C2GW_TradeItem.verify|verify} messages.
+         * @param message C2GW_TradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_TradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_TradeItem message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_TradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_TradeItem;
+
+        /**
+         * Decodes a C2GW_TradeItem message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_TradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_TradeItem;
+
+        /**
+         * Verifies a C2GW_TradeItem message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_TradeItem message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_TradeItem
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_TradeItem;
+
+        /**
+         * Creates a plain object from a C2GW_TradeItem message. Also converts values to other types if specified.
+         * @param message C2GW_TradeItem
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_TradeItem, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_TradeItem to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_BuyTradeItem. */
+    interface IC2GW_BuyTradeItem {
+
+        /** C2GW_BuyTradeItem tradeuid */
+        tradeuid?: (number|Long|null);
+
+        /** C2GW_BuyTradeItem itemid */
+        itemid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_BuyTradeItem. */
+    class C2GW_BuyTradeItem implements IC2GW_BuyTradeItem {
+
+        /**
+         * Constructs a new C2GW_BuyTradeItem.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_BuyTradeItem);
+
+        /** C2GW_BuyTradeItem tradeuid. */
+        public tradeuid: (number|Long);
+
+        /** C2GW_BuyTradeItem itemid. */
+        public itemid: (number|Long);
+
+        /**
+         * Creates a new C2GW_BuyTradeItem instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_BuyTradeItem instance
+         */
+        public static create(properties?: msg.IC2GW_BuyTradeItem): msg.C2GW_BuyTradeItem;
+
+        /**
+         * Encodes the specified C2GW_BuyTradeItem message. Does not implicitly {@link msg.C2GW_BuyTradeItem.verify|verify} messages.
+         * @param message C2GW_BuyTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_BuyTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_BuyTradeItem message, length delimited. Does not implicitly {@link msg.C2GW_BuyTradeItem.verify|verify} messages.
+         * @param message C2GW_BuyTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_BuyTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_BuyTradeItem message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_BuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_BuyTradeItem;
+
+        /**
+         * Decodes a C2GW_BuyTradeItem message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_BuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_BuyTradeItem;
+
+        /**
+         * Verifies a C2GW_BuyTradeItem message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_BuyTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_BuyTradeItem
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_BuyTradeItem;
+
+        /**
+         * Creates a plain object from a C2GW_BuyTradeItem message. Also converts values to other types if specified.
+         * @param message C2GW_BuyTradeItem
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_BuyTradeItem, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_BuyTradeItem to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTradeItemHistory. */
+    interface IC2GW_ReqTradeItemHistory {
+    }
+
+    /** Represents a C2GW_ReqTradeItemHistory. */
+    class C2GW_ReqTradeItemHistory implements IC2GW_ReqTradeItemHistory {
+
+        /**
+         * Constructs a new C2GW_ReqTradeItemHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTradeItemHistory);
+
+        /**
+         * Creates a new C2GW_ReqTradeItemHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTradeItemHistory instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTradeItemHistory): msg.C2GW_ReqTradeItemHistory;
+
+        /**
+         * Encodes the specified C2GW_ReqTradeItemHistory message. Does not implicitly {@link msg.C2GW_ReqTradeItemHistory.verify|verify} messages.
+         * @param message C2GW_ReqTradeItemHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTradeItemHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTradeItemHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeItemHistory.verify|verify} messages.
+         * @param message C2GW_ReqTradeItemHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTradeItemHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTradeItemHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTradeItemHistory;
+
+        /**
+         * Decodes a C2GW_ReqTradeItemHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTradeItemHistory;
+
+        /**
+         * Verifies a C2GW_ReqTradeItemHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTradeItemHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTradeItemHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTradeItemHistory;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTradeItemHistory message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTradeItemHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTradeItemHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTradeItemHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TradeItemHistory. */
+    interface ITradeItemHistory {
+
+        /** TradeItemHistory tradeuid */
+        tradeuid?: (number|Long|null);
+
+        /** TradeItemHistory itemid */
+        itemid?: (number|null);
+
+        /** TradeItemHistory itemnum */
+        itemnum?: (number|null);
+
+        /** TradeItemHistory price */
+        price?: (number|null);
+
+        /** TradeItemHistory tradetime */
+        tradetime?: (number|null);
+
+        /** TradeItemHistory state */
+        state?: (number|null);
+    }
+
+    /** Represents a TradeItemHistory. */
+    class TradeItemHistory implements ITradeItemHistory {
+
+        /**
+         * Constructs a new TradeItemHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ITradeItemHistory);
+
+        /** TradeItemHistory tradeuid. */
+        public tradeuid: (number|Long);
+
+        /** TradeItemHistory itemid. */
+        public itemid: number;
+
+        /** TradeItemHistory itemnum. */
+        public itemnum: number;
+
+        /** TradeItemHistory price. */
+        public price: number;
+
+        /** TradeItemHistory tradetime. */
+        public tradetime: number;
+
+        /** TradeItemHistory state. */
+        public state: number;
+
+        /**
+         * Creates a new TradeItemHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TradeItemHistory instance
+         */
+        public static create(properties?: msg.ITradeItemHistory): msg.TradeItemHistory;
+
+        /**
+         * Encodes the specified TradeItemHistory message. Does not implicitly {@link msg.TradeItemHistory.verify|verify} messages.
+         * @param message TradeItemHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ITradeItemHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TradeItemHistory message, length delimited. Does not implicitly {@link msg.TradeItemHistory.verify|verify} messages.
+         * @param message TradeItemHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ITradeItemHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TradeItemHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.TradeItemHistory;
+
+        /**
+         * Decodes a TradeItemHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.TradeItemHistory;
+
+        /**
+         * Verifies a TradeItemHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TradeItemHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TradeItemHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.TradeItemHistory;
+
+        /**
+         * Creates a plain object from a TradeItemHistory message. Also converts values to other types if specified.
+         * @param message TradeItemHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.TradeItemHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TradeItemHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetTradeItemHistory. */
+    interface IGW2C_RetTradeItemHistory {
+
+        /** GW2C_RetTradeItemHistory list */
+        list?: (msg.ITradeItemHistory[]|null);
+    }
+
+    /** Represents a GW2C_RetTradeItemHistory. */
+    class GW2C_RetTradeItemHistory implements IGW2C_RetTradeItemHistory {
+
+        /**
+         * Constructs a new GW2C_RetTradeItemHistory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetTradeItemHistory);
+
+        /** GW2C_RetTradeItemHistory list. */
+        public list: msg.ITradeItemHistory[];
+
+        /**
+         * Creates a new GW2C_RetTradeItemHistory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetTradeItemHistory instance
+         */
+        public static create(properties?: msg.IGW2C_RetTradeItemHistory): msg.GW2C_RetTradeItemHistory;
+
+        /**
+         * Encodes the specified GW2C_RetTradeItemHistory message. Does not implicitly {@link msg.GW2C_RetTradeItemHistory.verify|verify} messages.
+         * @param message GW2C_RetTradeItemHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetTradeItemHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetTradeItemHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeItemHistory.verify|verify} messages.
+         * @param message GW2C_RetTradeItemHistory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetTradeItemHistory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetTradeItemHistory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetTradeItemHistory;
+
+        /**
+         * Decodes a GW2C_RetTradeItemHistory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetTradeItemHistory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetTradeItemHistory;
+
+        /**
+         * Verifies a GW2C_RetTradeItemHistory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetTradeItemHistory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetTradeItemHistory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetTradeItemHistory;
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeItemHistory message. Also converts values to other types if specified.
+         * @param message GW2C_RetTradeItemHistory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetTradeItemHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetTradeItemHistory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_GetTradeItemReward. */
+    interface IC2GW_GetTradeItemReward {
+
+        /** C2GW_GetTradeItemReward tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_GetTradeItemReward. */
+    class C2GW_GetTradeItemReward implements IC2GW_GetTradeItemReward {
+
+        /**
+         * Constructs a new C2GW_GetTradeItemReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_GetTradeItemReward);
+
+        /** C2GW_GetTradeItemReward tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new C2GW_GetTradeItemReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_GetTradeItemReward instance
+         */
+        public static create(properties?: msg.IC2GW_GetTradeItemReward): msg.C2GW_GetTradeItemReward;
+
+        /**
+         * Encodes the specified C2GW_GetTradeItemReward message. Does not implicitly {@link msg.C2GW_GetTradeItemReward.verify|verify} messages.
+         * @param message C2GW_GetTradeItemReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_GetTradeItemReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_GetTradeItemReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeItemReward.verify|verify} messages.
+         * @param message C2GW_GetTradeItemReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_GetTradeItemReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_GetTradeItemReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_GetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_GetTradeItemReward;
+
+        /**
+         * Decodes a C2GW_GetTradeItemReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_GetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_GetTradeItemReward;
+
+        /**
+         * Verifies a C2GW_GetTradeItemReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_GetTradeItemReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_GetTradeItemReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_GetTradeItemReward;
+
+        /**
+         * Creates a plain object from a C2GW_GetTradeItemReward message. Also converts values to other types if specified.
+         * @param message C2GW_GetTradeItemReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_GetTradeItemReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_GetTradeItemReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGetTradeItemReward. */
+    interface IGW2C_RetGetTradeItemReward {
+
+        /** GW2C_RetGetTradeItemReward tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetGetTradeItemReward. */
+    class GW2C_RetGetTradeItemReward implements IGW2C_RetGetTradeItemReward {
+
+        /**
+         * Constructs a new GW2C_RetGetTradeItemReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGetTradeItemReward);
+
+        /** GW2C_RetGetTradeItemReward tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetGetTradeItemReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGetTradeItemReward instance
+         */
+        public static create(properties?: msg.IGW2C_RetGetTradeItemReward): msg.GW2C_RetGetTradeItemReward;
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeItemReward message. Does not implicitly {@link msg.GW2C_RetGetTradeItemReward.verify|verify} messages.
+         * @param message GW2C_RetGetTradeItemReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGetTradeItemReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGetTradeItemReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetTradeItemReward.verify|verify} messages.
+         * @param message GW2C_RetGetTradeItemReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGetTradeItemReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGetTradeItemReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGetTradeItemReward;
+
+        /**
+         * Decodes a GW2C_RetGetTradeItemReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGetTradeItemReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGetTradeItemReward;
+
+        /**
+         * Verifies a GW2C_RetGetTradeItemReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGetTradeItemReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGetTradeItemReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGetTradeItemReward;
+
+        /**
+         * Creates a plain object from a GW2C_RetGetTradeItemReward message. Also converts values to other types if specified.
+         * @param message GW2C_RetGetTradeItemReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGetTradeItemReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGetTradeItemReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_CancelTradeItem. */
+    interface IC2GW_CancelTradeItem {
+
+        /** C2GW_CancelTradeItem tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_CancelTradeItem. */
+    class C2GW_CancelTradeItem implements IC2GW_CancelTradeItem {
+
+        /**
+         * Constructs a new C2GW_CancelTradeItem.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CancelTradeItem);
+
+        /** C2GW_CancelTradeItem tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new C2GW_CancelTradeItem instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CancelTradeItem instance
+         */
+        public static create(properties?: msg.IC2GW_CancelTradeItem): msg.C2GW_CancelTradeItem;
+
+        /**
+         * Encodes the specified C2GW_CancelTradeItem message. Does not implicitly {@link msg.C2GW_CancelTradeItem.verify|verify} messages.
+         * @param message C2GW_CancelTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CancelTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CancelTradeItem message, length delimited. Does not implicitly {@link msg.C2GW_CancelTradeItem.verify|verify} messages.
+         * @param message C2GW_CancelTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CancelTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CancelTradeItem message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CancelTradeItem;
+
+        /**
+         * Decodes a C2GW_CancelTradeItem message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CancelTradeItem;
+
+        /**
+         * Verifies a C2GW_CancelTradeItem message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CancelTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CancelTradeItem
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CancelTradeItem;
+
+        /**
+         * Creates a plain object from a C2GW_CancelTradeItem message. Also converts values to other types if specified.
+         * @param message C2GW_CancelTradeItem
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CancelTradeItem, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CancelTradeItem to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_AddDeliveryAddress. */
     interface IC2GW_AddDeliveryAddress {
 
@@ -20318,1057 +23277,8 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-<<<<<<< HEAD
     /** Properties of a GW2C_FreePresentNotify. */
     interface IGW2C_FreePresentNotify {
-=======
-    /** Properties of a C2GW_ReqCarTradeList. */
-    interface IC2GW_ReqCarTradeList {
-
-        /** C2GW_ReqCarTradeList cartype */
-        cartype?: (number|null);
-
-        /** C2GW_ReqCarTradeList pricemin */
-        pricemin?: (number|null);
-
-        /** C2GW_ReqCarTradeList pricemax */
-        pricemax?: (number|null);
-
-        /** C2GW_ReqCarTradeList carlevel */
-        carlevel?: (number|null);
-
-        /** C2GW_ReqCarTradeList name */
-        name?: (string|null);
-
-        /** C2GW_ReqCarTradeList pricedec */
-        pricedec?: (boolean|null);
-
-        /** C2GW_ReqCarTradeList startnum */
-        startnum?: (number|null);
-    }
-
-    /** Represents a C2GW_ReqCarTradeList. */
-    class C2GW_ReqCarTradeList implements IC2GW_ReqCarTradeList {
-
-        /**
-         * Constructs a new C2GW_ReqCarTradeList.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ReqCarTradeList);
-
-        /** C2GW_ReqCarTradeList cartype. */
-        public cartype: number;
-
-        /** C2GW_ReqCarTradeList pricemin. */
-        public pricemin: number;
-
-        /** C2GW_ReqCarTradeList pricemax. */
-        public pricemax: number;
-
-        /** C2GW_ReqCarTradeList carlevel. */
-        public carlevel: number;
-
-        /** C2GW_ReqCarTradeList name. */
-        public name: string;
-
-        /** C2GW_ReqCarTradeList pricedec. */
-        public pricedec: boolean;
-
-        /** C2GW_ReqCarTradeList startnum. */
-        public startnum: number;
-
-        /**
-         * Creates a new C2GW_ReqCarTradeList instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ReqCarTradeList instance
-         */
-        public static create(properties?: msg.IC2GW_ReqCarTradeList): msg.C2GW_ReqCarTradeList;
-
-        /**
-         * Encodes the specified C2GW_ReqCarTradeList message. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
-         * @param message C2GW_ReqCarTradeList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ReqCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ReqCarTradeList message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarTradeList.verify|verify} messages.
-         * @param message C2GW_ReqCarTradeList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ReqCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqCarTradeList;
-
-        /**
-         * Decodes a C2GW_ReqCarTradeList message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqCarTradeList;
-
-        /**
-         * Verifies a C2GW_ReqCarTradeList message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ReqCarTradeList message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ReqCarTradeList
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqCarTradeList;
-
-        /**
-         * Creates a plain object from a C2GW_ReqCarTradeList message. Also converts values to other types if specified.
-         * @param message C2GW_ReqCarTradeList
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ReqCarTradeList, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ReqCarTradeList to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a SimpleCarTrade. */
-    interface ISimpleCarTrade {
-
-        /** SimpleCarTrade tradeuid */
-        tradeuid?: (number|Long|null);
-
-        /** SimpleCarTrade caruid */
-        caruid?: (number|null);
-
-        /** SimpleCarTrade price */
-        price?: (number|null);
-
-        /** SimpleCarTrade income */
-        income?: (number|null);
-
-        /** SimpleCarTrade carbaseid */
-        carbaseid?: (number|null);
-
-        /** SimpleCarTrade endtime */
-        endtime?: (number|null);
-
-        /** SimpleCarTrade ownerid */
-        ownerid?: (number|null);
-
-        /** SimpleCarTrade carlevel */
-        carlevel?: (number|null);
-
-        /** SimpleCarTrade cartype */
-        cartype?: (number|null);
-
-        /** SimpleCarTrade name */
-        name?: (string|null);
-    }
-
-    /** Represents a SimpleCarTrade. */
-    class SimpleCarTrade implements ISimpleCarTrade {
-
-        /**
-         * Constructs a new SimpleCarTrade.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.ISimpleCarTrade);
-
-        /** SimpleCarTrade tradeuid. */
-        public tradeuid: (number|Long);
-
-        /** SimpleCarTrade caruid. */
-        public caruid: number;
-
-        /** SimpleCarTrade price. */
-        public price: number;
-
-        /** SimpleCarTrade income. */
-        public income: number;
-
-        /** SimpleCarTrade carbaseid. */
-        public carbaseid: number;
-
-        /** SimpleCarTrade endtime. */
-        public endtime: number;
-
-        /** SimpleCarTrade ownerid. */
-        public ownerid: number;
-
-        /** SimpleCarTrade carlevel. */
-        public carlevel: number;
-
-        /** SimpleCarTrade cartype. */
-        public cartype: number;
-
-        /** SimpleCarTrade name. */
-        public name: string;
-
-        /**
-         * Creates a new SimpleCarTrade instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SimpleCarTrade instance
-         */
-        public static create(properties?: msg.ISimpleCarTrade): msg.SimpleCarTrade;
-
-        /**
-         * Encodes the specified SimpleCarTrade message. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
-         * @param message SimpleCarTrade message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.ISimpleCarTrade, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified SimpleCarTrade message, length delimited. Does not implicitly {@link msg.SimpleCarTrade.verify|verify} messages.
-         * @param message SimpleCarTrade message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.ISimpleCarTrade, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a SimpleCarTrade message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SimpleCarTrade
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.SimpleCarTrade;
-
-        /**
-         * Decodes a SimpleCarTrade message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SimpleCarTrade
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.SimpleCarTrade;
-
-        /**
-         * Verifies a SimpleCarTrade message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SimpleCarTrade message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SimpleCarTrade
-         */
-        public static fromObject(object: { [k: string]: any }): msg.SimpleCarTrade;
-
-        /**
-         * Creates a plain object from a SimpleCarTrade message. Also converts values to other types if specified.
-         * @param message SimpleCarTrade
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.SimpleCarTrade, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SimpleCarTrade to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2C_RetCarTradeList. */
-    interface IGW2C_RetCarTradeList {
-
-        /** GW2C_RetCarTradeList list */
-        list?: (msg.ISimpleCarTrade[]|null);
-    }
-
-    /** Represents a GW2C_RetCarTradeList. */
-    class GW2C_RetCarTradeList implements IGW2C_RetCarTradeList {
-
-        /**
-         * Constructs a new GW2C_RetCarTradeList.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_RetCarTradeList);
-
-        /** GW2C_RetCarTradeList list. */
-        public list: msg.ISimpleCarTrade[];
-
-        /**
-         * Creates a new GW2C_RetCarTradeList instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_RetCarTradeList instance
-         */
-        public static create(properties?: msg.IGW2C_RetCarTradeList): msg.GW2C_RetCarTradeList;
-
-        /**
-         * Encodes the specified GW2C_RetCarTradeList message. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
-         * @param message GW2C_RetCarTradeList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_RetCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_RetCarTradeList message, length delimited. Does not implicitly {@link msg.GW2C_RetCarTradeList.verify|verify} messages.
-         * @param message GW2C_RetCarTradeList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_RetCarTradeList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_RetCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarTradeList;
-
-        /**
-         * Decodes a GW2C_RetCarTradeList message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetCarTradeList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarTradeList;
-
-        /**
-         * Verifies a GW2C_RetCarTradeList message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_RetCarTradeList message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_RetCarTradeList
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarTradeList;
-
-        /**
-         * Creates a plain object from a GW2C_RetCarTradeList message. Also converts values to other types if specified.
-         * @param message GW2C_RetCarTradeList
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_RetCarTradeList, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_RetCarTradeList to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_TradeCar. */
-    interface IC2GW_TradeCar {
-
-        /** C2GW_TradeCar caruid */
-        caruid?: (number|Long|null);
-
-        /** C2GW_TradeCar price */
-        price?: (number|null);
-    }
-
-    /** Represents a C2GW_TradeCar. */
-    class C2GW_TradeCar implements IC2GW_TradeCar {
-
-        /**
-         * Constructs a new C2GW_TradeCar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_TradeCar);
-
-        /** C2GW_TradeCar caruid. */
-        public caruid: (number|Long);
-
-        /** C2GW_TradeCar price. */
-        public price: number;
-
-        /**
-         * Creates a new C2GW_TradeCar instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_TradeCar instance
-         */
-        public static create(properties?: msg.IC2GW_TradeCar): msg.C2GW_TradeCar;
-
-        /**
-         * Encodes the specified C2GW_TradeCar message. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
-         * @param message C2GW_TradeCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_TradeCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_TradeCar message, length delimited. Does not implicitly {@link msg.C2GW_TradeCar.verify|verify} messages.
-         * @param message C2GW_TradeCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_TradeCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_TradeCar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_TradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_TradeCar;
-
-        /**
-         * Decodes a C2GW_TradeCar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_TradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_TradeCar;
-
-        /**
-         * Verifies a C2GW_TradeCar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_TradeCar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_TradeCar
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_TradeCar;
-
-        /**
-         * Creates a plain object from a C2GW_TradeCar message. Also converts values to other types if specified.
-         * @param message C2GW_TradeCar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_TradeCar, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_TradeCar to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_BuyTradeCar. */
-    interface IC2GW_BuyTradeCar {
-
-        /** C2GW_BuyTradeCar tradeuid */
-        tradeuid?: (number|Long|null);
-
-        /** C2GW_BuyTradeCar caruid */
-        caruid?: (number|Long|null);
-    }
-
-    /** Represents a C2GW_BuyTradeCar. */
-    class C2GW_BuyTradeCar implements IC2GW_BuyTradeCar {
-
-        /**
-         * Constructs a new C2GW_BuyTradeCar.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_BuyTradeCar);
-
-        /** C2GW_BuyTradeCar tradeuid. */
-        public tradeuid: (number|Long);
-
-        /** C2GW_BuyTradeCar caruid. */
-        public caruid: (number|Long);
-
-        /**
-         * Creates a new C2GW_BuyTradeCar instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_BuyTradeCar instance
-         */
-        public static create(properties?: msg.IC2GW_BuyTradeCar): msg.C2GW_BuyTradeCar;
-
-        /**
-         * Encodes the specified C2GW_BuyTradeCar message. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
-         * @param message C2GW_BuyTradeCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_BuyTradeCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_BuyTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_BuyTradeCar.verify|verify} messages.
-         * @param message C2GW_BuyTradeCar message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_BuyTradeCar, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_BuyTradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_BuyTradeCar;
-
-        /**
-         * Decodes a C2GW_BuyTradeCar message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_BuyTradeCar
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_BuyTradeCar;
-
-        /**
-         * Verifies a C2GW_BuyTradeCar message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_BuyTradeCar message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_BuyTradeCar
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_BuyTradeCar;
-
-        /**
-         * Creates a plain object from a C2GW_BuyTradeCar message. Also converts values to other types if specified.
-         * @param message C2GW_BuyTradeCar
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_BuyTradeCar, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_BuyTradeCar to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_ReqTradeCarHistory. */
-    interface IC2GW_ReqTradeCarHistory {
-    }
-
-    /** Represents a C2GW_ReqTradeCarHistory. */
-    class C2GW_ReqTradeCarHistory implements IC2GW_ReqTradeCarHistory {
-
-        /**
-         * Constructs a new C2GW_ReqTradeCarHistory.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ReqTradeCarHistory);
-
-        /**
-         * Creates a new C2GW_ReqTradeCarHistory instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ReqTradeCarHistory instance
-         */
-        public static create(properties?: msg.IC2GW_ReqTradeCarHistory): msg.C2GW_ReqTradeCarHistory;
-
-        /**
-         * Encodes the specified C2GW_ReqTradeCarHistory message. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
-         * @param message C2GW_ReqTradeCarHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ReqTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ReqTradeCarHistory message, length delimited. Does not implicitly {@link msg.C2GW_ReqTradeCarHistory.verify|verify} messages.
-         * @param message C2GW_ReqTradeCarHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ReqTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTradeCarHistory;
-
-        /**
-         * Decodes a C2GW_ReqTradeCarHistory message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTradeCarHistory;
-
-        /**
-         * Verifies a C2GW_ReqTradeCarHistory message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ReqTradeCarHistory message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ReqTradeCarHistory
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTradeCarHistory;
-
-        /**
-         * Creates a plain object from a C2GW_ReqTradeCarHistory message. Also converts values to other types if specified.
-         * @param message C2GW_ReqTradeCarHistory
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ReqTradeCarHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ReqTradeCarHistory to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a TradeCarHistory. */
-    interface ITradeCarHistory {
-
-        /** TradeCarHistory tradeuid */
-        tradeuid?: (number|Long|null);
-
-        /** TradeCarHistory caruid */
-        caruid?: (number|null);
-
-        /** TradeCarHistory price */
-        price?: (number|null);
-
-        /** TradeCarHistory income */
-        income?: (number|null);
-
-        /** TradeCarHistory carbaseid */
-        carbaseid?: (number|null);
-
-        /** TradeCarHistory endtime */
-        endtime?: (number|null);
-
-        /** TradeCarHistory carlevel */
-        carlevel?: (number|null);
-
-        /** TradeCarHistory cartype */
-        cartype?: (number|null);
-
-        /** TradeCarHistory state */
-        state?: (number|null);
-    }
-
-    /** Represents a TradeCarHistory. */
-    class TradeCarHistory implements ITradeCarHistory {
-
-        /**
-         * Constructs a new TradeCarHistory.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.ITradeCarHistory);
-
-        /** TradeCarHistory tradeuid. */
-        public tradeuid: (number|Long);
-
-        /** TradeCarHistory caruid. */
-        public caruid: number;
-
-        /** TradeCarHistory price. */
-        public price: number;
-
-        /** TradeCarHistory income. */
-        public income: number;
-
-        /** TradeCarHistory carbaseid. */
-        public carbaseid: number;
-
-        /** TradeCarHistory endtime. */
-        public endtime: number;
-
-        /** TradeCarHistory carlevel. */
-        public carlevel: number;
-
-        /** TradeCarHistory cartype. */
-        public cartype: number;
-
-        /** TradeCarHistory state. */
-        public state: number;
-
-        /**
-         * Creates a new TradeCarHistory instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns TradeCarHistory instance
-         */
-        public static create(properties?: msg.ITradeCarHistory): msg.TradeCarHistory;
-
-        /**
-         * Encodes the specified TradeCarHistory message. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
-         * @param message TradeCarHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.ITradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified TradeCarHistory message, length delimited. Does not implicitly {@link msg.TradeCarHistory.verify|verify} messages.
-         * @param message TradeCarHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.ITradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a TradeCarHistory message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns TradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.TradeCarHistory;
-
-        /**
-         * Decodes a TradeCarHistory message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns TradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.TradeCarHistory;
-
-        /**
-         * Verifies a TradeCarHistory message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a TradeCarHistory message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns TradeCarHistory
-         */
-        public static fromObject(object: { [k: string]: any }): msg.TradeCarHistory;
-
-        /**
-         * Creates a plain object from a TradeCarHistory message. Also converts values to other types if specified.
-         * @param message TradeCarHistory
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.TradeCarHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this TradeCarHistory to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2C_RetTradeCarHistory. */
-    interface IGW2C_RetTradeCarHistory {
-
-        /** GW2C_RetTradeCarHistory list */
-        list?: (msg.ITradeCarHistory[]|null);
-    }
-
-    /** Represents a GW2C_RetTradeCarHistory. */
-    class GW2C_RetTradeCarHistory implements IGW2C_RetTradeCarHistory {
-
-        /**
-         * Constructs a new GW2C_RetTradeCarHistory.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_RetTradeCarHistory);
-
-        /** GW2C_RetTradeCarHistory list. */
-        public list: msg.ITradeCarHistory[];
-
-        /**
-         * Creates a new GW2C_RetTradeCarHistory instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_RetTradeCarHistory instance
-         */
-        public static create(properties?: msg.IGW2C_RetTradeCarHistory): msg.GW2C_RetTradeCarHistory;
-
-        /**
-         * Encodes the specified GW2C_RetTradeCarHistory message. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
-         * @param message GW2C_RetTradeCarHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_RetTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_RetTradeCarHistory message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeCarHistory.verify|verify} messages.
-         * @param message GW2C_RetTradeCarHistory message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_RetTradeCarHistory, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_RetTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetTradeCarHistory;
-
-        /**
-         * Decodes a GW2C_RetTradeCarHistory message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetTradeCarHistory
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetTradeCarHistory;
-
-        /**
-         * Verifies a GW2C_RetTradeCarHistory message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_RetTradeCarHistory message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_RetTradeCarHistory
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetTradeCarHistory;
-
-        /**
-         * Creates a plain object from a GW2C_RetTradeCarHistory message. Also converts values to other types if specified.
-         * @param message GW2C_RetTradeCarHistory
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_RetTradeCarHistory, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_RetTradeCarHistory to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_GetTradeCarReward. */
-    interface IC2GW_GetTradeCarReward {
-
-        /** C2GW_GetTradeCarReward tradeuid */
-        tradeuid?: (number|Long|null);
-    }
-
-    /** Represents a C2GW_GetTradeCarReward. */
-    class C2GW_GetTradeCarReward implements IC2GW_GetTradeCarReward {
-
-        /**
-         * Constructs a new C2GW_GetTradeCarReward.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_GetTradeCarReward);
-
-        /** C2GW_GetTradeCarReward tradeuid. */
-        public tradeuid: (number|Long);
-
-        /**
-         * Creates a new C2GW_GetTradeCarReward instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_GetTradeCarReward instance
-         */
-        public static create(properties?: msg.IC2GW_GetTradeCarReward): msg.C2GW_GetTradeCarReward;
-
-        /**
-         * Encodes the specified C2GW_GetTradeCarReward message. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
-         * @param message C2GW_GetTradeCarReward message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_GetTradeCarReward, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_GetTradeCarReward message, length delimited. Does not implicitly {@link msg.C2GW_GetTradeCarReward.verify|verify} messages.
-         * @param message C2GW_GetTradeCarReward message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_GetTradeCarReward, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_GetTradeCarReward
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_GetTradeCarReward;
-
-        /**
-         * Decodes a C2GW_GetTradeCarReward message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_GetTradeCarReward
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_GetTradeCarReward;
-
-        /**
-         * Verifies a C2GW_GetTradeCarReward message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_GetTradeCarReward message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_GetTradeCarReward
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_GetTradeCarReward;
-
-        /**
-         * Creates a plain object from a C2GW_GetTradeCarReward message. Also converts values to other types if specified.
-         * @param message C2GW_GetTradeCarReward
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_GetTradeCarReward, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_GetTradeCarReward to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_CancelCarHouse. */
-    interface IC2GW_CancelCarHouse {
-
-        /** C2GW_CancelCarHouse caruid */
-        caruid?: (number|Long|null);
-    }
-
-    /** Represents a C2GW_CancelCarHouse. */
-    class C2GW_CancelCarHouse implements IC2GW_CancelCarHouse {
-
-        /**
-         * Constructs a new C2GW_CancelCarHouse.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_CancelCarHouse);
-
-        /** C2GW_CancelCarHouse caruid. */
-        public caruid: (number|Long);
-
-        /**
-         * Creates a new C2GW_CancelCarHouse instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_CancelCarHouse instance
-         */
-        public static create(properties?: msg.IC2GW_CancelCarHouse): msg.C2GW_CancelCarHouse;
-
-        /**
-         * Encodes the specified C2GW_CancelCarHouse message. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
-         * @param message C2GW_CancelCarHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_CancelCarHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_CancelCarHouse message, length delimited. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
-         * @param message C2GW_CancelCarHouse message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_CancelCarHouse, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_CancelCarHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CancelCarHouse;
-
-        /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_CancelCarHouse
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CancelCarHouse;
-
-        /**
-         * Verifies a C2GW_CancelCarHouse message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_CancelCarHouse message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_CancelCarHouse
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_CancelCarHouse;
-
-        /**
-         * Creates a plain object from a C2GW_CancelCarHouse message. Also converts values to other types if specified.
-         * @param message C2GW_CancelCarHouse
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_CancelCarHouse, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_CancelCarHouse to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_AddDeliveryAddress. */
-    interface IC2GW_AddDeliveryAddress {
->>>>>>> dev
 
         /** GW2C_FreePresentNotify money */
         money?: (number|null);
@@ -26018,6 +27928,9 @@ declare namespace table {
         /** ItemBaseDataDefine Type */
         Type?: (number|null);
 
+        /** ItemBaseDataDefine SubType */
+        SubType?: (number|null);
+
         /** ItemBaseDataDefine Color */
         Color?: (number|null);
 
@@ -26048,6 +27961,9 @@ declare namespace table {
 
         /** ItemBaseDataDefine Type. */
         public Type: number;
+
+        /** ItemBaseDataDefine SubType. */
+        public SubType: number;
 
         /** ItemBaseDataDefine Color. */
         public Color: number;

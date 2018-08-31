@@ -16,6 +16,7 @@ module game {
 		public sourceObject: any = { form: 0, param: null };
 
 		public returnRoomInfo: HouseVO = null;
+		public returnRoomId: number = 0;
 		public returnPlayersId: number = 0;
 		public returnType: number = 0;
 
@@ -28,12 +29,23 @@ module game {
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseLevelUp, "msg.GW2C_AckHouseLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseCellLevelUp, "msg.GW2C_AckHouseCellLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseDataByHouseId, "msg.GW2C_AckHouseDataByHouseId");
+			NotificationCenter.addObserver(this, this.OnGW2C_UpdateHouseVisitInfo, "msg.GW2C_UpdateHouseVisitInfo");
 
 		}
+		private OnGW2C_UpdateHouseVisitInfo(data: msg.GW2C_UpdateHouseVisitInfo) {
+			if (GameConfig.pageType == 1) {
+				if(data.houseid==this.currentHouse.rId){
+					this.currentHouse.visitinfo.push(data.info);
+					this.currentHouse.robcheckflag=1;
+					ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
+				}
+			}
+		}
 		private OnGW2C_AckHouseDataByHouseId(data: msg.GW2C_AckHouseDataByHouseId) {
-			this.setCurrentHouse(data.data);
-			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
-
+			if (GameConfig.sceneType != 7) {
+				this.setCurrentHouse(data.data);
+				ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
+			}
 		}
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
 			if (GameConfig.pageType == 1) {
@@ -53,10 +65,10 @@ module game {
 					let house: HouseVO = GetHaveGoldHouse(otherHouse, 1);
 					if (house != null) {
 						//this.setCurrentHouse(house);
-						this.currentHouse=house;
+						this.currentHouse = house;
 					} else {
 						//this.setCurrentHouse(otherHouse[0]);
-						this.currentHouse=house;
+						this.currentHouse = house;
 					}
 					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
 				}
@@ -127,8 +139,8 @@ module game {
 		private updateRoomInfo(datas: any) {
 			if (datas.id == this.currentHouse.rId) {
 				this.currentHouse.setObject(datas);
-				console.log(datas);
-				console.log(this.currentHouse);
+				//console.log(datas);
+				//console.log(this.currentHouse);
 				ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
 			}
 		}
@@ -142,7 +154,7 @@ module game {
 				this.setSelfHouse(info);
 			}
 		}
-		public setSelfHouse(house:any) {
+		public setSelfHouse(house: any) {
 			if (house) {
 				this.selfHouse = new HouseVO();
 				this.selfHouse.setObject(house);

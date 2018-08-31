@@ -22,8 +22,8 @@ module game {
             return CommonDialogSkin;
         }
         protected init() {
-            this.btn_goPay.bg = "lucky_json.luckyBtn";
-            this.btn_close.icon = "lucky_json.luckycloseBtn";
+            this.btn_goPay.bg = "login_json.dialogBuyBtn_png";
+            this.btn_close.icon = "login_json.dialogCloseBtn_png";
             this.btn_width  = this.btn_goPay.width;
             this._touchEvent = [
                 {target: this.btn_close, callBackFunc: this.OnClosePanel},
@@ -72,7 +72,7 @@ module game {
             }
            
             _btn_goPlay.label = btnTxt;
-            _btn_goPlay.width =  this.btn_width +  btnTxt.length  * _btn_goPlay.labelSize;
+            // _btn_goPlay.width =  this.btn_width +  btnTxt.length  * _btn_goPlay.labelSize; //按钮根据字内容改变大小(暂时不需要)
             this._func = func;
             this._func2 = func2;
             this.show();

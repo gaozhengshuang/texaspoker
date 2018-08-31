@@ -75,7 +75,7 @@ module game {
                     this.lockGroup.visible = false;
                     this.txt2.text = "生产中";
                     let endTime: number = this.bubble.tmproduce + this.roomTypeObj.ProduceTime;
-                    console.log(new Date(endTime * 1000));
+                    //console.log(new Date(endTime * 1000));
                     this.endTime = endTime;
                     SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
                     this.runningTimer(SysTimeEventManager.getInstance().systimeNum, this);
@@ -124,7 +124,7 @@ module game {
                     }
                     break;
             }
-            console.log("cccccc", state);
+            //console.log("cccccc", state);
         }
         private getopenLockLevel(index): number {
             let level: number = 0;

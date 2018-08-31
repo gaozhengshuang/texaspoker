@@ -13,7 +13,7 @@ module game {
                 switch (data.type) {
                     case 'zoom_changed':
                         {
-                            console.log(data);
+                            //console.log(data);
                             
                             //mapProxy.emptyMapMarker(mapProxy.mapStatus);
                             mapProxy.emptyMapMarker(mapProxy.mapStatus);

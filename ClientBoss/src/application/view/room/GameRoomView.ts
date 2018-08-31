@@ -111,7 +111,8 @@ module game {
             this.level_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_level, this);
             this.hideList_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_hideList, this);
             this.shualingju_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_shualingju, this);
-
+            
+            NotificationCenter.addObserver(this, this.OnHouseMaidUpdate, MaidManager.HOUSEMAID_UPDATE);
         }
         private downBgScaleH: number = 1;
         private dBgDefaultH: number = 0;
@@ -449,7 +450,12 @@ module game {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, return: this.roomInfo, type: 1 }));
+                        if(item.opttype==5){
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, return: MaidManager.getInstance()._curSelHouse});
+                        }else{
+                            this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
+                        }
+                        
                     }
                     break;
                 /* case 2:
@@ -462,7 +468,7 @@ module game {
                     this.onclick_hideList();
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { houseid: item.rId, return: this.roomInfo, type: 2 }));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { houseid: item.rId, returnId: this.roomInfo.rId, type: 2 }));
                     }
                     break;
             }
@@ -651,8 +657,14 @@ module game {
 
         }
 
+        private OnHouseMaidUpdate() {
+            this.huxingPanel.updateMaid();
+        }
+
         protected beforeRemove() {
             //console.log("房屋界面关闭");
+            NotificationCenter.removeObserver(this, MaidManager.HOUSEMAID_UPDATE);
+
             this.titlePanel.removePanel();
             if (this.hideList_btn.visible) {
                 this.onclick_hideList();

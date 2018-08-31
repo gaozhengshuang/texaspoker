@@ -1,4 +1,7 @@
 module game {
+    /**
+     * 上标题通用面板
+     */
     export class PageTitlePanel extends eui.Component {
         private return_btn: eui.Button;
         private top_bg: eui.Rect;
@@ -28,6 +31,7 @@ module game {
             else {
                 this.skinName = PageTitlePanelSkin;
             }
+            this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onShow, this);
         }
         public init(backFun: Function = null, backBody: any = null) {
             this.bName_txt.text = "";
@@ -37,6 +41,19 @@ module game {
 
             this.updateUserInfo(DataManager.playerModel.getUserInfo());
         }
+        private onShow() {
+            NotificationCenter.addObserver(this, this.onUserInfoChange, PlayerModel.PLAYERMODEL_UPDATE);
+            this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
+        }
+        private onUserInfoChange() {
+            let userInfo = DataManager.playerModel.getUserInfo();
+            this.updateUserInfo(userInfo);
+        }
+        private onRemove() {
+            this.removeEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
+            NotificationCenter.removeObserver(this, PlayerModel.PLAYERMODEL_UPDATE);
+        }
+
         public updateTitleStr(name: string = "") {
             this.bName_txt.text = name;
         }
@@ -80,7 +97,7 @@ module game {
         private runningTimer(time: number, body: any): void {
             if (time < body.endTime) {
                 body.addEnergy_txt.text = SysTimeEventManager.getInstance().
-                    getHourMinutesTime(body.endTime - time, true, true)+" +5";
+                    getHourMinutesTime(body.endTime - time, true, true) + " +5";
             } else {
                 if (body.userInfo.robcount >= 20) {
                     body.removeTimer();

@@ -38,12 +38,25 @@ func (this *CarData) ChangeOwner(user *GateUser) {
 	this.data.Ownerid = pb.Uint64(user.Id())
 	this.data.Ownername = pb.String(user.Name())
 	CarMgr().AddCar(this)
-	CarMgr().UpdateCarByID(exowner, this.data.GetId(), false)
+	CarMgr().UpdateCarByID(user, this.data.GetId(), false)
 }
 
 func (this *CarData) ClearTrade() {
 	this.data.Tradeendtime = pb.Uint32(0)
 	this.data.Tradeuid = pb.Uint64(0)
+}
+
+func (this *CarData) GetCarName() string {
+	carb, bfind := tbl.TCarBrandBase.TCarBrandById[this.GetCarBrand()]
+	if bfind == false {
+		return "汽车"
+	}
+	carm, mfind := tbl.TCarModelBase.TCarModelById[this.GetCarModel()]
+	if mfind == false {
+		return "汽车"
+	}
+	name := carb.Brand + carm.Model
+	return name
 }
 
 func (this *CarData) LoadBin(rbuf []byte) error {
@@ -221,6 +234,26 @@ func (this *CarData) GetCarModel() uint32 {
 		return 0
 	}
 	return template.Model
+}
+
+func (this *CarData) CanOperate() bool {
+	if this.data.GetTradeuid() != 0 {
+		if user := UserMgr().FindById(this.data.GetOwnerid()); user != nil {
+			user.SendNotify("汽车出售中，不能操作")
+		}
+		return false
+	}
+	return true
+}
+
+func (this *CarData) CanTrade() bool {
+	if this.data.GetTradeuid() != 0 {
+		return false
+	}
+	if this.data.GetState() != 1 {
+		return false
+	}
+	return true
 }
 
 //车位信息
@@ -765,6 +798,9 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
 		return 1
+	}
+	if car.CanOperate() == false {
+		return 8
 	}
 	if parking.data.GetParkingcar() != 0 {
 		return 3

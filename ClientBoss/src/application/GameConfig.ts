@@ -92,7 +92,7 @@ module game {
 
         public static adaptiveUI(scale: number){
             this.innerPageHeight=gameConfig.curHeight()-adaptive(scale);
-            console.log(this.innerPageHeight+"//"+this.innerHeight);
+            //console.log(this.innerPageHeight+"//"+this.innerHeight);
         }
 
         public static exploring:boolean=false;

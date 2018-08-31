@@ -30,7 +30,7 @@ module game {
 			if (listLen > 5) {
 				let signData = TradeManager.getInstance().tradeHouseInfo.list[listLen - 5];
 				if (data.houseuid == signData.houseuid) {
-					TradePanel.getInstance().startReqTradeList();
+					TradePanel.getInstance().startReqHouseTradeList(false);
 				}
 
 				let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
@@ -58,14 +58,14 @@ module game {
 		}
 		private onBuyClick() {
 			//购买
-			NotificationCenter.addObserver(this, this.onGetHouseData, PlayerModel.HOUSE_UPDATE);
+			NotificationCenter.addObserver(this, this.onGetHouseData, "msg.GW2C_AckHouseDataByHouseId");
 			sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({ houseid: this.data.houseuid }));
 		}
 
 		private onGetHouseData(data: msg.GW2C_UpdateHouseDataOne) {
 			openPanel(PanelType.TradeHouseBuyPanel);
 			TradeHouseBuyPanel.getInstance().setData(this.data, data);
-			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
+			NotificationCenter.removeObserver(this, "msg.GW2C_AckHouseDataByHouseId");
 		}
 
 		private onRemove() {
@@ -75,7 +75,18 @@ module game {
 			TickUtil.RemoveSecondsInvoke(this.onTimeCountDown, this);
 		}
 		private onPosTxt() {
-			//定位
+			// dataList && dataList.length > 0) {
+			// 	for (let i: number = 0; i < dataList.length; i++) {
+			// 		let data: any = dataList[i];
+			// 		let bId = data.Id;
+			// 		let bName = data.Community;
+			// 		let imageUrl = 'resource/others/images/build_'+data.CommunityId + '_m.png';
+			// 		let position = [data.PosX, data.PosY];
+			// 		let isHas: boolean = false;
+			// 		addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position, isHas: isHas });
+			// 	}
+			let dataList = [{ Id: 1, Community: "", CommunityId: 1, PosX: 1, PosY: 1, isHas: false }];
+			addBuilding(dataList); //定位
 		}
 		private onTimeCountDown() {
 			let data: msg.SimpleHouseTrade = this.data;

@@ -483,6 +483,7 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		if maid.Earning() != 0 {
 			user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
 			ma.ItemProduce(user, maid, "领取女仆收益")
+			ma.SendHouseMaids(user, maid.HouseId())
 		}else {
 			user.SendNotify("没有金币可以领取")
 		}
@@ -500,7 +501,11 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
 		ma.ItemProduce(user, maid, "领取女仆收益")
 		maid.SetTimeStart(now)
+		ma.SendHouseMaids(user, maid.HouseId())
+		return
 	}
+
+	user.SendNotify("女仆未产出任何金币")
 }
 
 // 掠夺他人女仆
@@ -542,16 +547,23 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 	// 从附近人进入抢夺，弹出自己可以放置女仆的房产列表
 	drophouses := ma.GetCanDropRobMaidHouse(user.Id())
 	if len(drophouses) == 0 {
-		user.SendNotify("没有多余可放置女仆的房产")
+		user.SendNotify("您的房屋不能掠夺更多女仆")
 		return
 	}
 
 	send := &msg.GW2C_EnableMaidDropTo{Houses:make([]*msg.HouseData,0)}
 	send.Houses = append(send.Houses, drophouses...)
 	user.SendMsg(send)
+	ma.SendHouseMaids(user, maid.HouseId())		// 刷新被掠夺玩家房间
 }
 
 func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64) bool {
+	house := HouseSvrMgr().GetHouse(maid.HouseId())
+	if house == nil {
+		log.Error("[女仆] 女仆[%d]的原始房间不存在[%d]", maid.Id(), maid.HouseId())
+		return false
+	}
+
 	drophouse := HouseSvrMgr().GetHouse(dropto)
 	if drophouse == nil {
 		log.Error("[女仆] 掠夺dropid无效[%d]", dropto)
@@ -579,6 +591,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 		total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
 		maid.SetEarning(uint32(total))
 	}
+	house.AddVisitInfo(user.Id(), dropto, 0, uint32(msg.HouseVisitType_RobMaid), 0, user.Name(), true)
 
 	// 我有概率获得道具	
 	ma.ItemProduce(user, maid, "掠夺女仆")
@@ -586,6 +599,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 
 	// 掠夺到我的房间
 	ma.RobMaidToHouse(user, maid, dropto)
+	ma.SendHouseMaids(user, maid.HouseId())		// 刷新被掠夺玩家房间
 	return true
 }
 
@@ -629,13 +643,15 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	now := util.CURTIME()
 	elapse := now - maid.TimeStart()
 	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
-	total = total
+	house.AddVisitInfo(user.Id(), maid.HouseId(), 0, uint32(msg.HouseVisitType_TakeBackMaid), uint32(total), user.Name(), true)
 
 	// 清除掠夺者
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
 	maid.SetRobber(0, "", 0)
 	maid.SetTimeStart(util.CURTIME())
 	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
+
+	ma.SendHouseMaids(user, house.id)		// 刷新掠夺者的房间
 }
 
 // 送回女仆
@@ -670,10 +686,14 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 	ma.ItemProduce(user, maid, "领取掠夺女仆")
 
 	// 清除掠夺者
+	robberhouse := maid.RobberTo()
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
 	maid.SetRobber(0, "", 0)
 	maid.SetTimeStart(0)	// 停止工作
 	log.Info("[女仆] 女仆[%d]被送回到房间", maid.Id())
+
+	//
+	ma.SendHouseMaids(user, robberhouse)		// 刷新掠夺者的房间
 }
 
 // 设置掠夺者
@@ -715,7 +735,7 @@ func (ma *MaidManager) ItemProduce(user *GateUser, maid *Maid, reason string) {
 	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
 		for _ , strpro := range Pro {
 			slicepro := strings.Split(strpro, "-")
-			if len(slicepro) != 2 {
+			if len(slicepro) != 3 {
 				log.Error("[女仆] 解析道具产出概率配置异常 strpro=%s", strpro)
 				return false
 			}
