@@ -112,6 +112,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_SendBackMaid{}, 		on_C2GW_SendBackMaid)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfoById{}, on_C2GW_ReqCarInfoById)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMyParkingInfo{}, on_C2GW_ReqMyParkingInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqParkingInfoByType{}, on_C2GW_ReqParkingInfoByType)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ParkCar{}, on_C2GW_ParkCar)
@@ -188,6 +189,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetTradeCarHistory{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
+	this.msgparser.RegistSendProto(msg.GW2c_ResCarInfoById{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ParkCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
@@ -1134,6 +1136,21 @@ func on_C2GW_ReqCarInfo(session network.IBaseNetSession, message interface{}) {
 	user.SynCarData()
 }
 
+//请求指定车辆信息 
+func on_C2GW_ReqCarInfoById(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	log.Info("on_C2GW_ReqCarInfoById %d", user.Id())
+	tmsg := message.(*msg.C2GW_ReqCarInfoById)
+	cardata := CarMgr().GetCar(uint64(tmsg.GetCarid()))
+	send := &msg.GW2c_ResCarInfoById{}
+	send.Cardata = cardata.PackBin()
+	user.SendMsg(send)
+}
 //请求我的车位信息
 func on_C2GW_ReqMyParkingInfo(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
