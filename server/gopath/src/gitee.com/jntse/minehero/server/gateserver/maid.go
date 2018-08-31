@@ -652,6 +652,7 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
 
 	ma.SendHouseMaids(user, house.id)		// 刷新掠夺者的房间
+	user.SendNotify("您的女仆已领回")
 }
 
 // 送回女仆
