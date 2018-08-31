@@ -314,6 +314,11 @@ module game {
             if (isPush) {
                 this.bagList.push({ id: itemId, num: itemNum });
             }
+
+            let itemBaseData = table.ItemBaseDataById[itemId];
+            if (itemBaseData) {
+                showTips("获得道具：" + itemBaseData.Name + "*" + itemNum);
+            }
         }
 
         public deleteBag(itemId: number, itemNum: number) {
