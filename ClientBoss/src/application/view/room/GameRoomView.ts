@@ -449,7 +449,7 @@ module game {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, return: this.roomInfo, type: 1 }));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
                     }
                     break;
                 /* case 2:
@@ -462,7 +462,7 @@ module game {
                     this.onclick_hideList();
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { houseid: item.rId, return: this.roomInfo, type: 2 }));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { houseid: item.rId, returnId: this.roomInfo.rId, type: 2 }));
                     }
                     break;
             }

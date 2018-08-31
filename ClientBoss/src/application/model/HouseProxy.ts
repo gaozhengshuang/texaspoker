@@ -16,6 +16,7 @@ module game {
 		public sourceObject: any = { form: 0, param: null };
 
 		public returnRoomInfo: HouseVO = null;
+		public returnRoomId: number = 0;
 		public returnPlayersId: number = 0;
 		public returnType: number = 0;
 
