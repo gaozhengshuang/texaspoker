@@ -131,7 +131,7 @@ module game {
 
             //小人动画
             this._roleBone = this._roleBonePool.createObject();
-            this._roleBone.initRoleData(this.gender, DataManager.playerModel.clothes);
+            this._roleBone.initRoleData(this.gender, MaidManager.getInstance().clothes);
             this.grp_role.addChild(this._roleBone);
 
             this.updateCoins();
@@ -189,7 +189,7 @@ module game {
         }
 
         private initWears() {
-            let clothes = DataManager.playerModel.clothes;
+            let clothes = MaidManager.getInstance().clothes;
             if (!clothes) return;
             clothes.forEach(itemdata =>
             {

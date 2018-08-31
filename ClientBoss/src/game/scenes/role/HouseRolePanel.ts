@@ -34,11 +34,15 @@ module game {
         private registerEvent() {
             this.grp_role.addEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
             this.goldImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goldTouchEvent, this);
+
+            NotificationCenter.addObserver(this, this.OnHouseMaidUpdate, MaidManager.MAID_UPDATE);
         }
 
         private removeEvent() {
             this.grp_role.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
             this.goldImg.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.goldTouchEvent, this);
+
+            NotificationCenter.removeObserver(this, MaidManager.MAID_UPDATE);
 
             SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
         }
@@ -62,17 +66,17 @@ module game {
             SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
         }
 
-        // private OnHouseMaidUpdate() {
-        //     for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {
-        //         let maidInfo = MaidManager.getInstance().getHouseMaidInfo().maids[i];
-        //         if (maidInfo.id == this._maidInfo.id) {
-        //             this._maidInfo = maidInfo;
-        //             break;
-        //         }
-        //     }
+        private OnHouseMaidUpdate() {
+            for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {
+                let maidInfo = MaidManager.getInstance().getHouseMaidInfo().maids[i];
+                if (maidInfo.id == this._maidInfo.id) {
+                    this._maidInfo = maidInfo;
+                    break;
+                }
+            }
 
-        //     this.updateView();
-        // }
+            this._roleBone.updateBones(this._maidInfo.clothes);
+        }
 
         private updateView() {
             this.levelInfo = table.TLevelMaidById[this._maidInfo.level];
