@@ -2,7 +2,7 @@ module game {
     export class CarPieceTweenSroller extends eui.Component  {
         
         downBtnGroup        : eui.Group;
-        center              : eui.Group;
+        closePanel          : eui.Group;
         listGroup           : eui.Group;
         selectPartGroup     : eui.Group;
         
@@ -54,12 +54,20 @@ module game {
         {          
             if(!this._tweenCompleted) return;
             this.selectPartGroup.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnCarPartLvUpHandle,this);
+            this.closePanel.addEventListener(egret.TouchEvent.TOUCH_TAP,this.hideList,this);
             this.hideList_btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.hideList,this);                        
             this.hideList_btn.visible = false;
             this.listIndex = 0;
             this.initItemList();
+            this.adaptive();
             this.showlist();
-            
+        }
+
+        private adaptive()
+        {
+            this.oldY = this.listGroup.y;
+            this.oldH = this.down_bg.height;
+            this.hideList_btn.y = gameConfig.curHeight() - 30 - this.hideList_btn.height / 2;
         }
 
         public initItemList() {
@@ -67,18 +75,17 @@ module game {
             this.ls_items.dataProvider = this._dataProv;
             //this.ls_items.itemRenderer = this._itemRenderer;
             this.ls_items.itemRenderer = CarPartPieceItem;
-            
             //this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this);
-            this.oldY = this.listGroup.y;
-            this.oldH = this.down_bg.height;
         }
 
 
         private showlist() {
             //console.log("展示列表showlist----------->");
+            console.log(GameConfig.innerScale+" "+GameConfig.innerScaleH+" "+gameConfig.curHeight());
             let offsetY = 1280 - this.oldY;
+            let scaleH = gameConfig.curHeight() / 1280;
             if (this.goalH == -1) {
-                this.goalH = this.dataList.length * 150 + this.hideList_btn.height;//按钮贴边
+                this.goalH = this.dataList.length * 150 * scaleH + this.hideList_btn.height;//按钮贴边
             }
             if (this.btnGoalY == -1) {this.btnGoalY = this.oldY-this.goalH + offsetY}
 			//console.log(this.goalH+"//"+this.goalY+"//"+GameConfig.innerHeight);
@@ -95,8 +102,8 @@ module game {
         private onComplete() {
             //console.log ("onComplete");
             this._tweenCompleted = true;
-            this.hideList_btn.visible = true;
-            //this.sr_item.height  -=  this.btnGoalY; 
+            //this.hideList_btn.visible = true;
+
             egret.Tween.removeTweens(this.listGroup);
             egret.Tween.removeTweens(this.down_bg);
             this.bindData();
@@ -108,6 +115,7 @@ module game {
             this._dataProv.removeAll();
             let self = this;
             this.dataList.forEach(data=>{self._dataProv.addItem(data)});
+            let scaleH = gameConfig.curHeight() / 1280;
             this.sr_item.height = this.dataList.length * 150;
            // console.log("-------------->",this.ls_items.numChildren+" "+this.ls_items.numElements);
          }
