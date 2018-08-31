@@ -93,7 +93,7 @@
 			"url": "assets/texpack/item.json",
 			"type": "sheet",
 			"name": "item_json",
-			"subkeys": "1001,140001,2004,2006,3018,5003,5004,6002,6003"
+			"subkeys": "10005_png,10006_png,10007_png,10008_png,10009_png,10011_png,1001_png,110001_png,110002_png,110003_png,110004_png,110005_png,110006_png,110007_png,110008_png,110009_png,110010_png,110011_png,110012_png,110013_png,120001_png,120002_png,120003_png,120004_png,120005_png,2004_png,2006_png,3018_png,5003_png,5004_png,6002_png,6003_png"
 		},
 		{
 			"url": "assets/texpack/cube.json",

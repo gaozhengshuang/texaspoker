@@ -23,7 +23,7 @@ module game {
             this.full_border.visible = false;
             if (this.itemInfo) {
                 this.name_txt.text = this.itemInfo.Name;
-                this.iconImg.source=RES.getRes("item_"+this.itemInfo.ImageId+"_png")
+                this.iconImg.source=RES.getRes(this.itemInfo.ImageId+"_png")
                 let bagItem: any = DataManager.playerModel.getBagItem(id);
                 if (bagItem == null) {
                     this.haveNum = 0

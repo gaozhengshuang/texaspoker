@@ -251,7 +251,7 @@ module game {
 					textField.text = word;
 					//textField.scaleX = textField.scaleY = GameConfig.innerScale;
 					let goldImg: egret.Bitmap = new egret.Bitmap();
-					goldImg.texture = RES.getRes("hall_4_json.item_" + itemType.ImageId + "_png");
+					goldImg.texture = RES.getRes("item_json." + itemType.ImageId + "_png");
 					goldImg.width = 50;
 					goldImg.height = 50;
 					goldImg.anchorOffsetY = goldImg.height / 2;

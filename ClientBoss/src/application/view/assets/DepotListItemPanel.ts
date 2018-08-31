@@ -29,7 +29,7 @@ module game {
             this.itemIndex=index;
             if (this.itemDate) {
                 let itemInfo = table.ItemBaseDataById[this.itemDate.id];
-                this.itemImg.source=RES.getRes("item_"+itemInfo.ImageId+"_png");
+                this.itemImg.source=RES.getRes(itemInfo.ImageId+"_png");
                 this.num_txt.text=""+this.itemDate.num;
             }
         }

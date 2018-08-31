@@ -25,7 +25,7 @@ module game {
 				this.use_btn.visible = true;
 				this.itemInfo = table.ItemBaseDataById[this.item.id];
 				if (this.itemInfo) {
-					this.itemImg.source = RES.getRes("item_" + this.itemInfo.ImageId + "_png");
+					this.itemImg.source = RES.getRes(this.itemInfo.ImageId + "_png");
 					this.name_txt.text = this.itemInfo.Name;
 					this.info_txt.text = this.itemInfo.Desc;
 					this.num_txt.text = "数量:" + this.item.num;

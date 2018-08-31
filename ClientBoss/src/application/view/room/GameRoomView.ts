@@ -454,7 +454,7 @@ module game {
                             ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, return: MaidManager.getInstance()._curSelHouse});
                         }else if(item.opttype==6){
                             if(item.optparam>0){
-                                sendMessage("msg.C2GW_TakeRobMaidEarning", msg.C2GW_TakeRobMaidEarning.encode({houseid:item.visitorhouse,id:item.id}));
+                                sendMessage("msg.C2GW_TakeRobMaidEarning", msg.C2GW_TakeRobMaidEarning.encode({houseid:this.roomInfo.rId,id:item.id}));
                             }else{
                                 this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
                             }
