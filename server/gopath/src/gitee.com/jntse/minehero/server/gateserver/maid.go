@@ -588,7 +588,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 		total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
 		maid.SetEarning(uint32(total))
 	}
-	house.AddVisitInfo(user.Id(), dropto, 0, uint32(msg.HouseVisitType_RobMaid), 0, user.Name())
+	house.AddVisitInfo(user.Id(), dropto, 0, uint32(msg.HouseVisitType_RobMaid), 0, user.Name(), true)
 
 	// 我有概率获得道具	
 	ma.ItemProduce(user, maid, "掠夺女仆")
@@ -640,7 +640,7 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	now := util.CURTIME()
 	elapse := now - maid.TimeStart()
 	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
-	house.AddVisitInfo(user.Id(), maid.HouseId(), 0, uint32(msg.HouseVisitType_TakeBackMaid), uint32(total), user.Name())
+	house.AddVisitInfo(user.Id(), maid.HouseId(), 0, uint32(msg.HouseVisitType_TakeBackMaid), uint32(total), user.Name(), true)
 
 	// 清除掠夺者
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())

@@ -428,7 +428,7 @@ func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visit
 		gold,items := this.housecells[cellindex].VisitorTakeGold(visitorid)
 		if gold > 0 {
 			//加偷钱的记录
-			this.AddVisitInfo(visitorid, 0, cellindex, uint32(msg.HouseVisitType_RobMoney), gold, visitorname)
+			this.AddVisitInfo(visitorid, 0, cellindex, uint32(msg.HouseVisitType_RobMoney), gold, visitorname, false)
 		}
 		return gold,items
 	} else {
@@ -488,7 +488,7 @@ func (this *HouseData) LevelUp() bool {
 }
 
 //添加记录
-func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string) *HouseVisitInfo {
+func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string, syn bool) {
 	data := &HouseVisitInfo{}
 	data.visitorid = visitorid
 	data.tmvisit = util.CURTIME()
@@ -508,7 +508,14 @@ func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , o
 		infolen = len(this.visitinfo)
 	}
 	this.robcheckflag = 1
-	return data
+	
+	// 同步访问记录
+	if syn {
+		send := &msg.GW2C_UpdateHouseVisitInfo{Houseid:pb.Uint64(this.id), Info:data.PackBin()}
+		if user := UserMgr().FindById(this.ownerid); user != nil {
+			user.SendMsg(send) 
+		}
+	}
 }
 
 //客户端查看记录重置查看状态
