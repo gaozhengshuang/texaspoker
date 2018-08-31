@@ -210,6 +210,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserMaidInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_EnableMaidDropTo{})
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateHouseVisitInfo{})
 
 
 	// Room
