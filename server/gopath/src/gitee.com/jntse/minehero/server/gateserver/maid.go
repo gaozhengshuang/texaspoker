@@ -555,6 +555,12 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 }
 
 func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64) bool {
+	house := HouseSvrMgr().GetHouse(maid.HouseId())
+	if house == nil {
+		log.Error("[女仆] 女仆[%d]的原始房间不存在[%d]", maid.Id(), maid.HouseId())
+		return false
+	}
+
 	drophouse := HouseSvrMgr().GetHouse(dropto)
 	if drophouse == nil {
 		log.Error("[女仆] 掠夺dropid无效[%d]", dropto)
@@ -582,6 +588,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 		total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
 		maid.SetEarning(uint32(total))
 	}
+	house.AddVisitInfo(user.Id(), dropto, 0, uint32(msg.HouseVisitType_RobMaid), 0, user.Name(), true)
 
 	// 我有概率获得道具	
 	ma.ItemProduce(user, maid, "掠夺女仆")
@@ -633,7 +640,7 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	now := util.CURTIME()
 	elapse := now - maid.TimeStart()
 	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
-	total = total
+	house.AddVisitInfo(user.Id(), maid.HouseId(), 0, uint32(msg.HouseVisitType_TakeBackMaid), uint32(total), user.Name(), true)
 
 	// 清除掠夺者
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
