@@ -239,7 +239,7 @@ message HouseData {
     optional uint32 sumvalue = 16;      //总价值
     optional uint64 tradeuid = 17;      //交易id
     optional uint32 tradeprice = 18;         //交易价格
-    optional uint32 visitrecordid = 19;  // 访问记录uuid,服务器使用
+    optional uint64 visitrecordid = 19;  // 访问记录uuid,服务器使用
 }
 
 // 汽车商店出售信息

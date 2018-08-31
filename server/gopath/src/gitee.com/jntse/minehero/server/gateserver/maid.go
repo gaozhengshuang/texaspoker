@@ -701,7 +701,7 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 }
 
 // 领取掠夺女仆奖励
-func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid uint64, uid uint32) {
+func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid , uid uint64) {
 	house := HouseSvrMgr().GetHouse(houseid)
 	if house == nil {
 		user.SendNotify("房屋无效")
@@ -711,6 +711,11 @@ func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid uint64, uid ui
 
 	if house.ownerid != user.Id() {
 		user.SendNotify("这不是您自己的房屋")
+		return
+	}
+
+	if uid == 0 {
+		user.SendNotify("无效的记录id")
 		return
 	}
 
