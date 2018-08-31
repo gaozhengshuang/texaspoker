@@ -171,13 +171,13 @@
 			"url": "assets/texpack/hall_2.json",
 			"type": "sheet",
 			"name": "hall_2_json",
-			"subkeys": "assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,fullItemBoxBorder_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,itemBoxBg_png,jiantou1_png,jiantou2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,levelSuccessImg1_png,lingjuInfo_bg1_png,noItemBoxBorder_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
+			"subkeys": "DepotDetailsBg1_png,ItemDetailsBg1_png,assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,fullItemBoxBorder_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,itemBoxBg_png,jiantou1_png,jiantou2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,levelSuccessImg1_png,lingjuInfo_bg1_png,longBtnBg_png,noItemBoxBorder_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
 		},
 		{
 			"url": "assets/texpack/hall_1.json",
 			"type": "sheet",
 			"name": "hall_1_json",
-			"subkeys": "filterBg1_png,filterTriangle1_png,mineIcon1_png,mineIcon2_png,mineIcon3_png,mineIcon4_png,mineIcon5_png,myAssetsBg1_png,new_room_point1_png,qiangIcon_png,qipaoIcon1_png,roomLevelIcon1_png,roomLevelIcon2_png,roomLevelIcon3_png,roomLevelIcon4_png,roomLevelIcon5_png,roomLock1_png,roomUnlock1_png,roomUserInfo-bg_png,room_baifang_btn1_png,room_dongtai_btn1_png,room_headBg1_png,room_level_btn1_png,room_lingju_btn1_png,room_quit_btn2_png,room_weizhi_icon1_png,smallGoldIcon1_png,tilingIcon1_png,titleBg1_png,ui_comn_icon_gold_png,ui_login_button_forget_png,ui_login_button_go_login_png,ui_login_button_go_register_png,ui_login_button_png,ui_login_logo_png,userInfo_bg1_png,userRoomNoBg2_png,userRoomNoBg_png,vertical_line1_png,vipIcon_png,welcmoe_btn1_png,welcome_bg1_png,ziyuan_top_di_png"
+			"subkeys": "filterBg1_png,filterTriangle1_png,mineIcon1_png,mineIcon2_png,mineIcon3_png,mineIcon4_png,mineIcon5_png,myAssetsBg1_png,new_room_point1_png,qiangIcon_png,qipaoIcon1_png,roomLevelIcon1_png,roomLevelIcon2_png,roomLevelIcon3_png,roomLevelIcon4_png,roomLevelIcon5_png,roomLock1_png,roomUnlock1_png,roomUserInfo-bg_png,room_baifang_btn1_png,room_dongtai_btn1_png,room_headBg1_png,room_level_btn1_png,room_linghui_btn1_png,room_lingju_btn1_png,room_quit_btn2_png,room_weizhi_icon1_png,smallGoldIcon1_png,tilingIcon1_png,titleBg1_png,ui_comn_icon_gold_png,ui_login_button_forget_png,ui_login_button_go_login_png,ui_login_button_go_register_png,ui_login_button_png,ui_login_logo_png,userInfo_bg1_png,userRoomNoBg2_png,userRoomNoBg_png,vertical_line1_png,vipIcon_png,welcmoe_btn1_png,welcome_bg1_png,ziyuan_top_di_png"
 		},
 		{
 			"url": "assets/texpack/preload.json",
@@ -314,7 +314,7 @@
 			"url": "assets/texpack/uiCarAltas.json",
 			"type": "sheet",
 			"name": "uiCarAltas_json",
-			"subkeys": "arrowDownL,arrowUpRed,arrowdown,backBtn,backBtn2,buyBtn1,buyBtn2,buyBtn3,buyItemInfoBg,closeBtn,closeBtn2,coin_icon,dialogBg,diamonds_icon,driveBtn,emptybg,fangjianxinxi_di,fengexian,filterBg,filterBg_2,filterBg_3,filterBg_4,goldBg,infobg,lightning_icon,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,publicArea,publiclot,recieveBtn,scrollviewBg,selectBtn,shopBtn,stateBtn,ticket,ziyuan_di"
+			"subkeys": "arrowDownL,arrowUpRed,arrowdown,backBtn,backBtn2,buyBtn1,buyBtn2,buyBtn3,buyItemInfoBg,closeBtn,closeBtn2,coin_icon,dialogBg,diamonds_icon,driveBtn,emptybg,fangjianxinxi_di,fengexian,filterBg,filterBg_2,filterBg_3,filterBg_4,goldBg,infobg,lightning_icon,line,neighbor,normalBtn,null_bg,park,parkedBg,parkinglot,parkinglotHouse,parkinglot_empty,parkinglot_full,publicArea,publiclot,publiclotIcon,recieveBtn,scrollviewBg,selectBtn,shopBtn,stateBtn,ticket,ziyuan_di"
 		},
 		{
 			"url": "assets/bones/suit/boy_suitx.json",
