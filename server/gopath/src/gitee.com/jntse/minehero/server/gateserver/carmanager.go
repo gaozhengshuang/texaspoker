@@ -656,14 +656,14 @@ func (this *CarManager) CreateNewRecord(handleid uint64, ownerid uint64, car *Ca
 	}
 	// 保存数据
 	key := fmt.Sprintf("parkingrecord_%d", ownerid)
-	err := Redis().RPush(key, data).Err()
+	err := Redis().LPush(key, data).Err()
 	if err != nil {
 		log.Error("创建车位操作记录失败 id%d ，err: %s", ownerid, err)
 		return ""
 	}
 	if Redis().LLen(key).Val() > 5 {
 		//删除最老的记录
-		err := Redis().BLPop(0, key).Err()
+		err := Redis().BRPop(0, key).Err()
 		if err != nil {
 			log.Error("删除多余车位操作记录失败 id%d", ownerid)
 		}
@@ -986,7 +986,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	for {
 		if targetlevel >= parttemplate.MaxLevel {
 			targetExp = 0
-			return
+			break
 		} else if targetExp < levelupConf.Exp {
 			//经验升不了一级啦
 			break
