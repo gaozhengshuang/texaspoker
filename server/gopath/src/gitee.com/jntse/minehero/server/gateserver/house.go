@@ -298,6 +298,9 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 }
 
 func (this *HouseData) Tick(now int64) {
+	if this.issell == true {
+		return
+	}
 	this.ticker1Sec.Run(now)
 }
 
@@ -356,7 +359,8 @@ func (this *HouseData) GetType() uint32 {
 		log.Error("House LevelUp 无效的房屋tid[%d]", this.tid)
 		return 1
 	}
-	return base.Type
+	btype := base.Type
+	return btype
 }
 
 func (this *HouseData) GetIncome() uint32 {
@@ -365,6 +369,16 @@ func (this *HouseData) GetIncome() uint32 {
 		sum += v.GetIncome()
 	}
 	return sum
+}
+
+func (this *HouseData) CanOperate(userid uint64) bool {
+	if this.issell == true {
+		if user := UserMgr().FindById(userid); user != nil {
+			user.SendNotify("房屋出售中，不能操作")
+			return false
+		}
+	}
+	return true
 }
 
 func (this *HouseData) ChangeOwner(user *GateUser) {
@@ -703,6 +717,9 @@ func (this *HouseManager) HouseLevelUp(userid uint64, houseid uint64) uint32 {
 	if house == nil {
 		return 0
 	}
+	if house.CanOperate(userid) == false {
+		return 0
+	}
 	if house.LevelUp() {
 		this.SyncUserHouseData(userid)
 		return 1
@@ -716,6 +733,9 @@ func (this *HouseManager) HouseLevelUp(userid uint64, houseid uint64) uint32 {
 func (this *HouseManager) HouseCellLevelUp(userid uint64, houseid uint64, index uint32) uint32 {
 	house := this.GetHouse(houseid)
 	if house == nil {
+		return 0
+	}
+	if house.CanOperate(userid) == false {
 		return 0
 	}
 	houselevel := house.level
@@ -744,6 +764,9 @@ func (this *HouseManager) TakeSelfHouseGold(userid uint64, houseid uint64, index
 	if house == nil {
 		return 0, make(map[uint32]uint32) 
 	}
+	if house.CanOperate(userid) == false {
+		return 0, make(map[uint32]uint32)
+	}
 
 	gold, items := house.OwnerTakeGold(index)
 	if gold > 0 {
@@ -757,6 +780,9 @@ func (this *HouseManager) TakeSelfHouseGold(userid uint64, houseid uint64, index
 func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visitorid uint64, visitorname string) (uint32, map[uint32]uint32) {
 	house := this.GetHouse(houseid)
 	if house == nil {
+		return 0, make(map[uint32]uint32)
+	}
+	if house.CanOperate(visitorid) == false {
 		return 0, make(map[uint32]uint32)
 	}
 	if house.ownerid == visitorid {
@@ -780,6 +806,9 @@ func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 		for _, v := range this.houses {
 			if i >= 11 {
 				break
+			}
+			if v.issell == true {
+				continue
 			}
 			if v.buildingid != 0 {
 				continue

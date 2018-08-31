@@ -7238,6 +7238,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [houseid] HouseMaidData houseid
          * @property {number|null} [sex] HouseMaidData sex
          * @property {number|Long|null} [tmworking] HouseMaidData tmworking
+         * @property {number|Long|null} [robberto] HouseMaidData robberto
          */
 
         /**
@@ -7345,6 +7346,14 @@ $root.msg = (function() {
         HouseMaidData.prototype.tmworking = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
+         * HouseMaidData robberto.
+         * @member {number|Long} robberto
+         * @memberof msg.HouseMaidData
+         * @instance
+         */
+        HouseMaidData.prototype.robberto = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
          * Creates a new HouseMaidData instance using the specified properties.
          * @function create
          * @memberof msg.HouseMaidData
@@ -7391,6 +7400,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 10, wireType 0 =*/80).int32(message.sex);
             if (message.tmworking != null && message.hasOwnProperty("tmworking"))
                 writer.uint32(/* id 11, wireType 0 =*/88).int64(message.tmworking);
+            if (message.robberto != null && message.hasOwnProperty("robberto"))
+                writer.uint32(/* id 12, wireType 0 =*/96).uint64(message.robberto);
             return writer;
         };
 
@@ -7459,6 +7470,9 @@ $root.msg = (function() {
                     break;
                 case 11:
                     message.tmworking = reader.int64();
+                    break;
+                case 12:
+                    message.robberto = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7534,6 +7548,9 @@ $root.msg = (function() {
             if (message.tmworking != null && message.hasOwnProperty("tmworking"))
                 if (!$util.isInteger(message.tmworking) && !(message.tmworking && $util.isInteger(message.tmworking.low) && $util.isInteger(message.tmworking.high)))
                     return "tmworking: integer|Long expected";
+            if (message.robberto != null && message.hasOwnProperty("robberto"))
+                if (!$util.isInteger(message.robberto) && !(message.robberto && $util.isInteger(message.robberto.low) && $util.isInteger(message.robberto.high)))
+                    return "robberto: integer|Long expected";
             return null;
         };
 
@@ -7614,6 +7631,15 @@ $root.msg = (function() {
                     message.tmworking = object.tmworking;
                 else if (typeof object.tmworking === "object")
                     message.tmworking = new $util.LongBits(object.tmworking.low >>> 0, object.tmworking.high >>> 0).toNumber();
+            if (object.robberto != null)
+                if ($util.Long)
+                    (message.robberto = $util.Long.fromValue(object.robberto)).unsigned = true;
+                else if (typeof object.robberto === "string")
+                    message.robberto = parseInt(object.robberto, 10);
+                else if (typeof object.robberto === "number")
+                    message.robberto = object.robberto;
+                else if (typeof object.robberto === "object")
+                    message.robberto = new $util.LongBits(object.robberto.low >>> 0, object.robberto.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -7663,6 +7689,11 @@ $root.msg = (function() {
                     object.tmworking = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tmworking = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.robberto = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.robberto = options.longs === String ? "0" : 0;
             }
             if (message.clothes && message.clothes.length) {
                 object.clothes = [];
@@ -7704,6 +7735,11 @@ $root.msg = (function() {
                     object.tmworking = options.longs === String ? String(message.tmworking) : message.tmworking;
                 else
                     object.tmworking = options.longs === String ? $util.Long.prototype.toString.call(message.tmworking) : options.longs === Number ? new $util.LongBits(message.tmworking.low >>> 0, message.tmworking.high >>> 0).toNumber() : message.tmworking;
+            if (message.robberto != null && message.hasOwnProperty("robberto"))
+                if (typeof message.robberto === "number")
+                    object.robberto = options.longs === String ? String(message.robberto) : message.robberto;
+                else
+                    object.robberto = options.longs === String ? $util.Long.prototype.toString.call(message.robberto) : options.longs === Number ? new $util.LongBits(message.robberto.low >>> 0, message.robberto.high >>> 0).toNumber(true) : message.robberto;
             return object;
         };
 
@@ -9379,6 +9415,999 @@ $root.msg = (function() {
         return Serialize;
     })();
 
+    msg.CarPartData = (function() {
+
+        /**
+         * Properties of a CarPartData.
+         * @memberof msg
+         * @interface ICarPartData
+         * @property {number|null} [partid] CarPartData partid
+         * @property {number|null} [parttype] CarPartData parttype
+         * @property {number|null} [level] CarPartData level
+         * @property {number|null} [exp] CarPartData exp
+         */
+
+        /**
+         * Constructs a new CarPartData.
+         * @memberof msg
+         * @classdesc Represents a CarPartData.
+         * @implements ICarPartData
+         * @constructor
+         * @param {msg.ICarPartData=} [properties] Properties to set
+         */
+        function CarPartData(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * CarPartData partid.
+         * @member {number} partid
+         * @memberof msg.CarPartData
+         * @instance
+         */
+        CarPartData.prototype.partid = 0;
+
+        /**
+         * CarPartData parttype.
+         * @member {number} parttype
+         * @memberof msg.CarPartData
+         * @instance
+         */
+        CarPartData.prototype.parttype = 0;
+
+        /**
+         * CarPartData level.
+         * @member {number} level
+         * @memberof msg.CarPartData
+         * @instance
+         */
+        CarPartData.prototype.level = 0;
+
+        /**
+         * CarPartData exp.
+         * @member {number} exp
+         * @memberof msg.CarPartData
+         * @instance
+         */
+        CarPartData.prototype.exp = 0;
+
+        /**
+         * Creates a new CarPartData instance using the specified properties.
+         * @function create
+         * @memberof msg.CarPartData
+         * @static
+         * @param {msg.ICarPartData=} [properties] Properties to set
+         * @returns {msg.CarPartData} CarPartData instance
+         */
+        CarPartData.create = function create(properties) {
+            return new CarPartData(properties);
+        };
+
+        /**
+         * Encodes the specified CarPartData message. Does not implicitly {@link msg.CarPartData.verify|verify} messages.
+         * @function encode
+         * @memberof msg.CarPartData
+         * @static
+         * @param {msg.ICarPartData} message CarPartData message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarPartData.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.partid != null && message.hasOwnProperty("partid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.partid);
+            if (message.parttype != null && message.hasOwnProperty("parttype"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.parttype);
+            if (message.level != null && message.hasOwnProperty("level"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.level);
+            if (message.exp != null && message.hasOwnProperty("exp"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.exp);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified CarPartData message, length delimited. Does not implicitly {@link msg.CarPartData.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.CarPartData
+         * @static
+         * @param {msg.ICarPartData} message CarPartData message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarPartData.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a CarPartData message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.CarPartData
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.CarPartData} CarPartData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarPartData.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.CarPartData();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.partid = reader.uint32();
+                    break;
+                case 2:
+                    message.parttype = reader.uint32();
+                    break;
+                case 3:
+                    message.level = reader.uint32();
+                    break;
+                case 4:
+                    message.exp = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a CarPartData message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.CarPartData
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.CarPartData} CarPartData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarPartData.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a CarPartData message.
+         * @function verify
+         * @memberof msg.CarPartData
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        CarPartData.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.partid != null && message.hasOwnProperty("partid"))
+                if (!$util.isInteger(message.partid))
+                    return "partid: integer expected";
+            if (message.parttype != null && message.hasOwnProperty("parttype"))
+                if (!$util.isInteger(message.parttype))
+                    return "parttype: integer expected";
+            if (message.level != null && message.hasOwnProperty("level"))
+                if (!$util.isInteger(message.level))
+                    return "level: integer expected";
+            if (message.exp != null && message.hasOwnProperty("exp"))
+                if (!$util.isInteger(message.exp))
+                    return "exp: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a CarPartData message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.CarPartData
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.CarPartData} CarPartData
+         */
+        CarPartData.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.CarPartData)
+                return object;
+            var message = new $root.msg.CarPartData();
+            if (object.partid != null)
+                message.partid = object.partid >>> 0;
+            if (object.parttype != null)
+                message.parttype = object.parttype >>> 0;
+            if (object.level != null)
+                message.level = object.level >>> 0;
+            if (object.exp != null)
+                message.exp = object.exp >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a CarPartData message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.CarPartData
+         * @static
+         * @param {msg.CarPartData} message CarPartData
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        CarPartData.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.partid = 0;
+                object.parttype = 0;
+                object.level = 0;
+                object.exp = 0;
+            }
+            if (message.partid != null && message.hasOwnProperty("partid"))
+                object.partid = message.partid;
+            if (message.parttype != null && message.hasOwnProperty("parttype"))
+                object.parttype = message.parttype;
+            if (message.level != null && message.hasOwnProperty("level"))
+                object.level = message.level;
+            if (message.exp != null && message.hasOwnProperty("exp"))
+                object.exp = message.exp;
+            return object;
+        };
+
+        /**
+         * Converts this CarPartData to JSON.
+         * @function toJSON
+         * @memberof msg.CarPartData
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        CarPartData.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return CarPartData;
+    })();
+
+    msg.CarAttribute = (function() {
+
+        /**
+         * Properties of a CarAttribute.
+         * @memberof msg
+         * @interface ICarAttribute
+         * @property {number|null} [reward] CarAttribute reward
+         * @property {number|null} [range] CarAttribute range
+         * @property {number|null} [itemlimit] CarAttribute itemlimit
+         * @property {number|null} [moneylimit] CarAttribute moneylimit
+         * @property {number|null} [speed] CarAttribute speed
+         * @property {number|null} [stoptime] CarAttribute stoptime
+         */
+
+        /**
+         * Constructs a new CarAttribute.
+         * @memberof msg
+         * @classdesc Represents a CarAttribute.
+         * @implements ICarAttribute
+         * @constructor
+         * @param {msg.ICarAttribute=} [properties] Properties to set
+         */
+        function CarAttribute(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * CarAttribute reward.
+         * @member {number} reward
+         * @memberof msg.CarAttribute
+         * @instance
+         */
+        CarAttribute.prototype.reward = 0;
+
+        /**
+         * CarAttribute range.
+         * @member {number} range
+         * @memberof msg.CarAttribute
+         * @instance
+         */
+        CarAttribute.prototype.range = 0;
+
+        /**
+         * CarAttribute itemlimit.
+         * @member {number} itemlimit
+         * @memberof msg.CarAttribute
+         * @instance
+         */
+        CarAttribute.prototype.itemlimit = 0;
+
+        /**
+         * CarAttribute moneylimit.
+         * @member {number} moneylimit
+         * @memberof msg.CarAttribute
+         * @instance
+         */
+        CarAttribute.prototype.moneylimit = 0;
+
+        /**
+         * CarAttribute speed.
+         * @member {number} speed
+         * @memberof msg.CarAttribute
+         * @instance
+         */
+        CarAttribute.prototype.speed = 0;
+
+        /**
+         * CarAttribute stoptime.
+         * @member {number} stoptime
+         * @memberof msg.CarAttribute
+         * @instance
+         */
+        CarAttribute.prototype.stoptime = 0;
+
+        /**
+         * Creates a new CarAttribute instance using the specified properties.
+         * @function create
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {msg.ICarAttribute=} [properties] Properties to set
+         * @returns {msg.CarAttribute} CarAttribute instance
+         */
+        CarAttribute.create = function create(properties) {
+            return new CarAttribute(properties);
+        };
+
+        /**
+         * Encodes the specified CarAttribute message. Does not implicitly {@link msg.CarAttribute.verify|verify} messages.
+         * @function encode
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {msg.ICarAttribute} message CarAttribute message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarAttribute.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.reward != null && message.hasOwnProperty("reward"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.reward);
+            if (message.range != null && message.hasOwnProperty("range"))
+                writer.uint32(/* id 2, wireType 5 =*/21).float(message.range);
+            if (message.itemlimit != null && message.hasOwnProperty("itemlimit"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.itemlimit);
+            if (message.moneylimit != null && message.hasOwnProperty("moneylimit"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.moneylimit);
+            if (message.speed != null && message.hasOwnProperty("speed"))
+                writer.uint32(/* id 5, wireType 5 =*/45).float(message.speed);
+            if (message.stoptime != null && message.hasOwnProperty("stoptime"))
+                writer.uint32(/* id 6, wireType 5 =*/53).float(message.stoptime);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified CarAttribute message, length delimited. Does not implicitly {@link msg.CarAttribute.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {msg.ICarAttribute} message CarAttribute message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarAttribute.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a CarAttribute message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.CarAttribute} CarAttribute
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarAttribute.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.CarAttribute();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.reward = reader.uint32();
+                    break;
+                case 2:
+                    message.range = reader.float();
+                    break;
+                case 3:
+                    message.itemlimit = reader.uint32();
+                    break;
+                case 4:
+                    message.moneylimit = reader.uint32();
+                    break;
+                case 5:
+                    message.speed = reader.float();
+                    break;
+                case 6:
+                    message.stoptime = reader.float();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a CarAttribute message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.CarAttribute} CarAttribute
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarAttribute.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a CarAttribute message.
+         * @function verify
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        CarAttribute.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.reward != null && message.hasOwnProperty("reward"))
+                if (!$util.isInteger(message.reward))
+                    return "reward: integer expected";
+            if (message.range != null && message.hasOwnProperty("range"))
+                if (typeof message.range !== "number")
+                    return "range: number expected";
+            if (message.itemlimit != null && message.hasOwnProperty("itemlimit"))
+                if (!$util.isInteger(message.itemlimit))
+                    return "itemlimit: integer expected";
+            if (message.moneylimit != null && message.hasOwnProperty("moneylimit"))
+                if (!$util.isInteger(message.moneylimit))
+                    return "moneylimit: integer expected";
+            if (message.speed != null && message.hasOwnProperty("speed"))
+                if (typeof message.speed !== "number")
+                    return "speed: number expected";
+            if (message.stoptime != null && message.hasOwnProperty("stoptime"))
+                if (typeof message.stoptime !== "number")
+                    return "stoptime: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a CarAttribute message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.CarAttribute} CarAttribute
+         */
+        CarAttribute.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.CarAttribute)
+                return object;
+            var message = new $root.msg.CarAttribute();
+            if (object.reward != null)
+                message.reward = object.reward >>> 0;
+            if (object.range != null)
+                message.range = Number(object.range);
+            if (object.itemlimit != null)
+                message.itemlimit = object.itemlimit >>> 0;
+            if (object.moneylimit != null)
+                message.moneylimit = object.moneylimit >>> 0;
+            if (object.speed != null)
+                message.speed = Number(object.speed);
+            if (object.stoptime != null)
+                message.stoptime = Number(object.stoptime);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a CarAttribute message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.CarAttribute
+         * @static
+         * @param {msg.CarAttribute} message CarAttribute
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        CarAttribute.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.reward = 0;
+                object.range = 0;
+                object.itemlimit = 0;
+                object.moneylimit = 0;
+                object.speed = 0;
+                object.stoptime = 0;
+            }
+            if (message.reward != null && message.hasOwnProperty("reward"))
+                object.reward = message.reward;
+            if (message.range != null && message.hasOwnProperty("range"))
+                object.range = options.json && !isFinite(message.range) ? String(message.range) : message.range;
+            if (message.itemlimit != null && message.hasOwnProperty("itemlimit"))
+                object.itemlimit = message.itemlimit;
+            if (message.moneylimit != null && message.hasOwnProperty("moneylimit"))
+                object.moneylimit = message.moneylimit;
+            if (message.speed != null && message.hasOwnProperty("speed"))
+                object.speed = options.json && !isFinite(message.speed) ? String(message.speed) : message.speed;
+            if (message.stoptime != null && message.hasOwnProperty("stoptime"))
+                object.stoptime = options.json && !isFinite(message.stoptime) ? String(message.stoptime) : message.stoptime;
+            return object;
+        };
+
+        /**
+         * Converts this CarAttribute to JSON.
+         * @function toJSON
+         * @memberof msg.CarAttribute
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        CarAttribute.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return CarAttribute;
+    })();
+
+    msg.CarPartPiece = (function() {
+
+        /**
+         * Properties of a CarPartPiece.
+         * @memberof msg
+         * @interface ICarPartPiece
+         * @property {number|null} [id] CarPartPiece id
+         * @property {number|null} [num] CarPartPiece num
+         */
+
+        /**
+         * Constructs a new CarPartPiece.
+         * @memberof msg
+         * @classdesc Represents a CarPartPiece.
+         * @implements ICarPartPiece
+         * @constructor
+         * @param {msg.ICarPartPiece=} [properties] Properties to set
+         */
+        function CarPartPiece(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * CarPartPiece id.
+         * @member {number} id
+         * @memberof msg.CarPartPiece
+         * @instance
+         */
+        CarPartPiece.prototype.id = 0;
+
+        /**
+         * CarPartPiece num.
+         * @member {number} num
+         * @memberof msg.CarPartPiece
+         * @instance
+         */
+        CarPartPiece.prototype.num = 0;
+
+        /**
+         * Creates a new CarPartPiece instance using the specified properties.
+         * @function create
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {msg.ICarPartPiece=} [properties] Properties to set
+         * @returns {msg.CarPartPiece} CarPartPiece instance
+         */
+        CarPartPiece.create = function create(properties) {
+            return new CarPartPiece(properties);
+        };
+
+        /**
+         * Encodes the specified CarPartPiece message. Does not implicitly {@link msg.CarPartPiece.verify|verify} messages.
+         * @function encode
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {msg.ICarPartPiece} message CarPartPiece message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarPartPiece.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.id);
+            if (message.num != null && message.hasOwnProperty("num"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.num);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified CarPartPiece message, length delimited. Does not implicitly {@link msg.CarPartPiece.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {msg.ICarPartPiece} message CarPartPiece message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarPartPiece.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a CarPartPiece message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.CarPartPiece} CarPartPiece
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarPartPiece.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.CarPartPiece();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint32();
+                    break;
+                case 2:
+                    message.num = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a CarPartPiece message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.CarPartPiece} CarPartPiece
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarPartPiece.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a CarPartPiece message.
+         * @function verify
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        CarPartPiece.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.num != null && message.hasOwnProperty("num"))
+                if (!$util.isInteger(message.num))
+                    return "num: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a CarPartPiece message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.CarPartPiece} CarPartPiece
+         */
+        CarPartPiece.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.CarPartPiece)
+                return object;
+            var message = new $root.msg.CarPartPiece();
+            if (object.id != null)
+                message.id = object.id >>> 0;
+            if (object.num != null)
+                message.num = object.num >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a CarPartPiece message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.CarPartPiece
+         * @static
+         * @param {msg.CarPartPiece} message CarPartPiece
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        CarPartPiece.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.num = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.num != null && message.hasOwnProperty("num"))
+                object.num = message.num;
+            return object;
+        };
+
+        /**
+         * Converts this CarPartPiece to JSON.
+         * @function toJSON
+         * @memberof msg.CarPartPiece
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        CarPartPiece.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return CarPartPiece;
+    })();
+
+    msg.CarReward = (function() {
+
+        /**
+         * Properties of a CarReward.
+         * @memberof msg
+         * @interface ICarReward
+         * @property {number|null} [money] CarReward money
+         * @property {Array.<msg.ICarPartPiece>|null} [items] CarReward items
+         */
+
+        /**
+         * Constructs a new CarReward.
+         * @memberof msg
+         * @classdesc Represents a CarReward.
+         * @implements ICarReward
+         * @constructor
+         * @param {msg.ICarReward=} [properties] Properties to set
+         */
+        function CarReward(properties) {
+            this.items = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * CarReward money.
+         * @member {number} money
+         * @memberof msg.CarReward
+         * @instance
+         */
+        CarReward.prototype.money = 0;
+
+        /**
+         * CarReward items.
+         * @member {Array.<msg.ICarPartPiece>} items
+         * @memberof msg.CarReward
+         * @instance
+         */
+        CarReward.prototype.items = $util.emptyArray;
+
+        /**
+         * Creates a new CarReward instance using the specified properties.
+         * @function create
+         * @memberof msg.CarReward
+         * @static
+         * @param {msg.ICarReward=} [properties] Properties to set
+         * @returns {msg.CarReward} CarReward instance
+         */
+        CarReward.create = function create(properties) {
+            return new CarReward(properties);
+        };
+
+        /**
+         * Encodes the specified CarReward message. Does not implicitly {@link msg.CarReward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.CarReward
+         * @static
+         * @param {msg.ICarReward} message CarReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarReward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.money != null && message.hasOwnProperty("money"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.money);
+            if (message.items != null && message.items.length)
+                for (var i = 0; i < message.items.length; ++i)
+                    $root.msg.CarPartPiece.encode(message.items[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified CarReward message, length delimited. Does not implicitly {@link msg.CarReward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.CarReward
+         * @static
+         * @param {msg.ICarReward} message CarReward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarReward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a CarReward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.CarReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.CarReward} CarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarReward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.CarReward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.money = reader.uint32();
+                    break;
+                case 2:
+                    if (!(message.items && message.items.length))
+                        message.items = [];
+                    message.items.push($root.msg.CarPartPiece.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a CarReward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.CarReward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.CarReward} CarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarReward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a CarReward message.
+         * @function verify
+         * @memberof msg.CarReward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        CarReward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.money != null && message.hasOwnProperty("money"))
+                if (!$util.isInteger(message.money))
+                    return "money: integer expected";
+            if (message.items != null && message.hasOwnProperty("items")) {
+                if (!Array.isArray(message.items))
+                    return "items: array expected";
+                for (var i = 0; i < message.items.length; ++i) {
+                    var error = $root.msg.CarPartPiece.verify(message.items[i]);
+                    if (error)
+                        return "items." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a CarReward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.CarReward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.CarReward} CarReward
+         */
+        CarReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.CarReward)
+                return object;
+            var message = new $root.msg.CarReward();
+            if (object.money != null)
+                message.money = object.money >>> 0;
+            if (object.items) {
+                if (!Array.isArray(object.items))
+                    throw TypeError(".msg.CarReward.items: array expected");
+                message.items = [];
+                for (var i = 0; i < object.items.length; ++i) {
+                    if (typeof object.items[i] !== "object")
+                        throw TypeError(".msg.CarReward.items: object expected");
+                    message.items[i] = $root.msg.CarPartPiece.fromObject(object.items[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a CarReward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.CarReward
+         * @static
+         * @param {msg.CarReward} message CarReward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        CarReward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.items = [];
+            if (options.defaults)
+                object.money = 0;
+            if (message.money != null && message.hasOwnProperty("money"))
+                object.money = message.money;
+            if (message.items && message.items.length) {
+                object.items = [];
+                for (var j = 0; j < message.items.length; ++j)
+                    object.items[j] = $root.msg.CarPartPiece.toObject(message.items[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this CarReward to JSON.
+         * @function toJSON
+         * @memberof msg.CarReward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        CarReward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return CarReward;
+    })();
+
     msg.CarData = (function() {
 
         /**
@@ -9391,7 +10420,18 @@ $root.msg = (function() {
          * @property {number|Long|null} [createtime] CarData createtime
          * @property {number|Long|null} [parkingid] CarData parkingid
          * @property {string|null} [ownername] CarData ownername
-         * @property {number|null} [parkingreward] CarData parkingreward
+         * @property {msg.ICarReward|null} [reward] CarData reward
+         * @property {number|null} [star] CarData star
+         * @property {Array.<msg.ICarPartData>|null} [parts] CarData parts
+         * @property {msg.ICarAttribute|null} [attr] CarData attr
+         * @property {number|null} [state] CarData state
+         * @property {number|Long|null} [starttime] CarData starttime
+         * @property {number|Long|null} [endtime] CarData endtime
+         * @property {number|null} [latitude] CarData latitude
+         * @property {number|null} [longitude] CarData longitude
+         * @property {number|null} [price] CarData price
+         * @property {number|null} [tradeendtime] CarData tradeendtime
+         * @property {number|Long|null} [tradeuid] CarData tradeuid
          */
 
         /**
@@ -9403,6 +10443,7 @@ $root.msg = (function() {
          * @param {msg.ICarData=} [properties] Properties to set
          */
         function CarData(properties) {
+            this.parts = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -9458,12 +10499,100 @@ $root.msg = (function() {
         CarData.prototype.ownername = "";
 
         /**
-         * CarData parkingreward.
-         * @member {number} parkingreward
+         * CarData reward.
+         * @member {msg.ICarReward|null|undefined} reward
          * @memberof msg.CarData
          * @instance
          */
-        CarData.prototype.parkingreward = 0;
+        CarData.prototype.reward = null;
+
+        /**
+         * CarData star.
+         * @member {number} star
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.star = 0;
+
+        /**
+         * CarData parts.
+         * @member {Array.<msg.ICarPartData>} parts
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.parts = $util.emptyArray;
+
+        /**
+         * CarData attr.
+         * @member {msg.ICarAttribute|null|undefined} attr
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.attr = null;
+
+        /**
+         * CarData state.
+         * @member {number} state
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.state = 0;
+
+        /**
+         * CarData starttime.
+         * @member {number|Long} starttime
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.starttime = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * CarData endtime.
+         * @member {number|Long} endtime
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.endtime = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * CarData latitude.
+         * @member {number} latitude
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.latitude = 0;
+
+        /**
+         * CarData longitude.
+         * @member {number} longitude
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.longitude = 0;
+
+        /**
+         * CarData price.
+         * @member {number} price
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.price = 0;
+
+        /**
+         * CarData tradeendtime.
+         * @member {number} tradeendtime
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.tradeendtime = 0;
+
+        /**
+         * CarData tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new CarData instance using the specified properties.
@@ -9501,8 +10630,31 @@ $root.msg = (function() {
                 writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.parkingid);
             if (message.ownername != null && message.hasOwnProperty("ownername"))
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.ownername);
-            if (message.parkingreward != null && message.hasOwnProperty("parkingreward"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.parkingreward);
+            if (message.reward != null && message.hasOwnProperty("reward"))
+                $root.msg.CarReward.encode(message.reward, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+            if (message.star != null && message.hasOwnProperty("star"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.star);
+            if (message.parts != null && message.parts.length)
+                for (var i = 0; i < message.parts.length; ++i)
+                    $root.msg.CarPartData.encode(message.parts[i], writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+            if (message.attr != null && message.hasOwnProperty("attr"))
+                $root.msg.CarAttribute.encode(message.attr, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+            if (message.state != null && message.hasOwnProperty("state"))
+                writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.state);
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                writer.uint32(/* id 12, wireType 0 =*/96).uint64(message.starttime);
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                writer.uint32(/* id 13, wireType 0 =*/104).uint64(message.endtime);
+            if (message.latitude != null && message.hasOwnProperty("latitude"))
+                writer.uint32(/* id 14, wireType 5 =*/117).float(message.latitude);
+            if (message.longitude != null && message.hasOwnProperty("longitude"))
+                writer.uint32(/* id 15, wireType 5 =*/125).float(message.longitude);
+            if (message.price != null && message.hasOwnProperty("price"))
+                writer.uint32(/* id 16, wireType 0 =*/128).uint32(message.price);
+            if (message.tradeendtime != null && message.hasOwnProperty("tradeendtime"))
+                writer.uint32(/* id 17, wireType 0 =*/136).uint32(message.tradeendtime);
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 18, wireType 0 =*/144).uint64(message.tradeuid);
             return writer;
         };
 
@@ -9556,7 +10708,42 @@ $root.msg = (function() {
                     message.ownername = reader.string();
                     break;
                 case 7:
-                    message.parkingreward = reader.uint32();
+                    message.reward = $root.msg.CarReward.decode(reader, reader.uint32());
+                    break;
+                case 8:
+                    message.star = reader.uint32();
+                    break;
+                case 9:
+                    if (!(message.parts && message.parts.length))
+                        message.parts = [];
+                    message.parts.push($root.msg.CarPartData.decode(reader, reader.uint32()));
+                    break;
+                case 10:
+                    message.attr = $root.msg.CarAttribute.decode(reader, reader.uint32());
+                    break;
+                case 11:
+                    message.state = reader.uint32();
+                    break;
+                case 12:
+                    message.starttime = reader.uint64();
+                    break;
+                case 13:
+                    message.endtime = reader.uint64();
+                    break;
+                case 14:
+                    message.latitude = reader.float();
+                    break;
+                case 15:
+                    message.longitude = reader.float();
+                    break;
+                case 16:
+                    message.price = reader.uint32();
+                    break;
+                case 17:
+                    message.tradeendtime = reader.uint32();
+                    break;
+                case 18:
+                    message.tradeuid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -9611,9 +10798,52 @@ $root.msg = (function() {
             if (message.ownername != null && message.hasOwnProperty("ownername"))
                 if (!$util.isString(message.ownername))
                     return "ownername: string expected";
-            if (message.parkingreward != null && message.hasOwnProperty("parkingreward"))
-                if (!$util.isInteger(message.parkingreward))
-                    return "parkingreward: integer expected";
+            if (message.reward != null && message.hasOwnProperty("reward")) {
+                var error = $root.msg.CarReward.verify(message.reward);
+                if (error)
+                    return "reward." + error;
+            }
+            if (message.star != null && message.hasOwnProperty("star"))
+                if (!$util.isInteger(message.star))
+                    return "star: integer expected";
+            if (message.parts != null && message.hasOwnProperty("parts")) {
+                if (!Array.isArray(message.parts))
+                    return "parts: array expected";
+                for (var i = 0; i < message.parts.length; ++i) {
+                    var error = $root.msg.CarPartData.verify(message.parts[i]);
+                    if (error)
+                        return "parts." + error;
+                }
+            }
+            if (message.attr != null && message.hasOwnProperty("attr")) {
+                var error = $root.msg.CarAttribute.verify(message.attr);
+                if (error)
+                    return "attr." + error;
+            }
+            if (message.state != null && message.hasOwnProperty("state"))
+                if (!$util.isInteger(message.state))
+                    return "state: integer expected";
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                if (!$util.isInteger(message.starttime) && !(message.starttime && $util.isInteger(message.starttime.low) && $util.isInteger(message.starttime.high)))
+                    return "starttime: integer|Long expected";
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                if (!$util.isInteger(message.endtime) && !(message.endtime && $util.isInteger(message.endtime.low) && $util.isInteger(message.endtime.high)))
+                    return "endtime: integer|Long expected";
+            if (message.latitude != null && message.hasOwnProperty("latitude"))
+                if (typeof message.latitude !== "number")
+                    return "latitude: number expected";
+            if (message.longitude != null && message.hasOwnProperty("longitude"))
+                if (typeof message.longitude !== "number")
+                    return "longitude: number expected";
+            if (message.price != null && message.hasOwnProperty("price"))
+                if (!$util.isInteger(message.price))
+                    return "price: integer expected";
+            if (message.tradeendtime != null && message.hasOwnProperty("tradeendtime"))
+                if (!$util.isInteger(message.tradeendtime))
+                    return "tradeendtime: integer expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
             return null;
         };
 
@@ -9669,8 +10899,65 @@ $root.msg = (function() {
                     message.parkingid = new $util.LongBits(object.parkingid.low >>> 0, object.parkingid.high >>> 0).toNumber(true);
             if (object.ownername != null)
                 message.ownername = String(object.ownername);
-            if (object.parkingreward != null)
-                message.parkingreward = object.parkingreward >>> 0;
+            if (object.reward != null) {
+                if (typeof object.reward !== "object")
+                    throw TypeError(".msg.CarData.reward: object expected");
+                message.reward = $root.msg.CarReward.fromObject(object.reward);
+            }
+            if (object.star != null)
+                message.star = object.star >>> 0;
+            if (object.parts) {
+                if (!Array.isArray(object.parts))
+                    throw TypeError(".msg.CarData.parts: array expected");
+                message.parts = [];
+                for (var i = 0; i < object.parts.length; ++i) {
+                    if (typeof object.parts[i] !== "object")
+                        throw TypeError(".msg.CarData.parts: object expected");
+                    message.parts[i] = $root.msg.CarPartData.fromObject(object.parts[i]);
+                }
+            }
+            if (object.attr != null) {
+                if (typeof object.attr !== "object")
+                    throw TypeError(".msg.CarData.attr: object expected");
+                message.attr = $root.msg.CarAttribute.fromObject(object.attr);
+            }
+            if (object.state != null)
+                message.state = object.state >>> 0;
+            if (object.starttime != null)
+                if ($util.Long)
+                    (message.starttime = $util.Long.fromValue(object.starttime)).unsigned = true;
+                else if (typeof object.starttime === "string")
+                    message.starttime = parseInt(object.starttime, 10);
+                else if (typeof object.starttime === "number")
+                    message.starttime = object.starttime;
+                else if (typeof object.starttime === "object")
+                    message.starttime = new $util.LongBits(object.starttime.low >>> 0, object.starttime.high >>> 0).toNumber(true);
+            if (object.endtime != null)
+                if ($util.Long)
+                    (message.endtime = $util.Long.fromValue(object.endtime)).unsigned = true;
+                else if (typeof object.endtime === "string")
+                    message.endtime = parseInt(object.endtime, 10);
+                else if (typeof object.endtime === "number")
+                    message.endtime = object.endtime;
+                else if (typeof object.endtime === "object")
+                    message.endtime = new $util.LongBits(object.endtime.low >>> 0, object.endtime.high >>> 0).toNumber(true);
+            if (object.latitude != null)
+                message.latitude = Number(object.latitude);
+            if (object.longitude != null)
+                message.longitude = Number(object.longitude);
+            if (object.price != null)
+                message.price = object.price >>> 0;
+            if (object.tradeendtime != null)
+                message.tradeendtime = object.tradeendtime >>> 0;
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -9687,6 +10974,8 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.parts = [];
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
@@ -9710,7 +10999,29 @@ $root.msg = (function() {
                 } else
                     object.parkingid = options.longs === String ? "0" : 0;
                 object.ownername = "";
-                object.parkingreward = 0;
+                object.reward = null;
+                object.star = 0;
+                object.attr = null;
+                object.state = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.starttime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.starttime = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.endtime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.endtime = options.longs === String ? "0" : 0;
+                object.latitude = 0;
+                object.longitude = 0;
+                object.price = 0;
+                object.tradeendtime = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -9736,8 +11047,42 @@ $root.msg = (function() {
                     object.parkingid = options.longs === String ? $util.Long.prototype.toString.call(message.parkingid) : options.longs === Number ? new $util.LongBits(message.parkingid.low >>> 0, message.parkingid.high >>> 0).toNumber(true) : message.parkingid;
             if (message.ownername != null && message.hasOwnProperty("ownername"))
                 object.ownername = message.ownername;
-            if (message.parkingreward != null && message.hasOwnProperty("parkingreward"))
-                object.parkingreward = message.parkingreward;
+            if (message.reward != null && message.hasOwnProperty("reward"))
+                object.reward = $root.msg.CarReward.toObject(message.reward, options);
+            if (message.star != null && message.hasOwnProperty("star"))
+                object.star = message.star;
+            if (message.parts && message.parts.length) {
+                object.parts = [];
+                for (var j = 0; j < message.parts.length; ++j)
+                    object.parts[j] = $root.msg.CarPartData.toObject(message.parts[j], options);
+            }
+            if (message.attr != null && message.hasOwnProperty("attr"))
+                object.attr = $root.msg.CarAttribute.toObject(message.attr, options);
+            if (message.state != null && message.hasOwnProperty("state"))
+                object.state = message.state;
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                if (typeof message.starttime === "number")
+                    object.starttime = options.longs === String ? String(message.starttime) : message.starttime;
+                else
+                    object.starttime = options.longs === String ? $util.Long.prototype.toString.call(message.starttime) : options.longs === Number ? new $util.LongBits(message.starttime.low >>> 0, message.starttime.high >>> 0).toNumber(true) : message.starttime;
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                if (typeof message.endtime === "number")
+                    object.endtime = options.longs === String ? String(message.endtime) : message.endtime;
+                else
+                    object.endtime = options.longs === String ? $util.Long.prototype.toString.call(message.endtime) : options.longs === Number ? new $util.LongBits(message.endtime.low >>> 0, message.endtime.high >>> 0).toNumber(true) : message.endtime;
+            if (message.latitude != null && message.hasOwnProperty("latitude"))
+                object.latitude = options.json && !isFinite(message.latitude) ? String(message.latitude) : message.latitude;
+            if (message.longitude != null && message.hasOwnProperty("longitude"))
+                object.longitude = options.json && !isFinite(message.longitude) ? String(message.longitude) : message.longitude;
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = message.price;
+            if (message.tradeendtime != null && message.hasOwnProperty("tradeendtime"))
+                object.tradeendtime = message.tradeendtime;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
             return object;
         };
 
@@ -9763,6 +11108,7 @@ $root.msg = (function() {
          * @interface IParkingData
          * @property {number|Long|null} [id] ParkingData id
          * @property {number|null} [tid] ParkingData tid
+         * @property {number|null} [parkingtype] ParkingData parkingtype
          * @property {number|Long|null} [ownerid] ParkingData ownerid
          * @property {number|Long|null} [parkingcar] ParkingData parkingcar
          * @property {number|Long|null} [parkingcarownerid] ParkingData parkingcarownerid
@@ -9804,6 +11150,14 @@ $root.msg = (function() {
          * @instance
          */
         ParkingData.prototype.tid = 0;
+
+        /**
+         * ParkingData parkingtype.
+         * @member {number} parkingtype
+         * @memberof msg.ParkingData
+         * @instance
+         */
+        ParkingData.prototype.parkingtype = 0;
 
         /**
          * ParkingData ownerid.
@@ -9905,24 +11259,26 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.id);
             if (message.tid != null && message.hasOwnProperty("tid"))
                 writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.tid);
+            if (message.parkingtype != null && message.hasOwnProperty("parkingtype"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.parkingtype);
             if (message.ownerid != null && message.hasOwnProperty("ownerid"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.ownerid);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.ownerid);
             if (message.parkingcar != null && message.hasOwnProperty("parkingcar"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.parkingcar);
+                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.parkingcar);
             if (message.parkingcarownerid != null && message.hasOwnProperty("parkingcarownerid"))
-                writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.parkingcarownerid);
+                writer.uint32(/* id 6, wireType 0 =*/48).uint64(message.parkingcarownerid);
             if (message.parkingcarownername != null && message.hasOwnProperty("parkingcarownername"))
-                writer.uint32(/* id 6, wireType 2 =*/50).string(message.parkingcarownername);
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.parkingcarownername);
             if (message.parkingtime != null && message.hasOwnProperty("parkingtime"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint64(message.parkingtime);
+                writer.uint32(/* id 8, wireType 0 =*/64).uint64(message.parkingtime);
             if (message.parkingreward != null && message.hasOwnProperty("parkingreward"))
-                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.parkingreward);
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.parkingreward);
             if (message.ownername != null && message.hasOwnProperty("ownername"))
-                writer.uint32(/* id 9, wireType 2 =*/74).string(message.ownername);
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.ownername);
             if (message.parkingcartid != null && message.hasOwnProperty("parkingcartid"))
-                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.parkingcartid);
+                writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.parkingcartid);
             if (message.houseid != null && message.hasOwnProperty("houseid"))
-                writer.uint32(/* id 11, wireType 0 =*/88).uint64(message.houseid);
+                writer.uint32(/* id 12, wireType 0 =*/96).uint64(message.houseid);
             return writer;
         };
 
@@ -9964,30 +11320,33 @@ $root.msg = (function() {
                     message.tid = reader.uint32();
                     break;
                 case 3:
-                    message.ownerid = reader.uint64();
+                    message.parkingtype = reader.uint32();
                     break;
                 case 4:
-                    message.parkingcar = reader.uint64();
+                    message.ownerid = reader.uint64();
                     break;
                 case 5:
-                    message.parkingcarownerid = reader.uint64();
+                    message.parkingcar = reader.uint64();
                     break;
                 case 6:
-                    message.parkingcarownername = reader.string();
+                    message.parkingcarownerid = reader.uint64();
                     break;
                 case 7:
-                    message.parkingtime = reader.uint64();
+                    message.parkingcarownername = reader.string();
                     break;
                 case 8:
-                    message.parkingreward = reader.uint32();
+                    message.parkingtime = reader.uint64();
                     break;
                 case 9:
-                    message.ownername = reader.string();
+                    message.parkingreward = reader.uint32();
                     break;
                 case 10:
-                    message.parkingcartid = reader.uint32();
+                    message.ownername = reader.string();
                     break;
                 case 11:
+                    message.parkingcartid = reader.uint32();
+                    break;
+                case 12:
                     message.houseid = reader.uint64();
                     break;
                 default:
@@ -10031,6 +11390,9 @@ $root.msg = (function() {
             if (message.tid != null && message.hasOwnProperty("tid"))
                 if (!$util.isInteger(message.tid))
                     return "tid: integer expected";
+            if (message.parkingtype != null && message.hasOwnProperty("parkingtype"))
+                if (!$util.isInteger(message.parkingtype))
+                    return "parkingtype: integer expected";
             if (message.ownerid != null && message.hasOwnProperty("ownerid"))
                 if (!$util.isInteger(message.ownerid) && !(message.ownerid && $util.isInteger(message.ownerid.low) && $util.isInteger(message.ownerid.high)))
                     return "ownerid: integer|Long expected";
@@ -10084,6 +11446,8 @@ $root.msg = (function() {
                     message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber(true);
             if (object.tid != null)
                 message.tid = object.tid >>> 0;
+            if (object.parkingtype != null)
+                message.parkingtype = object.parkingtype >>> 0;
             if (object.ownerid != null)
                 if ($util.Long)
                     (message.ownerid = $util.Long.fromValue(object.ownerid)).unsigned = true;
@@ -10160,6 +11524,7 @@ $root.msg = (function() {
                 } else
                     object.id = options.longs === String ? "0" : 0;
                 object.tid = 0;
+                object.parkingtype = 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
                     object.ownerid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
@@ -10197,6 +11562,8 @@ $root.msg = (function() {
                     object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber(true) : message.id;
             if (message.tid != null && message.hasOwnProperty("tid"))
                 object.tid = message.tid;
+            if (message.parkingtype != null && message.hasOwnProperty("parkingtype"))
+                object.parkingtype = message.parkingtype;
             if (message.ownerid != null && message.hasOwnProperty("ownerid"))
                 if (typeof message.ownerid === "number")
                     object.ownerid = options.longs === String ? String(message.ownerid) : message.ownerid;
@@ -12450,6 +13817,207 @@ $root.msg = (function() {
         return C2GW_ReqCarInfo;
     })();
 
+    msg.C2GW_ReqCarInfoById = (function() {
+
+        /**
+         * Properties of a C2GW_ReqCarInfoById.
+         * @memberof msg
+         * @interface IC2GW_ReqCarInfoById
+         * @property {number|Long|null} [carid] C2GW_ReqCarInfoById carid
+         */
+
+        /**
+         * Constructs a new C2GW_ReqCarInfoById.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqCarInfoById.
+         * @implements IC2GW_ReqCarInfoById
+         * @constructor
+         * @param {msg.IC2GW_ReqCarInfoById=} [properties] Properties to set
+         */
+        function C2GW_ReqCarInfoById(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqCarInfoById carid.
+         * @member {number|Long} carid
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @instance
+         */
+        C2GW_ReqCarInfoById.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_ReqCarInfoById instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.IC2GW_ReqCarInfoById=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById instance
+         */
+        C2GW_ReqCarInfoById.create = function create(properties) {
+            return new C2GW_ReqCarInfoById(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.IC2GW_ReqCarInfoById} message C2GW_ReqCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqCarInfoById.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.IC2GW_ReqCarInfoById} message C2GW_ReqCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqCarInfoById.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqCarInfoById.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqCarInfoById();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqCarInfoById.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqCarInfoById message.
+         * @function verify
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqCarInfoById.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqCarInfoById} C2GW_ReqCarInfoById
+         */
+        C2GW_ReqCarInfoById.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqCarInfoById)
+                return object;
+            var message = new $root.msg.C2GW_ReqCarInfoById();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqCarInfoById message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @static
+         * @param {msg.C2GW_ReqCarInfoById} message C2GW_ReqCarInfoById
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqCarInfoById.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqCarInfoById to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqCarInfoById
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqCarInfoById.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqCarInfoById;
+    })();
+
     msg.GW2C_ResCarInfo = (function() {
 
         /**
@@ -12700,6 +14268,198 @@ $root.msg = (function() {
         };
 
         return GW2C_ResCarInfo;
+    })();
+
+    msg.GW2C_ResCarInfoById = (function() {
+
+        /**
+         * Properties of a GW2C_ResCarInfoById.
+         * @memberof msg
+         * @interface IGW2C_ResCarInfoById
+         * @property {msg.ICarData|null} [cardata] GW2C_ResCarInfoById cardata
+         */
+
+        /**
+         * Constructs a new GW2C_ResCarInfoById.
+         * @memberof msg
+         * @classdesc Represents a GW2C_ResCarInfoById.
+         * @implements IGW2C_ResCarInfoById
+         * @constructor
+         * @param {msg.IGW2C_ResCarInfoById=} [properties] Properties to set
+         */
+        function GW2C_ResCarInfoById(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_ResCarInfoById cardata.
+         * @member {msg.ICarData|null|undefined} cardata
+         * @memberof msg.GW2C_ResCarInfoById
+         * @instance
+         */
+        GW2C_ResCarInfoById.prototype.cardata = null;
+
+        /**
+         * Creates a new GW2C_ResCarInfoById instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.IGW2C_ResCarInfoById=} [properties] Properties to set
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById instance
+         */
+        GW2C_ResCarInfoById.create = function create(properties) {
+            return new GW2C_ResCarInfoById(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.IGW2C_ResCarInfoById} message GW2C_ResCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_ResCarInfoById.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.cardata != null && message.hasOwnProperty("cardata"))
+                $root.msg.CarData.encode(message.cardata, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message, length delimited. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.IGW2C_ResCarInfoById} message GW2C_ResCarInfoById message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_ResCarInfoById.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_ResCarInfoById.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_ResCarInfoById();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.cardata = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_ResCarInfoById.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_ResCarInfoById message.
+         * @function verify
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_ResCarInfoById.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.cardata != null && message.hasOwnProperty("cardata")) {
+                var error = $root.msg.CarData.verify(message.cardata);
+                if (error)
+                    return "cardata." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_ResCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_ResCarInfoById} GW2C_ResCarInfoById
+         */
+        GW2C_ResCarInfoById.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_ResCarInfoById)
+                return object;
+            var message = new $root.msg.GW2C_ResCarInfoById();
+            if (object.cardata != null) {
+                if (typeof object.cardata !== "object")
+                    throw TypeError(".msg.GW2C_ResCarInfoById.cardata: object expected");
+                message.cardata = $root.msg.CarData.fromObject(object.cardata);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_ResCarInfoById message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_ResCarInfoById
+         * @static
+         * @param {msg.GW2C_ResCarInfoById} message GW2C_ResCarInfoById
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_ResCarInfoById.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.cardata = null;
+            if (message.cardata != null && message.hasOwnProperty("cardata"))
+                object.cardata = $root.msg.CarData.toObject(message.cardata, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_ResCarInfoById to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_ResCarInfoById
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_ResCarInfoById.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_ResCarInfoById;
     })();
 
     msg.C2GW_ReqMyParkingInfo = (function() {
@@ -15410,6 +17170,257 @@ $root.msg = (function() {
         return GW2C_CarAutoBack;
     })();
 
+    msg.GW2C_UpdateCar = (function() {
+
+        /**
+         * Properties of a GW2C_UpdateCar.
+         * @memberof msg
+         * @interface IGW2C_UpdateCar
+         * @property {number|Long|null} [carid] GW2C_UpdateCar carid
+         * @property {msg.ICarData|null} [data] GW2C_UpdateCar data
+         * @property {boolean|null} [isdel] GW2C_UpdateCar isdel
+         */
+
+        /**
+         * Constructs a new GW2C_UpdateCar.
+         * @memberof msg
+         * @classdesc Represents a GW2C_UpdateCar.
+         * @implements IGW2C_UpdateCar
+         * @constructor
+         * @param {msg.IGW2C_UpdateCar=} [properties] Properties to set
+         */
+        function GW2C_UpdateCar(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_UpdateCar carid.
+         * @member {number|Long} carid
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         */
+        GW2C_UpdateCar.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_UpdateCar data.
+         * @member {msg.ICarData|null|undefined} data
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         */
+        GW2C_UpdateCar.prototype.data = null;
+
+        /**
+         * GW2C_UpdateCar isdel.
+         * @member {boolean} isdel
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         */
+        GW2C_UpdateCar.prototype.isdel = false;
+
+        /**
+         * Creates a new GW2C_UpdateCar instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.IGW2C_UpdateCar=} [properties] Properties to set
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar instance
+         */
+        GW2C_UpdateCar.create = function create(properties) {
+            return new GW2C_UpdateCar(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateCar message. Does not implicitly {@link msg.GW2C_UpdateCar.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.IGW2C_UpdateCar} message GW2C_UpdateCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateCar.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            if (message.data != null && message.hasOwnProperty("data"))
+                $root.msg.CarData.encode(message.data, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.isdel != null && message.hasOwnProperty("isdel"))
+                writer.uint32(/* id 3, wireType 0 =*/24).bool(message.isdel);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateCar message, length delimited. Does not implicitly {@link msg.GW2C_UpdateCar.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.IGW2C_UpdateCar} message GW2C_UpdateCar message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateCar.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_UpdateCar message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateCar.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_UpdateCar();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                case 2:
+                    message.data = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.isdel = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_UpdateCar message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateCar.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_UpdateCar message.
+         * @function verify
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_UpdateCar.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                var error = $root.msg.CarData.verify(message.data);
+                if (error)
+                    return "data." + error;
+            }
+            if (message.isdel != null && message.hasOwnProperty("isdel"))
+                if (typeof message.isdel !== "boolean")
+                    return "isdel: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_UpdateCar message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_UpdateCar} GW2C_UpdateCar
+         */
+        GW2C_UpdateCar.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_UpdateCar)
+                return object;
+            var message = new $root.msg.GW2C_UpdateCar();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            if (object.data != null) {
+                if (typeof object.data !== "object")
+                    throw TypeError(".msg.GW2C_UpdateCar.data: object expected");
+                message.data = $root.msg.CarData.fromObject(object.data);
+            }
+            if (object.isdel != null)
+                message.isdel = Boolean(object.isdel);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_UpdateCar message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_UpdateCar
+         * @static
+         * @param {msg.GW2C_UpdateCar} message GW2C_UpdateCar
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_UpdateCar.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+                object.data = null;
+                object.isdel = false;
+            }
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            if (message.data != null && message.hasOwnProperty("data"))
+                object.data = $root.msg.CarData.toObject(message.data, options);
+            if (message.isdel != null && message.hasOwnProperty("isdel"))
+                object.isdel = message.isdel;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_UpdateCar to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_UpdateCar
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_UpdateCar.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_UpdateCar;
+    })();
+
     msg.GW2C_AddNewCar = (function() {
 
         /**
@@ -15600,6 +17611,905 @@ $root.msg = (function() {
         };
 
         return GW2C_AddNewCar;
+    })();
+
+    msg.C2GW_CarPartLevelup = (function() {
+
+        /**
+         * Properties of a C2GW_CarPartLevelup.
+         * @memberof msg
+         * @interface IC2GW_CarPartLevelup
+         * @property {number|Long|null} [carid] C2GW_CarPartLevelup carid
+         * @property {number|null} [parttype] C2GW_CarPartLevelup parttype
+         * @property {Array.<msg.ICarPartPiece>|null} [pieces] C2GW_CarPartLevelup pieces
+         */
+
+        /**
+         * Constructs a new C2GW_CarPartLevelup.
+         * @memberof msg
+         * @classdesc Represents a C2GW_CarPartLevelup.
+         * @implements IC2GW_CarPartLevelup
+         * @constructor
+         * @param {msg.IC2GW_CarPartLevelup=} [properties] Properties to set
+         */
+        function C2GW_CarPartLevelup(properties) {
+            this.pieces = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_CarPartLevelup carid.
+         * @member {number|Long} carid
+         * @memberof msg.C2GW_CarPartLevelup
+         * @instance
+         */
+        C2GW_CarPartLevelup.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * C2GW_CarPartLevelup parttype.
+         * @member {number} parttype
+         * @memberof msg.C2GW_CarPartLevelup
+         * @instance
+         */
+        C2GW_CarPartLevelup.prototype.parttype = 0;
+
+        /**
+         * C2GW_CarPartLevelup pieces.
+         * @member {Array.<msg.ICarPartPiece>} pieces
+         * @memberof msg.C2GW_CarPartLevelup
+         * @instance
+         */
+        C2GW_CarPartLevelup.prototype.pieces = $util.emptyArray;
+
+        /**
+         * Creates a new C2GW_CarPartLevelup instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {msg.IC2GW_CarPartLevelup=} [properties] Properties to set
+         * @returns {msg.C2GW_CarPartLevelup} C2GW_CarPartLevelup instance
+         */
+        C2GW_CarPartLevelup.create = function create(properties) {
+            return new C2GW_CarPartLevelup(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_CarPartLevelup message. Does not implicitly {@link msg.C2GW_CarPartLevelup.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {msg.IC2GW_CarPartLevelup} message C2GW_CarPartLevelup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CarPartLevelup.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            if (message.parttype != null && message.hasOwnProperty("parttype"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.parttype);
+            if (message.pieces != null && message.pieces.length)
+                for (var i = 0; i < message.pieces.length; ++i)
+                    $root.msg.CarPartPiece.encode(message.pieces[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_CarPartLevelup message, length delimited. Does not implicitly {@link msg.C2GW_CarPartLevelup.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {msg.IC2GW_CarPartLevelup} message C2GW_CarPartLevelup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CarPartLevelup.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_CarPartLevelup message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_CarPartLevelup} C2GW_CarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CarPartLevelup.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CarPartLevelup();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                case 2:
+                    message.parttype = reader.uint32();
+                    break;
+                case 3:
+                    if (!(message.pieces && message.pieces.length))
+                        message.pieces = [];
+                    message.pieces.push($root.msg.CarPartPiece.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_CarPartLevelup message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_CarPartLevelup} C2GW_CarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CarPartLevelup.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_CarPartLevelup message.
+         * @function verify
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_CarPartLevelup.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            if (message.parttype != null && message.hasOwnProperty("parttype"))
+                if (!$util.isInteger(message.parttype))
+                    return "parttype: integer expected";
+            if (message.pieces != null && message.hasOwnProperty("pieces")) {
+                if (!Array.isArray(message.pieces))
+                    return "pieces: array expected";
+                for (var i = 0; i < message.pieces.length; ++i) {
+                    var error = $root.msg.CarPartPiece.verify(message.pieces[i]);
+                    if (error)
+                        return "pieces." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_CarPartLevelup message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_CarPartLevelup} C2GW_CarPartLevelup
+         */
+        C2GW_CarPartLevelup.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_CarPartLevelup)
+                return object;
+            var message = new $root.msg.C2GW_CarPartLevelup();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            if (object.parttype != null)
+                message.parttype = object.parttype >>> 0;
+            if (object.pieces) {
+                if (!Array.isArray(object.pieces))
+                    throw TypeError(".msg.C2GW_CarPartLevelup.pieces: array expected");
+                message.pieces = [];
+                for (var i = 0; i < object.pieces.length; ++i) {
+                    if (typeof object.pieces[i] !== "object")
+                        throw TypeError(".msg.C2GW_CarPartLevelup.pieces: object expected");
+                    message.pieces[i] = $root.msg.CarPartPiece.fromObject(object.pieces[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_CarPartLevelup message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_CarPartLevelup
+         * @static
+         * @param {msg.C2GW_CarPartLevelup} message C2GW_CarPartLevelup
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_CarPartLevelup.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.pieces = [];
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+                object.parttype = 0;
+            }
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            if (message.parttype != null && message.hasOwnProperty("parttype"))
+                object.parttype = message.parttype;
+            if (message.pieces && message.pieces.length) {
+                object.pieces = [];
+                for (var j = 0; j < message.pieces.length; ++j)
+                    object.pieces[j] = $root.msg.CarPartPiece.toObject(message.pieces[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_CarPartLevelup to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_CarPartLevelup
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_CarPartLevelup.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_CarPartLevelup;
+    })();
+
+    msg.GW2C_RetCarPartLevelup = (function() {
+
+        /**
+         * Properties of a GW2C_RetCarPartLevelup.
+         * @memberof msg
+         * @interface IGW2C_RetCarPartLevelup
+         * @property {number|null} [result] GW2C_RetCarPartLevelup result
+         * @property {msg.ICarData|null} [car] GW2C_RetCarPartLevelup car
+         */
+
+        /**
+         * Constructs a new GW2C_RetCarPartLevelup.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetCarPartLevelup.
+         * @implements IGW2C_RetCarPartLevelup
+         * @constructor
+         * @param {msg.IGW2C_RetCarPartLevelup=} [properties] Properties to set
+         */
+        function GW2C_RetCarPartLevelup(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetCarPartLevelup result.
+         * @member {number} result
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @instance
+         */
+        GW2C_RetCarPartLevelup.prototype.result = 0;
+
+        /**
+         * GW2C_RetCarPartLevelup car.
+         * @member {msg.ICarData|null|undefined} car
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @instance
+         */
+        GW2C_RetCarPartLevelup.prototype.car = null;
+
+        /**
+         * Creates a new GW2C_RetCarPartLevelup instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {msg.IGW2C_RetCarPartLevelup=} [properties] Properties to set
+         * @returns {msg.GW2C_RetCarPartLevelup} GW2C_RetCarPartLevelup instance
+         */
+        GW2C_RetCarPartLevelup.create = function create(properties) {
+            return new GW2C_RetCarPartLevelup(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarPartLevelup message. Does not implicitly {@link msg.GW2C_RetCarPartLevelup.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {msg.IGW2C_RetCarPartLevelup} message GW2C_RetCarPartLevelup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarPartLevelup.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.result != null && message.hasOwnProperty("result"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.result);
+            if (message.car != null && message.hasOwnProperty("car"))
+                $root.msg.CarData.encode(message.car, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarPartLevelup message, length delimited. Does not implicitly {@link msg.GW2C_RetCarPartLevelup.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {msg.IGW2C_RetCarPartLevelup} message GW2C_RetCarPartLevelup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarPartLevelup.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetCarPartLevelup message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetCarPartLevelup} GW2C_RetCarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarPartLevelup.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetCarPartLevelup();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.result = reader.uint32();
+                    break;
+                case 2:
+                    message.car = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetCarPartLevelup message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetCarPartLevelup} GW2C_RetCarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarPartLevelup.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetCarPartLevelup message.
+         * @function verify
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetCarPartLevelup.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.result != null && message.hasOwnProperty("result"))
+                if (!$util.isInteger(message.result))
+                    return "result: integer expected";
+            if (message.car != null && message.hasOwnProperty("car")) {
+                var error = $root.msg.CarData.verify(message.car);
+                if (error)
+                    return "car." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetCarPartLevelup message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetCarPartLevelup} GW2C_RetCarPartLevelup
+         */
+        GW2C_RetCarPartLevelup.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetCarPartLevelup)
+                return object;
+            var message = new $root.msg.GW2C_RetCarPartLevelup();
+            if (object.result != null)
+                message.result = object.result >>> 0;
+            if (object.car != null) {
+                if (typeof object.car !== "object")
+                    throw TypeError(".msg.GW2C_RetCarPartLevelup.car: object expected");
+                message.car = $root.msg.CarData.fromObject(object.car);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetCarPartLevelup message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @static
+         * @param {msg.GW2C_RetCarPartLevelup} message GW2C_RetCarPartLevelup
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetCarPartLevelup.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.result = 0;
+                object.car = null;
+            }
+            if (message.result != null && message.hasOwnProperty("result"))
+                object.result = message.result;
+            if (message.car != null && message.hasOwnProperty("car"))
+                object.car = $root.msg.CarData.toObject(message.car, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetCarPartLevelup to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetCarPartLevelup
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetCarPartLevelup.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetCarPartLevelup;
+    })();
+
+    msg.C2GW_CarStarup = (function() {
+
+        /**
+         * Properties of a C2GW_CarStarup.
+         * @memberof msg
+         * @interface IC2GW_CarStarup
+         * @property {number|Long|null} [carid] C2GW_CarStarup carid
+         */
+
+        /**
+         * Constructs a new C2GW_CarStarup.
+         * @memberof msg
+         * @classdesc Represents a C2GW_CarStarup.
+         * @implements IC2GW_CarStarup
+         * @constructor
+         * @param {msg.IC2GW_CarStarup=} [properties] Properties to set
+         */
+        function C2GW_CarStarup(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_CarStarup carid.
+         * @member {number|Long} carid
+         * @memberof msg.C2GW_CarStarup
+         * @instance
+         */
+        C2GW_CarStarup.prototype.carid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new C2GW_CarStarup instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.IC2GW_CarStarup=} [properties] Properties to set
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup instance
+         */
+        C2GW_CarStarup.create = function create(properties) {
+            return new C2GW_CarStarup(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_CarStarup message. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.IC2GW_CarStarup} message C2GW_CarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CarStarup.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.carid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_CarStarup message, length delimited. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.IC2GW_CarStarup} message C2GW_CarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_CarStarup.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CarStarup.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CarStarup();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.carid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_CarStarup.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_CarStarup message.
+         * @function verify
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_CarStarup.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (!$util.isInteger(message.carid) && !(message.carid && $util.isInteger(message.carid.low) && $util.isInteger(message.carid.high)))
+                    return "carid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_CarStarup message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_CarStarup} C2GW_CarStarup
+         */
+        C2GW_CarStarup.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_CarStarup)
+                return object;
+            var message = new $root.msg.C2GW_CarStarup();
+            if (object.carid != null)
+                if ($util.Long)
+                    (message.carid = $util.Long.fromValue(object.carid)).unsigned = true;
+                else if (typeof object.carid === "string")
+                    message.carid = parseInt(object.carid, 10);
+                else if (typeof object.carid === "number")
+                    message.carid = object.carid;
+                else if (typeof object.carid === "object")
+                    message.carid = new $util.LongBits(object.carid.low >>> 0, object.carid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_CarStarup message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_CarStarup
+         * @static
+         * @param {msg.C2GW_CarStarup} message C2GW_CarStarup
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_CarStarup.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.carid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.carid = options.longs === String ? "0" : 0;
+            if (message.carid != null && message.hasOwnProperty("carid"))
+                if (typeof message.carid === "number")
+                    object.carid = options.longs === String ? String(message.carid) : message.carid;
+                else
+                    object.carid = options.longs === String ? $util.Long.prototype.toString.call(message.carid) : options.longs === Number ? new $util.LongBits(message.carid.low >>> 0, message.carid.high >>> 0).toNumber(true) : message.carid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_CarStarup to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_CarStarup
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_CarStarup.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_CarStarup;
+    })();
+
+    msg.GW2C_RetCarStarup = (function() {
+
+        /**
+         * Properties of a GW2C_RetCarStarup.
+         * @memberof msg
+         * @interface IGW2C_RetCarStarup
+         * @property {number|null} [result] GW2C_RetCarStarup result
+         * @property {msg.ICarData|null} [car] GW2C_RetCarStarup car
+         */
+
+        /**
+         * Constructs a new GW2C_RetCarStarup.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetCarStarup.
+         * @implements IGW2C_RetCarStarup
+         * @constructor
+         * @param {msg.IGW2C_RetCarStarup=} [properties] Properties to set
+         */
+        function GW2C_RetCarStarup(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetCarStarup result.
+         * @member {number} result
+         * @memberof msg.GW2C_RetCarStarup
+         * @instance
+         */
+        GW2C_RetCarStarup.prototype.result = 0;
+
+        /**
+         * GW2C_RetCarStarup car.
+         * @member {msg.ICarData|null|undefined} car
+         * @memberof msg.GW2C_RetCarStarup
+         * @instance
+         */
+        GW2C_RetCarStarup.prototype.car = null;
+
+        /**
+         * Creates a new GW2C_RetCarStarup instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.IGW2C_RetCarStarup=} [properties] Properties to set
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup instance
+         */
+        GW2C_RetCarStarup.create = function create(properties) {
+            return new GW2C_RetCarStarup(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.IGW2C_RetCarStarup} message GW2C_RetCarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarStarup.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.result != null && message.hasOwnProperty("result"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.result);
+            if (message.car != null && message.hasOwnProperty("car"))
+                $root.msg.CarData.encode(message.car, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message, length delimited. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.IGW2C_RetCarStarup} message GW2C_RetCarStarup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCarStarup.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarStarup.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetCarStarup();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.result = reader.uint32();
+                    break;
+                case 2:
+                    message.car = $root.msg.CarData.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCarStarup.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetCarStarup message.
+         * @function verify
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetCarStarup.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.result != null && message.hasOwnProperty("result"))
+                if (!$util.isInteger(message.result))
+                    return "result: integer expected";
+            if (message.car != null && message.hasOwnProperty("car")) {
+                var error = $root.msg.CarData.verify(message.car);
+                if (error)
+                    return "car." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetCarStarup message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetCarStarup} GW2C_RetCarStarup
+         */
+        GW2C_RetCarStarup.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetCarStarup)
+                return object;
+            var message = new $root.msg.GW2C_RetCarStarup();
+            if (object.result != null)
+                message.result = object.result >>> 0;
+            if (object.car != null) {
+                if (typeof object.car !== "object")
+                    throw TypeError(".msg.GW2C_RetCarStarup.car: object expected");
+                message.car = $root.msg.CarData.fromObject(object.car);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetCarStarup message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetCarStarup
+         * @static
+         * @param {msg.GW2C_RetCarStarup} message GW2C_RetCarStarup
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetCarStarup.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.result = 0;
+                object.car = null;
+            }
+            if (message.result != null && message.hasOwnProperty("result"))
+                object.result = message.result;
+            if (message.car != null && message.hasOwnProperty("car"))
+                object.car = $root.msg.CarData.toObject(message.car, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetCarStarup to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetCarStarup
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetCarStarup.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetCarStarup;
     })();
 
     msg.C2GW_ReqCarShopInfo = (function() {
@@ -16988,6 +19898,48 @@ $root.msg = (function() {
         var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[1] = "Public"] = 1;
         values[valuesById[2] = "Private"] = 2;
+        return values;
+    })();
+
+    /**
+     * CarPartType enum.
+     * @name msg.CarPartType
+     * @enum {string}
+     * @property {number} Tyre=1 Tyre value
+     * @property {number} Tank=2 Tank value
+     * @property {number} Trunk=3 Trunk value
+     * @property {number} Engine=4 Engine value
+     * @property {number} Battery=5 Battery value
+     */
+    msg.CarPartType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1] = "Tyre"] = 1;
+        values[valuesById[2] = "Tank"] = 2;
+        values[valuesById[3] = "Trunk"] = 3;
+        values[valuesById[4] = "Engine"] = 4;
+        values[valuesById[5] = "Battery"] = 5;
+        return values;
+    })();
+
+    /**
+     * CarState enum.
+     * @name msg.CarState
+     * @enum {string}
+     * @property {number} Idle=1 Idle value
+     * @property {number} Ready=2 Ready value
+     * @property {number} Parking=3 Parking value
+     * @property {number} Exped=4 Exped value
+     * @property {number} Robbing=5 Robbing value
+     * @property {number} Back=6 Back value
+     */
+    msg.CarState = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1] = "Idle"] = 1;
+        values[valuesById[2] = "Ready"] = 2;
+        values[valuesById[3] = "Parking"] = 3;
+        values[valuesById[4] = "Exped"] = 4;
+        values[valuesById[5] = "Robbing"] = 5;
+        values[valuesById[6] = "Back"] = 6;
         return values;
     })();
 
@@ -45789,7 +48741,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface ITradeCarHistory
          * @property {number|Long|null} [tradeuid] TradeCarHistory tradeuid
-         * @property {number|null} [caruid] TradeCarHistory caruid
+         * @property {number|Long|null} [caruid] TradeCarHistory caruid
          * @property {number|null} [price] TradeCarHistory price
          * @property {number|null} [income] TradeCarHistory income
          * @property {number|null} [carbaseid] TradeCarHistory carbaseid
@@ -45797,6 +48749,7 @@ $root.msg = (function() {
          * @property {number|null} [carlevel] TradeCarHistory carlevel
          * @property {number|null} [cartype] TradeCarHistory cartype
          * @property {number|null} [state] TradeCarHistory state
+         * @property {number|null} [tradetime] TradeCarHistory tradetime
          */
 
         /**
@@ -45824,11 +48777,11 @@ $root.msg = (function() {
 
         /**
          * TradeCarHistory caruid.
-         * @member {number} caruid
+         * @member {number|Long} caruid
          * @memberof msg.TradeCarHistory
          * @instance
          */
-        TradeCarHistory.prototype.caruid = 0;
+        TradeCarHistory.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * TradeCarHistory price.
@@ -45887,6 +48840,14 @@ $root.msg = (function() {
         TradeCarHistory.prototype.state = 0;
 
         /**
+         * TradeCarHistory tradetime.
+         * @member {number} tradetime
+         * @memberof msg.TradeCarHistory
+         * @instance
+         */
+        TradeCarHistory.prototype.tradetime = 0;
+
+        /**
          * Creates a new TradeCarHistory instance using the specified properties.
          * @function create
          * @memberof msg.TradeCarHistory
@@ -45913,7 +48874,7 @@ $root.msg = (function() {
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
             if (message.caruid != null && message.hasOwnProperty("caruid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.caruid);
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.caruid);
             if (message.price != null && message.hasOwnProperty("price"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.price);
             if (message.income != null && message.hasOwnProperty("income"))
@@ -45928,6 +48889,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.cartype);
             if (message.state != null && message.hasOwnProperty("state"))
                 writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.state);
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.tradetime);
             return writer;
         };
 
@@ -45966,7 +48929,7 @@ $root.msg = (function() {
                     message.tradeuid = reader.uint64();
                     break;
                 case 2:
-                    message.caruid = reader.uint32();
+                    message.caruid = reader.uint64();
                     break;
                 case 3:
                     message.price = reader.uint32();
@@ -45988,6 +48951,9 @@ $root.msg = (function() {
                     break;
                 case 9:
                     message.state = reader.uint32();
+                    break;
+                case 10:
+                    message.tradetime = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -46028,8 +48994,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
                     return "tradeuid: integer|Long expected";
             if (message.caruid != null && message.hasOwnProperty("caruid"))
-                if (!$util.isInteger(message.caruid))
-                    return "caruid: integer expected";
+                if (!$util.isInteger(message.caruid) && !(message.caruid && $util.isInteger(message.caruid.low) && $util.isInteger(message.caruid.high)))
+                    return "caruid: integer|Long expected";
             if (message.price != null && message.hasOwnProperty("price"))
                 if (!$util.isInteger(message.price))
                     return "price: integer expected";
@@ -46051,6 +49017,9 @@ $root.msg = (function() {
             if (message.state != null && message.hasOwnProperty("state"))
                 if (!$util.isInteger(message.state))
                     return "state: integer expected";
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                if (!$util.isInteger(message.tradetime))
+                    return "tradetime: integer expected";
             return null;
         };
 
@@ -46076,7 +49045,14 @@ $root.msg = (function() {
                 else if (typeof object.tradeuid === "object")
                     message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
             if (object.caruid != null)
-                message.caruid = object.caruid >>> 0;
+                if ($util.Long)
+                    (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
+                else if (typeof object.caruid === "string")
+                    message.caruid = parseInt(object.caruid, 10);
+                else if (typeof object.caruid === "number")
+                    message.caruid = object.caruid;
+                else if (typeof object.caruid === "object")
+                    message.caruid = new $util.LongBits(object.caruid.low >>> 0, object.caruid.high >>> 0).toNumber(true);
             if (object.price != null)
                 message.price = object.price >>> 0;
             if (object.income != null)
@@ -46091,6 +49067,8 @@ $root.msg = (function() {
                 message.cartype = object.cartype >>> 0;
             if (object.state != null)
                 message.state = object.state >>> 0;
+            if (object.tradetime != null)
+                message.tradetime = object.tradetime >>> 0;
             return message;
         };
 
@@ -46113,7 +49091,11 @@ $root.msg = (function() {
                     object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tradeuid = options.longs === String ? "0" : 0;
-                object.caruid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.caruid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.caruid = options.longs === String ? "0" : 0;
                 object.price = 0;
                 object.income = 0;
                 object.carbaseid = 0;
@@ -46121,6 +49103,7 @@ $root.msg = (function() {
                 object.carlevel = 0;
                 object.cartype = 0;
                 object.state = 0;
+                object.tradetime = 0;
             }
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 if (typeof message.tradeuid === "number")
@@ -46128,7 +49111,10 @@ $root.msg = (function() {
                 else
                     object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
             if (message.caruid != null && message.hasOwnProperty("caruid"))
-                object.caruid = message.caruid;
+                if (typeof message.caruid === "number")
+                    object.caruid = options.longs === String ? String(message.caruid) : message.caruid;
+                else
+                    object.caruid = options.longs === String ? $util.Long.prototype.toString.call(message.caruid) : options.longs === Number ? new $util.LongBits(message.caruid.low >>> 0, message.caruid.high >>> 0).toNumber(true) : message.caruid;
             if (message.price != null && message.hasOwnProperty("price"))
                 object.price = message.price;
             if (message.income != null && message.hasOwnProperty("income"))
@@ -46143,6 +49129,8 @@ $root.msg = (function() {
                 object.cartype = message.cartype;
             if (message.state != null && message.hasOwnProperty("state"))
                 object.state = message.state;
+            if (message.tradetime != null && message.hasOwnProperty("tradetime"))
+                object.tradetime = message.tradetime;
             return object;
         };
 
@@ -46569,24 +49557,24 @@ $root.msg = (function() {
         return C2GW_GetTradeCarReward;
     })();
 
-    msg.C2GW_CancelCarHouse = (function() {
+    msg.C2GW_CancelTradeCar = (function() {
 
         /**
-         * Properties of a C2GW_CancelCarHouse.
+         * Properties of a C2GW_CancelTradeCar.
          * @memberof msg
-         * @interface IC2GW_CancelCarHouse
-         * @property {number|Long|null} [caruid] C2GW_CancelCarHouse caruid
+         * @interface IC2GW_CancelTradeCar
+         * @property {number|Long|null} [caruid] C2GW_CancelTradeCar caruid
          */
 
         /**
-         * Constructs a new C2GW_CancelCarHouse.
+         * Constructs a new C2GW_CancelTradeCar.
          * @memberof msg
-         * @classdesc Represents a C2GW_CancelCarHouse.
-         * @implements IC2GW_CancelCarHouse
+         * @classdesc Represents a C2GW_CancelTradeCar.
+         * @implements IC2GW_CancelTradeCar
          * @constructor
-         * @param {msg.IC2GW_CancelCarHouse=} [properties] Properties to set
+         * @param {msg.IC2GW_CancelTradeCar=} [properties] Properties to set
          */
-        function C2GW_CancelCarHouse(properties) {
+        function C2GW_CancelTradeCar(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -46594,35 +49582,35 @@ $root.msg = (function() {
         }
 
         /**
-         * C2GW_CancelCarHouse caruid.
+         * C2GW_CancelTradeCar caruid.
          * @member {number|Long} caruid
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @instance
          */
-        C2GW_CancelCarHouse.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        C2GW_CancelTradeCar.prototype.caruid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
-         * Creates a new C2GW_CancelCarHouse instance using the specified properties.
+         * Creates a new C2GW_CancelTradeCar instance using the specified properties.
          * @function create
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
-         * @param {msg.IC2GW_CancelCarHouse=} [properties] Properties to set
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse instance
+         * @param {msg.IC2GW_CancelTradeCar=} [properties] Properties to set
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar instance
          */
-        C2GW_CancelCarHouse.create = function create(properties) {
-            return new C2GW_CancelCarHouse(properties);
+        C2GW_CancelTradeCar.create = function create(properties) {
+            return new C2GW_CancelTradeCar(properties);
         };
 
         /**
-         * Encodes the specified C2GW_CancelCarHouse message. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
+         * Encodes the specified C2GW_CancelTradeCar message. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
          * @function encode
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
-         * @param {msg.IC2GW_CancelCarHouse} message C2GW_CancelCarHouse message or plain object to encode
+         * @param {msg.IC2GW_CancelTradeCar} message C2GW_CancelTradeCar message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2GW_CancelCarHouse.encode = function encode(message, writer) {
+        C2GW_CancelTradeCar.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.caruid != null && message.hasOwnProperty("caruid"))
@@ -46631,33 +49619,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified C2GW_CancelCarHouse message, length delimited. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
+         * Encodes the specified C2GW_CancelTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
-         * @param {msg.IC2GW_CancelCarHouse} message C2GW_CancelCarHouse message or plain object to encode
+         * @param {msg.IC2GW_CancelTradeCar} message C2GW_CancelTradeCar message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2GW_CancelCarHouse.encodeDelimited = function encodeDelimited(message, writer) {
+        C2GW_CancelTradeCar.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer.
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2GW_CancelCarHouse.decode = function decode(reader, length) {
+        C2GW_CancelTradeCar.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CancelCarHouse();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_CancelTradeCar();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -46673,30 +49661,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2GW_CancelCarHouse.decodeDelimited = function decodeDelimited(reader) {
+        C2GW_CancelTradeCar.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a C2GW_CancelCarHouse message.
+         * Verifies a C2GW_CancelTradeCar message.
          * @function verify
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        C2GW_CancelCarHouse.verify = function verify(message) {
+        C2GW_CancelTradeCar.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.caruid != null && message.hasOwnProperty("caruid"))
@@ -46706,17 +49694,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a C2GW_CancelCarHouse message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_CancelTradeCar message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_CancelCarHouse} C2GW_CancelCarHouse
+         * @returns {msg.C2GW_CancelTradeCar} C2GW_CancelTradeCar
          */
-        C2GW_CancelCarHouse.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_CancelCarHouse)
+        C2GW_CancelTradeCar.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_CancelTradeCar)
                 return object;
-            var message = new $root.msg.C2GW_CancelCarHouse();
+            var message = new $root.msg.C2GW_CancelTradeCar();
             if (object.caruid != null)
                 if ($util.Long)
                     (message.caruid = $util.Long.fromValue(object.caruid)).unsigned = true;
@@ -46730,15 +49718,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a C2GW_CancelCarHouse message. Also converts values to other types if specified.
+         * Creates a plain object from a C2GW_CancelTradeCar message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @static
-         * @param {msg.C2GW_CancelCarHouse} message C2GW_CancelCarHouse
+         * @param {msg.C2GW_CancelTradeCar} message C2GW_CancelTradeCar
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2GW_CancelCarHouse.toObject = function toObject(message, options) {
+        C2GW_CancelTradeCar.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -46757,17 +49745,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this C2GW_CancelCarHouse to JSON.
+         * Converts this C2GW_CancelTradeCar to JSON.
          * @function toJSON
-         * @memberof msg.C2GW_CancelCarHouse
+         * @memberof msg.C2GW_CancelTradeCar
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        C2GW_CancelCarHouse.prototype.toJSON = function toJSON() {
+        C2GW_CancelTradeCar.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return C2GW_CancelCarHouse;
+        return C2GW_CancelTradeCar;
     })();
 
     msg.C2GW_AddDeliveryAddress = (function() {
@@ -53393,8 +56381,8 @@ $root.table = (function() {
          * @memberof table
          * @interface ITCarDefine
          * @property {number|null} [Id] TCarDefine Id
-         * @property {string|null} [Brand] TCarDefine Brand
-         * @property {string|null} [Model] TCarDefine Model
+         * @property {number|null} [Brand] TCarDefine Brand
+         * @property {number|null} [Model] TCarDefine Model
          * @property {number|null} [Price] TCarDefine Price
          * @property {string|null} [Des] TCarDefine Des
          * @property {string|null} [path] TCarDefine path
@@ -53433,19 +56421,19 @@ $root.table = (function() {
 
         /**
          * TCarDefine Brand.
-         * @member {string} Brand
+         * @member {number} Brand
          * @memberof table.TCarDefine
          * @instance
          */
-        TCarDefine.prototype.Brand = "";
+        TCarDefine.prototype.Brand = 0;
 
         /**
          * TCarDefine Model.
-         * @member {string} Model
+         * @member {number} Model
          * @memberof table.TCarDefine
          * @instance
          */
-        TCarDefine.prototype.Model = "";
+        TCarDefine.prototype.Model = 0;
 
         /**
          * TCarDefine Price.
@@ -53562,9 +56550,9 @@ $root.table = (function() {
             if (message.Id != null && message.hasOwnProperty("Id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
             if (message.Brand != null && message.hasOwnProperty("Brand"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Brand);
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.Brand);
             if (message.Model != null && message.hasOwnProperty("Model"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.Model);
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Model);
             if (message.Price != null && message.hasOwnProperty("Price"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.Price);
             if (message.Des != null && message.hasOwnProperty("Des"))
@@ -53625,10 +56613,10 @@ $root.table = (function() {
                     message.Id = reader.uint32();
                     break;
                 case 2:
-                    message.Brand = reader.string();
+                    message.Brand = reader.uint32();
                     break;
                 case 3:
-                    message.Model = reader.string();
+                    message.Model = reader.uint32();
                     break;
                 case 4:
                     message.Price = reader.uint32();
@@ -53702,11 +56690,11 @@ $root.table = (function() {
                 if (!$util.isInteger(message.Id))
                     return "Id: integer expected";
             if (message.Brand != null && message.hasOwnProperty("Brand"))
-                if (!$util.isString(message.Brand))
-                    return "Brand: string expected";
+                if (!$util.isInteger(message.Brand))
+                    return "Brand: integer expected";
             if (message.Model != null && message.hasOwnProperty("Model"))
-                if (!$util.isString(message.Model))
-                    return "Model: string expected";
+                if (!$util.isInteger(message.Model))
+                    return "Model: integer expected";
             if (message.Price != null && message.hasOwnProperty("Price"))
                 if (!$util.isInteger(message.Price))
                     return "Price: integer expected";
@@ -53758,9 +56746,9 @@ $root.table = (function() {
             if (object.Id != null)
                 message.Id = object.Id >>> 0;
             if (object.Brand != null)
-                message.Brand = String(object.Brand);
+                message.Brand = object.Brand >>> 0;
             if (object.Model != null)
-                message.Model = String(object.Model);
+                message.Model = object.Model >>> 0;
             if (object.Price != null)
                 message.Price = object.Price >>> 0;
             if (object.Des != null)
@@ -53801,8 +56789,8 @@ $root.table = (function() {
             var object = {};
             if (options.defaults) {
                 object.Id = 0;
-                object.Brand = "";
-                object.Model = "";
+                object.Brand = 0;
+                object.Model = 0;
                 object.Price = 0;
                 object.Des = "";
                 object.path = "";
@@ -53858,6 +56846,2052 @@ $root.table = (function() {
         };
 
         return TCarDefine;
+    })();
+
+    table.TCarBrandBase = (function() {
+
+        /**
+         * Properties of a TCarBrandBase.
+         * @memberof table
+         * @interface ITCarBrandBase
+         * @property {Array.<table.ITCarBrandDefine>|null} [TCarBrand] TCarBrandBase TCarBrand
+         */
+
+        /**
+         * Constructs a new TCarBrandBase.
+         * @memberof table
+         * @classdesc Represents a TCarBrandBase.
+         * @implements ITCarBrandBase
+         * @constructor
+         * @param {table.ITCarBrandBase=} [properties] Properties to set
+         */
+        function TCarBrandBase(properties) {
+            this.TCarBrand = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarBrandBase TCarBrand.
+         * @member {Array.<table.ITCarBrandDefine>} TCarBrand
+         * @memberof table.TCarBrandBase
+         * @instance
+         */
+        TCarBrandBase.prototype.TCarBrand = $util.emptyArray;
+
+        /**
+         * Creates a new TCarBrandBase instance using the specified properties.
+         * @function create
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {table.ITCarBrandBase=} [properties] Properties to set
+         * @returns {table.TCarBrandBase} TCarBrandBase instance
+         */
+        TCarBrandBase.create = function create(properties) {
+            return new TCarBrandBase(properties);
+        };
+
+        /**
+         * Encodes the specified TCarBrandBase message. Does not implicitly {@link table.TCarBrandBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {table.ITCarBrandBase} message TCarBrandBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarBrandBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCarBrand != null && message.TCarBrand.length)
+                for (var i = 0; i < message.TCarBrand.length; ++i)
+                    $root.table.TCarBrandDefine.encode(message.TCarBrand[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarBrandBase message, length delimited. Does not implicitly {@link table.TCarBrandBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {table.ITCarBrandBase} message TCarBrandBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarBrandBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarBrandBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarBrandBase} TCarBrandBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarBrandBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarBrandBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCarBrand && message.TCarBrand.length))
+                        message.TCarBrand = [];
+                    message.TCarBrand.push($root.table.TCarBrandDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarBrandBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarBrandBase} TCarBrandBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarBrandBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarBrandBase message.
+         * @function verify
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarBrandBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCarBrand != null && message.hasOwnProperty("TCarBrand")) {
+                if (!Array.isArray(message.TCarBrand))
+                    return "TCarBrand: array expected";
+                for (var i = 0; i < message.TCarBrand.length; ++i) {
+                    var error = $root.table.TCarBrandDefine.verify(message.TCarBrand[i]);
+                    if (error)
+                        return "TCarBrand." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TCarBrandBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarBrandBase} TCarBrandBase
+         */
+        TCarBrandBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarBrandBase)
+                return object;
+            var message = new $root.table.TCarBrandBase();
+            if (object.TCarBrand) {
+                if (!Array.isArray(object.TCarBrand))
+                    throw TypeError(".table.TCarBrandBase.TCarBrand: array expected");
+                message.TCarBrand = [];
+                for (var i = 0; i < object.TCarBrand.length; ++i) {
+                    if (typeof object.TCarBrand[i] !== "object")
+                        throw TypeError(".table.TCarBrandBase.TCarBrand: object expected");
+                    message.TCarBrand[i] = $root.table.TCarBrandDefine.fromObject(object.TCarBrand[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarBrandBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarBrandBase
+         * @static
+         * @param {table.TCarBrandBase} message TCarBrandBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarBrandBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCarBrand = [];
+            if (message.TCarBrand && message.TCarBrand.length) {
+                object.TCarBrand = [];
+                for (var j = 0; j < message.TCarBrand.length; ++j)
+                    object.TCarBrand[j] = $root.table.TCarBrandDefine.toObject(message.TCarBrand[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TCarBrandBase to JSON.
+         * @function toJSON
+         * @memberof table.TCarBrandBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarBrandBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarBrandBase;
+    })();
+
+    table.TCarBrandDefine = (function() {
+
+        /**
+         * Properties of a TCarBrandDefine.
+         * @memberof table
+         * @interface ITCarBrandDefine
+         * @property {number|null} [Id] TCarBrandDefine Id
+         * @property {string|null} [Brand] TCarBrandDefine Brand
+         */
+
+        /**
+         * Constructs a new TCarBrandDefine.
+         * @memberof table
+         * @classdesc Represents a TCarBrandDefine.
+         * @implements ITCarBrandDefine
+         * @constructor
+         * @param {table.ITCarBrandDefine=} [properties] Properties to set
+         */
+        function TCarBrandDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarBrandDefine Id.
+         * @member {number} Id
+         * @memberof table.TCarBrandDefine
+         * @instance
+         */
+        TCarBrandDefine.prototype.Id = 0;
+
+        /**
+         * TCarBrandDefine Brand.
+         * @member {string} Brand
+         * @memberof table.TCarBrandDefine
+         * @instance
+         */
+        TCarBrandDefine.prototype.Brand = "";
+
+        /**
+         * Creates a new TCarBrandDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {table.ITCarBrandDefine=} [properties] Properties to set
+         * @returns {table.TCarBrandDefine} TCarBrandDefine instance
+         */
+        TCarBrandDefine.create = function create(properties) {
+            return new TCarBrandDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCarBrandDefine message. Does not implicitly {@link table.TCarBrandDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {table.ITCarBrandDefine} message TCarBrandDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarBrandDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Brand != null && message.hasOwnProperty("Brand"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Brand);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarBrandDefine message, length delimited. Does not implicitly {@link table.TCarBrandDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {table.ITCarBrandDefine} message TCarBrandDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarBrandDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarBrandDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarBrandDefine} TCarBrandDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarBrandDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarBrandDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Brand = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarBrandDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarBrandDefine} TCarBrandDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarBrandDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarBrandDefine message.
+         * @function verify
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarBrandDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Brand != null && message.hasOwnProperty("Brand"))
+                if (!$util.isString(message.Brand))
+                    return "Brand: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCarBrandDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarBrandDefine} TCarBrandDefine
+         */
+        TCarBrandDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarBrandDefine)
+                return object;
+            var message = new $root.table.TCarBrandDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Brand != null)
+                message.Brand = String(object.Brand);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarBrandDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarBrandDefine
+         * @static
+         * @param {table.TCarBrandDefine} message TCarBrandDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarBrandDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Brand = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Brand != null && message.hasOwnProperty("Brand"))
+                object.Brand = message.Brand;
+            return object;
+        };
+
+        /**
+         * Converts this TCarBrandDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCarBrandDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarBrandDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarBrandDefine;
+    })();
+
+    table.TCarModelBase = (function() {
+
+        /**
+         * Properties of a TCarModelBase.
+         * @memberof table
+         * @interface ITCarModelBase
+         * @property {Array.<table.ITCarModelDefine>|null} [TCarModel] TCarModelBase TCarModel
+         */
+
+        /**
+         * Constructs a new TCarModelBase.
+         * @memberof table
+         * @classdesc Represents a TCarModelBase.
+         * @implements ITCarModelBase
+         * @constructor
+         * @param {table.ITCarModelBase=} [properties] Properties to set
+         */
+        function TCarModelBase(properties) {
+            this.TCarModel = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarModelBase TCarModel.
+         * @member {Array.<table.ITCarModelDefine>} TCarModel
+         * @memberof table.TCarModelBase
+         * @instance
+         */
+        TCarModelBase.prototype.TCarModel = $util.emptyArray;
+
+        /**
+         * Creates a new TCarModelBase instance using the specified properties.
+         * @function create
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {table.ITCarModelBase=} [properties] Properties to set
+         * @returns {table.TCarModelBase} TCarModelBase instance
+         */
+        TCarModelBase.create = function create(properties) {
+            return new TCarModelBase(properties);
+        };
+
+        /**
+         * Encodes the specified TCarModelBase message. Does not implicitly {@link table.TCarModelBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {table.ITCarModelBase} message TCarModelBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarModelBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCarModel != null && message.TCarModel.length)
+                for (var i = 0; i < message.TCarModel.length; ++i)
+                    $root.table.TCarModelDefine.encode(message.TCarModel[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarModelBase message, length delimited. Does not implicitly {@link table.TCarModelBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {table.ITCarModelBase} message TCarModelBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarModelBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarModelBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarModelBase} TCarModelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarModelBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarModelBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCarModel && message.TCarModel.length))
+                        message.TCarModel = [];
+                    message.TCarModel.push($root.table.TCarModelDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarModelBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarModelBase} TCarModelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarModelBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarModelBase message.
+         * @function verify
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarModelBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCarModel != null && message.hasOwnProperty("TCarModel")) {
+                if (!Array.isArray(message.TCarModel))
+                    return "TCarModel: array expected";
+                for (var i = 0; i < message.TCarModel.length; ++i) {
+                    var error = $root.table.TCarModelDefine.verify(message.TCarModel[i]);
+                    if (error)
+                        return "TCarModel." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TCarModelBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarModelBase} TCarModelBase
+         */
+        TCarModelBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarModelBase)
+                return object;
+            var message = new $root.table.TCarModelBase();
+            if (object.TCarModel) {
+                if (!Array.isArray(object.TCarModel))
+                    throw TypeError(".table.TCarModelBase.TCarModel: array expected");
+                message.TCarModel = [];
+                for (var i = 0; i < object.TCarModel.length; ++i) {
+                    if (typeof object.TCarModel[i] !== "object")
+                        throw TypeError(".table.TCarModelBase.TCarModel: object expected");
+                    message.TCarModel[i] = $root.table.TCarModelDefine.fromObject(object.TCarModel[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarModelBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarModelBase
+         * @static
+         * @param {table.TCarModelBase} message TCarModelBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarModelBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCarModel = [];
+            if (message.TCarModel && message.TCarModel.length) {
+                object.TCarModel = [];
+                for (var j = 0; j < message.TCarModel.length; ++j)
+                    object.TCarModel[j] = $root.table.TCarModelDefine.toObject(message.TCarModel[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TCarModelBase to JSON.
+         * @function toJSON
+         * @memberof table.TCarModelBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarModelBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarModelBase;
+    })();
+
+    table.TCarModelDefine = (function() {
+
+        /**
+         * Properties of a TCarModelDefine.
+         * @memberof table
+         * @interface ITCarModelDefine
+         * @property {number|null} [Id] TCarModelDefine Id
+         * @property {string|null} [Model] TCarModelDefine Model
+         */
+
+        /**
+         * Constructs a new TCarModelDefine.
+         * @memberof table
+         * @classdesc Represents a TCarModelDefine.
+         * @implements ITCarModelDefine
+         * @constructor
+         * @param {table.ITCarModelDefine=} [properties] Properties to set
+         */
+        function TCarModelDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarModelDefine Id.
+         * @member {number} Id
+         * @memberof table.TCarModelDefine
+         * @instance
+         */
+        TCarModelDefine.prototype.Id = 0;
+
+        /**
+         * TCarModelDefine Model.
+         * @member {string} Model
+         * @memberof table.TCarModelDefine
+         * @instance
+         */
+        TCarModelDefine.prototype.Model = "";
+
+        /**
+         * Creates a new TCarModelDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {table.ITCarModelDefine=} [properties] Properties to set
+         * @returns {table.TCarModelDefine} TCarModelDefine instance
+         */
+        TCarModelDefine.create = function create(properties) {
+            return new TCarModelDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCarModelDefine message. Does not implicitly {@link table.TCarModelDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {table.ITCarModelDefine} message TCarModelDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarModelDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Model != null && message.hasOwnProperty("Model"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Model);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarModelDefine message, length delimited. Does not implicitly {@link table.TCarModelDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {table.ITCarModelDefine} message TCarModelDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarModelDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarModelDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarModelDefine} TCarModelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarModelDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarModelDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Model = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarModelDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarModelDefine} TCarModelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarModelDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarModelDefine message.
+         * @function verify
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarModelDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Model != null && message.hasOwnProperty("Model"))
+                if (!$util.isString(message.Model))
+                    return "Model: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCarModelDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarModelDefine} TCarModelDefine
+         */
+        TCarModelDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarModelDefine)
+                return object;
+            var message = new $root.table.TCarModelDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Model != null)
+                message.Model = String(object.Model);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarModelDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarModelDefine
+         * @static
+         * @param {table.TCarModelDefine} message TCarModelDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarModelDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Model = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Model != null && message.hasOwnProperty("Model"))
+                object.Model = message.Model;
+            return object;
+        };
+
+        /**
+         * Converts this TCarModelDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCarModelDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarModelDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarModelDefine;
+    })();
+
+    table.TCarPartBase = (function() {
+
+        /**
+         * Properties of a TCarPartBase.
+         * @memberof table
+         * @interface ITCarPartBase
+         * @property {Array.<table.ITCarPartDefine>|null} [TCarPart] TCarPartBase TCarPart
+         */
+
+        /**
+         * Constructs a new TCarPartBase.
+         * @memberof table
+         * @classdesc Represents a TCarPartBase.
+         * @implements ITCarPartBase
+         * @constructor
+         * @param {table.ITCarPartBase=} [properties] Properties to set
+         */
+        function TCarPartBase(properties) {
+            this.TCarPart = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarPartBase TCarPart.
+         * @member {Array.<table.ITCarPartDefine>} TCarPart
+         * @memberof table.TCarPartBase
+         * @instance
+         */
+        TCarPartBase.prototype.TCarPart = $util.emptyArray;
+
+        /**
+         * Creates a new TCarPartBase instance using the specified properties.
+         * @function create
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {table.ITCarPartBase=} [properties] Properties to set
+         * @returns {table.TCarPartBase} TCarPartBase instance
+         */
+        TCarPartBase.create = function create(properties) {
+            return new TCarPartBase(properties);
+        };
+
+        /**
+         * Encodes the specified TCarPartBase message. Does not implicitly {@link table.TCarPartBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {table.ITCarPartBase} message TCarPartBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCarPart != null && message.TCarPart.length)
+                for (var i = 0; i < message.TCarPart.length; ++i)
+                    $root.table.TCarPartDefine.encode(message.TCarPart[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarPartBase message, length delimited. Does not implicitly {@link table.TCarPartBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {table.ITCarPartBase} message TCarPartBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarPartBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarPartBase} TCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarPartBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCarPart && message.TCarPart.length))
+                        message.TCarPart = [];
+                    message.TCarPart.push($root.table.TCarPartDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarPartBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarPartBase} TCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarPartBase message.
+         * @function verify
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarPartBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCarPart != null && message.hasOwnProperty("TCarPart")) {
+                if (!Array.isArray(message.TCarPart))
+                    return "TCarPart: array expected";
+                for (var i = 0; i < message.TCarPart.length; ++i) {
+                    var error = $root.table.TCarPartDefine.verify(message.TCarPart[i]);
+                    if (error)
+                        return "TCarPart." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TCarPartBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarPartBase} TCarPartBase
+         */
+        TCarPartBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarPartBase)
+                return object;
+            var message = new $root.table.TCarPartBase();
+            if (object.TCarPart) {
+                if (!Array.isArray(object.TCarPart))
+                    throw TypeError(".table.TCarPartBase.TCarPart: array expected");
+                message.TCarPart = [];
+                for (var i = 0; i < object.TCarPart.length; ++i) {
+                    if (typeof object.TCarPart[i] !== "object")
+                        throw TypeError(".table.TCarPartBase.TCarPart: object expected");
+                    message.TCarPart[i] = $root.table.TCarPartDefine.fromObject(object.TCarPart[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarPartBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarPartBase
+         * @static
+         * @param {table.TCarPartBase} message TCarPartBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarPartBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCarPart = [];
+            if (message.TCarPart && message.TCarPart.length) {
+                object.TCarPart = [];
+                for (var j = 0; j < message.TCarPart.length; ++j)
+                    object.TCarPart[j] = $root.table.TCarPartDefine.toObject(message.TCarPart[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TCarPartBase to JSON.
+         * @function toJSON
+         * @memberof table.TCarPartBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarPartBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarPartBase;
+    })();
+
+    table.TCarPartDefine = (function() {
+
+        /**
+         * Properties of a TCarPartDefine.
+         * @memberof table
+         * @interface ITCarPartDefine
+         * @property {number|null} [Id] TCarPartDefine Id
+         * @property {number|null} [Type] TCarPartDefine Type
+         * @property {number|null} [Quality] TCarPartDefine Quality
+         * @property {number|null} [RewardInit] TCarPartDefine RewardInit
+         * @property {number|null} [RangeInit] TCarPartDefine RangeInit
+         * @property {number|null} [ItemLimitInit] TCarPartDefine ItemLimitInit
+         * @property {number|null} [MoneyLimitInit] TCarPartDefine MoneyLimitInit
+         * @property {number|null} [SpeedInit] TCarPartDefine SpeedInit
+         * @property {number|null} [StopTimeInit] TCarPartDefine StopTimeInit
+         * @property {number|null} [MaxLevel] TCarPartDefine MaxLevel
+         * @property {number|null} [RewardAddition] TCarPartDefine RewardAddition
+         * @property {number|null} [RangeAddition] TCarPartDefine RangeAddition
+         * @property {number|null} [ItemLimitAddition] TCarPartDefine ItemLimitAddition
+         * @property {number|null} [MoneyLimitAddition] TCarPartDefine MoneyLimitAddition
+         * @property {number|null} [SpeedAddition] TCarPartDefine SpeedAddition
+         * @property {number|null} [StopTimeAddition] TCarPartDefine StopTimeAddition
+         */
+
+        /**
+         * Constructs a new TCarPartDefine.
+         * @memberof table
+         * @classdesc Represents a TCarPartDefine.
+         * @implements ITCarPartDefine
+         * @constructor
+         * @param {table.ITCarPartDefine=} [properties] Properties to set
+         */
+        function TCarPartDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarPartDefine Id.
+         * @member {number} Id
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.Id = 0;
+
+        /**
+         * TCarPartDefine Type.
+         * @member {number} Type
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.Type = 0;
+
+        /**
+         * TCarPartDefine Quality.
+         * @member {number} Quality
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.Quality = 0;
+
+        /**
+         * TCarPartDefine RewardInit.
+         * @member {number} RewardInit
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.RewardInit = 0;
+
+        /**
+         * TCarPartDefine RangeInit.
+         * @member {number} RangeInit
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.RangeInit = 0;
+
+        /**
+         * TCarPartDefine ItemLimitInit.
+         * @member {number} ItemLimitInit
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.ItemLimitInit = 0;
+
+        /**
+         * TCarPartDefine MoneyLimitInit.
+         * @member {number} MoneyLimitInit
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.MoneyLimitInit = 0;
+
+        /**
+         * TCarPartDefine SpeedInit.
+         * @member {number} SpeedInit
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.SpeedInit = 0;
+
+        /**
+         * TCarPartDefine StopTimeInit.
+         * @member {number} StopTimeInit
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.StopTimeInit = 0;
+
+        /**
+         * TCarPartDefine MaxLevel.
+         * @member {number} MaxLevel
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.MaxLevel = 0;
+
+        /**
+         * TCarPartDefine RewardAddition.
+         * @member {number} RewardAddition
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.RewardAddition = 0;
+
+        /**
+         * TCarPartDefine RangeAddition.
+         * @member {number} RangeAddition
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.RangeAddition = 0;
+
+        /**
+         * TCarPartDefine ItemLimitAddition.
+         * @member {number} ItemLimitAddition
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.ItemLimitAddition = 0;
+
+        /**
+         * TCarPartDefine MoneyLimitAddition.
+         * @member {number} MoneyLimitAddition
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.MoneyLimitAddition = 0;
+
+        /**
+         * TCarPartDefine SpeedAddition.
+         * @member {number} SpeedAddition
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.SpeedAddition = 0;
+
+        /**
+         * TCarPartDefine StopTimeAddition.
+         * @member {number} StopTimeAddition
+         * @memberof table.TCarPartDefine
+         * @instance
+         */
+        TCarPartDefine.prototype.StopTimeAddition = 0;
+
+        /**
+         * Creates a new TCarPartDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {table.ITCarPartDefine=} [properties] Properties to set
+         * @returns {table.TCarPartDefine} TCarPartDefine instance
+         */
+        TCarPartDefine.create = function create(properties) {
+            return new TCarPartDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCarPartDefine message. Does not implicitly {@link table.TCarPartDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {table.ITCarPartDefine} message TCarPartDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.Type);
+            if (message.Quality != null && message.hasOwnProperty("Quality"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Quality);
+            if (message.RewardInit != null && message.hasOwnProperty("RewardInit"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.RewardInit);
+            if (message.RangeInit != null && message.hasOwnProperty("RangeInit"))
+                writer.uint32(/* id 5, wireType 5 =*/45).float(message.RangeInit);
+            if (message.ItemLimitInit != null && message.hasOwnProperty("ItemLimitInit"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.ItemLimitInit);
+            if (message.MoneyLimitInit != null && message.hasOwnProperty("MoneyLimitInit"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.MoneyLimitInit);
+            if (message.SpeedInit != null && message.hasOwnProperty("SpeedInit"))
+                writer.uint32(/* id 8, wireType 5 =*/69).float(message.SpeedInit);
+            if (message.StopTimeInit != null && message.hasOwnProperty("StopTimeInit"))
+                writer.uint32(/* id 9, wireType 5 =*/77).float(message.StopTimeInit);
+            if (message.MaxLevel != null && message.hasOwnProperty("MaxLevel"))
+                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.MaxLevel);
+            if (message.RewardAddition != null && message.hasOwnProperty("RewardAddition"))
+                writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.RewardAddition);
+            if (message.RangeAddition != null && message.hasOwnProperty("RangeAddition"))
+                writer.uint32(/* id 12, wireType 5 =*/101).float(message.RangeAddition);
+            if (message.ItemLimitAddition != null && message.hasOwnProperty("ItemLimitAddition"))
+                writer.uint32(/* id 13, wireType 0 =*/104).uint32(message.ItemLimitAddition);
+            if (message.MoneyLimitAddition != null && message.hasOwnProperty("MoneyLimitAddition"))
+                writer.uint32(/* id 14, wireType 0 =*/112).uint32(message.MoneyLimitAddition);
+            if (message.SpeedAddition != null && message.hasOwnProperty("SpeedAddition"))
+                writer.uint32(/* id 15, wireType 5 =*/125).float(message.SpeedAddition);
+            if (message.StopTimeAddition != null && message.hasOwnProperty("StopTimeAddition"))
+                writer.uint32(/* id 16, wireType 5 =*/133).float(message.StopTimeAddition);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarPartDefine message, length delimited. Does not implicitly {@link table.TCarPartDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {table.ITCarPartDefine} message TCarPartDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarPartDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarPartDefine} TCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarPartDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Type = reader.uint32();
+                    break;
+                case 3:
+                    message.Quality = reader.uint32();
+                    break;
+                case 4:
+                    message.RewardInit = reader.uint32();
+                    break;
+                case 5:
+                    message.RangeInit = reader.float();
+                    break;
+                case 6:
+                    message.ItemLimitInit = reader.uint32();
+                    break;
+                case 7:
+                    message.MoneyLimitInit = reader.uint32();
+                    break;
+                case 8:
+                    message.SpeedInit = reader.float();
+                    break;
+                case 9:
+                    message.StopTimeInit = reader.float();
+                    break;
+                case 10:
+                    message.MaxLevel = reader.uint32();
+                    break;
+                case 11:
+                    message.RewardAddition = reader.uint32();
+                    break;
+                case 12:
+                    message.RangeAddition = reader.float();
+                    break;
+                case 13:
+                    message.ItemLimitAddition = reader.uint32();
+                    break;
+                case 14:
+                    message.MoneyLimitAddition = reader.uint32();
+                    break;
+                case 15:
+                    message.SpeedAddition = reader.float();
+                    break;
+                case 16:
+                    message.StopTimeAddition = reader.float();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarPartDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarPartDefine} TCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarPartDefine message.
+         * @function verify
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarPartDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Quality != null && message.hasOwnProperty("Quality"))
+                if (!$util.isInteger(message.Quality))
+                    return "Quality: integer expected";
+            if (message.RewardInit != null && message.hasOwnProperty("RewardInit"))
+                if (!$util.isInteger(message.RewardInit))
+                    return "RewardInit: integer expected";
+            if (message.RangeInit != null && message.hasOwnProperty("RangeInit"))
+                if (typeof message.RangeInit !== "number")
+                    return "RangeInit: number expected";
+            if (message.ItemLimitInit != null && message.hasOwnProperty("ItemLimitInit"))
+                if (!$util.isInteger(message.ItemLimitInit))
+                    return "ItemLimitInit: integer expected";
+            if (message.MoneyLimitInit != null && message.hasOwnProperty("MoneyLimitInit"))
+                if (!$util.isInteger(message.MoneyLimitInit))
+                    return "MoneyLimitInit: integer expected";
+            if (message.SpeedInit != null && message.hasOwnProperty("SpeedInit"))
+                if (typeof message.SpeedInit !== "number")
+                    return "SpeedInit: number expected";
+            if (message.StopTimeInit != null && message.hasOwnProperty("StopTimeInit"))
+                if (typeof message.StopTimeInit !== "number")
+                    return "StopTimeInit: number expected";
+            if (message.MaxLevel != null && message.hasOwnProperty("MaxLevel"))
+                if (!$util.isInteger(message.MaxLevel))
+                    return "MaxLevel: integer expected";
+            if (message.RewardAddition != null && message.hasOwnProperty("RewardAddition"))
+                if (!$util.isInteger(message.RewardAddition))
+                    return "RewardAddition: integer expected";
+            if (message.RangeAddition != null && message.hasOwnProperty("RangeAddition"))
+                if (typeof message.RangeAddition !== "number")
+                    return "RangeAddition: number expected";
+            if (message.ItemLimitAddition != null && message.hasOwnProperty("ItemLimitAddition"))
+                if (!$util.isInteger(message.ItemLimitAddition))
+                    return "ItemLimitAddition: integer expected";
+            if (message.MoneyLimitAddition != null && message.hasOwnProperty("MoneyLimitAddition"))
+                if (!$util.isInteger(message.MoneyLimitAddition))
+                    return "MoneyLimitAddition: integer expected";
+            if (message.SpeedAddition != null && message.hasOwnProperty("SpeedAddition"))
+                if (typeof message.SpeedAddition !== "number")
+                    return "SpeedAddition: number expected";
+            if (message.StopTimeAddition != null && message.hasOwnProperty("StopTimeAddition"))
+                if (typeof message.StopTimeAddition !== "number")
+                    return "StopTimeAddition: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCarPartDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarPartDefine} TCarPartDefine
+         */
+        TCarPartDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarPartDefine)
+                return object;
+            var message = new $root.table.TCarPartDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Type != null)
+                message.Type = object.Type >>> 0;
+            if (object.Quality != null)
+                message.Quality = object.Quality >>> 0;
+            if (object.RewardInit != null)
+                message.RewardInit = object.RewardInit >>> 0;
+            if (object.RangeInit != null)
+                message.RangeInit = Number(object.RangeInit);
+            if (object.ItemLimitInit != null)
+                message.ItemLimitInit = object.ItemLimitInit >>> 0;
+            if (object.MoneyLimitInit != null)
+                message.MoneyLimitInit = object.MoneyLimitInit >>> 0;
+            if (object.SpeedInit != null)
+                message.SpeedInit = Number(object.SpeedInit);
+            if (object.StopTimeInit != null)
+                message.StopTimeInit = Number(object.StopTimeInit);
+            if (object.MaxLevel != null)
+                message.MaxLevel = object.MaxLevel >>> 0;
+            if (object.RewardAddition != null)
+                message.RewardAddition = object.RewardAddition >>> 0;
+            if (object.RangeAddition != null)
+                message.RangeAddition = Number(object.RangeAddition);
+            if (object.ItemLimitAddition != null)
+                message.ItemLimitAddition = object.ItemLimitAddition >>> 0;
+            if (object.MoneyLimitAddition != null)
+                message.MoneyLimitAddition = object.MoneyLimitAddition >>> 0;
+            if (object.SpeedAddition != null)
+                message.SpeedAddition = Number(object.SpeedAddition);
+            if (object.StopTimeAddition != null)
+                message.StopTimeAddition = Number(object.StopTimeAddition);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarPartDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarPartDefine
+         * @static
+         * @param {table.TCarPartDefine} message TCarPartDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarPartDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.Quality = 0;
+                object.RewardInit = 0;
+                object.RangeInit = 0;
+                object.ItemLimitInit = 0;
+                object.MoneyLimitInit = 0;
+                object.SpeedInit = 0;
+                object.StopTimeInit = 0;
+                object.MaxLevel = 0;
+                object.RewardAddition = 0;
+                object.RangeAddition = 0;
+                object.ItemLimitAddition = 0;
+                object.MoneyLimitAddition = 0;
+                object.SpeedAddition = 0;
+                object.StopTimeAddition = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Quality != null && message.hasOwnProperty("Quality"))
+                object.Quality = message.Quality;
+            if (message.RewardInit != null && message.hasOwnProperty("RewardInit"))
+                object.RewardInit = message.RewardInit;
+            if (message.RangeInit != null && message.hasOwnProperty("RangeInit"))
+                object.RangeInit = options.json && !isFinite(message.RangeInit) ? String(message.RangeInit) : message.RangeInit;
+            if (message.ItemLimitInit != null && message.hasOwnProperty("ItemLimitInit"))
+                object.ItemLimitInit = message.ItemLimitInit;
+            if (message.MoneyLimitInit != null && message.hasOwnProperty("MoneyLimitInit"))
+                object.MoneyLimitInit = message.MoneyLimitInit;
+            if (message.SpeedInit != null && message.hasOwnProperty("SpeedInit"))
+                object.SpeedInit = options.json && !isFinite(message.SpeedInit) ? String(message.SpeedInit) : message.SpeedInit;
+            if (message.StopTimeInit != null && message.hasOwnProperty("StopTimeInit"))
+                object.StopTimeInit = options.json && !isFinite(message.StopTimeInit) ? String(message.StopTimeInit) : message.StopTimeInit;
+            if (message.MaxLevel != null && message.hasOwnProperty("MaxLevel"))
+                object.MaxLevel = message.MaxLevel;
+            if (message.RewardAddition != null && message.hasOwnProperty("RewardAddition"))
+                object.RewardAddition = message.RewardAddition;
+            if (message.RangeAddition != null && message.hasOwnProperty("RangeAddition"))
+                object.RangeAddition = options.json && !isFinite(message.RangeAddition) ? String(message.RangeAddition) : message.RangeAddition;
+            if (message.ItemLimitAddition != null && message.hasOwnProperty("ItemLimitAddition"))
+                object.ItemLimitAddition = message.ItemLimitAddition;
+            if (message.MoneyLimitAddition != null && message.hasOwnProperty("MoneyLimitAddition"))
+                object.MoneyLimitAddition = message.MoneyLimitAddition;
+            if (message.SpeedAddition != null && message.hasOwnProperty("SpeedAddition"))
+                object.SpeedAddition = options.json && !isFinite(message.SpeedAddition) ? String(message.SpeedAddition) : message.SpeedAddition;
+            if (message.StopTimeAddition != null && message.hasOwnProperty("StopTimeAddition"))
+                object.StopTimeAddition = options.json && !isFinite(message.StopTimeAddition) ? String(message.StopTimeAddition) : message.StopTimeAddition;
+            return object;
+        };
+
+        /**
+         * Converts this TCarPartDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCarPartDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarPartDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarPartDefine;
+    })();
+
+    table.TCarPartLevelupBase = (function() {
+
+        /**
+         * Properties of a TCarPartLevelupBase.
+         * @memberof table
+         * @interface ITCarPartLevelupBase
+         * @property {Array.<table.ITCarPartLevelupDefine>|null} [TCarPartLevelup] TCarPartLevelupBase TCarPartLevelup
+         */
+
+        /**
+         * Constructs a new TCarPartLevelupBase.
+         * @memberof table
+         * @classdesc Represents a TCarPartLevelupBase.
+         * @implements ITCarPartLevelupBase
+         * @constructor
+         * @param {table.ITCarPartLevelupBase=} [properties] Properties to set
+         */
+        function TCarPartLevelupBase(properties) {
+            this.TCarPartLevelup = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarPartLevelupBase TCarPartLevelup.
+         * @member {Array.<table.ITCarPartLevelupDefine>} TCarPartLevelup
+         * @memberof table.TCarPartLevelupBase
+         * @instance
+         */
+        TCarPartLevelupBase.prototype.TCarPartLevelup = $util.emptyArray;
+
+        /**
+         * Creates a new TCarPartLevelupBase instance using the specified properties.
+         * @function create
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {table.ITCarPartLevelupBase=} [properties] Properties to set
+         * @returns {table.TCarPartLevelupBase} TCarPartLevelupBase instance
+         */
+        TCarPartLevelupBase.create = function create(properties) {
+            return new TCarPartLevelupBase(properties);
+        };
+
+        /**
+         * Encodes the specified TCarPartLevelupBase message. Does not implicitly {@link table.TCarPartLevelupBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {table.ITCarPartLevelupBase} message TCarPartLevelupBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartLevelupBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCarPartLevelup != null && message.TCarPartLevelup.length)
+                for (var i = 0; i < message.TCarPartLevelup.length; ++i)
+                    $root.table.TCarPartLevelupDefine.encode(message.TCarPartLevelup[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarPartLevelupBase message, length delimited. Does not implicitly {@link table.TCarPartLevelupBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {table.ITCarPartLevelupBase} message TCarPartLevelupBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartLevelupBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarPartLevelupBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarPartLevelupBase} TCarPartLevelupBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartLevelupBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarPartLevelupBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCarPartLevelup && message.TCarPartLevelup.length))
+                        message.TCarPartLevelup = [];
+                    message.TCarPartLevelup.push($root.table.TCarPartLevelupDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarPartLevelupBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarPartLevelupBase} TCarPartLevelupBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartLevelupBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarPartLevelupBase message.
+         * @function verify
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarPartLevelupBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCarPartLevelup != null && message.hasOwnProperty("TCarPartLevelup")) {
+                if (!Array.isArray(message.TCarPartLevelup))
+                    return "TCarPartLevelup: array expected";
+                for (var i = 0; i < message.TCarPartLevelup.length; ++i) {
+                    var error = $root.table.TCarPartLevelupDefine.verify(message.TCarPartLevelup[i]);
+                    if (error)
+                        return "TCarPartLevelup." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TCarPartLevelupBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarPartLevelupBase} TCarPartLevelupBase
+         */
+        TCarPartLevelupBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarPartLevelupBase)
+                return object;
+            var message = new $root.table.TCarPartLevelupBase();
+            if (object.TCarPartLevelup) {
+                if (!Array.isArray(object.TCarPartLevelup))
+                    throw TypeError(".table.TCarPartLevelupBase.TCarPartLevelup: array expected");
+                message.TCarPartLevelup = [];
+                for (var i = 0; i < object.TCarPartLevelup.length; ++i) {
+                    if (typeof object.TCarPartLevelup[i] !== "object")
+                        throw TypeError(".table.TCarPartLevelupBase.TCarPartLevelup: object expected");
+                    message.TCarPartLevelup[i] = $root.table.TCarPartLevelupDefine.fromObject(object.TCarPartLevelup[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarPartLevelupBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarPartLevelupBase
+         * @static
+         * @param {table.TCarPartLevelupBase} message TCarPartLevelupBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarPartLevelupBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCarPartLevelup = [];
+            if (message.TCarPartLevelup && message.TCarPartLevelup.length) {
+                object.TCarPartLevelup = [];
+                for (var j = 0; j < message.TCarPartLevelup.length; ++j)
+                    object.TCarPartLevelup[j] = $root.table.TCarPartLevelupDefine.toObject(message.TCarPartLevelup[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TCarPartLevelupBase to JSON.
+         * @function toJSON
+         * @memberof table.TCarPartLevelupBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarPartLevelupBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarPartLevelupBase;
+    })();
+
+    table.TCarPartLevelupDefine = (function() {
+
+        /**
+         * Properties of a TCarPartLevelupDefine.
+         * @memberof table
+         * @interface ITCarPartLevelupDefine
+         * @property {number|null} [Id] TCarPartLevelupDefine Id
+         * @property {number|null} [Partid] TCarPartLevelupDefine Partid
+         * @property {number|null} [Level] TCarPartLevelupDefine Level
+         * @property {number|null} [Exp] TCarPartLevelupDefine Exp
+         * @property {number|null} [Cost] TCarPartLevelupDefine Cost
+         */
+
+        /**
+         * Constructs a new TCarPartLevelupDefine.
+         * @memberof table
+         * @classdesc Represents a TCarPartLevelupDefine.
+         * @implements ITCarPartLevelupDefine
+         * @constructor
+         * @param {table.ITCarPartLevelupDefine=} [properties] Properties to set
+         */
+        function TCarPartLevelupDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarPartLevelupDefine Id.
+         * @member {number} Id
+         * @memberof table.TCarPartLevelupDefine
+         * @instance
+         */
+        TCarPartLevelupDefine.prototype.Id = 0;
+
+        /**
+         * TCarPartLevelupDefine Partid.
+         * @member {number} Partid
+         * @memberof table.TCarPartLevelupDefine
+         * @instance
+         */
+        TCarPartLevelupDefine.prototype.Partid = 0;
+
+        /**
+         * TCarPartLevelupDefine Level.
+         * @member {number} Level
+         * @memberof table.TCarPartLevelupDefine
+         * @instance
+         */
+        TCarPartLevelupDefine.prototype.Level = 0;
+
+        /**
+         * TCarPartLevelupDefine Exp.
+         * @member {number} Exp
+         * @memberof table.TCarPartLevelupDefine
+         * @instance
+         */
+        TCarPartLevelupDefine.prototype.Exp = 0;
+
+        /**
+         * TCarPartLevelupDefine Cost.
+         * @member {number} Cost
+         * @memberof table.TCarPartLevelupDefine
+         * @instance
+         */
+        TCarPartLevelupDefine.prototype.Cost = 0;
+
+        /**
+         * Creates a new TCarPartLevelupDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {table.ITCarPartLevelupDefine=} [properties] Properties to set
+         * @returns {table.TCarPartLevelupDefine} TCarPartLevelupDefine instance
+         */
+        TCarPartLevelupDefine.create = function create(properties) {
+            return new TCarPartLevelupDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCarPartLevelupDefine message. Does not implicitly {@link table.TCarPartLevelupDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {table.ITCarPartLevelupDefine} message TCarPartLevelupDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartLevelupDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Partid != null && message.hasOwnProperty("Partid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.Partid);
+            if (message.Level != null && message.hasOwnProperty("Level"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Level);
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.Exp);
+            if (message.Cost != null && message.hasOwnProperty("Cost"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.Cost);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarPartLevelupDefine message, length delimited. Does not implicitly {@link table.TCarPartLevelupDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {table.ITCarPartLevelupDefine} message TCarPartLevelupDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartLevelupDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarPartLevelupDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarPartLevelupDefine} TCarPartLevelupDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartLevelupDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarPartLevelupDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Partid = reader.uint32();
+                    break;
+                case 3:
+                    message.Level = reader.uint32();
+                    break;
+                case 4:
+                    message.Exp = reader.uint32();
+                    break;
+                case 5:
+                    message.Cost = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarPartLevelupDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarPartLevelupDefine} TCarPartLevelupDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartLevelupDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarPartLevelupDefine message.
+         * @function verify
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarPartLevelupDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Partid != null && message.hasOwnProperty("Partid"))
+                if (!$util.isInteger(message.Partid))
+                    return "Partid: integer expected";
+            if (message.Level != null && message.hasOwnProperty("Level"))
+                if (!$util.isInteger(message.Level))
+                    return "Level: integer expected";
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                if (!$util.isInteger(message.Exp))
+                    return "Exp: integer expected";
+            if (message.Cost != null && message.hasOwnProperty("Cost"))
+                if (!$util.isInteger(message.Cost))
+                    return "Cost: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCarPartLevelupDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarPartLevelupDefine} TCarPartLevelupDefine
+         */
+        TCarPartLevelupDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarPartLevelupDefine)
+                return object;
+            var message = new $root.table.TCarPartLevelupDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Partid != null)
+                message.Partid = object.Partid >>> 0;
+            if (object.Level != null)
+                message.Level = object.Level >>> 0;
+            if (object.Exp != null)
+                message.Exp = object.Exp >>> 0;
+            if (object.Cost != null)
+                message.Cost = object.Cost >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarPartLevelupDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarPartLevelupDefine
+         * @static
+         * @param {table.TCarPartLevelupDefine} message TCarPartLevelupDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarPartLevelupDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Partid = 0;
+                object.Level = 0;
+                object.Exp = 0;
+                object.Cost = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Partid != null && message.hasOwnProperty("Partid"))
+                object.Partid = message.Partid;
+            if (message.Level != null && message.hasOwnProperty("Level"))
+                object.Level = message.Level;
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                object.Exp = message.Exp;
+            if (message.Cost != null && message.hasOwnProperty("Cost"))
+                object.Cost = message.Cost;
+            return object;
+        };
+
+        /**
+         * Converts this TCarPartLevelupDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCarPartLevelupDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarPartLevelupDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarPartLevelupDefine;
     })();
 
     table.CarShopBase = (function() {
@@ -54342,6 +59376,666 @@ $root.table = (function() {
         };
 
         return TCarShopDefine;
+    })();
+
+    table.TCarStarAttrBase = (function() {
+
+        /**
+         * Properties of a TCarStarAttrBase.
+         * @memberof table
+         * @interface ITCarStarAttrBase
+         * @property {Array.<table.ITCarStarAttrDefine>|null} [TCarStarAttr] TCarStarAttrBase TCarStarAttr
+         */
+
+        /**
+         * Constructs a new TCarStarAttrBase.
+         * @memberof table
+         * @classdesc Represents a TCarStarAttrBase.
+         * @implements ITCarStarAttrBase
+         * @constructor
+         * @param {table.ITCarStarAttrBase=} [properties] Properties to set
+         */
+        function TCarStarAttrBase(properties) {
+            this.TCarStarAttr = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarStarAttrBase TCarStarAttr.
+         * @member {Array.<table.ITCarStarAttrDefine>} TCarStarAttr
+         * @memberof table.TCarStarAttrBase
+         * @instance
+         */
+        TCarStarAttrBase.prototype.TCarStarAttr = $util.emptyArray;
+
+        /**
+         * Creates a new TCarStarAttrBase instance using the specified properties.
+         * @function create
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {table.ITCarStarAttrBase=} [properties] Properties to set
+         * @returns {table.TCarStarAttrBase} TCarStarAttrBase instance
+         */
+        TCarStarAttrBase.create = function create(properties) {
+            return new TCarStarAttrBase(properties);
+        };
+
+        /**
+         * Encodes the specified TCarStarAttrBase message. Does not implicitly {@link table.TCarStarAttrBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {table.ITCarStarAttrBase} message TCarStarAttrBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarStarAttrBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCarStarAttr != null && message.TCarStarAttr.length)
+                for (var i = 0; i < message.TCarStarAttr.length; ++i)
+                    $root.table.TCarStarAttrDefine.encode(message.TCarStarAttr[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarStarAttrBase message, length delimited. Does not implicitly {@link table.TCarStarAttrBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {table.ITCarStarAttrBase} message TCarStarAttrBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarStarAttrBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarStarAttrBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarStarAttrBase} TCarStarAttrBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarStarAttrBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarStarAttrBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCarStarAttr && message.TCarStarAttr.length))
+                        message.TCarStarAttr = [];
+                    message.TCarStarAttr.push($root.table.TCarStarAttrDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarStarAttrBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarStarAttrBase} TCarStarAttrBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarStarAttrBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarStarAttrBase message.
+         * @function verify
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarStarAttrBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCarStarAttr != null && message.hasOwnProperty("TCarStarAttr")) {
+                if (!Array.isArray(message.TCarStarAttr))
+                    return "TCarStarAttr: array expected";
+                for (var i = 0; i < message.TCarStarAttr.length; ++i) {
+                    var error = $root.table.TCarStarAttrDefine.verify(message.TCarStarAttr[i]);
+                    if (error)
+                        return "TCarStarAttr." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TCarStarAttrBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarStarAttrBase} TCarStarAttrBase
+         */
+        TCarStarAttrBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarStarAttrBase)
+                return object;
+            var message = new $root.table.TCarStarAttrBase();
+            if (object.TCarStarAttr) {
+                if (!Array.isArray(object.TCarStarAttr))
+                    throw TypeError(".table.TCarStarAttrBase.TCarStarAttr: array expected");
+                message.TCarStarAttr = [];
+                for (var i = 0; i < object.TCarStarAttr.length; ++i) {
+                    if (typeof object.TCarStarAttr[i] !== "object")
+                        throw TypeError(".table.TCarStarAttrBase.TCarStarAttr: object expected");
+                    message.TCarStarAttr[i] = $root.table.TCarStarAttrDefine.fromObject(object.TCarStarAttr[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarStarAttrBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarStarAttrBase
+         * @static
+         * @param {table.TCarStarAttrBase} message TCarStarAttrBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarStarAttrBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCarStarAttr = [];
+            if (message.TCarStarAttr && message.TCarStarAttr.length) {
+                object.TCarStarAttr = [];
+                for (var j = 0; j < message.TCarStarAttr.length; ++j)
+                    object.TCarStarAttr[j] = $root.table.TCarStarAttrDefine.toObject(message.TCarStarAttr[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TCarStarAttrBase to JSON.
+         * @function toJSON
+         * @memberof table.TCarStarAttrBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarStarAttrBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarStarAttrBase;
+    })();
+
+    table.TCarStarAttrDefine = (function() {
+
+        /**
+         * Properties of a TCarStarAttrDefine.
+         * @memberof table
+         * @interface ITCarStarAttrDefine
+         * @property {number|null} [Id] TCarStarAttrDefine Id
+         * @property {number|null} [RewardInit] TCarStarAttrDefine RewardInit
+         * @property {number|null} [RangeInit] TCarStarAttrDefine RangeInit
+         * @property {number|null} [ItemLimitInit] TCarStarAttrDefine ItemLimitInit
+         * @property {number|null} [MoneyLimitInit] TCarStarAttrDefine MoneyLimitInit
+         * @property {number|null} [SpeedInit] TCarStarAttrDefine SpeedInit
+         * @property {number|null} [StopTimeInit] TCarStarAttrDefine StopTimeInit
+         * @property {number|null} [RewardAddition] TCarStarAttrDefine RewardAddition
+         * @property {number|null} [RangeAddition] TCarStarAttrDefine RangeAddition
+         * @property {number|null} [ItemLimitAddition] TCarStarAttrDefine ItemLimitAddition
+         * @property {number|null} [MoneyLimitAddition] TCarStarAttrDefine MoneyLimitAddition
+         * @property {number|null} [SpeedAddition] TCarStarAttrDefine SpeedAddition
+         * @property {number|null} [StopTimeAddition] TCarStarAttrDefine StopTimeAddition
+         */
+
+        /**
+         * Constructs a new TCarStarAttrDefine.
+         * @memberof table
+         * @classdesc Represents a TCarStarAttrDefine.
+         * @implements ITCarStarAttrDefine
+         * @constructor
+         * @param {table.ITCarStarAttrDefine=} [properties] Properties to set
+         */
+        function TCarStarAttrDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarStarAttrDefine Id.
+         * @member {number} Id
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.Id = 0;
+
+        /**
+         * TCarStarAttrDefine RewardInit.
+         * @member {number} RewardInit
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.RewardInit = 0;
+
+        /**
+         * TCarStarAttrDefine RangeInit.
+         * @member {number} RangeInit
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.RangeInit = 0;
+
+        /**
+         * TCarStarAttrDefine ItemLimitInit.
+         * @member {number} ItemLimitInit
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.ItemLimitInit = 0;
+
+        /**
+         * TCarStarAttrDefine MoneyLimitInit.
+         * @member {number} MoneyLimitInit
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.MoneyLimitInit = 0;
+
+        /**
+         * TCarStarAttrDefine SpeedInit.
+         * @member {number} SpeedInit
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.SpeedInit = 0;
+
+        /**
+         * TCarStarAttrDefine StopTimeInit.
+         * @member {number} StopTimeInit
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.StopTimeInit = 0;
+
+        /**
+         * TCarStarAttrDefine RewardAddition.
+         * @member {number} RewardAddition
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.RewardAddition = 0;
+
+        /**
+         * TCarStarAttrDefine RangeAddition.
+         * @member {number} RangeAddition
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.RangeAddition = 0;
+
+        /**
+         * TCarStarAttrDefine ItemLimitAddition.
+         * @member {number} ItemLimitAddition
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.ItemLimitAddition = 0;
+
+        /**
+         * TCarStarAttrDefine MoneyLimitAddition.
+         * @member {number} MoneyLimitAddition
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.MoneyLimitAddition = 0;
+
+        /**
+         * TCarStarAttrDefine SpeedAddition.
+         * @member {number} SpeedAddition
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.SpeedAddition = 0;
+
+        /**
+         * TCarStarAttrDefine StopTimeAddition.
+         * @member {number} StopTimeAddition
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         */
+        TCarStarAttrDefine.prototype.StopTimeAddition = 0;
+
+        /**
+         * Creates a new TCarStarAttrDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {table.ITCarStarAttrDefine=} [properties] Properties to set
+         * @returns {table.TCarStarAttrDefine} TCarStarAttrDefine instance
+         */
+        TCarStarAttrDefine.create = function create(properties) {
+            return new TCarStarAttrDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCarStarAttrDefine message. Does not implicitly {@link table.TCarStarAttrDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {table.ITCarStarAttrDefine} message TCarStarAttrDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarStarAttrDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.RewardInit != null && message.hasOwnProperty("RewardInit"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.RewardInit);
+            if (message.RangeInit != null && message.hasOwnProperty("RangeInit"))
+                writer.uint32(/* id 3, wireType 5 =*/29).float(message.RangeInit);
+            if (message.ItemLimitInit != null && message.hasOwnProperty("ItemLimitInit"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ItemLimitInit);
+            if (message.MoneyLimitInit != null && message.hasOwnProperty("MoneyLimitInit"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.MoneyLimitInit);
+            if (message.SpeedInit != null && message.hasOwnProperty("SpeedInit"))
+                writer.uint32(/* id 6, wireType 5 =*/53).float(message.SpeedInit);
+            if (message.StopTimeInit != null && message.hasOwnProperty("StopTimeInit"))
+                writer.uint32(/* id 7, wireType 5 =*/61).float(message.StopTimeInit);
+            if (message.RewardAddition != null && message.hasOwnProperty("RewardAddition"))
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.RewardAddition);
+            if (message.RangeAddition != null && message.hasOwnProperty("RangeAddition"))
+                writer.uint32(/* id 9, wireType 5 =*/77).float(message.RangeAddition);
+            if (message.ItemLimitAddition != null && message.hasOwnProperty("ItemLimitAddition"))
+                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.ItemLimitAddition);
+            if (message.MoneyLimitAddition != null && message.hasOwnProperty("MoneyLimitAddition"))
+                writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.MoneyLimitAddition);
+            if (message.SpeedAddition != null && message.hasOwnProperty("SpeedAddition"))
+                writer.uint32(/* id 12, wireType 5 =*/101).float(message.SpeedAddition);
+            if (message.StopTimeAddition != null && message.hasOwnProperty("StopTimeAddition"))
+                writer.uint32(/* id 13, wireType 5 =*/109).float(message.StopTimeAddition);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarStarAttrDefine message, length delimited. Does not implicitly {@link table.TCarStarAttrDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {table.ITCarStarAttrDefine} message TCarStarAttrDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarStarAttrDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarStarAttrDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarStarAttrDefine} TCarStarAttrDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarStarAttrDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarStarAttrDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.RewardInit = reader.uint32();
+                    break;
+                case 3:
+                    message.RangeInit = reader.float();
+                    break;
+                case 4:
+                    message.ItemLimitInit = reader.uint32();
+                    break;
+                case 5:
+                    message.MoneyLimitInit = reader.uint32();
+                    break;
+                case 6:
+                    message.SpeedInit = reader.float();
+                    break;
+                case 7:
+                    message.StopTimeInit = reader.float();
+                    break;
+                case 8:
+                    message.RewardAddition = reader.uint32();
+                    break;
+                case 9:
+                    message.RangeAddition = reader.float();
+                    break;
+                case 10:
+                    message.ItemLimitAddition = reader.uint32();
+                    break;
+                case 11:
+                    message.MoneyLimitAddition = reader.uint32();
+                    break;
+                case 12:
+                    message.SpeedAddition = reader.float();
+                    break;
+                case 13:
+                    message.StopTimeAddition = reader.float();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarStarAttrDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarStarAttrDefine} TCarStarAttrDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarStarAttrDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarStarAttrDefine message.
+         * @function verify
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarStarAttrDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.RewardInit != null && message.hasOwnProperty("RewardInit"))
+                if (!$util.isInteger(message.RewardInit))
+                    return "RewardInit: integer expected";
+            if (message.RangeInit != null && message.hasOwnProperty("RangeInit"))
+                if (typeof message.RangeInit !== "number")
+                    return "RangeInit: number expected";
+            if (message.ItemLimitInit != null && message.hasOwnProperty("ItemLimitInit"))
+                if (!$util.isInteger(message.ItemLimitInit))
+                    return "ItemLimitInit: integer expected";
+            if (message.MoneyLimitInit != null && message.hasOwnProperty("MoneyLimitInit"))
+                if (!$util.isInteger(message.MoneyLimitInit))
+                    return "MoneyLimitInit: integer expected";
+            if (message.SpeedInit != null && message.hasOwnProperty("SpeedInit"))
+                if (typeof message.SpeedInit !== "number")
+                    return "SpeedInit: number expected";
+            if (message.StopTimeInit != null && message.hasOwnProperty("StopTimeInit"))
+                if (typeof message.StopTimeInit !== "number")
+                    return "StopTimeInit: number expected";
+            if (message.RewardAddition != null && message.hasOwnProperty("RewardAddition"))
+                if (!$util.isInteger(message.RewardAddition))
+                    return "RewardAddition: integer expected";
+            if (message.RangeAddition != null && message.hasOwnProperty("RangeAddition"))
+                if (typeof message.RangeAddition !== "number")
+                    return "RangeAddition: number expected";
+            if (message.ItemLimitAddition != null && message.hasOwnProperty("ItemLimitAddition"))
+                if (!$util.isInteger(message.ItemLimitAddition))
+                    return "ItemLimitAddition: integer expected";
+            if (message.MoneyLimitAddition != null && message.hasOwnProperty("MoneyLimitAddition"))
+                if (!$util.isInteger(message.MoneyLimitAddition))
+                    return "MoneyLimitAddition: integer expected";
+            if (message.SpeedAddition != null && message.hasOwnProperty("SpeedAddition"))
+                if (typeof message.SpeedAddition !== "number")
+                    return "SpeedAddition: number expected";
+            if (message.StopTimeAddition != null && message.hasOwnProperty("StopTimeAddition"))
+                if (typeof message.StopTimeAddition !== "number")
+                    return "StopTimeAddition: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCarStarAttrDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarStarAttrDefine} TCarStarAttrDefine
+         */
+        TCarStarAttrDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarStarAttrDefine)
+                return object;
+            var message = new $root.table.TCarStarAttrDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.RewardInit != null)
+                message.RewardInit = object.RewardInit >>> 0;
+            if (object.RangeInit != null)
+                message.RangeInit = Number(object.RangeInit);
+            if (object.ItemLimitInit != null)
+                message.ItemLimitInit = object.ItemLimitInit >>> 0;
+            if (object.MoneyLimitInit != null)
+                message.MoneyLimitInit = object.MoneyLimitInit >>> 0;
+            if (object.SpeedInit != null)
+                message.SpeedInit = Number(object.SpeedInit);
+            if (object.StopTimeInit != null)
+                message.StopTimeInit = Number(object.StopTimeInit);
+            if (object.RewardAddition != null)
+                message.RewardAddition = object.RewardAddition >>> 0;
+            if (object.RangeAddition != null)
+                message.RangeAddition = Number(object.RangeAddition);
+            if (object.ItemLimitAddition != null)
+                message.ItemLimitAddition = object.ItemLimitAddition >>> 0;
+            if (object.MoneyLimitAddition != null)
+                message.MoneyLimitAddition = object.MoneyLimitAddition >>> 0;
+            if (object.SpeedAddition != null)
+                message.SpeedAddition = Number(object.SpeedAddition);
+            if (object.StopTimeAddition != null)
+                message.StopTimeAddition = Number(object.StopTimeAddition);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarStarAttrDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarStarAttrDefine
+         * @static
+         * @param {table.TCarStarAttrDefine} message TCarStarAttrDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarStarAttrDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.RewardInit = 0;
+                object.RangeInit = 0;
+                object.ItemLimitInit = 0;
+                object.MoneyLimitInit = 0;
+                object.SpeedInit = 0;
+                object.StopTimeInit = 0;
+                object.RewardAddition = 0;
+                object.RangeAddition = 0;
+                object.ItemLimitAddition = 0;
+                object.MoneyLimitAddition = 0;
+                object.SpeedAddition = 0;
+                object.StopTimeAddition = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.RewardInit != null && message.hasOwnProperty("RewardInit"))
+                object.RewardInit = message.RewardInit;
+            if (message.RangeInit != null && message.hasOwnProperty("RangeInit"))
+                object.RangeInit = options.json && !isFinite(message.RangeInit) ? String(message.RangeInit) : message.RangeInit;
+            if (message.ItemLimitInit != null && message.hasOwnProperty("ItemLimitInit"))
+                object.ItemLimitInit = message.ItemLimitInit;
+            if (message.MoneyLimitInit != null && message.hasOwnProperty("MoneyLimitInit"))
+                object.MoneyLimitInit = message.MoneyLimitInit;
+            if (message.SpeedInit != null && message.hasOwnProperty("SpeedInit"))
+                object.SpeedInit = options.json && !isFinite(message.SpeedInit) ? String(message.SpeedInit) : message.SpeedInit;
+            if (message.StopTimeInit != null && message.hasOwnProperty("StopTimeInit"))
+                object.StopTimeInit = options.json && !isFinite(message.StopTimeInit) ? String(message.StopTimeInit) : message.StopTimeInit;
+            if (message.RewardAddition != null && message.hasOwnProperty("RewardAddition"))
+                object.RewardAddition = message.RewardAddition;
+            if (message.RangeAddition != null && message.hasOwnProperty("RangeAddition"))
+                object.RangeAddition = options.json && !isFinite(message.RangeAddition) ? String(message.RangeAddition) : message.RangeAddition;
+            if (message.ItemLimitAddition != null && message.hasOwnProperty("ItemLimitAddition"))
+                object.ItemLimitAddition = message.ItemLimitAddition;
+            if (message.MoneyLimitAddition != null && message.hasOwnProperty("MoneyLimitAddition"))
+                object.MoneyLimitAddition = message.MoneyLimitAddition;
+            if (message.SpeedAddition != null && message.hasOwnProperty("SpeedAddition"))
+                object.SpeedAddition = options.json && !isFinite(message.SpeedAddition) ? String(message.SpeedAddition) : message.SpeedAddition;
+            if (message.StopTimeAddition != null && message.hasOwnProperty("StopTimeAddition"))
+                object.StopTimeAddition = options.json && !isFinite(message.StopTimeAddition) ? String(message.StopTimeAddition) : message.StopTimeAddition;
+            return object;
+        };
+
+        /**
+         * Converts this TCarStarAttrDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCarStarAttrDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarStarAttrDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarStarAttrDefine;
     })();
 
     table.TCitysBase = (function() {
@@ -57449,6 +63143,7 @@ $root.table = (function() {
          * @interface IItemBaseDataDefine
          * @property {number|null} [Id] ItemBaseDataDefine Id
          * @property {number|null} [Type] ItemBaseDataDefine Type
+         * @property {number|null} [SubType] ItemBaseDataDefine SubType
          * @property {number|null} [Color] ItemBaseDataDefine Color
          * @property {number|null} [ImageId] ItemBaseDataDefine ImageId
          * @property {string|null} [Name] ItemBaseDataDefine Name
@@ -57486,6 +63181,14 @@ $root.table = (function() {
          * @instance
          */
         ItemBaseDataDefine.prototype.Type = 0;
+
+        /**
+         * ItemBaseDataDefine SubType.
+         * @member {number} SubType
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.SubType = 0;
 
         /**
          * ItemBaseDataDefine Color.
@@ -57555,16 +63258,18 @@ $root.table = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
             if (message.Type != null && message.hasOwnProperty("Type"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.SubType);
             if (message.Color != null && message.hasOwnProperty("Color"))
-                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Color);
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.Color);
             if (message.ImageId != null && message.hasOwnProperty("ImageId"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.ImageId);
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.ImageId);
             if (message.Name != null && message.hasOwnProperty("Name"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Name);
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Name);
             if (message.Desc != null && message.hasOwnProperty("Desc"))
-                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Desc);
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.Desc);
             if (message.Clothes != null && message.hasOwnProperty("Clothes"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.Clothes);
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.Clothes);
             return writer;
         };
 
@@ -57606,18 +63311,21 @@ $root.table = (function() {
                     message.Type = reader.int32();
                     break;
                 case 3:
-                    message.Color = reader.uint32();
+                    message.SubType = reader.uint32();
                     break;
                 case 4:
-                    message.ImageId = reader.uint32();
+                    message.Color = reader.uint32();
                     break;
                 case 5:
-                    message.Name = reader.string();
+                    message.ImageId = reader.uint32();
                     break;
                 case 6:
-                    message.Desc = reader.string();
+                    message.Name = reader.string();
                     break;
                 case 7:
+                    message.Desc = reader.string();
+                    break;
+                case 8:
                     message.Clothes = reader.uint32();
                     break;
                 default:
@@ -57661,6 +63369,9 @@ $root.table = (function() {
             if (message.Type != null && message.hasOwnProperty("Type"))
                 if (!$util.isInteger(message.Type))
                     return "Type: integer expected";
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                if (!$util.isInteger(message.SubType))
+                    return "SubType: integer expected";
             if (message.Color != null && message.hasOwnProperty("Color"))
                 if (!$util.isInteger(message.Color))
                     return "Color: integer expected";
@@ -57695,6 +63406,8 @@ $root.table = (function() {
                 message.Id = object.Id >>> 0;
             if (object.Type != null)
                 message.Type = object.Type | 0;
+            if (object.SubType != null)
+                message.SubType = object.SubType >>> 0;
             if (object.Color != null)
                 message.Color = object.Color >>> 0;
             if (object.ImageId != null)
@@ -57724,6 +63437,7 @@ $root.table = (function() {
             if (options.defaults) {
                 object.Id = 0;
                 object.Type = 0;
+                object.SubType = 0;
                 object.Color = 0;
                 object.ImageId = 0;
                 object.Name = "";
@@ -57734,6 +63448,8 @@ $root.table = (function() {
                 object.Id = message.Id;
             if (message.Type != null && message.hasOwnProperty("Type"))
                 object.Type = message.Type;
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                object.SubType = message.SubType;
             if (message.Color != null && message.hasOwnProperty("Color"))
                 object.Color = message.Color;
             if (message.ImageId != null && message.hasOwnProperty("ImageId"))
@@ -58199,6 +63915,446 @@ $root.table = (function() {
         };
 
         return TLevelDefine;
+    })();
+
+    table.TLevelCarPartBase = (function() {
+
+        /**
+         * Properties of a TLevelCarPartBase.
+         * @memberof table
+         * @interface ITLevelCarPartBase
+         * @property {Array.<table.ITLevelCarPartDefine>|null} [TLevelCarPart] TLevelCarPartBase TLevelCarPart
+         */
+
+        /**
+         * Constructs a new TLevelCarPartBase.
+         * @memberof table
+         * @classdesc Represents a TLevelCarPartBase.
+         * @implements ITLevelCarPartBase
+         * @constructor
+         * @param {table.ITLevelCarPartBase=} [properties] Properties to set
+         */
+        function TLevelCarPartBase(properties) {
+            this.TLevelCarPart = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TLevelCarPartBase TLevelCarPart.
+         * @member {Array.<table.ITLevelCarPartDefine>} TLevelCarPart
+         * @memberof table.TLevelCarPartBase
+         * @instance
+         */
+        TLevelCarPartBase.prototype.TLevelCarPart = $util.emptyArray;
+
+        /**
+         * Creates a new TLevelCarPartBase instance using the specified properties.
+         * @function create
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {table.ITLevelCarPartBase=} [properties] Properties to set
+         * @returns {table.TLevelCarPartBase} TLevelCarPartBase instance
+         */
+        TLevelCarPartBase.create = function create(properties) {
+            return new TLevelCarPartBase(properties);
+        };
+
+        /**
+         * Encodes the specified TLevelCarPartBase message. Does not implicitly {@link table.TLevelCarPartBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {table.ITLevelCarPartBase} message TLevelCarPartBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TLevelCarPartBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TLevelCarPart != null && message.TLevelCarPart.length)
+                for (var i = 0; i < message.TLevelCarPart.length; ++i)
+                    $root.table.TLevelCarPartDefine.encode(message.TLevelCarPart[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TLevelCarPartBase message, length delimited. Does not implicitly {@link table.TLevelCarPartBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {table.ITLevelCarPartBase} message TLevelCarPartBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TLevelCarPartBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TLevelCarPartBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TLevelCarPartBase} TLevelCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TLevelCarPartBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TLevelCarPartBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TLevelCarPart && message.TLevelCarPart.length))
+                        message.TLevelCarPart = [];
+                    message.TLevelCarPart.push($root.table.TLevelCarPartDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TLevelCarPartBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TLevelCarPartBase} TLevelCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TLevelCarPartBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TLevelCarPartBase message.
+         * @function verify
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TLevelCarPartBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TLevelCarPart != null && message.hasOwnProperty("TLevelCarPart")) {
+                if (!Array.isArray(message.TLevelCarPart))
+                    return "TLevelCarPart: array expected";
+                for (var i = 0; i < message.TLevelCarPart.length; ++i) {
+                    var error = $root.table.TLevelCarPartDefine.verify(message.TLevelCarPart[i]);
+                    if (error)
+                        return "TLevelCarPart." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TLevelCarPartBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TLevelCarPartBase} TLevelCarPartBase
+         */
+        TLevelCarPartBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TLevelCarPartBase)
+                return object;
+            var message = new $root.table.TLevelCarPartBase();
+            if (object.TLevelCarPart) {
+                if (!Array.isArray(object.TLevelCarPart))
+                    throw TypeError(".table.TLevelCarPartBase.TLevelCarPart: array expected");
+                message.TLevelCarPart = [];
+                for (var i = 0; i < object.TLevelCarPart.length; ++i) {
+                    if (typeof object.TLevelCarPart[i] !== "object")
+                        throw TypeError(".table.TLevelCarPartBase.TLevelCarPart: object expected");
+                    message.TLevelCarPart[i] = $root.table.TLevelCarPartDefine.fromObject(object.TLevelCarPart[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TLevelCarPartBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TLevelCarPartBase
+         * @static
+         * @param {table.TLevelCarPartBase} message TLevelCarPartBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TLevelCarPartBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TLevelCarPart = [];
+            if (message.TLevelCarPart && message.TLevelCarPart.length) {
+                object.TLevelCarPart = [];
+                for (var j = 0; j < message.TLevelCarPart.length; ++j)
+                    object.TLevelCarPart[j] = $root.table.TLevelCarPartDefine.toObject(message.TLevelCarPart[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TLevelCarPartBase to JSON.
+         * @function toJSON
+         * @memberof table.TLevelCarPartBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TLevelCarPartBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TLevelCarPartBase;
+    })();
+
+    table.TLevelCarPartDefine = (function() {
+
+        /**
+         * Properties of a TLevelCarPartDefine.
+         * @memberof table
+         * @interface ITLevelCarPartDefine
+         * @property {number|null} [Id] TLevelCarPartDefine Id
+         * @property {number|null} [Exp] TLevelCarPartDefine Exp
+         * @property {number|null} [PartType] TLevelCarPartDefine PartType
+         */
+
+        /**
+         * Constructs a new TLevelCarPartDefine.
+         * @memberof table
+         * @classdesc Represents a TLevelCarPartDefine.
+         * @implements ITLevelCarPartDefine
+         * @constructor
+         * @param {table.ITLevelCarPartDefine=} [properties] Properties to set
+         */
+        function TLevelCarPartDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TLevelCarPartDefine Id.
+         * @member {number} Id
+         * @memberof table.TLevelCarPartDefine
+         * @instance
+         */
+        TLevelCarPartDefine.prototype.Id = 0;
+
+        /**
+         * TLevelCarPartDefine Exp.
+         * @member {number} Exp
+         * @memberof table.TLevelCarPartDefine
+         * @instance
+         */
+        TLevelCarPartDefine.prototype.Exp = 0;
+
+        /**
+         * TLevelCarPartDefine PartType.
+         * @member {number} PartType
+         * @memberof table.TLevelCarPartDefine
+         * @instance
+         */
+        TLevelCarPartDefine.prototype.PartType = 0;
+
+        /**
+         * Creates a new TLevelCarPartDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {table.ITLevelCarPartDefine=} [properties] Properties to set
+         * @returns {table.TLevelCarPartDefine} TLevelCarPartDefine instance
+         */
+        TLevelCarPartDefine.create = function create(properties) {
+            return new TLevelCarPartDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TLevelCarPartDefine message. Does not implicitly {@link table.TLevelCarPartDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {table.ITLevelCarPartDefine} message TLevelCarPartDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TLevelCarPartDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.Exp);
+            if (message.PartType != null && message.hasOwnProperty("PartType"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.PartType);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TLevelCarPartDefine message, length delimited. Does not implicitly {@link table.TLevelCarPartDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {table.ITLevelCarPartDefine} message TLevelCarPartDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TLevelCarPartDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TLevelCarPartDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TLevelCarPartDefine} TLevelCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TLevelCarPartDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TLevelCarPartDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Exp = reader.uint32();
+                    break;
+                case 3:
+                    message.PartType = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TLevelCarPartDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TLevelCarPartDefine} TLevelCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TLevelCarPartDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TLevelCarPartDefine message.
+         * @function verify
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TLevelCarPartDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                if (!$util.isInteger(message.Exp))
+                    return "Exp: integer expected";
+            if (message.PartType != null && message.hasOwnProperty("PartType"))
+                if (!$util.isInteger(message.PartType))
+                    return "PartType: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TLevelCarPartDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TLevelCarPartDefine} TLevelCarPartDefine
+         */
+        TLevelCarPartDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TLevelCarPartDefine)
+                return object;
+            var message = new $root.table.TLevelCarPartDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Exp != null)
+                message.Exp = object.Exp >>> 0;
+            if (object.PartType != null)
+                message.PartType = object.PartType >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TLevelCarPartDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TLevelCarPartDefine
+         * @static
+         * @param {table.TLevelCarPartDefine} message TLevelCarPartDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TLevelCarPartDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Exp = 0;
+                object.PartType = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                object.Exp = message.Exp;
+            if (message.PartType != null && message.hasOwnProperty("PartType"))
+                object.PartType = message.PartType;
+            return object;
+        };
+
+        /**
+         * Converts this TLevelCarPartDefine to JSON.
+         * @function toJSON
+         * @memberof table.TLevelCarPartDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TLevelCarPartDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TLevelCarPartDefine;
     })();
 
     table.LevelMaidBase = (function() {

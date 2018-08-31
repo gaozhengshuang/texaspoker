@@ -1,4 +1,11 @@
 module game {
+    export enum ClickState
+    {
+        Normal      = 0,
+        Click       = 1,
+        LongPress   = 2,
+        
+    }
     //获取道具图片
     export function getItemIconSource(id: number) {
         return `item_json.${id}`;
