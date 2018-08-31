@@ -14,6 +14,7 @@ import (
 	"strconv"
 	"time"
 	"math"
+	"strings"
 )
 
 const (
@@ -309,6 +310,7 @@ func (this *CarManager) Init() {
 	this.usercars = make(map[uint64]map[uint64]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
+	this.partlevelupconfs = make(map[uint32]map[uint32]*table.TCarPartLevelupDefine)
 
 	this.ticker1Minite = util.NewGameTicker(time.Minute, this.Handler1MiniteTick)
 	this.ticker1Minite.Start()
@@ -318,6 +320,7 @@ func (this *CarManager) Init() {
 
 	this.LoadCarFromDB()
 	this.LoadParkingFromDB()
+	this.LoadLevelupConf()
 
 	//创建公共车位
 	for _, v := range this.parkings {
@@ -1004,9 +1007,38 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 		user.SendNotify("已经满星了")
 		return 4,nil
 	}
+	starupCarBase,find := tbl.TStarupCarBase.TStarupCarByStar(car.GetStar())
+	if !find {
+		user.SendNotify("没有升星的配置文件")
+		return 5,nil
+	}
+	//看看东西够不够
+	if starupCarBase.Money > user.GetGold() {
+		user.SendNotify("货币不足")
+		return 6,nil
+	}
+	costItem := make(map[uint32]uint32)
+	for _,v := range starupCarBase.Item {
+		itemstr := strings.Split(v,"-")
+		itemid, _ := strconv.Atoi(itemstr[0])
+		itemnum, _ := strconv.Atoi(itemstr[1])
+		if user.bag.GetItemNum(uint32(itemid)) < uint32(itemnum) {
+			user.SendNotify(fmt.Sprintf("道具 %d 不足",itemid))
+			return
+		}
+		costItem[uint32(itemid)] = uint32(itemnum)
+	}
+
 	car.data.Star = pb.Uint32(car.GetStar() + 1)
 	attr := this.CalculateCarAttribute(car.data)
 	car.SetAttribute(attr)
+
+	//扣东西
+	user.RemoveGold(starupCarBase.Money, "车辆升星消耗", true)
+	for k,v := range costItem {
+		user.RemoveItem(k,v,"车辆升星消耗")
+	}
+
 	return 0,car.data
 }
 
