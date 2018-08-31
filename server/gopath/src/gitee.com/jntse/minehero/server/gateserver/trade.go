@@ -319,6 +319,9 @@ func (this *GateUser) ReqTradeCarList(rev *msg.C2GW_ReqCarTradeList){
 	if rev.GetCartype() != 0 {
 		wheresql += fmt.Sprintf("and cartype=%d ", rev.GetCartype())
 	}
+	if rev.GetCarsubtype() != 0 {
+		wheresql += fmt.Sprintf("and carsubtype=%d ", rev.GetCarsubtype())
+	}
 	if rev.GetPricemin() != 0 {
 		wheresql += fmt.Sprintf("and price>=%d ", rev.GetPricemin())
 	}
@@ -389,7 +392,7 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	}
 
 	endtime := util.CURTIME() + 86400 * 3
-	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s)",car.GetId(), price, car.GetRewardPerM(), car.GetTid(), endtime, car.GetOwnerId(), car.GetStar(), car.GetCarBrand(), "")
+	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name, carsubtype) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s, %d)",car.GetId(), price, car.GetRewardPerM(), car.GetTid(), endtime, car.GetOwnerId(), car.GetStar(), car.GetCarBrand(), "", car.GetCarModel())
 	log.Info("[房屋交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
 	ret, err := MysqlDB().Exec(strsql)
 	if err != nil {

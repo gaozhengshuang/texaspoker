@@ -130,7 +130,8 @@ message GW2C_RetCancelTradeHouse
 //请求车辆交易列表
 message C2GW_ReqCarTradeList
 {
-    optional uint32 cartype = 3;       //类型类型
+    optional uint32 cartype = 2;            //类型
+    optional uint32 carsubtype = 3;       //子类型
     optional uint32 pricemin = 4;        //价格区间小
     optional uint32 pricemax = 5;        //价格区间大
     optional uint32 carlevel = 6;      //汽车等级 1-5
