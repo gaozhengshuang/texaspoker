@@ -176,6 +176,7 @@ message CarData
     optional uint32 price = 16;             //价值
     optional uint32 tradeendtime = 17;       //交易结束时间
     optional uint64 tradeuid = 18;           //交易id
+    optional uint32 tradeprice = 19;         //交易价格
 }
 
 //车位信息
@@ -235,6 +236,7 @@ message HouseData {
     optional uint32 income = 15;        //收益    
     optional uint32 sumvalue = 16;      //总价值
     optional uint64 tradeuid = 17;      //交易id
+    optional uint32 tradeprice = 18;         //交易价格
 }
 
 // 汽车商店出售信息
