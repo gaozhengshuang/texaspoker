@@ -8,9 +8,12 @@ module game {
 		titlePanel: PageTitlePanel;
 
 		private _flag: TradePanelFlag;
-
-		protected init() {
+		constructor()
+		{
+			super();
 			this._isShowEffect = false;
+		}
+		protected init() {
 			this.recordScroller.dataList.useVirtualLayout = true;
 			this.recordScroller.initItemRenderer(TradeRecordItem);
 			this.recordScroller.setViewPort();
