@@ -35,7 +35,6 @@ module game {
 		private update() {
 			let data: msg.HouseData = this.data;
 
-			this.priceLabel.text = numAddSpace(data.sumvalue) + "金币";
 			this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";
 			this.unitPrice.text = numAddSpace(Math.floor(data.sumvalue / data.area)) + "金币";
 
@@ -46,7 +45,7 @@ module game {
 				let houseDef = TradeManager.getInstance().getHouseDefine(data.tid);
 				if (houseDef) {
 					this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
-					this.icon.show({ name: buildingDef.Community, icon: houseDef.ImageId.toString(), star: data.level, type: TradeIconType.House }); 
+					this.icon.show({ name: buildingDef.Community, icon: houseDef.ImageId.toString(), star: data.level, type: TradeIconType.House });
 				}
 				let posName = '';
 				let province = TradeManager.getInstance().getCityDefine(buildingDef.Province);
@@ -63,9 +62,11 @@ module game {
 
 			this.onSellFlag.visible = false;
 			if (data.issell) {
+				this.priceLabel.text = numAddSpace(data.tradeprice) + "金币";
 				this.showTakeBack();
 			}
 			else {
+				this.priceLabel.text = numAddSpace(data.sumvalue) + "金币";
 				this.hideTakeBack();
 			}
 		}

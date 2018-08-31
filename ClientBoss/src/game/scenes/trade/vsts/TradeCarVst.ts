@@ -59,9 +59,6 @@ module game {
 
 			NotificationCenter.addObserver(this, this.onTradeList, 'msg.GW2C_RetCarTradeList');
 			NotificationCenter.addObserver(this, this.refreshList, PlayerModel.CAR_UPDATE);
-
-			//显示默认请求一次
-			this.startReqTradeList();
 		}
 		public beforeRemove() {
 			super.beforeRemove();
@@ -75,10 +72,9 @@ module game {
 					if (!this.context.carBrandBtn.isHide) {
 						this.brandFilter.visible = true;
 						this.brandFilter.setData(this._filterBrandVo, this.brandFilter.ls_items_brand.selectedIndex);
-						this.hideBrandFilter();
 					}
 					else {
-						this.brandFilter.visible = false;
+						this.hideBrandFilter();
 					}
 					break;
 				case this.context.carPriceBtn:
@@ -97,11 +93,13 @@ module game {
 		}
 		private onAreaClick1(data: FilterComponentItemVo) {
 			this._selectBrand = data.id;
-			if (data.id == 0) //选择了全部
-			{
-				this.hideBrandFilter();
-				this.startReqTradeList();
-			}
+			// if (data.id == 0) //选择了全部 屏蔽
+			// {
+			// 	this.hideBrandFilter();
+			// 	this.startReqTradeList();
+			// }
+			this.hideBrandFilter();
+			this.startReqTradeList();
 			this.context.carBrandBtn.label = data.des;
 		}
 		private onAreaClick2(data: FilterComponentItemVo) {
@@ -120,7 +118,7 @@ module game {
 		 * 请求数据
 		 */
 		public startReqTradeList(isClear: boolean = true, isRefresh: boolean = false) {
-			let data: msg.C2GW_ReqCarTradeList = new msg.C2GW_ReqCarTradeList(); 
+			let data: msg.C2GW_ReqCarTradeList = new msg.C2GW_ReqCarTradeList();
 			// let data: any = {};
 			let brand = this._selectBrand;
 			if (brand == undefined) {

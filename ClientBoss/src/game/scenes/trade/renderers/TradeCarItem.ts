@@ -26,7 +26,7 @@ module game {
 			if (listLen > 5) {
 				let signData: msg.SimpleCarTrade = TradeManager.getInstance().tradeCarInfo.list[listLen - 5] as msg.SimpleCarTrade;
 				if (data.caruid == signData.caruid) {
-					TradePanel.getInstance().startReqCarTradeList(false);
+					// TradePanel.getInstance().startReqCarTradeList(false); //todo
 				}
 			}
 			let carDef = TradeManager.getInstance().getCarDefine(data.carbaseid);

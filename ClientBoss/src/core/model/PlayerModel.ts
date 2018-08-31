@@ -95,33 +95,30 @@ module game {
             }
             else {
                 if (this._houses) {
-                    let isFind:boolean = false;
+                    let isFind: boolean = false;
                     for (let i: number = 0; i < this._houses.length; i++) {
                         let houseData: msg.HouseData = this._houses[i];
                         if (houseData.id == data.houseuid) {
                             for (let key in houseData) { //更新属性
-                                if (houseData.hasOwnProperty(key)) {
-                                    houseData[key] = data.data[key];
-                                }
+                                // if (houseData.hasOwnProperty(key)) {
+                                houseData[key] = data.data[key];
+                                // }
                             }
                             isFind = true;
                             break;
                         }
                     }
-                    if(!isFind)
-                    {
+                    if (!isFind) {
                         this._houses.push(data.data);
                     }
                 }
-                else
-                {
+                else {
                     this._houses = [data.data];
                 }
             }
             NotificationCenter.postNotification(PlayerModel.HOUSE_UPDATE, data);
         }
-        private GW2C_UpdateCar(data:msg.GW2C_UpdateCar)
-        {
+        private GW2C_UpdateCar(data: msg.GW2C_UpdateCar) {
             if (data.isdel) //删除
             {
                 if (this.userInfo.cardatas) {
@@ -136,26 +133,22 @@ module game {
             }
             else {
                 if (this.userInfo.cardatas) {
-                    let isFind:boolean = false;
+                    let isFind: boolean = false;
                     for (let i: number = 0; i < this.userInfo.cardatas.length; i++) {
                         let carData: msg.CarData = this.userInfo.cardatas[i] as msg.CarData;
                         if (carData.id == data.carid) {
                             for (let key in carData) { //更新属性
-                                if (carData.hasOwnProperty(key)) {
-                                    carData[key] = data.data[key];
-                                }
+                                carData[key] = data.data[key];
                             }
                             isFind = true;
                             break;
                         }
                     }
-                    if(!isFind)
-                    {
+                    if (!isFind) {
                         this.userInfo.cardatas.push(data.data);
                     }
                 }
-                else
-                {
+                else {
                     this.userInfo.cardatas = [data.data];
                 }
             }
@@ -279,15 +272,15 @@ module game {
             return [];
         }
 
- /*        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-            this.userInfo.PersonalImage.lists = this.userInfo.PersonalImage.lists.map(
-                item => {
-                    if (item.sex == data.images.sex) return data.images;
-                    return item;
-                }
-            );
-            this.skillUpdate();
-        } */
+        /*        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
+                   this.userInfo.PersonalImage.lists = this.userInfo.PersonalImage.lists.map(
+                       item => {
+                           if (item.sex == data.images.sex) return data.images;
+                           return item;
+                       }
+                   );
+                   this.skillUpdate();
+               } */
 
         public setScore(count: number) {
             this.userInfo.gold = count;
@@ -369,9 +362,10 @@ module game {
 
         //获取背包中指定类型的物品列表
         public getBagItemsByType(type: msg.ItemType) {
-            return this.bagList.filter(data=>{
+            return this.bagList.filter(data => {
                 let itemBaseData = table.ItemBaseDataById[data.id];
-                return itemBaseData.Type== type;});
+                return itemBaseData.Type == type;
+            });
         }
 
         //获取背包中物品的个数

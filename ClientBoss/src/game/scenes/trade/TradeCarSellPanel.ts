@@ -3,7 +3,7 @@ module game {
 	 * 车辆出售
 	 */
 	export class TradeCarSellPanel extends BaseSlidePanel {
-		baseInconmeTxt: eui.Label; //基础收益
+		baseIncomeTxt: eui.Label; //基础收益
 		guidePriceTxt: eui.Label; //目前估值
 		parkingTxt: eui.Label; //停车 100金币/收益
 		speedTxt: eui.Label; // 1公里/分钟
@@ -56,7 +56,7 @@ module game {
 			this.onNumChange();
 			this.tradeStar.show(data.star);
 			this.guidePriceTxt.text = numAddSpace(data.price) + "金币";
-			this.baseInconmeTxt.text = numAddSpace(data.attr.reward) + "金币";
+			this.baseIncomeTxt.text = numAddSpace(data.attr.reward) + "金币";
 			this.taxRateTxt.text = "扣税（" + gameConfig.tradeTaxRate * 100 + "%）";
 
 			let carDef = TradeManager.getInstance().getCarDefine(data.tid);
