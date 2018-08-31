@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -14767,6 +14768,90 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_TakeMaidEarning to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_TakeRobMaidEarning. */
+    interface IC2GW_TakeRobMaidEarning {
+    }
+
+    /** Represents a C2GW_TakeRobMaidEarning. */
+    class C2GW_TakeRobMaidEarning implements IC2GW_TakeRobMaidEarning {
+
+        /**
+         * Constructs a new C2GW_TakeRobMaidEarning.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_TakeRobMaidEarning);
+
+        /**
+         * Creates a new C2GW_TakeRobMaidEarning instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_TakeRobMaidEarning instance
+         */
+        public static create(properties?: msg.IC2GW_TakeRobMaidEarning): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @param message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_TakeRobMaidEarning, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message, length delimited. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @param message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_TakeRobMaidEarning, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Verifies a C2GW_TakeRobMaidEarning message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_TakeRobMaidEarning message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_TakeRobMaidEarning
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_TakeRobMaidEarning;
+
+        /**
+         * Creates a plain object from a C2GW_TakeRobMaidEarning message. Also converts values to other types if specified.
+         * @param message C2GW_TakeRobMaidEarning
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_TakeRobMaidEarning, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_TakeRobMaidEarning to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

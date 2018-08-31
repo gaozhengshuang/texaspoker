@@ -98,6 +98,9 @@ module game {
                     body.onclick_buyCar();
                     
                 break;
+                case 'returnTrade': //返回交易
+                    body.onclick_returnTrade();
+                break;
 
             }
         }
@@ -197,6 +200,13 @@ module game {
             this.fujinStatus=status;
             this.dispatchEvent(new BasicEvent(GameMapUIView.FUJIN_SWITCH,{index:this.fujinStatus}));
 		}
+        /**
+         * 返回交易
+         */
+        private onclick_returnTrade()
+        {
+            TradeManager.getInstance().returnToTrade();
+        }
         /**
          * 释放事件与重置数据状态
          */

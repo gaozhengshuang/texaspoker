@@ -72,16 +72,8 @@ module game {
 				if (buildingDef) {
 
 					this.nameLabel.text = buildingDef.Community;
-
-					let posName = '';
-					let province = TradeManager.getInstance().getCityDefine(buildingDef.Province);
-					if (province) {
-						posName = province.Name;
-					}
-					let city = TradeManager.getInstance().getCityDefine(buildingDef.City);
-					if (city) {
-						posName += city.Name;
-					}
+					
+					let posName = TradeManager.getInstance().getHouseName(buildingDef.Province, buildingDef.City);
 					this.posTxt.text = posName;
 					// this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
 				}
@@ -96,7 +88,7 @@ module game {
 			// diningHallTxt: eui.Label; //餐厅
 			// masterBedroomTxt: eui.Label; //主卧 2
 			this.cellGroup.removeChildren();
-			if (data.housecells) { 
+			if (data.housecells) {
 				for (let i: number = 0; i < data.housecells.length; i++) {
 					let cell = data.housecells[i];
 					this.cellGroup.addChild(this["cell" + cell.index]);

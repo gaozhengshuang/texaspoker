@@ -53,7 +53,6 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_SendDeliveryAddressList, "msg.GW2C_SendDeliveryAddressList");
             NotificationCenter.addObserver(this, this.OnGW2C_SendTaskList, "msg.GW2C_SendTaskList");
             NotificationCenter.addObserver(this, this.OnGW2C_RetGoldExchange, "msg.GW2C_RetGoldExchange");
-            //NotificationCenter.addObserver(this, this.OnGW2C_SendShowImage, "msg.GW2C_SendShowImage");
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord, "msg.GW2C_SynParkingRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack, "msg.GW2C_CarAutoBack");
@@ -267,21 +266,6 @@ module game {
             this.addScore(data.gold);
         }
 
-        public get clothes() {
-            //return this.userInfo.PersonalImage && this.userInfo.PersonalImage.lists;
-            return [];
-        }
-
-        /*        private OnGW2C_SendShowImage(data: msg.GW2C_SendShowImage) {
-                   this.userInfo.PersonalImage.lists = this.userInfo.PersonalImage.lists.map(
-                       item => {
-                           if (item.sex == data.images.sex) return data.images;
-                           return item;
-                       }
-                   );
-                   this.skillUpdate();
-               } */
-
         public setScore(count: number) {
             this.userInfo.gold = count;
             NotificationCenter.postNotification(PlayerModel.SCORE_UPDATE);
@@ -329,6 +313,11 @@ module game {
 
             if (isPush) {
                 this.bagList.push({ id: itemId, num: itemNum });
+            }
+
+            let itemBaseData = table.ItemBaseDataById[itemId];
+            if (itemBaseData) {
+                showTips("获得道具：" + itemBaseData.Name + "*" + itemNum);
             }
         }
 
@@ -455,7 +444,7 @@ module game {
 
         //-----------------------------------
         public skillUpdate() {
-            let clothes = this.clothes;
+            let clothes = MaidManager.getInstance().clothes;
             if (!clothes) return;
             SkillManager.getInstance().resetEquipSKill();
             clothes.forEach(

@@ -22,7 +22,7 @@ message TCarPartLevelupDefine
 	optional uint32 Id = 1; // ID唯一id
 	
 	
-	optional uint32 Partid = 2; // 部件id
+	optional uint32 Quality = 2; // 品质
 	
 	
 	optional uint32 Level = 3; // 升级前等级

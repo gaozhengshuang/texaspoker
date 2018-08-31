@@ -35269,6 +35269,166 @@ $root.msg = (function() {
         return C2GW_TakeMaidEarning;
     })();
 
+    msg.C2GW_TakeRobMaidEarning = (function() {
+
+        /**
+         * Properties of a C2GW_TakeRobMaidEarning.
+         * @memberof msg
+         * @interface IC2GW_TakeRobMaidEarning
+         */
+
+        /**
+         * Constructs a new C2GW_TakeRobMaidEarning.
+         * @memberof msg
+         * @classdesc Represents a C2GW_TakeRobMaidEarning.
+         * @implements IC2GW_TakeRobMaidEarning
+         * @constructor
+         * @param {msg.IC2GW_TakeRobMaidEarning=} [properties] Properties to set
+         */
+        function C2GW_TakeRobMaidEarning(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2GW_TakeRobMaidEarning instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.IC2GW_TakeRobMaidEarning=} [properties] Properties to set
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning instance
+         */
+        C2GW_TakeRobMaidEarning.create = function create(properties) {
+            return new C2GW_TakeRobMaidEarning(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.IC2GW_TakeRobMaidEarning} message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TakeRobMaidEarning.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_TakeRobMaidEarning message, length delimited. Does not implicitly {@link msg.C2GW_TakeRobMaidEarning.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.IC2GW_TakeRobMaidEarning} message C2GW_TakeRobMaidEarning message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_TakeRobMaidEarning.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TakeRobMaidEarning.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_TakeRobMaidEarning();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_TakeRobMaidEarning message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_TakeRobMaidEarning.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_TakeRobMaidEarning message.
+         * @function verify
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_TakeRobMaidEarning.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_TakeRobMaidEarning message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_TakeRobMaidEarning} C2GW_TakeRobMaidEarning
+         */
+        C2GW_TakeRobMaidEarning.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_TakeRobMaidEarning)
+                return object;
+            return new $root.msg.C2GW_TakeRobMaidEarning();
+        };
+
+        /**
+         * Creates a plain object from a C2GW_TakeRobMaidEarning message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @static
+         * @param {msg.C2GW_TakeRobMaidEarning} message C2GW_TakeRobMaidEarning
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_TakeRobMaidEarning.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2GW_TakeRobMaidEarning to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_TakeRobMaidEarning
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_TakeRobMaidEarning.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_TakeRobMaidEarning;
+    })();
+
     msg.C2GW_RobMaid = (function() {
 
         /**
@@ -41316,7 +41476,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -41565,7 +41731,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")

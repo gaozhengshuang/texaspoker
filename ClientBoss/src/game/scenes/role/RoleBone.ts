@@ -99,7 +99,7 @@ module game {
                 this._girlBone && (this._girlBone.visible = false);
             }
 
-            this.updateBones();  
+            this.updateBones(this._clothes);  
 
             //重置左右手贴图
             let r = 1;
@@ -129,8 +129,7 @@ module game {
         }
 
         // 更新骨骼动画
-        public updateBones() {
-            let clothes = this._clothes;
+        public updateBones(clothes: msg.IItemData[]) {
             if (!clothes) {
                 return;
             }

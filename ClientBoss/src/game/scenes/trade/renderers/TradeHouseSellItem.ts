@@ -16,6 +16,7 @@ module game {
 		constructor() {
 			super();
 			this.skinName = TradeHouseSellItemSkin;
+			this.posTxt.touchEnabled = true;
 		}
 		protected dataChanged(): void {
 			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
@@ -47,16 +48,8 @@ module game {
 					this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
 					this.icon.show({ name: buildingDef.Community, icon: houseDef.ImageId.toString(), star: data.level, type: TradeIconType.House });
 				}
-				let posName = '';
-				let province = TradeManager.getInstance().getCityDefine(buildingDef.Province);
-				if (province) {
-					posName = province.Name;
-				}
-				let city = TradeManager.getInstance().getCityDefine(buildingDef.City);
-				if (city) {
-					posName += city.Name;
-				}
-				// this.posTxt.text = posName;
+				
+				let posName = TradeManager.getInstance().getHouseName(buildingDef.Province, buildingDef.City);
 				this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
 			}
 
@@ -83,7 +76,7 @@ module game {
 			}
 		}
 		private onPosTxt() {
-			//定位
+			TradeManager.getInstance().switchToBuilding(this.data);
 		}
 		private onTimeCountDown() {
 			let data: msg.HouseData = this.data;

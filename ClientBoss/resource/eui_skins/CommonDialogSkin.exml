@@ -27,9 +27,9 @@
 		</tween:TweenGroup>
 	</w:Declarations>
 	<e:Group id="dialog_type_1" width="720" height="1100" touchEnabled="false" horizontalCenter="0" verticalCenter="0">
-		<e:Image id="imageBg" horizontalCenter="-3" verticalCenter="-61.5" anchorOffsetY="0" height="463" anchorOffsetX="0" width="720" source="user_json.addressBg"/>
+		<e:Image id="imageBg" horizontalCenter="-3" verticalCenter="-61.5" anchorOffsetY="0" height="463" anchorOffsetX="0" width="720" source="login_json.dialogBg_png"/>
 		<e:Label id="txt_content" text="��������" verticalCenter="-108" horizontalCenter="7" width="584.34" anchorOffsetX="0" anchorOffsetY="0" height="211.66" lineSpacing="10" stroke="2" strokeColor="0x206d99" textAlign="center" verticalAlign="middle" touchEnabled="false" size="24"/>
-		<game:LabelButton id="btn_goPay" skinName="NormalLabelButtonSkin" anchorOffsetX="0" width="174" anchorOffsetY="0" height="72" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="74"/>
+		<game:LabelButton id="btn_goPay" skinName="NormalLabelButtonSkin" anchorOffsetX="0" width="295" anchorOffsetY="0" height="60" scaleX="1" scaleY="1" horizontalCenter="0.5" verticalCenter="104"/>
 		<game:IconButton id="btn_close" skinName="IconButtonSkin" right="22" verticalCenter="-266.5"/>
 	</e:Group>
 	<e:Group id="dialog_type_2" width="720" height="1100" touchEnabled="false" horizontalCenter="0" verticalCenter="0" x="10" y="10" visible="false">

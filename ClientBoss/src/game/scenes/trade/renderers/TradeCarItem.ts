@@ -31,7 +31,8 @@ module game {
 			}
 			let carDef = TradeManager.getInstance().getCarDefine(data.carbaseid);
 			if (carDef) {
-				this.icon.show({ name: data.name, icon: carDef.path.toString(), star: data.carlevel, type: TradeIconType.Car });
+				let carName = TradeManager.getInstance().getCarName(data.carbaseid);
+				this.icon.show({ name: carName, icon: carDef.path.toString(), star: data.carlevel, type: TradeIconType.Car });
 			}
 			this.priceLabel.textFlow = TextUtil.parse(TradeManager.getInstance().getPriceStr(data.price));
 			this.baseIncomeTxt.text = numAddSpace(data.income) + "金币/分钟";
