@@ -144,7 +144,7 @@
 			"url": "assets/texpack/dress_01.json",
 			"type": "sheet",
 			"name": "dress_01_json",
-			"subkeys": "buy-bg,composeBtn,dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31,dress_01_32,dress_01_33,dress_01_34,dress_01_35,dress_01_36,dress_01_37,dress_01_38,dress_gold,equipIcon,lvUpBg,lvUpBtn,lvUpCloseBtn,lvUpItemBg,lvUpRight,maidLevelBar,maidLevelUp,numBg,shoppingcart-txt,star,taboard-bg1,taboard-bg2,uncomposeBtn,unlvUpBtn"
+			"subkeys": "buy-bg,composeBtn,dress_01_01,dress_01_02,dress_01_03,dress_01_04,dress_01_05,dress_01_06,dress_01_07,dress_01_08,dress_01_09,dress_01_10,dress_01_11,dress_01_12,dress_01_13,dress_01_14,dress_01_15,dress_01_16,dress_01_17,dress_01_18,dress_01_19,dress_01_20,dress_01_21,dress_01_22,dress_01_23,dress_01_24,dress_01_25,dress_01_26,dress_01_27,dress_01_28,dress_01_29,dress_01_30,dress_01_31,dress_01_32,dress_01_33,dress_01_34,dress_01_35,dress_01_36,dress_01_37,dress_01_38,dress_gold,equipIcon,madiHelp,maidBlackBg,maidBomBg,maidGold,maidLevelBar,maidLevelUp,numBg,shoppingcart-txt,star,taboard-bg1,taboard-bg2,uncomposeBtn"
 		},
 		{
 			"url": "assets/role/shopItemButtonBg.png",
@@ -171,7 +171,7 @@
 			"url": "assets/texpack/hall_2.json",
 			"type": "sheet",
 			"name": "hall_2_json",
-			"subkeys": "assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,jiantou1_png,jiantou2_png,jiantouBlack2_png,jiantouRed2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,jiaoyi_title_icon1_png,levelSuccessImg1_png,lingjuInfo_bg1_png,linjuInfo_bg1_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,room_quit_btn1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
+			"subkeys": "assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,fullItemBoxBorder_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,itemBoxBg_png,jiantou1_png,jiantou2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,levelSuccessImg1_png,lingjuInfo_bg1_png,noItemBoxBorder_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
 		},
 		{
 			"url": "assets/texpack/hall_1.json",
@@ -362,7 +362,7 @@
 			"url": "assets/texpack/hall_4.json",
 			"type": "sheet",
 			"name": "hall_4_json",
-			"subkeys": "item_bar_png,item_bar_select_png,star_png,trading_bottom_bar_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_pos_png,trading_search_png"
+			"subkeys": "item_10005_png,item_10006_png,item_10007_png,item_10008_png,item_10009_png,item_10011_png,item_120001_png,item_120002_png,item_120003_png,item_120004_png,item_120005_png,item_bar_png,item_bar_select_png,star_png,trade_add_png,trade_coinnum_bg_png,trade_done_png,trade_reduce_png,trade_return_png,trade_selling_png,trading_bottom_bar_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_pos_png,trading_search_png"
 		}
 	]
 }
