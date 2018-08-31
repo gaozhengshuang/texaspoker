@@ -99,6 +99,7 @@ module game {
                     this._roleBone.visible = true;
                     this.maidBomBgImg.visible = true;
                     this.blackMaidImg.visible = false;
+                    this.goldImg.visible = false;
                 }
             } else {    //女仆是别人的
                 this.blackMaidImg.visible = false;
