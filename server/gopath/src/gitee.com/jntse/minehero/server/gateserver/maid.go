@@ -715,9 +715,12 @@ func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid uint64, uid ui
 	}
 
 	param := house.GetVisitParam(uid)
-	if param != 0 {
-		user.AddGold(param, "领取掠夺女仆奖励", true)
+	if param == 0 {
+		user.SendNotify("已经领取过了")
+		return
 	}
+	
+	user.AddGold(param, "领取掠夺女仆奖励", true)
 	user.SendNotify("领取成功")
 	house.SetVisitParam(user, uid, 0)
 }
