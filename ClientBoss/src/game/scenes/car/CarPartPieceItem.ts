@@ -76,13 +76,13 @@ module game {
             if(this.btnState!=ClickState.LongPress){
                 if(pass>1000){
                     this.btnState = ClickState.Normal;
-                    if(pass>=3000){
+                    if(pass>=2000){
                         console.log("长按事件触发,开始每1秒触发回调");
                         this.btnState =ClickState.LongPress;
                         this.nowTime = now;
                         return false;
                     }   
-                    console.log("长按按钮经过了"+pass+"毫秒");
+                    //console.log("长按按钮经过了"+pass+"毫秒");
                 }
             }
             else{
@@ -92,13 +92,13 @@ module game {
                     egret.stopTick(this.countTimer,this);  
                     return false;
                 }
-                if(pass>=1000){
+                if(pass>=100){
                     this.nowTime = now;
                     console.log("自动消耗碎片请求升级");
                     this.usePartPiece();
                 }
             }
-            console.log("长按按钮经过了"+pass+"毫秒");
+            //console.log("长按按钮经过了"+pass+"毫秒");
             return false;
         }
 
@@ -108,7 +108,19 @@ module game {
             carPartPiece.id = this.itemData.Id;
             carPartPiece.num = 1;
             let self = this;
-            CarDetailView.getInstance().usePartPiece(this.partPieceType,[carPartPiece],[function(){self.updateView();}]);
+            //CarDetailView.getInstance().usePartPiece(this.partPieceType,[carPartPiece],[function(){self.updateView();}]);
+        
+            CarDetailView.getInstance().showPartPieceExp(this.partPieceType,carPartPiece,function(result:number){
+                if(result)
+                {
+                    self.restNum--;
+                    self.ItemName.textFlow = [
+                        {text: self.itemData.Name,style:{textColor:0x000000}},
+                        {text: " 后备箱中有x",style:{textColor:0x000000}},
+                        {text: self.restNum.toString(),style:{textColor:0xF45F11}}
+                    ];
+                }
+            });
         }
 
 	}

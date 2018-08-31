@@ -36,7 +36,7 @@ module game {
         Trunk               : CarPartInfoItem;
         Tank                : CarPartInfoItem;
 
-        partPieceList       : TweenSroller;
+        partPieceList       : CarPieceTweenSroller;
 
     
         public carData      : msg.ICarData;
@@ -106,6 +106,7 @@ module game {
             this.carData = carData;
             this.updateView();
             this.checkCarStarUp();
+            //this.filterPartLvUpExp();
         }
         private updateView()
         {   
@@ -126,7 +127,7 @@ module game {
             //this.carInfoTxt.text = "汽车容量" + carItemData.Capacity + "\n"+"收益" + carItemData.RewardPerH + "/分钟";
 
 
-            this.InfoTxt_1.text = table.TCarBrandById[carItemData.Brand].Brand +""+ table.TCarModelById[carItemData.Model].Model + "  起始价值" + carItemData.Price;
+            this.InfoTxt_1.text = table.TCarBrandById[carItemData.Brand].Brand +""+ table.TCarModelById[carItemData.Model].Model + "  起始价值" + this.carData.initprice+"金币";
             this.InfoTxt_2.textFlow =[
                 {text:"停车："+this.carData.attr.reward+"金币/分钟"},
                 {text:"\n"+"区域："+this.carData.attr.range+"公里"},
@@ -135,7 +136,7 @@ module game {
             this.InfoTxt_3.textFlow =[
                 {text:"速度："+this.carData.attr.speed+"公里/分钟"},
                 {text:"\n"+"停靠："+this.carData.attr.stoptime+"分钟"},
-                {text:"\n"+"总价值："+"100000金币"}, 
+                {text:"\n"+"总价值："+this.carData.price+"金币"}, 
             ];
 
             //部件
@@ -197,7 +198,7 @@ module game {
                 }
                 else{
                     this.parkingInfoTxt.textFlow = [
-                        { text: "准备出征"},
+                        { text: "闲置中"},
                     ]
                 }
             }
@@ -531,7 +532,153 @@ module game {
                 dataBaseList.sort(function(a,b){return a.Color - b.Color});
                 this.partPieceList.visible = true;
                 this.partPieceList.setData(dataBaseList);
+                //设置碎片经验
+                let partData = this.carData.parts.filter(data=>{return data.parttype==type;})[0];
+                this.CarPartUpData.lv = partData.level;
+                this.CarPartUpData.exp = partData.exp; 
+                this.CarPartUpData.maxExp = 0;
+                this.CarPartUpData.gold = 0;  
+                this.filterPartLvUpExp();
+                this.partPieceList.getselectPart().setData(this.carData.parts.filter(data=>{return data.parttype==type;})[0]);       
             }
+        }
+
+        private selectPieces:msg.ICarPartPiece[] = [];
+        private CarPartUpData = {type:0,lv:0,exp:0,maxExp:0,gold:0};
+        //（暂用）解析配件升级经验表---------------------------------------------
+        private _partLvUpDatas : any[] = [];
+        
+        private filterPartLvUpExp()
+        {   
+/*             table.TCarPart.forEach(carPartDef=>{
+                let carPartLvUpDef      = table.TCarPartLevelup.filter(def=>{return def.Quality==carPartDef.Quality;})[0];
+                let _partLvUpData = {type:msg.CarPartType.Tyre,quality:0,lv:0,exp:0,gold:0};
+                _partLvUpData.type      = carPartDef.Type;
+                _partLvUpData.quality    = carPartLvUpDef.Quality;
+                _partLvUpData.lv        = carPartLvUpDef.Level;
+                _partLvUpData.exp       = carPartLvUpDef.Exp;
+                _partLvUpData.gold      = carPartLvUpDef.Cost;
+               
+                
+                this._partLvUpDatas.push(_partLvUpData);
+            }); */
+
+            this._partLvUpDatas = [];
+            let selectCarPartData = this.carData.parts.filter(partData=>{return partData.parttype==this.curPartType})[0];
+            let selectCarPartDef  = table.TCarPartById[selectCarPartData.partid];
+
+            table.TCarPartLevelup.forEach(carPartLvUpDef=>{
+                if(carPartLvUpDef.Quality==selectCarPartDef.Quality)
+                {   
+                    let _partLvUpData = {type:msg.CarPartType.Tyre,quality:0,lv:0,exp:0,gold:0};
+                    _partLvUpData.type      = selectCarPartData.parttype;
+                    _partLvUpData.quality    = carPartLvUpDef.Quality;
+                    _partLvUpData.lv        = carPartLvUpDef.Level;
+                    _partLvUpData.exp       = carPartLvUpDef.Exp;
+                    _partLvUpData.gold      = carPartLvUpDef.Cost;
+    
+                    this._partLvUpDatas.push(_partLvUpData);
+                }
+
+            });
+
+
+
+            //console.log("-------- this._partLvUpDatas--------->", JSON.stringify(this._partLvUpDatas));
+        }
+        //
+        //---------------------------------------------
+        public showPartPieceExp(partType:msg.CarPartType,piece:msg.ICarPartPiece,func:Function=null)
+        {   
+            //console.log("-------- this._partLvUpDatas--------->", JSON.stringify(this._partLvUpDatas));
+            
+            let result = 0;
+            if(this.CarPartUpData.lv >= 10 )
+            {
+                showTips("配件已经满级！"); 
+                result = 0;
+            } 
+            else
+            {
+                //..碎片的经验
+                let addExp = table.TLevelCarPartById[piece.id].Exp;
+                //if(this.CarPartUpData.lv==this.carData.star+1)
+                {
+                    let nowMaxExp = this._partLvUpDatas.filter(data=>{return data.type== partType && data.lv==this.CarPartUpData.lv;})[0].exp;
+                    if(nowMaxExp && this.CarPartUpData.exp+addExp < nowMaxExp){
+                        this.CarPartUpData.exp    =  Math.min(this.CarPartUpData.exp+addExp,nowMaxExp);
+                        this.CarPartUpData.maxExp = nowMaxExp;
+                        result = 1;
+                    }
+                    else{
+                        //showTips("经验值已满!");   
+                        let tExp    = this.CarPartUpData.exp + addExp;
+                        let tMaxExp = this.CarPartUpData.maxExp;
+                        let tlv     = this.CarPartUpData.lv;
+                        let tgold   = this.CarPartUpData.gold;
+                        this._partLvUpDatas.forEach(data=>{
+                            if(data.type == partType){
+                                if(data.lv >= tlv){
+                                    if(tMaxExp==0){
+                                        tMaxExp = data.exp;    
+                                    }
+                                    if(tExp >= data.exp){
+                                        //if(data.lv <= this.carData.star + 1) //等级不可超过车子星级数+1
+                                        {
+                                            tExp    -= data.exp;
+                                            tMaxExp =  data.exp;
+                                            tlv     =  data.lv + 1;
+                                            tgold   += data.gold;
+                                            result  = 1;
+                                        }
+                                    }
+                                    else{
+                                        result  = 1;
+                                    }
+                                }
+                            }
+                        })
+                        if(result==1){
+                            this.CarPartUpData.type     = partType;
+                            this.CarPartUpData.lv       = tlv;
+                            this.CarPartUpData.exp      = tlv>=10 ? 0 : tExp;  
+                            this.CarPartUpData.maxExp   = tMaxExp;                                                              
+                            this.CarPartUpData.gold     = tgold;    
+                        }
+                    }
+                }
+/*                 else
+                {
+   
+                } */
+                if(func){func(result)};
+            }
+            if(result)
+            {
+                let expPer = this.CarPartUpData.exp / this.CarPartUpData.maxExp;
+/*                 switch (partType) {
+                    case msg.CarPartType.Tyre:      this.Tyre.updateExp(this.CarPartUpData.lv,expPer);break;
+                    case msg.CarPartType.Tank:      this.Tank.updateExp(this.CarPartUpData.lv,expPer);break;
+                    case msg.CarPartType.Trunk:     this.Trunk.updateExp(this.CarPartUpData.lv,expPer);break;
+                    case msg.CarPartType.Engine:    this.Engine.updateExp(this.CarPartUpData.lv,expPer);break;
+                    case msg.CarPartType.Battery:   this.Battery.updateExp(this.CarPartUpData.lv,expPer);break;
+                } */
+                this.partPieceList.getselectPart().updateExp(this.CarPartUpData.lv,expPer);
+               
+                //添加选中
+                let array = this.selectPieces.filter(data=>{return data.id==piece.id;});
+                if(array.length==0){
+                    this.selectPieces.push(piece);
+                }
+                else{
+                    array[0].num++;
+                }
+            }
+        }
+
+        public usePartPieceLvUp()
+        {   
+            this.usePartPiece(this.curPartType,this.selectPieces);
         }
         //使用配件碎片升级
         public usePartPiece(partType:msg.CarPartType,pieces:msg.ICarPartPiece[],funcs:Function[]=[])
@@ -540,20 +687,42 @@ module game {
                 console.log("和当前配件类型不一致");
                 return;
             }
+            if(this.selectPieces.length==0){
+                showTips("没有选择碎片！");
+                return;
+            }
             let carPartData = this.carData.parts.filter(partData=>{return partData.parttype==partType})[0];
             if(carPartData){
                 let partDef = table.TCarPartById[carPartData.partid];
                 if(carPartData.level<partDef.MaxLevel){
                     let self = this;
                     self._usePartPieceFlag = 0;
-                    CarManager.getInstance().ReqCarPartLevelup(this.carData.id,partType,pieces,function(result:number,carData:msg.ICarData){
-                        if(result==1){
-                            //self.showPieceList(this.curPartType);
-                            self.setData(carData);
-                            funcs.forEach(func=>{if(func){func();}});
+
+                    CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
+                    let isLvUp = this.CarPartUpData.lv <= carPartData.level;
+                    let contentTxt = isLvUp? "是否消耗碎片?": "是否消耗"+this.CarPartUpData.gold+"金币升级?";
+                    showDialog(contentTxt, "确定", function(){
+                        if(self.CarPartUpData.gold > DataManager.playerModel.getUserInfo().gold){
+                            showTips("金币不足！");
                         }
-                        self._usePartPieceFlag = 1;
+                        else{
+                            CarManager.getInstance().ReqCarPartLevelup(self.carData.id,partType,pieces,function(result:number,carData:msg.ICarData){
+                                if(result==0){
+                                    showTips(isLvUp&&"使用成功！"||"升级成功！");
+                                    self.setData(carData);
+                                    self.showPieceList(self.curPartType);
+                                    funcs.forEach(func=>{if(func){func();}});
+                                }
+                                self._usePartPieceFlag = 1;
+                                self.selectPieces = [];
+                            });
+                        }
+                    },function(){
+                        self.selectPieces = [];
+                        self.updateView();
+                        self.showPieceList(self.curPartType);
                     });
+
                 }
                 else{
                     console.warn("配件已满级--->"+carPartData.partid);
@@ -580,8 +749,12 @@ module game {
         private carStraUp()
         {
             let self = this;
-            CarManager.getInstance().ReqCarStarUp(this.carData.id,function(result:number,carData:msg.ICarData){
-                self.setData(carData);
+            let cost = table.TStarupCarById[this.carData.star].Money;
+            CarManager.getInstance().ReqCarStarUp(this.carData.id,cost,function(result:number,carData:msg.ICarData){
+                if(result==0){
+                    showTips("升星成功，属性大幅提升！");
+                    self.setData(carData);
+                }
             });
         }
         //-----------------------------------------------------------------------------//

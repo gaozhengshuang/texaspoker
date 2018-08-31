@@ -1,13 +1,20 @@
 module game {
-    export class TweenSroller extends eui.Component  {
+    export class CarPieceTweenSroller extends eui.Component  {
         
         downBtnGroup        : eui.Group;
         center              : eui.Group;
         listGroup           : eui.Group;
-
+        selectPartGroup     : eui.Group;
+        
         hideList_btn        : eui.Button;
         
         down_bg             : eui.Image;
+
+        sr_item             : eui.Scroller;
+        ls_items            : eui.List; 
+        _dataProv           : eui.ArrayCollection;
+
+        selectPart          : CarPartInfoItem;
 
         private oldY        : number = 0;
         private oldH        : number = 0;
@@ -23,9 +30,8 @@ module game {
         public  carData         : msg.ICarData;
         private dataList        : any[] = [];
 
-        sr_item                 : eui.Scroller;
-        ls_items                : eui.List; 
-        private _dataProv       : eui.ArrayCollection;
+
+
         private _tweenCompleted : Boolean = true;
         private _runingTimers = [];
 
@@ -42,9 +48,16 @@ module game {
             this.dataList = Datas;
             this.updateView();
         }
+
+        public getselectPart()
+        {
+            return this.selectPart;
+        }
+
         private updateView()
         {          
             if(!this._tweenCompleted) return;
+            this.selectPartGroup.addEventListener(egret.TouchEvent.TOUCH_TAP,this.OnCarPartLvUpHandle,this);
             this.hideList_btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.hideList,this);                        
             this.hideList_btn.visible = false;
             this.listIndex = 0;
@@ -66,7 +79,7 @@ module game {
 
 
         private showlist() {
-            console.log("展示列表showlist----------->");
+            //console.log("展示列表showlist----------->");
             let offsetY = 1280 - this.oldY;
             if (this.goalH == -1) {
                 this.goalH = this.dataList.length * 150 + this.hideList_btn.height;//按钮贴边
@@ -84,7 +97,7 @@ module game {
             }
         }
         private onComplete() {
-            console.log ("onComplete");
+            //console.log ("onComplete");
             this._tweenCompleted = true;
             this.hideList_btn.visible = true;
             //this.sr_item.height  -=  this.btnGoalY; 
@@ -95,7 +108,7 @@ module game {
         private bindData()
         {   
             if(!this.dataList) return;
-            console.log("updateView---->",this.dataList.length);
+            //console.log("updateView---->",this.dataList.length);
             this._dataProv.removeAll();
             let self = this;
             this.dataList.forEach(data=>{self._dataProv.addItem(data)});
@@ -123,6 +136,9 @@ module game {
 
         }
 
+        private OnCarPartLvUpHandle(){
+            CarDetailView.getInstance().usePartPieceLvUp();
+        }
 /*         private onItemTouch(eve: eui.ItemTapEvent) {
             //console.log("onItemTouch------------->",this.listIndex)
             let item :any = null;

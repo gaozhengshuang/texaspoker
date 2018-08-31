@@ -302,19 +302,15 @@ module game {
         //请求升级部件
         public ReqCarPartLevelup(carId:number|Long,partType:msg.CarPartType,pieces:msg.ICarPartPiece[],callFunc:Function=null)
         {
-             CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
-             let self = this;
-             showDialog("是否花费"+1+"升级?", "确定", function(){
-                 if(callFunc && !self.GW2C_RetCarPartLevelup_BackCalls.some(func=>{return func==callFunc;}))
-                 {
-                     self.GW2C_RetCarPartLevelup_BackCalls.push(callFunc);
-                 }
-                 sendMessage("msg.C2GW_CarPartLevelup", msg.C2GW_CarPartLevelup.encode({
-                    carid : carId,
-                    parttype:partType,
-                    pieces:pieces,
-                 }));
-             },null);
+            if(callFunc && !this.GW2C_RetCarPartLevelup_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_RetCarPartLevelup_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_CarPartLevelup", msg.C2GW_CarPartLevelup.encode({
+               carid : carId,
+               parttype:partType,
+               pieces:pieces,
+            }));
         }
         //部件升级结果
         private OnGW2C_RetCarPartLevelup(msgs:msg.GW2C_RetCarPartLevelup)
@@ -324,18 +320,22 @@ module game {
         }
 
         //请求汽车升星
-        public ReqCarStarUp(carId:number|Long,callFunc:Function=null)
+        public ReqCarStarUp(carId:number|Long,gold:number,callFunc:Function=null)
         {
             CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
             let self = this;
-            showDialog("是否花费"+1+"升星?", "确定", function(){
-                if(callFunc && !self.GW2C_RetCarStarup_BackCalls.some(func=>{return func==callFunc;}))
-                {
-                    self.GW2C_RetCarStarup_BackCalls.push(callFunc);
+            showDialog("是否花费"+gold+"金币升星?", "确定", function(){
+                if(DataManager.playerModel.getUserInfo().gold < gold){
+                    showTips("金币不足！");
+                }else{
+                    if(callFunc && !self.GW2C_RetCarStarup_BackCalls.some(func=>{return func==callFunc;}))
+                    {
+                        self.GW2C_RetCarStarup_BackCalls.push(callFunc);
+                    }
+                    sendMessage("msg.C2GW_CarStarup", msg.C2GW_CarStarup.encode({
+                        carid : carId,
+                    }));
                 }
-                sendMessage("msg.C2GW_CarStarup", msg.C2GW_CarStarup.encode({
-                    carid : carId,
-                }));
             },null);
         }
 
