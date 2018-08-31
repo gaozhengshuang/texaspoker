@@ -977,7 +977,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	targetlevel := partData.GetLevel()
 	targetExp := partData.GetExp()
 	costMoney := uint32(0)
-	p = targetExp + addExp
+	targetExp = targetExp + addExp
 	levelupConf := this.GetCarPartLevelupConf(parttemplate.Quality,targetlevel)
 	if levelupConf == nil {
 		user.SendNotify("没有升级到这一级的配置")
