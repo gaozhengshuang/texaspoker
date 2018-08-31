@@ -56,7 +56,7 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 		wheresql += fmt.Sprintf("and houselevel=%d ", rev.GetHouselevel())
 	}
 	if rev.GetName() != "" {
-		wheresql += "and name like '%" + rev.GetName() + "%'"
+		wheresql += "and name like '" + rev.GetName() + "%'"
 	}
 	if rev.GetPricedec() == true {
 		ordersql += "ORDER BY PRICE DESC"
@@ -333,7 +333,7 @@ func (this *GateUser) ReqTradeCarList(rev *msg.C2GW_ReqCarTradeList){
 		wheresql += fmt.Sprintf("and carlevel=%d ", rev.GetCarlevel())
 	}
 	if rev.GetName() != "" {
-		wheresql += "and name like '%" + rev.GetName() + "%'"
+		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
 	}
 	if rev.GetPricedec() == true {
 		ordersql += "ORDER BY PRICE DESC"
@@ -410,7 +410,7 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 		log.Info("数据库插入失败2")
 		return
 	}
-	
+
 	car.data.Tradeuid = pb.Uint64(uint64(LastInsertId))
 	car.data.Tradeendtime = pb.Uint32(uint32(endtime))
 	car.data.Tradeprice = pb.Uint32(uint32(price))
@@ -443,9 +443,8 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 		return
 	}
 
-	if car.data.GetTradeuid() != tradeuid {
+	if car.GetTradeuid() != tradeuid {
 		this.SendNotify("汽车不在交易中")
-		log.Info("汽车交易 %d %d carid %d", car.GetTradeuid(), tradeuid, caruid)
 		return 
 	}
 

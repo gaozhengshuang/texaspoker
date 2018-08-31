@@ -387,7 +387,6 @@ func (this *GateServer) OnStop() {
 	}
 	this.housesvrmgr.SaveAllHousesData()
 	this.buildingmgr.SaveAllBuildings()
-	this.carmgr.SaveAllData()
 	this.maidmgr.SaveAll()
 	this.carshop.SaveAll()
 	this.hredis.Close()

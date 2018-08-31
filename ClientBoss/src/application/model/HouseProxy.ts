@@ -29,17 +29,7 @@ module game {
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseLevelUp, "msg.GW2C_AckHouseLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseCellLevelUp, "msg.GW2C_AckHouseCellLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseDataByHouseId, "msg.GW2C_AckHouseDataByHouseId");
-			NotificationCenter.addObserver(this, this.OnGW2C_UpdateHouseVisitInfo, "msg.GW2C_UpdateHouseVisitInfo");
 
-		}
-		private OnGW2C_UpdateHouseVisitInfo(data: msg.GW2C_UpdateHouseVisitInfo) {
-			if (GameConfig.pageType == 1) {
-				if(data.houseid==this.currentHouse.rId){
-					this.currentHouse.visitinfo.push(data.info);
-					this.currentHouse.robcheckflag=1;
-					ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
-				}
-			}
 		}
 		private OnGW2C_AckHouseDataByHouseId(data: msg.GW2C_AckHouseDataByHouseId) {
 			if (GameConfig.sceneType != 7) {

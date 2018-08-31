@@ -502,10 +502,7 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		ma.ItemProduce(user, maid, "领取女仆收益")
 		maid.SetTimeStart(now)
 		ma.SendHouseMaids(user, maid.HouseId())
-		return
 	}
-
-	user.SendNotify("女仆未产出任何金币")
 }
 
 // 掠夺他人女仆
@@ -547,7 +544,7 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 	// 从附近人进入抢夺，弹出自己可以放置女仆的房产列表
 	drophouses := ma.GetCanDropRobMaidHouse(user.Id())
 	if len(drophouses) == 0 {
-		user.SendNotify("您的房屋不能掠夺更多女仆")
+		user.SendNotify("没有多余可放置女仆的房产")
 		return
 	}
 
