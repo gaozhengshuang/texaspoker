@@ -294,6 +294,9 @@ module game {
 						if (maidPos) {
 							let houseMaid = new HouseRolePanel();
 							this.addChild(houseMaid);
+
+							houseMaid.anchorOffsetX = houseMaid.width / 2;
+							houseMaid.anchorOffsetY = houseMaid.height;
 							houseMaid.x = Number(maidPos[0]);
 							houseMaid.y = Number(maidPos[1]);
 

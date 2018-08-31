@@ -76,6 +76,7 @@ message HouseMaidData {
     optional uint64 houseid = 9;    // 所在房间
     optional int32  sex = 10;       // 仆人性别
     optional int64  tmworking = 11; // 开始工作时间戳
+    optional uint64 robberto = 12;  // 被掠夺到house
 }
 
 message UserBase {
@@ -126,34 +127,7 @@ message Serialize {
     optional ItemBin    item    = 3;
 }
 
-message CarPartData
-{
-    optional uint32 partid = 1;             //部件id
-    optional uint32 parttype = 2;           //部件类型
-    optional uint32 level = 3;              //部件等级
-    optional uint32 exp = 4;                //部件经验
-}
 
-message CarAttribute 
-{
-    optional uint32 reward = 1;             //每分钟收益
-    optional uint32 range = 2;              //移动范围
-    optional uint32 itemlimit = 3;          //物品上限
-    optional uint32 moneylimit = 4;         //货币上限
-    optional uint32 speed = 5;              //速度
-    optional uint32 stoptime = 6;           //停靠时间
-}
-
-message CarPartPiece 
-{
-    optional uint32 id = 1;
-    optional uint32 num = 2;
-}
-message CarReward
-{
-    optional uint32 money = 1;              //货币
-    repeated CarPartPiece items = 2;        //物品
-}
 //车的相关信息
 message CarData 
 {
@@ -163,15 +137,9 @@ message CarData
     optional uint64 createtime = 4;         //创建时间
     optional uint64 parkingid = 5;          //停车位id 未停车为0
     optional string ownername = 6;          //拥有者名字
-    optional CarReward reward = 7;          //停车收益(自动回收)
-    optional uint32 star = 8;               //星级
-    repeated CarPartData parts = 9;         //部件
-    optional CarAttribute attr = 10;        //车辆属性
-    optional uint32 state = 11;             //车辆状态 define.proto CarState
-    optional uint64 starttime = 12;         //开始时间
-    optional uint64 endtime = 13;           //预计结束时间
-    optional float latitude = 14;           //维度
-    optional float longitude = 15;          //经度
+    optional uint32 parkingreward = 7;      //停车收益(自动回收)
+    optional uint32 tradeendtime = 8;       //交易结束时间
+    optional uint64 tradeuid = 9;           //交易id
 }
 
 //车位信息
@@ -179,16 +147,15 @@ message ParkingData
 {
     optional uint64 id = 1;                 //车位id
     optional uint32 tid = 2;                //配置id
-    optional uint32 parkingtype = 3;        //停车场类型
-    optional uint64 ownerid = 4;            //拥有者id 公共车位为0
-    optional uint64 parkingcar = 5;         //停的车辆id
-    optional uint64 parkingcarownerid = 6;  //停的车主人id
-    optional string parkingcarownername = 7;//停的车主人名字
-    optional uint64 parkingtime = 8;        //开始停车时间戳
-    optional uint32 parkingreward = 9;      //停车获得收益
-    optional string ownername = 10;         //车位主人名字
-    optional uint32 parkingcartid = 11;     //停的车辆配置id
-    optional uint64 houseid = 12;           //所属房屋id
+    optional uint64 ownerid = 3;            //拥有者id 公共车位为0
+    optional uint64 parkingcar = 4;         //停的车辆id
+    optional uint64 parkingcarownerid = 5;  //停的车主人id
+    optional string parkingcarownername = 6;//停的车主人名字
+    optional uint64 parkingtime = 7;        //开始停车时间戳
+    optional uint32 parkingreward = 8 ;     //停车获得收益
+    optional string ownername = 9;          //车位主人名字
+    optional uint32 parkingcartid = 10;     //停的车辆配置id
+    optional uint64 houseid = 11;           //所属房屋id
 }
 
 //单个房间信息
