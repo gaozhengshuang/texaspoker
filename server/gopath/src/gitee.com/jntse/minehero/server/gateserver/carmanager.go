@@ -508,6 +508,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string,pri
 	data.Latitude = pb.Float32(0.0)
 	data.Longitude = pb.Float32(0.0)
 	data.Price = pb.Uint32(price)
+	data.Initprice = pb.Uint32(price)
 	//创建部件
 	data.Parts = make([]*msg.CarPartData, 0)
 	this.CreateCarPart(template.Tyre,uint32(msg.CarPartType_Tyre),data)
@@ -983,7 +984,10 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 		return 8,nil
 	}
 	for {
-		if targetlevel >= parttemplate.MaxLevel || targetExp < levelupConf.Exp {
+		if targetlevel >= parttemplate.MaxLevel {
+			targetExp = 0
+			return
+		} else if targetExp < levelupConf.Exp {
 			//经验升不了一级啦
 			break
 		}
