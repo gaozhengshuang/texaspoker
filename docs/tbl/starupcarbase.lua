@@ -3,7 +3,7 @@
 
 module table {
 export var TStarupCar : table.ITStarupCarDefine[] = [
-		{ Id : 1, Money : 1000, Item : [ "1001-1", "1002-2" ] 	},
+		{ Id : 1, Money : 1000, Item : [  ] 	},
 		{ Id : 2, Money : 3000, Item : [  ] 	},
 		{ Id : 3, Money : 5000, Item : [  ] 	},
 		{ Id : 4, Money : 7000, Item : [  ] 	},

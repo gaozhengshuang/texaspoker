@@ -139,6 +139,7 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 	house.issell = true
 	house.tradeendtime = uint32(endtime)
 	house.tradeuid = uint64(LastInsertId)
+	house.tradeprice = uint32(price)
 
 	this.UpdateHouseDataById(house.id, false)
 
@@ -202,12 +203,15 @@ func (this *GateUser) BuyTradeHouse(tradeuid uint64, houseuid uint64){
 
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
 	history.State = pb.Uint32(uint32(2))
+	exprice := history.GetPrice()
+	history.Price = pb.Uint32(history.GetPrice() * 9 / 10)
 
 	sellkey := fmt.Sprintf("tradehousehistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
 	//selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
 	//Redis().RPush(selllistkey, tradeuid)
 
+	history.Price = pb.Uint32(exprice)
 	history.State = pb.Uint32(uint32(4))
 	buykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), tradeuid)
 	utredis.SetProtoBin(Redis(), buykey, history)
@@ -478,12 +482,15 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
 	history.State = pb.Uint32(uint32(2))
+	exprice := history.GetPrice()
+	history.Price = pb.Uint32(history.GetPrice() * 9 / 10)
 
 	sellkey := fmt.Sprintf("tradecarhistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
 	//selllistkey := fmt.Sprintf("tradecarhistorylist_%d", exownerid)
 	//Redis().RPush(selllistkey, tradeuid)
 
+	history.Price = pb.Uint32(exprice)
 	history.State = pb.Uint32(uint32(4))
 	buykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), tradeuid)
 	utredis.SetProtoBin(Redis(), buykey, history)

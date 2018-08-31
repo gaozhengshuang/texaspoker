@@ -146,7 +146,11 @@ module game {
                     }.bind(this));
 
                 }else if (this._maidInfo.robberid == DataManager.playerModel.getUserId()) {   //我抢回来的女仆点击领取奖励
-                    let getGold = (SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking)) * (this.levelInfo.ProduceGold / Number(this.levelInfo.ProduceTime));
+                    let leftTime = SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking);
+                    if (leftTime > this.levelInfo.ProduceTime) {
+                        leftTime = Number(this.levelInfo.ProduceTime);
+                    }
+                    let getGold = leftTime * (this.levelInfo.ProduceGold / Number(this.levelInfo.ProduceTime));
                     let dialogStr = `当前女仆收益${getGold}/${this.levelInfo.ProduceGold}金币,\n是否送回?`;
                     showDialog(dialogStr, "送回", function () {
                         sendMessage("msg.C2GW_SendBackMaid", msg.C2GW_SendBackMaid.encode({
