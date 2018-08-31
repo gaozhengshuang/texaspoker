@@ -118,6 +118,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_TakeBackCar{}, on_C2GW_TakeBackCar)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TicketCar{}, on_C2GW_TicketCar)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeCarAutoBackReward{}, on_C2GW_ReqTakeCarAutoBackReward)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CarPartLevelup{},on_C2GW_CarPartLevelup)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CarStarup{},on_C2GW_CarStarup)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -197,6 +199,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendCarShopInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateCarShopProduct{})
 	this.msgparser.RegistSendProto(msg.GW2C_AddNewCar{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCarPartLevelup{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCarStarup{})
 
 	// 女仆
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
@@ -1193,7 +1197,7 @@ func on_C2GW_TakeBackCar(session network.IBaseNetSession, message interface{}) {
 	if car == nil {
 		result, reward = 1, 0
 	} else {
-		result, reward = CarMgr().TakeBackFromParking(user, car.parkingid, uint32(msg.CarOperatorType_TakeBack))
+		result, reward = CarMgr().TakeBackFromParking(user, car.data.GetParkingid(), uint32(msg.CarOperatorType_TakeBack))
 	}
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
@@ -1230,6 +1234,40 @@ func on_C2GW_ReqTakeCarAutoBackReward(session network.IBaseNetSession, message i
 	result, reward := CarMgr().TakeCarAutoBackReward(user, tmsg.GetCarid())
 	send.Result = pb.Int32(int32(result))
 	send.Reward = pb.Int32(int32(reward))
+	user.SendMsg(send)
+}
+
+//请求升级部件
+func on_C2GW_CarPartLevelup(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CarPartLevelup)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_RetCarPartLevelup{}
+	result, data := CarMgr().CarPartLevelup(user, tmsg.GetCarid(), tmsg.GetParttype(),tmsg.Pieces)
+	send.Result = pb.Uint32(result)
+	send.Car = data
+	user.SendMsg(send)
+}
+
+//请求升星
+func on_C2GW_CarStarup(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CarStarup)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_RetCarStarup{}
+	result, data := CarMgr().CarStarup(user, tmsg.GetCarid())
+	send.Result = pb.Uint32(result)
+	send.Car = data
 	user.SendMsg(send)
 }
 

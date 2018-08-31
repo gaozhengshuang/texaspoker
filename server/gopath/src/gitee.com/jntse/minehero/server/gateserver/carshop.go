@@ -223,7 +223,7 @@ func (shop *CarShop) BuyCar(user *GateUser, shopid, pid uint32) {
 
 	user.RemoveGold(config.Price, "购买车辆", true)
 	product.AddSold(1)
-	cardata := CarMgr().CreateNewCar(user.Id(), cartemplate.Id, user.Name())
+	cardata := CarMgr().CreateNewCar(user.Id(), cartemplate.Id, user.Name(),config.Price)
 
 	carmsg := &msg.GW2C_AddNewCar{}
 	carmsg.Car = pb.Clone(cardata.PackBin()).(*msg.CarData)

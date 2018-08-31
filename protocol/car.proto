@@ -92,3 +92,28 @@ message GW2C_AddNewCar {
 }
 
 
+//升级部件
+message C2GW_CarPartLevelup
+{
+    optional uint64 carid = 1;                          //车辆id
+    optional uint32 parttype = 2;                       //部件类型
+    repeated msg.CarPartPiece pieces = 3;               //使用的碎片
+}
+
+message GW2C_RetCarPartLevelup
+{
+    optional uint32 result = 1;
+    optional msg.CarData car = 2;
+}
+
+//车辆升星
+message C2GW_CarStarup
+{
+    optional uint64 carid = 1;                          //车辆id
+}
+
+message GW2C_RetCarStarup
+{
+    optional uint32 result = 1;
+    optional msg.CarData car = 2;
+}
