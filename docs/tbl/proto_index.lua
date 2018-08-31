@@ -210,7 +210,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 205, Name : "msg.TradeCarHistory" 	},
 		{ Id : 206, Name : "msg.GW2C_RetTradeCarHistory" 	},
 		{ Id : 207, Name : "msg.C2GW_GetTradeCarReward" 	},
-		{ Id : 208, Name : "msg.C2GW_CancelCarHouse" 	},
+		{ Id : 208, Name : "msg.C2GW_CancelTradeCar" 	},
 		{ Id : 209, Name : "msg.C2GW_AddDeliveryAddress" 	},
 		{ Id : 210, Name : "msg.C2GW_DelDeliveryAddress" 	},
 		{ Id : 211, Name : "msg.C2GW_ChangeDeliveryAddress" 	},
