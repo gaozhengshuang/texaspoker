@@ -189,7 +189,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetTradeCarHistory{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
-	this.msgparser.RegistSendProto(msg.GW2c_ResCarInfoById{})
+	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfoById{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResParkingInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ParkCarResult{})
 	this.msgparser.RegistSendProto(msg.GW2C_TakeBackCarResult{})
@@ -1147,7 +1147,7 @@ func on_C2GW_ReqCarInfoById(session network.IBaseNetSession, message interface{}
 	log.Info("on_C2GW_ReqCarInfoById %d", user.Id())
 	tmsg := message.(*msg.C2GW_ReqCarInfoById)
 	cardata := CarMgr().GetCar(uint64(tmsg.GetCarid()))
-	send := &msg.GW2c_ResCarInfoById{}
+	send := &msg.GW2C_ResCarInfoById{}
 	send.Cardata = cardata.PackBin()
 	user.SendMsg(send)
 }
