@@ -523,7 +523,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string,pri
 
 	car.modified = false
 
-	car.SaveBin(nil)
+	car.SaveBin(nil,true)
 	Redis().SAdd(CarIdSetKey, carid)
 	this.AddCar(car)
 	return car
@@ -764,7 +764,7 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	data.Houseid = pb.Uint64(hid)
 	parking.data = data
 	parking.modified = false
-	parking.SaveBin(nil)
+	parking.SaveBin(nil,true)
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
 	return parking
