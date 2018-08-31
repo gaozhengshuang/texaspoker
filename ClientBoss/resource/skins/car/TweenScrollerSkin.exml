@@ -9,7 +9,7 @@
 
 	<e:Group id="center" width="720" height="1280" y="0">
 		<e:Group id="listGroup" width="720" height="108" x="0" y="1172">
-			<e:Image id="down_bg" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" height="108" y="0" source="uiCarAltas_json.dialogBg" scaleX="1" scaleY="1"/>
+			<e:Image id="down_bg" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" height="108" y="0" scaleX="1" scaleY="1" source="room_down_bg1_png" scale9Grid="90,56,540,10"/>
 			<e:Scroller id="sr_item" width="720" height="1024" enabled="true" touchEnabled="true" anchorOffsetY="0" horizontalCenter="0" x="0" y="0" scaleX="1" scaleY="1">
 				<e:List id="ls_items" anchorOffsetY="0" height="1024" x="0" y="178.79" itemRendererSkinName="CarShopItemSkin"/>
 			</e:Scroller>

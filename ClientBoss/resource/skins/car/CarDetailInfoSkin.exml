@@ -85,8 +85,7 @@
 		</e:skinName>
 	</e:Button>
 	<e:Group id="down_bg_partpiece" width="0" height="0" y="0" x="0">
-		<game:TweenSroller id="partPieceList" width="20" height="20" x="0" y="0" skinName="TweenScrollerSkin" enabled="true" visible="false"/>
-
+		<game:CarPieceTweenSroller id="partPieceList" width="20" height="20" x="0" y="0" scaleX="1" scaleY="1" enabled="true" skinName="TweenScrollerSkin" visible="false"/>
 	</e:Group>
 
 </e:Skin>

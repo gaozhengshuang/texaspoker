@@ -38,11 +38,7 @@ module game {
         protected getSkinName() {
             return TweenScrollerSkin;
         }
-
-        constructor(){
-            super();
-        }
-
+        
         public setData(Datas:any[]) {
             if(!Datas) return;
             this.dataList = Datas;
