@@ -402,10 +402,10 @@ func (this *CarManager) LoadParkingFromDB() {
 
 func (this *CarManager) LoadLevelupConf() {
 	for _, v := range tbl.TCarPartLevelupBase.TCarPartLevelupById {
-		levelupConfForPart := this.partlevelupconfs[v.Partid]
+		levelupConfForPart := this.partlevelupconfs[v.Quality]
 		if levelupConfForPart == nil {
 			levelupConfForPart = make(map[uint32]*table.TCarPartLevelupDefine,0)
-			this.partlevelupconfs[v.Partid] = levelupConfForPart
+			this.partlevelupconfs[v.Quality] = levelupConfForPart
 		}
 		levelupConfForPart[v.Level] = v
 	}
@@ -941,7 +941,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	targetExp := partData.GetExp()
 	costMoney := uint32(0)
 	targetExp = targetExp + addExp
-	levelupConf := this.GetCarPartLevelupConf(partData.GetPartid(),targetlevel)
+	levelupConf := this.GetCarPartLevelupConf(parttemplate.Quality,targetlevel)
 	if levelupConf == nil {
 		user.SendNotify("没有升级到这一级的配置")
 		return 8,nil
@@ -956,7 +956,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 		targetExp = targetExp - levelupConf.Exp
 		costMoney = costMoney + levelupConf.Cost
 		if targetlevel < parttemplate.MaxLevel {
-			levelupConf = this.GetCarPartLevelupConf(partData.GetPartid(),targetlevel)
+			levelupConf = this.GetCarPartLevelupConf(parttemplate.Quality,targetlevel)
 			if levelupConf == nil {
 				user.SendNotify("没有升级到这一级的配置")
 				return 8,nil
@@ -1007,7 +1007,7 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 		user.SendNotify("已经满星了")
 		return 4,nil
 	}
-	starupCarBase,find := tbl.TStarupCarBase.TStarupCarById(car.GetStar())
+	starupCarBase,find := tbl.TStarupCarBase.TStarupCarById[car.GetStar()]
 	if !find {
 		user.SendNotify("没有升星的配置文件")
 		return 5,nil
@@ -1042,8 +1042,8 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 	return 0,car.data
 }
 
-func (this *CarManager) GetCarPartLevelupConf(partid uint32,level uint32) *table.TCarPartLevelupDefine {
-	partLevelupGroup := this.partlevelupconfs[partid]
+func (this *CarManager) GetCarPartLevelupConf(quality uint32,level uint32) *table.TCarPartLevelupDefine {
+	partLevelupGroup := this.partlevelupconfs[quality]
 	if partLevelupGroup == nil {
 		return nil
 	}else{
