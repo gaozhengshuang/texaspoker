@@ -211,6 +211,7 @@ func (this *HouseCell) LevelUp() bool {
 
 //房屋访问者操作信息
 type HouseVisitInfo struct {
+	uid 		uint32
 	visitorid   uint64 	//来访玩家的id
 	tmvisit     int64  	//来访时间
 	optindex    uint32 	//操作的房间编号
@@ -260,6 +261,7 @@ type HouseData struct {
 	sumvalue	 uint32 //总价值
 	tradeuid	 uint64 //交易id
 	tradeprice   uint32 
+	visitrecordid uint32	// 访问记录uuid
 	ticker1Sec *util.GameTicker
 }
 
@@ -277,6 +279,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.level = bin.GetLevel()
 	this.ownername = bin.GetOwnername()
 	this.robcheckflag = bin.GetRobcheckflag()
+	this.visitrecordid = bin.GetVisitrecordid()
 	this.roommember = bin.GetRoommember()
 	for _, v := range bin.GetHousecells() {
 		cell := &HouseCell{}
@@ -324,6 +327,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Ownername = pb.String(this.ownername)
 	bin.Housecells = make([]*msg.HouseCell, 0)
 	bin.Robcheckflag = pb.Uint32(this.robcheckflag)
+	bin.Visitrecordid = pb.Uint32(this.visitrecordid)
 	bin.Roommember = pb.Uint32(this.roommember)
 	for _, v := range this.housecells {
 		bin.Housecells = append(bin.Housecells, v.PackBin())
@@ -492,6 +496,7 @@ func (this *HouseData) LevelUp() bool {
 
 //添加记录
 func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string, syn bool) {
+	this.visitrecordid += 1
 	data := &HouseVisitInfo{}
 	data.visitorid = visitorid
 	data.tmvisit = util.CURTIME()
@@ -500,15 +505,11 @@ func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , o
 	data.optparam = optparam
 	data.visitorname = vistor
 	data.visitorhouse = visitorhouse
-	this.visitinfo = append(this.visitinfo, data)
-	infolen := len(this.visitinfo)
+	data.uid = this.visitrecordid
 
-	for {
-		if infolen <= 5 {
-			break
-		}
-		this.visitinfo = append(this.visitinfo[:0], this.visitinfo[1:]...)
-		infolen = len(this.visitinfo)
+	this.visitinfo = append(this.visitinfo, data)
+	if len(this.visitinfo) > 30 {
+		this.visitinfo = this.visitinfo[1:]
 	}
 	this.robcheckflag = 1
 	
@@ -519,6 +520,26 @@ func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , o
 			user.SendMsg(send) 
 		}
 	}
+}
+
+// 修改访问记录 optparam参数
+func (this *HouseData) SetVisitParam(user *GateUser, uid uint32, optparam uint32) {
+	for _, v := range this.visitinfo {
+		if v.uid != uid { continue }
+		v.optparam = optparam
+		send := &msg.GW2C_UpdateHouseVisitInfo{Houseid:pb.Uint64(this.id), Info:v.PackBin()}
+		user.SendMsg(send) 
+		return
+	}
+}
+
+//
+func (this *HouseData) GetVisitParam(uid uint32) (optparam uint32) {
+	for _, v := range this.visitinfo {
+		if v.uid != uid { continue }
+		return v.optparam
+	}
+	return 0
 }
 
 //客户端查看记录重置查看状态
