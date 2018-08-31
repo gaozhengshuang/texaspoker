@@ -7,7 +7,7 @@
 	<e:Label id="buySuccessFlag" text="购买成功" y="30" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" strokeColor="0xf85959" horizontalCenter="0" textColor="0xffffff" bold="true" stroke="3"/>
 	<e:Label id="sellSuccessFlag" text="出售成功" y="30" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" strokeColor="0x07B45D" horizontalCenter="0" textColor="0xFFFFFF" bold="true" stroke="3"/>
 	<e:Label id="sellFailedFlag" text="出售失败" y="30" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" strokeColor="0x404a58" horizontalCenter="0" textColor="0xFFFFFF" bold="true" stroke="3"/>
-	<e:Group x="215" y="154">
+	<e:Group id="unitGroup" x="215" y="154">
 		<e:Label text="单价：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
 		<e:Label id="unitPrice" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
 	</e:Group>

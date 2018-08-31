@@ -222,6 +222,26 @@ func (this *CarData) GetCarModel() uint32 {
 	return template.Model
 }
 
+func (this *CarData) CanOperate() bool {
+	if this.data.GetTradeuid() != 0 {
+		if user := UserMgr().FindById(this.data.GetOwnerid()); user != nil {
+			user.SendNotify("汽车出售中，不能操作")
+		}
+		return false
+	}
+	return true
+}
+
+func (this *CarData) CanTrade() bool {
+	if this.data.GetTradeuid() != 0 {
+		return false
+	}
+	if this.data.GetState() != 1 {
+		return false
+	}
+	return true
+}
+
 //车位信息
 type ParkingData struct {
 	data				*msg.ParkingData
@@ -762,6 +782,9 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
 		return 1
+	}
+	if car.CanOperate() == false {
+		return 8
 	}
 	if parking.data.GetParkingcar() != 0 {
 		return 3

@@ -231,3 +231,76 @@ message C2GW_ReqItemTradeList
     optional uint32 startnum = 9;       //开始行数 从0开始
 }
 
+//道具交易信息
+message SimpleItemTrade
+{
+    optional uint64 tradeuid = 1;           //交易唯一id
+    optional uint32 itemid = 2;             //道具id
+    optional uint32 itemnum = 3;              //道具数量
+    optional uint32 price = 4;             //定价
+    optional uint32 endtime = 5;            //交易结束时间
+    optional uint32 ownerid = 6;            
+    optional uint32 itemtype = 7;            //类型
+    optional uint32 itemsubtype = 8;        //子类型
+    optional string name = 9;              //名字 
+}
+
+//返回道具交易列表
+message GW2C_RetItemTradeList
+{
+    repeated SimpleItemTrade list = 1; //
+}
+
+//交易道具
+message C2GW_TradeItem
+{
+    optional uint32 itemid = 1;             //道具id
+    optional uint32 itemnum = 2;
+    optional uint32 price = 3;              //价格
+}
+
+//买道具
+message C2GW_BuyTradeItem
+{
+    optional uint64 tradeuid = 1;
+    optional uint64 itemid = 2;
+}
+
+//查询交易记录
+message C2GW_ReqTradeItemHistory
+{
+}
+
+message TradeItemHistory
+{
+    optional uint64 tradeuid = 1;           //交易唯一id
+    optional uint32 itemid = 2;             //道具id
+    optional uint32 itemnum = 3;              //道具数量
+    optional uint32 price = 4;             //定价
+    optional uint32 tradetime = 5;            //交易时间
+    optional uint32 state = 9;
+}
+
+//返回交易记录
+message GW2C_RetTradeItemHistory
+{
+    repeated TradeItemHistory list = 1;    //交易列表
+}
+
+//领取交易奖励
+message C2GW_GetTradeItemReward
+{
+    optional uint64 tradeuid = 1;
+}
+
+message GW2C_RetGetTradeItemReward
+{
+    optional uint64 tradeuid = 1;
+}
+
+//取消订单
+message C2GW_CancelTradeItem
+{
+    optional uint64 tradeuid = 1;
+}
+

@@ -30,7 +30,7 @@ module game {
 			if (listLen > 5) {
 				let signData = TradeManager.getInstance().tradeHouseInfo.list[listLen - 5];
 				if (data.houseuid == signData.houseuid) {
-					TradePanel.getInstance().startReqTradeList();
+					TradePanel.getInstance().startReqHouseTradeList(false);
 				}
 
 				let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
@@ -58,14 +58,14 @@ module game {
 		}
 		private onBuyClick() {
 			//购买
-			NotificationCenter.addObserver(this, this.onGetHouseData, PlayerModel.HOUSE_UPDATE);
+			NotificationCenter.addObserver(this, this.onGetHouseData, "msg.GW2C_AckHouseDataByHouseId");
 			sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({ houseid: this.data.houseuid }));
 		}
 
 		private onGetHouseData(data: msg.GW2C_UpdateHouseDataOne) {
 			openPanel(PanelType.TradeHouseBuyPanel);
 			TradeHouseBuyPanel.getInstance().setData(this.data, data);
-			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
+			NotificationCenter.removeObserver(this, "msg.GW2C_AckHouseDataByHouseId");
 		}
 
 		private onRemove() {

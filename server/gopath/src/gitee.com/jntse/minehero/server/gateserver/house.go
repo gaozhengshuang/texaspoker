@@ -375,8 +375,8 @@ func (this *HouseData) CanOperate(userid uint64) bool {
 	if this.issell == true {
 		if user := UserMgr().FindById(userid); user != nil {
 			user.SendNotify("房屋出售中，不能操作")
-			return false
 		}
+		return false
 	}
 	return true
 }
@@ -576,14 +576,6 @@ func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
 	data := make(map[uint64]*HouseData)
 	if _, ok := this.userhouses[uid]; ok {
 		return this.userhouses[uid]
-		/*
-		for _, v := range ids {
-			tmp := this.GetHouse(v)
-			if tmp != nil {
-				data[tmp.id] = tmp
-			}
-		}
-		*/
 	}
 	return data
 }
