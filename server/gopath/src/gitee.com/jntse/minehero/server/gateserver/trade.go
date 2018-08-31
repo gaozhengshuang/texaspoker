@@ -543,7 +543,7 @@ func (this *GateUser) CancelTradeCar(caruid uint64){
 	}
 
 	car.ClearTrade()
-	CarMgr().UpdateCarByID(this, car.Getid(), false)
+	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
 	//send := &msg.GW2C_RetCancelTradeHouse{}
 	//send.Tradeuid = pb.Uint64(tradeuid)
