@@ -111,7 +111,6 @@ module game {
 		private onItemTouch(eve: eui.ItemTapEvent) {
 			let item: HouseVO = this.assetsList[eve.itemIndex];
 			if (item) {
-				MaidManager.getInstance()._startHouse = item.rId;
 				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { houseid: item.rId }));
 			}
 		}

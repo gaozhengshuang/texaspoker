@@ -66,14 +66,6 @@ enum ItemPos {
     LongClothes = 8;    // 裙子/长衣
 }
 
-// 房子访问类型
-enum HouseVisitType {
-    TakeMoney = 1;      // 收取房子金币
-    RobMoney = 2;       // 掠夺房子金币
-    RobMaid = 5;        // 掠夺女仆
-    TakeBackMaid = 6;   // 领回女仆
-}
-
 
 enum Sex {
     Female = 0;

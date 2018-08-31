@@ -59,11 +59,7 @@ message C2GW_MaidUpgrade {
 
 // 收取女仆收益
 message C2GW_TakeMaidEarning {
-    optional uint64 id = 1;         // 女仆id
-}
-
-// 领取掠夺女仆收益
-message C2GW_TakeRobMaidEarning {
+    optional uint64 id = 1;     // 女仆id
 }
 
 // 掠夺女仆
