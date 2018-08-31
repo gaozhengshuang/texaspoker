@@ -32,14 +32,14 @@ module game {
         }
 
         private registerEvent() {
-            NotificationCenter.addObserver(this, this.OnHouseMaidUpdate, PlayerModel.HOUSEMAID_UPDATE);
+            NotificationCenter.addObserver(this, this.OnHouseMaidUpdate, MaidManager.HOUSEMAID_UPDATE);
 
             this.grp_role.addEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
             this.goldImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goldTouchEvent, this);
         }
 
         private removeEvent() {
-            NotificationCenter.removeObserver(this, PlayerModel.HOUSEMAID_UPDATE);
+            NotificationCenter.removeObserver(this, MaidManager.HOUSEMAID_UPDATE);
 
             this.grp_role.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
             this.goldImg.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.goldTouchEvent, this);
@@ -67,8 +67,8 @@ module game {
         }
 
         private OnHouseMaidUpdate() {
-            for(let i=0; i<DataManager.playerModel.getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
-                let maidInfo = DataManager.playerModel.getHouseMaidInfo().maids[i];
+            for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
+                let maidInfo = MaidManager.getInstance().getHouseMaidInfo().maids[i];
                 if (maidInfo.id == this._maidInfo.id) {
                     this._maidInfo = maidInfo;
                     break;
@@ -112,22 +112,35 @@ module game {
                 if (this._maidInfo.robberid == 0) {
                     openPanel(PanelType.dress);
                 } else {
-
+                    sendMessage("msg.C2GW_TackBackMaid", msg.C2GW_TackBackMaid.encode({
+                        id: this._maidInfo.id
+                    }));
                 }
-            } else {    //女仆是别人的
-                if (this.isMyMaid()) {
+            } else {
+                if (this._maidInfo.robberid == 0) {
+                    let dialogStr = "是否抢夺"+this._maidInfo.ownername+"家的女仆";
+                    showDialog(dialogStr, "确定", function () {
+                        sendMessage("msg.C2GW_RobMaid", msg.C2GW_RobMaid.encode({
+                            id: this._maidInfo.id,
+                            dropto: MaidManager.getInstance().getCurHouseId()
+                        }));
+                    }.bind(this));
 
+                }else if (this._maidInfo.robberid == DataManager.playerModel.getUserId()) {   //我抢回来的女仆点击领取奖励
+                    let dialogStr = `当前收益${this._maidInfo.earning}金币`;
+                    showDialog(dialogStr, "送回", function () {
+                        sendMessage("msg.C2GW_SendBackMaid", msg.C2GW_SendBackMaid.encode({
+                            id: this._maidInfo.id
+                        }));
+                    }.bind(this));
                 }
+
             }
         }
 
         private goldTouchEvent() {
             if (this.isMyMaid()) {
                 sendMessage("msg.C2GW_TakeMaidEarning", msg.C2GW_TakeMaidEarning.encode({
-                    id: this._maidInfo.id
-                }));
-            } else {
-                sendMessage("msg.C2GW_SendBackMaid", msg.C2GW_SendBackMaid.encode({
                     id: this._maidInfo.id
                 }));
             }
