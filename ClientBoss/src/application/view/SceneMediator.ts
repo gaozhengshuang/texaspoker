@@ -168,6 +168,7 @@ module game {
                     this._lastPanelView.clear();
                 }
             }
+            TradeManager.getInstance().hidePanel();
             if (this.sceneMediatorName != "") {
                 ApplicationFacade.getInstance().removeMediator(this.sceneMediatorName);
             }

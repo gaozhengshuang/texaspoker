@@ -22,13 +22,19 @@ module game {
 		private update() {
 			let data: msg.SimpleCarTrade = this.data;
 
-			let listLen = TradeManager.getInstance().tradeCarInfo.list.length;
-			if (listLen > 5) {
-				let signData: msg.SimpleCarTrade = TradeManager.getInstance().tradeCarInfo.list[listLen - 5] as msg.SimpleCarTrade;
-				if (data.caruid == signData.caruid) {
-					// TradePanel.getInstance().startReqCarTradeList(false); //todo
-				}
+			// let listLen = TradeManager.getInstance().tradeCarInfo.list.length;
+			// if (listLen > 5) {
+			// 	let signData: msg.SimpleCarTrade = TradeManager.getInstance().tradeCarInfo.list[listLen - 5] as msg.SimpleCarTrade;
+			// 	if (data.caruid == signData.caruid) {
+			// 		// TradePanel.getInstance().startReqCarTradeList(false); //todo
+			// 	}
+			// }
+			let idx = TradeManager.getInstance().tradeCarInfo.list.indexOf(data);
+			let len = TradeManager.getInstance().tradeCarInfo.list.length;
+			if (len > 9 && len - 1 == idx) {
+				TradePanel.getInstance().startReqCarTradeList(false);
 			}
+
 			let carDef = TradeManager.getInstance().getCarDefine(data.carbaseid);
 			if (carDef) {
 				let carName = TradeManager.getInstance().getCarName(data.carbaseid);

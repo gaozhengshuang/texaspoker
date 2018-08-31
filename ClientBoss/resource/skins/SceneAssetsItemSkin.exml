@@ -22,4 +22,5 @@
 		</e:skinName>
 	</e:Button>
 	<e:Image id="jiaoBiaoIcon" source="jiaobiaoIcon1_png" y="0" x="668" touchEnabled="false"/>
+	<e:Image id="sellImg" y="0" x="602" touchEnabled="false" source="trade_selling_png"/>
 </e:Skin>

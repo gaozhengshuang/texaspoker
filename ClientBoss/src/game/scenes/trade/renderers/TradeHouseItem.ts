@@ -27,14 +27,15 @@ module game {
 		private update() {
 			let data: msg.SimpleHouseTrade = this.data;
 
-			let listLen = TradeManager.getInstance().tradeHouseInfo.list.length;
-			if (listLen > 5) {
-				let signData = TradeManager.getInstance().tradeHouseInfo.list[listLen - 5];
-				if (data.houseuid == signData.houseuid) {
-					// TradePanel.getInstance().startReqHouseTradeList(false);
-				}
+			let idx = TradeManager.getInstance().tradeHouseInfo.list.indexOf(data);
+			let len = TradeManager.getInstance().tradeHouseInfo.list.length;
+			if (len > 9 && idx == len - 1) {
+				TradePanel.getInstance().startReqHouseTradeList(false);
 			}
-
+			// let signData = TradeManager.getInstance().tradeHouseInfo.list[listLen - 5];
+			// if (data.houseuid == signData.houseuid) {
+			// 	TradePanel.getInstance().startReqHouseTradeList(false);
+			// }
 			let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
 			if (houseDef) {
 				this.icon.show({ name: data.name, icon: houseDef.ImageId.toString(), star: data.houselevel, type: TradeIconType.House });

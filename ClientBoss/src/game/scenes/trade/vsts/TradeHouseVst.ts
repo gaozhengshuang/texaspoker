@@ -114,7 +114,7 @@ module game {
 			this.typeFilter.visible = false;
 
 			this.context.housePriceBtn.onShow();
-			
+
 			NotificationCenter.addObserver(this, this.onTradeList, 'msg.GW2C_RetHouseTradeList');
 			NotificationCenter.addObserver(this, this.refreshList, PlayerModel.HOUSE_UPDATE);
 		}
@@ -149,6 +149,7 @@ module game {
 					break;
 				case this.context.housePriceBtn: //价格排序
 					this.context.housePriceBtn.changeState();
+					this.startReqTradeList(true);
 					break;
 				case this.context.sellBtn:
 					if (this.context.panelFlag == TradePanelFlag.House) { //出售房产
@@ -166,6 +167,7 @@ module game {
 			if (data.id == 0) //选择了全国
 			{
 				this.hideHouseFilter();
+				this.selectCity = 0;
 				this.startReqTradeList();
 			}
 			this.context.houseAreaBtn.label = data.des;
@@ -249,6 +251,9 @@ module game {
 			else {
 				data.startnum = 0;
 			}
+			if (isClear && TradeManager.getInstance().tradeHouseInfo) {
+				TradeManager.getInstance().tradeHouseInfo.list.length = 0;
+			}
 			//请求交易列表
 			sendMessage('msg.C2GW_ReqHouseTradeList', msg.C2GW_ReqHouseTradeList.encode(data));
 		}
@@ -256,12 +261,22 @@ module game {
 		 * 交易列表返回
 		 */
 		private onTradeList(data: msg.GW2C_RetHouseTradeList) {
-			TradeManager.getInstance().tradeHouseInfo = data;
-			this._tradeDp.source = data.list;
-			this.context.houseScroller.refreshData(this._tradeDp);
+			if (!TradeManager.getInstance().tradeHouseInfo || TradeManager.getInstance().tradeHouseInfo.list.length == 0) {
+				TradeManager.getInstance().tradeHouseInfo = data;
+				this._tradeDp.source = data.list;
+				this.context.houseScroller.refreshData(this._tradeDp);
+			}
+			else {
+				if (data.list.length > 0) {
+					TradeManager.getInstance().tradeHouseInfo.list = TradeManager.getInstance().tradeHouseInfo.list.concat(data.list);
+					for (let i: number = 0; i < data.list.length; i++) {
+						this._tradeDp.addItem(data.list[i]);
+					}
+				}
+			}
 		}
 		private refreshList() {
-			this.startReqTradeList(false, true);
+			this.startReqTradeList(true, true);
 		}
 	}
 }

@@ -52,6 +52,18 @@ module game {
 			GameConfig.exploreUIFun(false);
 		}
 		/**
+		 * 获取房屋数据
+		 */
+		public getHouseData(id: number): msg.HouseData {
+			let house = DataManager.playerModel.getHouse();
+			for (let info of house) {
+				if (info.id == id) {
+					return info;
+				}
+			}
+			return null;
+		}
+		/**
 		 * 获取房屋配置信息
 		 */
 		public getHouseDefine(id: number): table.THouseDefine {
@@ -208,6 +220,43 @@ module game {
 		public getPriceStr(price: number): string {
 			let priceColor = TradeManager.getInstance().getPriceColor(price);
 			return '<font color="' + priceColor + '">' + numAddSpace(price) + '</font>' + '<font color="#00000">金币</font>';
+		}
+
+		private _panels = [PanelType.TradePanel,
+		PanelType.TradeRecordPanel,
+		PanelType.TradeMyAssetsPanel,
+		PanelType.TradeHouseBuyPanel,
+		PanelType.TradeHouseSellPanel,
+		PanelType.TradeCarBuyPanel,
+		PanelType.TradeCarSellPanel]
+		public hidePanel() {
+			for (let panel of this._panels) {
+				if (panelIsShow(panel)) {
+					switch (panel) {
+						case PanelType.TradePanel:
+							TradePanel.getInstance().remove();
+							break;
+						case PanelType.TradeRecordPanel:
+							TradeRecordPanel.getInstance().remove();
+							break;
+						case PanelType.TradeMyAssetsPanel:
+							TradeMyAssetsPanel.getInstance().remove();
+							break;
+						case PanelType.TradeHouseBuyPanel:
+							TradeHouseBuyPanel.getInstance().remove();
+							break;
+						case PanelType.TradeHouseSellPanel:
+							TradeHouseSellPanel.getInstance().remove();
+							break;
+						case PanelType.TradeCarSellPanel:
+							TradeCarSellPanel.getInstance().remove();
+							break;
+						case PanelType.TradeCarBuyPanel:
+							TradeCarBuyPanel.getInstance().remove();
+							break;
+					}
+				}
+			}
 		}
 
 		private static _instance: TradeManager = null;

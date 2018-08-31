@@ -79,6 +79,7 @@ module game {
 					break;
 				case this.context.carPriceBtn:
 					this.context.carPriceBtn.changeState();
+					this.startReqTradeList(true);
 					break;
 				case this.context.carIncomeBtn:
 					this.context.carIncomeBtn.changeState();
@@ -166,18 +167,31 @@ module game {
 				data.startnum = 0;
 			}
 			//请求交易列表
+			if (isClear && TradeManager.getInstance().tradeCarInfo) {
+				TradeManager.getInstance().tradeCarInfo.list.length = 0;
+			}
 			sendMessage('msg.C2GW_ReqCarTradeList', msg.C2GW_ReqCarTradeList.encode(data));
 		}
 		/**
  		 * 交易列表返回
 		 */
 		private onTradeList(data: msg.GW2C_RetHouseTradeList) {
-			TradeManager.getInstance().tradeCarInfo = data;
-			this._tradeDp.source = data.list;
-			this.context.carScroller.refreshData(this._tradeDp);
+			if (!TradeManager.getInstance().tradeCarInfo || TradeManager.getInstance().tradeCarInfo.list.length == 0) {
+				TradeManager.getInstance().tradeCarInfo = data;
+				this._tradeDp.source = data.list;
+				this.context.carScroller.refreshData(this._tradeDp);
+			}
+			else {
+				if (data.list.length > 0) {
+					TradeManager.getInstance().tradeCarInfo.list = TradeManager.getInstance().tradeCarInfo.list.concat(data.list);
+					for (let i: number = 0; i < data.list.length; i++) {
+						this._tradeDp.addItem(data.list[i]);
+					}
+				}
+			}
 		}
 		private refreshList() {
-			this.startReqTradeList(false, true);
+			this.startReqTradeList(true, true);
 		}
 	}
 }

@@ -10,58 +10,64 @@ module game {
 
         private chushou_icon: eui.Image;
         private jiaoBiaoIcon: eui.Image;
-        private bg_mc:eui.Rect;
+        private bg_mc: eui.Rect;
+        sellImg: eui.Image;
 
         public constructor(data: any = null) {
             super();
             this.skinName = SceneAssetsItemSkin;
             //this.adaptive();
-            this.chushou_icon.visible=false;
-            this.jiaoBiaoIcon.visible=false;
-            this.bg_mc.alpha=0;
-            this.touchChildren=false;
+            this.chushou_icon.visible = false;
+            this.jiaoBiaoIcon.visible = false;
+            this.bg_mc.alpha = 0;
+            this.touchChildren = false;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onclick_begin, this);
             this.addEventListener(egret.TouchEvent.TOUCH_END, this.onclick_begin, this);
             this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onclick_begin, this);
 
         }
-        private onclick_begin(eve:egret.TouchEvent){
-            if(eve.type==egret.TouchEvent.TOUCH_BEGIN){
-                this.bg_mc.alpha=1;
-            }else{
-                this.bg_mc.alpha=0;
+        private onclick_begin(eve: egret.TouchEvent) {
+            if (eve.type == egret.TouchEvent.TOUCH_BEGIN) {
+                this.bg_mc.alpha = 1;
+            } else {
+                this.bg_mc.alpha = 0;
             }
 
         }
-        private adaptive(){
-            this.scaleX=GameConfig.innerScaleW;
-            this.scaleY=GameConfig.innerScaleW;
+        private adaptive() {
+            this.scaleX = GameConfig.innerScaleW;
+            this.scaleY = GameConfig.innerScaleW;
         }
 
-        private itemDate:HouseVO;
+        private itemDate: HouseVO;
         protected dataChanged(): void {
             this.itemDate = this.data;
             if (this.itemDate) {
                 //console.log(this.itemDate);
-                if(this.itemDate.bId<=0){
-                    this.name_txt.text = this.itemDate.rId+"号房间(租)";
-                }else{
-                    let buildInfo=table.TBuildingsById[this.itemDate.bId];
-                    if(buildInfo){
-                        this.name_txt.text = buildInfo.Community+this.itemDate.roommember+"号房间";//+this.itemDate.rId+"号房间";
+                if (this.itemDate.bId <= 0) {
+                    this.name_txt.text = this.itemDate.rId + "号房间(租)";
+                } else {
+                    let buildInfo = table.TBuildingsById[this.itemDate.bId];
+                    if (buildInfo) {
+                        this.name_txt.text = buildInfo.Community + this.itemDate.roommember + "号房间";//+this.itemDate.rId+"号房间";
                     }
                 }
-                let houseType:any=table.THouseById[this.itemDate.tId];
-                if(houseType){
-                    this.huxing_txt.text="户型："+houseType.Des;
-                    this.build_img.source=RES.getRes("huxing_"+houseType.ImageId+"_s_png");
+                let houseType: any = table.THouseById[this.itemDate.tId];
+                if (houseType) {
+                    this.huxing_txt.text = "户型：" + houseType.Des;
+                    this.build_img.source = RES.getRes("huxing_" + houseType.ImageId + "_s_png");
                 }
-                if(this.itemDate.isHave){
-                    this.jiaoBiaoIcon.visible=true;
-                }else{
-                    this.jiaoBiaoIcon.visible=false;
+                let houseData = TradeManager.getInstance().getHouseData(this.itemDate.rId);
+                if (houseData) {
+                    this.sellImg.visible = houseData.issell;
                 }
-                
+
+                if (this.itemDate.isHave) {
+                    this.jiaoBiaoIcon.visible = true;
+                } else {
+                    this.jiaoBiaoIcon.visible = false;
+                }
+
             }
         }
     }

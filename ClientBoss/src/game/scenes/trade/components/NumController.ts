@@ -5,10 +5,11 @@ module game {
 	export class NumController extends BaseUIComponent<number> {
 		public addBtn: eui.Image;
 		public reduceBtn: eui.Image;
-		public numTxt: eui.TextInput;
+		public numTxt: eui.EditableText;
 		private _taxRateNum: number;
 		private _nowNum: number;
 		public get nowNum(): number {
+			this.setNowNum();
 			return this._nowNum;
 		}
 
@@ -16,10 +17,11 @@ module game {
 		private _isDown: boolean;
 		private _lastDownTime: number;
 
-		private stepTime = 300;
+		private stepTime = 100;
 		private _timeId: number;
 
 		private _onChange: CallBackHandler;
+		// private _isFocusIn: boolean = false;
 
 		public constructor() {
 			super();
@@ -32,9 +34,11 @@ module game {
 		}
 		public show(orignNum: number) {
 			super.show(orignNum);
+			this.numTxt.restrict = '0-9';
+			this.numTxt.maxChars = 9;
 			this._nowNum = orignNum;
-			this.numTxt.text = numAddSpace(orignNum);
-			this._taxRateNum = orignNum * gameConfig.tradeTaxRate;
+			this.numTxt.text = orignNum.toString();
+			this._taxRateNum = Math.floor(orignNum * gameConfig.tradeTaxRate);
 
 			this.addBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onOperateClickStart, this);
 			this.reduceBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onOperateClickStart, this);
@@ -48,7 +52,9 @@ module game {
 			this.addBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.onOperateClickEnd, this);
 			this.reduceBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.onOperateClickEnd, this);
 
-			this._timeId = egret.setInterval(this.onUpdate, this, this.stepTime);
+			this.numTxt.addEventListener(egret.TextEvent.FOCUS_IN, this.onFoucusIn, this);
+			this.numTxt.addEventListener(egret.TextEvent.FOCUS_OUT, this.onFoucusOut, this);
+			this.addEventListener(egret.Event.ENTER_FRAME, this.onUpdate, this);
 		}
 		protected beforeRemove() {
 			this.addBtn.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onOperateClickStart, this);
@@ -63,7 +69,9 @@ module game {
 			this.addBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.onOperateClickEnd, this);
 			this.reduceBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.onOperateClickEnd, this);
 
-			egret.clearInterval(this._timeId);
+			this.numTxt.removeEventListener(egret.TextEvent.FOCUS_IN, this.onFoucusIn, this);
+			this.numTxt.removeEventListener(egret.TextEvent.FOCUS_OUT, this.onFoucusOut, this);
+			this.removeEventListener(egret.Event.ENTER_FRAME, this.onUpdate, this);
 		}
 		private onOperateClickStart(event: egret.TouchEvent) {
 			this._lastClickTarget = event.currentTarget;
@@ -78,25 +86,47 @@ module game {
 				this._isDown = false;
 			}
 		}
+		private _lastText: string;
 		private onUpdate() {
 			if (this._isDown) {
+				// if (this._isFocusIn) {
+				// 	this.setNowNum();
+				// }
+				// else {
+				// 	this.numTxt.text = this._nowNum.toString();
+				// }
 				if (Date.now() - this._lastDownTime > this.stepTime) {
 					this._lastDownTime = Date.now();
 
 					if (this._lastClickTarget == this.addBtn) {
 						this._nowNum += this._taxRateNum;
-						this.numTxt.text = numAddSpace(this._nowNum);
-						runCallBackHandler(this._onChange);
+						this.numTxt.text = this._nowNum.toString();
 					}
 					else if (this._lastClickTarget == this.reduceBtn) {
 						this._nowNum -= this._taxRateNum;
 						if (this._nowNum < 0) {
 							this._nowNum = 0;
 						}
-						this.numTxt.text = numAddSpace(this._nowNum);
-						runCallBackHandler(this._onChange);
+						this.numTxt.text = this._nowNum.toString();
 					}
 				}
+				if (this._lastText != this.numTxt.text) {
+					this._lastText = this.numTxt.text;
+					runCallBackHandler(this._onChange);
+				}
+			}
+		}
+		private onFoucusIn() {
+			this._isDown = true;
+		}
+		private onFoucusOut() {
+			this._isDown = false;
+		}
+		private setNowNum() {
+			let text = this.numTxt.text;
+			let num = parseInt(text);
+			if (num > 0) {
+				this._nowNum = num;
 			}
 		}
 	}

@@ -10,16 +10,17 @@ module game {
 		private _flag: TradePanelFlag;
 
 		protected init() {
+			this._isShowEffect = false;
 			this.recordScroller.dataList.useVirtualLayout = true;
 			this.recordScroller.initItemRenderer(TradeRecordItem);
 			this.recordScroller.setViewPort();
+			this.recordScroller.scrollPolicyH = 'off';
 			this.titlePanel.init(this.remove, this);
 		}
 		protected getSkinName() {
 			return TradeRecordPanelSkin;
 		}
-		public setData(flag:TradePanelFlag)
-		{
+		public setData(flag: TradePanelFlag) {
 			this._flag = flag;
 			this.onRefresh();;
 		}
@@ -34,8 +35,7 @@ module game {
 			if (this._flag == TradePanelFlag.House) {
 				this.recordScroller.bindData(TradeManager.getInstance().tradeHouseRecordInfo.list);
 			}
-			else if(this._flag == TradePanelFlag.Car)
-			{
+			else if (this._flag == TradePanelFlag.Car) {
 				this.recordScroller.bindData(TradeManager.getInstance().tradeCarRecordInfo.list);
 			}
 		}

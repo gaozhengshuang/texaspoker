@@ -19,6 +19,7 @@ module game {
 			return TradeMyAssetsPanelSkin;
 		}
 		protected init() {
+			this._isShowEffect = false;
 			this._dp = new eui.ArrayCollection();
 			this.scroller.setViewPort();
 			this.titlePanel.init(this.remove, this);
