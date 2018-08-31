@@ -715,7 +715,7 @@ func (ma *MaidManager) ItemProduce(user *GateUser, maid *Maid, reason string) {
 	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
 		for _ , strpro := range Pro {
 			slicepro := strings.Split(strpro, "-")
-			if len(slicepro) != 2 {
+			if len(slicepro) != 3 {
 				log.Error("[女仆] 解析道具产出概率配置异常 strpro=%s", strpro)
 				return false
 			}
