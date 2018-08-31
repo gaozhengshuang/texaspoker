@@ -47,10 +47,11 @@ module game {
             }
             //名字
             this.carNameTxt.textFlow = [
-                { text: carItemData.Brand+"-"+carItemData.Model, style: { bold: true } },
+                { text: getCarName(carItemData.Id), style: { bold: true } },
             ]
             //属性
-            //this.txt_info.text = "产能："+ carItemData.RewardPerH + "金币/小时" + "\n"+"价格："+ carItemData.Price+"金币";
+            let _carPartItemData = table.TCarPartById[carItemData.Tyre];
+            this.txt_info.text = "产能："+ _carPartItemData ? _carPartItemData.RewardInit.toString() : "" + "金币/小时" + "\n"+"价格："+ carItemData.Price+"金币";
         }
 
         private OnClickBuy(){

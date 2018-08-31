@@ -68,7 +68,7 @@ module game {
                     { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
                 ]
                 this.infoTxt.textFlow = [
-                    { text: this.itemData.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 22,"textColor":0xffe776,bold:true} },
+                    { text: this.itemData.parkingcarownername+"："+getCarName(_parkingCarData.Id), style: { size : 22,"textColor":0xffe776,bold:true} },
                 ]
 
                 CarPublicParkingLotManager.getInstance().addFunction(this.runningTimer,this);
@@ -116,7 +116,7 @@ module game {
                     let _canPark = false;
                     if(CarDetailView.getInstance().carData){
                         let carData = CarDetailView.getInstance().carData;
-                        if(carData.parkingid==0 && carData.parkingreward==0){
+                        if(carData.state==msg.CarState.Ready && (!carData.reward || (carData.reward && carData.reward.money==0))){
                             _canPark = true;
                             CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                 if(result==0){
@@ -130,7 +130,7 @@ module game {
                     {
                         for(let carData of DataManager.playerModel.userInfo.cardatas)
                         {
-                            if(carData.parkingid==0){
+                            if(carData.state==msg.CarState.Ready){
                                 _canPark = true;
                                 CarManager.getInstance().parking(carData.id,this.itemData,function(result:number){
                                     if(result==0){
