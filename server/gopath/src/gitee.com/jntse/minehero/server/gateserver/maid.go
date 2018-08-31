@@ -690,7 +690,10 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 	robberhouse := maid.RobberTo()
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
 	maid.SetRobber(0, "", 0)
-	maid.SetTimeStart(0)	// 停止工作
+	maid.SetTimeStart(util.CURTIME())
+	if maid.Earning() != 0  {
+		maid.SetTimeStart(0)	// 停止工作，女仆主人领取后开始工作
+	}
 	log.Info("[女仆] 女仆[%d]被送回到房间", maid.Id())
 
 	//
