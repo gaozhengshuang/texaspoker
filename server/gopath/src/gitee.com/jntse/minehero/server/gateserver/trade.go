@@ -157,8 +157,8 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 
 	historykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), history.GetTradeuid())
 	utredis.SetProtoBin(Redis(), historykey, history)
-	listkey := fmt.Sprintf("tradehousehistorylist_%d", this.Id())
-	Redis().LPush(listkey, history.GetTradeuid())
+	//listkey := fmt.Sprintf("tradehousehistorylist_%d", this.Id())
+	//Redis().LPush(listkey, history.GetTradeuid())
 
 	this.SendNotify("操作成功")
 }
@@ -208,8 +208,8 @@ func (this *GateUser) BuyTradeHouse(tradeuid uint64, houseuid uint64){
 
 	sellkey := fmt.Sprintf("tradehousehistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
-	//selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
-	//Redis().LPush(selllistkey, tradeuid)
+	selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
+	Redis().LPush(selllistkey, tradeuid)
 
 	history.Price = pb.Uint32(exprice)
 	history.State = pb.Uint32(uint32(4))
@@ -434,8 +434,8 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 
 	historykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), history.GetTradeuid())
 	utredis.SetProtoBin(Redis(), historykey, history)
-	listkey := fmt.Sprintf("tradecarhistorylist_%d", this.Id())
-	Redis().LPush(listkey, history.GetTradeuid())
+	//listkey := fmt.Sprintf("tradecarhistorylist_%d", this.Id())
+	//Redis().LPush(listkey, history.GetTradeuid())
 
 	this.SendNotify("操作成功")
 }
@@ -487,8 +487,8 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 
 	sellkey := fmt.Sprintf("tradecarhistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
-	//selllistkey := fmt.Sprintf("tradecarhistorylist_%d", exownerid)
-	//Redis().LPush(selllistkey, tradeuid)
+	selllistkey := fmt.Sprintf("tradecarhistorylist_%d", exownerid)
+	Redis().LPush(selllistkey, tradeuid)
 
 	history.Price = pb.Uint32(exprice)
 	history.State = pb.Uint32(uint32(4))
