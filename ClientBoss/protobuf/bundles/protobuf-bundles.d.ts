@@ -3801,6 +3801,426 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a CarPartData. */
+    interface ICarPartData {
+
+        /** CarPartData partid */
+        partid?: (number|null);
+
+        /** CarPartData parttype */
+        parttype?: (number|null);
+
+        /** CarPartData level */
+        level?: (number|null);
+
+        /** CarPartData exp */
+        exp?: (number|null);
+    }
+
+    /** Represents a CarPartData. */
+    class CarPartData implements ICarPartData {
+
+        /**
+         * Constructs a new CarPartData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICarPartData);
+
+        /** CarPartData partid. */
+        public partid: number;
+
+        /** CarPartData parttype. */
+        public parttype: number;
+
+        /** CarPartData level. */
+        public level: number;
+
+        /** CarPartData exp. */
+        public exp: number;
+
+        /**
+         * Creates a new CarPartData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarPartData instance
+         */
+        public static create(properties?: msg.ICarPartData): msg.CarPartData;
+
+        /**
+         * Encodes the specified CarPartData message. Does not implicitly {@link msg.CarPartData.verify|verify} messages.
+         * @param message CarPartData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICarPartData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarPartData message, length delimited. Does not implicitly {@link msg.CarPartData.verify|verify} messages.
+         * @param message CarPartData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICarPartData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarPartData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarPartData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarPartData;
+
+        /**
+         * Decodes a CarPartData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarPartData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarPartData;
+
+        /**
+         * Verifies a CarPartData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarPartData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarPartData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CarPartData;
+
+        /**
+         * Creates a plain object from a CarPartData message. Also converts values to other types if specified.
+         * @param message CarPartData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CarPartData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarPartData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CarAttribute. */
+    interface ICarAttribute {
+
+        /** CarAttribute reward */
+        reward?: (number|null);
+
+        /** CarAttribute range */
+        range?: (number|null);
+
+        /** CarAttribute itemlimit */
+        itemlimit?: (number|null);
+
+        /** CarAttribute moneylimit */
+        moneylimit?: (number|null);
+
+        /** CarAttribute speed */
+        speed?: (number|null);
+
+        /** CarAttribute stoptime */
+        stoptime?: (number|null);
+    }
+
+    /** Represents a CarAttribute. */
+    class CarAttribute implements ICarAttribute {
+
+        /**
+         * Constructs a new CarAttribute.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICarAttribute);
+
+        /** CarAttribute reward. */
+        public reward: number;
+
+        /** CarAttribute range. */
+        public range: number;
+
+        /** CarAttribute itemlimit. */
+        public itemlimit: number;
+
+        /** CarAttribute moneylimit. */
+        public moneylimit: number;
+
+        /** CarAttribute speed. */
+        public speed: number;
+
+        /** CarAttribute stoptime. */
+        public stoptime: number;
+
+        /**
+         * Creates a new CarAttribute instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarAttribute instance
+         */
+        public static create(properties?: msg.ICarAttribute): msg.CarAttribute;
+
+        /**
+         * Encodes the specified CarAttribute message. Does not implicitly {@link msg.CarAttribute.verify|verify} messages.
+         * @param message CarAttribute message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICarAttribute, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarAttribute message, length delimited. Does not implicitly {@link msg.CarAttribute.verify|verify} messages.
+         * @param message CarAttribute message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICarAttribute, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarAttribute message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarAttribute
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarAttribute;
+
+        /**
+         * Decodes a CarAttribute message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarAttribute
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarAttribute;
+
+        /**
+         * Verifies a CarAttribute message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarAttribute message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarAttribute
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CarAttribute;
+
+        /**
+         * Creates a plain object from a CarAttribute message. Also converts values to other types if specified.
+         * @param message CarAttribute
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CarAttribute, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarAttribute to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CarPartPiece. */
+    interface ICarPartPiece {
+
+        /** CarPartPiece id */
+        id?: (number|null);
+
+        /** CarPartPiece num */
+        num?: (number|null);
+    }
+
+    /** Represents a CarPartPiece. */
+    class CarPartPiece implements ICarPartPiece {
+
+        /**
+         * Constructs a new CarPartPiece.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICarPartPiece);
+
+        /** CarPartPiece id. */
+        public id: number;
+
+        /** CarPartPiece num. */
+        public num: number;
+
+        /**
+         * Creates a new CarPartPiece instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarPartPiece instance
+         */
+        public static create(properties?: msg.ICarPartPiece): msg.CarPartPiece;
+
+        /**
+         * Encodes the specified CarPartPiece message. Does not implicitly {@link msg.CarPartPiece.verify|verify} messages.
+         * @param message CarPartPiece message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICarPartPiece, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarPartPiece message, length delimited. Does not implicitly {@link msg.CarPartPiece.verify|verify} messages.
+         * @param message CarPartPiece message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICarPartPiece, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarPartPiece message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarPartPiece
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarPartPiece;
+
+        /**
+         * Decodes a CarPartPiece message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarPartPiece
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarPartPiece;
+
+        /**
+         * Verifies a CarPartPiece message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarPartPiece message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarPartPiece
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CarPartPiece;
+
+        /**
+         * Creates a plain object from a CarPartPiece message. Also converts values to other types if specified.
+         * @param message CarPartPiece
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CarPartPiece, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarPartPiece to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CarReward. */
+    interface ICarReward {
+
+        /** CarReward money */
+        money?: (number|null);
+
+        /** CarReward items */
+        items?: (msg.ICarPartPiece[]|null);
+    }
+
+    /** Represents a CarReward. */
+    class CarReward implements ICarReward {
+
+        /**
+         * Constructs a new CarReward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICarReward);
+
+        /** CarReward money. */
+        public money: number;
+
+        /** CarReward items. */
+        public items: msg.ICarPartPiece[];
+
+        /**
+         * Creates a new CarReward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarReward instance
+         */
+        public static create(properties?: msg.ICarReward): msg.CarReward;
+
+        /**
+         * Encodes the specified CarReward message. Does not implicitly {@link msg.CarReward.verify|verify} messages.
+         * @param message CarReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICarReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarReward message, length delimited. Does not implicitly {@link msg.CarReward.verify|verify} messages.
+         * @param message CarReward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICarReward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarReward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CarReward;
+
+        /**
+         * Decodes a CarReward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarReward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CarReward;
+
+        /**
+         * Verifies a CarReward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarReward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarReward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CarReward;
+
+        /**
+         * Creates a plain object from a CarReward message. Also converts values to other types if specified.
+         * @param message CarReward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CarReward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarReward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a CarData. */
     interface ICarData {
 
@@ -3822,8 +4242,35 @@ declare namespace msg {
         /** CarData ownername */
         ownername?: (string|null);
 
-        /** CarData parkingreward */
-        parkingreward?: (number|null);
+        /** CarData reward */
+        reward?: (msg.ICarReward|null);
+
+        /** CarData star */
+        star?: (number|null);
+
+        /** CarData parts */
+        parts?: (msg.ICarPartData[]|null);
+
+        /** CarData attr */
+        attr?: (msg.ICarAttribute|null);
+
+        /** CarData state */
+        state?: (number|null);
+
+        /** CarData starttime */
+        starttime?: (number|Long|null);
+
+        /** CarData endtime */
+        endtime?: (number|Long|null);
+
+        /** CarData latitude */
+        latitude?: (number|null);
+
+        /** CarData longitude */
+        longitude?: (number|null);
+
+        /** CarData price */
+        price?: (number|null);
 
         /** CarData tradeendtime */
         tradeendtime?: (number|null);
@@ -3859,8 +4306,35 @@ declare namespace msg {
         /** CarData ownername. */
         public ownername: string;
 
-        /** CarData parkingreward. */
-        public parkingreward: number;
+        /** CarData reward. */
+        public reward?: (msg.ICarReward|null);
+
+        /** CarData star. */
+        public star: number;
+
+        /** CarData parts. */
+        public parts: msg.ICarPartData[];
+
+        /** CarData attr. */
+        public attr?: (msg.ICarAttribute|null);
+
+        /** CarData state. */
+        public state: number;
+
+        /** CarData starttime. */
+        public starttime: (number|Long);
+
+        /** CarData endtime. */
+        public endtime: (number|Long);
+
+        /** CarData latitude. */
+        public latitude: number;
+
+        /** CarData longitude. */
+        public longitude: number;
+
+        /** CarData price. */
+        public price: number;
 
         /** CarData tradeendtime. */
         public tradeendtime: number;
@@ -3948,6 +4422,9 @@ declare namespace msg {
         /** ParkingData tid */
         tid?: (number|null);
 
+        /** ParkingData parkingtype */
+        parkingtype?: (number|null);
+
         /** ParkingData ownerid */
         ownerid?: (number|Long|null);
 
@@ -3990,6 +4467,9 @@ declare namespace msg {
 
         /** ParkingData tid. */
         public tid: number;
+
+        /** ParkingData parkingtype. */
+        public parkingtype: number;
 
         /** ParkingData ownerid. */
         public ownerid: (number|Long);
@@ -4899,6 +5379,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqCarInfoById. */
+    interface IC2GW_ReqCarInfoById {
+
+        /** C2GW_ReqCarInfoById carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqCarInfoById. */
+    class C2GW_ReqCarInfoById implements IC2GW_ReqCarInfoById {
+
+        /**
+         * Constructs a new C2GW_ReqCarInfoById.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqCarInfoById);
+
+        /** C2GW_ReqCarInfoById carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqCarInfoById instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqCarInfoById instance
+         */
+        public static create(properties?: msg.IC2GW_ReqCarInfoById): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @param message C2GW_ReqCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqCarInfoById message, length delimited. Does not implicitly {@link msg.C2GW_ReqCarInfoById.verify|verify} messages.
+         * @param message C2GW_ReqCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Decodes a C2GW_ReqCarInfoById message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Verifies a C2GW_ReqCarInfoById message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqCarInfoById
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqCarInfoById;
+
+        /**
+         * Creates a plain object from a C2GW_ReqCarInfoById message. Also converts values to other types if specified.
+         * @param message C2GW_ReqCarInfoById
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqCarInfoById, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqCarInfoById to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2C_ResCarInfo. */
     interface IGW2C_ResCarInfo {
 
@@ -4990,6 +5560,96 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_ResCarInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_ResCarInfoById. */
+    interface IGW2C_ResCarInfoById {
+
+        /** GW2C_ResCarInfoById cardata */
+        cardata?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_ResCarInfoById. */
+    class GW2C_ResCarInfoById implements IGW2C_ResCarInfoById {
+
+        /**
+         * Constructs a new GW2C_ResCarInfoById.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_ResCarInfoById);
+
+        /** GW2C_ResCarInfoById cardata. */
+        public cardata?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_ResCarInfoById instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_ResCarInfoById instance
+         */
+        public static create(properties?: msg.IGW2C_ResCarInfoById): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @param message GW2C_ResCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_ResCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_ResCarInfoById message, length delimited. Does not implicitly {@link msg.GW2C_ResCarInfoById.verify|verify} messages.
+         * @param message GW2C_ResCarInfoById message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_ResCarInfoById, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Decodes a GW2C_ResCarInfoById message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_ResCarInfoById
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Verifies a GW2C_ResCarInfoById message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_ResCarInfoById message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_ResCarInfoById
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_ResCarInfoById;
+
+        /**
+         * Creates a plain object from a GW2C_ResCarInfoById message. Also converts values to other types if specified.
+         * @param message GW2C_ResCarInfoById
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_ResCarInfoById, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_ResCarInfoById to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -6387,6 +7047,390 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_CarPartLevelup. */
+    interface IC2GW_CarPartLevelup {
+
+        /** C2GW_CarPartLevelup carid */
+        carid?: (number|Long|null);
+
+        /** C2GW_CarPartLevelup parttype */
+        parttype?: (number|null);
+
+        /** C2GW_CarPartLevelup pieces */
+        pieces?: (msg.ICarPartPiece[]|null);
+    }
+
+    /** Represents a C2GW_CarPartLevelup. */
+    class C2GW_CarPartLevelup implements IC2GW_CarPartLevelup {
+
+        /**
+         * Constructs a new C2GW_CarPartLevelup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CarPartLevelup);
+
+        /** C2GW_CarPartLevelup carid. */
+        public carid: (number|Long);
+
+        /** C2GW_CarPartLevelup parttype. */
+        public parttype: number;
+
+        /** C2GW_CarPartLevelup pieces. */
+        public pieces: msg.ICarPartPiece[];
+
+        /**
+         * Creates a new C2GW_CarPartLevelup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CarPartLevelup instance
+         */
+        public static create(properties?: msg.IC2GW_CarPartLevelup): msg.C2GW_CarPartLevelup;
+
+        /**
+         * Encodes the specified C2GW_CarPartLevelup message. Does not implicitly {@link msg.C2GW_CarPartLevelup.verify|verify} messages.
+         * @param message C2GW_CarPartLevelup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CarPartLevelup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CarPartLevelup message, length delimited. Does not implicitly {@link msg.C2GW_CarPartLevelup.verify|verify} messages.
+         * @param message C2GW_CarPartLevelup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CarPartLevelup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CarPartLevelup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CarPartLevelup;
+
+        /**
+         * Decodes a C2GW_CarPartLevelup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CarPartLevelup;
+
+        /**
+         * Verifies a C2GW_CarPartLevelup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CarPartLevelup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CarPartLevelup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CarPartLevelup;
+
+        /**
+         * Creates a plain object from a C2GW_CarPartLevelup message. Also converts values to other types if specified.
+         * @param message C2GW_CarPartLevelup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CarPartLevelup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CarPartLevelup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarPartLevelup. */
+    interface IGW2C_RetCarPartLevelup {
+
+        /** GW2C_RetCarPartLevelup result */
+        result?: (number|null);
+
+        /** GW2C_RetCarPartLevelup car */
+        car?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_RetCarPartLevelup. */
+    class GW2C_RetCarPartLevelup implements IGW2C_RetCarPartLevelup {
+
+        /**
+         * Constructs a new GW2C_RetCarPartLevelup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarPartLevelup);
+
+        /** GW2C_RetCarPartLevelup result. */
+        public result: number;
+
+        /** GW2C_RetCarPartLevelup car. */
+        public car?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_RetCarPartLevelup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarPartLevelup instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarPartLevelup): msg.GW2C_RetCarPartLevelup;
+
+        /**
+         * Encodes the specified GW2C_RetCarPartLevelup message. Does not implicitly {@link msg.GW2C_RetCarPartLevelup.verify|verify} messages.
+         * @param message GW2C_RetCarPartLevelup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarPartLevelup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarPartLevelup message, length delimited. Does not implicitly {@link msg.GW2C_RetCarPartLevelup.verify|verify} messages.
+         * @param message GW2C_RetCarPartLevelup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarPartLevelup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarPartLevelup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarPartLevelup;
+
+        /**
+         * Decodes a GW2C_RetCarPartLevelup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarPartLevelup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarPartLevelup;
+
+        /**
+         * Verifies a GW2C_RetCarPartLevelup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarPartLevelup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarPartLevelup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarPartLevelup;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarPartLevelup message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarPartLevelup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarPartLevelup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarPartLevelup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_CarStarup. */
+    interface IC2GW_CarStarup {
+
+        /** C2GW_CarStarup carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_CarStarup. */
+    class C2GW_CarStarup implements IC2GW_CarStarup {
+
+        /**
+         * Constructs a new C2GW_CarStarup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CarStarup);
+
+        /** C2GW_CarStarup carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_CarStarup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CarStarup instance
+         */
+        public static create(properties?: msg.IC2GW_CarStarup): msg.C2GW_CarStarup;
+
+        /**
+         * Encodes the specified C2GW_CarStarup message. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @param message C2GW_CarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CarStarup message, length delimited. Does not implicitly {@link msg.C2GW_CarStarup.verify|verify} messages.
+         * @param message C2GW_CarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CarStarup;
+
+        /**
+         * Decodes a C2GW_CarStarup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CarStarup;
+
+        /**
+         * Verifies a C2GW_CarStarup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CarStarup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CarStarup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CarStarup;
+
+        /**
+         * Creates a plain object from a C2GW_CarStarup message. Also converts values to other types if specified.
+         * @param message C2GW_CarStarup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CarStarup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CarStarup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarStarup. */
+    interface IGW2C_RetCarStarup {
+
+        /** GW2C_RetCarStarup result */
+        result?: (number|null);
+
+        /** GW2C_RetCarStarup car */
+        car?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_RetCarStarup. */
+    class GW2C_RetCarStarup implements IGW2C_RetCarStarup {
+
+        /**
+         * Constructs a new GW2C_RetCarStarup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarStarup);
+
+        /** GW2C_RetCarStarup result. */
+        public result: number;
+
+        /** GW2C_RetCarStarup car. */
+        public car?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_RetCarStarup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarStarup instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarStarup): msg.GW2C_RetCarStarup;
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @param message GW2C_RetCarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarStarup message, length delimited. Does not implicitly {@link msg.GW2C_RetCarStarup.verify|verify} messages.
+         * @param message GW2C_RetCarStarup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarStarup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarStarup;
+
+        /**
+         * Decodes a GW2C_RetCarStarup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarStarup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarStarup;
+
+        /**
+         * Verifies a GW2C_RetCarStarup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarStarup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarStarup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarStarup;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarStarup message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarStarup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarStarup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarStarup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_ReqCarShopInfo. */
     interface IC2GW_ReqCarShopInfo {
 
@@ -7021,6 +8065,25 @@ declare namespace msg {
     enum ParkingType {
         Public = 1,
         Private = 2
+    }
+
+    /** CarPartType enum. */
+    enum CarPartType {
+        Tyre = 1,
+        Tank = 2,
+        Trunk = 3,
+        Engine = 4,
+        Battery = 5
+    }
+
+    /** CarState enum. */
+    enum CarState {
+        Idle = 1,
+        Ready = 2,
+        Parking = 3,
+        Exped = 4,
+        Robbing = 5,
+        Back = 6
     }
 
     /** Properties of a C2GW_ReqHouseData. */
@@ -19788,91 +20851,91 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2GW_CancelCarHouse. */
-    interface IC2GW_CancelCarHouse {
+    /** Properties of a C2GW_CancelTradeCar. */
+    interface IC2GW_CancelTradeCar {
 
-        /** C2GW_CancelCarHouse caruid */
+        /** C2GW_CancelTradeCar caruid */
         caruid?: (number|Long|null);
     }
 
-    /** Represents a C2GW_CancelCarHouse. */
-    class C2GW_CancelCarHouse implements IC2GW_CancelCarHouse {
+    /** Represents a C2GW_CancelTradeCar. */
+    class C2GW_CancelTradeCar implements IC2GW_CancelTradeCar {
 
         /**
-         * Constructs a new C2GW_CancelCarHouse.
+         * Constructs a new C2GW_CancelTradeCar.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IC2GW_CancelCarHouse);
+        constructor(properties?: msg.IC2GW_CancelTradeCar);
 
-        /** C2GW_CancelCarHouse caruid. */
+        /** C2GW_CancelTradeCar caruid. */
         public caruid: (number|Long);
 
         /**
-         * Creates a new C2GW_CancelCarHouse instance using the specified properties.
+         * Creates a new C2GW_CancelTradeCar instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns C2GW_CancelCarHouse instance
+         * @returns C2GW_CancelTradeCar instance
          */
-        public static create(properties?: msg.IC2GW_CancelCarHouse): msg.C2GW_CancelCarHouse;
+        public static create(properties?: msg.IC2GW_CancelTradeCar): msg.C2GW_CancelTradeCar;
 
         /**
-         * Encodes the specified C2GW_CancelCarHouse message. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
-         * @param message C2GW_CancelCarHouse message or plain object to encode
+         * Encodes the specified C2GW_CancelTradeCar message. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
+         * @param message C2GW_CancelTradeCar message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IC2GW_CancelCarHouse, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IC2GW_CancelTradeCar, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified C2GW_CancelCarHouse message, length delimited. Does not implicitly {@link msg.C2GW_CancelCarHouse.verify|verify} messages.
-         * @param message C2GW_CancelCarHouse message or plain object to encode
+         * Encodes the specified C2GW_CancelTradeCar message, length delimited. Does not implicitly {@link msg.C2GW_CancelTradeCar.verify|verify} messages.
+         * @param message C2GW_CancelTradeCar message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IC2GW_CancelCarHouse, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IC2GW_CancelTradeCar, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer.
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns C2GW_CancelCarHouse
+         * @returns C2GW_CancelTradeCar
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CancelCarHouse;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CancelTradeCar;
 
         /**
-         * Decodes a C2GW_CancelCarHouse message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_CancelTradeCar message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns C2GW_CancelCarHouse
+         * @returns C2GW_CancelTradeCar
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CancelCarHouse;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CancelTradeCar;
 
         /**
-         * Verifies a C2GW_CancelCarHouse message.
+         * Verifies a C2GW_CancelTradeCar message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a C2GW_CancelCarHouse message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_CancelTradeCar message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns C2GW_CancelCarHouse
+         * @returns C2GW_CancelTradeCar
          */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_CancelCarHouse;
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CancelTradeCar;
 
         /**
-         * Creates a plain object from a C2GW_CancelCarHouse message. Also converts values to other types if specified.
-         * @param message C2GW_CancelCarHouse
+         * Creates a plain object from a C2GW_CancelTradeCar message. Also converts values to other types if specified.
+         * @param message C2GW_CancelTradeCar
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.C2GW_CancelCarHouse, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.C2GW_CancelTradeCar, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this C2GW_CancelCarHouse to JSON.
+         * Converts this C2GW_CancelTradeCar to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -22912,6 +23975,852 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a TCarBrandBase. */
+    interface ITCarBrandBase {
+
+        /** TCarBrandBase TCarBrand */
+        TCarBrand?: (table.ITCarBrandDefine[]|null);
+    }
+
+    /** Represents a TCarBrandBase. */
+    class TCarBrandBase implements ITCarBrandBase {
+
+        /**
+         * Constructs a new TCarBrandBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarBrandBase);
+
+        /** TCarBrandBase TCarBrand. */
+        public TCarBrand: table.ITCarBrandDefine[];
+
+        /**
+         * Creates a new TCarBrandBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarBrandBase instance
+         */
+        public static create(properties?: table.ITCarBrandBase): table.TCarBrandBase;
+
+        /**
+         * Encodes the specified TCarBrandBase message. Does not implicitly {@link table.TCarBrandBase.verify|verify} messages.
+         * @param message TCarBrandBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarBrandBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarBrandBase message, length delimited. Does not implicitly {@link table.TCarBrandBase.verify|verify} messages.
+         * @param message TCarBrandBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarBrandBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarBrandBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarBrandBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarBrandBase;
+
+        /**
+         * Decodes a TCarBrandBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarBrandBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarBrandBase;
+
+        /**
+         * Verifies a TCarBrandBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarBrandBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarBrandBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarBrandBase;
+
+        /**
+         * Creates a plain object from a TCarBrandBase message. Also converts values to other types if specified.
+         * @param message TCarBrandBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarBrandBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarBrandBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarBrandDefine. */
+    interface ITCarBrandDefine {
+
+        /** TCarBrandDefine Id */
+        Id?: (number|null);
+
+        /** TCarBrandDefine Brand */
+        Brand?: (string|null);
+    }
+
+    /** Represents a TCarBrandDefine. */
+    class TCarBrandDefine implements ITCarBrandDefine {
+
+        /**
+         * Constructs a new TCarBrandDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarBrandDefine);
+
+        /** TCarBrandDefine Id. */
+        public Id: number;
+
+        /** TCarBrandDefine Brand. */
+        public Brand: string;
+
+        /**
+         * Creates a new TCarBrandDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarBrandDefine instance
+         */
+        public static create(properties?: table.ITCarBrandDefine): table.TCarBrandDefine;
+
+        /**
+         * Encodes the specified TCarBrandDefine message. Does not implicitly {@link table.TCarBrandDefine.verify|verify} messages.
+         * @param message TCarBrandDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarBrandDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarBrandDefine message, length delimited. Does not implicitly {@link table.TCarBrandDefine.verify|verify} messages.
+         * @param message TCarBrandDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarBrandDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarBrandDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarBrandDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarBrandDefine;
+
+        /**
+         * Decodes a TCarBrandDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarBrandDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarBrandDefine;
+
+        /**
+         * Verifies a TCarBrandDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarBrandDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarBrandDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarBrandDefine;
+
+        /**
+         * Creates a plain object from a TCarBrandDefine message. Also converts values to other types if specified.
+         * @param message TCarBrandDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarBrandDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarBrandDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarModelBase. */
+    interface ITCarModelBase {
+
+        /** TCarModelBase TCarModel */
+        TCarModel?: (table.ITCarModelDefine[]|null);
+    }
+
+    /** Represents a TCarModelBase. */
+    class TCarModelBase implements ITCarModelBase {
+
+        /**
+         * Constructs a new TCarModelBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarModelBase);
+
+        /** TCarModelBase TCarModel. */
+        public TCarModel: table.ITCarModelDefine[];
+
+        /**
+         * Creates a new TCarModelBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarModelBase instance
+         */
+        public static create(properties?: table.ITCarModelBase): table.TCarModelBase;
+
+        /**
+         * Encodes the specified TCarModelBase message. Does not implicitly {@link table.TCarModelBase.verify|verify} messages.
+         * @param message TCarModelBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarModelBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarModelBase message, length delimited. Does not implicitly {@link table.TCarModelBase.verify|verify} messages.
+         * @param message TCarModelBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarModelBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarModelBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarModelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarModelBase;
+
+        /**
+         * Decodes a TCarModelBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarModelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarModelBase;
+
+        /**
+         * Verifies a TCarModelBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarModelBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarModelBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarModelBase;
+
+        /**
+         * Creates a plain object from a TCarModelBase message. Also converts values to other types if specified.
+         * @param message TCarModelBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarModelBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarModelBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarModelDefine. */
+    interface ITCarModelDefine {
+
+        /** TCarModelDefine Id */
+        Id?: (number|null);
+
+        /** TCarModelDefine Model */
+        Model?: (string|null);
+    }
+
+    /** Represents a TCarModelDefine. */
+    class TCarModelDefine implements ITCarModelDefine {
+
+        /**
+         * Constructs a new TCarModelDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarModelDefine);
+
+        /** TCarModelDefine Id. */
+        public Id: number;
+
+        /** TCarModelDefine Model. */
+        public Model: string;
+
+        /**
+         * Creates a new TCarModelDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarModelDefine instance
+         */
+        public static create(properties?: table.ITCarModelDefine): table.TCarModelDefine;
+
+        /**
+         * Encodes the specified TCarModelDefine message. Does not implicitly {@link table.TCarModelDefine.verify|verify} messages.
+         * @param message TCarModelDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarModelDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarModelDefine message, length delimited. Does not implicitly {@link table.TCarModelDefine.verify|verify} messages.
+         * @param message TCarModelDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarModelDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarModelDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarModelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarModelDefine;
+
+        /**
+         * Decodes a TCarModelDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarModelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarModelDefine;
+
+        /**
+         * Verifies a TCarModelDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarModelDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarModelDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarModelDefine;
+
+        /**
+         * Creates a plain object from a TCarModelDefine message. Also converts values to other types if specified.
+         * @param message TCarModelDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarModelDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarModelDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarPartBase. */
+    interface ITCarPartBase {
+
+        /** TCarPartBase TCarPart */
+        TCarPart?: (table.ITCarPartDefine[]|null);
+    }
+
+    /** Represents a TCarPartBase. */
+    class TCarPartBase implements ITCarPartBase {
+
+        /**
+         * Constructs a new TCarPartBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarPartBase);
+
+        /** TCarPartBase TCarPart. */
+        public TCarPart: table.ITCarPartDefine[];
+
+        /**
+         * Creates a new TCarPartBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarPartBase instance
+         */
+        public static create(properties?: table.ITCarPartBase): table.TCarPartBase;
+
+        /**
+         * Encodes the specified TCarPartBase message. Does not implicitly {@link table.TCarPartBase.verify|verify} messages.
+         * @param message TCarPartBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarPartBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarPartBase message, length delimited. Does not implicitly {@link table.TCarPartBase.verify|verify} messages.
+         * @param message TCarPartBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarPartBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarPartBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarPartBase;
+
+        /**
+         * Decodes a TCarPartBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarPartBase;
+
+        /**
+         * Verifies a TCarPartBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarPartBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarPartBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarPartBase;
+
+        /**
+         * Creates a plain object from a TCarPartBase message. Also converts values to other types if specified.
+         * @param message TCarPartBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarPartBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarPartBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarPartDefine. */
+    interface ITCarPartDefine {
+
+        /** TCarPartDefine Id */
+        Id?: (number|null);
+
+        /** TCarPartDefine Type */
+        Type?: (number|null);
+
+        /** TCarPartDefine Quality */
+        Quality?: (number|null);
+
+        /** TCarPartDefine RewardInit */
+        RewardInit?: (number|null);
+
+        /** TCarPartDefine RangeInit */
+        RangeInit?: (number|null);
+
+        /** TCarPartDefine ItemLimitInit */
+        ItemLimitInit?: (number|null);
+
+        /** TCarPartDefine MoneyLimitInit */
+        MoneyLimitInit?: (number|null);
+
+        /** TCarPartDefine SpeedInit */
+        SpeedInit?: (number|null);
+
+        /** TCarPartDefine StopTimeInit */
+        StopTimeInit?: (number|null);
+
+        /** TCarPartDefine MaxLevel */
+        MaxLevel?: (number|null);
+
+        /** TCarPartDefine RewardAddition */
+        RewardAddition?: (number|null);
+
+        /** TCarPartDefine RangeAddition */
+        RangeAddition?: (number|null);
+
+        /** TCarPartDefine ItemLimitAddition */
+        ItemLimitAddition?: (number|null);
+
+        /** TCarPartDefine MoneyLimitAddition */
+        MoneyLimitAddition?: (number|null);
+
+        /** TCarPartDefine SpeedAddition */
+        SpeedAddition?: (number|null);
+
+        /** TCarPartDefine StopTimeAddition */
+        StopTimeAddition?: (number|null);
+    }
+
+    /** Represents a TCarPartDefine. */
+    class TCarPartDefine implements ITCarPartDefine {
+
+        /**
+         * Constructs a new TCarPartDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarPartDefine);
+
+        /** TCarPartDefine Id. */
+        public Id: number;
+
+        /** TCarPartDefine Type. */
+        public Type: number;
+
+        /** TCarPartDefine Quality. */
+        public Quality: number;
+
+        /** TCarPartDefine RewardInit. */
+        public RewardInit: number;
+
+        /** TCarPartDefine RangeInit. */
+        public RangeInit: number;
+
+        /** TCarPartDefine ItemLimitInit. */
+        public ItemLimitInit: number;
+
+        /** TCarPartDefine MoneyLimitInit. */
+        public MoneyLimitInit: number;
+
+        /** TCarPartDefine SpeedInit. */
+        public SpeedInit: number;
+
+        /** TCarPartDefine StopTimeInit. */
+        public StopTimeInit: number;
+
+        /** TCarPartDefine MaxLevel. */
+        public MaxLevel: number;
+
+        /** TCarPartDefine RewardAddition. */
+        public RewardAddition: number;
+
+        /** TCarPartDefine RangeAddition. */
+        public RangeAddition: number;
+
+        /** TCarPartDefine ItemLimitAddition. */
+        public ItemLimitAddition: number;
+
+        /** TCarPartDefine MoneyLimitAddition. */
+        public MoneyLimitAddition: number;
+
+        /** TCarPartDefine SpeedAddition. */
+        public SpeedAddition: number;
+
+        /** TCarPartDefine StopTimeAddition. */
+        public StopTimeAddition: number;
+
+        /**
+         * Creates a new TCarPartDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarPartDefine instance
+         */
+        public static create(properties?: table.ITCarPartDefine): table.TCarPartDefine;
+
+        /**
+         * Encodes the specified TCarPartDefine message. Does not implicitly {@link table.TCarPartDefine.verify|verify} messages.
+         * @param message TCarPartDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarPartDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarPartDefine message, length delimited. Does not implicitly {@link table.TCarPartDefine.verify|verify} messages.
+         * @param message TCarPartDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarPartDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarPartDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarPartDefine;
+
+        /**
+         * Decodes a TCarPartDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarPartDefine;
+
+        /**
+         * Verifies a TCarPartDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarPartDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarPartDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarPartDefine;
+
+        /**
+         * Creates a plain object from a TCarPartDefine message. Also converts values to other types if specified.
+         * @param message TCarPartDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarPartDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarPartDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarPartLevelupBase. */
+    interface ITCarPartLevelupBase {
+
+        /** TCarPartLevelupBase TCarPartLevelup */
+        TCarPartLevelup?: (table.ITCarPartLevelupDefine[]|null);
+    }
+
+    /** Represents a TCarPartLevelupBase. */
+    class TCarPartLevelupBase implements ITCarPartLevelupBase {
+
+        /**
+         * Constructs a new TCarPartLevelupBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarPartLevelupBase);
+
+        /** TCarPartLevelupBase TCarPartLevelup. */
+        public TCarPartLevelup: table.ITCarPartLevelupDefine[];
+
+        /**
+         * Creates a new TCarPartLevelupBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarPartLevelupBase instance
+         */
+        public static create(properties?: table.ITCarPartLevelupBase): table.TCarPartLevelupBase;
+
+        /**
+         * Encodes the specified TCarPartLevelupBase message. Does not implicitly {@link table.TCarPartLevelupBase.verify|verify} messages.
+         * @param message TCarPartLevelupBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarPartLevelupBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarPartLevelupBase message, length delimited. Does not implicitly {@link table.TCarPartLevelupBase.verify|verify} messages.
+         * @param message TCarPartLevelupBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarPartLevelupBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarPartLevelupBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarPartLevelupBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarPartLevelupBase;
+
+        /**
+         * Decodes a TCarPartLevelupBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarPartLevelupBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarPartLevelupBase;
+
+        /**
+         * Verifies a TCarPartLevelupBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarPartLevelupBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarPartLevelupBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarPartLevelupBase;
+
+        /**
+         * Creates a plain object from a TCarPartLevelupBase message. Also converts values to other types if specified.
+         * @param message TCarPartLevelupBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarPartLevelupBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarPartLevelupBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarPartLevelupDefine. */
+    interface ITCarPartLevelupDefine {
+
+        /** TCarPartLevelupDefine Id */
+        Id?: (number|null);
+
+        /** TCarPartLevelupDefine Partid */
+        Partid?: (number|null);
+
+        /** TCarPartLevelupDefine Level */
+        Level?: (number|null);
+
+        /** TCarPartLevelupDefine Exp */
+        Exp?: (number|null);
+
+        /** TCarPartLevelupDefine Cost */
+        Cost?: (number|null);
+    }
+
+    /** Represents a TCarPartLevelupDefine. */
+    class TCarPartLevelupDefine implements ITCarPartLevelupDefine {
+
+        /**
+         * Constructs a new TCarPartLevelupDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarPartLevelupDefine);
+
+        /** TCarPartLevelupDefine Id. */
+        public Id: number;
+
+        /** TCarPartLevelupDefine Partid. */
+        public Partid: number;
+
+        /** TCarPartLevelupDefine Level. */
+        public Level: number;
+
+        /** TCarPartLevelupDefine Exp. */
+        public Exp: number;
+
+        /** TCarPartLevelupDefine Cost. */
+        public Cost: number;
+
+        /**
+         * Creates a new TCarPartLevelupDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarPartLevelupDefine instance
+         */
+        public static create(properties?: table.ITCarPartLevelupDefine): table.TCarPartLevelupDefine;
+
+        /**
+         * Encodes the specified TCarPartLevelupDefine message. Does not implicitly {@link table.TCarPartLevelupDefine.verify|verify} messages.
+         * @param message TCarPartLevelupDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarPartLevelupDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarPartLevelupDefine message, length delimited. Does not implicitly {@link table.TCarPartLevelupDefine.verify|verify} messages.
+         * @param message TCarPartLevelupDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarPartLevelupDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarPartLevelupDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarPartLevelupDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarPartLevelupDefine;
+
+        /**
+         * Decodes a TCarPartLevelupDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarPartLevelupDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarPartLevelupDefine;
+
+        /**
+         * Verifies a TCarPartLevelupDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarPartLevelupDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarPartLevelupDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarPartLevelupDefine;
+
+        /**
+         * Creates a plain object from a TCarPartLevelupDefine message. Also converts values to other types if specified.
+         * @param message TCarPartLevelupDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarPartLevelupDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarPartLevelupDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a CarShopBase. */
     interface ICarShopBase {
 
@@ -23111,6 +25020,258 @@ declare namespace table {
 
         /**
          * Converts this TCarShopDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarStarAttrBase. */
+    interface ITCarStarAttrBase {
+
+        /** TCarStarAttrBase TCarStarAttr */
+        TCarStarAttr?: (table.ITCarStarAttrDefine[]|null);
+    }
+
+    /** Represents a TCarStarAttrBase. */
+    class TCarStarAttrBase implements ITCarStarAttrBase {
+
+        /**
+         * Constructs a new TCarStarAttrBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarStarAttrBase);
+
+        /** TCarStarAttrBase TCarStarAttr. */
+        public TCarStarAttr: table.ITCarStarAttrDefine[];
+
+        /**
+         * Creates a new TCarStarAttrBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarStarAttrBase instance
+         */
+        public static create(properties?: table.ITCarStarAttrBase): table.TCarStarAttrBase;
+
+        /**
+         * Encodes the specified TCarStarAttrBase message. Does not implicitly {@link table.TCarStarAttrBase.verify|verify} messages.
+         * @param message TCarStarAttrBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarStarAttrBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarStarAttrBase message, length delimited. Does not implicitly {@link table.TCarStarAttrBase.verify|verify} messages.
+         * @param message TCarStarAttrBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarStarAttrBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarStarAttrBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarStarAttrBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarStarAttrBase;
+
+        /**
+         * Decodes a TCarStarAttrBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarStarAttrBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarStarAttrBase;
+
+        /**
+         * Verifies a TCarStarAttrBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarStarAttrBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarStarAttrBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarStarAttrBase;
+
+        /**
+         * Creates a plain object from a TCarStarAttrBase message. Also converts values to other types if specified.
+         * @param message TCarStarAttrBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarStarAttrBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarStarAttrBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarStarAttrDefine. */
+    interface ITCarStarAttrDefine {
+
+        /** TCarStarAttrDefine Id */
+        Id?: (number|null);
+
+        /** TCarStarAttrDefine RewardInit */
+        RewardInit?: (number|null);
+
+        /** TCarStarAttrDefine RangeInit */
+        RangeInit?: (number|null);
+
+        /** TCarStarAttrDefine ItemLimitInit */
+        ItemLimitInit?: (number|null);
+
+        /** TCarStarAttrDefine MoneyLimitInit */
+        MoneyLimitInit?: (number|null);
+
+        /** TCarStarAttrDefine SpeedInit */
+        SpeedInit?: (number|null);
+
+        /** TCarStarAttrDefine StopTimeInit */
+        StopTimeInit?: (number|null);
+
+        /** TCarStarAttrDefine RewardAddition */
+        RewardAddition?: (number|null);
+
+        /** TCarStarAttrDefine RangeAddition */
+        RangeAddition?: (number|null);
+
+        /** TCarStarAttrDefine ItemLimitAddition */
+        ItemLimitAddition?: (number|null);
+
+        /** TCarStarAttrDefine MoneyLimitAddition */
+        MoneyLimitAddition?: (number|null);
+
+        /** TCarStarAttrDefine SpeedAddition */
+        SpeedAddition?: (number|null);
+
+        /** TCarStarAttrDefine StopTimeAddition */
+        StopTimeAddition?: (number|null);
+    }
+
+    /** Represents a TCarStarAttrDefine. */
+    class TCarStarAttrDefine implements ITCarStarAttrDefine {
+
+        /**
+         * Constructs a new TCarStarAttrDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarStarAttrDefine);
+
+        /** TCarStarAttrDefine Id. */
+        public Id: number;
+
+        /** TCarStarAttrDefine RewardInit. */
+        public RewardInit: number;
+
+        /** TCarStarAttrDefine RangeInit. */
+        public RangeInit: number;
+
+        /** TCarStarAttrDefine ItemLimitInit. */
+        public ItemLimitInit: number;
+
+        /** TCarStarAttrDefine MoneyLimitInit. */
+        public MoneyLimitInit: number;
+
+        /** TCarStarAttrDefine SpeedInit. */
+        public SpeedInit: number;
+
+        /** TCarStarAttrDefine StopTimeInit. */
+        public StopTimeInit: number;
+
+        /** TCarStarAttrDefine RewardAddition. */
+        public RewardAddition: number;
+
+        /** TCarStarAttrDefine RangeAddition. */
+        public RangeAddition: number;
+
+        /** TCarStarAttrDefine ItemLimitAddition. */
+        public ItemLimitAddition: number;
+
+        /** TCarStarAttrDefine MoneyLimitAddition. */
+        public MoneyLimitAddition: number;
+
+        /** TCarStarAttrDefine SpeedAddition. */
+        public SpeedAddition: number;
+
+        /** TCarStarAttrDefine StopTimeAddition. */
+        public StopTimeAddition: number;
+
+        /**
+         * Creates a new TCarStarAttrDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarStarAttrDefine instance
+         */
+        public static create(properties?: table.ITCarStarAttrDefine): table.TCarStarAttrDefine;
+
+        /**
+         * Encodes the specified TCarStarAttrDefine message. Does not implicitly {@link table.TCarStarAttrDefine.verify|verify} messages.
+         * @param message TCarStarAttrDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarStarAttrDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarStarAttrDefine message, length delimited. Does not implicitly {@link table.TCarStarAttrDefine.verify|verify} messages.
+         * @param message TCarStarAttrDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarStarAttrDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarStarAttrDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarStarAttrDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarStarAttrDefine;
+
+        /**
+         * Decodes a TCarStarAttrDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarStarAttrDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarStarAttrDefine;
+
+        /**
+         * Verifies a TCarStarAttrDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarStarAttrDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarStarAttrDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarStarAttrDefine;
+
+        /**
+         * Creates a plain object from a TCarStarAttrDefine message. Also converts values to other types if specified.
+         * @param message TCarStarAttrDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarStarAttrDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarStarAttrDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -24349,6 +26510,9 @@ declare namespace table {
         /** ItemBaseDataDefine Type */
         Type?: (number|null);
 
+        /** ItemBaseDataDefine SubType */
+        SubType?: (number|null);
+
         /** ItemBaseDataDefine Color */
         Color?: (number|null);
 
@@ -24379,6 +26543,9 @@ declare namespace table {
 
         /** ItemBaseDataDefine Type. */
         public Type: number;
+
+        /** ItemBaseDataDefine SubType. */
+        public SubType: number;
 
         /** ItemBaseDataDefine Color. */
         public Color: number;
@@ -24653,6 +26820,198 @@ declare namespace table {
 
         /**
          * Converts this TLevelDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TLevelCarPartBase. */
+    interface ITLevelCarPartBase {
+
+        /** TLevelCarPartBase TLevelCarPart */
+        TLevelCarPart?: (table.ITLevelCarPartDefine[]|null);
+    }
+
+    /** Represents a TLevelCarPartBase. */
+    class TLevelCarPartBase implements ITLevelCarPartBase {
+
+        /**
+         * Constructs a new TLevelCarPartBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITLevelCarPartBase);
+
+        /** TLevelCarPartBase TLevelCarPart. */
+        public TLevelCarPart: table.ITLevelCarPartDefine[];
+
+        /**
+         * Creates a new TLevelCarPartBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TLevelCarPartBase instance
+         */
+        public static create(properties?: table.ITLevelCarPartBase): table.TLevelCarPartBase;
+
+        /**
+         * Encodes the specified TLevelCarPartBase message. Does not implicitly {@link table.TLevelCarPartBase.verify|verify} messages.
+         * @param message TLevelCarPartBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITLevelCarPartBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TLevelCarPartBase message, length delimited. Does not implicitly {@link table.TLevelCarPartBase.verify|verify} messages.
+         * @param message TLevelCarPartBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITLevelCarPartBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TLevelCarPartBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TLevelCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TLevelCarPartBase;
+
+        /**
+         * Decodes a TLevelCarPartBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TLevelCarPartBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TLevelCarPartBase;
+
+        /**
+         * Verifies a TLevelCarPartBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TLevelCarPartBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TLevelCarPartBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TLevelCarPartBase;
+
+        /**
+         * Creates a plain object from a TLevelCarPartBase message. Also converts values to other types if specified.
+         * @param message TLevelCarPartBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TLevelCarPartBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TLevelCarPartBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TLevelCarPartDefine. */
+    interface ITLevelCarPartDefine {
+
+        /** TLevelCarPartDefine Id */
+        Id?: (number|null);
+
+        /** TLevelCarPartDefine Exp */
+        Exp?: (number|null);
+
+        /** TLevelCarPartDefine PartType */
+        PartType?: (number|null);
+    }
+
+    /** Represents a TLevelCarPartDefine. */
+    class TLevelCarPartDefine implements ITLevelCarPartDefine {
+
+        /**
+         * Constructs a new TLevelCarPartDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITLevelCarPartDefine);
+
+        /** TLevelCarPartDefine Id. */
+        public Id: number;
+
+        /** TLevelCarPartDefine Exp. */
+        public Exp: number;
+
+        /** TLevelCarPartDefine PartType. */
+        public PartType: number;
+
+        /**
+         * Creates a new TLevelCarPartDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TLevelCarPartDefine instance
+         */
+        public static create(properties?: table.ITLevelCarPartDefine): table.TLevelCarPartDefine;
+
+        /**
+         * Encodes the specified TLevelCarPartDefine message. Does not implicitly {@link table.TLevelCarPartDefine.verify|verify} messages.
+         * @param message TLevelCarPartDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITLevelCarPartDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TLevelCarPartDefine message, length delimited. Does not implicitly {@link table.TLevelCarPartDefine.verify|verify} messages.
+         * @param message TLevelCarPartDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITLevelCarPartDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TLevelCarPartDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TLevelCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TLevelCarPartDefine;
+
+        /**
+         * Decodes a TLevelCarPartDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TLevelCarPartDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TLevelCarPartDefine;
+
+        /**
+         * Verifies a TLevelCarPartDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TLevelCarPartDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TLevelCarPartDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TLevelCarPartDefine;
+
+        /**
+         * Creates a plain object from a TLevelCarPartDefine message. Also converts values to other types if specified.
+         * @param message TLevelCarPartDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TLevelCarPartDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TLevelCarPartDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
