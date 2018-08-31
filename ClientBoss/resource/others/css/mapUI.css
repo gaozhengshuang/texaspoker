@@ -165,16 +165,7 @@
 	right:10px;
 	bottom:520px;
 }
-#returnTradeBtn{
-	width:119;
-	height:80px;
-	margin:0;
-	padding:0;
-	border-style:none;
-	position:fixed;
-	left:20px;
-	top:20px;
-}
+
 .noShouyi{
 	background-image:url(../images/no_Shouyi_btn.png);
 	background-size:cover;
@@ -341,3 +332,16 @@
 	background-size:cover;
 }
 
+#returnTradeBtn{
+	width:119px;
+	height:80px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:20px;
+	top:20px;
+	background-image:url(../images/backBtn2.png);
+	background-size:cover;
+	visibility:hidden;
+}

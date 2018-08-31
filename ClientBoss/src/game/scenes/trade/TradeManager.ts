@@ -42,6 +42,7 @@ module game {
 			returnTradeBtnClose(false);
 			showEgretDiv(true);
 			GameConfig.exploreUIFun(true);
+			GameConfig.setEventsReply(true);
 		}
 		/**
 		 * 到地图
@@ -50,6 +51,7 @@ module game {
 			returnTradeBtnClose(true);
 			showEgretDiv(false);
 			GameConfig.exploreUIFun(false);
+			GameConfig.setEventsReply(false);
 		}
 		/**
 		 * 获取房屋数据
@@ -187,16 +189,18 @@ module game {
 			let obj: any = {};
 			if (data instanceof msg.HouseData) {
 				obj.Id = data.id;
+				bid = data.buildingid;
 			}
 			else {
 				bid = 1; //todo
+				obj.ID = bid;
 			}
 			if (bid > 0) {
 				let buildingDef = TradeManager.getInstance().getBuildingDefById(bid);
-				obj.Community = this.getHouseName(buildingDef.Province, buildingDef.City);
-				obj.CommunityId = buildingDef.CommunityId;
-				obj.PosX = buildingDef.PosX;
-				obj.PosY = buildingDef.PosY;
+				obj.bName = this.getHouseName(buildingDef.Province, buildingDef.City);
+				obj.imageUrl = 'resource/others/images/build_' + buildingDef.CommunityId + '_m.png';
+				obj.position = [buildingDef.PosX, buildingDef.PosY];
+				moveMap(buildingDef.PosX, buildingDef.PosY);
 				this.returnToMap();
 				addBuilding(obj); //定位
 			}

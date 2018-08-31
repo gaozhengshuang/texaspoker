@@ -169,8 +169,10 @@ function adaptive(scale){
     document.getElementById("gameCloseBtn").style.visibility='visible';
 
     document.getElementById("returnTradeBtn").style.display='block';
+    console.log("returnTradeBtnW", returnTradeBtnW, "returnTradeBtnH", returnTradeBtnH);
     document.getElementById("returnTradeBtn").style.width=returnTradeBtnW*scale+"px";
     document.getElementById("returnTradeBtn").style.height=returnTradeBtnH*scale+"px";
+        document.getElementById("gameCloseBtn").style.visibility='visible';
 
     return downPanelH*scale;
 }
@@ -376,10 +378,10 @@ function showShouyiIcon(isHas){
 //返回交易面板按钮显隐
 function returnTradeBtnClose(isShow){
     if (isShow) {
-        document.getElementById("returnTradeBtn").style.display = 'block';
+        document.getElementById("returnTradeBtn").style.visibility = 'visible';
     }
     else {
-        document.getElementById("returnTradeBtn").style.display = 'none';
+        document.getElementById("returnTradeBtn").style.visibility = 'hidden';
     }
 }
 //显示egret div
@@ -387,11 +389,11 @@ function showEgretDiv(isShow)
 {
     if(isShow)
     {
-      document.getElementsByClassName("egret-player")[0].show();
+        document.getElementsByClassName("egret-player")[0].style.display = 'block';
     }
     else
     {
-      document.getElementsByClassName("egret-player")[0].hide();
+        document.getElementsByClassName("egret-player")[0].style.display = 'none';
     }
 
 }
