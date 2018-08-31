@@ -80,26 +80,6 @@ module game {
             this.totalMoney = data.base.luckydraw.totalvalue;
             this._tasks = data.base.task.tasks;
         }
-
-        private OnGW2C_SendUserMaidInfo(data: msg.GW2C_SendUserMaidInfo) {
-            this._userMaidInfo = data;
-
-            for (let i = 0; i < data.maids.length; i++) {
-                if (this.userInfo.userid == data.maids[i].ownerid) {
-                    this._personalImage = data.maids[i].clothes;
-                    this._mainMaidInfo = data.maids[i];
-                    break;
-                }
-            }
-
-            NotificationCenter.postNotification(PlayerModel.MAID_UPDATE);
-        }
-
-        private OnGW2C_SendHouseMaidInfo(data: msg.GW2C_SendHouseMaidInfo) {
-            this._houseMaidInfo = data;
-            
-            NotificationCenter.postNotification(PlayerModel.HOUSEMAID_UPDATE);
-        }
         private GW2C_UpdateHouseDataOne(data: msg.GW2C_UpdateHouseDataOne) {
             if (data.isdel) //删除
             {
