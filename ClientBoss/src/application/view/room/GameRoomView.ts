@@ -54,7 +54,7 @@ module game {
         //private shouyi_txt: eui.Label;
 
         private parkingLot: CarParkingLot;
-        private parkingLots: CarParkingLot[];
+        private parkingLots: CarParkingLot[] = [];
 
         public roomInfo: HouseVO;
         public roomTypeInfo: any;

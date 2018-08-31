@@ -386,7 +386,7 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	}
 
 	endtime := util.CURTIME() + 86400 * 3
-	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s)",car.id, price, car.GetRewardPerM(), car.tid, endtime, car.ownerid, car.GetStar(), car.GetCarBrand(), "")
+	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s)",car.GetId(), price, car.GetRewardPerM(), car.GetTid(), endtime, car.GetOwnerId(), car.GetStar(), car.GetCarBrand(), "")
 	log.Info("[房屋交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
 	ret, err := MysqlDB().Exec(strsql)
 	if err != nil {
@@ -400,17 +400,17 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	}
 
 
-	CarMgr().UpdateCarByID(this, car.id, false)
+	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
 	history := &msg.TradeCarHistory{}
 	history.Tradeuid = pb.Uint64(uint64(LastInsertId))
-	history.Caruid = pb.Uint64(uint64(car.id))
+	history.Caruid = pb.Uint64(uint64(car.GetId()))
 	history.Carlevel = pb.Uint32(uint32(car.GetStar()))
 	history.Price = pb.Uint32(uint32(price))
 	history.Income = pb.Uint32(uint32(car.GetRewardPerM()))
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
 	history.Cartype = pb.Uint32(uint32(car.GetCarBrand()))
-	history.Carbaseid = pb.Uint32(uint32(car.tid))
+	history.Carbaseid = pb.Uint32(uint32(car.GetTid()))
 	history.State = pb.Uint32(uint32(2))
 
 	historykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), history.GetTradeuid())
@@ -428,17 +428,17 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 		return
 	}
 
-	if car.tradeuid != tradeuid {
+	if car.GetTradeuid() != tradeuid {
 		this.SendNotify("汽车不在交易中")
 		return 
 	}
 
-	if car.ownerid == this.Id() {
+	if car.GetOwnerId() == this.Id() {
 		this.SendNotify("不能买自己的汽车")
 		return
 	}
 
-	historykey := fmt.Sprintf("tradecarhistory_%d_%d", car.ownerid, car.tradeuid)
+	historykey := fmt.Sprintf("tradecarhistory_%d_%d", car.GetOwnerId(), car.GetTradeuid())
 	history := &msg.TradeCarHistory{}
 	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
 		return
@@ -454,7 +454,7 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 		log.Info("数据库删除失败")
 	}
 
-	exownerid := car.ownerid
+	exownerid := car.GetOwnerId()
 
 	car.ChangeOwner(this)
 	car.ClearTrade()
