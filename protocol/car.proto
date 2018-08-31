@@ -6,7 +6,7 @@ message C2GW_ReqCarInfo
 {
 
 }
-msssage C2GW_ReqCarInfoById {
+message C2GW_ReqCarInfoById {
     optional uint64 carid = 1;
 }
 message GW2C_ResCarInfo
@@ -15,7 +15,7 @@ message GW2C_ResCarInfo
     repeated msg.ParkingData parkingdatas = 2;          //我的车辆停放的停车位信息
 }
 
-message GW2c_ResCarInfoById {
+message GW2C_ResCarInfoById {
     optional msg.CarData cardata = 1;
 }
 
