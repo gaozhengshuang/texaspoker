@@ -2,6 +2,6 @@
 <e:Skin class="DepotListItemSkin" width="137" height="138" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect width="126" height="126" fillColor="0x9ea7ae" right="0" bottom="0"/>
 	<e:Image id="itemImg" source="hall_4_json.item_120001_png" width="126" height="126" right="0" bottom="0"/>
-	<e:Rect id="select_mc" width="126" height="126" fillColor="0x9EA7AE" right="0" bottom="0" fillAlpha="0" strokeColor="0x44ef13" strokeWeight="5"/>
-	<e:Label id="num_txt" text="0" textColor="0x000000" anchorOffsetX="0" right="0" bottom="0" width="66" textAlign="right" fontFamily="Microsoft YaHei"/>
+	<e:Rect id="select_mc" width="126" height="126" fillColor="0x9EA7AE" right="0" bottom="0" fillAlpha="0" strokeColor="0x44ef13" strokeWeight="6"/>
+	<e:Label id="num_txt" text="0" textColor="0x000000" anchorOffsetX="0" right="0" bottom="0" width="66" textAlign="right" fontFamily="Microsoft YaHei" strokeColor="0xffffff" stroke="2"/>
 </e:Skin>

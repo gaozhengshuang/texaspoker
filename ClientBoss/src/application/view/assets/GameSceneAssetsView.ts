@@ -144,8 +144,8 @@ module game {
 				for (let i: number = 0; i < this.itemInfoList.length; i++) {
 					let itemMc: DepotListItemPanel = new DepotListItemPanel();
 					itemMc.dataChanged(this.itemInfoList[i], i);
-					itemMc.x = 0 + i % 5 * itemMc.width;
-					itemMc.y = 0 + (Math.floor(i / 5)) * itemMc.height;
+					itemMc.x = 0 + i % 5 * (itemMc.width+6);
+					itemMc.y = 0 + (Math.floor(i / 5)) * (itemMc.height+4);
 					this.itemListGroup.addChild(itemMc);
 					itemMc.hideFrame();
 					itemMc.addEventListener(DepotListItemPanel.SELECT, this.onDepotItemTouch, this);
