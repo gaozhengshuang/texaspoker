@@ -6,7 +6,7 @@
 		{ "Id": 120002, "Type": 12, "SubType": 0, "Color": 1, "ImageId": 120002, "Name": "木地板", "Desc": "用于客厅，卧室升级" },
 		{ "Id": 120003, "Type": 12, "SubType": 0, "Color": 1, "ImageId": 120003, "Name": "瓷砖", "Desc": "用于厨房，卫生间升级" },
 		{ "Id": 120004, "Type": 12, "SubType": 0, "Color": 1, "ImageId": 120004, "Name": "房屋设计图纸", "Desc": "用于房屋升级" },
-		{ "Id": 120005, "Type": 12, "SubType": 0, "Color": 1, "ImageId": 120005, "Name": "吊顶", "Desc": "用于厨房，卫生间升级" },
+		{ "Id": 120005, "Type": 12, "SubType": 0, "Color": 1, "ImageId": 120005, "Name": "龙头", "Desc": "用于厨房，卫生间升级" },
 		{ "Id": 130001, "Type": 13, "SubType": 1, "Color": 1, "ImageId": 130001, "Name": "发动机零件", "Desc": "用于发动机升级" },
 		{ "Id": 130002, "Type": 13, "SubType": 1, "Color": 2, "ImageId": 130002, "Name": "发动机零件", "Desc": "用于发动机升级" },
 		{ "Id": 130003, "Type": 13, "SubType": 1, "Color": 3, "ImageId": 130003, "Name": "发动机零件", "Desc": "用于发动机升级" },

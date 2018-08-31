@@ -555,6 +555,11 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 	send.Houses = append(send.Houses, drophouses...)
 	user.SendMsg(send)
 	ma.SendHouseMaids(user, maid.HouseId())		// 刷新被掠夺玩家房间
+
+	// 刷新房主房间
+	if owner := UserMgr().FindById(maid.OwnerId()); owner != nil {
+		ma.SendHouseMaids(owner, maid.HouseId())
+	}
 }
 
 func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64) bool {
@@ -644,6 +649,11 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	elapse := now - maid.TimeStart()
 	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
 	house.AddVisitInfo(user.Id(), maid.HouseId(), 0, uint32(msg.HouseVisitType_TakeBackMaid), uint32(total), user.Name(), true)
+
+	// 通知屋主刷新房间
+	if owner := UserMgr().FindById(maid.RobberId()); owner != nil {
+		ma.SendHouseMaids(owner, maid.HouseId())
+	}
 
 	// 清除掠夺者
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
