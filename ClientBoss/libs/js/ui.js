@@ -168,9 +168,9 @@ function adaptive(scale){
     document.getElementById("gameCloseBtn").style.height=gameCloseH*scale+"px";
     document.getElementById("gameCloseBtn").style.visibility='visible';
 
-    document.getElementById("returnTradeBtn").style.display='block';
-    document.getElementById("returnTradeBtn").style.width=returnTradeBtnW*scale+"px";
-    document.getElementById("returnTradeBtn").style.height=returnTradeBtnH*scale+"px";
+    // document.getElementById("returnTradeBtn").style.display='block';
+    // document.getElementById("returnTradeBtn").style.width=returnTradeBtnW*scale+"px";
+    // document.getElementById("returnTradeBtn").style.height=returnTradeBtnH*scale+"px";
 
     return downPanelH*scale;
 }
