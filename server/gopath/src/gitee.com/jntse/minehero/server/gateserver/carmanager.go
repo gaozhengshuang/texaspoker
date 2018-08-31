@@ -178,10 +178,10 @@ func (this *CarData) PackBin() *msg.CarData {
 	return this.data
 }
 
-func (this *CarData) SaveBin(pipe redis.Pipeliner) {
+func (this *CarData) SaveBin(pipe redis.Pipeliner,force bool) {
 	key := fmt.Sprintf("cars_%d", this.data.GetId())
 	if pipe != nil {
-		if this.modified {
+		if this.modified || force {
 			if err := utredis.SetProtoBinPipeline(pipe, key, this.PackBin()); err != nil {
 				log.Error("打包车辆[%d]数据失败", this.data.GetId())
 				return
@@ -278,10 +278,10 @@ func (this *ParkingData) PackBin() *msg.ParkingData {
 	return this.data
 }
 
-func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
+func (this *ParkingData) SaveBin(pipe redis.Pipeliner,force bool) {
 	key := fmt.Sprintf("parkings_%d", this.data.GetId())
 	if pipe != nil {
-		if this.modified {
+		if this.modified || force {
 			if err := utredis.SetProtoBinPipeline(pipe, key, this.PackBin()); err != nil {
 				log.Error("打包车位[%d]数据失败", this.data.GetId())
 				return
@@ -1102,14 +1102,14 @@ func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
 	}
 }
 
-func (this *CarManager) SaveAllData() {
+func (this *CarManager) SaveAllData(force bool) {
 	pipe := Redis().Pipeline()
 
 	for _, v := range this.cars {
-		v.SaveBin(pipe)
+		v.SaveBin(pipe,force)
 	}
 	for _, v := range this.parkings {
-		v.SaveBin(pipe)
+		v.SaveBin(pipe,force)
 	}
 	_, err := pipe.Exec()
 	if err != nil {
@@ -1146,7 +1146,7 @@ func (this *CarManager) Tick(now int64) {
 }
 
 func (this *CarManager) Handler1MiniteTick(now int64) {
-	this.SaveAllData()
+	this.SaveAllData(false)
 }
 
 func (this *CarManager) Handler1SecondTick(now int64) {
