@@ -8,7 +8,7 @@ module game {
         private _bg         : string;
         private _textShow   : boolean;
         private _value      : number;
-
+        private _fullxt     : string;
         protected getSkinName() {
             return SliderSkin;
         }
@@ -32,6 +32,13 @@ module game {
                 this.sliderForBg.scaleX = this._value;
                 this.percentTxt.text = Math.round(this._value*100).toString()+"%";
             }   
+        }
+
+        set fullTxt(value: string) {
+            this._fullxt = value;
+            if (this.percentTxt) {
+                this.percentTxt.text = this._fullxt;
+            }
         }
     }
 }

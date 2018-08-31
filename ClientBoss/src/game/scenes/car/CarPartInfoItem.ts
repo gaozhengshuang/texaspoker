@@ -47,16 +47,34 @@ module game {
                 { text: nameStr+":LV."+carPartData.level, style: { bold: true } },
             ]
             //经验
-            //let carPartLvUpData = table.TCarPartLevelupById[carPartData.partid];
+            //let carPartLvUpData = table.TCarPartLevelupById[carPartItemData.Quality];
             let _tablecarPartLvUpDatas : table.ITCarPartLevelupDefine[] =[];
-            _tablecarPartLvUpDatas = table.TCarPartLevelup.filter(data=>{return data.Partid==carPartData.partid && data.Level==carPartData.level});
+            _tablecarPartLvUpDatas = table.TCarPartLevelup.filter(data=>{return data.Quality==carPartItemData.Quality && data.Level==carPartData.level});
             
-
             if(_tablecarPartLvUpDatas.length==0) return;
             if(_tablecarPartLvUpDatas.length>1)  console.warn("重复的升级表数据");
             this.expSlider.value  = carPartData.exp/_tablecarPartLvUpDatas[0].Exp;
+            if(carPartData.level==10){this.expSlider.fullTxt = "Max";}
         }
-
+        public updateExp(lv:number,expPer:number)
+        {
+            let nameStr = "";
+            switch (this.itemData.parttype) {
+                case msg.CarPartType.Tyre:  nameStr = "轮胎";   break;
+                case msg.CarPartType.Tank:  nameStr = "油箱";   break;
+                case msg.CarPartType.Trunk:  nameStr = "后备箱"; break;
+                case msg.CarPartType.Engine:  nameStr = "发动机"; break;
+                case msg.CarPartType.Battery:  nameStr = "电瓶";   break; 
+            }
+            this.partNameTxt.textFlow = [
+                { text: nameStr+":LV."+lv, style: { bold: true } },
+            ]
+            this.expSlider.value  = expPer;
+            if(lv==10){
+                this.expSlider.fullTxt = "Max";
+            }
+            
+        }
         private OnClickLvUp(){
             CarDetailView.getInstance().showPieceList(this.itemData.parttype);
         }
