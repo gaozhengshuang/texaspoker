@@ -205,8 +205,8 @@ func (this *GateUser) BuyTradeHouse(tradeuid uint64, houseuid uint64){
 
 	sellkey := fmt.Sprintf("tradehousehistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
-	selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
-	Redis().RPush(selllistkey, tradeuid)
+	//selllistkey := fmt.Sprintf("tradehousehistorylist_%d", exownerid)
+	//Redis().RPush(selllistkey, tradeuid)
 
 	history.State = pb.Uint32(uint32(4))
 	buykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), tradeuid)
@@ -380,6 +380,11 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 		return
 	}
 
+	if car.ownerid != this.Id(){
+		this.SendNotify("只能交易自己的车")
+		return
+	}
+
 	endtime := util.CURTIME() + 86400 * 3
 	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s)",car.id, price, car.GetRewardPerM(), car.tid, endtime, car.ownerid, car.GetStar(), car.GetCarBrand(), "")
 	log.Info("[房屋交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
@@ -459,8 +464,8 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 
 	sellkey := fmt.Sprintf("tradecarhistory_%d_%d", exownerid, tradeuid)
 	utredis.SetProtoBin(Redis(), sellkey, history)
-	selllistkey := fmt.Sprintf("tradecarhistorylist_%d", exownerid)
-	Redis().RPush(selllistkey, tradeuid)
+	//selllistkey := fmt.Sprintf("tradecarhistorylist_%d", exownerid)
+	//Redis().RPush(selllistkey, tradeuid)
 
 	history.State = pb.Uint32(uint32(4))
 	buykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), tradeuid)
