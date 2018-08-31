@@ -247,6 +247,9 @@ func (this *GateUser) GetTradeHouseReward(tradeuid uint64){
 		history.State = pb.Uint32(3)
 		utredis.SetProtoBin(Redis(), historykey, history)
 		this.SendNotify("领取成功")
+		send := &msg.GW2C_RetGetTradeHouseReward{}
+		send.Tradeuid = pb.Uint64(tradeuid)
+		this.SendMsg(send)
 	}else{
 		this.SendNotify("已经领取过")
 	}
@@ -506,6 +509,9 @@ func (this *GateUser) GetTradeCarReward(tradeuid uint64){
 		history.State = pb.Uint32(3)
 		utredis.SetProtoBin(Redis(), historykey, history)
 		this.SendNotify("领取成功")
+		send := &msg.GW2C_RetGetTradeCarReward{}
+		send.Tradeuid = pb.Uint64(tradeuid)
+		this.SendMsg(send)
 	}else{
 		this.SendNotify("已经领取过")
 	}

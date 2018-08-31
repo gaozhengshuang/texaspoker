@@ -205,12 +205,28 @@ message C2GW_GetTradeCarReward
     optional uint64 tradeuid = 1;
 }
 
+message GW2C_RetGetTradeCarReward
+{
+    optional uint64 tradeuid = 1;
+}
+
 //取消订单
 message C2GW_CancelTradeCar
 {
     optional uint64 caruid = 1;
 }
 
+/////////////////////////////////////////////////////道具交易/////////////////////////////////////////////////////
 
-
+//请求道具交易列表
+message C2GW_ReqItemTradeList
+{
+    optional uint32 itemtype = 1;       //类型类型
+    optional uint32 itemsubtype = 2;    //子类型
+    optional uint32 pricemin = 4;        //价格区间小
+    optional uint32 pricemax = 5;        //价格区间大
+    optional string name = 7;           //道具名字
+    optional bool pricedec = 8;         //价格降序
+    optional uint32 startnum = 9;       //开始行数 从0开始
+}
 
