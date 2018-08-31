@@ -43,7 +43,7 @@ module game {
 					this.desLabel.text = '我的车库';
 					this.scroller.initItemRenderer(TradeCarSellItem);
 					list = DataManager.playerModel.userInfo.cardatas;
-					this._dp.source = list;
+					this._dp.source = this.getCarList();
 					break;
 			}
 			this.scroller.refreshData(this._dp);
@@ -55,7 +55,7 @@ module game {
 				this.scroller.refreshData(this._dp);
 			}
 			else if (this._flag == TradePanelFlag.Car) {
-				this._dp.source = DataManager.playerModel.userInfo.cardatas;
+				this._dp.source = this.getCarList();
 				this.scroller.refreshData(this._dp);
 			}
 		}
@@ -66,6 +66,17 @@ module game {
 			for (let i: number = 0; i < house.length; i++) {
 				let data = house[i];
 				if (data.buildingid != 0) {
+					list.push(data);
+				}
+			}
+			return list;
+		}
+		private getCarList(): any[] {
+			let list = [];
+			let carData: msg.CarData[] = <msg.CarData[]>DataManager.playerModel.userInfo.cardatas;
+			for (let i: number = 0; i < carData.length; i++) {
+				let data = carData[i];
+				if (data.state == msg.CarState.Idle) {
 					list.push(data);
 				}
 			}

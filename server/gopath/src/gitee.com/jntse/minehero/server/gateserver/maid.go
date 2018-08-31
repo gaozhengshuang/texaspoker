@@ -652,6 +652,7 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
 
 	ma.SendHouseMaids(user, house.id)		// 刷新掠夺者的房间
+	user.SendNotify("您的女仆已领回")
 }
 
 // 送回女仆
@@ -689,11 +690,36 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 	robberhouse := maid.RobberTo()
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
 	maid.SetRobber(0, "", 0)
-	maid.SetTimeStart(0)	// 停止工作
+	maid.SetTimeStart(util.CURTIME())
+	if maid.Earning() != 0  {
+		maid.SetTimeStart(0)	// 停止工作，女仆主人领取后开始工作
+	}
 	log.Info("[女仆] 女仆[%d]被送回到房间", maid.Id())
 
 	//
 	ma.SendHouseMaids(user, robberhouse)		// 刷新掠夺者的房间
+}
+
+// 领取掠夺女仆奖励
+func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid uint64, uid uint32) {
+	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		user.SendNotify("房屋无效")
+		log.Error("[女仆] 无效的房屋id[%d]", houseid)
+		return
+	}
+
+	if house.ownerid != user.Id() {
+		user.SendNotify("这不是您自己的房屋")
+		return
+	}
+
+	param := house.GetVisitParam(uid)
+	if param != 0 {
+		user.AddGold(param, "领取掠夺女仆奖励", true)
+	}
+	user.SendNotify("领取成功")
+	house.SetVisitParam(user, uid, 0)
 }
 
 // 设置掠夺者

@@ -325,7 +325,7 @@ module game {
 
             //小人动画
             let _roleBone = this._roleBonePool.createObject();
-            _roleBone.initRoleData(SexType.Girl, DataManager.playerModel.clothes);
+            _roleBone.initRoleData(SexType.Girl, MaidManager.getInstance().clothes);
             _roleBone.scaleX = 0.42;
             _roleBone.scaleY = 0.42;
             _roleBone.rotation = 12;

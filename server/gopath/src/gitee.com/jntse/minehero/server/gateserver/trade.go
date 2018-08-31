@@ -414,7 +414,7 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 	car.data.Tradeuid = pb.Uint64(uint64(LastInsertId))
 	car.data.Tradeendtime = pb.Uint32(uint32(endtime))
 	car.data.Tradeprice = pb.Uint32(uint32(price))
-
+	car.modified = true
 	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
 	history := &msg.TradeCarHistory{}
@@ -474,6 +474,7 @@ func (this *GateUser) BuyTradeCar(tradeuid uint64, caruid uint64){
 
 	car.ChangeOwner(this)
 	car.ClearTrade()
+	car.modified = true
 
 	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
 	history.State = pb.Uint32(uint32(2))
@@ -562,6 +563,7 @@ func (this *GateUser) CancelTradeCar(caruid uint64){
 	}
 
 	car.ClearTrade()
+	car.modified = true
 	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
 	//send := &msg.GW2C_RetCancelTradeHouse{}

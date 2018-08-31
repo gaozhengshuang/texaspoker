@@ -113,8 +113,7 @@ module game {
 			this.houseFilter.visible = false;
 			this.typeFilter.visible = false;
 
-			this.context.carPriceBtn.onShow();
-			this.context.carIncomeBtn.onShow();
+			this.context.housePriceBtn.onShow();
 			
 			NotificationCenter.addObserver(this, this.onTradeList, 'msg.GW2C_RetHouseTradeList');
 			NotificationCenter.addObserver(this, this.refreshList, PlayerModel.HOUSE_UPDATE);
