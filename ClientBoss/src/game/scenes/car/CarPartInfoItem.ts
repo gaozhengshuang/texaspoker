@@ -49,7 +49,7 @@ module game {
             //经验
             //let carPartLvUpData = table.TCarPartLevelupById[carPartData.partid];
             let _tablecarPartLvUpDatas : table.ITCarPartLevelupDefine[] =[];
-            _tablecarPartLvUpDatas = table.TCarPartLevelup.filter(data=>{return data.Partid==carPartData.partid && data.Level==carPartData.level});
+            _tablecarPartLvUpDatas = table.TCarPartLevelup.filter(data=>{return data.Quality==carPartItemData.Quality && data.Level==carPartData.level});
             
 
             if(_tablecarPartLvUpDatas.length==0) return;

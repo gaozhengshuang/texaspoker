@@ -4725,6 +4725,9 @@ declare namespace msg {
 
         /** HouseVisitInfo visitorhouse */
         visitorhouse?: (number|Long|null);
+
+        /** HouseVisitInfo id */
+        id?: (number|Long|null);
     }
 
     /** Represents an HouseVisitInfo. */
@@ -4756,6 +4759,9 @@ declare namespace msg {
 
         /** HouseVisitInfo visitorhouse. */
         public visitorhouse: (number|Long);
+
+        /** HouseVisitInfo id. */
+        public id: (number|Long);
 
         /**
          * Creates a new HouseVisitInfo instance using the specified properties.
@@ -4884,6 +4890,9 @@ declare namespace msg {
 
         /** HouseData tradeprice */
         tradeprice?: (number|null);
+
+        /** HouseData visitrecordid */
+        visitrecordid?: (number|null);
     }
 
     /** Represents an HouseData. */
@@ -4948,6 +4957,9 @@ declare namespace msg {
 
         /** HouseData tradeprice. */
         public tradeprice: number;
+
+        /** HouseData visitrecordid. */
+        public visitrecordid: number;
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -14775,6 +14787,12 @@ declare namespace msg {
 
     /** Properties of a C2GW_TakeRobMaidEarning. */
     interface IC2GW_TakeRobMaidEarning {
+
+        /** C2GW_TakeRobMaidEarning houseid */
+        houseid?: (number|Long|null);
+
+        /** C2GW_TakeRobMaidEarning id */
+        id?: (number|null);
     }
 
     /** Represents a C2GW_TakeRobMaidEarning. */
@@ -14785,6 +14803,12 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_TakeRobMaidEarning);
+
+        /** C2GW_TakeRobMaidEarning houseid. */
+        public houseid: (number|Long);
+
+        /** C2GW_TakeRobMaidEarning id. */
+        public id: number;
 
         /**
          * Creates a new C2GW_TakeRobMaidEarning instance using the specified properties.
@@ -26132,8 +26156,8 @@ declare namespace table {
         /** TCarPartLevelupDefine Id */
         Id?: (number|null);
 
-        /** TCarPartLevelupDefine Partid */
-        Partid?: (number|null);
+        /** TCarPartLevelupDefine Quality */
+        Quality?: (number|null);
 
         /** TCarPartLevelupDefine Level */
         Level?: (number|null);
@@ -26157,8 +26181,8 @@ declare namespace table {
         /** TCarPartLevelupDefine Id. */
         public Id: number;
 
-        /** TCarPartLevelupDefine Partid. */
-        public Partid: number;
+        /** TCarPartLevelupDefine Quality. */
+        public Quality: number;
 
         /** TCarPartLevelupDefine Level. */
         public Level: number;
@@ -30405,6 +30429,198 @@ declare namespace table {
 
         /**
          * Converts this TSkillDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TStarupCarBase. */
+    interface ITStarupCarBase {
+
+        /** TStarupCarBase TStarupCar */
+        TStarupCar?: (table.ITStarupCarDefine[]|null);
+    }
+
+    /** Represents a TStarupCarBase. */
+    class TStarupCarBase implements ITStarupCarBase {
+
+        /**
+         * Constructs a new TStarupCarBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITStarupCarBase);
+
+        /** TStarupCarBase TStarupCar. */
+        public TStarupCar: table.ITStarupCarDefine[];
+
+        /**
+         * Creates a new TStarupCarBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TStarupCarBase instance
+         */
+        public static create(properties?: table.ITStarupCarBase): table.TStarupCarBase;
+
+        /**
+         * Encodes the specified TStarupCarBase message. Does not implicitly {@link table.TStarupCarBase.verify|verify} messages.
+         * @param message TStarupCarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITStarupCarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TStarupCarBase message, length delimited. Does not implicitly {@link table.TStarupCarBase.verify|verify} messages.
+         * @param message TStarupCarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITStarupCarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TStarupCarBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TStarupCarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TStarupCarBase;
+
+        /**
+         * Decodes a TStarupCarBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TStarupCarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TStarupCarBase;
+
+        /**
+         * Verifies a TStarupCarBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TStarupCarBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TStarupCarBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TStarupCarBase;
+
+        /**
+         * Creates a plain object from a TStarupCarBase message. Also converts values to other types if specified.
+         * @param message TStarupCarBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TStarupCarBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TStarupCarBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TStarupCarDefine. */
+    interface ITStarupCarDefine {
+
+        /** TStarupCarDefine Id */
+        Id?: (number|null);
+
+        /** TStarupCarDefine Money */
+        Money?: (number|null);
+
+        /** TStarupCarDefine Item */
+        Item?: (string[]|null);
+    }
+
+    /** Represents a TStarupCarDefine. */
+    class TStarupCarDefine implements ITStarupCarDefine {
+
+        /**
+         * Constructs a new TStarupCarDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITStarupCarDefine);
+
+        /** TStarupCarDefine Id. */
+        public Id: number;
+
+        /** TStarupCarDefine Money. */
+        public Money: number;
+
+        /** TStarupCarDefine Item. */
+        public Item: string[];
+
+        /**
+         * Creates a new TStarupCarDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TStarupCarDefine instance
+         */
+        public static create(properties?: table.ITStarupCarDefine): table.TStarupCarDefine;
+
+        /**
+         * Encodes the specified TStarupCarDefine message. Does not implicitly {@link table.TStarupCarDefine.verify|verify} messages.
+         * @param message TStarupCarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITStarupCarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TStarupCarDefine message, length delimited. Does not implicitly {@link table.TStarupCarDefine.verify|verify} messages.
+         * @param message TStarupCarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITStarupCarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TStarupCarDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TStarupCarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TStarupCarDefine;
+
+        /**
+         * Decodes a TStarupCarDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TStarupCarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TStarupCarDefine;
+
+        /**
+         * Verifies a TStarupCarDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TStarupCarDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TStarupCarDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TStarupCarDefine;
+
+        /**
+         * Creates a plain object from a TStarupCarDefine message. Also converts values to other types if specified.
+         * @param message TStarupCarDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TStarupCarDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TStarupCarDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

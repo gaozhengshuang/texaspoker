@@ -210,12 +210,13 @@ message HouseCell {
 //房屋访问者操作信息
 message HouseVisitInfo {
 	optional uint64 visitorid = 1; //来访玩家的id
-	optional int64 tmvisit = 2; //来访时间
+	optional int64  tmvisit = 2; //来访时间
 	optional uint32 optindex = 3; //操作的房间编号
 	optional uint32 opttype = 4; //操作类型 1主人收钱 2别人抢钱
 	optional uint32 optparam = 5; //操作附加参数 例如主人收了多少钱 别人抢了多少钱
 	optional string visitorname = 6; //来访玩家的名字
 	optional uint64 visitorhouse = 7; //来访玩家的house，用于直接拜访house
+	optional uint64 id = 8; // 记录编号
 }
 
 //房屋信息包含若干房间 
@@ -238,6 +239,7 @@ message HouseData {
     optional uint32 sumvalue = 16;      //总价值
     optional uint64 tradeuid = 17;      //交易id
     optional uint32 tradeprice = 18;         //交易价格
+    optional uint32 visitrecordid = 19;  // 访问记录uuid,服务器使用
 }
 
 // 汽车商店出售信息

@@ -41,7 +41,7 @@ module game {
                     //this.lock_txt.visible=false;
                     this.type = table.THouseById[this.itemDate.data.tId];
                     this.itemInfoList = this.getLevelItemVoList(this.type);
-                    if (this.itemDate.data.level < this.itemDate.MaxLv) {
+                    if (this.itemDate.data.level < this.type.MaxLevel) {
                         this.spend_txt.visible = true;
                         this.btnGruop.visible = true;
                         this.manji_txt.visible = false;
@@ -65,7 +65,9 @@ module game {
                         }
                     } else {
                         this.btnGruop.visible = false;
+                        this.spend_txt.visible=false;
                         this.manji_txt.visible = true;
+                        this.goldImg.visible = false;
                         this.level_txt.text = this.itemDate.name + "等级" + this.itemDate.data.level;
                     }
                 } else {
@@ -73,9 +75,11 @@ module game {
                     this.itemInfoList = this.getLevelItemVoList(this.type);
                     this.typeNext = table.THouseCellById[this.itemDate.data.tid + 1];
                     this.chanliang_txt.visible = true;
-                    if (this.itemDate.data.level < this.itemDate.MaxLv) {
+                    console.log(Math.min(this.type.MaxLevel,this.itemDate.MaxLv),this.type.MaxLevel,this.itemDate.MaxLv);
+                    if (this.itemDate.data.level < Math.min(this.type.MaxLevel,this.itemDate.MaxLv)) {
                         this.btnGruop.visible = true;
                         this.manji_txt.visible = false;
+                        this.spend_txt.visible=true;
                         this.level_txt.text = this.itemDate.name + "等级" + this.itemDate.data.level + "级——"
                             + this.itemDate.name + "等级" + (this.itemDate.data.level + 1) + "级";
                         this.chanliang_txt.text = "金币产量" + this.type.ProduceGold + ">" + "金币产量" + this.typeNext.ProduceGold;
@@ -119,9 +123,10 @@ module game {
                             }
                         }
                     } else {
-                        this.goldImg.visible = true;
+                        this.goldImg.visible = false;
                         this.btnGruop.visible = false;
                         this.manji_txt.visible = true;
+                        this.spend_txt.visible=false;
                         //this.lock_txt.visible=false;
                         this.level_txt.text = this.itemDate.name + "等级" + this.itemDate.data.level;
                         this.chanliang_txt.text = "金币产量" + this.type.ProduceGold

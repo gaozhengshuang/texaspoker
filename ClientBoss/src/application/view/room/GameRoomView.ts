@@ -454,7 +454,7 @@ module game {
                             ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, return: MaidManager.getInstance()._curSelHouse});
                         }else if(item.opttype==6){
                             if(item.optparam>0){
-                                //sendMessage("msg.C2GW_TakeRobMaidEarning", msg.C2GW_TakeRobMaidEarning.encode({houseid:data.houseid}));
+                                sendMessage("msg.C2GW_TakeRobMaidEarning", msg.C2GW_TakeRobMaidEarning.encode({houseid:item.visitorhouse,id:item.id}));
                             }else{
                                 this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
                             }
@@ -526,7 +526,7 @@ module game {
                 let Cells: string[] = this.roomTypeInfo.Cells.split("|");
                 this.levelInfoList.push({
                     index: 0, data: this.roomInfo,
-                    name: "房屋", hLevel: this.roomInfo.level, lockLevel: 0, MaxLv: this.roomTypeInfo.MaxCells
+                    name: "房屋", hLevel: this.roomInfo.level, lockLevel: 0, MaxLv: this.roomTypeInfo.MaxLevel
                 });
                 if (Cells && Cells.length > 0) {
                     for (let i: number = 0; i < Cells.length; i++) {
@@ -538,7 +538,7 @@ module game {
                                 index: Number(CellsItem[0]), data: this.getCellInfo(Number(CellsItem[0])),
                                 name: cellName, hLevel: this.roomInfo.level,
                                 lockLevel: this.getOpenLockLevel(Number(CellsItem[0])),
-                                MaxLv: table.THouseCellById[info.tid].MaxLevel
+                                MaxLv: this.roomTypeInfo.MaxLevel
                             })
                         }
                     }

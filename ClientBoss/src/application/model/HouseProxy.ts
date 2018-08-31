@@ -35,8 +35,20 @@ module game {
 		private OnGW2C_UpdateHouseVisitInfo(data: msg.GW2C_UpdateHouseVisitInfo) {
 			if (GameConfig.pageType == 1) {
 				if(data.houseid==this.currentHouse.rId){
-					this.currentHouse.visitinfo.push(data.info);
-					this.currentHouse.robcheckflag=1;
+					let ishas:boolean=false;
+					if(this.currentHouse.visitinfo && this.currentHouse.visitinfo.length>0){
+						for(let i:number=0;i<this.currentHouse.visitinfo.length;i++){
+							if(this.currentHouse.visitinfo[i].id==data.info.id){
+								ishas=true;
+								this.currentHouse.visitinfo[i]=data.info;
+								break;
+							}
+						}
+					}
+					if(!ishas){
+						this.currentHouse.visitinfo.push(data.info);
+						this.currentHouse.robcheckflag=1;
+					}
 					ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
 				}
 			}
