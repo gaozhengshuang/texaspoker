@@ -32,7 +32,7 @@ module game {
         }
 
         private registerEvent() {
-            NotificationCenter.addObserver(this, this.OnMaidUpdate, PlayerModel.MAID_UPDATE);
+            NotificationCenter.addObserver(this, this.OnMaidUpdate, MaidManager.MAID_UPDATE);
 
              this._touchEvent = [
                 { target: this.btn_close, callBackFunc: this.backHandle },
@@ -41,7 +41,7 @@ module game {
         }
 
         private removeEvent() {
-            NotificationCenter.removeObserver(this, PlayerModel.MAID_UPDATE);
+            NotificationCenter.removeObserver(this, MaidManager.MAID_UPDATE);
         }
 
         private backHandle() {
@@ -50,7 +50,7 @@ module game {
 
         private lvUpHandle() {
             sendMessage("msg.C2GW_MaidUpgrade", msg.C2GW_MaidUpgrade.encode({
-                id: DataManager.playerModel.getMaidInfo().id
+                id: MaidManager.getInstance().getMaidInfo().id
             }));
         }
 
@@ -59,7 +59,7 @@ module game {
         }
 
         private updateView() {
-            let levelInfo = table.TLevelMaidById[DataManager.playerModel.getMaidInfo().level];
+            let levelInfo = table.TLevelMaidById[MaidManager.getInstance().getMaidInfo().level];
             if (levelInfo) {
                 this.lvLabel.text = "等级："+ levelInfo.Id;
                 this.produceGoldLabel.text = "产能：" + levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60);

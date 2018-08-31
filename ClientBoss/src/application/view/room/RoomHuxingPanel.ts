@@ -6,7 +6,7 @@ module game {
 			this.roomView = rView;
 		}
 		private roomInfo: HouseVO;
-		private roomTypeInfo: any;
+		private roomTypeInfo: table.ITHouseDefine;
 		private bubbleList: any[] = [];
 		private qiPaoList: QipaoPanel[] = [];
 		private huxingImage: egret.Bitmap;
@@ -100,16 +100,17 @@ module game {
 		}
 		private initQipao(bubble) {
 			//let origin:egret.Point=this.globalToLocal(0,0);
-
+			let roomPosList: string[] = this.roomTypeInfo.RoomPosition.split(";");
 			this.bubbleList = [];
 			this.qiPaoList = [];
 			if (bubble && bubble.length > 0) {
 				for (let i: number = 0; i < bubble.length; i++) {
 					let qipao: QipaoPanel = new QipaoPanel(this.roomView);
 					this.addChild(qipao);
-					let point: any = this["qipaoWeizhi" + (this.roomTypeInfo.MaxCells - 3)][bubble[i].index - 1];
-					qipao.x = point.x;
-					qipao.y = point.y;
+					let roomPos: string[] = roomPosList[bubble[i].index - 1].split("-");
+					//let point: any = this["qipaoWeizhi" + (this.roomTypeInfo.MaxCells - 3)][bubble[i].index - 1];
+					qipao.x = Number(roomPos[0]);
+					qipao.y = Number(roomPos[1]);
 					let oldY: number = qipao.y;
 					let timeNum: number = 800 + Math.floor(Math.random() * 500);
 					qipao.updataInfo(bubble[i]);
@@ -287,16 +288,20 @@ module game {
 		private initMaid(houseInfo: table.ITHouseDefine) {
 			let maidList: string[] = houseInfo.GirlsPosition.split(";");
 			if (maidList) {
-				if (DataManager.playerModel.getHouseMaidInfo()) {
-					for(let i=0; i<DataManager.playerModel.getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
-						let maidInfo = DataManager.playerModel.getHouseMaidInfo().maids[i];
+				if (MaidManager.getInstance().getHouseMaidInfo()) {
+					for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
+						let maidInfo = MaidManager.getInstance().getHouseMaidInfo().maids[i];
 						let maidPos: string[] = maidList[i].split("-");
 						if (maidPos) {
 							let houseMaid = new HouseRolePanel();
 							this.addChild(houseMaid);
+
+							houseMaid.anchorOffsetX = houseMaid.width / 2;
+							houseMaid.anchorOffsetY = houseMaid.height;
 							houseMaid.x = Number(maidPos[0]);
 							houseMaid.y = Number(maidPos[1]);
 
+							MaidManager.getInstance().setCurHouseId(this.roomInfo.rId);
 							houseMaid.show(maidInfo);
 						}
 					}

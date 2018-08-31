@@ -155,9 +155,9 @@ module game {
         }
 
         private initLevelMaid() {
-            let levelInfo = table.TLevelMaidById[DataManager.playerModel.getMaidInfo().level];
+            let levelInfo = table.TLevelMaidById[MaidManager.getInstance().getMaidInfo().level];
             if (levelInfo) {
-                this.lvLabel.text = "Lv."+DataManager.playerModel.getMaidInfo().level;
+                this.lvLabel.text = "Lv."+MaidManager.getInstance().getMaidInfo().level;
                 this.produceGoldLabel.text = "产能：" + levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60) + "/分钟";
                 this.maxGoldLabel.text = "上限：" + levelInfo.ProduceGold + "金币";
                 this.levelUpLabel.text = DataManager.playerModel.getItemNum(levelInfo.UpgradeID) + "/" + levelInfo.Upgradenum;
@@ -428,7 +428,7 @@ module game {
             this._roleBone.changePart(item);
             if (DataManager.playerModel.IsHaveItem(item.Id)) {
                 sendMessage("msg.C2GW_DressClothes", msg.C2GW_DressClothes.encode({
-                    id: DataManager.playerModel.getMaidInfo().id,
+                    id: MaidManager.getInstance().getMaidInfo().id,
                     pos: item.Pos,
                     itemid: item.Id,
                 }));
@@ -447,7 +447,7 @@ module game {
  
             if (DataManager.playerModel.IsHaveItem(item.Id)) {
                 sendMessage("msg.C2GW_UnDressClothes", msg.C2GW_UnDressClothes.encode({
-                    id: DataManager.playerModel.getMaidInfo().id,
+                    id: MaidManager.getInstance().getMaidInfo().id,
                     pos: item.Pos
                 }));
             }

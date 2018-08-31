@@ -12,8 +12,6 @@ module game {
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
         static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE";
-        static MAID_UPDATE = "PlayerModel_MAID_UPDATE";
-        static HOUSEMAID_UPDATE = "PlayerModel_HOUSEMAID_UPDATE";
         static HOUSE_UPDATE = "PlayerModel_HOUSE_UPDATE";
         static CAR_UPDATE = "PlayerModel_CAR_UPDATE";
 
@@ -38,13 +36,10 @@ module game {
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
         public totalMoney: number | Long = 0;
+
         private _tasks;
         private _houses;
         private _carRecords: string[] = [];
-        private _personalImage: msg.IItemData[];
-        private _houseMaidInfo: msg.GW2C_SendHouseMaidInfo;
-        private _userMaidInfo: msg.GW2C_SendUserMaidInfo;
-        private _mainMaidInfo: msg.IHouseMaidData;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -62,8 +57,6 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord, "msg.GW2C_SynParkingRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack, "msg.GW2C_CarAutoBack");
-            NotificationCenter.addObserver(this, this.OnGW2C_SendUserMaidInfo, "msg.GW2C_SendUserMaidInfo");
-            NotificationCenter.addObserver(this, this.OnGW2C_SendHouseMaidInfo, "msg.GW2C_SendHouseMaidInfo");
             NotificationCenter.addObserver(this, this.GW2C_UpdateHouseDataOne, "msg.GW2C_UpdateHouseDataOne");
             NotificationCenter.addObserver(this, this.GW2C_UpdateCar, "msg.GW2C_UpdateCar");
         }
@@ -630,14 +623,6 @@ module game {
                 });
             }
             return _parkingdatas[0];
-        }
-
-        public getMaidInfo() {
-            return this._mainMaidInfo;
-        }
-
-        public getHouseMaidInfo () {
-            return this._houseMaidInfo;
         }
     }
 }
