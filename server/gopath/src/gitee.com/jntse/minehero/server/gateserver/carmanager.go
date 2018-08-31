@@ -977,7 +977,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	targetlevel := partData.GetLevel()
 	targetExp := partData.GetExp()
 	costMoney := uint32(0)
-	targetExp = targetExp + addExp
+	p = targetExp + addExp
 	levelupConf := this.GetCarPartLevelupConf(parttemplate.Quality,targetlevel)
 	if levelupConf == nil {
 		user.SendNotify("没有升级到这一级的配置")
@@ -986,7 +986,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	for {
 		if targetlevel >= parttemplate.MaxLevel {
 			targetExp = 0
-			return
+			break
 		} else if targetExp < levelupConf.Exp {
 			//经验升不了一级啦
 			break
