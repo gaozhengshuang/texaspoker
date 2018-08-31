@@ -6,7 +6,7 @@
 
 		<e:Image id="img_Icon" anchorOffsetX="0" height="73" scaleX="1" scaleY="1" top="12" verticalCenter="-3" width="150" anchorOffsetY="0" source="carIconAltas_json.small_1" x="19" y="45"/>
 		<e:Image id="img_btnbg" anchorOffsetX="0" height="56" scaleX="1" scaleY="1" top="12" verticalCenter="-3" width="150" anchorOffsetY="0" source="uiCarAltas_json.normalBtn" horizontalCenter="212" right="73" x="497" y="53" visible="false"/>
-		<e:Label id="ItemName" text="发动机零件后备箱中x99" x="171" y="61" bold="true" textAlign="left" size="26" scaleX="1" scaleY="1" verticalAlign="middle" anchorOffsetX="0" width="334" textColor="0x404a58" height="30" fontFamily="Microsoft YaHei"/>
+		<e:Label id="ItemName" text="发动机零件 后备箱中x1000" x="171" y="61" bold="true" textAlign="left" size="23" scaleX="1" scaleY="1" verticalAlign="middle" anchorOffsetX="0" width="334" textColor="0x404a58" height="30" fontFamily="Microsoft YaHei"/>
 
 		<e:Group id="grp_price" width="0" height="0" x="245.8" y="92.2" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
 			<e:Image id="img_price0" source="dress_01_json.dress_01_30" x="4.2" y="-1" scaleX="0.7" scaleY="0.7" visible="false"/>
@@ -20,8 +20,8 @@
 	</e:Group>
 	<e:Group id="btnDetail" width="720" height="150" x="0" y="0" touchEnabled="true">
 		<game:IconButton id="btnJoin" width="20" height="20" x="602" y="66" skinName="IconButtonSkin" touchEnabled="true"/>
-		<e:Label id="stateTxt" text="使用" textAlign="center" size="30" anchorOffsetX="-2" textColor="0xffffff" horizontalCenter="254" right="71" x="546" y="60" scaleX="1" scaleY="1" touchEnabled="false" fontFamily="Microsoft YaHei"/>
-		<e:Label id="txt_info" text="白色" x="459.48" y="61" size="23" textAlign="left" width="57.49" verticalAlign="middle" anchorOffsetX="0" anchorOffsetY="0" height="30" textColor="0xffffff" fontFamily="Microsoft YaHei" bold="true"/>
+		<e:Label id="stateTxt" text="使用" textAlign="center" size="30" anchorOffsetX="-2" textColor="0xffffff" horizontalCenter="254" right="71" x="546" y="57" scaleX="1" scaleY="1" touchEnabled="false" fontFamily="Microsoft YaHei"/>
+		<e:Label id="txt_info" text="白色" x="486.48" y="61" size="23" textAlign="left" width="57.49" verticalAlign="middle" anchorOffsetX="0" anchorOffsetY="0" height="30" textColor="0xffffff" fontFamily="Microsoft YaHei" bold="true"/>
 	</e:Group>
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
 </e:Skin>

@@ -18,6 +18,24 @@
 		<e:Image id="btnDriveAwayBg" width="121" height="65" x="566" scaleX="1" scaleY="1" y="839" source="uiCarAltas_json.driveBtn"/>
 		<e:Label id="btnDriveAwayTxt" text="收回" x="565" y="872" size="35" verticalAlign="middle" textAlign="center" anchorOffsetX="0" width="88.79" height="45" bold="true" anchorOffsetY="0" visible="false"/>
 		<game:IconButton id="btnDriveAway" height="60.88" enabled="true" skinName="IconButtonSkin" width="122.79" x="558" y="841" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0"/>
+		<e:Button id="starUpBtn" label="升 星" width="150" height="56" horizontalCenter="0" y="637" visible="false">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Group id="starsGroup" width="0" height="0" x="463" y="764">
+			<e:Image id="star_0" width="40" height="38" x="530" y="753" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_1" width="40" height="38" x="540" y="763" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_2" width="40" height="38" x="550" y="773" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_3" width="40" height="38" x="560" y="783" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_4" width="40" height="38" x="570" y="793" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:layout>
+				<e:HorizontalLayout gap="-8"/>
+			</e:layout>
+		</e:Group>
 
 	</e:Group>
 
