@@ -68,7 +68,7 @@ module game {
 		}
 		private onChangeSex(e: egret.Event) {
 			var rbGroup: eui.RadioButtonGroup = e.target;
-			console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
+			//console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
 			this.currentGroupId = rbGroup.selectedValue;
 			this.contentStarck.selectedChild = this["stackGroup" + this.currentGroupId];
 
@@ -190,7 +190,7 @@ module game {
 				if (this.itemMCList && this.itemMCList.length > 0
 					&& index < this.itemMCList.length) {
 					this.clearDepotItemframe();
-					console.log(this.itemMCList[index]);
+					//console.log(this.itemMCList[index]);
 					this.itemMCList[index].showFrame();
 					this.updateDepotDetails(this.itemMCList[index].itemDate);
 				}

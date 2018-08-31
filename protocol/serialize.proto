@@ -214,6 +214,7 @@ message HouseVisitInfo {
 	optional uint32 opttype = 4; //操作类型 1主人收钱 2别人抢钱
 	optional uint32 optparam = 5; //操作附加参数 例如主人收了多少钱 别人抢了多少钱
 	optional string visitorname = 6; //来访玩家的名字
+	optional uint64 visitorhouse = 7; //来访玩家的house，用于直接拜访house
 }
 
 //房屋信息包含若干房间 

@@ -20,6 +20,12 @@ message GW2C_UpdateHouseDataOne {
     optional bool isdel = 3;              //是否删除
 }
 
+// 更新房屋访问记录
+message GW2C_UpdateHouseVisitInfo {
+    optional uint64 houseid = 1;
+    optional HouseVisitInfo info = 2;
+} 
+
 // 请求设置引导标记
 message C2GW_ReqSetNewPlayerStep {
 	optional uint32 step = 1;

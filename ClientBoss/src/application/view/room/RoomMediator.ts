@@ -90,7 +90,7 @@ module game {
 
 				case CommandName.ROOM_PARKINGLOT_UPDATE:
 					{
-						console.log("更新车位信息");
+						//console.log("更新车位信息");
 						this.sceneGroup.showParkingLotList();
 						break;
 					}
@@ -117,10 +117,10 @@ module game {
 				if (eve.EventObj.userid == DataManager.playerModel.getUserInfo().userid) {
 					houseProxy.returnType = 0;
 				}
-				if (houseProxy.returnRoomInfo != null) {
+				if (houseProxy.returnRoomId>0) {
 					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
-						{ houseid: houseProxy.returnRoomInfo.rId });
-					houseProxy.returnRoomInfo = null;
+						{ houseid: houseProxy.returnRoomId });
+					houseProxy.returnRoomId = 0;
 					//houseProxy.returnType = 0;
 				} else {
 					ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_ROOM_PAGE);
@@ -166,7 +166,8 @@ module game {
 		private gotoRoomRegister(eve: BasicEvent): void {
 			if (eve.EventObj) {
 				let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
-				houseProxy.returnRoomInfo = eve.EventObj.return;
+				//houseProxy.returnRoomInfo = eve.EventObj.return;
+				houseProxy.returnRoomId=eve.EventObj.returnId;
 				houseProxy.returnType = eve.EventObj.type;
 				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
 					{ houseid: eve.EventObj.houseid });
@@ -175,7 +176,8 @@ module game {
 		private goinMessageRoomRegister(eve: BasicEvent): void {
 			if (eve.EventObj) {
 				let houseProxy: HouseProxy = <HouseProxy><any>this.facade().retrieveProxy(HouseProxy.NAME);
-				houseProxy.returnRoomInfo = eve.EventObj.return;
+				//houseProxy.returnRoomInfo = eve.EventObj.return;
+				houseProxy.returnRoomId=eve.EventObj.returnId;
 				houseProxy.returnType = eve.EventObj.type;
 				//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
 				// {houseid:eve.EventObj.houseid});

@@ -29,7 +29,7 @@ module game {
 					this.name_txt.text = this.itemInfo.Name;
 					this.info_txt.text = this.itemInfo.Desc;
 					this.num_txt.text = "数量:" + this.item.num;
-					if (this.itemInfo.Clothes > 0) {
+					if (this.itemInfo.Clothes > 0 && this.item.num>=10) {
 						this.use_btn.visible = true;
 					} else {
 						this.use_btn.visible = false;
