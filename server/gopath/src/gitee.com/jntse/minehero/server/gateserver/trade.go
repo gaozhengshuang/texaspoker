@@ -56,7 +56,7 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 		wheresql += fmt.Sprintf("and houselevel=%d ", rev.GetHouselevel())
 	}
 	if rev.GetName() != "" {
-		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
+		wheresql += "and name like '" + rev.GetName() + "%'"
 	}
 	if rev.GetPricedec() == true {
 		ordersql += "ORDER BY PRICE DESC"
@@ -570,58 +570,36 @@ func (this *GateUser) CancelTradeCar(caruid uint64){
 
 /////////////////////////////////////////////////////道具交易//////////////////////////////////////////////////////
 
-/*optional uint64 tradeuid = 1;           //交易唯一id
-optional uint32 itemid = 2;             //道具id
-optional uint32 itemnum = 3;              //道具数量
-optional uint32 price = 4;             //定价
-optional uint32 endtime = 5;            //交易结束时间
-optional uint32 ownerid = 6;
-optional uint32 itemtype = 7;            //类型
-optional uint32 itemsubtype = 8;        //子类型
-optional string name = 9;              //名字 
-
 type ItemTradeInfo struct {
 	tradeuid int
-	
+	itemid int
+	itemnum int
 	price int
-	houselevel int
-	area int
-	income int
-	houseuid int
-	housebaseid int
 	endtime int
-	location int
-	sublocation int
-	posx int
-	posy int
-	state int
-	housetype int
+	ownerid int
+	itemtype int
+	itemsubtype int
+	name string
 }
-
-func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
+/*
+func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 	var wheresql string
 	var ordersql string
 	var limitsql string
 	var strsql string
 	limitsql = fmt.Sprintf("limit %d,20", rev.GetStartnum())
 	wheresql = fmt.Sprintf("endtime>%d ", util.CURTIME())
-	if rev.GetLocation() != 0 {
-		wheresql += fmt.Sprintf("and location=%d ", rev.GetLocation())
-	}
-	if rev.GetSublocation() != 0 {
-		wheresql += fmt.Sprintf("and sublocation=%d ", rev.GetSublocation())
-	}
-	if rev.GetHousetype() != 0 {
-		wheresql += fmt.Sprintf("and housetype=%d ", rev.GetHousetype())
-	}
 	if rev.GetPricemin() != 0 {
 		wheresql += fmt.Sprintf("and price>=%d ", rev.GetPricemin())
 	}
 	if rev.GetPricemax() != 0 {
 		wheresql += fmt.Sprintf("and price<=%d ", rev.GetPricemax())
 	}
-	if rev.GetHouselevel() != 0 {
-		wheresql += fmt.Sprintf("and houselevel=%d ", rev.GetHouselevel())
+	if rev.GetItemtype() != 0 {
+		wheresql += fmt.Sprintf("and itemtype=%d ", rev.GetItemtype())
+	}
+	if rev.GetItemsubype() != 0 {
+		wheresql += fmt.Sprintf("and itemsubtype=%d ", rev.GetItemsubtype())
 	}
 	if rev.GetName() != "" {
 		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
@@ -633,12 +611,12 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 	}
 
 	if wheresql != "" {
-		strsql = fmt.Sprintf("SELECT * FROM housetrade WHERE %s %s %s", wheresql, ordersql, limitsql)
+		strsql = fmt.Sprintf("SELECT * FROM itemtrade WHERE %s %s %s", wheresql, ordersql, limitsql)
 	}else{
-		strsql = fmt.Sprintf("SELECT * FROM housetrade %s %s", ordersql, limitsql)
+		strsql = fmt.Sprintf("SELECT * FROM itemtrade %s %s", ordersql, limitsql)
 	}
 
-	log.Info("[房屋交易] 玩家[%d] 请求交易列表 SQL语句[%s]", this.Id(), strsql)
+	log.Info("[道具交易] 玩家[%d] 请求交易列表 SQL语句[%s]", this.Id(), strsql)
 
 	rows, err := MysqlDB().Query(strsql)
 	if err != nil{
@@ -646,10 +624,10 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 		return
 	}
 	defer rows.Close()
-	send := &msg.GW2C_RetHouseTradeList{} 
+	send := &msg.GW2C_RetItemTradeList{} 
 	for rows.Next() {
-		trade := HouseTradeInfo{}
-		err := rows.Scan(&trade.tradeuid, &trade.name, &trade.houselevel, &trade.price, &trade.area, &trade.income, &trade.houseuid, &trade.housebaseid, &trade.endtime, &trade.location, &trade.sublocation, &trade.posx, &trade.posy, &trade.state, &trade.housetype)
+		trade := ItemTradeInfo{}
+		err := rows.Scan(&trade.tradeuid, &trade.itemid, &trade.houselevel, &trade.price, &trade.area, &trade.income, &trade.houseuid, &trade.housebaseid, &trade.endtime, &trade.location, &trade.sublocation, &trade.posx, &trade.posy, &trade.state, &trade.housetype)
 		if nil != err {
 			log.Info("获取表值失败")
 			continue
