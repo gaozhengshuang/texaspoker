@@ -27,9 +27,9 @@ module game {
          export var $gameNetIp: string = "ws://192.168.30.205:{gamePort}/ws_handler"; 
 
     //刘凯服务器
-    export var $registIp: string = "http://192.168.30.206:7002";
-    export var $netIp: string = "ws://192.168.30.206:7002/ws_handler";
-    export var $gameNetIp: string = "ws://192.168.30.206:{gamePort}/ws_handler"; 
+    //export var $registIp: string = "http://192.168.30.206:7002";
+    //export var $netIp: string = "ws://192.168.30.206:7002/ws_handler";
+    //export var $gameNetIp: string = "ws://192.168.30.206:{gamePort}/ws_handler"; 
 
 
     export interface IUpdateScore {

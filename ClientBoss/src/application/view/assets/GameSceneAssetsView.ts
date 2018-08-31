@@ -125,7 +125,7 @@ module game {
 			//this.detailsMask.visible=false;
 			//this.detailsPanel.visible=false;
 			//this.detailsPanel.bottom=-this.detailsPanel.height;
-			this.listScroller.height = this.contentStarck.height-this.detailsPanel.height;
+			this.listScroller.height = this.contentStarck.height - this.detailsPanel.height;
 			let infoList: any[] = DataManager.playerModel.getBag();
 
 			if (infoList) {
@@ -139,58 +139,64 @@ module game {
 		public updateItemList(list: any[]) {
 			this.itemInfoList = list;
 			this.clearDepotItem();
-			if(this.itemInfoList && this.itemInfoList.length>0){
-				for(let i:number;i<this.itemInfoList.length;i++){
-					let itemMc:DepotListItemPanel=new DepotListItemPanel();
-					itemMc.dataChanged(this.itemInfoList[i],i);
-					itemMc.x=0+i%5*itemMc.width;
-					itemMc.y=0+(Math.floor(i/5))*itemMc.height;
+			if (this.itemInfoList && this.itemInfoList.length > 0) {
+				for (let i: number = 0; i < this.itemInfoList.length; i++) {
+					let itemMc: DepotListItemPanel = new DepotListItemPanel();
+					itemMc.dataChanged(this.itemInfoList[i], i);
+					itemMc.x = 0 + i % 5 * itemMc.width;
+					itemMc.y = 0 + (Math.floor(i / 5)) * itemMc.height;
 					this.itemListGroup.addChild(itemMc);
 					itemMc.hideFrame();
 					itemMc.addEventListener(DepotListItemPanel.SELECT, this.onDepotItemTouch, this);
 					this.itemMCList.push(itemMc);
 				}
-				if(this.itemMCList && this.itemMCList.length){
+				if (this.itemMCList && this.itemMCList.length > 0) {
 					this.selectDepotItemframe(0);
 				}
-				else{
-					this.selectDepotItemframe(null);
+				else {
+					this.selectDepotItemframe(-1);
 				}
 			}
 		}
 		private onDepotItemTouch(eve: BasicEvent) {
-			if(eve.EventObj){
+			if (eve.EventObj) {
 				this.selectDepotItemframe(eve.EventObj.index);
 			}
 		}
-		private updateDepotDetails(item:any){
+		private updateDepotDetails(item: any) {
 			this.detailsPanel.showPanel(item);
 		}
 		private clearDepotItem() {
 			if (this.itemMCList && this.itemMCList.length > 0) {
 				for (let i: number = 0; i < this.itemMCList.length; i++) {
-					this.itemMCList[i].addEventListener(DepotListItemPanel.SELECT, 
-					this.onDepotItemTouch, this);
+					this.itemMCList[i].addEventListener(DepotListItemPanel.SELECT,
+						this.onDepotItemTouch, this);
 					this.itemMCList[i].removePanel();
-					this.itemMCList[i]=null;
+					this.itemMCList[i] = null;
 				}
 			}
-			this.itemMCList=[];
+			this.itemMCList = [];
 		}
 		private clearDepotItemframe() {
 			if (this.itemMCList && this.itemMCList.length > 0) {
 				for (let i: number = 0; i < this.itemMCList.length; i++) {
 					this.itemMCList[i].hideFrame();
-					this.itemMCList[i]=null;
 				}
 			}
 		}
-		private selectDepotItemframe(index:number) {
-			if (this.itemMCList && this.itemMCList.length > 0 
-			&& index<this.itemMCList.length) {
+		private selectDepotItemframe(index: number) {
+			if (index != -1) {
+				if (this.itemMCList && this.itemMCList.length > 0
+					&& index < this.itemMCList.length) {
+					this.clearDepotItemframe();
+					console.log(this.itemMCList[index]);
+					this.itemMCList[index].showFrame();
+					this.updateDepotDetails(this.itemMCList[index].itemDate);
+				}
+			}
+			else {
 				this.clearDepotItemframe();
-				this.itemMCList[index].showFrame();
-				this.updateDepotDetails(this.itemMCList[index].itemDate);
+				this.updateDepotDetails(null);
 			}
 		}
 	}

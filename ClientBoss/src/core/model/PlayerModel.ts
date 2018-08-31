@@ -14,6 +14,7 @@ module game {
         static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE";
         static MAID_UPDATE = "PlayerModel_MAID_UPDATE";
         static HOUSEMAID_UPDATE = "PlayerModel_HOUSEMAID_UPDATE";
+        static HOUSE_UPDATE = "HOUSE_UPDATE";
 
         public penetration: number = 0;
         public userInfo: IUserInfo = { 
