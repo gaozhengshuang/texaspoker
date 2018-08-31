@@ -199,17 +199,21 @@ module game {
                 this.nameLabel.strokeColor = 0x000000;
                 this.TimeLabel.strokeColor = 0x000000;
 
-                this.nameLabel.text = this._maidInfo.ownername;
-                if (this.isTimeGet()) {
-                    this.TimeLabel.text = `Lv.${this._maidInfo.level}  可领取`;
+                this.nameLabel.text = this._maidInfo.ownername+"的女仆";
+                if (this.isInMyHouse()) {
+                    if (this.isTimeGet()) {
+                        this.TimeLabel.text = `Lv.${this._maidInfo.level}  可领取`;
+                    } else {
+                        let timeStr = sDhFilter(Number(this.levelInfo.ProduceTime) - (SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking)), ":");
+                        this.TimeLabel.text = `Lv.${this._maidInfo.level}  ${timeStr}`;
+                    }
                 } else {
-                    let timeStr = sDhFilter(Number(this.levelInfo.ProduceTime) - (SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking)), ":");
-                    this.TimeLabel.text = `Lv.${this._maidInfo.level}  ${timeStr}`;
-                }
-
-                if (!this.isInMyHouse() && this.isRobber()) {
-                    this.nameLabel.text = "";
-                    this.TimeLabel.text = "";
+                    if (this.isRobber()) {
+                        this.nameLabel.text = "";
+                        this.TimeLabel.text = "";
+                    } else {
+                        this.TimeLabel.text = `Lv.${this._maidInfo.level}  可掠夺`;
+                    }
                 }
             }
         }
@@ -241,7 +245,7 @@ module game {
             if (leftTime >= 0) {
                 body.updateLabelState();
                 if (leftTime == 0) {
-                    body.goldImg.visible = true;
+                    body.goldImg.visible = body.isMyMaid();
                 }
             }
         }
