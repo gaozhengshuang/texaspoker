@@ -35,7 +35,7 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 	var ordersql string
 	var limitsql string
 	var strsql string
-	limitsql = fmt.Sprintf("limit %d,20", rev.GetStartnum())
+	limitsql = fmt.Sprintf("limit %d,10", rev.GetStartnum())
 	wheresql = fmt.Sprintf("endtime>%d ", util.CURTIME())
 	if rev.GetLocation() != 0 {
 		wheresql += fmt.Sprintf("and location=%d ", rev.GetLocation())
@@ -315,7 +315,7 @@ func (this *GateUser) ReqTradeCarList(rev *msg.C2GW_ReqCarTradeList){
 	var ordersql string
 	var limitsql string
 	var strsql string
-	limitsql = fmt.Sprintf("limit %d,20", rev.GetStartnum())
+	limitsql = fmt.Sprintf("limit %d,10", rev.GetStartnum())
 	wheresql = fmt.Sprintf("endtime>%d ", util.CURTIME())
 	if rev.GetCartype() != 0 {
 		wheresql += fmt.Sprintf("and cartype=%d ", rev.GetCartype())
@@ -511,7 +511,7 @@ func (this* GateUser) ReqTradeCarHistory(){
 }
 
 func (this *GateUser) GetTradeCarReward(tradeuid uint64){
-	historykey := fmt.Sprintf("tradehousehistory_%d_%d", this.Id(), tradeuid)
+	historykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), tradeuid)
 	history := &msg.TradeCarHistory{}
 	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
 		return
