@@ -696,6 +696,27 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 	ma.SendHouseMaids(user, robberhouse)		// 刷新掠夺者的房间
 }
 
+// 领取掠夺女仆奖励
+func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid uint64, uid uint32) {
+	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		user.SendNotify("房屋无效")
+		return
+	}
+
+	if house.ownerid != user.Id() {
+		user.SendNotify("这不是您自己的房屋")
+		return
+	}
+
+	house.SetVisitParam(user, uid, 0)
+	param := house.GetVisitParam(uid)
+	if param != 0 {
+		user.AddGold(param, "领取掠夺女仆奖励", true)
+	}
+	user.SendNotify("领取成功")
+}
+
 // 设置掠夺者
 func (ma *MaidManager) RobMaidToHouse(user *GateUser, maid *Maid, houseid uint64) {
 	maid.SetRobber(user.Id(), user.Name(), houseid)
