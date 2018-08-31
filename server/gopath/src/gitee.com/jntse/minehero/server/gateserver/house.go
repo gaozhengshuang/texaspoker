@@ -488,7 +488,7 @@ func (this *HouseData) LevelUp() bool {
 }
 
 //添加记录
-func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string) {
+func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string) *HouseVisitInfo {
 	data := &HouseVisitInfo{}
 	data.visitorid = visitorid
 	data.tmvisit = util.CURTIME()
@@ -508,6 +508,7 @@ func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , o
 		infolen = len(this.visitinfo)
 	}
 	this.robcheckflag = 1
+	return data
 }
 
 //客户端查看记录重置查看状态
