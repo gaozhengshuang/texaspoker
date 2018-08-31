@@ -1019,6 +1019,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 		user.RemoveItem(v.GetId(),v.GetNum(),"车辆部件升级消耗碎片")
 	}
 	car.data.Price = pb.Uint32(car.data.GetPrice() + costMoney)
+	car.modified = true
 
 	return 0,car.data
 }
@@ -1060,7 +1061,7 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 		itemnum, _ := strconv.Atoi(itemstr[1])
 		if user.bag.GetItemNum(uint32(itemid)) < uint32(itemnum) {
 			user.SendNotify(fmt.Sprintf("道具 %d 不足",itemid))
-			return
+			return 7,nil
 		}
 		costItem[uint32(itemid)] = uint32(itemnum)
 	}
@@ -1068,6 +1069,7 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 	car.data.Star = pb.Uint32(car.GetStar() + 1)
 	attr := this.CalculateCarAttribute(car.data)
 	car.SetAttribute(attr)
+	car.modified = true
 
 	//扣东西
 	user.RemoveGold(starupCarBase.Money, "车辆升星消耗", true)
