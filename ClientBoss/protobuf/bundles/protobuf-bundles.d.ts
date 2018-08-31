@@ -1,5 +1,4 @@
 type Long = protobuf.Long;
-// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
