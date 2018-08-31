@@ -1101,9 +1101,9 @@ func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
 	}
 
 	user := UserMgr().FindById(car.data.GetOwnerid())
-	this.TakeBackFromParking(user, car.data.GetParkingid(), uint32(msg.CarOperatorType_AutoBack))
 
 	if user != nil {
+		this.TakeBackFromParking(user, car.data.GetParkingid(), uint32(msg.CarOperatorType_AutoBack))
 		automsg := &msg.GW2C_CarAutoBack{Carid:pb.Uint64(car.data.GetId())}
 		user.SendMsg(automsg)
 	}
