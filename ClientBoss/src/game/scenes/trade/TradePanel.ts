@@ -127,6 +127,7 @@ module game {
 		private changeBar(flag: TradePanelFlag) {
 			this.houseGroup.visible = this.carGroup.visible = this.itemGroup.visible = false;
 			this._panelFlag = flag;
+			this.itemBarBtn.selected = this.carBarBtn.selected = this.houseBarBtn.selected = false;
 			switch (flag) {
 				case TradePanelFlag.House:
 					this.houseGroup.visible = true;

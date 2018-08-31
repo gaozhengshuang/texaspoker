@@ -32,14 +32,14 @@ module game {
 			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
 			this.takeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTakeBtnClick, this);
 			NotificationCenter.addObserver(this, this.onTakeHouseResult, "msg.GW2C_RetGetTradeHouseReward");
-			NotificationCenter.addObserver(this, this.onTakeCarResult, "msg.GW2C_RetGetTradeHouseReward");
+			NotificationCenter.addObserver(this, this.onTakeCarResult, "msg.GW2C_RetGetTradeCarReward");
 			this.update();
 		}
 		private onRemove() {
 			this.removeEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
 			this.takeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTakeBtnClick, this);
 			NotificationCenter.removeObserver(this, "msg.GW2C_RetGetTradeHouseReward");
-			NotificationCenter.removeObserver(this, "msg.GW2C_RetGetTradeHouseReward");
+			NotificationCenter.removeObserver(this, "msg.GW2C_RetGetTradeCarReward");
 		}
 		private update() {
 			let data: msg.TradeHouseHistory | msg.TradeCarHistory = this.data;
@@ -125,8 +125,8 @@ module game {
 				this.update();
 			}
 		}
-		private onTakeCarResult(data: msg.GW2C_RetGetTradeHouseReward) {
-			if (this.data.tradeuid == data.tradeuid) { //已领取 todo
+		private onTakeCarResult(data: msg.GW2C_RetGetTradeCarReward) {
+			if (this.data.tradeuid == data.tradeuid) { //已领取 
 				this.data.state = TradeState.SellOk;
 				this.update();
 			}

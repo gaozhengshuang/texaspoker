@@ -187,6 +187,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateCar{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarTradeList{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetTradeCarHistory{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeCarReward{})
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfoById{})

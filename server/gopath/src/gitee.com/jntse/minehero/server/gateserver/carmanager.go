@@ -37,12 +37,25 @@ func (this *CarData) ChangeOwner(user *GateUser) {
 	this.data.Ownerid = pb.Uint64(user.Id())
 	this.data.Ownername = pb.String(user.Name())
 	CarMgr().AddCar(this)
-	CarMgr().UpdateCarByID(exowner, this.data.GetId(), false)
+	CarMgr().UpdateCarByID(user, this.data.GetId(), false)
 }
 
 func (this *CarData) ClearTrade() {
 	this.data.Tradeendtime = pb.Uint32(0)
 	this.data.Tradeuid = pb.Uint64(0)
+}
+
+func (this *CarData) GetCarName() string {
+	carb, bfind := tbl.TCarBrandBase.TCarBrandById[this.GetCarBrand()]
+	if bfind == false {
+		return "汽车"
+	}
+	carm, mfind := tbl.TCarModelBase.TCarModelById[this.GetCarModel()]
+	if mfind == false {
+		return "汽车"
+	}
+	name := carb.Brand + carm.Model
+	return name
 }
 
 func (this *CarData) LoadBin(rbuf []byte) error {

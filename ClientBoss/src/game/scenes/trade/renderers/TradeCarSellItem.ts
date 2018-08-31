@@ -30,7 +30,6 @@ module game {
 		private update() {
 			let data: msg.CarData = this.data;
 
-			this.priceLabel.text = numAddSpace(data.price) + "金币";
 			this.baseIncomeTxt.text = numAddSpace(data.attr.reward) + "金币/分钟";
 
 			let carDef = TradeManager.getInstance().getCarDefine(data.tid);
@@ -45,9 +44,11 @@ module game {
 			}
 			this.onSellFlag.visible = false;
 			if (data.tradeuid > 0) {
+				this.priceLabel.text = numAddSpace(data.tradeprice) + "金币";
 				this.showTakeBack();
 			}
 			else {
+				this.priceLabel.text = numAddSpace(data.price) + "金币";
 				this.hideTakeBack();
 			}
 		}
@@ -76,6 +77,14 @@ module game {
 		}
 		private onRefreshItem(data: msg.GW2C_UpdateCar) {
 			if (data.carid == this.data.id) {
+				// this.data.tradeuid = data.data.tradeuid;
+				// this.data.tradeendtime = data.data.tradeendtime;
+				// for (let key in data.data) { //更新属性
+				// 	if (data.data.hasOwnProperty(key)) {
+				// 		data.data[key] = data.data[key];
+				// 	}
+				// }
+				TickUtil.AddSecondsInvoke(this.onTimeCountDown, this);
 				this.update();
 			}
 		}

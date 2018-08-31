@@ -258,7 +258,8 @@ type HouseData struct {
 	income		 uint32 //收益
 	tradeendtime uint32 //交易结束时间
 	sumvalue	 uint32 //总价值
-	tradeuid	 uint64 //交易id 
+	tradeuid	 uint64 //交易id
+	tradeprice   uint32 
 	ticker1Sec *util.GameTicker
 }
 
@@ -295,6 +296,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.tradeendtime = bin.GetTradeendtime()
 	this.sumvalue = bin.GetSumvalue()
 	this.tradeuid = bin.GetTradeuid()
+	this.tradeprice = bin.GetTradeprice()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -337,6 +339,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
 	bin.Sumvalue = pb.Uint32(this.sumvalue)
 	bin.Tradeuid = pb.Uint64(this.tradeuid)
+	bin.Tradeprice = pb.Uint32(this.tradeprice)
 	return bin
 }
 

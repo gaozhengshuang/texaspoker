@@ -3,7 +3,7 @@ module game {
 	 * 车辆购买
 	 */
 	export class TradeCarBuyPanel extends BaseSlidePanel {
-		baseInconmeTxt: eui.Label; //基础收益
+		baseIncomeTxt: eui.Label; //基础收益
 		guidePriceTxt: eui.Label; //目前估值
 
 		parkingTxt: eui.Label; //停车 100金币/收益
@@ -13,7 +13,7 @@ module game {
 		capacityTxt: eui.Label; // 容量： 200金币/次
 
 		priceLabel: eui.Label; //价格
-		nameLabel: eui.Label; //名称
+		nameTxt: eui.Label; //名称
 		timeLabel: eui.Label; //交易结束时间
 		buyBtn: eui.Button; //购买
 		tradeStar: TradeStar; //星级（等级）
@@ -50,8 +50,8 @@ module game {
 			this.priceLabel.text = numAddSpace(data.price) + "金币";
 			this.tradeStar.show(data.carlevel);
 			this.guidePriceTxt.textFlow = TextUtil.parse(TradeManager.getInstance().getPriceStr(data.price));
-			this.baseInconmeTxt.text = numAddSpace(data.income) + "金币";
-			this.nameLabel.text = data.name;
+			this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";
+			this.nameTxt.text = data.name;
 			//其他信息显示
 			this.parkingTxt.text = numAddSpace(carDetailData.cardata.attr.reward) + "金币/分钟";
 			this.speedTxt.text = numAddSpace(carDetailData.cardata.attr.speed) + "公里/分钟";
