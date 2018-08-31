@@ -483,6 +483,7 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		if maid.Earning() != 0 {
 			user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
 			ma.ItemProduce(user, maid, "领取女仆收益")
+			ma.SendHouseMaids(user, maid.HouseId())
 		}else {
 			user.SendNotify("没有金币可以领取")
 		}
@@ -500,6 +501,7 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		user.AddGold(levelbase.ProduceGold, "领取女仆收益", true)
 		ma.ItemProduce(user, maid, "领取女仆收益")
 		maid.SetTimeStart(now)
+		ma.SendHouseMaids(user, maid.HouseId())
 	}
 }
 
@@ -549,6 +551,7 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 	send := &msg.GW2C_EnableMaidDropTo{Houses:make([]*msg.HouseData,0)}
 	send.Houses = append(send.Houses, drophouses...)
 	user.SendMsg(send)
+	ma.SendHouseMaids(user, maid.HouseId())		// 刷新被掠夺玩家房间
 }
 
 func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64) bool {
@@ -586,6 +589,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 
 	// 掠夺到我的房间
 	ma.RobMaidToHouse(user, maid, dropto)
+	ma.SendHouseMaids(user, maid.HouseId())		// 刷新被掠夺玩家房间
 	return true
 }
 
@@ -636,6 +640,8 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	maid.SetRobber(0, "", 0)
 	maid.SetTimeStart(util.CURTIME())
 	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
+
+	ma.SendHouseMaids(user, house.id)		// 刷新掠夺者的房间
 }
 
 // 送回女仆
@@ -670,10 +676,14 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 	ma.ItemProduce(user, maid, "领取掠夺女仆")
 
 	// 清除掠夺者
+	robberhouse := maid.RobberTo()
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
 	maid.SetRobber(0, "", 0)
 	maid.SetTimeStart(0)	// 停止工作
 	log.Info("[女仆] 女仆[%d]被送回到房间", maid.Id())
+
+	//
+	ma.SendHouseMaids(user, robberhouse)		// 刷新掠夺者的房间
 }
 
 // 设置掠夺者
