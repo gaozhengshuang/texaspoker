@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="SceneAssetsViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="SceneAssetsViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
 	<w:Config id="16347cd01ff"/>
 	<e:Rect id="view_bg" width="720" height="100%" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e6e6"/>
 	<e:Group id="titleRadioGroup" x="0" y="200" width="720" height="120">
@@ -38,7 +38,8 @@
 			<e:Label id="undoneTips2" text="暂未开放\n敬请期待" textColor="0x404A58" fontFamily="Microsoft YaHei" size="100" horizontalCenter="0" verticalCenter="0" scaleX="1" scaleY="1" visible="false"/>
 		</e:Group>
 		<e:Group id="stackGroup3" width="100%" height="100%" name="page3">
-			<e:Label id="undoneTips3" text="暂未开放\n敬请期待" textColor="0x404A58" fontFamily="Microsoft YaHei" size="100" horizontalCenter="0" verticalCenter="0" scaleX="1" scaleY="1"/>
+			<e:Group id="itemListGroup" width="100%" height="100%" ></e:Group>
+			<game:DepotDetailsPanel id="detailsPanel" width="720" height="260" x="0" bottom="0" y="700" scaleX="1" scaleY="1"/>
 		</e:Group>
 	</e:ViewStack>
 	<e:Image id="topBar" source="assetsBar1_png" x="0" y="0" scaleX="1" scaleY="1" width="720" height="200"/>

@@ -20,15 +20,19 @@ module game {
 		private titleRadio2: eui.RadioButton;
 		private titleRadio3: eui.RadioButton;
 		private radioGroup: eui.RadioButtonGroup;
-		//private radioLine: eui.Rect;
+		//private detailsMask: eui.Rect;
 
 		private contentStarck: eui.ViewStack;
 		private stackGroup1: eui.Group;
 		private stackGroup2: eui.Group;
 		private stackGroup3: eui.Group;
 
+		private itemListGroup: eui.Group;
+
 		private undoneTips2: eui.Label;
 		private undoneTips3: eui.Label;
+
+		private detailsPanel: DepotDetailsPanel;
 
 		public currentGroupId: number = 1;
 
@@ -45,7 +49,10 @@ module game {
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			this.radioGroup.selectedValue = this.titleRadio1.value;
 			this.currentGroupId = this.radioGroup.selectedValue;
-			if (this.currentGroupId == 2) {CarManager.getInstance().ReqMyCarInfo();}
+
+			//this.detailsMask.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_detailsMask, this);
+
+			if (this.currentGroupId == 2) { CarManager.getInstance().ReqMyCarInfo(); }
 			this.contentStarck.selectedChild = this["stackGroup" + this.currentGroupId];
 
 			this.view_bg.height = gameConfig.curHeight();
@@ -56,7 +63,7 @@ module game {
 		protected resetSize() {
 			super.resetSize();
 			this.view_bg.height = gameConfig.curHeight();
-			this.contentStarck.height=GameConfig.innerPageHeight-this.contentStarck.y-20;
+			this.contentStarck.height = GameConfig.innerPageHeight - this.contentStarck.y - 20;
 		}
 		private onChangeSex(e: egret.Event) {
 			var rbGroup: eui.RadioButtonGroup = e.target;
@@ -68,6 +75,8 @@ module game {
 				CarManager.getInstance().ReqMyCarInfo();
 			} else if (this.currentGroupId == 1) {
 				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.PAGE_SWITCH, { pageIndex: 1 }));
+			} else if (this.currentGroupId == 3) {
+				this.openDepotView();
 			}
 		}
 		private assetsItemList: utils.ScrollerPanel;
@@ -111,5 +120,78 @@ module game {
 			}
 
 		}
+		public openDepotView() {
+			//this.detailsMask.visible=false;
+			//this.detailsPanel.visible=false;
+			//this.detailsPanel.bottom=-this.detailsPanel.height;
+			let infoList: any[] = DataManager.playerModel.getBag();
+			if (infoList) {
+				this.updateItemList(infoList);
+			}
+
+		}
+		private itemList: utils.AllScrollerPanel;
+		private itemInfoList: any[] = [];
+		public updateItemList(list: any[]) {
+			this.itemInfoList = list;
+			if (this.itemList == null) {
+				this.itemList = new utils.AllScrollerPanel();
+				this.itemListGroup.addChild(this.itemList);
+				this.itemList.y = 4;
+				this.itemList.width = this.contentStarck.width;
+				this.itemList.x = 0;
+				console.log(this.detailsPanel.y);
+
+				this.itemList.height = this.contentStarck.height - this.itemList.y - this.detailsPanel.height;
+				this.itemList.initItemRenderer(DepotListItemPanel);
+				this.itemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onDepotItemTouch, this);
+			}
+			this.itemList.bindData(this.itemInfoList);
+			this.detailsPanel.showPanel(this.itemInfoList[0]);
+			this.clearDepotItemframe();
+			let mc: any = this.itemList.dataList.getElementAt(0);
+			if (mc) {
+				mc.showFrame();
+			}
+		}
+		private onDepotItemTouch(eve: eui.ItemTapEvent) {
+			this.clearDepotItemframe();
+			let mc: any = this.itemList.dataList.getElementAt(eve.itemIndex);
+			if (mc) {
+				mc.showFrame();
+			}
+			let item: any = this.itemInfoList[eve.itemIndex];
+			if (item) {
+				//this.openDepotDetails(item);
+				this.detailsPanel.showPanel(item);
+			}
+		}
+		private clearDepotItemframe() {
+			if (this.itemInfoList && this.itemInfoList.length > 0) {
+				for (let i: number = 0; i < this.itemInfoList.length; i++) {
+					let mc: any = this.itemList.dataList.getVirtualElementAt(i);
+					if (mc) {
+						mc.hideFrame();
+					}
+				}
+			}
+		}
+		/*private onclick_detailsMask(){
+			this.detailsPanel.hidePanel();
+				egret.Tween.get(this.detailsPanel)
+				.to({bottom: -this.detailsPanel.height}, 300)
+				.call(this.closeDepotDetails, this);
+		}
+		private openDepotDetails(item:any){
+			this.detailsMask.visible=true;
+			this.detailsPanel.visible=true;
+			this.detailsPanel.showPanel(item);
+				egret.Tween.get(this.detailsPanel)
+				.to({bottom: 0}, 300);
+		}
+		public closeDepotDetails(){
+			this.detailsMask.visible=false;
+			this.detailsPanel.visible=false;
+		} */
 	}
 }

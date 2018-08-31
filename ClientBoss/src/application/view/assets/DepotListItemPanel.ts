@@ -3,16 +3,13 @@ module game {
         
         private itemImg: eui.Image;
         private num_txt: eui.Label;
+        private select_mc:eui.Rect;
 
         public constructor(data: any = null) {
             super();
             this.skinName = DepotListItemSkin;
             //this.adaptive();
             
-
-        }
-        private onclick_begin(eve:egret.TouchEvent){
-           
 
         }
         private adaptive(){
@@ -24,8 +21,19 @@ module game {
         protected dataChanged(): void {
             this.itemDate = this.data;
             if (this.itemDate) {
-                
+                let itemInfo = table.ItemBaseDataById[this.itemDate.id];
+                this.itemImg.source=RES.getRes("item_"+itemInfo.ImageId+"_png");
+                this.num_txt.text=""+this.itemDate.num;
             }
         }
+
+        public showFrame(){
+            this.select_mc.visible=true;
+        }
+        public hideFrame(){
+            this.select_mc.visible=false;
+        }
+
+        
     }
 }
