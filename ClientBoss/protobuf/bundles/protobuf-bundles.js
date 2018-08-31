@@ -10433,6 +10433,7 @@ $root.msg = (function() {
          * @property {number|null} [tradeendtime] CarData tradeendtime
          * @property {number|Long|null} [tradeuid] CarData tradeuid
          * @property {number|null} [tradeprice] CarData tradeprice
+         * @property {number|null} [initprice] CarData initprice
          */
 
         /**
@@ -10604,6 +10605,14 @@ $root.msg = (function() {
         CarData.prototype.tradeprice = 0;
 
         /**
+         * CarData initprice.
+         * @member {number} initprice
+         * @memberof msg.CarData
+         * @instance
+         */
+        CarData.prototype.initprice = 0;
+
+        /**
          * Creates a new CarData instance using the specified properties.
          * @function create
          * @memberof msg.CarData
@@ -10666,6 +10675,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 18, wireType 0 =*/144).uint64(message.tradeuid);
             if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
                 writer.uint32(/* id 19, wireType 0 =*/152).uint32(message.tradeprice);
+            if (message.initprice != null && message.hasOwnProperty("initprice"))
+                writer.uint32(/* id 20, wireType 0 =*/160).uint32(message.initprice);
             return writer;
         };
 
@@ -10758,6 +10769,9 @@ $root.msg = (function() {
                     break;
                 case 19:
                     message.tradeprice = reader.uint32();
+                    break;
+                case 20:
+                    message.initprice = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -10861,6 +10875,9 @@ $root.msg = (function() {
             if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
                 if (!$util.isInteger(message.tradeprice))
                     return "tradeprice: integer expected";
+            if (message.initprice != null && message.hasOwnProperty("initprice"))
+                if (!$util.isInteger(message.initprice))
+                    return "initprice: integer expected";
             return null;
         };
 
@@ -10977,6 +10994,8 @@ $root.msg = (function() {
                     message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
             if (object.tradeprice != null)
                 message.tradeprice = object.tradeprice >>> 0;
+            if (object.initprice != null)
+                message.initprice = object.initprice >>> 0;
             return message;
         };
 
@@ -11042,6 +11061,7 @@ $root.msg = (function() {
                 } else
                     object.tradeuid = options.longs === String ? "0" : 0;
                 object.tradeprice = 0;
+                object.initprice = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -11105,6 +11125,8 @@ $root.msg = (function() {
                     object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
             if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
                 object.tradeprice = message.tradeprice;
+            if (message.initprice != null && message.hasOwnProperty("initprice"))
+                object.initprice = message.initprice;
             return object;
         };
 
@@ -12424,7 +12446,7 @@ $root.msg = (function() {
          * @property {number|null} [sumvalue] HouseData sumvalue
          * @property {number|Long|null} [tradeuid] HouseData tradeuid
          * @property {number|null} [tradeprice] HouseData tradeprice
-         * @property {number|null} [visitrecordid] HouseData visitrecordid
+         * @property {number|Long|null} [visitrecordid] HouseData visitrecordid
          */
 
         /**
@@ -12591,11 +12613,11 @@ $root.msg = (function() {
 
         /**
          * HouseData visitrecordid.
-         * @member {number} visitrecordid
+         * @member {number|Long} visitrecordid
          * @memberof msg.HouseData
          * @instance
          */
-        HouseData.prototype.visitrecordid = 0;
+        HouseData.prototype.visitrecordid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -12661,7 +12683,7 @@ $root.msg = (function() {
             if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
                 writer.uint32(/* id 18, wireType 0 =*/144).uint32(message.tradeprice);
             if (message.visitrecordid != null && message.hasOwnProperty("visitrecordid"))
-                writer.uint32(/* id 19, wireType 0 =*/152).uint32(message.visitrecordid);
+                writer.uint32(/* id 19, wireType 0 =*/152).uint64(message.visitrecordid);
             return writer;
         };
 
@@ -12757,7 +12779,7 @@ $root.msg = (function() {
                     message.tradeprice = reader.uint32();
                     break;
                 case 19:
-                    message.visitrecordid = reader.uint32();
+                    message.visitrecordid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -12867,8 +12889,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.tradeprice))
                     return "tradeprice: integer expected";
             if (message.visitrecordid != null && message.hasOwnProperty("visitrecordid"))
-                if (!$util.isInteger(message.visitrecordid))
-                    return "visitrecordid: integer expected";
+                if (!$util.isInteger(message.visitrecordid) && !(message.visitrecordid && $util.isInteger(message.visitrecordid.low) && $util.isInteger(message.visitrecordid.high)))
+                    return "visitrecordid: integer|Long expected";
             return null;
         };
 
@@ -12966,7 +12988,14 @@ $root.msg = (function() {
             if (object.tradeprice != null)
                 message.tradeprice = object.tradeprice >>> 0;
             if (object.visitrecordid != null)
-                message.visitrecordid = object.visitrecordid >>> 0;
+                if ($util.Long)
+                    (message.visitrecordid = $util.Long.fromValue(object.visitrecordid)).unsigned = true;
+                else if (typeof object.visitrecordid === "string")
+                    message.visitrecordid = parseInt(object.visitrecordid, 10);
+                else if (typeof object.visitrecordid === "number")
+                    message.visitrecordid = object.visitrecordid;
+                else if (typeof object.visitrecordid === "object")
+                    message.visitrecordid = new $util.LongBits(object.visitrecordid.low >>> 0, object.visitrecordid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -13016,7 +13045,11 @@ $root.msg = (function() {
                 } else
                     object.tradeuid = options.longs === String ? "0" : 0;
                 object.tradeprice = 0;
-                object.visitrecordid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.visitrecordid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.visitrecordid = options.longs === String ? "0" : 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -13073,7 +13106,10 @@ $root.msg = (function() {
             if (message.tradeprice != null && message.hasOwnProperty("tradeprice"))
                 object.tradeprice = message.tradeprice;
             if (message.visitrecordid != null && message.hasOwnProperty("visitrecordid"))
-                object.visitrecordid = message.visitrecordid;
+                if (typeof message.visitrecordid === "number")
+                    object.visitrecordid = options.longs === String ? String(message.visitrecordid) : message.visitrecordid;
+                else
+                    object.visitrecordid = options.longs === String ? $util.Long.prototype.toString.call(message.visitrecordid) : options.longs === Number ? new $util.LongBits(message.visitrecordid.low >>> 0, message.visitrecordid.high >>> 0).toNumber(true) : message.visitrecordid;
             return object;
         };
 
@@ -35334,7 +35370,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IC2GW_TakeRobMaidEarning
          * @property {number|Long|null} [houseid] C2GW_TakeRobMaidEarning houseid
-         * @property {number|null} [id] C2GW_TakeRobMaidEarning id
+         * @property {number|Long|null} [id] C2GW_TakeRobMaidEarning id
          */
 
         /**
@@ -35362,11 +35398,11 @@ $root.msg = (function() {
 
         /**
          * C2GW_TakeRobMaidEarning id.
-         * @member {number} id
+         * @member {number|Long} id
          * @memberof msg.C2GW_TakeRobMaidEarning
          * @instance
          */
-        C2GW_TakeRobMaidEarning.prototype.id = 0;
+        C2GW_TakeRobMaidEarning.prototype.id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_TakeRobMaidEarning instance using the specified properties.
@@ -35395,7 +35431,7 @@ $root.msg = (function() {
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.houseid);
             if (message.id != null && message.hasOwnProperty("id"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.id);
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.id);
             return writer;
         };
 
@@ -35434,7 +35470,7 @@ $root.msg = (function() {
                     message.houseid = reader.uint64();
                     break;
                 case 2:
-                    message.id = reader.uint32();
+                    message.id = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -35475,8 +35511,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.houseid) && !(message.houseid && $util.isInteger(message.houseid.low) && $util.isInteger(message.houseid.high)))
                     return "houseid: integer|Long expected";
             if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isInteger(message.id))
-                    return "id: integer expected";
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
             return null;
         };
 
@@ -35502,7 +35538,14 @@ $root.msg = (function() {
                 else if (typeof object.houseid === "object")
                     message.houseid = new $util.LongBits(object.houseid.low >>> 0, object.houseid.high >>> 0).toNumber(true);
             if (object.id != null)
-                message.id = object.id >>> 0;
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = true;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -35525,7 +35568,11 @@ $root.msg = (function() {
                     object.houseid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.houseid = options.longs === String ? "0" : 0;
-                object.id = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
             }
             if (message.houseid != null && message.hasOwnProperty("houseid"))
                 if (typeof message.houseid === "number")
@@ -35533,7 +35580,10 @@ $root.msg = (function() {
                 else
                     object.houseid = options.longs === String ? $util.Long.prototype.toString.call(message.houseid) : options.longs === Number ? new $util.LongBits(message.houseid.low >>> 0, message.houseid.high >>> 0).toNumber(true) : message.houseid;
             if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber(true) : message.id;
             return object;
         };
 
@@ -41598,7 +41648,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -41847,7 +41903,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")

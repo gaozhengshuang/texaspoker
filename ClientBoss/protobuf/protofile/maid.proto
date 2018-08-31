@@ -65,7 +65,7 @@ message C2GW_TakeMaidEarning {
 // 领取掠夺女仆收益
 message C2GW_TakeRobMaidEarning {
     optional uint64 houseid = 1;    // houseid
-    optional uint32 id = 2;         // 记录id
+    optional uint64 id = 2;         // 记录id
 }
 
 // 掠夺女仆

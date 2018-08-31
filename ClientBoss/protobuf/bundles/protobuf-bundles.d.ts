@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -4280,6 +4281,9 @@ declare namespace msg {
 
         /** CarData tradeprice */
         tradeprice?: (number|null);
+
+        /** CarData initprice */
+        initprice?: (number|null);
     }
 
     /** Represents a CarData. */
@@ -4347,6 +4351,9 @@ declare namespace msg {
 
         /** CarData tradeprice. */
         public tradeprice: number;
+
+        /** CarData initprice. */
+        public initprice: number;
 
         /**
          * Creates a new CarData instance using the specified properties.
@@ -4891,7 +4898,7 @@ declare namespace msg {
         tradeprice?: (number|null);
 
         /** HouseData visitrecordid */
-        visitrecordid?: (number|null);
+        visitrecordid?: (number|Long|null);
     }
 
     /** Represents an HouseData. */
@@ -4958,7 +4965,7 @@ declare namespace msg {
         public tradeprice: number;
 
         /** HouseData visitrecordid. */
-        public visitrecordid: number;
+        public visitrecordid: (number|Long);
 
         /**
          * Creates a new HouseData instance using the specified properties.
@@ -14791,7 +14798,7 @@ declare namespace msg {
         houseid?: (number|Long|null);
 
         /** C2GW_TakeRobMaidEarning id */
-        id?: (number|null);
+        id?: (number|Long|null);
     }
 
     /** Represents a C2GW_TakeRobMaidEarning. */
@@ -14807,7 +14814,7 @@ declare namespace msg {
         public houseid: (number|Long);
 
         /** C2GW_TakeRobMaidEarning id. */
-        public id: number;
+        public id: (number|Long);
 
         /**
          * Creates a new C2GW_TakeRobMaidEarning instance using the specified properties.

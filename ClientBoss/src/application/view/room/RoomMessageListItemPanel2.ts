@@ -37,10 +37,12 @@ module game {
                 else if(this.itemDate.opttype==msg.HouseVisitType.TakeBackMaid){
                     if(this.itemDate.optparam>0){
                         this.lingqu_btn.visible=true;
+                        this.content_txt.text=this.itemDate.visitorname+"领回了他的女仆"+"领取产生的收益金币x"+this.itemDate.optparam;
                     }else{
                         this.huifang_btn.visible=true;
+                        this.content_txt.text=this.itemDate.visitorname+"领回了他的女仆";
                     }
-                    this.content_txt.text=this.itemDate.visitorname+"领回了他的女仆"+"领取产生的收益金币x"+this.itemDate.optparam;
+                    
                 }
             }
         }
