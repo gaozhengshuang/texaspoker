@@ -34,13 +34,8 @@ module game {
 
 			let carDef = TradeManager.getInstance().getCarDefine(data.tid);
 			if (carDef) {
-				let brandDef = TradeManager.getInstance().getCarBrandDefine(carDef.Brand);
-				let modelDef = TradeManager.getInstance().getCarModelDefine(carDef.Model);
-				let name = '';
-				if (brandDef && modelDef) {
-					name = brandDef.Brand + '-' + modelDef.Model;
-				}
-				this.icon.show({ name: name, icon: carDef.path.toString(), star: data.star, type: TradeIconType.Car }); //todo
+				let carName = TradeManager.getInstance().getCarName(data.tid);
+				this.icon.show({ name: carName, icon: carDef.path.toString(), star: data.star, type: TradeIconType.Car }); 
 			}
 			this.onSellFlag.visible = false;
 			if (data.tradeuid > 0) {

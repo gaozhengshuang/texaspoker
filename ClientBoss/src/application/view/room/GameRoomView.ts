@@ -450,7 +450,12 @@ module game {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
+                        if(item.opttype==5){
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, return: MaidManager.getInstance()._curSelHouse});
+                        }else{
+                            this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
+                        }
+                        
                     }
                     break;
                 /* case 2:

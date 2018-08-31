@@ -57,13 +57,8 @@ module game {
 
 				let carDef = TradeManager.getInstance().getCarDefine(data.carbaseid);
 				if (carDef) {
-					let brandDef = TradeManager.getInstance().getCarBrandDefine(carDef.Brand);
-					let modelDef = TradeManager.getInstance().getCarModelDefine(carDef.Model);
-					let name = '';
-					if (brandDef && modelDef) {
-						name = brandDef.Brand + '-' + modelDef.Model;
-					}
-					this.icon.show({ name: name, icon: carDef.path.toString(), star: data.carlevel, type: TradeIconType.Car });
+					let carName = TradeManager.getInstance().getCarName(data.carbaseid);
+					this.icon.show({ name: carName, icon: carDef.path.toString(), star: data.carlevel, type: TradeIconType.Car });
 				}
 			}
 			this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";

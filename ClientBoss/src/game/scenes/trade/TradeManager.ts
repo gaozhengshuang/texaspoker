@@ -1,3 +1,5 @@
+declare function returnTradeBtnClose(bool: boolean);
+declare function showEgretDiv(bool: boolean);
 module game {
 	/**
 	 * 交易管理
@@ -32,6 +34,22 @@ module game {
 				}
 			}
 			return null;
+		}
+		/**
+		 * 返回到交易
+		 */
+		public returnToTrade() {
+			returnTradeBtnClose(false);
+			showEgretDiv(true);
+			GameConfig.exploreUIFun(true);
+		}
+		/**
+		 * 到地图
+		 */
+		public returnToMap() {
+			returnTradeBtnClose(true);
+			showEgretDiv(false);
+			GameConfig.exploreUIFun(false);
 		}
 		/**
 		 * 获取房屋配置信息
@@ -103,8 +121,7 @@ module game {
 		/**
 		 * 车辆品牌表
 		 */
-		public getCarBrandDefine(id:number):table.TCarBrandDefine
-		{
+		public getCarBrandDefine(id: number): table.TCarBrandDefine {
 			for (let info of table.TCarBrand) {
 				if (info.Id == id) {
 					return <table.TCarBrandDefine>info;
@@ -115,14 +132,65 @@ module game {
 		/**
 		 * 车辆模型表
 		 */
-		public getCarModelDefine(id:number):table.TCarModelDefine
-		{
+		public getCarModelDefine(id: number): table.TCarModelDefine {
 			for (let info of table.TCarModel) {
 				if (info.Id == id) {
 					return <table.TCarModelDefine>info;
 				}
 			}
 			return null;
+		}
+		/**
+		 * 获取车辆名字
+		 */
+		public getCarName(id: number): string {
+			let carDef = TradeManager.getInstance().getCarDefine(id);
+			let name = '';
+			if (carDef) {
+				let brandDef = TradeManager.getInstance().getCarBrandDefine(carDef.Brand);
+				let modelDef = TradeManager.getInstance().getCarModelDefine(carDef.Model);
+				if (brandDef && modelDef) {
+					name = brandDef.Brand + '-' + modelDef.Model;
+				}
+			}
+			return name;
+		}
+		/**
+		 * 获取房产名字
+		 */
+		public getHouseName(location: number, sublocation: number) {
+			let posName = '';
+			let province = TradeManager.getInstance().getCityDefine(location);
+			if (province) {
+				posName = province.Name;
+			}
+			let city = TradeManager.getInstance().getCityDefine(sublocation);
+			if (city) {
+				posName += city.Name;
+			}
+			return posName;
+		}
+		public switchToBuilding(data: msg.HouseData | msg.SimpleHouseTrade) {
+			let bid: number = 0;
+			let obj: any = {};
+			if (data instanceof msg.HouseData) {
+				obj.Id = data.id;
+			}
+			else {
+				bid = 1; //todo
+			}
+			if (bid > 0) {
+				let buildingDef = TradeManager.getInstance().getBuildingDefById(bid);
+				obj.Community = this.getHouseName(buildingDef.Province, buildingDef.City);
+				obj.CommunityId = buildingDef.CommunityId;
+				obj.PosX = buildingDef.PosX;
+				obj.PosY = buildingDef.PosY;
+				this.returnToMap();
+				addBuilding(obj); //定位
+			}
+			else {
+				Console.log("建筑定位失败,bid：", bid);
+			}
 		}
 		/**
 		 * 获取价格颜色

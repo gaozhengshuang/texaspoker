@@ -61,6 +61,6 @@
 		<utils:VScrollerPanel id="itemScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720"
 		                      anchorOffsetY="0" height="775" />
 	</e:Group>
-	<e:EditableText id="searchTxt" width="322" height="49" text="" x="70" y="314" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center"/>
+	<e:EditableText id="searchTxt" width="322" height="49" text="" x="69" y="314" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="left" textColor="0x000000"/>
 	<!--<game:PageTitlePanel id="titlePanel" skinName="PageTitlePanelSkin" />-->
 </e:Skin>
