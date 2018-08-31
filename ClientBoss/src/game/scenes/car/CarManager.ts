@@ -302,15 +302,19 @@ module game {
         //请求升级部件
         public ReqCarPartLevelup(carId:number|Long,partType:msg.CarPartType,pieces:msg.ICarPartPiece[],callFunc:Function=null)
         {
-            if(callFunc && !this.GW2C_RetCarPartLevelup_BackCalls.some(func=>{return func==callFunc;}))
-            {
-                this.GW2C_RetCarPartLevelup_BackCalls.push(callFunc);
-            }
-            sendMessage("msg.C2GW_CarPartLevelup", msg.C2GW_CarPartLevelup.encode({
-                carid : carId,
-                parttype:partType,
-                pieces:pieces
-             }));
+             CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
+             let self = this;
+             showDialog("是否花费"+1+"升级?", "确定", function(){
+                 if(callFunc && !self.GW2C_RetCarPartLevelup_BackCalls.some(func=>{return func==callFunc;}))
+                 {
+                     self.GW2C_RetCarPartLevelup_BackCalls.push(callFunc);
+                 }
+                 sendMessage("msg.C2GW_CarPartLevelup", msg.C2GW_CarPartLevelup.encode({
+                    carid : carId,
+                    parttype:partType,
+                    pieces:pieces,
+                 }));
+             },null);
         }
         //部件升级结果
         private OnGW2C_RetCarPartLevelup(msgs:msg.GW2C_RetCarPartLevelup)
