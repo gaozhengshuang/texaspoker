@@ -6,7 +6,7 @@ module game {
 			this.roomView = rView;
 		}
 		private roomInfo: HouseVO;
-		private roomTypeInfo: any;
+		private roomTypeInfo: table.ITHouseDefine;
 		private bubbleList: any[] = [];
 		private qiPaoList: QipaoPanel[] = [];
 		private huxingImage: egret.Bitmap;
@@ -107,16 +107,17 @@ module game {
 		}
 		private initQipao(bubble) {
 			//let origin:egret.Point=this.globalToLocal(0,0);
-
+			let roomPosList: string[] = this.roomTypeInfo.RoomPosition.split(";");
 			this.bubbleList = [];
 			this.qiPaoList = [];
 			if (bubble && bubble.length > 0) {
 				for (let i: number = 0; i < bubble.length; i++) {
 					let qipao: QipaoPanel = new QipaoPanel(this.roomView);
 					this.addChild(qipao);
-					let point: any = this["qipaoWeizhi" + (this.roomTypeInfo.MaxCells - 3)][bubble[i].index - 1];
-					qipao.x = point.x;
-					qipao.y = point.y;
+					let roomPos: string[] = roomPosList[bubble[i].index - 1].split("-");
+					//let point: any = this["qipaoWeizhi" + (this.roomTypeInfo.MaxCells - 3)][bubble[i].index - 1];
+					qipao.x = Number(roomPos[0]);
+					qipao.y = Number(roomPos[1]);
 					let oldY: number = qipao.y;
 					let timeNum: number = 800 + Math.floor(Math.random() * 500);
 					qipao.updataInfo(bubble[i]);

@@ -5,27 +5,38 @@ module game {
 	export class TradeRecordPanel extends PanelComponent {
 
 		recordScroller: utils.VScrollerPanel;
+		titlePanel: PageTitlePanel;
 
 		private _flag: TradePanelFlag;
 
 		protected init() {
 			this.recordScroller.dataList.useVirtualLayout = true;
 			this.recordScroller.initItemRenderer(TradeRecordItem);
+			this.recordScroller.setViewPort();
+			this.titlePanel.init(this.remove, this);
 		}
 		protected getSkinName() {
 			return TradeRecordPanelSkin;
 		}
-
+		public setData(flag:TradePanelFlag)
+		{
+			this._flag = flag;
+			this.onRefresh();;
+		}
 		protected beforeShow() {
 			//NotificationCenter.addObserver(this, this.onRefreshHouse, PlayerModel.HOUSE_UPDATE);
-			this.recordScroller.bindData(TradeManager.getInstance().tradeRecordInfo.list);
+			// this.recordScroller.bindData(TradeManager.getInstance().tradeRecordInfo.list);
 		}
 		protected beforeRemove() {
 			//NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
 		}
-		private onRefreshHouse() {
+		private onRefresh() {
 			if (this._flag == TradePanelFlag.House) {
-				this.recordScroller.bindData(TradeManager.getInstance().tradeRecordInfo.list);
+				this.recordScroller.bindData(TradeManager.getInstance().tradeHouseRecordInfo.list);
+			}
+			else if(this._flag == TradePanelFlag.Car)
+			{
+				this.recordScroller.bindData(TradeManager.getInstance().tradeCarRecordInfo.list);
 			}
 		}
 
