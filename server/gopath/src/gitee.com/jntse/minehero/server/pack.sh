@@ -52,6 +52,7 @@ ssh brickcrush@210.73.214.74 "rm /home/brickcrush/version/${waibuildDirName}/rel
 ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/conf /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/runserver.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/tbl /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
 ;;
 
 banshu)
