@@ -52,6 +52,7 @@
 		</e:Group>
 
 
+
 	</e:Group>
 	<e:Group id="down_bg" width="720" height="108" left="0" y="1172">
 		<e:Image source="room_down_bg1_png" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" y="0"/>
@@ -85,6 +86,7 @@
 	</e:Button>
 	<e:Group id="down_bg_partpiece" width="0" height="0" y="0" x="0">
 		<game:TweenSroller id="partPieceList" width="20" height="20" x="0" y="0" skinName="TweenScrollerSkin" enabled="true" visible="false"/>
+
 	</e:Group>
 
 </e:Skin>

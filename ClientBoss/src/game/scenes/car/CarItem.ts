@@ -15,6 +15,7 @@ module game {
         stateTxt            : eui.Label;
         btnJoin             : IconButton;
     
+        private carData     : msg.ICarData;
         private itemData    : table.ITCarDefine;
       
 
@@ -26,6 +27,7 @@ module game {
         protected dataChanged():void{
             //数据改变时，会自动调用 dataChanged 这个方法
             //console.log("dataChanged "+this.data.tid);
+            this.carData = this.data;
             this.setData(table.TCarById[this.data.tid]);
         }
 
@@ -73,7 +75,7 @@ module game {
             //this.img_gold.visible  =  true;
             //this.img_diamond.visible = false;
            let _carPartItemData = table.TCarPartById[this.itemData.Engine];
-           this.txt_info.text = "产能："+ (_carPartItemData ?  _carPartItemData.RewardInit.toString() : "") + "金币/分钟" + "\n"+"价值："+ this.itemData.Price+"金币";
+           this.txt_info.text = "产能："+ (this.carData ?  this.carData.attr.reward : "") + "金币/分钟" + "\n"+"价值："+ this.carData.price+"金币";
 
             //状态
             //this.stateTxt.text = this.data.parkingid == 0 ? "空闲" : "出征";
