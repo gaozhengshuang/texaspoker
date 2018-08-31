@@ -31,9 +31,10 @@ module game {
 
 		}
 		private OnGW2C_AckHouseDataByHouseId(data: msg.GW2C_AckHouseDataByHouseId) {
-			this.setCurrentHouse(data.data);
-			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
-
+			if (GameConfig.sceneType != 7) {
+				this.setCurrentHouse(data.data);
+				ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
+			}
 		}
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
 			if (GameConfig.pageType == 1) {
@@ -53,10 +54,10 @@ module game {
 					let house: HouseVO = GetHaveGoldHouse(otherHouse, 1);
 					if (house != null) {
 						//this.setCurrentHouse(house);
-						this.currentHouse=house;
+						this.currentHouse = house;
 					} else {
 						//this.setCurrentHouse(otherHouse[0]);
-						this.currentHouse=house;
+						this.currentHouse = house;
 					}
 					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
 				}
@@ -142,7 +143,7 @@ module game {
 				this.setSelfHouse(info);
 			}
 		}
-		public setSelfHouse(house:any) {
+		public setSelfHouse(house: any) {
 			if (house) {
 				this.selfHouse = new HouseVO();
 				this.selfHouse.setObject(house);

@@ -8,9 +8,17 @@ module game {
 		 */
 		public tradeHouseInfo: msg.GW2C_RetHouseTradeList;
 		/**
-		 * 交易记录
+		 * 交易车辆的列表数据
 		 */
-		public tradeRecordInfo: msg.GW2C_RetTradeHouseHistory;
+		public tradeCarInfo: msg.GW2C_RetHouseTradeList;
+		/**
+		 * 交易房屋记录
+		 */
+		public tradeHouseRecordInfo: msg.GW2C_RetTradeHouseHistory;
+		/**
+		 * 交易车记录
+		 */
+		public tradeCarRecordInfo: msg.GW2C_RetTradeHouseHistory;
 
 		/**
 		 * 根据交易ID，获取交易信息
@@ -76,6 +84,42 @@ module game {
 			for (let info of table.THouseCell) {
 				if (info.Id == id) {
 					return <table.THouseCellDefine>info;
+				}
+			}
+			return null;
+		}
+		/**
+		 * 根据ID获取车辆配置信息
+		 */
+		public getCarDefine(id: number): table.TCarDefine  //todo
+		{
+			for (let info of table.TCar) {
+				if (info.Id == id) {
+					return <table.TCarDefine>info;
+				}
+			}
+			return null;
+		}
+		/**
+		 * 车辆品牌表
+		 */
+		public getCarBrandDefine(id:number):table.TCarBrandDefine
+		{
+			for (let info of table.TCarBrand) {
+				if (info.Id == id) {
+					return <table.TCarBrandDefine>info;
+				}
+			}
+			return null;
+		}
+		/**
+		 * 车辆模型表
+		 */
+		public getCarModelDefine(id:number):table.TCarModelDefine
+		{
+			for (let info of table.TCarModel) {
+				if (info.Id == id) {
+					return <table.TCarModelDefine>info;
 				}
 			}
 			return null;

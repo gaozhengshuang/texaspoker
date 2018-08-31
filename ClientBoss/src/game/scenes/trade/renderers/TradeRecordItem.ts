@@ -13,6 +13,7 @@ module game {
 		typeTxt: eui.Label; //1室厅1厨1卫(50平)
 		unitPrice: eui.Label; //单价
 		baseIncomeTxt: eui.Label; //基础收益
+		unitGroup: eui.Group;
 
 		icon: TradeIcon;
 
@@ -30,23 +31,42 @@ module game {
 		protected dataChanged(): void {
 			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
 			this.takeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTakeBtnClick, this);
-			NotificationCenter.addObserver(this, this.onTakeResult, "msg.GW2C_RetGetTradeHouseReward");
+			NotificationCenter.addObserver(this, this.onTakeHouseResult, "msg.GW2C_RetGetTradeHouseReward");
+			NotificationCenter.addObserver(this, this.onTakeCarResult, "msg.GW2C_RetGetTradeHouseReward");
+			this.update();
 		}
 		private onRemove() {
 			this.removeEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
 			this.takeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTakeBtnClick, this);
 			NotificationCenter.removeObserver(this, "msg.GW2C_RetGetTradeHouseReward");
+			NotificationCenter.removeObserver(this, "msg.GW2C_RetGetTradeHouseReward");
 		}
 		private update() {
-			let data: msg.TradeHouseHistory = this.data;
-			let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
-			if (houseDef) {
-				this.icon.show({ name: data.name, icon: houseDef.ImageId.toString(), star: data.houselevel, type: TradeIconType.House });
-				this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
+			let data: msg.TradeHouseHistory | msg.TradeCarHistory = this.data;
+			this.typeTxt.visible = this.unitGroup.visible = false;
+			if (data instanceof msg.TradeHouseHistory) {
+				this.typeTxt.visible = this.unitGroup.visible = true;
+				let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
+				if (houseDef) {
+					this.icon.show({ name: data.name, icon: houseDef.ImageId.toString(), star: data.houselevel, type: TradeIconType.House });
+					this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
+					this.unitPrice.text = numAddSpace(Math.floor(data.price / data.area)) + "金币";
+				}
+			}
+			else if (data instanceof msg.TradeCarHistory) {
+
+				let carDef = TradeManager.getInstance().getCarDefine(data.carbaseid);
+				if (carDef) {
+					let brandDef = TradeManager.getInstance().getCarBrandDefine(carDef.Brand);
+					let modelDef = TradeManager.getInstance().getCarModelDefine(carDef.Model);
+					let name = '';
+					if (brandDef && modelDef) {
+						name = brandDef.Brand + '-' + modelDef.Model;
+					}
+					this.icon.show({ name: name, icon: carDef.path.toString(), star: data.carlevel, type: TradeIconType.Car });
+				}
 			}
 			this.baseIncomeTxt.text = numAddSpace(data.income) + "金币";
-			this.unitPrice.text = numAddSpace(Math.floor(data.price / data.area)) + "金币";
-
 			let date = new Date(data.tradetime * 1000);
 			let timeDes = DateTimeUtil.formatDate(date, DateTimeUtil.Format_Standard_Date);
 
@@ -68,14 +88,14 @@ module game {
 					colorStr = '#07b45d'; //绿色
 					break;
 				case TradeState.SellOk:
-					this.buySuccessFlag.visible = true;
-					this.priceDesLabel.text = "购买价格";
-					colorStr = '#f85959'; //红色
-					break;
-				case TradeState.BuyOk:
 					colorStr = '#07b45d'; //绿色
 					this.dealDoneFlag.visible = true;
 					this.sellSuccessFlag.visible = true;
+					break;
+				case TradeState.BuyOk:
+					this.buySuccessFlag.visible = true;
+					this.priceDesLabel.text = "购买价格";
+					colorStr = '#f85959'; //红色
 					break;
 				case TradeState.TradeCancel:
 					timeTail = " 退回时间";
@@ -88,13 +108,27 @@ module game {
 			this.priceLabel.textFlow = TextUtil.parse('<font color="' + colorStr + '" size="24">' + priceStr + '</font>' + '<font color="#000000" size="24">金币</font>');
 		}
 		private onTakeBtnClick() {
-			let data: msg.C2GW_GetTradeHouseReward = new msg.C2GW_GetTradeHouseReward();
-			data.tradeuid = this.data.tradeuid;
-			sendMessage("msg.C2GW_GetTradeHouseReward", msg.C2GW_GetTradeHouseReward.encode(data));
+			if (this.data instanceof msg.TradeHouseHistory) {
+				let data: msg.C2GW_GetTradeHouseReward = new msg.C2GW_GetTradeHouseReward();
+				data.tradeuid = this.data.tradeuid;
+				sendMessage("msg.C2GW_GetTradeHouseReward", msg.C2GW_GetTradeHouseReward.encode(data));
+			}
+			else if (this.data instanceof msg.TradeCarHistory) {
+				let data: msg.C2GW_GetTradeCarReward = new msg.C2GW_GetTradeCarReward();
+				data.tradeuid = this.data.tradeuid;
+				sendMessage("msg.C2GW_GetTradeCarReward", msg.C2GW_GetTradeCarReward.encode(data));
+			}
 		}
-		private onTakeResult(data: msg.GW2C_RetGetTradeHouseReward) {
-			if (this.data.tradeuid == data.tradeuid) { //todo 已领取
-
+		private onTakeHouseResult(data: msg.GW2C_RetGetTradeHouseReward) {
+			if (this.data.tradeuid == data.tradeuid) { //已领取
+				this.data.state = TradeState.SellOk;
+				this.update();
+			}
+		}
+		private onTakeCarResult(data: msg.GW2C_RetGetTradeHouseReward) {
+			if (this.data.tradeuid == data.tradeuid) { //已领取 todo
+				this.data.state = TradeState.SellOk;
+				this.update();
 			}
 		}
 	}
