@@ -502,7 +502,10 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 		ma.ItemProduce(user, maid, "领取女仆收益")
 		maid.SetTimeStart(now)
 		ma.SendHouseMaids(user, maid.HouseId())
+		return
 	}
+
+	user.SendNotify("女仆未产出任何金币")
 }
 
 // 掠夺他人女仆

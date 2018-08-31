@@ -43,6 +43,10 @@ module game {
 
                             ApplicationFacade.getInstance().registerMdt<RoomMediator>(RoomMediator.NAME, RoomMediator, this.pageView);
 
+                            if (data.room.ownerid == userProxy.getUserInfo().userid) {
+                                MaidManager.getInstance()._startHouse = data.room.rId;
+                            }
+
                             this.pageMediatorName = RoomMediator.NAME;
                             GameRoomView.getInstance().initInfo(data.room, userProxy.getUserInfo().userid, houseProxy.returnType);
                             GameRoomView.getInstance().updateUserInfo(userProxy.getUserInfo());
