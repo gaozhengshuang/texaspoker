@@ -12,9 +12,6 @@ module game {
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
         static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE";
-        static MAID_UPDATE = "PlayerModel_MAID_UPDATE";
-        static HOUSEMAID_UPDATE = "PlayerModel_HOUSEMAID_UPDATE";
-        static HOUSE_UPDATE = "HOUSE_UPDATE";
 
         public penetration: number = 0;
         public userInfo: IUserInfo = { 
@@ -37,13 +34,10 @@ module game {
         public bagList: Array<msg.IItemData> = [];
         public historyMoneyList: Array<msg.ILuckyDrawItem> = [];
         public totalMoney: number | Long = 0;
+
         private _tasks;
         private _houses;
         private _carRecords: string[] = [];
-        private _personalImage: msg.IItemData[];
-        private _houseMaidInfo: msg.GW2C_SendHouseMaidInfo;
-        private _userMaidInfo: msg.GW2C_SendUserMaidInfo;
-        private _mainMaidInfo: msg.IHouseMaidData;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -61,8 +55,6 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_ResCarInfo, "msg.GW2C_ResCarInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_SynParkingRecord, "msg.GW2C_SynParkingRecord");
             NotificationCenter.addObserver(this, this.OnGW2C_CarAutoBack, "msg.GW2C_CarAutoBack");
-            NotificationCenter.addObserver(this, this.OnGW2C_SendUserMaidInfo, "msg.GW2C_SendUserMaidInfo");
-            NotificationCenter.addObserver(this, this.OnGW2C_SendHouseMaidInfo, "msg.GW2C_SendHouseMaidInfo");
         }
 
         private OnGW2C_RetUserInfo(data: msg.IGW2C_SendUserInfo) {
@@ -83,26 +75,6 @@ module game {
             this.historyMoneyList = data.base.luckydraw.drawlist;
             this.totalMoney = data.base.luckydraw.totalvalue;
             this._tasks = data.base.task.tasks;
-        }
-
-        private OnGW2C_SendUserMaidInfo(data: msg.GW2C_SendUserMaidInfo) {
-            this._userMaidInfo = data;
-
-            for (let i=0; i<data.maids.length; i++) {
-                if (this.userInfo.userid == data.maids[i].ownerid) {
-                    this._personalImage = data.maids[i].clothes;
-                    this._mainMaidInfo = data.maids[i];
-                    break;
-                }
-            }
-
-            NotificationCenter.postNotification(PlayerModel.MAID_UPDATE);
-        }
-
-        private OnGW2C_SendHouseMaidInfo(data: msg.GW2C_SendHouseMaidInfo) {
-            this._houseMaidInfo = data;
-            
-            NotificationCenter.postNotification(PlayerModel.HOUSEMAID_UPDATE);
         }
 
         private OnGW2C_ResCarInfo(data: msg.GW2C_ResCarInfo){
@@ -560,14 +532,6 @@ module game {
                }); 
            }
            return _parkingdatas[0]; 
-        }
-
-        public getMaidInfo() {
-            return this._mainMaidInfo;
-        }
-
-        public getHouseMaidInfo () {
-            return this._houseMaidInfo;
         }
     }
 }
