@@ -28,6 +28,9 @@ module game {
         BarrageManager.getInstance().init();
         //战斗数据初始化
         BattleManager.getInstance().init();
+        //女仆数据初始化
+        MaidManager.getInstance().init();
+
         SysTimeEventManager.getInstance().delAllFunction();
         SysTimeEventManager.getInstance().stopTimer();
 
