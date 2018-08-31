@@ -32,15 +32,11 @@ module game {
         }
 
         private registerEvent() {
-            NotificationCenter.addObserver(this, this.OnHouseMaidUpdate, MaidManager.HOUSEMAID_UPDATE);
-
             this.grp_role.addEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
             this.goldImg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goldTouchEvent, this);
         }
 
         private removeEvent() {
-            NotificationCenter.removeObserver(this, MaidManager.HOUSEMAID_UPDATE);
-
             this.grp_role.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.roleTouchEvent, this);
             this.goldImg.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.goldTouchEvent, this);
 
@@ -66,17 +62,17 @@ module game {
             SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
         }
 
-        private OnHouseMaidUpdate() {
-            for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
-                let maidInfo = MaidManager.getInstance().getHouseMaidInfo().maids[i];
-                if (maidInfo.id == this._maidInfo.id) {
-                    this._maidInfo = maidInfo;
-                    break;
-                }
-            }
+        // private OnHouseMaidUpdate() {
+        //     for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {
+        //         let maidInfo = MaidManager.getInstance().getHouseMaidInfo().maids[i];
+        //         if (maidInfo.id == this._maidInfo.id) {
+        //             this._maidInfo = maidInfo;
+        //             break;
+        //         }
+        //     }
 
-            this.updateView();
-        }
+        //     this.updateView();
+        // }
 
         private updateView() {
             this.levelInfo = table.TLevelMaidById[this._maidInfo.level];
@@ -97,7 +93,7 @@ module game {
                 this.blackMaidImg.visible = false;
                 this.helpImg.visible = false;
                 
-                if (this.isMyMaid()) {   //被我抢的女仆
+                if (this._maidInfo.robberid == DataManager.playerModel.getUserId()) {   //被我抢的女仆
                     this.goldImg.visible = this.isTimeGet();
                 } else {    //不是我抢的女仆
                     this.goldImg.visible = false;
@@ -112,9 +108,13 @@ module game {
                 if (this._maidInfo.robberid == 0) {
                     openPanel(PanelType.dress);
                 } else {
-                    sendMessage("msg.C2GW_TackBackMaid", msg.C2GW_TackBackMaid.encode({
-                        id: this._maidInfo.id
-                    }));
+                    if (this._maidInfo.houseid == MaidManager.getInstance().getCurHouseId()) { //点黑影操作
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: this._maidInfo.robberto, return: MaidManager.getInstance().getCurHouseId()});
+                    } else {
+                        sendMessage("msg.C2GW_TackBackMaid", msg.C2GW_TackBackMaid.encode({
+                            id: this._maidInfo.id
+                        }));
+                    }
                 }
             } else {
                 if (this._maidInfo.robberid == 0) {
