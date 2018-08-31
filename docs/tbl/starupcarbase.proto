@@ -19,7 +19,7 @@ message TStarupCarDefine
 {	
 	
 	
-	optional uint32 Star = 1; // 起始星级
+	optional uint32 Id = 1; // 起始星级
 	
 	
 	optional uint32 Money = 2; // 消耗金币

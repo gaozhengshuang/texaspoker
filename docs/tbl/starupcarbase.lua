@@ -3,26 +3,26 @@
 
 module table {
 export var TStarupCar : table.ITStarupCarDefine[] = [
-		{ Star : 1, Money : 1000, Item : [ "1001-1", "1002-2" ] 	},
-		{ Star : 2, Money : 3000, Item : [  ] 	},
-		{ Star : 3, Money : 5000, Item : [  ] 	},
-		{ Star : 4, Money : 7000, Item : [  ] 	},
-		{ Star : 5, Money : 9000, Item : [  ] 	},
-		{ Star : 6, Money : 11000, Item : [  ] 	},
-		{ Star : 7, Money : 13000, Item : [  ] 	},
-		{ Star : 8, Money : 15000, Item : [  ] 	},
-		{ Star : 9, Money : 17000, Item : [  ] 	},
-		{ Star : 10, Money : 19000, Item : [  ] 	}
+		{ Id : 1, Money : 1000, Item : [ "1001-1", "1002-2" ] 	},
+		{ Id : 2, Money : 3000, Item : [  ] 	},
+		{ Id : 3, Money : 5000, Item : [  ] 	},
+		{ Id : 4, Money : 7000, Item : [  ] 	},
+		{ Id : 5, Money : 9000, Item : [  ] 	},
+		{ Id : 6, Money : 11000, Item : [  ] 	},
+		{ Id : 7, Money : 13000, Item : [  ] 	},
+		{ Id : 8, Money : 15000, Item : [  ] 	},
+		{ Id : 9, Money : 17000, Item : [  ] 	},
+		{ Id : 10, Money : 19000, Item : [  ] 	}
 	]
 
 
-// Star
-export var TStarupCarByStar : game.Dictionary<table.ITStarupCarDefine> = {}
-function readTStarupCarByStar(){
+// Id
+export var TStarupCarById : game.Dictionary<table.ITStarupCarDefine> = {}
+function readTStarupCarById(){
   for(let rec of TStarupCar) {
-    TStarupCarByStar[rec.Star] = rec; 
+    TStarupCarById[rec.Id] = rec; 
   }
 }
-readTStarupCarByStar();
+readTStarupCarById();
 }
 

@@ -1007,7 +1007,7 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 		user.SendNotify("已经满星了")
 		return 4,nil
 	}
-	starupCarBase,find := tbl.TStarupCarBase.TStarupCarById(car.GetStar())
+	starupCarBase,find := tbl.TStarupCarBase.TStarupCarById[car.GetStar()]
 	if !find {
 		user.SendNotify("没有升星的配置文件")
 		return 5,nil
