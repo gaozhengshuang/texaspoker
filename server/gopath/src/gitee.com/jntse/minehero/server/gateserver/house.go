@@ -579,14 +579,6 @@ func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
 	data := make(map[uint64]*HouseData)
 	if _, ok := this.userhouses[uid]; ok {
 		return this.userhouses[uid]
-		/*
-		for _, v := range ids {
-			tmp := this.GetHouse(v)
-			if tmp != nil {
-				data[tmp.id] = tmp
-			}
-		}
-		*/
 	}
 	return data
 }
