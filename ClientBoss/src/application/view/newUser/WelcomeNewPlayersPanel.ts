@@ -56,7 +56,6 @@ module game {
         }
 
         private goinRoom_begin() {
-            MaidManager.getInstance()._startHouse = this.roomInfo.rId;
             this.dispatchEvent(new BasicEvent(WelcomeNewPlayersPanel.GOIN_NEW_ROOM,
                 { houseid: this.roomInfo.rId }));
             this.onclick_begin();
