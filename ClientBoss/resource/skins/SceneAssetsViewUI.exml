@@ -38,7 +38,9 @@
 			<e:Label id="undoneTips2" text="暂未开放\n敬请期待" textColor="0x404A58" fontFamily="Microsoft YaHei" size="100" horizontalCenter="0" verticalCenter="0" scaleX="1" scaleY="1" visible="false"/>
 		</e:Group>
 		<e:Group id="stackGroup3" width="100%" height="100%" name="page3">
-			<e:Group id="itemListGroup" width="100%" height="100%" ></e:Group>
+			<e:Scroller id="listScroller" width="720" height="960" x="0" y="2" scaleX="1" scaleY="1" anchorOffsetY="0">
+				<e:Group id="itemListGroup" width="100%" height="100%"/>
+			</e:Scroller>
 			<game:DepotDetailsPanel id="detailsPanel" width="720" height="260" x="0" bottom="0" y="700" scaleX="1" scaleY="1"/>
 		</e:Group>
 	</e:ViewStack>

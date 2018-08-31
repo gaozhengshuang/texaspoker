@@ -28,6 +28,7 @@ module game {
 		private stackGroup3: eui.Group;
 
 		private itemListGroup: eui.Group;
+		private listScroller: eui.Group;
 
 		private undoneTips2: eui.Label;
 		private undoneTips3: eui.Label;
@@ -124,7 +125,9 @@ module game {
 			//this.detailsMask.visible=false;
 			//this.detailsPanel.visible=false;
 			//this.detailsPanel.bottom=-this.detailsPanel.height;
+			this.listScroller.height = this.contentStarck.height-this.detailsPanel.height;
 			let infoList: any[] = DataManager.playerModel.getBag();
+
 			if (infoList) {
 				this.updateItemList(infoList);
 			}
@@ -132,66 +135,63 @@ module game {
 		}
 		private itemList: utils.AllScrollerPanel;
 		private itemInfoList: any[] = [];
+		private itemMCList: DepotListItemPanel[] = [];
 		public updateItemList(list: any[]) {
 			this.itemInfoList = list;
-			if (this.itemList == null) {
-				this.itemList = new utils.AllScrollerPanel();
-				this.itemListGroup.addChild(this.itemList);
-				this.itemList.y = 4;
-				this.itemList.width = this.contentStarck.width;
-				this.itemList.x = 0;
-				console.log(this.detailsPanel.y);
-
-				this.itemList.height = this.contentStarck.height - this.itemList.y - this.detailsPanel.height;
-				this.itemList.initItemRenderer(DepotListItemPanel);
-				this.itemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onDepotItemTouch, this);
-			}
-			this.itemList.bindData(this.itemInfoList);
-			this.detailsPanel.showPanel(this.itemInfoList[0]);
-			this.clearDepotItemframe();
-			let mc: any = this.itemList.dataList.getElementAt(0);
-			if (mc) {
-				mc.showFrame();
-			}
-		}
-		private onDepotItemTouch(eve: eui.ItemTapEvent) {
-			this.clearDepotItemframe();
-			let mc: any = this.itemList.dataList.getElementAt(eve.itemIndex);
-			if (mc) {
-				mc.showFrame();
-			}
-			let item: any = this.itemInfoList[eve.itemIndex];
-			if (item) {
-				//this.openDepotDetails(item);
-				this.detailsPanel.showPanel(item);
-			}
-		}
-		private clearDepotItemframe() {
-			if (this.itemInfoList && this.itemInfoList.length > 0) {
-				for (let i: number = 0; i < this.itemInfoList.length; i++) {
-					let mc: any = this.itemList.dataList.getVirtualElementAt(i);
-					if (mc) {
-						mc.hideFrame();
-					}
+			this.clearDepotItem();
+			if(this.itemInfoList && this.itemInfoList.length>0){
+				for(let i:number;i<this.itemInfoList.length;i++){
+					let itemMc:DepotListItemPanel=new DepotListItemPanel();
+					itemMc.dataChanged(this.itemInfoList[i],i);
+					itemMc.x=0+i%5*itemMc.width;
+					itemMc.y=0+(Math.floor(i/5))*itemMc.height;
+					this.itemListGroup.addChild(itemMc);
+					itemMc.hideFrame();
+					itemMc.addEventListener(DepotListItemPanel.SELECT, this.onDepotItemTouch, this);
+					this.itemMCList.push(itemMc);
+				}
+				if(this.itemMCList && this.itemMCList.length){
+					this.selectDepotItemframe(0);
+				}
+				else{
+					this.selectDepotItemframe(null);
 				}
 			}
 		}
-		/*private onclick_detailsMask(){
-			this.detailsPanel.hidePanel();
-				egret.Tween.get(this.detailsPanel)
-				.to({bottom: -this.detailsPanel.height}, 300)
-				.call(this.closeDepotDetails, this);
+		private onDepotItemTouch(eve: BasicEvent) {
+			if(eve.EventObj){
+				this.selectDepotItemframe(eve.EventObj.index);
+			}
 		}
-		private openDepotDetails(item:any){
-			this.detailsMask.visible=true;
-			this.detailsPanel.visible=true;
+		private updateDepotDetails(item:any){
 			this.detailsPanel.showPanel(item);
-				egret.Tween.get(this.detailsPanel)
-				.to({bottom: 0}, 300);
 		}
-		public closeDepotDetails(){
-			this.detailsMask.visible=false;
-			this.detailsPanel.visible=false;
-		} */
+		private clearDepotItem() {
+			if (this.itemMCList && this.itemMCList.length > 0) {
+				for (let i: number = 0; i < this.itemMCList.length; i++) {
+					this.itemMCList[i].addEventListener(DepotListItemPanel.SELECT, 
+					this.onDepotItemTouch, this);
+					this.itemMCList[i].removePanel();
+					this.itemMCList[i]=null;
+				}
+			}
+			this.itemMCList=[];
+		}
+		private clearDepotItemframe() {
+			if (this.itemMCList && this.itemMCList.length > 0) {
+				for (let i: number = 0; i < this.itemMCList.length; i++) {
+					this.itemMCList[i].hideFrame();
+					this.itemMCList[i]=null;
+				}
+			}
+		}
+		private selectDepotItemframe(index:number) {
+			if (this.itemMCList && this.itemMCList.length > 0 
+			&& index<this.itemMCList.length) {
+				this.clearDepotItemframe();
+				this.itemMCList[index].showFrame();
+				this.updateDepotDetails(this.itemMCList[index].itemDate);
+			}
+		}
 	}
 }
