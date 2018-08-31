@@ -277,7 +277,7 @@ func (this *GateServer) InitMySql(){
 			log.Error("数据库连接失败 %s", strsql)
 			return
 		}
-		log.Info("数据库连接成功")
+		log.Info("mysql数据库连接成功")
 	}
 }
 
