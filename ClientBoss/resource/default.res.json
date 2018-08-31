@@ -17,7 +17,7 @@
 			"name": "game1"
 		},
 		{
-			"keys": "login_json,dazhao_mp3,heidong_mp3,huoqiangloop_mp3,play_mp3,zhadan_mp3,bingqiang_mp3,posui_mp3,pengzhuang_mp3,jiesuan_mp3,fashe_mp3",
+			"keys": "login_json,dazhao_mp3,heidong_mp3,huoqiangloop_mp3,play_mp3,zhadan_mp3,bingqiang_mp3,posui_mp3,pengzhuang_mp3,jiesuan_mp3,fashe_mp3,loginbg_png",
 			"name": "login"
 		}
 	],
@@ -87,7 +87,7 @@
 			"url": "assets/texpack/login.json",
 			"type": "sheet",
 			"name": "login_json",
-			"subkeys": "inviteFriendsImg_png,loginBtn_png,loginInput_png,loginTitle_png,loginbg_png,loginstar_png,nicknameImg_png,notreachImg_png,passwdicon_png,phoneicon_png,registerBtn_png,wxwbd_png,wxyjbd_png,yqmicon_png,yzmbutton_png,yzmicon_png"
+			"subkeys": "dialogBg_png,dialogBuyBtn_png,dialogCloseBtn_png,inviteFriendsImg_png,loginBtn_png,loginInput_png,loginTitle_png,loginstar_png,nicknameImg_png,notreachImg_png,passwdicon_png,phoneicon_png,registerBtn_png,wxwbd_png,wxyjbd_png,yqmicon_png,yzmbutton_png,yzmicon_png"
 		},
 		{
 			"url": "assets/texpack/item.json",
@@ -363,6 +363,11 @@
 			"type": "sheet",
 			"name": "hall_4_json",
 			"subkeys": "item_10005_png,item_10006_png,item_10007_png,item_10008_png,item_10009_png,item_10011_png,item_120001_png,item_120002_png,item_120003_png,item_120004_png,item_120005_png,item_bar_png,item_bar_select_png,star_png,trade_add_png,trade_coinnum_bg_png,trade_done_png,trade_reduce_png,trade_return_png,trade_selling_png,trading_bottom_bar_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_pos_png,trading_search_png"
+		},
+		{
+			"url": "assets/bg/loginbg.png",
+			"type": "image",
+			"name": "loginbg_png"
 		}
 	]
 }
