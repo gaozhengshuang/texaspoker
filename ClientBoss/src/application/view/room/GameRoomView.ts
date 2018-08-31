@@ -111,7 +111,8 @@ module game {
             this.level_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_level, this);
             this.hideList_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_hideList, this);
             this.shualingju_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_shualingju, this);
-
+            
+            NotificationCenter.addObserver(this, this.OnHouseMaidUpdate, MaidManager.HOUSEMAID_UPDATE);
         }
         private downBgScaleH: number = 1;
         private dBgDefaultH: number = 0;
@@ -651,8 +652,14 @@ module game {
 
         }
 
+        private OnHouseMaidUpdate() {
+            this.huxingPanel.updateMaid();
+        }
+
         protected beforeRemove() {
             //console.log("房屋界面关闭");
+            NotificationCenter.removeObserver(this, MaidManager.HOUSEMAID_UPDATE);
+
             this.titlePanel.removePanel();
             if (this.hideList_btn.visible) {
                 this.onclick_hideList();
