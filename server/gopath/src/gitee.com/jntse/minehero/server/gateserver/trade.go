@@ -380,7 +380,7 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 		return
 	}
 
-	if car.ownerid != this.Id(){
+	if car.GetOwnerId() != this.Id(){
 		this.SendNotify("只能交易自己的车")
 		return
 	}
@@ -518,7 +518,7 @@ func (this *GateUser) CancelTradeCar(caruid uint64){
 		return
 	}
 
-	tradeuid := car.tradeuid
+	tradeuid := car.GetTradeuid()
 	historykey := fmt.Sprintf("tradecarhistory_%d_%d", this.Id(), tradeuid)
 	history := &msg.TradeCarHistory{}
 	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
@@ -543,7 +543,7 @@ func (this *GateUser) CancelTradeCar(caruid uint64){
 	}
 
 	car.ClearTrade()
-	CarMgr().UpdateCarByID(this, car.id, false)
+	CarMgr().UpdateCarByID(this, car.Getid(), false)
 
 	//send := &msg.GW2C_RetCancelTradeHouse{}
 	//send.Tradeuid = pb.Uint64(tradeuid)
