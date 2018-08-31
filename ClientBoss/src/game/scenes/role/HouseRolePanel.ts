@@ -142,7 +142,8 @@ module game {
                     }.bind(this));
 
                 }else if (this._maidInfo.robberid == DataManager.playerModel.getUserId()) {   //我抢回来的女仆点击领取奖励
-                    let dialogStr = `当前收益${this._maidInfo.earning}金币`;
+                    let getGold = (SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking)) * (this.levelInfo.ProduceGold / Number(this.levelInfo.ProduceTime));
+                    let dialogStr = `当前收益${getGold}金币`;
                     showDialog(dialogStr, "送回", function () {
                         sendMessage("msg.C2GW_SendBackMaid", msg.C2GW_SendBackMaid.encode({
                             id: this._maidInfo.id
@@ -175,7 +176,7 @@ module game {
                         this.TimeLabel.strokeColor = 0x000000;
 
                         this.nameLabel.text = "生产中";
-                        let timeStr = sDhFilter(Number(this.levelInfo.ProduceTime) - (Math.floor(new Date().getTime() / 1000) - Number(this._maidInfo.tmworking)), ":");
+                        let timeStr = sDhFilter(Number(this.levelInfo.ProduceTime) - (SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking)), ":");
                         this.TimeLabel.text = `Lv.${this._maidInfo.level}  ${timeStr}`;
                     }
                 } else {
@@ -193,7 +194,7 @@ module game {
                 if (this.isTimeGet()) {
                     this.TimeLabel.text = `Lv.${this._maidInfo.level}  可领取`;
                 } else {
-                    let timeStr = sDhFilter(Number(this.levelInfo.ProduceTime) - (Math.floor(new Date().getTime() / 1000) - Number(this._maidInfo.tmworking)), ":");
+                    let timeStr = sDhFilter(Number(this.levelInfo.ProduceTime) - (SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking)), ":");
                     this.TimeLabel.text = `Lv.${this._maidInfo.level}  ${timeStr}`;
                 }
 
@@ -219,17 +220,20 @@ module game {
         private isTimeGet() {
             let isget = false;
             if (this.levelInfo) {
-                if ((Math.floor(new Date().getTime() / 1000) - Number(this._maidInfo.tmworking)) - Number(this.levelInfo.ProduceTime) >= 0) {
+                if ((SysTimeEventManager.getInstance().systimeNum - Number(this._maidInfo.tmworking)) - Number(this.levelInfo.ProduceTime) >= 0) {
                     isget = true;
                 }
             }
             return isget;
         }
 
-        private runningTimer(dt:number,body:any)
-        {
-            if (Number(body.levelInfo.ProduceTime) - (Math.floor(new Date().getTime() / 1000) - Number(body._maidInfo.tmworking)) >= 0) {
+        private runningTimer(dt:number,body:any) {
+            let leftTime = Number(body.levelInfo.ProduceTime) - (SysTimeEventManager.getInstance().systimeNum - Number(body._maidInfo.tmworking));
+            if (leftTime >= 0) {
                 body.updateLabelState();
+                if (leftTime == 0) {
+                    body.goldImg.visible = true;
+                }
             }
         }
     }
