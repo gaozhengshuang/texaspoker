@@ -747,7 +747,7 @@ func (this *GateUser) MakeClothes(debris uint32) {
 
 	this.RemoveItem(debris, clothebase.DebrisNum, "合成时装")
 	this.AddItem(uint32(clothebase.Id), 1, "合成时装", true)
-	this.SendNotify("合成时装成功")
+	//this.SendNotify("合成时装成功")
 	return
 }
 

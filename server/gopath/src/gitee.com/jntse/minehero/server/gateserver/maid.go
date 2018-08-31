@@ -701,6 +701,7 @@ func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid uint64, uid ui
 	house := HouseSvrMgr().GetHouse(houseid)
 	if house == nil {
 		user.SendNotify("房屋无效")
+		log.Error("[女仆] 无效的房屋id[%d]", houseid)
 		return
 	}
 
@@ -709,12 +710,12 @@ func (ma *MaidManager) TakeRobMaidEarning(user *GateUser, houseid uint64, uid ui
 		return
 	}
 
-	house.SetVisitParam(user, uid, 0)
 	param := house.GetVisitParam(uid)
 	if param != 0 {
 		user.AddGold(param, "领取掠夺女仆奖励", true)
 	}
 	user.SendNotify("领取成功")
+	house.SetVisitParam(user, uid, 0)
 }
 
 // 设置掠夺者
