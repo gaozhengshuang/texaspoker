@@ -14,12 +14,12 @@ module game {
 
 		public constructor() {
 			super();
+			this._isShowEffect = false;
 		}
 		protected getSkinName() {
 			return TradeMyAssetsPanelSkin;
 		}
 		protected init() {
-			this._isShowEffect = false;
 			this._dp = new eui.ArrayCollection();
 			this.scroller.setViewPort();
 			this.titlePanel.init(this.remove, this);

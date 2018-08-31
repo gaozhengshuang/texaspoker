@@ -47,9 +47,9 @@ module game {
 
 		public constructor() {
 			super();
+			this._isShowEffect = false;
 		}
 		protected init() {
-			this._isShowEffect = false;
 			this._tradeHouseVst = new TradeHouseVst(this);
 			this._tradeCarVst = new TradeCarVst(this);
 
