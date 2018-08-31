@@ -24,7 +24,7 @@ module game {
 		}
 
         private OnGW2C_AckBuyHouseFromBuilding(data: msg.GW2C_AckBuyHouseFromBuilding) {
-			console.log(data);
+			//console.log(data);
             if(data.ret==1){
                 ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
                 sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({houseid:data.houseid}));

@@ -12,7 +12,7 @@ module game {
 				case CommandName.SOCKET_REQ_RECEIVE:
 					{
 						if (data != null) {
-							console.log(data);
+							//console.log(data);
 							sendMessage("msg.C2GW_ReqTakeSelfHouseGold",
 							 msg.C2GW_ReqTakeSelfHouseGold.encode({houseid:data.houseid,index:data.index}));
 						}

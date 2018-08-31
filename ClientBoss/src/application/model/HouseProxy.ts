@@ -127,8 +127,8 @@ module game {
 		private updateRoomInfo(datas: any) {
 			if (datas.id == this.currentHouse.rId) {
 				this.currentHouse.setObject(datas);
-				console.log(datas);
-				console.log(this.currentHouse);
+				//console.log(datas);
+				//console.log(this.currentHouse);
 				ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
 			}
 		}

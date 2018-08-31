@@ -143,7 +143,7 @@ module game {
             }
         }
         private onclick_begin(){
-            console.log('???????????');
+            //console.log('???????????');
 			
 		}
         private onclick_mine(){
@@ -193,7 +193,7 @@ module game {
             this.dispatchEvent(new BasicEvent(GameMapUIView.BUY_CAR));
 		}
         private onclick_fujinSwitch(status:number){
-            console.log(this.fujinStatus+"//"+(this.fujinStatus==1));
+            //console.log(this.fujinStatus+"//"+(this.fujinStatus==1));
             this.fujinStatus=status;
             this.dispatchEvent(new BasicEvent(GameMapUIView.FUJIN_SWITCH,{index:this.fujinStatus}));
 		}

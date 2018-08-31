@@ -63,7 +63,7 @@ module game {
 			}
 			if (!ishave) {
 				let lockMaskItem: egret.Bitmap = new egret.Bitmap();
-				console.log(("hall_3_json.lockMask" + index + "_png"));
+				//console.log(("hall_3_json.lockMask" + index + "_png"));
 				lockMaskItem.texture = RES.getRes("hall_3_json.lockMask" + index + "_png");
 				lockMaskItem.x = this.lockMask[(index - 1)].x;
 				lockMaskItem.y = this.lockMask[(index - 1)].y;

@@ -30,7 +30,7 @@ module game {
 			let offset_dateTime = new Date().getTime() - Number(data.timestamp) * 1000;
 			SysTimeEventManager.getInstance().systimeoffset = offset_dateTime;
 
-	 		console.log('时差------->',offset_dateTime);
+	 		//console.log('时差------->',offset_dateTime);
 		}
 		private netConnectionError(){
 			// ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_LOGIN);
@@ -88,7 +88,7 @@ module game {
 
 		private connectLoginGW() {
 			let d = game.defer();
-			console.log($netIp);
+			//console.log($netIp);
 			ClientNet.getInstance().onConnectByUrl($netIp);
 			game.NotificationCenter.once(this, () => {
 				sendMessage("msg.C2L_ReqLogin", msg.C2L_ReqLogin.encode(this.loginUserInfo));

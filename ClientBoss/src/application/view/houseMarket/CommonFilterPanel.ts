@@ -41,13 +41,13 @@ module game {
 			this.radioGroup.addEventListener(egret.Event.CHANGE, this.onChangeSex, this);
 			//this.radioGroup.selectedValue = this.priceRadio1.value;
 			this.sortCondition = 0;
-			console.log(this.down_bg.y);
+			//console.log(this.down_bg.y);
 
 		}
 
 		private onChangeSex(e: egret.Event) {
 			var rbGroup: eui.RadioButtonGroup = e.target;
-			console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
+			//console.log(rbGroup.selectedValue);  //点击的RadioButton对象的value值
 			this.sortCondition = rbGroup.selectedValue;
 			this.dispatchEvent(new BasicEvent(CommonFilterPanel.PRICE_SORT, { value: rbGroup.selectedValue }))
 
@@ -238,7 +238,7 @@ module game {
 							item.addEventListener(CommonFilterItemPanel.ITEM_TAP, this.second_item_tap, this);
 							item.x = 0;
 							item.y = 0 + index * item.height;
-							console.log(i);
+							//console.log(i);
 							this.listGroup2.addChild(item);
 							this.secondItemList.push(item);
 							index += 1;

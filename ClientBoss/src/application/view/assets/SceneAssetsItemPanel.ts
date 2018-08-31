@@ -42,7 +42,7 @@ module game {
         protected dataChanged(): void {
             this.itemDate = this.data;
             if (this.itemDate) {
-                console.log(this.itemDate);
+                //console.log(this.itemDate);
                 if(this.itemDate.bId<=0){
                     this.name_txt.text = this.itemDate.rId+"号房间(租)";
                 }else{

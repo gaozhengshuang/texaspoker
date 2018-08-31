@@ -132,7 +132,7 @@ module game {
 		private getPos(position: JSON) {
 			let position_str = JSON.stringify(position, null, 4);
 			let realobj = eval('(' + position_str + ')');
-			console.log(position_str);
+			//console.log(position_str);
 			if (map) {
 				moveMap(realobj.lat, realobj.lng);
 			}
@@ -173,7 +173,7 @@ module game {
 		public againGetPos(position: JSON) {
 			let position_str = JSON.stringify(position, null, 4);
 			let realobj = eval('(' + position_str + ')');
-			console.log(position_str);
+			//console.log(position_str);
 			moveMap(realobj.lat, realobj.lng);
 		}
 		public moveMapFun(lat, lng) {
@@ -196,8 +196,8 @@ module game {
 		 * 地图上建筑事件回调
 		 */
 		public buildCallBackFun(type: string, data: any) {
-			console.log(type);
-			console.log(data);
+			//console.log(type);
+			//console.log(data);
 			setEgretEventsReply(true);
 			ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEW_MAP_BUILDING, { buildingId: data.bId });
 
@@ -206,8 +206,8 @@ module game {
 		 * 地图上玩家事件回调
 		 */
 		public playersCallBackFun(type: string, data: any) {
-			console.log(type);
-			console.log(data);
+			//console.log(type);
+			//console.log(data);
 			setEgretEventsReply(true);
 
 			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_LOOK_NEARBY_INFO, { pId: data.gameId });

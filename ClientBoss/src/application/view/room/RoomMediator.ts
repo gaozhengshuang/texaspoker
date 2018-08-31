@@ -90,7 +90,7 @@ module game {
 
 				case CommandName.ROOM_PARKINGLOT_UPDATE:
 					{
-						console.log("更新车位信息");
+						//console.log("更新车位信息");
 						this.sceneGroup.showParkingLotList();
 						break;
 					}
