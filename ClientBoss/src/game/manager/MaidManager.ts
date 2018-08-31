@@ -21,10 +21,17 @@ module game {
             this._userMaidInfo = data;
 
             for (let i=0; i<data.maids.length; i++) {
-                if (DataManager.playerModel.getUserId() == data.maids[i].ownerid) {
-                    this._personalImage = data.maids[i].clothes;
-                    this._mainMaidInfo = data.maids[i];
-                    break;
+                this._personalImage = data.maids[i].clothes;
+                this._mainMaidInfo = data.maids[i];
+                break;
+            }
+
+            if (this._houseMaidInfo) {
+                for (let b=0; b<this._houseMaidInfo.maids.length; b++) {
+                    if (this._houseMaidInfo.maids[b].id == this._mainMaidInfo.id) {
+                        this._houseMaidInfo.maids[b] = this._mainMaidInfo;
+                        break;
+                    }
                 }
             }
 
@@ -36,6 +43,11 @@ module game {
             
             NotificationCenter.postNotification(MaidManager.HOUSEMAID_UPDATE);
         }
+
+        public get clothes() {
+            return this._personalImage;
+        }
+
         
         public getMaidInfo() {
             return this._mainMaidInfo;

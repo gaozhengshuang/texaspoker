@@ -110,6 +110,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_RobMaid{}, 			on_C2GW_RobMaid)
 	this.msgparser.RegistProtoMsg(msg.C2GW_TackBackMaid{}, 		on_C2GW_TackBackMaid)
 	this.msgparser.RegistProtoMsg(msg.C2GW_SendBackMaid{}, 		on_C2GW_SendBackMaid)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TakeRobMaidEarning{},on_C2GW_TakeRobMaidEarning)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfo{}, on_C2GW_ReqCarInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarInfoById{}, on_C2GW_ReqCarInfoById)
@@ -209,6 +210,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserMaidInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_EnableMaidDropTo{})
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateHouseVisitInfo{})
 
 
 	// Room
@@ -984,7 +986,7 @@ func on_C2GW_RobMaid(session network.IBaseNetSession, message interface{}) {
 
 // 夺回自己的女仆
 func on_C2GW_TackBackMaid(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_RobMaid)
+	tmsg := message.(*msg.C2GW_TackBackMaid)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -1006,6 +1008,17 @@ func on_C2GW_SendBackMaid(session network.IBaseNetSession, message interface{}) 
 	MaidMgr().SendBackMaid(user, tmsg.GetId())
 }
 
+// 送回夺取的女仆
+func on_C2GW_TakeRobMaidEarning(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_TakeRobMaidEarning)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	MaidMgr().TakeRobMaidEarning(user, tmsg.GetHouseid(), tmsg.GetId())
+}
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)

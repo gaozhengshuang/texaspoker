@@ -59,19 +59,8 @@ module game {
 			this.baseIncomeTxt.text = numAddSpace(data.attr.reward) + "金币";
 			this.taxRateTxt.text = "扣税（" + gameConfig.tradeTaxRate * 100 + "%）";
 
-			let carDef = TradeManager.getInstance().getCarDefine(data.tid);
-			if (carDef) {
-				let brandDef = TradeManager.getInstance().getCarBrandDefine(carDef.Brand);
-				let modelDef = TradeManager.getInstance().getCarModelDefine(carDef.Model);
-				let name = '';
-				if (brandDef && modelDef) {
-					name = brandDef.Brand + '-' + modelDef.Model;
-				}
-				this.nameLabel.text = name;
-			}
-			else {
-				this.nameLabel.text = '';
-			}
+			let carName = TradeManager.getInstance().getCarName(data.tid);
+			this.nameLabel.text = carName;
 			this.totalTimeLabel.text = "保留" + gameConfig.tradeTime / 3600 + "小时交易时间";
 			//其他信息
 			//其他信息显示

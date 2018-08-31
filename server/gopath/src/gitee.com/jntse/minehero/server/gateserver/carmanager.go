@@ -14,6 +14,7 @@ import (
 	"strconv"
 	"time"
 	"math"
+	"strings"
 )
 
 const (
@@ -177,10 +178,10 @@ func (this *CarData) PackBin() *msg.CarData {
 	return this.data
 }
 
-func (this *CarData) SaveBin(pipe redis.Pipeliner) {
+func (this *CarData) SaveBin(pipe redis.Pipeliner,force bool) {
 	key := fmt.Sprintf("cars_%d", this.data.GetId())
 	if pipe != nil {
-		if this.modified {
+		if this.modified || force {
 			if err := utredis.SetProtoBinPipeline(pipe, key, this.PackBin()); err != nil {
 				log.Error("打包车辆[%d]数据失败", this.data.GetId())
 				return
@@ -277,10 +278,10 @@ func (this *ParkingData) PackBin() *msg.ParkingData {
 	return this.data
 }
 
-func (this *ParkingData) SaveBin(pipe redis.Pipeliner) {
+func (this *ParkingData) SaveBin(pipe redis.Pipeliner,force bool) {
 	key := fmt.Sprintf("parkings_%d", this.data.GetId())
 	if pipe != nil {
-		if this.modified {
+		if this.modified || force {
 			if err := utredis.SetProtoBinPipeline(pipe, key, this.PackBin()); err != nil {
 				log.Error("打包车位[%d]数据失败", this.data.GetId())
 				return
@@ -342,6 +343,7 @@ func (this *CarManager) Init() {
 	this.usercars = make(map[uint64]map[uint64]uint64)
 	this.parkings = make(map[uint64]*ParkingData)
 	this.userparkings = make(map[uint64][]uint64)
+	this.partlevelupconfs = make(map[uint32]map[uint32]*table.TCarPartLevelupDefine)
 
 	this.ticker1Minite = util.NewGameTicker(time.Minute, this.Handler1MiniteTick)
 	this.ticker1Minite.Start()
@@ -351,6 +353,7 @@ func (this *CarManager) Init() {
 
 	this.LoadCarFromDB()
 	this.LoadParkingFromDB()
+	this.LoadLevelupConf()
 
 	//创建公共车位
 	for _, v := range this.parkings {
@@ -432,10 +435,10 @@ func (this *CarManager) LoadParkingFromDB() {
 
 func (this *CarManager) LoadLevelupConf() {
 	for _, v := range tbl.TCarPartLevelupBase.TCarPartLevelupById {
-		levelupConfForPart := this.partlevelupconfs[v.Partid]
+		levelupConfForPart := this.partlevelupconfs[v.Quality]
 		if levelupConfForPart == nil {
 			levelupConfForPart = make(map[uint32]*table.TCarPartLevelupDefine,0)
-			this.partlevelupconfs[v.Partid] = levelupConfForPart
+			this.partlevelupconfs[v.Quality] = levelupConfForPart
 		}
 		levelupConfForPart[v.Level] = v
 	}
@@ -520,7 +523,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string,pri
 
 	car.modified = false
 
-	car.SaveBin(nil)
+	car.SaveBin(nil,true)
 	Redis().SAdd(CarIdSetKey, carid)
 	this.AddCar(car)
 	return car
@@ -761,7 +764,7 @@ func (this *CarManager) CreateNewParking(ownerid uint64, tid uint32, name string
 	data.Houseid = pb.Uint64(hid)
 	parking.data = data
 	parking.modified = false
-	parking.SaveBin(nil)
+	parking.SaveBin(nil,true)
 	Redis().SAdd(ParkingIdSetKey, parkingid)
 	this.AddParking(parking)
 	return parking
@@ -974,7 +977,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 	targetExp := partData.GetExp()
 	costMoney := uint32(0)
 	targetExp = targetExp + addExp
-	levelupConf := this.GetCarPartLevelupConf(partData.GetPartid(),targetlevel)
+	levelupConf := this.GetCarPartLevelupConf(parttemplate.Quality,targetlevel)
 	if levelupConf == nil {
 		user.SendNotify("没有升级到这一级的配置")
 		return 8,nil
@@ -989,7 +992,7 @@ func (this *CarManager) CarPartLevelup(user *GateUser,carid uint64,parttype uint
 		targetExp = targetExp - levelupConf.Exp
 		costMoney = costMoney + levelupConf.Cost
 		if targetlevel < parttemplate.MaxLevel {
-			levelupConf = this.GetCarPartLevelupConf(partData.GetPartid(),targetlevel)
+			levelupConf = this.GetCarPartLevelupConf(parttemplate.Quality,targetlevel)
 			if levelupConf == nil {
 				user.SendNotify("没有升级到这一级的配置")
 				return 8,nil
@@ -1040,14 +1043,43 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 		user.SendNotify("已经满星了")
 		return 4,nil
 	}
+	starupCarBase,find := tbl.TStarupCarBase.TStarupCarById[car.GetStar()]
+	if !find {
+		user.SendNotify("没有升星的配置文件")
+		return 5,nil
+	}
+	//看看东西够不够
+	if starupCarBase.Money > user.GetGold() {
+		user.SendNotify("货币不足")
+		return 6,nil
+	}
+	costItem := make(map[uint32]uint32)
+	for _,v := range starupCarBase.Item {
+		itemstr := strings.Split(v,"-")
+		itemid, _ := strconv.Atoi(itemstr[0])
+		itemnum, _ := strconv.Atoi(itemstr[1])
+		if user.bag.GetItemNum(uint32(itemid)) < uint32(itemnum) {
+			user.SendNotify(fmt.Sprintf("道具 %d 不足",itemid))
+			return
+		}
+		costItem[uint32(itemid)] = uint32(itemnum)
+	}
+
 	car.data.Star = pb.Uint32(car.GetStar() + 1)
 	attr := this.CalculateCarAttribute(car.data)
 	car.SetAttribute(attr)
+
+	//扣东西
+	user.RemoveGold(starupCarBase.Money, "车辆升星消耗", true)
+	for k,v := range costItem {
+		user.RemoveItem(k,v,"车辆升星消耗")
+	}
+
 	return 0,car.data
 }
 
-func (this *CarManager) GetCarPartLevelupConf(partid uint32,level uint32) *table.TCarPartLevelupDefine {
-	partLevelupGroup := this.partlevelupconfs[partid]
+func (this *CarManager) GetCarPartLevelupConf(quality uint32,level uint32) *table.TCarPartLevelupDefine {
+	partLevelupGroup := this.partlevelupconfs[quality]
 	if partLevelupGroup == nil {
 		return nil
 	}else{
@@ -1070,14 +1102,14 @@ func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
 	}
 }
 
-func (this *CarManager) SaveAllData() {
+func (this *CarManager) SaveAllData(force bool) {
 	pipe := Redis().Pipeline()
 
 	for _, v := range this.cars {
-		v.SaveBin(pipe)
+		v.SaveBin(pipe,force)
 	}
 	for _, v := range this.parkings {
-		v.SaveBin(pipe)
+		v.SaveBin(pipe,force)
 	}
 	_, err := pipe.Exec()
 	if err != nil {
@@ -1114,7 +1146,7 @@ func (this *CarManager) Tick(now int64) {
 }
 
 func (this *CarManager) Handler1MiniteTick(now int64) {
-	this.SaveAllData()
+	this.SaveAllData(false)
 }
 
 func (this *CarManager) Handler1SecondTick(now int64) {

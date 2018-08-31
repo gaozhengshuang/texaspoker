@@ -66,15 +66,7 @@ module game {
 				this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";
 				this.nameLabel.text = data.name;
 
-				let posName = '';
-				let province = TradeManager.getInstance().getCityDefine(data.location);
-				if (province) {
-					posName = province.Name;
-				}
-				let city = TradeManager.getInstance().getCityDefine(data.sublocation);
-				if (city) {
-					posName += city.Name;
-				}
+				let posName = TradeManager.getInstance().getHouseName(data.location, data.sublocation);
 				this.posTxt.text = posName;
 				// this.posTxt.textFlow = TextUtil.parse('<u>' + posName + '</u>');
 			}
