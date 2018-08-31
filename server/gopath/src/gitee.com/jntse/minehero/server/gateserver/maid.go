@@ -554,12 +554,6 @@ func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 	send := &msg.GW2C_EnableMaidDropTo{Houses:make([]*msg.HouseData,0)}
 	send.Houses = append(send.Houses, drophouses...)
 	user.SendMsg(send)
-	ma.SendHouseMaids(user, maid.HouseId())		// 刷新被掠夺玩家房间
-
-	// 刷新房主房间
-	if owner := UserMgr().FindById(maid.OwnerId()); owner != nil {
-		ma.SendHouseMaids(owner, maid.HouseId())
-	}
 }
 
 func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64) bool {
@@ -605,6 +599,12 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 	// 掠夺到我的房间
 	ma.RobMaidToHouse(user, maid, dropto)
 	ma.SendHouseMaids(user, maid.HouseId())		// 刷新被掠夺玩家房间
+
+	// 通知房主刷新房间
+	if owner := UserMgr().FindById(maid.OwnerId()); owner != nil {
+		ma.SendHouseMaids(owner, maid.HouseId())
+	}
+
 	return true
 }
 
@@ -650,19 +650,22 @@ func (ma *MaidManager) TackBackMaid(user *GateUser, uid uint64) {
 	total := float64(elapse * int64(levelbase.ProduceGold)) / float64(levelbase.ProduceTime)
 	house.AddVisitInfo(user.Id(), maid.HouseId(), 0, uint32(msg.HouseVisitType_TakeBackMaid), uint32(total), user.Name(), true)
 
-	// 通知屋主刷新房间
-	if owner := UserMgr().FindById(maid.RobberId()); owner != nil {
-		ma.SendHouseMaids(owner, maid.HouseId())
-	}
 
 	// 清除掠夺者
-	delete(ma.housemaids[maid.RobberTo()], maid.Id())
+	robberhouse, robberid  := maid.RobberTo(), maid.RobberId()
+	delete(ma.housemaids[robberhouse], maid.Id())
 	maid.SetRobber(0, "", 0)
 	maid.SetTimeStart(util.CURTIME())
 	log.Info("[女仆] 女仆[%d]被夺回到房间", maid.Id())
 
 	ma.SendHouseMaids(user, house.id)		// 刷新掠夺者的房间
 	user.SendNotify("您的女仆已领回")
+
+	// 通知屋主刷新房间
+	if owner := UserMgr().FindById(robberid); owner != nil {
+		ma.SendHouseMaids(owner, robberhouse)
+	}
+
 }
 
 // 送回女仆
@@ -696,6 +699,7 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 	user.AddGold(uint32(total), "领取掠夺女仆收益", true)
 	ma.ItemProduce(user, maid, "领取掠夺女仆")
 
+
 	// 清除掠夺者
 	robberhouse := maid.RobberTo()
 	delete(ma.housemaids[maid.RobberTo()], maid.Id())
@@ -706,8 +710,14 @@ func (ma *MaidManager) SendBackMaid(user *GateUser, uid uint64) {
 	}
 	log.Info("[女仆] 女仆[%d]被送回到房间", maid.Id())
 
-	//
-	ma.SendHouseMaids(user, robberhouse)		// 刷新掠夺者的房间
+	// 刷新掠夺者的房间
+	ma.SendHouseMaids(user, robberhouse)
+
+	// 通知女仆主人被送回
+	if owner := UserMgr().FindById(maid.OwnerId()); owner != nil {
+		ma.SendHouseMaids(owner, maid.HouseId())
+	}
+
 }
 
 // 领取掠夺女仆奖励
