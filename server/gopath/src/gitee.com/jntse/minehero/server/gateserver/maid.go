@@ -763,7 +763,8 @@ func (ma *MaidManager) RobMaidToHouse(user *GateUser, maid *Maid, houseid uint64
 func (ma *MaidManager) IsHouseCanDropRobMaid(houseid uint64) bool {
 	maids, count := ma.GetHouseMaids(houseid), 0
 	for _, v := range maids {
-		if v.RobberId() != 0 && v.RobberId() == v.OwnerId() { count++ }
+		if v.HouseId() == houseid { continue }
+		if v.RobberId() != 0 { count++ }
 	}
 	return count <= 0
 }
