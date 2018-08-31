@@ -4,6 +4,7 @@ module game {
         downBtnGroup        : eui.Group;
         down_bg             : eui.Group;
         down_bg_partpiece   : eui.Group;
+        starsGroup          : eui.Group;
 
         carIcon             : eui.Image;
         btnDriveAwayBg      : eui.Image;
@@ -27,6 +28,7 @@ module game {
         btnState            : IconButton;
 
         hideList_btn        : eui.Button;
+        starUpBtn           : eui.Button;
 
         Battery             : CarPartInfoItem;
         Engine              : CarPartInfoItem;
@@ -42,16 +44,6 @@ module game {
 
         private curPartType : msg.CarPartType;
         private _usePartPieceFlag : number  = 0; //配件碎片升级是否可用标识
-
-
-        public static CarPartPieceIDs  = 
-        [
-            {type:msg.CarPartType.Tyre,     id:10009},
-            {type:msg.CarPartType.Tank,     id:10008},
-            {type:msg.CarPartType.Trunk,    id:10007},
-            {type:msg.CarPartType.Engine,   id:10005},
-            {type:msg.CarPartType.Battery,  id:10006},
-        ];
 
         protected getSkinName() {
             return CarDetailInfoSkin;
@@ -78,6 +70,7 @@ module game {
             this.btnState.icon = "uiCarAltas_json.stateBtn";
             this.btnDriveAwayBg.source = "uiCarAltas_json.driveBtn";
             this.hideList_btn.visible = false;
+            this.starUpBtn.visible = false;
             this._inited   = false;
         }
 
@@ -89,7 +82,8 @@ module game {
                 { target: this.btnNeighbor, callBackFunc: this.goToPublicParkingLot },
                 { target: this.btnState, callBackFunc: this.OnClickState },
                 { target: this.hideList_btn, callBackFunc: this.onclick_hideList },
-                
+                { target: this.starUpBtn, callBackFunc: this.onStarUpHandle},
+
             ];
 
             this.listIndex = 0;
@@ -111,6 +105,7 @@ module game {
             if(!carData) return;
             this.carData = carData;
             this.updateView();
+            this.checkCarStarUp();
         }
         private updateView()
         {   
@@ -127,11 +122,11 @@ module game {
                 this.carIcon.height    = txtr.textureHeight * factor;
             }
             //名字+价格
-            this.carNameTxt.text = carItemData.Brand+""+carItemData.Model;
+            this.carNameTxt.text = table.TCarBrandById[carItemData.Brand].Brand +""+ table.TCarModelById[carItemData.Model].Model;
             //this.carInfoTxt.text = "汽车容量" + carItemData.Capacity + "\n"+"收益" + carItemData.RewardPerH + "/分钟";
 
 
-            this.InfoTxt_1.text = carItemData.Brand+""+carItemData.Model + "  起始价值" + carItemData.Price;
+            this.InfoTxt_1.text = table.TCarBrandById[carItemData.Brand].Brand +""+ table.TCarModelById[carItemData.Model].Model + "  起始价值" + carItemData.Price;
             this.InfoTxt_2.textFlow =[
                 {text:"停车："+this.carData.attr.reward+"金币/分钟"},
                 {text:"\n"+"区域："+this.carData.attr.range+"公里"},
@@ -156,7 +151,7 @@ module game {
                     case msg.CarPartType.Trunk:
                         this.Trunk.setData(data);
                     break;
-                    case msg.CarPartType.Engine:
+                    case msg.CarPartType.Engine:    
                         this.Engine.setData(data);
                     break;
                     case msg.CarPartType.Battery:
@@ -164,7 +159,10 @@ module game {
                     break;
                 }
             }
-
+            //星级
+            for (let index = 0; index < this.starsGroup.numChildren; index++) {
+                this.starsGroup.getChildAt(index).visible  = this.carData.star > index; 
+            }
             //停放状态
             let _parkingData = DataManager.playerModel.getMyCarPakingInfo(this.carData.id);
             let haveParked = _parkingData!=null || (this.carData.reward && this.carData.reward.money!=0);
@@ -279,6 +277,10 @@ module game {
                     }
                 });
             }
+        }
+        private onStarUpHandle()
+        {
+            this.carStraUp();
         }
  
     //--------------邻居和动态列表----------------------------------//
@@ -510,50 +512,76 @@ module game {
                 CarPublicParkingLotManager.getInstance().UpdateData(parkingDatas);
             });
         }
-        //-------------配件碎片-----------------------------------------------------------//
+        //-------------配件升级和车辆升星-----------------------------------------------------------//
         public showPieceList(type:msg.CarPartType){
             this.curPartType = type;
             //获取背包中配件类型物品列表
             let dataList = DataManager.playerModel.getBagItemsByType(msg.ItemType.CarParts);
             //获取对应配件碎片类型的物品列表
-            let imageId = CarDetailView.CarPartPieceIDs.filter(data=>{return data.type==type})[0].id;
             dataList = dataList.filter(data=>{
-                let ietmBaseData = table.ItemBaseDataById[data.id];
-                return ietmBaseData.ImageId== imageId;
+                let itemBaseData = table.ItemBaseDataById[data.id];
+                let carPartPieceData = table.TLevelCarPartById[itemBaseData.ImageId];
+                return carPartPieceData.PartType== type;
             });
-            
-            let _newItemData = new msg.ItemData();
-            _newItemData.id = 130021;
-            dataList.push(_newItemData);
-
-            _newItemData = new msg.ItemData();
-            _newItemData.id = 130022;
-            dataList.push(_newItemData);
-
-            _newItemData = new msg.ItemData();
-            _newItemData.id = 130023;
-            dataList.push(_newItemData);
-
-            let dataBaseList : table.IItemBaseDataDefine[]= dataList.map(data=>{return table.ItemBaseDataById[data.id]});
-            this.partPieceList.visible = true;
-            this.partPieceList.setData(dataBaseList);
+            if(dataList.length==0){
+                showTips("碎片数量不足！");
+            }
+            else{
+                let dataBaseList : table.IItemBaseDataDefine[]= dataList.map(data=>{return table.ItemBaseDataById[data.id]});
+                dataBaseList.sort(function(a,b){return a.Color - b.Color});
+                this.partPieceList.visible = true;
+                this.partPieceList.setData(dataBaseList);
+            }
         }
-
+        //使用配件碎片升级
         public usePartPiece(partType:msg.CarPartType,pieces:msg.ICarPartPiece[],funcs:Function[]=[])
         {   
             if(partType!=this.curPartType){
                 console.log("和当前配件类型不一致");
                 return;
             }
-            let self = this;
-            self._usePartPieceFlag = 0;
-            CarManager.getInstance().ReqCarPartLevelup(this.carData.id,partType,pieces,function(result:number,carData:msg.ICarData){
-                if(result==1){
-                    //self.showPieceList(this.curPartType);
-                    self.setData(carData);
-                    funcs.forEach(func=>{if(func){func();}});
+            let carPartData = this.carData.parts.filter(partData=>{return partData.parttype==partType})[0];
+            if(carPartData){
+                let partDef = table.TCarPartById[carPartData.partid];
+                if(carPartData.level<partDef.MaxLevel){
+                    let self = this;
+                    self._usePartPieceFlag = 0;
+                    CarManager.getInstance().ReqCarPartLevelup(this.carData.id,partType,pieces,function(result:number,carData:msg.ICarData){
+                        if(result==1){
+                            //self.showPieceList(this.curPartType);
+                            self.setData(carData);
+                            funcs.forEach(func=>{if(func){func();}});
+                        }
+                        self._usePartPieceFlag = 1;
+                    });
                 }
-                self._usePartPieceFlag = 1;
+                else{
+                    console.warn("配件已满级--->"+carPartData.partid);
+                    return;
+                }
+            }
+            else{
+                console.warn("没有这个类型的配件--->"+partType);                
+                return;
+            }
+        }
+
+        //检测车辆升星
+        private checkCarStarUp()
+        {
+            let canStarUp = this.carData.parts.every(partData=>{
+                let carDef  = table.TCarById[this.carData.tid];
+                return this.carData.star< carDef.MaxStar  &&  partData.level > this.carData.star;
+            });
+            this.starUpBtn.visible = canStarUp;
+        }
+
+        //车辆升星
+        private carStraUp()
+        {
+            let self = this;
+            CarManager.getInstance().ReqCarStarUp(this.carData.id,function(result:number,carData:msg.ICarData){
+                self.setData(carData);
             });
         }
         //-----------------------------------------------------------------------------//

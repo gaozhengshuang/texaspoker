@@ -98,7 +98,7 @@ module game {
             this.initItemList();
             this.carFilter.initItemList();
             this.CarFilterDatas = table.TCar.map(data=>{
-                return new CarFilterData(CarShop.sortType.BRAND,data.Brand,data.Model); 
+                return new CarFilterData(CarShop.sortType.BRAND,table.TCarBrandById[data.Brand].Brand,table.TCarModelById[data.Model].Model); 
             });     
         }
         public initItemList() {
@@ -289,7 +289,7 @@ module game {
                 datas =  datas.filter(data=>{
                     let carShopItemData :table.ITCarShopDefine = table.TCarShopById[data.pid];
                     let carItemData :table.ITCarDefine = table.TCarById[carShopItemData.Carid];
-                    return carItemData.Brand== value;
+                    return table.TCarBrandById[carItemData.Brand].Brand == value;
                 });
             }
             else if(type == CarShop.sortType.MODEL)
@@ -297,7 +297,7 @@ module game {
                 datas =  datas.filter(data=>{
                     let carShopItemData :table.ITCarShopDefine = table.TCarShopById[data.pid];
                     let carItemData :table.ITCarDefine = table.TCarById[carShopItemData.Carid];
-                    return (carItemData.Brand+""+carItemData.Model)== value;
+                    return getCarName(carItemData.Id)== value;
                 });
             }
             else if(type == CarShop.sortType.PRICEUP)

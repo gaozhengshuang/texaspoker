@@ -47,7 +47,7 @@ module game {
             }
             //名字
             this.carNameTxt.textFlow = [
-                { text: carItemData.Brand+"-"+carItemData.Model, style: { bold: true } },
+                { text: getCarName(carItemData.Id), style: { bold: true } },
             ]
             //属性
             let _carPartItemData = table.TCarPartById[carItemData.Tyre];

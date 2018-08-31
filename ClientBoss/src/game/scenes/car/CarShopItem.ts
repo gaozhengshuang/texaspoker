@@ -57,7 +57,7 @@ module game {
                 if(!tCarItemData) return;
                 //名字
                 this.ItemName.textFlow = [
-                    {text:""+tCarItemData.Brand+"-"+tCarItemData.Model}
+                    {text:""+getCarName(tCarItemData.Id,"-")}
                 ]
                 //收益]
                 let _carPartItemData = table.TCarPartById[tCarItemData.Tyre];

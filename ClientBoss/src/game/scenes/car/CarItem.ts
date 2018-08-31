@@ -46,7 +46,7 @@ module game {
             
             //名字
             this.ItemName.textFlow = [
-                { text: this.itemData.Brand+""+this.itemData.Model, style: { bold: true } },
+                { text: table.TCarBrandById[this.itemData.Brand].Brand+""+table.TCarModelById[this.itemData.Model].Model, style: { bold: true } },
                 //{ text: `:${gold}`, style: { fontFamily: "DynoBold" } },
             ]
 

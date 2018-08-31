@@ -68,12 +68,12 @@ module game {
                 console.log("累计时间---->",dateTime.getTime());
                 this.timeTxt.textFlow = [
                     { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
-                ] */
+                ]
                 this.infoTxt.textFlow = [
-                    { text: data.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 20,"textColor":0x5f6163,bold:true} },
+                    { text: data.parkingcarownername+"："+getCarName(_parkingCarData.Id), style: { size : 20,"textColor":0x5f6163,bold:true} },
                     //{ text: "\n", style: { size : 18} },                    
                     //{ text: "\n"+ timeStr,style: { size : 24,"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},
-                ]
+                ] */
                 //SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
             }
 

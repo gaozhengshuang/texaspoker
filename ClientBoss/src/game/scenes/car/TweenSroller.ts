@@ -76,9 +76,9 @@ module game {
 
             if (this.listGroup.y != this.btnGoalY) {
                 this._tweenCompleted = false;
-                egret.Tween.get(this.listGroup).to({ y: this.btnGoalY }, 300).
+                egret.Tween.get(this.listGroup).to({ y: this.btnGoalY }, 250).
                 call(this.onComplete, this, []);  
-                egret.Tween.get(this.down_bg).to({ height: this.goalH}, 300);
+                egret.Tween.get(this.down_bg).to({ height: this.goalH}, 250);
             }else{
                 this.onComplete();
             }
@@ -107,10 +107,10 @@ module game {
             let self = this;
             self._tweenCompleted = false;
             //self.sr_item.height  =  gameConfig.curHeight()* 0.79;
-            egret.Tween.get(this.listGroup).to({ y: this.oldY }, 300).call(function(){
+            egret.Tween.get(this.listGroup).to({ y: this.oldY }, 200).call(function(){
                 self._tweenCompleted = true;
             });
-            egret.Tween.get(this.down_bg).to({ height: this.oldH }, 300);
+            egret.Tween.get(this.down_bg).to({ height: this.oldH }, 200);
             this.visible = false;
         }
 

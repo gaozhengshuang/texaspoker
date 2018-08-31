@@ -68,7 +68,7 @@ module game {
                     { text: timeStr,style: {"textColor":0xFFFFFF,"stroke":2,"strokeColor":0x5f6163}},   
                 ]
                 this.infoTxt.textFlow = [
-                    { text: this.itemData.parkingcarownername+"："+_parkingCarData.Brand+_parkingCarData.Model, style: { size : 22,"textColor":0xffe776,bold:true} },
+                    { text: this.itemData.parkingcarownername+"："+getCarName(_parkingCarData.Id), style: { size : 22,"textColor":0xffe776,bold:true} },
                 ]
 
                 CarPublicParkingLotManager.getInstance().addFunction(this.runningTimer,this);
