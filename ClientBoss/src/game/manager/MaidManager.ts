@@ -3,7 +3,8 @@ module game {
         static MAID_UPDATE = "MAID_UPDATE";
         static HOUSEMAID_UPDATE = "HOUSEMAID_UPDATE";
 
-        private _curSelHouse: number;
+        public _curSelHouse: number;
+        public _startHouse: number;
 
         private _personalImage: msg.IItemData[];
         private _houseMaidInfo: msg.GW2C_SendHouseMaidInfo;
@@ -42,14 +43,6 @@ module game {
 
         public getHouseMaidInfo () {
             return this._houseMaidInfo;
-        }
-
-        public getCurHouseId() {
-            return this._curSelHouse;
-        }
-
-        public setCurHouseId(houseId: number) {
-            this._curSelHouse = houseId;
         }
 
         private static _instance: MaidManager;

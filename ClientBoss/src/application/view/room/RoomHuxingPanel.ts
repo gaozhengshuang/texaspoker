@@ -312,7 +312,7 @@ module game {
 							houseMaid.x = Number(maidPos[0]);
 							houseMaid.y = Number(maidPos[1]);
 
-							MaidManager.getInstance().setCurHouseId(this.roomInfo.rId);
+							MaidManager.getInstance()._curSelHouse = this.roomInfo.rId;
 							houseMaid.show(maidInfo);
 						}
 					}

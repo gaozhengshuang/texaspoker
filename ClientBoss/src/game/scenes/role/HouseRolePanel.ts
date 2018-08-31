@@ -78,16 +78,23 @@ module game {
             this.levelInfo = table.TLevelMaidById[this._maidInfo.level];
             if(!this.levelInfo) return;
 
-            this._roleBone.visible = this._maidInfo.robberid == 0;
-            this.maidBomBgImg.visible = this._maidInfo.robberid == 0;
             if (this.isMyMaid()) {    //女仆是自己的
-                this.blackMaidImg.visible = this._maidInfo.robberid != 0;
-                this.helpImg.visible = this._maidInfo.robberid != 0;
+                this.helpImg.visible = this.isRobber();
 
-                if (this._maidInfo.robberid == 0) {     //女仆没有被抢
-                    this.goldImg.visible = this.isTimeGet();
-                } else {    //女仆被抢了
-                    this.goldImg.visible = true;
+                if (this.isInMyHouse()) {
+                    this._roleBone.visible = !this.isRobber();
+                    this.maidBomBgImg.visible = !this.isRobber();
+                    this.blackMaidImg.visible = this.isRobber();
+
+                    if (!this.isRobber()) {     //女仆没有被抢
+                        this.goldImg.visible = this.isTimeGet();
+                    } else {    //女仆被抢了
+                        this.goldImg.visible = false;
+                    }
+                } else {
+                    this._roleBone.visible = true;
+                    this.maidBomBgImg.visible = true;
+                    this.blackMaidImg.visible = false;
                 }
             } else {    //女仆是别人的
                 this.blackMaidImg.visible = false;
@@ -98,6 +105,14 @@ module game {
                 } else {    //不是我抢的女仆
                     this.goldImg.visible = false;
                 }
+                
+                if (this.isInMyHouse()) {
+                    this._roleBone.visible = true;
+                    this.maidBomBgImg.visible = true;
+                } else {
+                    this._roleBone.visible = !this.isRobber();
+                    this.maidBomBgImg.visible = !this.isRobber();
+                }
             }
 
             this.updateLabelState();
@@ -105,11 +120,11 @@ module game {
 
         private roleTouchEvent() {
             if (this.isMyMaid()) {
-                if (this._maidInfo.robberid == 0) {
+                if (!this.isRobber()) {
                     openPanel(PanelType.dress);
                 } else {
-                    if (this._maidInfo.houseid == MaidManager.getInstance().getCurHouseId()) { //点黑影操作
-                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: this._maidInfo.robberto, return: MaidManager.getInstance().getCurHouseId()});
+                    if (this._maidInfo.houseid == MaidManager.getInstance()._curSelHouse) { //点黑影操作
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: this._maidInfo.robberto, return: MaidManager.getInstance()._curSelHouse});
                     } else {
                         sendMessage("msg.C2GW_TackBackMaid", msg.C2GW_TackBackMaid.encode({
                             id: this._maidInfo.id
@@ -117,12 +132,12 @@ module game {
                     }
                 }
             } else {
-                if (this._maidInfo.robberid == 0) {
+                if (!this.isRobber()) {
                     let dialogStr = "是否抢夺"+this._maidInfo.ownername+"家的女仆";
                     showDialog(dialogStr, "确定", function () {
                         sendMessage("msg.C2GW_RobMaid", msg.C2GW_RobMaid.encode({
                             id: this._maidInfo.id,
-                            dropto: MaidManager.getInstance().getCurHouseId()
+                            dropto: MaidManager.getInstance()._startHouse
                         }));
                     }.bind(this));
 
@@ -148,7 +163,7 @@ module game {
 
         private updateLabelState() {
             if (this.isMyMaid()) {
-                if (this._maidInfo.robberid == 0) {
+                if (!this.isRobber()) {
                     if (this.isTimeGet()) {
                         this.nameLabel.strokeColor = 0x2cbc25;
                         this.TimeLabel.strokeColor = 0x2cbc25;
@@ -181,11 +196,24 @@ module game {
                     let timeStr = sDhFilter(Number(this.levelInfo.ProduceTime) - (Math.floor(new Date().getTime() / 1000) - Number(this._maidInfo.tmworking)), ":");
                     this.TimeLabel.text = `Lv.${this._maidInfo.level}  ${timeStr}`;
                 }
+
+                if (!this.isInMyHouse() && this.isRobber()) {
+                    this.nameLabel.text = "";
+                    this.TimeLabel.text = "";
+                }
             }
         }
 
         private isMyMaid() {
             return this._maidInfo.ownerid == DataManager.playerModel.getUserId();
+        }
+
+        private isInMyHouse() {
+            return MaidManager.getInstance()._startHouse == MaidManager.getInstance()._curSelHouse;
+        }
+
+        private isRobber() {
+            return this._maidInfo.robberid != 0;
         }
 
         private isTimeGet() {
