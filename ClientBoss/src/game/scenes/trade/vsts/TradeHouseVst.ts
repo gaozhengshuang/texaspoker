@@ -29,6 +29,8 @@ module game {
 		public typeFilter: FilterComponent;
 		private _tradeDp: eui.ArrayCollection;
 
+		// private _houseScroller:utils.VScrollerPanel;
+
 
 		public init() {
 			this.context.houseAreaBtn.label = '地域';
@@ -36,7 +38,7 @@ module game {
 			this.context.housePriceBtn.label = '价格';
 
 			this._filterAreaVo = new FilterComponentVo();
-			this._filterAreaVo.dataList = [this.getDefaultFilteItemVo("全国")];
+			this._filterAreaVo.dataList = [this.context.getDefaultFilteItemVo("全国")];
 			this._filterAreaVo.callback1 = new CallBackHandler(this, this.onAreaClick1);
 			this._filterAreaVo.callback2 = new CallBackHandler(this, this.onAreaClick2);
 
@@ -64,7 +66,7 @@ module game {
 
 			this._filterTypeVo = new FilterComponentVo();
 			this._filterTypeVo.isSingle = true;
-			this._filterTypeVo.dataList = [this.getDefaultFilteItemVo()];
+			this._filterTypeVo.dataList = [this.context.getDefaultFilteItemVo()];
 			this._filterTypeVo.callback1 = new CallBackHandler(this, this.onTypeClick1);
 
 			let desList = [];
@@ -92,33 +94,35 @@ module game {
 			this.context.houseGroup.addChild(this.typeFilter);
 
 			//初始化滚动条
+			// this._houseScroller = new utils.VScrollerPanel();
+			// this._houseScroller.height = 775;
+			// this._houseScroller.width = 720;
+			// this._houseScroller.y = 101;
+			// this._houseScroller.x = 0;
+			// this._houseScroller.dataList.useVirtualLayout = true;
+			// this._houseScroller.initItemRenderer(TradeHouseItem);
+			// this.context.houseGroup.addChild(this._houseScroller);
+
 			this.context.houseScroller.dataList.useVirtualLayout = true;
-			this.context.houseScroller.initItemRenderer(TradeHouseItemSkin);
+			this.context.houseScroller.initItemRenderer(TradeHouseItem);
+			this.context.houseScroller.setViewPort();
 			this._tradeDp = new eui.ArrayCollection();
-		}
-		private getDefaultFilteItemVo(des?: string) {
-			let itemVo = new FilterComponentItemVo();
-			if (!des) {
-				itemVo.des = "全部";
-			}
-			else {
-				itemVo.des = des;
-			}
-			itemVo.id = 0;
-			itemVo.type = FilterComponentType.First;
-			return itemVo;
 		}
 		public beforeShow() {
 			super.beforeShow();
 			this.houseFilter.visible = false;
 			this.typeFilter.visible = false;
 
-			this.context.housePriceBtn.onShow();
+			this.context.carPriceBtn.onShow();
+			this.context.carIncomeBtn.onShow();
+			
 			NotificationCenter.addObserver(this, this.onTradeList, 'msg.GW2C_RetHouseTradeList');
+			NotificationCenter.addObserver(this, this.refreshList, PlayerModel.HOUSE_UPDATE);
 		}
 		public beforeRemove() {
 			super.beforeRemove();
 			NotificationCenter.removeObserver(this, 'msg.GW2C_RetHouseTradeList');
+			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
 		}
 		public onClickHandler(event: egret.TouchEvent) {
 			switch (event.target) {
@@ -200,7 +204,7 @@ module game {
 		/**
 		 * 请求数据
 		 */
-		public startReqTradeList() {
+		public startReqTradeList(isClear: boolean = true, isRefresh: boolean = false) {
 			let data: msg.C2GW_ReqHouseTradeList = new msg.C2GW_ReqHouseTradeList();
 			// let data: any = {};
 			let pro = this.selectProvince;
@@ -228,7 +232,20 @@ module game {
 			data.pricedec = this.context.housePriceBtn.state == SortBtnState.Down;
 
 			if (TradeManager.getInstance().tradeHouseInfo && TradeManager.getInstance().tradeHouseInfo.list) {
-				data.startnum = TradeManager.getInstance().tradeHouseInfo.list.length;
+				if (isRefresh) {
+					data.startnum = TradeManager.getInstance().tradeHouseInfo.list.length - 10;
+					if (data.startnum < 0) {
+						data.startnum = 0;
+					}
+				}
+				else {
+					if (isClear) {
+						data.startnum = 0;
+					}
+					else {
+						data.startnum = TradeManager.getInstance().tradeHouseInfo.list.length;
+					}
+				}
 			}
 			else {
 				data.startnum = 0;
@@ -243,6 +260,9 @@ module game {
 			TradeManager.getInstance().tradeHouseInfo = data;
 			this._tradeDp.source = data.list;
 			this.context.houseScroller.refreshData(this._tradeDp);
+		}
+		private refreshList() {
+			this.startReqTradeList(false, true);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="TradeHouseBuyPanelSkin" width="720" height="600" xmlns:e="http://ns.egret.com/eui"
-        xmlns:w="http://ns.egret.com/wing">
+        xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
 	<e:Group id="tweenGroup" width="100%" height="600" x="0" y="0">
 		<e:Image width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" top="0"
 		         alpha="0.9" source="trading_bottom_bar_png" y="0" scaleX="1" scaleY="1" />
@@ -33,16 +33,7 @@
 		<e:Label id="nameLabel" text="城市花园1" fontFamily="Microsoft YaHei" size="20" textColor="0x404A58" touchEnabled="false"
 		         strokeColor="0xFFFFFF" stroke="2" textAlign="center" verticalAlign="middle" anchorOffsetY="10" y="23"
 		         scaleX="1" scaleY="1" horizontalCenter="0" x="314" />
-		<e:Group horizontalCenter="0" y="53" x="266" scaleX="1" scaleY="1">
-			<e:Image id="star5" x="433.5" y="69" scaleX="0.8" scaleY="0.8" source="star_png" />
-			<e:Image id="star0" x="443.5" y="79" scaleX="0.8" scaleY="0.8" source="star_png" />
-			<e:Image id="star1" x="453.5" y="-2" scaleX="0.8" scaleY="0.8" source="star_png" />
-			<e:Image id="star2" x="463.5" y="99" scaleX="0.8" scaleY="0.8" source="star_png" />
-			<e:Image id="star3" x="473.5" y="109" scaleX="0.8" scaleY="0.8" source="star_png" />
-			<e:layout>
-				<e:HorizontalLayout/>
-			</e:layout>
-		</e:Group>
+		<game:TradeStar id="tradeStar" y="53" x="266"/>
 		<e:Button id="buyBtn" label="购买" skinName="CommonBtnSkin" horizontalCenter="0" bottom="30" x="282" y="510" scaleX="1"
 		          scaleY="1" />
 		<e:Label id="timeLabel" text="00:00:00" x="556.68" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0"

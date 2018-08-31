@@ -375,8 +375,8 @@ func (this *HouseData) CanOperate(userid uint64) bool {
 	if this.issell == true {
 		if user := UserMgr().FindById(userid); user != nil {
 			user.SendNotify("房屋出售中，不能操作")
-			return false
 		}
+		return false
 	}
 	return true
 }

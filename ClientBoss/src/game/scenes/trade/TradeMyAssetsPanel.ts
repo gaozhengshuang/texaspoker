@@ -20,7 +20,7 @@ module game {
 		}
 		protected init() {
 			this._dp = new eui.ArrayCollection();
-
+			this.scroller.setViewPort();
 			this.titlePanel.init(this.remove, this);
 		}
 		protected beforeShow() {
@@ -31,33 +31,45 @@ module game {
 		}
 		public setData(flag: TradePanelFlag) {
 			this._flag = flag;
+			this.titlePanel.updateUserInfo(DataManager.playerModel.getUserInfo());
 			switch (flag) {
 				case TradePanelFlag.House:
 					this.desLabel.text = '我的房产';
 					this.scroller.initItemRenderer(TradeHouseSellItem);
-					let list = [];
-					let house: msg.HouseData[] = DataManager.playerModel.getHouse();
-					for (let i: number = 0; i < house.length; i++) {
-						let data = house[i];
-						if (data.buildingid > 0) {
-							list.push(data);
-						}
-					}
+					let list = this.getHouseList();
 					this._dp.source = list;
 					break;
 				case TradePanelFlag.Car:
 					this.desLabel.text = '我的车库';
+					this.scroller.initItemRenderer(TradeCarSellItem);
+					list = DataManager.playerModel.userInfo.cardatas;
+					this._dp.source = list;
 					break;
 			}
 			this.scroller.refreshData(this._dp);
 		}
-
 		//刷新房屋显示
 		private onRefreshHouse(data: msg.GW2C_UpdateHouseDataOne) {
 			if (this._flag == TradePanelFlag.House) {
-				this._dp.source = DataManager.playerModel.getHouse();
+				this._dp.source = this.getHouseList();
 				this.scroller.refreshData(this._dp);
 			}
+			else if (this._flag == TradePanelFlag.Car) {
+				this._dp.source = DataManager.playerModel.userInfo.cardatas;
+				this.scroller.refreshData(this._dp);
+			}
+		}
+
+		private getHouseList(): any[] {
+			let list = [];
+			let house: msg.HouseData[] = DataManager.playerModel.getHouse();
+			for (let i: number = 0; i < house.length; i++) {
+				let data = house[i];
+				if (data.buildingid != 0) {
+					list.push(data);
+				}
+			}
+			return list;
 		}
 
 		private static _instance: TradeMyAssetsPanel = null;

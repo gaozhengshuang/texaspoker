@@ -30,7 +30,7 @@ module game {
 		itemPartBtn: FilterBtn;
 		itemPriceBtn: SortBtn;
 		itemScroller: utils.VScrollerPanel;
-		searchTxt: eui.TextInput;
+		searchTxt: eui.EditableText;
 
 		titlePanel: PageTitlePanel;
 
@@ -42,14 +42,18 @@ module game {
 		}
 		private _vstList: BaseTradeVst[];
 		private _tradeHouseVst: TradeHouseVst;
+		private _tradeCarVst: TradeCarVst;
 
 
 		public constructor() {
 			super();
 		}
 		protected init() {
+			this._isShowEffect = false;
 			this._tradeHouseVst = new TradeHouseVst(this);
-			this._vstList = [this._tradeHouseVst];
+			this._tradeCarVst = new TradeCarVst(this);
+
+			this._vstList = [this._tradeHouseVst, this._tradeCarVst];
 
 			this.titlePanel = new PageTitlePanel();
 			this.addChild(this.titlePanel);
@@ -73,7 +77,8 @@ module game {
 			this.changeBar(this._panelFlag);
 
 			this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
-			NotificationCenter.addObserver(this, this.onGetRecord, "msg.GW2C_RetTradeHouseHistory");
+			NotificationCenter.addObserver(this, this.onGetHouseRecord, "msg.GW2C_RetTradeHouseHistory");
+			NotificationCenter.addObserver(this, this.onGetCarRecord, "msg.GW2C_RetTradeCarHistory");
 
 			this._vstList.forEach((item) => {
 				item.beforeShow();
@@ -87,6 +92,7 @@ module game {
 				item.beforeRemove();
 			});
 			NotificationCenter.removeObserver(this, "msg.GW2C_RetTradeHouseHistory");
+			NotificationCenter.removeObserver(this, "msg.GW2C_RetTradeCarHistory");
 		}
 
 		private onClickHandler(event: egret.TouchEvent, outTarget: any) {
@@ -125,10 +131,12 @@ module game {
 				case TradePanelFlag.House:
 					this.houseGroup.visible = true;
 					this.houseBarBtn.selected = true;
+					this._tradeHouseVst.startReqTradeList();
 					break;
 				case TradePanelFlag.Car:
 					this.carGroup.visible = true;
 					this.carBarBtn.selected = true;
+					this._tradeCarVst.startReqTradeList();
 					break;
 				case TradePanelFlag.Item:
 					this.itemGroup.visible = true;
@@ -141,19 +149,51 @@ module game {
 			}
 		}
 		private getRecord() {
-			let data: msg.C2GW_ReqTradeHouseHistory = new msg.C2GW_ReqTradeHouseHistory();
-			sendMessage("msg.C2GW_ReqTradeHouseHistory", msg.C2GW_ReqTradeHouseHistory.encode(data));
+			switch (this._panelFlag) {
+				case TradePanelFlag.House:
+					let data: msg.C2GW_ReqTradeHouseHistory = new msg.C2GW_ReqTradeHouseHistory();
+					sendMessage("msg.C2GW_ReqTradeHouseHistory", msg.C2GW_ReqTradeHouseHistory.encode(data));
+					break;
+				case TradePanelFlag.Car:
+					data = new msg.C2GW_ReqTradeCarHistory();
+					sendMessage("msg.C2GW_ReqTradeCarHistory", msg.C2GW_ReqTradeCarHistory.encode(data));
+					break;
+			}
 		}
-		private onGetRecord(data: msg.GW2C_RetTradeHouseHistory) {
-			TradeManager.getInstance().tradeRecordInfo = data;
+		private onGetHouseRecord(data: msg.GW2C_RetTradeHouseHistory) {
+			TradeManager.getInstance().tradeHouseRecordInfo = data;
 			openPanel(PanelType.TradeRecordPanel);
+			TradeRecordPanel.getInstance().setData(this._panelFlag);
+		}
+		private onGetCarRecord(data: msg.GW2C_RetTradeHouseHistory) {
+			TradeManager.getInstance().tradeCarRecordInfo = data;
+			openPanel(PanelType.TradeRecordPanel);
+			TradeRecordPanel.getInstance().setData(this._panelFlag);
 		}
 		/**
 		 * 请求交易列表
 		 */
-		public startReqTradeList()
-		{
-			this._tradeHouseVst.startReqTradeList();
+		public startReqHouseTradeList(isClear: boolean) {
+			this._tradeHouseVst.startReqTradeList(isClear);
+		}
+		/**
+		 * 请求交易车辆列表
+		 */
+		public startReqCarTradeList(isClear: boolean) {
+			this._tradeCarVst.startReqTradeList(isClear);
+		}
+
+		public getDefaultFilteItemVo(des?: string) {
+			let itemVo = new FilterComponentItemVo();
+			if (!des) {
+				itemVo.des = "全部";
+			}
+			else {
+				itemVo.des = des;
+			}
+			itemVo.id = 0;
+			itemVo.type = FilterComponentType.First;
+			return itemVo;
 		}
 
 		private static _instance: TradePanel = null;

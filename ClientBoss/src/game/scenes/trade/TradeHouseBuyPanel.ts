@@ -20,6 +20,7 @@ module game {
 		buyBtn: eui.Button; //购买
 		timeLabel: eui.Label; //交易结束时间
 		posTxt: eui.Label; //位置
+		priceLabel: eui.Label;
 
 		cellGroup: eui.Group;
 		cell1: eui.Group;
@@ -53,6 +54,7 @@ module game {
 			this._data = data;
 
 			let houseDef = TradeManager.getInstance().getHouseDefine(data.housebaseid);
+			this.priceLabel.text = numAddSpace(data.price) + "金币";
 			if (houseDef) {
 
 				this.tradeStar.show(data.houselevel);
@@ -103,13 +105,13 @@ module game {
 			super.beforeShow();
 			this.buyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyBtnClick, this);
 			TickUtil.AddSecondsInvoke(this.onTimeCd, this);
-			NotificationCenter.addObserver(this, this.onSellResult, "msg.GW2C_RetBuyTradeHouse");
+			NotificationCenter.addObserver(this, this.onSellResult, PlayerModel.HOUSE_UPDATE);
 		}
 		protected beforeRemove() {
 			super.beforeRemove();
 			this.buyBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyBtnClick, this);
 			TickUtil.RemoveSecondsInvoke(this.onTimeCd, this);
-			NotificationCenter.removeObserver(this, "msg.GW2C_RetBuyTradeHouse");
+			NotificationCenter.removeObserver(this, PlayerModel.HOUSE_UPDATE);
 		}
 		private onBuyBtnClick() {
 			let userinfo = DataManager.playerModel.getUserInfo();
@@ -126,7 +128,7 @@ module game {
 		}
 		private onSellResult(data: msg.GW2C_RetBuyTradeHouse) { //刷新我的房产
 			let houseList: msg.HouseData[] = DataManager.playerModel.getHouse(); //是否要添加一处房子数据
-			this.remove();//todo
+			this.remove();
 			//提示购买成功
 		}
 		private onTimeCd() {

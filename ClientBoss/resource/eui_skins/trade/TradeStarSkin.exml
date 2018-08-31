@@ -7,7 +7,7 @@
 		<e:Image id="star3" x="473.5" y="109" scaleX="0.8" scaleY="0.8" source="star_png"/>
 		<e:Image id="star4" x="433.5" y="69" scaleX="0.8" scaleY="0.8" source="star_png"/>
 		<e:layout>
-		<e:HorizontalLayout gap="-5"/>
+		<e:HorizontalLayout gap="-5" horizontalAlign="center"/>
 		</e:layout>
 	</e:Group>
 </e:Skin>

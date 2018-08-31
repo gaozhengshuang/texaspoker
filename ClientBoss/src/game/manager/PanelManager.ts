@@ -114,6 +114,12 @@ module game {
             case PanelType.MaidLevelUp:
                 panel = RoleLevelUpPanel.getInstance();
                 break;
+            case PanelType.TradeCarBuyPanel:
+                panel = TradeCarBuyPanel.getInstance();
+                break;
+            case PanelType.TradeCarSellPanel:
+                panel = TradeCarSellPanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -153,6 +159,8 @@ module game {
         TradeMyAssetsPanel,
         TradeHouseBuyPanel,
         TradeHouseSellPanel,
-        MaidLevelUp
+        MaidLevelUp,
+        TradeCarBuyPanel,
+        TradeCarSellPanel
     }
 }
