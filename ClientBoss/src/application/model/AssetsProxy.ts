@@ -17,7 +17,7 @@ module game {
 			NotificationCenter.addObserver(this, this.OnGW2C_AckNewPlayerStep, "msg.GW2C_AckNewPlayerStep");
         }
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
-			console.log("有推送");
+			//console.log("有推送");
 			DataManager.playerModel.setHouse(data.datas);
 			this.setHouseAssets(data.datas);
 			if (GameConfig.reqAssets) {

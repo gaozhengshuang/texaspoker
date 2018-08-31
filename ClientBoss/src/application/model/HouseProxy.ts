@@ -16,6 +16,7 @@ module game {
 		public sourceObject: any = { form: 0, param: null };
 
 		public returnRoomInfo: HouseVO = null;
+		public returnRoomId: number = 0;
 		public returnPlayersId: number = 0;
 		public returnType: number = 0;
 
@@ -128,8 +129,8 @@ module game {
 		private updateRoomInfo(datas: any) {
 			if (datas.id == this.currentHouse.rId) {
 				this.currentHouse.setObject(datas);
-				console.log(datas);
-				console.log(this.currentHouse);
+				//console.log(datas);
+				//console.log(this.currentHouse);
 				ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
 			}
 		}
