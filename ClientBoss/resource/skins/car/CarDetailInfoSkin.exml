@@ -26,14 +26,19 @@
 			</e:Skin>
 			</e:skinName>
 		</e:Button>
-		<e:Group id="starsGroup" width="0" height="0" x="463" y="764">
+		<e:Group id="starsGroup" width="0" height="0" x="346" y="764">
 			<e:Image id="star_0" width="40" height="38" x="530" y="753" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
 			<e:Image id="star_1" width="40" height="38" x="540" y="763" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
 			<e:Image id="star_2" width="40" height="38" x="550" y="773" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
 			<e:Image id="star_3" width="40" height="38" x="560" y="783" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
 			<e:Image id="star_4" width="40" height="38" x="570" y="793" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_5" width="40" height="38" x="580" y="803" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_6" width="40" height="38" x="590" y="813" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_7" width="40" height="38" x="600" y="823" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_8" width="40" height="38" x="610" y="833" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_9" width="40" height="38" x="620" y="843" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
 			<e:layout>
-				<e:HorizontalLayout gap="-8"/>
+				<e:HorizontalLayout gap="-8" horizontalAlign="center"/>
 			</e:layout>
 		</e:Group>
 
