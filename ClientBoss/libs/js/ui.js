@@ -14,7 +14,6 @@ buyCarBtnW,buyCarBtnH,
 fujinSwitchBtnW,fujinSwitchBtnH,
 returnBtnW,returnBtnH,
 gameCloseW,gameCloseH;
-returnTradeBtnW,returnTradeBtnH,
 
 window.onload=function(){
 
@@ -72,9 +71,6 @@ window.onload=function(){
     gameCloseH=document.getElementById("gameCloseBtn").clientHeight;
     document.getElementById("gameCloseBtn").style.display='none';
 
-    returnTradeBtnW=document.getElementById("returnTradeBtn").clientWidth;
-    returnTradeBtnH=document.getElementById("returnTradeBtn").clientHeight;
-    document.getElementById("returnTradeBtn").style.display='none';
 }
 
 
@@ -168,10 +164,6 @@ function adaptive(scale){
     document.getElementById("gameCloseBtn").style.height=gameCloseH*scale+"px";
     document.getElementById("gameCloseBtn").style.visibility='visible';
 
-    // document.getElementById("returnTradeBtn").style.display='block';
-    // document.getElementById("returnTradeBtn").style.width=returnTradeBtnW*scale+"px";
-    // document.getElementById("returnTradeBtn").style.height=returnTradeBtnH*scale+"px";
-
     return downPanelH*scale;
 }
 
@@ -226,13 +218,6 @@ function setBtnCallbackFun(fun,body){
         console.log(e.type,e.target);
         if (btnCallBackFun != null) {
             btnCallBackFun('gameClose',btnCallBackBody);
-        }
-    });
-
-    document.getElementById("returnTradeBtn").addEventListener("mousedown", function (e) {
-        console.log(e.type,e.target);
-        if (btnCallBackFun != null) {
-            btnCallBackFun('returnTrade',btnCallBackBody);
         }
     });
 }
@@ -373,28 +358,5 @@ function showShouyiIcon(isHas){
         document.getElementById("shouyiBtn").setAttribute("class", "noShouyi");
     }
 }
-//返回交易面板按钮显隐
-function returnTradeBtnClose(isShow){
-    if (isShow) {
-        document.getElementById("returnTradeBtn").style.display = 'block';
-    }
-    else {
-        document.getElementById("returnTradeBtn").style.display = 'none';
-    }
-}
-//显示egret div
-function showEgretDiv(isShow)
-{
-    if(isShow)
-    {
-      document.getElementsByClassName("egret-player")[0].show();
-    }
-    else
-    {
-      document.getElementsByClassName("egret-player")[0].hide();
-    }
-
-}
-
 
 
