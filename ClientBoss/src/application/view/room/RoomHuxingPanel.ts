@@ -11,6 +11,7 @@ module game {
 		private qiPaoList: QipaoPanel[] = [];
 		private huxingImage: egret.Bitmap;
 		private huxingSprite: egret.Sprite;
+		private maidGroup: eui.Group;
 		public lockMaskSprite: egret.Sprite;
 		public lockMaskItemList: any[] = [];
 
@@ -26,7 +27,13 @@ module game {
 				this.huxingSprite = new egret.Sprite();
 				this.addChild(this.huxingSprite);
 			}
-
+			if (this.maidGroup == null) {
+				this.maidGroup = new eui.Group;
+				this.maidGroup.width = this.width;
+				this.maidGroup.height = this.height;
+				this.maidGroup.touchEnabled = false;
+				this.addChild(this.maidGroup);
+			}
 			this.roomTypeInfo = table.THouseById[this.roomInfo.tId];
 			if (this.roomTypeInfo) {
 				this.huxingImage = new egret.Bitmap();
@@ -48,7 +55,7 @@ module game {
 				this.lockMaskItemList = [];
 				this.y = this.parent.height / 2 - this.height / 2 + 30;
 				this.initQipao(this.roomInfo.housecells);
-				this.initMaid(this.roomTypeInfo);
+				this.updateMaid();
 			}
 		}
 		public addLockMask(index: number) {
@@ -285,8 +292,12 @@ module game {
 				}
 			}
 		}
-		private initMaid(houseInfo: table.ITHouseDefine) {
-			let maidList: string[] = houseInfo.GirlsPosition.split(";");
+
+		public updateMaid() {
+			if (this.maidGroup) {
+				this.maidGroup.removeChildren();
+			}
+			let maidList: string[] = this.roomTypeInfo.GirlsPosition.split(";");
 			if (maidList) {
 				if (MaidManager.getInstance().getHouseMaidInfo()) {
 					for(let i=0; i<MaidManager.getInstance().getHouseMaidInfo().maids.length; i++) {	//房里面可能有我的女仆和掠夺过来的女仆
@@ -294,7 +305,7 @@ module game {
 						let maidPos: string[] = maidList[i].split("-");
 						if (maidPos) {
 							let houseMaid = new HouseRolePanel();
-							this.addChild(houseMaid);
+							this.maidGroup.addChild(houseMaid);
 
 							houseMaid.anchorOffsetX = houseMaid.width / 2;
 							houseMaid.anchorOffsetY = houseMaid.height;
