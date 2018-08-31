@@ -391,6 +391,11 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 		return
 	}
 
+	if car.CanTrade() {
+		this.SendNotify("汽车只有在收回状态下才能交易")
+		return
+	}
+
 	endtime := util.CURTIME() + 86400 * 3
 	strsql := fmt.Sprintf("INSERT INTO cartrade (caruid, price, income, carbaseid, endtime, ownerid, carlevel, cartype, name, carsubtype) VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %s, %d)",car.GetId(), price, car.GetRewardPerM(), car.GetTid(), endtime, car.GetOwnerId(), car.GetStar(), car.GetCarBrand(), "", car.GetCarModel())
 	log.Info("[房屋交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
@@ -405,6 +410,8 @@ func (this *GateUser) TradeCar(caruid uint64, price uint32){
 		return
 	}
 
+	car.data.Tradeuid = pb.Uint64(uint64(LastInsertId))
+	car.data.Tradeendtime = pb.Uint32(uint32(endtime))
 
 	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
