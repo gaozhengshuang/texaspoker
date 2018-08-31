@@ -452,6 +452,12 @@ module game {
                     if (item) {
                         if(item.opttype==5){
                             ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, return: MaidManager.getInstance()._curSelHouse});
+                        }else if(item.opttype==6){
+                            if(item.optparam>0){
+                                //sendMessage("msg.C2GW_TakeRobMaidEarning", msg.C2GW_TakeRobMaidEarning.encode({houseid:data.houseid}));
+                            }else{
+                                this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
+                            }
                         }else{
                             this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
                         }
