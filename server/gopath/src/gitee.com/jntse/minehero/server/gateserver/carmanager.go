@@ -309,6 +309,7 @@ func (this *ParkingData) Parking(car *CarData, username string) {
 	this.data.Parkingcarownerid = pb.Uint64(car.data.GetOwnerid())
 	this.data.Parkingcarownername = pb.String(username)
 	this.data.Parkingcartid = pb.Uint32(car.data.GetTid())
+	this.data.Parkingtime = pb.Uint64(uint64(util.CURTIMEMS()))
 	this.modified = true
 }
 
