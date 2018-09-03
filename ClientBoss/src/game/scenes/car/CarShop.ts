@@ -97,9 +97,14 @@ module game {
             this._inited   = true;
             this.initItemList();
             this.carFilter.initItemList();
+
             this.CarFilterDatas = table.TCar.map(data=>{
                 return new CarFilterData(CarShop.sortType.BRAND,table.TCarBrandById[data.Brand].Brand,table.TCarModelById[data.Model].Model); 
-            });     
+            }); 
+            //品牌、型号表从汽车表分离
+/*             this.CarFilterDatas = table.TCarBrand.map(data=>{return new CarFilterData(CarShop.sortType.BRAND,data.Brand,"");})
+            .concat(table.TCarModel.map(data=>{return new CarFilterData(CarShop.sortType.MODEL,"",data.Model);})); */
+
         }
         public initItemList() {
             this._dataProv = new eui.ArrayCollection();
