@@ -421,6 +421,12 @@ func (this *HouseData) CanTrade() bool {
 		}
 		return false
 	}
+	if !CarMgr().CanSellHouse(user.Id(),this.id) {
+		if user != nil {
+			user.SendNotify("请先收回车辆")
+		}
+		return false;
+	}
 	return true
 }
 

@@ -1109,11 +1109,16 @@ func (this *CarManager) GetParkingCount(uid uint64) uint32{
 	for _, v := range parkings {
 		v.data.GetHouseid();
 		house := HouseSvrMgr().GetHouse(v.data.GetHouseid())
-		if house.tradeuid == 0 {
+		if !house.issell {
 			count = count + 1 
 		}
 	}
 	return count
+}
+
+func (this *CarManager) CanSellHouse(uid uint64,hid uint64){
+	parkings := this.GetParkingByHouse(uid,hid)
+	return this.GetActionCarCount() <= (this.GetParkingCount() - uint32(len(parkings)))
 }
 // 自动从公共车位回收汽车
 func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
