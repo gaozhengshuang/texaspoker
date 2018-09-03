@@ -788,7 +788,7 @@ func (this *CarManager) AddParking(parking *ParkingData) {
 }
 
 // 停车到车位
-func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username string) (result int32) {
+func (this *CarManager) ParkingCar(user* GateUser, carid uint64, parkingid uint64, username string) (result int32) {
 	car := this.GetCar(carid)
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
