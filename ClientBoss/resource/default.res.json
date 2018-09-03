@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,hall_4_json,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,item_1_json,item_2_json",
+			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,hall_4_json,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,item_json",
 			"name": "hall"
 		},
 		{
@@ -93,7 +93,7 @@
 			"url": "assets/texpack/item.json",
 			"type": "sheet",
 			"name": "item_json",
-			"subkeys": "10005_png,10006_png,10007_png,10008_png,10009_png,10011_png,1001_png,110001_png,110002_png,110003_png,110004_png,110005_png,110006_png,110007_png,110008_png,110009_png,110010_png,110011_png,110012_png,110013_png,120001_png,120002_png,120003_png,120004_png,120005_png,2004_png,2006_png,3018_png,5003_png,5004_png,6002_png,6003_png"
+			"subkeys": "110001,110002,110003,110004,110005,110006,110007,110008,110009,110010,110011,110012,110013,120001,120002,120003,120004,130001,130002,130003,130004,130005,130006,130007,130008,130009,130010,130011,130012,130013,130014,130015,130016,130017,130018,130019,130020,130021,130022,130023,130024,130025,140001,60002,60003"
 		},
 		{
 			"url": "assets/texpack/cube.json",
@@ -372,14 +372,12 @@
 		{
 			"url": "assets/texpack/item_1.json",
 			"type": "sheet",
-			"name": "item_1_json",
-			"subkeys": "10005_png,10006_png,10007_png,10008_png,10009_png,10011_png,1001_png,110001_png,110002_png,110003_png,110004_png,110005_png,110006_png,110007_png,110008_png,110009_png,110010_png,110011_png,110012_png,110013_png,120001_png,120002_png,120003_png,120004_png,120005_png,2004_png,2006_png,3018_png,5003_png,5004_png,6002_png,6003_png"
+			"name": "item_1_json"
 		},
 		{
 			"url": "assets/texpack/item_2.json",
 			"type": "sheet",
-			"name": "item_2_json",
-			"subkeys": "130001_png,130002_png,130003_png,130004_png,130005_png,130006_png,130007_png,130008_png,130009_png,130010_png,130011_png,130012_png,130013_png,130014_png,130015_png,130016_png,130017_png,130018_png,130019_png,130020_png,130021_png,130022_png,130023_png,130024_png,130025_png"
+			"name": "item_2_json"
 		}
 	]
 }
