@@ -1,5 +1,4 @@
 type Long = protobuf.Long;
-// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace msg. */
 declare namespace msg {
@@ -18861,6 +18860,9 @@ declare namespace msg {
 
         /** SimpleHouseTrade housetype */
         housetype?: (number|null);
+
+        /** SimpleHouseTrade buildid */
+        buildid?: (number|null);
     }
 
     /** Represents a SimpleHouseTrade. */
@@ -18916,6 +18918,9 @@ declare namespace msg {
 
         /** SimpleHouseTrade housetype. */
         public housetype: number;
+
+        /** SimpleHouseTrade buildid. */
+        public buildid: number;
 
         /**
          * Creates a new SimpleHouseTrade instance using the specified properties.
@@ -21297,6 +21302,9 @@ declare namespace msg {
 
         /** C2GW_ReqItemTradeList startnum */
         startnum?: (number|null);
+
+        /** C2GW_ReqItemTradeList userid */
+        userid?: (number|Long|null);
     }
 
     /** Represents a C2GW_ReqItemTradeList. */
@@ -21328,6 +21336,9 @@ declare namespace msg {
 
         /** C2GW_ReqItemTradeList startnum. */
         public startnum: number;
+
+        /** C2GW_ReqItemTradeList userid. */
+        public userid: (number|Long);
 
         /**
          * Creates a new C2GW_ReqItemTradeList instance using the specified properties.
@@ -21730,14 +21741,104 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2C_RetTradeItem. */
+    interface IGW2C_RetTradeItem {
+
+        /** GW2C_RetTradeItem tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetTradeItem. */
+    class GW2C_RetTradeItem implements IGW2C_RetTradeItem {
+
+        /**
+         * Constructs a new GW2C_RetTradeItem.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetTradeItem);
+
+        /** GW2C_RetTradeItem tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetTradeItem instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetTradeItem instance
+         */
+        public static create(properties?: msg.IGW2C_RetTradeItem): msg.GW2C_RetTradeItem;
+
+        /**
+         * Encodes the specified GW2C_RetTradeItem message. Does not implicitly {@link msg.GW2C_RetTradeItem.verify|verify} messages.
+         * @param message GW2C_RetTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetTradeItem message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeItem.verify|verify} messages.
+         * @param message GW2C_RetTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetTradeItem message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetTradeItem;
+
+        /**
+         * Decodes a GW2C_RetTradeItem message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetTradeItem;
+
+        /**
+         * Verifies a GW2C_RetTradeItem message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetTradeItem
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetTradeItem;
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeItem message. Also converts values to other types if specified.
+         * @param message GW2C_RetTradeItem
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetTradeItem, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetTradeItem to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_BuyTradeItem. */
     interface IC2GW_BuyTradeItem {
 
         /** C2GW_BuyTradeItem tradeuid */
         tradeuid?: (number|Long|null);
 
-        /** C2GW_BuyTradeItem itemid */
-        itemid?: (number|Long|null);
+        /** C2GW_BuyTradeItem userid */
+        userid?: (number|Long|null);
     }
 
     /** Represents a C2GW_BuyTradeItem. */
@@ -21752,8 +21853,8 @@ declare namespace msg {
         /** C2GW_BuyTradeItem tradeuid. */
         public tradeuid: (number|Long);
 
-        /** C2GW_BuyTradeItem itemid. */
-        public itemid: (number|Long);
+        /** C2GW_BuyTradeItem userid. */
+        public userid: (number|Long);
 
         /**
          * Creates a new C2GW_BuyTradeItem instance using the specified properties.
@@ -21821,6 +21922,96 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_BuyTradeItem to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetBuyTradeItem. */
+    interface IGW2C_RetBuyTradeItem {
+
+        /** GW2C_RetBuyTradeItem tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetBuyTradeItem. */
+    class GW2C_RetBuyTradeItem implements IGW2C_RetBuyTradeItem {
+
+        /**
+         * Constructs a new GW2C_RetBuyTradeItem.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetBuyTradeItem);
+
+        /** GW2C_RetBuyTradeItem tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetBuyTradeItem instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetBuyTradeItem instance
+         */
+        public static create(properties?: msg.IGW2C_RetBuyTradeItem): msg.GW2C_RetBuyTradeItem;
+
+        /**
+         * Encodes the specified GW2C_RetBuyTradeItem message. Does not implicitly {@link msg.GW2C_RetBuyTradeItem.verify|verify} messages.
+         * @param message GW2C_RetBuyTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetBuyTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetBuyTradeItem message, length delimited. Does not implicitly {@link msg.GW2C_RetBuyTradeItem.verify|verify} messages.
+         * @param message GW2C_RetBuyTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetBuyTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetBuyTradeItem message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetBuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetBuyTradeItem;
+
+        /**
+         * Decodes a GW2C_RetBuyTradeItem message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetBuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetBuyTradeItem;
+
+        /**
+         * Verifies a GW2C_RetBuyTradeItem message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetBuyTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetBuyTradeItem
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetBuyTradeItem;
+
+        /**
+         * Creates a plain object from a GW2C_RetBuyTradeItem message. Also converts values to other types if specified.
+         * @param message GW2C_RetBuyTradeItem
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetBuyTradeItem, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetBuyTradeItem to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -22385,6 +22576,96 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_CancelTradeItem to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCancelTradeItem. */
+    interface IGW2C_RetCancelTradeItem {
+
+        /** GW2C_RetCancelTradeItem tradeuid */
+        tradeuid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetCancelTradeItem. */
+    class GW2C_RetCancelTradeItem implements IGW2C_RetCancelTradeItem {
+
+        /**
+         * Constructs a new GW2C_RetCancelTradeItem.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCancelTradeItem);
+
+        /** GW2C_RetCancelTradeItem tradeuid. */
+        public tradeuid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetCancelTradeItem instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCancelTradeItem instance
+         */
+        public static create(properties?: msg.IGW2C_RetCancelTradeItem): msg.GW2C_RetCancelTradeItem;
+
+        /**
+         * Encodes the specified GW2C_RetCancelTradeItem message. Does not implicitly {@link msg.GW2C_RetCancelTradeItem.verify|verify} messages.
+         * @param message GW2C_RetCancelTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCancelTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCancelTradeItem message, length delimited. Does not implicitly {@link msg.GW2C_RetCancelTradeItem.verify|verify} messages.
+         * @param message GW2C_RetCancelTradeItem message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCancelTradeItem, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCancelTradeItem message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCancelTradeItem;
+
+        /**
+         * Decodes a GW2C_RetCancelTradeItem message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCancelTradeItem;
+
+        /**
+         * Verifies a GW2C_RetCancelTradeItem message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCancelTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCancelTradeItem
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCancelTradeItem;
+
+        /**
+         * Creates a plain object from a GW2C_RetCancelTradeItem message. Also converts values to other types if specified.
+         * @param message GW2C_RetCancelTradeItem
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCancelTradeItem, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCancelTradeItem to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -27976,6 +28257,12 @@ declare namespace table {
 
         /** ItemBaseDataDefine Clothes */
         Clothes?: (number|null);
+
+        /** ItemBaseDataDefine TypeDes */
+        TypeDes?: (string|null);
+
+        /** ItemBaseDataDefine Tradable */
+        Tradable?: (number|null);
     }
 
     /** Represents an ItemBaseDataDefine. */
@@ -28010,6 +28297,12 @@ declare namespace table {
 
         /** ItemBaseDataDefine Clothes. */
         public Clothes: number;
+
+        /** ItemBaseDataDefine TypeDes. */
+        public TypeDes: string;
+
+        /** ItemBaseDataDefine Tradable. */
+        public Tradable: number;
 
         /**
          * Creates a new ItemBaseDataDefine instance using the specified properties.

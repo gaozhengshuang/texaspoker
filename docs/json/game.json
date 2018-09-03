@@ -24,7 +24,11 @@
 	"//":"钻石转金币",
     "Diamond_To_Coins" : 1,
     "//":"超级砖块获得奖励",
-    "SuperBrickReward":3000
+    "SuperBrickReward":3000,
 
+    "//":"体力满",
+    "MaxRobCount":20,
 
+    "//":"抢夺女仆扣体力",
+    "RobMaidStrength":1
 }

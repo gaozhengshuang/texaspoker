@@ -86,6 +86,10 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 			log.Info("获取表值失败")
 			continue
 		}
+		house := HouseSvrMgr().GetHouse(uint64(trade.houseuid))
+		if house == nil {
+			continue
+		}
 		send.List = append(send.List, &msg.SimpleHouseTrade{
 			Tradeuid : pb.Uint64(uint64(trade.tradeuid)),
 			Name : pb.String(trade.name),
@@ -101,6 +105,7 @@ func (this *GateUser) ReqTradeHouseList(rev *msg.C2GW_ReqHouseTradeList){
 			Posx : pb.Uint32(uint32(trade.posx)),
 			Posy : pb.Uint32(uint32(trade.posy)),
 			Housetype : pb.Uint32(uint32(trade.housetype)),
+			Buildid : pb.Uint32(house.buildingid),
 			})
 	}
 	this.SendMsg(send)
