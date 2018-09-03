@@ -229,6 +229,7 @@ message C2GW_ReqItemTradeList
     optional string name = 7;           //道具名字
     optional bool pricedec = 8;         //价格降序
     optional uint32 startnum = 9;       //开始行数 从0开始
+    optional uint64 userid = 10;
 }
 
 //道具交易信息
@@ -318,3 +319,5 @@ message GW2C_RetCancelTradeItem
 {
     optional uint64 tradeuid = 1;
 }
+
+

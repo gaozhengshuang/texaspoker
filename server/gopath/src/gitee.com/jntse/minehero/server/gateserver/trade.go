@@ -614,6 +614,9 @@ func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 	if rev.GetName() != "" {
 		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
 	}
+	if rev.GetUserid () != 0 {
+		wheresql = fmt.Sprintf("ownerid=%d", rev.GetUserid())
+	}
 	if rev.GetPricedec() == true {
 		ordersql += "ORDER BY PRICE DESC"
 	}else{
