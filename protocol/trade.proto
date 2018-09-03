@@ -259,11 +259,21 @@ message C2GW_TradeItem
     optional uint32 price = 3;              //价格
 }
 
+message GW2C_RetTradeItem
+{
+    optional uint64 tradeuid = 1;
+}
+
 //买道具
 message C2GW_BuyTradeItem
 {
     optional uint64 tradeuid = 1;
-    optional uint64 itemid = 2;
+    optional uint64 userid = 2;
+}
+
+message GW2C_RetBuyTradeItem
+{
+    optional uint64 tradeuid = 1;
 }
 
 //查询交易记录
@@ -304,3 +314,7 @@ message C2GW_CancelTradeItem
     optional uint64 tradeuid = 1;
 }
 
+message GW2C_RetCancelTradeItem
+{
+    optional uint64 tradeuid = 1;
+}
