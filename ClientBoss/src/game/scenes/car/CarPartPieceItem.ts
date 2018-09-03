@@ -24,6 +24,8 @@ module game {
             this.skinName = CarPartPieceItemSkin;
             this.btnJoin.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.OnTouchBegin,this);
             this.btnJoin.addEventListener(egret.TouchEvent.TOUCH_END,this.OnTouchEND,this);
+            this.btnJoin.addEventListener(egret.TouchEvent.TOUCH_CANCEL,this.OnTouchCancel,this); 
+            this.btnJoin.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE,this.OnTouchRelease,this);            
 		}
 
         protected dataChanged():void{
@@ -54,7 +56,7 @@ module game {
             this.btnState = ClickState.Click;
             egret.startTick(this.countTimer,this);
         }
-        //抬起
+        //按钮抬起
         private OnTouchEND()
         {
             egret.stopTick(this.countTimer,this);  
@@ -67,6 +69,13 @@ module game {
                 this.usePartPiece();
             }
 
+        }
+        //按钮外抬起
+        private OnTouchRelease(){
+            egret.stopTick(this.countTimer,this);            
+        }
+        private OnTouchCancel(){
+            egret.stopTick(this.countTimer,this);
         }
         //帧事件回调
         private countTimer(timeStamp:number) {
