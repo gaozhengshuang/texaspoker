@@ -155,6 +155,13 @@ message CarReward
     optional uint32 money = 1;              //货币
     repeated CarPartPiece items = 2;        //物品
 }
+message ExpeditionData
+{
+    optional uint32 type = 1;               //目标点类型
+    optional uint64 id = 2;                 //目标点id
+    optional float latitude = 3;            //目标点维度
+    optional float longitude = 4;           //目标点精度
+}
 //车的相关信息
 message CarData 
 {
@@ -178,6 +185,7 @@ message CarData
     optional uint64 tradeuid = 18;           //交易id
     optional uint32 tradeprice = 19;         //交易价格
     optional uint32 initprice = 20;         //初始价值
+    optional ExpeditionData expedition = 21; //出征目标点数据
 }
 
 //车位信息
