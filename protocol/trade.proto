@@ -42,7 +42,8 @@ message SimpleHouseTrade
     optional uint32 posx = 12;           //x坐标
     optional uint32 posy = 13;           //y坐标
     optional uint32 state = 14;
-    optional uint32 housetype = 15;      //房屋类型 几房 
+    optional uint32 housetype = 15;      //房屋类型 几房
+    optional uint32 buildid = 16; 
 }
 
 //返回房屋交易列表
