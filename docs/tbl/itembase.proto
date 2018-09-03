@@ -41,6 +41,9 @@ message ItemBaseDataDefine
 	
 	
 	optional uint32 Clothes = 8; // 合成时装
+	
+	
+	optional string TypeDes = 9; // 类型名
 
 }
 
