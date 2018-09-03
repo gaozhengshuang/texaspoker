@@ -856,7 +856,7 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 	//可以收回
 	parking.TakeBack()
 	if parking.IsPublic() {
-		privateParkings := this.GetParkingByUser(user.Id())
+		privateParkings := this.GetParkingByUser(parking.date.GetOwnerid())
 		takebacked := false
 		for _, v := range privateParkings {
 			if v.data.GetParkingcar() == car.data.GetId() {
