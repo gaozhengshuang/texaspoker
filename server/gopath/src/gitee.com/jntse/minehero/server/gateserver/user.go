@@ -353,11 +353,12 @@ func (this *GateUser) AddRobCount(count uint32, syn bool) {
 		this.robcount = uint32(tbl.Game.MaxRobCount)
 	}
 
+	if this.IsRobCountFull() {
+		this.SetRobCountResumeTime(0, true)
+	}
+
 	if syn {
 		this.NotifyRobCount()
-		if this.IsRobCountFull() {
-			this.SetRobCountResumeTime(0, true)
-		}
 	}
 }
 
@@ -370,11 +371,12 @@ func (this *GateUser) RemoveRobCount(count uint32, syn bool) {
 		this.robcount = 0
 	}
 
+	if active { 
+		this.SetRobCountResumeTime(util.CURTIME() + 3600, true) 
+	}
+
 	if syn {
 		this.NotifyRobCount()
-		if active { 
-			this.SetRobCountResumeTime(util.CURTIME() + 3600, true) 
-		}
 	}
 }
 
