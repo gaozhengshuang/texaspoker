@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,hall_4_json,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,item_json",
+			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,hall_4_json,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,item_json,girl_suit6_json",
 			"name": "hall"
 		},
 		{
@@ -155,7 +155,7 @@
 			"url": "assets/texpack/equip.json",
 			"type": "sheet",
 			"name": "equip_json",
-			"subkeys": "101,102,103,104,105,106,107,150001,150002,150003,150004,150005,150006,150007,150008,150009,150010,150011,150012,150013,201,202,203,204,205,206,207,301,302,303,304,305,306,307,401,402,403,404,405,406,407,501,502,503,504,601,602,701,703"
+			"subkeys": "101,102,103,104,105,106,107,150001,150002,150003,150004,150005,150006,150007,150008,150009,150010,150011,150012,150013,150014,201,202,203,204,205,206,207,301,302,303,304,305,306,307,401,402,403,404,405,406,407,501,502,503,504,601,602,701,703"
 		},
 		{
 			"url": "assets/bg/carParkBg.png",
@@ -378,6 +378,12 @@
 			"url": "assets/texpack/item_2.json",
 			"type": "sheet",
 			"name": "item_2_json"
+		},
+		{
+			"url": "assets/bones/suit/girl_suit6.json",
+			"type": "sheet",
+			"name": "girl_suit6_json",
+			"subkeys": "body1_1_00,body1_1_01-,body1_1_02,body1_1_03,body1_1_04,head1_1_01,head1_1_02,shoes1_1_00,shoes1_1_01,trousers1_1_00-,trousers1_1_01,trousers1_1_02,trousers1_1_03"
 		}
 	]
 }
