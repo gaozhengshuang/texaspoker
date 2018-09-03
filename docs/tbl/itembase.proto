@@ -44,6 +44,9 @@ message ItemBaseDataDefine
 	
 	
 	optional string TypeDes = 9; // 类型名
+	
+	
+	optional uint32 Tradable = 10; // 可否交易1可以0不可以
 
 }
 
