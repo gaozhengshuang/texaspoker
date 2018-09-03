@@ -49,7 +49,7 @@ module game {
 		protected getSkinName() {
 			return TradeHouseBuyPanelSkin;
 		}
-		public setData(data: msg.SimpleHouseTrade, houseDetailData: msg.GW2C_UpdateHouseDataOne) {
+		public setData(data: msg.SimpleHouseTrade, houseDetailData: msg.GW2C_AckHouseDataByHouseId) {
 
 			this._data = data;
 
@@ -60,7 +60,7 @@ module game {
 				this.tradeStar.show(data.houselevel);
 
 				// this.curTotalPriceTxt.text = ; numAddSpace(data.price) + "金币";
-				this.curTotalPriceTxt.textFlow = TextUtil.parse(TradeManager.getInstance().getPriceStr(data.price));
+				this.curTotalPriceTxt.textFlow = TextUtil.parse(TradeManager.getInstance().getPriceStr(houseDetailData.data.sumvalue));
 				this.baseInconmeTxt.text = numAddSpace(data.income) + "金币";
 				this.unitPrice.text = numAddSpace(Math.floor(data.price / data.area)) + "金币";
 				this.typeTxt.text = houseDef.Des + "(" + data.area + "平)";

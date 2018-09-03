@@ -38,10 +38,9 @@ module game {
             this.returnFun = backFun;
             this.returnBody = backBody;
             this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
-
-            this.updateUserInfo(DataManager.playerModel.getUserInfo());
         }
         private onShow() {
+            this.updateUserInfo(DataManager.playerModel.getUserInfo());
             NotificationCenter.addObserver(this, this.onUserInfoChange, PlayerModel.PLAYERMODEL_UPDATE);
             this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onRemove, this);
         }
