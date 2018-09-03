@@ -54,7 +54,7 @@ module game {
 			sendMessage("msg.C2GW_ReqHouseDataByHouseId", msg.C2GW_ReqHouseDataByHouseId.encode({ houseid: this.data.houseuid }));
 		}
 
-		private onGetHouseData(data: msg.GW2C_UpdateHouseDataOne) {
+		private onGetHouseData(data: msg.GW2C_AckHouseDataByHouseId) {
 			openPanel(PanelType.TradeHouseBuyPanel);
 			TradeHouseBuyPanel.getInstance().setData(this.data, data);
 			NotificationCenter.removeObserver(this, "msg.GW2C_AckHouseDataByHouseId");

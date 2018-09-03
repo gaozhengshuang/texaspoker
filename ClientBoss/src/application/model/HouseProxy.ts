@@ -34,20 +34,20 @@ module game {
 		}
 		private OnGW2C_UpdateHouseVisitInfo(data: msg.GW2C_UpdateHouseVisitInfo) {
 			if (GameConfig.pageType == 1) {
-				if(data.houseid==this.currentHouse.rId){
-					let ishas:boolean=false;
-					if(this.currentHouse.visitinfo && this.currentHouse.visitinfo.length>0){
-						for(let i:number=0;i<this.currentHouse.visitinfo.length;i++){
-							if(this.currentHouse.visitinfo[i].id==data.info.id){
-								ishas=true;
-								this.currentHouse.visitinfo[i]=data.info;
+				if (data.houseid == this.currentHouse.rId) {
+					let ishas: boolean = false;
+					if (this.currentHouse.visitinfo && this.currentHouse.visitinfo.length > 0) {
+						for (let i: number = 0; i < this.currentHouse.visitinfo.length; i++) {
+							if (this.currentHouse.visitinfo[i].id == data.info.id) {
+								ishas = true;
+								this.currentHouse.visitinfo[i] = data.info;
 								break;
 							}
 						}
 					}
-					if(!ishas){
+					if (!ishas) {
 						this.currentHouse.visitinfo.push(data.info);
-						this.currentHouse.robcheckflag=1;
+						this.currentHouse.robcheckflag = 1;
 					}
 					ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
 				}
@@ -55,8 +55,13 @@ module game {
 		}
 		private OnGW2C_AckHouseDataByHouseId(data: msg.GW2C_AckHouseDataByHouseId) {
 			if (GameConfig.sceneType != 7) {
-				this.setCurrentHouse(data.data);
-				ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
+				if (data.data.issell) {
+					showTips("房屋出售中！");
+				}
+				else {
+					this.setCurrentHouse(data.data);
+					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
+				}
 			}
 		}
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {

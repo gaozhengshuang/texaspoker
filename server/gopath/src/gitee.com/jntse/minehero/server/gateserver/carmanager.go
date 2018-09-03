@@ -83,16 +83,10 @@ func (this *CarData) ParkingCar(id uint64,poid uint64) {
 	this.modified = true
 }
 
-func (this *CarData) TakeBack(parking *ParkingData) {
-	if parking != nil {
-		//从公共车位回到我自己的车位上
-		this.data.Parkingid = pb.Uint64(parking.data.GetId())
-		this.data.State = pb.Uint32(uint32(msg.CarState_Ready))
-	} else {
-		//下阵了
-		this.data.Parkingid = pb.Uint64(0)
-		this.data.State = pb.Uint32(uint32(msg.CarState_Idle))
-	}
+func (this *CarData) TakeBack() {
+	//从公共车位回到我自己的车位上
+	this.data.Parkingid = pb.Uint64(0)
+	this.data.State = pb.Uint32(uint32(msg.CarState_Ready))
 	this.modified = true
 }
 
@@ -502,7 +496,7 @@ func (this *CarManager) CreateNewCar(ownerid uint64, tid uint32, name string,pri
 	data.Reward = &msg.CarReward{}
 	data.Reward.Money = pb.Uint32(0)
 	data.Star = pb.Uint32(1)
-	data.State = pb.Uint32(uint32(msg.CarState_Idle))
+	data.State = pb.Uint32(uint32(msg.CarState_Ready))
 	data.Starttime = pb.Uint64(0)
 	data.Endtime = pb.Uint64(0)
 	data.Latitude = pb.Float32(0.0)
@@ -794,7 +788,7 @@ func (this *CarManager) AddParking(parking *ParkingData) {
 }
 
 // 停车到车位
-func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username string) (result int32) {
+func (this *CarManager) ParkingCar(user* GateUser, carid uint64, parkingid uint64, username string) (result int32) {
 	car := this.GetCar(carid)
 	parking := this.GetParking(parkingid)
 	if car == nil || parking == nil {
@@ -804,27 +798,30 @@ func (this *CarManager) ParkingCar(carid uint64, parkingid uint64, username stri
 		return 8
 	}
 	if parking.data.GetParkingcar() != 0 {
+		user.SendNotify("该车位已经有车辆了")
 		return 3
 	}
-	if parking.data.GetOwnerid() != 0 && parking.data.GetOwnerid() != car.data.GetOwnerid() {
-		//既不是公共车位 也不是自己的车位
+	if parking.data.GetOwnerid() != 0 {
+		//不是公共车位 不能停在自己的车位上咯
+		user.SendNotify("不能停到非公共车位上")
 		return 4
 	}
-	if parking.data.GetOwnerid() == 0 {
-		//要停公共车位了 看看车辆状态
-		if car.data.GetState() != uint32(msg.CarState_Ready) {
-			//不能停哦
-			return 5
-		}
-		if car.data.Reward.GetMoney() > 0 || len(car.data.Reward.GetItems()) > 0 {
-			//有奖励未领取
-			return 6
-		}
-	} else if parking.data.GetOwnerid() == car.data.GetOwnerid() {
-		//上自己的车位了
-		if car.data.GetParkingid() != 0 || car.data.GetState() != uint32(msg.CarState_Idle){
-			return 7
-		}
+	//要停公共车位了 看看车辆状态
+	if car.data.GetState() != uint32(msg.CarState_Ready) {
+		//不能停哦
+		user.SendNotify(fmt.Sprintf("车辆当前状态[%d] 不能停车到公共车位上", car.data.GetState()))
+		return 5
+	}
+	if car.data.Reward.GetMoney() > 0 || len(car.data.Reward.GetItems()) > 0 {
+		//有奖励未领取
+		user.SendNotify("车辆上尚有奖励未领取")
+		return 6
+	}
+	//看看出征时是不是到上限了
+	if this.GetParkingCount(car.data.GetOwnerid()) <= this.GetActionCarCount(car.data.GetOwnerid()){
+		//不能去干啥了哦
+		user.SendNotify("已达到您的可使用车辆上限")
+		return 7
 	}
 	//可以了
 	car.ParkingCar(parkingid,parking.data.GetOwnerid())
@@ -855,22 +852,23 @@ func (this *CarManager) TakeBackFromParking(user *GateUser, parkingid uint64, op
 	}
 	//可以收回
 	parking.TakeBack()
-	if parking.IsPublic() {
-		privateParkings := this.GetParkingByUser(parking.date.GetOwnerid())
-		takebacked := false
-		for _, v := range privateParkings {
-			if v.data.GetParkingcar() == car.data.GetId() {
-				car.TakeBack(v)
-				takebacked = true
-				break;
-			}
-		}
-		if !takebacked {
-			car.TakeBack(nil)
-		}
-	} else {
-		car.TakeBack(nil)
-	}
+	car.TakeBack()
+	// if parking.IsPublic() {
+	// 	privateParkings := this.GetParkingByUser(parking.data.GetOwnerid())
+	// 	takebacked := false
+	// 	for _, v := range privateParkings {
+	// 		if v.data.GetParkingcar() == car.data.GetId() {
+	// 			car.TakeBack(v)
+	// 			takebacked = true
+	// 			break;
+	// 		}
+	// 	}
+	// 	if !takebacked {
+	// 		car.TakeBack(nil)
+	// 	}
+	// } else {
+	// 	car.TakeBack(nil)
+	// }
 	
 	reward = car.data.Reward.GetMoney()
 	record, notifyuser := "", uint64(0)
@@ -1094,6 +1092,29 @@ func (this *CarManager) GetCarPartLevelupConf(quality uint32,level uint32) *tabl
 	}
 }
 
+func (this *CarManager) GetActionCarCount(uid uint64) uint32{
+	cars := this.GetCarByUser(uid)
+	count := uint32(0)
+	for _, v := range cars {
+		if v.data.GetState() != uint32(msg.CarState_Ready){
+			count = count + 1
+		}
+	}
+	return count
+}
+
+func (this *CarManager) GetParkingCount(uid uint64) uint32{
+	count := uint32(0)
+	parkings := this.GetParkingByUser(uid);
+	for _, v := range parkings {
+		v.data.GetHouseid();
+		house := HouseSvrMgr().GetHouse(v.data.GetHouseid())
+		if house.tradeuid == 0 {
+			count = count + 1 
+		}
+	}
+	return count
+}
 // 自动从公共车位回收汽车
 func (this *CarManager) AutoTakeBackCar(car *CarData, parking *ParkingData) {
 	if parking == nil || !parking.IsPublic() || car == nil || car.IsRewardFull() == false {

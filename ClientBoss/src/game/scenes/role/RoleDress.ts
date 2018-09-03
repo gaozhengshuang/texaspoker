@@ -128,6 +128,7 @@ module game {
             ];
 
             NotificationCenter.addObserver(this, this.OnBagUpdate, PlayerModel.BAG_UPDATE);
+            NotificationCenter.addObserver(this, this.updateLevelMaid, MaidManager.MAID_UPDATE);
 
             //小人动画
             this._roleBone = this._roleBonePool.createObject();
@@ -138,12 +139,13 @@ module game {
             this.switchSex();
            
             //等级信息
-            this.initLevelMaid();
+            this.updateLevelMaid();
             // DataManager.playerModel.skillUpdate();
         }
 
         protected beforeRemove() {
             NotificationCenter.removeObserver(this, PlayerModel.BAG_UPDATE);
+            NotificationCenter.removeObserver(this, MaidManager.MAID_UPDATE);
             this._roleBonePool.destroyAllObject();
         }
 
@@ -154,7 +156,7 @@ module game {
             this.ls_items.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onSelItem, this);
         }
 
-        private initLevelMaid() {
+        private updateLevelMaid() {
             let levelInfo = table.TLevelMaidById[MaidManager.getInstance().getMaidInfo().level];
             if (levelInfo) {
                 this.lvLabel.text = "Lv."+MaidManager.getInstance().getMaidInfo().level;

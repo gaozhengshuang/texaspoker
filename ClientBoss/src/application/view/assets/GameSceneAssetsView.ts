@@ -110,21 +110,9 @@ module game {
 		}
 		private onItemTouch(eve: eui.ItemTapEvent) {
 			let item: HouseVO = this.assetsList[eve.itemIndex];
-			let houseData = TradeManager.getInstance().getHouseData(item.rId);
 			if (item) {
-				if (houseData) {
-					if (!houseData.issell) {
-						MaidManager.getInstance()._startHouse = item.rId;
-						this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { houseid: item.rId }));
-					}
-					else {
-						showTips("房屋出售中!");
-					}
-				}
-				else {
-					MaidManager.getInstance()._startHouse = item.rId;
-					this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { houseid: item.rId }));
-				}
+				MaidManager.getInstance()._startHouse = item.rId;
+				this.dispatchEvent(new BasicEvent(GameSceneAssetsView.GOIN_ROOM, { houseid: item.rId }));
 			}
 		}
 		private OnGW2C_ResCarInfo(msgs: msg.GW2C_ResCarInfo) {
@@ -156,8 +144,8 @@ module game {
 				for (let i: number = 0; i < this.itemInfoList.length; i++) {
 					let itemMc: DepotListItemPanel = new DepotListItemPanel();
 					itemMc.dataChanged(this.itemInfoList[i], i);
-					itemMc.x = 0 + i % 5 * (itemMc.width + 6);
-					itemMc.y = 0 + (Math.floor(i / 5)) * (itemMc.height + 4);
+					itemMc.x = 0 + i % 5 * (itemMc.width+6);
+					itemMc.y = 0 + (Math.floor(i / 5)) * (itemMc.height+4);
 					this.itemListGroup.addChild(itemMc);
 					itemMc.hideFrame();
 					itemMc.addEventListener(DepotListItemPanel.SELECT, this.onDepotItemTouch, this);

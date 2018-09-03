@@ -42,7 +42,8 @@ message SimpleHouseTrade
     optional uint32 posx = 12;           //x坐标
     optional uint32 posy = 13;           //y坐标
     optional uint32 state = 14;
-    optional uint32 housetype = 15;      //房屋类型 几房 
+    optional uint32 housetype = 15;      //房屋类型 几房
+    optional uint32 buildid = 16; 
 }
 
 //返回房屋交易列表
@@ -229,6 +230,7 @@ message C2GW_ReqItemTradeList
     optional string name = 7;           //道具名字
     optional bool pricedec = 8;         //价格降序
     optional uint32 startnum = 9;       //开始行数 从0开始
+    optional uint64 userid = 10;
 }
 
 //道具交易信息
@@ -259,11 +261,21 @@ message C2GW_TradeItem
     optional uint32 price = 3;              //价格
 }
 
+message GW2C_RetTradeItem
+{
+    optional uint64 tradeuid = 1;
+}
+
 //买道具
 message C2GW_BuyTradeItem
 {
     optional uint64 tradeuid = 1;
-    optional uint64 itemid = 2;
+    optional uint64 userid = 2;
+}
+
+message GW2C_RetBuyTradeItem
+{
+    optional uint64 tradeuid = 1;
 }
 
 //查询交易记录
@@ -303,4 +315,10 @@ message C2GW_CancelTradeItem
 {
     optional uint64 tradeuid = 1;
 }
+
+message GW2C_RetCancelTradeItem
+{
+    optional uint64 tradeuid = 1;
+}
+
 

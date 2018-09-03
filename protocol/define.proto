@@ -107,7 +107,6 @@ enum CarPartType {
 }
 
 enum CarState {
-    Idle = 1;           //可以上车位
     Ready = 2;          //上了自己的车位 可以出征
     Parking = 3;        //停在公共车位上 等待着收益
     Exped = 4;          //出征的路上
