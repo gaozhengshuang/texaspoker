@@ -86,6 +86,12 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTradeCarHistory{}, on_C2GW_ReqTradeCarHistory)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeCarReward{}, on_C2GW_GetTradeCarReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeCar{}, on_C2GW_CancelTradeCar)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqItemTradeList{}, on_C2GW_ReqItemTradeList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TradeItem{}, on_C2GW_TradeItem)
+	this.msgparser.RegistProtoMsg(msg.C2GW_BuyTradeItem{}, on_C2GW_BuyTradeItem)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTradeItemHistory{}, on_C2GW_ReqTradeItemHistory)
+	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeItemReward{}, on_C2GW_GetTradeItemReward)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeItem{}, on_C2GW_CancelTradeItem)
 
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseData{}, on_C2GW_ReqHouseData)
@@ -189,6 +195,13 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarTradeList{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetTradeCarHistory{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeCarReward{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetItemTradeList{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetTradeItem{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetBuyTradeItem{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetTradeItemHistory{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeItemReward{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCancelTradeItem{})
+
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfoById{})
@@ -1481,5 +1494,70 @@ func on_C2GW_GetTradeCarReward(session network.IBaseNetSession, message interfac
 		return
 	}
 	user.GetTradeCarReward(tmsg.GetTradeuid())
+}
+
+func on_C2GW_ReqItemTradeList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqItemTradeList)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.ReqTradeItemList(tmsg)
+}
+
+func on_C2GW_TradeItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_TradeItem)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.TradeItem(tmsg.GetItemid(), tmsg.GetItemnum(), tmsg.GetPrice())
+}
+
+func on_C2GW_BuyTradeItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_BuyTradeItem)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.BuyTradeItem(tmsg.GetTradeuid(), tmsg.GetUserid())
+}
+
+func on_C2GW_ReqTradeItemHistory(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.ReqTradeItemHistory()
+}
+
+func on_C2GW_CancelTradeItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CancelTradeItem)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.CancelTradeItem(tmsg.GetTradeuid())
+}
+
+func on_C2GW_GetTradeItemReward(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_GetTradeItemReward)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.GetTradeItemReward(tmsg.GetTradeuid())
 }
 

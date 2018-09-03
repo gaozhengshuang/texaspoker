@@ -413,6 +413,17 @@ func (this *HouseData) ClearTrade() {
 	this.issell = false
 }
 
+func (this *HouseData) CanTrade() bool {
+	user := UserMgr().FindById(this.ownerid)
+	if this.issell == true {
+		if user != nil {
+			user.SendNotify("房屋已经在出售中")
+		}
+		return false
+	}
+	return true
+}
+
 //每秒的Tick回调
 func (this *HouseData) Handler1SecTick(now int64) {
 	for _, v := range this.housecells {

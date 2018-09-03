@@ -456,10 +456,10 @@ module game {
                             if(item.optparam>0){
                                 sendMessage("msg.C2GW_TakeRobMaidEarning", msg.C2GW_TakeRobMaidEarning.encode({houseid:this.roomInfo.rId,id:item.id}));
                             }else{
-                                this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
+                                this.dispatchEvent(new BasicEvent(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, returnId: this.roomInfo.rId, type: 1 }));
                             }
                         }else{
-                            this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, returnId: this.roomInfo.rId, type: 1 }));
+                            this.dispatchEvent(new BasicEvent(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, returnId: this.roomInfo.rId, type: 1 }));
                         }
                         
                     }
@@ -501,7 +501,22 @@ module game {
         public showDongtaiList(list: any[]) {
             this.dongtaiList = list;
             if (this.itemList && this.listIndex == 1) {
+                this.dongtaiList.sort(this.sortOn);
                 this.itemList.bindData(this.dongtaiList);
+            }
+        }
+        /**
+		 * 降序排序
+		 */
+        public sortOn(a: any, b: any): number {
+
+            if (a.tmvisit > b.tmvisit) {
+                return -1;
+            } else if (a.tmvisit < b.tmvisit) {
+                return 1;
+            } else {
+
+                return 0;
             }
         }
 
