@@ -368,16 +368,6 @@
 			"url": "assets/bg/loginbg.png",
 			"type": "image",
 			"name": "loginbg_png"
-		},
-		{
-			"url": "assets/texpack/item_1.json",
-			"type": "sheet",
-			"name": "item_1_json"
-		},
-		{
-			"url": "assets/texpack/item_2.json",
-			"type": "sheet",
-			"name": "item_2_json"
 		}
 	]
 }
