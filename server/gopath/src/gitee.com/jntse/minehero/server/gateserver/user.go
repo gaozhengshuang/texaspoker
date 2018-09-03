@@ -379,7 +379,7 @@ func (this *GateUser) RemoveRobCount(count uint32, syn bool) {
 }
 
 func (this *GateUser) IsRobCountFull() bool {
-	return this.robcount == 20
+	return this.robcount >= 20
 }
 
 func (this *GateUser) SendMsg(msg pb.Message) {
