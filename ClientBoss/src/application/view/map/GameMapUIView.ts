@@ -98,6 +98,9 @@ module game {
                     body.onclick_buyCar();
                     
                 break;
+                case 'returnTrade': //返回交易
+                    body.onclick_returnTrade();
+                break;
 
             }
         }
@@ -129,21 +132,21 @@ module game {
         }
         public showRoomWeizhi(isShow:boolean,roomvo:HouseVO=null){
             if(this.userInfoPanel){
-                this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
+                //this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
             }
         }
         public showRoomNum(isShow: boolean, rId: number = 0) {
             if(this.userInfoPanel){
-                this.userInfoPanel.showRoomNum(isShow,rId);
+                //this.userInfoPanel.showRoomNum(isShow,rId);
             }
         }
         public showRoomBg(isShow: boolean) {
             if(this.userInfoPanel){
-                this.userInfoPanel.showRoomBg(isShow);
+               // this.userInfoPanel.showRoomBg(isShow);
             }
         }
         private onclick_begin(){
-            console.log('???????????');
+            //console.log('???????????');
 			
 		}
         private onclick_mine(){
@@ -193,10 +196,17 @@ module game {
             this.dispatchEvent(new BasicEvent(GameMapUIView.BUY_CAR));
 		}
         private onclick_fujinSwitch(status:number){
-            console.log(this.fujinStatus+"//"+(this.fujinStatus==1));
+            //console.log(this.fujinStatus+"//"+(this.fujinStatus==1));
             this.fujinStatus=status;
             this.dispatchEvent(new BasicEvent(GameMapUIView.FUJIN_SWITCH,{index:this.fujinStatus}));
 		}
+        /**
+         * 返回交易
+         */
+        private onclick_returnTrade()
+        {
+            TradeManager.getInstance().returnToTrade();
+        }
         /**
          * 释放事件与重置数据状态
          */

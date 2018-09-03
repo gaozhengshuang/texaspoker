@@ -88,7 +88,7 @@ type GateUser struct {
 	online          bool
 	tickers         UserTicker
 	bag             UserBag   // 背包
-	image           UserImage // 换装
+	//image         UserImage // 换装
 	task            UserTask
 	tm_disconnect   int64
 	tm_heartbeat    int64                   // 心跳时间
@@ -106,7 +106,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u := &GateUser{account: account, verifykey: key}
 	u.bag.Init(u)
 	u.task.Init(u)
-	u.image.Init(u)
+	//u.image.Init(u)
 	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
 	u.cleanup = false
 	u.tm_disconnect = 0
@@ -329,31 +329,55 @@ func (this *GateUser) SetNewPlayerStep(step uint32) {
 	this.newplayerstep = step
 }
 
+func (this *GateUser) SetRobCountResumeTime(t int64, syn bool) {
+	this.tmaddrobcount = t
+	if syn {
+		this.NotifyRobCountResumeTime()
+	}
+}
+
 func (this *GateUser) GetRobCount() uint32 {
 	return this.robcount
 }
 
-func (this *GateUser) SetRobCount(count uint32) {
-	before := this.robcount
-	if count > 20 {
-		this.robcount = 20
-	} else {
-		this.robcount = count
+// 增加体力
+func (this *GateUser) AddRobCount(count uint32, syn bool) {
+	if this.IsRobCountFull() {
+		return
 	}
-	//log.Info("SetRobCount!!! robcount:%d", this.robcount)
-	send := &msg.GW2C_NotifyRobCount{}
-	send.Value = pb.Uint32(this.robcount)
-	this.SendMsg(send)
 
-	if this.robcount == 20 {
-		this.tmaddrobcount = 0
-		this.NotifyRobAddTime()
-	} else {
-		if before == 20 && this.robcount < before {
-			this.tmaddrobcount = util.CURTIME() + 3600
-			this.NotifyRobAddTime()
+	this.robcount += count
+	if this.IsRobCountFull() {
+		this.robcount = uint32(tbl.Game.MaxRobCount)
+	}
+
+	if syn {
+		this.NotifyRobCount()
+		if this.IsRobCountFull() {
+			this.SetRobCountResumeTime(0, true)
 		}
 	}
+}
+
+// 扣除体力
+func (this *GateUser) RemoveRobCount(count uint32, syn bool) {
+	active := this.IsRobCountFull()
+	if this.robcount >= count {
+		this.robcount -= count
+	}else {
+		this.robcount = 0
+	}
+
+	if syn {
+		this.NotifyRobCount()
+		if active { 
+			this.SetRobCountResumeTime(util.CURTIME() + 3600, true) 
+		}
+	}
+}
+
+func (this *GateUser) IsRobCountFull() bool {
+	return this.robcount >= 20
 }
 
 func (this *GateUser) SendMsg(msg pb.Message) {
@@ -443,9 +467,9 @@ func (this *GateUser) OnLoadDB(way string) {
 	if this.bin.Base.Luckydraw == nil {
 		this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	}
-	if this.bin.Base.Images == nil {
-		this.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)}
-	}
+	//if this.bin.Base.Images == nil {
+	//	this.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)}
+	//}
 
 	// 加载二进制
 	this.LoadBin()
@@ -504,7 +528,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	// 道具信息
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
-	this.image.PackBin(bin)
+	//this.image.PackBin(bin)
 
 	//
 	return bin
@@ -554,8 +578,8 @@ func (this *GateUser) LoadBin() {
 	this.task.LoadBin(this.bin)
 
 	// 换装信息
-	this.image.Clean()
-	this.image.LoadBin(this.bin)
+	//this.image.Clean()
+	//this.image.LoadBin(this.bin)
 }
 
 // TODO: 存盘可以单独协程
@@ -582,11 +606,12 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0, 0)
+	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0, 0, 0, 0)
 
 	if houseData != nil {
-		CarMgr().CreateNewCar(this.Id(), 1001, this.Name())
+		CarMgr().CreateNewCar(this.Id(), 1001, this.Name(),1000)
 		CarMgr().CreateNewParking(this.Id(), 1002, this.Name(), houseData.id)
+		MaidMgr().CreateNewMaid(this.Id(), this.Name(), houseData.id)
 	}
 }
 
@@ -635,6 +660,7 @@ func (this *GateUser) Syn() {
 	this.SynCarData()
 	this.SynParkingData()
 	this.SynParkingRecord()
+	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
 }
 
@@ -1016,18 +1042,32 @@ func (this *GateUser) SyncTimeStamp() {
 
 func (this *GateUser) CheckAddRobCount() {
 	now := util.CURTIME()
-	if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
-		this.SetRobCount(this.GetRobCount() + 5)
-		if this.robcount < 20 {
-			this.tmaddrobcount = now + 3600
-		} else {
-			this.tmaddrobcount = 0
+	if !this.IsRobCountFull() && this.tmaddrobcount !=0 && now >= this.tmaddrobcount {
+		this.AddRobCount(5, true)
+		if !this.IsRobCountFull() {
+			this.SetRobCountResumeTime(util.CURTIME() + 3600, true)
+		}else {
+			this.SetRobCountResumeTime(0, true)
 		}
-		this.NotifyRobAddTime()
 	}
+
+	//if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
+	//	//this.SetRobCount(this.GetRobCount() + 5)
+	//	if this.robcount < 20 {
+	//		this.tmaddrobcount = now + 3600
+	//	} else {
+	//		this.tmaddrobcount = 0
+	//	}
+	//	this.NotifyRobCountResumeTime()
+	//}
 }
 
-func (this *GateUser) NotifyRobAddTime() {
+func (this *GateUser) NotifyRobCount() {
+	send := &msg.GW2C_NotifyRobCount{Value:pb.Uint32(this.robcount)}
+	this.SendMsg(send)
+}
+
+func (this *GateUser) NotifyRobCountResumeTime() {
 	send := &msg.GW2C_NotifyAddRobCountTime{}
 	send.Time = pb.Int64(this.tmaddrobcount)
 	this.SendMsg(send)

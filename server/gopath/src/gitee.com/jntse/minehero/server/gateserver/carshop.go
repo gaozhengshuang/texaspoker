@@ -66,6 +66,7 @@ func (cp *CarProduct) SaveBin(pipe redis.Pipeliner) {
 		if err := utredis.HSetProtoBin(Redis(), "carshop", pid, cp.bin); err != nil {
 			log.Error("[汽车商店] 保存产品数据 Redis Error:%s", err)
 		}
+		log.Error("[汽车商店] 保存产品数据成功 pid[%d]", pid)
 	}else {
 		utredis.HSetProtoBinPipeline(pipe, "carshop", pid, cp.bin)
 	}
@@ -93,7 +94,7 @@ type CarShop struct {
 
 func (shop* CarShop) Init() {
 	shop.products = make(map[uint32] *CarProduct)
-	shop.ticker1Minite = util.NewGameTicker(time.Second, shop.Handler1MiniteTick)
+	shop.ticker1Minite = util.NewGameTicker(time.Minute, shop.Handler1MiniteTick)
 	shop.ticker1Minite.Start()
 
 	shop.LoadDB()
@@ -111,7 +112,7 @@ func (shop *CarShop) Handler1MiniteTick(now int64) {
 	}
 	_, err := pipe.Exec()
 	if err != nil && err != redis.Nil {
-		log.Error("CarShop LoadDB RedisError:%s", err)
+		log.Error("[汽车商店] 定时存盘RedisError:%s", err)
 	}
 	pipe.Close()
 }
@@ -157,7 +158,7 @@ func (shop* CarShop) LoadDB() {
 	}
 	cmds, err := pipe.Exec()
 	if err != nil && err != redis.Nil {
-		log.Error("CarShop LoadDB RedisError:%s ", err)
+		log.Error("[汽车商店] CarShop LoadDB RedisError:%s ", err)
 		return
 	}
 
@@ -181,7 +182,7 @@ func (shop *CarShop) SaveAll() {
 	}
 	_, err := pipe.Exec()
 	if err != nil {
-		log.Error("CarShop SaveAll Error:%s", err)
+		log.Error("[汽车商店] CarShop SaveAll Error:%s", err)
 		return
 	}
 	log.Info("[汽车商店] 保存所有数据")
@@ -222,7 +223,7 @@ func (shop *CarShop) BuyCar(user *GateUser, shopid, pid uint32) {
 
 	user.RemoveGold(config.Price, "购买车辆", true)
 	product.AddSold(1)
-	cardata := CarMgr().CreateNewCar(user.Id(), cartemplate.Id, user.Name())
+	cardata := CarMgr().CreateNewCar(user.Id(), cartemplate.Id, user.Name(),config.Price)
 
 	carmsg := &msg.GW2C_AddNewCar{}
 	carmsg.Car = pb.Clone(cardata.PackBin()).(*msg.CarData)

@@ -49,10 +49,16 @@ message EquipDefine
 	optional int32 Price = 10; // 价格
 	
 	
-	optional int32 CoinType = 11; // 货币类型:1金币2钻石
+	optional int32 CoinType = 11; // 货币类型:1金币2钻石3合成
 	
 	
 	optional string Suit = 12; // 图集名称
+	
+	
+	optional uint32 DebrisId = 13; // 碎片ID
+	
+	
+	optional uint32 DebrisNum = 14; // 合成数量
 
 }
 

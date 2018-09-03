@@ -19,8 +19,11 @@ module game {
         private roomLevelGroup: eui.Group;
         private bootomGroup: eui.Group;
         private down_bg: eui.Group;
+        private houseNoGroup: eui.Group;
+        private ljXiaoquGroup: eui.Group;
 
-        private quit_btn: eui.Button;
+
+        //private quit_btn: eui.Button;
         private lingju_btn: eui.Button;
         private dongtai_btn: eui.Button;
         private level_btn: eui.Button;
@@ -30,15 +33,19 @@ module game {
 
         private xuanBtnBg: eui.Image;
 
+        private houseNoBg1: eui.Image;
+        private houseNoBg2: eui.Image;
+
 
         private downBtnRed1: eui.Image;
         private downBtnRed2: eui.Image;
         private downBtnRed3: eui.Image;
 
+        private ljXiaoquName_txt: eui.Label;
 
         private ljName_txt: eui.Label;
-        private ljbName_txt: eui.Label;
-        private ljHuxing_txt: eui.Label;
+        //private ljbName_txt: eui.Label;
+        private roomNo_txt: eui.Label;
         private lLevel_txt: eui.Label;
         private lVip_txt: eui.Label;
         private totalChanLiang_txt: eui.Label;
@@ -47,7 +54,7 @@ module game {
         //private shouyi_txt: eui.Label;
 
         private parkingLot: CarParkingLot;
-        private parkingLots: CarParkingLot[];
+        private parkingLots: CarParkingLot[] = [];
 
         public roomInfo: HouseVO;
         public roomTypeInfo: any;
@@ -56,6 +63,8 @@ module game {
         public huxingPanel: RoomHuxingPanel;
         private scrollView: egret.ScrollView;
         private sussImg: eui.Image;
+
+        private titlePanel: PageTitlePanel;
 
         private xuanBgPointX: number[] = [-9, 137, 284];
         private static _inMyRoom: boolean = false;
@@ -83,24 +92,27 @@ module game {
 
             this.scrollView = new egret.ScrollView();
             //垂直滚动设置为 on 
-                this.scrollView.verticalScrollPolicy = "on";
-                //水平滚动设置为 auto
-                this.scrollView.horizontalScrollPolicy = "on";
-                this.scrollView.bounces = false;
-                //scrollView.y=100;
-                this.addChild(this.scrollView);
-                this.swapChildren(this.scrollView, this.huxingGroup);
-                //设置滚动内容
-                
+            this.scrollView.verticalScrollPolicy = "on";
+            //水平滚动设置为 auto
+            this.scrollView.horizontalScrollPolicy = "on";
+            this.scrollView.bounces = false;
+            //scrollView.y=100;
+            this.addChild(this.scrollView);
+            this.swapChildren(this.scrollView, this.huxingGroup);
+            //设置滚动内容
+            
+            this.titlePanel.init(this.onclick_begin,this);
+
         }
         protected beforeShow() {
-            this.quit_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_begin, this);
+            // this.quit_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_begin, this);
             this.lingju_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_lingju, this);
             this.dongtai_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_dongtai, this);
             this.level_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_level, this);
             this.hideList_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_hideList, this);
             this.shualingju_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_shualingju, this);
-
+            
+            NotificationCenter.addObserver(this, this.OnHouseMaidUpdate, MaidManager.HOUSEMAID_UPDATE);
         }
         private downBgScaleH: number = 1;
         private dBgDefaultH: number = 0;
@@ -123,6 +135,11 @@ module game {
             this.oldBtnY = this.downBtnGroup.y;
 
         }
+
+        public updateUserInfo(uInfo: IUserInfo) {
+            this.titlePanel.updateUserInfo(uInfo);
+        }
+
         private returnType: number = 0;
         public initInfo(rVo: HouseVO, selfId: number | Long, retType: number = 0) {
             this.roomInfo = rVo;
@@ -131,10 +148,12 @@ module game {
             this.returnType = retType;
             if (this.roomInfo.bId <= 0) {
                 this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level + "(租)";
+                this.roomNo_txt.text = "" + this.roomInfo.rId;
             } else {
+                this.roomNo_txt.text = "" + this.roomInfo.roommember;
                 this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level;
             }
-            this.totalChanLiang_txt.text = "当前收益:" + this.getTotalChanLiang();
+            this.totalChanLiang_txt.text = /*"当前收益:" + */"" + this.getTotalChanLiang();
             if (this.selfIdNum == this.roomInfo.ownerid) {
                 this.showSelf();
                 this.lingju_btn.visible = true;
@@ -151,6 +170,7 @@ module game {
                 }
             } else {
                 this.showOthers();
+
                 this.lingju_btn.visible = false;
             }
             if (this.huxingPanel && this.scrollView) {
@@ -186,12 +206,14 @@ module game {
             this.roomTypeInfo = table.THouseById[this.roomInfo.tId];
             this.selfIdNum = selfId;
             if (this.roomInfo.bId <= 0) {
+                this.roomNo_txt.text = "" + this.roomInfo.rId;
                 this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level + "(租)";
             } else {
+                this.roomNo_txt.text = "" + this.roomInfo.roommember;
                 this.roomLevel_txt.text = "房屋等级" + this.roomInfo.level;
             }
 
-            this.totalChanLiang_txt.text = "预计当前收益:" + this.getTotalChanLiang();
+            this.totalChanLiang_txt.text = /*"当前收益:" + */"" + this.getTotalChanLiang();
             if (this.selfIdNum == this.roomInfo.ownerid) {
                 this.showSelf();
                 this.lingju_btn.visible = true;
@@ -220,26 +242,42 @@ module game {
             return num;
         }
         private showSelf() {
-            console.log("sssaa:" + this.roomInfo.robcheckflag);
+            this.titlePanel.updateTitleStr("我的房间");
+            this.houseNoBg1.visible = true;
+            this.houseNoBg2.visible = false;
+            this.ljXiaoquGroup.visible = false;
+            //console.log("sssaa:" + this.roomInfo.robcheckflag);
             this.haveNewDongtai(this.roomInfo.robcheckflag);
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_INFO, { isShow: true, room: this.roomInfo }));
             this.linjuInfoGroup.visible = false;
             this.roomLevelGroup.visible = true;
             this.downBtnGroup.visible = true;
+            this.down_bg.visible=true;
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: true, rId: this.roomInfo.rId }));
 
         }
         private showOthers() {
-
+            this.titlePanel.updateTitleStr("邻居的房间");
+            this.houseNoBg1.visible = false;
+            this.houseNoBg2.visible = true;
+            if (this.roomInfo.bId <= 0) {
+                this.ljXiaoquGroup.visible = false;
+            } else {
+                this.ljXiaoquGroup.visible = true;
+                let buildInfo = table.TBuildingsById[this.roomInfo.bId];
+                if (buildInfo) {
+                    this.ljXiaoquName_txt.text = buildInfo.Community;
+                }
+            }
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_INFO, { isShow: false }));
             this.linjuInfoGroup.visible = true;
             this.roomLevelGroup.visible = false;
             this.downBtnGroup.visible = false;
-
+            this.down_bg.visible=false;;
 
             this.ljName_txt.text = this.roomInfo.ownername;
             //this.ljbName_txt.text = "";
-            this.ljHuxing_txt.text = "" + this.roomInfo.rId;
+            this.roomNo_txt.text = "" + this.roomInfo.rId;
             this.dispatchEvent(new BasicEvent(GameRoomView.SHOW_TOP_ROOM_NUM, { isShow: false }));
         }
 
@@ -262,17 +300,10 @@ module game {
                 this.dispatchEvent(new BasicEvent(GameRoomView.LEVEL,
                     { index: 0, houseid: this.roomInfo.rId }));
             } else {
-                if (item.hLevel < item.lockLevel) {
-                    //game.showTips("房屋"+item.lockLevel+"级解锁，请先提升房屋等级!", true);
-                } else {
-                    if (item.data.level >= this.roomInfo.level) {
-                        // game.showTips("房屋等级不足，请先提升房屋等级!", true);
-                    } else {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.LEVEL,
+                if (item.isCan) {
+                    this.dispatchEvent(new BasicEvent(GameRoomView.LEVEL,
                             { index: item.index, houseid: this.roomInfo.rId }));
-                    }
-                }
-
+                } 
             }
         }
         public plunderCoinError(eid: number) {
@@ -296,7 +327,7 @@ module game {
             this.showlist(2);
         }
         private onclick_shualingju() {
-            this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU,{buildingid:this.roomInfo.bId}));
+            this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU, { buildingid: this.roomInfo.bId }));
         }
 
         private onclick_hideList() {
@@ -326,7 +357,7 @@ module game {
                 this.btnGoalY = gameConfig.curHeight() / 4 - this.downBtnGroup.height / 2 + 20
             }
             this.listIndex = index;
-            console.log(this.goalH + "//" + this.goalY + "//" + GameConfig.innerHeight);
+            //console.log(this.goalH + "//" + this.goalY + "//" + GameConfig.innerHeight);
 
             if (this.downBtnGroup.y != this.btnGoalY && this.down_bg.y != this.goalY) {
                 egret.Tween.get(this.downBtnGroup).to({ y: this.btnGoalY }, 300).
@@ -403,9 +434,9 @@ module game {
                     break;
                 case 3:
                     if (type == 1) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU,{buildingid:this.roomInfo.bId}));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.REFRESH_LINJU, { buildingid: this.roomInfo.bId }));
                     } else {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST,{buildingid:this.roomInfo.bId}));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.OPEN_NEIGHBOR_LIST, { buildingid: this.roomInfo.bId }));
                     }
 
                     this.shualingju_btn.visible = true;
@@ -419,7 +450,18 @@ module game {
                 case 1:
                     item = this.dongtaiList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_MESSAGE_ROOM, { userid: item.visitorid, return: this.roomInfo, type: 1 }));
+                        if(item.opttype==5){
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, return: MaidManager.getInstance()._curSelHouse});
+                        }else if(item.opttype==6){
+                            if(item.optparam>0){
+                                sendMessage("msg.C2GW_TakeRobMaidEarning", msg.C2GW_TakeRobMaidEarning.encode({houseid:this.roomInfo.rId,id:item.id}));
+                            }else{
+                                this.dispatchEvent(new BasicEvent(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, returnId: this.roomInfo.rId, type: 1 }));
+                            }
+                        }else{
+                            this.dispatchEvent(new BasicEvent(CommandName.SOCKET_REQ_GOIN_ROOM, {houseid: item.visitorhouse, returnId: this.roomInfo.rId, type: 1 }));
+                        }
+                        
                     }
                     break;
                 /* case 2:
@@ -432,13 +474,13 @@ module game {
                     this.onclick_hideList();
                     item = this.linjuList[eve.itemIndex];
                     if (item) {
-                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { houseid: item.rId, return: this.roomInfo, type: 2 }));
+                        this.dispatchEvent(new BasicEvent(GameRoomView.GOIN_ROOM, { houseid: item.rId, returnId: this.roomInfo.rId, type: 2 }));
                     }
                     break;
             }
         }
         private onItemTouchTap(eve: TouchEvent) {
-            console.log(eve.target["name"]);
+            //console.log(eve.target["name"]);
             let item: any = eve.target["parent"].itemDate;
             switch (this.listIndex) {
                 case 2:
@@ -459,7 +501,22 @@ module game {
         public showDongtaiList(list: any[]) {
             this.dongtaiList = list;
             if (this.itemList && this.listIndex == 1) {
+                this.dongtaiList.sort(this.sortOn);
                 this.itemList.bindData(this.dongtaiList);
+            }
+        }
+        /**
+		 * 降序排序
+		 */
+        public sortOn(a: any, b: any): number {
+
+            if (a.tmvisit > b.tmvisit) {
+                return -1;
+            } else if (a.tmvisit < b.tmvisit) {
+                return 1;
+            } else {
+
+                return 0;
             }
         }
 
@@ -484,7 +541,7 @@ module game {
                 let Cells: string[] = this.roomTypeInfo.Cells.split("|");
                 this.levelInfoList.push({
                     index: 0, data: this.roomInfo,
-                    name: "房屋", hLevel: this.roomInfo.level, lockLevel: 0,MaxLv:this.roomTypeInfo.MaxCells
+                    name: "房屋", hLevel: this.roomInfo.level, lockLevel: 0, MaxLv: this.roomTypeInfo.MaxLevel
                 });
                 if (Cells && Cells.length > 0) {
                     for (let i: number = 0; i < Cells.length; i++) {
@@ -494,9 +551,9 @@ module game {
                             let cellName: any = table.THouseCellById[info.tid].Des;
                             this.levelInfoList.push({
                                 index: Number(CellsItem[0]), data: this.getCellInfo(Number(CellsItem[0])),
-                                name: cellName, hLevel: this.roomInfo.level, 
+                                name: cellName, hLevel: this.roomInfo.level,
                                 lockLevel: this.getOpenLockLevel(Number(CellsItem[0])),
-                                MaxLv:table.THouseCellById[info.tid].MaxLevel
+                                MaxLv: this.roomTypeInfo.MaxLevel
                             })
                         }
                     }
@@ -541,7 +598,7 @@ module game {
                 //console.log("回调_showParkingLotList------->",parkingDatas.length);
                 if (parkingDatas && parkingDatas.length > 0) {
                     parkingDatas.forEach((data, index, array) => {
-                        console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
+                        //console.log("车位赋值--->",data.ownername+" "+data.houseid+" "+self.roomInfo.rId);
                         if (data.houseid == self.roomInfo.rId) {
                             if (self.parkingLots.length == 0) {
                                 self.parkingLot.setData(data);
@@ -560,7 +617,8 @@ module game {
                     });
                 };
             };
-            CarManager.getInstance().ReqParkingInfoByType(0, this.roomInfo.ownerid,[this.roomInfo.rId] ,_showParkingLotList);
+            console.log("houseId-->",this.roomInfo.rId);
+            CarManager.getInstance().ReqParkingInfoByType(0, this.roomInfo.ownerid, [this.roomInfo.rId], _showParkingLotList);
         }
 
         private getCellInfo(index: number): any {
@@ -575,15 +633,15 @@ module game {
             return cell;
         }
 
-        public receiveSuccess(houseid: number, index: number, getNum: number) {
+        public receiveSuccess(houseid: number, index: number, getNum: number,items:any[]) {
             if (houseid == this.roomInfo.rId) {
-                this.huxingPanel.receiveSuccess(index, getNum);
+                this.huxingPanel.receiveSuccess(index, getNum,items);
             }
 
         }
-        public plunderSuccess(houseid: number, index: number, getNum: number) {
+        public plunderSuccess(houseid: number, index: number, getNum: number,items:any[]) {
             if (houseid == this.roomInfo.rId) {
-                this.huxingPanel.plunderSuccess(index, getNum);
+                this.huxingPanel.plunderSuccess(index, getNum,items);
             }
         }
         public levelSuccess(index: number) {
@@ -620,8 +678,15 @@ module game {
 
         }
 
+        private OnHouseMaidUpdate() {
+            this.huxingPanel.updateMaid();
+        }
+
         protected beforeRemove() {
-            console.log("房屋界面关闭");
+            //console.log("房屋界面关闭");
+            NotificationCenter.removeObserver(this, MaidManager.HOUSEMAID_UPDATE);
+
+            this.titlePanel.removePanel();
             if (this.hideList_btn.visible) {
                 this.onclick_hideList();
             }

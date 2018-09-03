@@ -60,33 +60,36 @@ func (this *HouseCell) SetOwner(ownerid uint64) {
 }
 
 //主人收获金币
-func (this *HouseCell) OwnerTakeGold() uint32 {
+func (this *HouseCell) OwnerTakeGold() (uint32, map[uint32]uint32) {
+	items := make(map[uint32]uint32)
 	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
 	if find == false {
 		log.Error("无效的房间区域cell  tid[%d]", this.tid)
-		return 0
+		return 0,items
 	}
 	goldmax := base.ProduceGold
 	if this.gold > goldmax {
 		this.gold = goldmax
 	}
 	if this.state == 0 {
-		return 0
+		return 0,items
 	} else {
 		gold := this.gold
 		this.gold = 0
 		this.state = 0
 		this.tmproduce = util.CURTIME()
-		return gold
+		items = this.GiveItemWhenTakeGold()
+		return gold, items
 	}
 }
 
 //其他人偷金币
-func (this *HouseCell) VisitorTakeGold(roberid uint64) uint32 {
+func (this *HouseCell) VisitorTakeGold(roberid uint64) (uint32, map[uint32]uint32) {
+	items := make(map[uint32]uint32)
 	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
 	if find == false {
 		log.Error("无效的房间区域cell  tid[%d]", this.tid)
-		return 0
+		return 0,items
 	}
 	goldmax := base.ProduceGold
 	if this.gold > goldmax {
@@ -96,12 +99,12 @@ func (this *HouseCell) VisitorTakeGold(roberid uint64) uint32 {
 	for _, v := range this.robdata {
 		if v == roberid {
 			//这个玩家已经抢过
-			return 0
+			return 0,items
 		}
 	}
 	if this.state == 0 || count >= 3 {
 		//未产出 或 被抢三次
-		return 0
+		return 0,items
 	}
 	take := uint32(float64(goldmax) * 0.2)
 	if take >= this.gold {
@@ -110,9 +113,39 @@ func (this *HouseCell) VisitorTakeGold(roberid uint64) uint32 {
 	} else {
 		this.gold = this.gold - take
 	}
-
+	items = this.GiveItemWhenTakeGold()
 	this.robdata = append(this.robdata, roberid)
-	return take
+	return take, items
+}
+
+//按配置给与随机道具
+func (this *HouseCell) GiveItemWhenTakeGold() map[uint32]uint32 {
+	items := make(map[uint32]uint32)
+	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
+	if find == false {
+		log.Error("无效的房间区域cell  tid[%d]", this.tid)
+		return items
+	}
+
+	stritem := base.ProduceItem
+	if stritem != "" {
+		slicestr := strings.Split(stritem, "|")
+		for _, v := range slicestr {
+			info := strings.Split(v, "-")
+			if len(info) != 3{
+				log.Error("房间产出道具配置格式错误!!   tid[%d]", this.tid)
+				continue
+			}
+			itemid, _ := strconv.Atoi(info[0])
+			per, _ := strconv.Atoi(info[1])
+			num, _ := strconv.Atoi(info[2])
+			temp := util.RandBetween(0,10000)
+			if uint32(temp) <= uint32(per) {
+				items[uint32(itemid)] = uint32(num)
+			}
+		}
+	}
+	return items
 }
 
 //检查生产状态
@@ -135,6 +168,14 @@ func (this *HouseCell) CkeckGoldProduce(now int64) {
 		this.robdata = make([]uint64, 0)
 		HouseSvrMgr().SyncUserHouseData(this.ownerid)
 	}
+}
+
+func (this *HouseCell) GetIncome() uint32{
+	base, find := tbl.THouseCellBase.THouseCellById[this.tid]
+	if find == false {		
+		return 0
+	}
+	return base.ProduceGold
 }
 
 func (this *HouseCell) PackBin() *msg.HouseCell {
@@ -170,12 +211,14 @@ func (this *HouseCell) LevelUp() bool {
 
 //房屋访问者操作信息
 type HouseVisitInfo struct {
-	visitorid   uint64 //来访玩家的id
-	tmvisit     int64  //来访时间
-	optindex    uint32 //操作的房间编号
-	opttype     uint32 //操作类型 1主人收钱 2别人抢钱
-	optparam    uint32 //操作附加参数 例如主人收了多少钱 别人抢了多少钱
-	visitorname string //来访玩家的名字
+	uid 		uint64
+	visitorid   uint64 	//来访玩家的id
+	tmvisit     int64  	//来访时间
+	optindex    uint32 	//操作的房间编号
+	opttype     uint32 	//操作类型 1主人收钱 2别人抢钱
+	optparam    uint32 	//操作附加参数 例如主人收了多少钱 别人抢了多少钱
+	visitorname string 	//来访玩家的名字
+	visitorhouse uint64 	//来访玩家的house，用于直接拜访house
 }
 
 func (this *HouseVisitInfo) LoadBin(bin *msg.HouseVisitInfo) {
@@ -185,6 +228,7 @@ func (this *HouseVisitInfo) LoadBin(bin *msg.HouseVisitInfo) {
 	this.opttype = bin.GetOpttype()
 	this.optparam = bin.GetOptparam()
 	this.visitorname = bin.GetVisitorname()
+	this.visitorhouse = bin.GetVisitorhouse()
 }
 
 func (this *HouseVisitInfo) PackBin() *msg.HouseVisitInfo {
@@ -195,6 +239,8 @@ func (this *HouseVisitInfo) PackBin() *msg.HouseVisitInfo {
 	bin.Opttype = pb.Uint32(this.opttype)
 	bin.Optparam = pb.Uint32(this.optparam)
 	bin.Visitorname = pb.String(this.visitorname)
+	bin.Visitorhouse = pb.Uint64(this.visitorhouse)
+	bin.Id = pb.Uint64(this.uid)
 	return bin
 }
 
@@ -209,7 +255,14 @@ type HouseData struct {
 	ownername    string
 	roommember 	 uint32 //房间号
 	robcheckflag uint32 //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
-
+	area		 uint32	//面积
+	issell		 bool	//出售
+	income		 uint32 //收益
+	tradeendtime uint32 //交易结束时间
+	sumvalue	 uint32 //总价值
+	tradeuid	 uint64 //交易id
+	tradeprice   uint32 
+	visitrecordid uint64	// 访问记录uuid
 	ticker1Sec *util.GameTicker
 }
 
@@ -227,6 +280,7 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.level = bin.GetLevel()
 	this.ownername = bin.GetOwnername()
 	this.robcheckflag = bin.GetRobcheckflag()
+	this.visitrecordid = bin.GetVisitrecordid()
 	this.roommember = bin.GetRoommember()
 	for _, v := range bin.GetHousecells() {
 		cell := &HouseCell{}
@@ -240,12 +294,22 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 		info.LoadBin(v)
 		this.visitinfo = append(this.visitinfo, info)
 	}
+	this.area = bin.GetArea()
+	this.issell = bin.GetIssell()
+	this.income = bin.GetIncome()
+	this.tradeendtime = bin.GetTradeendtime()
+	this.sumvalue = bin.GetSumvalue()
+	this.tradeuid = bin.GetTradeuid()
+	this.tradeprice = bin.GetTradeprice()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
 }
 
 func (this *HouseData) Tick(now int64) {
+	if this.issell == true {
+		return
+	}
 	this.ticker1Sec.Run(now)
 }
 
@@ -264,6 +328,7 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Ownername = pb.String(this.ownername)
 	bin.Housecells = make([]*msg.HouseCell, 0)
 	bin.Robcheckflag = pb.Uint32(this.robcheckflag)
+	bin.Visitrecordid = pb.Uint64(this.visitrecordid)
 	bin.Roommember = pb.Uint32(this.roommember)
 	for _, v := range this.housecells {
 		bin.Housecells = append(bin.Housecells, v.PackBin())
@@ -273,7 +338,13 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	for _, v := range this.visitinfo {
 		bin.Visitinfo = append(bin.Visitinfo, v.PackBin())
 	}
-
+	bin.Area = pb.Uint32(this.area)
+	bin.Issell = pb.Bool(this.issell)
+	bin.Income = pb.Uint32(this.income)
+	bin.Tradeendtime = pb.Uint32(this.tradeendtime)
+	bin.Sumvalue = pb.Uint32(this.sumvalue)
+	bin.Tradeuid = pb.Uint64(this.tradeuid)
+	bin.Tradeprice = pb.Uint32(this.tradeprice)
 	return bin
 }
 
@@ -293,6 +364,66 @@ func (this *HouseData) SaveBin(pipe redis.Pipeliner) {
 	}
 }
 
+func (this *HouseData) GetType() uint32 {
+	base, find := tbl.THouseBase.THouseById[uint32(this.tid)]
+	if find == false {
+		log.Error("House LevelUp 无效的房屋tid[%d]", this.tid)
+		return 1
+	}
+	btype := base.Type
+	return btype
+}
+
+func (this *HouseData) GetIncome() uint32 {
+	var sum uint32
+	for _, v := range this.housecells {
+		sum += v.GetIncome()
+	}
+	return sum
+}
+
+func (this *HouseData) CanOperate(userid uint64) bool {
+	if this.issell == true {
+		if user := UserMgr().FindById(userid); user != nil {
+			user.SendNotify("房屋出售中，不能操作")
+		}
+		return false
+	}
+	return true
+}
+
+func (this *HouseData) ChangeOwner(user *GateUser) {
+	HouseSvrMgr().DelUserHouse(this.ownerid, this.id)
+	exowner := UserMgr().FindById(this.ownerid)
+	if exowner != nil {
+		exowner.UpdateHouseDataById(this.id, true)
+	}
+	this.ownerid = user.Id()
+	this.ownername = user.Name()
+	for _, v := range this.housecells {
+		v.ownerid = user.Id()
+	}
+	HouseSvrMgr().AddUserHouse(this.ownerid, this)
+	user.UpdateHouseDataById(this.id, false)
+}
+
+func (this *HouseData) ClearTrade() {
+	this.tradeendtime = 0
+	this.tradeuid = 0
+	this.issell = false
+}
+
+func (this *HouseData) CanTrade() bool {
+	user := UserMgr().FindById(this.ownerid)
+	if this.issell == true {
+		if user != nil {
+			user.SendNotify("房屋已经在出售中")
+		}
+		return false
+	}
+	return true
+}
+
 //每秒的Tick回调
 func (this *HouseData) Handler1SecTick(now int64) {
 	for _, v := range this.housecells {
@@ -301,27 +432,27 @@ func (this *HouseData) Handler1SecTick(now int64) {
 }
 
 //主人收金币
-func (this *HouseData) OwnerTakeGold(cellindex uint32) uint32 {
+func (this *HouseData) OwnerTakeGold(cellindex uint32) (uint32, map[uint32]uint32) {
 	if _, ok := this.housecells[cellindex]; ok {
 		return this.housecells[cellindex].OwnerTakeGold()
 	} else {
 		log.Error("玩家[%d] 收金币出错 房屋id[%d] tid:[%d] 没有此区域index[%d]", this.ownerid, this.id, this.tid, cellindex)
-		return 0
+		return 0,make(map[uint32]uint32)
 	}
 }
 
 //访客偷金币
-func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visitorname string) uint32 {
+func (this *HouseData) VisitorTakeGold(cellindex uint32, visitorid uint64, visitorname string) (uint32, map[uint32]uint32) {
 	if _, ok := this.housecells[cellindex]; ok {
-		gold := this.housecells[cellindex].VisitorTakeGold(visitorid)
+		gold,items := this.housecells[cellindex].VisitorTakeGold(visitorid)
 		if gold > 0 {
 			//加偷钱的记录
-			this.AddVisitInfo(visitorid, cellindex, 2, gold, visitorname)
+			this.AddVisitInfo(visitorid, 0, cellindex, uint32(msg.HouseVisitType_RobMoney), gold, visitorname, false)
 		}
-		return gold
+		return gold,items
 	} else {
 		log.Error("玩家[%d] 偷金币出错 房屋id[%d] tid:[%d] 没有此区域index[%d]", visitorid, this.id, this.tid, cellindex)
-		return 0
+		return 0,make(map[uint32]uint32)
 	}
 }
 
@@ -376,25 +507,51 @@ func (this *HouseData) LevelUp() bool {
 }
 
 //添加记录
-func (this *HouseData) AddVisitInfo(visitorid uint64, optindex uint32, opttype uint32, optparam uint32, visitorname string) {
+func (this *HouseData) AddVisitInfo(visitorid, visitorhouse uint64, optindex , opttype , optparam uint32, vistor string, syn bool) {
+	this.visitrecordid += 1
 	data := &HouseVisitInfo{}
 	data.visitorid = visitorid
 	data.tmvisit = util.CURTIME()
 	data.optindex = optindex
 	data.opttype = opttype
 	data.optparam = optparam
-	data.visitorname = visitorname
-	this.visitinfo = append(this.visitinfo, data)
-	infolen := len(this.visitinfo)
+	data.visitorname = vistor
+	data.visitorhouse = visitorhouse
+	data.uid = this.visitrecordid
 
-	for {
-		if infolen <= 5 {
-			break
-		}
-		this.visitinfo = append(this.visitinfo[:0], this.visitinfo[1:]...)
-		infolen = len(this.visitinfo)
+	this.visitinfo = append(this.visitinfo, data)
+	if len(this.visitinfo) > 30 {
+		this.visitinfo = this.visitinfo[1:]
 	}
 	this.robcheckflag = 1
+	
+	// 同步访问记录
+	if syn {
+		send := &msg.GW2C_UpdateHouseVisitInfo{Houseid:pb.Uint64(this.id), Info:data.PackBin()}
+		if user := UserMgr().FindById(this.ownerid); user != nil {
+			user.SendMsg(send) 
+		}
+	}
+}
+
+// 修改访问记录 optparam参数
+func (this *HouseData) SetVisitParam(user *GateUser, uid uint64, optparam uint32) {
+	for _, v := range this.visitinfo {
+		if v.uid != uid { continue }
+		v.optparam = optparam
+		send := &msg.GW2C_UpdateHouseVisitInfo{Houseid:pb.Uint64(this.id), Info:v.PackBin()}
+		user.SendMsg(send) 
+		return
+	}
+}
+
+//
+func (this *HouseData) GetVisitParam(uid uint64) (optparam uint32) {
+	for _, v := range this.visitinfo {
+		if v.uid != uid { continue }
+		return v.optparam
+	}
+	return 0
 }
 
 //客户端查看记录重置查看状态
@@ -407,7 +564,7 @@ func (this *HouseData) ResetRobcheckflag() {
 //房屋管理器
 type HouseManager struct {
 	houses map[uint64]*HouseData //已加载的所有房屋的map
-	userhouses map[uint64][]uint64 //玩家id 关联的房屋id
+	userhouses map[uint64]map[uint64]*HouseData //玩家id 关联的房屋id
 	housesIdList []uint64 //所有房屋id列表
 	nobuildinghouseIds []uint64 //仅租房的房屋id列表
 }
@@ -415,7 +572,7 @@ type HouseManager struct {
 func (this *HouseManager) Init() {
 	log.Info("HouseManager Init")
 	this.houses = make(map[uint64]*HouseData)
-	this.userhouses = make(map[uint64][]uint64)
+	this.userhouses = make(map[uint64]map[uint64]*HouseData)
 	this.housesIdList = make([]uint64, 0)
 	this.nobuildinghouseIds = make([]uint64, 0)
 	this.LoadDB()
@@ -463,23 +620,16 @@ func (this *HouseManager) GetHouse(houseid uint64) *HouseData {
 }
 
 //获取玩家关联的房屋
-func (this *HouseManager) GetHousesByUser(uid uint64) []*HouseData {
-	data := make([]*HouseData, 0)
+func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
+	data := make(map[uint64]*HouseData)
 	if _, ok := this.userhouses[uid]; ok {
-		ids := this.userhouses[uid]
-		for _, v := range ids {
-			tmp := this.GetHouse(v)
-			if tmp != nil {
-				data = append(data, tmp)
-			}
-		}
+		return this.userhouses[uid]
 	}
-
 	return data
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32) *HouseData {
+func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32, square uint32, cost uint32) *HouseData {
 	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
@@ -526,6 +676,9 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.ownername = ownername
 	house.buildingid = buildingid
 	house.roommember = roommember
+	house.area = square
+	house.sumvalue = cost
+	house.income = house.GetIncome()
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
@@ -545,11 +698,24 @@ func (this *HouseManager) AddHouse(house *HouseData) {
 			this.nobuildinghouseIds = append(this.nobuildinghouseIds, house.id)
 		}
 	}
-	if _, ok := this.userhouses[house.ownerid]; ok {
-		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
+	this.AddUserHouse(house.ownerid, house)
+}
+
+func (this *HouseManager) AddUserHouse(userid uint64, house *HouseData){
+	if house == nil {
+		return
+	}
+	if _, ok := this.userhouses[userid]; ok {
+		this.userhouses[userid][house.id] = house
 	} else {
-		this.userhouses[house.ownerid] = make([]uint64, 0)
-		this.userhouses[house.ownerid] = append(this.userhouses[house.ownerid], house.id)
+		this.userhouses[userid] = make(map[uint64]*HouseData)
+		this.userhouses[userid][house.id] = house
+	}
+}
+
+func (this *HouseManager) DelUserHouse(userid uint64, houseid uint64){
+	if _, ok := this.userhouses[userid]; ok {
+		delete(this.userhouses[userid], houseid) 
 	}
 }
 
@@ -591,6 +757,9 @@ func (this *HouseManager) HouseLevelUp(userid uint64, houseid uint64) uint32 {
 	if house == nil {
 		return 0
 	}
+	if house.CanOperate(userid) == false {
+		return 0
+	}
 	if house.LevelUp() {
 		this.SyncUserHouseData(userid)
 		return 1
@@ -606,6 +775,9 @@ func (this *HouseManager) HouseCellLevelUp(userid uint64, houseid uint64, index 
 	if house == nil {
 		return 0
 	}
+	if house.CanOperate(userid) == false {
+		return 0
+	}
 	houselevel := house.level
 	if _, ok := house.housecells[index]; ok {
 		cell := house.housecells[index]
@@ -615,6 +787,7 @@ func (this *HouseManager) HouseCellLevelUp(userid uint64, houseid uint64, index 
 		}
 		if cell.LevelUp() {
 			this.SyncUserHouseData(userid)
+			house.SaveBin(nil)
 			return 1
 		} else {
 			return 0
@@ -626,36 +799,42 @@ func (this *HouseManager) HouseCellLevelUp(userid uint64, houseid uint64, index 
 }
 
 //收金币 返回偷取金币数 >0 时成功
-func (this *HouseManager) TakeSelfHouseGold(userid uint64, houseid uint64, index uint32) uint32 {
+func (this *HouseManager) TakeSelfHouseGold(userid uint64, houseid uint64, index uint32) (uint32, map[uint32]uint32) {
 	house := this.GetHouse(houseid)
 	if house == nil {
-		return 0
+		return 0, make(map[uint32]uint32) 
+	}
+	if house.CanOperate(userid) == false {
+		return 0, make(map[uint32]uint32)
 	}
 
-	gold := house.OwnerTakeGold(index)
+	gold, items := house.OwnerTakeGold(index)
 	if gold > 0 {
 		this.SyncUserHouseData(userid)
-		return gold
+		return gold,items
 	}
-	return 0
+	return 0, make(map[uint32]uint32)
 }
 
 //偷金币 返回偷取金币数 > 0 时成功
-func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visitorid uint64, visitorname string) uint32 {
+func (this *HouseManager) TakeOtherHouseGold(houseid uint64, index uint32, visitorid uint64, visitorname string) (uint32, map[uint32]uint32) {
 	house := this.GetHouse(houseid)
 	if house == nil {
-		return 0
+		return 0, make(map[uint32]uint32)
+	}
+	if house.CanOperate(visitorid) == false {
+		return 0, make(map[uint32]uint32)
 	}
 	if house.ownerid == visitorid {
 		log.Error("偷取金币出错 不能偷取自己的房屋金币 houseid:%d  ownerid:%d  visitorid:%d", houseid, house.ownerid, visitorid)
-		return 0
+		return 0, make(map[uint32]uint32)
 	}
-	gold := house.VisitorTakeGold(index, visitorid, visitorname)
+	gold, items := house.VisitorTakeGold(index, visitorid, visitorname)
 	if gold > 0 {
 		this.SyncUserHouseData(house.ownerid)
-		return gold
+		return gold, items
 	}
-	return 0
+	return 0, make(map[uint32]uint32)
 }
 
 //获取租房的随机的房屋列表
@@ -667,6 +846,9 @@ func (this *HouseManager) GetRandHouseList(uid uint64) []*msg.HouseData {
 		for _, v := range this.houses {
 			if i >= 11 {
 				break
+			}
+			if v.issell == true {
+				continue
 			}
 			if v.buildingid != 0 {
 				continue
@@ -747,6 +929,25 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 			//房屋到最高等级
 			return
 		}
+		needitem := make(map[uint32]uint32)
+		strneeditem := base.LevelUpNeedItem
+		if strneeditem != "" {
+			slicetmp := strings.Split(strneeditem, "|")
+			for _, v := range slicetmp {
+				info := strings.Split(v, "-")
+				if len(info) < 2 {
+					log.Error("房屋升级 配置需求道具格式错误  tid[%d]", house.GetTid())
+					return
+				}
+				itemid, _ := strconv.Atoi(info[0])
+				num, _ := strconv.Atoi(info[1])
+				needitem[uint32(itemid)] = uint32(num)
+			}
+			if this.CheckEnoughItems(needitem) == false {
+				//需求道具不足
+				return
+			}
+		}
 		needgold := base.LevelUpCost
 		if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 			//钱不够
@@ -757,12 +958,19 @@ func (this *GateUser) HouseLevelUp(houseid uint64) {
 			if house == nil {
 				return
 			}
+			if len(needitem) > 0 {
+				for itemid, num := range needitem {
+					this.RemoveItem(itemid, num, "房屋升级消耗道具")
+				}
+			}
 			this.ReqMatchHouseData()
 			send := &msg.GW2C_AckHouseLevelUp{}
 			send.Houseid = pb.Uint64(houseid)
 			send.Ret = pb.Uint32(ret)
 			send.Data = house.PackBin()
 			this.SendMsg(send)
+			house.sumvalue += needgold
+			house.income = house.GetIncome()
 		}
 	} else {
 		log.Error("HouseLevelUp house not found id:%d", houseid)
@@ -788,6 +996,26 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					//房屋等级不足
 					return
 				}
+
+				needitem := make(map[uint32]uint32)
+				strneeditem := base.LevelUpNeedItem
+				if strneeditem != "" {
+					slicetmp := strings.Split(strneeditem, "|")
+					for _, w := range slicetmp {
+						info := strings.Split(w, "-")
+						if len(info) < 2 {
+							log.Error("房间Cell升级 配置需求道具格式错误  tid[%d]", v.GetTid())
+							return
+						}
+						itemid, _ := strconv.Atoi(info[0])
+						num, _ := strconv.Atoi(info[1])
+						needitem[uint32(itemid)] = uint32(num)
+					}
+					if this.CheckEnoughItems(needitem) == false {
+						//需求道具不足
+						return
+					}
+				}
 				needgold := base.LevelUpCost
 				if this.RemoveGold(needgold, "升级房屋扣除", true) == false {
 					//钱不够
@@ -798,6 +1026,11 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					if house == nil {
 						return
 					}
+					if len(needitem) > 0 {
+						for itemid, num := range needitem {
+							this.RemoveItem(itemid, num, "房屋升级消耗道具")
+						}
+					}
 					this.ReqMatchHouseData()
 					send := &msg.GW2C_AckHouseCellLevelUp{}
 					send.Houseid = pb.Uint64(houseid)
@@ -805,7 +1038,8 @@ func (this *GateUser) HouseCellLevelUp(houseid uint64, index uint32) {
 					send.Ret = pb.Uint32(ret)
 					send.Data = house.PackBin()
 					this.SendMsg(send)
-
+					house.sumvalue += needgold
+					house.income = house.GetIncome()
 				}
 				return
 			}
@@ -829,10 +1063,18 @@ func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
 					log.Error("TakeSelfHouseGold have no gold")
 					return
 				}
-				gold := HouseSvrMgr().TakeSelfHouseGold(this.Id(), houseid, index)
+				gold, items := HouseSvrMgr().TakeSelfHouseGold(this.Id(), houseid, index)
+				itemdata := make([]*msg.PairNumItem,0)
 				if gold > 0 {
 					this.AddGold(gold, "收取自己房屋产出金币", true)
 					this.ReqMatchHouseData()
+					for itemid, num := range items {
+						this.AddItem(itemid, num, "收取自己房屋产出", true)
+						tmp := &msg.PairNumItem{}
+						tmp.Itemid = pb.Uint32(itemid)
+						tmp.Num = pb.Uint32(num)
+						itemdata = append(itemdata,tmp)
+					}
 				}
 				house := HouseSvrMgr().GetHouse(houseid)
 				if house == nil {
@@ -843,6 +1085,7 @@ func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
 				send.Index = pb.Uint32(index)
 				send.Gold = pb.Uint32(gold)
 				send.Data = house.PackBin()
+				send.Items = itemdata
 				this.SendMsg(send)
 
 				return
@@ -857,14 +1100,22 @@ func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
 }
 
 func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
-	if this.robcount <= 0 {
+	if this.GetRobCount() <= 0 {
 		return
 	}
 
-	gold := HouseSvrMgr().TakeOtherHouseGold(houseid, index, this.Id(), this.Name())
+	gold, items := HouseSvrMgr().TakeOtherHouseGold(houseid, index, this.Id(), this.Name())
+	itemdata := make([]*msg.PairNumItem,0)
 	if gold > 0 {
 		this.AddGold(gold, "抢夺其他玩家房屋产出金币", true)
-		this.SetRobCount(this.GetRobCount() - 1)
+		this.RemoveRobCount(1, true)
+		for itemid, num := range items {
+			this.AddItem(itemid, num, "掠夺其他玩家房屋产出", true)
+			tmp := &msg.PairNumItem{}
+			tmp.Itemid = pb.Uint32(itemid)
+			tmp.Num = pb.Uint32(num)
+			itemdata = append(itemdata,tmp)
+		}
 	}
 	house := HouseSvrMgr().GetHouse(houseid)
 	if house == nil {
@@ -875,6 +1126,7 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	send.Index = pb.Uint32(index)
 	send.Gold = pb.Uint32(gold)
 	send.Data = house.PackBin()
+	send.Items = itemdata
 	this.SendMsg(send)
 }
 
@@ -922,6 +1174,20 @@ func (this *GateUser) ResetRobCheckFlag(houseid uint64) {
 		return
 	}
 	HouseSvrMgr().ResetRobcheckflag(houseid)
+}
+
+func (this *GateUser) UpdateHouseDataById(houseid uint64, del bool) {
+	house := HouseSvrMgr().GetHouse(houseid)
+	if house == nil {
+		return
+	}
+	send := &msg.GW2C_UpdateHouseDataOne{}
+	send.Houseuid = pb.Uint64(houseid)
+	if del == false {
+		send.Data = house.PackBin()
+	}
+	send.Isdel = pb.Bool(del)
+	this.SendMsg(send)
 }
 
 func (this *GateUser) ReqHouseDataByHouseId(houseid uint64) {

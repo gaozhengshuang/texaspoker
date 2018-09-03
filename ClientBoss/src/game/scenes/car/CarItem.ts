@@ -15,6 +15,7 @@ module game {
         stateTxt            : eui.Label;
         btnJoin             : IconButton;
     
+        private carData     : msg.ICarData;
         private itemData    : table.ITCarDefine;
       
 
@@ -26,6 +27,7 @@ module game {
         protected dataChanged():void{
             //数据改变时，会自动调用 dataChanged 这个方法
             //console.log("dataChanged "+this.data.tid);
+            this.carData = this.data;
             this.setData(table.TCarById[this.data.tid]);
         }
 
@@ -46,7 +48,7 @@ module game {
             
             //名字
             this.ItemName.textFlow = [
-                { text: this.itemData.Brand+""+this.itemData.Model, style: { bold: true } },
+                { text: table.TCarBrandById[this.itemData.Brand].Brand+""+table.TCarModelById[this.itemData.Model].Model, style: { bold: true } },
                 //{ text: `:${gold}`, style: { fontFamily: "DynoBold" } },
             ]
 
@@ -72,7 +74,8 @@ module game {
             //价格
             //this.img_gold.visible  =  true;
             //this.img_diamond.visible = false;
-            this.txt_info.text = "产能："+ this.itemData.RewardPerH + "金币/分钟" + "\n"+"价值："+ this.itemData.Price+"金币";
+           let _carPartItemData = table.TCarPartById[this.itemData.Engine];
+           this.txt_info.text = "产能："+ (this.carData ?  this.carData.attr.reward : "") + "金币/分钟" + "\n"+"价值："+ this.carData.price+"金币";
 
             //状态
             //this.stateTxt.text = this.data.parkingid == 0 ? "空闲" : "出征";
@@ -80,7 +83,7 @@ module game {
         }
 
         private OnClickDetail(){
-            CarManager.getInstance().ReqMyCarInfo();
+            //CarManager.getInstance().ReqMyCarInfo();
             openPanel(PanelType.carDetail);
             ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);   
             GameConfig.showDownBtnFun(false);         

@@ -110,6 +110,18 @@ func RedisKeyGateRooms(gate string) string {
 	return key
 }
 
+//生成女仆的 uuid
+func GenerateMaidId(redis *redis.Client) (id int64, errcode string) {
+	key := "uuid_maid"
+	id, err := redis.Incr(key).Result()
+	if err != nil {
+		log.Error("生成女仆uuid RedisError: %s", err)
+		return 0, "redis不可用"
+	}
+	return id, ""
+}
+
+
 //生成房子的 uuid
 func GenerateHouseId(redis *redis.Client) (id int64, errcode string) {
 	key := "uuid_house"

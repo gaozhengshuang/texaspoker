@@ -79,13 +79,17 @@ func (this *TblLoader) Init() {
 	// load excels
     this.LoadExcel(MusicBase, "music.json")
 	this.LoadExcel(LevelBasee, "levelbase.json")
+	this.LoadExcel(TCarStarAttrBase, "carstarattrbase.json")
+	this.LoadExcel(TStarupCarBase, "starupcarbase.json")
 	this.LoadExcel(TbirckInfobase, "birckinfobase.json")
 	this.LoadExcel(GiftProBase, "giftprobase.json")
 	this.LoadExcel(CarShopBase, "carshop.json")
 	this.LoadExcel(TBirckBase, "birckbase.json")
+	this.LoadExcel(TLevelCarPartBase, "levelcarpartbase.json")
 	this.LoadExcel(ProtoMsgIndex, "proto_index.json")
 	this.LoadExcel(TBallGiftbase, "ballgiftbase.json")
 	this.LoadExcel(NoticeBase, "noticebase.json")
+	this.LoadExcel(TCarModelBase, "carmodelbase.json")
 	this.LoadExcel(THouseBase, "housebase.json")
 	this.LoadExcel(RechargeBase, "recharge.json")
 	this.LoadExcel(TBirckItembase, "birckitem.json")
@@ -93,7 +97,10 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(THouseCellBase, "housecellbase.json")
 	this.LoadExcel(TCarBase, "carbase.json")
 	this.LoadExcel(NameBase, "namebase.json")
+	this.LoadExcel(TCarPartBase, "carpartbase.json")
+	this.LoadExcel(TCarPartLevelupBase, "carpartlevelupbase.json")
 	this.LoadExcel(TBallBase, "ballbase.json")
+	this.LoadExcel(TCarBrandBase, "carbrandbase.json")
 	this.LoadExcel(TEquipBase, "equipbase.json")
 	this.LoadExcel(TCitysBase, "citysbase.json")
 	this.LoadExcel(TaskBase, "taskbase.json")
@@ -102,6 +109,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TParkingBase, "parkingbase.json")
 	this.LoadExcel(ShopBase, "shopbase.json")
 	this.LoadExcel(TbirckRefreshbase, "birckrefreshbase.json")
+	this.LoadExcel(LevelMaidBase, "levelmaid.json")
 	this.LoadExcel(ItemBase, "itembase.json")
 	
 
@@ -110,6 +118,7 @@ func (this *TblLoader) Init() {
 	this.LoadJson(Game, "game.json")
 	this.LoadJson(Global, "global.json")
 	this.LoadJson(Room, "room.json")
+	this.LoadJson(Mysql, "mysql.json")
 	
 }
 

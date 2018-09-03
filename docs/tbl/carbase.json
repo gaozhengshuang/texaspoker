@@ -2,14 +2,14 @@
 	"Tool": "github.com/davyxu/tabtoy",
 	"Version": "2.8.10",
 	"TCar":[
-		{ "Id": 1001, "Brand": "奔驰", "Model": "smart", "MoveRange": 1000, "Capacity": 120, "RewardPerH": 12, "Price": 720, "path": "carIconAltas_json.small_1", "bigpath": "carIconAltas_json.big_1" },
-		{ "Id": 1002, "Brand": "本田", "Model": "思域", "MoveRange": 1500, "Capacity": 480, "RewardPerH": 24, "Price": 2880, "path": "carIconAltas_json.small_2", "bigpath": "carIconAltas_json.big_2" },
-		{ "Id": 1003, "Brand": "大众", "Model": "polo", "MoveRange": 2000, "Capacity": 1080, "RewardPerH": 36, "Price": 6480, "path": "carIconAltas_json.small_3", "bigpath": "carIconAltas_json.big_3" },
-		{ "Id": 1004, "Brand": "丰田", "Model": "汉兰达", "MoveRange": 2500, "Capacity": 2880, "RewardPerH": 48, "Price": 17280, "path": "carIconAltas_json.small_4", "bigpath": "carIconAltas_json.big_4" },
-		{ "Id": 1005, "Brand": "奥迪", "Model": "A4L", "MoveRange": 3000, "Capacity": 7200, "RewardPerH": 60, "Price": 43200, "path": "carIconAltas_json.small_5", "bigpath": "carIconAltas_json.big_5" },
-		{ "Id": 1006, "Brand": "宝马", "Model": "mini", "MoveRange": 4000, "Capacity": 12960, "RewardPerH": 72, "Price": 77760, "path": "carIconAltas_json.small_6", "bigpath": "carIconAltas_json.big_6" },
-		{ "Id": 1007, "Brand": "雪佛莱", "Model": "科迈罗", "MoveRange": 5000, "Capacity": 20160, "RewardPerH": 84, "Price": 151200, "path": "carIconAltas_json.small_7", "bigpath": "carIconAltas_json.big_7" },
-		{ "Id": 1008, "Brand": "保时捷", "Model": "911", "MoveRange": 6000, "Capacity": 28800, "RewardPerH": 96, "Price": 241920, "path": "carIconAltas_json.small_8", "bigpath": "carIconAltas_json.big_8" },
-		{ "Id": 1009, "Brand": "奔驰", "Model": "G级", "MoveRange": 7000, "Capacity": 38880, "RewardPerH": 108, "Price": 349920, "path": "carIconAltas_json.small_9", "bigpath": "carIconAltas_json.big_9" },
-		{ "Id": 1010, "Brand": "劳斯劳斯", "Model": "古斯特", "MoveRange": 8000, "Capacity": 50400, "RewardPerH": 120, "Price": 540000, "path": "carIconAltas_json.small_10", "bigpath": "carIconAltas_json.big_10" }
+		{ "Id": 1001, "Brand": 1000, "Model": 1001, "Price": 0, "path": "carIconAltas_json.small_1", "bigpath": "carIconAltas_json.big_1", "Tyre": 1001, "Tank": 2001, "Trunk": 3001, "Engine": 4001, "Battery": 5001, "MaxStar": 10, "StarAttrGroup": 1001 },
+		{ "Id": 1002, "Brand": 2000, "Model": 2001, "Price": 0, "path": "carIconAltas_json.small_2", "bigpath": "carIconAltas_json.big_2", "Tyre": 1002, "Tank": 2002, "Trunk": 3002, "Engine": 4002, "Battery": 5002, "MaxStar": 10, "StarAttrGroup": 1002 },
+		{ "Id": 1003, "Brand": 3000, "Model": 3001, "Price": 0, "path": "carIconAltas_json.small_3", "bigpath": "carIconAltas_json.big_3", "Tyre": 1003, "Tank": 2003, "Trunk": 3003, "Engine": 4003, "Battery": 5003, "MaxStar": 10, "StarAttrGroup": 1003 },
+		{ "Id": 1004, "Brand": 4000, "Model": 4001, "Price": 0, "path": "carIconAltas_json.small_4", "bigpath": "carIconAltas_json.big_4", "Tyre": 1004, "Tank": 2004, "Trunk": 3004, "Engine": 4004, "Battery": 5004, "MaxStar": 10, "StarAttrGroup": 1004 },
+		{ "Id": 1005, "Brand": 5000, "Model": 5001, "Price": 0, "path": "carIconAltas_json.small_5", "bigpath": "carIconAltas_json.big_5", "Tyre": 1005, "Tank": 2005, "Trunk": 3005, "Engine": 4005, "Battery": 5005, "MaxStar": 10, "StarAttrGroup": 1005 },
+		{ "Id": 1006, "Brand": 6000, "Model": 6001, "Price": 0, "path": "carIconAltas_json.small_6", "bigpath": "carIconAltas_json.big_6", "Tyre": 1006, "Tank": 2006, "Trunk": 3006, "Engine": 4006, "Battery": 5006, "MaxStar": 10, "StarAttrGroup": 1006 },
+		{ "Id": 1007, "Brand": 7000, "Model": 7001, "Price": 0, "path": "carIconAltas_json.small_7", "bigpath": "carIconAltas_json.big_7", "Tyre": 1007, "Tank": 2007, "Trunk": 3007, "Engine": 4007, "Battery": 5007, "MaxStar": 10, "StarAttrGroup": 1007 },
+		{ "Id": 1008, "Brand": 8000, "Model": 8001, "Price": 0, "path": "carIconAltas_json.small_8", "bigpath": "carIconAltas_json.big_8", "Tyre": 1008, "Tank": 2008, "Trunk": 3008, "Engine": 4008, "Battery": 5008, "MaxStar": 10, "StarAttrGroup": 1008 },
+		{ "Id": 1009, "Brand": 9000, "Model": 9001, "Price": 0, "path": "carIconAltas_json.small_9", "bigpath": "carIconAltas_json.big_9", "Tyre": 1009, "Tank": 2009, "Trunk": 3009, "Engine": 4009, "Battery": 5009, "MaxStar": 10, "StarAttrGroup": 1009 },
+		{ "Id": 1010, "Brand": 10000, "Model": 10001, "Price": 0, "path": "carIconAltas_json.small_10", "bigpath": "carIconAltas_json.big_10", "Tyre": 1010, "Tank": 2010, "Trunk": 3010, "Engine": 4010, "Battery": 5010, "MaxStar": 10, "StarAttrGroup": 1010 }
 	]}

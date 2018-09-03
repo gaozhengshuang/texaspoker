@@ -16,6 +16,7 @@ module game {
 		public sourceObject: any = { form: 0, param: null };
 
 		public returnRoomInfo: HouseVO = null;
+		public returnRoomId: number = 0;
 		public returnPlayersId: number = 0;
 		public returnType: number = 0;
 
@@ -28,12 +29,40 @@ module game {
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseLevelUp, "msg.GW2C_AckHouseLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseCellLevelUp, "msg.GW2C_AckHouseCellLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseDataByHouseId, "msg.GW2C_AckHouseDataByHouseId");
+			NotificationCenter.addObserver(this, this.OnGW2C_UpdateHouseVisitInfo, "msg.GW2C_UpdateHouseVisitInfo");
 
 		}
+		private OnGW2C_UpdateHouseVisitInfo(data: msg.GW2C_UpdateHouseVisitInfo) {
+			if (GameConfig.pageType == 1) {
+				if (data.houseid == this.currentHouse.rId) {
+					let ishas: boolean = false;
+					if (this.currentHouse.visitinfo && this.currentHouse.visitinfo.length > 0) {
+						for (let i: number = 0; i < this.currentHouse.visitinfo.length; i++) {
+							if (this.currentHouse.visitinfo[i].id == data.info.id) {
+								ishas = true;
+								this.currentHouse.visitinfo[i] = data.info;
+								break;
+							}
+						}
+					}
+					if (!ishas) {
+						this.currentHouse.visitinfo.push(data.info);
+						this.currentHouse.robcheckflag = 1;
+					}
+					ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
+				}
+			}
+		}
 		private OnGW2C_AckHouseDataByHouseId(data: msg.GW2C_AckHouseDataByHouseId) {
-			this.setCurrentHouse(data.data);
-			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
-
+			if (GameConfig.sceneType != 7) {
+				if (data.data.issell) {
+					showTips("房屋出售中！");
+				}
+				else {
+					this.setCurrentHouse(data.data);
+					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
+				}
+			}
 		}
 		private OnGW2C_AckHouseData(data: msg.GW2C_AckHouseData) {
 			if (GameConfig.pageType == 1) {
@@ -42,19 +71,21 @@ module game {
 		}
 		private OnGW2C_AckOtherUserHouseData(data: msg.GW2C_AckOtherUserHouseData) {
 			//this.setCurrentHouse(data.datas);
-			if(data && data.datas && data.datas.length>0){
-				let otherHouse:HouseVO[]=[]
-				for(let i:number=0;i<data.datas.length;i++){
-					let item:HouseVO=new HouseVO();
+			if (data && data.datas && data.datas.length > 0) {
+				let otherHouse: HouseVO[] = []
+				for (let i: number = 0; i < data.datas.length; i++) {
+					let item: HouseVO = new HouseVO();
 					item.setObject(data.datas[i]);
 					otherHouse.push(item);
 				}
-				if(otherHouse && otherHouse.length>0){
-					let house:HouseVO=GetHaveGoldHouse(otherHouse,1);
-					if(house!=null){
-						this.setCurrentHouse(house);
-					}else{
-						this.setCurrentHouse(otherHouse[0]);
+				if (otherHouse && otherHouse.length > 0) {
+					let house: HouseVO = GetHaveGoldHouse(otherHouse, 1);
+					if (house != null) {
+						//this.setCurrentHouse(house);
+						this.currentHouse = house;
+					} else {
+						//this.setCurrentHouse(otherHouse[0]);
+						this.currentHouse = house;
 					}
 					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
 				}
@@ -86,30 +117,47 @@ module game {
 			}
 		}
 		private OnGW2C_AckTakeSelfHouseGoldRet(data: msg.GW2C_AckTakeSelfHouseGoldRet) {
-			ApplicationFacade.getInstance().sendNotification(CommandName.RECEIVE_SUCCESS,
-				{ houseid: data.houseid, index: data.index, gold: data.gold });
-			this.updateRoomInfo(data.data);
+			if (data && data.gold && data.gold > 0) {
+				ApplicationFacade.getInstance().sendNotification(CommandName.RECEIVE_SUCCESS,
+					{ houseid: data.houseid, index: data.index, gold: data.gold, items: data.items });
+				this.updateRoomInfo(data.data);
+			} else {
+				showTips("领取失败！");
+			}
+
 		}
 		private OnGW2C_AckTakeOtherHouseGoldRet(data: msg.GW2C_AckTakeOtherHouseGoldRet) {
-			ApplicationFacade.getInstance().sendNotification(CommandName.PLUNDER_SUCCESS,
-				{ houseid: data.houseid, index: data.index, gold: data.gold });
-			this.updateRoomInfo(data.data);
+			if (data && data.gold && data.gold > 0) {
+				ApplicationFacade.getInstance().sendNotification(CommandName.PLUNDER_SUCCESS,
+					{ houseid: data.houseid, index: data.index, gold: data.gold, items: data.items });
+				this.updateRoomInfo(data.data);
+			} else {
+				showTips("掠夺失败！");
+			}
 		}
 		private OnGW2C_AckHouseLevelUp(data: msg.GW2C_AckHouseLevelUp) {
-			ApplicationFacade.getInstance().sendNotification(CommandName.HOUSE_LEVEL_SUCCESS,
-				{ houseid: data.houseid, ret: data.ret, index: 0 });
-			this.updateRoomInfo(data.data);
+			if (data && data.ret && data.ret > 0) {
+				ApplicationFacade.getInstance().sendNotification(CommandName.HOUSE_LEVEL_SUCCESS,
+					{ houseid: data.houseid, ret: data.ret, index: 0 });
+				this.updateRoomInfo(data.data);
+			} else {
+				showTips("升级失败！");
+			}
 		}
 		private OnGW2C_AckHouseCellLevelUp(data: msg.GW2C_AckHouseCellLevelUp) {
-			ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_LEVEL_SUCCESS,
-				{ houseid: data.houseid, index: data.index, ret: data.ret });
-			this.updateRoomInfo(data.data);
+			if (data && data.ret && data.ret > 0) {
+				ApplicationFacade.getInstance().sendNotification(CommandName.ROOM_LEVEL_SUCCESS,
+					{ houseid: data.houseid, index: data.index, ret: data.ret });
+				this.updateRoomInfo(data.data);
+			} else {
+				showTips("升级失败！");
+			}
 		}
 		private updateRoomInfo(datas: any) {
 			if (datas.id == this.currentHouse.rId) {
 				this.currentHouse.setObject(datas);
-				console.log(datas);
-				console.log(this.currentHouse);
+				//console.log(datas);
+				//console.log(this.currentHouse);
 				ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_ROOM_INFO, { room: this.currentHouse });
 			}
 		}
@@ -123,7 +171,7 @@ module game {
 				this.setSelfHouse(info);
 			}
 		}
-		public setSelfHouse(house: HouseVO) {
+		public setSelfHouse(house: any) {
 			if (house) {
 				this.selfHouse = new HouseVO();
 				this.selfHouse.setObject(house);

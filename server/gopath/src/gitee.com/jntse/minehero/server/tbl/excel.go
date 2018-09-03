@@ -15,13 +15,17 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 var MusicBase = table.InsMusicBaseTable
 var LevelBasee = table.InsLevelBaseeTable
+var TCarStarAttrBase = table.InsTCarStarAttrBaseTable
+var TStarupCarBase = table.InsTStarupCarBaseTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var CarShopBase = table.InsCarShopBaseTable
 var TBirckBase = table.InsTBirckBaseTable
+var TLevelCarPartBase = table.InsTLevelCarPartBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
+var TCarModelBase = table.InsTCarModelBaseTable
 var THouseBase = table.InsTHouseBaseTable
 var RechargeBase = table.InsRechargeBaseTable
 var TBirckItembase = table.InsTBirckItembaseTable
@@ -29,7 +33,10 @@ var SignBase = table.InsSignBaseTable
 var THouseCellBase = table.InsTHouseCellBaseTable
 var TCarBase = table.InsTCarBaseTable
 var NameBase = table.InsNameBaseTable
+var TCarPartBase = table.InsTCarPartBaseTable
+var TCarPartLevelupBase = table.InsTCarPartLevelupBaseTable
 var TBallBase = table.InsTBallBaseTable
+var TCarBrandBase = table.InsTCarBrandBaseTable
 var TEquipBase = table.InsTEquipBaseTable
 var TCitysBase = table.InsTCitysBaseTable
 var TaskBase = table.InsTaskBaseTable
@@ -38,5 +45,6 @@ var TBuildingsBase = table.InsTBuildingsBaseTable
 var TParkingBase = table.InsTParkingBaseTable
 var ShopBase = table.InsShopBaseTable
 var TbirckRefreshbase = table.InsTbirckRefreshbaseTable
+var LevelMaidBase = table.InsLevelMaidBaseTable
 var ItemBase = table.InsItemBaseTable
 

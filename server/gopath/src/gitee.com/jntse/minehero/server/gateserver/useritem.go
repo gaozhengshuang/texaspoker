@@ -19,7 +19,7 @@ import (
 
 // 添加道具
 func (this *GateUser) AddItem(item uint32, num uint32, reason string, syn bool) {
-
+	//log.Info("玩家[%d] 添加道具 itemid[%d] num[%d] reason:%s",this.Id(),item,num,reason)
 	if item == uint32(msg.ItemId_YuanBao) {
 		this.AddYuanbao(num, reason, syn)
 	}else if item == uint32(msg.ItemId_Gold) {
@@ -224,26 +224,25 @@ func (this *GateUser) BuyClothes(ItemList []int32) {
 
 
 // 道具换元宝
-func (this *GateUser) SellBagItem(itemid, num uint32) {
-	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
-	if ok == false {
-		log.Error("[道具换元宝] 玩家[%s %d] 无效的道具[%d]", this.Name(), this.Id(), itemid)
-		return
-	}
-
-	have := this.bag.GetItemNum(itemid)
-	if have < num {
-		this.SendNotify("道具数量不足")
-		return
-	}
-	this.RemoveItem(itemid, num, "出售道具");
-
-	//
-	yuanbao := uint32(item.Sold) * num		// 价值，元宝
-	this.AddYuanbao(yuanbao, "出售道具", true)
-	this.SendNotify("出售成功")
-}
-
+//func (this *GateUser) SellBagItem(itemid, num uint32) {
+//	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
+//	if ok == false {
+//		log.Error("[道具换元宝] 玩家[%s %d] 无效的道具[%d]", this.Name(), this.Id(), itemid)
+//		return
+//	}
+//
+//	have := this.bag.GetItemNum(itemid)
+//	if have < num {
+//		this.SendNotify("道具数量不足")
+//		return
+//	}
+//	this.RemoveItem(itemid, num, "出售道具");
+//
+//	//
+//	yuanbao := uint32(item.Sold) * num		// 价值，元宝
+//	this.AddYuanbao(yuanbao, "出售道具", true)
+//	this.SendNotify("出售成功")
+//}
 
 // 使用道具
 func (this* GateUser) UseItem(itemid , num uint32) {
@@ -254,6 +253,17 @@ func (this* GateUser) UseItem(itemid , num uint32) {
 	}
 
 	this.bag.RemoveItem(itemid, num, "使用背包道具")
+}
+
+// 检查玩家身上是否有哪些道具 参数info 为道具id做key 数量做Value的map
+func (this* GateUser) CheckEnoughItems(info map[uint32] uint32) bool {
+	for itemid, num := range info {
+		have := this.bag.GetItemNum(itemid)
+		if have < num {
+			return false
+		}
+	}
+	return true
 }
 
 
@@ -705,4 +715,39 @@ func (this *GateUser) OnLevelUp() {
 	this.AddLevel(1)
 }
 
+// 合成时装
+func (this *GateUser) MakeClothes(debris uint32) {
+	base, ok := tbl.ItemBase.ItemBaseDataById[debris]
+	if ok == false {
+		log.Error("[时装] 玩家[%s %d] 使用了不存在的道具", this.Name(), this.Id())
+		return
+	}
+
+	if base.Type != int32(msg.ItemType_ClothesParts) || base.Clothes == 0 {
+		log.Error("[时装] 玩家[%s %d] 合成使用的不是时装碎片")
+		return
+	}
+
+	clothebase, ok := tbl.TEquipBase.EquipById[int32(base.Clothes)]
+	if ok == false {
+		log.Error("[时装] 玩家[%s %d] 合成无效的时装")
+		return
+	}
+
+	if clothebase.DebrisId != debris {
+		log.Error("[时装] 玩家[%s %d] 合成时装异常，时装表和道具表不匹配")
+		return
+	}
+
+	if this.bag.GetItemNum(debris) < clothebase.DebrisNum {
+		this.SendNotify("碎片不足")
+		log.Error("[时装] 玩家[%s %d] 合成时装失败，碎片[%d]不足", debris)
+		return
+	}
+
+	this.RemoveItem(debris, clothebase.DebrisNum, "合成时装")
+	this.AddItem(uint32(clothebase.Id), 1, "合成时装", true)
+	//this.SendNotify("合成时装成功")
+	return
+}
 

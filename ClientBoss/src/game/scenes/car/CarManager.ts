@@ -1,4 +1,16 @@
 module game {
+    export function getCarName(carTid:number,str ="")
+    {
+        let cardef :table.ITCarDefine = table.TCarById[carTid];
+        if(cardef){
+            let brand =  table.TCarBrandById[cardef.Brand];
+            let model =  table.TCarModelById[cardef.Model];
+            if(brand && model){
+                return brand.Brand+str+model.Model;
+            }
+        }
+        return "";
+    }
     export class CarFunData
     {
         public uid     :number|Long;
@@ -21,6 +33,8 @@ module game {
         private GW2C_SendCarShopInfo_BackCalls          : Function[]; 
         private GW2C_UpdateCarShopProduct_BackCalls     : Function[];
         private GW2C_RetTakeCarAutoBackReward_BackCalls : Function[];
+        private GW2C_RetCarPartLevelup_BackCalls        : Function[];
+        private GW2C_RetCarStarup_BackCalls        : Function[];
 
         private GW2C_ResParkingInfo_BackCalls           : CarFunData[];
         private GW2C_AckOtherUserHouseData_BackCalls    : CarFunData[];
@@ -37,6 +51,10 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_UpdateCarShopProduct, "msg.GW2C_UpdateCarShopProduct");
             NotificationCenter.addObserver(this, this.OnGW2C_SendCarShopInfo, "msg.GW2C_SendCarShopInfo");
             NotificationCenter.addObserver(this, this.OnGW2C_RetTakeCarAutoBackReward, "msg.GW2C_RetTakeCarAutoBackReward");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetCarPartLevelup, "msg.GW2C_RetCarPartLevelup");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetCarStarup, "msg.GW2C_RetCarStarup");
+            
+
         
             this.GW2C_ResCarInfo_BackCalls               = [];
             this.GW2C_ResParkingInfo_BackCalls           = [];
@@ -46,6 +64,8 @@ module game {
             this.GW2C_SendCarShopInfo_BackCalls          = [];
             this.GW2C_UpdateCarShopProduct_BackCalls     = [];
             this.GW2C_RetTakeCarAutoBackReward_BackCalls = [];
+            this.GW2C_RetCarPartLevelup_BackCalls        = [];
+            this.GW2C_RetCarStarup_BackCalls             = [];
         }
     
 
@@ -234,7 +254,6 @@ module game {
             }
         }
 
-
         //请求购买汽车
         public ReqBuyCarShopItem(shopId:number=1,pid:number,callFunc:Function=null)
         {
@@ -279,9 +298,54 @@ module game {
             this.GW2C_RetTakeCarAutoBackReward_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.reward)};});
             this.GW2C_RetTakeCarAutoBackReward_BackCalls = [];
         }
-        //-------------------
 
+        //请求升级部件
+        public ReqCarPartLevelup(carId:number|Long,partType:msg.CarPartType,pieces:msg.ICarPartPiece[],callFunc:Function=null)
+        {
+            if(callFunc && !this.GW2C_RetCarPartLevelup_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_RetCarPartLevelup_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_CarPartLevelup", msg.C2GW_CarPartLevelup.encode({
+               carid : carId,
+               parttype:partType,
+               pieces:pieces,
+            }));
+        }
+        //部件升级结果
+        private OnGW2C_RetCarPartLevelup(msgs:msg.GW2C_RetCarPartLevelup)
+        {
+            this.GW2C_RetCarPartLevelup_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.car)};});
+            this.GW2C_RetCarPartLevelup_BackCalls = [];
+        }
 
+        //请求汽车升星
+        public ReqCarStarUp(carId:number|Long,gold:number,callFunc:Function=null)
+        {
+            CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
+            let self = this;
+            showDialog("是否花费"+gold+"金币升星?", "确定", function(){
+                if(DataManager.playerModel.getUserInfo().gold < gold){
+                    showTips("金币不足！");
+                }else{
+                    if(callFunc && !self.GW2C_RetCarStarup_BackCalls.some(func=>{return func==callFunc;}))
+                    {
+                        self.GW2C_RetCarStarup_BackCalls.push(callFunc);
+                    }
+                    sendMessage("msg.C2GW_CarStarup", msg.C2GW_CarStarup.encode({
+                        carid : carId,
+                    }));
+                }
+            },null);
+        }
+
+        //车辆升星结果
+        private OnGW2C_RetCarStarup(msgs:msg.GW2C_RetCarStarup){
+            this.GW2C_RetCarStarup_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.car)};});
+            this.GW2C_RetCarStarup_BackCalls = [];
+        }
+
+        //-------------------抢车位返回----------
         //停车结果
         private OnGW2C_ParkCarResult(msgs:msg.GW2C_ParkCarResult)
         {

@@ -12,17 +12,18 @@ message IpHost {
 //    optional int64 roomid = 2;
 //}
 
-// 道具id规则 = 类型 * 1000 + id
+// 道具id规则 = 类型 * 10000 + 顺序号
 enum ItemId {
-    YuanBao = 6001;         // 元宝
-    Diamond = 6002;         // 钻石
-    Gold = 6003;            // 金币
-    FreeStep = 6005;        // 免费步数
-    RedDiamond = 10001;        // 红包钻石
-    RedDiamondParts = 10002;   // 红包钻石碎片
+    YuanBao = 60001;            // 元宝
+    Diamond = 60002;            // 钻石
+    Gold = 60003;               // 金币
+    FreeStep = 60005;           // 免费步数
+    RedDiamond = 100001;        // 红包钻石
+    RedDiamondParts = 100002;   // 红包钻石碎片
 }
 
 enum ItemType {
+    Normal          = 0;    // 普通道具
     Digital         = 1;    // 数码产品
     ShoppingCard    = 2;    // 购物卡
     DailyUse        = 3;    // 生活用品
@@ -33,7 +34,11 @@ enum ItemType {
     Advertisement   = 8;    // 广告
     Smallware       = 9;    // 小商品
     DiamondItem     = 10;   // 钻石道具
-    ClothesItem     = 11;   // 时装
+    ClothesParts    = 11;   // 时装配件
+    HouseParts      = 12;   // 房子配件
+    CarParts        = 13;   // 车子配件
+    MaidParts       = 14;   // 仆人配件
+    ClothesItem     = 15;   // 时装道具
 }
 
 message PairNumItem {
@@ -61,6 +66,14 @@ enum ItemPos {
     LongClothes = 8;    // 裙子/长衣
 }
 
+// 房子访问类型
+enum HouseVisitType {
+    TakeMoney = 1;      // 收取房子金币
+    RobMoney = 2;       // 掠夺房子金币
+    RobMaid = 5;        // 掠夺女仆
+    TakeBackMaid = 6;   // 领回女仆
+}
+
 
 enum Sex {
     Female = 0;
@@ -83,4 +96,21 @@ enum CarOperatorType {
 enum ParkingType {
     Public = 1;
     Private = 2;
+}
+
+enum CarPartType {
+    Tyre = 1;           //轮胎
+    Tank = 2;           //油箱
+    Trunk = 3;          //后备箱
+    Engine = 4;         //发动机
+    Battery = 5;        //电瓶
+}
+
+enum CarState {
+    Idle = 1;           //可以上车位
+    Ready = 2;          //上了自己的车位 可以出征
+    Parking = 3;        //停在公共车位上 等待着收益
+    Exped = 4;          //出征的路上
+    Robbing = 5;        //抢夺中
+    Back = 6;           //回城中
 }

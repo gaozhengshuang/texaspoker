@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TradeStarSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group>
+		<e:Image id="star0" x="443.5" y="79" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star1" x="453.5" y="-2" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star2" x="463.5" y="99" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star3" x="473.5" y="109" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:Image id="star4" x="433.5" y="69" scaleX="0.8" scaleY="0.8" source="star_png"/>
+		<e:layout>
+		<e:HorizontalLayout gap="-5" horizontalAlign="center"/>
+		</e:layout>
+	</e:Group>
+</e:Skin>

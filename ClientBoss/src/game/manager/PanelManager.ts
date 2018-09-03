@@ -96,6 +96,30 @@ module game {
             case PanelType.MapBuildingPopupPanel:
                 panel = MapBuildingPopupPanel.getInstance();
                 break;
+            case PanelType.TradePanel:
+                panel = TradePanel.getInstance();
+                break;
+            case PanelType.TradeRecordPanel:
+                panel = TradeRecordPanel.getInstance();
+                break;
+            case PanelType.TradeMyAssetsPanel:
+                panel = TradeMyAssetsPanel.getInstance();
+                break;
+            case PanelType.TradeHouseBuyPanel:
+                panel = TradeHouseBuyPanel.getInstance();
+                break;
+            case PanelType.TradeHouseSellPanel:
+                panel = TradeHouseSellPanel.getInstance();
+                break;
+            case PanelType.MaidLevelUp:
+                panel = RoleLevelUpPanel.getInstance();
+                break;
+            case PanelType.TradeCarBuyPanel:
+                panel = TradeCarBuyPanel.getInstance();
+                break;
+            case PanelType.TradeCarSellPanel:
+                panel = TradeCarSellPanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -129,6 +153,14 @@ module game {
         LoadingScenePanel,
         CarShop,
         PageNewHouseHuxingView,
-        MapBuildingPopupPanel
+        MapBuildingPopupPanel,
+        TradePanel,
+        TradeRecordPanel,
+        TradeMyAssetsPanel,
+        TradeHouseBuyPanel,
+        TradeHouseSellPanel,
+        MaidLevelUp,
+        TradeCarBuyPanel,
+        TradeCarSellPanel
     }
 }

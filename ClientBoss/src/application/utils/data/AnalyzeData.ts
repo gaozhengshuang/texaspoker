@@ -95,7 +95,7 @@ module game {
                             obj = { state: 1 }
                             return obj;
                         }
-                    } else {
+                    }else if(house.housecells[k].state == 0){
                         let roomTypeObj: any = table.THouseCellById[house.housecells[k].tid];
                         let endTime: number = house.housecells[k].tmproduce + roomTypeObj.ProduceTime;
                         if (haveHouse == 0 || endTime < haveHouse) {
@@ -104,7 +104,14 @@ module game {
                     }
                 }
                 if (haveHouse > 0) {
-                    obj = { state: 2, time: Math.round(haveHouse / 60) };
+                    egret.log("time-->",haveHouse,SysTimeEventManager.getInstance().systimeNum,haveHouse-SysTimeEventManager.getInstance().systimeNum);
+                    let laveTime=Math.round((haveHouse-SysTimeEventManager.getInstance().systimeNum) / 60);
+                    if(laveTime<=60){
+                        obj = { state: 2, time:laveTime};
+                    }
+                    else{
+                        obj = { state: 3 };
+                    }
                     return obj;
                 }
                 obj = { state: 3 }

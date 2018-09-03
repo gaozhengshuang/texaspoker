@@ -22,31 +22,43 @@ message TCarDefine
 	optional uint32 Id = 1; // ID
 	
 	
-	optional string Brand = 2; // 品牌
+	optional uint32 Brand = 2; // 品牌
 	
 	
-	optional string Model = 3; // 型号
+	optional uint32 Model = 3; // 型号
 	
 	
-	optional uint32 MoveRange = 4; // 移动范围(单位:米)
+	optional uint32 Price = 4; // 价值
 	
 	
-	optional uint32 Capacity = 5; // 最大收益金币
+	optional string Des = 5; // 描述
 	
 	
-	optional uint32 RewardPerH = 6; // 每分钟产出金币
+	optional string path = 6; // 图片路径
 	
 	
-	optional uint32 Price = 7; // 价值
+	optional string bigpath = 7; // 图片路径
 	
 	
-	optional string Des = 8; // 描述
+	optional uint32 Tyre = 8; // 轮胎id
 	
 	
-	optional string path = 9; // 图片路径
+	optional uint32 Tank = 9; // 油箱id
 	
 	
-	optional string bigpath = 10; // 图片路径
+	optional uint32 Trunk = 10; // 后备箱id
+	
+	
+	optional uint32 Engine = 11; // 发动机id
+	
+	
+	optional uint32 Battery = 12; // 电瓶id
+	
+	
+	optional uint32 MaxStar = 13; // 最大星级
+	
+	
+	optional uint32 StarAttrGroup = 14; // 星级套件属性(没有填0)
 
 }
 

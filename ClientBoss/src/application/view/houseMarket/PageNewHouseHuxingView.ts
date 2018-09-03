@@ -2,19 +2,8 @@ module game {
     export class PageNewHouseHuxingView extends PanelComponent {
         public static CLOSE: string = "close";
         public static BUY: string = "buy";
-
-        private return_btn: eui.Button;
-        private top_bg: eui.Rect;
-
-        private bName_txt: eui.Label;
-        private diamond_txt: eui.Label;
-        private gold_txt: eui.Label;
-        private energy_txt: eui.Label;
-        private addEnergy_txt: eui.Label;
-        private addNum_txt: eui.Label;
+        
         private dec_txt: eui.Label;
-
-        private addEnergyGroup: eui.Group;
 
         private topBarImg: eui.Image;
 
@@ -26,6 +15,7 @@ module game {
         private isTime: boolean = false;
         private mask_bg: eui.Rect;
 
+        private titlePanel:PageTitlePanel;
 
         constructor() {
             super();
@@ -44,22 +34,23 @@ module game {
             return NewHouseHuxingViewUI;
         }
         protected beforeShow() {
-            this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+            //this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
             this.filterPanel.addEventListener(CommonFilterPanel.PRICE_SORT, this.price_sort_begin, this);
             this.filterPanel.addEventListener(CommonFilterPanel.SELECT, this.select_begin, this);
         }
         protected beforeRemove() {
             this.delBuyPanel();
-            this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+            this.titlePanel.removePanel();
+            //this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
             this.filterPanel.removeEventListener(CommonFilterPanel.PRICE_SORT, this.price_sort_begin, this);
             this.filterPanel.removeEventListener(CommonFilterPanel.SELECT, this.select_begin, this);
         }
         protected init() {
             //this.horizontalCenter = this.verticalCenter = 0;
-            this.addEnergyGroup.visible = false;
             this.filterPanel.init(2, this.getFilterList());
             this.huxingGroup.height = gameConfig.curHeight() - (this.filterPanel.y + 60);
             this.mask_bg.visible=false;
+            this.titlePanel.init(this.return_begin,this);
         }
         private getFilterList(): any[] {
             let list: any[] = [];
@@ -95,7 +86,8 @@ module game {
             this.dec_txt.text=this.buildInfo.Des;
             this.basisList = [];
             if (this.buildInfo) {
-                this.bName_txt.text=this.buildInfo.Community;
+                
+                this.titlePanel.updateTitleStr(this.buildInfo.Community);
                 for (let i: number = 1; i <= 4; i++) {
                     let item: any = {};
                     let houseStr:string[]=this.buildInfo["Houses" + i].split("|")
@@ -235,51 +227,9 @@ module game {
                 return 0;
             }
         }
-
-
         public updateUserInfo(uInfo: IUserInfo) {
-            this.userInfo = uInfo;
-            this.gold_txt.text = String(this.userInfo.gold);
-            this.diamond_txt.text = String(this.userInfo.diamond);
-            this.energy_txt.text = this.userInfo.robcount + "/" + 20;
-            if (this.userInfo.robcount < 20) {
-                this.addEnergyGroup.visible = true;
-                this.isTime = true;
-                this.showTime();
-            }
-            else {
-                this.addEnergyGroup.visible = false;
-                this.removeTimer();
-                this.isTime = false;
-            }
-            this.showHuxingList()
+            this.titlePanel.updateUserInfo(uInfo);
+            this.showHuxingList();
         }
-        private endTime: number;
-        private showTime() {
-            this.addEnergyGroup.visible = true;
-            this.endTime = this.userInfo.tmaddrobcount;
-            if (this.isTime) {
-                SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
-            }
-            this.runningTimer(SysTimeEventManager.getInstance().systimeNum, this);
-
-        }
-
-        private runningTimer(time: number, body: any): void {
-            if (time < body.endTime) {
-                body.addEnergy_txt.text = SysTimeEventManager.getInstance().
-                    getHourMinutesTime(body.endTime - time, true, true);
-            } else {
-                if (body.userInfo.robcount >= 20) {
-                    body.removeTimer();
-                    body.addEnergyGroup.visible = false;
-                    body.isTime = false;
-                }
-            }
-        }
-        public removeTimer(): void {
-            SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
-        }
-
     }
 }

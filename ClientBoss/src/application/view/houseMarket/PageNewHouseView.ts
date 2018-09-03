@@ -3,26 +3,13 @@ module game {
         public static CLOSE: string = "close";
         public static LOOK_HUXING: string = "look_huxing";
 
-        private return_btn: eui.Button;
-        private top_bg: eui.Rect;
-
-        private diamond_txt: eui.Label;
-        private gold_txt: eui.Label;
-        private energy_txt: eui.Label;
-        private addEnergy_txt: eui.Label;
-        private addNum_txt: eui.Label;
-
-        private addEnergyGroup: eui.Group;
-
         private filterPanel: CommonFilterPanel;
         private buildingGroup: eui.Group;
-
-
-
 
         private userInfo: IUserInfo;
         private isTime: boolean = false;
 
+        private titlePanel:PageTitlePanel;
 
         constructor() {
             super();
@@ -41,20 +28,21 @@ module game {
             return PageNewHouseViewUI;
         }
         protected beforeShow() {
-            this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+            
             this.filterPanel.addEventListener(CommonFilterPanel.PRICE_SORT, this.price_sort_begin, this);
             this.filterPanel.addEventListener(CommonFilterPanel.SELECT, this.select_begin, this);
         }
         protected beforeRemove() {
-            this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+            this.titlePanel.removePanel();
             this.filterPanel.removeEventListener(CommonFilterPanel.PRICE_SORT, this.price_sort_begin, this);
             this.filterPanel.removeEventListener(CommonFilterPanel.SELECT, this.select_begin, this);
         }
         protected init() {
             //this.horizontalCenter = this.verticalCenter = 0;
-            this.addEnergyGroup.visible = false;
+            this.titlePanel.init(this.return_begin,this);
             this.filterPanel.init(1, table.TCitys);
             this.buildingGroup.height = gameConfig.curHeight() - (this.filterPanel.y + 60);
+            
 
         }
         private adaptive() {
@@ -73,6 +61,7 @@ module game {
         private return_begin() {
             this.dispatchEvent(new BasicEvent(PageNewHouseView.CLOSE));
         }
+
 
         private buildingItemList: utils.ScrollerPanel;
         private buildingList: any[] = [];
@@ -168,50 +157,10 @@ module game {
             }
         }
 
-
         public updateUserInfo(uInfo: IUserInfo) {
-            this.userInfo = uInfo;
-            this.gold_txt.text = String(this.userInfo.gold);
-            this.diamond_txt.text = String(this.userInfo.diamond);
-            this.energy_txt.text = this.userInfo.robcount + "/" + 20;
-            if (this.userInfo.robcount < 20) {
-                this.addEnergyGroup.visible = true;
-                this.isTime = true;
-                this.showTime();
-            }
-            else {
-                this.addEnergyGroup.visible = false;
-                this.removeTimer();
-                this.isTime = false;
-            }
+            this.titlePanel.updateUserInfo(uInfo);
             this.showBuildingList()
         }
-        private endTime: number;
-        private showTime() {
-            this.addEnergyGroup.visible = true;
-            this.endTime = this.userInfo.tmaddrobcount;
-            if (this.isTime) {
-                SysTimeEventManager.getInstance().addFunction(this.runningTimer, this);
-            }
-            this.runningTimer(SysTimeEventManager.getInstance().systimeNum, this);
-
-        }
-
-        private runningTimer(time: number, body: any): void {
-            if (time < body.endTime) {
-                body.addEnergy_txt.text = SysTimeEventManager.getInstance().
-                    getHourMinutesTime(body.endTime - time, true, true);
-            } else {
-                if (body.userInfo.robcount >= 20) {
-                    body.removeTimer();
-                    body.addEnergyGroup.visible = false;
-                    body.isTime = false;
-                }
-            }
-        }
-        public removeTimer(): void {
-            SysTimeEventManager.getInstance().delFunction(this.runningTimer, this);
-        }
-
+        
     }
 }

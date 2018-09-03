@@ -1,5 +1,6 @@
 syntax = "proto2";
 package msg;
+import "define.proto";
 import "serialize.proto";
 
 // 请求房屋信息
@@ -11,6 +12,19 @@ message C2GW_ReqHouseData {
 message GW2C_AckHouseData {
 	repeated msg.HouseData datas = 1;
 }
+
+// 更新一个房屋消息
+message GW2C_UpdateHouseDataOne {
+    optional uint64 houseuid = 1;
+    optional msg.HouseData data = 2;
+    optional bool isdel = 3;              //是否删除
+}
+
+// 更新房屋访问记录
+message GW2C_UpdateHouseVisitInfo {
+    optional uint64 houseid = 1;
+    optional HouseVisitInfo info = 2;
+} 
 
 // 请求设置引导标记
 message C2GW_ReqSetNewPlayerStep {
@@ -61,6 +75,7 @@ message GW2C_AckTakeSelfHouseGoldRet {
 	optional uint32 index = 2;
 	optional uint32 gold = 3;
 	optional msg.HouseData data = 4;
+	repeated msg.PairNumItem items =5;
 }
 
 //玩家请求抢别人金币
@@ -75,6 +90,7 @@ message GW2C_AckTakeOtherHouseGoldRet {
 	optional uint32 index = 2;
 	optional uint32 gold = 3;
 	optional msg.HouseData data = 4;
+	repeated msg.PairNumItem items =5;
 }
 
 //获取随机的房屋列表
