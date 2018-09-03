@@ -291,6 +291,7 @@ func (this *GateUser) CancelTradeHouse(houseuid uint64){
 	house.ClearTrade()
 	this.UpdateHouseDataById(house.id, false)
 
+	Redis().Del(historykey)
 	//send := &msg.GW2C_RetCancelTradeHouse{}
 	//send.Tradeuid = pb.Uint64(tradeuid)
 	//this.SendMsg(send)
@@ -571,6 +572,7 @@ func (this *GateUser) CancelTradeCar(caruid uint64){
 	car.modified = true
 	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
+	Redis().Del(historykey)
 	//send := &msg.GW2C_RetCancelTradeHouse{}
 	//send.Tradeuid = pb.Uint64(tradeuid)
 	//this.SendMsg(send)
@@ -802,6 +804,8 @@ func (this *GateUser) CancelTradeItem(tradeuid uint64){
 	}
 
 	this.AddItem(history.GetItemid(), history.GetItemnum(), "交易取消", true)
+
+	Redis().Del(historykey)
 
 	//send := &msg.GW2C_RetCancelTradeHouse{}
 	//send.Tradeuid = pb.Uint64(tradeuid)
