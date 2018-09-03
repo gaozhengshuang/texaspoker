@@ -112,11 +112,9 @@ func (this *GateUser) TradeHouse(houseuid uint64, price uint32){
 		this.SendNotify("房屋不存在")
 		return
 	}
-	if house.issell == true {
-		this.SendNotify("房屋不存在")
+	if house.CanTrade() == false {
 		return
 	}
-
 	buildconf, buidfind := tbl.TBuildingsBase.TBuildingsById[house.buildingid]
 	if buidfind == false {
 		this.SendNotify("大楼信息不存在")
@@ -293,6 +291,7 @@ func (this *GateUser) CancelTradeHouse(houseuid uint64){
 	house.ClearTrade()
 	this.UpdateHouseDataById(house.id, false)
 
+	Redis().Del(historykey)
 	//send := &msg.GW2C_RetCancelTradeHouse{}
 	//send.Tradeuid = pb.Uint64(tradeuid)
 	//this.SendMsg(send)
@@ -573,6 +572,7 @@ func (this *GateUser) CancelTradeCar(caruid uint64){
 	car.modified = true
 	CarMgr().UpdateCarByID(this, car.GetId(), false)
 
+	Redis().Del(historykey)
 	//send := &msg.GW2C_RetCancelTradeHouse{}
 	//send.Tradeuid = pb.Uint64(tradeuid)
 	//this.SendMsg(send)
@@ -591,7 +591,7 @@ type ItemTradeInfo struct {
 	itemsubtype int
 	name string
 }
-/*
+
 func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 	var wheresql string
 	var ordersql string
@@ -608,11 +608,14 @@ func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 	if rev.GetItemtype() != 0 {
 		wheresql += fmt.Sprintf("and itemtype=%d ", rev.GetItemtype())
 	}
-	if rev.GetItemsubype() != 0 {
+	if rev.GetItemsubtype() != 0 {
 		wheresql += fmt.Sprintf("and itemsubtype=%d ", rev.GetItemsubtype())
 	}
 	if rev.GetName() != "" {
 		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
+	}
+	if rev.GetUserid () != 0 {
+		wheresql = fmt.Sprintf("ownerid=%d", rev.GetUserid())
 	}
 	if rev.GetPricedec() == true {
 		ordersql += "ORDER BY PRICE DESC"
@@ -637,27 +640,178 @@ func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 	send := &msg.GW2C_RetItemTradeList{} 
 	for rows.Next() {
 		trade := ItemTradeInfo{}
-		err := rows.Scan(&trade.tradeuid, &trade.itemid, &trade.houselevel, &trade.price, &trade.area, &trade.income, &trade.houseuid, &trade.housebaseid, &trade.endtime, &trade.location, &trade.sublocation, &trade.posx, &trade.posy, &trade.state, &trade.housetype)
+		err := rows.Scan(&trade.tradeuid, &trade.name, &trade.itemid, &trade.itemnum, &trade.price, &trade.endtime, &trade.ownerid, &trade.itemtype, &trade.itemsubtype)
 		if nil != err {
 			log.Info("获取表值失败")
 			continue
 		}
-		send.List = append(send.List, &msg.SimpleHouseTrade{
+		send.List = append(send.List, &msg.SimpleItemTrade{
 			Tradeuid : pb.Uint64(uint64(trade.tradeuid)),
 			Name : pb.String(trade.name),
-			Houselevel : pb.Uint32(uint32(trade.houselevel)),
+			Itemid : pb.Uint32(uint32(trade.itemid)),
+			Itemnum : pb.Uint32(uint32(trade.itemnum)),
 			Price : pb.Uint32(uint32(trade.price)),
-			Area : pb.Uint32(uint32(trade.area)),
-			Income : pb.Uint32(uint32(trade.income)),
-			Houseuid : pb.Uint32(uint32(trade.houseuid)),
-			Housebaseid : pb.Uint32(uint32(trade.housebaseid)),
 			Endtime : pb.Uint32(uint32(trade.endtime)),
-			Location : pb.Uint32(uint32(trade.location)),
-			Sublocation : pb.Uint32(uint32(trade.sublocation)),
-			Posx : pb.Uint32(uint32(trade.posx)),
-			Posy : pb.Uint32(uint32(trade.posy)),
-			Housetype : pb.Uint32(uint32(trade.housetype)),
+			Ownerid : pb.Uint32(uint32(trade.ownerid)),
+			Itemtype : pb.Uint32(uint32(trade.itemtype)),
+			Itemsubtype : pb.Uint32(uint32(trade.itemsubtype)),
 			})
 	}
 	this.SendMsg(send)
-}*/
+}
+
+func (this *GateUser) TradeItem(itemid uint32, itemnum uint32, price uint32){
+	if this.bag.GetItemNum(itemid) < itemnum {
+		this.SendNotify("道具数量不足")
+		return
+	}
+
+	itembase , find := tbl.ItemBase.ItemBaseDataById[itemid]
+	if find == false {
+		return
+	}
+
+	endtime := util.CURTIME() + 86400 * 3
+	strsql := fmt.Sprintf("INSERT INTO itemtrade (name, itemid, itemnum, price, endtime, ownerid, itemtype, itemsubtype) VALUES ('%s', %d, %d, %d, %d, %d, %d, %d)", itembase.Name, itemid, itemnum, price, endtime, this.Id(), itembase.Type, itembase.SubType)
+	log.Info("[道具交易] 玩家[%d] 添加交易数据 SQL语句[%s]", this.Id(), strsql)
+	ret, err := MysqlDB().Exec(strsql)
+	if err != nil {
+		log.Info("数据库插入失败")
+		return
+	}
+	LastInsertId, inserterr := ret.LastInsertId()
+	if inserterr != nil {
+		log.Info("数据库插入失败2")
+		return
+	}
+
+	history := &msg.TradeItemHistory{}
+	history.Tradeuid = pb.Uint64(uint64(LastInsertId))
+	history.Itemid = pb.Uint32(uint32(itemid))
+	history.Itemnum = pb.Uint32(uint32(itemnum))
+	history.Price = pb.Uint32(uint32(price))
+	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
+	history.State = pb.Uint32(uint32(1))
+
+	historykey := fmt.Sprintf("tradeitemhistory_%d_%d", this.Id(), history.GetTradeuid())
+	utredis.SetProtoBin(Redis(), historykey, history)
+
+	this.SendNotify("操作成功")
+}
+
+func (this *GateUser) BuyTradeItem(tradeuid uint64, ownerid uint64){
+	if ownerid == this.Id() {
+		this.SendNotify("不能买自己的道具")
+		return
+	}
+
+	historykey := fmt.Sprintf("tradeitemhistory_%d_%d", ownerid, tradeuid)
+	history := &msg.TradeItemHistory{}
+	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
+		return
+	}
+
+	delsql := fmt.Sprintf("DELETE FROM itemtrade WHERE id=%d", tradeuid)
+	_, execerr := MysqlDB().Exec(delsql)
+	if execerr != nil {
+		log.Info("数据库删除失败")
+		return
+	}
+
+	if this.RemoveGold(uint32(history.GetPrice()), "交易道具", true) == false {
+		return
+	}
+
+	this.AddItem(history.GetItemid(), history.GetItemnum(), "交易道具", true)
+
+	history.Tradetime = pb.Uint32(uint32(util.CURTIME()))
+	history.State = pb.Uint32(uint32(2))
+	exprice := history.GetPrice()
+	history.Price = pb.Uint32(history.GetPrice() * 9 / 10)
+
+	sellkey := fmt.Sprintf("tradeitemhistory_%d_%d", ownerid, tradeuid)
+	utredis.SetProtoBin(Redis(), sellkey, history)
+	selllistkey := fmt.Sprintf("tradeitemhistorylist_%d", ownerid)
+	Redis().LPush(selllistkey, tradeuid)
+
+	history.Price = pb.Uint32(exprice)
+	history.State = pb.Uint32(uint32(4))
+	buykey := fmt.Sprintf("tradeitemhistory_%d_%d", this.Id(), tradeuid)
+	utredis.SetProtoBin(Redis(), buykey, history)
+	buylistkey := fmt.Sprintf("tradeitemhistorylist_%d", this.Id())
+	Redis().LPush(buylistkey, tradeuid)
+
+	this.SendNotify("购买成功")
+}
+
+func (this* GateUser) ReqTradeItemHistory(){
+	key := fmt.Sprintf("tradecarhistorylist_%d", this.Id())
+	rlist, err := Redis().LRange(key, 0, 20).Result()
+	if err != nil {
+		log.Error("加载道具交易操作记录失败 id %d ，err: %s", this.Id(), err)
+		return
+	}
+	send := &msg.GW2C_RetTradeItemHistory{}
+	for _, v := range rlist {
+		historykey := fmt.Sprintf("tradeitemhistory_%d_%s", this.Id(), v)
+		history := &msg.TradeItemHistory{}
+		if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil{
+			continue
+		}
+		send.List = append(send.List, history)
+	}
+	this.SendMsg(send)
+}
+
+func (this *GateUser) GetTradeItemReward(tradeuid uint64){
+	historykey := fmt.Sprintf("tradeitemhistory_%d_%d", this.Id(), tradeuid)
+	history := &msg.TradeItemHistory{}
+	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
+		return
+	}
+	if history.GetState() == 2 {
+		this.AddGold(history.GetPrice(), "交易道具获得", true)	
+		history.State = pb.Uint32(3)
+		utredis.SetProtoBin(Redis(), historykey, history)
+		this.SendNotify("领取成功")
+		send := &msg.GW2C_RetGetTradeItemReward{}
+		send.Tradeuid = pb.Uint64(tradeuid)
+		this.SendMsg(send)
+	}else{
+		this.SendNotify("已经领取过")
+	}
+}
+
+func (this *GateUser) CancelTradeItem(tradeuid uint64){
+	historykey := fmt.Sprintf("tradeitemhistory_%d_%d", this.Id(), tradeuid)
+	history := &msg.TradeItemHistory{}
+	if err := utredis.GetProtoBin(Redis(), historykey, history); err != nil {
+		this.SendNotify("交易不存在")
+		return
+	}
+	
+	if history.GetState() != 1 {
+		this.SendNotify("不能取消")
+		return
+	}
+
+	history.State = pb.Uint32(5)
+	utredis.SetProtoBin(Redis(), historykey, history)
+	this.SendNotify("取消成功")
+
+	delsql := fmt.Sprintf("DELETE FROM cartrade WHERE id=%d", tradeuid)
+	_, execerr := MysqlDB().Exec(delsql)
+	if execerr != nil {
+		log.Info("数据库删除失败")
+		return
+	}
+
+	this.AddItem(history.GetItemid(), history.GetItemnum(), "交易取消", true)
+
+	Redis().Del(historykey)
+
+	//send := &msg.GW2C_RetCancelTradeHouse{}
+	//send.Tradeuid = pb.Uint64(tradeuid)
+	//this.SendMsg(send)
+}
+
