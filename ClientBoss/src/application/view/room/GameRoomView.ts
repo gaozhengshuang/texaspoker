@@ -571,6 +571,7 @@ module game {
         //车库列表
         public showParkingLotList() {
             //console.log("showParkingLotList");
+            return;
             let self = this;
 
             for (let index = 1; index < self.bootomGroup.numChildren; index++) {
