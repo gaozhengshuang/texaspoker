@@ -511,6 +511,12 @@ func (ma *MaidManager) TakeMaidEarning(user *GateUser, uid uint64) {
 // 掠夺他人女仆
 func (ma *MaidManager) RobMaid(user *GateUser, uid, dropto uint64) {
 	if user == nil { return }
+
+	if user.GetRobCount() < uint32(tbl.Game.RobMaidStrength) {
+		user.SendNotify("体力不足，无法抢夺对方女仆!")
+		return
+	}
+
 	maid := ma.GetMaidsById(uid)
 	if maid == nil {
 		user.SendNotify("不存在的女仆")
@@ -594,6 +600,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 
 	// 我有概率获得道具	
 	ma.ItemProduce(user, maid, "掠夺女仆")
+	user.RemoveRobCount(uint32(tbl.Game.RobMaidStrength), true)
 
 
 	// 掠夺到我的房间

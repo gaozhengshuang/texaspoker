@@ -15,6 +15,8 @@ module game {
 
         private levelInfo: table.ITLevelMaidDefine;
 
+        private needRobCount: number = 2;
+
         protected getSkinName() {
             return HouseRoleSkin;
         }
@@ -140,10 +142,14 @@ module game {
                 if (!this.isRobber()) {
                     let dialogStr = "是否抢夺"+this._maidInfo.ownername+"家的女仆";
                     showDialog(dialogStr, "确定", function () {
-                        sendMessage("msg.C2GW_RobMaid", msg.C2GW_RobMaid.encode({
-                            id: this._maidInfo.id,
-                            dropto: MaidManager.getInstance()._startHouse
-                        }));
+                        if (DataManager.playerModel.userInfo.robcount >= this.needRobCount) {
+                            sendMessage("msg.C2GW_RobMaid", msg.C2GW_RobMaid.encode({
+                                id: this._maidInfo.id,
+                                dropto: MaidManager.getInstance()._startHouse
+                            }));
+                        } else {
+                            showTips("体力不足，无法抢夺对方女仆!", true);
+                        }
                     }.bind(this));
 
                 }else if (this._maidInfo.robberid == DataManager.playerModel.getUserId()) {   //我抢回来的女仆点击领取奖励

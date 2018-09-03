@@ -41648,13 +41648,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -41903,13 +41897,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -44710,6 +44698,7 @@ $root.msg = (function() {
          * @property {number|null} [posy] SimpleHouseTrade posy
          * @property {number|null} [state] SimpleHouseTrade state
          * @property {number|null} [housetype] SimpleHouseTrade housetype
+         * @property {number|null} [buildid] SimpleHouseTrade buildid
          */
 
         /**
@@ -44848,6 +44837,14 @@ $root.msg = (function() {
         SimpleHouseTrade.prototype.housetype = 0;
 
         /**
+         * SimpleHouseTrade buildid.
+         * @member {number} buildid
+         * @memberof msg.SimpleHouseTrade
+         * @instance
+         */
+        SimpleHouseTrade.prototype.buildid = 0;
+
+        /**
          * Creates a new SimpleHouseTrade instance using the specified properties.
          * @function create
          * @memberof msg.SimpleHouseTrade
@@ -44901,6 +44898,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 14, wireType 0 =*/112).uint32(message.state);
             if (message.housetype != null && message.hasOwnProperty("housetype"))
                 writer.uint32(/* id 15, wireType 0 =*/120).uint32(message.housetype);
+            if (message.buildid != null && message.hasOwnProperty("buildid"))
+                writer.uint32(/* id 16, wireType 0 =*/128).uint32(message.buildid);
             return writer;
         };
 
@@ -44979,6 +44978,9 @@ $root.msg = (function() {
                     break;
                 case 15:
                     message.housetype = reader.uint32();
+                    break;
+                case 16:
+                    message.buildid = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -45060,6 +45062,9 @@ $root.msg = (function() {
             if (message.housetype != null && message.hasOwnProperty("housetype"))
                 if (!$util.isInteger(message.housetype))
                     return "housetype: integer expected";
+            if (message.buildid != null && message.hasOwnProperty("buildid"))
+                if (!$util.isInteger(message.buildid))
+                    return "buildid: integer expected";
             return null;
         };
 
@@ -45112,6 +45117,8 @@ $root.msg = (function() {
                 message.state = object.state >>> 0;
             if (object.housetype != null)
                 message.housetype = object.housetype >>> 0;
+            if (object.buildid != null)
+                message.buildid = object.buildid >>> 0;
             return message;
         };
 
@@ -45148,6 +45155,7 @@ $root.msg = (function() {
                 object.posy = 0;
                 object.state = 0;
                 object.housetype = 0;
+                object.buildid = 0;
             }
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 if (typeof message.tradeuid === "number")
@@ -45182,6 +45190,8 @@ $root.msg = (function() {
                 object.state = message.state;
             if (message.housetype != null && message.hasOwnProperty("housetype"))
                 object.housetype = message.housetype;
+            if (message.buildid != null && message.hasOwnProperty("buildid"))
+                object.buildid = message.buildid;
             return object;
         };
 
@@ -50653,6 +50663,7 @@ $root.msg = (function() {
          * @property {string|null} [name] C2GW_ReqItemTradeList name
          * @property {boolean|null} [pricedec] C2GW_ReqItemTradeList pricedec
          * @property {number|null} [startnum] C2GW_ReqItemTradeList startnum
+         * @property {number|Long|null} [userid] C2GW_ReqItemTradeList userid
          */
 
         /**
@@ -50727,6 +50738,14 @@ $root.msg = (function() {
         C2GW_ReqItemTradeList.prototype.startnum = 0;
 
         /**
+         * C2GW_ReqItemTradeList userid.
+         * @member {number|Long} userid
+         * @memberof msg.C2GW_ReqItemTradeList
+         * @instance
+         */
+        C2GW_ReqItemTradeList.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
          * Creates a new C2GW_ReqItemTradeList instance using the specified properties.
          * @function create
          * @memberof msg.C2GW_ReqItemTradeList
@@ -50764,6 +50783,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 8, wireType 0 =*/64).bool(message.pricedec);
             if (message.startnum != null && message.hasOwnProperty("startnum"))
                 writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.startnum);
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 10, wireType 0 =*/80).uint64(message.userid);
             return writer;
         };
 
@@ -50818,6 +50839,9 @@ $root.msg = (function() {
                     break;
                 case 9:
                     message.startnum = reader.uint32();
+                    break;
+                case 10:
+                    message.userid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -50875,6 +50899,9 @@ $root.msg = (function() {
             if (message.startnum != null && message.hasOwnProperty("startnum"))
                 if (!$util.isInteger(message.startnum))
                     return "startnum: integer expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
             return null;
         };
 
@@ -50904,6 +50931,15 @@ $root.msg = (function() {
                 message.pricedec = Boolean(object.pricedec);
             if (object.startnum != null)
                 message.startnum = object.startnum >>> 0;
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -50928,6 +50964,11 @@ $root.msg = (function() {
                 object.name = "";
                 object.pricedec = false;
                 object.startnum = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
             }
             if (message.itemtype != null && message.hasOwnProperty("itemtype"))
                 object.itemtype = message.itemtype;
@@ -50943,6 +50984,11 @@ $root.msg = (function() {
                 object.pricedec = message.pricedec;
             if (message.startnum != null && message.hasOwnProperty("startnum"))
                 object.startnum = message.startnum;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
             return object;
         };
 
@@ -51778,6 +51824,207 @@ $root.msg = (function() {
         return C2GW_TradeItem;
     })();
 
+    msg.GW2C_RetTradeItem = (function() {
+
+        /**
+         * Properties of a GW2C_RetTradeItem.
+         * @memberof msg
+         * @interface IGW2C_RetTradeItem
+         * @property {number|Long|null} [tradeuid] GW2C_RetTradeItem tradeuid
+         */
+
+        /**
+         * Constructs a new GW2C_RetTradeItem.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetTradeItem.
+         * @implements IGW2C_RetTradeItem
+         * @constructor
+         * @param {msg.IGW2C_RetTradeItem=} [properties] Properties to set
+         */
+        function GW2C_RetTradeItem(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetTradeItem tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.GW2C_RetTradeItem
+         * @instance
+         */
+        GW2C_RetTradeItem.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RetTradeItem instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {msg.IGW2C_RetTradeItem=} [properties] Properties to set
+         * @returns {msg.GW2C_RetTradeItem} GW2C_RetTradeItem instance
+         */
+        GW2C_RetTradeItem.create = function create(properties) {
+            return new GW2C_RetTradeItem(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeItem message. Does not implicitly {@link msg.GW2C_RetTradeItem.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {msg.IGW2C_RetTradeItem} message GW2C_RetTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetTradeItem message, length delimited. Does not implicitly {@link msg.GW2C_RetTradeItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {msg.IGW2C_RetTradeItem} message GW2C_RetTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetTradeItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetTradeItem} GW2C_RetTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeItem.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetTradeItem();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetTradeItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetTradeItem} GW2C_RetTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetTradeItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetTradeItem message.
+         * @function verify
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetTradeItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetTradeItem} GW2C_RetTradeItem
+         */
+        GW2C_RetTradeItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetTradeItem)
+                return object;
+            var message = new $root.msg.GW2C_RetTradeItem();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetTradeItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetTradeItem
+         * @static
+         * @param {msg.GW2C_RetTradeItem} message GW2C_RetTradeItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetTradeItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetTradeItem to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetTradeItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetTradeItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetTradeItem;
+    })();
+
     msg.C2GW_BuyTradeItem = (function() {
 
         /**
@@ -51785,7 +52032,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IC2GW_BuyTradeItem
          * @property {number|Long|null} [tradeuid] C2GW_BuyTradeItem tradeuid
-         * @property {number|Long|null} [itemid] C2GW_BuyTradeItem itemid
+         * @property {number|Long|null} [userid] C2GW_BuyTradeItem userid
          */
 
         /**
@@ -51812,12 +52059,12 @@ $root.msg = (function() {
         C2GW_BuyTradeItem.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
-         * C2GW_BuyTradeItem itemid.
-         * @member {number|Long} itemid
+         * C2GW_BuyTradeItem userid.
+         * @member {number|Long} userid
          * @memberof msg.C2GW_BuyTradeItem
          * @instance
          */
-        C2GW_BuyTradeItem.prototype.itemid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+        C2GW_BuyTradeItem.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_BuyTradeItem instance using the specified properties.
@@ -51845,8 +52092,8 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
-            if (message.itemid != null && message.hasOwnProperty("itemid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.itemid);
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.userid);
             return writer;
         };
 
@@ -51885,7 +52132,7 @@ $root.msg = (function() {
                     message.tradeuid = reader.uint64();
                     break;
                 case 2:
-                    message.itemid = reader.uint64();
+                    message.userid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -51925,9 +52172,9 @@ $root.msg = (function() {
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
                     return "tradeuid: integer|Long expected";
-            if (message.itemid != null && message.hasOwnProperty("itemid"))
-                if (!$util.isInteger(message.itemid) && !(message.itemid && $util.isInteger(message.itemid.low) && $util.isInteger(message.itemid.high)))
-                    return "itemid: integer|Long expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
             return null;
         };
 
@@ -51952,15 +52199,15 @@ $root.msg = (function() {
                     message.tradeuid = object.tradeuid;
                 else if (typeof object.tradeuid === "object")
                     message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
-            if (object.itemid != null)
+            if (object.userid != null)
                 if ($util.Long)
-                    (message.itemid = $util.Long.fromValue(object.itemid)).unsigned = true;
-                else if (typeof object.itemid === "string")
-                    message.itemid = parseInt(object.itemid, 10);
-                else if (typeof object.itemid === "number")
-                    message.itemid = object.itemid;
-                else if (typeof object.itemid === "object")
-                    message.itemid = new $util.LongBits(object.itemid.low >>> 0, object.itemid.high >>> 0).toNumber(true);
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = true;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -51985,20 +52232,20 @@ $root.msg = (function() {
                     object.tradeuid = options.longs === String ? "0" : 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, true);
-                    object.itemid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
-                    object.itemid = options.longs === String ? "0" : 0;
+                    object.userid = options.longs === String ? "0" : 0;
             }
             if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
                 if (typeof message.tradeuid === "number")
                     object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
                 else
                     object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
-            if (message.itemid != null && message.hasOwnProperty("itemid"))
-                if (typeof message.itemid === "number")
-                    object.itemid = options.longs === String ? String(message.itemid) : message.itemid;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
                 else
-                    object.itemid = options.longs === String ? $util.Long.prototype.toString.call(message.itemid) : options.longs === Number ? new $util.LongBits(message.itemid.low >>> 0, message.itemid.high >>> 0).toNumber(true) : message.itemid;
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber(true) : message.userid;
             return object;
         };
 
@@ -52014,6 +52261,207 @@ $root.msg = (function() {
         };
 
         return C2GW_BuyTradeItem;
+    })();
+
+    msg.GW2C_RetBuyTradeItem = (function() {
+
+        /**
+         * Properties of a GW2C_RetBuyTradeItem.
+         * @memberof msg
+         * @interface IGW2C_RetBuyTradeItem
+         * @property {number|Long|null} [tradeuid] GW2C_RetBuyTradeItem tradeuid
+         */
+
+        /**
+         * Constructs a new GW2C_RetBuyTradeItem.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetBuyTradeItem.
+         * @implements IGW2C_RetBuyTradeItem
+         * @constructor
+         * @param {msg.IGW2C_RetBuyTradeItem=} [properties] Properties to set
+         */
+        function GW2C_RetBuyTradeItem(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetBuyTradeItem tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @instance
+         */
+        GW2C_RetBuyTradeItem.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RetBuyTradeItem instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {msg.IGW2C_RetBuyTradeItem=} [properties] Properties to set
+         * @returns {msg.GW2C_RetBuyTradeItem} GW2C_RetBuyTradeItem instance
+         */
+        GW2C_RetBuyTradeItem.create = function create(properties) {
+            return new GW2C_RetBuyTradeItem(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetBuyTradeItem message. Does not implicitly {@link msg.GW2C_RetBuyTradeItem.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {msg.IGW2C_RetBuyTradeItem} message GW2C_RetBuyTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetBuyTradeItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetBuyTradeItem message, length delimited. Does not implicitly {@link msg.GW2C_RetBuyTradeItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {msg.IGW2C_RetBuyTradeItem} message GW2C_RetBuyTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetBuyTradeItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetBuyTradeItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetBuyTradeItem} GW2C_RetBuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetBuyTradeItem.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetBuyTradeItem();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetBuyTradeItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetBuyTradeItem} GW2C_RetBuyTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetBuyTradeItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetBuyTradeItem message.
+         * @function verify
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetBuyTradeItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetBuyTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetBuyTradeItem} GW2C_RetBuyTradeItem
+         */
+        GW2C_RetBuyTradeItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetBuyTradeItem)
+                return object;
+            var message = new $root.msg.GW2C_RetBuyTradeItem();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetBuyTradeItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @static
+         * @param {msg.GW2C_RetBuyTradeItem} message GW2C_RetBuyTradeItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetBuyTradeItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetBuyTradeItem to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetBuyTradeItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetBuyTradeItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetBuyTradeItem;
     })();
 
     msg.C2GW_ReqTradeItemHistory = (function() {
@@ -53297,6 +53745,207 @@ $root.msg = (function() {
         };
 
         return C2GW_CancelTradeItem;
+    })();
+
+    msg.GW2C_RetCancelTradeItem = (function() {
+
+        /**
+         * Properties of a GW2C_RetCancelTradeItem.
+         * @memberof msg
+         * @interface IGW2C_RetCancelTradeItem
+         * @property {number|Long|null} [tradeuid] GW2C_RetCancelTradeItem tradeuid
+         */
+
+        /**
+         * Constructs a new GW2C_RetCancelTradeItem.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetCancelTradeItem.
+         * @implements IGW2C_RetCancelTradeItem
+         * @constructor
+         * @param {msg.IGW2C_RetCancelTradeItem=} [properties] Properties to set
+         */
+        function GW2C_RetCancelTradeItem(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetCancelTradeItem tradeuid.
+         * @member {number|Long} tradeuid
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @instance
+         */
+        GW2C_RetCancelTradeItem.prototype.tradeuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RetCancelTradeItem instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {msg.IGW2C_RetCancelTradeItem=} [properties] Properties to set
+         * @returns {msg.GW2C_RetCancelTradeItem} GW2C_RetCancelTradeItem instance
+         */
+        GW2C_RetCancelTradeItem.create = function create(properties) {
+            return new GW2C_RetCancelTradeItem(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCancelTradeItem message. Does not implicitly {@link msg.GW2C_RetCancelTradeItem.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {msg.IGW2C_RetCancelTradeItem} message GW2C_RetCancelTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCancelTradeItem.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.tradeuid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetCancelTradeItem message, length delimited. Does not implicitly {@link msg.GW2C_RetCancelTradeItem.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {msg.IGW2C_RetCancelTradeItem} message GW2C_RetCancelTradeItem message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetCancelTradeItem.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetCancelTradeItem message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetCancelTradeItem} GW2C_RetCancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCancelTradeItem.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetCancelTradeItem();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.tradeuid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetCancelTradeItem message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetCancelTradeItem} GW2C_RetCancelTradeItem
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetCancelTradeItem.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetCancelTradeItem message.
+         * @function verify
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetCancelTradeItem.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (!$util.isInteger(message.tradeuid) && !(message.tradeuid && $util.isInteger(message.tradeuid.low) && $util.isInteger(message.tradeuid.high)))
+                    return "tradeuid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetCancelTradeItem message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetCancelTradeItem} GW2C_RetCancelTradeItem
+         */
+        GW2C_RetCancelTradeItem.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetCancelTradeItem)
+                return object;
+            var message = new $root.msg.GW2C_RetCancelTradeItem();
+            if (object.tradeuid != null)
+                if ($util.Long)
+                    (message.tradeuid = $util.Long.fromValue(object.tradeuid)).unsigned = true;
+                else if (typeof object.tradeuid === "string")
+                    message.tradeuid = parseInt(object.tradeuid, 10);
+                else if (typeof object.tradeuid === "number")
+                    message.tradeuid = object.tradeuid;
+                else if (typeof object.tradeuid === "object")
+                    message.tradeuid = new $util.LongBits(object.tradeuid.low >>> 0, object.tradeuid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetCancelTradeItem message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @static
+         * @param {msg.GW2C_RetCancelTradeItem} message GW2C_RetCancelTradeItem
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetCancelTradeItem.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.tradeuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.tradeuid = options.longs === String ? "0" : 0;
+            if (message.tradeuid != null && message.hasOwnProperty("tradeuid"))
+                if (typeof message.tradeuid === "number")
+                    object.tradeuid = options.longs === String ? String(message.tradeuid) : message.tradeuid;
+                else
+                    object.tradeuid = options.longs === String ? $util.Long.prototype.toString.call(message.tradeuid) : options.longs === Number ? new $util.LongBits(message.tradeuid.low >>> 0, message.tradeuid.high >>> 0).toNumber(true) : message.tradeuid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetCancelTradeItem to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetCancelTradeItem
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetCancelTradeItem.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetCancelTradeItem;
     })();
 
     msg.C2GW_AddDeliveryAddress = (function() {
@@ -66690,6 +67339,8 @@ $root.table = (function() {
          * @property {string|null} [Name] ItemBaseDataDefine Name
          * @property {string|null} [Desc] ItemBaseDataDefine Desc
          * @property {number|null} [Clothes] ItemBaseDataDefine Clothes
+         * @property {string|null} [TypeDes] ItemBaseDataDefine TypeDes
+         * @property {number|null} [Tradable] ItemBaseDataDefine Tradable
          */
 
         /**
@@ -66772,6 +67423,22 @@ $root.table = (function() {
         ItemBaseDataDefine.prototype.Clothes = 0;
 
         /**
+         * ItemBaseDataDefine TypeDes.
+         * @member {string} TypeDes
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.TypeDes = "";
+
+        /**
+         * ItemBaseDataDefine Tradable.
+         * @member {number} Tradable
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.Tradable = 0;
+
+        /**
          * Creates a new ItemBaseDataDefine instance using the specified properties.
          * @function create
          * @memberof table.ItemBaseDataDefine
@@ -66811,6 +67478,10 @@ $root.table = (function() {
                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.Desc);
             if (message.Clothes != null && message.hasOwnProperty("Clothes"))
                 writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.Clothes);
+            if (message.TypeDes != null && message.hasOwnProperty("TypeDes"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.TypeDes);
+            if (message.Tradable != null && message.hasOwnProperty("Tradable"))
+                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.Tradable);
             return writer;
         };
 
@@ -66868,6 +67539,12 @@ $root.table = (function() {
                     break;
                 case 8:
                     message.Clothes = reader.uint32();
+                    break;
+                case 9:
+                    message.TypeDes = reader.string();
+                    break;
+                case 10:
+                    message.Tradable = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -66928,6 +67605,12 @@ $root.table = (function() {
             if (message.Clothes != null && message.hasOwnProperty("Clothes"))
                 if (!$util.isInteger(message.Clothes))
                     return "Clothes: integer expected";
+            if (message.TypeDes != null && message.hasOwnProperty("TypeDes"))
+                if (!$util.isString(message.TypeDes))
+                    return "TypeDes: string expected";
+            if (message.Tradable != null && message.hasOwnProperty("Tradable"))
+                if (!$util.isInteger(message.Tradable))
+                    return "Tradable: integer expected";
             return null;
         };
 
@@ -66959,6 +67642,10 @@ $root.table = (function() {
                 message.Desc = String(object.Desc);
             if (object.Clothes != null)
                 message.Clothes = object.Clothes >>> 0;
+            if (object.TypeDes != null)
+                message.TypeDes = String(object.TypeDes);
+            if (object.Tradable != null)
+                message.Tradable = object.Tradable >>> 0;
             return message;
         };
 
@@ -66984,6 +67671,8 @@ $root.table = (function() {
                 object.Name = "";
                 object.Desc = "";
                 object.Clothes = 0;
+                object.TypeDes = "";
+                object.Tradable = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -67001,6 +67690,10 @@ $root.table = (function() {
                 object.Desc = message.Desc;
             if (message.Clothes != null && message.hasOwnProperty("Clothes"))
                 object.Clothes = message.Clothes;
+            if (message.TypeDes != null && message.hasOwnProperty("TypeDes"))
+                object.TypeDes = message.TypeDes;
+            if (message.Tradable != null && message.hasOwnProperty("Tradable"))
+                object.Tradable = message.Tradable;
             return object;
         };
 

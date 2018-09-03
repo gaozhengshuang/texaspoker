@@ -383,7 +383,7 @@
 			"url": "assets/bones/suit/girl_suit6.json",
 			"type": "sheet",
 			"name": "girl_suit6_json",
-			"subkeys": "body1_1_00,body1_1_01-,body1_1_02,body1_1_03,body1_1_04,head1_1_01,head1_1_02,shoes1_1_00,shoes1_1_01,trousers1_1_00-,trousers1_1_01,trousers1_1_02,trousers1_1_03"
+			"subkeys": "body1_1_00,body1_1_01,body1_1_02,body1_1_03,body1_1_04,head1_1_00,head1_1_01,head1_1_02,head1_1_03,head1_1_04,shoes1_1_00,shoes1_1_01,trousers1_1_00,trousers1_1_01,trousers1_1_02,trousers1_1_03"
 		}
 	]
 }

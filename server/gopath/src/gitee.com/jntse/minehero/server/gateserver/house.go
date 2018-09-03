@@ -1106,7 +1106,7 @@ func (this *GateUser) TakeSelfHouseGold(houseid uint64, index uint32) {
 }
 
 func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
-	if this.robcount <= 0 {
+	if this.GetRobCount() <= 0 {
 		return
 	}
 
@@ -1114,7 +1114,7 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	itemdata := make([]*msg.PairNumItem,0)
 	if gold > 0 {
 		this.AddGold(gold, "抢夺其他玩家房屋产出金币", true)
-		this.SetRobCount(this.GetRobCount() - 1)
+		this.RemoveRobCount(1, true)
 		for itemid, num := range items {
 			this.AddItem(itemid, num, "掠夺其他玩家房屋产出", true)
 			tmp := &msg.PairNumItem{}
