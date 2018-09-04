@@ -10,6 +10,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"github.com/go-redis/redis"
 	"strconv"
+	"math"
 
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
@@ -19,6 +20,7 @@ import (
 const (
 	RedisKeyAccountGate  = "account_gateinfo"
 	RedisKeyGateAccounts = "gate_accounts"
+	Earth_Radius = float64(6371.0)
 )
 
 // 组装带颜色字体的公告内容
@@ -153,6 +155,35 @@ func GenerateParkingId(redis *redis.Client) (id uint64,errcode string){
 		return 0,"redis不可用"
 	}
 	return uint64(newid),""
+}
+
+func ConvertDegreesToRadians(degrees float64) float64 {
+	return degrees * float64(math.Pi) / float64(180.0)
+}
+
+func ConvertRadiansToDegrees(radian float64) float64 {
+	return radian * float64(180.0) / float64(math.Pi)
+}
+
+func HaverSin(theta float64) float64 {
+	v := math.Sin(theta / 2)
+	return v * v
+}
+
+//根据经纬度计算距离
+func CalculateDistance(originlat float64,originlon float64,destlat float64,destlon float64) float64 {
+	lat1 := ConvertDegreesToRadians(originlat)
+	lon1 := ConvertDegreesToRadians(originlon)
+	lat2 := ConvertDegreesToRadians(destlat)
+	lon2 := ConvertDegreesToRadians(destlon)
+
+	vLon := math.Abs(lon1 - lon2)
+	vLat := math.Abs(lat1 - lat2)
+
+	h := HaverSin(vLat) + math.Cos(lat1) * math.Cos(lat2) * HaverSin(vLon)
+
+	distance := float64(2.0) * math.Asin(math.Sqrt(h)) * Earth_Radius
+	return distance;
 }
 
 // --------------------------------------------------------------------------

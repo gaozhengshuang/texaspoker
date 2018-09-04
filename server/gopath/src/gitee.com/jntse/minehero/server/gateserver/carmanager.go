@@ -97,7 +97,7 @@ func (this *CarData) SetRewardMoney(money uint32){
 }
 
 func (this *CarData) IsRewardFull() bool{
-	return this.data.Reward.GetMoney() >= this.GetAttribut().GetMoneylimit()
+	return this.data.Reward.GetMoney() >= this.GetAttribute().GetMoneylimit()
 }
 
 func (this *CarData) AddRewardItem(id uint32, num uint32) {
@@ -134,7 +134,7 @@ func (this *CarData) SetPartLevelExp(partid uint32,level uint32,exp uint32) {
 	}
 }
 
-func (this *CarData) GetAttribut() *msg.CarAttribute {
+func (this *CarData) GetAttribute() *msg.CarAttribute {
 	return this.data.GetAttr()
 }
 
@@ -147,15 +147,26 @@ func (this *CarData) SetAttribute(attr *msg.CarAttribute){
 	this.data.Attr.Stoptime = pb.Float32(attr.GetStoptime())
 }
 
-func (this *CarData) UpdateReward(now uint64) {
+func (this *CarData) Update(now uint64) {
 	if this.data.GetState() == uint32(msg.CarState_Parking) {
 		//计算停靠公共车位的奖励
 		passedMinute := uint32((now - this.data.GetStarttime()) / 1000 / 60)      // benchmark 效率更好(10倍)
-		reward := (passedMinute * this.GetAttribut().GetReward())
-		reward = uint32(math.Min(float64(reward), float64(this.GetAttribut().GetMoneylimit())))
+		reward := (passedMinute * this.GetAttribute().GetReward())
+		reward = uint32(math.Min(float64(reward), float64(this.GetAttribute().GetMoneylimit())))
 		if this.data.Reward.GetMoney() != reward {
 			this.SetRewardMoney(reward)
 			this.modified = true
+		}
+	} else if this.data.GetState() == uint32(msg.CarState_Exped){
+		//出征中 看看有没有到达
+		if this.data.GetEndtime() <= now {
+			//到达了
+			this.ArrivalCar()
+		}
+	} else if this.data.GetState() == uint32(msg.CarState_Robbing) {
+		//抢劫中 看看有没有超时
+		if this.data.GetEndtime() <= now {
+			this.RetractCar()
 		}
 	}
 }
@@ -166,6 +177,36 @@ func (this *CarData) GetMinPartsLevel() uint32 {
 		ret = uint32(math.Min(float64(ret), float64(v.GetLevel())))
 	}
 	return ret
+}
+
+func (this *CarData) ExpediteCar(msg *msg.C2GW_CarExpedition,distance float64) {
+	this.data.State = pb.Uint32(msg.CarState_Exped)
+	//计算时间
+	this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
+	time := uint64(math.Floor(distance / this.GetAttribute().GetSpeed() * float64(60)))
+	this.data.Endtime = pb.Uint64(this.data.GetStarttime() + time  * 1000)
+	this.data.Latitude = pb.Float64(msg.GetOriginlatitude())
+	this.data.Longitude = pb.Float64(msg.GetOriginlongitude())
+	expeditiondata := &msg.ExpeditionData{}
+	expeditiondata.Type = pb.Uint32(msg.GetType())
+	expeditiondata.Id = pb.Uint64(msg.GetTargetid())
+	expeditiondata.Latitude = pb.Float64(msg.GetDestlatitude())
+	expeditiondata.Longitude = pb.Float64(msg.GetDestlongitude())
+	this.data.Expedition = expeditiondata
+}
+
+func (this *CarData) ArrivalCar(){
+	this.data.State = pb.Uint32(msg.CarState_Arrival)
+}
+
+func (this *CarData) ActivateCar() {
+	this.data.State = pb.Uint32(msg.CarState_Robbing)
+	this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
+	this.data.Endtime = pb.Uint64(this.data.GetStarttime() + uint64(math.Floor(this.GetAttribute().GetStoptime()  * float64(1000))))
+}
+
+func (this *CarData) RetractCar() {
+	this.data.State = pb.Uint32(msg.CarState_Ready)
 }
 
 func (this *CarData) PackBin() *msg.CarData {
@@ -191,12 +232,10 @@ func (this *CarData) SaveBin(pipe redis.Pipeliner,force bool) {
 }
 //获得星级
 func (this *CarData) GetStar() uint32{
-	//TODO
 	return this.data.GetStar()
 }
 //获得每分钟收益数量
 func (this *CarData) GetRewardPerM() uint32{
-	//TODO 
 	return this.data.Attr.GetReward()
 }
 func (this *CarData) GetId() uint64 {
@@ -310,7 +349,7 @@ func (this *ParkingData) Parking(car *CarData, username string) {
 // 是否公共车位
 func (this *ParkingData) IsPublic() bool {
 	return this.data.GetParkingtype() == uint32(msg.ParkingType_Public)
-}
+}	
 
 // 是否私有车位
 func (this *ParkingData) IsPrivate() bool {
@@ -1013,7 +1052,79 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 	for k,v := range costItem {
 		user.RemoveItem(k,v,"车辆升星消耗")
 	}
-
+	return 0,car.data
+}
+//车辆出征
+func (this *CarManager) CarExpedition(user *GateUser,msg *msg.C2GW_CarExpedition) (result uint32,data *msg.CarData){
+	car := this.GetCar(msg.GetCarid())
+	if car == nil {
+		user.SendNotify("没有这辆车")
+		return 1,nil
+	}
+	if car.data.GetState() != uint32(msg.CarState_Ready) {
+		user.SendNotify(fmt.Sprintf("当前状态不可以出征 : %d", car.data.GetState()))
+		return 2,nil
+	}
+	//看看出征时是不是到上限了
+	if this.GetParkingCount(car.data.GetOwnerid()) <= this.GetActionCarCount(car.data.GetOwnerid()){
+		//不能去干啥了哦
+		user.SendNotify("已达到您的可使用车辆上限")
+		return 3,nil
+	}
+	//看看是不是在出征范围内
+	distance := def.CalculateDistance(msg.GetOriginlatitude(),msg.GetOriginlongitude(),msg.GetDestlatitude(),msg.GetDestlongitude())
+	if car.GetAttribute().GetRange() < distance {
+		user.SendNotify("距离太远了，无法出征")
+		return 4,nil
+	}
+	//可以了 出征吧
+	car.ExpediteCar(msg,distance)	
+	//成功了
+	return 0,car.data
+}
+//车辆激活
+func (this *CarManager) CarActivate(user *GateUser,carid uint64) (result uint32,data *msg.CarData) {
+	car := this.GetCar(msg.GetCarid())
+	if car == nil {
+		user.SendNotify("没有这辆车")
+		return 1,nil
+	}
+	if car.data.GetState() != uint32(msg.CarState_Arrival) {
+		user.SendNotify(fmt.Sprintf("当前状态不可以激活 : %d", car.data.GetState()))
+		return 2,nil
+	}
+	//可以激活
+	car.ActivateCar()
+	return 0,car.data
+}
+//车辆撤回
+func (this *CarManager) CarRetract(user *GateUser,carid uint64) (result uint32,data *msg.CarData) {
+	car := this.GetCar(msg.GetCarid())
+	if car == nil {
+		user.SendNotify("没有这辆车")
+		return 1,nil
+	}
+	if car.data.GetState() != uint32(msg.CarState_Robbing) {
+		user.SendNotify(fmt.Sprintf("当前状态不可以撤回 : %d", car.data.GetState()))
+		return 2,nil
+	}
+	//可以撤回
+	car.RetractCar()
+	return 0,car.data
+}
+//车辆加速
+func (this *CarManager) CarSpeedup(user *GateUser,carid uint64) (result uint32,data *msg.CarData) {
+	car := this.GetCar(msg.GetCarid())
+	if car == nil {
+		user.SendNotify("没有这辆车")
+		return 1,nil
+	}
+	if car.data.GetState() != uint32(msg.CarState_Exped) {
+		user.SendNotify(fmt.Sprintf("当前状态不可以加速 : %d", car.data.GetState()))
+		return 2,nil
+	}
+	//可以抵达
+	car.ArrivalCar()
 	return 0,car.data
 }
 // ========================= 查询接口 ========================= 
@@ -1184,8 +1295,8 @@ func (this *CarManager) Handler1MiniteTick(now int64) {
 
 func (this *CarManager) Handler1SecondTick(now int64) {
 	for _, v := range this.cars {
+		v.Update(uint64(now))
 		if v.data.GetState() == uint32(msg.CarState_Parking) {
-			v.UpdateReward(uint64(now))
 			parking := this.GetParking(v.data.GetParkingid())
 			this.AutoTakeBackCar(v, parking)
 		}

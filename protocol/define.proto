@@ -114,3 +114,10 @@ enum CarState {
     Robbing = 5;        //抢夺中
     Back = 6;           //回城中
 }
+
+enum CarTargetType {
+    Player = 1;         //附近的玩家
+    Building = 2;       //功能建筑
+    Houses = 3;         //楼盘
+    Event = 4;          //事件
+}
