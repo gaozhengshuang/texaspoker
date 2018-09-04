@@ -27,7 +27,10 @@ module game {
 			this.scroller.initItemRenderer(TradeItemSellItem);
 			let ly = new eui.TileLayout();
 			ly.requestedColumnCount = 5;
-			this.scroller.scrollPolicyH = 'off';
+			ly.horizontalGap = 10;
+			ly.verticalGap = 10;
+			ly.paddingLeft = 15;
+			this.scroller.scrollPolicyH = eui.ScrollPolicy.OFF;
 			this.scroller.dataList.layout = ly;
 		}
 		protected beforeShow() {
