@@ -1156,13 +1156,13 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) ReqRandHouseList(carflag, buildingid uint32) {
+func (this *GateUser) ReqRandHouseList(carflag, buildingid, getallflag uint32) {
 	send := &msg.GW2C_AckRandHouseList{}
 	if buildingid == 0 {
 		data := HouseSvrMgr().GetRandHouseList(this.Id())
 		send.Datas = data
 	} else {
-		data := this.ReqBuildingRandHouseList(buildingid)
+		data := this.ReqBuildingRandHouseList(buildingid, getallflag)
 		send.Datas = data
 	}
 	

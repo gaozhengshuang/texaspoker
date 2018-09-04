@@ -1150,7 +1150,8 @@ func on_C2GW_ReqRandHouseList(session network.IBaseNetSession, message interface
 	}
 	carflag := tmsg.GetCarflag()
 	buildingid := tmsg.GetBuildingid()
-	user.ReqRandHouseList(carflag, buildingid)
+	bgetall := tmsg.GetBgetall()
+	user.ReqRandHouseList(carflag, buildingid, bgetall)
 }
 
 func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
