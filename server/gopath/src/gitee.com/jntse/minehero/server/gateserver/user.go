@@ -93,6 +93,7 @@ type GateUser struct {
 	bag             UserBag   // 背包
 	//image         UserImage // 换装
 	task            UserTask
+	cartflag		bool
 	tm_disconnect   int64
 	tm_heartbeat    int64                   // 心跳时间
 	tm_asynsave     int64                   // 异步存盘超时
@@ -580,7 +581,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	// 道具信息
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
-	this.events.LoadBin(bin)
+	this.events.PackBin(bin)
 	//this.image.PackBin(bin)
 
 	//
@@ -694,6 +695,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 
 	// 上线任务检查
 	this.OnlineTaskCheck()
+	this.events.Online()
 
 	// 同步数据到客户端
 	this.Syn()
@@ -714,6 +716,7 @@ func (this *GateUser) Syn() {
 	this.SynCarData()
 	this.SynParkingData()
 	this.SynParkingRecord()
+	this.events.SendEvents();
 	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
 	//this.TestItem()

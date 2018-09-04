@@ -10,6 +10,7 @@ import (
 	_ "time"
 
 	_ "gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/tbl"
 	_ "reflect"
 )
 
@@ -281,6 +282,14 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 
 //整点回调
 func (this *UserManager) IntHourClockCallback(now int64) {
+
+	// 地图事件刷新
+	inthour := util.FloorIntClock(now)
+	if tbl.Game.MapEvent.TimeRefresh == inthour {
+		for _, user := range this.accounts {
+			user.events.RefreshActive()
+		}
+	}
 }
 
 func (this *UserManager) UpdateUserPos(uid uint64, x, y float32) bool {

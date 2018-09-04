@@ -376,7 +376,7 @@ func (this *GateUser) ReqBuildingCanBuyInfo(buildingid uint32) {
 	this.SendMsg(send)
 }
 
-//获取楼中最多10个除了自己之外房屋信息
+//获取楼中最多10个除了自己之外房屋信息 getallflag>0时放回楼的所有房屋
 func (this *GateUser) ReqBuildingRandHouseList(buildingid, getallflag uint32) []*msg.HouseData {
 	alldata := BuildSvrMgr().GetAllHouseDataFromBuilding(buildingid, this.Id())
 	count := len(alldata)
