@@ -14,12 +14,20 @@ module game {
         private smallGameList:SmallGameVO[]=null;
 		public setSmallGame(data:any=null){
             this.smallGameList=[];
-            let horeGame:SmallGameVO=new SmallGameVO();
-            horeGame.sgId=1;
+            let horeGame: SmallGameVO;
+
+            horeGame = new SmallGameVO();
+            horeGame.sgId=SceneType.battle;
             horeGame.sgIcon="gameTantanle";
             horeGame.sgName="超级弹弹乐";
             horeGame.sgType=1;
-            horeGame.sgUrl="https://city.giantfun.cn/hero/";
+            this.smallGameList.push(horeGame);
+
+            horeGame = new SmallGameVO();
+            horeGame.sgId=SceneType.battle2;
+            horeGame.sgIcon="chaoshiIcon";
+            horeGame.sgName="超市勾物";
+            horeGame.sgType=1;
             this.smallGameList.push(horeGame);
         }
         public getSmallGame():SmallGameVO[]{

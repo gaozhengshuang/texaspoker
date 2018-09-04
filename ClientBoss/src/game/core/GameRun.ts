@@ -30,6 +30,8 @@ module game {
         BattleManager.getInstance().init();
         //女仆数据初始化
         MaidManager.getInstance().init();
+        //地图事件初始化
+        MapEventsManager.getInstance().init();
 
         SysTimeEventManager.getInstance().delAllFunction();
         SysTimeEventManager.getInstance().stopTimer();

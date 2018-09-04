@@ -199,7 +199,7 @@
 			"url": "assets/texpack/hall_3.json",
 			"type": "sheet",
 			"name": "hall_3_json",
-			"subkeys": "2003001_b_png,assetsBar1_png,build_2003001_m_png,gameTantanle_png,lockMask1_png,lockMask2_png,lockMask3_png,lockMask4_png,lockMask5_png,lockMask6_png,soldOutImg1_png,tantanleTitle_png"
+			"subkeys": "2003001_b_png,assetsBar1_png,build_2003001_m_png,chaoshiIcon_png,gameTantanle_png,lockMask1_png,lockMask2_png,lockMask3_png,lockMask4_png,lockMask5_png,lockMask6_png,soldOutImg1_png,tantanleTitle_png"
 		},
 		{
 			"url": "assets/bg/carShopBuyBg.png",
@@ -398,7 +398,7 @@
 			"url": "assets/texpack/game2.json",
 			"type": "sheet",
 			"name": "game2_json",
-			"subkeys": "aimArrow,basket,belt,belt_1,belt_2,belt_3,belt_4,belt_5,belt_6,belt_7,belt_8,carBack,carShader,cashierdesk,hook,jiagepai,line,mingpai,spool"
+			"subkeys": "aimArrow,basket,belt,belt_1,belt_2,belt_3,belt_4,belt_5,belt_6,belt_7,belt_8,carBack,carShader,cashierdesk,hook,jiagepai,line,mingpai,spool,tube"
 		}
 	]
 }
