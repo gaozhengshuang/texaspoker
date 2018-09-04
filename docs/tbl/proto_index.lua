@@ -251,7 +251,12 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 246, Name : "msg.C2GW_ReqTaskList" 	},
 		{ Id : 247, Name : "msg.C2GW_ReqNearUsers" 	},
 		{ Id : 248, Name : "msg.GW2C_AckNearUsers" 	},
-		{ Id : 249, Name : "msg.C2GW_ReqSetPos" 	}
+		{ Id : 249, Name : "msg.C2GW_ReqSetPos" 	},
+		{ Id : 250, Name : "msg.C2GW_ReqSetUserSex" 	},
+		{ Id : 251, Name : "msg.C2GW_ReqSetUserAge" 	},
+		{ Id : 252, Name : "msg.C2GW_ReqSetUserConstellation" 	},
+		{ Id : 253, Name : "msg.C2GW_ReqSetUserSign" 	},
+		{ Id : 254, Name : "msg.C2GW_ReqSetFace" 	}
 	]
 
 

@@ -91,3 +91,27 @@ message C2GW_ReqSetPos {
 	optional float y = 2;
 }
 
+// 设置性别
+message C2GW_ReqSetUserSex {
+	optional int32 sex = 1; 
+}
+
+// 设置年龄
+message C2GW_ReqSetUserAge {
+	optional uint32 age = 1;
+}
+
+// 设置星座
+message C2GW_ReqSetUserConstellation {
+	optional uint32 constellation = 1;
+}
+
+// 设置签名
+message C2GW_ReqSetUserSign {
+	optional string sign = 1;
+}
+// 设置头像
+message C2GW_ReqSetFace {
+	optional string face = 1;
+}
+
