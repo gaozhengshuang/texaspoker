@@ -38,7 +38,7 @@ module game {
 		{
 			if(eve.EventObj){
 				let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
-				buildingProxy.getSalesInfo(eve.EventObj.building);
+				buildingProxy.getSalesInfo(eve.EventObj.building,1);
 			}
 			
 			//ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_ROOM_PAGE);
