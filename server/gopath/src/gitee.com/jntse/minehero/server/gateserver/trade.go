@@ -602,7 +602,7 @@ func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 	var ordersql string
 	var limitsql string
 	var strsql string
-	limitsql = fmt.Sprintf("limit %d,20", rev.GetStartnum())
+	limitsql = fmt.Sprintf("limit %d,10", rev.GetStartnum())
 	wheresql = fmt.Sprintf("endtime>%d ", util.CURTIME())
 	if rev.GetPricemin() != 0 {
 		wheresql += fmt.Sprintf("and price>=%d ", rev.GetPricemin())
@@ -617,15 +617,17 @@ func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 		wheresql += fmt.Sprintf("and itemsubtype=%d ", rev.GetItemsubtype())
 	}
 	if rev.GetName() != "" {
-		wheresql += fmt.Sprintf("and name like '%s%'", rev.GetName())
+		wheresql += "and name like '%" + rev.GetName() + "%'"
+	}
+	if rev.GetPricedec() == true {
+		ordersql = "ORDER BY PRICE DESC"
+	}else{
+		ordersql = "ORDER BY PRICE ASC"
 	}
 	if rev.GetUserid () != 0 {
 		wheresql = fmt.Sprintf("ownerid=%d", rev.GetUserid())
-	}
-	if rev.GetPricedec() == true {
-		ordersql += "ORDER BY PRICE DESC"
-	}else{
-		ordersql += "ORDER BY PRICE ASC"
+		limitsql = ""
+		ordersql = "ORDER BY ID DESC"
 	}
 
 	if wheresql != "" {
@@ -662,6 +664,11 @@ func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 			Itemsubtype : pb.Uint32(uint32(trade.itemsubtype)),
 			})
 	}
+	if rev.GetUserid () != 0 {
+		send.Ismine = pb.Bool(true)
+	}else{
+		send.Ismine = pb.Bool(false)
+	}
 	this.SendMsg(send)
 }
 
@@ -673,6 +680,10 @@ func (this *GateUser) TradeItem(itemid uint32, itemnum uint32, price uint32){
 
 	itembase , find := tbl.ItemBase.ItemBaseDataById[itemid]
 	if find == false {
+		return
+	}
+
+	if itembase.Tradable == 0 {
 		return
 	}
 
@@ -690,6 +701,8 @@ func (this *GateUser) TradeItem(itemid uint32, itemnum uint32, price uint32){
 		return
 	}
 
+	this.RemoveItem(itemid, itemnum, "交易道具")
+
 	history := &msg.TradeItemHistory{}
 	history.Tradeuid = pb.Uint64(uint64(LastInsertId))
 	history.Itemid = pb.Uint32(uint32(itemid))
@@ -702,6 +715,10 @@ func (this *GateUser) TradeItem(itemid uint32, itemnum uint32, price uint32){
 	utredis.SetProtoBin(Redis(), historykey, history)
 
 	this.SendNotify("操作成功")
+
+	send := &msg.GW2C_RetTradeItem{}
+	send.Tradeuid = pb.Uint64(uint64(LastInsertId))
+	this.SendMsg(send)
 }
 
 func (this *GateUser) BuyTradeItem(tradeuid uint64, ownerid uint64){
@@ -747,10 +764,14 @@ func (this *GateUser) BuyTradeItem(tradeuid uint64, ownerid uint64){
 	Redis().LPush(buylistkey, tradeuid)
 
 	this.SendNotify("购买成功")
+
+	send := &msg.GW2C_RetBuyTradeItem{}
+	send.Tradeuid = pb.Uint64(tradeuid)
+	this.SendMsg(send)
 }
 
 func (this* GateUser) ReqTradeItemHistory(){
-	key := fmt.Sprintf("tradecarhistorylist_%d", this.Id())
+	key := fmt.Sprintf("tradeitemhistorylist_%d", this.Id())
 	rlist, err := Redis().LRange(key, 0, 20).Result()
 	if err != nil {
 		log.Error("加载道具交易操作记录失败 id %d ，err: %s", this.Id(), err)
@@ -804,7 +825,7 @@ func (this *GateUser) CancelTradeItem(tradeuid uint64){
 	utredis.SetProtoBin(Redis(), historykey, history)
 	this.SendNotify("取消成功")
 
-	delsql := fmt.Sprintf("DELETE FROM cartrade WHERE id=%d", tradeuid)
+	delsql := fmt.Sprintf("DELETE FROM itemtrade WHERE id=%d", tradeuid)
 	_, execerr := MysqlDB().Exec(delsql)
 	if execerr != nil {
 		log.Info("数据库删除失败")
@@ -815,8 +836,8 @@ func (this *GateUser) CancelTradeItem(tradeuid uint64){
 
 	Redis().Del(historykey)
 
-	//send := &msg.GW2C_RetCancelTradeHouse{}
-	//send.Tradeuid = pb.Uint64(tradeuid)
-	//this.SendMsg(send)
+	send := &msg.GW2C_RetCancelTradeItem{}
+	send.Tradeuid = pb.Uint64(tradeuid)
+	this.SendMsg(send)
 }
 

@@ -20117,7 +20117,6 @@ $root.msg = (function() {
      * CarState enum.
      * @name msg.CarState
      * @enum {string}
-     * @property {number} Idle=1 Idle value
      * @property {number} Ready=2 Ready value
      * @property {number} Parking=3 Parking value
      * @property {number} Exped=4 Exped value
@@ -20126,7 +20125,6 @@ $root.msg = (function() {
      */
     msg.CarState = (function() {
         var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[1] = "Idle"] = 1;
         values[valuesById[2] = "Ready"] = 2;
         values[valuesById[3] = "Parking"] = 3;
         values[valuesById[4] = "Exped"] = 4;
@@ -41648,7 +41646,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -41897,7 +41901,13 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                object.buf = options.bytes === String ? "" : [];
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")

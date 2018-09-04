@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="TradeIconSkin" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="iconImg" verticalCenter="0" source="huxing_1001_s_png" y="-90" scaleX="1" scaleY="1"/>
+	<e:Image id="itemBorderImg" source="huxing_1001_s_png" scaleX="1" scaleY="1" verticalCenter="0"/>
 	<e:Label id="nameTxt" text="城市花园1" fontFamily="Microsoft YaHei" size="20" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" stroke="2" textAlign="center" verticalAlign="middle" anchorOffsetY="10" y="13" scaleX="1" scaleY="1" horizontalCenter="0.5"/>
 	<game:TradeStar id="tradeStar" skinName="TradeStarSkin" y="29" horizontalCenter="0"/>
 </e:Skin>

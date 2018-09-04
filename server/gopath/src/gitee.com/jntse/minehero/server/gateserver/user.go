@@ -665,7 +665,15 @@ func (this *GateUser) Syn() {
 	this.SynParkingRecord()
 	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
+	//this.TestItem()
 }
+
+func (this *GateUser) TestItem (){
+	for k, _ := range tbl.ItemBase.ItemBaseDataById {
+		this.AddItem(k, 100, "测试", true)
+	}
+}
+
 
 // 断开连接回调
 func (this *GateUser) OnDisconnect() {

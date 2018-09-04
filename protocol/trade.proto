@@ -251,6 +251,7 @@ message SimpleItemTrade
 message GW2C_RetItemTradeList
 {
     repeated SimpleItemTrade list = 1; //
+    optional bool ismine = 2;
 }
 
 //交易道具
