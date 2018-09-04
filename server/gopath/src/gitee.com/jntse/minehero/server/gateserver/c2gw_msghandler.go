@@ -92,6 +92,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTradeItemHistory{}, on_C2GW_ReqTradeItemHistory)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeItemReward{}, on_C2GW_GetTradeItemReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeItem{}, on_C2GW_CancelTradeItem)
+	this.msgparser.RegistProtoMsg(msg.C2GW_StartThrow{}, on_C2GW_StartThrow)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TargetItem{}, on_C2GW_TargetItem)
 
 	//房屋楼房
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseData{}, on_C2GW_ReqHouseData)
@@ -212,6 +214,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetTradeItemHistory{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeItemReward{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCancelTradeItem{})
+	this.msgparser.RegistSendProto(msg.GW2C_HitTarget{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetStartThrow{})
 
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
@@ -1378,6 +1382,27 @@ func on_C2GW_ReqBuildingCanBuyInfo(session network.IBaseNetSession, message inte
 	}
 	buildingid := tmsg.GetBuildingid()
 	user.ReqBuildingCanBuyInfo(buildingid)
+}
+
+func on_C2GW_StartThrow(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.StartThrow()
+}
+
+func on_C2GW_TargetItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_TargetItem)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.TargetItem(tmsg.GetItemid())
 }
 
 //交易消息

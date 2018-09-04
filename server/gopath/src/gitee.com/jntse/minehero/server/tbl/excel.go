@@ -28,6 +28,7 @@ var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
 var TCarModelBase = table.InsTCarModelBaseTable
 var THouseBase = table.InsTHouseBaseTable
+var TSupermarketBase = table.InsTSupermarketBaseTable
 var RechargeBase = table.InsRechargeBaseTable
 var TBirckItembase = table.InsTBirckItembaseTable
 var SignBase = table.InsSignBaseTable

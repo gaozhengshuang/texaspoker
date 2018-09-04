@@ -240,6 +240,7 @@ gen.maketbl_excel('LevelMaidBase','levelmaid','TLevelMaid.xlsx')
 gen.maketbl_excel('TCitysBase','citysbase','TCitys.xlsx')
 gen.maketbl_excel('MapEventBase','mapevent','TMapEvent.xlsx')
 gen.maketbl_excel('MapEventRefreshBase','mapeventrefresh','TMapEventRefresh.xlsx')
+gen.maketbl_excel('TSupermarketBase','supermarketbase','Tsupermarket.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')

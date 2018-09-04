@@ -77,6 +77,7 @@ func (this *UserTicker) Run(now int64) {
 
 func (this *GateUser) OnTicker10ms(now int64) {
 	this.asynev.Dispatch()
+	this.events.Tick(now)
 }
 
 func (this *GateUser) OnTicker100ms(now int64) {
