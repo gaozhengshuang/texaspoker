@@ -67,6 +67,8 @@ Gulp.task('version', function (cb) {
         'version-css2',
         'version-css3',
         'version-css4',
+        'version-css5',
+        'version-css6',
 
         'version-js1',
         'version-js2',
@@ -175,6 +177,21 @@ Gulp.task('version-css4', function () {
         .pipe(revCollector())
         .pipe(Gulp.dest(out_path + 'js/'));
 });
+//建筑图标版控
+Gulp.task('version-css5', function () {
+    return Gulp.src([out_path + 'resource/others/images/**/*']).pipe(GulpRev())
+        .pipe(Gulp.dest(out_path + 'resource-rev/others/images/'))
+        .pipe(GulpRev.manifest({
+            path: 'rev-manifest-js.json'
+        }))
+        .pipe(Gulp.dest(out_path + 'rev/resource/others/images/'));;
+});
+Gulp.task('version-css6', function () {
+    return Gulp.src([out_path + 'rev/resource/others/images/rev-manifest-js.json', out_path + 'js/main.min.js'])
+        .pipe(revCollector())
+        .pipe(Gulp.dest(out_path + 'js/'));
+});
+
 //代码文件
 Gulp.task('version-js1', function () {
     return Gulp.src([out_path + 'js/**/*']).pipe(GulpRev())

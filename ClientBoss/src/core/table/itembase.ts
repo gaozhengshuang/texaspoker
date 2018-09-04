@@ -33,7 +33,7 @@ export var ItemBaseData : table.IItemBaseDataDefine[] = [
 		{ Id : 130023, Type : 13, SubType : 5, Color : 3, ImageId : 130021, Name : "轮胎零件", Desc : "用于轮胎升级", Clothes : 0, TypeDes : "车子", Tradable : 1 	},
 		{ Id : 130024, Type : 13, SubType : 5, Color : 4, ImageId : 130021, Name : "轮胎零件", Desc : "用于轮胎升级", Clothes : 0, TypeDes : "车子", Tradable : 1 	},
 		{ Id : 130025, Type : 13, SubType : 5, Color : 5, ImageId : 130021, Name : "轮胎零件", Desc : "用于轮胎升级", Clothes : 0, TypeDes : "车子", Tradable : 1 	},
-		{ Id : 140001, Type : 14, SubType : 1, Color : 1, ImageId : 140001, Name : "鲜花", Desc : "用于女仆升级", Clothes : 0, TypeDes : "女仆碎片", Tradable : 1 	},
+		{ Id : 140001, Type : 14, SubType : 1, Color : 1, ImageId : 140001, Name : "鲜花", Desc : "用于女仆升级", Clothes : 0, TypeDes : "女仆升级", Tradable : 1 	},
 		{ Id : 110001, Type : 11, SubType : 2, Color : 1, ImageId : 110001, Name : "少女红发碎片", Desc : "用于少女红发合成", Clothes : 150001, TypeDes : "女仆碎片", Tradable : 1 	},
 		{ Id : 110002, Type : 11, SubType : 2, Color : 1, ImageId : 110002, Name : "少女紫发碎片", Desc : "用于少女紫发合成", Clothes : 150002, TypeDes : "女仆碎片", Tradable : 1 	},
 		{ Id : 110003, Type : 11, SubType : 2, Color : 1, ImageId : 110003, Name : "少女蓝发碎片", Desc : "用于少女蓝发合成", Clothes : 150003, TypeDes : "女仆碎片", Tradable : 1 	},
