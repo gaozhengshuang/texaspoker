@@ -58,7 +58,8 @@ func (m *UserMapEvent) SendEvents() {
 
 // 刷新玩家的时间列表
 func (m *UserMapEvent) Refresh() {
-	x, y := m.owner.GetUserPos()
+	//x, y := m.owner.GetUserPos()		// 经纬度
+	//intx, inty := uint32(x * 1000) , uint32(y * 1000)
 }
 
 
