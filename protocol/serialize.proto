@@ -90,7 +90,7 @@ message MapEvent {
 // 玩家地图事件
 message UserMapEvent {
     repeated MapEvent events = 1;   // 事件列表
-    optional uint32 tmrefresh = 2;  // 刷新时间(服务器使用)
+    optional int64 tmrefresh = 2;   // 刷新时间(服务器使用)
 }
 
 

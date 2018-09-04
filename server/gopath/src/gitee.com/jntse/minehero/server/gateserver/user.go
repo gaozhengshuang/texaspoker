@@ -682,6 +682,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 
 	// 上线任务检查
 	this.OnlineTaskCheck()
+	this.events.Online()
 
 	// 同步数据到客户端
 	this.Syn()
@@ -702,6 +703,7 @@ func (this *GateUser) Syn() {
 	this.SynCarData()
 	this.SynParkingData()
 	this.SynParkingRecord()
+	this.events.SendEvents();
 	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
 	//this.TestItem()
