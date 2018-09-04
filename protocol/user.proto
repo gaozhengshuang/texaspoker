@@ -87,8 +87,8 @@ message GW2C_AckNearUsers {
 
 // 请求设置位置
 message C2GW_ReqSetPos {
-	optional float x = 1;
-	optional float y = 2;
+	optional float lng = 1;
+	optional float lat = 2;
 }
 
 // 设置性别
