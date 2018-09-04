@@ -30,7 +30,7 @@ module game {
 			let itemDef = TradeManager.getInstance().getItemDefine(data.itemid);
 			if (itemDef) {
 				this.nameLabel.text = itemDef.Name;
-				this.icon.show({ name: data.name, icon: itemDef.ImageId.toString(), star: 0, type: TradeIconType.Item });
+				this.icon.show({ name: data.name, icon: itemDef.ImageId.toString(), star: itemDef.Color, type: TradeIconType.Item });
 			}
 			this.priceLabel.textFlow = TextUtil.parse(TradeManager.getInstance().getPriceStr(data.price));
 			this.numTxt.text = numAddSpace(data.itemnum);

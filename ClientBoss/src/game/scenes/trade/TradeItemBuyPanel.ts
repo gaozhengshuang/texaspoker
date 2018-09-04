@@ -25,7 +25,7 @@ module game {
 			this.priceLabel.text = numAddSpace(data.price) + "金币";
 			let itemDef = TradeManager.getInstance().getItemDefine(data.itemid);
 			if (itemDef) {
-				this.icon.show({ name: itemDef.Name, icon: itemDef.ImageId.toString(), star: 0, type: TradeIconType.Item });
+				this.icon.show({ name: itemDef.Name, icon: itemDef.ImageId.toString(), star: itemDef.Color, type: TradeIconType.Item });
 				this.nameTxt.text = itemDef.Name;
 			}
 			this.numTxt.text = this._data.itemnum.toString();

@@ -93,7 +93,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeItemReward{}, on_C2GW_GetTradeItemReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeItem{}, on_C2GW_CancelTradeItem)
 
-
+	//房屋楼房
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseData{}, on_C2GW_ReqHouseData)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseLevelUp{}, on_C2GW_ReqHouseLevelUp)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseCellLevelUp{}, on_C2GW_ReqHouseCellLevelUp)
@@ -105,6 +105,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseDataByHouseId{}, on_C2GW_ReqHouseDataByHouseId)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuyHouseFromBuilding{}, on_C2GW_ReqBuyHouseFromBuilding)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqBuildingCanBuyInfo{}, on_C2GW_ReqBuildingCanBuyInfo)
+	//位置
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqNearUsers{}, on_C2GW_ReqNearUsers)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetPos{}, on_C2GW_ReqSetPos)
+
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
@@ -182,6 +186,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseDataByHouseId{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckBuyHouseFromBuilding{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckBuildingCanBuyInfo{})
+	//位置附近的人
+	this.msgparser.RegistSendProto(msg.GW2C_AckNearUsers{})
 
 	//交易发
 	this.msgparser.RegistSendProto(msg.GW2C_RetHouseTradeList{})
@@ -1561,3 +1567,23 @@ func on_C2GW_GetTradeItemReward(session network.IBaseNetSession, message interfa
 	user.GetTradeItemReward(tmsg.GetTradeuid())
 }
 
+func on_C2GW_ReqNearUsers (session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.AckNearUsersData()
+}
+
+func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetPos)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.SetUserPos(tmsg.GetX(), tmsg.GetY())
+}

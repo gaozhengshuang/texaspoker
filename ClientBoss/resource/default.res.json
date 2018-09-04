@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,item_json,girl_suit6_json,hall_4_json",
+			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,girl_suit6_json,hall_4_json,item_json",
 			"name": "hall"
 		},
 		{
@@ -88,12 +88,6 @@
 			"type": "sheet",
 			"name": "login_json",
 			"subkeys": "dialogBg_png,dialogBuyBtn_png,dialogCloseBtn_png,inviteFriendsImg_png,loginBtn_png,loginInput_png,loginTitle_png,loginstar_png,nicknameImg_png,notreachImg_png,passwdicon_png,phoneicon_png,registerBtn_png,wxwbd_png,wxyjbd_png,yqmicon_png,yzmbutton_png,yzmicon_png"
-		},
-		{
-			"url": "assets/texpack/item.json",
-			"type": "sheet",
-			"name": "item_json",
-			"subkeys": "110001,110002,110003,110004,110005,110006,110007,110008,110009,110010,110011,110012,110013,120001,120002,120003,120004,130001,130002,130003,130004,130005,130006,130007,130008,130009,130010,130011,130012,130013,130014,130015,130016,130017,130018,130019,130020,130021,130022,130023,130024,130025,140001,60002,60003"
 		},
 		{
 			"url": "assets/texpack/cube.json",
@@ -383,7 +377,13 @@
 			"url": "assets/texpack/hall_4.json",
 			"type": "sheet",
 			"name": "hall_4_json",
-			"subkeys": "item_bar_png,item_bar_select_png,star_png,trade_add_png,trade_coinnum_bg_png,trade_done_png,trade_reduce_png,trade_return_png,trade_selling_png,tradeitem_select_png,tradeitem_unselect_png,trading_bottom_bar_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_pos_png,trading_search_png"
+			"subkeys": "frame1_png,frame2_png,frame3_png,frame4_png,frame5_png,item_bar_png,item_bar_select_png,selectframe_png,star_png,trade_add_png,trade_coinnum_bg_png,trade_done_png,trade_reduce_png,trade_return_png,trade_selling_png,tradeitem_select_png,tradeitem_unselect_png,trading_bottom_bar_png,trading_car_tabBar1_png,trading_car_tabBar2_png,trading_fangchan_tabBar1_png,trading_fangchan_tabBar2_png,trading_pos_png,trading_search_png"
+		},
+		{
+			"url": "assets/texpack/item.json",
+			"type": "sheet",
+			"name": "item_json",
+			"subkeys": "110001,110002,110003,110004,110005,110006,110007,110008,110009,110010,110011,110012,110013,110014,120001,120002,120003,120004,120005,130001,130006,130011,130016,130021,140001,60002,60003"
 		}
 	]
 }
