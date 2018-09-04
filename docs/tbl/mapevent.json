@@ -1,0 +1,8 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"TMapEvent":[
+		{ "Id": 1, "Desc": "玩游戏得金币", "MoneyType": 3, "Price": 1 },
+		{ "Id": 2, "Desc": "随机奖励", "MoneyType": 3, "Price": 1, "Reward": "1-1;2-2" },
+		{ "Id": 3, "Desc": "商店", "MoneyType": 3, "Price": 0 }
+	]}

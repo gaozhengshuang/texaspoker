@@ -77,6 +77,7 @@ type UserManager struct {
 	ids       map[uint64]*GateUser
 	names     map[string]*GateUser
 	msgbuffer map[uint64]*BufferMsg
+	posmap	  map[uint32]map[uint32]map[uint64]*GateUser //经度参数|维度参数|uid|*GateUser
 }
 
 func (this *UserManager) Init() {
@@ -84,6 +85,7 @@ func (this *UserManager) Init() {
 	this.names = make(map[string]*GateUser)
 	this.ids = make(map[uint64]*GateUser)
 	this.msgbuffer = make(map[uint64]*BufferMsg)
+	this.posmap = make(map[uint32]map[uint32]map[uint64]*GateUser)
 }
 
 func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account, key, token, face string) (*GateUser, string) {
@@ -152,6 +154,7 @@ func (this *UserManager) DelUser(user *GateUser) {
 	delete(this.accounts, user.Account())
 	delete(this.names, user.Name())
 	delete(this.ids, user.Id())
+	this.RemovePosMapUser(user)
 	log.Info("当前在线人数:%d", len(this.accounts))
 }
 
@@ -278,4 +281,109 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 
 //整点回调
 func (this *UserManager) IntHourClockCallback(now int64) {
+}
+
+func (this *UserManager) UpdateUserPos(uid uint64, x, y float32) bool {
+	user := this.FindById(uid)
+	if user == nil {
+		return false
+	}
+	if x < -180 || x > 180 || y < -90 || y > 90 {
+		log.Error("UpdateUserPos Error uid:%d, x:%f, y:%f", uid, x, y)
+		return false
+	}
+	if x < 0 {
+		x = x + 360
+	}
+	if y < 0 {
+		y = y + 180
+	}
+	map_x := uint32(x * 100)
+	map_y := uint32(y * 100)
+	
+	x0, y0 := user.GetUserPos() //之前的位置
+	if x0 < 0 {
+		x0 = x0 + 360
+	}
+	if y0 < 0 {
+		y0 = y0 + 180
+	}
+	map_x0 := uint32(x0 * 100)
+	map_y0 := uint32(y0 * 100)
+	if map_x == map_x0 && map_y == map_y0 {
+		return true
+	}
+	//移除原来的
+	if _, ok := this.posmap[map_x0]; ok {
+		if _, ok2 := this.posmap[map_x0][map_y0]; ok2 {
+			if _, ok3 := this.posmap[map_x0][map_y0][uid];ok3 {
+				delete(this.posmap[map_x0][map_y0], uid)
+			}
+		}
+	}
+	//加入新的
+	if _, ok := this.posmap[map_x]; ok {
+		if _, ok2 := this.posmap[map_x][map_y]; ok2 {
+				this.posmap[map_x][map_y][uid] = user	
+		} else {
+			this.posmap[map_x][map_y] = make(map[uint64]*GateUser)
+			this.posmap[map_x][map_y][uid] = user
+		}
+
+	} else {
+		this.posmap[map_x] = make(map[uint32]map[uint64]*GateUser)
+		this.posmap[map_x][map_y] = make(map[uint64]*GateUser)
+		this.posmap[map_x][map_y][uid] = user
+	}
+	return true
+}
+
+//获取附近的玩家
+func (this *UserManager) GetNearUsersByUid(uid uint64) map[uint64]*GateUser {
+	data := make(map[uint64]*GateUser)
+	user := this.FindById(uid)
+	if user == nil {
+		return data
+	}
+	x, y := user.GetUserPos()
+	if x < 0 {
+		x = x + 360
+	}
+	if y < 0 {
+		y = y + 180
+	}
+	map_x := uint32(x * 100)
+	map_y := uint32(y * 100)
+	if _, ok := this.posmap[map_x]; ok {
+		if _, ok2 := this.posmap[map_x][map_y]; ok2 {
+			return this.posmap[map_x][map_y]
+		} else {
+			return data
+		}
+	}else{
+		return data
+	}
+}
+
+func (this *UserManager) RemovePosMapUser(user *GateUser) {
+	if user == nil {
+		return
+	}
+	x0, y0 := user.GetUserPos()
+	if x0 < 0 {
+		x0 = x0 + 360
+	}
+	if y0 < 0 {
+		y0 = y0 + 180
+	}
+	map_x0 := uint32(x0 * 100)
+	map_y0 := uint32(y0 * 100)
+
+	if _, ok := this.posmap[map_x0]; ok {
+		if _, ok2 := this.posmap[map_x0][map_y0]; ok2 {
+			if _, ok3 := this.posmap[map_x0][map_y0][user.Id()];ok3 {
+				delete(this.posmap[map_x0][map_y0], user.Id())
+			}
+		}
+	}
 }

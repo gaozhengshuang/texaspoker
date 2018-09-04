@@ -79,6 +79,22 @@ message HouseMaidData {
     optional uint64 robberto = 12;  // 被掠夺到house
 }
 
+// 地图事件
+message MapEvent {
+    optional uint64 id = 1;         // 事件id
+    optional uint32 tid = 2;        // 模板id
+    optional uint32 type = 3;       // 类型
+    optional uint32 longitude = 4;  // 经度 * 1000
+    optional uint32 latitude = 5;   // 纬度 * 1000
+}
+
+// 玩家地图事件
+message UserMapEvent {
+    repeated MapEvent events = 1;   // 事件列表
+    optional uint32 tmrefresh = 2;  // 刷新时间(服务器使用)
+}
+
+
 message UserBase {
     optional uint32     level   = 1;
     optional uint32     exp     = 2;
@@ -103,6 +119,10 @@ message UserBase {
 	optional uint32 	newplayerstep = 21; // 新手引导
 	optional uint32 	robcount = 22;		// 抢钱次数
 	optional int64 		tmaddrobcount = 23; // 下次涨抢钱次数的时间戳
+	optional uint32 	age = 24; 	//年龄
+	optional uint32 	constellation = 25; //星座
+	optional string 	sign = 26;  //个人签名
+    optional UserMapEvent mapevent = 27;    // 地图事件
 }
 
 message UserAddress {
@@ -241,6 +261,9 @@ message HouseData {
     optional uint64 tradeuid = 17;      //交易id
     optional uint32 tradeprice = 18;         //交易价格
     optional uint64 visitrecordid = 19;  // 访问记录uuid,服务器使用
+	optional int32 ownersex = 20; //主人性别
+	optional uint32 ownerlevel = 21; //主人等级
+	optional string ownerface = 22; //主人头像
 }
 
 // 汽车商店出售信息

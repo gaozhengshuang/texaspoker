@@ -664,6 +664,11 @@ func (this *GateUser) ReqTradeItemList(rev *msg.C2GW_ReqItemTradeList){
 			Itemsubtype : pb.Uint32(uint32(trade.itemsubtype)),
 			})
 	}
+	if rev.GetUserid () != 0 {
+		send.Ismine = pb.Bool(true)
+	}else{
+		send.Ismine = pb.Bool(false)
+	}
 	this.SendMsg(send)
 }
 

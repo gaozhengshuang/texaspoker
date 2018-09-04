@@ -75,6 +75,9 @@ type DBUserData struct {
 	newplayerstep  uint32 // 新手引导步骤
 	robcount       uint32 // 抢钱次数
 	tmaddrobcount  int64  // 下次涨抢钱次数的时间戳
+	age			   uint32 // 年龄
+	constellation  uint32 // 星座
+	sign		   string // 玩家签名
 }
 
 // --------------------------------------------------------------------------
@@ -100,13 +103,19 @@ type GateUser struct {
 	asynev          eventque.AsynEventQueue // 异步事件处理
 	broadcastbuffer []uint64                // 广播消息缓存
 	synbalance      bool                    // 充值中
+	events			UserMapEvent			// 地图事件
 	housedata       []*msg.HouseData        //房屋信息 登录后matchserver回传
+
+	//经纬度靠客户端同步
+	posx			float32 //经度
+	posy			float32 //纬度
 }
 
 func NewGateUser(account, key, token string) *GateUser {
 	u := &GateUser{account: account, verifykey: key}
 	u.bag.Init(u)
 	u.task.Init(u)
+	u.events.Init(u)
 	//u.image.Init(u)
 	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
 	u.cleanup = false
@@ -136,10 +145,6 @@ func (this *GateUser) Name() string {
 	return this.EntityBase().GetName()
 }
 
-func (this *GateUser) Id() uint64 {
-	return this.EntityBase().GetId()
-}
-
 func (this *GateUser) Face() string {
 	return this.EntityBase().GetFace()
 }
@@ -148,12 +153,40 @@ func (this *GateUser) SetFace(f string) {
 	this.EntityBase().Face = pb.String(f)
 }
 
+func (this *GateUser) Id() uint64 {
+	return this.EntityBase().GetId()
+}
+
 func (this *GateUser) Sex() int32 {
 	return this.EntityBase().GetSex()
 }
 
 func (this *GateUser) SetSex(sex int32) {
 	this.EntityBase().Sex = pb.Int32(sex)
+}
+
+func (this *GateUser) SetSign(sign string){
+	this.sign = sign
+}
+
+func (this *GateUser) Sign() string {
+	return this.sign
+}
+
+func (this *GateUser) SetConstellation(value uint32) {
+	this.constellation = value
+}
+
+func (this *GateUser) Constellation() uint32 {
+	return this.constellation
+}
+
+func (this *GateUser) SetAge(age uint32) {
+	this.age = age
+}
+
+func (this *GateUser) Age() uint32 {
+	return this.age
 }
 
 func (this *GateUser) Sid() int {
@@ -522,6 +555,9 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Newplayerstep = pb.Uint32(this.newplayerstep)
 	userbase.Robcount = pb.Uint32(this.robcount)
 	userbase.Tmaddrobcount = pb.Int64(this.tmaddrobcount)
+	userbase.Age = pb.Uint32(this.age)
+	userbase.Constellation = pb.Uint32(this.constellation)
+	userbase.Sign = pb.String(this.sign)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -532,6 +568,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	// 道具信息
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
+	this.events.LoadBin(bin)
 	//this.image.PackBin(bin)
 
 	//
@@ -567,6 +604,9 @@ func (this *GateUser) LoadBin() {
 	this.newplayerstep = userbase.GetNewplayerstep()
 	this.robcount = userbase.GetRobcount()
 	this.tmaddrobcount = userbase.GetTmaddrobcount()
+	this.age = userbase.GetAge()
+	this.constellation = userbase.GetConstellation()
+	this.sign = userbase.GetSign()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -580,6 +620,9 @@ func (this *GateUser) LoadBin() {
 
 	// 任务
 	this.task.LoadBin(this.bin)
+
+	// 事件
+	this.events.LoadBin(this.bin)
 
 	// 换装信息
 	//this.image.Clean()
@@ -604,7 +647,7 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	houseData := HouseSvrMgr().CreateNewHouse(this.Id(), 1001, this.Name(), 0, 0, 0, 0)
+	houseData := HouseSvrMgr().CreateNewHouse(this, 1001, 0, 0, 0, 0)
 
 	if houseData != nil {
 		CarMgr().CreateNewCar(this.Id(), 1001, this.Name(),1000)
@@ -1083,5 +1126,41 @@ func (this *GateUser) NotifyRobCount() {
 func (this *GateUser) NotifyRobCountResumeTime() {
 	send := &msg.GW2C_NotifyAddRobCountTime{}
 	send.Time = pb.Int64(this.tmaddrobcount)
+	this.SendMsg(send)
+}
+
+func (this *GateUser) GetUserPos() (float32, float32){
+	return this.posx, this.posy
+}
+
+func (this *GateUser) SetUserPos(x,y float32) {
+	if UserMgr().UpdateUserPos(this.Id(), x, y) == true {
+		this.posx = x
+		this.posy = y
+	}
+}
+
+func (this *GateUser) AckNearUsersData() {
+	send := &msg.GW2C_AckNearUsers{}
+	data := UserMgr().GetNearUsersByUid(this.Id())
+	max := 0
+	for _, v := range data {
+		tmp := &msg.PersonSocialInfo{}
+		tmp.Id = pb.Uint64(v.Id())
+		tmp.Face = pb.String(v.Face())
+		tmp.Name = pb.String(v.Name())
+		tmp.Sex = pb.Int32(v.Sex())
+		tmp.Level = pb.Uint32(v.Level()) 
+		tmp.Age = pb.Uint32(v.Age())  
+		tmp.Constellation = pb.Uint32(v.Constellation())
+		tmp.X = pb.Float32(v.posx)
+		tmp.Y = pb.Float32(v.posy)
+		tmp.Sign = pb.String(v.Sign())
+		send.Data = append(send.Data, tmp)
+		max = max + 1
+		if max >= 10 {
+			break
+		}
+	}
 	this.SendMsg(send)
 }

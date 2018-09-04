@@ -263,6 +263,10 @@ type HouseData struct {
 	tradeuid	 uint64 //交易id
 	tradeprice   uint32 
 	visitrecordid uint64	// 访问记录uuid
+	ownersex	 int32 //主人性别
+	ownerlevel	 uint32 //主人等级
+	ownerface 	 string //主人头像
+
 	ticker1Sec *util.GameTicker
 }
 
@@ -301,6 +305,9 @@ func (this *HouseData) LoadBin(rbuf []byte) *msg.HouseData {
 	this.sumvalue = bin.GetSumvalue()
 	this.tradeuid = bin.GetTradeuid()
 	this.tradeprice = bin.GetTradeprice()
+	this.ownersex = bin.GetOwnersex()
+	this.ownerlevel = bin.GetOwnerlevel()
+	this.ownerface = bin.GetOwnerface()
 	//log.Info("读取房屋[%d] ", this.id)
 	this.OnLoadBin()
 	return bin
@@ -345,6 +352,9 @@ func (this *HouseData) PackBin() *msg.HouseData {
 	bin.Sumvalue = pb.Uint32(this.sumvalue)
 	bin.Tradeuid = pb.Uint64(this.tradeuid)
 	bin.Tradeprice = pb.Uint32(this.tradeprice)
+	bin.Ownersex = pb.Int32(this.ownersex)
+	bin.Ownerlevel = pb.Uint32(this.ownerlevel)
+	bin.Ownerface = pb.String(this.ownerface)
 	return bin
 }
 
@@ -400,6 +410,9 @@ func (this *HouseData) ChangeOwner(user *GateUser) {
 	}
 	this.ownerid = user.Id()
 	this.ownername = user.Name()
+	this.ownersex = user.Sex()
+	this.ownerlevel = user.Level()
+	this.ownerface = user.Face()
 	for _, v := range this.housecells {
 		v.ownerid = user.Id()
 	}
@@ -635,8 +648,12 @@ func (this *HouseManager) GetHousesByUser(uid uint64) map[uint64]*HouseData {
 }
 
 //创建一个新的房屋
-func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername string, buildingid, roommember uint32, square uint32, cost uint32) *HouseData {
-	log.Info("建一个新的房屋 ownerid: %d, tid: %d", ownerid, tid)
+func (this *HouseManager) CreateNewHouse(owner *GateUser, tid uint32, buildingid, roommember uint32, square uint32, cost uint32) *HouseData {
+	if owner == nil {
+		log.Error("创建新的房屋owner nil")
+		return nil
+	}
+	log.Info("建一个新的房屋 ownerid: %d, tid: %d", owner.Id(), tid)
 	houseid, errcode := def.GenerateHouseId(Redis())
 	if errcode != "" {
 		log.Error("创建新的房屋生成新的房屋id出错，error:%s", errcode)
@@ -670,7 +687,7 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 			cell.state = 2
 		}
 		cell.robdata = make([]uint64, 0)
-		cell.SetOwner(ownerid)
+		cell.SetOwner(owner.Id())
 		house.housecells[uint32(index)] = cell
 	}
 
@@ -678,13 +695,16 @@ func (this *HouseManager) CreateNewHouse(ownerid uint64, tid uint32, ownername s
 	house.id = uint64(houseid)
 	house.tid = tid
 	house.level = 1
-	house.ownerid = ownerid
-	house.ownername = ownername
+	house.ownerid = owner.Id()
+	house.ownername = owner.Name()
 	house.buildingid = buildingid
 	house.roommember = roommember
 	house.area = square
 	house.sumvalue = cost
 	house.income = house.GetIncome()
+	house.ownersex = owner.Sex()
+	house.ownerlevel = owner.Level()
+	house.ownerface = owner.Face()
 	house.SaveBin(nil)
 	Redis().SAdd("houses_idset", houseid)
 	this.AddHouse(house)
