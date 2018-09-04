@@ -1594,7 +1594,7 @@ func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {
 		session.Close()
 		return
 	}
-	user.SetUserPos(tmsg.GetX(), tmsg.GetY())
+	user.SetUserPos(tmsg.GetLng(), tmsg.GetLat())
 }
 
 func on_C2GW_ReqSetUserSex (session network.IBaseNetSession, message interface{}) {
