@@ -81,7 +81,7 @@ func (m *UserMapEvent) Refresh() {
 			continue
 		}
 
-		for i:=0; i < v.Num; i++ {
+		for i:=0; i < int(v.Num); i++ {
 			index := util.SelectByWeightOdds(giftweight)
 			if index < 0 || index >= int32(len(giftweight)) {
 				log.Error("[地图事件] 权重获得产出事件失败")
