@@ -149,6 +149,10 @@ func (this *GateUser) Face() string {
 
 func (this *GateUser) SetFace(f string) {
 	this.EntityBase().Face = pb.String(f)
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownerface = f
+	}
 }
 
 func (this *GateUser) Id() uint64 {
@@ -161,6 +165,10 @@ func (this *GateUser) Sex() int32 {
 
 func (this *GateUser) SetSex(sex int32) {
 	this.EntityBase().Sex = pb.Int32(sex)
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownersex = sex
+	}
 }
 
 func (this *GateUser) SetSign(sign string){
@@ -200,6 +208,10 @@ func (this *GateUser) Level() uint32 {
 
 func (this *GateUser) AddLevel(num uint32) {
 	this.level += num
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownerlevel = this.level
+	}
 }
 
 func (this *GateUser) Exp() uint32 {
