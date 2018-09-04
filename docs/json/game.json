@@ -30,5 +30,33 @@
     "MaxRobCount":20,
 
     "//":"抢夺女仆扣体力",
-    "RobMaidStrength":2
+    "RobMaidStrength":2,
+
+    "//":"地图事件",
+    "MapEvent": {
+
+        "//":"几点刷新",
+        "TimeRefresh":2,
+
+        "//":"区间范围，区间内事件数量",
+        "GameEvent": {
+            "RangeMin":0,
+            "RangeMax":1,
+            "num":3
+        },
+
+        "//":"区间范围，区间内事件数量",
+        "BonusEvent": {
+            "RangeMin":1,
+            "RangeMax":2,
+            "num":3
+        },
+
+        "//":"区间范围，区间内事件数量",
+        "BuildingEvent": {
+            "RangeMin":0,
+            "RangeMax":3,
+            "num":3
+        }
+    }
 }
