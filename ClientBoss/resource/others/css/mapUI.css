@@ -287,7 +287,7 @@
 }
 
 .bTitleIcon{
-	background-image:url(../images/areaicon/map_building_titleBg1.png);
+	background-image:url(../images/map_building_titleBg1.png);
 	background-size:cover;	
 	position:absolute;
 	width:120px;
@@ -300,7 +300,7 @@
 }
 
 .haveBTitleIcon{
-	background-image:url(../images/areaicon/map_building_titleBg2.png);
+	background-image:url(../images/map_building_titleBg2.png);
 	background-size:cover;	
 	position:absolute;
 	width:120px;
