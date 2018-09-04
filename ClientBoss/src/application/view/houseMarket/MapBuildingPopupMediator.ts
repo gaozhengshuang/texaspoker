@@ -34,8 +34,10 @@ module game {
 		{
 			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
             if(eve.EventObj){
-				let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
-				buildingProxy.getSalesInfo(eve.EventObj.build,2);
+				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEW_HOUSE_HUXING,
+				{bId:eve.EventObj.bId, sales:eve.EventObj.sales});
+				//let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
+				//buildingProxy.getSalesInfo(eve.EventObj.build,2);
 			}
 		}
 		

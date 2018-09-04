@@ -132,6 +132,9 @@ module game {
             case PanelType.TradeItemBackPanel:
                 panel = TradeItemBackPanel.getInstance();
                 break;
+                case PanelType.MapzhuhuListPopupPanel:
+                panel = MapzhuhuListPopupPanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -177,6 +180,7 @@ module game {
         TradeItemBuyPanel,
         TradeMyItemPanel,
         TradeItemSellPanel,
-        TradeItemBackPanel
+        TradeItemBackPanel,
+        MapzhuhuListPopupPanel
     }
 }

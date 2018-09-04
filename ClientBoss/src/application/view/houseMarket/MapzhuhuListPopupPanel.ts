@@ -1,5 +1,5 @@
 module game {
-	export class MapBuildingPopupPanel extends PanelComponent {
+	export class MapzhuhuListPopupPanel extends PanelComponent {
 
 		public static CLOSE: string = "close";
 		public static OPEN_ZHUHU_LIST:string = "open_zhuhu_list";
@@ -22,21 +22,21 @@ module game {
 			super();
 		}
         protected getSkinName() {
-            return MapBuildingPopupUI;
+            return MapzhuhuListPopupPanel;
         }
-        private static _instance: MapBuildingPopupPanel = null;
-        public static getInstance(): MapBuildingPopupPanel {
-            if (!MapBuildingPopupPanel._instance) {
-                MapBuildingPopupPanel._instance = new MapBuildingPopupPanel();
+        private static _instance: MapzhuhuListPopupPanel = null;
+        public static getInstance(): MapzhuhuListPopupPanel {
+            if (!MapzhuhuListPopupPanel._instance) {
+                MapzhuhuListPopupPanel._instance = new MapzhuhuListPopupPanel();
             }
-            return MapBuildingPopupPanel._instance;
+            return MapzhuhuListPopupPanel._instance;
         }
         protected beforeShow() {
-            this.buyFang_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_buy, this);
+            //this.buyFang_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_buy, this);
 			this.close_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
         }
         protected beforeRemove() {
-            this.buyFang_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
+            //this.buyFang_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
 			this.close_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_buy, this);
         }
         protected init() {
@@ -45,10 +45,6 @@ module game {
         }
 		private onclick_close(){
            this.dispatchEvent(new BasicEvent(MapBuildingPopupPanel.CLOSE));
-		}
-		private onclick_buy(){
-            
-			this.dispatchEvent(new BasicEvent(MapBuildingPopupPanel.BUY_FANG,{bId:this.buildInfo.Id,sales:this.salesInfo}));
 		}
 		private buildInfo: any;
         private salesInfo: msg.CanBuyInfo[];

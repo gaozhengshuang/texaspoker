@@ -48,6 +48,7 @@ module game {
 		public static ROOM_PARKINGLOT_UPDATE : string = "roome_parkinglot_update";
 		public static MAIN_ASSETS_UPDATE : string = "main_assets_update";
 		public static MAP_ACTION: string = "map_action";
+		public static MAP_BUILDING_INFO: string = "map_building_info";
 
 		/////////////////////
 		/////请求服务器///////
