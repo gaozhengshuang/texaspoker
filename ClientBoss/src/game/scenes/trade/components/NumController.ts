@@ -8,6 +8,10 @@ module game {
 		public numTxt: eui.EditableText;
 		private _taxRateNum: number;
 		private _nowNum: number;
+
+		private _minNum: number;
+		private _maxNum: number;
+
 		public get nowNum(): number {
 			this.setNowNum();
 			return this._nowNum;
@@ -32,13 +36,28 @@ module game {
 		protected getSkinName() {
 			return NumControllerSkin;
 		}
-		public show(orignNum: number) {
+		public show(orignNum: number, step: number = 0, minNum: number = 0, maxNum: number = 0) {
 			super.show(orignNum);
+
+			this._minNum = 0;
+			this._maxNum = 0;
+			if (minNum > 0) {
+				this._minNum = minNum;
+			}
+			if (maxNum > 0) {
+				this._maxNum = maxNum;
+			}
+
 			this.numTxt.restrict = '0-9';
 			this.numTxt.maxChars = 9;
 			this._nowNum = orignNum;
 			this.numTxt.text = orignNum.toString();
-			this._taxRateNum = Math.floor(orignNum * gameConfig.tradeTaxRate);
+			if (step > 0) {
+				this._taxRateNum = step;
+			}
+			else {
+				this._taxRateNum = Math.floor(orignNum * gameConfig.tradeTaxRate);
+			}
 
 			this.addBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onOperateClickStart, this);
 			this.reduceBtn.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onOperateClickStart, this);
@@ -100,12 +119,15 @@ module game {
 
 					if (this._lastClickTarget == this.addBtn) {
 						this._nowNum += this._taxRateNum;
+						if (this._maxNum > 0 && this._nowNum > this._maxNum) {
+							this._nowNum = this._maxNum;
+						}
 						this.numTxt.text = this._nowNum.toString();
 					}
 					else if (this._lastClickTarget == this.reduceBtn) {
 						this._nowNum -= this._taxRateNum;
-						if (this._nowNum < 0) {
-							this._nowNum = 0;
+						if (this._nowNum < this._minNum) {
+							this._nowNum = this._minNum;
 						}
 						this.numTxt.text = this._nowNum.toString();
 					}
@@ -125,9 +147,7 @@ module game {
 		private setNowNum() {
 			let text = this.numTxt.text;
 			let num = parseInt(text);
-			if (num > 0) {
-				this._nowNum = num;
-			}
+			this._nowNum = num;
 		}
 	}
 }

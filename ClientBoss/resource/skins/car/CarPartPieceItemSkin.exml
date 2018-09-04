@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="CarPartPieceItemSkin" width="720" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect width="720" height="150" x="0" y="0" fillAlpha="0"/>
-	<e:Group id="allGroup" width="720" height="150" y="0" x="0" touchEnabled="false">
+
+	<e:Group id="allGroup" width="720" touchEnabled="false" horizontalCenter="0" verticalCenter="0" top="0" bottom="0" scaleY="1">
 		<e:Image id="img_IconBg" anchorOffsetX="0" height="145" scaleX="1" scaleY="1" width="146" anchorOffsetY="0" x="19" y="2" source="uiCarAltas_json.selectBtn"/>
 
 		<e:Image id="img_Icon" anchorOffsetX="0" height="73" scaleX="1" scaleY="1" top="12" verticalCenter="-3" width="150" anchorOffsetY="0" source="carIconAltas_json.small_1" x="19" y="45"/>
@@ -17,11 +17,13 @@
 		<e:Image id="stateBg" width="54" height="54" source="uiCarAltas_json.null_bg" horizontalCenter="336" right="-2" y="-3" visible="false"/>
 		<e:Label id="shopItemAddtion" text="双倍积分时间增加1" x="237" y="64.24" size="22" width="397.91" height="92.18" anchorOffsetY="0" anchorOffsetX="0" textAlign="left" bold="true" verticalAlign="top" textColor="0x000000" scaleX="1" scaleY="1" visible="false"/>
 		<game:IconButton id="btn_select" width="60" height="60" x="593" y="45" skinName="IconButtonSkin" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" visible="false"/>
+		<e:Group id="btnDetail" width="720" height="150" x="0" y="0" touchEnabled="true" scaleX="1" scaleY="1">
+			<game:IconButton id="btnJoin" width="20" height="20" x="602" y="66" skinName="IconButtonSkin" touchEnabled="true"/>
+			<e:Label id="stateTxt" text="使用" textAlign="center" size="30" anchorOffsetX="-2" textColor="0xffffff" horizontalCenter="254" right="71" x="546" y="57" scaleX="1" scaleY="1" touchEnabled="false" fontFamily="Microsoft YaHei"/>
+			<e:Label id="txt_info" text="白色" x="486.48" y="61" size="23" textAlign="left" width="57.49" verticalAlign="middle" anchorOffsetX="0" anchorOffsetY="0" height="30" textColor="0xffffff" fontFamily="Microsoft YaHei" bold="true"/>
+		</e:Group>
+		<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
 	</e:Group>
-	<e:Group id="btnDetail" width="720" height="150" x="0" y="0" touchEnabled="true">
-		<game:IconButton id="btnJoin" width="20" height="20" x="602" y="66" skinName="IconButtonSkin" touchEnabled="true"/>
-		<e:Label id="stateTxt" text="使用" textAlign="center" size="30" anchorOffsetX="-2" textColor="0xffffff" horizontalCenter="254" right="71" x="546" y="57" scaleX="1" scaleY="1" touchEnabled="false" fontFamily="Microsoft YaHei"/>
-		<e:Label id="txt_info" text="白色" x="486.48" y="61" size="23" textAlign="left" width="57.49" verticalAlign="middle" anchorOffsetX="0" anchorOffsetY="0" height="30" textColor="0xffffff" fontFamily="Microsoft YaHei" bold="true"/>
-	</e:Group>
-	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
+
+
 </e:Skin>
