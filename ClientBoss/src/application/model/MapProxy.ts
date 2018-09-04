@@ -16,7 +16,8 @@ declare function getRectRangePoint(center, radius);
 declare function emptyBuilding();
 declare function emptyPlayerIcon();
 declare function emptyAreaIcon();
-declare function getDistance(start: any, end: any)
+declare function getDistance(start: any, end: any);
+declare function removeBuilding(data);
 
 /**
  * 地图代理
