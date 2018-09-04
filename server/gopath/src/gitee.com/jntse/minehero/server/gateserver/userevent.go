@@ -25,6 +25,7 @@ type UserMapEvent struct {
 
 func (m *UserMapEvent) Init(u *GateUser) {
 	m.owner = u
+	m.events = make(map[uint64]*msg.MapEvent)
 }
 
 func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
@@ -58,6 +59,11 @@ func (m *UserMapEvent) SendEvents() {
 
 // 刷新玩家的时间列表
 func (m *UserMapEvent) Refresh() {
+	//事件clean
+	m.events = make(map[uint64]*msg.MapEvent)
+	eventuid := uint64(1)
+
+
 	//x, y := m.owner.GetUserPos()		// 经纬度
 	//intx, inty := uint32(x * 10000) , uint32(y * 10000)
 
@@ -75,6 +81,9 @@ func (m *UserMapEvent) Refresh() {
 		return true
 	}
 
+	GetRandRangePos := func() (longitude uint32, latitude uint32) {
+	}
+
 	for _, v := range tbl.MapEventRefreshBase.TMapEventRefreshById {
 		giftweight := make([]util.WeightOdds, 0)
 		if ParseProString(&giftweight, v.TypeRand) == false { 
@@ -87,8 +96,12 @@ func (m *UserMapEvent) Refresh() {
 				log.Error("[地图事件] 权重获得产出事件失败")
 				return
 			}
-			uid := giftweight[index].Uid
-			uid = uid
+
+			uid := uint32(giftweight[index].Uid)
+			event := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(uid)}
+			event.Longitude, event.Latitude = pb.Uint32(0), pb.Uint32(0)
+			m.events[event.GetId()] = event
+			eventuid++
 		}
 	}
 
