@@ -161,7 +161,7 @@ module game {
  		 * 交易列表返回
 		 */
 		private onTradeList(data: msg.GW2C_RetItemTradeList) {
-			if (!panelIsShow(PanelType.TradeMyItemPanel)) { //我的道具
+			if (!data.ismine) { //我的道具
 				if (!TradeManager.getInstance().tradeItemInfo || TradeManager.getInstance().tradeItemInfo.list.length == 0) {
 					TradeManager.getInstance().tradeItemInfo = data;
 					this._tradeDp.source = data.list;

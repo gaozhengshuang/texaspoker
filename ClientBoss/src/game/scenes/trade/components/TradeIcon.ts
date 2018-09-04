@@ -3,7 +3,8 @@ module game {
 	 * 交易的ICON
 	 */
 	export class TradeIcon extends BaseUIComponent<TradeIconInfo>{
-		iconImg: eui.Image;
+		itemIcon: eui.Image;
+		otherIcon: eui.Image;
 		itemBorderImg: eui.Image;
 		nameTxt: eui.Label;
 		tradeStar: TradeStar;
@@ -11,21 +12,25 @@ module game {
 			return TradeIconSkin;
 		}
 		protected beforeShow() {
-			this.itemBorderImg.visible = this.nameTxt.visible = this.tradeStar.visible = false;
-			this.iconImg.width = this.iconImg.height = 120;
+			this.itemIcon.visible = this.otherIcon.visible = this.itemBorderImg.visible = this.nameTxt.visible = this.tradeStar.visible = false;
+			// this.iconImg.width = this.iconImg.height = 120;
+			// this.itemBorderImg.width = this.itemBorderImg.height = 130;
 			switch (this.data.type) {
 				case TradeIconType.House:
 					this.nameTxt.visible = this.tradeStar.visible = true;
-					this.iconImg.source = "huxing_" + this.data.icon + "_s_png";
+					this.otherIcon.source = "huxing_" + this.data.icon + "_s_png";
+					this.otherIcon.visible = true;
 					break;
 				case TradeIconType.Car:
 					this.nameTxt.visible = this.tradeStar.visible = true;
-					this.iconImg.source = this.data.icon;
+					this.otherIcon.source = this.data.icon;
+					this.otherIcon.visible = true;
 					break;
 				case TradeIconType.Item:
 					this.itemBorderImg.visible = true;
-					this.itemBorderImg.source = ''; //todo边框
-					this.iconImg.source = this.data.icon;// + "_png";
+					this.itemBorderImg.source = 'frame' + this.data.star + "_png"; //todo边框
+					this.itemIcon.source = this.data.icon;// + "_png";
+					this.itemIcon.visible = true;
 					break;
 			}
 			this.nameTxt.text = this.data.name;

@@ -35,7 +35,7 @@ module game {
 
 			let itemDef = TradeManager.getInstance().getItemDefine(data.id);
 			if (itemDef) {
-				this.icon.show({ name: itemDef.Name, icon: itemDef.ImageId.toString(), star: 0, type: TradeIconType.Item });
+				this.icon.show({ name: itemDef.Name, icon: itemDef.ImageId.toString(), star: itemDef.Color, type: TradeIconType.Item });
 			}
 
 			this.taxRateTxt.text = "扣税（" + gameConfig.tradeTaxRate * 100 + "%）";

@@ -101,6 +101,10 @@ type GateUser struct {
 	broadcastbuffer []uint64                // 广播消息缓存
 	synbalance      bool                    // 充值中
 	housedata       []*msg.HouseData        //房屋信息 登录后matchserver回传
+
+	//经纬度靠客户端同步
+	posx			float32 //经度
+	posy			float32 //纬度
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -136,16 +140,16 @@ func (this *GateUser) Name() string {
 	return this.EntityBase().GetName()
 }
 
-func (this *GateUser) Id() uint64 {
-	return this.EntityBase().GetId()
-}
-
 func (this *GateUser) Face() string {
 	return this.EntityBase().GetFace()
 }
 
 func (this *GateUser) SetFace(f string) {
 	this.EntityBase().Face = pb.String(f)
+}
+
+func (this *GateUser) Id() uint64 {
+	return this.EntityBase().GetId()
 }
 
 func (this *GateUser) Sex() int32 {
@@ -1083,5 +1087,40 @@ func (this *GateUser) NotifyRobCount() {
 func (this *GateUser) NotifyRobCountResumeTime() {
 	send := &msg.GW2C_NotifyAddRobCountTime{}
 	send.Time = pb.Int64(this.tmaddrobcount)
+	this.SendMsg(send)
+}
+
+func (this *GateUser) GetUserPos() (float32, float32){
+	return this.posx, this.posy
+}
+
+func (this *GateUser) SetUserPos(x,y float32) {
+	if UserMgr().UpdateUserPos(this.Id(), x, y) == true {
+		this.posx = x
+		this.posy = y
+	}
+}
+
+func (this *GateUser) AckNearUsersData() {
+	send := &msg.GW2C_AckNearUsers{}
+	data := UserMgr().GetNearUsersByUid(this.Id())
+	max := 0
+	for _, v := range data {
+		tmp := &msg.PersonSocialInfo{}
+		tmp.Id = pb.Uint64(v.Id())
+		tmp.Face = pb.String(v.Face())
+		tmp.Name = pb.String(v.Name())
+		tmp.Level = pb.Uint32(1) //暂无玩家等级
+		tmp.Age = pb.Uint32(18)  //年龄后续做
+		tmp.Constellation = pb.Uint32(1) //星座后续做
+		tmp.X = pb.Float32(v.posx)
+		tmp.Y = pb.Float32(v.posy)
+		tmp.Sign = pb.String("这家伙很懒，嗯") //个人签名后续做
+		send.Data = append(send.Data, tmp)
+		max = max + 1
+		if max >= 10 {
+			break
+		}
+	}
 	this.SendMsg(send)
 }

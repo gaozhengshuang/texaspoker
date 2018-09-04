@@ -51401,6 +51401,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IGW2C_RetItemTradeList
          * @property {Array.<msg.ISimpleItemTrade>|null} [list] GW2C_RetItemTradeList list
+         * @property {boolean|null} [ismine] GW2C_RetItemTradeList ismine
          */
 
         /**
@@ -51426,6 +51427,14 @@ $root.msg = (function() {
          * @instance
          */
         GW2C_RetItemTradeList.prototype.list = $util.emptyArray;
+
+        /**
+         * GW2C_RetItemTradeList ismine.
+         * @member {boolean} ismine
+         * @memberof msg.GW2C_RetItemTradeList
+         * @instance
+         */
+        GW2C_RetItemTradeList.prototype.ismine = false;
 
         /**
          * Creates a new GW2C_RetItemTradeList instance using the specified properties.
@@ -51454,6 +51463,8 @@ $root.msg = (function() {
             if (message.list != null && message.list.length)
                 for (var i = 0; i < message.list.length; ++i)
                     $root.msg.SimpleItemTrade.encode(message.list[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.ismine != null && message.hasOwnProperty("ismine"))
+                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.ismine);
             return writer;
         };
 
@@ -51492,6 +51503,9 @@ $root.msg = (function() {
                     if (!(message.list && message.list.length))
                         message.list = [];
                     message.list.push($root.msg.SimpleItemTrade.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.ismine = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -51537,6 +51551,9 @@ $root.msg = (function() {
                         return "list." + error;
                 }
             }
+            if (message.ismine != null && message.hasOwnProperty("ismine"))
+                if (typeof message.ismine !== "boolean")
+                    return "ismine: boolean expected";
             return null;
         };
 
@@ -51562,6 +51579,8 @@ $root.msg = (function() {
                     message.list[i] = $root.msg.SimpleItemTrade.fromObject(object.list[i]);
                 }
             }
+            if (object.ismine != null)
+                message.ismine = Boolean(object.ismine);
             return message;
         };
 
@@ -51580,11 +51599,15 @@ $root.msg = (function() {
             var object = {};
             if (options.arrays || options.defaults)
                 object.list = [];
+            if (options.defaults)
+                object.ismine = false;
             if (message.list && message.list.length) {
                 object.list = [];
                 for (var j = 0; j < message.list.length; ++j)
                     object.list[j] = $root.msg.SimpleItemTrade.toObject(message.list[j], options);
             }
+            if (message.ismine != null && message.hasOwnProperty("ismine"))
+                object.ismine = message.ismine;
             return object;
         };
 
