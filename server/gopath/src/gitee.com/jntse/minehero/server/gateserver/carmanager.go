@@ -202,7 +202,7 @@ func (this *CarData) ArrivalCar(){
 func (this *CarData) ActivateCar() {
 	this.data.State = pb.Uint32(uint32(msg.CarState_Robbing))
 	this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
-	this.data.Endtime = pb.Uint64(this.data.GetStarttime() + uint64(math.Floor(this.GetAttribute().GetStoptime()  * float64(1000))))
+	this.data.Endtime = pb.Uint64(this.data.GetStarttime() + uint64(math.Floor(float64(this.GetAttribute().GetStoptime())  * float64(1000))))
 }
 
 func (this *CarData) RetractCar() {
@@ -1072,8 +1072,8 @@ func (this *CarManager) CarExpedition(user *GateUser,req *msg.C2GW_CarExpedition
 		return 3,nil
 	}
 	//看看是不是在出征范围内
-	distance := def.CalculateDistance(req.GetOriginlatitude(),req.GetOriginlongitude(),req.GetDestlatitude(),req.GetDestlongitude())
-	if car.GetAttribute().GetRange() < distance {
+	distance := def.CalculateDistance(float64(req.GetOriginlatitude()),float64(req.GetOriginlongitude()),float64(req.GetDestlatitude()),float64(req.GetDestlongitude()))
+	if float64(car.GetAttribute().GetRange()) < distance {
 		user.SendNotify("距离太远了，无法出征")
 		return 4,nil
 	}
@@ -1084,7 +1084,7 @@ func (this *CarManager) CarExpedition(user *GateUser,req *msg.C2GW_CarExpedition
 }
 //车辆激活
 func (this *CarManager) CarActivate(user *GateUser,carid uint64) (result uint32,data *msg.CarData) {
-	car := this.GetCar(msg.GetCarid())
+	car := this.GetCar(carid)
 	if car == nil {
 		user.SendNotify("没有这辆车")
 		return 1,nil
@@ -1099,7 +1099,7 @@ func (this *CarManager) CarActivate(user *GateUser,carid uint64) (result uint32,
 }
 //车辆撤回
 func (this *CarManager) CarRetract(user *GateUser,carid uint64) (result uint32,data *msg.CarData) {
-	car := this.GetCar(msg.GetCarid())
+	car := this.GetCar(carid)
 	if car == nil {
 		user.SendNotify("没有这辆车")
 		return 1,nil
@@ -1114,7 +1114,7 @@ func (this *CarManager) CarRetract(user *GateUser,carid uint64) (result uint32,d
 }
 //车辆加速
 func (this *CarManager) CarSpeedup(user *GateUser,carid uint64) (result uint32,data *msg.CarData) {
-	car := this.GetCar(msg.GetCarid())
+	car := this.GetCar(carid)
 	if car == nil {
 		user.SendNotify("没有这辆车")
 		return 1,nil
