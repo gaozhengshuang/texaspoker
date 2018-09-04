@@ -57,11 +57,13 @@ module game {
 			NotificationCenter.addObserver(this, this.onTradeList, 'msg.GW2C_RetItemTradeList');
 			NotificationCenter.addObserver(this, this.refreshList, "msg.GW2C_RetBuyTradeItem");
 			// NotificationCenter.addObserver(this, this.refreshList, "msg.GW2C_RetTradeItem");
+			NotificationCenter.addObserver(this, this.refreshList, "msg.GW2C_RetTradeItem");
 		}
 		public beforeRemove() {
 			super.beforeRemove();
 			NotificationCenter.removeObserver(this, 'msg.GW2C_RetItemTradeList');
 			NotificationCenter.removeObserver(this, "msg.GW2C_RetBuyTradeItem");
+			NotificationCenter.removeObserver(this,  "msg.GW2C_RetTradeItem");
 		}
 		public onClickHandler(event: egret.TouchEvent) {
 			switch (event.target) {
