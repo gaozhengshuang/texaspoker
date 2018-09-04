@@ -93,6 +93,7 @@ type GateUser struct {
 	bag             UserBag   // 背包
 	//image         UserImage // 换装
 	task            UserTask
+	cartflag		bool
 	tm_disconnect   int64
 	tm_heartbeat    int64                   // 心跳时间
 	tm_asynsave     int64                   // 异步存盘超时
@@ -107,8 +108,8 @@ type GateUser struct {
 	housedata       []*msg.HouseData        //房屋信息 登录后matchserver回传
 
 	//经纬度靠客户端同步
-	posx			float32 //经度
-	posy			float32 //纬度
+	longitude		float32 //经度
+	latitude		float32 //纬度
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -151,6 +152,10 @@ func (this *GateUser) Face() string {
 
 func (this *GateUser) SetFace(f string) {
 	this.EntityBase().Face = pb.String(f)
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownerface = f
+	}
 }
 
 func (this *GateUser) Id() uint64 {
@@ -163,6 +168,10 @@ func (this *GateUser) Sex() int32 {
 
 func (this *GateUser) SetSex(sex int32) {
 	this.EntityBase().Sex = pb.Int32(sex)
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownersex = sex
+	}
 }
 
 func (this *GateUser) SetSign(sign string){
@@ -202,6 +211,10 @@ func (this *GateUser) Level() uint32 {
 
 func (this *GateUser) AddLevel(num uint32) {
 	this.level += num
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownerlevel = this.level
+	}
 }
 
 func (this *GateUser) Exp() uint32 {
@@ -1132,13 +1145,13 @@ func (this *GateUser) NotifyRobCountResumeTime() {
 }
 
 func (this *GateUser) GetUserPos() (float32, float32){
-	return this.posx, this.posy
+	return this.longitude, this.latitude
 }
 
 func (this *GateUser) SetUserPos(x,y float32) {
 	if UserMgr().UpdateUserPos(this.Id(), x, y) == true {
-		this.posx = x
-		this.posy = y
+		this.longitude = x
+		this.latitude = y
 	}
 }
 
@@ -1155,8 +1168,8 @@ func (this *GateUser) AckNearUsersData() {
 		tmp.Level = pb.Uint32(v.Level()) 
 		tmp.Age = pb.Uint32(v.Age())  
 		tmp.Constellation = pb.Uint32(v.Constellation())
-		tmp.X = pb.Float32(v.posx)
-		tmp.Y = pb.Float32(v.posy)
+		tmp.Lng = pb.Float32(v.longitude)
+		tmp.Lat = pb.Float32(v.latitude)
 		tmp.Sign = pb.String(v.Sign())
 		send.Data = append(send.Data, tmp)
 		max = max + 1

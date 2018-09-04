@@ -237,7 +237,7 @@ module game {
 			if (bid > 0) {
 				let buildingDef = TradeManager.getInstance().getBuildingDefById(bid);
 				obj.bName = this.getHouseName(buildingDef.Province, buildingDef.City);
-				obj.imageUrl = 'resource/others/images/build_' + buildingDef.CommunityId + '_m.png';
+				obj.imageUrl = 'resource/others/images/' + buildingDef.Icon;
 				obj.position = [buildingDef.PosX, buildingDef.PosY];
 				moveMap(buildingDef.PosX, buildingDef.PosY);
 				this.returnToMap();

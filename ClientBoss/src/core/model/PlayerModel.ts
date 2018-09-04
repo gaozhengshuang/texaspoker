@@ -430,17 +430,7 @@ module game {
                 score: this.getScore(),
                 token: ""
             };
-            let r: IHttpRetInfo = await SendHttp($uploadScore, sendInfo);
-            if (r) {
-                this.updateUserInfo(r.msg.userInfo);
-                let isTop = r.msg.userInfo.score == this.getScore();
-                let winPanel = WinScene.getInstance();
-                winPanel.setScore(isTop, this.getScore(), r.msg.ranklist);
-                openPanel(PanelType.win);
-            }
         }
-
-
 
         //-----------------------------------
         public skillUpdate() {

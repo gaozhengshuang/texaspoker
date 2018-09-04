@@ -92,6 +92,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTradeItemHistory{}, on_C2GW_ReqTradeItemHistory)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GetTradeItemReward{}, on_C2GW_GetTradeItemReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_CancelTradeItem{}, on_C2GW_CancelTradeItem)
+	this.msgparser.RegistProtoMsg(msg.C2GW_StartThrow{}, on_C2GW_StartThrow)
+	this.msgparser.RegistProtoMsg(msg.C2GW_TargetItem{}, on_C2GW_TargetItem)
 
 	//房屋楼房
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHouseData{}, on_C2GW_ReqHouseData)
@@ -108,7 +110,12 @@ func (this *C2GWMsgHandler) Init() {
 	//位置
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqNearUsers{}, on_C2GW_ReqNearUsers)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetPos{}, on_C2GW_ReqSetPos)
-
+	//个人信息
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserSex{}, on_C2GW_ReqSetUserSex)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserAge{}, on_C2GW_ReqSetUserAge)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserConstellation{}, on_C2GW_ReqSetUserConstellation)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserSign{}, on_C2GW_ReqSetUserSign)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetFace{}, on_C2GW_ReqSetFace)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
@@ -207,6 +214,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetTradeItemHistory{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetGetTradeItemReward{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCancelTradeItem{})
+	this.msgparser.RegistSendProto(msg.GW2C_HitTarget{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetStartThrow{})
 
 
 	this.msgparser.RegistSendProto(msg.GW2C_ResCarInfo{})
@@ -1145,7 +1154,8 @@ func on_C2GW_ReqRandHouseList(session network.IBaseNetSession, message interface
 	}
 	carflag := tmsg.GetCarflag()
 	buildingid := tmsg.GetBuildingid()
-	user.ReqRandHouseList(carflag, buildingid)
+	bgetall := tmsg.GetBgetall()
+	user.ReqRandHouseList(carflag, buildingid, bgetall)
 }
 
 func on_C2GW_ReqOtherUserHouseData(session network.IBaseNetSession, message interface{}) {
@@ -1374,6 +1384,27 @@ func on_C2GW_ReqBuildingCanBuyInfo(session network.IBaseNetSession, message inte
 	user.ReqBuildingCanBuyInfo(buildingid)
 }
 
+func on_C2GW_StartThrow(session network.IBaseNetSession, message interface{}) {
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.StartThrow()
+}
+
+func on_C2GW_TargetItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_TargetItem)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.TargetItem(tmsg.GetItemid())
+}
+
 //交易消息
 func on_C2GW_ReqHouseTradeList(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqHouseTradeList)
@@ -1588,5 +1619,65 @@ func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {
 		session.Close()
 		return
 	}
-	user.SetUserPos(tmsg.GetX(), tmsg.GetY())
+	user.SetUserPos(tmsg.GetLng(), tmsg.GetLat())
+}
+
+func on_C2GW_ReqSetUserSex (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserSex)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	sex := tmsg.GetSex()
+	user.SetSex(sex)
+}
+
+func on_C2GW_ReqSetUserAge (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserAge)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	age := tmsg.GetAge()
+	user.SetAge(age)
+}
+
+func on_C2GW_ReqSetUserConstellation (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserConstellation)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	constellation := tmsg.GetConstellation()
+	user.SetConstellation(constellation)
+}
+
+func on_C2GW_ReqSetUserSign (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserSign)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	sign := tmsg.GetSign()
+	user.SetSign(sign)
+}
+
+func on_C2GW_ReqSetFace (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetFace)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	face := tmsg.GetFace()
+	user.SetFace(face)
 }

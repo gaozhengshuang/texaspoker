@@ -1,0 +1,16 @@
+syntax = "proto2";
+package msg;
+import "serialize.proto";
+
+
+// 发送玩家事件列表
+message GW2C_SendUserEvents {
+    optional UserMapEvent event = 1;
+}
+
+// 进入激活事件
+message C2GW_ReqEnterEvents {
+    optional uint32 uid = 1;
+}
+
+

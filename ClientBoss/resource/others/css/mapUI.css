@@ -20,16 +20,16 @@
 	position:absolute;
 }
 .zichan_default{
-	background-image:url(../images/down_zichan_btn2.png);
+	background-image:url(../images/ui/down_zichan_btn2.png);
 	background-size:cover;
 }
 .zichan_activate{
-	background-image:url(../images/down_zichan_btn1.png);
+	background-image:url(../images/ui/down_zichan_btn1.png);
 	background-size:cover;
 }
 
 #zichanRedIcon{
-	background-image:url(../images/redDianIcon1.png);
+	background-image:url(../images/ui/redDianIcon1.png);
 	background-size:cover;
 	width:90px;
 	height:134px;
@@ -52,11 +52,11 @@
 	position:absolute;
 }
 .faxian_default{
-	background-image:url(../images/down_faxian_btn2.png);
+	background-image:url(../images/ui/down_faxian_btn2.png);
 	background-size:cover;
 }
 .faxian_activate{
-	background-image:url(../images/down_faxian_btn1.png);
+	background-image:url(../images/ui/down_faxian_btn1.png);
 	background-size:cover;
 }
 
@@ -71,11 +71,11 @@
 	position:absolute;
 }
 .home_default{
-	background-image:url(../images/down_home_btn2.png);
+	background-image:url(../images/ui/down_home_btn2.png);
 	background-size:cover;
 }
 .home_activate{
-	background-image:url(../images/down_home_btn1.png);
+	background-image:url(../images/ui/down_home_btn1.png);
 	background-size:cover;
 }
 
@@ -90,11 +90,11 @@
 	position:absolute;
 }
 .jiaoyi_default{
-	background-image:url(../images/down_jiaoyi_btn2.png);
+	background-image:url(../images/ui/down_jiaoyi_btn2.png);
 	background-size:cover;
 }
 .jiaoyi_activate{
-	background-image:url(../images/down_jiaoyi_btn1.png);
+	background-image:url(../images/ui/down_jiaoyi_btn1.png);
 	background-size:cover;
 }
 
@@ -109,11 +109,11 @@
 	position:absolute;
 }
 .wode_default{
-	background-image:url(../images/down_wode_btn2.png);
+	background-image:url(../images/ui/down_wode_btn2.png);
 	background-size:cover;
 }
 .wode_activate{
-	background-image:url(../images/down_wode_btn1.png);
+	background-image:url(../images/ui/down_wode_btn1.png);
 	background-size:cover;
 }
 
@@ -126,7 +126,7 @@
 	position:absolute;
 	top:346px;
 	left:40px;
-	background-image:url(../images/xiaoxiBtn1.png);
+	background-image:url(../images/ui/xiaoxiBtn1.png);
 	background-size:cover;
 }
 
@@ -139,7 +139,7 @@
 	position:absolute;
 	top:674px;
 	left:18px;
-	background-image:url(../images/zhuanpan_btn1.png);
+	background-image:url(../images/ui/zhuanpan_btn1.png);
 	background-size:cover;
 }
 
@@ -152,7 +152,7 @@
 	position:fixed;
 	right:10px;
 	bottom:220px;
-	background-image:url(../images/dingw.png);
+	background-image:url(../images/ui/dingw.png);
 	background-size:cover;
 }
 #shouyiBtn{
@@ -167,11 +167,11 @@
 }
 
 .noShouyi{
-	background-image:url(../images/no_Shouyi_btn.png);
+	background-image:url(../images/ui/no_Shouyi_btn.png);
 	background-size:cover;
 }
 .haveShouyi{
-	background-image:url(../images/have_Shouyi_btn.png);
+	background-image:url(../images/ui/have_Shouyi_btn.png);
 	background-size:cover;
 }
 
@@ -184,7 +184,7 @@
 	position:fixed;
 	left:10px;
 	bottom:220px;
-	background-image:url(../images/buy_house_btn1.png);
+	background-image:url(../images/ui/buy_house_btn1.png);
 	background-size:cover;
 }
 
@@ -197,7 +197,7 @@
 	position:fixed;
 	left:10px;
 	bottom:220px;
-	background-image:url(../images/buy_car_btn1.png);
+	background-image:url(../images/ui/buy_car_btn1.png);
 	background-size:cover;
 }
 
@@ -214,11 +214,11 @@
 
 
 .fujinRen{
-	background-image:url(../images/fujinrenBtn.png);
+	background-image:url(../images/ui/fujinrenBtn.png);
 	background-size:cover;
 }
 .fujinJianzhu{
-	background-image:url(../images/fujinjianzhuBtn.png);
+	background-image:url(../images/ui/fujinjianzhuBtn.png);
 	background-size:cover;
 }
 
@@ -261,11 +261,11 @@
 	position:absolute;
 	bottom:35px;
 	left:60px;
-	background-image:url(../images/returnBtn1.png);
+	background-image:url(../images/ui/returnBtn1.png);
 	background-size:cover;
 }
 .areaIcon{
-	background-image:url(../images/yuan_slt.png);
+	background-image:url(../images/ui/yuan_slt.png);
 	background-size:cover;	
 	position:absolute;
 	width:100px;
@@ -276,7 +276,7 @@
 	overflow:hidden;
 }
 .playerIcon{
-	background-image:url(../images/mapHeadIcon.png);
+	background-image:url(../images/ui/mapHeadIcon.png);
 	background-size:cover;	
 	position:absolute;
 	width:50px;
@@ -321,14 +321,14 @@
 	position:absolute;
 	top:0px;
 	right:0px;
-	background-image:url(../images/close_btn1.png);
+	background-image:url(../images/ui/close_btn1.png);
 	background-size:cover;
 	visibility:hidden;
 }
 
 
 .returnTrade{
-	background-image:url(../images/backBtn2.png);
+	background-image:url(../images/ui/backBtn2.png);
 	background-size:cover;
 }
 
@@ -341,7 +341,7 @@
 	position:fixed;
 	left:20px;
 	top:20px;
-	background-image:url(../images/backBtn2.png);
+	background-image:url(../images/ui/backBtn2.png);
 	background-size:cover;
 	visibility:hidden;
 }

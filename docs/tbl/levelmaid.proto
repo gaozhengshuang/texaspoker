@@ -38,6 +38,9 @@ message TLevelMaidDefine
 	
 	
 	optional int32 NextLevel = 7; // 下一等级
+	
+	
+	optional uint32 TakeBackCost = 8; // 领回消耗金币
 
 }
 

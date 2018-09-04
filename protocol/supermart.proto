@@ -1,0 +1,21 @@
+syntax = "proto2";
+package msg;
+
+
+//客户端开始扔
+message C2GW_StartThrow {
+}
+
+//服务器返回可以扔
+message GW2C_RetStartThrow {
+}
+
+//客户端发送钩中道具id
+message C2GW_TargetItem {
+    repeated uint32 itemid = 1;         //勾中id （表里的id）
+}
+
+//服务器返回最终命中
+message GW2C_HitTarget {
+    repeated uint32 itemid = 1;         //最终得到的道具
+}

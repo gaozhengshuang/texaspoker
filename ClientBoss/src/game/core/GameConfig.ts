@@ -36,6 +36,10 @@ module gameConfig {
          * 小游戏1
          */
         public static readonly Game1: string = 'game1';
+        /**
+         * 小游戏2
+         */
+        public static readonly Game2: string = 'game2';
     }
 
     //全局字体颜色表--可以扩展
