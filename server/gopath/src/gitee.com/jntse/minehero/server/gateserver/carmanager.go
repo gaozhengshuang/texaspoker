@@ -179,34 +179,34 @@ func (this *CarData) GetMinPartsLevel() uint32 {
 	return ret
 }
 
-func (this *CarData) ExpediteCar(msg *msg.C2GW_CarExpedition,distance float64) {
-	this.data.State = pb.Uint32(msg.CarState_Exped)
+func (this *CarData) ExpediteCar(req *msg.C2GW_CarExpedition,distance float64) {
+	this.data.State = pb.Uint32(uint32(msg.CarState_Exped))
 	//计算时间
 	this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
-	time := uint64(math.Floor(distance / this.GetAttribute().GetSpeed() * float64(60)))
+	time := uint64(math.Floor(distance / float64(this.GetAttribute().GetSpeed()) * float64(60)))
 	this.data.Endtime = pb.Uint64(this.data.GetStarttime() + time  * 1000)
-	this.data.Latitude = pb.Float64(msg.GetOriginlatitude())
-	this.data.Longitude = pb.Float64(msg.GetOriginlongitude())
+	this.data.Latitude = pb.Float32(req.GetOriginlatitude())
+	this.data.Longitude = pb.Float32(req.GetOriginlongitude())
 	expeditiondata := &msg.ExpeditionData{}
-	expeditiondata.Type = pb.Uint32(msg.GetType())
-	expeditiondata.Id = pb.Uint64(msg.GetTargetid())
-	expeditiondata.Latitude = pb.Float64(msg.GetDestlatitude())
-	expeditiondata.Longitude = pb.Float64(msg.GetDestlongitude())
+	expeditiondata.Type = pb.Uint32(req.GetType())
+	expeditiondata.Id = pb.Uint64(req.GetTargetid())
+	expeditiondata.Latitude = pb.Float32(req.GetDestlatitude())
+	expeditiondata.Longitude = pb.Float32(req.GetDestlongitude())
 	this.data.Expedition = expeditiondata
 }
 
 func (this *CarData) ArrivalCar(){
-	this.data.State = pb.Uint32(msg.CarState_Arrival)
+	this.data.State = pb.Uint32(uint32(msg.CarState_Arrival))
 }
 
 func (this *CarData) ActivateCar() {
-	this.data.State = pb.Uint32(msg.CarState_Robbing)
+	this.data.State = pb.Uint32(uint32(msg.CarState_Robbing))
 	this.data.Starttime = pb.Uint64(uint64(util.CURTIMEMS()))
 	this.data.Endtime = pb.Uint64(this.data.GetStarttime() + uint64(math.Floor(this.GetAttribute().GetStoptime()  * float64(1000))))
 }
 
 func (this *CarData) RetractCar() {
-	this.data.State = pb.Uint32(msg.CarState_Ready)
+	this.data.State = pb.Uint32(uint32(msg.CarState_Ready))
 }
 
 func (this *CarData) PackBin() *msg.CarData {
@@ -1055,8 +1055,8 @@ func (this *CarManager) CarStarup(user *GateUser,carid uint64) (result uint32,da
 	return 0,car.data
 }
 //车辆出征
-func (this *CarManager) CarExpedition(user *GateUser,msg *msg.C2GW_CarExpedition) (result uint32,data *msg.CarData){
-	car := this.GetCar(msg.GetCarid())
+func (this *CarManager) CarExpedition(user *GateUser,req *msg.C2GW_CarExpedition) (result uint32,data *msg.CarData){
+	car := this.GetCar(req.GetCarid())
 	if car == nil {
 		user.SendNotify("没有这辆车")
 		return 1,nil
@@ -1072,13 +1072,13 @@ func (this *CarManager) CarExpedition(user *GateUser,msg *msg.C2GW_CarExpedition
 		return 3,nil
 	}
 	//看看是不是在出征范围内
-	distance := def.CalculateDistance(msg.GetOriginlatitude(),msg.GetOriginlongitude(),msg.GetDestlatitude(),msg.GetDestlongitude())
+	distance := def.CalculateDistance(req.GetOriginlatitude(),req.GetOriginlongitude(),req.GetDestlatitude(),req.GetDestlongitude())
 	if car.GetAttribute().GetRange() < distance {
 		user.SendNotify("距离太远了，无法出征")
 		return 4,nil
 	}
 	//可以了 出征吧
-	car.ExpediteCar(msg,distance)	
+	car.ExpediteCar(req,distance)	
 	//成功了
 	return 0,car.data
 }
