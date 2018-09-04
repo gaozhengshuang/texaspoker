@@ -5,8 +5,8 @@
 package table;
 
 
-// Defined in table: MapEvent
-message MapEvent
+// Defined in table: MapEventBase
+message MapEventBase
 {	
 	
 	
