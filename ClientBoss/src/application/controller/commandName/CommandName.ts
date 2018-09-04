@@ -32,6 +32,7 @@ module game {
 		public static POPUP_ROOM_DONGTAI: string = "popup_room_dongtai";
 		public static POPUP_NEW_HOUSE_HUXING: string = "popup_new_house_huxing";
 		public static POPUP_NEW_MAP_BUILDING: string = "popup_map_building";
+		public static POPUP_BUILDING_ZHUFU: string = "popup_building_zhufu";
 		public static REMOVE_POPUP: string = "remove_popup";
 		public static REMOVE_POPUP_NEW_HOUSE: string = "remove_popup_new_house";
 		public static ERROR_ALERT: string = "error_alert";

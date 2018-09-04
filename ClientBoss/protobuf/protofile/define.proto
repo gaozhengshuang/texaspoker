@@ -132,7 +132,7 @@ message PersonSocialInfo {
 	optional uint32 level = 5;
 	optional uint32 age = 6;
 	optional uint32 constellation = 7; //星座
-	optional float x = 8; 	 //经度
-	optional float y = 9;	 //纬度
+	optional float lng = 8; 	 //经度
+	optional float lat = 9;	 //纬度
 	optional string sign = 10; //个人签名
 }
