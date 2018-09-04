@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="MapBuildingPopupUI" width="700" height="668" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect width="680" height="636" fillColor="0xe4e4e5" verticalCenter="16" horizontalCenter="-10"/>
+<e:Skin class="MapBuildingPopupUI" width="654" height="1058" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="654" height="1058" x="0" y="0" ellipseWidth="120" ellipseHeight="120" fillColor="0xebebea"/>
 	<e:Label id="danjia_txt" text="当前单价90000元/平米" fontFamily="Microsoft YaHei" size="24" width="320" touchEnabled="false" textColor="0xe8425d" verticalAlign="middle" textAlign="center" verticalCenter="212" horizontalCenter="-10"/>
 	<e:Button id="buy_btn" label="购 买" width="150" height="56" verticalCenter="279" horizontalCenter="-10">
 		<e:skinName>
@@ -10,7 +10,7 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Image id="barImg" source="2003001_b_png" width="636" height="290" horizontalCenter="-10" verticalCenter="-131"/>
-	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="-307.5" horizontalCenter="323.5"/>
-	<e:Label id="dec_txt" text="汤臣一品由汤臣集团有限公司开发的楼盘，\n位于上海市陆家嘴滨江大道旁。占地2万多平方，米，总建筑\n面积达11.5万多平方米" width="600" verticalAlign="top" textAlign="left" anchorOffsetX="0" anchorOffsetY="0" height="100" size="22" fontFamily="Microsoft YaHei" textColor="0x404A58" stroke="2" strokeColor="0xFFFFFF" lineSpacing="4" verticalCenter="81" horizontalCenter="-10"/>
+	<e:Image id="barImg" source="2003001_b_png" width="654" height="394" horizontalCenter="0" verticalCenter="-165"/>
+	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="-502.5" horizontalCenter="308.5"/>
+	<e:Label id="dec_txt" text="汤臣一品由汤臣集团有限公司开发的楼盘，\n位于上海市陆家嘴滨江大道旁。占地2万多平方，米，总建筑\n面积达11.5万多平方米" width="600" verticalAlign="top" textAlign="left" anchorOffsetX="0" anchorOffsetY="0" height="100" size="22" fontFamily="Microsoft YaHei" textColor="0x404A58" stroke="2" strokeColor="0xFFFFFF" lineSpacing="4" verticalCenter="98" horizontalCenter="9"/>
 </e:Skin>
