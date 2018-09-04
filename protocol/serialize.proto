@@ -83,8 +83,8 @@ message HouseMaidData {
 message MapEvent {
     optional uint64 id = 1;         // 事件uid
     optional uint32 tid = 2;        // 事件tid
-    optional int32 longitude = 3;   // 经度 * 1000
-    optional int32 latitude = 4;    // 纬度 * 1000
+    optional int32 longitude = 3;   // 经度 * 100000
+    optional int32 latitude = 4;    // 纬度 * 100000
 }
 
 // 玩家地图事件
