@@ -27,6 +27,7 @@ module game {
 			this.scroller.initItemRenderer(TradeItemSellItem);
 			let ly = new eui.TileLayout();
 			ly.requestedColumnCount = 5;
+			this.scroller.scrollPolicyH = 'off';
 			this.scroller.dataList.layout = ly;
 		}
 		protected beforeShow() {
@@ -70,8 +71,10 @@ module game {
 		}
 		private onRefreshHouse(data: msg.GW2C_RetItemTradeList | msg.GW2C_RetTradeItem | msg.GW2C_RetCancelTradeItem) {
 			if (data instanceof msg.GW2C_RetItemTradeList) {
-				this._dp.source = data.list;
-				this.scroller.refreshData(this._dp);
+				if (data.ismine) {
+					this._dp.source = data.list;
+					this.scroller.refreshData(this._dp);
+				}
 			} else if (data instanceof msg.GW2C_RetTradeItem) {
 				this._dp.source = this.getCanSellList();
 				this.scroller.refreshData(this._dp);

@@ -21554,6 +21554,9 @@ declare namespace msg {
 
         /** GW2C_RetItemTradeList list */
         list?: (msg.ISimpleItemTrade[]|null);
+
+        /** GW2C_RetItemTradeList ismine */
+        ismine?: (boolean|null);
     }
 
     /** Represents a GW2C_RetItemTradeList. */
@@ -21567,6 +21570,9 @@ declare namespace msg {
 
         /** GW2C_RetItemTradeList list. */
         public list: msg.ISimpleItemTrade[];
+
+        /** GW2C_RetItemTradeList ismine. */
+        public ismine: boolean;
 
         /**
          * Creates a new GW2C_RetItemTradeList instance using the specified properties.
