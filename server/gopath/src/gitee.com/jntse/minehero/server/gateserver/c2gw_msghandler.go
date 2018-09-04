@@ -1339,7 +1339,7 @@ func on_C2GW_CarExpedition(session network.IBaseNetSession, message interface{})
 	user.SendMsg(send)
 }
 //请求激活
-on_C2GW_CarActivate(session network.IBaseNetSession, message interface{}) {
+func on_C2GW_CarActivate(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_CarActivate)
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -1355,7 +1355,7 @@ on_C2GW_CarActivate(session network.IBaseNetSession, message interface{}) {
 	user.SendMsg(send)
 }
 //请求撤回 
-on_C2GW_CarRetract(session network.IBaseNetSession, message interface{}) {
+func on_C2GW_CarRetract(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_CarRetract)
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -1371,7 +1371,7 @@ on_C2GW_CarRetract(session network.IBaseNetSession, message interface{}) {
 	user.SendMsg(send)
 }
 //请求加速
-on_C2GW_CarSpeedup(session network.IBaseNetSession, message interface{}) {
+func on_C2GW_CarSpeedup(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_CarSpeedup)
 	user := ExtractSessionUser(session)
 	if user == nil {
