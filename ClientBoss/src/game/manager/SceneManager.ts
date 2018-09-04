@@ -37,8 +37,8 @@ module game {
                     this._curScene = BattleScene.getInstance();
                     // BattleScene.getInstance().setData(userdata);
                     break;
-                case SceneType.main:
-                    this._curScene = MainScene.getInstance();
+                case SceneType.battle2:
+                    this._curScene = SuperMartScene.getInstance();
                     break;
                 case SceneType.login:
                     this._curScene = LoginScene.getInstance();
@@ -115,8 +115,8 @@ module game {
                         case SceneType.hall:
                             resList.push(gameConfig.ResGroupEnum.Hall); //, gameConfig.ResGroupEnum.Common
                             break;
-                        case SceneType.main:
-                            // resList.push(gameConfig.ResGroupEnum.Game1);
+                        case SceneType.battle2:
+                            resList.push(gameConfig.ResGroupEnum.Game2);
                             break;
                     }
                     SceneManager._resMap.add(type, resList);
@@ -128,7 +128,7 @@ module game {
 
     export const enum SceneType {
         battle,
-        main, //弃用
+        battle2, //弃用
         login,
         hall
     }
