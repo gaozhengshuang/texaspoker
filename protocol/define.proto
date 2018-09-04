@@ -89,8 +89,10 @@ enum Sex {
 }
 
 enum MoneyType {
-    _Gold = 1;
-    _Diamond = 2;
+    _Gold = 1;          // 金币
+    _Diamond = 2;       // 钻石
+    _Strength = 3;      // 体力
+    _Item = 4;          // 道具
 }
 
 enum CarOperatorType {
