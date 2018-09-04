@@ -48,8 +48,13 @@ module game {
 		public returnToTrade() {
 			returnTradeBtnClose(false);
 			showEgretDiv(true);
-			GameConfig.exploreUIFun(true);
+			GameConfig.exploreUIFun(false);
 			GameConfig.setEventsReply(true);
+			let bId =TradeManager.getInstance().lastBid;
+			if(bId > 0)
+			{
+				removeBuilding({bId:bId});
+			}
 		}
 		/**
 		 * 到地图
@@ -57,7 +62,7 @@ module game {
 		public returnToMap() {
 			returnTradeBtnClose(true);
 			showEgretDiv(false);
-			GameConfig.exploreUIFun(false);
+			GameConfig.exploreUIFun(true);
 			GameConfig.setEventsReply(false);
 		}
 		/**
@@ -216,7 +221,7 @@ module game {
 			}
 			return null;
 		}
-
+		public lastBid: number;
 		public switchToBuilding(data: msg.HouseData | msg.SimpleHouseTrade) {
 			let bid: number = 0;
 			let obj: any = {};
@@ -228,6 +233,7 @@ module game {
 				bid = 1; //todo
 				obj.ID = bid;
 			}
+			this.lastBid = bid;
 			if (bid > 0) {
 				let buildingDef = TradeManager.getInstance().getBuildingDefById(bid);
 				obj.bName = this.getHouseName(buildingDef.Province, buildingDef.City);
