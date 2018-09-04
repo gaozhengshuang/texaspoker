@@ -1,12 +1,4 @@
 {"file":"game2.png","frames":{
-"belt_1":{"x":1,"y":788,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
-"belt_2":{"x":1,"y":719,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
-"belt_3":{"x":1,"y":650,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
-"belt_4":{"x":1,"y":581,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
-"belt_5":{"x":1,"y":512,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
-"belt_6":{"x":1,"y":443,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
-"belt_7":{"x":1,"y":374,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
-"belt_8":{"x":1,"y":305,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
 "aimArrow":{"x":364,"y":857,"w":53,"h":52,"offX":0,"offY":0,"sourceW":53,"sourceH":52},
 "basket":{"x":643,"y":1,"w":176,"h":288,"offX":0,"offY":0,"sourceW":176,"sourceH":288},
 "belt":{"x":1,"y":984,"w":587,"h":14,"offX":0,"offY":0,"sourceW":587,"sourceH":14},
@@ -17,4 +9,13 @@
 "jiagepai":{"x":657,"y":857,"w":90,"h":53,"offX":0,"offY":0,"sourceW":90,"sourceH":53},
 "line":{"x":821,"y":1,"w":23,"h":865,"offX":0,"offY":0,"sourceW":23,"sourceH":865},
 "mingpai":{"x":123,"y":943,"w":85,"h":32,"offX":0,"offY":0,"sourceW":85,"sourceH":32},
-"spool":{"x":1,"y":857,"w":234,"h":84,"offX":0,"offY":0,"sourceW":234,"sourceH":84}}}
+"spool":{"x":1,"y":857,"w":234,"h":84,"offX":0,"offY":0,"sourceW":234,"sourceH":84},
+"tube":{"x":643,"y":291,"w":77,"h":172,"offX":0,"offY":0,"sourceW":77,"sourceH":172},
+"belt_1":{"x":1,"y":650,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
+"belt_2":{"x":1,"y":581,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
+"belt_3":{"x":1,"y":512,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
+"belt_4":{"x":1,"y":443,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
+"belt_5":{"x":1,"y":374,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
+"belt_6":{"x":1,"y":305,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
+"belt_7":{"x":1,"y":788,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67},
+"belt_8":{"x":1,"y":719,"w":615,"h":67,"offX":0,"offY":0,"sourceW":615,"sourceH":67}}}
