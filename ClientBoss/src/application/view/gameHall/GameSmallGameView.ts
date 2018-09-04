@@ -2,28 +2,38 @@ module game {
 	export class GameSmallGameView extends egret.EventDispatcher {
 		public static CLOSE: string = "close";
 
-		//private close_btn:eui.Button;
 		private smallGameInfo:SmallGameVO;
 		
 
 		public constructor() {
 			super();
-            
 		}
 		
 		public initGame(info:SmallGameVO){
 			this.smallGameInfo=info;
-			if (BattleManager.getInstance().isRetStartGame) {
-                BattleManager.getInstance().isRetStartGame = false;
-                sendMessage("msg.C2GW_ReqStartGame", msg.C2GW_ReqStartGame.encode({
-                    gamekind: 0,
-                }));
-            }
 
-            egret.setTimeout(() => {
-                BattleManager.getInstance().isRetStartGame = true;
-				this.dispatchEvent(new BasicEvent(GameSmallGameView.CLOSE));
-            }, this, 1000);
+			if (this.smallGameInfo.sgId == SceneType.battle) {
+				
+			}
+			
+			switch (this.smallGameInfo.sgId) {
+				case SceneType.battle:
+					if (BattleManager.getInstance().isRetStartGame) {
+						BattleManager.getInstance().isRetStartGame = false;
+						sendMessage("msg.C2GW_ReqStartGame", msg.C2GW_ReqStartGame.encode({
+							gamekind: 0,
+						}));
+					}
+
+					egret.setTimeout(() => {
+						BattleManager.getInstance().isRetStartGame = true;
+						this.dispatchEvent(new BasicEvent(GameSmallGameView.CLOSE));
+					}, this, 1000);
+					break;
+				case SceneType.battle2:
+					SceneManager.changeScene(SceneType.battle2);
+					break;
+			}
 		}
 		private onclick_begin() {
             this.dispatchEvent(new BasicEvent(GameSmallGameView.CLOSE));
