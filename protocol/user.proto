@@ -1,6 +1,7 @@
 syntax = "proto2";
 package msg;
 import "serialize.proto";
+import "define.proto";
 
 // 添加收货地址
 message C2GW_AddDeliveryAddress {
@@ -74,4 +75,19 @@ message C2GW_ReqTaskList {
 	
 }
 
+// 请求附近的人
+message C2GW_ReqNearUsers {
+
+}
+
+// 返回附近的人
+message GW2C_AckNearUsers {
+	repeated PersonSocialInfo data = 1;
+}
+
+// 请求设置位置
+message C2GW_ReqSetPos {
+	optional float x = 1;
+	optional float y = 2;
+}
 

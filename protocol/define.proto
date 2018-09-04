@@ -114,3 +114,16 @@ enum CarState {
     Robbing = 5;        //抢夺中
     Back = 6;           //回城中
 }
+
+//人物社交信息
+message PersonSocialInfo {
+	optional uint64 id = 1;   		
+	optional string face = 2;
+	optional string name = 3;
+	optional uint32 level = 4;
+	optional uint32 age = 5;
+	optional uint32 constellation = 6; //星座
+	optional float x = 7; 	 //经度
+	optional float y = 8;	 //纬度
+	optional string sign = 9; //个人签名
+}
