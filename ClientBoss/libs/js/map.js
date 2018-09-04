@@ -505,7 +505,7 @@ function setEventsIconCallBackFun(fun) {
  */
 function addEventsIcon(data) {
   if (data != null) {
-    let isExist = isExistEventsIcon(data.uid);
+    let isExist = isExistEventsIcon(data.id);
     if(!isExist){
     let icon = new qq.maps.MarkerImage(
           data.imageUrl
@@ -516,7 +516,7 @@ function addEventsIcon(data) {
         let marker = new qq.maps.Marker({
           icon: icon,
           map: map,
-          position: new qq.maps.LatLng(data.posX, data.posY)
+          position: new qq.maps.LatLng(data.latitude, data.longitude)
         });
       //  let titleIcon = new bTitleIcon({
       //               map: map,
@@ -533,19 +533,19 @@ function addEventsIcon(data) {
     }
     else
     {
-      console.log("重复添加事件图标 uid：", data.uid);
+      console.log("重复添加事件图标 id：", data.id);
     }
 }
 /**
  * 是否已经存在事件ICON
  */
-function isExistEventsIcon(uid)
+function isExistEventsIcon(id)
 {
   if(eventsIconArray)
   {
     for(let data of eventsIconArray)
     {
-      if(data.uid == uid)
+      if(data.id == id)
       {
         return true;
       }
@@ -553,10 +553,10 @@ function isExistEventsIcon(uid)
   }
   return false;
 }
-function removeEventsIcon(uid) {
+function removeEventsIcon(id) {
   if (eventsIconArray) {
     for (let data of eventsIconArray) {
-      if (data.data.uid == uid) {
+      if (data.data.id == id) {
         data['marker'].setMap(null);
         qq.maps.event.removeListener(data.listener);
         //data['title'].destroy();
