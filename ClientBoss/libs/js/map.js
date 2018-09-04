@@ -494,3 +494,98 @@ bTitleIcon.prototype.destroy = function () {
     this.dom.parentNode.removeChild(this.dom);
   }
 }
+
+var eventsIconArray = [];
+var eventsIconCallBackFun = null;
+function setEventsIconCallBackFun(fun) {
+  eventsIconCallBackFun = fun;
+}
+/**
+ * 添加地图事件ICON
+ */
+function addEventsIcon(data) {
+  if (data != null) {
+    let isExist = isExistEventsIcon(data.uid);
+    if(!isExist){
+    let icon = new qq.maps.MarkerImage(
+          data.imageUrl
+          /*null, null, null,
+          new qq.maps.Size(data.scaleSize[0], data.scaleSize[1])*/
+        );
+        
+        let marker = new qq.maps.Marker({
+          icon: icon,
+          map: map,
+          position: new qq.maps.LatLng(data.posX, data.posY)
+        });
+      //  let titleIcon = new bTitleIcon({
+      //               map: map,
+      //     position: new qq.maps.LatLng(data.position[0], data.position[1]),
+      //     info:{isHas:data.isHas,count:data.bName}
+      //           });
+      let listener = qq.maps.event.addListener(marker, 'click', function (e) {
+          if (eventsIconCallBackFun != null) {
+            eventsIconCallBackFun('click', data);
+          }
+        });
+        eventsIconArray.push({ marker: marker,data: data, listener:listener });
+      }
+    }
+    else
+    {
+      console.log("重复添加事件图标 uid：", data.uid);
+    }
+}
+/**
+ * 是否已经存在事件ICON
+ */
+function isExistEventsIcon(uid)
+{
+  if(eventsIconArray)
+  {
+    for(let data of eventsIconArray)
+    {
+      if(data.uid == uid)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+function removeEventsIcon(uid) {
+  if (eventsIconArray) {
+    for (let data of eventsIconArray) {
+      if (data.data.uid == uid) {
+        data['marker'].setMap(null);
+        qq.maps.event.removeListener(data.listener);
+        //data['title'].destroy();
+        eventsIconArray.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+function emptyEventsIcon() {
+  if (eventsIconArray) {
+    for (let data of eventsIconArray) {
+      data['marker'].setMap(null);
+      qq.maps.event.removeListener(data.listener);
+      // data['title'].destroy();
+    }
+    eventsIconArray.length = 0;
+  }
+}
+function showOrHideEventsIcon(bool) {
+  if (eventsIconArray) {
+    for (let data of eventsIconArray) {
+      if (bool) {
+        data['marker'].setMap(map);
+        // eventsIconArray[i]['title'].draw();
+      } else {
+        data['marker'].setMap(null);
+        // eventsIconArray[i]['title'].destroy();
+      }
+    }
+  }
+}
