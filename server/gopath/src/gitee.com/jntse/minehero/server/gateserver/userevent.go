@@ -19,7 +19,7 @@ import (
 // 地图事件
 type UserMapEvent struct {
 	events map[uint64]*msg.MapEvent
-	refreshtime int64		// 上一次刷新时间，毫秒
+	refreshtime int64		// 上一次刷新时间，秒
 	refreshactive int64		// 激活刷新，毫秒
 	owner *GateUser
 }
@@ -48,6 +48,7 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 		bin.Base.Mapevent = &msg.UserMapEvent{Events: make([]*msg.MapEvent, 0)}
 	}
 	uevent := bin.Base.GetMapevent()
+	m.refreshtime = uevent.GetTmrefresh()
 	for _, v := range uevent.Events {
 		m.events[v.GetId()] = v
 	}
@@ -92,11 +93,12 @@ func (m *UserMapEvent) Refresh(now int64) {
 
 	//事件clean
 	m.events = make(map[uint64]*msg.MapEvent)
-	m.refreshtime = now
+	m.refreshtime = now / 1000
 	m.refreshactive = 0
 	eventuid := uint64(1)
-	x, y := m.owner.GetUserPos()		// 经纬度
-	int_longitude, int_latitude := uint32(x * 1000000) , uint32(y * 1000000)	// 米
+	//x, y := m.owner.GetUserPos()		// 经纬度
+	y, x := float32(31.1515941841), float32(121.3384963265)	// 测试代码
+	int_longitude, int_latitude := int32(x * 1000000) , int32(y * 1000000)	// 米
 
 	for _, v := range tbl.MapEventRefreshBase.TMapEventRefreshById {
 		giftweight := make([]util.WeightOdds, 0)
@@ -108,13 +110,11 @@ func (m *UserMapEvent) Refresh(now int64) {
 			index := util.SelectByWeightOdds(giftweight)
 			if index < 0 || index >= int32(len(giftweight)) {
 				log.Error("[地图事件] 权重获得产出事件失败")
-				return
+				continue
 			}
-
 			uid := uint32(giftweight[index].Uid)
-			event := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(uid)}
 			lo, la := m.GetRandRangePos(int_longitude, int_latitude, v.RangeMin, v.RangeMax)
-			event.Longitude, event.Latitude = pb.Uint32(lo), pb.Uint32(la)
+			event := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(uid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
 			m.events[event.GetId()] = event
 			eventuid++
 		}
@@ -125,7 +125,7 @@ func (m *UserMapEvent) Refresh(now int64) {
 func (m *UserMapEvent) ParseProString(sliceweight* []util.WeightOdds, Pro []string) bool {
 	for _ , strpro := range Pro {
 		slicepro := strings.Split(strpro, "-")
-		if len(slicepro) != 3 {
+		if len(slicepro) != 2 {
 			log.Error("[地图事件] 解析事件生成概率配置异常 strpro=%s", strpro)
 			return false
 		}
@@ -137,9 +137,14 @@ func (m *UserMapEvent) ParseProString(sliceweight* []util.WeightOdds, Pro []stri
 }
 
 // 传入经纬度和区间随机返回一个点
-func (m *UserMapEvent) GetRandRangePos(lo, la, rangemin, rangemax uint32) (uint32, uint32) {
-	longitude := lo + uint32(util.RandBetween(int32(rangemin), int32(rangemax)))
-	latitude  := la + uint32(util.RandBetween(int32(rangemin), int32(rangemax)))
+func (m *UserMapEvent) GetRandRangePos(lo, la int32, rangemin, rangemax uint32) (int32, int32) {
+	difflo := util.RandBetween(int32(rangemin), int32(rangemax))
+	if util.SelectPercent(50) { difflo *= -1 }
+	longitude := lo + difflo
+
+	diffla := util.RandBetween(int32(rangemin), int32(rangemax))
+	if util.SelectPercent(50) { diffla *= -1 }
+	latitude  := la + diffla
 	return longitude, latitude
 }
 

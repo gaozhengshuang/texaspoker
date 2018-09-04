@@ -568,7 +568,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	// 道具信息
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
-	this.events.LoadBin(bin)
+	this.events.PackBin(bin)
 	//this.image.PackBin(bin)
 
 	//
