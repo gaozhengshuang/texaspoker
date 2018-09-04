@@ -5,8 +5,8 @@
 package table;
 
 
-// Defined in table: MapEvent
-message MapEvent
+// Defined in table: MapEventBase
+message MapEventBase
 {	
 	
 	
@@ -19,22 +19,25 @@ message TMapEventDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID
+	optional uint32 Id = 1; // ID 规则类型*1000 + 顺序数
 	
 	
-	optional string Desc = 2; // 描述
+	optional uint32 Type = 2; // 类型
 	
 	
-	optional uint32 MoneyType = 3; // 消耗(1金币2钻石3体力4道具)
+	optional string Desc = 3; // 描述
 	
 	
-	optional uint32 Price = 4; // 消耗数值
+	optional uint32 MoneyType = 4; // 消耗(1金币2钻石3体力4道具)
 	
 	
-	optional string Icon = 5; // 图标
+	optional uint32 Price = 5; // 消耗数值
 	
 	
-	optional string Reward = 6; // 奖励
+	optional string Icon = 6; // 图标
+	
+	
+	optional string Reward = 7; // 奖励
 
 }
 

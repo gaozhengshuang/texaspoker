@@ -225,6 +225,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarPartLevelup{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarStarup{})
 
+	// 地图事件
+	this.msgparser.RegistSendProto(msg.GW2C_SendUserEvents{})
+
 	// 女仆
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserMaidInfo{})
