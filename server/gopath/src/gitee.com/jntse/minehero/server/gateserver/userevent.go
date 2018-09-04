@@ -27,6 +27,7 @@ func (m *UserMapEvent) Init(u *GateUser) {
 	m.owner = u
 }
 
+// 读盘
 func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 	if bin.Base.Mapevent == nil {
 		bin.Base.Mapevent = &msg.UserMapEvent{Events: make([]*msg.MapEvent, 0)}
@@ -37,8 +38,9 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 	}
 }
 
+// 存盘
 func (m *UserMapEvent) PackBin(bin *msg.Serialize) {
-	bin.Base.Mapevent = m.PackEvent()
+	//bin.Base.Mapevent = m.PackEvent()
 }
 
 func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
