@@ -14,6 +14,10 @@ module game {
 		 */
 		public tradeCarInfo: msg.GW2C_RetHouseTradeList;
 		/**
+		 * 交易的道具信息
+		 */
+		public tradeItemInfo: msg.GW2C_RetItemTradeList;
+		/**
 		 * 交易房屋记录
 		 */
 		public tradeHouseRecordInfo: msg.GW2C_RetTradeHouseHistory;
@@ -21,7 +25,10 @@ module game {
 		 * 交易车记录
 		 */
 		public tradeCarRecordInfo: msg.GW2C_RetTradeHouseHistory;
-
+		/**
+		 * 道具的交易记录
+		 */
+		public tradeItemRecordInfo: msg.GW2C_RetTradeItemHistory;
 		/**
 		 * 根据交易ID，获取交易信息
 		 */
@@ -184,6 +191,32 @@ module game {
 			}
 			return posName;
 		}
+		/**
+		 * 获取道具配置
+		 */
+		public getItemDefine(id: number): table.ItemBaseDataDefine {
+			for (let info of table.ItemBaseData) {
+				if (info.Id == id) {
+					return <table.ItemBaseDataDefine>info;
+				}
+			}
+			return null;
+		}
+		/**
+		 * 获取道具信息
+		 */
+		public getItemData(id: number): msg.ItemData {
+			let list = DataManager.playerModel.getBag();
+			if (list) {
+				for (let info of list) {
+					if (info.id == id) {
+						return <msg.ItemData>info;
+					}
+				}
+			}
+			return null;
+		}
+
 		public switchToBuilding(data: msg.HouseData | msg.SimpleHouseTrade) {
 			let bid: number = 0;
 			let obj: any = {};
@@ -232,7 +265,9 @@ module game {
 		PanelType.TradeHouseBuyPanel,
 		PanelType.TradeHouseSellPanel,
 		PanelType.TradeCarBuyPanel,
-		PanelType.TradeCarSellPanel]
+		PanelType.TradeCarSellPanel,
+		PanelType.TradeItemBackPanel,
+		]
 		public hidePanel() {
 			for (let panel of this._panels) {
 				if (panelIsShow(panel)) {
@@ -257,6 +292,18 @@ module game {
 							break;
 						case PanelType.TradeCarBuyPanel:
 							TradeCarBuyPanel.getInstance().remove();
+							break;
+						case PanelType.TradeItemBuyPanel:
+							TradeItemBuyPanel.getInstance().remove();
+							break;
+						case PanelType.TradeMyItemPanel:
+							TradeMyItemPanel.getInstance().remove();
+							break;
+						case PanelType.TradeItemSellPanel:
+							TradeItemSellPanel.getInstance().remove();
+							break;
+						case PanelType.TradeItemBackPanel:
+							TradeItemBackPanel.getInstance().remove();
 							break;
 					}
 				}

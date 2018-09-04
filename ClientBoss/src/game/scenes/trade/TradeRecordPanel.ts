@@ -41,6 +41,10 @@ module game {
 			else if (this._flag == TradePanelFlag.Car) {
 				this.recordScroller.bindData(TradeManager.getInstance().tradeCarRecordInfo.list);
 			}
+			else if(this._flag == TradePanelFlag.Item)
+			{
+				this.recordScroller.bindData(TradeManager.getInstance().tradeItemRecordInfo.list);
+			}
 		}
 
 		private static _instance: TradeRecordPanel = null;

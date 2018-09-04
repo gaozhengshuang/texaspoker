@@ -90,7 +90,7 @@ module game {
 			let price: number = this.numController.nowNum;
 			if (price <= 0) {
 				//价格不合法 提示
-				showTips("价格必须大于0!");
+				showTips("未设置价格，无法出售!");
 				return;
 			}
 			data.price = price;

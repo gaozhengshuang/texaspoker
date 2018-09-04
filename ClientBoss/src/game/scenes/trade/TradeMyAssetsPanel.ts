@@ -77,7 +77,7 @@ module game {
 			let carData: msg.CarData[] = <msg.CarData[]>DataManager.playerModel.userInfo.cardatas;
 			for (let i: number = 0; i < carData.length; i++) {
 				let data = carData[i];
-				if (data.state == msg.CarState.Idle) {
+				if (data.state == msg.CarState.Ready) {
 					list.push(data);
 				}
 			}

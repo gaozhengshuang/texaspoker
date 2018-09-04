@@ -3,18 +3,9 @@
 	<e:Rect id="bg_mc" width="720" height="200" x="0" y="0" fillColor="0xd8d8d8"/>
 	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
 	<e:Label id="timeLabel" text="2018-08-23 退回时间" x="526.68" fontFamily="Microsoft YaHei" size="18" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" verticalAlign="middle" textAlign="center" bottom="11"/>
-	<e:Label id="typeTxt" text="1室厅1厨1卫(50平)" x="211" y="82" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="294" textColor="0x404A58" touchEnabled="false" strokeColor="0xffffff"/>
 	<e:Label id="buySuccessFlag" text="购买成功" y="30" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" strokeColor="0xf85959" horizontalCenter="0" textColor="0xffffff" bold="true" stroke="3"/>
 	<e:Label id="sellSuccessFlag" text="出售成功" y="30" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" strokeColor="0x07B45D" horizontalCenter="0" textColor="0xFFFFFF" bold="true" stroke="3"/>
 	<e:Label id="sellFailedFlag" text="出售失败" y="30" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" strokeColor="0x404a58" horizontalCenter="0" textColor="0xFFFFFF" bold="true" stroke="3"/>
-	<e:Group id="unitGroup" x="215" y="154">
-		<e:Label text="单价：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label id="unitPrice" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
-	<e:Group x="215" y="121">
-		<e:Label id="baseIncomeTxt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
-		<e:Label text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-	</e:Group>
     <game:TradeIcon id="icon" skinName="TradeIconSkin" verticalCenter="0" x="13"/>
 	<e:Image id="dealDoneFlag" source="trade_done_png" top="0" right="0"/>
 	<e:Image id="returnedFlag" source="trade_return_png" top="0" right="0"/>
@@ -26,4 +17,22 @@
 		</e:layout>
 	</e:Group>
 	<e:Button id="takeBtn" label="领 取" x="548" y="107" skinName="CommonBtnSkin"/>
+	<e:Group id="otherGroup" x="211">
+		<e:Label id="typeTxt" text="1室厅1厨1卫(50平)" x="0" y="82" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="294" textColor="0x404A58" touchEnabled="false" strokeColor="0xffffff" scaleX="1" scaleY="1"/>
+		<e:Group id="unitGroup" x="4" y="154" scaleX="1" scaleY="1">
+			<e:Label text="单价：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="unitPrice" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="4" y="121" scaleX="1" scaleY="1">
+			<e:Label id="baseIncomeTxt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+	</e:Group>
+	<e:Group id="itemGroup" x="211">
+		<e:Label id="itemNameLabel" text="道具名称：xx" x="0" y="82" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="294" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" scaleX="1" scaleY="1" textAlign="center" verticalAlign="middle"/>
+		<e:Group y="128" scaleX="1" scaleY="1" horizontalCenter="0">
+			<e:Label text="数量：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="itemNumLabel" text="10" x="80" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+		</e:Group>
+	</e:Group>
 </e:Skin>
