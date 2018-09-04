@@ -59,7 +59,7 @@
 		<game:FilterBtn id="itemPartBtn" skinName="FilterBtnSkin" x="201" y="25" />
 		<game:SortBtn id="itemPriceBtn" skinName="SortBtnSkin" x="204.32" y="25" />
 		<utils:VScrollerPanel id="itemScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720"
-		                      anchorOffsetY="0" height="775" />
+		                      anchorOffsetY="0" height="700" />
 	</e:Group>
 	<e:EditableText id="searchTxt" width="322" height="49" text="" x="69" y="314" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="left" textColor="0x000000"/>
 	<!--<game:PageTitlePanel id="titlePanel" skinName="PageTitlePanelSkin" />-->

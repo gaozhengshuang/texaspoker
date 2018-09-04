@@ -21,8 +21,8 @@ module game {
 			let itemDef = table.ItemBaseDataById[id];
 			if (itemDef) {
 				this.itemImg.source = itemDef.ImageId.toString();//RES.getRes( + "_png");
+				this.borderImg.source = 'frame' + itemDef.Color + "_png";
 			}
-			this.borderImg.source = '';
 			this.num_txt.text = num.toString();
 		}
 		public set selected(value: boolean) {

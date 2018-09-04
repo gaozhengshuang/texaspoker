@@ -136,6 +136,10 @@ module game {
 					this._lastText = this.numTxt.text;
 					runCallBackHandler(this._onChange);
 				}
+				let inputNum = parseInt(this.numTxt.text); //限制输入
+				if (this._maxNum > 0 && inputNum > this._maxNum) {
+					this.numTxt.text = this._maxNum.toString();
+				}
 			}
 		}
 		private onFoucusIn() {
