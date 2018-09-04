@@ -93,6 +93,7 @@ type GateUser struct {
 	bag             UserBag   // 背包
 	//image         UserImage // 换装
 	task            UserTask
+	cartflag		bool
 	tm_disconnect   int64
 	tm_heartbeat    int64                   // 心跳时间
 	tm_asynsave     int64                   // 异步存盘超时
