@@ -12,8 +12,8 @@
 		<e:Label id="numTxt" text="123456" x="325" y="292" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF" scaleX="1" scaleY="1"/>
 		<e:Button id="backBtn" label="收回" skinName="CommonBtnSkin" horizontalCenter="0" bottom="58" x="282" y="410" scaleX="1" scaleY="1"/>
 		<e:Group scaleX="1" scaleY="1" x="198" y="118">
-			<e:Label text="数量：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
-			<e:Label id="ownTxt" text="200" x="60" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label text="仓库数量：" x="0" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+			<e:Label id="ownTxt" text="200" x="96" y="0" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false"/>
 		</e:Group>
 		<e:Label id="nameLabel" text="本田-思域" fontFamily="Microsoft YaHei" size="20" textColor="0x404A58" touchEnabled="false" strokeColor="0xFFFFFF" stroke="2" textAlign="center" verticalAlign="middle" anchorOffsetY="10" scaleX="1" scaleY="1" x="198" y="88"/>
 		<e:Image x="0" y="215" source="room_line1_png" width="720" scaleX="1" scaleY="1"/>

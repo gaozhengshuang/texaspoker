@@ -166,6 +166,7 @@ module game {
 					TradeManager.getInstance().tradeItemInfo = data;
 					this._tradeDp.source = data.list;
 					this.context.itemScroller.refreshData(this._tradeDp);
+					console.log("data.list交易列表数据长度", data.list.length);
 				}
 				else {
 					if (data.list.length > 0) {
