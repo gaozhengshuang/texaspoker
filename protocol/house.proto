@@ -97,6 +97,7 @@ message GW2C_AckTakeOtherHouseGoldRet {
 message C2GW_ReqRandHouseList {
 	optional uint32 carflag = 1;   //0来自房屋请求  1来自车库的请求
 	optional uint32 buildingid = 2;
+	optional uint32 bgetall = 3;   //针对某个楼 0最多返回10条房屋  1返回全部房屋
 }
 
 //返回随机的房屋列表
