@@ -1,18 +1,18 @@
 package main
 import (
 	//"time"
-	//"strconv"
-	//"strings"
+	"strconv"
+	"strings"
 	//"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 
-	//"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/util"
 	//"gitee.com/jntse/gotoolkit/redis"
-	//"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/gotoolkit/log"
 
 	"gitee.com/jntse/minehero/pbmsg"
 	//"gitee.com/jntse/minehero/server/def"
-	//"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/tbl"
 )
 
 
@@ -52,51 +52,46 @@ func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
 
 // 发送玩家事件
 func (m *UserMapEvent) SendEvents() {
-	send := &msg.SendUserEvents{Event:m.PackEvent()}
+	send := &msg.GW2C_SendUserEvents{Event:m.PackEvent()}
 	m.owner.SendMsg(send)
 }
 
 // 刷新玩家的时间列表
 func (m *UserMapEvent) Refresh() {
 	//x, y := m.owner.GetUserPos()		// 经纬度
-	//intx, inty := uint32(x * 1000) , uint32(y * 1000)
+	//intx, inty := uint32(x * 10000) , uint32(y * 10000)
 
-	/*
 	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
 		for _ , strpro := range Pro {
 			slicepro := strings.Split(strpro, "-")
 			if len(slicepro) != 3 {
-				log.Error("[地图事件] 解析道具产出概率配置异常 strpro=%s", strpro)
+				log.Error("[地图事件] 解析事件生成概率配置异常 strpro=%s", strpro)
 				return false
 			}
 			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
 			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
-			num,    _ := strconv.ParseInt(slicepro[2], 10, 32)
-			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(num)})
+			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(0)})
 		}
 		return true
 	}
 
-	giftweight := make([]util.WeightOdds, 0)
-	levelbase, ok := tbl.LevelMaidBase.TLevelMaidById[uint32(maid.Level())]
-	if ok == false {
-		log.Error("[女仆] 找不到女仆等级配置")
-		return
+	for _, v := range tbl.MapEventRefreshBase.TMapEventRefreshById {
+		giftweight := make([]util.WeightOdds, 0)
+		if ParseProString(&giftweight, v.TypeRand) == false { 
+			continue
+		}
+
+		for i:=0; i < int(v.Num); i++ {
+			index := util.SelectByWeightOdds(giftweight)
+			if index < 0 || index >= int32(len(giftweight)) {
+				log.Error("[地图事件] 权重获得产出事件失败")
+				return
+			}
+			uid := giftweight[index].Uid
+			uid = uid
+		}
 	}
 
-	if ParseProString(&giftweight, levelbase.ProduceItem) == false { 
-		log.Error("[女仆] 解析道具产出配置失败")
-		return
-	}
-
-	index := util.SelectByWeightOdds(giftweight)
-	if index < 0 || index >= int32(len(giftweight)) {
-		log.Error("[女仆] 权重获得产出道具失败")
-		return
-	}
-
-	uid, num := giftweight[index].Uid, giftweight[index].Num
-	*/
 }
 
 

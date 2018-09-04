@@ -15,9 +15,6 @@ module game {
     function getPanel(panelType: PanelType): PanelComponent {
         let panel: PanelComponent;
         switch (panelType) {
-            case PanelType.win:
-                panel = WinScene.getInstance();
-                break;
             case PanelType.rank:
                 panel = RankPanel.getInstance();
                 break;
@@ -53,6 +50,9 @@ module game {
                 break;
             case PanelType.battle:
                 panel = BattlePanel.getInstance();
+                break;
+            case PanelType.battle2:
+                panel = SuperMartPanel.getInstance();
                 break;
             case PanelType.carDetail:
                 panel = CarDetailView.getInstance();
@@ -142,8 +142,7 @@ module game {
         return panel;
     }
     export const enum PanelType {
-        win = 1,
-        rank,
+        rank = 1,
         lucky,
         bag,
         register,
@@ -155,6 +154,7 @@ module game {
         dress,
         dressShopCarts,
         battle,
+        battle2,
         carDetail,
         carPublicLot,
         GameSceneAssetsView,

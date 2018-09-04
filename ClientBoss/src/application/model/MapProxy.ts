@@ -88,7 +88,7 @@ module game {
 					let data: any = dataList[i];
 					let bId = data.Id;
 					let bName = data.Community;
-					let imageUrl = 'resource/others/images/build_'+data.CommunityId + '_m.png';
+					let imageUrl = 'resource/others/images/' + data.Icon;
 					let position = [data.PosX, data.PosY];
 					let isHas: boolean = false;
 					addBuilding({ bId: bId, bName: bName, imageUrl: imageUrl, position: position, isHas: isHas });
@@ -146,20 +146,20 @@ module game {
 		}
 
 		//pointStr = top + "@" + down + "@" + left + "@" + right;
-		public addBuilding(){
-			let RangePoint:string= getRectRangePoint([this.currentPoint.lat,this.currentPoint.lng],2000);
-			if(RangePoint){
-				let Range:string[]=RangePoint.split("@");
-				let build:any[]=table.TBuildings;
-				let getBuild:any[]=[];
-				for(let i:number=0;i<build.length;i++){
-					let item:any=build[i];
-					if(item.PosX<Number(Range[0]) && item.PosX>Number(Range[1]) 
-					&& item.PosY>Number(Range[2]) && item.PosY<Number(Range[3])){
+		public addBuilding() {
+			let RangePoint: string = getRectRangePoint([this.currentPoint.lat, this.currentPoint.lng], 2000);
+			if (RangePoint) {
+				let Range: string[] = RangePoint.split("@");
+				let build: any[] = table.TBuildings;
+				let getBuild: any[] = [];
+				for (let i: number = 0; i < build.length; i++) {
+					let item: any = build[i];
+					if (item.PosX < Number(Range[0]) && item.PosX > Number(Range[1])
+						&& item.PosY > Number(Range[2]) && item.PosY < Number(Range[3])) {
 						getBuild.push(build[i]);
 					}
 				}
-				if(getBuild && getBuild.length>0){
+				if (getBuild && getBuild.length > 0) {
 					this.addMapBuilding(getBuild);
 				}
 			}

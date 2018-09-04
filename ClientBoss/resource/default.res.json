@@ -19,6 +19,10 @@
 		{
 			"keys": "login_json,dazhao_mp3,heidong_mp3,huoqiangloop_mp3,play_mp3,zhadan_mp3,bingqiang_mp3,posui_mp3,pengzhuang_mp3,jiesuan_mp3,fashe_mp3,loginbg_png",
 			"name": "login"
+		},
+		{
+			"keys": "game2_bg_jpg,game2_json",
+			"name": "game2"
 		}
 	],
 	"resources": [
@@ -165,7 +169,7 @@
 			"url": "assets/texpack/hall_2.json",
 			"type": "sheet",
 			"name": "hall_2_json",
-			"subkeys": "DepotDetailsBg1_png,ItemDetailsBg1_png,assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,buildingTopBg1_png,buyNewFangBtn1_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,fullItemBoxBorder_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,itemBoxBg_png,jiantou1_png,jiantou2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,levelSuccessImg1_png,lingjuInfo_bg1_png,longBtnBg_png,lookZhuhuBtn1_png,noItemBoxBorder_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
+			"subkeys": "DepotDetailsBg1_png,ItemDetailsBg1_png,assets_car_tabBar1_png,assets_car_tabBar2_png,assets_fangchan_tabBar1_png,assets_fangchan_tabBar2_png,assets_stock_tabBar1_png,assets_stock_tabBar2_png,bCoinIcon1_png,btnBg_red3_png,buildingTopBg1_png,buyNewFangBtn1_png,chushouzhong_icon1_png,crownIcon1_png,defaultHead1_png,diamondIcon_png,fullItemBoxBorder_png,game_icon1_png,houseInfo_bg1_png,huxing_1001_s_png,huxing_2001_s_png,huxing_3001_s_png,huxing_4001_s_png,itemBoxBg_png,jiantou1_png,jiantou2_png,jiaobiao3_png,jiaobiaoIcon1_png,jiaobiaoIcon2_png,levelSuccessImg1_png,lingjuInfo_bg1_png,longBtnBg_png,lookZhuhuBtn1_png,noItemBoxBorder_png,redDianIcon1_png,room_down_bg1_png,room_line1_png,sexIcon1_png,ui_login_passwordbg_png,ui_login_thirdpartytex_png,ui_login_usernamebg_png,xiaoqu_2003001_png,xiaoquming_bg_png,xuanzhongBtn_bg_png"
 		},
 		{
 			"url": "assets/texpack/hall_1.json",
@@ -384,6 +388,17 @@
 			"type": "sheet",
 			"name": "item_json",
 			"subkeys": "110001,110002,110003,110004,110005,110006,110007,110008,110009,110010,110011,110012,110013,110014,120001,120002,120003,120004,120005,130001,130006,130011,130016,130021,140001,60002,60003"
+		},
+		{
+			"url": "assets/bg/game2_bg.jpg",
+			"type": "image",
+			"name": "game2_bg_jpg"
+		},
+		{
+			"url": "assets/texpack/game2.json",
+			"type": "sheet",
+			"name": "game2_json",
+			"subkeys": "aimArrow,basket,belt,belt_1,belt_2,belt_3,belt_4,belt_5,belt_6,belt_7,belt_8,carBack,carShader,cashierdesk,hook,jiagepai,line,mingpai,spool"
 		}
 	]
 }

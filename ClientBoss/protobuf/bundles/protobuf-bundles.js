@@ -7757,6 +7757,505 @@ $root.msg = (function() {
         return HouseMaidData;
     })();
 
+    msg.MapEvent = (function() {
+
+        /**
+         * Properties of a MapEvent.
+         * @memberof msg
+         * @interface IMapEvent
+         * @property {number|Long|null} [id] MapEvent id
+         * @property {number|null} [tid] MapEvent tid
+         * @property {number|null} [longitude] MapEvent longitude
+         * @property {number|null} [latitude] MapEvent latitude
+         */
+
+        /**
+         * Constructs a new MapEvent.
+         * @memberof msg
+         * @classdesc Represents a MapEvent.
+         * @implements IMapEvent
+         * @constructor
+         * @param {msg.IMapEvent=} [properties] Properties to set
+         */
+        function MapEvent(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MapEvent id.
+         * @member {number|Long} id
+         * @memberof msg.MapEvent
+         * @instance
+         */
+        MapEvent.prototype.id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * MapEvent tid.
+         * @member {number} tid
+         * @memberof msg.MapEvent
+         * @instance
+         */
+        MapEvent.prototype.tid = 0;
+
+        /**
+         * MapEvent longitude.
+         * @member {number} longitude
+         * @memberof msg.MapEvent
+         * @instance
+         */
+        MapEvent.prototype.longitude = 0;
+
+        /**
+         * MapEvent latitude.
+         * @member {number} latitude
+         * @memberof msg.MapEvent
+         * @instance
+         */
+        MapEvent.prototype.latitude = 0;
+
+        /**
+         * Creates a new MapEvent instance using the specified properties.
+         * @function create
+         * @memberof msg.MapEvent
+         * @static
+         * @param {msg.IMapEvent=} [properties] Properties to set
+         * @returns {msg.MapEvent} MapEvent instance
+         */
+        MapEvent.create = function create(properties) {
+            return new MapEvent(properties);
+        };
+
+        /**
+         * Encodes the specified MapEvent message. Does not implicitly {@link msg.MapEvent.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MapEvent
+         * @static
+         * @param {msg.IMapEvent} message MapEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MapEvent.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.id);
+            if (message.tid != null && message.hasOwnProperty("tid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.tid);
+            if (message.longitude != null && message.hasOwnProperty("longitude"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.longitude);
+            if (message.latitude != null && message.hasOwnProperty("latitude"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.latitude);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MapEvent message, length delimited. Does not implicitly {@link msg.MapEvent.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MapEvent
+         * @static
+         * @param {msg.IMapEvent} message MapEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MapEvent.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MapEvent message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MapEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MapEvent} MapEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MapEvent.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MapEvent();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
+                    message.tid = reader.uint32();
+                    break;
+                case 3:
+                    message.longitude = reader.uint32();
+                    break;
+                case 4:
+                    message.latitude = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MapEvent message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MapEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MapEvent} MapEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MapEvent.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MapEvent message.
+         * @function verify
+         * @memberof msg.MapEvent
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MapEvent.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
+            if (message.tid != null && message.hasOwnProperty("tid"))
+                if (!$util.isInteger(message.tid))
+                    return "tid: integer expected";
+            if (message.longitude != null && message.hasOwnProperty("longitude"))
+                if (!$util.isInteger(message.longitude))
+                    return "longitude: integer expected";
+            if (message.latitude != null && message.hasOwnProperty("latitude"))
+                if (!$util.isInteger(message.latitude))
+                    return "latitude: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MapEvent message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MapEvent
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MapEvent} MapEvent
+         */
+        MapEvent.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MapEvent)
+                return object;
+            var message = new $root.msg.MapEvent();
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = true;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber(true);
+            if (object.tid != null)
+                message.tid = object.tid >>> 0;
+            if (object.longitude != null)
+                message.longitude = object.longitude >>> 0;
+            if (object.latitude != null)
+                message.latitude = object.latitude >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MapEvent message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MapEvent
+         * @static
+         * @param {msg.MapEvent} message MapEvent
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MapEvent.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
+                object.tid = 0;
+                object.longitude = 0;
+                object.latitude = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber(true) : message.id;
+            if (message.tid != null && message.hasOwnProperty("tid"))
+                object.tid = message.tid;
+            if (message.longitude != null && message.hasOwnProperty("longitude"))
+                object.longitude = message.longitude;
+            if (message.latitude != null && message.hasOwnProperty("latitude"))
+                object.latitude = message.latitude;
+            return object;
+        };
+
+        /**
+         * Converts this MapEvent to JSON.
+         * @function toJSON
+         * @memberof msg.MapEvent
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MapEvent.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MapEvent;
+    })();
+
+    msg.UserMapEvent = (function() {
+
+        /**
+         * Properties of a UserMapEvent.
+         * @memberof msg
+         * @interface IUserMapEvent
+         * @property {Array.<msg.IMapEvent>|null} [events] UserMapEvent events
+         * @property {number|null} [tmrefresh] UserMapEvent tmrefresh
+         */
+
+        /**
+         * Constructs a new UserMapEvent.
+         * @memberof msg
+         * @classdesc Represents a UserMapEvent.
+         * @implements IUserMapEvent
+         * @constructor
+         * @param {msg.IUserMapEvent=} [properties] Properties to set
+         */
+        function UserMapEvent(properties) {
+            this.events = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * UserMapEvent events.
+         * @member {Array.<msg.IMapEvent>} events
+         * @memberof msg.UserMapEvent
+         * @instance
+         */
+        UserMapEvent.prototype.events = $util.emptyArray;
+
+        /**
+         * UserMapEvent tmrefresh.
+         * @member {number} tmrefresh
+         * @memberof msg.UserMapEvent
+         * @instance
+         */
+        UserMapEvent.prototype.tmrefresh = 0;
+
+        /**
+         * Creates a new UserMapEvent instance using the specified properties.
+         * @function create
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {msg.IUserMapEvent=} [properties] Properties to set
+         * @returns {msg.UserMapEvent} UserMapEvent instance
+         */
+        UserMapEvent.create = function create(properties) {
+            return new UserMapEvent(properties);
+        };
+
+        /**
+         * Encodes the specified UserMapEvent message. Does not implicitly {@link msg.UserMapEvent.verify|verify} messages.
+         * @function encode
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {msg.IUserMapEvent} message UserMapEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UserMapEvent.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.events != null && message.events.length)
+                for (var i = 0; i < message.events.length; ++i)
+                    $root.msg.MapEvent.encode(message.events[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.tmrefresh != null && message.hasOwnProperty("tmrefresh"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.tmrefresh);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified UserMapEvent message, length delimited. Does not implicitly {@link msg.UserMapEvent.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {msg.IUserMapEvent} message UserMapEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UserMapEvent.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a UserMapEvent message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.UserMapEvent} UserMapEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UserMapEvent.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.UserMapEvent();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.events && message.events.length))
+                        message.events = [];
+                    message.events.push($root.msg.MapEvent.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.tmrefresh = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a UserMapEvent message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.UserMapEvent} UserMapEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UserMapEvent.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a UserMapEvent message.
+         * @function verify
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        UserMapEvent.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.events != null && message.hasOwnProperty("events")) {
+                if (!Array.isArray(message.events))
+                    return "events: array expected";
+                for (var i = 0; i < message.events.length; ++i) {
+                    var error = $root.msg.MapEvent.verify(message.events[i]);
+                    if (error)
+                        return "events." + error;
+                }
+            }
+            if (message.tmrefresh != null && message.hasOwnProperty("tmrefresh"))
+                if (!$util.isInteger(message.tmrefresh))
+                    return "tmrefresh: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a UserMapEvent message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.UserMapEvent} UserMapEvent
+         */
+        UserMapEvent.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.UserMapEvent)
+                return object;
+            var message = new $root.msg.UserMapEvent();
+            if (object.events) {
+                if (!Array.isArray(object.events))
+                    throw TypeError(".msg.UserMapEvent.events: array expected");
+                message.events = [];
+                for (var i = 0; i < object.events.length; ++i) {
+                    if (typeof object.events[i] !== "object")
+                        throw TypeError(".msg.UserMapEvent.events: object expected");
+                    message.events[i] = $root.msg.MapEvent.fromObject(object.events[i]);
+                }
+            }
+            if (object.tmrefresh != null)
+                message.tmrefresh = object.tmrefresh >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a UserMapEvent message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.UserMapEvent
+         * @static
+         * @param {msg.UserMapEvent} message UserMapEvent
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        UserMapEvent.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.events = [];
+            if (options.defaults)
+                object.tmrefresh = 0;
+            if (message.events && message.events.length) {
+                object.events = [];
+                for (var j = 0; j < message.events.length; ++j)
+                    object.events[j] = $root.msg.MapEvent.toObject(message.events[j], options);
+            }
+            if (message.tmrefresh != null && message.hasOwnProperty("tmrefresh"))
+                object.tmrefresh = message.tmrefresh;
+            return object;
+        };
+
+        /**
+         * Converts this UserMapEvent to JSON.
+         * @function toJSON
+         * @memberof msg.UserMapEvent
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        UserMapEvent.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return UserMapEvent;
+    })();
+
     msg.UserBase = (function() {
 
         /**
@@ -7785,6 +8284,10 @@ $root.msg = (function() {
          * @property {number|null} [newplayerstep] UserBase newplayerstep
          * @property {number|null} [robcount] UserBase robcount
          * @property {number|Long|null} [tmaddrobcount] UserBase tmaddrobcount
+         * @property {number|null} [age] UserBase age
+         * @property {number|null} [constellation] UserBase constellation
+         * @property {string|null} [sign] UserBase sign
+         * @property {msg.IUserMapEvent|null} [mapevent] UserBase mapevent
          */
 
         /**
@@ -7980,6 +8483,38 @@ $root.msg = (function() {
         UserBase.prototype.tmaddrobcount = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
+         * UserBase age.
+         * @member {number} age
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.age = 0;
+
+        /**
+         * UserBase constellation.
+         * @member {number} constellation
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.constellation = 0;
+
+        /**
+         * UserBase sign.
+         * @member {string} sign
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.sign = "";
+
+        /**
+         * UserBase mapevent.
+         * @member {msg.IUserMapEvent|null|undefined} mapevent
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.mapevent = null;
+
+        /**
          * Creates a new UserBase instance using the specified properties.
          * @function create
          * @memberof msg.UserBase
@@ -8048,6 +8583,14 @@ $root.msg = (function() {
                 writer.uint32(/* id 22, wireType 0 =*/176).uint32(message.robcount);
             if (message.tmaddrobcount != null && message.hasOwnProperty("tmaddrobcount"))
                 writer.uint32(/* id 23, wireType 0 =*/184).int64(message.tmaddrobcount);
+            if (message.age != null && message.hasOwnProperty("age"))
+                writer.uint32(/* id 24, wireType 0 =*/192).uint32(message.age);
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                writer.uint32(/* id 25, wireType 0 =*/200).uint32(message.constellation);
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                writer.uint32(/* id 26, wireType 2 =*/210).string(message.sign);
+            if (message.mapevent != null && message.hasOwnProperty("mapevent"))
+                $root.msg.UserMapEvent.encode(message.mapevent, writer.uint32(/* id 27, wireType 2 =*/218).fork()).ldelim();
             return writer;
         };
 
@@ -8149,6 +8692,18 @@ $root.msg = (function() {
                     break;
                 case 23:
                     message.tmaddrobcount = reader.int64();
+                    break;
+                case 24:
+                    message.age = reader.uint32();
+                    break;
+                case 25:
+                    message.constellation = reader.uint32();
+                    break;
+                case 26:
+                    message.sign = reader.string();
+                    break;
+                case 27:
+                    message.mapevent = $root.msg.UserMapEvent.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -8267,6 +8822,20 @@ $root.msg = (function() {
             if (message.tmaddrobcount != null && message.hasOwnProperty("tmaddrobcount"))
                 if (!$util.isInteger(message.tmaddrobcount) && !(message.tmaddrobcount && $util.isInteger(message.tmaddrobcount.low) && $util.isInteger(message.tmaddrobcount.high)))
                     return "tmaddrobcount: integer|Long expected";
+            if (message.age != null && message.hasOwnProperty("age"))
+                if (!$util.isInteger(message.age))
+                    return "age: integer expected";
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                if (!$util.isInteger(message.constellation))
+                    return "constellation: integer expected";
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                if (!$util.isString(message.sign))
+                    return "sign: string expected";
+            if (message.mapevent != null && message.hasOwnProperty("mapevent")) {
+                var error = $root.msg.UserMapEvent.verify(message.mapevent);
+                if (error)
+                    return "mapevent." + error;
+            }
             return null;
         };
 
@@ -8370,6 +8939,17 @@ $root.msg = (function() {
                     message.tmaddrobcount = object.tmaddrobcount;
                 else if (typeof object.tmaddrobcount === "object")
                     message.tmaddrobcount = new $util.LongBits(object.tmaddrobcount.low >>> 0, object.tmaddrobcount.high >>> 0).toNumber();
+            if (object.age != null)
+                message.age = object.age >>> 0;
+            if (object.constellation != null)
+                message.constellation = object.constellation >>> 0;
+            if (object.sign != null)
+                message.sign = String(object.sign);
+            if (object.mapevent != null) {
+                if (typeof object.mapevent !== "object")
+                    throw TypeError(".msg.UserBase.mapevent: object expected");
+                message.mapevent = $root.msg.UserMapEvent.fromObject(object.mapevent);
+            }
             return message;
         };
 
@@ -8422,6 +9002,10 @@ $root.msg = (function() {
                     object.tmaddrobcount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.tmaddrobcount = options.longs === String ? "0" : 0;
+                object.age = 0;
+                object.constellation = 0;
+                object.sign = "";
+                object.mapevent = null;
             }
             if (message.level != null && message.hasOwnProperty("level"))
                 object.level = message.level;
@@ -8479,6 +9063,14 @@ $root.msg = (function() {
                     object.tmaddrobcount = options.longs === String ? String(message.tmaddrobcount) : message.tmaddrobcount;
                 else
                     object.tmaddrobcount = options.longs === String ? $util.Long.prototype.toString.call(message.tmaddrobcount) : options.longs === Number ? new $util.LongBits(message.tmaddrobcount.low >>> 0, message.tmaddrobcount.high >>> 0).toNumber() : message.tmaddrobcount;
+            if (message.age != null && message.hasOwnProperty("age"))
+                object.age = message.age;
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                object.constellation = message.constellation;
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                object.sign = message.sign;
+            if (message.mapevent != null && message.hasOwnProperty("mapevent"))
+                object.mapevent = $root.msg.UserMapEvent.toObject(message.mapevent, options);
             return object;
         };
 
@@ -12447,6 +13039,9 @@ $root.msg = (function() {
          * @property {number|Long|null} [tradeuid] HouseData tradeuid
          * @property {number|null} [tradeprice] HouseData tradeprice
          * @property {number|Long|null} [visitrecordid] HouseData visitrecordid
+         * @property {number|null} [ownersex] HouseData ownersex
+         * @property {number|null} [ownerlevel] HouseData ownerlevel
+         * @property {string|null} [ownerface] HouseData ownerface
          */
 
         /**
@@ -12620,6 +13215,30 @@ $root.msg = (function() {
         HouseData.prototype.visitrecordid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
+         * HouseData ownersex.
+         * @member {number} ownersex
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.ownersex = 0;
+
+        /**
+         * HouseData ownerlevel.
+         * @member {number} ownerlevel
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.ownerlevel = 0;
+
+        /**
+         * HouseData ownerface.
+         * @member {string} ownerface
+         * @memberof msg.HouseData
+         * @instance
+         */
+        HouseData.prototype.ownerface = "";
+
+        /**
          * Creates a new HouseData instance using the specified properties.
          * @function create
          * @memberof msg.HouseData
@@ -12684,6 +13303,12 @@ $root.msg = (function() {
                 writer.uint32(/* id 18, wireType 0 =*/144).uint32(message.tradeprice);
             if (message.visitrecordid != null && message.hasOwnProperty("visitrecordid"))
                 writer.uint32(/* id 19, wireType 0 =*/152).uint64(message.visitrecordid);
+            if (message.ownersex != null && message.hasOwnProperty("ownersex"))
+                writer.uint32(/* id 20, wireType 0 =*/160).int32(message.ownersex);
+            if (message.ownerlevel != null && message.hasOwnProperty("ownerlevel"))
+                writer.uint32(/* id 21, wireType 0 =*/168).uint32(message.ownerlevel);
+            if (message.ownerface != null && message.hasOwnProperty("ownerface"))
+                writer.uint32(/* id 22, wireType 2 =*/178).string(message.ownerface);
             return writer;
         };
 
@@ -12780,6 +13405,15 @@ $root.msg = (function() {
                     break;
                 case 19:
                     message.visitrecordid = reader.uint64();
+                    break;
+                case 20:
+                    message.ownersex = reader.int32();
+                    break;
+                case 21:
+                    message.ownerlevel = reader.uint32();
+                    break;
+                case 22:
+                    message.ownerface = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -12891,6 +13525,15 @@ $root.msg = (function() {
             if (message.visitrecordid != null && message.hasOwnProperty("visitrecordid"))
                 if (!$util.isInteger(message.visitrecordid) && !(message.visitrecordid && $util.isInteger(message.visitrecordid.low) && $util.isInteger(message.visitrecordid.high)))
                     return "visitrecordid: integer|Long expected";
+            if (message.ownersex != null && message.hasOwnProperty("ownersex"))
+                if (!$util.isInteger(message.ownersex))
+                    return "ownersex: integer expected";
+            if (message.ownerlevel != null && message.hasOwnProperty("ownerlevel"))
+                if (!$util.isInteger(message.ownerlevel))
+                    return "ownerlevel: integer expected";
+            if (message.ownerface != null && message.hasOwnProperty("ownerface"))
+                if (!$util.isString(message.ownerface))
+                    return "ownerface: string expected";
             return null;
         };
 
@@ -12996,6 +13639,12 @@ $root.msg = (function() {
                     message.visitrecordid = object.visitrecordid;
                 else if (typeof object.visitrecordid === "object")
                     message.visitrecordid = new $util.LongBits(object.visitrecordid.low >>> 0, object.visitrecordid.high >>> 0).toNumber(true);
+            if (object.ownersex != null)
+                message.ownersex = object.ownersex | 0;
+            if (object.ownerlevel != null)
+                message.ownerlevel = object.ownerlevel >>> 0;
+            if (object.ownerface != null)
+                message.ownerface = String(object.ownerface);
             return message;
         };
 
@@ -13050,6 +13699,9 @@ $root.msg = (function() {
                     object.visitrecordid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.visitrecordid = options.longs === String ? "0" : 0;
+                object.ownersex = 0;
+                object.ownerlevel = 0;
+                object.ownerface = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -13110,6 +13762,12 @@ $root.msg = (function() {
                     object.visitrecordid = options.longs === String ? String(message.visitrecordid) : message.visitrecordid;
                 else
                     object.visitrecordid = options.longs === String ? $util.Long.prototype.toString.call(message.visitrecordid) : options.longs === Number ? new $util.LongBits(message.visitrecordid.low >>> 0, message.visitrecordid.high >>> 0).toNumber(true) : message.visitrecordid;
+            if (message.ownersex != null && message.hasOwnProperty("ownersex"))
+                object.ownersex = message.ownersex;
+            if (message.ownerlevel != null && message.hasOwnProperty("ownerlevel"))
+                object.ownerlevel = message.ownerlevel;
+            if (message.ownerface != null && message.hasOwnProperty("ownerface"))
+                object.ownerface = message.ownerface;
             return object;
         };
 
@@ -20032,6 +20690,22 @@ $root.msg = (function() {
     })();
 
     /**
+     * MapEventType enum.
+     * @name msg.MapEventType
+     * @enum {string}
+     * @property {number} Game=1 Game value
+     * @property {number} Bonus=2 Bonus value
+     * @property {number} Building=3 Building value
+     */
+    msg.MapEventType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1] = "Game"] = 1;
+        values[valuesById[2] = "Bonus"] = 2;
+        values[valuesById[3] = "Building"] = 3;
+        return values;
+    })();
+
+    /**
      * Sex enum.
      * @name msg.Sex
      * @enum {string}
@@ -20053,11 +20727,15 @@ $root.msg = (function() {
      * @enum {string}
      * @property {number} _Gold=1 _Gold value
      * @property {number} _Diamond=2 _Diamond value
+     * @property {number} _Strength=3 _Strength value
+     * @property {number} _Item=4 _Item value
      */
     msg.MoneyType = (function() {
         var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[1] = "_Gold"] = 1;
         values[valuesById[2] = "_Diamond"] = 2;
+        values[valuesById[3] = "_Strength"] = 3;
+        values[valuesById[4] = "_Item"] = 4;
         return values;
     })();
 
@@ -20131,6 +20809,785 @@ $root.msg = (function() {
         values[valuesById[5] = "Robbing"] = 5;
         values[valuesById[6] = "Back"] = 6;
         return values;
+    })();
+
+    msg.PersonSocialInfo = (function() {
+
+        /**
+         * Properties of a PersonSocialInfo.
+         * @memberof msg
+         * @interface IPersonSocialInfo
+         * @property {number|Long|null} [id] PersonSocialInfo id
+         * @property {string|null} [face] PersonSocialInfo face
+         * @property {string|null} [name] PersonSocialInfo name
+         * @property {number|null} [sex] PersonSocialInfo sex
+         * @property {number|null} [level] PersonSocialInfo level
+         * @property {number|null} [age] PersonSocialInfo age
+         * @property {number|null} [constellation] PersonSocialInfo constellation
+         * @property {number|null} [x] PersonSocialInfo x
+         * @property {number|null} [y] PersonSocialInfo y
+         * @property {string|null} [sign] PersonSocialInfo sign
+         */
+
+        /**
+         * Constructs a new PersonSocialInfo.
+         * @memberof msg
+         * @classdesc Represents a PersonSocialInfo.
+         * @implements IPersonSocialInfo
+         * @constructor
+         * @param {msg.IPersonSocialInfo=} [properties] Properties to set
+         */
+        function PersonSocialInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PersonSocialInfo id.
+         * @member {number|Long} id
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * PersonSocialInfo face.
+         * @member {string} face
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.face = "";
+
+        /**
+         * PersonSocialInfo name.
+         * @member {string} name
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.name = "";
+
+        /**
+         * PersonSocialInfo sex.
+         * @member {number} sex
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.sex = 0;
+
+        /**
+         * PersonSocialInfo level.
+         * @member {number} level
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.level = 0;
+
+        /**
+         * PersonSocialInfo age.
+         * @member {number} age
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.age = 0;
+
+        /**
+         * PersonSocialInfo constellation.
+         * @member {number} constellation
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.constellation = 0;
+
+        /**
+         * PersonSocialInfo x.
+         * @member {number} x
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.x = 0;
+
+        /**
+         * PersonSocialInfo y.
+         * @member {number} y
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.y = 0;
+
+        /**
+         * PersonSocialInfo sign.
+         * @member {string} sign
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         */
+        PersonSocialInfo.prototype.sign = "";
+
+        /**
+         * Creates a new PersonSocialInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {msg.IPersonSocialInfo=} [properties] Properties to set
+         * @returns {msg.PersonSocialInfo} PersonSocialInfo instance
+         */
+        PersonSocialInfo.create = function create(properties) {
+            return new PersonSocialInfo(properties);
+        };
+
+        /**
+         * Encodes the specified PersonSocialInfo message. Does not implicitly {@link msg.PersonSocialInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {msg.IPersonSocialInfo} message PersonSocialInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PersonSocialInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.id);
+            if (message.face != null && message.hasOwnProperty("face"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.face);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.sex);
+            if (message.level != null && message.hasOwnProperty("level"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.level);
+            if (message.age != null && message.hasOwnProperty("age"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.age);
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.constellation);
+            if (message.x != null && message.hasOwnProperty("x"))
+                writer.uint32(/* id 8, wireType 5 =*/69).float(message.x);
+            if (message.y != null && message.hasOwnProperty("y"))
+                writer.uint32(/* id 9, wireType 5 =*/77).float(message.y);
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.sign);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PersonSocialInfo message, length delimited. Does not implicitly {@link msg.PersonSocialInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {msg.IPersonSocialInfo} message PersonSocialInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PersonSocialInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PersonSocialInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.PersonSocialInfo} PersonSocialInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PersonSocialInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.PersonSocialInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
+                    message.face = reader.string();
+                    break;
+                case 3:
+                    message.name = reader.string();
+                    break;
+                case 4:
+                    message.sex = reader.int32();
+                    break;
+                case 5:
+                    message.level = reader.uint32();
+                    break;
+                case 6:
+                    message.age = reader.uint32();
+                    break;
+                case 7:
+                    message.constellation = reader.uint32();
+                    break;
+                case 8:
+                    message.x = reader.float();
+                    break;
+                case 9:
+                    message.y = reader.float();
+                    break;
+                case 10:
+                    message.sign = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PersonSocialInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.PersonSocialInfo} PersonSocialInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PersonSocialInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PersonSocialInfo message.
+         * @function verify
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PersonSocialInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
+            if (message.face != null && message.hasOwnProperty("face"))
+                if (!$util.isString(message.face))
+                    return "face: string expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            if (message.level != null && message.hasOwnProperty("level"))
+                if (!$util.isInteger(message.level))
+                    return "level: integer expected";
+            if (message.age != null && message.hasOwnProperty("age"))
+                if (!$util.isInteger(message.age))
+                    return "age: integer expected";
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                if (!$util.isInteger(message.constellation))
+                    return "constellation: integer expected";
+            if (message.x != null && message.hasOwnProperty("x"))
+                if (typeof message.x !== "number")
+                    return "x: number expected";
+            if (message.y != null && message.hasOwnProperty("y"))
+                if (typeof message.y !== "number")
+                    return "y: number expected";
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                if (!$util.isString(message.sign))
+                    return "sign: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a PersonSocialInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.PersonSocialInfo} PersonSocialInfo
+         */
+        PersonSocialInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.PersonSocialInfo)
+                return object;
+            var message = new $root.msg.PersonSocialInfo();
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = true;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber(true);
+            if (object.face != null)
+                message.face = String(object.face);
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            if (object.level != null)
+                message.level = object.level >>> 0;
+            if (object.age != null)
+                message.age = object.age >>> 0;
+            if (object.constellation != null)
+                message.constellation = object.constellation >>> 0;
+            if (object.x != null)
+                message.x = Number(object.x);
+            if (object.y != null)
+                message.y = Number(object.y);
+            if (object.sign != null)
+                message.sign = String(object.sign);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PersonSocialInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.PersonSocialInfo
+         * @static
+         * @param {msg.PersonSocialInfo} message PersonSocialInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PersonSocialInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
+                object.face = "";
+                object.name = "";
+                object.sex = 0;
+                object.level = 0;
+                object.age = 0;
+                object.constellation = 0;
+                object.x = 0;
+                object.y = 0;
+                object.sign = "";
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber(true) : message.id;
+            if (message.face != null && message.hasOwnProperty("face"))
+                object.face = message.face;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            if (message.level != null && message.hasOwnProperty("level"))
+                object.level = message.level;
+            if (message.age != null && message.hasOwnProperty("age"))
+                object.age = message.age;
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                object.constellation = message.constellation;
+            if (message.x != null && message.hasOwnProperty("x"))
+                object.x = options.json && !isFinite(message.x) ? String(message.x) : message.x;
+            if (message.y != null && message.hasOwnProperty("y"))
+                object.y = options.json && !isFinite(message.y) ? String(message.y) : message.y;
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                object.sign = message.sign;
+            return object;
+        };
+
+        /**
+         * Converts this PersonSocialInfo to JSON.
+         * @function toJSON
+         * @memberof msg.PersonSocialInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PersonSocialInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return PersonSocialInfo;
+    })();
+
+    msg.GW2C_SendUserEvents = (function() {
+
+        /**
+         * Properties of a GW2C_SendUserEvents.
+         * @memberof msg
+         * @interface IGW2C_SendUserEvents
+         * @property {msg.IUserMapEvent|null} [event] GW2C_SendUserEvents event
+         */
+
+        /**
+         * Constructs a new GW2C_SendUserEvents.
+         * @memberof msg
+         * @classdesc Represents a GW2C_SendUserEvents.
+         * @implements IGW2C_SendUserEvents
+         * @constructor
+         * @param {msg.IGW2C_SendUserEvents=} [properties] Properties to set
+         */
+        function GW2C_SendUserEvents(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_SendUserEvents event.
+         * @member {msg.IUserMapEvent|null|undefined} event
+         * @memberof msg.GW2C_SendUserEvents
+         * @instance
+         */
+        GW2C_SendUserEvents.prototype.event = null;
+
+        /**
+         * Creates a new GW2C_SendUserEvents instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {msg.IGW2C_SendUserEvents=} [properties] Properties to set
+         * @returns {msg.GW2C_SendUserEvents} GW2C_SendUserEvents instance
+         */
+        GW2C_SendUserEvents.create = function create(properties) {
+            return new GW2C_SendUserEvents(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_SendUserEvents message. Does not implicitly {@link msg.GW2C_SendUserEvents.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {msg.IGW2C_SendUserEvents} message GW2C_SendUserEvents message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendUserEvents.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.event != null && message.hasOwnProperty("event"))
+                $root.msg.UserMapEvent.encode(message.event, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_SendUserEvents message, length delimited. Does not implicitly {@link msg.GW2C_SendUserEvents.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {msg.IGW2C_SendUserEvents} message GW2C_SendUserEvents message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_SendUserEvents.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_SendUserEvents message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_SendUserEvents} GW2C_SendUserEvents
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendUserEvents.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_SendUserEvents();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.event = $root.msg.UserMapEvent.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_SendUserEvents message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_SendUserEvents} GW2C_SendUserEvents
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_SendUserEvents.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_SendUserEvents message.
+         * @function verify
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_SendUserEvents.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.event != null && message.hasOwnProperty("event")) {
+                var error = $root.msg.UserMapEvent.verify(message.event);
+                if (error)
+                    return "event." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_SendUserEvents message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_SendUserEvents} GW2C_SendUserEvents
+         */
+        GW2C_SendUserEvents.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_SendUserEvents)
+                return object;
+            var message = new $root.msg.GW2C_SendUserEvents();
+            if (object.event != null) {
+                if (typeof object.event !== "object")
+                    throw TypeError(".msg.GW2C_SendUserEvents.event: object expected");
+                message.event = $root.msg.UserMapEvent.fromObject(object.event);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_SendUserEvents message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_SendUserEvents
+         * @static
+         * @param {msg.GW2C_SendUserEvents} message GW2C_SendUserEvents
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_SendUserEvents.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.event = null;
+            if (message.event != null && message.hasOwnProperty("event"))
+                object.event = $root.msg.UserMapEvent.toObject(message.event, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_SendUserEvents to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_SendUserEvents
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_SendUserEvents.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_SendUserEvents;
+    })();
+
+    msg.C2GW_ReqEnterEvents = (function() {
+
+        /**
+         * Properties of a C2GW_ReqEnterEvents.
+         * @memberof msg
+         * @interface IC2GW_ReqEnterEvents
+         * @property {number|null} [uid] C2GW_ReqEnterEvents uid
+         */
+
+        /**
+         * Constructs a new C2GW_ReqEnterEvents.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqEnterEvents.
+         * @implements IC2GW_ReqEnterEvents
+         * @constructor
+         * @param {msg.IC2GW_ReqEnterEvents=} [properties] Properties to set
+         */
+        function C2GW_ReqEnterEvents(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqEnterEvents uid.
+         * @member {number} uid
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @instance
+         */
+        C2GW_ReqEnterEvents.prototype.uid = 0;
+
+        /**
+         * Creates a new C2GW_ReqEnterEvents instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {msg.IC2GW_ReqEnterEvents=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqEnterEvents} C2GW_ReqEnterEvents instance
+         */
+        C2GW_ReqEnterEvents.create = function create(properties) {
+            return new C2GW_ReqEnterEvents(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqEnterEvents message. Does not implicitly {@link msg.C2GW_ReqEnterEvents.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {msg.IC2GW_ReqEnterEvents} message C2GW_ReqEnterEvents message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqEnterEvents.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.uid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqEnterEvents message, length delimited. Does not implicitly {@link msg.C2GW_ReqEnterEvents.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {msg.IC2GW_ReqEnterEvents} message C2GW_ReqEnterEvents message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqEnterEvents.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqEnterEvents message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqEnterEvents} C2GW_ReqEnterEvents
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqEnterEvents.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqEnterEvents();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.uid = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqEnterEvents message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqEnterEvents} C2GW_ReqEnterEvents
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqEnterEvents.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqEnterEvents message.
+         * @function verify
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqEnterEvents.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (!$util.isInteger(message.uid))
+                    return "uid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqEnterEvents message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqEnterEvents} C2GW_ReqEnterEvents
+         */
+        C2GW_ReqEnterEvents.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqEnterEvents)
+                return object;
+            var message = new $root.msg.C2GW_ReqEnterEvents();
+            if (object.uid != null)
+                message.uid = object.uid >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqEnterEvents message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @static
+         * @param {msg.C2GW_ReqEnterEvents} message C2GW_ReqEnterEvents
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqEnterEvents.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.uid = 0;
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                object.uid = message.uid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqEnterEvents to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqEnterEvents
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqEnterEvents.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqEnterEvents;
     })();
 
     msg.C2GW_ReqHouseData = (function() {
@@ -56725,6 +58182,1519 @@ $root.msg = (function() {
         return C2GW_ReqTaskList;
     })();
 
+    msg.C2GW_ReqNearUsers = (function() {
+
+        /**
+         * Properties of a C2GW_ReqNearUsers.
+         * @memberof msg
+         * @interface IC2GW_ReqNearUsers
+         */
+
+        /**
+         * Constructs a new C2GW_ReqNearUsers.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqNearUsers.
+         * @implements IC2GW_ReqNearUsers
+         * @constructor
+         * @param {msg.IC2GW_ReqNearUsers=} [properties] Properties to set
+         */
+        function C2GW_ReqNearUsers(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2GW_ReqNearUsers instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {msg.IC2GW_ReqNearUsers=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqNearUsers} C2GW_ReqNearUsers instance
+         */
+        C2GW_ReqNearUsers.create = function create(properties) {
+            return new C2GW_ReqNearUsers(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqNearUsers message. Does not implicitly {@link msg.C2GW_ReqNearUsers.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {msg.IC2GW_ReqNearUsers} message C2GW_ReqNearUsers message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqNearUsers.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqNearUsers message, length delimited. Does not implicitly {@link msg.C2GW_ReqNearUsers.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {msg.IC2GW_ReqNearUsers} message C2GW_ReqNearUsers message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqNearUsers.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqNearUsers message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqNearUsers} C2GW_ReqNearUsers
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqNearUsers.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqNearUsers();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqNearUsers message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqNearUsers} C2GW_ReqNearUsers
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqNearUsers.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqNearUsers message.
+         * @function verify
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqNearUsers.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqNearUsers message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqNearUsers} C2GW_ReqNearUsers
+         */
+        C2GW_ReqNearUsers.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqNearUsers)
+                return object;
+            return new $root.msg.C2GW_ReqNearUsers();
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqNearUsers message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqNearUsers
+         * @static
+         * @param {msg.C2GW_ReqNearUsers} message C2GW_ReqNearUsers
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqNearUsers.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2GW_ReqNearUsers to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqNearUsers
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqNearUsers.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqNearUsers;
+    })();
+
+    msg.GW2C_AckNearUsers = (function() {
+
+        /**
+         * Properties of a GW2C_AckNearUsers.
+         * @memberof msg
+         * @interface IGW2C_AckNearUsers
+         * @property {Array.<msg.IPersonSocialInfo>|null} [data] GW2C_AckNearUsers data
+         */
+
+        /**
+         * Constructs a new GW2C_AckNearUsers.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckNearUsers.
+         * @implements IGW2C_AckNearUsers
+         * @constructor
+         * @param {msg.IGW2C_AckNearUsers=} [properties] Properties to set
+         */
+        function GW2C_AckNearUsers(properties) {
+            this.data = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckNearUsers data.
+         * @member {Array.<msg.IPersonSocialInfo>} data
+         * @memberof msg.GW2C_AckNearUsers
+         * @instance
+         */
+        GW2C_AckNearUsers.prototype.data = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_AckNearUsers instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {msg.IGW2C_AckNearUsers=} [properties] Properties to set
+         * @returns {msg.GW2C_AckNearUsers} GW2C_AckNearUsers instance
+         */
+        GW2C_AckNearUsers.create = function create(properties) {
+            return new GW2C_AckNearUsers(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckNearUsers message. Does not implicitly {@link msg.GW2C_AckNearUsers.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {msg.IGW2C_AckNearUsers} message GW2C_AckNearUsers message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckNearUsers.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.data != null && message.data.length)
+                for (var i = 0; i < message.data.length; ++i)
+                    $root.msg.PersonSocialInfo.encode(message.data[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckNearUsers message, length delimited. Does not implicitly {@link msg.GW2C_AckNearUsers.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {msg.IGW2C_AckNearUsers} message GW2C_AckNearUsers message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckNearUsers.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckNearUsers message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckNearUsers} GW2C_AckNearUsers
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckNearUsers.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckNearUsers();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.data && message.data.length))
+                        message.data = [];
+                    message.data.push($root.msg.PersonSocialInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckNearUsers message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckNearUsers} GW2C_AckNearUsers
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckNearUsers.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckNearUsers message.
+         * @function verify
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckNearUsers.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                if (!Array.isArray(message.data))
+                    return "data: array expected";
+                for (var i = 0; i < message.data.length; ++i) {
+                    var error = $root.msg.PersonSocialInfo.verify(message.data[i]);
+                    if (error)
+                        return "data." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckNearUsers message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckNearUsers} GW2C_AckNearUsers
+         */
+        GW2C_AckNearUsers.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckNearUsers)
+                return object;
+            var message = new $root.msg.GW2C_AckNearUsers();
+            if (object.data) {
+                if (!Array.isArray(object.data))
+                    throw TypeError(".msg.GW2C_AckNearUsers.data: array expected");
+                message.data = [];
+                for (var i = 0; i < object.data.length; ++i) {
+                    if (typeof object.data[i] !== "object")
+                        throw TypeError(".msg.GW2C_AckNearUsers.data: object expected");
+                    message.data[i] = $root.msg.PersonSocialInfo.fromObject(object.data[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckNearUsers message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckNearUsers
+         * @static
+         * @param {msg.GW2C_AckNearUsers} message GW2C_AckNearUsers
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckNearUsers.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.data = [];
+            if (message.data && message.data.length) {
+                object.data = [];
+                for (var j = 0; j < message.data.length; ++j)
+                    object.data[j] = $root.msg.PersonSocialInfo.toObject(message.data[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckNearUsers to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckNearUsers
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckNearUsers.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckNearUsers;
+    })();
+
+    msg.C2GW_ReqSetPos = (function() {
+
+        /**
+         * Properties of a C2GW_ReqSetPos.
+         * @memberof msg
+         * @interface IC2GW_ReqSetPos
+         * @property {number|null} [x] C2GW_ReqSetPos x
+         * @property {number|null} [y] C2GW_ReqSetPos y
+         */
+
+        /**
+         * Constructs a new C2GW_ReqSetPos.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqSetPos.
+         * @implements IC2GW_ReqSetPos
+         * @constructor
+         * @param {msg.IC2GW_ReqSetPos=} [properties] Properties to set
+         */
+        function C2GW_ReqSetPos(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqSetPos x.
+         * @member {number} x
+         * @memberof msg.C2GW_ReqSetPos
+         * @instance
+         */
+        C2GW_ReqSetPos.prototype.x = 0;
+
+        /**
+         * C2GW_ReqSetPos y.
+         * @member {number} y
+         * @memberof msg.C2GW_ReqSetPos
+         * @instance
+         */
+        C2GW_ReqSetPos.prototype.y = 0;
+
+        /**
+         * Creates a new C2GW_ReqSetPos instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {msg.IC2GW_ReqSetPos=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqSetPos} C2GW_ReqSetPos instance
+         */
+        C2GW_ReqSetPos.create = function create(properties) {
+            return new C2GW_ReqSetPos(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetPos message. Does not implicitly {@link msg.C2GW_ReqSetPos.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {msg.IC2GW_ReqSetPos} message C2GW_ReqSetPos message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetPos.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.x != null && message.hasOwnProperty("x"))
+                writer.uint32(/* id 1, wireType 5 =*/13).float(message.x);
+            if (message.y != null && message.hasOwnProperty("y"))
+                writer.uint32(/* id 2, wireType 5 =*/21).float(message.y);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetPos message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetPos.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {msg.IC2GW_ReqSetPos} message C2GW_ReqSetPos message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetPos.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetPos message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqSetPos} C2GW_ReqSetPos
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetPos.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqSetPos();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.x = reader.float();
+                    break;
+                case 2:
+                    message.y = reader.float();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetPos message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqSetPos} C2GW_ReqSetPos
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetPos.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqSetPos message.
+         * @function verify
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqSetPos.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.x != null && message.hasOwnProperty("x"))
+                if (typeof message.x !== "number")
+                    return "x: number expected";
+            if (message.y != null && message.hasOwnProperty("y"))
+                if (typeof message.y !== "number")
+                    return "y: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqSetPos message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqSetPos} C2GW_ReqSetPos
+         */
+        C2GW_ReqSetPos.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqSetPos)
+                return object;
+            var message = new $root.msg.C2GW_ReqSetPos();
+            if (object.x != null)
+                message.x = Number(object.x);
+            if (object.y != null)
+                message.y = Number(object.y);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetPos message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqSetPos
+         * @static
+         * @param {msg.C2GW_ReqSetPos} message C2GW_ReqSetPos
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqSetPos.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.x = 0;
+                object.y = 0;
+            }
+            if (message.x != null && message.hasOwnProperty("x"))
+                object.x = options.json && !isFinite(message.x) ? String(message.x) : message.x;
+            if (message.y != null && message.hasOwnProperty("y"))
+                object.y = options.json && !isFinite(message.y) ? String(message.y) : message.y;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqSetPos to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqSetPos
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqSetPos.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqSetPos;
+    })();
+
+    msg.C2GW_ReqSetUserSex = (function() {
+
+        /**
+         * Properties of a C2GW_ReqSetUserSex.
+         * @memberof msg
+         * @interface IC2GW_ReqSetUserSex
+         * @property {number|null} [sex] C2GW_ReqSetUserSex sex
+         */
+
+        /**
+         * Constructs a new C2GW_ReqSetUserSex.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqSetUserSex.
+         * @implements IC2GW_ReqSetUserSex
+         * @constructor
+         * @param {msg.IC2GW_ReqSetUserSex=} [properties] Properties to set
+         */
+        function C2GW_ReqSetUserSex(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqSetUserSex sex.
+         * @member {number} sex
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @instance
+         */
+        C2GW_ReqSetUserSex.prototype.sex = 0;
+
+        /**
+         * Creates a new C2GW_ReqSetUserSex instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {msg.IC2GW_ReqSetUserSex=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqSetUserSex} C2GW_ReqSetUserSex instance
+         */
+        C2GW_ReqSetUserSex.create = function create(properties) {
+            return new C2GW_ReqSetUserSex(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserSex message. Does not implicitly {@link msg.C2GW_ReqSetUserSex.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {msg.IC2GW_ReqSetUserSex} message C2GW_ReqSetUserSex message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserSex.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sex);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserSex message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetUserSex.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {msg.IC2GW_ReqSetUserSex} message C2GW_ReqSetUserSex message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserSex.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserSex message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqSetUserSex} C2GW_ReqSetUserSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserSex.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqSetUserSex();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.sex = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserSex message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqSetUserSex} C2GW_ReqSetUserSex
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserSex.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqSetUserSex message.
+         * @function verify
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqSetUserSex.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqSetUserSex message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqSetUserSex} C2GW_ReqSetUserSex
+         */
+        C2GW_ReqSetUserSex.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqSetUserSex)
+                return object;
+            var message = new $root.msg.C2GW_ReqSetUserSex();
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetUserSex message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @static
+         * @param {msg.C2GW_ReqSetUserSex} message C2GW_ReqSetUserSex
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqSetUserSex.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.sex = 0;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqSetUserSex to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqSetUserSex
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqSetUserSex.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqSetUserSex;
+    })();
+
+    msg.C2GW_ReqSetUserAge = (function() {
+
+        /**
+         * Properties of a C2GW_ReqSetUserAge.
+         * @memberof msg
+         * @interface IC2GW_ReqSetUserAge
+         * @property {number|null} [age] C2GW_ReqSetUserAge age
+         */
+
+        /**
+         * Constructs a new C2GW_ReqSetUserAge.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqSetUserAge.
+         * @implements IC2GW_ReqSetUserAge
+         * @constructor
+         * @param {msg.IC2GW_ReqSetUserAge=} [properties] Properties to set
+         */
+        function C2GW_ReqSetUserAge(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqSetUserAge age.
+         * @member {number} age
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @instance
+         */
+        C2GW_ReqSetUserAge.prototype.age = 0;
+
+        /**
+         * Creates a new C2GW_ReqSetUserAge instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {msg.IC2GW_ReqSetUserAge=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqSetUserAge} C2GW_ReqSetUserAge instance
+         */
+        C2GW_ReqSetUserAge.create = function create(properties) {
+            return new C2GW_ReqSetUserAge(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserAge message. Does not implicitly {@link msg.C2GW_ReqSetUserAge.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {msg.IC2GW_ReqSetUserAge} message C2GW_ReqSetUserAge message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserAge.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.age != null && message.hasOwnProperty("age"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.age);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserAge message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetUserAge.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {msg.IC2GW_ReqSetUserAge} message C2GW_ReqSetUserAge message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserAge.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserAge message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqSetUserAge} C2GW_ReqSetUserAge
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserAge.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqSetUserAge();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.age = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserAge message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqSetUserAge} C2GW_ReqSetUserAge
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserAge.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqSetUserAge message.
+         * @function verify
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqSetUserAge.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.age != null && message.hasOwnProperty("age"))
+                if (!$util.isInteger(message.age))
+                    return "age: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqSetUserAge message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqSetUserAge} C2GW_ReqSetUserAge
+         */
+        C2GW_ReqSetUserAge.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqSetUserAge)
+                return object;
+            var message = new $root.msg.C2GW_ReqSetUserAge();
+            if (object.age != null)
+                message.age = object.age >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetUserAge message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @static
+         * @param {msg.C2GW_ReqSetUserAge} message C2GW_ReqSetUserAge
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqSetUserAge.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.age = 0;
+            if (message.age != null && message.hasOwnProperty("age"))
+                object.age = message.age;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqSetUserAge to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqSetUserAge
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqSetUserAge.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqSetUserAge;
+    })();
+
+    msg.C2GW_ReqSetUserConstellation = (function() {
+
+        /**
+         * Properties of a C2GW_ReqSetUserConstellation.
+         * @memberof msg
+         * @interface IC2GW_ReqSetUserConstellation
+         * @property {number|null} [constellation] C2GW_ReqSetUserConstellation constellation
+         */
+
+        /**
+         * Constructs a new C2GW_ReqSetUserConstellation.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqSetUserConstellation.
+         * @implements IC2GW_ReqSetUserConstellation
+         * @constructor
+         * @param {msg.IC2GW_ReqSetUserConstellation=} [properties] Properties to set
+         */
+        function C2GW_ReqSetUserConstellation(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqSetUserConstellation constellation.
+         * @member {number} constellation
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @instance
+         */
+        C2GW_ReqSetUserConstellation.prototype.constellation = 0;
+
+        /**
+         * Creates a new C2GW_ReqSetUserConstellation instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {msg.IC2GW_ReqSetUserConstellation=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqSetUserConstellation} C2GW_ReqSetUserConstellation instance
+         */
+        C2GW_ReqSetUserConstellation.create = function create(properties) {
+            return new C2GW_ReqSetUserConstellation(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserConstellation message. Does not implicitly {@link msg.C2GW_ReqSetUserConstellation.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {msg.IC2GW_ReqSetUserConstellation} message C2GW_ReqSetUserConstellation message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserConstellation.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.constellation);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserConstellation message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetUserConstellation.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {msg.IC2GW_ReqSetUserConstellation} message C2GW_ReqSetUserConstellation message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserConstellation.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserConstellation message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqSetUserConstellation} C2GW_ReqSetUserConstellation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserConstellation.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqSetUserConstellation();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.constellation = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserConstellation message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqSetUserConstellation} C2GW_ReqSetUserConstellation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserConstellation.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqSetUserConstellation message.
+         * @function verify
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqSetUserConstellation.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                if (!$util.isInteger(message.constellation))
+                    return "constellation: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqSetUserConstellation message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqSetUserConstellation} C2GW_ReqSetUserConstellation
+         */
+        C2GW_ReqSetUserConstellation.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqSetUserConstellation)
+                return object;
+            var message = new $root.msg.C2GW_ReqSetUserConstellation();
+            if (object.constellation != null)
+                message.constellation = object.constellation >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetUserConstellation message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @static
+         * @param {msg.C2GW_ReqSetUserConstellation} message C2GW_ReqSetUserConstellation
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqSetUserConstellation.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.constellation = 0;
+            if (message.constellation != null && message.hasOwnProperty("constellation"))
+                object.constellation = message.constellation;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqSetUserConstellation to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqSetUserConstellation
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqSetUserConstellation.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqSetUserConstellation;
+    })();
+
+    msg.C2GW_ReqSetUserSign = (function() {
+
+        /**
+         * Properties of a C2GW_ReqSetUserSign.
+         * @memberof msg
+         * @interface IC2GW_ReqSetUserSign
+         * @property {string|null} [sign] C2GW_ReqSetUserSign sign
+         */
+
+        /**
+         * Constructs a new C2GW_ReqSetUserSign.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqSetUserSign.
+         * @implements IC2GW_ReqSetUserSign
+         * @constructor
+         * @param {msg.IC2GW_ReqSetUserSign=} [properties] Properties to set
+         */
+        function C2GW_ReqSetUserSign(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqSetUserSign sign.
+         * @member {string} sign
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @instance
+         */
+        C2GW_ReqSetUserSign.prototype.sign = "";
+
+        /**
+         * Creates a new C2GW_ReqSetUserSign instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {msg.IC2GW_ReqSetUserSign=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqSetUserSign} C2GW_ReqSetUserSign instance
+         */
+        C2GW_ReqSetUserSign.create = function create(properties) {
+            return new C2GW_ReqSetUserSign(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserSign message. Does not implicitly {@link msg.C2GW_ReqSetUserSign.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {msg.IC2GW_ReqSetUserSign} message C2GW_ReqSetUserSign message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserSign.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.sign);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserSign message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetUserSign.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {msg.IC2GW_ReqSetUserSign} message C2GW_ReqSetUserSign message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserSign.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserSign message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqSetUserSign} C2GW_ReqSetUserSign
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserSign.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqSetUserSign();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.sign = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserSign message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqSetUserSign} C2GW_ReqSetUserSign
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserSign.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqSetUserSign message.
+         * @function verify
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqSetUserSign.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                if (!$util.isString(message.sign))
+                    return "sign: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqSetUserSign message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqSetUserSign} C2GW_ReqSetUserSign
+         */
+        C2GW_ReqSetUserSign.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqSetUserSign)
+                return object;
+            var message = new $root.msg.C2GW_ReqSetUserSign();
+            if (object.sign != null)
+                message.sign = String(object.sign);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetUserSign message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @static
+         * @param {msg.C2GW_ReqSetUserSign} message C2GW_ReqSetUserSign
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqSetUserSign.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.sign = "";
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                object.sign = message.sign;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqSetUserSign to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqSetUserSign
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqSetUserSign.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqSetUserSign;
+    })();
+
+    msg.C2GW_ReqSetFace = (function() {
+
+        /**
+         * Properties of a C2GW_ReqSetFace.
+         * @memberof msg
+         * @interface IC2GW_ReqSetFace
+         * @property {string|null} [face] C2GW_ReqSetFace face
+         */
+
+        /**
+         * Constructs a new C2GW_ReqSetFace.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqSetFace.
+         * @implements IC2GW_ReqSetFace
+         * @constructor
+         * @param {msg.IC2GW_ReqSetFace=} [properties] Properties to set
+         */
+        function C2GW_ReqSetFace(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqSetFace face.
+         * @member {string} face
+         * @memberof msg.C2GW_ReqSetFace
+         * @instance
+         */
+        C2GW_ReqSetFace.prototype.face = "";
+
+        /**
+         * Creates a new C2GW_ReqSetFace instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {msg.IC2GW_ReqSetFace=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqSetFace} C2GW_ReqSetFace instance
+         */
+        C2GW_ReqSetFace.create = function create(properties) {
+            return new C2GW_ReqSetFace(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetFace message. Does not implicitly {@link msg.C2GW_ReqSetFace.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {msg.IC2GW_ReqSetFace} message C2GW_ReqSetFace message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetFace.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.face != null && message.hasOwnProperty("face"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.face);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetFace message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetFace.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {msg.IC2GW_ReqSetFace} message C2GW_ReqSetFace message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetFace.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetFace message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqSetFace} C2GW_ReqSetFace
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetFace.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqSetFace();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.face = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetFace message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqSetFace} C2GW_ReqSetFace
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetFace.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqSetFace message.
+         * @function verify
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqSetFace.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.face != null && message.hasOwnProperty("face"))
+                if (!$util.isString(message.face))
+                    return "face: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqSetFace message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqSetFace} C2GW_ReqSetFace
+         */
+        C2GW_ReqSetFace.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqSetFace)
+                return object;
+            var message = new $root.msg.C2GW_ReqSetFace();
+            if (object.face != null)
+                message.face = String(object.face);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetFace message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqSetFace
+         * @static
+         * @param {msg.C2GW_ReqSetFace} message C2GW_ReqSetFace
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqSetFace.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.face = "";
+            if (message.face != null && message.hasOwnProperty("face"))
+                object.face = message.face;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqSetFace to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqSetFace
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqSetFace.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqSetFace;
+    })();
+
     return msg;
 })();
 
@@ -59881,6 +62851,7 @@ $root.table = (function() {
          * @property {number|null} [Province] TBuildingsDefine Province
          * @property {number|null} [City] TBuildingsDefine City
          * @property {number|null} [CommunityId] TBuildingsDefine CommunityId
+         * @property {string|null} [Icon] TBuildingsDefine Icon
          * @property {string|null} [Community] TBuildingsDefine Community
          * @property {number|null} [Number] TBuildingsDefine Number
          * @property {number|null} [MaxFloor] TBuildingsDefine MaxFloor
@@ -59941,6 +62912,14 @@ $root.table = (function() {
          * @instance
          */
         TBuildingsDefine.prototype.CommunityId = 0;
+
+        /**
+         * TBuildingsDefine Icon.
+         * @member {string} Icon
+         * @memberof table.TBuildingsDefine
+         * @instance
+         */
+        TBuildingsDefine.prototype.Icon = "";
 
         /**
          * TBuildingsDefine Community.
@@ -60070,30 +63049,32 @@ $root.table = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.City);
             if (message.CommunityId != null && message.hasOwnProperty("CommunityId"))
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.CommunityId);
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Icon);
             if (message.Community != null && message.hasOwnProperty("Community"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Community);
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Community);
             if (message.Number != null && message.hasOwnProperty("Number"))
-                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.Number);
+                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.Number);
             if (message.MaxFloor != null && message.hasOwnProperty("MaxFloor"))
-                writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.MaxFloor);
+                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.MaxFloor);
             if (message.NumPerFloor != null && message.hasOwnProperty("NumPerFloor"))
-                writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.NumPerFloor);
+                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.NumPerFloor);
             if (message.BuildingPrice != null && message.hasOwnProperty("BuildingPrice"))
-                writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.BuildingPrice);
+                writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.BuildingPrice);
             if (message.Houses1 != null && message.hasOwnProperty("Houses1"))
-                writer.uint32(/* id 10, wireType 2 =*/82).string(message.Houses1);
+                writer.uint32(/* id 11, wireType 2 =*/90).string(message.Houses1);
             if (message.Houses2 != null && message.hasOwnProperty("Houses2"))
-                writer.uint32(/* id 11, wireType 2 =*/90).string(message.Houses2);
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Houses2);
             if (message.Houses3 != null && message.hasOwnProperty("Houses3"))
-                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Houses3);
+                writer.uint32(/* id 13, wireType 2 =*/106).string(message.Houses3);
             if (message.Houses4 != null && message.hasOwnProperty("Houses4"))
-                writer.uint32(/* id 13, wireType 2 =*/106).string(message.Houses4);
+                writer.uint32(/* id 14, wireType 2 =*/114).string(message.Houses4);
             if (message.PosX != null && message.hasOwnProperty("PosX"))
-                writer.uint32(/* id 14, wireType 5 =*/117).float(message.PosX);
+                writer.uint32(/* id 15, wireType 5 =*/125).float(message.PosX);
             if (message.PosY != null && message.hasOwnProperty("PosY"))
-                writer.uint32(/* id 15, wireType 5 =*/125).float(message.PosY);
+                writer.uint32(/* id 16, wireType 5 =*/133).float(message.PosY);
             if (message.Des != null && message.hasOwnProperty("Des"))
-                writer.uint32(/* id 16, wireType 2 =*/130).string(message.Des);
+                writer.uint32(/* id 17, wireType 2 =*/138).string(message.Des);
             return writer;
         };
 
@@ -60141,39 +63122,42 @@ $root.table = (function() {
                     message.CommunityId = reader.uint32();
                     break;
                 case 5:
-                    message.Community = reader.string();
+                    message.Icon = reader.string();
                     break;
                 case 6:
-                    message.Number = reader.uint32();
+                    message.Community = reader.string();
                     break;
                 case 7:
-                    message.MaxFloor = reader.uint32();
+                    message.Number = reader.uint32();
                     break;
                 case 8:
-                    message.NumPerFloor = reader.uint32();
+                    message.MaxFloor = reader.uint32();
                     break;
                 case 9:
-                    message.BuildingPrice = reader.uint32();
+                    message.NumPerFloor = reader.uint32();
                     break;
                 case 10:
-                    message.Houses1 = reader.string();
+                    message.BuildingPrice = reader.uint32();
                     break;
                 case 11:
-                    message.Houses2 = reader.string();
+                    message.Houses1 = reader.string();
                     break;
                 case 12:
-                    message.Houses3 = reader.string();
+                    message.Houses2 = reader.string();
                     break;
                 case 13:
-                    message.Houses4 = reader.string();
+                    message.Houses3 = reader.string();
                     break;
                 case 14:
-                    message.PosX = reader.float();
+                    message.Houses4 = reader.string();
                     break;
                 case 15:
-                    message.PosY = reader.float();
+                    message.PosX = reader.float();
                     break;
                 case 16:
+                    message.PosY = reader.float();
+                    break;
+                case 17:
                     message.Des = reader.string();
                     break;
                 default:
@@ -60223,6 +63207,9 @@ $root.table = (function() {
             if (message.CommunityId != null && message.hasOwnProperty("CommunityId"))
                 if (!$util.isInteger(message.CommunityId))
                     return "CommunityId: integer expected";
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                if (!$util.isString(message.Icon))
+                    return "Icon: string expected";
             if (message.Community != null && message.hasOwnProperty("Community"))
                 if (!$util.isString(message.Community))
                     return "Community: string expected";
@@ -60282,6 +63269,8 @@ $root.table = (function() {
                 message.City = object.City >>> 0;
             if (object.CommunityId != null)
                 message.CommunityId = object.CommunityId >>> 0;
+            if (object.Icon != null)
+                message.Icon = String(object.Icon);
             if (object.Community != null)
                 message.Community = String(object.Community);
             if (object.Number != null)
@@ -60327,6 +63316,7 @@ $root.table = (function() {
                 object.Province = 0;
                 object.City = 0;
                 object.CommunityId = 0;
+                object.Icon = "";
                 object.Community = "";
                 object.Number = 0;
                 object.MaxFloor = 0;
@@ -60348,6 +63338,8 @@ $root.table = (function() {
                 object.City = message.City;
             if (message.CommunityId != null && message.hasOwnProperty("CommunityId"))
                 object.CommunityId = message.CommunityId;
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                object.Icon = message.Icon;
             if (message.Community != null && message.hasOwnProperty("Community"))
                 object.Community = message.Community;
             if (message.Number != null && message.hasOwnProperty("Number"))
@@ -69181,6 +72173,1035 @@ $root.table = (function() {
         };
 
         return TLevelMaidDefine;
+    })();
+
+    table.MapEventBase = (function() {
+
+        /**
+         * Properties of a MapEventBase.
+         * @memberof table
+         * @interface IMapEventBase
+         * @property {Array.<table.ITMapEventDefine>|null} [TMapEvent] MapEventBase TMapEvent
+         */
+
+        /**
+         * Constructs a new MapEventBase.
+         * @memberof table
+         * @classdesc Represents a MapEventBase.
+         * @implements IMapEventBase
+         * @constructor
+         * @param {table.IMapEventBase=} [properties] Properties to set
+         */
+        function MapEventBase(properties) {
+            this.TMapEvent = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MapEventBase TMapEvent.
+         * @member {Array.<table.ITMapEventDefine>} TMapEvent
+         * @memberof table.MapEventBase
+         * @instance
+         */
+        MapEventBase.prototype.TMapEvent = $util.emptyArray;
+
+        /**
+         * Creates a new MapEventBase instance using the specified properties.
+         * @function create
+         * @memberof table.MapEventBase
+         * @static
+         * @param {table.IMapEventBase=} [properties] Properties to set
+         * @returns {table.MapEventBase} MapEventBase instance
+         */
+        MapEventBase.create = function create(properties) {
+            return new MapEventBase(properties);
+        };
+
+        /**
+         * Encodes the specified MapEventBase message. Does not implicitly {@link table.MapEventBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.MapEventBase
+         * @static
+         * @param {table.IMapEventBase} message MapEventBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MapEventBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TMapEvent != null && message.TMapEvent.length)
+                for (var i = 0; i < message.TMapEvent.length; ++i)
+                    $root.table.TMapEventDefine.encode(message.TMapEvent[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MapEventBase message, length delimited. Does not implicitly {@link table.MapEventBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.MapEventBase
+         * @static
+         * @param {table.IMapEventBase} message MapEventBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MapEventBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MapEventBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.MapEventBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.MapEventBase} MapEventBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MapEventBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.MapEventBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TMapEvent && message.TMapEvent.length))
+                        message.TMapEvent = [];
+                    message.TMapEvent.push($root.table.TMapEventDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MapEventBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.MapEventBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.MapEventBase} MapEventBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MapEventBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MapEventBase message.
+         * @function verify
+         * @memberof table.MapEventBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MapEventBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TMapEvent != null && message.hasOwnProperty("TMapEvent")) {
+                if (!Array.isArray(message.TMapEvent))
+                    return "TMapEvent: array expected";
+                for (var i = 0; i < message.TMapEvent.length; ++i) {
+                    var error = $root.table.TMapEventDefine.verify(message.TMapEvent[i]);
+                    if (error)
+                        return "TMapEvent." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a MapEventBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.MapEventBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.MapEventBase} MapEventBase
+         */
+        MapEventBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.MapEventBase)
+                return object;
+            var message = new $root.table.MapEventBase();
+            if (object.TMapEvent) {
+                if (!Array.isArray(object.TMapEvent))
+                    throw TypeError(".table.MapEventBase.TMapEvent: array expected");
+                message.TMapEvent = [];
+                for (var i = 0; i < object.TMapEvent.length; ++i) {
+                    if (typeof object.TMapEvent[i] !== "object")
+                        throw TypeError(".table.MapEventBase.TMapEvent: object expected");
+                    message.TMapEvent[i] = $root.table.TMapEventDefine.fromObject(object.TMapEvent[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MapEventBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.MapEventBase
+         * @static
+         * @param {table.MapEventBase} message MapEventBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MapEventBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TMapEvent = [];
+            if (message.TMapEvent && message.TMapEvent.length) {
+                object.TMapEvent = [];
+                for (var j = 0; j < message.TMapEvent.length; ++j)
+                    object.TMapEvent[j] = $root.table.TMapEventDefine.toObject(message.TMapEvent[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this MapEventBase to JSON.
+         * @function toJSON
+         * @memberof table.MapEventBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MapEventBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MapEventBase;
+    })();
+
+    table.TMapEventDefine = (function() {
+
+        /**
+         * Properties of a TMapEventDefine.
+         * @memberof table
+         * @interface ITMapEventDefine
+         * @property {number|null} [Id] TMapEventDefine Id
+         * @property {number|null} [Type] TMapEventDefine Type
+         * @property {string|null} [Desc] TMapEventDefine Desc
+         * @property {number|null} [MoneyType] TMapEventDefine MoneyType
+         * @property {number|null} [Price] TMapEventDefine Price
+         * @property {string|null} [Icon] TMapEventDefine Icon
+         * @property {string|null} [Reward] TMapEventDefine Reward
+         */
+
+        /**
+         * Constructs a new TMapEventDefine.
+         * @memberof table
+         * @classdesc Represents a TMapEventDefine.
+         * @implements ITMapEventDefine
+         * @constructor
+         * @param {table.ITMapEventDefine=} [properties] Properties to set
+         */
+        function TMapEventDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TMapEventDefine Id.
+         * @member {number} Id
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.Id = 0;
+
+        /**
+         * TMapEventDefine Type.
+         * @member {number} Type
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.Type = 0;
+
+        /**
+         * TMapEventDefine Desc.
+         * @member {string} Desc
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.Desc = "";
+
+        /**
+         * TMapEventDefine MoneyType.
+         * @member {number} MoneyType
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.MoneyType = 0;
+
+        /**
+         * TMapEventDefine Price.
+         * @member {number} Price
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.Price = 0;
+
+        /**
+         * TMapEventDefine Icon.
+         * @member {string} Icon
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.Icon = "";
+
+        /**
+         * TMapEventDefine Reward.
+         * @member {string} Reward
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.Reward = "";
+
+        /**
+         * Creates a new TMapEventDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {table.ITMapEventDefine=} [properties] Properties to set
+         * @returns {table.TMapEventDefine} TMapEventDefine instance
+         */
+        TMapEventDefine.create = function create(properties) {
+            return new TMapEventDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TMapEventDefine message. Does not implicitly {@link table.TMapEventDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {table.ITMapEventDefine} message TMapEventDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TMapEventDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.Type);
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.Desc);
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.MoneyType);
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.Price);
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Icon);
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.Reward);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TMapEventDefine message, length delimited. Does not implicitly {@link table.TMapEventDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {table.ITMapEventDefine} message TMapEventDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TMapEventDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TMapEventDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TMapEventDefine} TMapEventDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TMapEventDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TMapEventDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.Type = reader.uint32();
+                    break;
+                case 3:
+                    message.Desc = reader.string();
+                    break;
+                case 4:
+                    message.MoneyType = reader.uint32();
+                    break;
+                case 5:
+                    message.Price = reader.uint32();
+                    break;
+                case 6:
+                    message.Icon = reader.string();
+                    break;
+                case 7:
+                    message.Reward = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TMapEventDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TMapEventDefine} TMapEventDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TMapEventDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TMapEventDefine message.
+         * @function verify
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TMapEventDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                if (!$util.isString(message.Desc))
+                    return "Desc: string expected";
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                if (!$util.isInteger(message.MoneyType))
+                    return "MoneyType: integer expected";
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                if (!$util.isInteger(message.Price))
+                    return "Price: integer expected";
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                if (!$util.isString(message.Icon))
+                    return "Icon: string expected";
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                if (!$util.isString(message.Reward))
+                    return "Reward: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TMapEventDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TMapEventDefine} TMapEventDefine
+         */
+        TMapEventDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TMapEventDefine)
+                return object;
+            var message = new $root.table.TMapEventDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.Type != null)
+                message.Type = object.Type >>> 0;
+            if (object.Desc != null)
+                message.Desc = String(object.Desc);
+            if (object.MoneyType != null)
+                message.MoneyType = object.MoneyType >>> 0;
+            if (object.Price != null)
+                message.Price = object.Price >>> 0;
+            if (object.Icon != null)
+                message.Icon = String(object.Icon);
+            if (object.Reward != null)
+                message.Reward = String(object.Reward);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TMapEventDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TMapEventDefine
+         * @static
+         * @param {table.TMapEventDefine} message TMapEventDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TMapEventDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.Desc = "";
+                object.MoneyType = 0;
+                object.Price = 0;
+                object.Icon = "";
+                object.Reward = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                object.Desc = message.Desc;
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                object.MoneyType = message.MoneyType;
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                object.Price = message.Price;
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                object.Icon = message.Icon;
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                object.Reward = message.Reward;
+            return object;
+        };
+
+        /**
+         * Converts this TMapEventDefine to JSON.
+         * @function toJSON
+         * @memberof table.TMapEventDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TMapEventDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TMapEventDefine;
+    })();
+
+    table.MapEventRefreshBase = (function() {
+
+        /**
+         * Properties of a MapEventRefreshBase.
+         * @memberof table
+         * @interface IMapEventRefreshBase
+         * @property {Array.<table.ITMapEventRefreshDefine>|null} [TMapEventRefresh] MapEventRefreshBase TMapEventRefresh
+         */
+
+        /**
+         * Constructs a new MapEventRefreshBase.
+         * @memberof table
+         * @classdesc Represents a MapEventRefreshBase.
+         * @implements IMapEventRefreshBase
+         * @constructor
+         * @param {table.IMapEventRefreshBase=} [properties] Properties to set
+         */
+        function MapEventRefreshBase(properties) {
+            this.TMapEventRefresh = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MapEventRefreshBase TMapEventRefresh.
+         * @member {Array.<table.ITMapEventRefreshDefine>} TMapEventRefresh
+         * @memberof table.MapEventRefreshBase
+         * @instance
+         */
+        MapEventRefreshBase.prototype.TMapEventRefresh = $util.emptyArray;
+
+        /**
+         * Creates a new MapEventRefreshBase instance using the specified properties.
+         * @function create
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {table.IMapEventRefreshBase=} [properties] Properties to set
+         * @returns {table.MapEventRefreshBase} MapEventRefreshBase instance
+         */
+        MapEventRefreshBase.create = function create(properties) {
+            return new MapEventRefreshBase(properties);
+        };
+
+        /**
+         * Encodes the specified MapEventRefreshBase message. Does not implicitly {@link table.MapEventRefreshBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {table.IMapEventRefreshBase} message MapEventRefreshBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MapEventRefreshBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TMapEventRefresh != null && message.TMapEventRefresh.length)
+                for (var i = 0; i < message.TMapEventRefresh.length; ++i)
+                    $root.table.TMapEventRefreshDefine.encode(message.TMapEventRefresh[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MapEventRefreshBase message, length delimited. Does not implicitly {@link table.MapEventRefreshBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {table.IMapEventRefreshBase} message MapEventRefreshBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MapEventRefreshBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MapEventRefreshBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.MapEventRefreshBase} MapEventRefreshBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MapEventRefreshBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.MapEventRefreshBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TMapEventRefresh && message.TMapEventRefresh.length))
+                        message.TMapEventRefresh = [];
+                    message.TMapEventRefresh.push($root.table.TMapEventRefreshDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MapEventRefreshBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.MapEventRefreshBase} MapEventRefreshBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MapEventRefreshBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MapEventRefreshBase message.
+         * @function verify
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MapEventRefreshBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TMapEventRefresh != null && message.hasOwnProperty("TMapEventRefresh")) {
+                if (!Array.isArray(message.TMapEventRefresh))
+                    return "TMapEventRefresh: array expected";
+                for (var i = 0; i < message.TMapEventRefresh.length; ++i) {
+                    var error = $root.table.TMapEventRefreshDefine.verify(message.TMapEventRefresh[i]);
+                    if (error)
+                        return "TMapEventRefresh." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a MapEventRefreshBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.MapEventRefreshBase} MapEventRefreshBase
+         */
+        MapEventRefreshBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.MapEventRefreshBase)
+                return object;
+            var message = new $root.table.MapEventRefreshBase();
+            if (object.TMapEventRefresh) {
+                if (!Array.isArray(object.TMapEventRefresh))
+                    throw TypeError(".table.MapEventRefreshBase.TMapEventRefresh: array expected");
+                message.TMapEventRefresh = [];
+                for (var i = 0; i < object.TMapEventRefresh.length; ++i) {
+                    if (typeof object.TMapEventRefresh[i] !== "object")
+                        throw TypeError(".table.MapEventRefreshBase.TMapEventRefresh: object expected");
+                    message.TMapEventRefresh[i] = $root.table.TMapEventRefreshDefine.fromObject(object.TMapEventRefresh[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MapEventRefreshBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.MapEventRefreshBase
+         * @static
+         * @param {table.MapEventRefreshBase} message MapEventRefreshBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MapEventRefreshBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TMapEventRefresh = [];
+            if (message.TMapEventRefresh && message.TMapEventRefresh.length) {
+                object.TMapEventRefresh = [];
+                for (var j = 0; j < message.TMapEventRefresh.length; ++j)
+                    object.TMapEventRefresh[j] = $root.table.TMapEventRefreshDefine.toObject(message.TMapEventRefresh[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this MapEventRefreshBase to JSON.
+         * @function toJSON
+         * @memberof table.MapEventRefreshBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MapEventRefreshBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MapEventRefreshBase;
+    })();
+
+    table.TMapEventRefreshDefine = (function() {
+
+        /**
+         * Properties of a TMapEventRefreshDefine.
+         * @memberof table
+         * @interface ITMapEventRefreshDefine
+         * @property {number|null} [Id] TMapEventRefreshDefine Id
+         * @property {Array.<string>|null} [TypeRand] TMapEventRefreshDefine TypeRand
+         * @property {number|null} [RangeMin] TMapEventRefreshDefine RangeMin
+         * @property {number|null} [RangeMax] TMapEventRefreshDefine RangeMax
+         * @property {number|null} [Num] TMapEventRefreshDefine Num
+         */
+
+        /**
+         * Constructs a new TMapEventRefreshDefine.
+         * @memberof table
+         * @classdesc Represents a TMapEventRefreshDefine.
+         * @implements ITMapEventRefreshDefine
+         * @constructor
+         * @param {table.ITMapEventRefreshDefine=} [properties] Properties to set
+         */
+        function TMapEventRefreshDefine(properties) {
+            this.TypeRand = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TMapEventRefreshDefine Id.
+         * @member {number} Id
+         * @memberof table.TMapEventRefreshDefine
+         * @instance
+         */
+        TMapEventRefreshDefine.prototype.Id = 0;
+
+        /**
+         * TMapEventRefreshDefine TypeRand.
+         * @member {Array.<string>} TypeRand
+         * @memberof table.TMapEventRefreshDefine
+         * @instance
+         */
+        TMapEventRefreshDefine.prototype.TypeRand = $util.emptyArray;
+
+        /**
+         * TMapEventRefreshDefine RangeMin.
+         * @member {number} RangeMin
+         * @memberof table.TMapEventRefreshDefine
+         * @instance
+         */
+        TMapEventRefreshDefine.prototype.RangeMin = 0;
+
+        /**
+         * TMapEventRefreshDefine RangeMax.
+         * @member {number} RangeMax
+         * @memberof table.TMapEventRefreshDefine
+         * @instance
+         */
+        TMapEventRefreshDefine.prototype.RangeMax = 0;
+
+        /**
+         * TMapEventRefreshDefine Num.
+         * @member {number} Num
+         * @memberof table.TMapEventRefreshDefine
+         * @instance
+         */
+        TMapEventRefreshDefine.prototype.Num = 0;
+
+        /**
+         * Creates a new TMapEventRefreshDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {table.ITMapEventRefreshDefine=} [properties] Properties to set
+         * @returns {table.TMapEventRefreshDefine} TMapEventRefreshDefine instance
+         */
+        TMapEventRefreshDefine.create = function create(properties) {
+            return new TMapEventRefreshDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TMapEventRefreshDefine message. Does not implicitly {@link table.TMapEventRefreshDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {table.ITMapEventRefreshDefine} message TMapEventRefreshDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TMapEventRefreshDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.TypeRand != null && message.TypeRand.length)
+                for (var i = 0; i < message.TypeRand.length; ++i)
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.TypeRand[i]);
+            if (message.RangeMin != null && message.hasOwnProperty("RangeMin"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.RangeMin);
+            if (message.RangeMax != null && message.hasOwnProperty("RangeMax"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.RangeMax);
+            if (message.Num != null && message.hasOwnProperty("Num"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.Num);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TMapEventRefreshDefine message, length delimited. Does not implicitly {@link table.TMapEventRefreshDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {table.ITMapEventRefreshDefine} message TMapEventRefreshDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TMapEventRefreshDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TMapEventRefreshDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TMapEventRefreshDefine} TMapEventRefreshDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TMapEventRefreshDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TMapEventRefreshDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    if (!(message.TypeRand && message.TypeRand.length))
+                        message.TypeRand = [];
+                    message.TypeRand.push(reader.string());
+                    break;
+                case 3:
+                    message.RangeMin = reader.uint32();
+                    break;
+                case 4:
+                    message.RangeMax = reader.uint32();
+                    break;
+                case 5:
+                    message.Num = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TMapEventRefreshDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TMapEventRefreshDefine} TMapEventRefreshDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TMapEventRefreshDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TMapEventRefreshDefine message.
+         * @function verify
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TMapEventRefreshDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.TypeRand != null && message.hasOwnProperty("TypeRand")) {
+                if (!Array.isArray(message.TypeRand))
+                    return "TypeRand: array expected";
+                for (var i = 0; i < message.TypeRand.length; ++i)
+                    if (!$util.isString(message.TypeRand[i]))
+                        return "TypeRand: string[] expected";
+            }
+            if (message.RangeMin != null && message.hasOwnProperty("RangeMin"))
+                if (!$util.isInteger(message.RangeMin))
+                    return "RangeMin: integer expected";
+            if (message.RangeMax != null && message.hasOwnProperty("RangeMax"))
+                if (!$util.isInteger(message.RangeMax))
+                    return "RangeMax: integer expected";
+            if (message.Num != null && message.hasOwnProperty("Num"))
+                if (!$util.isInteger(message.Num))
+                    return "Num: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TMapEventRefreshDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TMapEventRefreshDefine} TMapEventRefreshDefine
+         */
+        TMapEventRefreshDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TMapEventRefreshDefine)
+                return object;
+            var message = new $root.table.TMapEventRefreshDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.TypeRand) {
+                if (!Array.isArray(object.TypeRand))
+                    throw TypeError(".table.TMapEventRefreshDefine.TypeRand: array expected");
+                message.TypeRand = [];
+                for (var i = 0; i < object.TypeRand.length; ++i)
+                    message.TypeRand[i] = String(object.TypeRand[i]);
+            }
+            if (object.RangeMin != null)
+                message.RangeMin = object.RangeMin >>> 0;
+            if (object.RangeMax != null)
+                message.RangeMax = object.RangeMax >>> 0;
+            if (object.Num != null)
+                message.Num = object.Num >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TMapEventRefreshDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TMapEventRefreshDefine
+         * @static
+         * @param {table.TMapEventRefreshDefine} message TMapEventRefreshDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TMapEventRefreshDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TypeRand = [];
+            if (options.defaults) {
+                object.Id = 0;
+                object.RangeMin = 0;
+                object.RangeMax = 0;
+                object.Num = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.TypeRand && message.TypeRand.length) {
+                object.TypeRand = [];
+                for (var j = 0; j < message.TypeRand.length; ++j)
+                    object.TypeRand[j] = message.TypeRand[j];
+            }
+            if (message.RangeMin != null && message.hasOwnProperty("RangeMin"))
+                object.RangeMin = message.RangeMin;
+            if (message.RangeMax != null && message.hasOwnProperty("RangeMax"))
+                object.RangeMax = message.RangeMax;
+            if (message.Num != null && message.hasOwnProperty("Num"))
+                object.Num = message.Num;
+            return object;
+        };
+
+        /**
+         * Converts this TMapEventRefreshDefine to JSON.
+         * @function toJSON
+         * @memberof table.TMapEventRefreshDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TMapEventRefreshDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TMapEventRefreshDefine;
     })();
 
     table.MusicBase = (function() {

@@ -108,7 +108,12 @@ func (this *C2GWMsgHandler) Init() {
 	//位置
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqNearUsers{}, on_C2GW_ReqNearUsers)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetPos{}, on_C2GW_ReqSetPos)
-
+	//个人信息
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserSex{}, on_C2GW_ReqSetUserSex)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserAge{}, on_C2GW_ReqSetUserAge)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserConstellation{}, on_C2GW_ReqSetUserConstellation)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserSign{}, on_C2GW_ReqSetUserSign)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetFace{}, on_C2GW_ReqSetFace)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
@@ -224,6 +229,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AddNewCar{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarPartLevelup{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarStarup{})
+
+	// 地图事件
+	this.msgparser.RegistSendProto(msg.GW2C_SendUserEvents{})
 
 	// 女仆
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
@@ -1586,4 +1594,64 @@ func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	user.SetUserPos(tmsg.GetX(), tmsg.GetY())
+}
+
+func on_C2GW_ReqSetUserSex (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserSex)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	sex := tmsg.GetSex()
+	user.SetSex(sex)
+}
+
+func on_C2GW_ReqSetUserAge (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserAge)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	age := tmsg.GetAge()
+	user.SetAge(age)
+}
+
+func on_C2GW_ReqSetUserConstellation (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserConstellation)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	constellation := tmsg.GetConstellation()
+	user.SetConstellation(constellation)
+}
+
+func on_C2GW_ReqSetUserSign (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserSign)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	sign := tmsg.GetSign()
+	user.SetSign(sign)
+}
+
+func on_C2GW_ReqSetFace (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetFace)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	face := tmsg.GetFace()
+	user.SetFace(face)
 }
