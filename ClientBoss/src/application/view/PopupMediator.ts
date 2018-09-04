@@ -85,7 +85,7 @@ module game {
 							this.sceneView.alpha = 0;
 							this.sceneView.scaleX = this.sceneView.scaleY = goalScale * 0.5;
 							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
-							MapBuildingPopupPanel.getInstance().dataChanged(data.buildingId);
+							MapBuildingPopupPanel.getInstance().dataChanged(data.bId, data.sales);
 							 //this.sceneView.x = gameConfig.curWidth() / 2;
 							 //this.sceneView.y = gameConfig.curHeight() / 2 ;
 							// ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));

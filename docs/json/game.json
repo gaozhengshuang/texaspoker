@@ -30,5 +30,11 @@
     "MaxRobCount":20,
 
     "//":"抢夺女仆扣体力",
-    "RobMaidStrength":2
+    "RobMaidStrength":2,
+
+    "//":"地图事件",
+    "MapEvent": {
+        "//":"几点刷新",
+        "TimeRefresh":2
+    }
 }

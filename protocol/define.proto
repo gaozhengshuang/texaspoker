@@ -74,6 +74,13 @@ enum HouseVisitType {
     TakeBackMaid = 6;   // 领回女仆
 }
 
+// 地图事件类型
+enum MapEventType {
+    Game = 1;       // 游戏
+    Bonus = 2;      // 奖励 
+    Building = 3;   // 建筑
+}
+
 
 enum Sex {
     Female = 0;
@@ -82,8 +89,10 @@ enum Sex {
 }
 
 enum MoneyType {
-    _Gold = 1;
-    _Diamond = 2;
+    _Gold = 1;          // 金币
+    _Diamond = 2;       // 钻石
+    _Strength = 3;      // 体力
+    _Item = 4;          // 道具
 }
 
 enum CarOperatorType {

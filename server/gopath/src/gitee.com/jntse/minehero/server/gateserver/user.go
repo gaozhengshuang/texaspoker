@@ -103,6 +103,7 @@ type GateUser struct {
 	asynev          eventque.AsynEventQueue // 异步事件处理
 	broadcastbuffer []uint64                // 广播消息缓存
 	synbalance      bool                    // 充值中
+	events			UserMapEvent			// 地图事件
 	housedata       []*msg.HouseData        //房屋信息 登录后matchserver回传
 
 	//经纬度靠客户端同步
@@ -114,6 +115,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u := &GateUser{account: account, verifykey: key}
 	u.bag.Init(u)
 	u.task.Init(u)
+	u.events.Init(u)
 	//u.image.Init(u)
 	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
 	u.cleanup = false
@@ -578,6 +580,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	// 道具信息
 	this.bag.PackBin(bin)
 	this.task.PackBin(bin)
+	this.events.LoadBin(bin)
 	//this.image.PackBin(bin)
 
 	//
@@ -629,6 +632,9 @@ func (this *GateUser) LoadBin() {
 
 	// 任务
 	this.task.LoadBin(this.bin)
+
+	// 事件
+	this.events.LoadBin(this.bin)
 
 	// 换装信息
 	//this.image.Clean()

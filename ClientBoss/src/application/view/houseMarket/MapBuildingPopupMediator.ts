@@ -24,7 +24,7 @@ module game {
 		private init():void
 		{
 			this.sceneGroup.addEventListener(MapBuildingPopupPanel.CLOSE,this.closeRequset,this);
-			this.sceneGroup.addEventListener(MapBuildingPopupPanel.BUY,this.buyRequset,this);
+			this.sceneGroup.addEventListener(MapBuildingPopupPanel.BUY_FANG,this.buyRequset,this);
 		}
 		private closeRequset(eve:BasicEvent):void
 		{
@@ -35,7 +35,7 @@ module game {
 			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
             if(eve.EventObj){
 				let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
-				buildingProxy.getSalesInfo(eve.EventObj.build);
+				buildingProxy.getSalesInfo(eve.EventObj.build,2);
 			}
 		}
 		

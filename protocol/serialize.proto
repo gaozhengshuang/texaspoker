@@ -79,6 +79,21 @@ message HouseMaidData {
     optional uint64 robberto = 12;  // 被掠夺到house
 }
 
+// 地图事件
+message MapEvent {
+    optional uint64 id = 1;         // 事件uid
+    optional uint32 tid = 2;        // 事件tid
+    optional uint32 longitude = 3;  // 经度 * 1000
+    optional uint32 latitude = 4;   // 纬度 * 1000
+}
+
+// 玩家地图事件
+message UserMapEvent {
+    repeated MapEvent events = 1;   // 事件列表
+    optional uint32 tmrefresh = 2;  // 刷新时间(服务器使用)
+}
+
+
 message UserBase {
     optional uint32     level   = 1;
     optional uint32     exp     = 2;
@@ -106,6 +121,7 @@ message UserBase {
 	optional uint32 	age = 24; 	//年龄
 	optional uint32 	constellation = 25; //星座
 	optional string 	sign = 26;  //个人签名
+    optional UserMapEvent mapevent = 27;    // 地图事件
 }
 
 message UserAddress {
