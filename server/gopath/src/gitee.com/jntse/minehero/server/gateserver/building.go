@@ -377,11 +377,11 @@ func (this *GateUser) ReqBuildingCanBuyInfo(buildingid uint32) {
 }
 
 //获取楼中最多10个除了自己之外房屋信息
-func (this *GateUser) ReqBuildingRandHouseList(buildingid uint32) []*msg.HouseData {
+func (this *GateUser) ReqBuildingRandHouseList(buildingid, getallflag uint32) []*msg.HouseData {
 	alldata := BuildSvrMgr().GetAllHouseDataFromBuilding(buildingid, this.Id())
 	count := len(alldata)
 	data := make([]*msg.HouseData, 0)
-	if count <= 10 {
+	if count <= 10 || getallflag > 0 {
 		for _, v := range alldata {
 			data = append(data, v.PackBin())
 		}
@@ -392,5 +392,6 @@ func (this *GateUser) ReqBuildingRandHouseList(buildingid uint32) []*msg.HouseDa
 			data = append(data, house.PackBin())
 		}
 	}
+			
 	return data
 }
