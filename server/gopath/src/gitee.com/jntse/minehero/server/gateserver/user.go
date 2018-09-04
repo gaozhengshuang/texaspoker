@@ -107,8 +107,8 @@ type GateUser struct {
 	housedata       []*msg.HouseData        //房屋信息 登录后matchserver回传
 
 	//经纬度靠客户端同步
-	posx			float32 //经度
-	posy			float32 //纬度
+	longitude		float32 //经度
+	latitude		float32 //纬度
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -1142,13 +1142,13 @@ func (this *GateUser) NotifyRobCountResumeTime() {
 }
 
 func (this *GateUser) GetUserPos() (float32, float32){
-	return this.posx, this.posy
+	return this.longitude, this.latitude
 }
 
 func (this *GateUser) SetUserPos(x,y float32) {
 	if UserMgr().UpdateUserPos(this.Id(), x, y) == true {
-		this.posx = x
-		this.posy = y
+		this.longitude = x
+		this.latitude = y
 	}
 }
 
@@ -1165,8 +1165,8 @@ func (this *GateUser) AckNearUsersData() {
 		tmp.Level = pb.Uint32(v.Level()) 
 		tmp.Age = pb.Uint32(v.Age())  
 		tmp.Constellation = pb.Uint32(v.Constellation())
-		tmp.X = pb.Float32(v.posx)
-		tmp.Y = pb.Float32(v.posy)
+		tmp.Lng = pb.Float32(v.longitude)
+		tmp.Lat = pb.Float32(v.latitude)
 		tmp.Sign = pb.String(v.Sign())
 		send.Data = append(send.Data, tmp)
 		max = max + 1
