@@ -5,8 +5,8 @@
 package table;
 
 
-// Defined in table: MapEventRefresh
-message MapEventRefresh
+// Defined in table: MapEventRefreshBase
+message MapEventRefreshBase
 {	
 	
 	
@@ -22,7 +22,7 @@ message TMapEventRefreshDefine
 	optional uint32 Id = 1; // ID
 	
 	
-	optional uint32 Type = 2; // 事件类型
+	optional string TypeRand = 2; // 事件类型
 	
 	
 	optional uint32 RangeMin = 3; // 区间起始(米)

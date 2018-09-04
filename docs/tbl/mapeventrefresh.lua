@@ -3,21 +3,11 @@
 
 module table {
 export var TMapEventRefresh : table.ITMapEventRefreshDefine[] = [
-		{ Id : 1, Type : 1, RangeMin : 0, RangeMax : 100, Num : 1 	},
-		{ Id : 2, Type : 2, RangeMin : 0, RangeMax : 100, Num : 1 	},
-		{ Id : 3, Type : 3, RangeMin : 0, RangeMax : 100, Num : 0 	},
-		{ Id : 4, Type : 1, RangeMin : 100, RangeMax : 200, Num : 1 	},
-		{ Id : 5, Type : 2, RangeMin : 100, RangeMax : 200, Num : 1 	},
-		{ Id : 6, Type : 3, RangeMin : 100, RangeMax : 200, Num : 1 	},
-		{ Id : 7, Type : 1, RangeMin : 200, RangeMax : 300, Num : 2 	},
-		{ Id : 8, Type : 2, RangeMin : 200, RangeMax : 300, Num : 1 	},
-		{ Id : 9, Type : 3, RangeMin : 200, RangeMax : 300, Num : 2 	},
-		{ Id : 10, Type : 1, RangeMin : 300, RangeMax : 400, Num : 2 	},
-		{ Id : 11, Type : 2, RangeMin : 300, RangeMax : 400, Num : 2 	},
-		{ Id : 12, Type : 3, RangeMin : 300, RangeMax : 400, Num : 2 	},
-		{ Id : 13, Type : 1, RangeMin : 400, RangeMax : 500, Num : 2 	},
-		{ Id : 14, Type : 2, RangeMin : 400, RangeMax : 500, Num : 3 	},
-		{ Id : 15, Type : 3, RangeMin : 400, RangeMax : 500, Num : 3 	}
+		{ Id : 1, TypeRand : "1001-500;1002-500;1003-500;2001-500;2002-500;3001-500;3002-500", RangeMin : 0, RangeMax : 100, Num : 3 	},
+		{ Id : 2, TypeRand : "1001-500;1002-500;1003-500;2001-500;2002-500;3001-500;3002-500", RangeMin : 100, RangeMax : 200, Num : 5 	},
+		{ Id : 3, TypeRand : "1001-500;1002-500;1003-500;2001-500;2002-500;3001-500;3002-500", RangeMin : 200, RangeMax : 300, Num : 7 	},
+		{ Id : 4, TypeRand : "1001-500;1002-500;1003-500;2001-500;2002-500;3001-500;3002-500", RangeMin : 300, RangeMax : 400, Num : 9 	},
+		{ Id : 5, TypeRand : "1001-500;1002-500;1003-500;2001-500;2002-500;3001-500;3002-500", RangeMin : 400, RangeMax : 500, Num : 10 	}
 	]
 
 
