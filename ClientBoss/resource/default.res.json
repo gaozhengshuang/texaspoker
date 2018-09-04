@@ -398,7 +398,7 @@
 			"url": "assets/texpack/game2.json",
 			"type": "sheet",
 			"name": "game2_json",
-			"subkeys": "aimArrow,basket,belt,belt_1,belt_2,belt_3,belt_4,belt_5,belt_6,belt_7,belt_8,carBack,carShader,cashierdesk,hook,jiagepai,line,mingpai,spool"
+			"subkeys": "aimArrow,basket,belt,belt_1,belt_2,belt_3,belt_4,belt_5,belt_6,belt_7,belt_8,carBack,carShader,cashierdesk,hook,jiagepai,line,mingpai,spool,tube"
 		}
 	]
 }
