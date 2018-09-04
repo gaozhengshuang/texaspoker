@@ -1,0 +1,11 @@
+syntax = "proto2";
+package msg;
+import "serialize.proto";
+
+
+// 发送玩家事件列表
+message SendUserEvents {
+    optional UserMapEvent event = 1;
+}
+
+

@@ -74,6 +74,13 @@ enum HouseVisitType {
     TakeBackMaid = 6;   // 领回女仆
 }
 
+// 地图事件类型
+enum MapEventType {
+    Game = 1;       // 游戏
+    Bonus = 2;      // 奖励 
+    Building = 3;   // 建筑
+}
+
 
 enum Sex {
     Female = 0;
