@@ -17,10 +17,11 @@ message GW2C_SendMapStoreInfo {
 message C2GW_BuyFromMapStore {
     optional uint32 tid = 1;    // 商店tid
     optional uint32 pid = 2;    // 商品id
+    optional uint32 num = 3;    // 购买数量
 }
 
 // 更新商品数据
-message GW2C_UpdateStoreProduct {
+message GW2C_UpdateMapStoreProduct {
     optional uint32 tid = 1;        // 
     optional msg.StoreProductData product = 2;
 }
