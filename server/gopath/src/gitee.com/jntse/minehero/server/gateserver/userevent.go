@@ -202,7 +202,7 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 
 // 存盘
 func (m *UserMapEvent) PackBin(bin *msg.Serialize) {
-	bin.Base.Mapevent = m.PackEvent()		// 测试代码
+	bin.Base.Mapevent = m.PackEvent()
 }
 
 func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
@@ -224,7 +224,7 @@ func (m *UserMapEvent) SendEvents() {
 func (m *UserMapEvent) CheckRefresh() {
 	tmstart := util.GetDayStart()
 	tmrefresh := tmstart + tbl.Game.MapEvent.TimeRefresh * util.HourSec
-	if tmrefresh > m.refreshtime {	// 测试代码
+	if tmrefresh > m.refreshtime {
 		m.Refresh(util.CURTIMEMS())
 	}
 }
@@ -243,8 +243,11 @@ func (m *UserMapEvent) Refresh(now int64) {
 	m.refreshactive = 0
 	eventuid := uint64(1)
 	//x, y := m.owner.GetUserPos()		// 经纬度
-	//y, x := float32(31.1515941841), float32(121.3384963265)	// 测试代码
-	y, x := float32(31.11325), float32(121.38206)
+	//if x == 0 || y == 0 {
+	//	log.Error("[地图事件] 玩家[%s %d]经纬度信息无效", m.owner.Name(), m.owner.Id())
+	//	return
+	//}
+	y, x := float32(31.11325), float32(121.38206)	// 测试代码
 	int_longitude, int_latitude := int32(x * 100000) , int32(y * 100000)	// 米
 
 	for _, v := range tbl.MapEventRefreshBase.TMapEventRefreshById {
