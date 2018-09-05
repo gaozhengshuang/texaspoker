@@ -11,6 +11,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	//"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
 
@@ -34,9 +35,11 @@ func GetMapEventTypeByTid(tid uint32) uint32 {
 
 // 事件接口
 type IMapEvent interface {
-	Process(u *GateUser)
+	Process(u *GateUser) bool
 	Bin() *msg.MapEvent
 	Range() (uint32, uint32)
+	Complete(u *GateUser) 
+	ProcessCheck(u *GateUser, tconf *table.TMapEventDefine) bool
 }
 
 // 事件基础数据
@@ -46,15 +49,45 @@ type BaseMapEvent struct {
 	rmax uint32
 }
 func (e *BaseMapEvent) Bin() *msg.MapEvent { return e.bin }
-func (e *BaseMapEvent) Process(u *GateUser) { }
+func (e *BaseMapEvent) Process(u *GateUser) bool { return false }
 func (e *BaseMapEvent) Range() (uint32, uint32) { return e.rmin, e.rmax }
+func (e *BaseMapEvent) Complete(u *GateUser) {
+	send := &msg.GW2C_RemoveEvent{Uid:pb.Uint64(e.bin.GetId())}
+	u.SendMsg(send)
+}
+func (e *BaseMapEvent) ProcessCheck(u *GateUser, tconf *table.TMapEventDefine) bool {
+	switch msg.MoneyType(tconf.MoneyType) {
+	case msg.MoneyType__Gold:
+		if u.GetGold() < tconf.Price { 
+			u.SendNotify("金币不足") 
+			return false
+		}
+		break
+	case msg.MoneyType__Diamond:
+		if u.GetDiamond() < tconf.Price { 
+			u.SendNotify("钻石不足") 
+			return false
+		}
+		break
+	case msg.MoneyType__Strength:
+		if u.GetStrength() < tconf.Price { 
+			u.SendNotify("体力不足") 
+			return false
+		}
+		break
+	default:
+		break
+	}
+	return true
+}
 
 // 游戏事件
 type GameMapEvent struct {
 	BaseMapEvent
 }
 
-func (e *GameMapEvent) Process(u *GateUser) {
+func (e *GameMapEvent) Process(u *GateUser) bool {
+	return true
 }
 
 // 奖励事件
@@ -62,29 +95,31 @@ type BonusMapEvent struct {
 	BaseMapEvent
 }
 
-func (e *BonusMapEvent) Process(u *GateUser) {
-	//switch e.bin.GetTid() {
-	//case uint32(msg.MapEventId_BonusGold):
-	//case uint32(msg.MapEventId_BonusStrength):
-	//}
+func (e *BonusMapEvent) Process(u *GateUser) bool {
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
 	if find == false {
 		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
-		return
+		return false
+	}
+
+	if e.ProcessCheck(u, tconf) == false {
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		return false
 	}
 
 	rewards := util.SplitIntString(tconf.Reward, "-")
 	for _, v := range rewards {
 		if v.Len() < 2 { 
 			log.Error("[地图事件] 玩家[%s %d] 解析事件tid[%d]奖励配置失败 ObjSplit=%#v", u.Name(), u.Id(), tid, v)
-			return
+			return false
 		}
 		id, num := uint32(v.Value(0)), uint32(v.Value(1))
 		u.AddItem(id, num, "地图奖励事件", true)
 	}
 
-	log.Info("[地图事件] 玩家[%s %d] 激活事件成功tid[%d] uid[%d]", u.Name(), u.Id(), tid, uid)
+	log.Info("[地图事件] 玩家[%s %d] 激活事件成功[%d %d]", u.Name(), u.Id(), tid, uid)
+	return true
 }
 
 // 建筑事件
@@ -92,7 +127,7 @@ type BuildingMapEvent struct {
 	BaseMapEvent
 }
 
-func (e *BuildingMapEvent) Process(u *GateUser) {
+func (e *BuildingMapEvent) Process(u *GateUser) bool {
 	switch e.bin.GetTid() {
 	case uint32(msg.MapEventId_BuildingMaidShop):
 		break
@@ -102,7 +137,10 @@ func (e *BuildingMapEvent) Process(u *GateUser) {
 		break
 	default:
 		log.Error("[地图事件] 玩家[%s %d] 未定义的事件[%d]", e.bin.GetTid())
+		return false
 	}
+
+	return true
 }
 
 
@@ -160,7 +198,7 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 
 // 存盘
 func (m *UserMapEvent) PackBin(bin *msg.Serialize) {
-	//bin.Base.Mapevent = m.PackEvent()		// 测试代码
+	bin.Base.Mapevent = m.PackEvent()		// 测试代码
 }
 
 func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
@@ -182,7 +220,7 @@ func (m *UserMapEvent) SendEvents() {
 func (m *UserMapEvent) CheckRefresh() {
 	tmstart := util.GetDayStart()
 	tmrefresh := tmstart + tbl.Game.MapEvent.TimeRefresh * util.HourSec
-	if tmrefresh > m.refreshtime || true {	// 测试代码
+	if tmrefresh > m.refreshtime {	// 测试代码
 		m.Refresh(util.CURTIMEMS())
 	}
 }
@@ -274,6 +312,10 @@ func (m *UserMapEvent) EnterEvents(uid uint64) {
 		log.Error("玩家没有这个事件[%d]", uid)
 		return
 	}
-	event.Process(m.owner)
+
+	if event.Process(m.owner) {
+		event.Complete(m.owner)
+		delete(m.events, uid)
+	}
 }
 
