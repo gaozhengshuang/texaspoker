@@ -128,7 +128,7 @@ message GW2C_RetCarStarup
 message C2GW_CarExpedition
 {
     optional uint64 carid = 1;
-    optional uint32 type = 2;
+    optional uint32 type = 2;                           //CarTargetType 枚举
     optional uint64 targetid = 3;
     optional float originlatitude = 4;                  //起始维度
     optional float originlongitude = 5;                 //起始精度
