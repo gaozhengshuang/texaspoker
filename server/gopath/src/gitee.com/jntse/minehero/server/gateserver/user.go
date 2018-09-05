@@ -14,7 +14,7 @@ import (
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
-	_ "strings"
+	"strings"
 	_ "time"
 )
 
@@ -148,12 +148,42 @@ func (this *GateUser) Name() string {
 	return this.EntityBase().GetName()
 }
 
-func (this *GateUser) SetName(name string) {
-	this.EntityBase().Name = pb.String(name)
+func (this *GateUser) SetName(nickname string) bool {
+	if nickname == "" {
+		this.SendNotify("昵称不能为空")
+		return false
+	}
+
+	if strings.Count(nickname, "")-1 > 8 {
+		this.SendNotify("昵称长度不能大于8个字符")
+		return false
+	}
+
+	if issp, _ := util.ContainsSpecialCharacter(nickname); issp == true {
+		this.SendNotify("昵称不能含有标点和特殊字符")
+		return false
+	}
+	
+	// 昵称是否重复
+	keynickname := fmt.Sprintf("accounts_nickname")
+	keyvalue, err := Redis().SIsMember(keynickname, nickname).Result()
+	if err != nil && err != redis.Nil {
+		//errcode = "redis暂时不可用"
+		log.Error("检查昵称是否重复 Redis错误:%s", err)
+		return false
+	}
+	if keyvalue == true {
+		//errcode = "昵称重复"
+		this.SendNotify("昵称重复")
+		return false
+	}
+
+	this.EntityBase().Name = pb.String(nickname)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())
 	for _, v := range data {
-		v.ownername = name
+		v.ownername = nickname
 	}
+	return true
 }
 
 func (this *GateUser) Face() string {
@@ -184,8 +214,13 @@ func (this *GateUser) SetSex(sex int32) {
 	}
 }
 
-func (this *GateUser) SetSign(sign string){
+func (this *GateUser) SetSign(sign string) bool {
+	if strings.Count(sign, "")-1 > 30 {
+		this.SendNotify("昵称长度不能大于30个字符")
+		return false
+	}
 	this.sign = sign
+	return true
 }
 
 func (this *GateUser) Sign() string {
