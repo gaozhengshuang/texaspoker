@@ -53,7 +53,7 @@ module game {
 
         private touchHandle(event: egret.TouchEvent) {
             this.touchGroup.touchEnabled = false;
-            this._curStage = {x: event.stageX, y: event.stageY}
+            this._curStage = {x: event.stageX, y: event.stageY};
             this.updateGouzi();
         }
 
@@ -62,7 +62,7 @@ module game {
             let rotation = angle * 180 / Math.PI;
             this.gouzi.setImageRotation(rotation);
 
-            egret.Tween.get(this.gouzi).to({x: this._curStage.x, y: this.initGouziY - 700}, 2000).call(() => {
+            egret.Tween.get(this.gouzi).to({x: this._curStage.x, y: this.initGouziY - 650}, 2000).call(() => {
                 egret.Tween.get(this.gouzi).to({x: this.initGouziX, y: this.initGouziY}, 2000).call(() => {
                     this.touchGroup.touchEnabled = true;
                 });

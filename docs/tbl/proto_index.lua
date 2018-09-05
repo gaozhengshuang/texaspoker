@@ -263,8 +263,9 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 258, Name : "msg.C2GW_ReqSetUserConstellation" 	},
 		{ Id : 259, Name : "msg.C2GW_ReqSetUserSign" 	},
 		{ Id : 260, Name : "msg.C2GW_ReqSetFace" 	},
-		{ Id : 261, Name : "msg.C2GW_ReqPlayerCountByProvince" 	},
-		{ Id : 262, Name : "msg.GW2C_AckPlayerCountByProvince" 	}
+		{ Id : 261, Name : "msg.C2GW_ReqSetUserName" 	},
+		{ Id : 262, Name : "msg.C2GW_ReqPlayerCountByProvince" 	},
+		{ Id : 263, Name : "msg.GW2C_AckPlayerCountByProvince" 	}
 	]
 
 
