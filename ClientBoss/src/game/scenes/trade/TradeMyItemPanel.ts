@@ -24,7 +24,7 @@ module game {
 			this._dp = new eui.ArrayCollection();
 			this.scroller.setViewPort();
 			this.titlePanel.init(this.remove, this);
-			this.scroller.initItemRenderer(TradeItemSellItem);
+			this.scroller.initItemRenderer(ItemIcon);
 			let ly = new eui.TileLayout();
 			ly.requestedColumnCount = 5;
 			ly.horizontalGap = 10;

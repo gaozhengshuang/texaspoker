@@ -497,8 +497,10 @@ bTitleIcon.prototype.destroy = function () {
 
 var eventsIconArray = [];
 var eventsIconCallBackFun = null;
-function setEventsIconCallBackFun(fun) {
+var eventsIconCallTarget = null;
+function setEventsIconCallBackFun(fun, target) {
   eventsIconCallBackFun = fun;
+  eventsIconCallTarget = target;
 }
 /**
  * 添加地图事件ICON
@@ -524,8 +526,8 @@ function addEventsIcon(data) {
       //     info:{isHas:data.isHas,count:data.bName}
       //           });
       let listener = qq.maps.event.addListener(marker, 'click', function (e) {
-          if (eventsIconCallBackFun != null) {
-            eventsIconCallBackFun('click', data);
+          if (eventsIconCallBackFun != null && eventsIconCallTarget) {
+            eventsIconCallBackFun.call(eventsIconCallTarget, 'click', data);
           }
         });
         eventsIconArray.push({ marker: marker,data: data, listener:listener });

@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "preload_json,carPublicLotBg_png",
+			"keys": "preload_json,carPublicLotBg_png,mapevent_houseshopbanner_png",
 			"name": "preload"
 		},
 		{
@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,girl_suit6_json,hall_4_json,item_json",
+			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,girl_suit6_json,hall_4_json,item_json,mapevent_houseshopbanner_png",
 			"name": "hall"
 		},
 		{
@@ -399,6 +399,11 @@
 			"type": "sheet",
 			"name": "game2_json",
 			"subkeys": "aimArrow,basket,belt,belt_1,belt_2,belt_3,belt_4,belt_5,belt_6,belt_7,belt_8,carBack,carShader,cashierdesk,hook,jiagepai,line,mingpai,spool,tube"
+		},
+		{
+			"url": "assets/bg/mapevent_houseshopbanner.png",
+			"type": "image",
+			"name": "mapevent_houseshopbanner_png"
 		}
 	]
 }

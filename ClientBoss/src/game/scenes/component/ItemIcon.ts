@@ -1,8 +1,8 @@
 module game {
 	/**
-	 * 道具出售渲染项
+	 * 道具ICON渲染项
 	 */
-	export class TradeItemSellItem extends eui.ItemRenderer {
+	export class ItemIcon extends eui.ItemRenderer {
 		itemImg: eui.Image;
 		num_txt: eui.Label;
 		select_mc: eui.Rect;
@@ -10,7 +10,11 @@ module game {
 
 		public constructor() {
 			super();
-			this.skinName = TradeItemSellItemSkin;
+			this.skinName = ItemIconSkin;
+		}
+		public forceRefresh(data: any) {
+			this.data = data;
+			this.dataChanged();
 		}
 		protected dataChanged(): void {
 			this.select_mc.visible = false;
@@ -23,7 +27,11 @@ module game {
 				this.itemImg.source = itemDef.ImageId.toString();//RES.getRes( + "_png");
 				this.borderImg.source = 'frame' + itemDef.Color + "_png";
 			}
-			this.num_txt.text = num.toString();
+			this.num_txt.visible = false;
+			if (data.isShowNum) {
+				this.num_txt.visible = true;
+				this.num_txt.text = num.toString();
+			}
 		}
 		public set selected(value: boolean) {
 			this.select_mc.visible = value;
