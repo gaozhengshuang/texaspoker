@@ -119,6 +119,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserSign{}, on_C2GW_ReqSetUserSign)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetFace{}, on_C2GW_ReqSetFace)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserName{}, on_C2GW_ReqSetUserName)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetBaseArea{}, on_C2GW_ReqSetBaseArea)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
@@ -1754,4 +1755,17 @@ func on_C2GW_ReqPlayerCountByProvince (session network.IBaseNetSession, message 
 		send.Data = append(send.Data, tmp)
 	}
 	user.SendMsg(send)
+}
+
+func on_C2GW_ReqSetBaseArea (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetBaseArea)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	province := tmsg.GetProvince()
+	city := tmsg.GetCity()
+	user.SetBaseArea(province, city)
 }

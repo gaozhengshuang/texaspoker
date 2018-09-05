@@ -78,6 +78,8 @@ type DBUserData struct {
 	age			   uint32 // 年龄
 	constellation  uint32 // 星座
 	sign		   string // 玩家签名
+	baseprovince   uint32 // 归属地 省
+	basecity 	   uint32 // 归属地 市
 }
 
 // --------------------------------------------------------------------------
@@ -107,7 +109,7 @@ type GateUser struct {
 	events			UserMapEvent			// 地图事件
 	housedata       []*msg.HouseData        //房屋信息 登录后matchserver回传
 
-	//经纬度靠客户端同步
+	//定位经纬度靠客户端同步
 	longitude		float32 //经度
 	latitude		float32 //纬度
 	province 		uint32  //省
@@ -184,6 +186,12 @@ func (this *GateUser) SetName(nickname string) bool {
 		v.ownername = nickname
 	}
 	return true
+}
+
+//设置归属地 非定位
+func (this *GateUser) SetBaseArea (province uint32, city uint32) {
+	this.baseprovince = province
+	this.basecity = city
 }
 
 func (this *GateUser) Face() string {
@@ -618,6 +626,8 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Age = pb.Uint32(this.age)
 	userbase.Constellation = pb.Uint32(this.constellation)
 	userbase.Sign = pb.String(this.sign)
+	userbase.Baseprovince = pb.Uint32(this.baseprovince)
+	userbase.Basecity = pb.Uint32(this.basecity)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -667,6 +677,8 @@ func (this *GateUser) LoadBin() {
 	this.age = userbase.GetAge()
 	this.constellation = userbase.GetConstellation()
 	this.sign = userbase.GetSign()
+	this.baseprovince = userbase.GetBaseprovince()
+	this.basecity = userbase.GetBasecity()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -1225,6 +1237,8 @@ func (this *GateUser) AckNearUsersData(lng, lat float32) {
 		tmp.Lng = pb.Float32(v.longitude)
 		tmp.Lat = pb.Float32(v.latitude)
 		tmp.Sign = pb.String(v.Sign())
+		tmp.Province = pb.Uint32(v.baseprovince)
+		tmp.City = pb.Uint32(v.basecity)
 		send.Data = append(send.Data, tmp)
 		max = max + 1
 		if max >= 10 {
