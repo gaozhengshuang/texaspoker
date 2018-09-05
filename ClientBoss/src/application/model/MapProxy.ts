@@ -175,6 +175,7 @@ module game {
 			let position_str = JSON.stringify(position, null, 4);
 			let realobj = eval('(' + position_str + ')');
 			//console.log(position_str);
+			sendMessage("msg.C2GW_ReqSetPos", msg.C2GW_ReqSetPos.encode({lat:realobj.lat,lng:realobj.lng}));
 			moveMap(realobj.lat, realobj.lng);
 		}
 		public moveMapFun(lat, lng) {

@@ -23,6 +23,8 @@ module game {
             this.mapProxy.selfPoint.setObject(data);
 			this.mapProxy.currentPoint.setObject(data);
 			this.mapProxy.addBuilding();
+
+			sendMessage("msg.C2GW_ReqSetPos", msg.C2GW_ReqSetPos.encode({lat:data.lat,lng:data.lng}));
 			
             ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_MAP);
 			if(GameConfig.newPlayerStep==0){

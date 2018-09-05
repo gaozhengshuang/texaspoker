@@ -39,15 +39,24 @@ module game {
             this.buyFang_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_buy, this);
             this.lookZhuhu_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_lookZhuhu, this);
 			this.close_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
+
+            this.listScroller.addEventListener(egret.Event.CHANGE, this.onclick_list, this);
+            this.listScroller.addEventListener(eui.UIEvent.CHANGE_START, this.onclick_listend, this);
         }
         protected beforeRemove() {
             this.buyFang_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
             this.lookZhuhu_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_lookZhuhu, this);
 			this.close_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
+
+            this.listScroller.removeEventListener(egret.Event.CHANGE, this.onclick_list, this);
+            this.listScroller.removeEventListener(eui.UIEvent.CHANGE_START, this.onclick_listend, this);
         }
         protected init() {
             this.horizontalCenter = this.verticalCenter = 0;
             this.close_btn.icon="lucky_json.leftBack";
+            this.listScroller.bounces=false;
+           //this.listScroller.throwSpeed=0;
+            
         }
 		private onclick_close(){
            this.dispatchEvent(new BasicEvent(MapBuildingPopupPanel.CLOSE));
@@ -78,30 +87,93 @@ module game {
                     this.lookZhuhu_btn.y=246;
                     this.buyFang_btn.visible=false;
                 }
+
+                for (let i: number = 1; i <= 4; i++) {
+                    let item: any = {};
+                    let houseStr:string[]=this.buildInfo["Houses" + i].split("|")
+                    let strList: string[] = houseStr[0].split("-");
+                    if (strList && strList.length >= 3) {
+                        let type: any = table.THouseById[Number(strList[0])];
+                        let count: number = this.getSalesInfo(sales, i);
+                        if (type) {
+                            item.data = type;
+                            item.price = Number(strList[1]);
+                            item.area = Number(strList[2])
+                            item.count = count;
+                            item.index=i;
+                            item.total=this.buildInfo.MaxFloor;
+                            this.huxingList.push(item);
+                        }
+                    }
+                }
+                this.updataHuxingList();
             }
         }
-
-        /*private huxingImgList:BuildingHuxingItemPanel[];
+        private huxingImgList:BuildingHuxingItemPanel[];
+        private itemW:number=0;
+        private currentHuxing:any;
         private updataHuxingList()
 		{
             console.log(this.huxingList.length);
             if(this.huxingList && this.huxingList.length>0){
-                this.huxingContainer.width=730*(this.huxingList.length)+670;
                 this.huxingImgList=[];
-                for(let i:number=0;i<this.huxingList.length;i++){
+                
+                let itemX:number=0;
+                for(let i:number=0;i<this.huxingList.length+1;i++){
                     let itemPanel:BuildingHuxingItemPanel=new BuildingHuxingItemPanel();
-                    itemPanel.dataChanged(this.huxingList[i]);
+                    this.itemW=itemPanel.width;
+                    itemPanel.anchorOffsetX=itemPanel.width/2;
+                    itemPanel.anchorOffsetY=itemPanel.height/2;
                     this.huxingContainer.addChild(itemPanel);
-                    itemPanel.x=335+730/2+730*i;
+                    itemPanel.y=this.listScroller.height/2;
+                    itemPanel.x=this.listScroller.width/2+i*itemPanel.width;
                     this.huxingImgList.push(itemPanel);
+                    if(i<this.huxingList.length){
+                        itemPanel.dataChanged(this.huxingList[i]);
+                    }
                 }
                 this.updateHuxingInfo(0);
-                this.scrollView.scrollLeft=0;
-                this.scrollView.scrollBeginThreshold=0;
-                this.scrollView.scrollSpeed=1;
-                this.addEventListener(egret.Event.ENTER_FRAME, this.enter_frame, this);
             }		
-		}*/
+		}
+        private startScrollH:number=0;
+        private onclick_listend(){
+            this.startScrollH=this.huxingContainer.scrollH;
+            console.log( this.startScrollH);
+        }
+        private onclick_list(eve:egret.Event) {
+            let scrollH:number=this.huxingContainer.scrollH;
+            let fangxiang:number=scrollH-this.startScrollH>0?1:-1
+            if(Math.abs(scrollH-this.startScrollH)>this.itemW){
+                this.listScroller.stopAnimation();
+                this.huxingContainer.scrollH=this.startScrollH+fangxiang*this.itemW;
+            }
+            if(this.huxingImgList && this.huxingImgList.length>0){
+                for(let i:number=0;i<this.huxingImgList.length;i++){
+                    let nowX:number=(this.huxingImgList[i].x)-this.huxingContainer.scrollH;
+                    let num:number=Math.abs(nowX-this.listScroller.width/2);
+                    let beishu:number=1;
+                    if(num<this.huxingImgList[i].width){
+                        beishu=1.5*(1-(num/(this.huxingImgList[i].width)));
+                        if(beishu<1){beishu=1};
+                    }
+                    this.huxingImgList[i].suofang(beishu);
+                    if(beishu>1){
+                        this.updateHuxingInfo(i);
+                    }
+                }
+            }
+        }
+        private updateHuxingInfo(index:number=0){
+            if(this.huxingImgList && this.huxingImgList.length>0 && index<this.huxingImgList.length){
+                let currentItem:BuildingHuxingItemPanel=this.huxingImgList[index];
+                if(currentItem){
+                    this.currentHuxing=currentItem.itemDate;
+                    this.info_txt.text=this.currentHuxing.data.Des+"( "+this.currentHuxing.area+"平米 )\n"
+                    +currentItem.itemDate.count+"/"+currentItem.itemDate.total;
+                }
+            }
+        }
+            
         private isCanBuy(sales: msg.CanBuyInfo[]):number
         {
             let count:number=0;
@@ -111,6 +183,17 @@ module game {
                 }
             }
             return count;
+        }
+        private getSalesInfo(sales: msg.CanBuyInfo[], index: number): number {
+            if (sales && sales.length > 0) {
+                for (let i: number = 0; i < sales.length; i++) {
+                    if (sales[i].index == index) {
+                        return sales[i].count;
+                    }
+
+                }
+            }
+            return 0;
         }
 	}
 }

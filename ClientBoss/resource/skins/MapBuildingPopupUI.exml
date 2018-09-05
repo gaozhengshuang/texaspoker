@@ -28,7 +28,7 @@
 		</e:skinName>
 	</e:Button>
 	<e:Scroller id="listScroller" width="654" height="260" horizontalCenter="-8" verticalCenter="155">
-		<e:Group id="huxingContainer" width="100%" height="100%">
+		<e:Group id="huxingContainer">
 		</e:Group>
 	</e:Scroller>
 </e:Skin>
