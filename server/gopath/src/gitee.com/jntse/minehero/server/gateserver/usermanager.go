@@ -7,7 +7,7 @@ import (
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
 	pb "github.com/gogo/protobuf/proto"
-	_ "time"
+	"time"
 
 	_ "gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
@@ -288,8 +288,8 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 func (this *UserManager) IntHourClockCallback(now int64) {
 
 	// 地图事件刷新
-	inthour := util.FloorIntClock(now)
-	if tbl.Game.MapEvent.TimeRefresh == inthour {
+	inthour := time.Unix(now / 1000, 0).Hour()
+	if tbl.Game.MapEvent.TimeRefresh == int64(inthour) {
 		for _, user := range this.accounts {
 			user.events.RefreshActive()
 		}
