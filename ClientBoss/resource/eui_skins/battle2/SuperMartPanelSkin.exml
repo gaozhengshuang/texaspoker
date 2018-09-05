@@ -62,6 +62,8 @@
 		<e:Image source="game2_json.spool" horizontalCenter="-38" x="205.00000000000003" scaleX="1" scaleY="1" bottom="0"/>
 		<e:Label id="costLabel" text="消耗金币:3000" size="20" textAlign="center" horizontalCenter="-32.5" x="262" scaleX="1" scaleY="1" verticalCenter="117"/>
 	</e:Group>
+	<e:Group id="shoppingCarGroup" width="720" height="500" x="0" y="348.64" anchorOffsetY="0">
+	</e:Group>
 
 
 
