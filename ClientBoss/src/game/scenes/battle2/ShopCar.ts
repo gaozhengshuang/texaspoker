@@ -32,7 +32,7 @@ module game {
             if (superMarkInfo) {
                 let itemInfo = table.ItemBaseDataById[superMarkInfo.ItemId];
                 if (itemInfo) {
-                    this.itemImg.source = getItemIconSource(itemInfo.Id);
+                    this.itemImg.source = getItemIconSource(itemInfo.ImageId);
                     this.itemNameLabel.text = itemInfo.Name;
                 }
             }

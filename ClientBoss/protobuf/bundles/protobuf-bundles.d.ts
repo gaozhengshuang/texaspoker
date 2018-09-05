@@ -8818,6 +8818,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2C_RemoveEvent. */
+    interface IGW2C_RemoveEvent {
+
+        /** GW2C_RemoveEvent uid */
+        uid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RemoveEvent. */
+    class GW2C_RemoveEvent implements IGW2C_RemoveEvent {
+
+        /**
+         * Constructs a new GW2C_RemoveEvent.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RemoveEvent);
+
+        /** GW2C_RemoveEvent uid. */
+        public uid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RemoveEvent instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RemoveEvent instance
+         */
+        public static create(properties?: msg.IGW2C_RemoveEvent): msg.GW2C_RemoveEvent;
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @param message GW2C_RemoveEvent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RemoveEvent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message, length delimited. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @param message GW2C_RemoveEvent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RemoveEvent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RemoveEvent;
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RemoveEvent;
+
+        /**
+         * Verifies a GW2C_RemoveEvent message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RemoveEvent message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RemoveEvent
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RemoveEvent;
+
+        /**
+         * Creates a plain object from a GW2C_RemoveEvent message. Also converts values to other types if specified.
+         * @param message GW2C_RemoveEvent
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RemoveEvent, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RemoveEvent to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_ReqHouseData. */
     interface IC2GW_ReqHouseData {
     }
@@ -25645,6 +25735,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2C_AckSetUserSign. */
+    interface IGW2C_AckSetUserSign {
+
+        /** GW2C_AckSetUserSign ret */
+        ret?: (number|null);
+    }
+
+    /** Represents a GW2C_AckSetUserSign. */
+    class GW2C_AckSetUserSign implements IGW2C_AckSetUserSign {
+
+        /**
+         * Constructs a new GW2C_AckSetUserSign.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckSetUserSign);
+
+        /** GW2C_AckSetUserSign ret. */
+        public ret: number;
+
+        /**
+         * Creates a new GW2C_AckSetUserSign instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckSetUserSign instance
+         */
+        public static create(properties?: msg.IGW2C_AckSetUserSign): msg.GW2C_AckSetUserSign;
+
+        /**
+         * Encodes the specified GW2C_AckSetUserSign message. Does not implicitly {@link msg.GW2C_AckSetUserSign.verify|verify} messages.
+         * @param message GW2C_AckSetUserSign message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckSetUserSign, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckSetUserSign message, length delimited. Does not implicitly {@link msg.GW2C_AckSetUserSign.verify|verify} messages.
+         * @param message GW2C_AckSetUserSign message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckSetUserSign, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckSetUserSign message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckSetUserSign
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckSetUserSign;
+
+        /**
+         * Decodes a GW2C_AckSetUserSign message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckSetUserSign
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckSetUserSign;
+
+        /**
+         * Verifies a GW2C_AckSetUserSign message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckSetUserSign message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckSetUserSign
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckSetUserSign;
+
+        /**
+         * Creates a plain object from a GW2C_AckSetUserSign message. Also converts values to other types if specified.
+         * @param message GW2C_AckSetUserSign
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckSetUserSign, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckSetUserSign to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_ReqSetFace. */
     interface IC2GW_ReqSetFace {
 
@@ -25730,6 +25910,186 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_ReqSetFace to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqSetUserName. */
+    interface IC2GW_ReqSetUserName {
+
+        /** C2GW_ReqSetUserName name */
+        name?: (string|null);
+    }
+
+    /** Represents a C2GW_ReqSetUserName. */
+    class C2GW_ReqSetUserName implements IC2GW_ReqSetUserName {
+
+        /**
+         * Constructs a new C2GW_ReqSetUserName.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqSetUserName);
+
+        /** C2GW_ReqSetUserName name. */
+        public name: string;
+
+        /**
+         * Creates a new C2GW_ReqSetUserName instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqSetUserName instance
+         */
+        public static create(properties?: msg.IC2GW_ReqSetUserName): msg.C2GW_ReqSetUserName;
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserName message. Does not implicitly {@link msg.C2GW_ReqSetUserName.verify|verify} messages.
+         * @param message C2GW_ReqSetUserName message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqSetUserName, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserName message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetUserName.verify|verify} messages.
+         * @param message C2GW_ReqSetUserName message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqSetUserName, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqSetUserName message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqSetUserName;
+
+        /**
+         * Decodes a C2GW_ReqSetUserName message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqSetUserName;
+
+        /**
+         * Verifies a C2GW_ReqSetUserName message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqSetUserName message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqSetUserName
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqSetUserName;
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetUserName message. Also converts values to other types if specified.
+         * @param message C2GW_ReqSetUserName
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqSetUserName, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqSetUserName to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckSetUserName. */
+    interface IGW2C_AckSetUserName {
+
+        /** GW2C_AckSetUserName ret */
+        ret?: (number|null);
+    }
+
+    /** Represents a GW2C_AckSetUserName. */
+    class GW2C_AckSetUserName implements IGW2C_AckSetUserName {
+
+        /**
+         * Constructs a new GW2C_AckSetUserName.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckSetUserName);
+
+        /** GW2C_AckSetUserName ret. */
+        public ret: number;
+
+        /**
+         * Creates a new GW2C_AckSetUserName instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckSetUserName instance
+         */
+        public static create(properties?: msg.IGW2C_AckSetUserName): msg.GW2C_AckSetUserName;
+
+        /**
+         * Encodes the specified GW2C_AckSetUserName message. Does not implicitly {@link msg.GW2C_AckSetUserName.verify|verify} messages.
+         * @param message GW2C_AckSetUserName message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckSetUserName, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckSetUserName message, length delimited. Does not implicitly {@link msg.GW2C_AckSetUserName.verify|verify} messages.
+         * @param message GW2C_AckSetUserName message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckSetUserName, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckSetUserName message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckSetUserName;
+
+        /**
+         * Decodes a GW2C_AckSetUserName message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckSetUserName;
+
+        /**
+         * Verifies a GW2C_AckSetUserName message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckSetUserName message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckSetUserName
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckSetUserName;
+
+        /**
+         * Creates a plain object from a GW2C_AckSetUserName message. Also converts values to other types if specified.
+         * @param message GW2C_AckSetUserName
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckSetUserName, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckSetUserName to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -28535,6 +28895,204 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a CarPartsShopBase. */
+    interface ICarPartsShopBase {
+
+        /** CarPartsShopBase TCarPartsShop */
+        TCarPartsShop?: (table.ITCarPartsShopDefine[]|null);
+    }
+
+    /** Represents a CarPartsShopBase. */
+    class CarPartsShopBase implements ICarPartsShopBase {
+
+        /**
+         * Constructs a new CarPartsShopBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ICarPartsShopBase);
+
+        /** CarPartsShopBase TCarPartsShop. */
+        public TCarPartsShop: table.ITCarPartsShopDefine[];
+
+        /**
+         * Creates a new CarPartsShopBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CarPartsShopBase instance
+         */
+        public static create(properties?: table.ICarPartsShopBase): table.CarPartsShopBase;
+
+        /**
+         * Encodes the specified CarPartsShopBase message. Does not implicitly {@link table.CarPartsShopBase.verify|verify} messages.
+         * @param message CarPartsShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ICarPartsShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CarPartsShopBase message, length delimited. Does not implicitly {@link table.CarPartsShopBase.verify|verify} messages.
+         * @param message CarPartsShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ICarPartsShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CarPartsShopBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CarPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.CarPartsShopBase;
+
+        /**
+         * Decodes a CarPartsShopBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CarPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.CarPartsShopBase;
+
+        /**
+         * Verifies a CarPartsShopBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CarPartsShopBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CarPartsShopBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.CarPartsShopBase;
+
+        /**
+         * Creates a plain object from a CarPartsShopBase message. Also converts values to other types if specified.
+         * @param message CarPartsShopBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.CarPartsShopBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CarPartsShopBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCarPartsShopDefine. */
+    interface ITCarPartsShopDefine {
+
+        /** TCarPartsShopDefine Id */
+        Id?: (number|null);
+
+        /** TCarPartsShopDefine MoneyType */
+        MoneyType?: (number|null);
+
+        /** TCarPartsShopDefine Price */
+        Price?: (number|null);
+
+        /** TCarPartsShopDefine Nums */
+        Nums?: (number|null);
+    }
+
+    /** Represents a TCarPartsShopDefine. */
+    class TCarPartsShopDefine implements ITCarPartsShopDefine {
+
+        /**
+         * Constructs a new TCarPartsShopDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCarPartsShopDefine);
+
+        /** TCarPartsShopDefine Id. */
+        public Id: number;
+
+        /** TCarPartsShopDefine MoneyType. */
+        public MoneyType: number;
+
+        /** TCarPartsShopDefine Price. */
+        public Price: number;
+
+        /** TCarPartsShopDefine Nums. */
+        public Nums: number;
+
+        /**
+         * Creates a new TCarPartsShopDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCarPartsShopDefine instance
+         */
+        public static create(properties?: table.ITCarPartsShopDefine): table.TCarPartsShopDefine;
+
+        /**
+         * Encodes the specified TCarPartsShopDefine message. Does not implicitly {@link table.TCarPartsShopDefine.verify|verify} messages.
+         * @param message TCarPartsShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCarPartsShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCarPartsShopDefine message, length delimited. Does not implicitly {@link table.TCarPartsShopDefine.verify|verify} messages.
+         * @param message TCarPartsShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCarPartsShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCarPartsShopDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCarPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCarPartsShopDefine;
+
+        /**
+         * Decodes a TCarPartsShopDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCarPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCarPartsShopDefine;
+
+        /**
+         * Verifies a TCarPartsShopDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCarPartsShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCarPartsShopDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCarPartsShopDefine;
+
+        /**
+         * Creates a plain object from a TCarPartsShopDefine message. Also converts values to other types if specified.
+         * @param message TCarPartsShopDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCarPartsShopDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCarPartsShopDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a CarShopBase. */
     interface ICarShopBase {
 
@@ -29184,6 +29742,204 @@ declare namespace table {
 
         /**
          * Converts this TCitysDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ClothesPartsShopBase. */
+    interface IClothesPartsShopBase {
+
+        /** ClothesPartsShopBase TClothesPartsShop */
+        TClothesPartsShop?: (table.ITClothesPartsShopDefine[]|null);
+    }
+
+    /** Represents a ClothesPartsShopBase. */
+    class ClothesPartsShopBase implements IClothesPartsShopBase {
+
+        /**
+         * Constructs a new ClothesPartsShopBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IClothesPartsShopBase);
+
+        /** ClothesPartsShopBase TClothesPartsShop. */
+        public TClothesPartsShop: table.ITClothesPartsShopDefine[];
+
+        /**
+         * Creates a new ClothesPartsShopBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ClothesPartsShopBase instance
+         */
+        public static create(properties?: table.IClothesPartsShopBase): table.ClothesPartsShopBase;
+
+        /**
+         * Encodes the specified ClothesPartsShopBase message. Does not implicitly {@link table.ClothesPartsShopBase.verify|verify} messages.
+         * @param message ClothesPartsShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IClothesPartsShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ClothesPartsShopBase message, length delimited. Does not implicitly {@link table.ClothesPartsShopBase.verify|verify} messages.
+         * @param message ClothesPartsShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IClothesPartsShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ClothesPartsShopBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ClothesPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.ClothesPartsShopBase;
+
+        /**
+         * Decodes a ClothesPartsShopBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ClothesPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.ClothesPartsShopBase;
+
+        /**
+         * Verifies a ClothesPartsShopBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ClothesPartsShopBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ClothesPartsShopBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.ClothesPartsShopBase;
+
+        /**
+         * Creates a plain object from a ClothesPartsShopBase message. Also converts values to other types if specified.
+         * @param message ClothesPartsShopBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.ClothesPartsShopBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ClothesPartsShopBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TClothesPartsShopDefine. */
+    interface ITClothesPartsShopDefine {
+
+        /** TClothesPartsShopDefine Id */
+        Id?: (number|null);
+
+        /** TClothesPartsShopDefine MoneyType */
+        MoneyType?: (number|null);
+
+        /** TClothesPartsShopDefine Price */
+        Price?: (number|null);
+
+        /** TClothesPartsShopDefine Nums */
+        Nums?: (number|null);
+    }
+
+    /** Represents a TClothesPartsShopDefine. */
+    class TClothesPartsShopDefine implements ITClothesPartsShopDefine {
+
+        /**
+         * Constructs a new TClothesPartsShopDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITClothesPartsShopDefine);
+
+        /** TClothesPartsShopDefine Id. */
+        public Id: number;
+
+        /** TClothesPartsShopDefine MoneyType. */
+        public MoneyType: number;
+
+        /** TClothesPartsShopDefine Price. */
+        public Price: number;
+
+        /** TClothesPartsShopDefine Nums. */
+        public Nums: number;
+
+        /**
+         * Creates a new TClothesPartsShopDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TClothesPartsShopDefine instance
+         */
+        public static create(properties?: table.ITClothesPartsShopDefine): table.TClothesPartsShopDefine;
+
+        /**
+         * Encodes the specified TClothesPartsShopDefine message. Does not implicitly {@link table.TClothesPartsShopDefine.verify|verify} messages.
+         * @param message TClothesPartsShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITClothesPartsShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TClothesPartsShopDefine message, length delimited. Does not implicitly {@link table.TClothesPartsShopDefine.verify|verify} messages.
+         * @param message TClothesPartsShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITClothesPartsShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TClothesPartsShopDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TClothesPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TClothesPartsShopDefine;
+
+        /**
+         * Decodes a TClothesPartsShopDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TClothesPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TClothesPartsShopDefine;
+
+        /**
+         * Verifies a TClothesPartsShopDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TClothesPartsShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TClothesPartsShopDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TClothesPartsShopDefine;
+
+        /**
+         * Creates a plain object from a TClothesPartsShopDefine message. Also converts values to other types if specified.
+         * @param message TClothesPartsShopDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TClothesPartsShopDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TClothesPartsShopDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -30120,6 +30876,204 @@ declare namespace table {
 
         /**
          * Converts this THouseCellDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an HousePartsShopBase. */
+    interface IHousePartsShopBase {
+
+        /** HousePartsShopBase THousePartsShop */
+        THousePartsShop?: (table.ITHousePartsShopDefine[]|null);
+    }
+
+    /** Represents an HousePartsShopBase. */
+    class HousePartsShopBase implements IHousePartsShopBase {
+
+        /**
+         * Constructs a new HousePartsShopBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHousePartsShopBase);
+
+        /** HousePartsShopBase THousePartsShop. */
+        public THousePartsShop: table.ITHousePartsShopDefine[];
+
+        /**
+         * Creates a new HousePartsShopBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HousePartsShopBase instance
+         */
+        public static create(properties?: table.IHousePartsShopBase): table.HousePartsShopBase;
+
+        /**
+         * Encodes the specified HousePartsShopBase message. Does not implicitly {@link table.HousePartsShopBase.verify|verify} messages.
+         * @param message HousePartsShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHousePartsShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HousePartsShopBase message, length delimited. Does not implicitly {@link table.HousePartsShopBase.verify|verify} messages.
+         * @param message HousePartsShopBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHousePartsShopBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an HousePartsShopBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HousePartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HousePartsShopBase;
+
+        /**
+         * Decodes an HousePartsShopBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HousePartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HousePartsShopBase;
+
+        /**
+         * Verifies an HousePartsShopBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an HousePartsShopBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HousePartsShopBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.HousePartsShopBase;
+
+        /**
+         * Creates a plain object from an HousePartsShopBase message. Also converts values to other types if specified.
+         * @param message HousePartsShopBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HousePartsShopBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HousePartsShopBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a THousePartsShopDefine. */
+    interface ITHousePartsShopDefine {
+
+        /** THousePartsShopDefine Id */
+        Id?: (number|null);
+
+        /** THousePartsShopDefine MoneyType */
+        MoneyType?: (number|null);
+
+        /** THousePartsShopDefine Price */
+        Price?: (number|null);
+
+        /** THousePartsShopDefine Nums */
+        Nums?: (number|null);
+    }
+
+    /** Represents a THousePartsShopDefine. */
+    class THousePartsShopDefine implements ITHousePartsShopDefine {
+
+        /**
+         * Constructs a new THousePartsShopDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITHousePartsShopDefine);
+
+        /** THousePartsShopDefine Id. */
+        public Id: number;
+
+        /** THousePartsShopDefine MoneyType. */
+        public MoneyType: number;
+
+        /** THousePartsShopDefine Price. */
+        public Price: number;
+
+        /** THousePartsShopDefine Nums. */
+        public Nums: number;
+
+        /**
+         * Creates a new THousePartsShopDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns THousePartsShopDefine instance
+         */
+        public static create(properties?: table.ITHousePartsShopDefine): table.THousePartsShopDefine;
+
+        /**
+         * Encodes the specified THousePartsShopDefine message. Does not implicitly {@link table.THousePartsShopDefine.verify|verify} messages.
+         * @param message THousePartsShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITHousePartsShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified THousePartsShopDefine message, length delimited. Does not implicitly {@link table.THousePartsShopDefine.verify|verify} messages.
+         * @param message THousePartsShopDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITHousePartsShopDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a THousePartsShopDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns THousePartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.THousePartsShopDefine;
+
+        /**
+         * Decodes a THousePartsShopDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns THousePartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.THousePartsShopDefine;
+
+        /**
+         * Verifies a THousePartsShopDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a THousePartsShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns THousePartsShopDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.THousePartsShopDefine;
+
+        /**
+         * Creates a plain object from a THousePartsShopDefine message. Also converts values to other types if specified.
+         * @param message THousePartsShopDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.THousePartsShopDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this THousePartsShopDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

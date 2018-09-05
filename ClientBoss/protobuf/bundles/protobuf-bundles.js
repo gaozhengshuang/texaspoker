@@ -21856,6 +21856,207 @@ $root.msg = (function() {
         return C2GW_ReqEnterEvents;
     })();
 
+    msg.GW2C_RemoveEvent = (function() {
+
+        /**
+         * Properties of a GW2C_RemoveEvent.
+         * @memberof msg
+         * @interface IGW2C_RemoveEvent
+         * @property {number|Long|null} [uid] GW2C_RemoveEvent uid
+         */
+
+        /**
+         * Constructs a new GW2C_RemoveEvent.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RemoveEvent.
+         * @implements IGW2C_RemoveEvent
+         * @constructor
+         * @param {msg.IGW2C_RemoveEvent=} [properties] Properties to set
+         */
+        function GW2C_RemoveEvent(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RemoveEvent uid.
+         * @member {number|Long} uid
+         * @memberof msg.GW2C_RemoveEvent
+         * @instance
+         */
+        GW2C_RemoveEvent.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RemoveEvent instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.IGW2C_RemoveEvent=} [properties] Properties to set
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent instance
+         */
+        GW2C_RemoveEvent.create = function create(properties) {
+            return new GW2C_RemoveEvent(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.IGW2C_RemoveEvent} message GW2C_RemoveEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RemoveEvent.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.uid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message, length delimited. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.IGW2C_RemoveEvent} message GW2C_RemoveEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RemoveEvent.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RemoveEvent.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RemoveEvent();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.uid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RemoveEvent.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RemoveEvent message.
+         * @function verify
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RemoveEvent.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
+                    return "uid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RemoveEvent message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent
+         */
+        GW2C_RemoveEvent.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RemoveEvent)
+                return object;
+            var message = new $root.msg.GW2C_RemoveEvent();
+            if (object.uid != null)
+                if ($util.Long)
+                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = true;
+                else if (typeof object.uid === "string")
+                    message.uid = parseInt(object.uid, 10);
+                else if (typeof object.uid === "number")
+                    message.uid = object.uid;
+                else if (typeof object.uid === "object")
+                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RemoveEvent message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.GW2C_RemoveEvent} message GW2C_RemoveEvent
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RemoveEvent.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.uid = options.longs === String ? "0" : 0;
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (typeof message.uid === "number")
+                    object.uid = options.longs === String ? String(message.uid) : message.uid;
+                else
+                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber(true) : message.uid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RemoveEvent to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RemoveEvent
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RemoveEvent.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RemoveEvent;
+    })();
+
     msg.C2GW_ReqHouseData = (function() {
 
         /**
@@ -60626,6 +60827,193 @@ $root.msg = (function() {
         return C2GW_ReqSetUserSign;
     })();
 
+    msg.GW2C_AckSetUserSign = (function() {
+
+        /**
+         * Properties of a GW2C_AckSetUserSign.
+         * @memberof msg
+         * @interface IGW2C_AckSetUserSign
+         * @property {number|null} [ret] GW2C_AckSetUserSign ret
+         */
+
+        /**
+         * Constructs a new GW2C_AckSetUserSign.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckSetUserSign.
+         * @implements IGW2C_AckSetUserSign
+         * @constructor
+         * @param {msg.IGW2C_AckSetUserSign=} [properties] Properties to set
+         */
+        function GW2C_AckSetUserSign(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckSetUserSign ret.
+         * @member {number} ret
+         * @memberof msg.GW2C_AckSetUserSign
+         * @instance
+         */
+        GW2C_AckSetUserSign.prototype.ret = 0;
+
+        /**
+         * Creates a new GW2C_AckSetUserSign instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {msg.IGW2C_AckSetUserSign=} [properties] Properties to set
+         * @returns {msg.GW2C_AckSetUserSign} GW2C_AckSetUserSign instance
+         */
+        GW2C_AckSetUserSign.create = function create(properties) {
+            return new GW2C_AckSetUserSign(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckSetUserSign message. Does not implicitly {@link msg.GW2C_AckSetUserSign.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {msg.IGW2C_AckSetUserSign} message GW2C_AckSetUserSign message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckSetUserSign.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.ret);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckSetUserSign message, length delimited. Does not implicitly {@link msg.GW2C_AckSetUserSign.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {msg.IGW2C_AckSetUserSign} message GW2C_AckSetUserSign message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckSetUserSign.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckSetUserSign message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckSetUserSign} GW2C_AckSetUserSign
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckSetUserSign.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckSetUserSign();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.ret = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckSetUserSign message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckSetUserSign} GW2C_AckSetUserSign
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckSetUserSign.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckSetUserSign message.
+         * @function verify
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckSetUserSign.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                if (!$util.isInteger(message.ret))
+                    return "ret: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckSetUserSign message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckSetUserSign} GW2C_AckSetUserSign
+         */
+        GW2C_AckSetUserSign.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckSetUserSign)
+                return object;
+            var message = new $root.msg.GW2C_AckSetUserSign();
+            if (object.ret != null)
+                message.ret = object.ret >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckSetUserSign message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckSetUserSign
+         * @static
+         * @param {msg.GW2C_AckSetUserSign} message GW2C_AckSetUserSign
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckSetUserSign.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.ret = 0;
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                object.ret = message.ret;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckSetUserSign to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckSetUserSign
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckSetUserSign.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckSetUserSign;
+    })();
+
     msg.C2GW_ReqSetFace = (function() {
 
         /**
@@ -60811,6 +61199,380 @@ $root.msg = (function() {
         };
 
         return C2GW_ReqSetFace;
+    })();
+
+    msg.C2GW_ReqSetUserName = (function() {
+
+        /**
+         * Properties of a C2GW_ReqSetUserName.
+         * @memberof msg
+         * @interface IC2GW_ReqSetUserName
+         * @property {string|null} [name] C2GW_ReqSetUserName name
+         */
+
+        /**
+         * Constructs a new C2GW_ReqSetUserName.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqSetUserName.
+         * @implements IC2GW_ReqSetUserName
+         * @constructor
+         * @param {msg.IC2GW_ReqSetUserName=} [properties] Properties to set
+         */
+        function C2GW_ReqSetUserName(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqSetUserName name.
+         * @member {string} name
+         * @memberof msg.C2GW_ReqSetUserName
+         * @instance
+         */
+        C2GW_ReqSetUserName.prototype.name = "";
+
+        /**
+         * Creates a new C2GW_ReqSetUserName instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {msg.IC2GW_ReqSetUserName=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqSetUserName} C2GW_ReqSetUserName instance
+         */
+        C2GW_ReqSetUserName.create = function create(properties) {
+            return new C2GW_ReqSetUserName(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserName message. Does not implicitly {@link msg.C2GW_ReqSetUserName.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {msg.IC2GW_ReqSetUserName} message C2GW_ReqSetUserName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserName.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqSetUserName message, length delimited. Does not implicitly {@link msg.C2GW_ReqSetUserName.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {msg.IC2GW_ReqSetUserName} message C2GW_ReqSetUserName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqSetUserName.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserName message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqSetUserName} C2GW_ReqSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserName.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqSetUserName();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.name = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqSetUserName message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqSetUserName} C2GW_ReqSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqSetUserName.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqSetUserName message.
+         * @function verify
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqSetUserName.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqSetUserName message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqSetUserName} C2GW_ReqSetUserName
+         */
+        C2GW_ReqSetUserName.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqSetUserName)
+                return object;
+            var message = new $root.msg.C2GW_ReqSetUserName();
+            if (object.name != null)
+                message.name = String(object.name);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqSetUserName message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqSetUserName
+         * @static
+         * @param {msg.C2GW_ReqSetUserName} message C2GW_ReqSetUserName
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqSetUserName.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.name = "";
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqSetUserName to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqSetUserName
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqSetUserName.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqSetUserName;
+    })();
+
+    msg.GW2C_AckSetUserName = (function() {
+
+        /**
+         * Properties of a GW2C_AckSetUserName.
+         * @memberof msg
+         * @interface IGW2C_AckSetUserName
+         * @property {number|null} [ret] GW2C_AckSetUserName ret
+         */
+
+        /**
+         * Constructs a new GW2C_AckSetUserName.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckSetUserName.
+         * @implements IGW2C_AckSetUserName
+         * @constructor
+         * @param {msg.IGW2C_AckSetUserName=} [properties] Properties to set
+         */
+        function GW2C_AckSetUserName(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckSetUserName ret.
+         * @member {number} ret
+         * @memberof msg.GW2C_AckSetUserName
+         * @instance
+         */
+        GW2C_AckSetUserName.prototype.ret = 0;
+
+        /**
+         * Creates a new GW2C_AckSetUserName instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {msg.IGW2C_AckSetUserName=} [properties] Properties to set
+         * @returns {msg.GW2C_AckSetUserName} GW2C_AckSetUserName instance
+         */
+        GW2C_AckSetUserName.create = function create(properties) {
+            return new GW2C_AckSetUserName(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckSetUserName message. Does not implicitly {@link msg.GW2C_AckSetUserName.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {msg.IGW2C_AckSetUserName} message GW2C_AckSetUserName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckSetUserName.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.ret);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckSetUserName message, length delimited. Does not implicitly {@link msg.GW2C_AckSetUserName.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {msg.IGW2C_AckSetUserName} message GW2C_AckSetUserName message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckSetUserName.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckSetUserName message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckSetUserName} GW2C_AckSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckSetUserName.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckSetUserName();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.ret = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckSetUserName message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckSetUserName} GW2C_AckSetUserName
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckSetUserName.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckSetUserName message.
+         * @function verify
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckSetUserName.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                if (!$util.isInteger(message.ret))
+                    return "ret: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckSetUserName message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckSetUserName} GW2C_AckSetUserName
+         */
+        GW2C_AckSetUserName.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckSetUserName)
+                return object;
+            var message = new $root.msg.GW2C_AckSetUserName();
+            if (object.ret != null)
+                message.ret = object.ret >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckSetUserName message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckSetUserName
+         * @static
+         * @param {msg.GW2C_AckSetUserName} message GW2C_AckSetUserName
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckSetUserName.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.ret = 0;
+            if (message.ret != null && message.hasOwnProperty("ret"))
+                object.ret = message.ret;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckSetUserName to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckSetUserName
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckSetUserName.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckSetUserName;
     })();
 
     msg.C2GW_ReqPlayerCountByProvince = (function() {
@@ -67645,6 +68407,468 @@ $root.table = (function() {
         return TCarPartLevelupDefine;
     })();
 
+    table.CarPartsShopBase = (function() {
+
+        /**
+         * Properties of a CarPartsShopBase.
+         * @memberof table
+         * @interface ICarPartsShopBase
+         * @property {Array.<table.ITCarPartsShopDefine>|null} [TCarPartsShop] CarPartsShopBase TCarPartsShop
+         */
+
+        /**
+         * Constructs a new CarPartsShopBase.
+         * @memberof table
+         * @classdesc Represents a CarPartsShopBase.
+         * @implements ICarPartsShopBase
+         * @constructor
+         * @param {table.ICarPartsShopBase=} [properties] Properties to set
+         */
+        function CarPartsShopBase(properties) {
+            this.TCarPartsShop = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * CarPartsShopBase TCarPartsShop.
+         * @member {Array.<table.ITCarPartsShopDefine>} TCarPartsShop
+         * @memberof table.CarPartsShopBase
+         * @instance
+         */
+        CarPartsShopBase.prototype.TCarPartsShop = $util.emptyArray;
+
+        /**
+         * Creates a new CarPartsShopBase instance using the specified properties.
+         * @function create
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {table.ICarPartsShopBase=} [properties] Properties to set
+         * @returns {table.CarPartsShopBase} CarPartsShopBase instance
+         */
+        CarPartsShopBase.create = function create(properties) {
+            return new CarPartsShopBase(properties);
+        };
+
+        /**
+         * Encodes the specified CarPartsShopBase message. Does not implicitly {@link table.CarPartsShopBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {table.ICarPartsShopBase} message CarPartsShopBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarPartsShopBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCarPartsShop != null && message.TCarPartsShop.length)
+                for (var i = 0; i < message.TCarPartsShop.length; ++i)
+                    $root.table.TCarPartsShopDefine.encode(message.TCarPartsShop[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified CarPartsShopBase message, length delimited. Does not implicitly {@link table.CarPartsShopBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {table.ICarPartsShopBase} message CarPartsShopBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CarPartsShopBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a CarPartsShopBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.CarPartsShopBase} CarPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarPartsShopBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.CarPartsShopBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCarPartsShop && message.TCarPartsShop.length))
+                        message.TCarPartsShop = [];
+                    message.TCarPartsShop.push($root.table.TCarPartsShopDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a CarPartsShopBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.CarPartsShopBase} CarPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CarPartsShopBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a CarPartsShopBase message.
+         * @function verify
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        CarPartsShopBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCarPartsShop != null && message.hasOwnProperty("TCarPartsShop")) {
+                if (!Array.isArray(message.TCarPartsShop))
+                    return "TCarPartsShop: array expected";
+                for (var i = 0; i < message.TCarPartsShop.length; ++i) {
+                    var error = $root.table.TCarPartsShopDefine.verify(message.TCarPartsShop[i]);
+                    if (error)
+                        return "TCarPartsShop." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a CarPartsShopBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.CarPartsShopBase} CarPartsShopBase
+         */
+        CarPartsShopBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.CarPartsShopBase)
+                return object;
+            var message = new $root.table.CarPartsShopBase();
+            if (object.TCarPartsShop) {
+                if (!Array.isArray(object.TCarPartsShop))
+                    throw TypeError(".table.CarPartsShopBase.TCarPartsShop: array expected");
+                message.TCarPartsShop = [];
+                for (var i = 0; i < object.TCarPartsShop.length; ++i) {
+                    if (typeof object.TCarPartsShop[i] !== "object")
+                        throw TypeError(".table.CarPartsShopBase.TCarPartsShop: object expected");
+                    message.TCarPartsShop[i] = $root.table.TCarPartsShopDefine.fromObject(object.TCarPartsShop[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a CarPartsShopBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.CarPartsShopBase
+         * @static
+         * @param {table.CarPartsShopBase} message CarPartsShopBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        CarPartsShopBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCarPartsShop = [];
+            if (message.TCarPartsShop && message.TCarPartsShop.length) {
+                object.TCarPartsShop = [];
+                for (var j = 0; j < message.TCarPartsShop.length; ++j)
+                    object.TCarPartsShop[j] = $root.table.TCarPartsShopDefine.toObject(message.TCarPartsShop[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this CarPartsShopBase to JSON.
+         * @function toJSON
+         * @memberof table.CarPartsShopBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        CarPartsShopBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return CarPartsShopBase;
+    })();
+
+    table.TCarPartsShopDefine = (function() {
+
+        /**
+         * Properties of a TCarPartsShopDefine.
+         * @memberof table
+         * @interface ITCarPartsShopDefine
+         * @property {number|null} [Id] TCarPartsShopDefine Id
+         * @property {number|null} [MoneyType] TCarPartsShopDefine MoneyType
+         * @property {number|null} [Price] TCarPartsShopDefine Price
+         * @property {number|null} [Nums] TCarPartsShopDefine Nums
+         */
+
+        /**
+         * Constructs a new TCarPartsShopDefine.
+         * @memberof table
+         * @classdesc Represents a TCarPartsShopDefine.
+         * @implements ITCarPartsShopDefine
+         * @constructor
+         * @param {table.ITCarPartsShopDefine=} [properties] Properties to set
+         */
+        function TCarPartsShopDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCarPartsShopDefine Id.
+         * @member {number} Id
+         * @memberof table.TCarPartsShopDefine
+         * @instance
+         */
+        TCarPartsShopDefine.prototype.Id = 0;
+
+        /**
+         * TCarPartsShopDefine MoneyType.
+         * @member {number} MoneyType
+         * @memberof table.TCarPartsShopDefine
+         * @instance
+         */
+        TCarPartsShopDefine.prototype.MoneyType = 0;
+
+        /**
+         * TCarPartsShopDefine Price.
+         * @member {number} Price
+         * @memberof table.TCarPartsShopDefine
+         * @instance
+         */
+        TCarPartsShopDefine.prototype.Price = 0;
+
+        /**
+         * TCarPartsShopDefine Nums.
+         * @member {number} Nums
+         * @memberof table.TCarPartsShopDefine
+         * @instance
+         */
+        TCarPartsShopDefine.prototype.Nums = 0;
+
+        /**
+         * Creates a new TCarPartsShopDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {table.ITCarPartsShopDefine=} [properties] Properties to set
+         * @returns {table.TCarPartsShopDefine} TCarPartsShopDefine instance
+         */
+        TCarPartsShopDefine.create = function create(properties) {
+            return new TCarPartsShopDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCarPartsShopDefine message. Does not implicitly {@link table.TCarPartsShopDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {table.ITCarPartsShopDefine} message TCarPartsShopDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartsShopDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.MoneyType);
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Price);
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.Nums);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCarPartsShopDefine message, length delimited. Does not implicitly {@link table.TCarPartsShopDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {table.ITCarPartsShopDefine} message TCarPartsShopDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCarPartsShopDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCarPartsShopDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCarPartsShopDefine} TCarPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartsShopDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCarPartsShopDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.MoneyType = reader.uint32();
+                    break;
+                case 3:
+                    message.Price = reader.uint32();
+                    break;
+                case 4:
+                    message.Nums = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCarPartsShopDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCarPartsShopDefine} TCarPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCarPartsShopDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCarPartsShopDefine message.
+         * @function verify
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCarPartsShopDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                if (!$util.isInteger(message.MoneyType))
+                    return "MoneyType: integer expected";
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                if (!$util.isInteger(message.Price))
+                    return "Price: integer expected";
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                if (!$util.isInteger(message.Nums))
+                    return "Nums: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCarPartsShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCarPartsShopDefine} TCarPartsShopDefine
+         */
+        TCarPartsShopDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCarPartsShopDefine)
+                return object;
+            var message = new $root.table.TCarPartsShopDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.MoneyType != null)
+                message.MoneyType = object.MoneyType >>> 0;
+            if (object.Price != null)
+                message.Price = object.Price >>> 0;
+            if (object.Nums != null)
+                message.Nums = object.Nums >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCarPartsShopDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCarPartsShopDefine
+         * @static
+         * @param {table.TCarPartsShopDefine} message TCarPartsShopDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCarPartsShopDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.MoneyType = 0;
+                object.Price = 0;
+                object.Nums = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                object.MoneyType = message.MoneyType;
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                object.Price = message.Price;
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                object.Nums = message.Nums;
+            return object;
+        };
+
+        /**
+         * Converts this TCarPartsShopDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCarPartsShopDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCarPartsShopDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCarPartsShopDefine;
+    })();
+
     table.CarShopBase = (function() {
 
         /**
@@ -69249,6 +70473,468 @@ $root.table = (function() {
         };
 
         return TCitysDefine;
+    })();
+
+    table.ClothesPartsShopBase = (function() {
+
+        /**
+         * Properties of a ClothesPartsShopBase.
+         * @memberof table
+         * @interface IClothesPartsShopBase
+         * @property {Array.<table.ITClothesPartsShopDefine>|null} [TClothesPartsShop] ClothesPartsShopBase TClothesPartsShop
+         */
+
+        /**
+         * Constructs a new ClothesPartsShopBase.
+         * @memberof table
+         * @classdesc Represents a ClothesPartsShopBase.
+         * @implements IClothesPartsShopBase
+         * @constructor
+         * @param {table.IClothesPartsShopBase=} [properties] Properties to set
+         */
+        function ClothesPartsShopBase(properties) {
+            this.TClothesPartsShop = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ClothesPartsShopBase TClothesPartsShop.
+         * @member {Array.<table.ITClothesPartsShopDefine>} TClothesPartsShop
+         * @memberof table.ClothesPartsShopBase
+         * @instance
+         */
+        ClothesPartsShopBase.prototype.TClothesPartsShop = $util.emptyArray;
+
+        /**
+         * Creates a new ClothesPartsShopBase instance using the specified properties.
+         * @function create
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {table.IClothesPartsShopBase=} [properties] Properties to set
+         * @returns {table.ClothesPartsShopBase} ClothesPartsShopBase instance
+         */
+        ClothesPartsShopBase.create = function create(properties) {
+            return new ClothesPartsShopBase(properties);
+        };
+
+        /**
+         * Encodes the specified ClothesPartsShopBase message. Does not implicitly {@link table.ClothesPartsShopBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {table.IClothesPartsShopBase} message ClothesPartsShopBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ClothesPartsShopBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TClothesPartsShop != null && message.TClothesPartsShop.length)
+                for (var i = 0; i < message.TClothesPartsShop.length; ++i)
+                    $root.table.TClothesPartsShopDefine.encode(message.TClothesPartsShop[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ClothesPartsShopBase message, length delimited. Does not implicitly {@link table.ClothesPartsShopBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {table.IClothesPartsShopBase} message ClothesPartsShopBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ClothesPartsShopBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ClothesPartsShopBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.ClothesPartsShopBase} ClothesPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ClothesPartsShopBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.ClothesPartsShopBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TClothesPartsShop && message.TClothesPartsShop.length))
+                        message.TClothesPartsShop = [];
+                    message.TClothesPartsShop.push($root.table.TClothesPartsShopDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ClothesPartsShopBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.ClothesPartsShopBase} ClothesPartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ClothesPartsShopBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ClothesPartsShopBase message.
+         * @function verify
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ClothesPartsShopBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TClothesPartsShop != null && message.hasOwnProperty("TClothesPartsShop")) {
+                if (!Array.isArray(message.TClothesPartsShop))
+                    return "TClothesPartsShop: array expected";
+                for (var i = 0; i < message.TClothesPartsShop.length; ++i) {
+                    var error = $root.table.TClothesPartsShopDefine.verify(message.TClothesPartsShop[i]);
+                    if (error)
+                        return "TClothesPartsShop." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ClothesPartsShopBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.ClothesPartsShopBase} ClothesPartsShopBase
+         */
+        ClothesPartsShopBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.ClothesPartsShopBase)
+                return object;
+            var message = new $root.table.ClothesPartsShopBase();
+            if (object.TClothesPartsShop) {
+                if (!Array.isArray(object.TClothesPartsShop))
+                    throw TypeError(".table.ClothesPartsShopBase.TClothesPartsShop: array expected");
+                message.TClothesPartsShop = [];
+                for (var i = 0; i < object.TClothesPartsShop.length; ++i) {
+                    if (typeof object.TClothesPartsShop[i] !== "object")
+                        throw TypeError(".table.ClothesPartsShopBase.TClothesPartsShop: object expected");
+                    message.TClothesPartsShop[i] = $root.table.TClothesPartsShopDefine.fromObject(object.TClothesPartsShop[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ClothesPartsShopBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.ClothesPartsShopBase
+         * @static
+         * @param {table.ClothesPartsShopBase} message ClothesPartsShopBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ClothesPartsShopBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TClothesPartsShop = [];
+            if (message.TClothesPartsShop && message.TClothesPartsShop.length) {
+                object.TClothesPartsShop = [];
+                for (var j = 0; j < message.TClothesPartsShop.length; ++j)
+                    object.TClothesPartsShop[j] = $root.table.TClothesPartsShopDefine.toObject(message.TClothesPartsShop[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this ClothesPartsShopBase to JSON.
+         * @function toJSON
+         * @memberof table.ClothesPartsShopBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ClothesPartsShopBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ClothesPartsShopBase;
+    })();
+
+    table.TClothesPartsShopDefine = (function() {
+
+        /**
+         * Properties of a TClothesPartsShopDefine.
+         * @memberof table
+         * @interface ITClothesPartsShopDefine
+         * @property {number|null} [Id] TClothesPartsShopDefine Id
+         * @property {number|null} [MoneyType] TClothesPartsShopDefine MoneyType
+         * @property {number|null} [Price] TClothesPartsShopDefine Price
+         * @property {number|null} [Nums] TClothesPartsShopDefine Nums
+         */
+
+        /**
+         * Constructs a new TClothesPartsShopDefine.
+         * @memberof table
+         * @classdesc Represents a TClothesPartsShopDefine.
+         * @implements ITClothesPartsShopDefine
+         * @constructor
+         * @param {table.ITClothesPartsShopDefine=} [properties] Properties to set
+         */
+        function TClothesPartsShopDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TClothesPartsShopDefine Id.
+         * @member {number} Id
+         * @memberof table.TClothesPartsShopDefine
+         * @instance
+         */
+        TClothesPartsShopDefine.prototype.Id = 0;
+
+        /**
+         * TClothesPartsShopDefine MoneyType.
+         * @member {number} MoneyType
+         * @memberof table.TClothesPartsShopDefine
+         * @instance
+         */
+        TClothesPartsShopDefine.prototype.MoneyType = 0;
+
+        /**
+         * TClothesPartsShopDefine Price.
+         * @member {number} Price
+         * @memberof table.TClothesPartsShopDefine
+         * @instance
+         */
+        TClothesPartsShopDefine.prototype.Price = 0;
+
+        /**
+         * TClothesPartsShopDefine Nums.
+         * @member {number} Nums
+         * @memberof table.TClothesPartsShopDefine
+         * @instance
+         */
+        TClothesPartsShopDefine.prototype.Nums = 0;
+
+        /**
+         * Creates a new TClothesPartsShopDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {table.ITClothesPartsShopDefine=} [properties] Properties to set
+         * @returns {table.TClothesPartsShopDefine} TClothesPartsShopDefine instance
+         */
+        TClothesPartsShopDefine.create = function create(properties) {
+            return new TClothesPartsShopDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TClothesPartsShopDefine message. Does not implicitly {@link table.TClothesPartsShopDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {table.ITClothesPartsShopDefine} message TClothesPartsShopDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TClothesPartsShopDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.MoneyType);
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Price);
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.Nums);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TClothesPartsShopDefine message, length delimited. Does not implicitly {@link table.TClothesPartsShopDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {table.ITClothesPartsShopDefine} message TClothesPartsShopDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TClothesPartsShopDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TClothesPartsShopDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TClothesPartsShopDefine} TClothesPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TClothesPartsShopDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TClothesPartsShopDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.MoneyType = reader.uint32();
+                    break;
+                case 3:
+                    message.Price = reader.uint32();
+                    break;
+                case 4:
+                    message.Nums = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TClothesPartsShopDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TClothesPartsShopDefine} TClothesPartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TClothesPartsShopDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TClothesPartsShopDefine message.
+         * @function verify
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TClothesPartsShopDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                if (!$util.isInteger(message.MoneyType))
+                    return "MoneyType: integer expected";
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                if (!$util.isInteger(message.Price))
+                    return "Price: integer expected";
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                if (!$util.isInteger(message.Nums))
+                    return "Nums: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TClothesPartsShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TClothesPartsShopDefine} TClothesPartsShopDefine
+         */
+        TClothesPartsShopDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TClothesPartsShopDefine)
+                return object;
+            var message = new $root.table.TClothesPartsShopDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.MoneyType != null)
+                message.MoneyType = object.MoneyType >>> 0;
+            if (object.Price != null)
+                message.Price = object.Price >>> 0;
+            if (object.Nums != null)
+                message.Nums = object.Nums >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TClothesPartsShopDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TClothesPartsShopDefine
+         * @static
+         * @param {table.TClothesPartsShopDefine} message TClothesPartsShopDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TClothesPartsShopDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.MoneyType = 0;
+                object.Price = 0;
+                object.Nums = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                object.MoneyType = message.MoneyType;
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                object.Price = message.Price;
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                object.Nums = message.Nums;
+            return object;
+        };
+
+        /**
+         * Converts this TClothesPartsShopDefine to JSON.
+         * @function toJSON
+         * @memberof table.TClothesPartsShopDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TClothesPartsShopDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TClothesPartsShopDefine;
     })();
 
     table.TEquipBase = (function() {
@@ -71676,6 +73362,468 @@ $root.table = (function() {
         };
 
         return THouseCellDefine;
+    })();
+
+    table.HousePartsShopBase = (function() {
+
+        /**
+         * Properties of an HousePartsShopBase.
+         * @memberof table
+         * @interface IHousePartsShopBase
+         * @property {Array.<table.ITHousePartsShopDefine>|null} [THousePartsShop] HousePartsShopBase THousePartsShop
+         */
+
+        /**
+         * Constructs a new HousePartsShopBase.
+         * @memberof table
+         * @classdesc Represents an HousePartsShopBase.
+         * @implements IHousePartsShopBase
+         * @constructor
+         * @param {table.IHousePartsShopBase=} [properties] Properties to set
+         */
+        function HousePartsShopBase(properties) {
+            this.THousePartsShop = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * HousePartsShopBase THousePartsShop.
+         * @member {Array.<table.ITHousePartsShopDefine>} THousePartsShop
+         * @memberof table.HousePartsShopBase
+         * @instance
+         */
+        HousePartsShopBase.prototype.THousePartsShop = $util.emptyArray;
+
+        /**
+         * Creates a new HousePartsShopBase instance using the specified properties.
+         * @function create
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {table.IHousePartsShopBase=} [properties] Properties to set
+         * @returns {table.HousePartsShopBase} HousePartsShopBase instance
+         */
+        HousePartsShopBase.create = function create(properties) {
+            return new HousePartsShopBase(properties);
+        };
+
+        /**
+         * Encodes the specified HousePartsShopBase message. Does not implicitly {@link table.HousePartsShopBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {table.IHousePartsShopBase} message HousePartsShopBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HousePartsShopBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.THousePartsShop != null && message.THousePartsShop.length)
+                for (var i = 0; i < message.THousePartsShop.length; ++i)
+                    $root.table.THousePartsShopDefine.encode(message.THousePartsShop[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified HousePartsShopBase message, length delimited. Does not implicitly {@link table.HousePartsShopBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {table.IHousePartsShopBase} message HousePartsShopBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HousePartsShopBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an HousePartsShopBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.HousePartsShopBase} HousePartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HousePartsShopBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.HousePartsShopBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.THousePartsShop && message.THousePartsShop.length))
+                        message.THousePartsShop = [];
+                    message.THousePartsShop.push($root.table.THousePartsShopDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an HousePartsShopBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.HousePartsShopBase} HousePartsShopBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HousePartsShopBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an HousePartsShopBase message.
+         * @function verify
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        HousePartsShopBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.THousePartsShop != null && message.hasOwnProperty("THousePartsShop")) {
+                if (!Array.isArray(message.THousePartsShop))
+                    return "THousePartsShop: array expected";
+                for (var i = 0; i < message.THousePartsShop.length; ++i) {
+                    var error = $root.table.THousePartsShopDefine.verify(message.THousePartsShop[i]);
+                    if (error)
+                        return "THousePartsShop." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an HousePartsShopBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.HousePartsShopBase} HousePartsShopBase
+         */
+        HousePartsShopBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.HousePartsShopBase)
+                return object;
+            var message = new $root.table.HousePartsShopBase();
+            if (object.THousePartsShop) {
+                if (!Array.isArray(object.THousePartsShop))
+                    throw TypeError(".table.HousePartsShopBase.THousePartsShop: array expected");
+                message.THousePartsShop = [];
+                for (var i = 0; i < object.THousePartsShop.length; ++i) {
+                    if (typeof object.THousePartsShop[i] !== "object")
+                        throw TypeError(".table.HousePartsShopBase.THousePartsShop: object expected");
+                    message.THousePartsShop[i] = $root.table.THousePartsShopDefine.fromObject(object.THousePartsShop[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an HousePartsShopBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.HousePartsShopBase
+         * @static
+         * @param {table.HousePartsShopBase} message HousePartsShopBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        HousePartsShopBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.THousePartsShop = [];
+            if (message.THousePartsShop && message.THousePartsShop.length) {
+                object.THousePartsShop = [];
+                for (var j = 0; j < message.THousePartsShop.length; ++j)
+                    object.THousePartsShop[j] = $root.table.THousePartsShopDefine.toObject(message.THousePartsShop[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this HousePartsShopBase to JSON.
+         * @function toJSON
+         * @memberof table.HousePartsShopBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        HousePartsShopBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return HousePartsShopBase;
+    })();
+
+    table.THousePartsShopDefine = (function() {
+
+        /**
+         * Properties of a THousePartsShopDefine.
+         * @memberof table
+         * @interface ITHousePartsShopDefine
+         * @property {number|null} [Id] THousePartsShopDefine Id
+         * @property {number|null} [MoneyType] THousePartsShopDefine MoneyType
+         * @property {number|null} [Price] THousePartsShopDefine Price
+         * @property {number|null} [Nums] THousePartsShopDefine Nums
+         */
+
+        /**
+         * Constructs a new THousePartsShopDefine.
+         * @memberof table
+         * @classdesc Represents a THousePartsShopDefine.
+         * @implements ITHousePartsShopDefine
+         * @constructor
+         * @param {table.ITHousePartsShopDefine=} [properties] Properties to set
+         */
+        function THousePartsShopDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * THousePartsShopDefine Id.
+         * @member {number} Id
+         * @memberof table.THousePartsShopDefine
+         * @instance
+         */
+        THousePartsShopDefine.prototype.Id = 0;
+
+        /**
+         * THousePartsShopDefine MoneyType.
+         * @member {number} MoneyType
+         * @memberof table.THousePartsShopDefine
+         * @instance
+         */
+        THousePartsShopDefine.prototype.MoneyType = 0;
+
+        /**
+         * THousePartsShopDefine Price.
+         * @member {number} Price
+         * @memberof table.THousePartsShopDefine
+         * @instance
+         */
+        THousePartsShopDefine.prototype.Price = 0;
+
+        /**
+         * THousePartsShopDefine Nums.
+         * @member {number} Nums
+         * @memberof table.THousePartsShopDefine
+         * @instance
+         */
+        THousePartsShopDefine.prototype.Nums = 0;
+
+        /**
+         * Creates a new THousePartsShopDefine instance using the specified properties.
+         * @function create
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {table.ITHousePartsShopDefine=} [properties] Properties to set
+         * @returns {table.THousePartsShopDefine} THousePartsShopDefine instance
+         */
+        THousePartsShopDefine.create = function create(properties) {
+            return new THousePartsShopDefine(properties);
+        };
+
+        /**
+         * Encodes the specified THousePartsShopDefine message. Does not implicitly {@link table.THousePartsShopDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {table.ITHousePartsShopDefine} message THousePartsShopDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        THousePartsShopDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.MoneyType);
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Price);
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.Nums);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified THousePartsShopDefine message, length delimited. Does not implicitly {@link table.THousePartsShopDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {table.ITHousePartsShopDefine} message THousePartsShopDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        THousePartsShopDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a THousePartsShopDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.THousePartsShopDefine} THousePartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        THousePartsShopDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.THousePartsShopDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.MoneyType = reader.uint32();
+                    break;
+                case 3:
+                    message.Price = reader.uint32();
+                    break;
+                case 4:
+                    message.Nums = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a THousePartsShopDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.THousePartsShopDefine} THousePartsShopDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        THousePartsShopDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a THousePartsShopDefine message.
+         * @function verify
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        THousePartsShopDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                if (!$util.isInteger(message.MoneyType))
+                    return "MoneyType: integer expected";
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                if (!$util.isInteger(message.Price))
+                    return "Price: integer expected";
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                if (!$util.isInteger(message.Nums))
+                    return "Nums: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a THousePartsShopDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.THousePartsShopDefine} THousePartsShopDefine
+         */
+        THousePartsShopDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.THousePartsShopDefine)
+                return object;
+            var message = new $root.table.THousePartsShopDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.MoneyType != null)
+                message.MoneyType = object.MoneyType >>> 0;
+            if (object.Price != null)
+                message.Price = object.Price >>> 0;
+            if (object.Nums != null)
+                message.Nums = object.Nums >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a THousePartsShopDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.THousePartsShopDefine
+         * @static
+         * @param {table.THousePartsShopDefine} message THousePartsShopDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        THousePartsShopDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.MoneyType = 0;
+                object.Price = 0;
+                object.Nums = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.MoneyType != null && message.hasOwnProperty("MoneyType"))
+                object.MoneyType = message.MoneyType;
+            if (message.Price != null && message.hasOwnProperty("Price"))
+                object.Price = message.Price;
+            if (message.Nums != null && message.hasOwnProperty("Nums"))
+                object.Nums = message.Nums;
+            return object;
+        };
+
+        /**
+         * Converts this THousePartsShopDefine to JSON.
+         * @function toJSON
+         * @memberof table.THousePartsShopDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        THousePartsShopDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return THousePartsShopDefine;
     })();
 
     table.ItemBase = (function() {

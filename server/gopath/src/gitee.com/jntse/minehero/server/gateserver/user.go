@@ -14,7 +14,7 @@ import (
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
-	_ "strings"
+	"strings"
 	_ "time"
 )
 
@@ -148,6 +148,44 @@ func (this *GateUser) Name() string {
 	return this.EntityBase().GetName()
 }
 
+func (this *GateUser) SetName(nickname string) bool {
+	if nickname == "" {
+		this.SendNotify("昵称不能为空")
+		return false
+	}
+
+	if strings.Count(nickname, "")-1 > 8 {
+		this.SendNotify("昵称长度不能大于8个字符")
+		return false
+	}
+
+	if issp, _ := util.ContainsSpecialCharacter(nickname); issp == true {
+		this.SendNotify("昵称不能含有标点和特殊字符")
+		return false
+	}
+	
+	// 昵称是否重复
+	keynickname := fmt.Sprintf("accounts_nickname")
+	keyvalue, err := Redis().SIsMember(keynickname, nickname).Result()
+	if err != nil && err != redis.Nil {
+		//errcode = "redis暂时不可用"
+		log.Error("检查昵称是否重复 Redis错误:%s", err)
+		return false
+	}
+	if keyvalue == true {
+		//errcode = "昵称重复"
+		this.SendNotify("昵称重复")
+		return false
+	}
+
+	this.EntityBase().Name = pb.String(nickname)
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownername = nickname
+	}
+	return true
+}
+
 func (this *GateUser) Face() string {
 	return this.EntityBase().GetFace()
 }
@@ -176,8 +214,13 @@ func (this *GateUser) SetSex(sex int32) {
 	}
 }
 
-func (this *GateUser) SetSign(sign string){
+func (this *GateUser) SetSign(sign string) bool {
+	if strings.Count(sign, "")-1 > 30 {
+		this.SendNotify("昵称长度不能大于30个字符")
+		return false
+	}
 	this.sign = sign
+	return true
 }
 
 func (this *GateUser) Sign() string {
@@ -391,7 +434,7 @@ func (this *GateUser) GetStrength() uint32 {
 }
 
 // 增加体力
-func (this *GateUser) AddStrength(count uint32, syn bool) {
+func (this *GateUser) AddStrength(count uint32, reason string, syn bool) {
 	if this.IsRobCountFull() {
 		return
 	}
@@ -408,10 +451,11 @@ func (this *GateUser) AddStrength(count uint32, syn bool) {
 	if syn {
 		this.NotifyRobCount()
 	}
+	log.Info("玩家[%d] 添加体力[%d] 库存[%d] 原因[%s]", this.Id(), count, this.GetStrength(), reason)
 }
 
 // 扣除体力
-func (this *GateUser) RemoveStrength(count uint32, syn bool) {
+func (this *GateUser) RemoveStrength(count uint32, reason string, syn bool) {
 	active := this.IsRobCountFull()
 	if this.robcount >= count {
 		this.robcount -= count
@@ -426,6 +470,7 @@ func (this *GateUser) RemoveStrength(count uint32, syn bool) {
 	if syn {
 		this.NotifyRobCount()
 	}
+	log.Info("玩家[%d] 扣除体力[%d] 库存[%d] 原因[%s]", this.Id(), count, this.GetStrength(), reason)
 }
 
 func (this *GateUser) IsRobCountFull() bool {
@@ -1116,7 +1161,7 @@ func (this *GateUser) SyncTimeStamp() {
 func (this *GateUser) CheckAddStrength() {
 	now := util.CURTIME()
 	if !this.IsRobCountFull() && this.tmaddrobcount !=0 && now >= this.tmaddrobcount {
-		this.AddStrength(5, true)
+		this.AddStrength(5, "自动回复", true)
 		if !this.IsRobCountFull() {
 			this.SetRobCountResumeTime(util.CURTIME() + 3600, true)
 		}else {

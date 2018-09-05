@@ -261,7 +261,10 @@
 		{ "Id": 257, "Name": "msg.C2GW_ReqSetUserAge" },
 		{ "Id": 258, "Name": "msg.C2GW_ReqSetUserConstellation" },
 		{ "Id": 259, "Name": "msg.C2GW_ReqSetUserSign" },
-		{ "Id": 260, "Name": "msg.C2GW_ReqSetFace" },
-		{ "Id": 261, "Name": "msg.C2GW_ReqPlayerCountByProvince" },
-		{ "Id": 262, "Name": "msg.GW2C_AckPlayerCountByProvince" }
+		{ "Id": 260, "Name": "msg.GW2C_AckSetUserSign" },
+		{ "Id": 261, "Name": "msg.C2GW_ReqSetFace" },
+		{ "Id": 262, "Name": "msg.C2GW_ReqSetUserName" },
+		{ "Id": 263, "Name": "msg.GW2C_AckSetUserName" },
+		{ "Id": 264, "Name": "msg.C2GW_ReqPlayerCountByProvince" },
+		{ "Id": 265, "Name": "msg.GW2C_AckPlayerCountByProvince" }
 	]}

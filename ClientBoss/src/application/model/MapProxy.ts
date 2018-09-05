@@ -158,6 +158,7 @@ module game {
 				init(realobj.lat, realobj.lng, 16);
 			}
 			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: realobj.lat, lng: realobj.lng });
+			NotificationCenter.postNotification(CommandName.GET_SELF_COORDINSTE, { lat: realobj.lat, lng: realobj.lng });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);
 		}
@@ -174,7 +175,7 @@ module game {
 			let position_str = JSON.stringify(position, null, 4);
 			let realobj = eval('(' + position_str + ')');
 			//console.log(position_str);
-			sendMessage("msg.C2GW_ReqSetPos", msg.C2GW_ReqSetPos.encode({lat:realobj.lat,lng:realobj.lng}));
+			sendMessage("msg.C2GW_ReqSetPos", msg.C2GW_ReqSetPos.encode({ lat: realobj.lat, lng: realobj.lng }));
 			moveMap(realobj.lat, realobj.lng);
 		}
 		public moveMapFun(lat, lng) {

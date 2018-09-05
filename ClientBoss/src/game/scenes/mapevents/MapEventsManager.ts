@@ -9,7 +9,7 @@ declare function addEventsIcon(data: game.MapIconInfo);
 /**
  * 移除地图事件ICON
  */
-declare function removeEventsIcon(id: number);
+declare function removeEventsIcon(id: number | Long);
 /**
  * 清空地图事件ICON
  */
@@ -34,41 +34,53 @@ module game {
 		public init() {
 			setEventsIconCallBackFun(this.onEventsIconClick, this);
 			NotificationCenter.addObserver(this, this.GW2C_SendUserEvents, "msg.GW2C_SendUserEvents");
+			NotificationCenter.addObserver(this, this.GW2C_RemoveEvent, "msg.GW2C_RemoveEvent");
+			NotificationCenter.addObserver(this, this.onSelfCoordinste, CommandName.GET_SELF_COORDINSTE);
 		}
-
+		private onSelfCoordinste() {
+			this.GW2C_SendUserEvents(this.eventsListInfo);
+		}
 		/**
 		 * 用户事件推送
 		 */
 		private GW2C_SendUserEvents(msg: msg.GW2C_SendUserEvents) {
-			// this.eventsListInfo = msg; //临时屏蔽
-			// //清空事件图标
-			// emptyEventsIcon();
-			// //重新添加事件图标
-			// if (msg.event && msg.event.events) {
-			// 	for (let info of msg.event.events) {
-			// 		let iconInfo: MapIconInfo = new MapIconInfo();
-			// 		iconInfo.id = info.id;
-			// 		let iconDef = table.TMapEventById[info.tid];
-			// 		if (iconDef) {
-			// 			iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
-			// 			iconInfo.latitude = info.latitude;
-			// 			iconInfo.longitude = info.longitude;
-			// 			iconInfo.tid = info.tid;
-			// 			console.log("纬度：", info.latitude, "经度：", info.longitude);
-			// 			addEventsIcon(iconInfo);
-			// 		}
-			// 	}
-			// }
-			// NotificationCenter.postNotification(MapEventsManager.OnMapEventsSend);
+			this.eventsListInfo = msg;
+			if (map) {
+				//清空事件图标
+				emptyEventsIcon();
+				//重新添加事件图标
+				if (msg.event && msg.event.events) {
+					for (let info of msg.event.events) {
+						let iconInfo: MapIconInfo = new MapIconInfo();
+						iconInfo.id = info.id;
+						let iconDef = table.TMapEventById[info.tid];
+						if (iconDef) {
+							iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
+							iconInfo.latitude = info.latitude / 100000;
+							iconInfo.longitude = info.longitude / 100000;
+							iconInfo.tid = info.tid;
+							console.log("纬度：", iconInfo.latitude, "经度：", iconInfo.longitude);
+							addEventsIcon(iconInfo);
+						}
+					}
+				}
+				NotificationCenter.postNotification(MapEventsManager.OnMapEventsSend);
+			}
 		}
-
+		private GW2C_RemoveEvent(msg: msg.GW2C_RemoveEvent) {
+			this.removeData(msg.uid);
+			removeEventsIcon(msg.uid);
+		}
 		// public removeEventsIcon(id:number)
 		// {
 		// 	removeEventsIcon(id);
 		// }
 
-		private onEventsIconClick(data: game.MapIconInfo) {
+		private onEventsIconClick(type: string, data: game.MapIconInfo) {
 			let def = table.TMapEventById[data.tid];
+			if (def.Type == msg.MapEventType.Bonus) {
+				this.reqEnterEvent(data.id);
+			}
 			//todo sth 点击了地图上的事件图标
 			console.log("点击了地图上的事件图标", "id", data.id, "tid:", data.tid);
 			//addObserver
@@ -77,9 +89,15 @@ module game {
 		 * 请求进入事件
 		 */
 		public reqEnterEvent(uid: number | Long) {
-			let netData = new msg.C2GW_ReqEnterEvents();
-			netData.uid = parseInt(uid.toString());
-			sendMessage("msg.C2GW_ReqEnterEvents", msg.C2GW_ReqEnterEvents.encode(netData));
+			let data = this.getData(uid);
+			let mapDef = table.TMapEventById[data.tid];
+			if (mapDef) {
+				if (DataManager.isAssetsEnough(mapDef.MoneyType, mapDef.Price, mapDef.MoneyType)) {
+					let netData = new msg.C2GW_ReqEnterEvents();
+					netData.uid = parseInt(uid.toString());
+					sendMessage("msg.C2GW_ReqEnterEvents", msg.C2GW_ReqEnterEvents.encode(netData));
+				}
+			}
 		}
 		/**
 		 * 请求完成事件
@@ -103,6 +121,21 @@ module game {
 			}
 			Console.log("查找地图事件异常！id：", id);
 			return null;
+		}
+		/**
+		 * 移除地图事件
+		 */
+		public removeData(id: number | Long) {
+			if (this.eventsListInfo && this.eventsListInfo.event && this.eventsListInfo.event.events) {
+				for (let i: number = 0; i < this.eventsListInfo.event.events.length; i++) {
+					let info = this.eventsListInfo.event.events[i];
+					if(info.id == id)
+					{
+						this.eventsListInfo.event.events.splice(i, 1);
+						break;
+					}
+				}
+			}
 		}
 
 		private static _instance: MapEventsManager = null;
