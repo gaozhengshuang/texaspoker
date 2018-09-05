@@ -349,13 +349,8 @@ func (this *UserManager) UpdateUserPos(uid uint64, x, y float32) bool {
 }
 
 //获取附近的玩家
-func (this *UserManager) GetNearUsersByUid(uid uint64) map[uint64]*GateUser {
+func (this *UserManager) GetNearUsers(x, y float32) map[uint64]*GateUser {
 	data := make(map[uint64]*GateUser)
-	user := this.FindById(uid)
-	if user == nil {
-		return data
-	}
-	x, y := user.GetUserPos()
 	if x < 0 {
 		x = x + 360
 	}

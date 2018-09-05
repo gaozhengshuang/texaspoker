@@ -1156,9 +1156,9 @@ func (this *GateUser) SetUserPos(x,y float32) {
 	}
 }
 
-func (this *GateUser) AckNearUsersData() {
+func (this *GateUser) AckNearUsersData(lng, lat float32) {
 	send := &msg.GW2C_AckNearUsers{}
-	data := UserMgr().GetNearUsersByUid(this.Id())
+	data := UserMgr().GetNearUsers(lng, lat)
 	max := 0
 	for _, v := range data {
 		tmp := &msg.PersonSocialInfo{}

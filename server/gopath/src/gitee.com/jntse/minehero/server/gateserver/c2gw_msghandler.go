@@ -1617,13 +1617,16 @@ func on_C2GW_GetTradeItemReward(session network.IBaseNetSession, message interfa
 }
 
 func on_C2GW_ReqNearUsers (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqNearUsers)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.AckNearUsersData()
+	x := tmsg.GetLng()
+	y := tmsg.GetLat()
+	user.AckNearUsersData(x, y)
 }
 
 func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {

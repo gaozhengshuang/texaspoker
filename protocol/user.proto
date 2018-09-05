@@ -77,7 +77,8 @@ message C2GW_ReqTaskList {
 
 // 请求附近的人
 message C2GW_ReqNearUsers {
-
+	optional float lng = 1;
+	optional float lat = 2;
 }
 
 // 返回附近的人
