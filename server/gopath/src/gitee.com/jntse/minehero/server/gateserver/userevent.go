@@ -16,12 +16,62 @@ import (
 )
 
 
-type EventHandler func(uid uint64) bool
+func NewMapEvent(ty uint32, bin *msg.MapEvent) IMapEvent {
+	switch ty {
+	case uint32(msg.MapEventType_Game):
+		return &GameEvent{BaseEvent{bin:bin}}
+	case uint32(msg.MapEventType_Bonus):
+		return &BonusEvent{BaseEvent{bin:bin}}
+	case uint32(msg.MapEventType_Building):
+		return &BuildingEvent{BaseEvent{bin:bin}}
+	default:
+		log.Error("[地图事件] 创建无效的地图事件类型[%d]", ty)
+	}
+	return nil
+}
+
+// 事件接口
+type IMapEvent interface {
+	Process(u *GateUser)
+	Bin() *msg.MapEvent
+}
+
+// 事件基础数据
+type BaseEvent struct {
+	bin *msg.MapEvent
+}
+func (e *BaseEvent) Bin() *msg.MapEvent { return e.bin }
+func (e *BaseEvent) Process(u *GateUser) { }
+
+// 游戏事件
+type GameEvent struct {
+	BaseEvent
+}
+
+func (e *GameEvent) Process(u *GateUser) {
+}
+
+// 奖励事件
+type BonusEvent struct {
+	BaseEvent
+}
+
+func (e *BonusEvent) Process(u *GateUser) {
+}
+
+// 建筑事件
+type BuildingEvent struct {
+	BaseEvent
+}
+
+func (e *BuildingEvent) Process(u *GateUser) {
+}
+
+
 
 // 地图事件
 type UserMapEvent struct {
-	events map[uint64]*msg.MapEvent
-	hevents map[uint32]EventHandler
+	events map[uint64]IMapEvent
 	refreshtime int64		// 上一次刷新时间，秒
 	refreshactive int64		// 激活刷新，毫秒
 	owner *GateUser
@@ -30,8 +80,7 @@ type UserMapEvent struct {
 func (m *UserMapEvent) Init(u *GateUser) {
 	m.owner = u
 	m.refreshactive = 0
-	m.events = make(map[uint64]*msg.MapEvent)
-	m.hevents = make(map[uint32]EventHandler)
+	m.events = make(map[uint64]IMapEvent)
 }
 
 // 10毫秒tick
@@ -54,7 +103,12 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 	uevent := bin.Base.GetMapevent()
 	m.refreshtime = uevent.GetTmrefresh()
 	for _, v := range uevent.Events {
-		m.events[v.GetId()] = v
+		event := NewMapEvent(uint32(v.GetTid() / 1000), v)
+		if event == nil {
+			log.Error("[地图事件] 玩家[%s %d] 加载了无效的地图事件[%d]", m.owner.Name(), m.owner.Id(), v.GetTid())
+			continue
+		}
+		m.events[v.GetId()] = event
 	}
 }
 
@@ -67,7 +121,7 @@ func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
 	mapevent := &msg.UserMapEvent{Events: make([]*msg.MapEvent, 0)}
 	mapevent.Tmrefresh = pb.Int64(m.refreshtime)
 	for _, v := range m.events {
-		mapevent.Events = append(mapevent.Events, v)
+		mapevent.Events = append(mapevent.Events, v.Bin())
 	}
 	return mapevent
 }
@@ -96,7 +150,7 @@ func (m *UserMapEvent) RefreshActive() {
 func (m *UserMapEvent) Refresh(now int64) {
 
 	//事件clean
-	m.events = make(map[uint64]*msg.MapEvent)
+	m.events = make(map[uint64]IMapEvent)
 	m.refreshtime = now / 1000
 	m.refreshactive = 0
 	eventuid := uint64(1)
@@ -116,10 +170,10 @@ func (m *UserMapEvent) Refresh(now int64) {
 				log.Error("[地图事件] 权重获得产出事件失败")
 				continue
 			}
-			uid := uint32(giftweight[index].Uid)
+			tid := uint32(giftweight[index].Uid)
 			lo, la := m.GetRandRangePos(int_longitude, int_latitude, v.RangeMin, v.RangeMax)
-			event := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(uid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
-			m.events[event.GetId()] = event
+			eventbin := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(tid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
+			m.events[eventuid] = NewMapEvent(uint32(tid / 1000), eventbin)
 			eventuid++
 		}
 	}
@@ -161,5 +215,6 @@ func (m *UserMapEvent) EnterEvents(uid uint64) {
 		log.Error("玩家没有这个事件[%d]", uid)
 		return
 	}
+	event.Process(m.owner)
 }
 
