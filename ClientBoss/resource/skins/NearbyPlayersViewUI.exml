@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="NearbyPlayersViewUI" width="480" height="678" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:Rect width="480" height="678" x="0" y="0" fillColor="0xffffff" ellipseWidth="100" ellipseHeight="100" locked="true"/>
-	<e:Image id="topImg" source="hall_5_json.userCustomBg1_png" x="0" y="0"/>
-	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" right="-18" top="-21"/>
-	<e:Group x="6" y="11">
+	<e:Rect width="480" height="678" fillColor="0xffffff" ellipseWidth="100" ellipseHeight="100" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="topImg" source="hall_5_json.userCustomBg1_png" horizontalCenter="0" verticalCenter="-191"/>
+	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="231.5" verticalCenter="-333.5"/>
+	<e:Group horizontalCenter="-86.5" verticalCenter="-308">
 		<e:Image source="hall_4_json.trading_pos_png" scaleX="0.8" scaleY="0.8" x="0" y="0"/>
 		<e:Label id="bPoint_txt" text="上海市·闵行区" size="25" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="260" textColor="0x404A58" stroke="1" strokeColor="0xffffff" x="35" y="8"/>
 	</e:Group>
-	<e:Label id="name_txt" text="金泰妍de宝宝" y="310" textColor="0x262626" size="35" fontFamily="Microsoft YaHei" width="230" textAlign="center" verticalAlign="middle" horizontalCenter="0"/>
-	<e:Label id="level_txt" text="Lv.16" x="363" y="321" textColor="0x262626" size="24" fontFamily="Microsoft YaHei" width="66"/>
-	<e:Image id="headImg" source="hall_5_json.userHeadImg1_png" x="18" y="308"/>
-	<e:Group x="0" y="460">
+	<e:Label id="name_txt" text="金泰妍de宝宝" textColor="0x262626" size="35" fontFamily="Microsoft YaHei" width="230" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="-11.5"/>
+	<e:Label id="level_txt" text="Lv.16" textColor="0x262626" size="24" fontFamily="Microsoft YaHei" width="66" horizontalCenter="156" verticalCenter="-6"/>
+	<e:Image id="headImg" source="hall_5_json.userHeadImg1_png" horizontalCenter="-180" verticalCenter="11"/>
+	<e:Group horizontalCenter="0" verticalCenter="171">
 		<e:Rect width="480" height="100" x="0" y="0" fillColor="0x76c9e8" fillAlpha="0.23"/>
 		<e:Label id="qianming_txt" text="这家伙很懒，什么也没留下~" x="0" y="0" textColor="0x262626" size="24" fontFamily="Microsoft YaHei" width="480" height="100" verticalAlign="middle" textAlign="center"/>
 	</e:Group>
-	<e:Button id="lookAsses_btn" label="" y="600" horizontalCenter="0">
+	<e:Button id="lookAsses_btn" label="" horizontalCenter="0" verticalCenter="287">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="hall_5_json.fujinLookAssesBtn1_png" source.down="hall_5_json.fujinLookAssesBtn1_png"/>
@@ -22,15 +22,15 @@
 			</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Group x="150" y="414">
+	<e:Group horizontalCenter="-13" verticalCenter="90">
 		<e:Label id="juli_txt" text="320m" x="33.5" y="0" textColor="0x262626" size="30" fontFamily="Microsoft YaHei" width="120"/>
 		<e:Image source="hall_5_json.juliJiantou1_png" x="0" y="2"/>
 	</e:Group>
-	<e:Group x="139" y="357">
+	<e:Group horizontalCenter="-65.5" verticalCenter="30">
 		<e:Label id="age_txt" text="24" x="31" y="0" textColor="0x262626" size="24" fontFamily="Microsoft YaHei" width="40" verticalAlign="middle" textAlign="center"/>
 		<e:Image id="sexImg" source="hall_5_json.sexFamaleIcon_png" x="0" y="0" width="24" height="24"/>
 	</e:Group>
-	<e:Group x="228" y="357">
+	<e:Group horizontalCenter="43.5" verticalCenter="30">
 		<e:Label id="xingzuo_txt" text="白羊座" x="31" y="0" textColor="0x262626" size="24" fontFamily="Microsoft YaHei" width="80" verticalAlign="middle" textAlign="center"/>
 		<e:Image id="xingzuoIcon" source="hall_5_json.xingzuoIcon1_png" x="0" y="0"/>
 	</e:Group>

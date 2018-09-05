@@ -98,8 +98,6 @@ module game {
 				}
 			}
 		}
-
-
 		public addPlayers(range:number=1000) {
 			sendMessage("msg.C2GW_ReqNearUsers", msg.C2GW_ReqNearUsers.encode
 			({lat:this.currentPoint.lat,lng:this.currentPoint.lng}));
@@ -125,7 +123,7 @@ module game {
 					let nickname = data.name;
 					let imageUrl = 'resource/assets/mapHeadIcon.png';
 					let position = [data.lat, data.lng];
-					addPlayerIcon({ gameId: gameId, nickname: nickname, imageUrl: imageUrl, position: position });
+					addPlayerIcon({ info:data,imageUrl: imageUrl, position: position });
 				}
 			}
 		}
@@ -212,7 +210,7 @@ module game {
 			//console.log(data);
 			setEgretEventsReply(true);
 
-			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_LOOK_NEARBY_INFO, { pId: data.gameId });
+			ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEARBY_INFO, { players: data });
 
 		}
 		/**

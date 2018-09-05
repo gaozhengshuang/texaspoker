@@ -237,7 +237,7 @@ function addPlayerIcon(data) {
     let pIcon = new playerIcon({
                 map: map,
       position: new qq.maps.LatLng(data.position[0], data.position[1]),
-      info:data
+      info:data.info
             });
   
    playerArray.push({ marker: pIcon, data: data });
@@ -324,7 +324,7 @@ playerIcon.prototype.construct = function () {
   this.dom = document.createElement('div');
   this.dom.setAttribute("class", "playerIcon");
   let dateInfo=this.get('info');
-  this.dom.innerHTML=dateInfo.nickname;
+  this.dom.innerHTML=dateInfo.name;
   //将dom添加到覆盖物层，overlayMouseTarget的顺序容器 5，此容器包含透明的鼠标相应元素，用于接收Marker的鼠标事件
   this.getPanes().overlayMouseTarget.appendChild(this.dom);
   //设置自定义覆盖物点击事件

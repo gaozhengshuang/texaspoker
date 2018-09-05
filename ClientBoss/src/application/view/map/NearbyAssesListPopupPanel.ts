@@ -37,7 +37,7 @@ module game {
             this.close_btn.icon="lucky_json.leftBack";
         }
 		private onclick_close(){
-           this.dispatchEvent(new BasicEvent(MapzhuhuListPopupPanel.CLOSE));
+           this.dispatchEvent(new BasicEvent(NearbyAssesListPopupPanel.CLOSE));
 		}
 
         private houseItemList:utils.ScrollerPanel;
@@ -53,7 +53,7 @@ module game {
 				this.houseItemList.height=this.listGroup.height;
 				this.houseItemList.x=0;
 				this.houseItemList.y=0;
-				this.houseItemList.initItemRenderer(ZhuhuListItemPanel);
+				this.houseItemList.initItemRenderer(NearbyAssesListItemPanel);
 				this.houseItemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this); 
 			}
 			this.houseItemList.bindData(this.houseList);			
@@ -61,7 +61,7 @@ module game {
 		private onItemTouch(eve:eui.ItemTapEvent){
 			let item:HouseVO=this.houseList[eve.itemIndex];
 			if(item){
-				this.dispatchEvent(new BasicEvent(MapzhuhuListPopupPanel.GOIN_ZHUHU_ROOM,{houseid:item.rId}));
+				this.dispatchEvent(new BasicEvent(NearbyAssesListPopupPanel.GOIN_ROOM,{houseid:item.rId}));
 			}
         }
 		
