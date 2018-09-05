@@ -118,6 +118,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserConstellation{}, on_C2GW_ReqSetUserConstellation)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserSign{}, on_C2GW_ReqSetUserSign)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetFace{}, on_C2GW_ReqSetFace)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserName{}, on_C2GW_ReqSetUserName)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
@@ -199,6 +200,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AckHouseDataByHouseId{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckBuyHouseFromBuilding{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckBuildingCanBuyInfo{})
+	//个人设置
+	this.msgparser.RegistSendProto(msg.GW2C_AckSetUserSign{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckSetUserName{})
+
 	//位置附近的人
 	this.msgparser.RegistSendProto(msg.GW2C_AckNearUsers{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckPlayerCountByProvince{})
@@ -1695,6 +1700,24 @@ func on_C2GW_ReqSetUserConstellation (session network.IBaseNetSession, message i
 	user.SetConstellation(constellation)
 }
 
+func on_C2GW_ReqSetUserName (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSetUserName)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	name := tmsg.GetName()
+	send := &msg.GW2C_AckSetUserName{}
+	if user.SetName(name) == true {
+		send.Ret = pb.Uint32(0)
+	} else {
+		send.Ret = pb.Uint32(1)
+	}
+	user.SendMsg(send)
+}
+
 func on_C2GW_ReqSetUserSign (session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqSetUserSign)
 	user := ExtractSessionUser(session)
@@ -1704,7 +1727,13 @@ func on_C2GW_ReqSetUserSign (session network.IBaseNetSession, message interface{
 		return
 	}
 	sign := tmsg.GetSign()
-	user.SetSign(sign)
+	send := &msg.GW2C_AckSetUserSign{}
+	if user.SetSign(sign) == true {
+		send.Ret = pb.Uint32(0)
+	} else {
+		send.Ret = pb.Uint32(1)
+	}
+	user.SendMsg(send)
 }
 
 func on_C2GW_ReqSetFace (session network.IBaseNetSession, message interface{}) {

@@ -113,6 +113,10 @@ message C2GW_ReqSetUserConstellation {
 message C2GW_ReqSetUserSign {
 	optional string sign = 1;
 }
+// 返回签名设置是否成功
+message GW2C_AckSetUserSign {
+	optional uint32 ret = 1; //0成功 >0失败
+}
 
 // 设置头像
 message C2GW_ReqSetFace {
@@ -122,6 +126,11 @@ message C2GW_ReqSetFace {
 // 设置名字
 message C2GW_ReqSetUserName {
 	optional string name = 1;
+}
+
+// 返回名字是否设置成功
+message GW2C_AckSetUserName {
+	optional uint32 ret = 1;
 }
 
 // 请求查看行政区人数
