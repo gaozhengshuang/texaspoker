@@ -20373,6 +20373,7 @@ $root.msg = (function() {
      * @property {number} Diamond=60002 Diamond value
      * @property {number} Gold=60003 Gold value
      * @property {number} FreeStep=60005 FreeStep value
+     * @property {number} Strength=60006 Strength value
      * @property {number} RedDiamond=100001 RedDiamond value
      * @property {number} RedDiamondParts=100002 RedDiamondParts value
      */
@@ -20382,6 +20383,7 @@ $root.msg = (function() {
         values[valuesById[60002] = "Diamond"] = 60002;
         values[valuesById[60003] = "Gold"] = 60003;
         values[valuesById[60005] = "FreeStep"] = 60005;
+        values[valuesById[60006] = "Strength"] = 60006;
         values[valuesById[100001] = "RedDiamond"] = 100001;
         values[valuesById[100002] = "RedDiamondParts"] = 100002;
         return values;
@@ -21251,6 +21253,216 @@ $root.msg = (function() {
         return PersonSocialInfo;
     })();
 
+    msg.CommonKeyValue = (function() {
+
+        /**
+         * Properties of a CommonKeyValue.
+         * @memberof msg
+         * @interface ICommonKeyValue
+         * @property {number|null} [key] CommonKeyValue key
+         * @property {number|null} [value] CommonKeyValue value
+         */
+
+        /**
+         * Constructs a new CommonKeyValue.
+         * @memberof msg
+         * @classdesc Represents a CommonKeyValue.
+         * @implements ICommonKeyValue
+         * @constructor
+         * @param {msg.ICommonKeyValue=} [properties] Properties to set
+         */
+        function CommonKeyValue(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * CommonKeyValue key.
+         * @member {number} key
+         * @memberof msg.CommonKeyValue
+         * @instance
+         */
+        CommonKeyValue.prototype.key = 0;
+
+        /**
+         * CommonKeyValue value.
+         * @member {number} value
+         * @memberof msg.CommonKeyValue
+         * @instance
+         */
+        CommonKeyValue.prototype.value = 0;
+
+        /**
+         * Creates a new CommonKeyValue instance using the specified properties.
+         * @function create
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {msg.ICommonKeyValue=} [properties] Properties to set
+         * @returns {msg.CommonKeyValue} CommonKeyValue instance
+         */
+        CommonKeyValue.create = function create(properties) {
+            return new CommonKeyValue(properties);
+        };
+
+        /**
+         * Encodes the specified CommonKeyValue message. Does not implicitly {@link msg.CommonKeyValue.verify|verify} messages.
+         * @function encode
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {msg.ICommonKeyValue} message CommonKeyValue message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CommonKeyValue.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.key != null && message.hasOwnProperty("key"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.key);
+            if (message.value != null && message.hasOwnProperty("value"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.value);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified CommonKeyValue message, length delimited. Does not implicitly {@link msg.CommonKeyValue.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {msg.ICommonKeyValue} message CommonKeyValue message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        CommonKeyValue.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a CommonKeyValue message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.CommonKeyValue} CommonKeyValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CommonKeyValue.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.CommonKeyValue();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.key = reader.uint32();
+                    break;
+                case 2:
+                    message.value = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a CommonKeyValue message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.CommonKeyValue} CommonKeyValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        CommonKeyValue.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a CommonKeyValue message.
+         * @function verify
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        CommonKeyValue.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.key != null && message.hasOwnProperty("key"))
+                if (!$util.isInteger(message.key))
+                    return "key: integer expected";
+            if (message.value != null && message.hasOwnProperty("value"))
+                if (!$util.isInteger(message.value))
+                    return "value: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a CommonKeyValue message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.CommonKeyValue} CommonKeyValue
+         */
+        CommonKeyValue.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.CommonKeyValue)
+                return object;
+            var message = new $root.msg.CommonKeyValue();
+            if (object.key != null)
+                message.key = object.key >>> 0;
+            if (object.value != null)
+                message.value = object.value >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a CommonKeyValue message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.CommonKeyValue
+         * @static
+         * @param {msg.CommonKeyValue} message CommonKeyValue
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        CommonKeyValue.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.key = 0;
+                object.value = 0;
+            }
+            if (message.key != null && message.hasOwnProperty("key"))
+                object.key = message.key;
+            if (message.value != null && message.hasOwnProperty("value"))
+                object.value = message.value;
+            return object;
+        };
+
+        /**
+         * Converts this CommonKeyValue to JSON.
+         * @function toJSON
+         * @memberof msg.CommonKeyValue
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        CommonKeyValue.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return CommonKeyValue;
+    })();
+
     msg.GW2C_SendUserEvents = (function() {
 
         /**
@@ -21642,6 +21854,207 @@ $root.msg = (function() {
         };
 
         return C2GW_ReqEnterEvents;
+    })();
+
+    msg.GW2C_RemoveEvent = (function() {
+
+        /**
+         * Properties of a GW2C_RemoveEvent.
+         * @memberof msg
+         * @interface IGW2C_RemoveEvent
+         * @property {number|Long|null} [uid] GW2C_RemoveEvent uid
+         */
+
+        /**
+         * Constructs a new GW2C_RemoveEvent.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RemoveEvent.
+         * @implements IGW2C_RemoveEvent
+         * @constructor
+         * @param {msg.IGW2C_RemoveEvent=} [properties] Properties to set
+         */
+        function GW2C_RemoveEvent(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RemoveEvent uid.
+         * @member {number|Long} uid
+         * @memberof msg.GW2C_RemoveEvent
+         * @instance
+         */
+        GW2C_RemoveEvent.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_RemoveEvent instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.IGW2C_RemoveEvent=} [properties] Properties to set
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent instance
+         */
+        GW2C_RemoveEvent.create = function create(properties) {
+            return new GW2C_RemoveEvent(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.IGW2C_RemoveEvent} message GW2C_RemoveEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RemoveEvent.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.uid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message, length delimited. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.IGW2C_RemoveEvent} message GW2C_RemoveEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RemoveEvent.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RemoveEvent.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RemoveEvent();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.uid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RemoveEvent.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RemoveEvent message.
+         * @function verify
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RemoveEvent.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
+                    return "uid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RemoveEvent message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RemoveEvent} GW2C_RemoveEvent
+         */
+        GW2C_RemoveEvent.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RemoveEvent)
+                return object;
+            var message = new $root.msg.GW2C_RemoveEvent();
+            if (object.uid != null)
+                if ($util.Long)
+                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = true;
+                else if (typeof object.uid === "string")
+                    message.uid = parseInt(object.uid, 10);
+                else if (typeof object.uid === "number")
+                    message.uid = object.uid;
+                else if (typeof object.uid === "object")
+                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RemoveEvent message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RemoveEvent
+         * @static
+         * @param {msg.GW2C_RemoveEvent} message GW2C_RemoveEvent
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RemoveEvent.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.uid = options.longs === String ? "0" : 0;
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (typeof message.uid === "number")
+                    object.uid = options.longs === String ? String(message.uid) : message.uid;
+                else
+                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber(true) : message.uid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RemoveEvent to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RemoveEvent
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RemoveEvent.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RemoveEvent;
     })();
 
     msg.C2GW_ReqHouseData = (function() {
@@ -43179,13 +43592,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -43434,13 +43841,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -59000,6 +59401,8 @@ $root.msg = (function() {
          * Properties of a C2GW_ReqNearUsers.
          * @memberof msg
          * @interface IC2GW_ReqNearUsers
+         * @property {number|null} [lng] C2GW_ReqNearUsers lng
+         * @property {number|null} [lat] C2GW_ReqNearUsers lat
          */
 
         /**
@@ -59016,6 +59419,22 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * C2GW_ReqNearUsers lng.
+         * @member {number} lng
+         * @memberof msg.C2GW_ReqNearUsers
+         * @instance
+         */
+        C2GW_ReqNearUsers.prototype.lng = 0;
+
+        /**
+         * C2GW_ReqNearUsers lat.
+         * @member {number} lat
+         * @memberof msg.C2GW_ReqNearUsers
+         * @instance
+         */
+        C2GW_ReqNearUsers.prototype.lat = 0;
 
         /**
          * Creates a new C2GW_ReqNearUsers instance using the specified properties.
@@ -59041,6 +59460,10 @@ $root.msg = (function() {
         C2GW_ReqNearUsers.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.lng != null && message.hasOwnProperty("lng"))
+                writer.uint32(/* id 1, wireType 5 =*/13).float(message.lng);
+            if (message.lat != null && message.hasOwnProperty("lat"))
+                writer.uint32(/* id 2, wireType 5 =*/21).float(message.lat);
             return writer;
         };
 
@@ -59075,6 +59498,12 @@ $root.msg = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
+                case 1:
+                    message.lng = reader.float();
+                    break;
+                case 2:
+                    message.lat = reader.float();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -59110,6 +59539,12 @@ $root.msg = (function() {
         C2GW_ReqNearUsers.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.lng != null && message.hasOwnProperty("lng"))
+                if (typeof message.lng !== "number")
+                    return "lng: number expected";
+            if (message.lat != null && message.hasOwnProperty("lat"))
+                if (typeof message.lat !== "number")
+                    return "lat: number expected";
             return null;
         };
 
@@ -59124,7 +59559,12 @@ $root.msg = (function() {
         C2GW_ReqNearUsers.fromObject = function fromObject(object) {
             if (object instanceof $root.msg.C2GW_ReqNearUsers)
                 return object;
-            return new $root.msg.C2GW_ReqNearUsers();
+            var message = new $root.msg.C2GW_ReqNearUsers();
+            if (object.lng != null)
+                message.lng = Number(object.lng);
+            if (object.lat != null)
+                message.lat = Number(object.lat);
+            return message;
         };
 
         /**
@@ -59136,8 +59576,19 @@ $root.msg = (function() {
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2GW_ReqNearUsers.toObject = function toObject() {
-            return {};
+        C2GW_ReqNearUsers.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.lng = 0;
+                object.lat = 0;
+            }
+            if (message.lng != null && message.hasOwnProperty("lng"))
+                object.lng = options.json && !isFinite(message.lng) ? String(message.lng) : message.lng;
+            if (message.lat != null && message.hasOwnProperty("lat"))
+                object.lat = options.json && !isFinite(message.lat) ? String(message.lat) : message.lat;
+            return object;
         };
 
         /**
@@ -59370,6 +59821,8 @@ $root.msg = (function() {
          * @interface IC2GW_ReqSetPos
          * @property {number|null} [lng] C2GW_ReqSetPos lng
          * @property {number|null} [lat] C2GW_ReqSetPos lat
+         * @property {number|null} [province] C2GW_ReqSetPos province
+         * @property {number|null} [city] C2GW_ReqSetPos city
          */
 
         /**
@@ -59404,6 +59857,22 @@ $root.msg = (function() {
         C2GW_ReqSetPos.prototype.lat = 0;
 
         /**
+         * C2GW_ReqSetPos province.
+         * @member {number} province
+         * @memberof msg.C2GW_ReqSetPos
+         * @instance
+         */
+        C2GW_ReqSetPos.prototype.province = 0;
+
+        /**
+         * C2GW_ReqSetPos city.
+         * @member {number} city
+         * @memberof msg.C2GW_ReqSetPos
+         * @instance
+         */
+        C2GW_ReqSetPos.prototype.city = 0;
+
+        /**
          * Creates a new C2GW_ReqSetPos instance using the specified properties.
          * @function create
          * @memberof msg.C2GW_ReqSetPos
@@ -59431,6 +59900,10 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 5 =*/13).float(message.lng);
             if (message.lat != null && message.hasOwnProperty("lat"))
                 writer.uint32(/* id 2, wireType 5 =*/21).float(message.lat);
+            if (message.province != null && message.hasOwnProperty("province"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.province);
+            if (message.city != null && message.hasOwnProperty("city"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.city);
             return writer;
         };
 
@@ -59470,6 +59943,12 @@ $root.msg = (function() {
                     break;
                 case 2:
                     message.lat = reader.float();
+                    break;
+                case 3:
+                    message.province = reader.uint32();
+                    break;
+                case 4:
+                    message.city = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -59512,6 +59991,12 @@ $root.msg = (function() {
             if (message.lat != null && message.hasOwnProperty("lat"))
                 if (typeof message.lat !== "number")
                     return "lat: number expected";
+            if (message.province != null && message.hasOwnProperty("province"))
+                if (!$util.isInteger(message.province))
+                    return "province: integer expected";
+            if (message.city != null && message.hasOwnProperty("city"))
+                if (!$util.isInteger(message.city))
+                    return "city: integer expected";
             return null;
         };
 
@@ -59531,6 +60016,10 @@ $root.msg = (function() {
                 message.lng = Number(object.lng);
             if (object.lat != null)
                 message.lat = Number(object.lat);
+            if (object.province != null)
+                message.province = object.province >>> 0;
+            if (object.city != null)
+                message.city = object.city >>> 0;
             return message;
         };
 
@@ -59550,11 +60039,17 @@ $root.msg = (function() {
             if (options.defaults) {
                 object.lng = 0;
                 object.lat = 0;
+                object.province = 0;
+                object.city = 0;
             }
             if (message.lng != null && message.hasOwnProperty("lng"))
                 object.lng = options.json && !isFinite(message.lng) ? String(message.lng) : message.lng;
             if (message.lat != null && message.hasOwnProperty("lat"))
                 object.lat = options.json && !isFinite(message.lat) ? String(message.lat) : message.lat;
+            if (message.province != null && message.hasOwnProperty("province"))
+                object.province = message.province;
+            if (message.city != null && message.hasOwnProperty("city"))
+                object.city = message.city;
             return object;
         };
 
@@ -60505,6 +61000,424 @@ $root.msg = (function() {
         };
 
         return C2GW_ReqSetFace;
+    })();
+
+    msg.C2GW_ReqPlayerCountByProvince = (function() {
+
+        /**
+         * Properties of a C2GW_ReqPlayerCountByProvince.
+         * @memberof msg
+         * @interface IC2GW_ReqPlayerCountByProvince
+         * @property {number|null} [province] C2GW_ReqPlayerCountByProvince province
+         */
+
+        /**
+         * Constructs a new C2GW_ReqPlayerCountByProvince.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqPlayerCountByProvince.
+         * @implements IC2GW_ReqPlayerCountByProvince
+         * @constructor
+         * @param {msg.IC2GW_ReqPlayerCountByProvince=} [properties] Properties to set
+         */
+        function C2GW_ReqPlayerCountByProvince(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqPlayerCountByProvince province.
+         * @member {number} province
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @instance
+         */
+        C2GW_ReqPlayerCountByProvince.prototype.province = 0;
+
+        /**
+         * Creates a new C2GW_ReqPlayerCountByProvince instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {msg.IC2GW_ReqPlayerCountByProvince=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqPlayerCountByProvince} C2GW_ReqPlayerCountByProvince instance
+         */
+        C2GW_ReqPlayerCountByProvince.create = function create(properties) {
+            return new C2GW_ReqPlayerCountByProvince(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqPlayerCountByProvince message. Does not implicitly {@link msg.C2GW_ReqPlayerCountByProvince.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {msg.IC2GW_ReqPlayerCountByProvince} message C2GW_ReqPlayerCountByProvince message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqPlayerCountByProvince.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.province != null && message.hasOwnProperty("province"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.province);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqPlayerCountByProvince message, length delimited. Does not implicitly {@link msg.C2GW_ReqPlayerCountByProvince.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {msg.IC2GW_ReqPlayerCountByProvince} message C2GW_ReqPlayerCountByProvince message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqPlayerCountByProvince.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqPlayerCountByProvince message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqPlayerCountByProvince} C2GW_ReqPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqPlayerCountByProvince.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqPlayerCountByProvince();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.province = reader.uint32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqPlayerCountByProvince message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqPlayerCountByProvince} C2GW_ReqPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqPlayerCountByProvince.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqPlayerCountByProvince message.
+         * @function verify
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqPlayerCountByProvince.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.province != null && message.hasOwnProperty("province"))
+                if (!$util.isInteger(message.province))
+                    return "province: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqPlayerCountByProvince message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqPlayerCountByProvince} C2GW_ReqPlayerCountByProvince
+         */
+        C2GW_ReqPlayerCountByProvince.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqPlayerCountByProvince)
+                return object;
+            var message = new $root.msg.C2GW_ReqPlayerCountByProvince();
+            if (object.province != null)
+                message.province = object.province >>> 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqPlayerCountByProvince message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @static
+         * @param {msg.C2GW_ReqPlayerCountByProvince} message C2GW_ReqPlayerCountByProvince
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqPlayerCountByProvince.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.province = 0;
+            if (message.province != null && message.hasOwnProperty("province"))
+                object.province = message.province;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqPlayerCountByProvince to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqPlayerCountByProvince
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqPlayerCountByProvince.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqPlayerCountByProvince;
+    })();
+
+    msg.GW2C_AckPlayerCountByProvince = (function() {
+
+        /**
+         * Properties of a GW2C_AckPlayerCountByProvince.
+         * @memberof msg
+         * @interface IGW2C_AckPlayerCountByProvince
+         * @property {number|null} [province] GW2C_AckPlayerCountByProvince province
+         * @property {Array.<msg.ICommonKeyValue>|null} [data] GW2C_AckPlayerCountByProvince data
+         */
+
+        /**
+         * Constructs a new GW2C_AckPlayerCountByProvince.
+         * @memberof msg
+         * @classdesc Represents a GW2C_AckPlayerCountByProvince.
+         * @implements IGW2C_AckPlayerCountByProvince
+         * @constructor
+         * @param {msg.IGW2C_AckPlayerCountByProvince=} [properties] Properties to set
+         */
+        function GW2C_AckPlayerCountByProvince(properties) {
+            this.data = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_AckPlayerCountByProvince province.
+         * @member {number} province
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @instance
+         */
+        GW2C_AckPlayerCountByProvince.prototype.province = 0;
+
+        /**
+         * GW2C_AckPlayerCountByProvince data.
+         * @member {Array.<msg.ICommonKeyValue>} data
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @instance
+         */
+        GW2C_AckPlayerCountByProvince.prototype.data = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_AckPlayerCountByProvince instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {msg.IGW2C_AckPlayerCountByProvince=} [properties] Properties to set
+         * @returns {msg.GW2C_AckPlayerCountByProvince} GW2C_AckPlayerCountByProvince instance
+         */
+        GW2C_AckPlayerCountByProvince.create = function create(properties) {
+            return new GW2C_AckPlayerCountByProvince(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_AckPlayerCountByProvince message. Does not implicitly {@link msg.GW2C_AckPlayerCountByProvince.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {msg.IGW2C_AckPlayerCountByProvince} message GW2C_AckPlayerCountByProvince message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckPlayerCountByProvince.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.province != null && message.hasOwnProperty("province"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.province);
+            if (message.data != null && message.data.length)
+                for (var i = 0; i < message.data.length; ++i)
+                    $root.msg.CommonKeyValue.encode(message.data[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_AckPlayerCountByProvince message, length delimited. Does not implicitly {@link msg.GW2C_AckPlayerCountByProvince.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {msg.IGW2C_AckPlayerCountByProvince} message GW2C_AckPlayerCountByProvince message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_AckPlayerCountByProvince.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_AckPlayerCountByProvince message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_AckPlayerCountByProvince} GW2C_AckPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckPlayerCountByProvince.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckPlayerCountByProvince();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.province = reader.uint32();
+                    break;
+                case 2:
+                    if (!(message.data && message.data.length))
+                        message.data = [];
+                    message.data.push($root.msg.CommonKeyValue.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_AckPlayerCountByProvince message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_AckPlayerCountByProvince} GW2C_AckPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_AckPlayerCountByProvince.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_AckPlayerCountByProvince message.
+         * @function verify
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_AckPlayerCountByProvince.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.province != null && message.hasOwnProperty("province"))
+                if (!$util.isInteger(message.province))
+                    return "province: integer expected";
+            if (message.data != null && message.hasOwnProperty("data")) {
+                if (!Array.isArray(message.data))
+                    return "data: array expected";
+                for (var i = 0; i < message.data.length; ++i) {
+                    var error = $root.msg.CommonKeyValue.verify(message.data[i]);
+                    if (error)
+                        return "data." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_AckPlayerCountByProvince message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_AckPlayerCountByProvince} GW2C_AckPlayerCountByProvince
+         */
+        GW2C_AckPlayerCountByProvince.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_AckPlayerCountByProvince)
+                return object;
+            var message = new $root.msg.GW2C_AckPlayerCountByProvince();
+            if (object.province != null)
+                message.province = object.province >>> 0;
+            if (object.data) {
+                if (!Array.isArray(object.data))
+                    throw TypeError(".msg.GW2C_AckPlayerCountByProvince.data: array expected");
+                message.data = [];
+                for (var i = 0; i < object.data.length; ++i) {
+                    if (typeof object.data[i] !== "object")
+                        throw TypeError(".msg.GW2C_AckPlayerCountByProvince.data: object expected");
+                    message.data[i] = $root.msg.CommonKeyValue.fromObject(object.data[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_AckPlayerCountByProvince message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @static
+         * @param {msg.GW2C_AckPlayerCountByProvince} message GW2C_AckPlayerCountByProvince
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_AckPlayerCountByProvince.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.data = [];
+            if (options.defaults)
+                object.province = 0;
+            if (message.province != null && message.hasOwnProperty("province"))
+                object.province = message.province;
+            if (message.data && message.data.length) {
+                object.data = [];
+                for (var j = 0; j < message.data.length; ++j)
+                    object.data[j] = $root.msg.CommonKeyValue.toObject(message.data[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_AckPlayerCountByProvince to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_AckPlayerCountByProvince
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_AckPlayerCountByProvince.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_AckPlayerCountByProvince;
     })();
 
     return msg;

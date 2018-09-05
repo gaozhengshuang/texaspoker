@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ShopCarSkin" width="180" height="180" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="game2_json.carShader" horizontalCenter="-5" verticalCenter="57"/>
-	<e:Image source="game2_json.carBack" horizontalCenter="0" verticalCenter="0"/>
-	<e:Image id="itemImg" source="item_json.110004" width="60" height="60" verticalCenter="-35" horizontalCenter="-7"/>
-	<e:Image source="game2_json.mingpai" x="38.5" y="123"/>
-	<e:Label id="itemNameLabel" text="少女红发碎片" size="12" textAlign="center" bold="true" horizontalCenter="-7" verticalCenter="54"/>
+	<e:Image source="game2_json.carShader" horizontalCenter="-5" verticalCenter="57" touchEnabled="false"/>
+	<e:Image source="game2_json.carBack" horizontalCenter="0" verticalCenter="0" touchEnabled="false"/>
+	<e:Image id="itemImg" source="item_json.110004" width="60" height="60" verticalCenter="-35" horizontalCenter="-7" touchEnabled="false"/>
+	<e:Image source="game2_json.mingpai" x="38.5" y="123" touchEnabled="false"/>
+	<e:Label id="itemNameLabel" text="少女红发碎片" size="12" textAlign="center" bold="true" horizontalCenter="-7" verticalCenter="54" touchEnabled="false"/>
 </e:Skin>

@@ -399,7 +399,7 @@ func (this *GateUser) GetStrength() uint32 {
 }
 
 // 增加体力
-func (this *GateUser) AddStrength(count uint32, syn bool) {
+func (this *GateUser) AddStrength(count uint32, reason string, syn bool) {
 	if this.IsRobCountFull() {
 		return
 	}
@@ -416,10 +416,11 @@ func (this *GateUser) AddStrength(count uint32, syn bool) {
 	if syn {
 		this.NotifyRobCount()
 	}
+	log.Info("玩家[%d] 添加体力[%d] 库存[%d] 原因[%s]", this.Id(), count, this.GetStrength(), reason)
 }
 
 // 扣除体力
-func (this *GateUser) RemoveStrength(count uint32, syn bool) {
+func (this *GateUser) RemoveStrength(count uint32, reason string, syn bool) {
 	active := this.IsRobCountFull()
 	if this.robcount >= count {
 		this.robcount -= count
@@ -434,6 +435,7 @@ func (this *GateUser) RemoveStrength(count uint32, syn bool) {
 	if syn {
 		this.NotifyRobCount()
 	}
+	log.Info("玩家[%d] 扣除体力[%d] 库存[%d] 原因[%s]", this.Id(), count, this.GetStrength(), reason)
 }
 
 func (this *GateUser) IsRobCountFull() bool {
@@ -1124,7 +1126,7 @@ func (this *GateUser) SyncTimeStamp() {
 func (this *GateUser) CheckAddStrength() {
 	now := util.CURTIME()
 	if !this.IsRobCountFull() && this.tmaddrobcount !=0 && now >= this.tmaddrobcount {
-		this.AddStrength(5, true)
+		this.AddStrength(5, "自动回复", true)
 		if !this.IsRobCountFull() {
 			this.SetRobCountResumeTime(util.CURTIME() + 3600, true)
 		}else {

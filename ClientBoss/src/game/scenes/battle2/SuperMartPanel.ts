@@ -2,9 +2,15 @@ module game {
     export class SuperMartPanel extends PanelComponent {
         backButton: IconButton;
         shoppingCarGroup: eui.Group;
-        _shopCarList: ShopCar[];
+        touchGroup: eui.Group;
+        gouzi: GameMissile;
 
+        private _shopCarList: ShopCar[];
         private _maxShopCar: number = 15;
+        private _curStage;
+
+        private initGouziX: number;
+        private initGouziY: number;
 
         protected getSkinName() {
             return SuperMartPanelSkin;
@@ -15,6 +21,8 @@ module game {
                 this.backButton.y = 80;
             }
             this.backButton.icon = "ui_json.gameBack";
+            this.initGouziX = this.gouzi.x;
+            this.initGouziY = this.gouzi.y;
         }
 
         protected beforeShow() {
@@ -31,16 +39,34 @@ module game {
         }
 
         private registerEvent() {
-            // NotificationCenter.addObserver(this, this.updateList, PlayerModel.BAG_UPDATE);
+            this.touchGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandle, this);
         }
 
         private removeEvent() {
-            // NotificationCenter.removeObserver(this, PlayerModel.BAG_UPDATE);
+            this.touchGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandle, this);
         }
 
         private backHandle() {
             this.remove();
             SceneManager.changeScene(SceneType.hall);
+        }
+
+        private touchHandle(event: egret.TouchEvent) {
+            this.touchGroup.touchEnabled = false;
+            this._curStage = {x: event.stageX, y: event.stageY}
+            this.updateGouzi();
+        }
+
+        private updateGouzi() {
+            let angle = Math.atan2(this._curStage.x - this.gouzi.x, this.gouzi.y - this._curStage.y);
+            let rotation = angle * 180 / Math.PI;
+            this.gouzi.setImageRotation(rotation);
+
+            egret.Tween.get(this.gouzi).to({x: this._curStage.x, y: this.initGouziY - 700}, 2000).call(() => {
+                egret.Tween.get(this.gouzi).to({x: this.initGouziX, y: this.initGouziY}, 2000).call(() => {
+                    this.touchGroup.touchEnabled = true;
+                });
+            })
         }
 
         private initShopCar() {
@@ -50,6 +76,7 @@ module game {
                 for (let i = 0; i < 3; i++) {
                     shopCar = new ShopCar();
                     this.shoppingCarGroup.addChild(shopCar);
+                    shopCar.touchEnabled = false;
                     shopCar.show(i);
                     this._shopCarList.push(shopCar);
                 }

@@ -242,6 +242,7 @@ func (this *C2GWMsgHandler) Init() {
 
 	// 地图事件
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserEvents{})
+	this.msgparser.RegistSendProto(msg.GW2C_RemoveEvent{})
 
 	// 女仆
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
