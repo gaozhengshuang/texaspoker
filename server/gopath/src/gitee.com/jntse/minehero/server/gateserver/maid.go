@@ -599,7 +599,7 @@ func (ma *MaidManager) RobMaidToHosue(user *GateUser, maid *Maid, dropto uint64)
 
 	// 我有概率获得道具	
 	ma.ItemProduce(user, maid, "掠夺女仆")
-	user.RemoveStrength(uint32(tbl.Game.RobMaidStrength), true)
+	user.RemoveStrength(uint32(tbl.Game.RobMaidStrength), "掠夺女仆", true)
 
 
 	// 掠夺到我的房间

@@ -29,7 +29,7 @@ func (this *GateUser) AddItem(item uint32, num uint32, reason string, syn bool) 
 	}else if item == uint32(msg.ItemId_FreeStep) {
 		this.AddFreeStep(int32(num), reason)
 	}else if item == uint32(msg.ItemId_Strength) {
-		this.AddStrength(num, syn)
+		this.AddStrength(num, reason, syn)
 	}else {
 		this.bag.AddItem(item, num, reason)
 	}
@@ -59,7 +59,7 @@ func (this *GateUser) RemoveGold(gold uint32, reason string, syn bool) bool {
 			send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetGold())}
 			this.SendMsg(send)
 		}
-		log.Info("玩家[%d] 扣除金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Gold), gold)
 		return true
 	}

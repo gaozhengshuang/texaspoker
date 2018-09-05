@@ -1134,7 +1134,7 @@ func (this *GateUser) TakeOtherHouseGold(houseid uint64, index uint32) {
 	itemdata := make([]*msg.PairNumItem,0)
 	if gold > 0 {
 		this.AddGold(gold, "抢夺其他玩家房屋产出金币", true)
-		this.RemoveStrength(1, true)
+		this.RemoveStrength(1, "抢夺房屋金币", true)
 		for itemid, num := range items {
 			this.AddItem(itemid, num, "掠夺其他玩家房屋产出", true)
 			tmp := &msg.PairNumItem{}

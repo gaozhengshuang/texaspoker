@@ -62,21 +62,25 @@ func (e *BaseMapEvent) ProcessCheck(u *GateUser, tconf *table.TMapEventDefine) b
 			u.SendNotify("金币不足") 
 			return false
 		}
-		break
+		u.RemoveGold(tconf.Price, "激活事件", true)
 	case msg.MoneyType__Diamond:
 		if u.GetDiamond() < tconf.Price { 
 			u.SendNotify("钻石不足") 
 			return false
 		}
-		break
+		u.RemoveDiamond(tconf.Price, "激活事件", true)
 	case msg.MoneyType__Strength:
 		if u.GetStrength() < tconf.Price { 
 			u.SendNotify("体力不足") 
 			return false
 		}
-		break
+		u.RemoveStrength(tconf.Price, "激活事件", true)
 	default:
-		break
+		if u.bag.GetItemNum(tconf.MoneyType) < tconf.Price {
+			u.SendNotify("道具不足")
+			return false
+		}
+		u.RemoveItem(tconf.MoneyType, tconf.Price, "激活事件")
 	}
 	return true
 }
