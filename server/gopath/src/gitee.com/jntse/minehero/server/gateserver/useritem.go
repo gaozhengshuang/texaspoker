@@ -28,6 +28,8 @@ func (this *GateUser) AddItem(item uint32, num uint32, reason string, syn bool) 
 		this.AddDiamond(num, reason, syn)
 	}else if item == uint32(msg.ItemId_FreeStep) {
 		this.AddFreeStep(int32(num), reason)
+	}else if item == uint32(msg.ItemId_Strength) {
+		this.AddStrength(num, syn)
 	}else {
 		this.bag.AddItem(item, num, reason)
 	}

@@ -384,12 +384,12 @@ func (this *GateUser) SetRobCountResumeTime(t int64, syn bool) {
 	}
 }
 
-func (this *GateUser) GetRobCount() uint32 {
+func (this *GateUser) GetStrength() uint32 {
 	return this.robcount
 }
 
 // 增加体力
-func (this *GateUser) AddRobCount(count uint32, syn bool) {
+func (this *GateUser) AddStrength(count uint32, syn bool) {
 	if this.IsRobCountFull() {
 		return
 	}
@@ -409,7 +409,7 @@ func (this *GateUser) AddRobCount(count uint32, syn bool) {
 }
 
 // 扣除体力
-func (this *GateUser) RemoveRobCount(count uint32, syn bool) {
+func (this *GateUser) RemoveStrength(count uint32, syn bool) {
 	active := this.IsRobCountFull()
 	if this.robcount >= count {
 		this.robcount -= count
@@ -703,7 +703,7 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
 	this.ReqMatchHouseData()
-	this.CheckAddRobCount()
+	this.CheckAddStrength()
 	return true
 }
 
@@ -1111,10 +1111,10 @@ func (this *GateUser) SyncTimeStamp() {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) CheckAddRobCount() {
+func (this *GateUser) CheckAddStrength() {
 	now := util.CURTIME()
 	if !this.IsRobCountFull() && this.tmaddrobcount !=0 && now >= this.tmaddrobcount {
-		this.AddRobCount(5, true)
+		this.AddStrength(5, true)
 		if !this.IsRobCountFull() {
 			this.SetRobCountResumeTime(util.CURTIME() + 3600, true)
 		}else {
@@ -1123,7 +1123,7 @@ func (this *GateUser) CheckAddRobCount() {
 	}
 
 	//if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
-	//	//this.SetRobCount(this.GetRobCount() + 5)
+	//	//this.SetRobCount(this.GetStrength() + 5)
 	//	if this.robcount < 20 {
 	//		this.tmaddrobcount = now + 3600
 	//	} else {
