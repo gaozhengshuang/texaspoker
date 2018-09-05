@@ -78,12 +78,15 @@ func (e *BonusMapEvent) Process(u *GateUser) {
 
 	rewards := util.SplitIntString(tconf.Reward, "-")
 	for _, v := range rewards {
-		if len(v) < 2 { 
+		if v.Len() < 2 { 
 			log.Error("[地图事件] 玩家[%s %d] 激活事件tid[%d] 解析奖励配置失败", u.Name(), u.Id(), tid)
 			return
 		}
+		id, num := uint32(v.Value(0)), uint32(v.Value(1))
+		u.AddItem(id, num, "地图事件", true)
 	}
-	
+
+	log.Info("[地图事件] 玩家[%s %d] 激活事件成功tid[%d] uid[%d]", u.Name(), u.Id(), tid, uid)
 }
 
 // 建筑事件
