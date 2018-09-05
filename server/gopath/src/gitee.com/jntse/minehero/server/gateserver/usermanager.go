@@ -79,6 +79,8 @@ type UserManager struct {
 	names     map[string]*GateUser
 	msgbuffer map[uint64]*BufferMsg
 	posmap	  map[uint32]map[uint32]map[uint64]*GateUser //经度参数|维度参数|uid|*GateUser
+	canton 	  map[uint32]map[uint32]uint32 //省|市|人数 市级行政区的在线人数
+	bigcanton map[uint32]uint32 //省|人数 省级在线数
 }
 
 func (this *UserManager) Init() {
@@ -87,6 +89,8 @@ func (this *UserManager) Init() {
 	this.ids = make(map[uint64]*GateUser)
 	this.msgbuffer = make(map[uint64]*BufferMsg)
 	this.posmap = make(map[uint32]map[uint32]map[uint64]*GateUser)
+	this.canton = make(map[uint32]map[uint32]uint32)
+	this.bigcanton = make(map[uint32]uint32)
 }
 
 func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account, key, token, face string) (*GateUser, string) {
@@ -293,7 +297,7 @@ func (this *UserManager) IntHourClockCallback(now int64) {
 	log.Info("当前整点[%d]点", inthour)
 }
 
-func (this *UserManager) UpdateUserPos(uid uint64, x, y float32) bool {
+func (this *UserManager) UpdateUserPos(uid uint64, x, y float32, province, city uint32) bool {
 	user := this.FindById(uid)
 	if user == nil {
 		return false
@@ -345,6 +349,42 @@ func (this *UserManager) UpdateUserPos(uid uint64, x, y float32) bool {
 		this.posmap[map_x][map_y] = make(map[uint64]*GateUser)
 		this.posmap[map_x][map_y][uid] = user
 	}
+
+	//更新行政区在线人数
+	p0,c0 := user.GetUserCanton()
+	if c0 != city {
+		//原市级行政区人数-1
+		if _, ok := this.canton[p0]; ok {
+			if _, ok2 := this.canton[p0][c0]; ok2{
+				if this.canton[p0][c0] > 0 {
+					this.canton[p0][c0] = this.canton[p0][c0] - 1
+				}
+			}
+		}
+		//新市级行政区人数+1
+		if _, ok := this.canton[province]; ok {
+			if _, ok2 := this.canton[province][city]; ok2 {
+				this.canton[province][city] = this.canton[province][city] + 1
+			} else {
+				this.canton[province][city] = 1
+			}
+
+		} else {
+			this.canton[province] = make(map[uint32]uint32)
+			this.canton[province][city] = 1
+		}
+		//省级行政区
+		if p0 != province {
+			if _, ok := this.bigcanton[p0]; ok {
+				this.bigcanton[p0] = this.bigcanton[p0] - 1
+			}
+			if _, ok := this.bigcanton[province]; ok {
+				this.bigcanton[province] = this.bigcanton[province] + 1
+			} else {
+				this.bigcanton[province] = 1
+			}
+		}
+	}
 	return true
 }
 
@@ -391,4 +431,25 @@ func (this *UserManager) RemovePosMapUser(user *GateUser) {
 			}
 		}
 	}
+
+	p0,c0 := user.GetUserCanton()
+	if _, ok := this.canton[p0]; ok {
+		if _, ok2 := this.canton[p0][c0]; ok2{
+			if this.canton[p0][c0] > 0 {
+				this.canton[p0][c0] = this.canton[p0][c0] - 1
+			}
+		}
+	}
+}
+
+func (this *UserManager) GetUserCountByProvince(province uint32) map[uint32]uint32 {
+	data := make(map[uint32]uint32)
+	if province == 0 {
+		data = this.bigcanton
+	}else{
+		if _, ok := this.canton[province]; ok {
+			data = this.canton[province]
+		}
+	}
+	return data
 }

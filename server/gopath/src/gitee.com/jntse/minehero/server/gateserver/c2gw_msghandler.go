@@ -110,6 +110,8 @@ func (this *C2GWMsgHandler) Init() {
 	//位置
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqNearUsers{}, on_C2GW_ReqNearUsers)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetPos{}, on_C2GW_ReqSetPos)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqPlayerCountByProvince{}, on_C2GW_ReqPlayerCountByProvince)
+
 	//个人信息
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserSex{}, on_C2GW_ReqSetUserSex)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqSetUserAge{}, on_C2GW_ReqSetUserAge)
@@ -198,6 +200,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AckBuildingCanBuyInfo{})
 	//位置附近的人
 	this.msgparser.RegistSendProto(msg.GW2C_AckNearUsers{})
+	this.msgparser.RegistSendProto(msg.GW2C_AckPlayerCountByProvince{})
 
 	//交易发
 	this.msgparser.RegistSendProto(msg.GW2C_RetHouseTradeList{})
@@ -1638,7 +1641,9 @@ func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {
 		session.Close()
 		return
 	}
-	user.SetUserPos(tmsg.GetLng(), tmsg.GetLat())
+	province := tmsg.GetProvince()
+	city := tmsg.GetCity()
+	user.SetUserPos(tmsg.GetLng(), tmsg.GetLat(), province, city)
 }
 
 func on_C2GW_ReqSetUserSex (session network.IBaseNetSession, message interface{}) {
@@ -1699,4 +1704,25 @@ func on_C2GW_ReqSetFace (session network.IBaseNetSession, message interface{}) {
 	}
 	face := tmsg.GetFace()
 	user.SetFace(face)
+}
+
+func on_C2GW_ReqPlayerCountByProvince (session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPlayerCountByProvince)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	province := tmsg.GetProvince()
+	data := UserMgr().GetUserCountByProvince(province)
+	send := &msg.GW2C_AckPlayerCountByProvince{}
+	send.Province = pb.Uint32(province)
+	for k, v := range data {
+		tmp := &msg.CommonKeyValue{}
+		tmp.Key = pb.Uint32(uint32(k))
+		tmp.Value = pb.Uint32(uint32(v))
+		send.Data = append(send.Data, tmp)
+	}
+	user.SendMsg(send)
 }
