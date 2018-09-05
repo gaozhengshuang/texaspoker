@@ -40,26 +40,26 @@ module game {
 		 * 用户事件推送
 		 */
 		private GW2C_SendUserEvents(msg: msg.GW2C_SendUserEvents) {
-			this.eventsListInfo = msg;
-			//清空事件图标
-			emptyEventsIcon();
-			//重新添加事件图标
-			if (msg.event && msg.event.events) {
-				for (let info of msg.event.events) {
-					let iconInfo: MapIconInfo = new MapIconInfo();
-					iconInfo.id = info.id;
-					let iconDef = table.TMapEventById[info.tid];
-					if (iconDef) {
-						iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
-						iconInfo.latitude = info.latitude;
-						iconInfo.longitude = info.longitude;
-						iconInfo.tid = info.tid;
-						console.log("纬度：", info.latitude, "经度：", info.longitude);
-						addEventsIcon(iconInfo);
-					}
-				}
-			}
-			NotificationCenter.postNotification(MapEventsManager.OnMapEventsSend);
+			// this.eventsListInfo = msg; //临时屏蔽
+			// //清空事件图标
+			// emptyEventsIcon();
+			// //重新添加事件图标
+			// if (msg.event && msg.event.events) {
+			// 	for (let info of msg.event.events) {
+			// 		let iconInfo: MapIconInfo = new MapIconInfo();
+			// 		iconInfo.id = info.id;
+			// 		let iconDef = table.TMapEventById[info.tid];
+			// 		if (iconDef) {
+			// 			iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
+			// 			iconInfo.latitude = info.latitude;
+			// 			iconInfo.longitude = info.longitude;
+			// 			iconInfo.tid = info.tid;
+			// 			console.log("纬度：", info.latitude, "经度：", info.longitude);
+			// 			addEventsIcon(iconInfo);
+			// 		}
+			// 	}
+			// }
+			// NotificationCenter.postNotification(MapEventsManager.OnMapEventsSend);
 		}
 
 		// public removeEventsIcon(id:number)

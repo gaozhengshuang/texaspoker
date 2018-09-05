@@ -77,7 +77,7 @@ func (e *BonusMapEvent) Process(u *GateUser) {
 			return
 		}
 		id, num := uint32(v.Value(0)), uint32(v.Value(1))
-		u.AddItem(id, num, "地图事件", true)
+		u.AddItem(id, num, "地图奖励事件", true)
 	}
 
 	log.Info("[地图事件] 玩家[%s %d] 激活事件成功tid[%d] uid[%d]", u.Name(), u.Id(), tid, uid)
