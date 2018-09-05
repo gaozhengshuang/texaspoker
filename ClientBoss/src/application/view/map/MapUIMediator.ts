@@ -152,7 +152,7 @@ module game {
 		private fujinSwitchRequset(eve:BasicEvent):void
 		{
 			if(eve.EventObj){
-				//ApplicationFacade.getInstance().sendNotification(CommandName.MAP_FUJIN_SWITCH,eve.EventObj);
+				ApplicationFacade.getInstance().sendNotification(CommandName.MAP_FUJIN_SWITCH,eve.EventObj);
 			}
 			
 		}
