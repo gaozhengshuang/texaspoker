@@ -16,9 +16,12 @@ import (
 )
 
 
+type EventHandler func(uid uint64) bool
+
 // 地图事件
 type UserMapEvent struct {
 	events map[uint64]*msg.MapEvent
+	hevents map[uint32]EventHandler
 	refreshtime int64		// 上一次刷新时间，秒
 	refreshactive int64		// 激活刷新，毫秒
 	owner *GateUser
@@ -28,6 +31,7 @@ func (m *UserMapEvent) Init(u *GateUser) {
 	m.owner = u
 	m.refreshactive = 0
 	m.events = make(map[uint64]*msg.MapEvent)
+	m.hevents = make(map[uint32]EventHandler)
 }
 
 // 10毫秒tick
