@@ -506,7 +506,7 @@ function setEventsIconCallBackFun(fun, target) {
  * 添加地图事件ICON
  */
 function addEventsIcon(data) {
-  if (data != null) {
+  if (data != null && map) {
     let isExist = isExistEventsIcon(data.id);
     if(!isExist){
     let icon = new qq.maps.MarkerImage(
