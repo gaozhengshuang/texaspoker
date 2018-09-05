@@ -63,11 +63,7 @@ type BonusMapEvent struct {
 func (e *BonusMapEvent) Process(u *GateUser) {
 	//switch e.bin.GetTid() {
 	//case uint32(msg.MapEventId_BonusGold):
-	//	break
 	//case uint32(msg.MapEventId_BonusStrength):
-	//	break
-	//default:
-	//	log.Error("[地图事件] 玩家[%s %d] 激活未定义的事件[%d]", e.bin.GetTid())
 	//}
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
