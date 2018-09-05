@@ -1150,6 +1150,7 @@ func (this *GateUser) GetUserPos() (float32, float32){
 
 func (this *GateUser) SetUserPos(x,y float32) {
 	if UserMgr().UpdateUserPos(this.Id(), x, y) == true {
+		//log.Info("玩家[%s] 设置位置 经度:%f  纬度:%f", this.Name(), x, y)
 		this.longitude = x
 		this.latitude = y
 	}

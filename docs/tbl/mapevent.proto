@@ -37,7 +37,7 @@ message TMapEventDefine
 	optional string Icon = 6; // 图标
 	
 	
-	optional string Reward = 7; // 奖励
+	repeated string Reward = 7; // 奖励
 	
 	
 	optional string Params = 8; // 切场景
