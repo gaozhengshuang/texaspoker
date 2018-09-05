@@ -265,12 +265,20 @@ message HouseData {
 	optional string ownerface = 22; //主人头像
 }
 
-// 汽车商店出售信息
+// 汽车商店商品存储结构
 message CarProductData {
     optional uint32 pid  = 1;       // 商品id
     optional uint32 sell = 2;       // 可以出售数量，限量
     optional uint32 sold = 3;       // 已经出售数量
 }
+
+// 地图商店商品存储结构
+message StoreProductData {
+    optional uint32 pid  = 1;       // 商品id
+    optional uint32 sell = 2;       // 可以出售数量，限量
+    optional uint32 sold = 3;       // 已经出售数量
+}
+
 
 //楼里的房屋入住信息
 message BuidingSoldData {

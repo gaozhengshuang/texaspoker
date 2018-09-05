@@ -37,8 +37,9 @@ func GetMapEventTypeByTid(tid uint32) uint32 {
 type IMapEvent interface {
 	Process(u *GateUser) bool
 	Bin() *msg.MapEvent
-	Complete(u *GateUser) 
 	ProcessCheck(u *GateUser, tconf *table.TMapEventDefine) bool
+	OnStart(u *GateUser)
+	OnEnd(u *GateUser) 
 }
 
 // 事件基础数据
@@ -47,7 +48,8 @@ type BaseMapEvent struct {
 }
 func (e *BaseMapEvent) Bin() *msg.MapEvent { return e.bin }
 func (e *BaseMapEvent) Process(u *GateUser) bool { return false }
-func (e *BaseMapEvent) Complete(u *GateUser) {
+func (e *BaseMapEvent) OnStart(u *GateUser) { }
+func (e *BaseMapEvent) OnEnd(u *GateUser) {
 	send := &msg.GW2C_RemoveEvent{Uid:pb.Uint64(e.bin.GetId())}
 	u.SendMsg(send)
 }
@@ -309,7 +311,7 @@ func (m *UserMapEvent) GetRandRangePos(lo, la int32, rangemin, rangemax uint32) 
 }
 
 // 激活进入事件
-func (m *UserMapEvent) EnterEvents(uid uint64) {
+func (m *UserMapEvent) EnterEvent(uid uint64) {
 	event, find := m.events[uid]
 	if event == nil || find == false {
 		log.Error("玩家没有这个事件[%d]", uid)
@@ -317,8 +319,20 @@ func (m *UserMapEvent) EnterEvents(uid uint64) {
 	}
 
 	if event.Process(m.owner) {
-		event.Complete(m.owner)
+		event.OnEnd(m.owner)
 		delete(m.events, uid)
 	}
+}
+
+// 主动离开事件
+func (m *UserMapEvent) LeaveEvent(uid uint64) {
+	event, find := m.events[uid]
+	if event == nil || find == false {
+		log.Error("玩家没有这个事件[%d]", uid)
+		return
+	}
+
+	event.OnEnd(m.owner)
+	delete(m.events, uid)
 }
 

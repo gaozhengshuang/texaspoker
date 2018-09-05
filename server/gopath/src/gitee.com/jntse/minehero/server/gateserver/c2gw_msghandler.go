@@ -124,6 +124,7 @@ func (this *C2GWMsgHandler) Init() {
 
 	// 地图事件
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
+	this.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
 
 	// 女仆
 	this.msgparser.RegistProtoMsg(msg.C2GW_MakeClothes{}, 		on_C2GW_MakeClothes)
@@ -983,7 +984,19 @@ func on_C2GW_ReqEnterEvents(session network.IBaseNetSession, message interface{}
 		session.Close()
 		return
 	}
-	user.events.EnterEvents(tmsg.GetUid())
+	user.events.EnterEvent(tmsg.GetUid())
+}
+
+// 请求激活事件
+func on_C2GW_LeaveEvent(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_LeaveEvent)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.events.LeaveEvent(tmsg.GetUid())
 }
 
 // 合成时装
