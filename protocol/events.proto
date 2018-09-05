@@ -13,4 +13,9 @@ message C2GW_ReqEnterEvents {
     optional uint64 uid = 1;
 }
 
+// 移除事件
+message GW2C_RemoveEvent {
+    optional uint64 uid = 1;
+}
+
 

@@ -14,14 +14,14 @@ import (
 )
 
 
-func NewMapEvent(ty uint32, bin *msg.MapEvent) IMapEvent {
+func NewMapEvent(ty uint32, bin *msg.MapEvent, rmin, rmax uint32) IMapEvent {
 	switch ty {
 	case uint32(msg.MapEventType_Game):
-		return &GameMapEvent{BaseMapEvent{bin:bin}}
+		return &GameMapEvent{BaseMapEvent{bin:bin, rmin:rmin, rmax:rmax}}
 	case uint32(msg.MapEventType_Bonus):
-		return &BonusMapEvent{BaseMapEvent{bin:bin}}
+		return &BonusMapEvent{BaseMapEvent{bin:bin, rmin:rmin, rmax:rmax}}
 	case uint32(msg.MapEventType_Building):
-		return &BuildingMapEvent{BaseMapEvent{bin:bin}}
+		return &BuildingMapEvent{BaseMapEvent{bin:bin, rmin:rmin, rmax:rmax}}
 	default:
 		log.Error("[地图事件] 创建无效的地图事件类型[%d]", ty)
 	}
@@ -36,14 +36,18 @@ func GetMapEventTypeByTid(tid uint32) uint32 {
 type IMapEvent interface {
 	Process(u *GateUser)
 	Bin() *msg.MapEvent
+	Range() (uint32, uint32)
 }
 
 // 事件基础数据
 type BaseMapEvent struct {
 	bin *msg.MapEvent
+	rmin uint32
+	rmax uint32
 }
 func (e *BaseMapEvent) Bin() *msg.MapEvent { return e.bin }
 func (e *BaseMapEvent) Process(u *GateUser) { }
+func (e *BaseMapEvent) Range() (uint32, uint32) { return e.rmin, e.rmax }
 
 // 游戏事件
 type GameMapEvent struct {
@@ -128,6 +132,13 @@ func (m *UserMapEvent) Tick(now int64) {
 
 func (m *UserMapEvent) Online() {
 	m.CheckRefresh()
+
+	// 打印事件点
+	for _, v := range m.events {
+		rmin, rmax := v.Range()
+		log.Trace("[地图事件] 玩家[%s %d] 事件点[%v] Range[%d %d]", m.owner.Name(), m.owner.Id(), v.Bin(), rmin, rmax)
+	}
+
 }
 
 // 读盘
@@ -138,7 +149,7 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 	uevent := bin.Base.GetMapevent()
 	m.refreshtime = uevent.GetTmrefresh()
 	for _, v := range uevent.Events {
-		event := NewMapEvent(GetMapEventTypeByTid(v.GetTid()), v)
+		event := NewMapEvent(GetMapEventTypeByTid(v.GetTid()), v, 0, 0)
 		if event == nil {
 			log.Error("[地图事件] 玩家[%s %d] 加载了无效的地图事件[%d]", m.owner.Name(), m.owner.Id(), v.GetTid())
 			continue
@@ -171,7 +182,7 @@ func (m *UserMapEvent) SendEvents() {
 func (m *UserMapEvent) CheckRefresh() {
 	tmstart := util.GetDayStart()
 	tmrefresh := tmstart + tbl.Game.MapEvent.TimeRefresh * util.HourSec
-	if tmrefresh > m.refreshtime {
+	if tmrefresh > m.refreshtime || true {	// 测试代码
 		m.Refresh(util.CURTIMEMS())
 	}
 }
@@ -190,8 +201,9 @@ func (m *UserMapEvent) Refresh(now int64) {
 	m.refreshactive = 0
 	eventuid := uint64(1)
 	//x, y := m.owner.GetUserPos()		// 经纬度
-	y, x := float32(31.1515941841), float32(121.3384963265)	// 测试代码
-	int_longitude, int_latitude := int32(x * 1000000) , int32(y * 1000000)	// 米
+	//y, x := float32(31.1515941841), float32(121.3384963265)	// 测试代码
+	y, x := float32(31.11325), float32(121.38206)
+	int_longitude, int_latitude := int32(x * 100000) , int32(y * 100000)	// 米
 
 	for _, v := range tbl.MapEventRefreshBase.TMapEventRefreshById {
 		giftweight := make([]util.WeightOdds, 0)
@@ -208,7 +220,7 @@ func (m *UserMapEvent) Refresh(now int64) {
 			tid := uint32(giftweight[index].Uid)
 			lo, la := m.GetRandRangePos(int_longitude, int_latitude, v.RangeMin, v.RangeMax)
 			eventbin := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(tid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
-			m.events[eventuid] = NewMapEvent(GetMapEventTypeByTid(tid), eventbin)
+			m.events[eventuid] = NewMapEvent(GetMapEventTypeByTid(tid), eventbin, v.RangeMin, v.RangeMax)
 			eventuid++
 		}
 	}
@@ -232,13 +244,26 @@ func (m *UserMapEvent) ParseProString(sliceweight* []util.WeightOdds, Pro []stri
 
 // 传入经纬度和区间随机返回一个点
 func (m *UserMapEvent) GetRandRangePos(lo, la int32, rangemin, rangemax uint32) (int32, int32) {
-	difflo := util.RandBetween(int32(rangemin), int32(rangemax))
-	if util.SelectPercent(50) { difflo *= -1 }
-	longitude := lo + difflo
+
+	if util.SelectPercent(50) {
+		difflo := util.RandBetween(int32(rangemin), int32(rangemax))
+		if util.SelectPercent(50) { difflo *= -1 }
+		longitude := lo + difflo
+
+		diffla := util.RandBetween(-int32(rangemax), int32(rangemax))
+		latitude := la + diffla
+
+		log.Trace("[地图事件] 原点[%d %d] 生成点[%d %d] 范围[%d %d] Rand[%d %d]", lo, la, longitude, latitude, rangemin, rangemax, difflo, diffla)
+		return longitude, latitude
+	}
 
 	diffla := util.RandBetween(int32(rangemin), int32(rangemax))
 	if util.SelectPercent(50) { diffla *= -1 }
 	latitude  := la + diffla
+
+	difflo := util.RandBetween(-int32(rangemax), int32(rangemax))
+	longitude := lo + difflo
+	log.Trace("[地图事件] 原点[%d %d] 生成点[%d %d] 范围[%d %d] Rand[%d %d]", lo, la, longitude, latitude, rangemin, rangemax, difflo, diffla)
 	return longitude, latitude
 }
 
