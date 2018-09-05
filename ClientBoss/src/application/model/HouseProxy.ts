@@ -92,6 +92,7 @@ module game {
 			}
 		}
 		public linjuList: any[] = [];
+		private randListType: number = 1;
 		private OnGW2C_AckRandHouseList(data: msg.GW2C_AckRandHouseList) {
 			if (data.datas && data.datas.length > 0) {
 				//房屋邻居列表
@@ -112,8 +113,12 @@ module game {
 				carHouseList = carHouseList.concat(houseList.filter(data => { return !carHouseList.some(idata => { return data.rId == idata.rId; }) }));
 
 				this.linjuList = houseList;
-				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_ROOM_NEIGHBOR, { list: houseList });
-				CarDetailView.getInstance().showLinjuList(carHouseList);
+				if (this.randListType == 1) {
+					ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_ROOM_NEIGHBOR, { list: houseList });
+					CarDetailView.getInstance().showLinjuList(carHouseList);
+				} else if (this.randListType == 2) {
+					ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_BUILDING_ZHUFU, { list: houseList });
+				}
 			}
 		}
 		private OnGW2C_AckTakeSelfHouseGoldRet(data: msg.GW2C_AckTakeSelfHouseGoldRet) {
@@ -185,6 +190,18 @@ module game {
 				ApplicationFacade.getInstance().sendNotification(CommandName.HAVE_NEW_DONGTAI);
 			}
 			this.selfDongtaiList = list;
+		}
+
+		public getNeighborList(data: any,type:number=1,bgetall:number=0) {
+			this.randListType=type;
+			if (data) {
+				sendMessage("msg.C2GW_ReqRandHouseList", msg.C2GW_ReqRandHouseList.encode
+					({
+						carflag: (data && data.carflag) && 1 || 0,
+						buildingid: (data && data.buildingid) && data.buildingid || 0,
+						bgetall:bgetall
+					}));
+			}
 		}
 	}
 }

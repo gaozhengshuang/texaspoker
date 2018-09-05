@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="MapBuildingPopupUI" width="670" height="1058" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect width="654" height="1058" x="0" y="0" ellipseWidth="120" ellipseHeight="120" fillColor="0xebebea"/>
-	<e:Label id="danjia_txt" text="均价：9000元/平" fontFamily="Microsoft YaHei" size="30" width="452" touchEnabled="false" verticalAlign="middle" textAlign="center" textColor="0x404a58" anchorOffsetX="0" y="515" horizontalCenter="0"/>
-	<e:Label id="info_txt" text="二室一厅（68平米）\n80/100" fontFamily="Microsoft YaHei" size="25" width="452" touchEnabled="false" verticalAlign="middle" textAlign="center" textColor="0x404A58" anchorOffsetX="0" y="841" horizontalCenter="0"/>
-	<e:Image id="barImg" source="2003001_b_png" width="654" height="394" verticalCenter="-232" left="0"/>
-	<e:Rect width="654" height="100" x="0" y="394" fillColor="0x3a92b3" fillAlpha="0.6"/>
-	<e:Label id="dec_txt" text="万科城市花园 盛大开盘！\n地铁9号线中春路站 稀缺户型" width="654" verticalAlign="middle" textAlign="center" anchorOffsetX="0" anchorOffsetY="0" height="82" size="24" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0xFFFFFF" lineSpacing="4" textColor="0xffffff" y="403"/>
-	<e:Image source="hall_2_json.buildingTopBg1_png" x="0" y="0" scale9Grid="60,0,40,100" width="654"/>
-	<e:Label id="bName_txt" text="万科城市花园" y="29" textColor="0x1b588b" size="42" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="579" verticalAlign="middle" textAlign="center" x="38"/>
-	<e:Image source="hall_4_json.trading_pos_png" x="0" y="101" scaleX="0.8" scaleY="0.8"/>
-	<e:Label id="bPoint_txt" text="上海市·闵行区" x="37" y="109" size="25" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="281" textColor="0x404a58"/>
-	<e:Group id="huxingContainer"  y="554" anchorOffsetX="0" width="654" anchorOffsetY="0" height="260" x="0">
-	</e:Group>
-	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="-502.5" horizontalCenter="308.5"/>
-	<e:Button id="lookGuest_btn" label="" x="117" y="935">
+	<e:Rect width="654" height="1058" ellipseWidth="120" ellipseHeight="120" fillColor="0xebebea" horizontalCenter="-7" verticalCenter="0"/>
+	<e:Label id="danjia_txt" text="均价：9000元/平" fontFamily="Microsoft YaHei" size="30" width="452" touchEnabled="false" verticalAlign="middle" textAlign="center" textColor="0x404a58" anchorOffsetX="0" horizontalCenter="0" verticalCenter="1"/>
+	<e:Label id="info_txt" text="二室一厅（68平米）\n80/100" fontFamily="Microsoft YaHei" size="25" width="452" touchEnabled="false" verticalAlign="middle" textAlign="center" textColor="0x404A58" anchorOffsetX="0" horizontalCenter="0" verticalCenter="337"/>
+	<e:Image id="barImg" source="2003001_b_png" width="654" height="394" horizontalCenter="-8" verticalCenter="-232"/>
+	<e:Rect width="654" height="100" fillColor="0x3a92b3" fillAlpha="0.6" horizontalCenter="-8" verticalCenter="-85"/>
+	<e:Label id="dec_txt" text="万科城市花园 盛大开盘！\n地铁9号线中春路站 稀缺户型" width="654" verticalAlign="middle" textAlign="center" anchorOffsetX="0" anchorOffsetY="0" height="82" size="24" fontFamily="Microsoft YaHei" stroke="0" strokeColor="0xFFFFFF" lineSpacing="4" textColor="0xffffff" horizontalCenter="-8" verticalCenter="-85"/>
+	<e:Image source="hall_2_json.buildingTopBg1_png" scale9Grid="60,0,40,100" width="654" horizontalCenter="-8" verticalCenter="-479"/>
+	<e:Label id="bName_txt" text="万科城市花园" textColor="0x1b588b" size="42" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="579" verticalAlign="middle" textAlign="center" horizontalCenter="-7.5" verticalCenter="-479"/>
+	<e:Image source="hall_4_json.trading_pos_png" scaleX="0.8" scaleY="0.8" horizontalCenter="-315" verticalCenter="-408"/>
+	<e:Label id="bPoint_txt" text="上海市·闵行区" size="25" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="281" textColor="0x404a58" horizontalCenter="-157.5" verticalCenter="-407.5"/>
+	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="308.5" verticalCenter="-519.5"/>
+	<e:Button id="lookZhuhu_btn" label="" horizontalCenter="-128" verticalCenter="441">
 		<e:skinName>
 		<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="hall_2_json.lookZhuhuBtn1_png" source.down="hall_2_json.lookZhuhuBtn1_png"/>
@@ -21,7 +19,7 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button id="buyFang_btn" label="" x="359" y="935">
+	<e:Button id="buyFang_btn" label="" horizontalCenter="113" verticalCenter="441">
 		<e:skinName>
 		<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="hall_2_json.buyNewFangBtn1_png" source.down="hall_2_json.buyNewFangBtn1_png"/>
@@ -29,4 +27,8 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
+	<e:Scroller id="listScroller" width="654" height="260" horizontalCenter="-8" verticalCenter="155">
+		<e:Group id="huxingContainer" width="100%" height="100%">
+		</e:Group>
+	</e:Scroller>
 </e:Skin>

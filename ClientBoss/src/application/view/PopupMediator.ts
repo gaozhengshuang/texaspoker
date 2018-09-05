@@ -19,6 +19,7 @@ module game {
 				CommandName.POPUP_WELCOME,
 				CommandName.POPUP_NEW_HOUSE_HUXING,
 				CommandName.POPUP_NEW_MAP_BUILDING,
+				CommandName.POPUP_BUILDING_ZHUFU,
 				CommandName.REMOVE_POPUP,
 				CommandName.REMOVE_POPUP_NEW_HOUSE
 			];
@@ -92,6 +93,32 @@ module game {
 							ApplicationFacade.getInstance().registerMdt<MapBuildingPopupMediator>(MapBuildingPopupMediator.NAME, MapBuildingPopupMediator, this.sceneView);
 
 							this.sceneMediatorName = MapBuildingPopupMediator.NAME;
+
+							
+						}
+						break;
+					}
+					case CommandName.POPUP_BUILDING_ZHUFU:
+					{
+						GameConfig.setEventsReply(true);
+						this.removeSceneView();
+						if (data) {
+							GameConfig.updataMaskBgFun('#000000', 0);
+							//GameConfig.showDownBtnFun(false);
+							openPanel(PanelType.MapzhuhuListPopupPanel);
+							this.sceneView = MapzhuhuListPopupPanel.getInstance();
+							let goalScale: number = this.sceneView.scaleX;
+							this.sceneView.alpha = 0;
+							this.sceneView.scaleX = this.sceneView.scaleY = goalScale * 0.5;
+							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
+							MapzhuhuListPopupPanel.getInstance().updateHouseList(data.list);
+							//MapBuildingPopupPanel.getInstance().dataChanged(data.bId, data.sales);
+							 //this.sceneView.x = gameConfig.curWidth() / 2;
+							 //this.sceneView.y = gameConfig.curHeight() / 2 ;
+							// ApplicationFacade.getInstance().registerMediator(new PopupWelcomeMediator(this.sceneView));
+							ApplicationFacade.getInstance().registerMdt<MapzhuhuListPopupMediator>(MapzhuhuListPopupMediator.NAME, MapzhuhuListPopupMediator, this.sceneView);
+
+							this.sceneMediatorName = MapzhuhuListPopupMediator.NAME;
 
 							
 						}

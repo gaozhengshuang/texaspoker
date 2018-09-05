@@ -50,7 +50,7 @@ module game {
             this.setCurrentBuidling(build);
             this.salesType=type;
             sendMessage("msg.C2GW_ReqBuildingCanBuyInfo", msg.C2GW_ReqBuildingCanBuyInfo.encode({ buildingid: build.Id }));
-        }
+        }         
 
         public currentBuidling: any;
         public setCurrentBuidling(info: any[]) {

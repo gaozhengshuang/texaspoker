@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HuxingItemSkin" width="270" height="228" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="img" source="hall_2_json.huxing_1001_s_png" horizontalCenter="0" verticalCenter="0" anchorOffsetX="90" anchorOffsetY="76"/>
+</e:Skin>

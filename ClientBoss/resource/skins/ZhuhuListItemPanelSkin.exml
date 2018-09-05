@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ZhuhuListItemPanelSkin" width="654" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
 	<e:Rect id="bg_mc" width="654" height="130" x="0" y="0" fillAlpha="0.5" fillColor="0xdddddd"/>
-
-
 	<e:Image source="room_line1_png" width="654" bottom="0" scaleY="1" left="0" height="2"/>
-
-
 	<e:Image id="headImg" x="13" scaleX="0.4" scaleY="0.4" touchEnabled="false" source="defaultHead1_png" verticalCenter="0"/>
-
-
 	<e:Image id="youIcon" source="jiaobiaoIcon2_png" right="0" top="0" visible="false"/>
 	<e:Group id="timeGroup" y="0" right="0" visible="false">
 		<e:Image id="timeIcon" source="jiaobiao3_png" x="0" y="0"/>

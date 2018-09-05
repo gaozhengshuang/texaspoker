@@ -200,7 +200,7 @@ module game {
 			//console.log(type);
 			//console.log(data);
 			setEgretEventsReply(true);
-			ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEW_MAP_BUILDING, { buildingId: data.bId });
+			ApplicationFacade.getInstance().sendNotification(CommandName.MAP_BUILDING_INFO, { bId: data.bId });
 
 		}
 		/**

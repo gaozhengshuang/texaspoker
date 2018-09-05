@@ -25,6 +25,7 @@ module game {
 		{
 			this.sceneGroup.addEventListener(MapBuildingPopupPanel.CLOSE,this.closeRequset,this);
 			this.sceneGroup.addEventListener(MapBuildingPopupPanel.BUY_FANG,this.buyRequset,this);
+			this.sceneGroup.addEventListener(MapBuildingPopupPanel.OPEN_ZHUHU_LIST,this.zhuhuListRequset,this);
 		}
 		private closeRequset(eve:BasicEvent):void
 		{
@@ -34,9 +35,21 @@ module game {
 		{
 			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
             if(eve.EventObj){
-				let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
-				buildingProxy.getSalesInfo(eve.EventObj.build,2);
+				ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEW_HOUSE_HUXING,
+				{bId:eve.EventObj.bId, sales:eve.EventObj.sales});
+				//let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
+				//buildingProxy.getSalesInfo(eve.EventObj.build,2);
 			}
+		}
+		private zhuhuListRequset(eve:BasicEvent):void
+		{
+			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
+			if(eve.EventObj){
+				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_NEIGHBOR_LIST,eve.EventObj);
+				//let buildingProxy: BuildingProxy = <BuildingProxy><any>this.facade().retrieveProxy(BuildingProxy.NAME);
+				//buildingProxy.getSalesInfo(eve.EventObj.build,2);
+			}
+
 		}
 		
 		public get sceneGroup():MapBuildingPopupPanel

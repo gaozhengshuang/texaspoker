@@ -55,17 +55,26 @@ module game {
             if(obj.roommember!=null){
                 this.roommember = obj.roommember;
             }
+            if(obj.ownersex!=null){
+                this.ownersex = obj.ownersex;
+            }
+            if(obj.ownerlevel!=null){
+                this.ownerlevel = obj.ownerlevel;
+            }
+            if(obj.ownerface!=null){
+                this.ownerface = obj.ownerface;
+            }
 
         }
         public rId:number=0;
 
         public tId:number=0;
 
+        public bId:number = 0; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
+
         public ownerid:number=0;
 
         public ownername:string = ""; //主人的名字
-
-        public bId:number = 0; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
 
         public level:number = 0; //房屋等级
 
@@ -84,6 +93,12 @@ module game {
         public parkings : msg.IParkingData[] = [];//房间的车位信息列表
 
         public roommember:number=0;//房间号
+
+        public ownersex: number = 20; //主人性别
+
+        public ownerlevel: number = 21; //主人等级
+
+        public ownerface: string = "22"; //主人头像
         
     }
 }
