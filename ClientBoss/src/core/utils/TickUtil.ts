@@ -82,7 +82,7 @@ module game {
 		 * 添加超时触发 单位：毫秒
 		 */
 		public static AddTimeoutInvoke(method: Function, delay: number, thisObject: any, params?: any): number {
-			if (delay <= 0 || method == null || TickUtil.isExists(TickUtil._timeoutList, method, thisObject)) {
+			if (method == null || TickUtil.isExists(TickUtil._timeoutList, method, thisObject)) {
 				return 0;
 			}
 			let info: TickInfo = new TickInfo(method, thisObject, params);
@@ -131,10 +131,8 @@ module game {
 	class TickInfo extends CallBackHandler {
 		public id: number;
 		public time: number;
-		public params: any;
-		public constructor(method: Function, time: number, params: any) {
-			super(method, null, params);
-			this.params = params;
+		public constructor(method: Function, thisObj: any, params: any) {
+			super(thisObj, method, params);
 		}
 	}
 }
