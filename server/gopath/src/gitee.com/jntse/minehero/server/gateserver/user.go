@@ -110,6 +110,8 @@ type GateUser struct {
 	//经纬度靠客户端同步
 	longitude		float32 //经度
 	latitude		float32 //纬度
+	province 		uint32  //省
+	city 			uint32  //市
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -1148,12 +1150,18 @@ func (this *GateUser) GetUserPos() (float32, float32){
 	return this.longitude, this.latitude
 }
 
-func (this *GateUser) SetUserPos(x,y float32) {
-	if UserMgr().UpdateUserPos(this.Id(), x, y) == true {
+func (this *GateUser) SetUserPos(x,y float32, province,city uint32) {
+	if UserMgr().UpdateUserPos(this.Id(), x, y, province, city) == true {
 		//log.Info("玩家[%s] 设置位置 经度:%f  纬度:%f", this.Name(), x, y)
 		this.longitude = x
 		this.latitude = y
+		this.province = province
+		this.city = city
 	}
+}
+//获取玩家所属行政区
+func (this *GateUser) GetUserCanton() (uint32, uint32){
+	return this.province, this.city
 }
 
 func (this *GateUser) AckNearUsersData(lng, lat float32) {
