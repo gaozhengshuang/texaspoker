@@ -599,15 +599,14 @@ func (this *GateUser) LuckyDraw() {
 	// 解析概率配置
 	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
 		log.Trace("[%d %s] 抽奖概率为[%v]", this.Id(), this.Name(), Pro)
-		for _ , strpro := range Pro {
-			slicepro := strings.Split(strpro, "-")
-			if len(slicepro) != 2 {
-				log.Error("[%d %s] 抽奖异常，解析概率配置异常 strpro=%s", this.Id(), this.Name(), strpro)
+		ProObj := util.SplitIntString(Pro, "-")
+		for _, v := range ProObj {
+			if v.Len() != 2 {
+				log.Error("[幸运抽奖] 解析道具产出概率配置异常 ObjSplit=%#v", v)
 				return false
 			}
-			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
-			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
-			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id)})
+			id , weight := v.Value(0), v.Value(1)
+			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(0)})
 		}
 		return true
 	}

@@ -74,6 +74,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.C2GW_ReqDeliveryGoods{})
 	this.msgparser.RegistSendProto(msg.C2GW_ChangeDeliveryAddress{})
 	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
+	this.msgparser.RegistSendProto(msg.C2GW_ReqEnterEvents{})
 
 	//this.msgparser.RegistSendProto(msg.C2GW_GoldExchange{})
 	this.msgparser.RegistSendProto(msg.C2GW_BuyClothes{})

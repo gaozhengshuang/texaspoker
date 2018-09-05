@@ -348,6 +348,13 @@ func (this *User) UnDressClothes() {
 	this.SendGateMsg(send)
 }
 
+// 进入事件
+func (this *User) EnterEvent(uid uint64) {
+	send := &msg.C2GW_ReqEnterEvents{Uid:pb.Uint64(uid)}
+	this.SendGateMsg(send)
+}
+
+
 //func (this *User) ChangeSex() {
 //	newsex := int32(msg.Sex_Female)
 //	if this.Sex() == int32(msg.Sex_Female) { newsex = int32(msg.Sex_Male) }
@@ -400,6 +407,10 @@ func (this *User) DoInputCmd(cmd string) {
 		//this.ChangeSex()
 	case "rechargedone":
 		this.RechargeDone()
+	case "event":
+		this.EnterEvent(5)
+		this.EnterEvent(16)
+		//this.EnterEvent(26)
 	}
 }
 

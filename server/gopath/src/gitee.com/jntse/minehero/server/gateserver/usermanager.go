@@ -290,6 +290,7 @@ func (this *UserManager) IntHourClockCallback(now int64) {
 			user.events.RefreshActive()
 		}
 	}
+	log.Info("当前整点[%d]点", inthour)
 }
 
 func (this *UserManager) UpdateUserPos(uid uint64, x, y float32) bool {
