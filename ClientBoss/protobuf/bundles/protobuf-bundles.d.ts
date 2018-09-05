@@ -8182,6 +8182,7 @@ declare namespace msg {
         Diamond = 60002,
         Gold = 60003,
         FreeStep = 60005,
+        Strength = 60006,
         RedDiamond = 100001,
         RedDiamondParts = 100002
     }
@@ -8541,6 +8542,102 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a CommonKeyValue. */
+    interface ICommonKeyValue {
+
+        /** CommonKeyValue key */
+        key?: (number|null);
+
+        /** CommonKeyValue value */
+        value?: (number|null);
+    }
+
+    /** Represents a CommonKeyValue. */
+    class CommonKeyValue implements ICommonKeyValue {
+
+        /**
+         * Constructs a new CommonKeyValue.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ICommonKeyValue);
+
+        /** CommonKeyValue key. */
+        public key: number;
+
+        /** CommonKeyValue value. */
+        public value: number;
+
+        /**
+         * Creates a new CommonKeyValue instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CommonKeyValue instance
+         */
+        public static create(properties?: msg.ICommonKeyValue): msg.CommonKeyValue;
+
+        /**
+         * Encodes the specified CommonKeyValue message. Does not implicitly {@link msg.CommonKeyValue.verify|verify} messages.
+         * @param message CommonKeyValue message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ICommonKeyValue, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CommonKeyValue message, length delimited. Does not implicitly {@link msg.CommonKeyValue.verify|verify} messages.
+         * @param message CommonKeyValue message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ICommonKeyValue, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CommonKeyValue message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CommonKeyValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.CommonKeyValue;
+
+        /**
+         * Decodes a CommonKeyValue message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CommonKeyValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.CommonKeyValue;
+
+        /**
+         * Verifies a CommonKeyValue message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CommonKeyValue message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CommonKeyValue
+         */
+        public static fromObject(object: { [k: string]: any }): msg.CommonKeyValue;
+
+        /**
+         * Creates a plain object from a CommonKeyValue message. Also converts values to other types if specified.
+         * @param message CommonKeyValue
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.CommonKeyValue, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CommonKeyValue to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2C_SendUserEvents. */
     interface IGW2C_SendUserEvents {
 
@@ -8716,6 +8813,96 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_ReqEnterEvents to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RemoveEvent. */
+    interface IGW2C_RemoveEvent {
+
+        /** GW2C_RemoveEvent uid */
+        uid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RemoveEvent. */
+    class GW2C_RemoveEvent implements IGW2C_RemoveEvent {
+
+        /**
+         * Constructs a new GW2C_RemoveEvent.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RemoveEvent);
+
+        /** GW2C_RemoveEvent uid. */
+        public uid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RemoveEvent instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RemoveEvent instance
+         */
+        public static create(properties?: msg.IGW2C_RemoveEvent): msg.GW2C_RemoveEvent;
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @param message GW2C_RemoveEvent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RemoveEvent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RemoveEvent message, length delimited. Does not implicitly {@link msg.GW2C_RemoveEvent.verify|verify} messages.
+         * @param message GW2C_RemoveEvent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RemoveEvent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RemoveEvent;
+
+        /**
+         * Decodes a GW2C_RemoveEvent message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RemoveEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RemoveEvent;
+
+        /**
+         * Verifies a GW2C_RemoveEvent message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RemoveEvent message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RemoveEvent
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RemoveEvent;
+
+        /**
+         * Creates a plain object from a GW2C_RemoveEvent message. Also converts values to other types if specified.
+         * @param message GW2C_RemoveEvent
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RemoveEvent, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RemoveEvent to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -24896,6 +25083,12 @@ declare namespace msg {
 
     /** Properties of a C2GW_ReqNearUsers. */
     interface IC2GW_ReqNearUsers {
+
+        /** C2GW_ReqNearUsers lng */
+        lng?: (number|null);
+
+        /** C2GW_ReqNearUsers lat */
+        lat?: (number|null);
     }
 
     /** Represents a C2GW_ReqNearUsers. */
@@ -24906,6 +25099,12 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_ReqNearUsers);
+
+        /** C2GW_ReqNearUsers lng. */
+        public lng: number;
+
+        /** C2GW_ReqNearUsers lat. */
+        public lat: number;
 
         /**
          * Creates a new C2GW_ReqNearUsers instance using the specified properties.
@@ -25076,6 +25275,12 @@ declare namespace msg {
 
         /** C2GW_ReqSetPos lat */
         lat?: (number|null);
+
+        /** C2GW_ReqSetPos province */
+        province?: (number|null);
+
+        /** C2GW_ReqSetPos city */
+        city?: (number|null);
     }
 
     /** Represents a C2GW_ReqSetPos. */
@@ -25092,6 +25297,12 @@ declare namespace msg {
 
         /** C2GW_ReqSetPos lat. */
         public lat: number;
+
+        /** C2GW_ReqSetPos province. */
+        public province: number;
+
+        /** C2GW_ReqSetPos city. */
+        public city: number;
 
         /**
          * Creates a new C2GW_ReqSetPos instance using the specified properties.
@@ -25609,6 +25820,192 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_ReqSetFace to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqPlayerCountByProvince. */
+    interface IC2GW_ReqPlayerCountByProvince {
+
+        /** C2GW_ReqPlayerCountByProvince province */
+        province?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqPlayerCountByProvince. */
+    class C2GW_ReqPlayerCountByProvince implements IC2GW_ReqPlayerCountByProvince {
+
+        /**
+         * Constructs a new C2GW_ReqPlayerCountByProvince.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqPlayerCountByProvince);
+
+        /** C2GW_ReqPlayerCountByProvince province. */
+        public province: number;
+
+        /**
+         * Creates a new C2GW_ReqPlayerCountByProvince instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqPlayerCountByProvince instance
+         */
+        public static create(properties?: msg.IC2GW_ReqPlayerCountByProvince): msg.C2GW_ReqPlayerCountByProvince;
+
+        /**
+         * Encodes the specified C2GW_ReqPlayerCountByProvince message. Does not implicitly {@link msg.C2GW_ReqPlayerCountByProvince.verify|verify} messages.
+         * @param message C2GW_ReqPlayerCountByProvince message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqPlayerCountByProvince, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqPlayerCountByProvince message, length delimited. Does not implicitly {@link msg.C2GW_ReqPlayerCountByProvince.verify|verify} messages.
+         * @param message C2GW_ReqPlayerCountByProvince message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqPlayerCountByProvince, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqPlayerCountByProvince message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqPlayerCountByProvince;
+
+        /**
+         * Decodes a C2GW_ReqPlayerCountByProvince message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqPlayerCountByProvince;
+
+        /**
+         * Verifies a C2GW_ReqPlayerCountByProvince message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqPlayerCountByProvince message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqPlayerCountByProvince
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqPlayerCountByProvince;
+
+        /**
+         * Creates a plain object from a C2GW_ReqPlayerCountByProvince message. Also converts values to other types if specified.
+         * @param message C2GW_ReqPlayerCountByProvince
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqPlayerCountByProvince, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqPlayerCountByProvince to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_AckPlayerCountByProvince. */
+    interface IGW2C_AckPlayerCountByProvince {
+
+        /** GW2C_AckPlayerCountByProvince province */
+        province?: (number|null);
+
+        /** GW2C_AckPlayerCountByProvince data */
+        data?: (msg.ICommonKeyValue[]|null);
+    }
+
+    /** Represents a GW2C_AckPlayerCountByProvince. */
+    class GW2C_AckPlayerCountByProvince implements IGW2C_AckPlayerCountByProvince {
+
+        /**
+         * Constructs a new GW2C_AckPlayerCountByProvince.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_AckPlayerCountByProvince);
+
+        /** GW2C_AckPlayerCountByProvince province. */
+        public province: number;
+
+        /** GW2C_AckPlayerCountByProvince data. */
+        public data: msg.ICommonKeyValue[];
+
+        /**
+         * Creates a new GW2C_AckPlayerCountByProvince instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_AckPlayerCountByProvince instance
+         */
+        public static create(properties?: msg.IGW2C_AckPlayerCountByProvince): msg.GW2C_AckPlayerCountByProvince;
+
+        /**
+         * Encodes the specified GW2C_AckPlayerCountByProvince message. Does not implicitly {@link msg.GW2C_AckPlayerCountByProvince.verify|verify} messages.
+         * @param message GW2C_AckPlayerCountByProvince message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_AckPlayerCountByProvince, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_AckPlayerCountByProvince message, length delimited. Does not implicitly {@link msg.GW2C_AckPlayerCountByProvince.verify|verify} messages.
+         * @param message GW2C_AckPlayerCountByProvince message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_AckPlayerCountByProvince, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_AckPlayerCountByProvince message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_AckPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckPlayerCountByProvince;
+
+        /**
+         * Decodes a GW2C_AckPlayerCountByProvince message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_AckPlayerCountByProvince
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckPlayerCountByProvince;
+
+        /**
+         * Verifies a GW2C_AckPlayerCountByProvince message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_AckPlayerCountByProvince message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_AckPlayerCountByProvince
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckPlayerCountByProvince;
+
+        /**
+         * Creates a plain object from a GW2C_AckPlayerCountByProvince message. Also converts values to other types if specified.
+         * @param message GW2C_AckPlayerCountByProvince
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_AckPlayerCountByProvince, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_AckPlayerCountByProvince to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
