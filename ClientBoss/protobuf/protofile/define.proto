@@ -18,6 +18,7 @@ enum ItemId {
     Diamond = 60002;            // 钻石
     Gold = 60003;               // 金币
     FreeStep = 60005;           // 免费步数
+    Strength = 60006;           // 体力
     RedDiamond = 100001;        // 红包钻石
     RedDiamondParts = 100002;   // 红包钻石碎片
 }
@@ -146,4 +147,10 @@ message PersonSocialInfo {
 	optional float lng = 8; 	 //经度
 	optional float lat = 9;	 //纬度
 	optional string sign = 10; //个人签名
+}
+
+//常用的key-value结构
+message CommonKeyValue {
+	optional uint32 key = 1;
+	optional uint32 value = 2;
 }

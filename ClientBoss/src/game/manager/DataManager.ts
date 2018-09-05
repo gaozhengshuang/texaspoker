@@ -54,7 +54,8 @@ module game {
                         showTips("体力不足！");
                     }
                     break;
-                case msg.MoneyType._Item:
+                // case msg.MoneyType._Item: //默认道具
+                default:
                      if(id > 0)
                      {
                        let num = DataManager.playerModel.getItemNum(id)
