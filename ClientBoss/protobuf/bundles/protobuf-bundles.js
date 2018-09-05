@@ -20720,6 +20720,32 @@ $root.msg = (function() {
     })();
 
     /**
+     * MapEventId enum.
+     * @name msg.MapEventId
+     * @enum {string}
+     * @property {number} GameTanTanLe=1001 GameTanTanLe value
+     * @property {number} GameSuperMarket=1002 GameSuperMarket value
+     * @property {number} GameFanFanLe=1003 GameFanFanLe value
+     * @property {number} BonusGold=2001 BonusGold value
+     * @property {number} BonusStrength=2002 BonusStrength value
+     * @property {number} BuildingMaidShop=3001 BuildingMaidShop value
+     * @property {number} BuildingCarShop=3002 BuildingCarShop value
+     * @property {number} BuildingHouseShop=3003 BuildingHouseShop value
+     */
+    msg.MapEventId = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1001] = "GameTanTanLe"] = 1001;
+        values[valuesById[1002] = "GameSuperMarket"] = 1002;
+        values[valuesById[1003] = "GameFanFanLe"] = 1003;
+        values[valuesById[2001] = "BonusGold"] = 2001;
+        values[valuesById[2002] = "BonusStrength"] = 2002;
+        values[valuesById[3001] = "BuildingMaidShop"] = 3001;
+        values[valuesById[3002] = "BuildingCarShop"] = 3002;
+        values[valuesById[3003] = "BuildingHouseShop"] = 3003;
+        return values;
+    })();
+
+    /**
      * Sex enum.
      * @name msg.Sex
      * @enum {string}
@@ -21423,7 +21449,7 @@ $root.msg = (function() {
          * Properties of a C2GW_ReqEnterEvents.
          * @memberof msg
          * @interface IC2GW_ReqEnterEvents
-         * @property {number|null} [uid] C2GW_ReqEnterEvents uid
+         * @property {number|Long|null} [uid] C2GW_ReqEnterEvents uid
          */
 
         /**
@@ -21443,11 +21469,11 @@ $root.msg = (function() {
 
         /**
          * C2GW_ReqEnterEvents uid.
-         * @member {number} uid
+         * @member {number|Long} uid
          * @memberof msg.C2GW_ReqEnterEvents
          * @instance
          */
-        C2GW_ReqEnterEvents.prototype.uid = 0;
+        C2GW_ReqEnterEvents.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_ReqEnterEvents instance using the specified properties.
@@ -21474,7 +21500,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.uid != null && message.hasOwnProperty("uid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.uid);
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.uid);
             return writer;
         };
 
@@ -21510,7 +21536,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.uid = reader.uint32();
+                    message.uid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -21548,8 +21574,8 @@ $root.msg = (function() {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.uid != null && message.hasOwnProperty("uid"))
-                if (!$util.isInteger(message.uid))
-                    return "uid: integer expected";
+                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
+                    return "uid: integer|Long expected";
             return null;
         };
 
@@ -21566,7 +21592,14 @@ $root.msg = (function() {
                 return object;
             var message = new $root.msg.C2GW_ReqEnterEvents();
             if (object.uid != null)
-                message.uid = object.uid >>> 0;
+                if ($util.Long)
+                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = true;
+                else if (typeof object.uid === "string")
+                    message.uid = parseInt(object.uid, 10);
+                else if (typeof object.uid === "number")
+                    message.uid = object.uid;
+                else if (typeof object.uid === "object")
+                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -21584,9 +21617,16 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults)
-                object.uid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.uid = options.longs === String ? "0" : 0;
             if (message.uid != null && message.hasOwnProperty("uid"))
-                object.uid = message.uid;
+                if (typeof message.uid === "number")
+                    object.uid = options.longs === String ? String(message.uid) : message.uid;
+                else
+                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber(true) : message.uid;
             return object;
         };
 
@@ -73189,7 +73229,8 @@ $root.table = (function() {
          * @property {number|null} [MoneyType] TMapEventDefine MoneyType
          * @property {number|null} [Price] TMapEventDefine Price
          * @property {string|null} [Icon] TMapEventDefine Icon
-         * @property {string|null} [Reward] TMapEventDefine Reward
+         * @property {Array.<string>|null} [Reward] TMapEventDefine Reward
+         * @property {string|null} [Params] TMapEventDefine Params
          */
 
         /**
@@ -73201,6 +73242,7 @@ $root.table = (function() {
          * @param {table.ITMapEventDefine=} [properties] Properties to set
          */
         function TMapEventDefine(properties) {
+            this.Reward = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -73257,11 +73299,19 @@ $root.table = (function() {
 
         /**
          * TMapEventDefine Reward.
-         * @member {string} Reward
+         * @member {Array.<string>} Reward
          * @memberof table.TMapEventDefine
          * @instance
          */
-        TMapEventDefine.prototype.Reward = "";
+        TMapEventDefine.prototype.Reward = $util.emptyArray;
+
+        /**
+         * TMapEventDefine Params.
+         * @member {string} Params
+         * @memberof table.TMapEventDefine
+         * @instance
+         */
+        TMapEventDefine.prototype.Params = "";
 
         /**
          * Creates a new TMapEventDefine instance using the specified properties.
@@ -73299,8 +73349,11 @@ $root.table = (function() {
                 writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.Price);
             if (message.Icon != null && message.hasOwnProperty("Icon"))
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.Icon);
-            if (message.Reward != null && message.hasOwnProperty("Reward"))
-                writer.uint32(/* id 7, wireType 2 =*/58).string(message.Reward);
+            if (message.Reward != null && message.Reward.length)
+                for (var i = 0; i < message.Reward.length; ++i)
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.Reward[i]);
+            if (message.Params != null && message.hasOwnProperty("Params"))
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.Params);
             return writer;
         };
 
@@ -73354,7 +73407,12 @@ $root.table = (function() {
                     message.Icon = reader.string();
                     break;
                 case 7:
-                    message.Reward = reader.string();
+                    if (!(message.Reward && message.Reward.length))
+                        message.Reward = [];
+                    message.Reward.push(reader.string());
+                    break;
+                case 8:
+                    message.Params = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -73409,9 +73467,16 @@ $root.table = (function() {
             if (message.Icon != null && message.hasOwnProperty("Icon"))
                 if (!$util.isString(message.Icon))
                     return "Icon: string expected";
-            if (message.Reward != null && message.hasOwnProperty("Reward"))
-                if (!$util.isString(message.Reward))
-                    return "Reward: string expected";
+            if (message.Reward != null && message.hasOwnProperty("Reward")) {
+                if (!Array.isArray(message.Reward))
+                    return "Reward: array expected";
+                for (var i = 0; i < message.Reward.length; ++i)
+                    if (!$util.isString(message.Reward[i]))
+                        return "Reward: string[] expected";
+            }
+            if (message.Params != null && message.hasOwnProperty("Params"))
+                if (!$util.isString(message.Params))
+                    return "Params: string expected";
             return null;
         };
 
@@ -73439,8 +73504,15 @@ $root.table = (function() {
                 message.Price = object.Price >>> 0;
             if (object.Icon != null)
                 message.Icon = String(object.Icon);
-            if (object.Reward != null)
-                message.Reward = String(object.Reward);
+            if (object.Reward) {
+                if (!Array.isArray(object.Reward))
+                    throw TypeError(".table.TMapEventDefine.Reward: array expected");
+                message.Reward = [];
+                for (var i = 0; i < object.Reward.length; ++i)
+                    message.Reward[i] = String(object.Reward[i]);
+            }
+            if (object.Params != null)
+                message.Params = String(object.Params);
             return message;
         };
 
@@ -73457,6 +73529,8 @@ $root.table = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.Reward = [];
             if (options.defaults) {
                 object.Id = 0;
                 object.Type = 0;
@@ -73464,7 +73538,7 @@ $root.table = (function() {
                 object.MoneyType = 0;
                 object.Price = 0;
                 object.Icon = "";
-                object.Reward = "";
+                object.Params = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -73478,8 +73552,13 @@ $root.table = (function() {
                 object.Price = message.Price;
             if (message.Icon != null && message.hasOwnProperty("Icon"))
                 object.Icon = message.Icon;
-            if (message.Reward != null && message.hasOwnProperty("Reward"))
-                object.Reward = message.Reward;
+            if (message.Reward && message.Reward.length) {
+                object.Reward = [];
+                for (var j = 0; j < message.Reward.length; ++j)
+                    object.Reward[j] = message.Reward[j];
+            }
+            if (message.Params != null && message.hasOwnProperty("Params"))
+                object.Params = message.Params;
             return object;
         };
 

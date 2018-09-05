@@ -8338,6 +8338,18 @@ declare namespace msg {
         Building = 3
     }
 
+    /** MapEventId enum. */
+    enum MapEventId {
+        GameTanTanLe = 1001,
+        GameSuperMarket = 1002,
+        GameFanFanLe = 1003,
+        BonusGold = 2001,
+        BonusStrength = 2002,
+        BuildingMaidShop = 3001,
+        BuildingCarShop = 3002,
+        BuildingHouseShop = 3003
+    }
+
     /** Sex enum. */
     enum Sex {
         Female = 0,
@@ -8623,7 +8635,7 @@ declare namespace msg {
     interface IC2GW_ReqEnterEvents {
 
         /** C2GW_ReqEnterEvents uid */
-        uid?: (number|null);
+        uid?: (number|Long|null);
     }
 
     /** Represents a C2GW_ReqEnterEvents. */
@@ -8636,7 +8648,7 @@ declare namespace msg {
         constructor(properties?: msg.IC2GW_ReqEnterEvents);
 
         /** C2GW_ReqEnterEvents uid. */
-        public uid: number;
+        public uid: (number|Long);
 
         /**
          * Creates a new C2GW_ReqEnterEvents instance using the specified properties.
@@ -30758,7 +30770,10 @@ declare namespace table {
         Icon?: (string|null);
 
         /** TMapEventDefine Reward */
-        Reward?: (string|null);
+        Reward?: (string[]|null);
+
+        /** TMapEventDefine Params */
+        Params?: (string|null);
     }
 
     /** Represents a TMapEventDefine. */
@@ -30789,7 +30804,10 @@ declare namespace table {
         public Icon: string;
 
         /** TMapEventDefine Reward. */
-        public Reward: string;
+        public Reward: string[];
+
+        /** TMapEventDefine Params. */
+        public Params: string;
 
         /**
          * Creates a new TMapEventDefine instance using the specified properties.
