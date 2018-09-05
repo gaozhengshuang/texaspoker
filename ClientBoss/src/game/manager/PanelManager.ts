@@ -138,6 +138,12 @@ module game {
             case PanelType.MapEventsShopPanel:
                 panel = MapEventsShopPanel.getInstance();
                 break;
+            case PanelType.NearbyPlayersPopupPanel:
+                panel = NearbyPlayersPopupPanel.getInstance();
+                break;
+            case PanelType.NearbyAssesListPopupPanel:
+                panel = NearbyAssesListPopupPanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -185,6 +191,8 @@ module game {
         TradeItemSellPanel,
         TradeItemBackPanel,
         MapzhuhuListPopupPanel,
-        MapEventsShopPanel
+        MapEventsShopPanel,
+        NearbyPlayersPopupPanel,
+        NearbyAssesListPopupPanel
     }
 }

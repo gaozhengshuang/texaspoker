@@ -154,7 +154,7 @@ function adaptive(scale){
 
 
 
-    //document.getElementById("fujinSwitchBtn").style.display='block';
+    document.getElementById("fujinSwitchBtn").style.display='block';
     document.getElementById("fujinSwitchBtn").style.width=fujinSwitchBtnW*scale+"px";
     document.getElementById("fujinSwitchBtn").style.height=fujinSwitchBtnH*scale+"px";
     document.getElementById("fujinSwitchBtn").style.top=(window.innerHeight-fujinSwitchBtnH*scale)/2+'px';
