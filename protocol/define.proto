@@ -81,6 +81,17 @@ enum MapEventType {
     Building = 3;   // 建筑
 }
 
+// 地图事件定义id
+enum MapEventId {
+    GameTanTanLe = 1001;        // 弹弹乐
+    GameSuperMarket = 1002;     // 超市钩物
+    GameFanFanLe = 1003;        // 红包翻翻乐
+    BonusGold = 2001;           // 随机奖励金币
+    BonusStrength = 2002;       // 随机奖励体力
+    BuildingMaidShop = 3001;    // 女仆商店
+    BuildingCarShop = 3002;     // 汽车配件商店
+    BuildingHouseShop = 3003;   // 房屋升级碎片商店
+}
 
 enum Sex {
     Female = 0;

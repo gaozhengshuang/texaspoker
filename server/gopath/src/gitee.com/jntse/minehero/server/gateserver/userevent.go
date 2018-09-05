@@ -56,7 +56,7 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 
 // 存盘
 func (m *UserMapEvent) PackBin(bin *msg.Serialize) {
-	//bin.Base.Mapevent = m.PackEvent()
+	//bin.Base.Mapevent = m.PackEvent()		// 测试代码
 }
 
 func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
@@ -119,6 +119,8 @@ func (m *UserMapEvent) Refresh(now int64) {
 			eventuid++
 		}
 	}
+
+	log.Trace("[地图事件] 玩家[%s %d] 刷新地图事件size[%d]", m.owner.Name(), m.owner.Id(), len(m.events))
 }
 
 // 解析配置
@@ -148,4 +150,12 @@ func (m *UserMapEvent) GetRandRangePos(lo, la int32, rangemin, rangemax uint32) 
 	return longitude, latitude
 }
 
+// 激活进入事件
+func (m *UserMapEvent) EnterEvents(uid uint64) {
+	event, find := m.events[uid]
+	if event == nil || find == false {
+		log.Error("玩家没有这个事件[%d]", uid)
+		return
+	}
+}
 

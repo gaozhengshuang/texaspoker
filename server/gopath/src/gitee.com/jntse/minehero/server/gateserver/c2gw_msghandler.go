@@ -120,6 +120,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCarShopInfo{}, on_C2GW_ReqCarShopInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyCarFromShop{}, on_C2GW_BuyCarFromShop)
 
+	// 地图事件
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
+
 	// 女仆
 	this.msgparser.RegistProtoMsg(msg.C2GW_MakeClothes{}, 		on_C2GW_MakeClothes)
 	this.msgparser.RegistProtoMsg(msg.C2GW_MaidUpgrade{}, 		on_C2GW_MaidUpgrade)
@@ -965,6 +968,18 @@ func on_C2GW_BuyCarFromShop(session network.IBaseNetSession, message interface{}
 	}
 
 	Carshop().BuyCar(user, tmsg.GetShopid(), tmsg.GetPid())
+}
+
+// 请求激活事件
+func on_C2GW_ReqEnterEvents(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqEnterEvents)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.events.EnterEvents(tmsg.GetUid())
 }
 
 // 合成时装
