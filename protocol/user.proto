@@ -113,9 +113,15 @@ message C2GW_ReqSetUserConstellation {
 message C2GW_ReqSetUserSign {
 	optional string sign = 1;
 }
+
 // 设置头像
 message C2GW_ReqSetFace {
 	optional string face = 1;
+}
+
+// 设置名字
+message C2GW_ReqSetUserName {
+	optional string name = 1;
 }
 
 // 请求查看行政区人数

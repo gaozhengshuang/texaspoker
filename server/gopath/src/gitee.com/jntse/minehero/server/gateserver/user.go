@@ -148,6 +148,14 @@ func (this *GateUser) Name() string {
 	return this.EntityBase().GetName()
 }
 
+func (this *GateUser) SetName(name string) {
+	this.EntityBase().Name = pb.String(name)
+	data := HouseSvrMgr().GetHousesByUser(this.Id())
+	for _, v := range data {
+		v.ownername = name
+	}
+}
+
 func (this *GateUser) Face() string {
 	return this.EntityBase().GetFace()
 }
