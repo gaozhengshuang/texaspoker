@@ -7,7 +7,6 @@ package main
 import (
 	"time"
 	"strconv"
-	"strings"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 
@@ -795,15 +794,13 @@ func (ma *MaidManager) CreateMaidRecord() string {
 func (ma *MaidManager) ItemProduce(user *GateUser, maid *Maid, reason string) {
 	// 解析概率配置
 	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
-		for _ , strpro := range Pro {
-			slicepro := strings.Split(strpro, "-")
-			if len(slicepro) != 3 {
-				log.Error("[女仆] 解析道具产出概率配置异常 strpro=%s", strpro)
+		ProObj := util.SplitIntString(Pro, "-")
+		for _, v := range ProObj {
+			if v.Len() != 3 {
+				log.Error("[女仆] 解析道具产出概率配置异常 ObjSplit=%#v", v)
 				return false
 			}
-			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
-			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
-			num,    _ := strconv.ParseInt(slicepro[2], 10, 32)
+			id , weight, num := v.Value(0), v.Value(1), v.Value(2)
 			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(num)})
 		}
 		return true

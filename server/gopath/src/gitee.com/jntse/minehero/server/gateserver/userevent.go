@@ -1,8 +1,6 @@
 package main
 import (
 	//"time"
-	"strconv"
-	"strings"
 	//"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 
@@ -75,7 +73,7 @@ func (e *BonusMapEvent) Process(u *GateUser) {
 	rewards := util.SplitIntString(tconf.Reward, "-")
 	for _, v := range rewards {
 		if v.Len() < 2 { 
-			log.Error("[地图事件] 玩家[%s %d] 激活事件tid[%d] 解析奖励配置失败", u.Name(), u.Id(), tid)
+			log.Error("[地图事件] 玩家[%s %d] 解析事件tid[%d]奖励配置失败 ObjSplit=%#v", u.Name(), u.Id(), tid, v)
 			return
 		}
 		id, num := uint32(v.Value(0)), uint32(v.Value(1))
@@ -220,14 +218,13 @@ func (m *UserMapEvent) Refresh(now int64) {
 
 // 解析配置
 func (m *UserMapEvent) ParseProString(sliceweight* []util.WeightOdds, Pro []string) bool {
-	for _ , strpro := range Pro {
-		slicepro := strings.Split(strpro, "-")
-		if len(slicepro) != 2 {
-			log.Error("[地图事件] 解析事件生成概率配置异常 strpro=%s", strpro)
+	ProObj := util.SplitIntString(Pro, "-")
+	for _, v := range ProObj {
+		if v.Len() != 2 {
+			log.Error("[地图事件] 解析事件生成概率配置异常 ObjSplit=%#v", v)
 			return false
 		}
-		id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
-		weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
+		id , weight := v.Value(0), v.Value(1)
 		*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(0)})
 	}
 	return true
