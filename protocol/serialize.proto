@@ -122,6 +122,8 @@ message UserBase {
 	optional uint32 	constellation = 25; //星座
 	optional string 	sign = 26;  //个人签名
     optional UserMapEvent mapevent = 27;    // 地图事件
+	optional uint32 	baseprovince = 28; //归属地省份
+	optional uint32 	basecity = 29; //归属地城市
 }
 
 message UserAddress {

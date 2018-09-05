@@ -40,22 +40,29 @@ module game {
 		private onSelfCoordinste() {
 			this.GW2C_SendUserEvents(this.eventsListInfo);
 		}
+
 		/**
 		 * 用户事件推送
 		 */
-		private GW2C_SendUserEvents(msg: msg.GW2C_SendUserEvents) {
-			this.eventsListInfo = msg;
+		private GW2C_SendUserEvents(msgData: msg.GW2C_SendUserEvents) {
+			this.eventsListInfo = msgData;
 			if (map) {
 				//清空事件图标
 				emptyEventsIcon();
 				//重新添加事件图标
-				if (msg.event && msg.event.events) {
-					for (let info of msg.event.events) {
+				if (msgData.event && msgData.event.events) {
+					for (let info of msgData.event.events) {
 						let iconInfo: MapIconInfo = new MapIconInfo();
 						iconInfo.id = info.id;
 						let iconDef = table.TMapEventById[info.tid];
 						if (iconDef) {
-							iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
+							if (iconDef.Id == 2001) { //TODO 测试奖励
+								iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
+							}
+							else {
+
+								iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
+							}
 							iconInfo.latitude = info.latitude / 100000;
 							iconInfo.longitude = info.longitude / 100000;
 							iconInfo.tid = info.tid;
@@ -67,23 +74,24 @@ module game {
 				NotificationCenter.postNotification(MapEventsManager.OnMapEventsSend);
 			}
 		}
-		private GW2C_RemoveEvent(msg: msg.GW2C_RemoveEvent) {
-			this.removeData(msg.uid);
-			removeEventsIcon(msg.uid);
+		private GW2C_RemoveEvent(msgData: msg.GW2C_RemoveEvent) {
+			let meData = this.getData(msgData.uid);
+			if (meData) {
+				let mapEventDef = table.TMapEventById[meData.tid];
+				if (mapEventDef.Reward.length > 0) { //推送有奖励的事件删除 提示事件获得物品  临时先这样处理
+					ItemGetTips.getInstance().show(); 
+				}
+			}
+			this.removeData(msgData.uid);
+			removeEventsIcon(msgData.uid);
 		}
-		// public removeEventsIcon(id:number)
-		// {
-		// 	removeEventsIcon(id);
-		// }
 
 		private onEventsIconClick(type: string, data: game.MapIconInfo) {
 			let def = table.TMapEventById[data.tid];
-			if (def.Type == msg.MapEventType.Bonus) {
+			if (def && def.Reward.length > 0) { //todo
+				ItemGetTips.getInstance().startCollect();
 				this.reqEnterEvent(data.id);
 			}
-			//todo sth 点击了地图上的事件图标
-			console.log("点击了地图上的事件图标", "id", data.id, "tid:", data.tid);
-			//addObserver
 		}
 		/**
 		 * 请求进入事件
@@ -129,8 +137,7 @@ module game {
 			if (this.eventsListInfo && this.eventsListInfo.event && this.eventsListInfo.event.events) {
 				for (let i: number = 0; i < this.eventsListInfo.event.events.length; i++) {
 					let info = this.eventsListInfo.event.events[i];
-					if(info.id == id)
-					{
+					if (info.id == id) {
 						this.eventsListInfo.event.events.splice(i, 1);
 						break;
 					}
