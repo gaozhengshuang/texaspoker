@@ -38,6 +38,9 @@ message TMapEventDefine
 	
 	
 	optional string Reward = 7; // 奖励
+	
+	
+	optional string Params = 8; // 切场景
 
 }
 
