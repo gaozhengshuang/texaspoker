@@ -148,3 +148,9 @@ message PersonSocialInfo {
 	optional float lat = 9;	 //纬度
 	optional string sign = 10; //个人签名
 }
+
+//常用的key-value结构
+message CommonKeyValue {
+	optional uint32 key = 1;
+	optional uint32 value = 2;
+}
