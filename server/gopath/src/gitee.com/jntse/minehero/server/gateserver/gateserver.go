@@ -545,12 +545,14 @@ func UnBindingAccountGateWay(account string) {
 	Redis().SRem(key, account)
 }
 
+// now 秒
 func ZeroHourClockCallback(now int64) {
 	log.Info("==========零点回调开始===========")
 	//UserMgr().GiveFreeStep(now)
 	log.Info("==========零点回调结束===========")
 }
 
+// now 秒
 func IntHourClockCallback(now int64) {
 	log.Info("==========整点回调开始===========")
 	//UserMgr().GiveFreeStep(now)

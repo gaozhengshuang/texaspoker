@@ -284,12 +284,13 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 //	}
 //}
 
-//整点回调
+//now秒，整点回调
 func (this *UserManager) IntHourClockCallback(now int64) {
 
 	// 地图事件刷新
-	inthour := time.Unix(now / 1000, 0).Hour()
-	if tbl.Game.MapEvent.TimeRefresh == int64(inthour) {
+	inthour := time.Unix(now, 0).Hour()
+	if tbl.Game.MapEvent.TimeRefresh == int64(inthour) || true {	// 测试代码
+		Mapstore().Refresh()
 		for _, user := range this.accounts {
 			user.events.RefreshActive()
 		}
@@ -376,7 +377,9 @@ func (this *UserManager) UpdateUserPos(uid uint64, x, y float32, province, city 
 		//省级行政区
 		if p0 != province {
 			if _, ok := this.bigcanton[p0]; ok {
-				this.bigcanton[p0] = this.bigcanton[p0] - 1
+				if this.bigcanton[p0] > 0 {
+					this.bigcanton[p0] = this.bigcanton[p0] - 1
+				}
 			}
 			if _, ok := this.bigcanton[province]; ok {
 				this.bigcanton[province] = this.bigcanton[province] + 1
@@ -438,6 +441,11 @@ func (this *UserManager) RemovePosMapUser(user *GateUser) {
 			if this.canton[p0][c0] > 0 {
 				this.canton[p0][c0] = this.canton[p0][c0] - 1
 			}
+		}
+	}
+	if _, ok := this.bigcanton[p0]; ok {
+		if this.bigcanton[p0] > 0{
+			this.bigcanton[p0] = this.bigcanton[p0] - 1
 		}
 	}
 }

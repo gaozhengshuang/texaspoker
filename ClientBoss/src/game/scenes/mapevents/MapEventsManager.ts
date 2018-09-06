@@ -28,13 +28,30 @@ module game {
 		 * 地图事件推送
 		 */
 		public static OnMapEventsSend: string = "MapEventsManager_OnMapEventsSend";
-
+		/**
+		 * 地图事件移除
+		 */
+		public static OnMapEventsRemove: string = "MapEventsManager_OnMapEventsRemove";
+		/**
+		 * 地图商店系统更新
+		 */
+		public static OnMapStoreUpdate: string = "MapEventsManager_OnMapStoreUpdate";
+		/**
+		 * 商店数据
+		 */
+		public storeMap: Map<number, msg.GW2C_SendMapStoreInfo>;
+		/**
+		 * 事件数据
+		 */
 		public eventsListInfo: msg.GW2C_SendUserEvents;
 
 		public init() {
+			this.storeMap = new Map<number, msg.GW2C_SendMapStoreInfo>();
 			setEventsIconCallBackFun(this.onEventsIconClick, this);
 			NotificationCenter.addObserver(this, this.GW2C_SendUserEvents, "msg.GW2C_SendUserEvents");
 			NotificationCenter.addObserver(this, this.GW2C_RemoveEvent, "msg.GW2C_RemoveEvent");
+			NotificationCenter.addObserver(this, this.GW2C_SendMapStoreInfo, "msg.GW2C_SendMapStoreInfo");
+			NotificationCenter.addObserver(this, this.GW2C_UpdateMapStoreProduct, "msg.GW2C_UpdateMapStoreProduct");
 			NotificationCenter.addObserver(this, this.onSelfCoordinste, CommandName.GET_SELF_COORDINSTE);
 		}
 		private onSelfCoordinste() {
@@ -79,13 +96,36 @@ module game {
 			if (meData) {
 				let mapEventDef = table.TMapEventById[meData.tid];
 				if (mapEventDef.Reward.length > 0) { //推送有奖励的事件删除 提示事件获得物品  临时先这样处理
-					ItemGetTips.getInstance().show(); 
+					ItemGetTips.getInstance().show();
 				}
 			}
 			this.removeData(msgData.uid);
 			removeEventsIcon(msgData.uid);
+			NotificationCenter.postNotification(MapEventsManager.OnMapEventsRemove, msgData);
 		}
-
+		/**
+		 * 推送商店信息
+		 */
+		private GW2C_SendMapStoreInfo(msgData: msg.GW2C_SendMapStoreInfo) {
+			this.storeMap.add(msgData.shopid, msgData);
+			openPanel(PanelType.MapEventsShopPanel);
+			MapEventsShopPanel.getInstance().setData(msgData);
+		}
+		/**
+		 * 更新商品信息
+		 */
+		private GW2C_UpdateMapStoreProduct(msgData: msg.GW2C_UpdateMapStoreProduct) {
+			let mapStoreData = this.storeMap.getValue(msgData.shopid);
+			if (mapStoreData) {
+				for (let info of mapStoreData.products) {
+					if (info.pid == msgData.product.pid) {
+						copyFromTarget(info, msgData.product);
+						break;
+					}
+				}
+			}
+			NotificationCenter.postNotification(MapEventsManager.OnMapStoreUpdate, msgData);
+		}
 		private onEventsIconClick(type: string, data: game.MapIconInfo) {
 			let def = table.TMapEventById[data.tid];
 			if (def && def.Reward.length > 0) { //todo
@@ -111,9 +151,9 @@ module game {
 		 * 请求完成事件
 		 */
 		public reqFinishEvent(uid: number | Long) {
-			let netData = new msg.C2GW_ReqEnterEvents(); //todo
+			let netData = new msg.C2GW_LeaveEvent(); 
 			netData.uid = parseInt(uid.toString());
-			sendMessage("msg.C2GW_ReqEnterEvents", msg.C2GW_ReqEnterEvents.encode(netData));
+			sendMessage("msg.C2GW_LeaveEvent", msg.C2GW_LeaveEvent.encode(netData));
 		}
 
 		/**
@@ -143,6 +183,21 @@ module game {
 					}
 				}
 			}
+		}
+
+		/**
+		 * 获取商店数据
+		 */
+		public getStoreData(shopId: number, pid: number): msg.StoreProductData {
+			let data = this.storeMap.getValue(shopId);
+			if (data) {
+				for (let info of data.products) {
+					if (info.pid == pid) {
+						return <msg.StoreProductData>info;
+					}
+				}
+			}
+			return null;
 		}
 
 		private static _instance: MapEventsManager = null;
