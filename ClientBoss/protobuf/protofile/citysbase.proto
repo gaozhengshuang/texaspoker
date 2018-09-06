@@ -29,6 +29,12 @@ message TCitysDefine
 	
 	
 	optional string Name = 4; // 名称
+	
+	
+	optional float Lat = 5; // 纬度
+	
+	
+	optional float Lng = 6; // 经度
 
 }
 

@@ -22600,6 +22600,207 @@ $root.msg = (function() {
         return C2GW_LeaveEvent;
     })();
 
+    msg.GW2C_EnterGameEvent = (function() {
+
+        /**
+         * Properties of a GW2C_EnterGameEvent.
+         * @memberof msg
+         * @interface IGW2C_EnterGameEvent
+         * @property {number|Long|null} [uid] GW2C_EnterGameEvent uid
+         */
+
+        /**
+         * Constructs a new GW2C_EnterGameEvent.
+         * @memberof msg
+         * @classdesc Represents a GW2C_EnterGameEvent.
+         * @implements IGW2C_EnterGameEvent
+         * @constructor
+         * @param {msg.IGW2C_EnterGameEvent=} [properties] Properties to set
+         */
+        function GW2C_EnterGameEvent(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_EnterGameEvent uid.
+         * @member {number|Long} uid
+         * @memberof msg.GW2C_EnterGameEvent
+         * @instance
+         */
+        GW2C_EnterGameEvent.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new GW2C_EnterGameEvent instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {msg.IGW2C_EnterGameEvent=} [properties] Properties to set
+         * @returns {msg.GW2C_EnterGameEvent} GW2C_EnterGameEvent instance
+         */
+        GW2C_EnterGameEvent.create = function create(properties) {
+            return new GW2C_EnterGameEvent(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_EnterGameEvent message. Does not implicitly {@link msg.GW2C_EnterGameEvent.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {msg.IGW2C_EnterGameEvent} message GW2C_EnterGameEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_EnterGameEvent.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.uid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_EnterGameEvent message, length delimited. Does not implicitly {@link msg.GW2C_EnterGameEvent.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {msg.IGW2C_EnterGameEvent} message GW2C_EnterGameEvent message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_EnterGameEvent.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_EnterGameEvent message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_EnterGameEvent} GW2C_EnterGameEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_EnterGameEvent.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_EnterGameEvent();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.uid = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_EnterGameEvent message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_EnterGameEvent} GW2C_EnterGameEvent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_EnterGameEvent.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_EnterGameEvent message.
+         * @function verify
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_EnterGameEvent.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
+                    return "uid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_EnterGameEvent message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_EnterGameEvent} GW2C_EnterGameEvent
+         */
+        GW2C_EnterGameEvent.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_EnterGameEvent)
+                return object;
+            var message = new $root.msg.GW2C_EnterGameEvent();
+            if (object.uid != null)
+                if ($util.Long)
+                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = true;
+                else if (typeof object.uid === "string")
+                    message.uid = parseInt(object.uid, 10);
+                else if (typeof object.uid === "number")
+                    message.uid = object.uid;
+                else if (typeof object.uid === "object")
+                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_EnterGameEvent message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_EnterGameEvent
+         * @static
+         * @param {msg.GW2C_EnterGameEvent} message GW2C_EnterGameEvent
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_EnterGameEvent.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.uid = options.longs === String ? "0" : 0;
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (typeof message.uid === "number")
+                    object.uid = options.longs === String ? String(message.uid) : message.uid;
+                else
+                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber(true) : message.uid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_EnterGameEvent to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_EnterGameEvent
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_EnterGameEvent.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_EnterGameEvent;
+    })();
+
     msg.C2GW_ReqHouseData = (function() {
 
         /**
@@ -71424,6 +71625,8 @@ $root.table = (function() {
          * @property {number|null} [Type] TCitysDefine Type
          * @property {number|null} [Superior] TCitysDefine Superior
          * @property {string|null} [Name] TCitysDefine Name
+         * @property {number|null} [Lat] TCitysDefine Lat
+         * @property {number|null} [Lng] TCitysDefine Lng
          */
 
         /**
@@ -71474,6 +71677,22 @@ $root.table = (function() {
         TCitysDefine.prototype.Name = "";
 
         /**
+         * TCitysDefine Lat.
+         * @member {number} Lat
+         * @memberof table.TCitysDefine
+         * @instance
+         */
+        TCitysDefine.prototype.Lat = 0;
+
+        /**
+         * TCitysDefine Lng.
+         * @member {number} Lng
+         * @memberof table.TCitysDefine
+         * @instance
+         */
+        TCitysDefine.prototype.Lng = 0;
+
+        /**
          * Creates a new TCitysDefine instance using the specified properties.
          * @function create
          * @memberof table.TCitysDefine
@@ -71505,6 +71724,10 @@ $root.table = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Superior);
             if (message.Name != null && message.hasOwnProperty("Name"))
                 writer.uint32(/* id 4, wireType 2 =*/34).string(message.Name);
+            if (message.Lat != null && message.hasOwnProperty("Lat"))
+                writer.uint32(/* id 5, wireType 5 =*/45).float(message.Lat);
+            if (message.Lng != null && message.hasOwnProperty("Lng"))
+                writer.uint32(/* id 6, wireType 5 =*/53).float(message.Lng);
             return writer;
         };
 
@@ -71550,6 +71773,12 @@ $root.table = (function() {
                     break;
                 case 4:
                     message.Name = reader.string();
+                    break;
+                case 5:
+                    message.Lat = reader.float();
+                    break;
+                case 6:
+                    message.Lng = reader.float();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -71598,6 +71827,12 @@ $root.table = (function() {
             if (message.Name != null && message.hasOwnProperty("Name"))
                 if (!$util.isString(message.Name))
                     return "Name: string expected";
+            if (message.Lat != null && message.hasOwnProperty("Lat"))
+                if (typeof message.Lat !== "number")
+                    return "Lat: number expected";
+            if (message.Lng != null && message.hasOwnProperty("Lng"))
+                if (typeof message.Lng !== "number")
+                    return "Lng: number expected";
             return null;
         };
 
@@ -71621,6 +71856,10 @@ $root.table = (function() {
                 message.Superior = object.Superior >>> 0;
             if (object.Name != null)
                 message.Name = String(object.Name);
+            if (object.Lat != null)
+                message.Lat = Number(object.Lat);
+            if (object.Lng != null)
+                message.Lng = Number(object.Lng);
             return message;
         };
 
@@ -71642,6 +71881,8 @@ $root.table = (function() {
                 object.Type = 0;
                 object.Superior = 0;
                 object.Name = "";
+                object.Lat = 0;
+                object.Lng = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -71651,6 +71892,10 @@ $root.table = (function() {
                 object.Superior = message.Superior;
             if (message.Name != null && message.hasOwnProperty("Name"))
                 object.Name = message.Name;
+            if (message.Lat != null && message.hasOwnProperty("Lat"))
+                object.Lat = options.json && !isFinite(message.Lat) ? String(message.Lat) : message.Lat;
+            if (message.Lng != null && message.hasOwnProperty("Lng"))
+                object.Lng = options.json && !isFinite(message.Lng) ? String(message.Lng) : message.Lng;
             return object;
         };
 

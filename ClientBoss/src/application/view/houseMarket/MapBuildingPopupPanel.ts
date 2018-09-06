@@ -78,6 +78,10 @@ module game {
                 this.bName_txt.text=this.buildInfo.Community;
                 this.dec_txt.text=this.buildInfo.Des;
                 this.danjia_txt.text="均价："+this.buildInfo.BuildingPrice+"金/平";
+                
+                this.bPoint_txt.text = table.TCitysById[this.buildInfo.Province].Name +
+                    "." + table.TCitysById[this.buildInfo.City].Name;
+            
                 let salesNum:number=this.isCanBuy(this.salesInfo);
                 if(salesNum>0){
                     this.lookZhuhu_btn.x=118;
@@ -87,7 +91,7 @@ module game {
                     this.lookZhuhu_btn.y=246;
                     this.buyFang_btn.visible=false;
                 }
-
+                this.huxingList=[];
                 for (let i: number = 1; i <= 4; i++) {
                     let item: any = {};
                     let houseStr:string[]=this.buildInfo["Houses" + i].split("|")
@@ -114,6 +118,8 @@ module game {
         private currentHuxing:any;
         private updataHuxingList()
 		{
+            this.removeHuxingImgList();
+            this.huxingContainer.scrollH=0;
             console.log(this.huxingList.length);
             if(this.huxingList && this.huxingList.length>0){
                 this.huxingImgList=[];
@@ -132,15 +138,25 @@ module game {
                         itemPanel.dataChanged(this.huxingList[i]);
                     }
                 }
-                this.updateHuxingInfo(0);
+                this.onclick_list();
+                //this.updateHuxingInfo(0);
             }		
 		}
+        private removeHuxingImgList(){
+            if(this.huxingImgList && this.huxingImgList.length>0){
+                for(let i:number=0;i<this.huxingImgList.length;i++){
+                    this.huxingImgList[i].parent.removeChild(this.huxingImgList[i]);
+                    this.huxingImgList[i]=null;
+                }
+                this.huxingImgList=[];
+            }
+        }
         private startScrollH:number=0;
         private onclick_listend(){
             this.startScrollH=this.huxingContainer.scrollH;
             console.log( this.startScrollH);
         }
-        private onclick_list(eve:egret.Event) {
+        private onclick_list(eve:egret.Event=null) {
             let scrollH:number=this.huxingContainer.scrollH;
             let fangxiang:number=scrollH-this.startScrollH>0?1:-1
             if(Math.abs(scrollH-this.startScrollH)>this.itemW){
