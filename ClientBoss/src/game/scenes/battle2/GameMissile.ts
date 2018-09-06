@@ -64,7 +64,7 @@ module game {
             for (let b = 0; b < this.findItemIds.length; b++) {
                 let isAdd = false;
                 for (let i = 0; i < data.itemid.length; i++) {
-                    let superMarkInfo = table.TSupermarket[data.itemid[i]];
+                    let superMarkInfo = table.TSupermarketById[data.itemid[i]];
                     if (superMarkInfo) {
                         if (this.findItemIds[b] == superMarkInfo.ItemId) {
                             isAdd = true;
@@ -87,12 +87,12 @@ module game {
 
         public showSuccess(idx: number) {
             // this["itemImg" + idx]
-            egret.log("showSuccess:idx--->", idx);
+            egret.log("showSuccessidx--->", idx);
         }
 
         public showFail(idx: number) {
             // this["itemImg" + idx]
-            egret.log("showFail:idx--->", idx);
+            egret.log("showFailidx--->", idx);
         }
 
         public addItem(itemInfo: table.IItemBaseDataDefine) {
