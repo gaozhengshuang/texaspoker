@@ -7,10 +7,11 @@ message C2GW_ReqMapStoreInfo {
     optional uint32 shopid = 1; // 商店shopid
 }
 
-// 发送汽车商店信息
+// 发送地图商店信息
 message GW2C_SendMapStoreInfo {
-    optional uint32 shopid = 1; // 商店shopid
-    repeated msg.StoreProductData products = 2;
+    optional uint64 uid = 1;    // 事件uid，如果通过事件打开
+    optional uint32 shopid = 2; // 商店shopid
+    repeated msg.StoreProductData products = 3;
 }
 
 // 购买商品
