@@ -61,10 +61,35 @@ module game {
         }
 
         public findItemOver(data: msg.GW2C_HitTarget) {
+            for (let b = 0; b < this.findItemIds.length; b++) {
+                let isAdd = false;
+                let idx = 0;
+                for (let i = 0; i < data.itemid.length; i++) {
+                    if (this.findItemIds[b] == data.itemid[i]) {
+                        isAdd = true;
+                        idx += 1;
+                        break;
+                    }
+                }
+
+                if (isAdd) {
+                    this.showSuccess(idx);
+                } else {
+                    this.showFail(idx);
+                }
+            }
             this.shakeItemAnim.stop();
             egret.Tween.get(this).to({x: this.initX, y: this.initY}, 400).call(() => {
                 this._curState = gameConfig.GouziType.over;
             });
+        }
+
+        public showSuccess(idx: number) {
+            
+        }
+
+        public showFail(idx: number) {
+
         }
 
         public addItem(itemInfo: table.IItemBaseDataDefine) {
