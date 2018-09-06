@@ -18,4 +18,9 @@ message GW2C_RemoveEvent {
     optional uint64 uid = 1;
 }
 
+// 关闭事件，例如关闭商店界面
+message C2GW_LeaveEvent {
+    optional uint64 uid = 1;
+}
+
 

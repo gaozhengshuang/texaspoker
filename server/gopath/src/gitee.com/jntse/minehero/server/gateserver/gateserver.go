@@ -67,9 +67,10 @@ type GateServer struct {
 	carmgr        CarManager
 	housesvrmgr   HouseManager
 	buildingmgr   BuildingManager
-	carshop       CarShop
-	mysqldb		  *sql.DB
-	maidmgr		MaidManager
+	mapstore 		MapStore
+	carshop       	CarShop
+	mysqldb		  	*sql.DB
+	maidmgr			MaidManager
 }
 
 var g_GateServer *GateServer = nil
@@ -125,6 +126,10 @@ func MaidMgr() *MaidManager {
 
 func Carshop() *CarShop {
 	return &GateSvr().carshop
+}
+
+func Mapstore() *MapStore {
+	return &GateSvr().mapstore
 }
 
 //func CountMgr() *CountManager {
@@ -377,6 +382,7 @@ func (this *GateServer) OnStart() {
 	this.carmgr.Init()
 	this.maidmgr.Init()
 	this.carshop.Init()
+	this.mapstore.Init()
 	log.Info("结束执行OnStart")
 }
 
@@ -390,6 +396,7 @@ func (this *GateServer) OnStop() {
 	this.carmgr.SaveAllData(true)
 	this.maidmgr.SaveAll()
 	this.carshop.SaveAll()
+	this.mapstore.SaveAll()
 	this.hredis.Close()
 	this.mysqldb.Close()
 }
@@ -420,6 +427,7 @@ func (this *GateServer) Run() {
 	this.carmgr.Tick(now)
 	this.maidmgr.Tick(now)
 	this.carshop.Tick(now)
+	this.mapstore.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 
 	//

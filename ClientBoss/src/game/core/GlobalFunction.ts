@@ -499,4 +499,13 @@ module game {
         }
         return strResult;
     }
+
+    export function getCouponStr(coupon: number) {
+        if (coupon > 9999) {
+            let ret = Number((coupon / 1000).toFixed(2));
+            ret = ret == Math.floor(ret) ? Math.floor(ret) : ret;
+            return ret + 'k';
+        }
+        return coupon;
+    }
 }

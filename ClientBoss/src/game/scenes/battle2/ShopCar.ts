@@ -3,7 +3,8 @@ module game {
         itemImg: eui.Image;
         itemNameLabel: eui.Label;
 
-        private carPaddingY: number = 160;  
+        private carPaddingY: number = 160;
+        private itemInfo: table.IItemBaseDataDefine;
 
         protected getSkinName() {
             return ShopCarSkin;
@@ -30,10 +31,10 @@ module game {
         private updateView() {
             let superMarkInfo = table.TSupermarket[Math.floor(Math.random() * table.TSupermarket.length)];
             if (superMarkInfo) {
-                let itemInfo = table.ItemBaseDataById[superMarkInfo.ItemId];
-                if (itemInfo) {
-                    this.itemImg.source = getItemIconSource(itemInfo.ImageId);
-                    this.itemNameLabel.text = itemInfo.Name;
+                this.itemInfo = table.ItemBaseDataById[superMarkInfo.ItemId];
+                if (this.itemInfo) {
+                    this.itemImg.source = getItemIconSource(this.itemInfo.ImageId);
+                    this.itemNameLabel.text = this.itemInfo.Name;
                 }
             }
 
@@ -59,6 +60,10 @@ module game {
 
         private removeItem() {
             this.itemImg.visible = false;
+        }
+
+        private getShopCarItem() {
+            return this.itemInfo;
         }
     }
 }
