@@ -43,7 +43,7 @@ module game {
 			for (let i: number = 0; i < num; i++) {
 				let item = this.scroller.dataList.getChildAt(i) as MapEventsShopItem;
 				if (item) {
-					item.outUpdate();
+					item.forceUpdate();
 				}
 			}
 		}

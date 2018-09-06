@@ -19,9 +19,7 @@ module game {
 			this.buyBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyClick, this);
 			NotificationCenter.removeObserver(this, MapEventsManager.OnMapStoreUpdate);
 		}
-		public outUpdate() {
-			this.update();
-		}
+
 		protected update() {
 			let mapStoreDef = table.TMapStoreById[this.bindData.pid];
 			let itemDef = table.ItemBaseDataById[this.bindData.pid];
