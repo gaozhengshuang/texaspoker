@@ -35,6 +35,8 @@
     "//":"地图事件",
     "MapEvent": {
         "//":"几点刷新",
-        "TimeRefresh":2
+        "TimeRefresh":2,
+        "//":"弹弹乐免费子弹数",
+        "TantanleFreeBullet":5
     }
 }

@@ -42,6 +42,7 @@ message BT_GameInit {
     optional int32  gamekind = 3;
     optional uint32 diamond = 4;
     optional uint32 gold = 5;
+    optional uint32 freebullet = 6;      // 免费炮弹数
     //repeated GridItem listitem = 4;
 }
 
@@ -111,6 +112,7 @@ message BT_RetLaunchBullet {
     optional int64 bulletid = 1;
     optional int64 energy = 2;
     optional string errmsg = 3;
+    optional uint32 freebullet = 4;     // 免费炮弹数
 }
 
 // C2R 客户端通知踩到炸弹
