@@ -17,7 +17,6 @@ module game {
 			this.recordScroller.dataList.useVirtualLayout = true;
 			this.recordScroller.initItemRenderer(TradeRecordItem);
 			this.recordScroller.setViewPort();
-			this.recordScroller.scrollPolicyH = 'off';
 			this.titlePanel.init(this.remove, this);
 		}
 		protected getSkinName() {

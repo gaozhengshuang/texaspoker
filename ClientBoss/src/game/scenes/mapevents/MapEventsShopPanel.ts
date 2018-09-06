@@ -17,7 +17,6 @@ module game {
 			this.scroller.initItemRenderer(MapEventsShopItem);
 			this.scroller.setViewPort();
 			this.scroller.dataList.useVirtualLayout = true;
-			this.scroller.scrollPolicyH = eui.ScrollPolicy.OFF;
 		}
 		public setData(data: msg.GW2C_SendMapStoreInfo) {
 			this._data = data;
