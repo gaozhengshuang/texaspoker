@@ -508,4 +508,16 @@ module game {
         }
         return coupon;
     }
+    /**
+     * 将源对象属性copy到目标对象，仅一维浅拷贝
+     */
+    export function copyFromTarget(source: any, target: any = null) {
+        if(source && target)
+        {
+            for(let key in source)
+            {
+                target[key] = source[key];
+            }
+        }
+    }
 }
