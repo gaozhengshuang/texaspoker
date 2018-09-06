@@ -525,4 +525,20 @@ module game {
             }
         }
     }
+    
+    /**
+     * 根据3个点，产生一个贝塞尔曲线点 t[0-1]
+     */
+    export function besselPoint(t: number, p0: egret.Point, p1: egret.Point, p2: egret.Point, movePoint: egret.Point)
+    {
+        if (t < 0 || t > 1 || !p0 || !p1 || !p2 || !movePoint)
+        {
+            Console.log("贝塞尔曲线参数不合法");
+            return;
+        }
+        let x: number;
+        let y: number;
+        movePoint.x = (1 - t) * (1 - t) * p0.x + 2 * t * (1 - t) * p1.x + t * t * p2.x;
+        movePoint.y = (1 - t) * (1 - t) * p0.y + 2 * t * (1 - t) * p1.y + t * t * p2.y;
+    }
 }

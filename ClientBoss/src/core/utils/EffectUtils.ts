@@ -235,4 +235,22 @@ module effectUtils {
         }
         target.play();
     }
+    /**
+     * 对目标对象做一次 曲线运动 p0起点 p1中间点 p2终点 duration运动持续时间 rotation 旋转角度步长值
+     */
+    export function besselCurveAnimation(target:egret.DisplayObject, p0:egret.Point, p1:egret.Point, p2:egret.Point, duration:number, rotation?:number)
+    {
+        let obj = {factor:0};
+        let movePoint = new egret.Point();
+        let tween = egret.Tween.get(obj, {onChange:()=>{
+            		game.besselPoint(obj.factor, p0,p1, p2, movePoint);
+	            	target.x = movePoint.x;
+	            	target.y = movePoint.y;
+                    if(rotation != undefined)
+                    {
+                         target.rotation += rotation;
+                    }
+        }});
+		tween.to({ factor: 1 }, duration);
+    }
 }

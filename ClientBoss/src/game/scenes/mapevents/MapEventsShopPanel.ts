@@ -48,9 +48,7 @@ module game {
 		}
 		private onEventFinish(msgData: msg.GW2C_RemoveEvent) {
 			if (msgData.uid == this._data.uid) {
-				GameConfig.setEventsReply(false);
-				GameConfig.showDownBtnFun(true);
-				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+				MapEventsManager.getInstance().activieMap(true);
 
 				NotificationCenter.removeObserver(this, MapEventsManager.OnMapEventsRemove);
 				super.remove();
