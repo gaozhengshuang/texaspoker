@@ -18,7 +18,7 @@ module game {
 
         private _curState: gameConfig.GouziType;
 
-        private itemInfo: table.IItemBaseDataDefine;
+        private findItemIds: number[];
 
         public constructor() {
 			super();
@@ -30,6 +30,7 @@ module game {
             this.initY = y;
 
             this._curGetNum = 0;
+            this.findItemIds = [];
             this.missileGroup.rotation = 0;
             this._curState = gameConfig.GouziType.over;
         }
@@ -67,11 +68,12 @@ module game {
         }
 
         public addItem(itemInfo: table.IItemBaseDataDefine) {
-            this.itemInfo = itemInfo;
             if (this._curGetNum < this._maxGetNum) {
                 this._curGetNum += 1;
-                this["itemImg" + this._curGetNum].source = getItemIconSource(this.itemInfo.ImageId);
+                this["itemImg" + this._curGetNum].source = getItemIconSource(itemInfo.ImageId);
                 this["itemImg" + this._curGetNum].visible = true;
+
+                this.findItemIds.push(itemInfo.Id);
             }
         }
 
@@ -80,6 +82,7 @@ module game {
                 this["itemImg" + i].visible = false;
             }
             this._curGetNum = 0;
+            this.findItemIds = [];
         }
 
         public playItemShake() {
