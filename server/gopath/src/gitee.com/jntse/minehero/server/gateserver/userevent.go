@@ -192,12 +192,14 @@ type UserMapEvent struct {
 	refreshtime int64		// 上一次刷新时间，秒
 	refreshactive int64		// 激活刷新，毫秒
 	owner *GateUser
+	eventsdoing map[uint64]IMapEvent	// 正在做的事件
 }
 
 func (m *UserMapEvent) Init(u *GateUser) {
 	m.owner = u
 	m.refreshactive = 0
 	m.events = make(map[uint64]IMapEvent)
+	m.eventsdoing = make(map[uint64]IMapEvent)
 }
 
 // 10毫秒tick
@@ -237,8 +239,7 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 
 // 存盘
 func (m *UserMapEvent) PackBin(bin *msg.Serialize) {
-	//bin.Base.Mapevent = m.PackEvent()
-	bin.Base.Mapevent = nil		// 测试代码，暂不保存
+	bin.Base.Mapevent = m.PackEvent()
 }
 
 func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
