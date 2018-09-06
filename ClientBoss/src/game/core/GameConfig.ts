@@ -12,6 +12,13 @@ module gameConfig {
         setUserRank = 2,
     }
 
+    export const enum GouziType {
+        start = 1,
+        back = 2,
+        shakeItem = 3,
+        over = 4,
+    }
+
     /**
      * 资源组枚举
      */

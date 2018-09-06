@@ -1,7 +1,9 @@
 module game {
     export class SuperMartPanel extends PanelComponent {
         backButton: IconButton;
+        beltImg: eui.Image;
         shoppingCarGroup: eui.Group;
+        bottomGroup: eui.Group;
         touchGroup: eui.Group;
         gouzi: GameMissile;
 
@@ -9,8 +11,10 @@ module game {
         private _maxShopCar: number = 15;
         private _curStage;
 
-        private initGouziX: number;
-        private initGouziY: number;
+        private _initGouziX: number;
+        private _initGouziY: number;
+
+        private _playShake: number;
 
         protected getSkinName() {
             return SuperMartPanelSkin;
@@ -21,8 +25,8 @@ module game {
                 this.backButton.y = 80;
             }
             this.backButton.icon = "ui_json.gameBack";
-            this.initGouziX = this.gouzi.x;
-            this.initGouziY = this.gouzi.y;
+            this._initGouziX = this.gouzi.x;
+            this._initGouziY = this.gouzi.y;
         }
 
         protected beforeShow() {
@@ -31,10 +35,14 @@ module game {
             ];
             this.registerEvent();
             this.initShopCar();
+ 
+            this.gouzi.init(this._initGouziX, this._initGouziY);
+            egret.startTick(this.update, this);
         }
 
         protected beforeRemove() {
             this.removeEvent();
+            egret.stopTick(this.update, this);
             this.shoppingCarGroup.removeChildren();
         }
 
@@ -61,12 +69,7 @@ module game {
             let angle = Math.atan2(this._curStage.x - this.gouzi.x, this.gouzi.y - this._curStage.y);
             let rotation = angle * 180 / Math.PI;
             this.gouzi.setImageRotation(rotation);
-
-            egret.Tween.get(this.gouzi).to({x: this._curStage.x, y: this.initGouziY - 650}, 2000).call(() => {
-                egret.Tween.get(this.gouzi).to({x: this.initGouziX, y: this.initGouziY}, 2000).call(() => {
-                    this.touchGroup.touchEnabled = true;
-                });
-            })
+            this.gouzi.runAction(this._curStage);
         }
 
         private initShopCar() {
@@ -88,6 +91,41 @@ module game {
             }.bind(this);
 
             addShopCar();
+        }
+
+        private update(timeStamp: number) {
+            if (this.gouzi) {
+                this.gouzi.update();
+            }
+            
+            switch(this.gouzi.getCurState()) {
+                case gameConfig.GouziType.start:
+                    break;
+                case gameConfig.GouziType.back:
+                    break;
+                case gameConfig.GouziType.shakeItem:
+                    if (this._playShake == null) {
+                        let _currentIndex = 1;
+                        this._playShake = egret.setInterval(() => {
+                            if (_currentIndex > 8) {
+                                _currentIndex = 1;
+                            }
+                            this.beltImg.source = `game2_json.belt_${_currentIndex}`;
+                            _currentIndex++;
+                        }, this, 10);
+                    }
+                    
+                    break;
+                case gameConfig.GouziType.over:
+                    if (this._playShake) {
+                        egret.clearInterval(this._playShake);
+                        this._playShake = null;
+                        this.beltImg.source = `game2_json.belt_1`;
+                    }
+                    this.touchGroup.touchEnabled = true;
+                    break;
+            }
+            return true;
         }
 
         private static _instance: SuperMartPanel;
