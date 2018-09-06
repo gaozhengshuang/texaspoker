@@ -133,6 +133,12 @@ message GW2C_AckSetUserName {
 	optional uint32 ret = 1;
 }
 
+// 设置个人归属地
+message C2GW_ReqSetBaseArea {
+	optional uint32 province = 1;
+	optional uint32 city = 2;
+}
+
 // 请求查看行政区人数
 message C2GW_ReqPlayerCountByProvince {
 	optional uint32 province = 1;  //省id 大于0 时返回对应省的各市人数 等于0 时返回各个省的人数
