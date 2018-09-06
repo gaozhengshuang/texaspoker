@@ -60,10 +60,10 @@ module game {
         }
 
         public findItemOver(data: msg.GW2C_HitTarget) {
+            this.shakeItemAnim.stop();
             egret.Tween.get(this).to({x: this.initX, y: this.initY}, 400).call(() => {
                 this._curState = gameConfig.GouziType.over;
             });
-            this.shakeItemAnim.stop();
         }
 
         public addItem(itemInfo: table.IItemBaseDataDefine) {

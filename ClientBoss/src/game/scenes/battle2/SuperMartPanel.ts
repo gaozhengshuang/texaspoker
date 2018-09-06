@@ -7,6 +7,7 @@ module game {
         bottomGroup: eui.Group;
         touchGroup: eui.Group;
         curGoldLabel: eui.Label;
+        costLabel: eui.Label;
         gouzi: GameMissile;
 
         private _shopCarList: ShopCar[];
@@ -19,6 +20,8 @@ module game {
 
         private _playShake: number;
         private _lastGouziType: number = 0;
+
+        private _needGold: number = 1000;
 
         protected getSkinName() {
             return SuperMartPanelSkin;
@@ -48,6 +51,7 @@ module game {
             egret.startTick(this.update, this);
 
             this._lastGouziType = 0;
+            this.costLabel.text = `消耗金币:${this._needGold}`;
         }
 
         protected beforeRemove() {
@@ -83,7 +87,11 @@ module game {
 
         private touchHandle(event: egret.TouchEvent) {
             this._curStage = { x: event.stageX, y: event.stageY };
-            sendMessage("msg.C2GW_StartThrow", msg.C2GW_StartThrow.encode({}));
+            if (DataManager.playerModel.getGold() >= this._needGold) {
+                sendMessage("msg.C2GW_StartThrow", msg.C2GW_StartThrow.encode({}));
+            } else {
+                showTips("您的金币不足,无法参与游戏！", true);
+            }
         }
 
         private initShopCar() {
