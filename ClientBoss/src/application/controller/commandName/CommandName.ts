@@ -53,6 +53,7 @@ module game {
 		public static MAP_ACTION: string = "map_action";
 		public static MAP_BUILDING_INFO: string = "map_building_info";
 		public static MAP_FUJIN_SWITCH: string = "map_fujin_switch";
+		public static MAP_AREA_TOTAL: string = "map_area_total";
 
 		/////////////////////
 		/////请求服务器///////

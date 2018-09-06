@@ -14,45 +14,37 @@ module game {
 				let index: number = mapProxy.mapStatus == 1 ? 2 : 1;
 				mapProxy.emptyMapMarker(index);
 				mapProxy.emptyAreaIconFun();
-				if(mapProxy.mapStatus==1){
-					mapProxy.addBuilding(1000);
-				}else{
-					mapProxy.addPlayers(1000);
-				}
-
 				
-
-				/*if (mapProxy.mapZoom > 12) {
-					let sendObj: any = {
-						require: mapProxy.mapStatus,
-						lat: mapProxy.currentPoint.lat,
-						lng: mapProxy.currentPoint.lng,
+				if (mapProxy.mapZoom > 14) {
+					if (mapProxy.mapStatus == 1) {
+						mapProxy.addBuilding(1000);
+					} else {
+						mapProxy.addPlayers(1000);
 					}
-					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_MAP_POINT, sendObj);
+					//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_MAP_POINT, sendObj);
 				} else {
 					//mapProxy.emptyMapMarker(mapProxy.mapStatus);
-					let pRadius = 30 * 1000;
-					let cRadius = 20 * 1000;
-					let level = 2;
-					if (mapProxy.mapZoom >= 10) {
-						level = 2;
-						pRadius = 20 * 1000;
-						cRadius = 10 * 1000;
-					} else if (mapProxy.mapZoom < 10) {
-						level = 1;
-						pRadius = 40 * 1000;
-						cRadius = 40 * 1000;
-					}
-					let sendObj: any = {
-						type: index,
-						lat: mapProxy.currentPoint.lat,
-						lng: mapProxy.currentPoint.lng,
-						level: level,
-						pRadius: pRadius,
-						cRadius: cRadius
-					}
-					ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_CITY_AREA, sendObj);
-				}*/
+
+					GameConfig.getCityNameFun(mapProxy.currentPoint.lat, mapProxy.currentPoint.lng, function (data: any[]) {
+
+						let cityList: table.ITCitysDefine[] = table.TCitys;
+						let province: number = 0;
+						let city: number = 0;
+						for (let i: number = 0; i < cityList.length; i++) {
+							if (cityList[i].Name == data[0]) {
+								province = cityList[i].Id;
+							}
+						}
+
+						if (mapProxy.mapZoom >= 10) {
+							ApplicationFacade.getInstance().sendNotification(CommandName.MAP_AREA_TOTAL, { province: province });
+						} else if (mapProxy.mapZoom < 10) {
+							ApplicationFacade.getInstance().sendNotification(CommandName.MAP_AREA_TOTAL, { province: 0 });
+						}
+
+
+					})
+				}
 			}
 			//ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_MAP_POINT, sendObj);
 		}

@@ -83,7 +83,7 @@ module game {
 							iconInfo.latitude = info.latitude / 100000;
 							iconInfo.longitude = info.longitude / 100000;
 							iconInfo.tid = info.tid;
-							console.log("纬度：", iconInfo.latitude, "经度：", iconInfo.longitude);
+							//console.log("纬度：", iconInfo.latitude, "经度：", iconInfo.longitude);
 							addEventsIcon(iconInfo);
 						}
 					}

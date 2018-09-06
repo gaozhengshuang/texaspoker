@@ -244,5 +244,18 @@ module game {
 
 			ApplicationFacade.getInstance().sendNotification(CommandName.MAP_ACTION, { type: type, content: data });
 		}
+
+		/*public getProvinceId(data:any){
+			GameConfig.getCityNameFun(data.lat, data.lng, function (data: any[]) {
+                        //replace.sendPos(data);
+                    })
+
+		}
+
+		public getCityId(data:any){
+			GameConfig.getCityNameFun(data.lat, data.lng, function (data: any[]) {
+                        //replace.sendPos(data);
+                    })
+		}*/
 	}
 }

@@ -21,6 +21,7 @@ module game {
 			this.facade().registerCommand(CommandName.MAP_ACTION,MapActionCommand);
 			this.facade().registerCommand(CommandName.MAP_BUILDING_INFO,MapBuildingInfoRequestCommand);
 			this.facade().registerCommand(CommandName.MAP_FUJIN_SWITCH,MapFujinSwitchCommand);
+			this.facade().registerCommand(CommandName.MAP_AREA_TOTAL,MapAreaTotalCommand);
 			
         }
 	}

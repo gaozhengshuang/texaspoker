@@ -3,11 +3,11 @@
 
 module table {
 export var TCitys : table.ITCitysDefine[] = [
-		{ Id : 101, Type : 1, Superior : 0, Name : "北京", Lat : 0, Lng : 0 	},
-		{ Id : 102, Type : 1, Superior : 0, Name : "上海", Lat : 31.231706, Lng : 121.472644 	},
-		{ Id : 103, Type : 1, Superior : 0, Name : "天津", Lat : 0, Lng : 0 	},
-		{ Id : 104, Type : 1, Superior : 0, Name : "重庆", Lat : 0, Lng : 0 	},
-		{ Id : 105, Type : 1, Superior : 0, Name : "河北", Lat : 0, Lng : 0 	},
+		{ Id : 101, Type : 1, Superior : 0, Name : "北京市", Lat : 0, Lng : 0 	},
+		{ Id : 102, Type : 1, Superior : 0, Name : "上海市", Lat : 31.231706, Lng : 121.472644 	},
+		{ Id : 103, Type : 1, Superior : 0, Name : "天津市", Lat : 0, Lng : 0 	},
+		{ Id : 104, Type : 1, Superior : 0, Name : "重庆市", Lat : 0, Lng : 0 	},
+		{ Id : 105, Type : 1, Superior : 0, Name : "河北省", Lat : 0, Lng : 0 	},
 		{ Id : 2001, Type : 2, Superior : 102, Name : "黄埔区", Lat : 31.22337, Lng : 121.49295 	},
 		{ Id : 2002, Type : 2, Superior : 102, Name : "徐汇区", Lat : 31.18831, Lng : 121.43676 	},
 		{ Id : 2003, Type : 2, Superior : 102, Name : "闵行区", Lat : 31.11246, Lng : 121.38162 	},

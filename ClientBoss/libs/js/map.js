@@ -9,7 +9,7 @@ var options = { timeout: 2000 };
  */
 function init(lat, lng, zoom) {
   let myLatlng = new qq.maps.LatLng(lat, lng);
-  console.log(myLatlng);
+  //console.log(myLatlng);
 
 
 
@@ -22,7 +22,7 @@ function init(lat, lng, zoom) {
     panControl: false
   }
 
-  console.log(window.outerHeight);
+  //console.log(window.outerHeight);
   map = new qq.maps.Map(document.getElementById("map"), myOptions);
 
   let icon = new qq.maps.MarkerImage(
@@ -86,7 +86,7 @@ function setActionCallBackFun(fun, body) {
  * 屏蔽egret事件
  */
 function setEgretEventsReply(bool) {
-  console.log('onmouseup:' + bool);
+  //console.log('onmouseup:' + bool);
   document.getElementsByClassName("egret-player")[0].style.pointerEvents = bool ? 'auto' : 'none';
 }
 
@@ -155,7 +155,7 @@ function removeCircle() {
  */
 function addBuilding(data) {
   if (data != null) {
-    console.log(data);
+    //console.log(data);
     let icon = new qq.maps.MarkerImage(
       data.imageUrl
       /*null, null, null,
@@ -175,7 +175,7 @@ function addBuilding(data) {
     });
 
     qq.maps.event.addListener(marker, 'click', function (e) {
-      console.log(e);
+      //console.log(e);
       if (bCallBackFun != null) {
         bCallBackFun('click', data);
       }
@@ -235,7 +235,7 @@ function setPlayerCallBackFun(fun, body) {
  */
 function addPlayerIcon(data) {
   if (data != null) {
-    console.log(data);
+    //console.log(data);
     let pIcon = new playerIcon({
       map: map,
       position: new qq.maps.LatLng(data.position[0], data.position[1]),
@@ -293,7 +293,7 @@ function getRectRangePoint(center, radius) {
     let left = qq.maps.geometry.spherical.computeOffset(centerLatlng, radius, -90).getLng();
     let right = qq.maps.geometry.spherical.computeOffset(centerLatlng, radius, 90).getLng();
     pointStr = top + "@" + down + "@" + left + "@" + right;
-    console.log(pointStr);
+    //console.log(pointStr);
   }
   return pointStr;
 }
@@ -379,13 +379,13 @@ function getCityName(lat, lng, fun) {
   let cityLatlng = new qq.maps.LatLng(lat, lng);
   let citylocation = new qq.maps.CityService();
   citylocation.setComplete(function (results) {
-    console.log(results.detail.detail);
+    //console.log(results.detail.detail);
     let detail = results.detail.detail;
     let detailArry = detail.split(',');
     detailArry.reverse();
     detailArry.shift();
-    detail = detailArry.join('');
-    fun(detail);
+    //detail = detailArry.join('');
+    fun(detailArry);
   });
   citylocation.setError(function () {
     //alert("出错了，请输入正确的城市区号！！！");
@@ -402,7 +402,7 @@ function getCityName(lat, lng, fun) {
 var areaArray = [];
 function addAreaIcon(data) {
   if (data != null) {
-    console.log(data);
+    //console.log(data);
     let aIcon = new areaIcon({
       map: map,
       position: new qq.maps.LatLng(data.position[0], data.position[1]),
