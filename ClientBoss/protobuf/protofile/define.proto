@@ -147,6 +147,8 @@ message PersonSocialInfo {
 	optional float lng = 8; 	 //经度
 	optional float lat = 9;	 //纬度
 	optional string sign = 10; //个人签名
+	optional uint32 province = 11; //省
+	optional uint32 city = 12; //市
 }
 
 //常用的key-value结构

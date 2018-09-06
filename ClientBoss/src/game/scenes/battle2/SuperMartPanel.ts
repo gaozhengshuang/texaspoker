@@ -10,6 +10,7 @@ module game {
         gouzi: GameMissile;
 
         private _shopCarList: ShopCar[];
+        private _itemIdList: number[];
         private _maxShopCar: number = 15;
         private _curStage;
 
@@ -120,8 +121,9 @@ module game {
                             this.beltImg.source = `game2_json.belt_${_currentIndex}`;
                             _currentIndex++;
                         }, this, 10);
+
+                        this.sendItemList();
                     }
-                    this.gouzi.playItemShake();
                     break;
                 case gameConfig.GouziType.over:
                     if (this._playShake) {
@@ -137,6 +139,14 @@ module game {
 
         private findItems() {
 
+        }
+
+        private sendItemList() {
+            this.gouzi.playItemShake();
+
+            sendMessage("msg.C2GW_TargetItem", msg.C2GW_TargetItem.encode({
+                itemid:this._itemIdList
+            }));
         }
 
         private updateGold() {

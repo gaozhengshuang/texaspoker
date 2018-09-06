@@ -1216,7 +1216,7 @@ func (this *GateUser) SetUserPos(x,y float32, province,city uint32) {
 		this.city = city
 	}
 }
-//获取玩家所属行政区
+//获取玩家定位的所属行政区
 func (this *GateUser) GetUserCanton() (uint32, uint32){
 	return this.province, this.city
 }
