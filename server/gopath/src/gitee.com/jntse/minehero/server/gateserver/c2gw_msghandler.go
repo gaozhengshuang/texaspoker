@@ -255,6 +255,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RemoveEvent{})
 	this.msgparser.RegistSendProto(msg.GW2C_SendMapStoreInfo{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateMapStoreProduct{})
+	this.msgparser.RegistSendProto(msg.GW2C_EnterGameEvent{})
 
 	// 女仆
 	this.msgparser.RegistSendProto(msg.GW2C_SendHouseMaidInfo{})
@@ -379,7 +380,7 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 	roomid, userid := user.RoomId(), user.Id()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		log.Error("BT_ReqQuitGameRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
 	room.UserLeave(userid, tmsg.GetGold())
