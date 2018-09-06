@@ -244,7 +244,6 @@ module effectUtils {
         let movePoint = new egret.Point();
         let tween = egret.Tween.get(obj, {onChange:()=>{
             		game.besselPoint(obj.factor, p0,p1, p2, movePoint);
-                    console.log("obj.factor",obj.factor, "movePoint", movePoint.x, "movePoint", movePoint.y);
 	            	target.x = movePoint.x;
 	            	target.y = movePoint.y;
                     if(rotation != undefined)
