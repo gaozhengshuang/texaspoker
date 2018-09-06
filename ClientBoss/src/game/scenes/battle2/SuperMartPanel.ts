@@ -29,7 +29,7 @@ module game {
             }
             this.backButton.icon = "ui_json.gameBack";
             this.bagButton.icon = "game2_json.basket";
-            
+
             this._initGouziX = this.gouzi.x;
             this._initGouziY = this.gouzi.y;
         }
@@ -42,7 +42,7 @@ module game {
             this.registerEvent();
             this.initShopCar();
             this.updateGold();
- 
+
             this.gouzi.init(this._initGouziX, this._initGouziY);
             egret.startTick(this.update, this);
         }
@@ -79,13 +79,13 @@ module game {
         }
 
         private touchHandle(event: egret.TouchEvent) {
-            this._curStage = {x: event.stageX, y: event.stageY};
+            this._curStage = { x: event.stageX, y: event.stageY };
             sendMessage("msg.C2GW_StartThrow", msg.C2GW_StartThrow.encode({}));
         }
 
         private initShopCar() {
             this._shopCarList = [];
-            let addShopCar = async function() {
+            let addShopCar = async function () {
                 let shopCar: ShopCar;
                 for (let i = 0; i < 3; i++) {
                     shopCar = new ShopCar();
@@ -105,11 +105,14 @@ module game {
         }
 
         private update(timeStamp: number) {
-            switch(this.gouzi.getCurState()) {
+            switch (this.gouzi.getCurState()) {
                 case gameConfig.GouziType.start:
                     break;
                 case gameConfig.GouziType.back:
-                    this.findItems();
+                    let car = this.findItems();
+                    if (car) {
+                        this.gouzi.addItem(car.getShopCarItem());
+                    }
                     break;
                 case gameConfig.GouziType.shakeItem:
                     if (this._playShake == null) {
@@ -138,14 +141,31 @@ module game {
         }
 
         private findItems() {
+            let bounds: egret.Rectangle = egret.Rectangle.create();
+            let p = this.gouzi.aim.localToGlobal();
+            bounds.x = p.x;
+            bounds.y = p.y;
+            bounds.width = this.gouzi.aim.width;
+            bounds.height = this.gouzi.aim.height;
+            for (let car of this._shopCarList) {
+                let carBounds = egret.Rectangle.create();
+                carBounds.x += car.itemImg.x + car.x + this.shoppingCarGroup.x;
+                carBounds.y += car.itemImg.y + car.y + this.shoppingCarGroup.y;
+                carBounds.width = car.itemImg.width;
+                carBounds.height = car.itemImg.height;
 
+                if (bounds.intersects(carBounds)) {
+                    return car;
+                }
+            }
+            return null;
         }
 
         private sendItemList() {
             this.gouzi.playItemShake();
 
             sendMessage("msg.C2GW_TargetItem", msg.C2GW_TargetItem.encode({
-                itemid:this._itemIdList
+                itemid: this._itemIdList
             }));
         }
 
