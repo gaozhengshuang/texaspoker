@@ -24,6 +24,7 @@ type TanTanLe struct {
 	energy      int64
 	save_amt    int64
 	topscore    int64
+	freebullet	uint32
 }
 func (this *TanTanLe) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
 func (this *TanTanLe) Id() int64 { return this.id }
@@ -145,6 +146,7 @@ func (this *TanTanLe) OnStart() {
 
 	log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetGold())
 	this.tm_start = util.CURTIME()
+	this.freebullet = uint32(tbl.Game.MapEvent.TantanleFreeBullet)
 
 
 	// 游戏初始化
@@ -154,6 +156,7 @@ func (this *TanTanLe) OnStart() {
 		Gamekind:pb.Int32(this.Kind()), 
 		Gold:pb.Uint32(this.owner.GetGold()),
 		Diamond:pb.Uint32(this.owner.GetDiamond()),
+		Freebullet:pb.Uint32(this.freebullet),
 	}
 	this.SendClientMsg(msginit)
 
@@ -238,14 +241,19 @@ func (this *TanTanLe) ReqLaunchBullet() {
 	bulletid, errmsg := int64(0), ""
 	switch {
 	default:
-		// 检查余额
-		if uint32(tbl.Game.BulletPrice) > this.owner.GetGold() {
-			errmsg = "金币不足"
-			break
+		if false {
+			if uint32(tbl.Game.BulletPrice) > this.owner.GetGold() {	// 检查余额
+				errmsg = "金币不足"
+				break
+			}
+			this.owner.RemoveGold(uint32(tbl.Game.BulletPrice), "发射子弹", false)		// 不同步
+		}else {
+			if this.freebullet <= 0 {
+				errmsg = "免费炮弹不足"
+				break
+			}
+			this.freebullet -= 1
 		}
-
-		// 不同步
-		this.owner.RemoveGold(uint32(tbl.Game.BulletPrice), "发射子弹", false)
 
 		bulletid = this.bulletid + 1
 		this.bulletid += 1
@@ -253,7 +261,13 @@ func (this *TanTanLe) ReqLaunchBullet() {
 		log.Info("玩家[%s %d] 发射子弹[%d]成功 当前能量值[%d]", this.owner.Name(), this.owner.Id(), this.bulletid, this.energy)
 	}
 
-	send := &msg.BT_RetLaunchBullet{ Bulletid:pb.Int64(bulletid), Errmsg:pb.String(errmsg), Energy:pb.Int64(this.energy) }
+	// 
+	send := &msg.BT_RetLaunchBullet{ 
+		Bulletid:pb.Int64(bulletid), 
+		Errmsg:pb.String(errmsg), 
+		Energy:pb.Int64(this.energy), 
+		Freebullet:pb.Uint32(this.freebullet),
+	}
 	this.SendClientMsg(send)
 }
 
