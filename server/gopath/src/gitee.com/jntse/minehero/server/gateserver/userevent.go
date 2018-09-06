@@ -132,16 +132,13 @@ type BuildingMapEvent struct {
 func (e *BuildingMapEvent) Process(u *GateUser) bool {
 	switch e.bin.GetTid() {
 	case uint32(msg.MapEventId_BuildingMaidShop):
-		break
 	case uint32(msg.MapEventId_BuildingCarShop):
-		break
 	case uint32(msg.MapEventId_BuildingHouseShop):
-		break
 	default:
 		log.Error("[地图事件] 玩家[%s %d] 未定义的事件[%d]", e.bin.GetTid())
 		return false
 	}
-
+	Mapstore().SendStoreInfo(u, e.bin.GetTid(), e.bin.GetId())
 	return true
 }
 

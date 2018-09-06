@@ -1010,28 +1010,28 @@ func on_C2GW_LeaveEvent(session network.IBaseNetSession, message interface{}) {
 	user.events.LeaveEvent(tmsg.GetUid())
 }
 
-// 请求打开地图商店
+// 请求打开地图商店，不通过事件
 func on_C2GW_ReqMapStoreInfo(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_ReqMapStoreInfo)
-	//user := ExtractSessionUser(session)
-	//if user == nil {
-	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-	//	session.Close()
-	//	return
-	//}
-	//user.events.LeaveEvent(tmsg.GetS())
+	tmsg := message.(*msg.C2GW_ReqMapStoreInfo)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	Mapstore().SendStoreInfo(user, tmsg.GetShopid(), 0)
 }
 
 // 请求地图商店购买
 func on_C2GW_BuyFromMapStore(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_BuyFromMapStore)
-	//user := ExtractSessionUser(session)
-	//if user == nil {
-	//	log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-	//	session.Close()
-	//	return
-	//}
-	//user.events.LeaveEvent(tmsg.GetS())
+	tmsg := message.(*msg.C2GW_BuyFromMapStore)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	Mapstore().BuyProduct(user, tmsg.GetShopid(), tmsg.GetPid(), tmsg.GetNum())
 }
 
 
