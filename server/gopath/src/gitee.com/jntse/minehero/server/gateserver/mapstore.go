@@ -24,7 +24,7 @@ type StoreProduct struct {
 }
 
 func NewStoreProduct(config *table.TMapStoreDefine) *StoreProduct {
-	data := &msg.StoreProductData{ Pid:pb.Uint32(config.Id), Sell:pb.Uint32(config.Nums), Sold:pb.Uint32(0) }
+	data := &msg.StoreProductData{ Pid:pb.Uint32(config.Id), Shopid:pb.Uint32(config.ShopId), Sell:pb.Uint32(config.Nums), Sold:pb.Uint32(0) }
 	prodcut := &StoreProduct{bin:data, dirty:true}
 	return prodcut
 }
@@ -238,8 +238,8 @@ func (store *MapStore) BuyProduct(user *GateUser, shopid, pid, num uint32) {
 }
 
 // 发送地图商店信息
-func (store *MapStore) SendStoreInfo(user *GateUser, tid uint32) {
-	send := &msg.GW2C_SendMapStoreInfo{Tid:pb.Uint32(tid)}
+func (store *MapStore) SendStoreInfo(user *GateUser, shopid uint32) {
+	send := &msg.GW2C_SendMapStoreInfo{Shopid:pb.Uint32(shopid)}
 	for _, v := range store.products {
 		send.Products = append(send.Products, pb.Clone(v.Bin()).(*msg.StoreProductData))
 	}

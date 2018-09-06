@@ -4,25 +4,25 @@ import "serialize.proto";
 
 // 直接打开地图商店
 message C2GW_ReqMapStoreInfo {
-    optional uint32 tid = 1;    // 商店tid
+    optional uint32 shopid = 1; // 商店shopid
 }
 
 // 发送汽车商店信息
 message GW2C_SendMapStoreInfo {
-    optional uint32 tid = 1;    // 商店tid
+    optional uint32 shopid = 1; // 商店shopid
     repeated msg.StoreProductData products = 2;
 }
 
 // 购买商品
 message C2GW_BuyFromMapStore {
-    optional uint32 tid = 1;    // 商店tid
+    optional uint32 shopid = 1; // 商店shopid
     optional uint32 pid = 2;    // 商品id
     optional uint32 num = 3;    // 购买数量
 }
 
 // 更新商品数据
 message GW2C_UpdateMapStoreProduct {
-    optional uint32 tid = 1;        // 
+    optional uint32 shopid = 1;        // 
     optional msg.StoreProductData product = 2;
 }
 
