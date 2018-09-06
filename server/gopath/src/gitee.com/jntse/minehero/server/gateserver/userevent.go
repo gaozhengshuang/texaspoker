@@ -42,16 +42,21 @@ type IMapEvent interface {
 	ProcessCheck(u *GateUser, tconf *table.TMapEventDefine) bool
 	OnStart(u *GateUser)
 	OnEnd(u *GateUser) 
+	IsProcessing() bool
+	SetProcessing(b bool)
 }
 
 // 事件基础数据
 type BaseMapEvent struct {
 	bin *msg.MapEvent
+	processing bool		// 正在处理事件
 }
 func (e *BaseMapEvent) Uid() uint64 { return e.bin.GetId() }
 func (e *BaseMapEvent) Tid() uint32 { return e.bin.GetTid() }
 func (e *BaseMapEvent) Bin() *msg.MapEvent { return e.bin }
 func (e *BaseMapEvent) Process(u *GateUser) bool { return false }
+func (e *BaseMapEvent) IsProcessing() bool { return e.processing }
+func (e *BaseMapEvent) SetProcessing(b bool) { e.processing = b}
 func (e *BaseMapEvent) OnStart(u *GateUser) { }
 func (e *BaseMapEvent) OnEnd(u *GateUser) {
 	send := &msg.GW2C_RemoveEvent{Uid:pb.Uint64(e.bin.GetId())}
@@ -105,6 +110,8 @@ func (e *GameMapEvent) Process(u *GateUser) bool {
 		return false
 	}
 
+	// 通知到客户端进入指定游戏
+	e.SetProcessing(true)
 	send := &msg.GW2C_EnterGameEvent{Uid:pb.Uint64(uid)}
 	u.SendMsg(send)
 	return true
@@ -139,6 +146,7 @@ func (e *BonusMapEvent) Process(u *GateUser) bool {
 	}
 
 	log.Info("[地图事件] 玩家[%s %d] 激活事件成功[%d %d]", u.Name(), u.Id(), tid, uid)
+	e.SetProcessing(true)
 	u.events.RemoveEvent(e)
 	return true
 }
@@ -170,6 +178,7 @@ func (e *BuildingMapEvent) Process(u *GateUser) bool {
 		return false
 	}
 
+	e.SetProcessing(true)
 	Mapstore().SendStoreInfo(u, tid, uid)
 	return true
 }
@@ -350,7 +359,16 @@ func (m *UserMapEvent) LeaveEvent(uid uint64) {
 	m.RemoveEvent(event)
 }
 
+func (m *UserMapEvent) RemoveProcessingEvent(tid uint32) {
+	for _, v := range m.events {
+		if v.Tid() != tid { continue }
+		if false == v.IsProcessing() { continue }
+		m.RemoveEvent(v)
+	}
+}
+
 func (m *UserMapEvent) RemoveEvent(event IMapEvent) {
+	event.SetProcessing(false)
 	event.OnEnd(m.owner)
 	delete(m.events, event.Uid())
 }
@@ -368,4 +386,5 @@ func (m *UserMapEvent) AddEvent(uid uint64, tid, rmin, rmax uint32) {
 	eventbin := &msg.MapEvent{Id:pb.Uint64(uid), Tid:pb.Uint32(tid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
 	m.events[uid] = NewMapEvent(GetMapEventTypeByTid(tid), eventbin)
 }
+
 
