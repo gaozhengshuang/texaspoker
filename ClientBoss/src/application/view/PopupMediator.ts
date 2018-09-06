@@ -129,6 +129,7 @@ module game {
 						GameConfig.setEventsReply(true);
 						this.removeSceneView();
 						if (data) {
+							let mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
 							GameConfig.updataMaskBgFun('#000000', 0);
 							//GameConfig.showDownBtnFun(false);
 							openPanel(PanelType.NearbyPlayersPopupPanel);
@@ -137,7 +138,7 @@ module game {
 							this.sceneView.alpha = 0;
 							this.sceneView.scaleX = this.sceneView.scaleY = goalScale * 0.5;
 							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
-							//NearbyPlayersPopupPanel.getInstance().updateHouseList(data.list);
+							NearbyPlayersPopupPanel.getInstance().updateInfo(data.players,mapProxy.selfPoint);
 							//MapBuildingPopupPanel.getInstance().dataChanged(data.bId, data.sales);
 							 //this.sceneView.x = gameConfig.curWidth() / 2;
 							 //this.sceneView.y = gameConfig.curHeight() / 2 ;
@@ -161,7 +162,7 @@ module game {
 							this.sceneView.alpha = 0;
 							this.sceneView.scaleX = this.sceneView.scaleY = goalScale * 0.5;
 							egret.Tween.get(this.sceneView).to({ scaleX: goalScale, scaleY: goalScale, alpha: 1 }, 500, egret.Ease.elasticInOut);
-							NearbyAssesListPopupPanel.getInstance().updateHouseList(data.list);
+							NearbyAssesListPopupPanel.getInstance().updateInfo(data.players,data.list);
 							//MapBuildingPopupPanel.getInstance().dataChanged(data.bId, data.sales);
 							 //this.sceneView.x = gameConfig.curWidth() / 2;
 							 //this.sceneView.y = gameConfig.curHeight() / 2 ;

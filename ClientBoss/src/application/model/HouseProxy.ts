@@ -78,16 +78,23 @@ module game {
 					item.setObject(data.datas[i]);
 					otherHouse.push(item);
 				}
-				if (otherHouse && otherHouse.length > 0) {
-					let house: HouseVO = GetHaveGoldHouse(otherHouse, 1);
-					if (house != null) {
-						//this.setCurrentHouse(house);
-						this.currentHouse = house;
-					} else {
-						//this.setCurrentHouse(otherHouse[0]);
-						this.currentHouse = house;
+				if(this.isNearbyAsses && this.nearbyPlayersInfo!=null){
+					this.isNearbyAsses=false;
+					ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_NEARBY_ASSES,
+					 { players: this.nearbyPlayersInfo,list:otherHouse });
+					 
+				}else{
+					if (otherHouse && otherHouse.length > 0) {
+						let house: HouseVO = GetHaveGoldHouse(otherHouse, 1);
+						if (house != null) {
+							//this.setCurrentHouse(house);
+							this.currentHouse = house;
+						} else {
+							//this.setCurrentHouse(otherHouse[0]);
+							this.currentHouse = house;
+						}
+						ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
 					}
-					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_ROOM, { room: this.currentHouse });
 				}
 			}
 		}
@@ -202,6 +209,16 @@ module game {
 						bgetall:bgetall
 					}));
 			}
+		}
+
+		private isNearbyAsses:boolean=false;
+		private nearbyPlayersInfo:msg.IPersonSocialInfo=null;
+		public getNearbyPlayersAsses(info:msg.IPersonSocialInfo){
+			this.nearbyPlayersInfo=info;
+			this.isNearbyAsses=true;
+			sendMessage("msg.C2GW_ReqOtherUserHouseData", msg.C2GW_ReqOtherUserHouseData.encode({
+					userid: info.id
+				}));
 		}
 	}
 }

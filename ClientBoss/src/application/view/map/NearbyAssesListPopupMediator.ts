@@ -24,12 +24,20 @@ module game {
 		private init():void
 		{
 			this.sceneGroup.addEventListener(NearbyAssesListPopupPanel.CLOSE,this.closeRequset,this);
+			this.sceneGroup.addEventListener(NearbyAssesListPopupPanel.GOIN_ROOM,this.goinRoomRequset,this);
 		}
 		private closeRequset(eve:BasicEvent):void
 		{
 			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
 		}
-		
+		private goinRoomRequset(eve:BasicEvent):void
+		{
+			ApplicationFacade.getInstance().sendNotification(CommandName.REMOVE_POPUP);
+            if(eve.EventObj){
+				ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_GOIN_ROOM,
+					{ houseid: eve.EventObj.houseid });
+			}
+		}
 		
 		public get sceneGroup():NearbyAssesListPopupPanel
         {

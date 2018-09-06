@@ -7,11 +7,11 @@ var options = { timeout: 2000 };
 /**
  * 初始化地图
  */
-function init(lat, lng,zoom) {
+function init(lat, lng, zoom) {
   let myLatlng = new qq.maps.LatLng(lat, lng);
   console.log(myLatlng);
 
-  
+
 
   var myOptions = {
     zoom: 16,
@@ -33,14 +33,16 @@ function init(lat, lng,zoom) {
     map: map,
     position: myLatlng
   });
-  
+
 
   qq.maps.event.addListener(map, 'zoom_changed', function () {
     //console.log("地图缩放：" + map.getCenter());
     let centerLatlng = map.getCenter();
     if (actionCallBackFun != null) {
-      actionCallBackFun('zoom_changed', { zoom: map.getZoom(),
-        lat: centerLatlng.getLat(), lng: centerLatlng.getLng() });
+      actionCallBackFun('zoom_changed', {
+        zoom: map.getZoom(),
+        lat: centerLatlng.getLat(), lng: centerLatlng.getLng()
+      });
     }
   });
   qq.maps.event.addListener(map, 'dragstart', function () {
@@ -55,7 +57,7 @@ function init(lat, lng,zoom) {
     let centerLatlng = map.getCenter();
     //getCityName(centerLatlng);
     if (actionCallBackFun != null) {
-      actionCallBackFun('dragend', {zoom: map.getZoom(), lat: centerLatlng.getLat(), lng: centerLatlng.getLng() });
+      actionCallBackFun('dragend', { zoom: map.getZoom(), lat: centerLatlng.getLat(), lng: centerLatlng.getLng() });
     }
   });
 }
@@ -65,10 +67,10 @@ function init(lat, lng,zoom) {
  */
 function moveMap(lat, lng) {
   let myLatlng = new qq.maps.LatLng(lat, lng);
-  if(map){
+  if (map) {
     map.panTo(myLatlng);
     if (actionCallBackFun != null) {
-      actionCallBackFun('dragend', {zoom: map.getZoom(),  lat: myLatlng.getLat(), lng: myLatlng.getLng() });
+      actionCallBackFun('dragend', { zoom: map.getZoom(), lat: myLatlng.getLat(), lng: myLatlng.getLng() });
     }
   }
 }
@@ -124,29 +126,29 @@ function setBuildCallBackFun(fun, body) {
 var exploreCircle;
 function addCircle(data) {
   if (data != null) {
-     exploreCircle = new qq.maps.Circle({
-        //圆形的中心点坐标。
-        center: new qq.maps.LatLng(data.lat, data.lng),
-        //圆形是否可点击。
-        clickable: false,
-        //圆形的填充色，可通过Color对象的alpha属性设置透明度。
-        //fillColor: "#00f",
-        fillColor: new qq.maps.Color(133,195,65, 0.5),
-        //要显示圆形的地图。
-        map: map,
-        //圆形的半径。
-        radius: data.radius*1000,
-        //圆形的边框线宽。
-        strokeWeight: 0,
-        //圆形是否可见。
-        visible: true,
-        //圆形的zIndex值。
+    exploreCircle = new qq.maps.Circle({
+      //圆形的中心点坐标。
+      center: new qq.maps.LatLng(data.lat, data.lng),
+      //圆形是否可点击。
+      clickable: false,
+      //圆形的填充色，可通过Color对象的alpha属性设置透明度。
+      //fillColor: "#00f",
+      fillColor: new qq.maps.Color(133, 195, 65, 0.5),
+      //要显示圆形的地图。
+      map: map,
+      //圆形的半径。
+      radius: data.radius * 1000,
+      //圆形的边框线宽。
+      strokeWeight: 0,
+      //圆形是否可见。
+      visible: true,
+      //圆形的zIndex值。
     });
   }
 }
 function removeCircle() {
-        exploreCircle.setMap(null);
-        exploreCircle=null;
+  exploreCircle.setMap(null);
+  exploreCircle = null;
 }
 /**
  * 添加地图建筑
@@ -159,7 +161,7 @@ function addBuilding(data) {
       /*null, null, null,
       new qq.maps.Size(data.scaleSize[0], data.scaleSize[1])*/
     );
-    
+
     let marker = new qq.maps.Marker({
       icon: icon,
       map: map,
@@ -167,10 +169,10 @@ function addBuilding(data) {
     });
 
     let titleIcon = new bTitleIcon({
-                map: map,
+      map: map,
       position: new qq.maps.LatLng(data.position[0], data.position[1]),
-      info:{isHas:data.isHas,count:data.bName}
-            });
+      info: { isHas: data.isHas, count: data.bName }
+    });
 
     qq.maps.event.addListener(marker, 'click', function (e) {
       console.log(e);
@@ -178,7 +180,7 @@ function addBuilding(data) {
         bCallBackFun('click', data);
       }
     });
-    buildingArray.push({ marker: marker,title:titleIcon,data: data });
+    buildingArray.push({ marker: marker, title: titleIcon, data: data });
   }
 }
 function removeBuilding(data) {
@@ -235,12 +237,12 @@ function addPlayerIcon(data) {
   if (data != null) {
     console.log(data);
     let pIcon = new playerIcon({
-                map: map,
+      map: map,
       position: new qq.maps.LatLng(data.position[0], data.position[1]),
-      info:data.info
-            });
-  
-   playerArray.push({ marker: pIcon, data: data });
+      info: data.info
+    });
+
+    playerArray.push({ marker: pIcon, data: data.info });
   }
 }
 function removePlayerIcon(data) {
@@ -271,7 +273,7 @@ function playerArrayFun(bool) {
     for (let i in playerArray) {
       if (bool) {
         playerArray[i]['marker'].draw();
-        
+
       } else {
         playerArray[i]['marker'].destroy();
       }
@@ -300,12 +302,12 @@ function getRectRangePoint(center, radius) {
 /**
  * 获取两点距离
  */
-function getDistance(start,end) {
+function getDistance(start, end) {
   let distance = 0;
   let startLatlng = new qq.maps.LatLng(start['lat'], start['lng']);
   let endLatlng = new qq.maps.LatLng(end['lat'], end['lng']);
-  distance=(Math.floor(qq.maps.geometry.spherical.
-  computeDistanceBetween(startLatlng, endLatlng)))/1000;
+  distance = (Math.floor(qq.maps.geometry.spherical.
+    computeDistanceBetween(startLatlng, endLatlng))) / 1000;
   return distance;
 }
 //31.122233153559492@31.104266846440506@121.37156747111179@121.39255252888822 
@@ -322,22 +324,37 @@ playerIcon.prototype = new qq.maps.Overlay();
 //定义construct,实现这个接口来初始化自定义的Dom元素
 playerIcon.prototype.construct = function () {
   this.dom = document.createElement('div');
-  this.dom.setAttribute("class", "playerIcon");
-  let dateInfo=this.get('info');
-  this.dom.innerHTML=dateInfo.name;
+  //this.dom.setAttribute("class", "playerIcon");
+  let dateInfo = this.get('info');
+  if (dateInfo.sex == 1) {
+    this.dom.setAttribute("class", "mPlayerIcon");
+  } else {
+    this.dom.setAttribute("class", "wPlayerIcon");
+  }
+
+  let img = document.createElement("img");
+  img.setAttribute("class", "playerHead");
+  img.src = "resource/others/images/ui/userHeadImg1.png";
+  this.dom.appendChild(img);
+
+  let span = document.createElement("label");
+  span.setAttribute("class", "playerName");
+  span.innerHTML = dateInfo.name;
+  this.dom.appendChild(span);
+
   //将dom添加到覆盖物层，overlayMouseTarget的顺序容器 5，此容器包含透明的鼠标相应元素，用于接收Marker的鼠标事件
   this.getPanes().overlayMouseTarget.appendChild(this.dom);
   //设置自定义覆盖物点击事件
-  this.dom.onclick = function() {
-      if (pCallBackFun != null) {
-        pCallBackFun('click', dateInfo);
-      }
+  this.dom.onclick = function () {
+    if (pCallBackFun != null) {
+      pCallBackFun('click', dateInfo);
+    }
   }
-  
+
 }
 //自定义的方法，用于设置myOverlay的html
-playerIcon.prototype.html=function(html){
-	this.dom.innerHTML=html;
+playerIcon.prototype.html = function (html) {
+  this.dom.innerHTML = html;
 }
 //绘制和更新自定义的dom元素
 playerIcon.prototype.draw = function () {
@@ -345,8 +362,8 @@ playerIcon.prototype.draw = function () {
   var position = this.get('position');
   if (position) {
     var pixel = this.getProjection().fromLatLngToDivPixel(position);
-    this.dom.style.left = pixel.getX()-25 + 'px';
-    this.dom.style.top = pixel.getY()-26 + 'px';
+    this.dom.style.left = pixel.getX() - 25 + 'px';
+    this.dom.style.top = pixel.getY() - 26 + 'px';
   }
 }
 
@@ -358,22 +375,22 @@ playerIcon.prototype.destroy = function () {
 /**
  * 获取城市名称
  */
-function getCityName(lat,lng,fun){
+function getCityName(lat, lng, fun) {
   let cityLatlng = new qq.maps.LatLng(lat, lng);
-     let citylocation = new qq.maps.CityService();
-     citylocation.setComplete(function (results) {
-        console.log(results.detail.detail);
-        let detail=results.detail.detail;
-        let detailArry=detail.split(',');
-        detailArry.reverse();
-        detailArry.shift();
-        detail=detailArry.join('');
-        fun(detail);
-     });
-     citylocation.setError(function () {
-       //alert("出错了，请输入正确的城市区号！！！");
-     });
-     citylocation.searchCityByLatLng(cityLatlng);
+  let citylocation = new qq.maps.CityService();
+  citylocation.setComplete(function (results) {
+    console.log(results.detail.detail);
+    let detail = results.detail.detail;
+    let detailArry = detail.split(',');
+    detailArry.reverse();
+    detailArry.shift();
+    detail = detailArry.join('');
+    fun(detail);
+  });
+  citylocation.setError(function () {
+    //alert("出错了，请输入正确的城市区号！！！");
+  });
+  citylocation.searchCityByLatLng(cityLatlng);
 }
 
 
@@ -387,12 +404,12 @@ function addAreaIcon(data) {
   if (data != null) {
     console.log(data);
     let aIcon = new areaIcon({
-                map: map,
+      map: map,
       position: new qq.maps.LatLng(data.position[0], data.position[1]),
-      info:data
-            });
-  
-   areaArray.push({ marker: aIcon, data: data });
+      info: data
+    });
+
+    areaArray.push({ marker: aIcon, data: data });
   }
 }
 
@@ -409,7 +426,7 @@ function areaArrayFun(bool) {
     for (let i in areaArray) {
       if (bool) {
         areaArray[i]['marker'].draw();
-        
+
       } else {
         areaArray[i]['marker'].destroy();
       }
@@ -429,26 +446,26 @@ areaIcon.prototype = new qq.maps.Overlay();
 areaIcon.prototype.construct = function () {
   this.dom = document.createElement('div');
   this.dom.setAttribute("class", "areaIcon");
-  let dateInfo=this.get('info');
-  this.dom.innerHTML=dateInfo.count;
+  let dateInfo = this.get('info');
+  this.dom.innerHTML = dateInfo.count;
   this.getPanes().overlayLayer.appendChild(this.dom);
 }
 
-areaIcon.prototype.html=function(html){
-	this.dom.innerHTML=html;
+areaIcon.prototype.html = function (html) {
+  this.dom.innerHTML = html;
 }
 
 areaIcon.prototype.draw = function () {
   var position = this.get('position');
   if (position) {
     var pixel = this.getProjection().fromLatLngToDivPixel(position);
-    this.dom.style.left = pixel.getX()-50 + 'px';
-    this.dom.style.top = pixel.getY()-50 + 'px';
+    this.dom.style.left = pixel.getX() - 50 + 'px';
+    this.dom.style.top = pixel.getY() - 50 + 'px';
   }
 }
 
 areaIcon.prototype.destroy = function () {
-  if(this.dom!=null && this.dom.parentNode!=null){
+  if (this.dom != null && this.dom.parentNode != null) {
     this.dom.parentNode.removeChild(this.dom);
   }
 }
@@ -465,32 +482,32 @@ var bTitleIcon = function (opts) {
 bTitleIcon.prototype = new qq.maps.Overlay();
 
 bTitleIcon.prototype.construct = function () {
-  let dateInfo=this.get('info');
+  let dateInfo = this.get('info');
   this.dom = document.createElement('div');
-  if(!dateInfo.isHas){
+  if (!dateInfo.isHas) {
     this.dom.setAttribute("class", "bTitleIcon");
-  }else{
+  } else {
     this.dom.setAttribute("class", "haveBTitleIcon");
   }
-  this.dom.innerHTML=dateInfo.count;
+  this.dom.innerHTML = dateInfo.count;
   this.getPanes().overlayLayer.appendChild(this.dom);
 }
 
-bTitleIcon.prototype.html=function(html){
-	this.dom.innerHTML=html;
+bTitleIcon.prototype.html = function (html) {
+  this.dom.innerHTML = html;
 }
 
 bTitleIcon.prototype.draw = function () {
   var position = this.get('position');
   if (position) {
     var pixel = this.getProjection().fromLatLngToDivPixel(position);
-    this.dom.style.left = pixel.getX()-60 + 'px';
-    this.dom.style.top = pixel.getY()-160 + 'px';
+    this.dom.style.left = pixel.getX() - 60 + 'px';
+    this.dom.style.top = pixel.getY() - 160 + 'px';
   }
 }
 
 bTitleIcon.prototype.destroy = function () {
-  if(this.dom!=null && this.dom.parentNode!=null){
+  if (this.dom != null && this.dom.parentNode != null) {
     this.dom.parentNode.removeChild(this.dom);
   }
 }
@@ -508,47 +525,42 @@ function setEventsIconCallBackFun(fun, target) {
 function addEventsIcon(data) {
   if (data != null && map) {
     let isExist = isExistEventsIcon(data.id);
-    if(!isExist){
-    let icon = new qq.maps.MarkerImage(
-          data.imageUrl
-          /*null, null, null,
-          new qq.maps.Size(data.scaleSize[0], data.scaleSize[1])*/
-        );
-        
-        let marker = new qq.maps.Marker({
-          icon: icon,
-          map: map,
-          position: new qq.maps.LatLng(data.latitude, data.longitude)
-        });
+    if (!isExist) {
+      let icon = new qq.maps.MarkerImage(
+        data.imageUrl
+        /*null, null, null,
+        new qq.maps.Size(data.scaleSize[0], data.scaleSize[1])*/
+      );
+
+      let marker = new qq.maps.Marker({
+        icon: icon,
+        map: map,
+        position: new qq.maps.LatLng(data.latitude, data.longitude)
+      });
       //  let titleIcon = new bTitleIcon({
       //               map: map,
       //     position: new qq.maps.LatLng(data.position[0], data.position[1]),
       //     info:{isHas:data.isHas,count:data.bName}
       //           });
       let listener = qq.maps.event.addListener(marker, 'click', function (e) {
-          if (eventsIconCallBackFun != null && eventsIconCallTarget) {
-            eventsIconCallBackFun.call(eventsIconCallTarget, 'click', data);
-          }
-        });
-        eventsIconArray.push({ marker: marker,data: data, listener:listener });
-      }
+        if (eventsIconCallBackFun != null && eventsIconCallTarget) {
+          eventsIconCallBackFun.call(eventsIconCallTarget, 'click', data);
+        }
+      });
+      eventsIconArray.push({ marker: marker, data: data, listener: listener });
     }
-    else
-    {
-      console.log("重复添加事件图标 id：", data.id);
-    }
+  }
+  else {
+    console.log("重复添加事件图标 id：", data.id);
+  }
 }
 /**
  * 是否已经存在事件ICON
  */
-function isExistEventsIcon(id)
-{
-  if(eventsIconArray)
-  {
-    for(let data of eventsIconArray)
-    {
-      if(data.id == id)
-      {
+function isExistEventsIcon(id) {
+  if (eventsIconArray) {
+    for (let data of eventsIconArray) {
+      if (data.id == id) {
         return true;
       }
     }
