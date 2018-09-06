@@ -163,7 +163,7 @@ module game {
                     if (isPush) {
                         car.removeItem();
                         this.gouzi.addItem(car.getShopCarItem());
-                        this._itemIdList.push(car.getShopCarItem().Id)
+                        this._itemIdList.push(car.getShopCarId())
                         this._addList.push(car.getId());
                     }
                 }
@@ -203,6 +203,7 @@ module game {
         }
 
         private sendItemList() {
+            egret.log("this._itemIdList--->", this._itemIdList);
             sendMessage("msg.C2GW_TargetItem", msg.C2GW_TargetItem.encode({
                 itemid: this._itemIdList
             }));

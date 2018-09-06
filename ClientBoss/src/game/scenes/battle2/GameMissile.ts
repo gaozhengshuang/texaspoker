@@ -63,19 +63,20 @@ module game {
         public findItemOver(data: msg.GW2C_HitTarget) {
             for (let b = 0; b < this.findItemIds.length; b++) {
                 let isAdd = false;
-                let idx = 0;
                 for (let i = 0; i < data.itemid.length; i++) {
-                    if (this.findItemIds[b] == data.itemid[i]) {
-                        isAdd = true;
-                        idx += 1;
-                        break;
+                    let superMarkInfo = table.TSupermarket[data.itemid[i]];
+                    if (superMarkInfo) {
+                        if (this.findItemIds[b] == superMarkInfo.ItemId) {
+                            isAdd = true;
+                            break;
+                        }
                     }
                 }
 
                 if (isAdd) {
-                    this.showSuccess(idx);
+                    this.showSuccess(b+1);
                 } else {
-                    this.showFail(idx);
+                    this.showFail(b+1);
                 }
             }
             this.shakeItemAnim.stop();
@@ -85,11 +86,13 @@ module game {
         }
 
         public showSuccess(idx: number) {
-            
+            // this["itemImg" + idx]
+            egret.log("showSuccess:idx--->", idx);
         }
 
         public showFail(idx: number) {
-
+            // this["itemImg" + idx]
+            egret.log("showFail:idx--->", idx);
         }
 
         public addItem(itemInfo: table.IItemBaseDataDefine) {
