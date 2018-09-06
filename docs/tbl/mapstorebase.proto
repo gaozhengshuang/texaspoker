@@ -31,7 +31,7 @@ message TMapStoreDefine
 	optional uint32 Price = 4; // 售价
 	
 	
-	optional uint32 Nums = 5; // 初始数量
+	optional int32 Nums = 5; // 初始数量
 
 }
 

@@ -24,7 +24,7 @@ type StoreProduct struct {
 }
 
 func NewStoreProduct(config *table.TMapStoreDefine) *StoreProduct {
-	data := &msg.StoreProductData{ Pid:pb.Uint32(config.Id), Shopid:pb.Uint32(config.ShopId), Sell:pb.Uint32(config.Nums), Sold:pb.Uint32(0) }
+	data := &msg.StoreProductData{ Pid:pb.Uint32(config.Id), Shopid:pb.Uint32(config.ShopId), Sell:pb.Uint32(uint32(config.Nums)), Sold:pb.Uint32(0) }
 	prodcut := &StoreProduct{bin:data, dirty:true}
 	return prodcut
 }
