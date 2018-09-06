@@ -68,7 +68,7 @@ module game {
             this.itemInfo = itemInfo;
             if (this._curGetNum < this._maxGetNum) {
                 this._curGetNum += 1;
-                this["itemImg" + this._curGetNum].getItemIconSource(this.itemInfo.ImageId);
+                this["itemImg" + this._curGetNum].source = getItemIconSource(this.itemInfo.ImageId);
                 this["itemImg" + this._curGetNum].visible = true;
             }
         }

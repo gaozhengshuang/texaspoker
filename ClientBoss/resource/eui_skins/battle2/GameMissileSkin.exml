@@ -199,7 +199,7 @@
 	</w:Declarations>
 	<e:Group id="missileGroup" width="150" height="1000" x="75" y="175" anchorOffsetX="75" anchorOffsetY="175" rotation="0">
 		<e:Image id="line" source="game2_json.line" horizontalCenter="0" bottom="0" x="64" y="135" scaleX="1" scaleY="1"/>
-		<e:Image id="aim" source="game2_json.hook" horizontalCenter="1" width="70" anchorOffsetX="35" anchorOffsetY="58" verticalCenter="-416" x="41" y="26" scaleX="1" scaleY="1"/>
+		<e:Image id="aim" source="game2_json.hook" horizontalCenter="1" width="70" verticalCenter="-416" x="41" y="26" scaleX="1" scaleY="1"/>
 		<e:Image id="itemImg1" source="item_json.110004" width="60" height="60" x="12" y="30" scaleX="1" scaleY="1" visible="false"/>
 		<e:Image id="itemImg2" source="item_json.110004" width="60" height="60" x="62" y="7" scaleX="1" scaleY="1" visible="false"/>
 		<e:Image id="itemImg3" source="item_json.110004" width="60" height="60" x="62" y="66" scaleX="1" scaleY="1" visible="false"/>
