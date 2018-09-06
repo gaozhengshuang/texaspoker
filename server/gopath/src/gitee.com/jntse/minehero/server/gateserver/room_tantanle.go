@@ -132,6 +132,8 @@ func (this *TanTanLe) OnEnd(now int64) {
 	if err != nil { log.Error("更新房间数量到redis失败 key:%s , err: %s", key, err) }
 	log.Info("SCard Redis[%s] Amount[%d]", key, Redis().SCard(key).Val())
 
+	// 如果通过事件打开，移除事件
+	this.owner.events.RemoveProcessingEvent(uint32(msg.MapEventId_GameTanTanLe))
 }
 
 // 玩家进游戏，游戏开始

@@ -30252,6 +30252,12 @@ declare namespace table {
 
         /** TCitysDefine Name */
         Name?: (string|null);
+
+        /** TCitysDefine Lat */
+        Lat?: (number|null);
+
+        /** TCitysDefine Lng */
+        Lng?: (number|null);
     }
 
     /** Represents a TCitysDefine. */
@@ -30274,6 +30280,12 @@ declare namespace table {
 
         /** TCitysDefine Name. */
         public Name: string;
+
+        /** TCitysDefine Lat. */
+        public Lat: number;
+
+        /** TCitysDefine Lng. */
+        public Lng: number;
 
         /**
          * Creates a new TCitysDefine instance using the specified properties.

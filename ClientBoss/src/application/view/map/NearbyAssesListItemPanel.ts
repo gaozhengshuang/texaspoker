@@ -9,6 +9,7 @@ module game {
         private huxing_txt: eui.Label;
         private sexIcon: eui.Image;
         private bg_mc:eui.Rect;
+        private pointGroup: eui.Group;
 
         public constructor(data: any = null) {
             super();
@@ -37,13 +38,18 @@ module game {
             this.itemDate = this.data;
             if (this.itemDate) {
                 let buildInfo:table.ITBuildingsDefine=table.TBuildingsById[this.itemDate.bId];
-                this.bName_txt.text = buildInfo.Community;
+                
                 //this.roomNum_txt.text = '房间 : ' + this.itemDate.rId + "室";
 
                 if(this.itemDate.bId<=0){
+                    this.pointGroup.visible=false;
                     this.roomNum_txt.text = this.itemDate.rId+"号房间";
+                    this.bName_txt.text = "酒店公寓";
                 }else{
                     if(buildInfo){
+                        this.pointGroup.visible=true;
+                        this.bPoint_txt.text=table.TCitysById[buildInfo.Province].Name+"."+table.TCitysById[buildInfo.City].Name
+                        this.bName_txt.text = buildInfo.Community;
                         this.roomNum_txt.text = /*buildInfo.Community+*/this.itemDate.roommember+"号房间";//+this.itemDate.rId+"号房间";
                     }
                 }

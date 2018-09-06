@@ -71613,6 +71613,8 @@ $root.table = (function() {
          * @property {number|null} [Type] TCitysDefine Type
          * @property {number|null} [Superior] TCitysDefine Superior
          * @property {string|null} [Name] TCitysDefine Name
+         * @property {number|null} [Lat] TCitysDefine Lat
+         * @property {number|null} [Lng] TCitysDefine Lng
          */
 
         /**
@@ -71663,6 +71665,22 @@ $root.table = (function() {
         TCitysDefine.prototype.Name = "";
 
         /**
+         * TCitysDefine Lat.
+         * @member {number} Lat
+         * @memberof table.TCitysDefine
+         * @instance
+         */
+        TCitysDefine.prototype.Lat = 0;
+
+        /**
+         * TCitysDefine Lng.
+         * @member {number} Lng
+         * @memberof table.TCitysDefine
+         * @instance
+         */
+        TCitysDefine.prototype.Lng = 0;
+
+        /**
          * Creates a new TCitysDefine instance using the specified properties.
          * @function create
          * @memberof table.TCitysDefine
@@ -71694,6 +71712,10 @@ $root.table = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.Superior);
             if (message.Name != null && message.hasOwnProperty("Name"))
                 writer.uint32(/* id 4, wireType 2 =*/34).string(message.Name);
+            if (message.Lat != null && message.hasOwnProperty("Lat"))
+                writer.uint32(/* id 5, wireType 5 =*/45).float(message.Lat);
+            if (message.Lng != null && message.hasOwnProperty("Lng"))
+                writer.uint32(/* id 6, wireType 5 =*/53).float(message.Lng);
             return writer;
         };
 
@@ -71739,6 +71761,12 @@ $root.table = (function() {
                     break;
                 case 4:
                     message.Name = reader.string();
+                    break;
+                case 5:
+                    message.Lat = reader.float();
+                    break;
+                case 6:
+                    message.Lng = reader.float();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -71787,6 +71815,12 @@ $root.table = (function() {
             if (message.Name != null && message.hasOwnProperty("Name"))
                 if (!$util.isString(message.Name))
                     return "Name: string expected";
+            if (message.Lat != null && message.hasOwnProperty("Lat"))
+                if (typeof message.Lat !== "number")
+                    return "Lat: number expected";
+            if (message.Lng != null && message.hasOwnProperty("Lng"))
+                if (typeof message.Lng !== "number")
+                    return "Lng: number expected";
             return null;
         };
 
@@ -71810,6 +71844,10 @@ $root.table = (function() {
                 message.Superior = object.Superior >>> 0;
             if (object.Name != null)
                 message.Name = String(object.Name);
+            if (object.Lat != null)
+                message.Lat = Number(object.Lat);
+            if (object.Lng != null)
+                message.Lng = Number(object.Lng);
             return message;
         };
 
@@ -71831,6 +71869,8 @@ $root.table = (function() {
                 object.Type = 0;
                 object.Superior = 0;
                 object.Name = "";
+                object.Lat = 0;
+                object.Lng = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
@@ -71840,6 +71880,10 @@ $root.table = (function() {
                 object.Superior = message.Superior;
             if (message.Name != null && message.hasOwnProperty("Name"))
                 object.Name = message.Name;
+            if (message.Lat != null && message.hasOwnProperty("Lat"))
+                object.Lat = options.json && !isFinite(message.Lat) ? String(message.Lat) : message.Lat;
+            if (message.Lng != null && message.hasOwnProperty("Lng"))
+                object.Lng = options.json && !isFinite(message.Lng) ? String(message.Lng) : message.Lng;
             return object;
         };
 
