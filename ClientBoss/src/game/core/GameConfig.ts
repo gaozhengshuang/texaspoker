@@ -16,7 +16,8 @@ module gameConfig {
         start = 1,
         back = 2,
         shakeItem = 3,
-        over = 4,
+        getItem = 4,
+        over = 5,
     }
 
     /**
