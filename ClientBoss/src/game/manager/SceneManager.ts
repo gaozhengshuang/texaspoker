@@ -127,9 +127,9 @@ module game {
     }
 
     export const enum SceneType {
-        battle,
-        battle2, 
-        login,
-        hall
+        battle = 1,
+        battle2 = 2,
+        login = 3,
+        hall = 4
     }
 }

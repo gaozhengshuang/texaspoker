@@ -32,11 +32,13 @@ module game {
 		protected beforeRemove() {
 
 		}
-
+		public forceUpdate() {
+			this.update();
+		}
 		protected update() {
 
 		}
-		
+
 		protected get bindData(): T {
 			return this.data;
 		}

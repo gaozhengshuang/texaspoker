@@ -40,8 +40,8 @@ module game {
 			let runHandler: BaseMapEventsRunHandler = this._runHandlerMap.getValue(this._type);
 			if (!runHandler) {
 				switch (this._type) {
-					case MapEventsRunType.SwitchScene:
-						runHandler = new MapEventsSwitchSceneRunHandler();
+					case MapEventsRunType.EnterGame:
+						runHandler = new MapEventsEnterGameRunHandler();
 						break;
 					case MapEventsRunType.OpenShop:
 						runHandler = new MapEventsOpenShopRunHandler();
@@ -71,9 +71,9 @@ module game {
 	export enum MapEventsRunType {
 		None = 0,
 		/**
-		 * 切场景
+		 * 进入小游戏
 		 */
-		SwitchScene = 1,
+		EnterGame = 1,
 		/**
 		 * 打开商店
 		 */
