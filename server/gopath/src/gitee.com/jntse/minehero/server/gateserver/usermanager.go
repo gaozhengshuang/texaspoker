@@ -376,7 +376,9 @@ func (this *UserManager) UpdateUserPos(uid uint64, x, y float32, province, city 
 		//省级行政区
 		if p0 != province {
 			if _, ok := this.bigcanton[p0]; ok {
-				this.bigcanton[p0] = this.bigcanton[p0] - 1
+				if this.bigcanton[p0] > 0 {
+					this.bigcanton[p0] = this.bigcanton[p0] - 1
+				}
 			}
 			if _, ok := this.bigcanton[province]; ok {
 				this.bigcanton[province] = this.bigcanton[province] + 1
@@ -438,6 +440,11 @@ func (this *UserManager) RemovePosMapUser(user *GateUser) {
 			if this.canton[p0][c0] > 0 {
 				this.canton[p0][c0] = this.canton[p0][c0] - 1
 			}
+		}
+	}
+	if _, ok := this.bigcanton[p0]; ok {
+		if this.bigcanton[p0] > 0{
+			this.bigcanton[p0] = this.bigcanton[p0] - 1
 		}
 	}
 }
