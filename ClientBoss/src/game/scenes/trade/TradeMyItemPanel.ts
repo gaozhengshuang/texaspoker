@@ -30,7 +30,6 @@ module game {
 			ly.horizontalGap = 10;
 			ly.verticalGap = 10;
 			ly.paddingLeft = 15;
-			this.scroller.scrollPolicyH = eui.ScrollPolicy.OFF;
 			this.scroller.dataList.layout = ly;
 		}
 		protected beforeShow() {

@@ -5,6 +5,7 @@ module utils{
 			super();
 			this.skinName = VScrollBarPanelSkin;
 			this.viewport = this.dataList;
+			this.scrollPolicyH = eui.ScrollPolicy.OFF;
 		}
 		/**
 		* 通过SkinName 初始化item皮肤

@@ -44,14 +44,20 @@ module game {
 		 * 事件数据
 		 */
 		public eventsListInfo: msg.GW2C_SendUserEvents;
+		/**
+		 * 事件执行器
+		 */
+		private _mapProcessHandler: MapEventsProcessHandler;
 
 		public init() {
+			this._mapProcessHandler = new MapEventsProcessHandler();
 			this.storeMap = new Map<number, msg.GW2C_SendMapStoreInfo>();
 			setEventsIconCallBackFun(this.onEventsIconClick, this);
 			NotificationCenter.addObserver(this, this.GW2C_SendUserEvents, "msg.GW2C_SendUserEvents");
 			NotificationCenter.addObserver(this, this.GW2C_RemoveEvent, "msg.GW2C_RemoveEvent");
 			NotificationCenter.addObserver(this, this.GW2C_SendMapStoreInfo, "msg.GW2C_SendMapStoreInfo");
 			NotificationCenter.addObserver(this, this.GW2C_UpdateMapStoreProduct, "msg.GW2C_UpdateMapStoreProduct");
+			NotificationCenter.addObserver(this, this.GW2C_EnterGameEvent, "msg.GW2C_EnterGameEvent");
 			NotificationCenter.addObserver(this, this.onSelfCoordinste, CommandName.GET_SELF_COORDINSTE);
 		}
 		private onSelfCoordinste() {
@@ -73,13 +79,12 @@ module game {
 						iconInfo.id = info.id;
 						let iconDef = table.TMapEventById[info.tid];
 						if (iconDef) {
-							if (iconDef.Id > 2000 && iconDef.Id < 3000) { //TODO 测试奖励
-								iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
-							}
-							else {
-
-								iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
-							}
+							// if (iconDef.Id > 2000 && iconDef.Id < 3000) { //TODO 测试奖励
+							// 	iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
+							// }
+							// else {
+							iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
+							// }
 							iconInfo.latitude = info.latitude / 100000;
 							iconInfo.longitude = info.longitude / 100000;
 							iconInfo.tid = info.tid;
@@ -129,12 +134,20 @@ module game {
 			}
 			NotificationCenter.postNotification(MapEventsManager.OnMapStoreUpdate, msgData);
 		}
+
+		/**
+		 * 进入游戏事件返回
+		 */
+		private GW2C_EnterGameEvent(msgData: msg.GW2C_EnterGameEvent) {
+			let data = this.getData(msgData.uid);
+			if (data) {
+				this._mapProcessHandler.process(data);
+			}
+		}
 		private onEventsIconClick(type: string, data: game.MapIconInfo) {
 			let def = table.TMapEventById[data.tid];
-			// if (def.Id > 3000) { //todo
-				ItemGetTips.getInstance().startCollect();
-				this.reqEnterEvent(data.id);
-			// }
+			ItemGetTips.getInstance().startCollect();
+			this.reqEnterEvent(data.id);
 		}
 		/**
 		 * 请求进入事件

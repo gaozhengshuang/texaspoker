@@ -14,12 +14,12 @@ module game {
 		}
 		protected beforeShow() {
 			this.buyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyClick, this);
-			NotificationCenter.addObserver(this, this.onShopRefresh, MapEventsManager.OnMapStoreUpdate);
 		}
 		protected beforeRemove() {
 			this.buyBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyClick, this);
 			NotificationCenter.removeObserver(this, MapEventsManager.OnMapStoreUpdate);
 		}
+
 		protected update() {
 			let mapStoreDef = table.TMapStoreById[this.bindData.pid];
 			let itemDef = table.ItemBaseDataById[this.bindData.pid];
@@ -68,15 +68,6 @@ module game {
 				}
 			}
 			return false;
-		}
-		/**
-		 * 商店刷新
-		 */
-		private onShopRefresh(msgData: msg.GW2C_UpdateMapStoreProduct) {
-			if (msgData.product.pid == this.bindData.pid) {
-				this.data = MapEventsManager.getInstance().getStoreData(msgData.product.shopid, msgData.product.pid);
-				this.update();
-			}
 		}
 	}
 }
