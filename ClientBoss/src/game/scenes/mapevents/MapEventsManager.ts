@@ -51,6 +51,7 @@ module game {
 
 		public init() {
 			this._mapProcessHandler = new MapEventsProcessHandler();
+			this._mapProcessHandler.init();
 			this.storeMap = new Map<number, msg.GW2C_SendMapStoreInfo>();
 			setEventsIconCallBackFun(this.onEventsIconClick, this);
 			NotificationCenter.addObserver(this, this.GW2C_SendUserEvents, "msg.GW2C_SendUserEvents");
@@ -79,12 +80,12 @@ module game {
 						iconInfo.id = info.id;
 						let iconDef = table.TMapEventById[info.tid];
 						if (iconDef) {
-							// if (iconDef.Id > 2000 && iconDef.Id < 3000) { //TODO 测试奖励
-							// 	iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
-							// }
-							// else {
-							iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
-							// }
+							if (iconDef.Id == 1001) { //TODO 测试奖励
+								iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
+							}
+							else {
+								iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
+							}
 							iconInfo.latitude = info.latitude / 100000;
 							iconInfo.longitude = info.longitude / 100000;
 							iconInfo.tid = info.tid;
@@ -115,9 +116,20 @@ module game {
 			this.storeMap.add(msgData.shopid, msgData);
 			openPanel(PanelType.MapEventsShopPanel);
 			MapEventsShopPanel.getInstance().setData(msgData);
-			GameConfig.setEventsReply(true);
-			GameConfig.showDownBtnFun(false);
-			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+			this.activieMap(false);
+		}
+		public activieMap(flag: boolean) {
+			if (!flag) {
+				GameConfig.setEventsReply(true);
+				GameConfig.showDownBtnFun(false);
+				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+			}
+			else
+			{
+				GameConfig.setEventsReply(false);
+				GameConfig.showDownBtnFun(true);
+				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+			}
 		}
 		/**
 		 * 更新商品信息
@@ -141,6 +153,7 @@ module game {
 		private GW2C_EnterGameEvent(msgData: msg.GW2C_EnterGameEvent) {
 			let data = this.getData(msgData.uid);
 			if (data) {
+				this.activieMap(false);
 				this._mapProcessHandler.process(data);
 			}
 		}
