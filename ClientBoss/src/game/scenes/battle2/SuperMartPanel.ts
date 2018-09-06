@@ -18,6 +18,7 @@ module game {
         private _initGouziY: number;
 
         private _playShake: number;
+        private _lastGouziType: number = 0;
 
         protected getSkinName() {
             return SuperMartPanelSkin;
@@ -45,6 +46,8 @@ module game {
 
             this.gouzi.init(this._initGouziX, this._initGouziY);
             egret.startTick(this.update, this);
+
+            this._lastGouziType = 0;
         }
 
         protected beforeRemove() {
@@ -104,16 +107,8 @@ module game {
             addShopCar();
         }
 
-        private update(timeStamp: number) {
+        private updateGouziState() {
             switch (this.gouzi.getCurState()) {
-                case gameConfig.GouziType.start:
-                    break;
-                case gameConfig.GouziType.back:
-                    let car = this.findItems();
-                    if (car) {
-                        this.gouzi.addItem(car.getShopCarItem());
-                    }
-                    break;
                 case gameConfig.GouziType.shakeItem:
                     if (this._playShake == null) {
                         let _currentIndex = 1;
@@ -124,18 +119,36 @@ module game {
                             this.beltImg.source = `game2_json.belt_${_currentIndex}`;
                             _currentIndex++;
                         }, this, 10);
-
-                        this.sendItemList();
+                        this.gouzi.playItemShake();
                     }
                     break;
-                case gameConfig.GouziType.over:
+                case gameConfig.GouziType.getItem:
                     if (this._playShake) {
                         egret.clearInterval(this._playShake);
                         this._playShake = null;
                         this.beltImg.source = `game2_json.belt_1`;
                     }
-                    this.touchGroup.touchEnabled = true;
+                    this.sendItemList();
                     break;
+                case gameConfig.GouziType.over:
+                    this.touchGroup.touchEnabled = true;
+                    this.gouzi.removeAllItem();
+                    break;
+            }
+        }
+
+        private update(timeStamp: number) {
+            if (this.gouzi.getCurState() == gameConfig.GouziType.back) {
+                let car = this.findItems();
+                if (car) {
+                    this.gouzi.addItem(car.getShopCarItem());
+                    this._itemIdList.push(car.getShopCarItem().Id)
+                }
+            }
+            
+            if (this._lastGouziType != this.gouzi.getCurState()) {
+                this._lastGouziType = this.gouzi.getCurState();
+                this.updateGouziState();
             }
             return true;
         }
@@ -149,8 +162,9 @@ module game {
             bounds.height = this.gouzi.aim.height;
             for (let car of this._shopCarList) {
                 let carBounds = egret.Rectangle.create();
-                carBounds.x += car.itemImg.x + car.x + this.shoppingCarGroup.x;
-                carBounds.y += car.itemImg.y + car.y + this.shoppingCarGroup.y;
+                p = car.itemImg.localToGlobal();
+                carBounds.x = p.x;
+                carBounds.y = p.y;
                 carBounds.width = car.itemImg.width;
                 carBounds.height = car.itemImg.height;
 
@@ -162,8 +176,6 @@ module game {
         }
 
         private sendItemList() {
-            this.gouzi.playItemShake();
-
             sendMessage("msg.C2GW_TargetItem", msg.C2GW_TargetItem.encode({
                 itemid: this._itemIdList
             }));
@@ -175,6 +187,7 @@ module game {
 
         private OnGW2C_RetStartThrow(data: msg.GW2C_RetStartThrow) {
             this.touchGroup.touchEnabled = false;
+            this._itemIdList = [];
             let angle = Math.atan2(this._curStage.x - this.gouzi.x, this.gouzi.y - this._curStage.y);
             let rotation = angle * 180 / Math.PI;
             this.gouzi.setImageRotation(rotation);
