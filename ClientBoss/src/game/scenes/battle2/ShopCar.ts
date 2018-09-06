@@ -62,7 +62,7 @@ module game {
             this.itemImg.visible = false;
         }
 
-        private getShopCarItem() {
+        public getShopCarItem() {
             return this.itemInfo;
         }
     }

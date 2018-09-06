@@ -9,6 +9,7 @@ declare function setEgretEventsReply(bool:boolean);
 declare function showDownBtn(bool:boolean);
 declare function updataLoginMaskBg(color:string,alpha:number);
 declare function getCityName(lat:number,lng:number,fun:Function);
+declare function getDistance(start: any, end: any);
 module game {
     export class GameConfig {
         public static instance: GameConfig;
@@ -121,6 +122,12 @@ module game {
         public static setEventsReply(bool:boolean){
             setEgretEventsReply(bool);
         }
+
+
+        public static distance(start, end): number {
+            return getDistance(start, end)
+        }
+
 
         /*public static getErrorStr(eid: number): string {
             var str: string = "";

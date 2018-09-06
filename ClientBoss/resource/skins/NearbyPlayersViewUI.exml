@@ -3,7 +3,7 @@
 	<e:Rect width="480" height="678" fillColor="0xffffff" ellipseWidth="100" ellipseHeight="100" horizontalCenter="0" verticalCenter="0"/>
 	<e:Image id="topImg" source="hall_5_json.userCustomBg1_png" horizontalCenter="0" verticalCenter="-191"/>
 	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" horizontalCenter="231.5" verticalCenter="-333.5"/>
-	<e:Group horizontalCenter="-86.5" verticalCenter="-308">
+	<e:Group id="pointGroup" horizontalCenter="-86.5" verticalCenter="-308">
 		<e:Image source="hall_4_json.trading_pos_png" scaleX="0.8" scaleY="0.8" x="0" y="0"/>
 		<e:Label id="bPoint_txt" text="上海市·闵行区" size="25" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="260" textColor="0x404A58" stroke="1" strokeColor="0xffffff" x="35" y="8"/>
 	</e:Group>
@@ -26,11 +26,11 @@
 		<e:Label id="juli_txt" text="320m" x="33.5" y="0" textColor="0x262626" size="30" fontFamily="Microsoft YaHei" width="120"/>
 		<e:Image source="hall_5_json.juliJiantou1_png" x="0" y="2"/>
 	</e:Group>
-	<e:Group horizontalCenter="-65.5" verticalCenter="30">
+	<e:Group id="ageGroup" horizontalCenter="-65.5" verticalCenter="30">
 		<e:Label id="age_txt" text="24" x="31" y="0" textColor="0x262626" size="24" fontFamily="Microsoft YaHei" width="40" verticalAlign="middle" textAlign="center"/>
 		<e:Image id="sexImg" source="hall_5_json.sexFamaleIcon_png" x="0" y="0" width="24" height="24"/>
 	</e:Group>
-	<e:Group horizontalCenter="43.5" verticalCenter="30">
+	<e:Group id="xingzuoGroup" horizontalCenter="43.5" verticalCenter="30">
 		<e:Label id="xingzuo_txt" text="白羊座" x="31" y="0" textColor="0x262626" size="24" fontFamily="Microsoft YaHei" width="80" verticalAlign="middle" textAlign="center"/>
 		<e:Image id="xingzuoIcon" source="hall_5_json.xingzuoIcon1_png" x="0" y="0"/>
 	</e:Group>

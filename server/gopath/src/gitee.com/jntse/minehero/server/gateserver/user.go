@@ -179,6 +179,18 @@ func (this *GateUser) SetName(nickname string) bool {
 		this.SendNotify("昵称重复")
 		return false
 	}
+	//新名字加入集合
+	_, erradd := Redis().SAdd(keynickname, nickname).Result()
+	if erradd != nil{
+		log.Error("改名保存全局新昵称 Redis错误:%s", erradd)
+		return false	
+	}
+	
+	//原名从集合中移除
+	_, errrem := Redis().SRem(keynickname, this.Name()).Result()
+	if errrem != nil {
+		log.Error("改名移除玩家原来名字失败 oldname:%s , err: %s", this.Name(), errrem) 
+	}
 
 	this.EntityBase().Name = pb.String(nickname)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())

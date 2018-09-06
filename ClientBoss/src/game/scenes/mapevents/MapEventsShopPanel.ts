@@ -29,11 +29,16 @@ module game {
 
 		}
 		public remove() {
+
 			NotificationCenter.addObserver(this, this.onEventFinish, MapEventsManager.OnMapEventsRemove);
 			MapEventsManager.getInstance().reqFinishEvent(this._data.uid);
 		}
 		private onEventFinish(msgData: msg.GW2C_RemoveEvent) {
 			if (msgData.uid == this._data.uid) {
+				GameConfig.setEventsReply(false);
+				GameConfig.showDownBtnFun(true);
+				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+
 				NotificationCenter.removeObserver(this, MapEventsManager.OnMapEventsRemove);
 				super.remove();
 			}

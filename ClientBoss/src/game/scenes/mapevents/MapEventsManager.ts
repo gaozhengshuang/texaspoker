@@ -73,7 +73,7 @@ module game {
 						iconInfo.id = info.id;
 						let iconDef = table.TMapEventById[info.tid];
 						if (iconDef) {
-							if (iconDef.Id == 2001) { //TODO 测试奖励
+							if (iconDef.Id > 2000 && iconDef.Id < 3000) { //TODO 测试奖励
 								iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
 							}
 							else {
@@ -110,6 +110,9 @@ module game {
 			this.storeMap.add(msgData.shopid, msgData);
 			openPanel(PanelType.MapEventsShopPanel);
 			MapEventsShopPanel.getInstance().setData(msgData);
+			GameConfig.setEventsReply(true);
+			GameConfig.showDownBtnFun(false);
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
 		}
 		/**
 		 * 更新商品信息
@@ -128,10 +131,10 @@ module game {
 		}
 		private onEventsIconClick(type: string, data: game.MapIconInfo) {
 			let def = table.TMapEventById[data.tid];
-			if (def && def.Reward.length > 0) { //todo
+			// if (def.Id > 3000) { //todo
 				ItemGetTips.getInstance().startCollect();
 				this.reqEnterEvent(data.id);
-			}
+			// }
 		}
 		/**
 		 * 请求进入事件
@@ -151,7 +154,7 @@ module game {
 		 * 请求完成事件
 		 */
 		public reqFinishEvent(uid: number | Long) {
-			let netData = new msg.C2GW_LeaveEvent(); 
+			let netData = new msg.C2GW_LeaveEvent();
 			netData.uid = parseInt(uid.toString());
 			sendMessage("msg.C2GW_LeaveEvent", msg.C2GW_LeaveEvent.encode(netData));
 		}

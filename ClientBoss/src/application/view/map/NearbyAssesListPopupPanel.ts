@@ -15,7 +15,7 @@ module game {
 			super();
 		}
         protected getSkinName() {
-            return BuildingZhuhuLisSkin;
+            return NearbyPlayersAssesViewSkin;
         }
         private static _instance: NearbyAssesListPopupPanel = null;
         public static getInstance(): NearbyAssesListPopupPanel {
@@ -43,9 +43,17 @@ module game {
         private houseItemList:utils.ScrollerPanel;
 		private houseList:HouseVO[]=[];
 		private buildingId:number=0;
-		public updateHouseList(list:HouseVO[])
+		private playersInfo:msg.IPersonSocialInfo;
+		public updateInfo(players:msg.IPersonSocialInfo,list:HouseVO[])
 		{
+			this.playersInfo=players;
+			this.name_txt.text=this.playersInfo.name;
 			this.houseList=list;
+			if(this.houseList){
+				this.updateList();
+			}				
+		}
+		private updateList(){
 			if(this.houseItemList==null)
 			{
 				this.houseItemList=new utils.VScrollerPanel();
@@ -56,7 +64,7 @@ module game {
 				this.houseItemList.initItemRenderer(NearbyAssesListItemPanel);
 				this.houseItemList.dataList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTouch, this); 
 			}
-			this.houseItemList.bindData(this.houseList);			
+			this.houseItemList.bindData(this.houseList);	
 		}
 		private onItemTouch(eve:eui.ItemTapEvent){
 			let item:HouseVO=this.houseList[eve.itemIndex];
