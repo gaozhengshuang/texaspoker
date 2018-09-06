@@ -284,11 +284,11 @@ func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
 //	}
 //}
 
-//整点回调
+//now秒，整点回调
 func (this *UserManager) IntHourClockCallback(now int64) {
 
 	// 地图事件刷新
-	inthour := time.Unix(now / 1000, 0).Hour()
+	inthour := time.Unix(now, 0).Hour()
 	if tbl.Game.MapEvent.TimeRefresh == int64(inthour) {
 		for _, user := range this.accounts {
 			user.events.RefreshActive()

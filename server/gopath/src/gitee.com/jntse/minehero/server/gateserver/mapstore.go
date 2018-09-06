@@ -101,6 +101,7 @@ func (store* MapStore) Init() {
 	store.ticker1Minite = util.NewGameTicker(time.Minute, store.Handler1MiniteTick)
 	store.ticker1Minite.Start()
 	store.LoadDB()
+	store.CheckRefresh()
 }
 
 func (store* MapStore) Tick(now int64) {
@@ -117,6 +118,12 @@ func (store *MapStore) Handler1MiniteTick(now int64) {
 		log.Error("[地图商店] 定时存盘RedisError:%s", err)
 	}
 	pipe.Close()
+}
+
+func (store *MapStore) CheckRefresh() {
+	if len(store.products) == 0 {
+		store.Refresh()
+	}
 }
 
 func (store *MapStore) Refresh() {
