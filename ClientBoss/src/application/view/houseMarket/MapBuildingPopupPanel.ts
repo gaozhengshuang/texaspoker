@@ -165,6 +165,12 @@ module game {
             //if(Math.abs(scrollH-this.startScrollH)>this.itemW){
                 fangxiang=scrollH-this.startScrollH>0?1:-1;
                 this.huxingContainer.scrollH=this.startScrollH+fangxiang*this.itemW;
+                if(this.huxingContainer.scrollH<0){
+                    this.huxingContainer.scrollH=0;
+                }
+                if(this.huxingContainer.scrollH>810){
+                    this.huxingContainer.scrollH=810;
+                }
             
             if(this.huxingImgList && this.huxingImgList.length>0){
                 for(let i:number=0;i<this.huxingImgList.length;i++){
