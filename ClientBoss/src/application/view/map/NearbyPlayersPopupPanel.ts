@@ -79,9 +79,9 @@ module game {
             }
             if(this.selfPoint && this.playersInfo.lat!=0 && this.playersInfo.lng!=0){
                 this.juli_txt.text=String(GameConfig.distance({ lat: this.selfPoint.lat, lng: this.selfPoint.lng },
-                            { lat: this.playersInfo.lat, lng: this.playersInfo.lng }))+"m";
+                            { lat: this.playersInfo.lat, lng: this.playersInfo.lng }))+"km";
             }else{
-                this.juli_txt.text="0m";
+                this.juli_txt.text="0km";
             }
         }
     }

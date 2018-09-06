@@ -41,7 +41,8 @@ module game {
 			this.close_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
 
             this.listScroller.addEventListener(egret.Event.CHANGE, this.onclick_list, this);
-            this.listScroller.addEventListener(eui.UIEvent.CHANGE_START, this.onclick_listend, this);
+            this.listScroller.addEventListener(eui.UIEvent.CHANGE_START, this.onclick_listStart, this);
+            this.listScroller.addEventListener(eui.UIEvent.CHANGE_END, this.onclick_listend, this);
         }
         protected beforeRemove() {
             this.buyFang_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
@@ -49,12 +50,14 @@ module game {
 			this.close_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick_close, this);
 
             this.listScroller.removeEventListener(egret.Event.CHANGE, this.onclick_list, this);
-            this.listScroller.removeEventListener(eui.UIEvent.CHANGE_START, this.onclick_listend, this);
+            this.listScroller.removeEventListener(eui.UIEvent.CHANGE_START, this.onclick_listStart, this);
+            this.listScroller.removeEventListener(eui.UIEvent.CHANGE_END, this.onclick_listend, this);
         }
         protected init() {
             this.horizontalCenter = this.verticalCenter = 0;
             this.close_btn.icon="lucky_json.leftBack";
             this.listScroller.bounces=false;
+            //eui.Scroller.scrollThreshold=100;
            //this.listScroller.throwSpeed=0;
             
         }
@@ -152,16 +155,41 @@ module game {
             }
         }
         private startScrollH:number=0;
-        private onclick_listend(){
+        private onclick_listStart(){
             this.startScrollH=this.huxingContainer.scrollH;
-            console.log( this.startScrollH);
+        }
+        private onclick_listend(){
+            //this.startScrollH=this.huxingContainer.scrollH;
+            let scrollH:number=this.huxingContainer.scrollH;
+            let fangxiang:number=1;
+            //if(Math.abs(scrollH-this.startScrollH)>this.itemW){
+                fangxiang=scrollH-this.startScrollH>0?1:-1;
+                this.huxingContainer.scrollH=this.startScrollH+fangxiang*this.itemW;
+            
+            if(this.huxingImgList && this.huxingImgList.length>0){
+                for(let i:number=0;i<this.huxingImgList.length;i++){
+                    let nowX:number=(this.huxingImgList[i].x)-this.huxingContainer.scrollH;
+                    let num:number=Math.abs(nowX-this.listScroller.width/2);
+                    let beishu:number=1;
+                    if(num<this.huxingImgList[i].width){
+                        beishu=1.5*(1-(num/(this.huxingImgList[i].width)));
+                        if(beishu<1){beishu=1};
+                    }
+                    this.huxingImgList[i].suofang(beishu);
+                    if(beishu>1){
+                        this.updateHuxingInfo(i);
+                    }
+                }
+            }
+
+            
         }
         private onclick_list(eve:egret.Event=null) {
             let scrollH:number=this.huxingContainer.scrollH;
             let fangxiang:number=scrollH-this.startScrollH>0?1:-1
             if(Math.abs(scrollH-this.startScrollH)>this.itemW){
                 this.listScroller.stopAnimation();
-                this.huxingContainer.scrollH=this.startScrollH+fangxiang*this.itemW;
+                //this.huxingContainer.scrollH=this.startScrollH+fangxiang*this.itemW;
             }
             if(this.huxingImgList && this.huxingImgList.length>0){
                 for(let i:number=0;i<this.huxingImgList.length;i++){
@@ -178,6 +206,7 @@ module game {
                     }
                 }
             }
+            
         }
         private updateHuxingInfo(index:number=0){
             if(this.huxingImgList && this.huxingImgList.length>0 && index<this.huxingImgList.length){
