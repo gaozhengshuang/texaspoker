@@ -499,4 +499,25 @@ module game {
         }
         return strResult;
     }
+
+    export function getCouponStr(coupon: number) {
+        if (coupon > 9999) {
+            let ret = Number((coupon / 1000).toFixed(2));
+            ret = ret == Math.floor(ret) ? Math.floor(ret) : ret;
+            return ret + 'k';
+        }
+        return coupon;
+    }
+    /**
+     * 将源对象属性copy到目标对象，仅一维浅拷贝
+     */
+    export function copyFromTarget(source: any, target: any = null) {
+        if(source && target)
+        {
+            for(let key in source)
+            {
+                target[key] = source[key];
+            }
+        }
+    }
 }

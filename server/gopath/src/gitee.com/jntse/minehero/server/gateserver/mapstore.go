@@ -24,7 +24,7 @@ type StoreProduct struct {
 }
 
 func NewStoreProduct(config *table.TMapStoreDefine) *StoreProduct {
-	data := &msg.StoreProductData{ Pid:pb.Uint32(config.Id), Shopid:pb.Uint32(config.ShopId), Sell:pb.Uint32(config.Nums), Sold:pb.Uint32(0) }
+	data := &msg.StoreProductData{ Pid:pb.Uint32(config.Id), Shopid:pb.Uint32(config.ShopId), Sell:pb.Uint32(uint32(config.Nums)), Sold:pb.Uint32(0) }
 	prodcut := &StoreProduct{bin:data, dirty:true}
 	return prodcut
 }
@@ -35,6 +35,10 @@ func (cp *StoreProduct) Bin() *msg.StoreProductData {
 
 func (cp *StoreProduct) Pid() uint32 {
 	return cp.bin.GetPid()
+}
+
+func (cp *StoreProduct) ShopId() uint32 {
+	return cp.bin.GetShopid()
 }
 
 func (cp *StoreProduct) Sold() uint32 {
@@ -97,6 +101,7 @@ func (store* MapStore) Init() {
 	store.ticker1Minite = util.NewGameTicker(time.Minute, store.Handler1MiniteTick)
 	store.ticker1Minite.Start()
 	store.LoadDB()
+	store.CheckRefresh()
 }
 
 func (store* MapStore) Tick(now int64) {
@@ -113,6 +118,12 @@ func (store *MapStore) Handler1MiniteTick(now int64) {
 		log.Error("[地图商店] 定时存盘RedisError:%s", err)
 	}
 	pipe.Close()
+}
+
+func (store *MapStore) CheckRefresh() {
+	if len(store.products) == 0 {
+		store.Refresh()
+	}
 }
 
 func (store *MapStore) Refresh() {
@@ -199,14 +210,15 @@ func (store *MapStore) BuyProduct(user *GateUser, shopid, pid, num uint32) {
 		return
 	}
 
+	// 配置增加新商品
 	product, ok := store.products[pid]
 	if ok == false {
-		product = NewStoreProduct(config)
-		product.SaveBin(nil)
+		log.Error("[地图商店] 玩家[%s %d] 找不到商品[%d]", user.Name(), user.Id(), pid)
+		return
 	}
 
 	// 限量
-	if product.Sell() < product.Sold() + num {
+	if int32(product.Sell()) != -1 && (product.Sell() < product.Sold() + num) {
 		user.SendNotify("商品数量不足")
 		return
 	}
@@ -238,10 +250,16 @@ func (store *MapStore) BuyProduct(user *GateUser, shopid, pid, num uint32) {
 }
 
 // 发送地图商店信息
-func (store *MapStore) SendStoreInfo(user *GateUser, shopid uint32) {
-	send := &msg.GW2C_SendMapStoreInfo{Shopid:pb.Uint32(shopid)}
+func (store *MapStore) SendStoreInfo(user *GateUser, shopid uint32, eventuid uint64) {
+	if IsValidShopId(shopid) == false {
+		log.Error("无效的商店shopid[%d]", shopid)
+		return
+	}
+	send := &msg.GW2C_SendMapStoreInfo{Shopid:pb.Uint32(shopid), Uid:pb.Uint64(eventuid)}
 	for _, v := range store.products {
-		send.Products = append(send.Products, pb.Clone(v.Bin()).(*msg.StoreProductData))
+		if shopid == v.ShopId() {
+			send.Products = append(send.Products, pb.Clone(v.Bin()).(*msg.StoreProductData))
+		}
 	}
 	user.SendMsg(send)
 }
@@ -269,6 +287,15 @@ func (store *MapStore) DoGMCmd(cmd map[string]*util.VarType) {
 	case "dec":
 		break
 	}
+}
+
+func IsValidShopId(shopid uint32) bool {
+	switch msg.MapEventId(shopid) {
+	case msg.MapEventId_BuildingMaidShop:	return true
+	case msg.MapEventId_BuildingCarShop:	return true
+	case msg.MapEventId_BuildingHouseShop:	return true
+	}
+	return false
 }
 
 

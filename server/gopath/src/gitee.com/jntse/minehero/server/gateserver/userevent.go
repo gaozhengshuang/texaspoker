@@ -35,6 +35,8 @@ func GetMapEventTypeByTid(tid uint32) uint32 {
 
 // 事件接口
 type IMapEvent interface {
+	Uid() uint64
+	Tid() uint32
 	Process(u *GateUser) bool
 	Bin() *msg.MapEvent
 	ProcessCheck(u *GateUser, tconf *table.TMapEventDefine) bool
@@ -46,6 +48,8 @@ type IMapEvent interface {
 type BaseMapEvent struct {
 	bin *msg.MapEvent
 }
+func (e *BaseMapEvent) Uid() uint64 { return e.bin.GetId() }
+func (e *BaseMapEvent) Tid() uint32 { return e.bin.GetTid() }
 func (e *BaseMapEvent) Bin() *msg.MapEvent { return e.bin }
 func (e *BaseMapEvent) Process(u *GateUser) bool { return false }
 func (e *BaseMapEvent) OnStart(u *GateUser) { }
@@ -89,6 +93,20 @@ type GameMapEvent struct {
 }
 
 func (e *GameMapEvent) Process(u *GateUser) bool {
+	tid, uid := e.bin.GetTid(), e.bin.GetId()
+	tconf, find := tbl.MapEventBase.TMapEventById[tid]
+	if find == false {
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		return false
+	}
+
+	if e.ProcessCheck(u, tconf) == false {
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		return false
+	}
+
+	send := &msg.GW2C_EnterGameEvent{Uid:pb.Uint64(uid)}
+	u.SendMsg(send)
 	return true
 }
 
@@ -121,6 +139,7 @@ func (e *BonusMapEvent) Process(u *GateUser) bool {
 	}
 
 	log.Info("[地图事件] 玩家[%s %d] 激活事件成功[%d %d]", u.Name(), u.Id(), tid, uid)
+	u.events.RemoveEvent(e)
 	return true
 }
 
@@ -132,16 +151,26 @@ type BuildingMapEvent struct {
 func (e *BuildingMapEvent) Process(u *GateUser) bool {
 	switch e.bin.GetTid() {
 	case uint32(msg.MapEventId_BuildingMaidShop):
-		break
 	case uint32(msg.MapEventId_BuildingCarShop):
-		break
 	case uint32(msg.MapEventId_BuildingHouseShop):
-		break
 	default:
 		log.Error("[地图事件] 玩家[%s %d] 未定义的事件[%d]", e.bin.GetTid())
 		return false
 	}
 
+	tid, uid := e.bin.GetTid(), e.bin.GetId()
+	tconf, find := tbl.MapEventBase.TMapEventById[tid]
+	if find == false {
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		return false
+	}
+
+	if e.ProcessCheck(u, tconf) == false {
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		return false
+	}
+
+	Mapstore().SendStoreInfo(u, tid, uid)
 	return true
 }
 
@@ -240,14 +269,6 @@ func (m *UserMapEvent) Refresh(now int64) {
 	m.refreshtime = now / 1000			// 秒
 	m.refreshactive = 0
 	eventuid := uint64(1)
-	//x, y := m.owner.GetUserPos()		// 经纬度
-	//if x == 0 || y == 0 {
-	//	log.Error("[地图事件] 玩家[%s %d]经纬度信息无效", m.owner.Name(), m.owner.Id())
-	//	return
-	//}
-	y, x := float32(31.11325), float32(121.38206)	// 测试代码
-	int_longitude, int_latitude := int32(x * 100000) , int32(y * 100000)	// 米
-
 	for _, v := range tbl.MapEventRefreshBase.TMapEventRefreshById {
 		giftweight := make([]util.WeightOdds, 0)
 		if m.ParseProString(&giftweight, v.TypeRand) == false { 
@@ -261,9 +282,7 @@ func (m *UserMapEvent) Refresh(now int64) {
 				continue
 			}
 			tid := uint32(giftweight[index].Uid)
-			lo, la := m.GetRandRangePos(int_longitude, int_latitude, v.RangeMin, v.RangeMax)
-			eventbin := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(tid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
-			m.events[eventuid] = NewMapEvent(GetMapEventTypeByTid(tid), eventbin)
+			m.AddEvent(eventuid, tid, v.RangeMin, v.RangeMax)
 			eventuid++
 		}
 	}
@@ -318,10 +337,7 @@ func (m *UserMapEvent) EnterEvent(uid uint64) {
 		return
 	}
 
-	if event.Process(m.owner) {
-		event.OnEnd(m.owner)
-		delete(m.events, uid)
-	}
+	event.Process(m.owner)
 }
 
 // 主动离开事件
@@ -331,8 +347,25 @@ func (m *UserMapEvent) LeaveEvent(uid uint64) {
 		log.Error("玩家没有这个事件[%d]", uid)
 		return
 	}
+	m.RemoveEvent(event)
+}
 
+func (m *UserMapEvent) RemoveEvent(event IMapEvent) {
 	event.OnEnd(m.owner)
-	delete(m.events, uid)
+	delete(m.events, event.Uid())
+}
+
+func (m *UserMapEvent) AddEvent(uid uint64, tid, rmin, rmax uint32) {
+	//x, y := m.owner.GetUserPos()		// 经纬度
+	//if x == 0 || y == 0 {
+	//	log.Error("[地图事件] 玩家[%s %d]经纬度信息无效", m.owner.Name(), m.owner.Id())
+	//	return
+	//}
+	y, x := float32(31.11325), float32(121.38206)	// 测试代码
+	int_longitude, int_latitude := int32(x * 100000) , int32(y * 100000)	// 米
+
+	lo, la := m.GetRandRangePos(int_longitude, int_latitude, rmin, rmax)
+	eventbin := &msg.MapEvent{Id:pb.Uint64(uid), Tid:pb.Uint32(tid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
+	m.events[uid] = NewMapEvent(GetMapEventTypeByTid(tid), eventbin)
 }
 

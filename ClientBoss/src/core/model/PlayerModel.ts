@@ -301,6 +301,10 @@ module game {
             return this.userInfo.diamond;
         }
 
+        public getGold() {
+            return this.userInfo.gold;
+        }
+
         public addBag(itemId: number, itemNum: number) {
             let isPush = true;
             for (let i = 0; i < this.bagList.length; i++) {

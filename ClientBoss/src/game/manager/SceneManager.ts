@@ -128,7 +128,7 @@ module game {
 
     export const enum SceneType {
         battle,
-        battle2, //弃用
+        battle2, 
         login,
         hall
     }

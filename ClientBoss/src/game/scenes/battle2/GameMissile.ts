@@ -6,6 +6,8 @@ module game {
         itemImg2: eui.Image;
         itemImg3: eui.Image;
 
+        shakeItemAnim: egret.tween.TweenGroup;
+
         missileGroup: eui.Group;
 
         private _curGetNum: number = 0;
@@ -44,12 +46,7 @@ module game {
                 if (this._curGetNum > 0) {
                     egret.Tween.get(this).to({x: this.initX, y: this.initY - 150}, 2000).call(() => {
                         this._curState = gameConfig.GouziType.shakeItem;
-
-                        egret.Tween.get(this).to({x: this.initX, y: this.initY - 100}, 1000).call(() => {
-                            egret.Tween.get(this).to({x: this.initX, y: this.initY}, 400).call(() => {
-                                this._curState = gameConfig.GouziType.over;
-                            });
-                        });
+                        egret.Tween.get(this).to({x: this.initX, y: this.initY - 100}, 1000);
                     });
                 } else {
                     egret.Tween.get(this).to({x: this.initX, y: this.initY}, 2000).call(() => {
@@ -59,17 +56,21 @@ module game {
             })
         }
 
-        public update() {
-
+        public findItemOver(data: msg.GW2C_HitTarget) {
+            egret.Tween.get(this).to({x: this.initX, y: this.initY}, 400).call(() => {
+                this._curState = gameConfig.GouziType.over;
+            });
+            this.shakeItemAnim.stop();
+            this.removeAllItem();
         }
 
         public addItem(itemInfo: table.IItemBaseDataDefine) {
             this.itemInfo = itemInfo;
             if (this._curGetNum < this._maxGetNum) {
                 this._curGetNum += 1;
+                this["itemImg" + this._curGetNum].source = getItemIconSource(this.itemInfo.ImageId);
+                this["itemImg" + this._curGetNum].visible = true;
             }
-            this["itemImg" + this._curGetNum].getItemIconSource(this.itemInfo.ImageId);
-            this["itemImg" + this._curGetNum].visible = true;
         }
 
         public removeAllItem() {
@@ -77,6 +78,10 @@ module game {
                 this["itemImg" + i].visible = false;
             }
             this._curGetNum = 0;
+        }
+
+        public playItemShake() {
+            effectUtils.playAnimation(this.shakeItemAnim, true);
         }
 
         public getGouzi() {
