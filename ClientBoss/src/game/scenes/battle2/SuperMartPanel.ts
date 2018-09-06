@@ -12,6 +12,7 @@ module game {
 
         private _shopCarList: ShopCar[];
         private _itemIdList: number[];
+        private _addList: number[];
         private _maxShopCar: number = 15;
         private _curStage;
 
@@ -96,13 +97,15 @@ module game {
 
         private initShopCar() {
             this._shopCarList = [];
+            let idx = 0;
             let addShopCar = async function () {
                 let shopCar: ShopCar;
                 for (let i = 0; i < 3; i++) {
                     shopCar = new ShopCar();
                     this.shoppingCarGroup.addChild(shopCar);
                     shopCar.touchEnabled = false;
-                    shopCar.show(i);
+                    let data = {pos: i, thisId: ++idx}
+                    shopCar.show(data);
                     this._shopCarList.push(shopCar);
                 }
 
@@ -149,8 +152,20 @@ module game {
             if (this.gouzi.getCurState() == gameConfig.GouziType.back) {
                 let car = this.findItems();
                 if (car) {
-                    this.gouzi.addItem(car.getShopCarItem());
-                    this._itemIdList.push(car.getShopCarItem().Id)
+                    let isPush = true;
+                    for (let i = 0; i < this._addList.length; i++) {
+                        if (car.getId() == this._addList[i]) {
+                            isPush = false;
+                            break;
+                        }
+                    }
+
+                    if (isPush) {
+                        car.removeItem();
+                        this.gouzi.addItem(car.getShopCarItem());
+                        this._itemIdList.push(car.getShopCarItem().Id)
+                        this._addList.push(car.getId());
+                    }
                 }
             }
             
@@ -162,19 +177,23 @@ module game {
         }
 
         private findItems() {
+            if (this._addList.length >= 3) {
+                return null;
+            }
+
             let bounds: egret.Rectangle = egret.Rectangle.create();
             let p = this.gouzi.aim.localToGlobal();
             bounds.x = p.x;
             bounds.y = p.y;
-            bounds.width = this.gouzi.aim.width;
-            bounds.height = this.gouzi.aim.height;
+            bounds.width = this.gouzi.aim.width/2;
+            bounds.height = this.gouzi.aim.height/2;
             for (let car of this._shopCarList) {
                 let carBounds = egret.Rectangle.create();
-                p = car.itemImg.localToGlobal();
+                p = car.itemGroup.localToGlobal();
                 carBounds.x = p.x;
                 carBounds.y = p.y;
-                carBounds.width = car.itemImg.width;
-                carBounds.height = car.itemImg.height;
+                carBounds.width = car.itemImg.width/2;
+                carBounds.height = car.itemImg.height/2;
 
                 if (bounds.intersects(carBounds)) {
                     return car;
@@ -196,6 +215,7 @@ module game {
         private OnGW2C_RetStartThrow(data: msg.GW2C_RetStartThrow) {
             this.touchGroup.touchEnabled = false;
             this._itemIdList = [];
+            this._addList = [];
             let angle = Math.atan2(this._curStage.x - this.gouzi.x, this.gouzi.y - this._curStage.y);
             let rotation = angle * 180 / Math.PI;
             this.gouzi.setImageRotation(rotation);

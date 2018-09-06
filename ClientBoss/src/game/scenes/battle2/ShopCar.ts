@@ -1,6 +1,8 @@
 module game {
     export class ShopCar extends BaseUIComponent<any> {
+        itemGroup: eui.Group;
         itemImg: eui.Image;
+        itemFrame: eui.Image;
         itemNameLabel: eui.Label;
 
         private carPaddingY: number = 160;
@@ -34,36 +36,41 @@ module game {
                 this.itemInfo = table.ItemBaseDataById[superMarkInfo.ItemId];
                 if (this.itemInfo) {
                     this.itemImg.source = getItemIconSource(this.itemInfo.ImageId);
+                    this.itemFrame.source = getItemColorSource(this.itemInfo.Color);
                     this.itemNameLabel.text = this.itemInfo.Name;
                 }
             }
 
-            this.itemImg.visible = true;
+            this.itemGroup.visible = true;
             this.runAction();
         }
 
         private runAction() {
             let targetX = 0;
-            if ((this.data%2)==1) {
+            if ((this.data.pos%2)==1) {
                 targetX = 0 - this.width;
                 this.x = gameConfig.curWidth();
             } else {
                 targetX = gameConfig.curWidth();
                 this.x = 0 - this.width;
             }
-            this.y = this.carPaddingY * this.data;
+            this.y = this.carPaddingY * this.data.pos;
 
             egret.Tween.get(this).to({ x: targetX }, 5000).call(() => {
                 this.updateView();
             })
         }
 
-        private removeItem() {
-            this.itemImg.visible = false;
+        public removeItem() {
+            this.itemGroup.visible = false;
         }
 
         public getShopCarItem() {
             return this.itemInfo;
+        }
+
+        public getId() {
+            return this.data.thisId;
         }
     }
 }

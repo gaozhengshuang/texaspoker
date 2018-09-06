@@ -11,6 +11,11 @@ module game {
         return `item_json.${id}`;
     }
 
+    //获取道具品质图片
+    export function getItemColorSource(color: number) {
+        return `hall_4_json.frame${color}_png`;
+    }
+
     //显示等待界面
     export function showWaitPanel(type = 0) {
         gameConfig.curStage().touchChildren = false;
