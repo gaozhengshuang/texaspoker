@@ -15,14 +15,14 @@ import (
 )
 
 
-func NewMapEvent(ty uint32, bin *msg.MapEvent, rmin, rmax uint32) IMapEvent {
+func NewMapEvent(ty uint32, bin *msg.MapEvent) IMapEvent {
 	switch ty {
 	case uint32(msg.MapEventType_Game):
-		return &GameMapEvent{BaseMapEvent{bin:bin, rmin:rmin, rmax:rmax}}
+		return &GameMapEvent{BaseMapEvent{bin:bin}}
 	case uint32(msg.MapEventType_Bonus):
-		return &BonusMapEvent{BaseMapEvent{bin:bin, rmin:rmin, rmax:rmax}}
+		return &BonusMapEvent{BaseMapEvent{bin:bin}}
 	case uint32(msg.MapEventType_Building):
-		return &BuildingMapEvent{BaseMapEvent{bin:bin, rmin:rmin, rmax:rmax}}
+		return &BuildingMapEvent{BaseMapEvent{bin:bin}}
 	default:
 		log.Error("[地图事件] 创建无效的地图事件类型[%d]", ty)
 	}
@@ -37,21 +37,19 @@ func GetMapEventTypeByTid(tid uint32) uint32 {
 type IMapEvent interface {
 	Process(u *GateUser) bool
 	Bin() *msg.MapEvent
-	Range() (uint32, uint32)
-	Complete(u *GateUser) 
 	ProcessCheck(u *GateUser, tconf *table.TMapEventDefine) bool
+	OnStart(u *GateUser)
+	OnEnd(u *GateUser) 
 }
 
 // 事件基础数据
 type BaseMapEvent struct {
 	bin *msg.MapEvent
-	rmin uint32
-	rmax uint32
 }
 func (e *BaseMapEvent) Bin() *msg.MapEvent { return e.bin }
 func (e *BaseMapEvent) Process(u *GateUser) bool { return false }
-func (e *BaseMapEvent) Range() (uint32, uint32) { return e.rmin, e.rmax }
-func (e *BaseMapEvent) Complete(u *GateUser) {
+func (e *BaseMapEvent) OnStart(u *GateUser) { }
+func (e *BaseMapEvent) OnEnd(u *GateUser) {
 	send := &msg.GW2C_RemoveEvent{Uid:pb.Uint64(e.bin.GetId())}
 	u.SendMsg(send)
 }
@@ -177,8 +175,7 @@ func (m *UserMapEvent) Online() {
 
 	// 打印事件点
 	for _, v := range m.events {
-		rmin, rmax := v.Range()
-		log.Trace("[地图事件] 玩家[%s %d] 事件点[%v] Range[%d %d]", m.owner.Name(), m.owner.Id(), v.Bin(), rmin, rmax)
+		log.Trace("[地图事件] 玩家[%s %d] 事件点[%v]", m.owner.Name(), m.owner.Id(), v.Bin())
 	}
 
 }
@@ -191,7 +188,7 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 	uevent := bin.Base.GetMapevent()
 	m.refreshtime = uevent.GetTmrefresh()
 	for _, v := range uevent.Events {
-		event := NewMapEvent(GetMapEventTypeByTid(v.GetTid()), v, 0, 0)
+		event := NewMapEvent(GetMapEventTypeByTid(v.GetTid()), v)
 		if event == nil {
 			log.Error("[地图事件] 玩家[%s %d] 加载了无效的地图事件[%d]", m.owner.Name(), m.owner.Id(), v.GetTid())
 			continue
@@ -202,7 +199,8 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 
 // 存盘
 func (m *UserMapEvent) PackBin(bin *msg.Serialize) {
-	bin.Base.Mapevent = m.PackEvent()		// 测试代码
+	//bin.Base.Mapevent = m.PackEvent()
+	bin.Base.Mapevent = nil		// 测试代码，暂不保存
 }
 
 func (m *UserMapEvent) PackEvent() *msg.UserMapEvent {
@@ -224,7 +222,7 @@ func (m *UserMapEvent) SendEvents() {
 func (m *UserMapEvent) CheckRefresh() {
 	tmstart := util.GetDayStart()
 	tmrefresh := tmstart + tbl.Game.MapEvent.TimeRefresh * util.HourSec
-	if tmrefresh > m.refreshtime {	// 测试代码
+	if tmrefresh > m.refreshtime {
 		m.Refresh(util.CURTIMEMS())
 	}
 }
@@ -243,8 +241,11 @@ func (m *UserMapEvent) Refresh(now int64) {
 	m.refreshactive = 0
 	eventuid := uint64(1)
 	//x, y := m.owner.GetUserPos()		// 经纬度
-	//y, x := float32(31.1515941841), float32(121.3384963265)	// 测试代码
-	y, x := float32(31.11325), float32(121.38206)
+	//if x == 0 || y == 0 {
+	//	log.Error("[地图事件] 玩家[%s %d]经纬度信息无效", m.owner.Name(), m.owner.Id())
+	//	return
+	//}
+	y, x := float32(31.11325), float32(121.38206)	// 测试代码
 	int_longitude, int_latitude := int32(x * 100000) , int32(y * 100000)	// 米
 
 	for _, v := range tbl.MapEventRefreshBase.TMapEventRefreshById {
@@ -262,7 +263,7 @@ func (m *UserMapEvent) Refresh(now int64) {
 			tid := uint32(giftweight[index].Uid)
 			lo, la := m.GetRandRangePos(int_longitude, int_latitude, v.RangeMin, v.RangeMax)
 			eventbin := &msg.MapEvent{Id:pb.Uint64(eventuid), Tid:pb.Uint32(tid), Longitude:pb.Int32(lo), Latitude:pb.Int32(la)}
-			m.events[eventuid] = NewMapEvent(GetMapEventTypeByTid(tid), eventbin, v.RangeMin, v.RangeMax)
+			m.events[eventuid] = NewMapEvent(GetMapEventTypeByTid(tid), eventbin)
 			eventuid++
 		}
 	}
@@ -310,7 +311,7 @@ func (m *UserMapEvent) GetRandRangePos(lo, la int32, rangemin, rangemax uint32) 
 }
 
 // 激活进入事件
-func (m *UserMapEvent) EnterEvents(uid uint64) {
+func (m *UserMapEvent) EnterEvent(uid uint64) {
 	event, find := m.events[uid]
 	if event == nil || find == false {
 		log.Error("玩家没有这个事件[%d]", uid)
@@ -318,8 +319,20 @@ func (m *UserMapEvent) EnterEvents(uid uint64) {
 	}
 
 	if event.Process(m.owner) {
-		event.Complete(m.owner)
+		event.OnEnd(m.owner)
 		delete(m.events, uid)
 	}
+}
+
+// 主动离开事件
+func (m *UserMapEvent) LeaveEvent(uid uint64) {
+	event, find := m.events[uid]
+	if event == nil || find == false {
+		log.Error("玩家没有这个事件[%d]", uid)
+		return
+	}
+
+	event.OnEnd(m.owner)
+	delete(m.events, uid)
 }
 
