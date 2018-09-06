@@ -1,10 +1,12 @@
 module game {
     export class SuperMartPanel extends PanelComponent {
         backButton: IconButton;
+        bagButton: IconButton;
         beltImg: eui.Image;
         shoppingCarGroup: eui.Group;
         bottomGroup: eui.Group;
         touchGroup: eui.Group;
+        curGoldLabel: eui.Label;
         gouzi: GameMissile;
 
         private _shopCarList: ShopCar[];
@@ -25,6 +27,8 @@ module game {
                 this.backButton.y = 80;
             }
             this.backButton.icon = "ui_json.gameBack";
+            this.bagButton.icon = "game2_json.basket";
+            
             this._initGouziX = this.gouzi.x;
             this._initGouziY = this.gouzi.y;
         }
@@ -32,9 +36,11 @@ module game {
         protected beforeShow() {
             this._touchEvent = [
                 { target: this.backButton, callBackFunc: this.backHandle },
+                { target: this.bagButton, callBackFunc: this.bagHandle },
             ];
             this.registerEvent();
             this.initShopCar();
+            this.updateGold();
  
             this.gouzi.init(this._initGouziX, this._initGouziY);
             egret.startTick(this.update, this);
@@ -48,10 +54,18 @@ module game {
 
         private registerEvent() {
             this.touchGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandle, this);
+
+            NotificationCenter.addObserver(this, this.updateGold, PlayerModel.PLAYERMODEL_UPDATE);
+            NotificationCenter.addObserver(this, this.OnGW2C_RetStartThrow, "msg.GW2C_RetStartThrow");
+            NotificationCenter.addObserver(this, this.OnGW2C_HitTarget, "msg.GW2C_HitTarget");
         }
 
         private removeEvent() {
             this.touchGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandle, this);
+
+            NotificationCenter.removeObserver(this, PlayerModel.PLAYERMODEL_UPDATE);
+            NotificationCenter.removeObserver(this, "msg.GW2C_RetStartThrow");
+            NotificationCenter.removeObserver(this, "msg.GW2C_HitTarget");
         }
 
         private backHandle() {
@@ -59,17 +73,13 @@ module game {
             SceneManager.changeScene(SceneType.hall);
         }
 
-        private touchHandle(event: egret.TouchEvent) {
-            this.touchGroup.touchEnabled = false;
-            this._curStage = {x: event.stageX, y: event.stageY};
-            this.updateGouzi();
+        private bagHandle() {
+
         }
 
-        private updateGouzi() {
-            let angle = Math.atan2(this._curStage.x - this.gouzi.x, this.gouzi.y - this._curStage.y);
-            let rotation = angle * 180 / Math.PI;
-            this.gouzi.setImageRotation(rotation);
-            this.gouzi.runAction(this._curStage);
+        private touchHandle(event: egret.TouchEvent) {
+            this._curStage = {x: event.stageX, y: event.stageY};
+            sendMessage("msg.C2GW_StartThrow", msg.C2GW_StartThrow.encode({}));
         }
 
         private initShopCar() {
@@ -94,14 +104,11 @@ module game {
         }
 
         private update(timeStamp: number) {
-            if (this.gouzi) {
-                this.gouzi.update();
-            }
-            
             switch(this.gouzi.getCurState()) {
                 case gameConfig.GouziType.start:
                     break;
                 case gameConfig.GouziType.back:
+                    this.findItems();
                     break;
                 case gameConfig.GouziType.shakeItem:
                     if (this._playShake == null) {
@@ -114,7 +121,7 @@ module game {
                             _currentIndex++;
                         }, this, 10);
                     }
-                    
+                    this.gouzi.playItemShake();
                     break;
                 case gameConfig.GouziType.over:
                     if (this._playShake) {
@@ -126,6 +133,26 @@ module game {
                     break;
             }
             return true;
+        }
+
+        private findItems() {
+
+        }
+
+        private updateGold() {
+            this.curGoldLabel.text = `金币：${getCouponStr(DataManager.playerModel.getGold())}`;
+        }
+
+        private OnGW2C_RetStartThrow(data: msg.GW2C_RetStartThrow) {
+            this.touchGroup.touchEnabled = false;
+            let angle = Math.atan2(this._curStage.x - this.gouzi.x, this.gouzi.y - this._curStage.y);
+            let rotation = angle * 180 / Math.PI;
+            this.gouzi.setImageRotation(rotation);
+            this.gouzi.runAction(this._curStage);
+        }
+
+        private OnGW2C_HitTarget(data: msg.GW2C_HitTarget) {
+            this.gouzi.findItemOver(data);
         }
 
         private static _instance: SuperMartPanel;

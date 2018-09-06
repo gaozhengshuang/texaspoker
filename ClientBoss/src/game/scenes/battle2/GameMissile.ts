@@ -44,12 +44,7 @@ module game {
                 if (this._curGetNum > 0) {
                     egret.Tween.get(this).to({x: this.initX, y: this.initY - 150}, 2000).call(() => {
                         this._curState = gameConfig.GouziType.shakeItem;
-
-                        egret.Tween.get(this).to({x: this.initX, y: this.initY - 100}, 1000).call(() => {
-                            egret.Tween.get(this).to({x: this.initX, y: this.initY}, 400).call(() => {
-                                this._curState = gameConfig.GouziType.over;
-                            });
-                        });
+                        egret.Tween.get(this).to({x: this.initX, y: this.initY - 100}, 1000);
                     });
                 } else {
                     egret.Tween.get(this).to({x: this.initX, y: this.initY}, 2000).call(() => {
@@ -59,8 +54,11 @@ module game {
             })
         }
 
-        public update() {
-
+        public findItemOver(data: msg.GW2C_HitTarget) {
+            egret.Tween.get(this).to({x: this.initX, y: this.initY}, 400).call(() => {
+                this._curState = gameConfig.GouziType.over;
+            });
+            this.removeAllItem();
         }
 
         public addItem(itemInfo: table.IItemBaseDataDefine) {
@@ -77,6 +75,10 @@ module game {
                 this["itemImg" + i].visible = false;
             }
             this._curGetNum = 0;
+        }
+
+        public playItemShake() {
+
         }
 
         public getGouzi() {
