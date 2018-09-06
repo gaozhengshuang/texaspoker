@@ -220,4 +220,19 @@ module effectUtils {
         }
     }
 
+    /**
+     * 播放动画方法
+     * isLoop     是否需要循环播放
+     */
+    export function playAnimation(target:egret.tween.TweenGroup, isLoop:boolean):void
+    {
+        if(isLoop)
+        {
+            for(var key in target.items)
+            {
+                target.items[key].props = {loop:true};
+            }
+        }
+        target.play();
+    }
 }

@@ -6,7 +6,7 @@ module game {
 		titlePanel: PageTitlePanel;
 		scroller: utils.VScrollerPanel;
 		private _dp: eui.ArrayCollection;
-		private _data: msg.MapEvent;
+		private _data: msg.GW2C_SendMapStoreInfo;
 
 		protected getSkinName() {
 			return MapEventsShopPanelSkin;
@@ -18,24 +18,30 @@ module game {
 			this.scroller.setViewPort();
 			this.scroller.scrollPolicyH = eui.ScrollPolicy.OFF;
 		}
-		public setData(data: msg.MapEvent) {
+		public setData(data: msg.GW2C_SendMapStoreInfo) {
 			this._data = data;
+			this._dp.source = data.products;
+			this.scroller.refreshData(this._dp);
 		}
 		protected beforeShow() {
-			this._dp.source = [];
-			this.scroller.refreshData(this._dp);
 		}
 		protected beforeRemove() {
 
 		}
 		public remove() {
-			//请求完成。。。 addobserver todo
-			NotificationCenter.addObserver(this, this.onEventFinish, "");
-			MapEventsManager.getInstance().reqFinishEvent(this._data.id);
+
+			NotificationCenter.addObserver(this, this.onEventFinish, MapEventsManager.OnMapEventsRemove);
+			MapEventsManager.getInstance().reqFinishEvent(this._data.uid);
 		}
-		private onEventFinish() {
-			NotificationCenter.removeObserver(this, "");
-			super.remove();
+		private onEventFinish(msgData: msg.GW2C_RemoveEvent) {
+			if (msgData.uid == this._data.uid) {
+				GameConfig.setEventsReply(false);
+				GameConfig.showDownBtnFun(true);
+				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+
+				NotificationCenter.removeObserver(this, MapEventsManager.OnMapEventsRemove);
+				super.remove();
+			}
 		}
 
 		private static _instance: MapEventsShopPanel = null;

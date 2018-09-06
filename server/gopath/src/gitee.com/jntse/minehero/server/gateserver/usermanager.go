@@ -350,7 +350,16 @@ func (this *UserManager) UpdateUserPos(uid uint64, x, y float32, province, city 
 		this.posmap[map_x][map_y] = make(map[uint64]*GateUser)
 		this.posmap[map_x][map_y][uid] = user
 	}
+	this.UpdateCanton(uid, province, city)
+	return true
+}
 
+// 更新行政区人数
+func (this *UserManager) UpdateCanton(uid uint64, province, city uint32) {
+	user := this.FindById(uid)
+	if user == nil {
+		return 
+	}
 	//更新行政区在线人数
 	p0,c0 := user.GetUserCanton()
 	if c0 != city {
@@ -388,7 +397,6 @@ func (this *UserManager) UpdateUserPos(uid uint64, x, y float32, province, city 
 			}
 		}
 	}
-	return true
 }
 
 //获取附近的玩家

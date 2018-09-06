@@ -6,6 +6,8 @@ module game {
         itemImg2: eui.Image;
         itemImg3: eui.Image;
 
+        shakeItemAnim: egret.tween.TweenGroup;
+
         missileGroup: eui.Group;
 
         private _curGetNum: number = 0;
@@ -58,6 +60,7 @@ module game {
             egret.Tween.get(this).to({x: this.initX, y: this.initY}, 400).call(() => {
                 this._curState = gameConfig.GouziType.over;
             });
+            this.shakeItemAnim.stop();
             this.removeAllItem();
         }
 
@@ -65,9 +68,9 @@ module game {
             this.itemInfo = itemInfo;
             if (this._curGetNum < this._maxGetNum) {
                 this._curGetNum += 1;
+                this["itemImg" + this._curGetNum].source = getItemIconSource(this.itemInfo.ImageId);
+                this["itemImg" + this._curGetNum].visible = true;
             }
-            this["itemImg" + this._curGetNum].getItemIconSource(this.itemInfo.ImageId);
-            this["itemImg" + this._curGetNum].visible = true;
         }
 
         public removeAllItem() {
@@ -78,7 +81,7 @@ module game {
         }
 
         public playItemShake() {
-
+            effectUtils.playAnimation(this.shakeItemAnim, true);
         }
 
         public getGouzi() {
