@@ -4,35 +4,35 @@
 	<e:Rect width="720" height="96" x="0" y="0" fillColor="0xffffff"/>
 	<e:Label text="个人信息" x="292" y="31" textColor="0x5f5f6c" fontFamily="Microsoft YaHei" size="34"/>
 	<e:Image id="returnBtn" source="hall_5_json.uf_fanhui_png" x="28" y="32"/>
-	<e:Group x="0" y="126">
+	<e:Group id="btGroup1" x="0" y="126">
 		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
 		<e:Rect width="720" height="1" x="0" fillColor="0xf5f5f5" bottom="0"/>
 		<e:Label text="头像" x="30" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" verticalCenter="0"/>
 		<e:Image id="nextBtn1" source="hall_5_json.xiaojiantou youbian_png" right="38" verticalCenter="0"/>
 		<game:UserHeadImgPanel id="headImg" width="68" height="68" right="64" verticalCenter="0" skinName="UserHeadSkin"/>
 	</e:Group>
-	<e:Group x="0" y="232">
+	<e:Group id="btGroup2" x="0" y="232">
 		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
 		<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" bottom="0"/>
 		<e:Label text="用户名" x="30" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" verticalCenter="0"/>
 		<e:Label id="name_txt" text="谢尔顿先生" fontFamily="Microsoft YaHei" size="30" textColor="0xbbbbd0" textAlign="right" verticalAlign="middle" anchorOffsetX="0" right="64" verticalCenter="0" width="289"/>
 		<e:Image id="nextBtn2" source="hall_5_json.xiaojiantou youbian_png" right="38" verticalCenter="0"/>
 	</e:Group>
-	<e:Group x="0" y="338">
+	<e:Group id="btGroup3" x="0" y="338">
 		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
 		<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" bottom="0"/>
 		<e:Label text="性别" x="30" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" verticalCenter="0"/>
 		<e:Image id="nextBtn3" source="hall_5_json.xiaojiantou youbian_png" right="38" verticalCenter="0"/>
 		<e:Label id="sex_txt" text="男" textColor="0xBBBBD0" fontFamily="Microsoft YaHei" size="30" textAlign="right" verticalAlign="middle" anchorOffsetX="0" width="289" verticalCenter="0" right="64"/>
 	</e:Group>
-	<e:Group x="0" y="444">
+	<e:Group id="btGroup4" x="0" y="444">
 		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
 		<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" bottom="0"/>
 		<e:Label text="年龄" x="30" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" verticalCenter="0"/>
 		<e:Image id="nextBtn4" source="hall_5_json.xiaojiantou youbian_png" right="38" verticalCenter="0"/>
 		<e:Label id="age_txt" text="23" textColor="0xBBBBD0" fontFamily="Microsoft YaHei" size="30" textAlign="right" verticalAlign="middle" anchorOffsetX="0" width="289" right="64" verticalCenter="0"/>
 	</e:Group>
-	<e:Group x="0" y="550">
+	<e:Group id="btGroup5" x="0" y="550">
 		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
 		<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" bottom="0"/>
 		<e:Label text="等级" x="30" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" verticalCenter="0"/>
@@ -42,14 +42,14 @@
 			<e:Image source="hall_5_json.hLevel1_png" x="33" y="0"/>
 		</e:Group>
 	</e:Group>
-	<e:Group x="0" y="686">
+	<e:Group id="btGroup6" x="0" y="686">
 		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
 		<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" bottom="0"/>
 		<e:Label text="地区" x="30" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" verticalCenter="0"/>
 		<e:Image id="nextBtn6" source="hall_5_json.xiaojiantou youbian_png" right="38" verticalCenter="0"/>
 		<e:Label id="point_txt" text="上海市闵行区" textColor="0xBBBBD0" fontFamily="Microsoft YaHei" size="30" textAlign="right" verticalAlign="middle" anchorOffsetX="0" width="289" right="64" verticalCenter="0"/>
 	</e:Group>
-	<e:Group x="0" y="822">
+	<e:Group id="btGroup7" x="0" y="822">
 		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
 		<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" bottom="0"/>
 		<e:Label text="个性签名" x="30" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" verticalCenter="0"/>

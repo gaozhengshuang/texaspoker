@@ -5,13 +5,13 @@ module game {
 		private view_bg: eui.Rect;
 
 		private returnBtn: eui.Image;
-		private nextBtn1: eui.Image;
-		private nextBtn2: eui.Image;
-		private nextBtn3: eui.Image;
-		private nextBtn4: eui.Image;
-		private nextBtn5: eui.Image;
-		private nextBtn6: eui.Image;
-		private nextBtn7: eui.Image;
+		private btGroup1: eui.Group;
+		private btGroup2: eui.Group;
+		private btGroup3: eui.Group;
+		private btGroup4: eui.Group;
+		private btGroup5: eui.Group;
+		private btGroup6: eui.Group;
+		private btGroup7: eui.Group;
 
 		private headImg: UserHeadImgPanel;
 		private levelGroup: eui.Group;
@@ -37,30 +37,31 @@ module game {
 		protected beforeShow() {
 			//this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
 			this.returnBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
-			this.nextBtn1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn5.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn6.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn7.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup4.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup5.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup6.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup7.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
 
 		}
 		protected beforeRemove() {
 			//this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
 			this.returnBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
-			this.nextBtn1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn2.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn3.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn4.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn5.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn6.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
-			this.nextBtn7.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup2.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup3.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup4.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup5.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup6.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
+			this.btGroup7.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
 		}
 		protected init() {
 			this.maskMC.visible=false;
 			for (let i: number = 1; i <= 7; i++) {
-				this["nextBtn" + i].name = "nextBtn" + i;
+				this["btGroup" + i].name = "btGroup" + i;
+				this["btGroup" + i].touchChildren=false;
 			}
 		}
 		private return_begin(eve: egret.TouchEvent) {
@@ -69,32 +70,32 @@ module game {
 		}
 		private next_begin(eve: egret.TouchEvent) {
 			switch (eve.target.name) {
-				case "nextBtn1":
+				case "btGroup1":
 						this.modifyHeadImg();
 					break;
 
-				case "nextBtn2":
+				case "btGroup2":
 						this.modifyNickname();
 					break;
 
-				case "nextBtn3":
+				case "btGroup3":
 						this.modifySex();
 					break;
 
-				case "nextBtn4":
+				case "btGroup4":
 
 					break;
 
-				case "nextBtn5":
+				case "btGroup5":
 					this.lookLevel();
 
 					break;
 
-				case "nextBtn6":
+				case "btGroup6":
 					this.modifyPoint();
 					break;
 
-				case "nextBtn7":
+				case "btGroup7":
 						this.modifySign();
 					break;
 
