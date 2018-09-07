@@ -11,6 +11,7 @@ type InthourAutoResetValue struct {
 	id			int32		//
 	hours		int32		// hours
 	value 		int64		// value
+	lastreset	int64		//
 	nextreset	int64		// tmp timestamp
 }
 
@@ -23,10 +24,15 @@ func NewInthourAutoResetValue(id, hours int32, value int64) *InthourAutoResetVal
 
 func (t *InthourAutoResetValue) Init() {
 	resetbaseline, now := util.GetDayStart() + int64(t.hours * util.HourSec), util.CURTIME()
+	if t.lastreset == 0 {	// firt init
+		t.value ,t.lastreset = 0, now
+	}else if now - t.lastreset > util.DaySec {	// over 24 hours
+		t.value ,t.lastreset = 0, now
+	}
+
 	if now < resetbaseline {
 		t.nextreset = resetbaseline
 	}else {
-		t.value = 0 
 		t.nextreset = resetbaseline + util.DaySec
 	}
 }
@@ -42,8 +48,10 @@ func (t *InthourAutoResetValue) PackBin() *msg.InthourAutoResetValue {
 }
 
 func (t *InthourAutoResetValue) Check() {
-	if util.CURTIME() > t.nextreset {
+	now := util.CURTIME()
+	if now > t.nextreset {
 		t.value = 0
+		t.lastreset = now
 		t.nextreset = t.nextreset + util.DaySec
 	}
 }

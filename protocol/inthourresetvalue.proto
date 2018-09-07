@@ -5,6 +5,7 @@ message InthourAutoResetValue {
     optional int32 id = 1;      // uuid
     optional int32 hours = 2;   // hours
     optional int64 value = 3;   // value
+    optional int64 lastreset = 4;   // timestamp
 }
 
 message InthourAutoResetManager {
