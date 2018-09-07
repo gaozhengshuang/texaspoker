@@ -170,7 +170,8 @@ module game {
             
             this._inited  = false;
             //显示主页个人信息界面
-			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true});
+            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true});
+            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: true });            
 			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: true });
 			//显示下方菜单栏
             GameConfig.showDownBtnFun(true); 

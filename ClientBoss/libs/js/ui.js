@@ -14,10 +14,16 @@ buyCarBtnW,buyCarBtnH,
 fujinSwitchBtnW,fujinSwitchBtnH,
 returnBtnW,returnBtnH,
 returnTradeBtnW,returnTradeBtnH,
+expeditionBtnW,expeditionBtnH,
+expeditionInfoW,expeditionInfoH,
+expeditionStateBtnW,expeditionStateBtnH,
+expeditionStateBgW,expeditionStateBgH,
+expeditionStateBtnBgW,expeditionStateBtnBgH,
+
 gameCloseW,gameCloseH;
 
 window.onload=function(){
-
+    
     document.getElementById("maskBg").style.pointerEvents='none';
     document.getElementById("maskBg").style.backgroundColor='transparent';
    
@@ -75,6 +81,46 @@ window.onload=function(){
     returnTradeBtnW=document.getElementById("returnTradeBtn").clientWidth;
     returnTradeBtnH=document.getElementById("returnTradeBtn").clientHeight;
     document.getElementById("returnTradeBtn").style.display='none';
+
+    expeditionBtnW=document.getElementById("expeditionBtn").clientWidth;
+    expeditionBtnH=document.getElementById("expeditionBtn").clientHeight;
+    document.getElementById("expeditionBtn").style.display='none';
+
+    //---地图上5个按钮 暂用
+    expeditionStateBtnW = document.getElementById("expeditionStateBtn_1").clientWidth;
+    expeditionStateBtnH = document.getElementById("expeditionStateBtn_1").clientHeight;
+
+    document.getElementById("expeditionStateBtn_1").style.display='none';
+    document.getElementById("expeditionStateBtn_2").style.display='none';
+    document.getElementById("expeditionStateBtn_3").style.display='none';
+    document.getElementById("expeditionStateBtn_4").style.display='none';
+    document.getElementById("expeditionStateBtn_5").style.display='none';
+    
+
+    expeditionStateBgW = document.getElementById("expeditionStateBg").clientWidth;
+    expeditionStateBgH = document.getElementById("expeditionStateBg").clientHeight;
+    document.getElementById("expeditionStateBg").style.display='none';
+    document.getElementById("expeditionStateInfoLabel").style.display='none';
+
+    
+
+    expeditionStateBtnBgW = document.getElementById("expeditionStateBtn_1_Bg").clientWidth;
+    expeditionStateBtnBgH = document.getElementById("expeditionStateBtn_1_Bg").clientHeight;
+
+    document.getElementById("expeditionStateBtn_1_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_2_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_3_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_4_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_5_Bg").style.display='none';
+
+    document.getElementById("expeditionStateBtn_1_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_2_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_3_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_4_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_5_Label").style.display='none';
+
+    
+
 }
 
 
@@ -172,13 +218,105 @@ function adaptive(scale){
     console.log("returnTradeBtnW", returnTradeBtnW, "returnTradeBtnH", returnTradeBtnH);
     document.getElementById("returnTradeBtn").style.width=returnTradeBtnW*scale+"px";
     document.getElementById("returnTradeBtn").style.height=returnTradeBtnH*scale+"px";
-        document.getElementById("gameCloseBtn").style.visibility='visible';
+    
+
+    document.getElementById("expeditionBtn").style.display='block';
+    document.getElementById("expeditionBtn").style.width=expeditionBtnW*scale+"px";
+    document.getElementById("expeditionBtn").style.height=expeditionBtnH*scale+"px";
+    //设置出征按钮默认图标
+    document.getElementById("expeditionBtn").setAttribute("class", "expedition_default");
+
+    //---地图上5个按钮 暂用----------------
+    document.getElementById("expeditionStateBtn_1").style.display='block';
+    document.getElementById("expeditionStateBtn_1").style.width = expeditionStateBtnW*scale+"px";
+    document.getElementById("expeditionStateBtn_1").style.height= expeditionStateBtnH*scale+"px";
+    
+    document.getElementById("expeditionStateBtn_2").style.display='block';
+    document.getElementById("expeditionStateBtn_2").style.width = expeditionStateBtnW*scale+"px";
+    document.getElementById("expeditionStateBtn_2").style.height= expeditionStateBtnH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_3").style.display='block';
+    document.getElementById("expeditionStateBtn_3").style.width = expeditionStateBtnW*scale+"px";
+    document.getElementById("expeditionStateBtn_3").style.height= expeditionStateBtnH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_4").style.display='block';
+    document.getElementById("expeditionStateBtn_4").style.width = expeditionStateBtnW*scale+"px";
+    document.getElementById("expeditionStateBtn_4").style.height= expeditionStateBtnH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_5").style.display='block';
+    document.getElementById("expeditionStateBtn_5").style.width = expeditionStateBtnW*scale+"px";
+    document.getElementById("expeditionStateBtn_5").style.height= expeditionStateBtnH*scale+"px";
+
+
+    document.getElementById("expeditionStateBtn_1_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_2_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_3_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_4_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_5_Bg").style.visibility='hidden';
+
+
+    document.getElementById("expeditionStateBg").style.visibility='hidden';
+    
+    document.getElementById("expeditionStateBg").style.display='block';
+    document.getElementById("expeditionStateBg").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBg").style.height= expeditionStateBgH*scale+"px";
+    
+    document.getElementById("expeditionStateInfoLabel").style.display='block';
+    document.getElementById("expeditionStateInfoLabel").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateInfoLabel").style.height= expeditionStateBgH*scale+"px";
+
+
+
+    document.getElementById("expeditionStateBtn_1_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_1_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_1_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_2_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_2_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_2_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_3_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_3_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_3_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+    
+
+    document.getElementById("expeditionStateBtn_4_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_4_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_4_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_5_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_5_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_5_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+
+    document.getElementById("expeditionStateBtn_1_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_1_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_1_Label").style.height= expeditionStateBgW*scale+"px";
+
+    document.getElementById("expeditionStateBtn_2_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_2_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_2_Label").style.height= expeditionStateBgW*scale+"px";
+    
+    document.getElementById("expeditionStateBtn_3_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_3_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_3_Label").style.height= expeditionStateBgW*scale+"px";
+    
+    document.getElementById("expeditionStateBtn_4_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_4_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_4_Label").style.height= expeditionStateBgW*scale+"px";
+
+    document.getElementById("expeditionStateBtn_5_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_5_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_5_Label").style.height= expeditionStateBgW*scale+"px";
+    //-------------------------------
+
 
     return downPanelH*scale;
 }
 
 var btnCallBackFun = null;
 var btnCallBackBody = null;
+var btnClicked_Expedition = false;
 function setBtnCallbackFun(fun,body){
     btnCallBackFun=fun;
     btnCallBackBody=body;
@@ -237,6 +375,49 @@ function setBtnCallbackFun(fun,body){
             btnCallBackFun('returnTrade',btnCallBackBody);
         }
     });
+
+    document.getElementById("expeditionBtn").addEventListener("mousedown", function (e) {
+        resetDownBtn();
+        console.log(e.type,e.target);
+        if (btnCallBackFun != null) {
+            if(!btnClicked_Expedition){
+                e.target.setAttribute("class", "expedition_activate");    
+            }
+            else{
+                e.target.setAttribute("class", "expedition_default");                    
+            }
+            btnClicked_Expedition = !btnClicked_Expedition;
+            btnCallBackFun('expedition',btnCallBackBody);
+        }
+    });
+
+    //--------------地图上出征车的5个按钮点击事件
+    document.getElementById("expeditionStateBtn_1").addEventListener("mousedown", function (e) {
+        if (btnCallBackFun != null) {
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[0].data.id);
+        }
+    });
+    document.getElementById("expeditionStateBtn_2").addEventListener("mousedown", function (e) {
+        if (btnCallBackFun != null) {
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[1].data.id);
+        }
+    });
+    document.getElementById("expeditionStateBtn_3").addEventListener("mousedown", function (e) {
+        if (btnCallBackFun != null) {
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[2].data.id);
+        }
+    });
+    document.getElementById("expeditionStateBtn_4").addEventListener("mousedown", function (e) {
+        if (btnCallBackFun != null) {
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[3].data.id);
+        }
+    });
+    document.getElementById("expeditionStateBtn_5").addEventListener("mousedown", function (e) {
+        if (btnCallBackFun != null) {
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[4].data.id);
+        }
+    });
+    //--------------
 }
 function setDownBtn(){
     document.getElementById("zichanBtn").addEventListener("mousedown", function (e) {
@@ -396,6 +577,111 @@ function showEgretDiv(isShow)
         document.getElementsByClassName("egret-player")[0].style.display = 'none';
     }
 
+}
+
+
+//----------------------------地图上五个按钮 暂用
+var expeditionStateBtnName = ["expeditionStateBtn_1","expeditionStateBtn_2","expeditionStateBtn_3","expeditionStateBtn_4","expeditionStateBtn_5"];
+var carState = {Ready:1,Parking:2,Exped:3,Arrival:4,Robbing:5,Back:6}
+var expediitonInfos = [];
+function showExpeditionState(isShow,datas,timeStrs) //datas:msg.ICarData[]
+{
+    console.log("--------------showExpeditionState----------");
+    if(!isShow){
+        expeditionStateBtnName.forEach(str=>{
+            let htmlElement = document.getElementById(str);
+            htmlElement.parentElement.style.visibility = 'hidden';
+            //htmlElement.style.visibility = 'hidden';
+        });
+    }
+    else{
+        if(datas){
+            expediitonInfos = [];
+            expeditionStateBtnName.forEach(
+                (str,index,array)=>{
+                    let htmlElement = document.getElementById(str);
+                    let parentlElement = htmlElement.parentElement;
+                    if(htmlElement && parentlElement){
+                        if(datas.length > index)
+                        {
+                            //时间状态文本
+                            let content = timeStrs[index];
+                            if(content){
+                                console.log(str);
+                                console.log("htmlElement--->",htmlElement);
+                                //parentlElement.innerText = content;
+                                document.getElementById(str+"_Label").innerText = content;
+                            }   
+                            let carData = datas[index];
+                            switch (carData.state) 
+                            {
+                                case carState.Exped:
+                                    htmlElement.setAttribute("class", "expeditionState_speedUp");
+                                break;
+                                case carState.Arrival:
+                                    htmlElement.setAttribute("class", "expeditionState_active");
+                                break;
+                                case carState.Robbing:
+                                    htmlElement.setAttribute("class", "expeditionState_retract");
+                                break;
+                            }
+                            //htmlElement.style.visibility = 'visible';
+                            parentlElement.style.visibility = 'visible';
+                            expediitonInfos.push({data:carData,content:content,element:str});
+                        }
+                        else
+                        {
+                            //htmlElement.style.visibility = 'hidden';
+                            parentlElement.style.visibility = 'hidden';
+                        }
+                    }
+
+            });
+        }
+    }
+}
+//更新一条车辆状态信息
+function updateOneExpeditionInfo(data,timeStr)
+{
+    for(let info of expediitonInfos)
+    {
+        if(info.data && info.data.id==data.id)
+        {
+            info.data = data;
+            info.content = timeStr
+            if(info.element){
+                let htmlElement = document.getElementById(info.element);
+                switch (info.data.state) 
+                {
+                    case carState.Exped:
+                        htmlElement.setAttribute("class", "expeditionState_speedUp");
+                    break;
+                    case carState.Arrival:
+                        htmlElement.setAttribute("class", "expeditionState_active");
+                    break;
+                    case carState.Robbing:
+                        htmlElement.setAttribute("class", "expeditionState_retract");
+                    break;
+                }
+                if(info.content)
+                { 
+                    document.getElementById(info.element+"_Label").innerText = info.content;
+                }
+            }
+            break;
+        }
+    }
+
+}
+
+function showExpeditionInfoTxt(isShow,content)
+{
+    let htmlElement = document.getElementById("expeditionStateInfoLabel");
+   // document.getElementById("expeditionStateBg").style.visibility = isShow && 'visible' || 'hidden';
+    //htmlElement.visibility = isShow && 'visible' || 'hidden';
+    htmlElement.parentElement.style.visibility = isShow && 'visible' || 'hidden';
+    if(!isShow) return;
+    htmlElement.innerText =  content;
 }
 
 

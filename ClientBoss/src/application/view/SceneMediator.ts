@@ -66,6 +66,7 @@ module game {
                         this.sceneMediatorName = MapContentMediator.NAME;
                         ApplicationFacade.getInstance().sendNotification(CommandName.SOCKET_REQ_UPDATED_POINT, { require: 1 });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: true });                        
                         break;
                     }
                 case CommandName.SCENE_MAIN_ASSETS:
@@ -87,6 +88,8 @@ module game {
                         if (data) { GameSceneAssetsView.getInstance().updateAssetsList(data.roomlist); }
 
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });
+                        
                         break;
                     }
                 case CommandName.SCENE_SWITCH_DISCOVERY:
@@ -108,6 +111,8 @@ module game {
                         GameDiscoveryView.getInstance().initGameList(smallGameProxy.getSmallGame());
                         //}
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });
+                        
                         break;
                     }
                 case CommandName.SCENE_SWITCH_TRADING:
@@ -120,6 +125,8 @@ module game {
                         openPanel(PanelType.TradePanel);
                         this._lastPanelView = TradePanel.getInstance();
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });
+                        
                     }
                     break;
                 case CommandName.SCENE_SWITCH_MINE:
@@ -141,6 +148,8 @@ module game {
                         GameMineView.getInstance().updateView(userProxy.getUserInfo());
                         //}
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });
+                        
                         break;
                     }
                 case CommandName.GOTO_HOME_PAGE:
@@ -152,6 +161,8 @@ module game {
                             GameConfig.updataMaskBgFun('#f5f5f5', 0);
                             GameConfig.setEventsReply(false);
                             ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: true });
+                            
                         }
                         break;
                     }

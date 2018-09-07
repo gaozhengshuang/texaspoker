@@ -40,6 +40,7 @@ module game {
             this.backButton.icon = "ui_json.gameBack";
             this.bagButton.icon = "game2_json.basket";
 
+            this.gouzi.y = gameConfig.curHeight() + 150;
             this._initGouziX = this.gouzi.x;
             this._initGouziY = this.gouzi.y;
         }
