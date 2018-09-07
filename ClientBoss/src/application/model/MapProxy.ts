@@ -46,7 +46,7 @@ module game {
 			setBuildCallBackFun(this.buildCallBackFun, null);
 			setPlayerCallBackFun(this.playersCallBackFun, null);
 			setActionCallBackFun(this.actionCallBackFun, null);
-			getPoSition(this.getPos, this.showErr);
+			getPoSition(this.getPos.bind(this), this.showErr);
 
 		}
 		/**
