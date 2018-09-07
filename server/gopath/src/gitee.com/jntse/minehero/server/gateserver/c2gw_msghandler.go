@@ -1694,6 +1694,7 @@ func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {
 	province := tmsg.GetProvince()
 	city := tmsg.GetCity()
 	user.SetUserPos(tmsg.GetLng(), tmsg.GetLat(), province, city)
+	user.events.CheckRefresh()
 }
 
 func on_C2GW_ReqSetUserSex (session network.IBaseNetSession, message interface{}) {

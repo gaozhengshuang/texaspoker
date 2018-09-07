@@ -289,7 +289,7 @@ func (this *UserManager) IntHourClockCallback(now int64) {
 
 	// 地图事件刷新
 	inthour := time.Unix(now, 0).Hour()
-	if tbl.Game.MapEvent.TimeRefresh == int64(inthour) || true {	// 测试代码
+	if tbl.Game.MapEvent.TimeRefresh == int64(inthour) {
 		Mapstore().Refresh()
 		for _, user := range this.accounts {
 			user.events.RefreshActive()
