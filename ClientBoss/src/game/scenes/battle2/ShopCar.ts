@@ -6,6 +6,7 @@ module game {
         itemNameLabel: eui.Label;
 
         private carPaddingY: number = 160;
+        private carPaddingX: number = 180;
         private itemInfo: table.IItemBaseDataDefine;
         private superMarkInfo: table.ITSupermarketDefine;
 
@@ -46,10 +47,10 @@ module game {
             let targetX = 0;
             if ((this.data.pos%2)==1) {
                 targetX = 0 - this.width;
-                this.x = gameConfig.curWidth() + (this.data.columnIdx * 180);
+                this.x = gameConfig.curWidth() + (this.data.columnIdx * this.carPaddingX);
             } else {
                 targetX = gameConfig.curWidth();
-                this.x = 0 - this.width - (this.data.columnIdx * 180);
+                this.x = 0 - this.width - (this.data.columnIdx * this.carPaddingX);
             }
             this.y = this.carPaddingY * this.data.pos;
 
