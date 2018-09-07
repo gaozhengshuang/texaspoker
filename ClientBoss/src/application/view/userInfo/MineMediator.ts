@@ -23,9 +23,14 @@ module game {
 		
 		private init():void
 		{
-			
+			this.sceneGroup.addEventListener(GameMineView.SETTING, this.setiingRequset, this);
 			
 		}
-		
+		private setiingRequset(eve: BasicEvent): void {
+			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_USER_INFO);
+		}
+		public get sceneGroup(): GameMineView {
+			return <GameMineView><any>(this.viewComponent);
+		}
 	}
 }

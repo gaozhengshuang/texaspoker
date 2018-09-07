@@ -409,7 +409,7 @@
 			"url": "assets/texpack/hall_5.json",
 			"type": "sheet",
 			"name": "hall_5_json",
-			"subkeys": "fujinLookAssesBtn1_png,juliJiantou1_png,sexFamaleIcon_png,sexMaleIcon_png,userAssesTopBg1_png,userCustomBg1_png,userHeadImg1_png,xingzuoIcon1_png"
+			"subkeys": "fujinLookAssesBtn1_png,hLevel0_png,hLevel1_png,hLevel2_png,hLevel3_png,hLevel4_png,hLevel5_png,hLevel6_png,hLevel7_png,hLevel8_png,hLevel9_png,hLevelLV_png,headImg1_png,headImg2_png,headImg3_png,headImg4_png,headImg5_png,headImg6_png,juliJiantou1_png,mapevent_houseshop_png,rLevel0_png,rLevel1_png,rLevel2_png,rLevel3_png,rLevel4_png,rLevel5_png,rLevel6_png,rLevel7_png,rLevel8_png,rLevel9_png,rLevelLV_png,sexFamaleIcon_png,sexMaleIcon_png,uf_dangqianweizhi_png,uf_duihao_png,uf_fanhui_png,uf_jiantou zhankai_png,uf_nan weixuanzhong_png,uf_nan xuanzhong_png,uf_nv weixuanzhong_png,uf_nv xuanzhong_png,uf_qingchu_png,uf_queren_png,uf_quxiao_png,userAssesTopBg1_png,userCustomBg1_png,userHeadImg1_png,weixuanzekuang_png,xiaojiantou youbian_png,xingzuo10_png,xingzuo11_png,xingzuo12_png,xingzuo1_png,xingzuo2_png,xingzuo3_png,xingzuo4_png,xingzuo5_png,xingzuo6_png,xingzuo7_png,xingzuo8_png,xingzuo9_png,xingzuoIcon1_png,xuanzhongkuang_png"
 		}
 	]
 }

@@ -76,6 +76,12 @@ module game {
         userid: number | Long;
         face: string;
         name: string;
+        sex:number;
+        age:number;
+        constellation:number;
+        sign:string;
+        baseprovince:number;
+        basecity:number;
         rank: number;
         level: number;
         gold: number;

@@ -79,7 +79,7 @@
 					<e:Image source="jiantou2_png" x="585" y="15" width="17" height="23"/>
 					<e:Label text="常见问题" x="115" y="8" anchorOffsetX="0" width="130" anchorOffsetY="0" height="40" size="30" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>
 				</e:Group>
-				<e:Group x="61" y="370" width="614" height="54">
+				<e:Group id="settingGroup" x="61" y="370" width="614" height="54">
 					<e:Image x="0" y="0" width="52" height="54" source="mineIcon5_png"/>
 					<e:Image source="jiantou2_png" x="585" y="15" width="17" height="23"/>
 					<e:Label text="设置" x="115" y="8" anchorOffsetX="0" width="130" anchorOffsetY="0" height="40" size="30" textAlign="left" rotation="359.84" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0x404A58" bold="true"/>

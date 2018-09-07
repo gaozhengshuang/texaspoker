@@ -1,12 +1,17 @@
 module game {
 	export class GameMineView extends PanelComponent {
 
+		public static SETTING: string = "setting";
+
 		private view_bg: eui.Rect;
 
 		private userInfoGroup: eui.Group;
 		private huobiGroup: eui.Group;
 		private assetsGroup: eui.Group;
 		private otherGroup: eui.Group;
+
+		private settingGroup: eui.Group;
+		
 
 		private bottomScroller: eui.Scroller;
 
@@ -30,6 +35,8 @@ module game {
 			super();
 			this._isShowEffect = false;
 			this._isShowDark = false;
+			this.settingGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.setting_begin, this);
+
 		}
 		protected getSkinName() {
 			return MineViewUI;
@@ -47,6 +54,9 @@ module game {
 
 			this.estate_txt.text = `${DataManager.playerModel.getHouse().length}`;
 			this.carlib_txt.text = `${DataManager.playerModel.getUserInfo().cardatas.length}`;
+		}
+		private setting_begin(){
+			this.dispatchEvent(new BasicEvent(GameMineView.SETTING));
 		}
 
 		private static _instance: GameMineView;

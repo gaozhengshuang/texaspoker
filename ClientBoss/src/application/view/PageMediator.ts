@@ -19,6 +19,7 @@ module game {
                 CommandName.REMOVE_SMALL_GAME_PAGE,
                 CommandName.PAGE_SWITCH_ROOM,
                 CommandName.PAGE_SWITCH_NEW_HOUSE,
+                CommandName.PAGE_SWITCH_USER_INFO,
                 CommandName.REMOVE_ROOM_PAGE,
             ];
         }
@@ -84,6 +85,7 @@ module game {
 
                         break;
                     }
+                    
                 case CommandName.PAGE_SWITCH_SMALL_GAME:
                     {
                         //GameConfig.updataMaskBgFun('#404A58', 1);
@@ -107,6 +109,25 @@ module game {
                             (this.pageView as GameSmallGameView).initGame(data.game);
                         }
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+
+                        break;
+                    }
+                    case CommandName.PAGE_SWITCH_USER_INFO:
+                    {
+                        //GameConfig.updataMaskBgFun('#404A58', 1);
+                        let userProxy: UserProxy = <UserProxy><any>this.facade().retrieveProxy(UserProxy.NAME);
+                        this.removeSceneView();
+                        GameConfig.showDownBtnFun(false);
+                        GameConfig.pageType = 5;
+                        GameConfig.setEventsReply(true);
+                        openPanel(PanelType.PageUserInfoView);
+                        this.pageView = PageUserInfoView.getInstance();
+                        ApplicationFacade.getInstance().registerMdt<PageUserInfoMediator>(PageUserInfoMediator.NAME, PageUserInfoMediator, this.pageView);
+                        PageUserInfoView.getInstance().updateView(userProxy.getUserInfo());
+
+                        this.pageMediatorName = PageUserInfoMediator.NAME;
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
 
                         break;
                     }

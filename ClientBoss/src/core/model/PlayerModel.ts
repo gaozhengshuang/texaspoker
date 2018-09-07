@@ -19,6 +19,12 @@ module game {
         public userInfo: IUserInfo = {
             face: "1",
             name: "",
+            sex: 1,
+            age: 0,
+            constellation: 0,
+            sign: "",
+            baseprovince: 0,
+            basecity: 0,
             userid: 0,
             rank: 0,
             gold: 0,
@@ -64,6 +70,12 @@ module game {
             this.userInfo.gold = data.base.gold;
             this.userInfo.diamond = data.base.diamond;
             this.userInfo.name = data.entity.name;
+            this.userInfo.sex= data.entity.sex;
+            this.userInfo.age= data.base.age;
+            this.userInfo.constellation= data.base.constellation;
+            this.userInfo.sign= data.base.sign;
+            this.userInfo.baseprovince= data.base.baseprovince;
+            this.userInfo.basecity= data.base.basecity;
             this.userInfo.userid = data.entity.id;
             this.userInfo.openid = data.base.wechat.openid;
             this.userInfo.addrlist = data.base.addrlist;

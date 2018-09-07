@@ -537,6 +537,9 @@ declare namespace msg {
 
         /** BT_GameInit gold */
         gold?: (number|null);
+
+        /** BT_GameInit freebullet */
+        freebullet?: (number|null);
     }
 
     /** Represents a BT_GameInit. */
@@ -562,6 +565,9 @@ declare namespace msg {
 
         /** BT_GameInit gold. */
         public gold: number;
+
+        /** BT_GameInit freebullet. */
+        public freebullet: number;
 
         /**
          * Creates a new BT_GameInit instance using the specified properties.
@@ -1317,6 +1323,9 @@ declare namespace msg {
 
         /** BT_RetLaunchBullet errmsg */
         errmsg?: (string|null);
+
+        /** BT_RetLaunchBullet freebullet */
+        freebullet?: (number|null);
     }
 
     /** Represents a BT_RetLaunchBullet. */
@@ -1336,6 +1345,9 @@ declare namespace msg {
 
         /** BT_RetLaunchBullet errmsg. */
         public errmsg: string;
+
+        /** BT_RetLaunchBullet freebullet. */
+        public freebullet: number;
 
         /**
          * Creates a new BT_RetLaunchBullet instance using the specified properties.

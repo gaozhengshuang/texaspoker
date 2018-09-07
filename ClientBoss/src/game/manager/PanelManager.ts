@@ -144,6 +144,9 @@ module game {
             case PanelType.NearbyAssesListPopupPanel:
                 panel = NearbyAssesListPopupPanel.getInstance();
                 break;
+            case PanelType.PageUserInfoView:
+                panel = PageUserInfoView.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -193,6 +196,7 @@ module game {
         MapzhuhuListPopupPanel,
         MapEventsShopPanel,
         NearbyPlayersPopupPanel,
-        NearbyAssesListPopupPanel
+        NearbyAssesListPopupPanel,
+        PageUserInfoView
     }
 }

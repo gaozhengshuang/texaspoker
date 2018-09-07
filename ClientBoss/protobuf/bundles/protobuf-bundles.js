@@ -1269,6 +1269,7 @@ $root.msg = (function() {
          * @property {number|null} [gamekind] BT_GameInit gamekind
          * @property {number|null} [diamond] BT_GameInit diamond
          * @property {number|null} [gold] BT_GameInit gold
+         * @property {number|null} [freebullet] BT_GameInit freebullet
          */
 
         /**
@@ -1327,6 +1328,14 @@ $root.msg = (function() {
         BT_GameInit.prototype.gold = 0;
 
         /**
+         * BT_GameInit freebullet.
+         * @member {number} freebullet
+         * @memberof msg.BT_GameInit
+         * @instance
+         */
+        BT_GameInit.prototype.freebullet = 0;
+
+        /**
          * Creates a new BT_GameInit instance using the specified properties.
          * @function create
          * @memberof msg.BT_GameInit
@@ -1360,6 +1369,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.diamond);
             if (message.gold != null && message.hasOwnProperty("gold"))
                 writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.gold);
+            if (message.freebullet != null && message.hasOwnProperty("freebullet"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.freebullet);
             return writer;
         };
 
@@ -1408,6 +1419,9 @@ $root.msg = (function() {
                     break;
                 case 5:
                     message.gold = reader.uint32();
+                    break;
+                case 6:
+                    message.freebullet = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1459,6 +1473,9 @@ $root.msg = (function() {
             if (message.gold != null && message.hasOwnProperty("gold"))
                 if (!$util.isInteger(message.gold))
                     return "gold: integer expected";
+            if (message.freebullet != null && message.hasOwnProperty("freebullet"))
+                if (!$util.isInteger(message.freebullet))
+                    return "freebullet: integer expected";
             return null;
         };
 
@@ -1498,6 +1515,8 @@ $root.msg = (function() {
                 message.diamond = object.diamond >>> 0;
             if (object.gold != null)
                 message.gold = object.gold >>> 0;
+            if (object.freebullet != null)
+                message.freebullet = object.freebullet >>> 0;
             return message;
         };
 
@@ -1528,6 +1547,7 @@ $root.msg = (function() {
                 object.gamekind = 0;
                 object.diamond = 0;
                 object.gold = 0;
+                object.freebullet = 0;
             }
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
@@ -1545,6 +1565,8 @@ $root.msg = (function() {
                 object.diamond = message.diamond;
             if (message.gold != null && message.hasOwnProperty("gold"))
                 object.gold = message.gold;
+            if (message.freebullet != null && message.hasOwnProperty("freebullet"))
+                object.freebullet = message.freebullet;
             return object;
         };
 
@@ -3188,6 +3210,7 @@ $root.msg = (function() {
          * @property {number|Long|null} [bulletid] BT_RetLaunchBullet bulletid
          * @property {number|Long|null} [energy] BT_RetLaunchBullet energy
          * @property {string|null} [errmsg] BT_RetLaunchBullet errmsg
+         * @property {number|null} [freebullet] BT_RetLaunchBullet freebullet
          */
 
         /**
@@ -3230,6 +3253,14 @@ $root.msg = (function() {
         BT_RetLaunchBullet.prototype.errmsg = "";
 
         /**
+         * BT_RetLaunchBullet freebullet.
+         * @member {number} freebullet
+         * @memberof msg.BT_RetLaunchBullet
+         * @instance
+         */
+        BT_RetLaunchBullet.prototype.freebullet = 0;
+
+        /**
          * Creates a new BT_RetLaunchBullet instance using the specified properties.
          * @function create
          * @memberof msg.BT_RetLaunchBullet
@@ -3259,6 +3290,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).int64(message.energy);
             if (message.errmsg != null && message.hasOwnProperty("errmsg"))
                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.errmsg);
+            if (message.freebullet != null && message.hasOwnProperty("freebullet"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.freebullet);
             return writer;
         };
 
@@ -3301,6 +3334,9 @@ $root.msg = (function() {
                     break;
                 case 3:
                     message.errmsg = reader.string();
+                    break;
+                case 4:
+                    message.freebullet = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3346,6 +3382,9 @@ $root.msg = (function() {
             if (message.errmsg != null && message.hasOwnProperty("errmsg"))
                 if (!$util.isString(message.errmsg))
                     return "errmsg: string expected";
+            if (message.freebullet != null && message.hasOwnProperty("freebullet"))
+                if (!$util.isInteger(message.freebullet))
+                    return "freebullet: integer expected";
             return null;
         };
 
@@ -3381,6 +3420,8 @@ $root.msg = (function() {
                     message.energy = new $util.LongBits(object.energy.low >>> 0, object.energy.high >>> 0).toNumber();
             if (object.errmsg != null)
                 message.errmsg = String(object.errmsg);
+            if (object.freebullet != null)
+                message.freebullet = object.freebullet >>> 0;
             return message;
         };
 
@@ -3409,6 +3450,7 @@ $root.msg = (function() {
                 } else
                     object.energy = options.longs === String ? "0" : 0;
                 object.errmsg = "";
+                object.freebullet = 0;
             }
             if (message.bulletid != null && message.hasOwnProperty("bulletid"))
                 if (typeof message.bulletid === "number")
@@ -3422,6 +3464,8 @@ $root.msg = (function() {
                     object.energy = options.longs === String ? $util.Long.prototype.toString.call(message.energy) : options.longs === Number ? new $util.LongBits(message.energy.low >>> 0, message.energy.high >>> 0).toNumber() : message.energy;
             if (message.errmsg != null && message.hasOwnProperty("errmsg"))
                 object.errmsg = message.errmsg;
+            if (message.freebullet != null && message.hasOwnProperty("freebullet"))
+                object.freebullet = message.freebullet;
             return object;
         };
 
