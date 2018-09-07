@@ -196,8 +196,11 @@ module game {
                 carBounds.height = car.itemImg.height/2;
 
                 if (bounds.intersects(carBounds)) {
+                    egret.Rectangle.release(carBounds);
+                    egret.Rectangle.release(bounds);
                     return car;
                 }
+                egret.Rectangle.release(carBounds);
             }
             return null;
         }
