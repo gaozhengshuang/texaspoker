@@ -540,6 +540,9 @@ declare namespace msg {
 
         /** BT_GameInit freebullet */
         freebullet?: (number|null);
+
+        /** BT_GameInit eventuid */
+        eventuid?: (number|Long|null);
     }
 
     /** Represents a BT_GameInit. */
@@ -568,6 +571,9 @@ declare namespace msg {
 
         /** BT_GameInit freebullet. */
         public freebullet: number;
+
+        /** BT_GameInit eventuid. */
+        public eventuid: (number|Long);
 
         /**
          * Creates a new BT_GameInit instance using the specified properties.
@@ -12010,6 +12016,204 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an InthourAutoResetValue. */
+    interface IInthourAutoResetValue {
+
+        /** InthourAutoResetValue id */
+        id?: (number|null);
+
+        /** InthourAutoResetValue hours */
+        hours?: (number|null);
+
+        /** InthourAutoResetValue value */
+        value?: (number|Long|null);
+
+        /** InthourAutoResetValue lastreset */
+        lastreset?: (number|Long|null);
+    }
+
+    /** Represents an InthourAutoResetValue. */
+    class InthourAutoResetValue implements IInthourAutoResetValue {
+
+        /**
+         * Constructs a new InthourAutoResetValue.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IInthourAutoResetValue);
+
+        /** InthourAutoResetValue id. */
+        public id: number;
+
+        /** InthourAutoResetValue hours. */
+        public hours: number;
+
+        /** InthourAutoResetValue value. */
+        public value: (number|Long);
+
+        /** InthourAutoResetValue lastreset. */
+        public lastreset: (number|Long);
+
+        /**
+         * Creates a new InthourAutoResetValue instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns InthourAutoResetValue instance
+         */
+        public static create(properties?: msg.IInthourAutoResetValue): msg.InthourAutoResetValue;
+
+        /**
+         * Encodes the specified InthourAutoResetValue message. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
+         * @param message InthourAutoResetValue message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IInthourAutoResetValue, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified InthourAutoResetValue message, length delimited. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
+         * @param message InthourAutoResetValue message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IInthourAutoResetValue, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an InthourAutoResetValue message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns InthourAutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.InthourAutoResetValue;
+
+        /**
+         * Decodes an InthourAutoResetValue message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns InthourAutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.InthourAutoResetValue;
+
+        /**
+         * Verifies an InthourAutoResetValue message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an InthourAutoResetValue message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns InthourAutoResetValue
+         */
+        public static fromObject(object: { [k: string]: any }): msg.InthourAutoResetValue;
+
+        /**
+         * Creates a plain object from an InthourAutoResetValue message. Also converts values to other types if specified.
+         * @param message InthourAutoResetValue
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.InthourAutoResetValue, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this InthourAutoResetValue to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an InthourAutoResetManager. */
+    interface IInthourAutoResetManager {
+
+        /** InthourAutoResetManager values */
+        values?: (msg.IInthourAutoResetValue[]|null);
+    }
+
+    /** Represents an InthourAutoResetManager. */
+    class InthourAutoResetManager implements IInthourAutoResetManager {
+
+        /**
+         * Constructs a new InthourAutoResetManager.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IInthourAutoResetManager);
+
+        /** InthourAutoResetManager values. */
+        public values: msg.IInthourAutoResetValue[];
+
+        /**
+         * Creates a new InthourAutoResetManager instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns InthourAutoResetManager instance
+         */
+        public static create(properties?: msg.IInthourAutoResetManager): msg.InthourAutoResetManager;
+
+        /**
+         * Encodes the specified InthourAutoResetManager message. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
+         * @param message InthourAutoResetManager message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IInthourAutoResetManager, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified InthourAutoResetManager message, length delimited. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
+         * @param message InthourAutoResetManager message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IInthourAutoResetManager, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an InthourAutoResetManager message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns InthourAutoResetManager
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.InthourAutoResetManager;
+
+        /**
+         * Decodes an InthourAutoResetManager message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns InthourAutoResetManager
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.InthourAutoResetManager;
+
+        /**
+         * Verifies an InthourAutoResetManager message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an InthourAutoResetManager message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns InthourAutoResetManager
+         */
+        public static fromObject(object: { [k: string]: any }): msg.InthourAutoResetManager;
+
+        /**
+         * Creates a plain object from an InthourAutoResetManager message. Also converts values to other types if specified.
+         * @param message InthourAutoResetManager
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.InthourAutoResetManager, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this InthourAutoResetManager to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_BuyItem. */
     interface IC2GW_BuyItem {
 
@@ -14517,6 +14721,9 @@ declare namespace msg {
 
         /** C2GW_ReqStartGame gamekind */
         gamekind?: (number|null);
+
+        /** C2GW_ReqStartGame eventuid */
+        eventuid?: (number|Long|null);
     }
 
     /** Represents a C2GW_ReqStartGame. */
@@ -14530,6 +14737,9 @@ declare namespace msg {
 
         /** C2GW_ReqStartGame gamekind. */
         public gamekind: number;
+
+        /** C2GW_ReqStartGame eventuid. */
+        public eventuid: (number|Long);
 
         /**
          * Creates a new C2GW_ReqStartGame instance using the specified properties.
@@ -30156,6 +30366,216 @@ declare namespace table {
 
         /**
          * Converts this TCarStarAttrDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCharacterLevelBase. */
+    interface ITCharacterLevelBase {
+
+        /** TCharacterLevelBase TCharacterLevel */
+        TCharacterLevel?: (table.ITCharacterLevelDefine[]|null);
+    }
+
+    /** Represents a TCharacterLevelBase. */
+    class TCharacterLevelBase implements ITCharacterLevelBase {
+
+        /**
+         * Constructs a new TCharacterLevelBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCharacterLevelBase);
+
+        /** TCharacterLevelBase TCharacterLevel. */
+        public TCharacterLevel: table.ITCharacterLevelDefine[];
+
+        /**
+         * Creates a new TCharacterLevelBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCharacterLevelBase instance
+         */
+        public static create(properties?: table.ITCharacterLevelBase): table.TCharacterLevelBase;
+
+        /**
+         * Encodes the specified TCharacterLevelBase message. Does not implicitly {@link table.TCharacterLevelBase.verify|verify} messages.
+         * @param message TCharacterLevelBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCharacterLevelBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCharacterLevelBase message, length delimited. Does not implicitly {@link table.TCharacterLevelBase.verify|verify} messages.
+         * @param message TCharacterLevelBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCharacterLevelBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCharacterLevelBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCharacterLevelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCharacterLevelBase;
+
+        /**
+         * Decodes a TCharacterLevelBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCharacterLevelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCharacterLevelBase;
+
+        /**
+         * Verifies a TCharacterLevelBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCharacterLevelBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCharacterLevelBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCharacterLevelBase;
+
+        /**
+         * Creates a plain object from a TCharacterLevelBase message. Also converts values to other types if specified.
+         * @param message TCharacterLevelBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCharacterLevelBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCharacterLevelBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TCharacterLevelDefine. */
+    interface ITCharacterLevelDefine {
+
+        /** TCharacterLevelDefine Id */
+        Id?: (number|null);
+
+        /** TCharacterLevelDefine ExpNums */
+        ExpNums?: (number|null);
+
+        /** TCharacterLevelDefine Reward */
+        Reward?: (number|null);
+
+        /** TCharacterLevelDefine StrengthValue */
+        StrengthValue?: (number|null);
+
+        /** TCharacterLevelDefine HousesOwned */
+        HousesOwned?: (number|null);
+
+        /** TCharacterLevelDefine Des */
+        Des?: (string|null);
+    }
+
+    /** Represents a TCharacterLevelDefine. */
+    class TCharacterLevelDefine implements ITCharacterLevelDefine {
+
+        /**
+         * Constructs a new TCharacterLevelDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITCharacterLevelDefine);
+
+        /** TCharacterLevelDefine Id. */
+        public Id: number;
+
+        /** TCharacterLevelDefine ExpNums. */
+        public ExpNums: number;
+
+        /** TCharacterLevelDefine Reward. */
+        public Reward: number;
+
+        /** TCharacterLevelDefine StrengthValue. */
+        public StrengthValue: number;
+
+        /** TCharacterLevelDefine HousesOwned. */
+        public HousesOwned: number;
+
+        /** TCharacterLevelDefine Des. */
+        public Des: string;
+
+        /**
+         * Creates a new TCharacterLevelDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TCharacterLevelDefine instance
+         */
+        public static create(properties?: table.ITCharacterLevelDefine): table.TCharacterLevelDefine;
+
+        /**
+         * Encodes the specified TCharacterLevelDefine message. Does not implicitly {@link table.TCharacterLevelDefine.verify|verify} messages.
+         * @param message TCharacterLevelDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITCharacterLevelDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TCharacterLevelDefine message, length delimited. Does not implicitly {@link table.TCharacterLevelDefine.verify|verify} messages.
+         * @param message TCharacterLevelDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITCharacterLevelDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TCharacterLevelDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TCharacterLevelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TCharacterLevelDefine;
+
+        /**
+         * Decodes a TCharacterLevelDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TCharacterLevelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TCharacterLevelDefine;
+
+        /**
+         * Verifies a TCharacterLevelDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TCharacterLevelDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TCharacterLevelDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TCharacterLevelDefine;
+
+        /**
+         * Creates a plain object from a TCharacterLevelDefine message. Also converts values to other types if specified.
+         * @param message TCharacterLevelDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TCharacterLevelDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TCharacterLevelDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

@@ -80,7 +80,7 @@ module game {
 		}
 
 		//pointStr = top + "@" + down + "@" + left + "@" + right;
-		public addBuilding(range:number=1000) {
+		public addBuilding(range: number = 1000) {
 			let RangePoint: string = getRectRangePoint([this.currentPoint.lat, this.currentPoint.lng], range);
 			if (RangePoint) {
 				let Range: string[] = RangePoint.split("@");
@@ -98,16 +98,16 @@ module game {
 				}
 			}
 		}
-		public addPlayers(range:number=1000) {
+		public addPlayers(range: number = 1000) {
 			sendMessage("msg.C2GW_ReqNearUsers", msg.C2GW_ReqNearUsers.encode
-			({lat:this.currentPoint.lat,lng:this.currentPoint.lng}));
+				({ lat: this.currentPoint.lat, lng: this.currentPoint.lng }));
 			NotificationCenter.once(this, this.OnGW2C_AckNearUsers, "msg.GW2C_AckNearUsers");
 
 		}
-		public OnGW2C_AckNearUsers(data: msg.GW2C_AckNearUsers){
+		public OnGW2C_AckNearUsers(data: msg.GW2C_AckNearUsers) {
 			emptyBuilding();
 			emptyPlayerIcon();
-			if(data && data.data){
+			if (data && data.data) {
 				this.addMapPlayers(data.data);
 			}
 		}
@@ -123,7 +123,7 @@ module game {
 					let nickname = data.name;
 					let imageUrl = 'resource/assets/mapHeadIcon.png';
 					let position = [data.lat, data.lng];
-					addPlayerIcon({ info:data,imageUrl: imageUrl, position: position });
+					addPlayerIcon({ info: data, imageUrl: imageUrl, position: position });
 				}
 			}
 		}
@@ -155,13 +155,15 @@ module game {
 			else {
 				init(realobj.lat, realobj.lng, 16);
 			}
-			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: realobj.lat, lng: realobj.lng });
-			NotificationCenter.postNotification(CommandName.GET_SELF_COORDINSTE, { lat: realobj.lat, lng: realobj.lng });
+			this.postCoordinsteComplete(realobj.lat, realobj.lng);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);
 		}
+		private postCoordinsteComplete(lat: number, lng: number) {
+			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: lat, lng: lng });
+			NotificationCenter.postNotification(CommandName.GET_SELF_COORDINSTE, { lat: lat, lng: lng });
+		}
 
-		
 		/**
 		 * 玩家重新定位坐标
 		 */
@@ -182,7 +184,7 @@ module game {
 		public showErr() {
 			console.log('初始化地图定位错误！！');
 			init(31.2303695678711, 121.473701477051, 15);
-			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: 31.2303695678711, lng: 121.473701477051 });
+			this.postCoordinsteComplete(31.2303695678711, 121.473701477051);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: 31.2303695678711, lng: 121.473701477051 });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);

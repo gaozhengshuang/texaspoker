@@ -18,6 +18,7 @@ module game {
         ball2Price: eui.Label;
         hitLabel: eui.Label;
         diamondNumTxt: eui.Label;
+        bulletLabel: eui.Label;
 
         topImage: eui.Image;
         noticeLabel: eui.Label;
@@ -111,6 +112,7 @@ module game {
         private _curStage;
         private _curBoomInfo;
         private _curGoldSharkScore;
+        private _initGold: number;
 
         protected init() {
             if (gameConfig.isIphoneX()) {
@@ -405,13 +407,14 @@ module game {
                 this.guideGroup.visible = true;
                 this.guideGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.finishGuide, this);
             }
-
+            this._initGold = DataManager.playerModel.getScore();
             //初始化消除事件进度条
             this.badbuffPanel.initView();
 
             //金币同步
             this.updateScore();
             this.updateDiamond();
+            this.updateBullet();
         }
 
         private finishGuide() {
@@ -472,22 +475,24 @@ module game {
             if (y >= this._paddle.y) return;
             this._nowSp = <number>data.energy;
 
-            if (DataManager.playerModel.getScore() < _paddlePrice) {
-                // if (DataManager.playerModel.getDiamond() > 0) {
-                //     let payStr = `金币不足，是否使用钻石更换金币\n当前拥有钻石：${DataManager.playerModel.getDiamond()}\n可兑换金币：${DataManager.playerModel.getDiamond()}`
-                //     showDialog(payStr, "兑换", function () {
-                //         sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
-                //     });
-                // } else {
-                //     showDialog("您的金币不足!", "充值", function () {
-                //         openPanel(PanelType.pay);
-                //     });
-                // }
-                showTips("金币不足,无法发射炮弹！", true);
-                return;
-            }
-            if (this._spCool == 0) { //无限火力不扣子弹
-                DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);
+            // if (DataManager.playerModel.getScore() < _paddlePrice) {  //todo屏蔽
+
+            // if (DataManager.playerModel.getDiamond() > 0) {
+            //     let payStr = `金币不足，是否使用钻石更换金币\n当前拥有钻石：${DataManager.playerModel.getDiamond()}\n可兑换金币：${DataManager.playerModel.getDiamond()}`
+            //     showDialog(payStr, "兑换", function () {
+            //         sendMessage("msg.C2GW_GoldExchange", msg.C2GW_GoldExchange.encode({userid: DataManager.playerModel.getUserId(), diamonds: DataManager.playerModel.getDiamond()}));
+            //     });
+            // } else {
+            //     showDialog("您的金币不足!", "充值", function () {
+            //         openPanel(PanelType.pay);
+            //     });
+            // }
+
+            //     showTips("金币不足,无法发射炮弹！", true);  //todo屏蔽
+            //     return;
+            // }
+            if (this._spCool == 0) { //无限火力不扣子弹 
+                // DataManager.playerModel.useScore(_paddlePrice/*, `购买弹球扣除${price}元宝!`*/);  //todo屏蔽
                 this.addSp();
             }
             //更新能量
@@ -509,10 +514,18 @@ module game {
             this.addBall(2, [newX, newY, vX, vY], data.bulletid);
             SoundManager.playEffect("fashe", 0.6);
             this._paddle.playShot();
+
+            BattleManager.getInstance().bulletCount = data.freebullet;
+            this.updateBullet();
         }
 
         private sendLaunchBulletMsg() {
-            sendMessage("msg.BT_ReqLaunchBullet", msg.BT_ReqLaunchBullet.encode({ userid: DataManager.playerModel.getUserId() }), false);
+            if (BattleManager.getInstance().bulletCount > 0) {
+                sendMessage("msg.BT_ReqLaunchBullet", msg.BT_ReqLaunchBullet.encode({ userid: DataManager.playerModel.getUserId() }), false);
+            }
+            else {
+                showTips("炮弹不足！");
+            }
         }
 
         private noticeFinish() {
@@ -554,7 +567,8 @@ module game {
         }
 
         private updateScore() {
-            let gold = DataManager.playerModel.getScore();
+            console.log("score：", DataManager.playerModel.getScore(), "this._initGold", this._initGold);
+            let gold = DataManager.playerModel.getScore() - this._initGold;
             this.scoreLabel.textFlow = [
                 { text: "金币", style: { bold: true } },
                 { text: `:${gold}`, style: { fontFamily: "DynoBold" } },
@@ -571,7 +585,9 @@ module game {
             //this.coin_money.coins = <number>DataManager.playerModel.getDiamond();
             this.diamondNumTxt.text = DataManager.playerModel.getDiamond().toString();
         }
-
+        private updateBullet() {
+            this.bulletLabel.text = "剩余炮弹：" + BattleManager.getInstance().bulletCount.toString();
+        }
         private ballHandle(ballButton: IconButton) {
             // let ballType: number = 0;
             // switch (ballButton) {
@@ -747,9 +763,11 @@ module game {
                 }
                 if (ball.y >= this._diedY/* || ball.x >= this._diedMaxX || ball.x <= this._diedMinX*/) {
                     this._ballPool.recycleObject(ball);
+                    this.tryOver();
                 }
                 if (ball.meetFire) {
                     this._ballPool.destroyObject(ball);
+                    this.tryOver();
                 }
             }
             for (let buff of this._buffList) {
@@ -1477,6 +1495,14 @@ module game {
                 });
             } else {
                 backFunc();
+            }
+        }
+        private tryOver() {
+            if (this._ballPool && this._ballPool.list && this._ballPool.list.length <= 0) {
+                if (BattleManager.getInstance().bulletCount <= 0) {
+                    let getGold = DataManager.playerModel.getScore() - this._initGold;
+                    showDialog("您在本次弹弹乐中总共获得\n金币：" + getGold, "退出", this.backHandle.bind(this), this.backHandle.bind(this));
+                }
             }
         }
 

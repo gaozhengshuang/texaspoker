@@ -1270,6 +1270,7 @@ $root.msg = (function() {
          * @property {number|null} [diamond] BT_GameInit diamond
          * @property {number|null} [gold] BT_GameInit gold
          * @property {number|null} [freebullet] BT_GameInit freebullet
+         * @property {number|Long|null} [eventuid] BT_GameInit eventuid
          */
 
         /**
@@ -1336,6 +1337,14 @@ $root.msg = (function() {
         BT_GameInit.prototype.freebullet = 0;
 
         /**
+         * BT_GameInit eventuid.
+         * @member {number|Long} eventuid
+         * @memberof msg.BT_GameInit
+         * @instance
+         */
+        BT_GameInit.prototype.eventuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
          * Creates a new BT_GameInit instance using the specified properties.
          * @function create
          * @memberof msg.BT_GameInit
@@ -1371,6 +1380,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.gold);
             if (message.freebullet != null && message.hasOwnProperty("freebullet"))
                 writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.freebullet);
+            if (message.eventuid != null && message.hasOwnProperty("eventuid"))
+                writer.uint32(/* id 7, wireType 0 =*/56).uint64(message.eventuid);
             return writer;
         };
 
@@ -1422,6 +1433,9 @@ $root.msg = (function() {
                     break;
                 case 6:
                     message.freebullet = reader.uint32();
+                    break;
+                case 7:
+                    message.eventuid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1476,6 +1490,9 @@ $root.msg = (function() {
             if (message.freebullet != null && message.hasOwnProperty("freebullet"))
                 if (!$util.isInteger(message.freebullet))
                     return "freebullet: integer expected";
+            if (message.eventuid != null && message.hasOwnProperty("eventuid"))
+                if (!$util.isInteger(message.eventuid) && !(message.eventuid && $util.isInteger(message.eventuid.low) && $util.isInteger(message.eventuid.high)))
+                    return "eventuid: integer|Long expected";
             return null;
         };
 
@@ -1517,6 +1534,15 @@ $root.msg = (function() {
                 message.gold = object.gold >>> 0;
             if (object.freebullet != null)
                 message.freebullet = object.freebullet >>> 0;
+            if (object.eventuid != null)
+                if ($util.Long)
+                    (message.eventuid = $util.Long.fromValue(object.eventuid)).unsigned = true;
+                else if (typeof object.eventuid === "string")
+                    message.eventuid = parseInt(object.eventuid, 10);
+                else if (typeof object.eventuid === "number")
+                    message.eventuid = object.eventuid;
+                else if (typeof object.eventuid === "object")
+                    message.eventuid = new $util.LongBits(object.eventuid.low >>> 0, object.eventuid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -1548,6 +1574,11 @@ $root.msg = (function() {
                 object.diamond = 0;
                 object.gold = 0;
                 object.freebullet = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.eventuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.eventuid = options.longs === String ? "0" : 0;
             }
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
@@ -1567,6 +1598,11 @@ $root.msg = (function() {
                 object.gold = message.gold;
             if (message.freebullet != null && message.hasOwnProperty("freebullet"))
                 object.freebullet = message.freebullet;
+            if (message.eventuid != null && message.hasOwnProperty("eventuid"))
+                if (typeof message.eventuid === "number")
+                    object.eventuid = options.longs === String ? String(message.eventuid) : message.eventuid;
+                else
+                    object.eventuid = options.longs === String ? $util.Long.prototype.toString.call(message.eventuid) : options.longs === Number ? new $util.LongBits(message.eventuid.low >>> 0, message.eventuid.high >>> 0).toNumber(true) : message.eventuid;
             return object;
         };
 
@@ -29317,6 +29353,496 @@ $root.msg = (function() {
         return GW2C_AckBuildingCanBuyInfo;
     })();
 
+    msg.InthourAutoResetValue = (function() {
+
+        /**
+         * Properties of an InthourAutoResetValue.
+         * @memberof msg
+         * @interface IInthourAutoResetValue
+         * @property {number|null} [id] InthourAutoResetValue id
+         * @property {number|null} [hours] InthourAutoResetValue hours
+         * @property {number|Long|null} [value] InthourAutoResetValue value
+         * @property {number|Long|null} [lastreset] InthourAutoResetValue lastreset
+         */
+
+        /**
+         * Constructs a new InthourAutoResetValue.
+         * @memberof msg
+         * @classdesc Represents an InthourAutoResetValue.
+         * @implements IInthourAutoResetValue
+         * @constructor
+         * @param {msg.IInthourAutoResetValue=} [properties] Properties to set
+         */
+        function InthourAutoResetValue(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * InthourAutoResetValue id.
+         * @member {number} id
+         * @memberof msg.InthourAutoResetValue
+         * @instance
+         */
+        InthourAutoResetValue.prototype.id = 0;
+
+        /**
+         * InthourAutoResetValue hours.
+         * @member {number} hours
+         * @memberof msg.InthourAutoResetValue
+         * @instance
+         */
+        InthourAutoResetValue.prototype.hours = 0;
+
+        /**
+         * InthourAutoResetValue value.
+         * @member {number|Long} value
+         * @memberof msg.InthourAutoResetValue
+         * @instance
+         */
+        InthourAutoResetValue.prototype.value = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * InthourAutoResetValue lastreset.
+         * @member {number|Long} lastreset
+         * @memberof msg.InthourAutoResetValue
+         * @instance
+         */
+        InthourAutoResetValue.prototype.lastreset = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new InthourAutoResetValue instance using the specified properties.
+         * @function create
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {msg.IInthourAutoResetValue=} [properties] Properties to set
+         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue instance
+         */
+        InthourAutoResetValue.create = function create(properties) {
+            return new InthourAutoResetValue(properties);
+        };
+
+        /**
+         * Encodes the specified InthourAutoResetValue message. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
+         * @function encode
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {msg.IInthourAutoResetValue} message InthourAutoResetValue message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InthourAutoResetValue.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.hours != null && message.hasOwnProperty("hours"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.hours);
+            if (message.value != null && message.hasOwnProperty("value"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.value);
+            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.lastreset);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified InthourAutoResetValue message, length delimited. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {msg.IInthourAutoResetValue} message InthourAutoResetValue message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InthourAutoResetValue.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an InthourAutoResetValue message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InthourAutoResetValue.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.InthourAutoResetValue();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                case 2:
+                    message.hours = reader.int32();
+                    break;
+                case 3:
+                    message.value = reader.int64();
+                    break;
+                case 4:
+                    message.lastreset = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an InthourAutoResetValue message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InthourAutoResetValue.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an InthourAutoResetValue message.
+         * @function verify
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        InthourAutoResetValue.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.hours != null && message.hasOwnProperty("hours"))
+                if (!$util.isInteger(message.hours))
+                    return "hours: integer expected";
+            if (message.value != null && message.hasOwnProperty("value"))
+                if (!$util.isInteger(message.value) && !(message.value && $util.isInteger(message.value.low) && $util.isInteger(message.value.high)))
+                    return "value: integer|Long expected";
+            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
+                if (!$util.isInteger(message.lastreset) && !(message.lastreset && $util.isInteger(message.lastreset.low) && $util.isInteger(message.lastreset.high)))
+                    return "lastreset: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates an InthourAutoResetValue message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue
+         */
+        InthourAutoResetValue.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.InthourAutoResetValue)
+                return object;
+            var message = new $root.msg.InthourAutoResetValue();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.hours != null)
+                message.hours = object.hours | 0;
+            if (object.value != null)
+                if ($util.Long)
+                    (message.value = $util.Long.fromValue(object.value)).unsigned = false;
+                else if (typeof object.value === "string")
+                    message.value = parseInt(object.value, 10);
+                else if (typeof object.value === "number")
+                    message.value = object.value;
+                else if (typeof object.value === "object")
+                    message.value = new $util.LongBits(object.value.low >>> 0, object.value.high >>> 0).toNumber();
+            if (object.lastreset != null)
+                if ($util.Long)
+                    (message.lastreset = $util.Long.fromValue(object.lastreset)).unsigned = false;
+                else if (typeof object.lastreset === "string")
+                    message.lastreset = parseInt(object.lastreset, 10);
+                else if (typeof object.lastreset === "number")
+                    message.lastreset = object.lastreset;
+                else if (typeof object.lastreset === "object")
+                    message.lastreset = new $util.LongBits(object.lastreset.low >>> 0, object.lastreset.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an InthourAutoResetValue message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.InthourAutoResetValue
+         * @static
+         * @param {msg.InthourAutoResetValue} message InthourAutoResetValue
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        InthourAutoResetValue.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.hours = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.value = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.value = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.lastreset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.lastreset = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.hours != null && message.hasOwnProperty("hours"))
+                object.hours = message.hours;
+            if (message.value != null && message.hasOwnProperty("value"))
+                if (typeof message.value === "number")
+                    object.value = options.longs === String ? String(message.value) : message.value;
+                else
+                    object.value = options.longs === String ? $util.Long.prototype.toString.call(message.value) : options.longs === Number ? new $util.LongBits(message.value.low >>> 0, message.value.high >>> 0).toNumber() : message.value;
+            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
+                if (typeof message.lastreset === "number")
+                    object.lastreset = options.longs === String ? String(message.lastreset) : message.lastreset;
+                else
+                    object.lastreset = options.longs === String ? $util.Long.prototype.toString.call(message.lastreset) : options.longs === Number ? new $util.LongBits(message.lastreset.low >>> 0, message.lastreset.high >>> 0).toNumber() : message.lastreset;
+            return object;
+        };
+
+        /**
+         * Converts this InthourAutoResetValue to JSON.
+         * @function toJSON
+         * @memberof msg.InthourAutoResetValue
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        InthourAutoResetValue.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return InthourAutoResetValue;
+    })();
+
+    msg.InthourAutoResetManager = (function() {
+
+        /**
+         * Properties of an InthourAutoResetManager.
+         * @memberof msg
+         * @interface IInthourAutoResetManager
+         * @property {Array.<msg.IInthourAutoResetValue>|null} [values] InthourAutoResetManager values
+         */
+
+        /**
+         * Constructs a new InthourAutoResetManager.
+         * @memberof msg
+         * @classdesc Represents an InthourAutoResetManager.
+         * @implements IInthourAutoResetManager
+         * @constructor
+         * @param {msg.IInthourAutoResetManager=} [properties] Properties to set
+         */
+        function InthourAutoResetManager(properties) {
+            this.values = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * InthourAutoResetManager values.
+         * @member {Array.<msg.IInthourAutoResetValue>} values
+         * @memberof msg.InthourAutoResetManager
+         * @instance
+         */
+        InthourAutoResetManager.prototype.values = $util.emptyArray;
+
+        /**
+         * Creates a new InthourAutoResetManager instance using the specified properties.
+         * @function create
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {msg.IInthourAutoResetManager=} [properties] Properties to set
+         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager instance
+         */
+        InthourAutoResetManager.create = function create(properties) {
+            return new InthourAutoResetManager(properties);
+        };
+
+        /**
+         * Encodes the specified InthourAutoResetManager message. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
+         * @function encode
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {msg.IInthourAutoResetManager} message InthourAutoResetManager message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InthourAutoResetManager.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.values != null && message.values.length)
+                for (var i = 0; i < message.values.length; ++i)
+                    $root.msg.InthourAutoResetValue.encode(message.values[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified InthourAutoResetManager message, length delimited. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {msg.IInthourAutoResetManager} message InthourAutoResetManager message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InthourAutoResetManager.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an InthourAutoResetManager message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InthourAutoResetManager.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.InthourAutoResetManager();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.values && message.values.length))
+                        message.values = [];
+                    message.values.push($root.msg.InthourAutoResetValue.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an InthourAutoResetManager message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InthourAutoResetManager.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an InthourAutoResetManager message.
+         * @function verify
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        InthourAutoResetManager.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.values != null && message.hasOwnProperty("values")) {
+                if (!Array.isArray(message.values))
+                    return "values: array expected";
+                for (var i = 0; i < message.values.length; ++i) {
+                    var error = $root.msg.InthourAutoResetValue.verify(message.values[i]);
+                    if (error)
+                        return "values." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an InthourAutoResetManager message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager
+         */
+        InthourAutoResetManager.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.InthourAutoResetManager)
+                return object;
+            var message = new $root.msg.InthourAutoResetManager();
+            if (object.values) {
+                if (!Array.isArray(object.values))
+                    throw TypeError(".msg.InthourAutoResetManager.values: array expected");
+                message.values = [];
+                for (var i = 0; i < object.values.length; ++i) {
+                    if (typeof object.values[i] !== "object")
+                        throw TypeError(".msg.InthourAutoResetManager.values: object expected");
+                    message.values[i] = $root.msg.InthourAutoResetValue.fromObject(object.values[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an InthourAutoResetManager message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.InthourAutoResetManager
+         * @static
+         * @param {msg.InthourAutoResetManager} message InthourAutoResetManager
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        InthourAutoResetManager.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.values = [];
+            if (message.values && message.values.length) {
+                object.values = [];
+                for (var j = 0; j < message.values.length; ++j)
+                    object.values[j] = $root.msg.InthourAutoResetValue.toObject(message.values[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this InthourAutoResetManager to JSON.
+         * @function toJSON
+         * @memberof msg.InthourAutoResetManager
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        InthourAutoResetManager.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return InthourAutoResetManager;
+    })();
+
     msg.C2GW_BuyItem = (function() {
 
         /**
@@ -34989,6 +35515,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IC2GW_ReqStartGame
          * @property {number|null} [gamekind] C2GW_ReqStartGame gamekind
+         * @property {number|Long|null} [eventuid] C2GW_ReqStartGame eventuid
          */
 
         /**
@@ -35013,6 +35540,14 @@ $root.msg = (function() {
          * @instance
          */
         C2GW_ReqStartGame.prototype.gamekind = 0;
+
+        /**
+         * C2GW_ReqStartGame eventuid.
+         * @member {number|Long} eventuid
+         * @memberof msg.C2GW_ReqStartGame
+         * @instance
+         */
+        C2GW_ReqStartGame.prototype.eventuid = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
         /**
          * Creates a new C2GW_ReqStartGame instance using the specified properties.
@@ -35040,6 +35575,8 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.gamekind);
+            if (message.eventuid != null && message.hasOwnProperty("eventuid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.eventuid);
             return writer;
         };
 
@@ -35076,6 +35613,9 @@ $root.msg = (function() {
                 switch (tag >>> 3) {
                 case 1:
                     message.gamekind = reader.int32();
+                    break;
+                case 2:
+                    message.eventuid = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -35115,6 +35655,9 @@ $root.msg = (function() {
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 if (!$util.isInteger(message.gamekind))
                     return "gamekind: integer expected";
+            if (message.eventuid != null && message.hasOwnProperty("eventuid"))
+                if (!$util.isInteger(message.eventuid) && !(message.eventuid && $util.isInteger(message.eventuid.low) && $util.isInteger(message.eventuid.high)))
+                    return "eventuid: integer|Long expected";
             return null;
         };
 
@@ -35132,6 +35675,15 @@ $root.msg = (function() {
             var message = new $root.msg.C2GW_ReqStartGame();
             if (object.gamekind != null)
                 message.gamekind = object.gamekind | 0;
+            if (object.eventuid != null)
+                if ($util.Long)
+                    (message.eventuid = $util.Long.fromValue(object.eventuid)).unsigned = true;
+                else if (typeof object.eventuid === "string")
+                    message.eventuid = parseInt(object.eventuid, 10);
+                else if (typeof object.eventuid === "number")
+                    message.eventuid = object.eventuid;
+                else if (typeof object.eventuid === "object")
+                    message.eventuid = new $util.LongBits(object.eventuid.low >>> 0, object.eventuid.high >>> 0).toNumber(true);
             return message;
         };
 
@@ -35148,10 +35700,21 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults)
+            if (options.defaults) {
                 object.gamekind = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.eventuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.eventuid = options.longs === String ? "0" : 0;
+            }
             if (message.gamekind != null && message.hasOwnProperty("gamekind"))
                 object.gamekind = message.gamekind;
+            if (message.eventuid != null && message.hasOwnProperty("eventuid"))
+                if (typeof message.eventuid === "number")
+                    object.eventuid = options.longs === String ? String(message.eventuid) : message.eventuid;
+                else
+                    object.eventuid = options.longs === String ? $util.Long.prototype.toString.call(message.eventuid) : options.longs === Number ? new $util.LongBits(message.eventuid.low >>> 0, message.eventuid.high >>> 0).toNumber(true) : message.eventuid;
             return object;
         };
 
@@ -71449,6 +72012,512 @@ $root.table = (function() {
         };
 
         return TCarStarAttrDefine;
+    })();
+
+    table.TCharacterLevelBase = (function() {
+
+        /**
+         * Properties of a TCharacterLevelBase.
+         * @memberof table
+         * @interface ITCharacterLevelBase
+         * @property {Array.<table.ITCharacterLevelDefine>|null} [TCharacterLevel] TCharacterLevelBase TCharacterLevel
+         */
+
+        /**
+         * Constructs a new TCharacterLevelBase.
+         * @memberof table
+         * @classdesc Represents a TCharacterLevelBase.
+         * @implements ITCharacterLevelBase
+         * @constructor
+         * @param {table.ITCharacterLevelBase=} [properties] Properties to set
+         */
+        function TCharacterLevelBase(properties) {
+            this.TCharacterLevel = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCharacterLevelBase TCharacterLevel.
+         * @member {Array.<table.ITCharacterLevelDefine>} TCharacterLevel
+         * @memberof table.TCharacterLevelBase
+         * @instance
+         */
+        TCharacterLevelBase.prototype.TCharacterLevel = $util.emptyArray;
+
+        /**
+         * Creates a new TCharacterLevelBase instance using the specified properties.
+         * @function create
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {table.ITCharacterLevelBase=} [properties] Properties to set
+         * @returns {table.TCharacterLevelBase} TCharacterLevelBase instance
+         */
+        TCharacterLevelBase.create = function create(properties) {
+            return new TCharacterLevelBase(properties);
+        };
+
+        /**
+         * Encodes the specified TCharacterLevelBase message. Does not implicitly {@link table.TCharacterLevelBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {table.ITCharacterLevelBase} message TCharacterLevelBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCharacterLevelBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TCharacterLevel != null && message.TCharacterLevel.length)
+                for (var i = 0; i < message.TCharacterLevel.length; ++i)
+                    $root.table.TCharacterLevelDefine.encode(message.TCharacterLevel[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCharacterLevelBase message, length delimited. Does not implicitly {@link table.TCharacterLevelBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {table.ITCharacterLevelBase} message TCharacterLevelBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCharacterLevelBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCharacterLevelBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCharacterLevelBase} TCharacterLevelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCharacterLevelBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCharacterLevelBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TCharacterLevel && message.TCharacterLevel.length))
+                        message.TCharacterLevel = [];
+                    message.TCharacterLevel.push($root.table.TCharacterLevelDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCharacterLevelBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCharacterLevelBase} TCharacterLevelBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCharacterLevelBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCharacterLevelBase message.
+         * @function verify
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCharacterLevelBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TCharacterLevel != null && message.hasOwnProperty("TCharacterLevel")) {
+                if (!Array.isArray(message.TCharacterLevel))
+                    return "TCharacterLevel: array expected";
+                for (var i = 0; i < message.TCharacterLevel.length; ++i) {
+                    var error = $root.table.TCharacterLevelDefine.verify(message.TCharacterLevel[i]);
+                    if (error)
+                        return "TCharacterLevel." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TCharacterLevelBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCharacterLevelBase} TCharacterLevelBase
+         */
+        TCharacterLevelBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCharacterLevelBase)
+                return object;
+            var message = new $root.table.TCharacterLevelBase();
+            if (object.TCharacterLevel) {
+                if (!Array.isArray(object.TCharacterLevel))
+                    throw TypeError(".table.TCharacterLevelBase.TCharacterLevel: array expected");
+                message.TCharacterLevel = [];
+                for (var i = 0; i < object.TCharacterLevel.length; ++i) {
+                    if (typeof object.TCharacterLevel[i] !== "object")
+                        throw TypeError(".table.TCharacterLevelBase.TCharacterLevel: object expected");
+                    message.TCharacterLevel[i] = $root.table.TCharacterLevelDefine.fromObject(object.TCharacterLevel[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCharacterLevelBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCharacterLevelBase
+         * @static
+         * @param {table.TCharacterLevelBase} message TCharacterLevelBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCharacterLevelBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TCharacterLevel = [];
+            if (message.TCharacterLevel && message.TCharacterLevel.length) {
+                object.TCharacterLevel = [];
+                for (var j = 0; j < message.TCharacterLevel.length; ++j)
+                    object.TCharacterLevel[j] = $root.table.TCharacterLevelDefine.toObject(message.TCharacterLevel[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TCharacterLevelBase to JSON.
+         * @function toJSON
+         * @memberof table.TCharacterLevelBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCharacterLevelBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCharacterLevelBase;
+    })();
+
+    table.TCharacterLevelDefine = (function() {
+
+        /**
+         * Properties of a TCharacterLevelDefine.
+         * @memberof table
+         * @interface ITCharacterLevelDefine
+         * @property {number|null} [Id] TCharacterLevelDefine Id
+         * @property {number|null} [ExpNums] TCharacterLevelDefine ExpNums
+         * @property {number|null} [Reward] TCharacterLevelDefine Reward
+         * @property {number|null} [StrengthValue] TCharacterLevelDefine StrengthValue
+         * @property {number|null} [HousesOwned] TCharacterLevelDefine HousesOwned
+         * @property {string|null} [Des] TCharacterLevelDefine Des
+         */
+
+        /**
+         * Constructs a new TCharacterLevelDefine.
+         * @memberof table
+         * @classdesc Represents a TCharacterLevelDefine.
+         * @implements ITCharacterLevelDefine
+         * @constructor
+         * @param {table.ITCharacterLevelDefine=} [properties] Properties to set
+         */
+        function TCharacterLevelDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TCharacterLevelDefine Id.
+         * @member {number} Id
+         * @memberof table.TCharacterLevelDefine
+         * @instance
+         */
+        TCharacterLevelDefine.prototype.Id = 0;
+
+        /**
+         * TCharacterLevelDefine ExpNums.
+         * @member {number} ExpNums
+         * @memberof table.TCharacterLevelDefine
+         * @instance
+         */
+        TCharacterLevelDefine.prototype.ExpNums = 0;
+
+        /**
+         * TCharacterLevelDefine Reward.
+         * @member {number} Reward
+         * @memberof table.TCharacterLevelDefine
+         * @instance
+         */
+        TCharacterLevelDefine.prototype.Reward = 0;
+
+        /**
+         * TCharacterLevelDefine StrengthValue.
+         * @member {number} StrengthValue
+         * @memberof table.TCharacterLevelDefine
+         * @instance
+         */
+        TCharacterLevelDefine.prototype.StrengthValue = 0;
+
+        /**
+         * TCharacterLevelDefine HousesOwned.
+         * @member {number} HousesOwned
+         * @memberof table.TCharacterLevelDefine
+         * @instance
+         */
+        TCharacterLevelDefine.prototype.HousesOwned = 0;
+
+        /**
+         * TCharacterLevelDefine Des.
+         * @member {string} Des
+         * @memberof table.TCharacterLevelDefine
+         * @instance
+         */
+        TCharacterLevelDefine.prototype.Des = "";
+
+        /**
+         * Creates a new TCharacterLevelDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {table.ITCharacterLevelDefine=} [properties] Properties to set
+         * @returns {table.TCharacterLevelDefine} TCharacterLevelDefine instance
+         */
+        TCharacterLevelDefine.create = function create(properties) {
+            return new TCharacterLevelDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TCharacterLevelDefine message. Does not implicitly {@link table.TCharacterLevelDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {table.ITCharacterLevelDefine} message TCharacterLevelDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCharacterLevelDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.Id);
+            if (message.ExpNums != null && message.hasOwnProperty("ExpNums"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.ExpNums);
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Reward);
+            if (message.StrengthValue != null && message.hasOwnProperty("StrengthValue"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.StrengthValue);
+            if (message.HousesOwned != null && message.hasOwnProperty("HousesOwned"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.HousesOwned);
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Des);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TCharacterLevelDefine message, length delimited. Does not implicitly {@link table.TCharacterLevelDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {table.ITCharacterLevelDefine} message TCharacterLevelDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TCharacterLevelDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TCharacterLevelDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TCharacterLevelDefine} TCharacterLevelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCharacterLevelDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TCharacterLevelDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.uint32();
+                    break;
+                case 2:
+                    message.ExpNums = reader.int32();
+                    break;
+                case 3:
+                    message.Reward = reader.int32();
+                    break;
+                case 4:
+                    message.StrengthValue = reader.int32();
+                    break;
+                case 5:
+                    message.HousesOwned = reader.int32();
+                    break;
+                case 6:
+                    message.Des = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TCharacterLevelDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TCharacterLevelDefine} TCharacterLevelDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TCharacterLevelDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TCharacterLevelDefine message.
+         * @function verify
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TCharacterLevelDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.ExpNums != null && message.hasOwnProperty("ExpNums"))
+                if (!$util.isInteger(message.ExpNums))
+                    return "ExpNums: integer expected";
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                if (!$util.isInteger(message.Reward))
+                    return "Reward: integer expected";
+            if (message.StrengthValue != null && message.hasOwnProperty("StrengthValue"))
+                if (!$util.isInteger(message.StrengthValue))
+                    return "StrengthValue: integer expected";
+            if (message.HousesOwned != null && message.hasOwnProperty("HousesOwned"))
+                if (!$util.isInteger(message.HousesOwned))
+                    return "HousesOwned: integer expected";
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                if (!$util.isString(message.Des))
+                    return "Des: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TCharacterLevelDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TCharacterLevelDefine} TCharacterLevelDefine
+         */
+        TCharacterLevelDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TCharacterLevelDefine)
+                return object;
+            var message = new $root.table.TCharacterLevelDefine();
+            if (object.Id != null)
+                message.Id = object.Id >>> 0;
+            if (object.ExpNums != null)
+                message.ExpNums = object.ExpNums | 0;
+            if (object.Reward != null)
+                message.Reward = object.Reward | 0;
+            if (object.StrengthValue != null)
+                message.StrengthValue = object.StrengthValue | 0;
+            if (object.HousesOwned != null)
+                message.HousesOwned = object.HousesOwned | 0;
+            if (object.Des != null)
+                message.Des = String(object.Des);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TCharacterLevelDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TCharacterLevelDefine
+         * @static
+         * @param {table.TCharacterLevelDefine} message TCharacterLevelDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TCharacterLevelDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.ExpNums = 0;
+                object.Reward = 0;
+                object.StrengthValue = 0;
+                object.HousesOwned = 0;
+                object.Des = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.ExpNums != null && message.hasOwnProperty("ExpNums"))
+                object.ExpNums = message.ExpNums;
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                object.Reward = message.Reward;
+            if (message.StrengthValue != null && message.hasOwnProperty("StrengthValue"))
+                object.StrengthValue = message.StrengthValue;
+            if (message.HousesOwned != null && message.hasOwnProperty("HousesOwned"))
+                object.HousesOwned = message.HousesOwned;
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                object.Des = message.Des;
+            return object;
+        };
+
+        /**
+         * Converts this TCharacterLevelDefine to JSON.
+         * @function toJSON
+         * @memberof table.TCharacterLevelDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TCharacterLevelDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TCharacterLevelDefine;
     })();
 
     table.TCitysBase = (function() {

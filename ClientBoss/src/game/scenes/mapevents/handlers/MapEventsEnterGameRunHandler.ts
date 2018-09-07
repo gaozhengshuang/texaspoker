@@ -7,12 +7,10 @@ module game {
 			switch (msgData.tid) {
 				case msg.MapEventId.GameTanTanLe: //弹弹乐比较特殊需要发协议
 					NotificationCenter.addObserver(this, this.BT_GameRoomDestroy, "msg.BT_GameRoomDestroy");
-					sendMessage("msg.C2GW_ReqStartGame", msg.C2GW_ReqStartGame.encode({
-						gamekind: 0,
-					}));
+					BattleManager.getInstance().reqStartGame(msgData.id);
 					break;
 				case msg.MapEventId.GameSuperMarket:
-					NotificationCenter.addObserver(this, this.onGameSuperMarketClose, SuperMartPanel.OnClose); 
+					NotificationCenter.addObserver(this, this.onGameSuperMarketClose, SuperMartPanel.OnClose);
 					this.runParam(params);
 					break;
 				case msg.MapEventId.GameFanFanLe:

@@ -20,9 +20,7 @@ module game {
 				case SceneType.battle:
 					if (BattleManager.getInstance().isRetStartGame) {
 						BattleManager.getInstance().isRetStartGame = false;
-						sendMessage("msg.C2GW_ReqStartGame", msg.C2GW_ReqStartGame.encode({
-							gamekind: 0,
-						}));
+						BattleManager.getInstance().reqStartGame();
 					}
 
 					egret.setTimeout(() => {

@@ -1,7 +1,8 @@
 module game {
     export class BattleManager {
         isRetStartGame: boolean = true;
-        roomId: number|Long = 0;
+        roomId: number | Long = 0;
+        bulletCount: number;
 
         public init() {
             //添加系统消息监听
@@ -24,6 +25,7 @@ module game {
         }
 
         private OnBT_GameInit(data: msg.BT_GameInit) {
+            this.bulletCount = data.freebullet;
             DataManager.playerModel.setScore(data.gold);
             DataManager.playerModel.setDiamond(data.diamond)
         }
@@ -39,6 +41,12 @@ module game {
             return this.roomId;
         }
 
+        public reqStartGame(eventUid: number|Long   = 0, gamekind:number = 0) {
+            let data = new msg.C2GW_ReqStartGame();
+            data.eventuid = eventUid
+            data.gamekind = gamekind
+            sendMessage("msg.C2GW_ReqStartGame", msg.C2GW_ReqStartGame.encode(data));
+        }
         private static _instance: BattleManager;
 
         public static getInstance(): BattleManager {
