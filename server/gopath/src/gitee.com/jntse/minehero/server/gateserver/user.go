@@ -915,8 +915,13 @@ func (this *GateUser) ReplyStartGame(err string, roomid int64) {
 	}
 }
 
-// 在网关创建房间
-func (this *GateUser) ReqStartGameLocal(gamekind int32) (errcode string) {
+// --------------------------------------------------------------------------
+/// @brief 创建游戏房间
+///
+/// @param gamekind 游戏类型
+/// @param eventuid 通过事件进入的事件uid
+// --------------------------------------------------------------------------
+func (this *GateUser) ReqStartGameLocal(gamekind int32, eventuid uint64) (errcode string) {
 	// 创建中
 	if this.IsRoomCreating() {
 		log.Error("玩家[%s %d] 重复创建房间，正在创建房间中", this.Name(), this.Id())
@@ -951,7 +956,7 @@ func (this *GateUser) ReqStartGameLocal(gamekind int32) (errcode string) {
 		}
 
 		// 初始化房间
-		room := NewGameRoom(userid, roomid, gamekind)
+		room := NewGameRoom(userid, roomid, gamekind, eventuid)
 		if errcode = room.Init(); errcode != "" {
 			break
 		}

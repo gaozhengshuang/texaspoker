@@ -330,8 +330,8 @@ func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	gamekind := tmsg.GetGamekind()
-	errcode := user.ReqStartGameLocal(gamekind)
+	gamekind, eventuid := tmsg.GetGamekind(), tmsg.GetEventuid()
+	errcode := user.ReqStartGameLocal(gamekind, eventuid)
 	user.ReplyStartGame(errcode, 0)
 }
 

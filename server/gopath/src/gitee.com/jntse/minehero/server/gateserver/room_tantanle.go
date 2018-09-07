@@ -146,7 +146,9 @@ func (this *TanTanLe) OnStart() {
 
 	log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetGold())
 	this.tm_start = util.CURTIME()
-	this.freebullet = uint32(tbl.Game.MapEvent.TantanleFreeBullet)
+	if this.eventuid != 0 {
+		this.freebullet = uint32(tbl.Game.MapEvent.TantanleFreeBullet)
+	}
 
 
 	// 游戏初始化
@@ -157,6 +159,7 @@ func (this *TanTanLe) OnStart() {
 		Gold:pb.Uint32(this.owner.GetGold()),
 		Diamond:pb.Uint32(this.owner.GetDiamond()),
 		Freebullet:pb.Uint32(this.Freebullet()),
+		Eventuid:pb.Uint64(this.eventuid),
 	}
 	this.SendClientMsg(msginit)
 
@@ -241,7 +244,7 @@ func (this *TanTanLe) ReqLaunchBullet() {
 	bulletid, errmsg := int64(0), ""
 	switch {
 	default:
-		if false {
+		if this.eventuid == 0 {
 			if uint32(tbl.Game.BulletPrice) > this.owner.GetGold() {	// 检查余额
 				errmsg = "金币不足"
 				break

@@ -43,6 +43,7 @@ message BT_GameInit {
     optional uint32 diamond = 4;
     optional uint32 gold = 5;
     optional uint32 freebullet = 6;      // 免费炮弹数
+    optional uint64 eventuid = 7;
     //repeated GridItem listitem = 4;
 }
 
