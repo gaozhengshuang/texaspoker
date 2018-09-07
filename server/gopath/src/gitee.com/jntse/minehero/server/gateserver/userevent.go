@@ -210,14 +210,16 @@ func (m *UserMapEvent) Tick(now int64) {
 	m.Refresh(now)
 }
 
+// 依赖个人坐标才会刷新事件点
 func (m *UserMapEvent) Online() {
 	m.CheckRefresh()
-
-	// 打印事件点
-	for _, v := range m.events {
-		log.Trace("[地图事件] 玩家[%s %d] 事件点[%v]", m.owner.Name(), m.owner.Id(), v.Bin())
+	if len(m.events) != 0 {
+		m.SendEvents()
 	}
-
+	// 打印事件点
+	//for _, v := range m.events {
+	//	log.Trace("[地图事件] 玩家[%s %d] 事件点[%v]", m.owner.Name(), m.owner.Id(), v.Bin())
+	//}
 }
 
 // 读盘
@@ -235,6 +237,9 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 		}
 		m.events[v.GetId()] = event
 	}
+
+	// 清除bin上面的事件点(通过SendEvents通知客户端刷新事件点)
+	bin.Base.Mapevent = nil
 }
 
 // 存盘
@@ -262,7 +267,9 @@ func (m *UserMapEvent) CheckRefresh() {
 	tmstart := util.GetDayStart()
 	tmrefresh := tmstart + tbl.Game.MapEvent.TimeRefresh * util.HourSec
 	if tmrefresh > m.refreshtime {
-		m.Refresh(util.CURTIMEMS())
+		if m.Refresh(util.CURTIMEMS()) {
+			m.SendEvents()
+		}
 	}
 }
 
@@ -272,10 +279,16 @@ func (m *UserMapEvent) RefreshActive() {
 }
 
 // 刷新玩家的时间列表
-func (m *UserMapEvent) Refresh(now int64) {
+func (m *UserMapEvent) Refresh(now int64) bool {
 
 	//事件clean
 	m.events = make(map[uint64]IMapEvent)
+	longitude, latitude := m.owner.GetUserPos()
+	if longitude == 0 || latitude == 0 {
+		log.Warn("[地图事件] 玩家[%s %d] 刷新事件点但个人坐标无效", m.owner.Name(), m.owner.Id())
+		return false
+	}
+
 	m.refreshtime = now / 1000			// 秒
 	m.refreshactive = 0
 	eventuid := uint64(1)
@@ -298,6 +311,7 @@ func (m *UserMapEvent) Refresh(now int64) {
 	}
 
 	log.Trace("[地图事件] 玩家[%s %d] 刷新地图事件size[%d]", m.owner.Name(), m.owner.Id(), len(m.events))
+	return true
 }
 
 // 解析配置
@@ -376,10 +390,6 @@ func (m *UserMapEvent) RemoveEvent(event IMapEvent) {
 
 func (m *UserMapEvent) AddEvent(uid uint64, tid, rmin, rmax uint32) {
 	//x, y := m.owner.GetUserPos()		// 经纬度
-	//if x == 0 || y == 0 {
-	//	log.Error("[地图事件] 玩家[%s %d]经纬度信息无效", m.owner.Name(), m.owner.Id())
-	//	return
-	//}
 	y, x := float32(31.11325), float32(121.38206)	// 测试代码
 	int_longitude, int_latitude := int32(x * 100000) , int32(y * 100000)	// 米
 

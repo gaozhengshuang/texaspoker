@@ -787,7 +787,6 @@ func (this *GateUser) Syn() {
 	this.SynCarData()
 	this.SynParkingData()
 	this.SynParkingRecord()
-	this.events.SendEvents();
 	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
 	//this.TestItem()
