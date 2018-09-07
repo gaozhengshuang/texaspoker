@@ -58,8 +58,8 @@ module game {
         private SortType            : number  = -1;
         private _inited             : Boolean = false;
         private carData             : msg.ICarData;
-        private selectBuildingInfo  : table.ITBuildingsDefine;
-        private selectPoint         : PointVO;
+        private selectMapPointInfo  : table.ITMapEventDefine;
+        private selectPoint         : MapIconInfo;
 /*         //部位RadioButton列表
         private _partsToggles;
         //部位RadioButton组
@@ -112,15 +112,11 @@ module game {
                 self.UpdateData(DataManager.playerModel.getUserInfo().cardatas);
             });
         }
-        public UpdateData(datas:msg.ICarData[],buildingId=undefined) {
-               
-            if(buildingId){
-                let buildingInfo = table.TBuildingsById[buildingId];
-                if(buildingInfo){
-                    this.selectBuildingInfo = buildingInfo
-                    this._selectPointRange  = getDistance(DataManager.playerModel.getSelfPoint(),{lat:buildingInfo.PosX,lng:buildingInfo.PosY});
-                }
-   
+        public UpdateData(datas:msg.ICarData[],point:MapIconInfo=null) {
+            if(point){
+                this.selectPoint = point;
+                this._selectPointRange   = getDistance(DataManager.playerModel.getSelfPoint(),{lat:point.latitude,lng:point.longitude});
+                this.selectMapPointInfo  = table.TMapEventById[point.tid];
             }
 
             if(!datas) return;
@@ -135,7 +131,7 @@ module game {
             this.percentNum.text = userInfo.robcount + "/" + 20;
 
             //目标信息
-            this.InfoTxt.text = "目标：" + this.selectBuildingInfo.Community + "\n" + "距离您"+ this._selectPointRange + "公里";
+            this.InfoTxt.text = "目标：" + this.selectMapPointInfo.Desc + "\n" + "距离您"+ this._selectPointRange + "公里";
 
             this.updateView(this.Datas[0]);
             this.UpdateBagList(this.Datas);
@@ -255,9 +251,9 @@ module game {
             let self = this;
             let selfPoint = DataManager.playerModel.getSelfPoint();
             CarManager.getInstance().ReqCarExpedition(
-                this.carData.id,msg.CarTargetType.CTTBuilding,this.selectBuildingInfo.Id,
+                this.carData.id,msg.CarTargetType.CTTBuilding,this.selectPoint.id,
                 selfPoint.lat,selfPoint.lng,
-                this.selectBuildingInfo.PosX,this.selectBuildingInfo.PosY,
+                this.selectPoint.latitude,this.selectPoint.longitude,
                 function(result:number,carData:msg.ICarData){
                     if(result==0){
                         showTips("出征成功！");
