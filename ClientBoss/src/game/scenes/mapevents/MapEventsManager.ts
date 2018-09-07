@@ -160,9 +160,10 @@ module game {
 			}
 		}
 		private onEventsIconClick(type: string, data: game.MapIconInfo) {
-			let def = table.TMapEventById[data.tid];
+/* 			let def = table.TMapEventById[data.tid];
 			ItemGetTips.getInstance().startCollect();
-			this.reqEnterEvent(data.id);
+			this.reqEnterEvent(data.id); */
+			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_EXPEDITION,{latitude:data.latitude,longitude:data.longitude});
 		}
 		/**
 		 * 请求进入事件
