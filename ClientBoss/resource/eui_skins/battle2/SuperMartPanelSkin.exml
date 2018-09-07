@@ -17,7 +17,7 @@
 
 	
 	<game:IconButton id="backButton" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" y="10" horizontalCenter="-319.5"/>
-	<e:Group id="shoppingCarGroup" width="720" height="500" x="0" y="348.64" anchorOffsetY="0" touchEnabled="false"/>
+	<e:Group id="shoppingCarGroup" width="720" height="500" anchorOffsetY="0" touchEnabled="false" horizontalCenter="0" verticalCenter="-93"/>
 	<game:GameMissile id="gouzi" width="150" height="1000" skinName="GameMissileSkin" y="1450" x="320" anchorOffsetX="75" anchorOffsetY="500"/>
 	<e:Group id="bottomGroup" width="720" height="374" bottom="0" horizontalCenter="0" anchorOffsetY="0">
 		<e:Image id="beltImg" y="-20" horizontalCenter="0.5" source="game2_json.belt_1"/>
