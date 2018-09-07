@@ -10,6 +10,11 @@ module game {
         costLabel: eui.Label;
         gouzi: GameMissile;
 
+        /**
+         * 关闭
+         */
+        static OnClose = "SuperMartPanel_Close";
+
         private _shopCarList: ShopCar[];
         private _itemIdList: number[];
         private _addList: number[];
@@ -228,7 +233,11 @@ module game {
         private OnGW2C_HitTarget(data: msg.GW2C_HitTarget) {
             this.gouzi.findItemOver(data);
         }
-
+        public remove()
+        {
+            NotificationCenter.postNotification(SuperMartPanel.OnClose);
+            super.remove();
+        }
         private static _instance: SuperMartPanel;
 
         public static getInstance(): SuperMartPanel {

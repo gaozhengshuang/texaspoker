@@ -80,12 +80,12 @@ module game {
 						iconInfo.id = info.id;
 						let iconDef = table.TMapEventById[info.tid];
 						if (iconDef) {
-							if (iconDef.Id == 1001) { //TODO 测试奖励
-								iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
-							}
-							else {
+							// if (iconDef.Id == 1002) { //TODO 测试奖励
+							// 	iconInfo.imageUrl = 'resource/others/images/eventsicon/3001.png';
+							// }
+							// else {
 								iconInfo.imageUrl = 'resource/others/images/' + iconDef.Icon;
-							}
+							// }
 							iconInfo.latitude = info.latitude / 100000;
 							iconInfo.longitude = info.longitude / 100000;
 							iconInfo.tid = info.tid;

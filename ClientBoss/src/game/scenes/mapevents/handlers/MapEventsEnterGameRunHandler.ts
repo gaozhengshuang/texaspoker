@@ -12,7 +12,7 @@ module game {
 					}));
 					break;
 				case msg.MapEventId.GameSuperMarket:
-					NotificationCenter.addObserver(this, this.onGameSuperMarketClose, ""); //todo
+					NotificationCenter.addObserver(this, this.onGameSuperMarketClose, SuperMartPanel.OnClose); 
 					this.runParam(params);
 					break;
 				case msg.MapEventId.GameFanFanLe:
@@ -26,7 +26,7 @@ module game {
 		 */
 		private runParam(params: any[]) {
 			if (params && params.length > 0) {
-				SceneManager.changeScene(params[0]);
+				SceneManager.changeScene(parseInt(params[0]));
 			}
 			else {
 				Console.log("事件执行切地图error：", params);
@@ -37,7 +37,7 @@ module game {
 			this.finish();
 		}
 		private onGameSuperMarketClose() {
-			NotificationCenter.removeObserver(this, "");
+			NotificationCenter.removeObserver(this, SuperMartPanel.OnClose);
 			this.finish();
 		}
 		private onFanFanleClose() {
