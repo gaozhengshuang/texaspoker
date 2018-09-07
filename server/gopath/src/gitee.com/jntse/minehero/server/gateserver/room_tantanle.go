@@ -134,7 +134,7 @@ func (this *TanTanLe) OnEnd(now int64) {
 	log.Info("SCard Redis[%s] Amount[%d]", key, Redis().SCard(key).Val())
 
 	// 如果通过事件打开，移除事件
-	this.owner.events.RemoveProcessingEvent(uint32(msg.MapEventId_GameTanTanLe))
+	this.owner.events.RemoveEventById(this.eventuid, "弹弹乐房间销毁")
 }
 
 // 玩家进游戏，游戏开始
