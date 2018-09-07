@@ -228,7 +228,7 @@ func (this *GateUser) Face() string {
 }
 
 func (this *GateUser) SetFace(f string) {
-	log.Info("玩家[%d] 设置头像 [%d]",this.Id(), f)
+	log.Info("玩家[%d] 设置头像 [%s]",this.Id(), f)
 	this.EntityBase().Face = pb.String(f)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())
 	for _, v := range data {
