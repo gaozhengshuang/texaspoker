@@ -6,7 +6,7 @@ export var TMapEvent : table.ITMapEventDefine[] = [
 		{ Id : 1001, Type : 1, Desc : "弹弹乐", MoneyType : 3, Price : 1, Icon : "eventsicon/3008.png", Reward : [  ], Params : "1-1" 	},
 		{ Id : 1002, Type : 1, Desc : "超市钩物", MoneyType : 3, Price : 1, Icon : "eventsicon/3008.png", Reward : [  ], Params : "1-2" 	},
 		{ Id : 2001, Type : 2, Desc : "随机奖励金币", MoneyType : 3, Price : 1, Icon : "eventsicon/3008.png", Reward : [ "60003-10", "60003-20" ], Params : "" 	},
-		{ Id : 2002, Type : 2, Desc : "随机奖励体力", MoneyType : 3, Price : 1, Icon : "eventsicon/3008.png", Reward : [ "60001-10", "60001-20" ], Params : "" 	},
+		{ Id : 2002, Type : 2, Desc : "随机奖励体力", MoneyType : 3, Price : 1, Icon : "eventsicon/3008.png", Reward : [ "60002-10", "60002-20" ], Params : "" 	},
 		{ Id : 3001, Type : 3, Desc : "女仆商店", MoneyType : 3, Price : 0, Icon : "eventsicon/3004.png", Reward : [  ], Params : "2-1" 	},
 		{ Id : 3002, Type : 3, Desc : "汽车配件商店", MoneyType : 3, Price : 0, Icon : "eventsicon/3005.png", Reward : [  ], Params : "2-2" 	},
 		{ Id : 3003, Type : 3, Desc : "房屋升级碎片商店", MoneyType : 3, Price : 0, Icon : "eventsicon/3003.png", Reward : [  ], Params : "2-3" 	}
