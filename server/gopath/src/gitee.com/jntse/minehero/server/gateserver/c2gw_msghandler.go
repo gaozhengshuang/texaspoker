@@ -207,7 +207,7 @@ func (this *C2GWMsgHandler) Init() {
 	//个人设置
 	this.msgparser.RegistSendProto(msg.GW2C_AckSetUserSign{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckSetUserName{})
-
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateUserDataByKey{})
 	//位置附近的人
 	this.msgparser.RegistSendProto(msg.GW2C_AckNearUsers{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckPlayerCountByProvince{})

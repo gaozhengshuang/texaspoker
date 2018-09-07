@@ -135,6 +135,19 @@ enum CarState {
     Back = 6;           //回城中
 }
 
+enum UserInfoType {
+	Name = 1;	//名字 string
+	UserSex = 2;//性别
+	Age = 3; 	//年龄 
+	Sign = 4;	//签名 string
+	Constellation = 5; //星座
+	Face = 6;   //头像 string
+	Baseprovince = 7; //归属地 省
+	Basecity = 8; //归属地 市
+	Level = 9;  //等级
+	Exp = 10;   //经验
+}
+
 //人物社交信息
 message PersonSocialInfo {
 	optional uint64 id = 1;   		
