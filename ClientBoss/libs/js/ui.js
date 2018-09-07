@@ -17,6 +17,9 @@ returnTradeBtnW,returnTradeBtnH,
 expeditionBtnW,expeditionBtnH,
 expeditionInfoW,expeditionInfoH,
 expeditionStateBtnW,expeditionStateBtnH,
+expeditionStateBgW,expeditionStateBgH,
+expeditionStateBtnBgW,expeditionStateBtnBgH,
+
 gameCloseW,gameCloseH;
 
 window.onload=function(){
@@ -92,6 +95,30 @@ window.onload=function(){
     document.getElementById("expeditionStateBtn_3").style.display='none';
     document.getElementById("expeditionStateBtn_4").style.display='none';
     document.getElementById("expeditionStateBtn_5").style.display='none';
+    
+
+    expeditionStateBgW = document.getElementById("expeditionStateBg").clientWidth;
+    expeditionStateBgH = document.getElementById("expeditionStateBg").clientHeight;
+    document.getElementById("expeditionStateBg").style.display='none';
+    document.getElementById("expeditionStateInfoLabel").style.display='none';
+
+    
+
+    expeditionStateBtnBgW = document.getElementById("expeditionStateBtn_1_Bg").clientWidth;
+    expeditionStateBtnBgH = document.getElementById("expeditionStateBtn_1_Bg").clientHeight;
+
+    document.getElementById("expeditionStateBtn_1_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_2_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_3_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_4_Bg").style.display='none';
+    document.getElementById("expeditionStateBtn_5_Bg").style.display='none';
+
+    document.getElementById("expeditionStateBtn_1_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_2_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_3_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_4_Label").style.display='none';
+    document.getElementById("expeditionStateBtn_5_Label").style.display='none';
+
     
 
 }
@@ -221,11 +248,66 @@ function adaptive(scale){
     document.getElementById("expeditionStateBtn_5").style.height= expeditionStateBtnH*scale+"px";
 
 
-    document.getElementById("expeditionStateBtn_1").style.visibility='hidden';
-    document.getElementById("expeditionStateBtn_2").style.visibility='hidden';
-    document.getElementById("expeditionStateBtn_3").style.visibility='hidden';
-    document.getElementById("expeditionStateBtn_4").style.visibility='hidden';
-    document.getElementById("expeditionStateBtn_5").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_1_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_2_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_3_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_4_Bg").style.visibility='hidden';
+    document.getElementById("expeditionStateBtn_5_Bg").style.visibility='hidden';
+
+
+    document.getElementById("expeditionStateBg").style.visibility='hidden';
+    
+    document.getElementById("expeditionStateBg").style.display='block';
+    document.getElementById("expeditionStateBg").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBg").style.height= expeditionStateBgH*scale+"px";
+    
+    document.getElementById("expeditionStateInfoLabel").style.display='block';
+    document.getElementById("expeditionStateInfoLabel").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateInfoLabel").style.height= expeditionStateBgH*scale+"px";
+
+
+
+    document.getElementById("expeditionStateBtn_1_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_1_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_1_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_2_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_2_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_2_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_3_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_3_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_3_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+    
+
+    document.getElementById("expeditionStateBtn_4_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_4_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_4_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+    document.getElementById("expeditionStateBtn_5_Bg").style.display='block';
+    document.getElementById("expeditionStateBtn_5_Bg").style.width = expeditionStateBtnBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_5_Bg").style.height= expeditionStateBtnBgH*scale+"px";
+
+
+    document.getElementById("expeditionStateBtn_1_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_1_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_1_Label").style.height= expeditionStateBgW*scale+"px";
+
+    document.getElementById("expeditionStateBtn_2_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_2_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_2_Label").style.height= expeditionStateBgW*scale+"px";
+    
+    document.getElementById("expeditionStateBtn_3_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_3_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_3_Label").style.height= expeditionStateBgW*scale+"px";
+    
+    document.getElementById("expeditionStateBtn_4_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_4_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_4_Label").style.height= expeditionStateBgW*scale+"px";
+
+    document.getElementById("expeditionStateBtn_5_Label").style.display='block';
+    document.getElementById("expeditionStateBtn_5_Label").style.width = expeditionStateBgW*scale+"px";
+    document.getElementById("expeditionStateBtn_5_Label").style.height= expeditionStateBgW*scale+"px";
     //-------------------------------
 
 
@@ -312,27 +394,27 @@ function setBtnCallbackFun(fun,body){
     //--------------地图上出征车的5个按钮点击事件
     document.getElementById("expeditionStateBtn_1").addEventListener("mousedown", function (e) {
         if (btnCallBackFun != null) {
-            btnCallBackFun('expeditionStateBtn_1',btnCallBackBody);
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[0].data.id);
         }
     });
     document.getElementById("expeditionStateBtn_2").addEventListener("mousedown", function (e) {
         if (btnCallBackFun != null) {
-            btnCallBackFun('expeditionStateBtn_2',btnCallBackBody);
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[1].data.id);
         }
     });
     document.getElementById("expeditionStateBtn_3").addEventListener("mousedown", function (e) {
         if (btnCallBackFun != null) {
-            btnCallBackFun('expeditionStateBtn_3',btnCallBackBody);
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[2].data.id);
         }
     });
     document.getElementById("expeditionStateBtn_4").addEventListener("mousedown", function (e) {
         if (btnCallBackFun != null) {
-            btnCallBackFun('expeditionStateBtn_4',btnCallBackBody);
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[3].data.id);
         }
     });
     document.getElementById("expeditionStateBtn_5").addEventListener("mousedown", function (e) {
         if (btnCallBackFun != null) {
-            btnCallBackFun('expeditionStateBtn_5',btnCallBackBody);
+            btnCallBackFun('expeditionStateBtn',btnCallBackBody,expediitonInfos[4].data.id);
         }
     });
     //--------------
@@ -501,46 +583,105 @@ function showEgretDiv(isShow)
 //----------------------------地图上五个按钮 暂用
 var expeditionStateBtnName = ["expeditionStateBtn_1","expeditionStateBtn_2","expeditionStateBtn_3","expeditionStateBtn_4","expeditionStateBtn_5"];
 var carState = {Ready:1,Parking:2,Exped:3,Arrival:4,Robbing:5,Back:6}
-function showExpeditionStateBtn(isShow,datas=null) //datas:msg.ICarData[]
+var expediitonInfos = [];
+function showExpeditionState(isShow,datas,timeStrs) //datas:msg.ICarData[]
 {
+    console.log("--------------showExpeditionState----------");
     if(!isShow){
         expeditionStateBtnName.forEach(str=>{
             let htmlElement = document.getElementById(str);
-            htmlElement.style.visibility = 'hidden';
+            htmlElement.parentElement.style.visibility = 'hidden';
+            //htmlElement.style.visibility = 'hidden';
         });
     }
     else{
         if(datas){
+            expediitonInfos = [];
             expeditionStateBtnName.forEach(
                 (str,index,array)=>{
                     let htmlElement = document.getElementById(str);
-                    if(datas.length > index)
-                    {
-                        htmlElement.style.visibility = 'visible';
-                        let state = datas[index].state;
-                        switch (state) 
+                    let parentlElement = htmlElement.parentElement;
+                    if(htmlElement && parentlElement){
+                        if(datas.length > index)
                         {
-                            case carState.Exped:
-                                htmlElement.setAttribute("class", "expeditionState_speedUp");
-                            break;
-                            case carState.Arrival:
-                                htmlElement.setAttribute("class", "expeditionState_active");
-                            break;
-                            case carState.Robbing:
-                                htmlElement.setAttribute("class", "expeditionState_retract");
-                            break;
+                            //时间状态文本
+                            let content = timeStrs[index];
+                            if(content){
+                                console.log(str);
+                                console.log("htmlElement--->",htmlElement);
+                                //parentlElement.innerText = content;
+                                document.getElementById(str+"_Label").innerText = content;
+                            }   
+                            let carData = datas[index];
+                            switch (carData.state) 
+                            {
+                                case carState.Exped:
+                                    htmlElement.setAttribute("class", "expeditionState_speedUp");
+                                break;
+                                case carState.Arrival:
+                                    htmlElement.setAttribute("class", "expeditionState_active");
+                                break;
+                                case carState.Robbing:
+                                    htmlElement.setAttribute("class", "expeditionState_retract");
+                                break;
+                            }
+                            //htmlElement.style.visibility = 'visible';
+                            parentlElement.style.visibility = 'visible';
+                            expediitonInfos.push({data:carData,content:content,element:str});
+                        }
+                        else
+                        {
+                            //htmlElement.style.visibility = 'hidden';
+                            parentlElement.style.visibility = 'hidden';
                         }
                     }
-                    else
-                    {
-                        
-                        htmlElement.style.visibility = 'hidden';
-                        htmlElement.setAttribute("class", "expeditionState_speedUp");
-                        htmlElement.style.visibility = 'visible';
-                    }
+
             });
         }
     }
+}
+//更新一条车辆状态信息
+function updateOneExpeditionInfo(data,timeStr)
+{
+    for(let info of expediitonInfos)
+    {
+        if(info.data && info.data.id==data.id)
+        {
+            info.data = data;
+            info.content = timeStr
+            if(info.element){
+                let htmlElement = document.getElementById(info.element);
+                switch (info.data.state) 
+                {
+                    case carState.Exped:
+                        htmlElement.setAttribute("class", "expeditionState_speedUp");
+                    break;
+                    case carState.Arrival:
+                        htmlElement.setAttribute("class", "expeditionState_active");
+                    break;
+                    case carState.Robbing:
+                        htmlElement.setAttribute("class", "expeditionState_retract");
+                    break;
+                }
+                if(info.content)
+                { 
+                    document.getElementById(info.element+"_Label").innerText = info.content;
+                }
+            }
+            break;
+        }
+    }
+
+}
+
+function showExpeditionInfoTxt(isShow,content)
+{
+    let htmlElement = document.getElementById("expeditionStateInfoLabel");
+   // document.getElementById("expeditionStateBg").style.visibility = isShow && 'visible' || 'hidden';
+    //htmlElement.visibility = isShow && 'visible' || 'hidden';
+    htmlElement.parentElement.style.visibility = isShow && 'visible' || 'hidden';
+    if(!isShow) return;
+    htmlElement.innerText =  content;
 }
 
 

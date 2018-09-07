@@ -297,6 +297,7 @@ function addPolyline(data) {
           ],
           strokeColor: '#F42727',
           strokeWeight: 5,
+          strokeDashStyle : 'dash',
           map : map,
     });
     if(!polylines.some(line=>{return line==polyline;})){
@@ -360,7 +361,8 @@ function addExpeditionCarMarker(data) {
     let marker = new qq.maps.Marker({
       icon: icon,
       map: map,
-      position: new qq.maps.LatLng(data.lat, data.lng)
+      position: new qq.maps.LatLng(data.lat, data.lng),
+      zIndex:10,
     });
 
     if(!expeditionCarArray.some(markerData=>{return markerData==marker})){
