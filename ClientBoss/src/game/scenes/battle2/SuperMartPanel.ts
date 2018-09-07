@@ -105,24 +105,17 @@ module game {
         private initShopCar() {
             this._shopCarList = [];
             let idx = 0;
-            let addShopCar = async function () {
-                let shopCar: ShopCar;
-                for (let i = 0; i < 3; i++) {
-                    shopCar = new ShopCar();
+
+            for (let i = 0; i < 5; i++) {
+                for (let b = 0; b < 3; b++) {
+                    let shopCar = new ShopCar();
                     this.shoppingCarGroup.addChild(shopCar);
                     shopCar.touchEnabled = false;
-                    let data = {pos: i, thisId: ++idx}
+                    let data = {pos: b, thisId: ++idx, columnIdx: i};
                     shopCar.show(data);
                     this._shopCarList.push(shopCar);
                 }
-
-                await delay(1000);
-                if (this._shopCarList.length < this._maxShopCar) {
-                    addShopCar();
-                }
-            }.bind(this);
-
-            addShopCar();
+            }
         }
 
         private updateGouziState() {
