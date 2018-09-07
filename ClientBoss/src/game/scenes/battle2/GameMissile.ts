@@ -55,6 +55,7 @@ module game {
                 img.y = p.y;
                 img.rotation = 0;
                 img.visible = false;
+                this.addChild(img);
             }
             this._curGetNum = 0;
             this.findItemIds = [];
@@ -161,7 +162,15 @@ module game {
             this._curGetNum = 0;
             this.findItemIds = [];
         }
-
+        public clearItemShow()
+        {
+          for (let i = 1; i < 4; i++) { 
+                let img = this["itemImg" + i];
+                img.visible = false;
+                egret.Tween.removeTweens(img);
+                this.addChild(img);
+            } 
+        }
         public playItemShake() {
             effectUtils.playAnimation(this.shakeItemAnim, true);
         }
