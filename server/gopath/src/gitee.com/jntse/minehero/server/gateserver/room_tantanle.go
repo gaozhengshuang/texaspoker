@@ -320,7 +320,7 @@ func (this *TanTanLe) CrushSuperBrick() {
 }
 
 func (this *TanTanLe) RemoveFreebullet(n uint32) {
-	if this.freebullet > n {
+	if this.freebullet >= n {
 		this.freebullet -= n
 		log.Info("玩家[%s %d] 扣除免费炮弹，当前剩余[%d]", this.owner.Name(), this.owner.Id(), this.Freebullet())
 	}
