@@ -16,6 +16,8 @@ module game {
             if (this.faceIndex > 0) {
                 this.img.source = RES.getRes("headImg" + this.faceIndex + "_png");
 
+            }else{
+                this.img.source ="";
             }
         }
     }

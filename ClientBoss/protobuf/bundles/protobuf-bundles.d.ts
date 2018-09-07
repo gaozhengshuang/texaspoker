@@ -4480,6 +4480,114 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an ExpeditionData. */
+    interface IExpeditionData {
+
+        /** ExpeditionData type */
+        type?: (number|null);
+
+        /** ExpeditionData id */
+        id?: (number|Long|null);
+
+        /** ExpeditionData latitude */
+        latitude?: (number|null);
+
+        /** ExpeditionData longitude */
+        longitude?: (number|null);
+    }
+
+    /** Represents an ExpeditionData. */
+    class ExpeditionData implements IExpeditionData {
+
+        /**
+         * Constructs a new ExpeditionData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IExpeditionData);
+
+        /** ExpeditionData type. */
+        public type: number;
+
+        /** ExpeditionData id. */
+        public id: (number|Long);
+
+        /** ExpeditionData latitude. */
+        public latitude: number;
+
+        /** ExpeditionData longitude. */
+        public longitude: number;
+
+        /**
+         * Creates a new ExpeditionData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ExpeditionData instance
+         */
+        public static create(properties?: msg.IExpeditionData): msg.ExpeditionData;
+
+        /**
+         * Encodes the specified ExpeditionData message. Does not implicitly {@link msg.ExpeditionData.verify|verify} messages.
+         * @param message ExpeditionData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IExpeditionData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ExpeditionData message, length delimited. Does not implicitly {@link msg.ExpeditionData.verify|verify} messages.
+         * @param message ExpeditionData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IExpeditionData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an ExpeditionData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ExpeditionData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.ExpeditionData;
+
+        /**
+         * Decodes an ExpeditionData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ExpeditionData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.ExpeditionData;
+
+        /**
+         * Verifies an ExpeditionData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an ExpeditionData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ExpeditionData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.ExpeditionData;
+
+        /**
+         * Creates a plain object from an ExpeditionData message. Also converts values to other types if specified.
+         * @param message ExpeditionData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.ExpeditionData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ExpeditionData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a CarData. */
     interface ICarData {
 
@@ -4542,6 +4650,9 @@ declare namespace msg {
 
         /** CarData initprice */
         initprice?: (number|null);
+
+        /** CarData expedition */
+        expedition?: (msg.IExpeditionData|null);
     }
 
     /** Represents a CarData. */
@@ -4612,6 +4723,9 @@ declare namespace msg {
 
         /** CarData initprice. */
         public initprice: number;
+
+        /** CarData expedition. */
+        public expedition?: (msg.IExpeditionData|null);
 
         /**
          * Creates a new CarData instance using the specified properties.
@@ -7852,6 +7966,786 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_CarExpedition. */
+    interface IC2GW_CarExpedition {
+
+        /** C2GW_CarExpedition carid */
+        carid?: (number|Long|null);
+
+        /** C2GW_CarExpedition type */
+        type?: (number|null);
+
+        /** C2GW_CarExpedition targetid */
+        targetid?: (number|Long|null);
+
+        /** C2GW_CarExpedition originlatitude */
+        originlatitude?: (number|null);
+
+        /** C2GW_CarExpedition originlongitude */
+        originlongitude?: (number|null);
+
+        /** C2GW_CarExpedition destlatitude */
+        destlatitude?: (number|null);
+
+        /** C2GW_CarExpedition destlongitude */
+        destlongitude?: (number|null);
+    }
+
+    /** Represents a C2GW_CarExpedition. */
+    class C2GW_CarExpedition implements IC2GW_CarExpedition {
+
+        /**
+         * Constructs a new C2GW_CarExpedition.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CarExpedition);
+
+        /** C2GW_CarExpedition carid. */
+        public carid: (number|Long);
+
+        /** C2GW_CarExpedition type. */
+        public type: number;
+
+        /** C2GW_CarExpedition targetid. */
+        public targetid: (number|Long);
+
+        /** C2GW_CarExpedition originlatitude. */
+        public originlatitude: number;
+
+        /** C2GW_CarExpedition originlongitude. */
+        public originlongitude: number;
+
+        /** C2GW_CarExpedition destlatitude. */
+        public destlatitude: number;
+
+        /** C2GW_CarExpedition destlongitude. */
+        public destlongitude: number;
+
+        /**
+         * Creates a new C2GW_CarExpedition instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CarExpedition instance
+         */
+        public static create(properties?: msg.IC2GW_CarExpedition): msg.C2GW_CarExpedition;
+
+        /**
+         * Encodes the specified C2GW_CarExpedition message. Does not implicitly {@link msg.C2GW_CarExpedition.verify|verify} messages.
+         * @param message C2GW_CarExpedition message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CarExpedition, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CarExpedition message, length delimited. Does not implicitly {@link msg.C2GW_CarExpedition.verify|verify} messages.
+         * @param message C2GW_CarExpedition message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CarExpedition, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CarExpedition message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CarExpedition
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CarExpedition;
+
+        /**
+         * Decodes a C2GW_CarExpedition message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CarExpedition
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CarExpedition;
+
+        /**
+         * Verifies a C2GW_CarExpedition message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CarExpedition message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CarExpedition
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CarExpedition;
+
+        /**
+         * Creates a plain object from a C2GW_CarExpedition message. Also converts values to other types if specified.
+         * @param message C2GW_CarExpedition
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CarExpedition, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CarExpedition to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarExpedition. */
+    interface IGW2C_RetCarExpedition {
+
+        /** GW2C_RetCarExpedition result */
+        result?: (number|null);
+
+        /** GW2C_RetCarExpedition car */
+        car?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_RetCarExpedition. */
+    class GW2C_RetCarExpedition implements IGW2C_RetCarExpedition {
+
+        /**
+         * Constructs a new GW2C_RetCarExpedition.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarExpedition);
+
+        /** GW2C_RetCarExpedition result. */
+        public result: number;
+
+        /** GW2C_RetCarExpedition car. */
+        public car?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_RetCarExpedition instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarExpedition instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarExpedition): msg.GW2C_RetCarExpedition;
+
+        /**
+         * Encodes the specified GW2C_RetCarExpedition message. Does not implicitly {@link msg.GW2C_RetCarExpedition.verify|verify} messages.
+         * @param message GW2C_RetCarExpedition message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarExpedition, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarExpedition message, length delimited. Does not implicitly {@link msg.GW2C_RetCarExpedition.verify|verify} messages.
+         * @param message GW2C_RetCarExpedition message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarExpedition, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarExpedition message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarExpedition
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarExpedition;
+
+        /**
+         * Decodes a GW2C_RetCarExpedition message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarExpedition
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarExpedition;
+
+        /**
+         * Verifies a GW2C_RetCarExpedition message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarExpedition message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarExpedition
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarExpedition;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarExpedition message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarExpedition
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarExpedition, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarExpedition to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_CarActivate. */
+    interface IC2GW_CarActivate {
+
+        /** C2GW_CarActivate carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_CarActivate. */
+    class C2GW_CarActivate implements IC2GW_CarActivate {
+
+        /**
+         * Constructs a new C2GW_CarActivate.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CarActivate);
+
+        /** C2GW_CarActivate carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_CarActivate instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CarActivate instance
+         */
+        public static create(properties?: msg.IC2GW_CarActivate): msg.C2GW_CarActivate;
+
+        /**
+         * Encodes the specified C2GW_CarActivate message. Does not implicitly {@link msg.C2GW_CarActivate.verify|verify} messages.
+         * @param message C2GW_CarActivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CarActivate, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CarActivate message, length delimited. Does not implicitly {@link msg.C2GW_CarActivate.verify|verify} messages.
+         * @param message C2GW_CarActivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CarActivate, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CarActivate message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CarActivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CarActivate;
+
+        /**
+         * Decodes a C2GW_CarActivate message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CarActivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CarActivate;
+
+        /**
+         * Verifies a C2GW_CarActivate message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CarActivate message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CarActivate
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CarActivate;
+
+        /**
+         * Creates a plain object from a C2GW_CarActivate message. Also converts values to other types if specified.
+         * @param message C2GW_CarActivate
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CarActivate, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CarActivate to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarActivate. */
+    interface IGW2C_RetCarActivate {
+
+        /** GW2C_RetCarActivate result */
+        result?: (number|null);
+
+        /** GW2C_RetCarActivate car */
+        car?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_RetCarActivate. */
+    class GW2C_RetCarActivate implements IGW2C_RetCarActivate {
+
+        /**
+         * Constructs a new GW2C_RetCarActivate.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarActivate);
+
+        /** GW2C_RetCarActivate result. */
+        public result: number;
+
+        /** GW2C_RetCarActivate car. */
+        public car?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_RetCarActivate instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarActivate instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarActivate): msg.GW2C_RetCarActivate;
+
+        /**
+         * Encodes the specified GW2C_RetCarActivate message. Does not implicitly {@link msg.GW2C_RetCarActivate.verify|verify} messages.
+         * @param message GW2C_RetCarActivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarActivate, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarActivate message, length delimited. Does not implicitly {@link msg.GW2C_RetCarActivate.verify|verify} messages.
+         * @param message GW2C_RetCarActivate message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarActivate, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarActivate message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarActivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarActivate;
+
+        /**
+         * Decodes a GW2C_RetCarActivate message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarActivate
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarActivate;
+
+        /**
+         * Verifies a GW2C_RetCarActivate message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarActivate message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarActivate
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarActivate;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarActivate message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarActivate
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarActivate, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarActivate to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_CarRetract. */
+    interface IC2GW_CarRetract {
+
+        /** C2GW_CarRetract carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_CarRetract. */
+    class C2GW_CarRetract implements IC2GW_CarRetract {
+
+        /**
+         * Constructs a new C2GW_CarRetract.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CarRetract);
+
+        /** C2GW_CarRetract carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_CarRetract instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CarRetract instance
+         */
+        public static create(properties?: msg.IC2GW_CarRetract): msg.C2GW_CarRetract;
+
+        /**
+         * Encodes the specified C2GW_CarRetract message. Does not implicitly {@link msg.C2GW_CarRetract.verify|verify} messages.
+         * @param message C2GW_CarRetract message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CarRetract, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CarRetract message, length delimited. Does not implicitly {@link msg.C2GW_CarRetract.verify|verify} messages.
+         * @param message C2GW_CarRetract message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CarRetract, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CarRetract message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CarRetract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CarRetract;
+
+        /**
+         * Decodes a C2GW_CarRetract message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CarRetract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CarRetract;
+
+        /**
+         * Verifies a C2GW_CarRetract message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CarRetract message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CarRetract
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CarRetract;
+
+        /**
+         * Creates a plain object from a C2GW_CarRetract message. Also converts values to other types if specified.
+         * @param message C2GW_CarRetract
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CarRetract, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CarRetract to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarRetract. */
+    interface IGW2C_RetCarRetract {
+
+        /** GW2C_RetCarRetract result */
+        result?: (number|null);
+
+        /** GW2C_RetCarRetract car */
+        car?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_RetCarRetract. */
+    class GW2C_RetCarRetract implements IGW2C_RetCarRetract {
+
+        /**
+         * Constructs a new GW2C_RetCarRetract.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarRetract);
+
+        /** GW2C_RetCarRetract result. */
+        public result: number;
+
+        /** GW2C_RetCarRetract car. */
+        public car?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_RetCarRetract instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarRetract instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarRetract): msg.GW2C_RetCarRetract;
+
+        /**
+         * Encodes the specified GW2C_RetCarRetract message. Does not implicitly {@link msg.GW2C_RetCarRetract.verify|verify} messages.
+         * @param message GW2C_RetCarRetract message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarRetract, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarRetract message, length delimited. Does not implicitly {@link msg.GW2C_RetCarRetract.verify|verify} messages.
+         * @param message GW2C_RetCarRetract message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarRetract, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarRetract message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarRetract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarRetract;
+
+        /**
+         * Decodes a GW2C_RetCarRetract message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarRetract
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarRetract;
+
+        /**
+         * Verifies a GW2C_RetCarRetract message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarRetract message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarRetract
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarRetract;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarRetract message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarRetract
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarRetract, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarRetract to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_CarSpeedup. */
+    interface IC2GW_CarSpeedup {
+
+        /** C2GW_CarSpeedup carid */
+        carid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_CarSpeedup. */
+    class C2GW_CarSpeedup implements IC2GW_CarSpeedup {
+
+        /**
+         * Constructs a new C2GW_CarSpeedup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_CarSpeedup);
+
+        /** C2GW_CarSpeedup carid. */
+        public carid: (number|Long);
+
+        /**
+         * Creates a new C2GW_CarSpeedup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_CarSpeedup instance
+         */
+        public static create(properties?: msg.IC2GW_CarSpeedup): msg.C2GW_CarSpeedup;
+
+        /**
+         * Encodes the specified C2GW_CarSpeedup message. Does not implicitly {@link msg.C2GW_CarSpeedup.verify|verify} messages.
+         * @param message C2GW_CarSpeedup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_CarSpeedup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_CarSpeedup message, length delimited. Does not implicitly {@link msg.C2GW_CarSpeedup.verify|verify} messages.
+         * @param message C2GW_CarSpeedup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_CarSpeedup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_CarSpeedup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_CarSpeedup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_CarSpeedup;
+
+        /**
+         * Decodes a C2GW_CarSpeedup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_CarSpeedup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_CarSpeedup;
+
+        /**
+         * Verifies a C2GW_CarSpeedup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_CarSpeedup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_CarSpeedup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_CarSpeedup;
+
+        /**
+         * Creates a plain object from a C2GW_CarSpeedup message. Also converts values to other types if specified.
+         * @param message C2GW_CarSpeedup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_CarSpeedup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_CarSpeedup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCarSpeedup. */
+    interface IGW2C_RetCarSpeedup {
+
+        /** GW2C_RetCarSpeedup result */
+        result?: (number|null);
+
+        /** GW2C_RetCarSpeedup car */
+        car?: (msg.ICarData|null);
+    }
+
+    /** Represents a GW2C_RetCarSpeedup. */
+    class GW2C_RetCarSpeedup implements IGW2C_RetCarSpeedup {
+
+        /**
+         * Constructs a new GW2C_RetCarSpeedup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCarSpeedup);
+
+        /** GW2C_RetCarSpeedup result. */
+        public result: number;
+
+        /** GW2C_RetCarSpeedup car. */
+        public car?: (msg.ICarData|null);
+
+        /**
+         * Creates a new GW2C_RetCarSpeedup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCarSpeedup instance
+         */
+        public static create(properties?: msg.IGW2C_RetCarSpeedup): msg.GW2C_RetCarSpeedup;
+
+        /**
+         * Encodes the specified GW2C_RetCarSpeedup message. Does not implicitly {@link msg.GW2C_RetCarSpeedup.verify|verify} messages.
+         * @param message GW2C_RetCarSpeedup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCarSpeedup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCarSpeedup message, length delimited. Does not implicitly {@link msg.GW2C_RetCarSpeedup.verify|verify} messages.
+         * @param message GW2C_RetCarSpeedup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCarSpeedup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCarSpeedup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCarSpeedup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCarSpeedup;
+
+        /**
+         * Decodes a GW2C_RetCarSpeedup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCarSpeedup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCarSpeedup;
+
+        /**
+         * Verifies a GW2C_RetCarSpeedup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCarSpeedup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCarSpeedup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCarSpeedup;
+
+        /**
+         * Creates a plain object from a GW2C_RetCarSpeedup message. Also converts values to other types if specified.
+         * @param message GW2C_RetCarSpeedup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCarSpeedup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCarSpeedup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_ReqCarShopInfo. */
     interface IC2GW_ReqCarShopInfo {
 
@@ -8529,9 +9423,10 @@ declare namespace msg {
 
     /** CarState enum. */
     enum CarState {
-        Ready = 2,
-        Parking = 3,
-        Exped = 4,
+        Ready = 1,
+        Parking = 2,
+        Exped = 3,
+        Arrival = 4,
         Robbing = 5,
         Back = 6
     }
@@ -8800,6 +9695,14 @@ declare namespace msg {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+    }
+
+    /** CarTargetType enum. */
+    enum CarTargetType {
+        CTTPlayer = 1,
+        CTTBuilding = 2,
+        CTTHouses = 3,
+        CTTEvent = 4
     }
 
     /** Properties of a GW2C_SendUserEvents. */
