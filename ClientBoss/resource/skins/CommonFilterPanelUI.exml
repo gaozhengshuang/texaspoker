@@ -8,7 +8,7 @@
 		<e:Image id="selectStatus2" source="uiCarAltas_json.arrowdown" scaleY="-1" right="0" verticalCenter="0" visible="false"/>
 		</e:Group>
 		<e:Label id="select_txt" text="区域" x="0" width="195" verticalAlign="middle" textAlign="center" textColor="0x606060" fontFamily="Microsoft YaHei" anchorOffsetX="0" touchEnabled="false" verticalCenter="0"/>
-		<e:Label text="价格" x="580" width="66" verticalAlign="middle" textAlign="center" textColor="0x606060" fontFamily="Microsoft YaHei" anchorOffsetX="0" touchEnabled="false" verticalCenter="0"/>
+		<e:Label id="jiage_txt" text="价格" x="580" width="66" verticalAlign="middle" textAlign="center" textColor="0x606060" fontFamily="Microsoft YaHei" anchorOffsetX="0" touchEnabled="false" verticalCenter="0"/>
 		<e:Group id="priceGroup" x="642" anchorOffsetX="0" width="70.5" anchorOffsetY="0" height="59.34" verticalCenter="-0.5">
 		<e:RadioButton id="priceRadio1" label="" x="-58" y="0" width="128" value="1" anchorOffsetX="0" anchorOffsetY="0" height="29.17">
 			<e:skinName>

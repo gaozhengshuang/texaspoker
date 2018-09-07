@@ -4,11 +4,11 @@
 	<e:Rect width="720" height="96" x="0" y="0" fillColor="0xffffff"/>
 	<e:Group x="0" y="126">
 		<e:Rect width="720" height="306" x="0" y="0" fillColor="0xFFFFFF"/>
-		<e:EditableText id="loginNameput" width="660" height="246" anchorOffsetX="0" anchorOffsetY="0" size="30" fontFamily="Microsoft YaHei" text="失敬失敬" verticalAlign="top" textAlign="left" x="30" textColor="0xbbbbd0" y="30"/>
+		<e:EditableText id="sign_txt" width="660" height="246" anchorOffsetX="0" anchorOffsetY="0" size="30" fontFamily="Microsoft YaHei" text="" verticalAlign="top" textAlign="left" x="30" textColor="0xbbbbd0" y="30" maxChars="30" multiline="true"/>
 	</e:Group>
 	<e:Label text="个性签名" x="292" y="31" textColor="0x5f5f6c" fontFamily="Microsoft YaHei" size="34" bold="true"/>
-	<e:Label text="取消" x="28" y="31" textColor="0xbbbbd0" fontFamily="Microsoft YaHei" bold="true" size="34"/>
-	<e:Label text="保存" y="31" fontFamily="Microsoft YaHei" bold="true" size="34" textColor="0xff6772" right="28"/>
+	<e:Label id="cancel_btn" text="取消" x="28" y="31" textColor="0xbbbbd0" fontFamily="Microsoft YaHei" bold="true" size="34"/>
+	<e:Label id="save_btn" text="保存" y="31" fontFamily="Microsoft YaHei" bold="true" size="34" textColor="0xff6772" right="28"/>
 	<e:Label text="您最多能输入30个字" y="462" textColor="0xff6a75" size="24" fontFamily="Microsoft YaHei" right="30"/>
 	
 </e:Skin>

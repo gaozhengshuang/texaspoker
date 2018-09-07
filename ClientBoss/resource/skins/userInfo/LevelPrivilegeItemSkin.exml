@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LevelPrivilegeItemSkin" width="720" height="128" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<game:LevelIconPanel id="levelIcon" width="96" height="28" x="30" skinName="LevelIconSkin" verticalCenter="0"/>
+	<e:Label id="tili_txt" text="最大体力值上限" x="236" y="27" textColor="0x848491" size="26" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="400"/>
+	<e:Label id="house_txt" text="持有房数量上限" x="236" y="75" textColor="0x848491" size="26" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="400"/>
+	<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" bottom="0"/>
+</e:Skin>

@@ -18,7 +18,9 @@ module game {
 		private down_bg: eui.Rect;
 		private child_bg: eui.Rect;
 
-		private priceGroup: eui.Group;
+		public jiage_txt:eui.Rect;
+
+		public priceGroup: eui.Group;
 		private priceRadio1: eui.RadioButton;
 		private priceRadio2: eui.RadioButton;
 		private radioGroup: eui.RadioButtonGroup;

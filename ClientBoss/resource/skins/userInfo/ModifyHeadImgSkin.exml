@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="ModifyHeadImgSkin" width="642" height="642" xmlns:e="http://ns.egret.com/eui">
+<e:Skin class="ModifyHeadImgSkin" width="642" height="642" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xffffff" ellipseWidth="40" ellipseHeight="40"/>
 	<e:Label text="修改头像" y="60" textColor="0x5f5f6c" fontFamily="Microsoft YaHei" size="34" horizontalCenter="0"/>
 	<e:Group bottom="110" horizontalCenter="0">
-		<e:Image source="hall_5_json.headImg1_png" x="0" y="0"/>
-		<e:Image source="hall_5_json.headImg2_png" x="178" y="6"/>
-		<e:Image source="hall_5_json.headImg3_png" x="356" y="2"/>
-		<e:Image source="hall_5_json.headImg4_png" x="0" y="178"/>
-		<e:Image source="hall_5_json.headImg5_png" x="178" y="178"/>
-		<e:Image source="hall_5_json.headImg6_png" x="356" y="178"/>
+		<e:Image id="headImg1" source="hall_5_json.headImg1_png" x="0" y="0"/>
+		<e:Image id="headImg2" source="hall_5_json.headImg2_png" x="178" y="0"/>
+		<e:Image id="headImg3" source="hall_5_json.headImg3_png" x="356" y="0"/>
+		<e:Image id="headImg4" source="hall_5_json.headImg4_png" x="0" y="178"/>
+		<e:Image id="headImg5" source="hall_5_json.headImg5_png" x="178" y="178"/>
+		<e:Image id="headImg6" source="hall_5_json.headImg6_png" x="356" y="178"/>
 	</e:Group>
 </e:Skin>
