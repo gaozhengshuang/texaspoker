@@ -38,10 +38,8 @@ module game {
                     let img = this["itemImg" + i.toString()];
                     this._initImgPointList.push(new egret.Point(img.x, img.y));
                 }
-                this._successPointList = [new egret.Point(568, 600), new egret.Point(750, 700)]; //舞台坐标
+                this._successPointList = [new egret.Point(568, 600), new egret.Point(650, 1050)]; //舞台坐标
                 this._failPointList = [new egret.Point(152, 600), new egret.Point(-30, 700)];
-                // this._successPointList = [new egret.Point(246, -393), new egret.Point(428, -293)]; //本地坐标
-                // this._failPointList = [new egret.Point(-170, -393), new egret.Point(-364, -293)];
             }
         }
 
@@ -121,6 +119,7 @@ module game {
         public showFail(idx: number) {
             this.runResultAnimation(idx, this._failPointList, -20);
         }
+
         private runResultAnimation(idx: number, list: egret.Point[], rotation: number = 20) {
             let img:eui.Image = this["itemImg" + idx];
             let p0 = this._initImgPointList[idx - 1];
@@ -135,11 +134,13 @@ module game {
             let p2 = list[1];
             effectUtils.besselCurveAnimation(img, globalP, p1, p2, 800, this._besslCompleteHandler, rotation);
         }
+        
         private onBesslComplete(target:egret.DisplayObject)
         {
             this.addChild(target);
             target.visible = false;
         }
+
         public addItem(itemInfo: table.IItemBaseDataDefine) {
             if (this._curGetNum < this._maxGetNum) {
                 this._curGetNum += 1;
@@ -156,12 +157,10 @@ module game {
         }
 
         public removeAllItem() {
-            // for (let i = 1; i <= this._curGetNum; i++) { //等物品动画播放完毕在消失
-                // this["itemImg" + i].visible = false;
-            // }
             this._curGetNum = 0;
             this.findItemIds = [];
         }
+
         public clearItemShow()
         {
           for (let i = 1; i < 4; i++) { 
@@ -171,6 +170,7 @@ module game {
                 this.addChild(img);
             } 
         }
+
         public playItemShake() {
             effectUtils.playAnimation(this.shakeItemAnim, true);
         }
