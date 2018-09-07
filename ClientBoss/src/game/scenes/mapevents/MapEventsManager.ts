@@ -160,10 +160,29 @@ module game {
 			}
 		}
 		private onEventsIconClick(type: string, data: game.MapIconInfo) {
-/* 			let def = table.TMapEventById[data.tid];
-			ItemGetTips.getInstance().startCollect();
-			this.reqEnterEvent(data.id); */
-			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_EXPEDITION,{data:data});
+			let self = this;
+			let hasCarRobbing = false;
+			CarManager.getInstance().ReqMyCarInfo(function(){
+				for(let cardata of DataManager.playerModel.getUserInfo().cardatas)
+				{
+					if(cardata.state==msg.CarState.Robbing && cardata.expedition.id==data.id){
+						hasCarRobbing = true;
+						break;
+					}
+				}
+
+				if(hasCarRobbing){
+					let def = table.TMapEventById[data.tid];
+					ItemGetTips.getInstance().startCollect();
+					self.reqEnterEvent(data.id);
+				}
+				else{
+					//打开出征界面
+					ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_EXPEDITION,{data:data});
+				}
+	
+			});
+
 		}
 		/**
 		 * 请求进入事件

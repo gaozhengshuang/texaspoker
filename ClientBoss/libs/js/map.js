@@ -364,7 +364,8 @@ function addExpeditionCarMarker(data) {
       icon: icon,
       map: map,
       position: new qq.maps.LatLng(data.lat, data.lng),
-      zIndex:10,
+
+      zIndex:100,
     });
 
     if(!expeditionCarArray.some(markerData=>{return markerData==marker})){
