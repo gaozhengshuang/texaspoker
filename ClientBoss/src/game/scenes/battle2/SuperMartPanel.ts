@@ -63,6 +63,7 @@ module game {
         protected beforeRemove() {
             this.removeEvent();
             egret.stopTick(this.update, this);
+
             this.shoppingCarGroup.removeChildren();
             this.gouzi.clearItemShow();
         }
