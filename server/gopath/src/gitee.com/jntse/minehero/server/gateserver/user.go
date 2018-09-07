@@ -197,13 +197,19 @@ func (this *GateUser) SetName(nickname string) bool {
 	for _, v := range data {
 		v.ownername = nickname
 	}
+	this.SendUserBase()
+	log.Info("玩家[%d] 设置昵称[%s] 成功", this.Id(),nickname)
 	return true
 }
 
 //设置归属地 非定位
 func (this *GateUser) SetBaseArea (province uint32, city uint32) {
+	log.Info("玩家[%d] 设置归属地 province %d, city %d", this.Id(), province, city)
 	this.baseprovince = province
 	this.basecity = city
+	this.UserBase().Baseprovince = pb.Uint32(province)
+	this.UserBase().Basecity = pb.Uint32(city)
+	this.SendUserBase()
 }
 
 func (this *GateUser) Face() string {
@@ -211,11 +217,13 @@ func (this *GateUser) Face() string {
 }
 
 func (this *GateUser) SetFace(f string) {
+	log.Info("玩家[%d] 设置头像 [%d]",this.Id(), f)
 	this.EntityBase().Face = pb.String(f)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())
 	for _, v := range data {
 		v.ownerface = f
 	}
+	this.SendUserBase()
 }
 
 func (this *GateUser) Id() uint64 {
@@ -227,11 +235,13 @@ func (this *GateUser) Sex() int32 {
 }
 
 func (this *GateUser) SetSex(sex int32) {
+	log.Info("玩家[%d] 设置性别 [%d]",this.Id(), sex)
 	this.EntityBase().Sex = pb.Int32(sex)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())
 	for _, v := range data {
 		v.ownersex = sex
 	}
+	this.SendUserBase()
 }
 
 func (this *GateUser) SetSign(sign string) bool {
@@ -240,6 +250,9 @@ func (this *GateUser) SetSign(sign string) bool {
 		return false
 	}
 	this.sign = sign
+	this.UserBase().Sign = pb.String(sign)
+	this.SendUserBase()
+	log.Info("玩家[%d] 设置签名[%s]",this.Id(), sign)
 	return true
 }
 
@@ -248,7 +261,10 @@ func (this *GateUser) Sign() string {
 }
 
 func (this *GateUser) SetConstellation(value uint32) {
+	log.Info("玩家[%d] 设置星座[%d]",this.Id(),value)
 	this.constellation = value
+	this.UserBase().Constellation = pb.Uint32(value)
+	this.SendUserBase()
 }
 
 func (this *GateUser) Constellation() uint32 {
@@ -256,7 +272,10 @@ func (this *GateUser) Constellation() uint32 {
 }
 
 func (this *GateUser) SetAge(age uint32) {
+	log.Info("玩家[%d] 设置年龄[%d]", this.Id(),age)
 	this.age = age
+	this.UserBase().Age = pb.Uint32(age)
+	this.SendUserBase()
 }
 
 func (this *GateUser) Age() uint32 {
@@ -915,8 +934,13 @@ func (this *GateUser) ReplyStartGame(err string, roomid int64) {
 	}
 }
 
-// 在网关创建房间
-func (this *GateUser) ReqStartGameLocal(gamekind int32) (errcode string) {
+// --------------------------------------------------------------------------
+/// @brief 创建游戏房间
+///
+/// @param gamekind 游戏类型
+/// @param eventuid 通过事件进入的事件uid
+// --------------------------------------------------------------------------
+func (this *GateUser) ReqStartGameLocal(gamekind int32, eventuid uint64) (errcode string) {
 	// 创建中
 	if this.IsRoomCreating() {
 		log.Error("玩家[%s %d] 重复创建房间，正在创建房间中", this.Name(), this.Id())
@@ -951,7 +975,7 @@ func (this *GateUser) ReqStartGameLocal(gamekind int32) (errcode string) {
 		}
 
 		// 初始化房间
-		room := NewGameRoom(userid, roomid, gamekind)
+		room := NewGameRoom(userid, roomid, gamekind, eventuid)
 		if errcode = room.Init(); errcode != "" {
 			break
 		}
