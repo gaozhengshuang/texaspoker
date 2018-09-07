@@ -35,7 +35,7 @@ module game {
                 this.userInfoPanel.updataInfo(this.userInfo);
             }
         }
-        public btnCallbackFun(type:string,body:any){
+        public btnCallbackFun(type:string,body:any,param=null){
             switch(type){
                 case 'transaction':
                     body.onclick_transaction();
@@ -103,20 +103,8 @@ module game {
                 case 'expedition': //出征模式切换
                     body.onclick_ChangeExpedition();
                 break;
-                case 'expeditionStateBtn_1':
-                    body.onClickExpeditonStateBtn(1);
-                break;
-                case 'expeditionStateBtn_2':
-                    body.onClickExpeditonStateBtn(2);
-                break;
-                case 'expeditionStateBtn_3':
-                    body.onClickExpeditonStateBtn(3);
-                break;
-                case 'expeditionStateBtn_4':
-                    body.onClickExpeditonStateBtn(4);
-                break;
-                case 'expeditionStateBtn_5':
-                    body.onClickExpeditonStateBtn(5);
+                case 'expeditionStateBtn':
+                    body.onClickExpeditonStateBtn(param);
                 break;
             }
         }
@@ -133,20 +121,29 @@ module game {
             this.userInfoPanel.updataInfo(this.userInfo);
             /*initTopInfo(GameConfig.innerScale,{name:this.userInfo.nickname,
                 level:this.userInfo.level,gold1:this.userInfo.gold1});*/
+            this.showExpeditionArrivalCarIcon(true);
         }
         public showUserInfo(bool:boolean){
             if(this.userInfoPanel!=null){
                 if(bool)
                 {
                     openPanel(PanelType.GameUserInfoPanel);
+                    this.showExpeditionArrivalCarIcon(true);
                 }
                 else
                 {
                     this.userInfoPanel.remove();
+                    this.showExpeditionArrivalCarIcon(false);
                     
                 }
             }
         }
+
+		//显示已到达车辆图标覆盖物
+		public showExpeditionArrivalCarIcon(bool:boolean){
+			CarExpeditionManager.getInstance().showArrivalCarMarkerPos(bool);
+		}
+
 
         public showRoomWeizhi(isShow:boolean,roomvo:HouseVO=null){
             if(this.userInfoPanel){
@@ -231,8 +228,8 @@ module game {
 		    ApplicationFacade.getInstance().sendNotification(CommandName.MAP_OPEN_EXPEDITION_MODEL);
         }
 
-        private onClickExpeditonStateBtn(pos:number){
-
+        private onClickExpeditonStateBtn(carID:number){
+            CarExpeditionInfoPanel.getInstance().OnStateHandle(carID);
         }   
         /**
          * 释放事件与重置数据状态

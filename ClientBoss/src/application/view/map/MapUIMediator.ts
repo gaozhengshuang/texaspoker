@@ -189,8 +189,6 @@ module game {
 		}
 		private buyCarRoomRequset(eve:BasicEvent):void
 		{
-			this.showSelfPointCircle();
-
 			openPanel(PanelType.CarShop);
 			//激活按钮事件
 			GameConfig.setEventsReply(true);
@@ -270,6 +268,7 @@ module game {
 				removeCircle();
 				removePolyline();
 				removeExpeditionCarMarker();
+				CarExpeditionManager.getInstance().showArrivalCarMarkerPos(true);
 				CarExpeditionManager.getInstance().CloseCarMarkerUpdate();
 				return;
 			}
@@ -333,6 +332,7 @@ module game {
 			if(!mapProxy.isShowRange) return;
 			CarExpeditionManager.getInstance().OpenCarMarkerUpdate();
 		}
+
 		//显示车辆出征列表
 		private showExpeditionList()
 		{

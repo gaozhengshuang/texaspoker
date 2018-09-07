@@ -17,10 +17,27 @@ module game {
         public refreshAllCar()
         {
             console.log("刷新车辆位置状态");
+            this.showExpeditionListInfo(true);
             this.CloseCarMarkerUpdate();
             this.OpenCarMarkerUpdate();
         }
-        
+
+        //车辆到达点图标标注
+        public showArrivalCarMarkerPos(isShow:boolean)
+        {
+            CarManager.getInstance().ReqMyCarInfo(function(){
+                DataManager.playerModel.getUserInfo().cardatas.forEach(data=>{
+                    if(data.state==msg.CarState.Arrival){
+                        removeExpeditionCarMarkerById(data.id);
+                        if(isShow){
+                            addExpeditionCarMarker({id:data.id,imageUrl:'resource/others/images/small_1.png',lat:data.expedition.latitude,lng:data.expedition.longitude});                
+                        }
+                    }
+                });
+            });
+
+        }
+
         public OpenCarMarkerUpdate()
         {
             let self =  this;   
@@ -55,6 +72,8 @@ module game {
                 }              
             }
         }
+
+
         //客户端模拟车辆位置
         private updateCarMarkerPos(body:any)
         {   
@@ -82,13 +101,12 @@ module game {
                     console.log("ratio--------------->",ratio);
                     Console.log("目标点位置---->",targetLat," ",targetLng);
     
-                    removeExpeditionCarMarkerById(data.id);
-                   
                     if(ratio>=1){//有车辆到达终点
                         indexes.push(index);
                         removePolylineByCar(data.id);//移除单个车的路线
                     }
                     else{//客户端继续模拟位置,并刷新出征车辆信息列表
+                        removeExpeditionCarMarkerById(data.id);
                         addExpeditionCarMarker({id:data.id,imageUrl:'resource/others/images/small_1.png',lat:targetLat,lng:targetLng});
                         CarExpeditionInfoPanel.getInstance().refreshData(data,sDhFilter(dateTime.getTime()/1000,":"));
                     }
@@ -96,14 +114,20 @@ module game {
                 else if(data.state==msg.CarState.Robbing) //停靠状态
                 {
                     let nowTime  = new Date().getTime() - SysTimeEventManager.getInstance().systimeoffset;
-                    let dateTime = new Date(Math.max(0,nowTime-<number>data.endtime));
+                    let dateTime = new Date(Math.max(0,<number>data.endtime-nowTime));
                     if(dateTime.getTime() == 0){ //有车辆已经撤回到仓库
                         indexes.push(index);
+                        removeExpeditionCarMarkerById(data.id);//移除单个车的标注
                     }
                     else{
                         CarExpeditionInfoPanel.getInstance().refreshData(data,sDhFilter(dateTime.getTime()/1000,":"));                        
                     }
                 }
+                else if(data.state==msg.CarState.Arrival) //到达状态
+                {
+/*                     removeExpeditionCarMarkerById(data.id);
+                    addExpeditionCarMarker({id:data.id,imageUrl:'resource/others/images/small_1.png',lat:data.expedition.latitude,lng:data.expedition.longitude});
+ */                }
 
             }
             indexes.forEach(iindex=>{carDatas.splice(iindex,1);});
@@ -123,20 +147,15 @@ module game {
         public showExpeditionListInfo(show:boolean)
         {
             if(!show) {
-                CarExpeditionInfoPanel.getInstance().OnCloseHandle();
-                showExpeditionStateBtn(show,[]);
+                //CarExpeditionInfoPanel.getInstance().OnCloseHandle();
+                showExpeditionState(show,[],[]);
+                showExpeditionInfoTxt(show,"");
                 return;
             }
             let self = this;
             //重新请求玩家车辆数据 
             CarManager.getInstance().ReqMyCarInfo(function(){
-                //刷新地图上div按钮
-                let carDatas = DataManager.playerModel.getUserInfo().cardatas.filter(data=>{return data.state==msg.CarState.Exped || data.state==msg.CarState.Arrival ||data.state==msg.CarState.Robbing});
-                showExpeditionStateBtn(show,carDatas);
-                //刷新出征列表界面  
-                if(!panelIsShow(PanelType.CarExpeditionInfoPanel)){
-                    openPanel(PanelType.CarExpeditionInfoPanel);
-                }
+                //self.showArrivalCarMarkerPos(show);
                 CarExpeditionInfoPanel.getInstance().updateView();
             });
 

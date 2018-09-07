@@ -24,7 +24,9 @@ declare function removePolyline();
 declare function addExpeditionCarMarker(data:any);//添加车辆标注(data:{imageUrl:string,start:{lat,lng},end:{lat,lng}})
 declare function removeExpeditionCarMarkerById(id:number|Long);
 declare function removeExpeditionCarMarker();
-declare function showExpeditionStateBtn(bool:boolean,datas:msg.ICarData[]);
+declare function showExpeditionState(bool:boolean,datas:msg.ICarData[],content:string[]);
+declare function showExpeditionInfoTxt(bool:boolean,content:string);
+declare function updateOneExpeditionInfo(datas:msg.ICarData,content:string);
 /**
  * 地图代理
  * @author sunboy
