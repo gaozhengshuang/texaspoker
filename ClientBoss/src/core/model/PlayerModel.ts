@@ -40,6 +40,7 @@ module game {
         private _tasks;
         private _houses;
         private _carRecords: string[] = [];
+        private _selPoint:PointVO;
 
         public RegisterEvent() {
             NotificationCenter.addObserver(this, this.OnGW2C_RetUserInfo, "msg.GW2C_SendUserInfo");
@@ -358,7 +359,7 @@ module game {
         }
 
         //获取背包中物品的个数
-        public getItemNum(itemId: number) {
+        public getItemNum(itemId: number|Long) {
             let num = 0;
             this.bagList.forEach(item => {
                 if (item.id === itemId) {
@@ -574,6 +575,17 @@ module game {
 
         public getCarRecords() {
             return this._carRecords;
+        }
+
+        public setSelfPoint(pointVo:any)
+        {
+            this._selPoint || (this._selPoint = new PointVO());
+            this._selPoint.setObject(pointVo);
+        }
+
+        public getSelfPoint()
+        {
+            return this._selPoint;
         }
 
         //我的车辆是否停靠

@@ -22,6 +22,7 @@ module game {
             }
             this.mapProxy.selfPoint.setObject(data);
 			this.mapProxy.currentPoint.setObject(data);
+			DataManager.playerModel.setSelfPoint(data);
 			this.mapProxy.addBuilding();
 			
             ApplicationFacade.getInstance().sendNotification(CommandName.SCENE_SWITCH_MAP);

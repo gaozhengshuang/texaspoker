@@ -16,6 +16,7 @@ module game {
         public static BUY_HOUSE: string = "buy_house";
         public static BUY_CAR: string = "buy_car";
 
+
         private eventMask:eui.Rect;
         private fujinLabelList:string[]=['附近的人','附近建筑'];
         private fujinStatus:number=1;
@@ -94,14 +95,29 @@ module game {
                     
                 break;
                 case 'buyCar':
-
                     body.onclick_buyCar();
-                    
                 break;
                 case 'returnTrade': //返回交易
                     body.onclick_returnTrade();
                 break;
-
+                case 'expedition': //出征模式切换
+                    body.onclick_ChangeExpedition();
+                break;
+                case 'expeditionStateBtn_1':
+                    body.onClickExpeditonStateBtn(1);
+                break;
+                case 'expeditionStateBtn_2':
+                    body.onClickExpeditonStateBtn(2);
+                break;
+                case 'expeditionStateBtn_3':
+                    body.onClickExpeditonStateBtn(3);
+                break;
+                case 'expeditionStateBtn_4':
+                    body.onClickExpeditonStateBtn(4);
+                break;
+                case 'expeditionStateBtn_5':
+                    body.onClickExpeditonStateBtn(5);
+                break;
             }
         }
 
@@ -127,9 +143,11 @@ module game {
                 else
                 {
                     this.userInfoPanel.remove();
+                    
                 }
             }
         }
+
         public showRoomWeizhi(isShow:boolean,roomvo:HouseVO=null){
             if(this.userInfoPanel){
                 //this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
@@ -207,6 +225,15 @@ module game {
         {
             TradeManager.getInstance().returnToTrade();
         }
+
+        private onclick_ChangeExpedition()
+        {
+		    ApplicationFacade.getInstance().sendNotification(CommandName.MAP_OPEN_EXPEDITION_MODEL);
+        }
+
+        private onClickExpeditonStateBtn(pos:number){
+
+        }   
         /**
          * 释放事件与重置数据状态
          */

@@ -16,8 +16,15 @@ declare function getRectRangePoint(center, radius);
 declare function emptyBuilding();
 declare function emptyPlayerIcon();
 declare function emptyAreaIcon();
+declare function emptyCarExpeditionIcon();
 declare function getDistance(start: any, end: any)
-
+declare function addPolyline(data:any); //添加折线(data:{start:{lat,lng},end:{lat,lng}})
+declare function removePolylineByCar(id:number|Long);
+declare function removePolyline();
+declare function addExpeditionCarMarker(data:any);//添加车辆标注(data:{imageUrl:string,start:{lat,lng},end:{lat,lng}})
+declare function removeExpeditionCarMarkerById(id:number|Long);
+declare function removeExpeditionCarMarker();
+declare function showExpeditionStateBtn(bool:boolean,datas:msg.ICarData[]);
 /**
  * 地图代理
  * @author sunboy
@@ -34,7 +41,7 @@ module game {
 		public mapStatus: number = 1;
 		public mapZoom: number = 16;
 		public showRadius: number = 1000;
-
+		public isShowRange:boolean = false;
 
 		/**
 	 	* 点击登陆按钮
@@ -139,6 +146,7 @@ module game {
 			else {
 				init(realobj.lat, realobj.lng, 16);
 			}
+			
 			ApplicationFacade.getInstance().sendNotification(CommandName.GET_SELF_COORDINSTE, { lat: realobj.lat, lng: realobj.lng });
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_GOODS_TYPE_LIST);
 			//ApplicationFacade.getInstance().sendNotification(CommandName.HTTP_REQ_ROOM_TYPE_LIST);
@@ -153,8 +161,9 @@ module game {
 				let getBuild:any[]=[];
 				for(let i:number=0;i<build.length;i++){
 					let item:any=build[i];
-					if(item.PosX<Number(Range[0]) && item.PosX>Number(Range[1]) 
-					&& item.PosY>Number(Range[2]) && item.PosY<Number(Range[3])){
+/* 					if(item.PosX<Number(Range[0]) && item.PosX>Number(Range[1]) 
+					&& item.PosY>Number(Range[2]) && item.PosY<Number(Range[3])) */
+					{
 						getBuild.push(build[i]);
 					}
 				}

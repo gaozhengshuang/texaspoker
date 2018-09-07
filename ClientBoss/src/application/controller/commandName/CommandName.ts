@@ -13,6 +13,7 @@ module game {
 		public static GOTO_HOME_PAGE: string = "goto_home_page";
 
 		public static SHOW_USER_INFO: string = "show_user_info";
+		public static SHOW_MAP_UI: string = "show_map_ui";
 		public static GET_SELF_COORDINSTE: string = "get_self_coordinate";
 		public static UPDATE_USER_INFO: string = "update_user_info";
 		public static UPDATE_ROOM_INFO: string = "update_room_info";
@@ -20,8 +21,16 @@ module game {
 		public static MAP_POSITION: string = "map_position";
 		public static HAVE_NEW_DONGTAI: string = "have_new_dongtai";
 
+		public static MAP_OPEN_EXPEDITION_MODEL : string = "map_open_expedition_model";
+		public static MAP_SHOW_CIRCLE : string = "map_show_circle";
+		public static MAP_SHOW_POLYLINE : string = "map_show_polyLine";
+		public static MAP_SHOW_CAR_MAKER : string = "map_show_car_marker";
+		public static MAP_SHOW_POLYLINE_ONE : string = "map_show_polyLine_one";
+		public static MAP_SHOW_EXPEDITION_INFO: string = "map_show_expedition_info";
+
 		public static PAGE_SWITCH_ROOM: string = "page_switch_room";
 		public static PAGE_SWITCH_NEW_HOUSE: string = "page_switch_new_house";
+		public static PAGE_SWITCH_EXPEDITION: string = "page_switch_expedition";
 		
 		public static PAGE_SWITCH_SMALL_GAME: string = "page_switch_small_game";
 		public static REMOVE_SMALL_GAME_PAGE: string = "remove_small_game_page";

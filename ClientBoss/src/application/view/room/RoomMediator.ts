@@ -133,6 +133,7 @@ module game {
 			if (GameConfig.sceneType == 2) {
 				GameConfig.setEventsReply(false);
 				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: true });				
 				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
 			}
 		}

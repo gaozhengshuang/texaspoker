@@ -14,8 +14,14 @@ module game {
 					CommandName.UPDATE_USER_INFO,
 					CommandName.SHOW_TOP_ROOM_NUM,
 					CommandName.SHOW_TOP_ROOM_BG,
-					CommandName.UPDATE_TILI_TIME
-
+					CommandName.UPDATE_TILI_TIME,
+					CommandName.MAP_SHOW_CIRCLE,
+					CommandName.MAP_SHOW_POLYLINE,
+					CommandName.MAP_SHOW_CAR_MAKER,
+					CommandName.MAP_SHOW_POLYLINE_ONE,
+					CommandName.MAP_SHOW_EXPEDITION_INFO,
+					CommandName.MAP_OPEN_EXPEDITION_MODEL,
+					CommandName.SHOW_MAP_UI,
             ];
         }
 		
@@ -81,6 +87,53 @@ module game {
 						}
 						break;
 					}
+					case CommandName.MAP_OPEN_EXPEDITION_MODEL:
+					{
+					
+						this.changeExditionModel();
+					}
+					break;
+					case CommandName.MAP_SHOW_CIRCLE:
+					{
+					
+						this.showSelfPointCircle();
+					}
+					break;
+					case CommandName.MAP_SHOW_POLYLINE:
+					{
+					
+						this.showExpeditionPolyline();
+					}
+					break;
+					case CommandName.MAP_SHOW_CAR_MAKER:
+					{
+					
+						this.showExpeditionCarIcon();
+					}
+					break;
+					case CommandName.MAP_SHOW_POLYLINE_ONE:
+					{
+						if (data) {
+							this.showExpeditionPolylineByCar(data.data);
+						}
+					}
+					break;	
+
+					case CommandName.MAP_SHOW_EXPEDITION_INFO:
+					{
+						this.showExpeditionList();
+					}
+					break;	
+					case CommandName.SHOW_MAP_UI:
+					{
+						if(data)
+						{
+							this.showMapUI(data.isShow);
+						}
+						
+					}
+					break;
+					
 			}
 		}
 		private init():void
@@ -136,11 +189,14 @@ module game {
 		}
 		private buyCarRoomRequset(eve:BasicEvent):void
 		{
+			this.showSelfPointCircle();
+
 			openPanel(PanelType.CarShop);
 			//激活按钮事件
 			GameConfig.setEventsReply(true);
 			//关闭主页个人信息界面
 			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false});
+			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });			
 			ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
 			//隐藏下方菜单栏
 			GameConfig.showDownBtnFun(false);
@@ -183,6 +239,108 @@ module game {
 				}
 			}
 		}
+		//切换分页时隐藏地图UI
+		public showMapUI(bool:boolean){
+            var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+			if(!mapProxy) return;
+			if(!mapProxy.isShowRange) return;
+            if(bool){
+				
+                if(!panelIsShow(PanelType.CarExpeditionInfoPanel)){
+                    CarExpeditionManager.getInstance().showExpeditionListInfo(mapProxy.isShowRange);
+                }
+            }
+            else
+            {
+                if(panelIsShow(PanelType.CarExpeditionInfoPanel)){
+                    CarExpeditionInfoPanel.getInstance().remove();
+                }
+                
+            }
+
+        }
+		//打开或关闭出征模式
+		private changeExditionModel()
+		{
+			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+			if(!mapProxy) return;
+			mapProxy.isShowRange = !mapProxy.isShowRange;
+			this.showExpeditionList();	
+			if(!mapProxy.isShowRange) {
+				removeCircle();
+				removePolyline();
+				removeExpeditionCarMarker();
+				CarExpeditionManager.getInstance().CloseCarMarkerUpdate();
+				return;
+			}
+			this.showSelfPointCircle();
+			this.showExpeditionPolyline();
+			this.showExpeditionCarIcon();
+		}
+		//以自身位置为中心，拥有的车辆中最大行驶范围为半径添加地图圆形覆盖物
+		private showSelfPointCircle():void
+		{		
+			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+			if(!mapProxy) return;
+			if(!mapProxy.isShowRange) {
+				removeCircle();
+				return;
+			}
+			let maxRange = 0;
+			DataManager.playerModel.getUserInfo().cardatas.forEach(data=>{
+				maxRange = Math.max(maxRange,data.attr.range);
+			});
+			addCircle({lat:mapProxy.selfPoint.lat,lng:mapProxy.selfPoint.lng,radius:maxRange})
+		}
+
+		//所有车辆,两点路径点添加直线地图覆盖物(data:{start:{lat,lng},end:{lat,lng}})
+		private showExpeditionPolyline():void
+		{
+			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+			if(!mapProxy) return;
+			if(!mapProxy.isShowRange) {
+				removePolyline();
+				return;
+			}
+			let self = this;
+			removePolyline();
+			CarManager.getInstance().ReqMyCarInfo(function(){
+				DataManager.playerModel.getUserInfo().cardatas.forEach(
+					data=>{
+						self.showExpeditionPolylineByCar(data);
+					}
+				);
+			});
+		}
+		//添加单个车的路线
+		private showExpeditionPolylineByCar(data:msg.ICarData)
+		{
+			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+			if(!mapProxy) return;
+			if(!mapProxy.isShowRange) return;
+			if(data.state==msg.CarState.Exped){
+				let linePathData = {id:data.id,start:{lat:mapProxy.selfPoint.lat,lng:mapProxy.selfPoint.lng},end:{lat:data.expedition.latitude,lng:data.expedition.longitude}};
+				addPolyline(linePathData);
+				let cardef = table.TCarById[data.tid];
+			}
+		}
+
+		//添加车图标标注覆盖物
+		private showExpeditionCarIcon()
+		{
+			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+			if(!mapProxy) return;
+			if(!mapProxy.isShowRange) return;
+			CarExpeditionManager.getInstance().OpenCarMarkerUpdate();
+		}
+		//显示车辆出征列表
+		private showExpeditionList()
+		{
+			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
+			if(!mapProxy) return;
+			CarExpeditionManager.getInstance().showExpeditionListInfo(mapProxy.isShowRange);
+		}
+
 		public get sceneGroup():GameMapUIView
         {
 			return <GameMapUIView><any> (this.viewComponent);
