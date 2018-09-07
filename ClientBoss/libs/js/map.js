@@ -145,9 +145,12 @@ function addCircle(data) {
   }
 }
 function removeCircle() {
-        exploreCircle.setMap(null);
-        exploreCircle=null;
+  if(exploreCircle){
+    exploreCircle.setMap(null);
+    exploreCircle=null;
+  }
 }
+
 /**
  * 添加地图建筑
  */
@@ -279,6 +282,131 @@ function playerArrayFun(bool) {
   }
 }
 
+//------------------------------//
+
+/**
+ * 添加折线
+ */
+var polylines = [];
+function addPolyline(data) {
+  if (data) {
+    let polyline = new qq.maps.Polyline({
+          path: [
+              new qq.maps.LatLng(data.start.lat,data.start.lng),
+              new qq.maps.LatLng(data.end.lat,data.end.lng),
+          ],
+          strokeColor: '#F42727',
+          strokeWeight: 5,
+          map : map,
+    });
+    if(!polylines.some(line=>{return line==polyline;})){
+        polylines.push({id:data.id,polyline:polyline});
+    }
+  }
+}
+/**
+ * 移除折线
+ */
+function removePolyline() {
+  if(polylines.length>0){
+    for(let polyline of polylines){
+      if(polyline && polyline.polyline)
+      {
+        polyline.polyline.setMap(null);
+        polyline.polyline=null;
+        polyline  = null;
+      }
+    }
+    polylines = [];
+  }
+}
+
+function removePolylineByCar(id) {
+  if(polylines.length>0){
+    for (let index = 0; index < polylines.length; index++) {
+      let polyline = polylines[index];
+      if(polyline && polyline.id)
+      {
+        if(polyline.id==id)
+        {
+          polylines.splice(index,1);
+          if(polyline.polyline)
+          {
+            polyline.polyline.setMap(null);
+            polyline.polyline=null;
+            polyline  = null;
+          }
+          break;
+        }
+      }
+    }
+  }
+}
+
+
+var expeditionCarArray = [];
+
+/**
+ * 添加地图出征路线上车辆图标
+ */
+function addExpeditionCarMarker(data) {
+  if (data != null) {
+    console.log(data);
+    let icon = new qq.maps.MarkerImage(
+      data.imageUrl,
+      new qq.maps.Size(150, 73),
+    );
+    
+    let marker = new qq.maps.Marker({
+      icon: icon,
+      map: map,
+      position: new qq.maps.LatLng(data.lat, data.lng)
+    });
+
+    if(!expeditionCarArray.some(markerData=>{return markerData==marker})){
+      expeditionCarArray.push({id:data.id,marker:marker});
+    }
+
+    marker.setMap(map);
+  } 
+}
+
+function removeExpeditionCarMarkerById(id)
+{
+  if(expeditionCarArray.length>0){
+    for (let index = 0; index < expeditionCarArray.length; index++) {
+      let data = expeditionCarArray[index];
+      if(data && data.id)
+      {
+        if(data.id==id)
+        {
+          expeditionCarArray.splice(index,1);
+          if(data.marker)
+          {
+            data.marker.setMap(null);
+            data.marker = null;
+            data = null;
+          }
+          break;
+        }
+      }
+    }
+  }
+}
+
+function removeExpeditionCarMarker()
+{
+  if(expeditionCarArray.length > 0){
+    for (let data of expeditionCarArray) {
+      if(data && data.marker){
+        data.marker.setMap(null);
+        data.marker = null;
+        data = null;
+      }
+    }
+    expeditionCarArray = [];
+  }
+}
 /**
  * 获取矩形范围的起始点
  */
