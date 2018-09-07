@@ -7,7 +7,7 @@ import (
 )
 
 func (this *GateUser) StartThrow() {
-	if this.RemoveGold(1000, "参加超市购物", true) {
+	if this.RemoveGold(1, "参加超市购物", true) {
 		this.cartflag = true
 		send := &msg.GW2C_RetStartThrow{}
 		this.SendMsg(send)
