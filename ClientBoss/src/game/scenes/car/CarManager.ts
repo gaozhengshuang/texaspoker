@@ -34,7 +34,12 @@ module game {
         private GW2C_UpdateCarShopProduct_BackCalls     : Function[];
         private GW2C_RetTakeCarAutoBackReward_BackCalls : Function[];
         private GW2C_RetCarPartLevelup_BackCalls        : Function[];
-        private GW2C_RetCarStarup_BackCalls        : Function[];
+        private GW2C_RetCarStarup_BackCalls             : Function[];
+        private GW2C_RetCarExpedition_BackCalls         : Function[];
+        private GW2C_RetCarActivate_BackCalls           : Function[];
+        private GW2C_RetCarRetract_BackCalls            : Function[];
+        private GW2C_RetCarSpeedup_BackCalls            : Function[];
+        
 
         private GW2C_ResParkingInfo_BackCalls           : CarFunData[];
         private GW2C_AckOtherUserHouseData_BackCalls    : CarFunData[];
@@ -54,7 +59,11 @@ module game {
             NotificationCenter.addObserver(this, this.OnGW2C_RetCarPartLevelup, "msg.GW2C_RetCarPartLevelup");
             NotificationCenter.addObserver(this, this.OnGW2C_RetCarStarup, "msg.GW2C_RetCarStarup");
             
-
+            NotificationCenter.addObserver(this, this.OnGW2C_RetCarExpedition,  "msg.GW2C_RetCarExpedition");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetCarActivate,    "msg.GW2C_RetCarActivate");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetCarRetract,     "msg.GW2C_RetCarRetract");
+            NotificationCenter.addObserver(this, this.OnGW2C_RetCarSpeedup,     "msg.GW2C_RetCarSpeedup");
+            
         
             this.GW2C_ResCarInfo_BackCalls               = [];
             this.GW2C_ResParkingInfo_BackCalls           = [];
@@ -66,6 +75,10 @@ module game {
             this.GW2C_RetTakeCarAutoBackReward_BackCalls = [];
             this.GW2C_RetCarPartLevelup_BackCalls        = [];
             this.GW2C_RetCarStarup_BackCalls             = [];
+            this.GW2C_RetCarExpedition_BackCalls         = [];
+            this.GW2C_RetCarActivate_BackCalls           = [];
+            this.GW2C_RetCarRetract_BackCalls            = [];
+            this.GW2C_RetCarSpeedup_BackCalls            = [];
         }
     
 
@@ -345,7 +358,93 @@ module game {
             this.GW2C_RetCarStarup_BackCalls = [];
         }
 
-        //-------------------抢车位返回----------
+        //------------------车辆出征-----------------------------------------------------------------
+        //请求出征
+        public  ReqCarExpedition(carid:number|Long,type:number,targetid:number|Long,originlatitude:number,originlongitude:number,destlatitude:number,destlongitude:number,callFunc:Function=null)
+        {
+            CommonDialog.getInstance().updateView("uiCarAltas_json.dialogBg","uiCarAltas_json.normalBtn","uiCarAltas_json.closeBtn");
+            let self = this;
+            showDialog("是否出征？", "确定", function(){
+ /*                if(DataManager.playerModel.getUserInfo().gold < gold){
+                    showTips("金币不足！");
+                }
+                else */
+                {
+                    if(callFunc && !self.GW2C_RetCarExpedition_BackCalls.some(func=>{return func==callFunc;}))
+                    {
+                        self.GW2C_RetCarExpedition_BackCalls.push(callFunc);
+                    }
+                    sendMessage("msg.C2GW_CarExpedition", msg.C2GW_CarExpedition.encode({
+                        carid:carid,
+                        type:type,
+                        targetid:targetid,
+                        originlatitude:originlatitude,
+                        originlongitude:originlongitude,
+                        destlatitude:destlatitude,
+                        destlongitude:destlongitude
+                    }));
+                }
+            },null);
+        }
+        //请求激活到达的车
+        public ReqCarActive(carid:number|Long,callFunc:Function = null)
+        {
+            if(callFunc && !this.GW2C_RetCarActivate_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_RetCarActivate_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_CarActivate", msg.C2GW_CarActivate.encode({
+                carid:carid
+            }));
+        }
+        //请求撤回到达的车
+        public ReqCarRetract(carid:number|Long,callFunc:Function = null)
+        {
+            if(callFunc && !this.GW2C_RetCarRetract_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_RetCarRetract_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_CarRetract", msg.C2GW_CarRetract.encode({
+                carid:carid
+            }));
+        }
+        //请求加速还未到达的车
+        public ReqCarSpeedUp(carid:number|Long,callFunc:Function = null)
+        {
+            if(callFunc && !this.GW2C_RetCarSpeedup_BackCalls.some(func=>{return func==callFunc;}))
+            {
+                this.GW2C_RetCarSpeedup_BackCalls.push(callFunc);
+            }
+            sendMessage("msg.C2GW_CarSpeedup", msg.C2GW_CarSpeedup.encode({
+                carid:carid
+            }));
+        }
+        //出征结果
+        private OnGW2C_RetCarExpedition(msgs:msg.GW2C_RetCarExpedition)
+        {
+            this.GW2C_RetCarExpedition_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.car)};});
+            this.GW2C_RetCarExpedition_BackCalls = [];
+        }
+        //激活结果
+        private OnGW2C_RetCarActivate(msgs:msg.GW2C_RetCarActivate)
+        {
+            this.GW2C_RetCarActivate_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.car)};});
+            this.GW2C_RetCarActivate_BackCalls = [];
+        }
+        //撤回结果
+        private OnGW2C_RetCarRetract(msgs:msg.GW2C_RetCarRetract)
+        {
+            this.GW2C_RetCarRetract_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.car)};});
+            this.GW2C_RetCarRetract_BackCalls = [];
+        }
+        //加速结果
+        private OnGW2C_RetCarSpeedup(msgs:msg.GW2C_RetCarSpeedup)
+        {
+            this.GW2C_RetCarSpeedup_BackCalls.forEach(func=>{if(func){func(msgs.result,msgs.car)};});
+            this.GW2C_RetCarSpeedup_BackCalls = [];
+        }
+
+        //-------------------抢车位返回----------------------------------------------
         //停车结果
         private OnGW2C_ParkCarResult(msgs:msg.GW2C_ParkCarResult)
         {
@@ -375,5 +474,6 @@ module game {
         {
             this.GW2C_ResParkingInfo_BackCalls = [];
         }
+
     }
 }

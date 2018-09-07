@@ -150,6 +150,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeCarAutoBackReward{}, on_C2GW_ReqTakeCarAutoBackReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_CarPartLevelup{},on_C2GW_CarPartLevelup)
 	this.msgparser.RegistProtoMsg(msg.C2GW_CarStarup{},on_C2GW_CarStarup)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CarExpedition{},on_C2GW_CarExpedition)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CarActivate{},on_C2GW_CarActivate)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CarRetract{},on_C2GW_CarRetract)
+	this.msgparser.RegistProtoMsg(msg.C2GW_CarSpeedup{},on_C2GW_CarSpeedup)
 
 	// 收战场消息
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
@@ -249,6 +253,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_AddNewCar{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarPartLevelup{})
 	this.msgparser.RegistSendProto(msg.GW2C_RetCarStarup{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCarExpedition{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCarActivate{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCarRetract{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCarSpeedup{})
 
 	// 地图事件
 	this.msgparser.RegistSendProto(msg.GW2C_SendUserEvents{})
@@ -1398,6 +1406,70 @@ func on_C2GW_CarStarup(session network.IBaseNetSession, message interface{}) {
 
 	send := &msg.GW2C_RetCarStarup{}
 	result, data := CarMgr().CarStarup(user, tmsg.GetCarid())
+	send.Result = pb.Uint32(result)
+	send.Car = data
+	user.SendMsg(send)
+}
+//请求出征
+func on_C2GW_CarExpedition(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CarExpedition)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_RetCarExpedition{}
+	result, data := CarMgr().CarExpedition(user, tmsg)
+	send.Result = pb.Uint32(result)
+	send.Car = data
+	user.SendMsg(send)
+}
+//请求激活
+func on_C2GW_CarActivate(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CarActivate)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_RetCarActivate{}
+	result, data := CarMgr().CarActivate(user, tmsg.GetCarid())
+	send.Result = pb.Uint32(result)
+	send.Car = data
+	user.SendMsg(send)
+}
+//请求撤回 
+func on_C2GW_CarRetract(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CarRetract)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_RetCarRetract{}
+	result, data := CarMgr().CarRetract(user, tmsg.GetCarid())
+	send.Result = pb.Uint32(result)
+	send.Car = data
+	user.SendMsg(send)
+}
+//请求加速
+func on_C2GW_CarSpeedup(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_CarSpeedup)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	send := &msg.GW2C_RetCarSpeedup{}
+	result, data := CarMgr().CarSpeedup(user, tmsg.GetCarid())
 	send.Result = pb.Uint32(result)
 	send.Car = data
 	user.SendMsg(send)

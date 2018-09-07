@@ -147,6 +147,12 @@ module game {
             case PanelType.PageUserInfoView:
                 panel = PageUserInfoView.getInstance();
                 break;
+            case PanelType.CarExpeditionPanel:
+                panel = CarExpeditionPanel.getInstance();
+                break;
+            case PanelType.CarExpeditionInfoPanel:
+                panel = CarExpeditionInfoPanel.getInstance();
+                break;
             default:
                 Console.log("未找到面板！面板名：", panelType);
                 break;
@@ -198,5 +204,7 @@ module game {
         NearbyPlayersPopupPanel,
         NearbyAssesListPopupPanel,
         PageUserInfoView
+        CarExpeditionPanel,
+        CarExpeditionInfoPanel,
     }
 }

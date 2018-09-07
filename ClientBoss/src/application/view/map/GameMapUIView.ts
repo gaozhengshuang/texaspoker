@@ -16,6 +16,7 @@ module game {
         public static BUY_HOUSE: string = "buy_house";
         public static BUY_CAR: string = "buy_car";
 
+
         private eventMask:eui.Rect;
         private fujinLabelList:string[]=['附近的人','附近建筑'];
         private fujinStatus:number=1;
@@ -34,7 +35,7 @@ module game {
                 this.userInfoPanel.updataInfo(this.userInfo);
             }
         }
-        public btnCallbackFun(type:string,body:any){
+        public btnCallbackFun(type:string,body:any,param=null){
             switch(type){
                 case 'transaction':
                     body.onclick_transaction();
@@ -94,14 +95,17 @@ module game {
                     
                 break;
                 case 'buyCar':
-
                     body.onclick_buyCar();
-                    
                 break;
                 case 'returnTrade': //返回交易
                     body.onclick_returnTrade();
                 break;
-
+                case 'expedition': //出征模式切换
+                    body.onclick_ChangeExpedition();
+                break;
+                case 'expeditionStateBtn':
+                    body.onClickExpeditonStateBtn(param);
+                break;
             }
         }
 
@@ -117,19 +121,30 @@ module game {
             this.userInfoPanel.updataInfo(this.userInfo);
             /*initTopInfo(GameConfig.innerScale,{name:this.userInfo.nickname,
                 level:this.userInfo.level,gold1:this.userInfo.gold1});*/
+            this.showExpeditionArrivalCarIcon(true);
         }
         public showUserInfo(bool:boolean){
             if(this.userInfoPanel!=null){
                 if(bool)
                 {
                     openPanel(PanelType.GameUserInfoPanel);
+                    this.showExpeditionArrivalCarIcon(true);
                 }
                 else
                 {
                     this.userInfoPanel.remove();
+                    this.showExpeditionArrivalCarIcon(false);
+                    
                 }
             }
         }
+
+		//显示已到达车辆图标覆盖物
+		public showExpeditionArrivalCarIcon(bool:boolean){
+			CarExpeditionManager.getInstance().showArrivalCarMarkerPos(bool);
+		}
+
+
         public showRoomWeizhi(isShow:boolean,roomvo:HouseVO=null){
             if(this.userInfoPanel){
                 //this.userInfoPanel.showRoomWeizhi(isShow,roomvo);
@@ -207,6 +222,15 @@ module game {
         {
             TradeManager.getInstance().returnToTrade();
         }
+
+        private onclick_ChangeExpedition()
+        {
+		    ApplicationFacade.getInstance().sendNotification(CommandName.MAP_OPEN_EXPEDITION_MODEL);
+        }
+
+        private onClickExpeditonStateBtn(carID:number){
+            CarExpeditionInfoPanel.getInstance().OnStateHandle(carID);
+        }   
         /**
          * 释放事件与重置数据状态
          */

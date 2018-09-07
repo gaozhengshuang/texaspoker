@@ -128,9 +128,10 @@ enum CarPartType {
 }
 
 enum CarState {
-    Ready = 2;          //上了自己的车位 可以出征
-    Parking = 3;        //停在公共车位上 等待着收益
-    Exped = 4;          //出征的路上
+    Ready = 1;          //上了自己的车位 可以出征
+    Parking = 2;        //停在公共车位上 等待着收益
+    Exped = 3;          //出征的路上
+    Arrival = 4;        //已抵达
     Robbing = 5;        //抢夺中
     Back = 6;           //回城中
 }
@@ -168,4 +169,10 @@ message PersonSocialInfo {
 message CommonKeyValue {
 	optional uint32 key = 1;
 	optional uint32 value = 2;
+}
+enum CarTargetType {
+    CTTPlayer = 1;         //附近的玩家
+    CTTBuilding = 2;       //功能建筑
+    CTTHouses = 3;         //楼盘
+    CTTEvent = 4;          //事件
 }

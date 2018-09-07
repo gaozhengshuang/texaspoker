@@ -20,6 +20,7 @@ module game {
                 CommandName.PAGE_SWITCH_ROOM,
                 CommandName.PAGE_SWITCH_NEW_HOUSE,
                 CommandName.PAGE_SWITCH_USER_INFO,
+                CommandName.PAGE_SWITCH_EXPEDITION,
                 CommandName.REMOVE_ROOM_PAGE,
             ];
         }
@@ -63,6 +64,7 @@ module game {
                         }
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });
 
                         break;
                     }
@@ -82,10 +84,29 @@ module game {
                         this.pageMediatorName = PageNewHouseMediator.NAME;
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
-
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });
+                        
                         break;
                     }
-                    
+
+                case CommandName.PAGE_SWITCH_EXPEDITION:
+                    {   
+                        openPanel(PanelType.CarExpeditionPanel);
+                        //激活按钮事件
+                        GameConfig.setEventsReply(true);
+                        //关闭主页地图界面
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false});
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });                        
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
+                        //隐藏下方菜单栏
+                        GameConfig.showDownBtnFun(false);
+                        //请求个人车辆数据并刷新界面
+                        CarManager.getInstance().ReqMyCarInfo(function(){
+                            CarExpeditionPanel.getInstance().UpdateData(DataManager.playerModel.getUserInfo().cardatas,data.buildingId);
+                        })
+
+                    }
+                break;
                 case CommandName.PAGE_SWITCH_SMALL_GAME:
                     {
                         //GameConfig.updataMaskBgFun('#404A58', 1);
@@ -109,7 +130,8 @@ module game {
                             (this.pageView as GameSmallGameView).initGame(data.game);
                         }
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
-
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });
+                        
                         break;
                     }
                     case CommandName.PAGE_SWITCH_USER_INFO:
@@ -146,8 +168,11 @@ module game {
                         if(GameConfig.pageType==3){
                             GameConfig.setEventsReply(false);
                             ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+                        ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: true });
+                            
                         }else{
                             ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+                            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });  
                         }
                         this.removeSceneView();
                         break;

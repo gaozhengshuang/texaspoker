@@ -124,3 +124,50 @@ message GW2C_RetCarStarup
     optional uint32 result = 1;
     optional msg.CarData car = 2;
 }
+// 车辆出征
+message C2GW_CarExpedition
+{
+    optional uint64 carid = 1;
+    optional uint32 type = 2;                           //CarTargetType 枚举
+    optional uint64 targetid = 3;
+    optional float originlatitude = 4;                  //起始维度
+    optional float originlongitude = 5;                 //起始精度
+    optional float destlatitude = 6;                    //目标维度
+    optional float destlongitude = 7;                   //目标精度
+}
+
+message GW2C_RetCarExpedition
+{
+    optional uint32 result = 1;
+    optional msg.CarData car = 2;
+}
+//车辆激活
+message C2GW_CarActivate
+{
+    optional uint64 carid = 1;
+}
+message GW2C_RetCarActivate
+{
+    optional uint32 result = 1;
+    optional msg.CarData car = 2;
+}
+//车辆撤回
+message C2GW_CarRetract
+{
+    optional uint64 carid = 1;
+}
+message GW2C_RetCarRetract
+{
+    optional uint32 result = 1;
+    optional msg.CarData car = 2;
+}
+//车辆加速
+message C2GW_CarSpeedup
+{
+    optional uint64 carid = 1;
+}
+message GW2C_RetCarSpeedup
+{
+    optional uint32 result = 1;
+    optional msg.CarData car = 2;
+}

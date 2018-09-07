@@ -18,7 +18,17 @@ declare function emptyPlayerIcon();
 declare function emptyAreaIcon();
 declare function getDistance(start: any, end: any);
 declare function removeBuilding(data);
-
+declare function emptyCarExpeditionIcon();
+declare function getDistance(start: any, end: any)
+declare function addPolyline(data:any); //添加折线(data:{start:{lat,lng},end:{lat,lng}})
+declare function removePolylineByCar(id:number|Long);
+declare function removePolyline();
+declare function addExpeditionCarMarker(data:any);//添加车辆标注(data:{imageUrl:string,start:{lat,lng},end:{lat,lng}})
+declare function removeExpeditionCarMarkerById(id:number|Long);
+declare function removeExpeditionCarMarker();
+declare function showExpeditionState(bool:boolean,datas:msg.ICarData[],content:string[]);
+declare function showExpeditionInfoTxt(bool:boolean,content:string);
+declare function updateOneExpeditionInfo(datas:msg.ICarData,content:string);
 /**
  * 地图代理
  * @author sunboy
@@ -35,7 +45,7 @@ module game {
 		public mapStatus: number = 1;
 		public mapZoom: number = 16;
 		public showRadius: number = 1000;
-
+		public isShowRange:boolean = false;
 
 		/**
 	 	* 点击登陆按钮
