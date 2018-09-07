@@ -345,3 +345,90 @@
 	background-size:cover;
 	visibility:hidden;
 }
+
+#expeditionBtn{
+	width:396px;
+	height:138px;
+	margin:0;
+	padding:0;
+	top:200px;
+	border-style:none;
+	position:fixed;
+	right:0px;
+}
+.expedition_default{
+	background-image:url(../images/expedition_off.png);
+	background-size:cover;
+}
+.expedition_activate{
+	background-image:url(../images/expedition_on.png);
+	background-size:cover;
+}
+
+
+.expeditionState_speedUp{
+	background-image:url(../images/speedUp.png);
+	background-size:cover;
+}
+.expeditionState_active{
+	background-image:url(../images/arive.png);
+	background-size:cover;
+}
+.expeditionState_retract{
+	background-image:url(../images/retract.png);
+	background-size:cover;
+}
+
+#expeditionStateBtn_1{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:100px;
+	top:308px;
+}
+#expeditionStateBtn_2{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:200px;
+	top:371px;
+
+}
+#expeditionStateBtn_3{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	top:434px;
+
+}
+#expeditionStateBtn_4{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	top:497px;
+
+}#expeditionStateBtn_5{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	top:560px;
+
+}
