@@ -101,12 +101,12 @@ func (e *GameMapEvent) Process(u *GateUser) bool {
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
 	if find == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", u.Name(), u.Id(), tid)
 		return false
 	}
 
 	if e.ProcessCheck(u, tconf) == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", u.Name(), u.Id(), tid, uid)
 		return false
 	}
 
@@ -126,12 +126,12 @@ func (e *BonusMapEvent) Process(u *GateUser) bool {
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
 	if find == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", u.Name(), u.Id(), tid)
 		return false
 	}
 
 	if e.ProcessCheck(u, tconf) == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", u.Name(), u.Id(), tid, uid)
 		return false
 	}
 
@@ -162,19 +162,19 @@ func (e *BuildingMapEvent) Process(u *GateUser) bool {
 	case uint32(msg.MapEventId_BuildingCarShop):
 	case uint32(msg.MapEventId_BuildingHouseShop):
 	default:
-		log.Error("[地图事件] 玩家[%s %d] 未定义的事件[%d]", e.bin.GetTid())
+		log.Error("[地图事件] 玩家[%s %d] 未定义的事件[%d]", u.Name(), u.Id(), e.bin.GetTid())
 		return false
 	}
 
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
 	if find == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", u.Name(), u.Id(), tid)
 		return false
 	}
 
 	if e.ProcessCheck(u, tconf) == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", u.Name(), u.Id(), tid, uid)
 		return false
 	}
 
