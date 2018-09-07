@@ -147,7 +147,7 @@ func (e *BonusMapEvent) Process(u *GateUser) bool {
 
 	log.Info("[地图事件] 玩家[%s %d] 激活事件成功[%d %d]", u.Name(), u.Id(), tid, uid)
 	e.SetProcessing(true)
-	u.events.RemoveEvent(e)
+	u.events.RemoveEvent(e, "处理完成")
 	return true
 }
 
@@ -371,21 +371,31 @@ func (m *UserMapEvent) LeaveEvent(uid uint64) {
 		log.Error("玩家没有这个事件[%d]", uid)
 		return
 	}
-	m.RemoveEvent(event)
+	m.RemoveEvent(event, "玩家主动关闭")
 }
 
 func (m *UserMapEvent) RemoveProcessingEvent(tid uint32) {
 	for _, v := range m.events {
 		if v.Tid() != tid { continue }
 		if false == v.IsProcessing() { continue }
-		m.RemoveEvent(v)
+		m.RemoveEvent(v, "移除正在处理的事件")
 	}
 }
 
-func (m *UserMapEvent) RemoveEvent(event IMapEvent) {
+func (m *UserMapEvent) RemoveEvent(event IMapEvent, reason string) {
 	event.SetProcessing(false)
 	event.OnEnd(m.owner)
 	delete(m.events, event.Uid())
+	log.Info("[玩家事件] 玩家[%s %d] 移除事件%d 原因[%s]", m.owner.Name(), m.owner.Id(), event.Uid(), reason)
+}
+
+func (m *UserMapEvent) RemoveEventById(uid uint64, reason string) {
+	event, ok := m.events[uid]
+	if !ok { 
+		log.Error("[玩家事件] 玩家[%s %d] 移除不存在的事件[%d]", m.owner.Name(), m.owner.Id(), uid)
+		return
+	}
+	m.RemoveEvent(event, reason)
 }
 
 func (m *UserMapEvent) AddEvent(uid uint64, tid, rmin, rmax uint32) {
