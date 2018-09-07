@@ -18,6 +18,7 @@ var LevelBasee = table.InsLevelBaseeTable
 var TCarStarAttrBase = table.InsTCarStarAttrBaseTable
 var MapEventBase = table.InsMapEventBaseTable
 var TStarupCarBase = table.InsTStarupCarBaseTable
+var TCharacterLevelBase = table.InsTCharacterLevelBaseTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var CarShopBase = table.InsCarShopBaseTable

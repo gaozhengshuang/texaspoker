@@ -10,6 +10,11 @@ module game {
         costLabel: eui.Label;
         gouzi: GameMissile;
 
+        /**
+         * 关闭
+         */
+        static OnClose = "SuperMartPanel_Close";
+
         private _shopCarList: ShopCar[];
         private _itemIdList: number[];
         private _addList: number[];
@@ -59,6 +64,7 @@ module game {
             this.removeEvent();
             egret.stopTick(this.update, this);
             this.shoppingCarGroup.removeChildren();
+            this.gouzi.clearItemShow();
         }
 
         private registerEvent() {
@@ -196,8 +202,11 @@ module game {
                 carBounds.height = car.itemImg.height/2;
 
                 if (bounds.intersects(carBounds)) {
+                    egret.Rectangle.release(carBounds);
+                    egret.Rectangle.release(bounds);
                     return car;
                 }
+                egret.Rectangle.release(carBounds);
             }
             return null;
         }
@@ -225,7 +234,11 @@ module game {
         private OnGW2C_HitTarget(data: msg.GW2C_HitTarget) {
             this.gouzi.findItemOver(data);
         }
-
+        public remove()
+        {
+            NotificationCenter.postNotification(SuperMartPanel.OnClose);
+            super.remove();
+        }
         private static _instance: SuperMartPanel;
 
         public static getInstance(): SuperMartPanel {

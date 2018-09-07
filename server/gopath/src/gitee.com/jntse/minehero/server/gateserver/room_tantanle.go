@@ -156,7 +156,7 @@ func (this *TanTanLe) OnStart() {
 		Gamekind:pb.Int32(this.Kind()), 
 		Gold:pb.Uint32(this.owner.GetGold()),
 		Diamond:pb.Uint32(this.owner.GetDiamond()),
-		Freebullet:pb.Uint32(this.freebullet),
+		Freebullet:pb.Uint32(this.Freebullet()),
 	}
 	this.SendClientMsg(msginit)
 
@@ -248,11 +248,11 @@ func (this *TanTanLe) ReqLaunchBullet() {
 			}
 			this.owner.RemoveGold(uint32(tbl.Game.BulletPrice), "发射子弹", false)		// 不同步
 		}else {
-			if this.freebullet <= 0 {
+			if this.Freebullet() <= 0 {
 				errmsg = "免费炮弹不足"
 				break
 			}
-			this.freebullet -= 1
+			this.RemoveFreebullet(1)
 		}
 
 		bulletid = this.bulletid + 1
@@ -266,7 +266,7 @@ func (this *TanTanLe) ReqLaunchBullet() {
 		Bulletid:pb.Int64(bulletid), 
 		Errmsg:pb.String(errmsg), 
 		Energy:pb.Int64(this.energy), 
-		Freebullet:pb.Uint32(this.freebullet),
+		Freebullet:pb.Uint32(this.Freebullet()),
 	}
 	this.SendClientMsg(send)
 }
@@ -319,4 +319,17 @@ func (this *TanTanLe) CrushSuperBrick() {
 	this.owner.SendMsg(send)
 }
 
+func (this *TanTanLe) RemoveFreebullet(n uint32) {
+	if this.freebullet > n {
+		this.freebullet -= n
+		log.Info("玩家[%s %d] 扣除免费炮弹，当前剩余[%d]", this.owner.Name(), this.owner.Id(), this.Freebullet())
+	}
+}
 
+func (this *TanTanLe) Freebullet() uint32 {
+	return this.freebullet
+}
+
+func (this *TanTanLe) AddFreebullet(n uint32) {
+	this.freebullet += n
+}

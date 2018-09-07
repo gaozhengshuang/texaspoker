@@ -238,7 +238,7 @@ module effectUtils {
     /**
      * 对目标对象做一次 曲线运动 p0起点 p1中间点 p2终点 duration运动持续时间 rotation 旋转角度步长值
      */
-    export function besselCurveAnimation(target:egret.DisplayObject, p0:egret.Point, p1:egret.Point, p2:egret.Point, duration:number, rotation?:number)
+    export function besselCurveAnimation(target:egret.DisplayObject, p0:egret.Point, p1:egret.Point, p2:egret.Point, duration:number, completeHnadler:game.CallBackHandler, rotation?:number)
     {
         let obj = {factor:0};
         let movePoint = new egret.Point();
@@ -251,6 +251,8 @@ module effectUtils {
                          target.rotation += rotation;
                     }
         }});
-		tween.to({ factor: 1 }, duration);
+        tween.to({ factor: 1 }, duration).call(()=>{
+            game.runCallBackHandlerWith(completeHnadler,target);
+        });
     }
 }
