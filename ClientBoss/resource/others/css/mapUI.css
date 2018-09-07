@@ -379,6 +379,41 @@
 	background-size:cover;
 }
 
+#expeditionStateBg{
+	width:450px;
+	height:90px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:5px;
+	top:192px;
+	background-image:url(../images/expeditionInfoBg.png);
+	background-size:cover;
+}
+#expeditionStateInfoLabel{
+	width:450px;
+	height:90px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:5px;
+	top:192px;
+	font-size: 10;
+}
+#expeditionStateBtn_1_Bg{
+	width:534px;
+	height:126px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:0px;
+	top:220px;
+	background-image:url(../images/expeditionInfoBg2.png);
+	background-size:cover;
+}
 #expeditionStateBtn_1{
 	width:146px;
 	height:72px;
@@ -386,9 +421,34 @@
 	padding:0;
 	border-style:none;
 	position:fixed;
-	left:100px;
-	top:308px;
+	left:120px;
+	top:228px;
 }
+#expeditionStateBtn_1_Label{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	top:228px;
+	font-size: 15;
+}
+
+#expeditionStateBtn_2_Bg{
+	width:534px;
+	height:126px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:0px;
+	top:255px;
+	background-image:url(../images/expeditionInfoBg2.png);
+	background-size:cover;
+}
+
 #expeditionStateBtn_2{
 	width:146px;
 	height:72px;
@@ -396,9 +456,33 @@
 	padding:0;
 	border-style:none;
 	position:fixed;
-	left:200px;
-	top:371px;
+	left:120px;
+	top:263px;
+}
 
+#expeditionStateBtn_2_Label{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	top:263px;
+	font-size: 15;
+}
+
+#expeditionStateBtn_3_Bg{
+	width:534px;
+	height:126px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:0px;
+	top:290px;
+	background-image:url(../images/expeditionInfoBg2.png);
+	background-size:cover;
 }
 #expeditionStateBtn_3{
 	width:146px;
@@ -407,10 +491,34 @@
 	padding:0;
 	border-style:none;
 	position:fixed;
-	left:10px;
-	top:434px;
-
+	left:120px;
+	top:298px;
 }
+#expeditionStateBtn_3_Label{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	top:298px;
+	font-size: 15;
+}
+
+#expeditionStateBtn_4_Bg{
+	width:534px;
+	height:126px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:0px;
+	top:325px;
+	background-image:url(../images/expeditionInfoBg2.png);
+	background-size:cover;
+}
+
 #expeditionStateBtn_4{
 	width:146px;
 	height:72px;
@@ -418,10 +526,11 @@
 	padding:0;
 	border-style:none;
 	position:fixed;
-	left:10px;
-	top:497px;
+	left:120px;
+	top:333px;
 
-}#expeditionStateBtn_5{
+}
+#expeditionStateBtn_4_Label{
 	width:146px;
 	height:72px;
 	margin:0;
@@ -429,6 +538,42 @@
 	border-style:none;
 	position:fixed;
 	left:10px;
-	top:560px;
-
+	top:333px;
+	font-size: 15;
 }
+
+#expeditionStateBtn_5_Bg{
+	width:534px;
+	height:126px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:0px;
+	top:360px;
+	background-image:url(../images/expeditionInfoBg2.png);
+	background-size:cover;
+}
+#expeditionStateBtn_5{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:120px;
+	top:368px;
+}
+#expeditionStateBtn_5_Label{
+	width:146px;
+	height:72px;
+	margin:0;
+	padding:0;
+	border-style:none;
+	position:fixed;
+	left:10px;
+	top:368px;
+	font-size: 15;
+}
+
+
