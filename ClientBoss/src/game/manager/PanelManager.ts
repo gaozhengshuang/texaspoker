@@ -203,7 +203,7 @@ module game {
         MapEventsShopPanel,
         NearbyPlayersPopupPanel,
         NearbyAssesListPopupPanel,
-        PageUserInfoView
+        PageUserInfoView,
         CarExpeditionPanel,
         CarExpeditionInfoPanel,
     }

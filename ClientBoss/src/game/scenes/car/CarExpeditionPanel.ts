@@ -255,7 +255,7 @@ module game {
             let self = this;
             let selfPoint = DataManager.playerModel.getSelfPoint();
             CarManager.getInstance().ReqCarExpedition(
-                this.carData.id,msg.CarTargetType.Building,this.selectBuildingInfo.Id,
+                this.carData.id,msg.CarTargetType.CTTBuilding,this.selectBuildingInfo.Id,
                 selfPoint.lat,selfPoint.lng,
                 this.selectBuildingInfo.PosX,this.selectBuildingInfo.PosY,
                 function(result:number,carData:msg.ICarData){

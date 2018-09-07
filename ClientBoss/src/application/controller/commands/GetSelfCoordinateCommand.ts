@@ -23,9 +23,7 @@ module game {
             }
             this.mapProxy.selfPoint.setObject(this.data);
 			this.mapProxy.currentPoint.setObject(this.data);
-            this.mapProxy.selfPoint.setObject(data);
-			this.mapProxy.currentPoint.setObject(data);
-			DataManager.playerModel.setSelfPoint(data);
+			DataManager.playerModel.setSelfPoint(this.data);
 			this.mapProxy.addBuilding();
 
 			let replace:any=this;
