@@ -62,7 +62,7 @@ module game {
             let levelInfo = table.TLevelMaidById[MaidManager.getInstance().getMaidInfo().level];
             if (levelInfo) {
                 this.lvLabel.text = "等级："+ levelInfo.Id;
-                this.produceGoldLabel.text = "产能：" + levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60);
+                this.produceGoldLabel.text = "产能：" + Math.floor(levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60));
                 this.maxGoldLabel.text = "上限：" + levelInfo.ProduceGold;
                 this.lvUpItemNum.text = DataManager.playerModel.getItemNum(levelInfo.UpgradeID) + "/" + levelInfo.Upgradenum;
             } else {
