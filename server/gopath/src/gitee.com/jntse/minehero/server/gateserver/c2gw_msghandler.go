@@ -1778,7 +1778,7 @@ func on_C2GW_ReqSetFace (session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	face := tmsg.GetFace()
-	user.SetFace(face)
+	user.SetFace(face, true)
 }
 
 func on_C2GW_ReqPlayerCountByProvince (session network.IBaseNetSession, message interface{}) {

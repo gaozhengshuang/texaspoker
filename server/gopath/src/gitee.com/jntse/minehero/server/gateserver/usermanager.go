@@ -98,7 +98,7 @@ func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account,
 	if user.LoadDB() == false {
 		return nil, "加载玩家DB数据失败"
 	}
-	user.SetFace(face)
+	user.SetFace(face, false)
 
 	if user.Online(session) == false {
 		return nil, "Online失败"

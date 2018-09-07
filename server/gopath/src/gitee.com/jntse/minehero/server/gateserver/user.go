@@ -227,15 +227,17 @@ func (this *GateUser) Face() string {
 	return this.EntityBase().GetFace()
 }
 
-func (this *GateUser) SetFace(f string) {
+func (this *GateUser) SetFace(f string, bsync bool)  {
 	log.Info("玩家[%d] 设置头像 [%s]",this.Id(), f)
 	this.EntityBase().Face = pb.String(f)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())
 	for _, v := range data {
 		v.ownerface = f
 	}
-	this.SendUserBase()
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Face))
+	if bsync {
+		this.SendUserBase()
+		//this.UpdataUserInfoByType(uint32(UserInfoType_Face))
+	}
 }
 
 func (this *GateUser) Id() uint64 {
