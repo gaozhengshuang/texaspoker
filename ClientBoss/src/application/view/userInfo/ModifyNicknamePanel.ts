@@ -40,7 +40,8 @@ module game {
             this.name_txt.text=this.nameStr;
         }
         private OnGW2C_AckSetUserName(data: msg.GW2C_AckSetUserName) {
-			if (data.ret == 1) {
+            console.log(data.ret);
+			if (data.ret == 0) {
                 this.nameStr=this.name_txt.text;
 				this.pageView.delPanelView();
 			}else{

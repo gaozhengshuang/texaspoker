@@ -51,8 +51,8 @@ module game {
         private select_begin(eve: BasicEvent) {
             if (this.filterPanel.viewType == 1 && this.filterPanel.selectCondition) {
                 if (this.filterPanel.selectCondition.second) {
-                    this.baseprovince=this.filterPanel.selectCondition.first.Id;
-                    this.basecity=this.filterPanel.selectCondition.second.Id;
+                    this.baseprovince=this.filterPanel.selectCondition.first.data.Id;
+                    this.basecity=this.filterPanel.selectCondition.second.data.Id;
                 }
             }
         }
