@@ -17,21 +17,13 @@ module game {
         }
 
         protected beforeShow() {
-            this.registerEvent();
-            this.updateView();
+            this.initView();
         }
 
         protected beforeRemove() {
-            this.removeEvent();
         }
 
-        private registerEvent() {
-        }
-
-        private removeEvent() {
-        }
-
-        private updateView() {
+        private initData() {
             this.superMarkInfo = table.TSupermarket[Math.floor(Math.random() * table.TSupermarket.length)];
             if (this.superMarkInfo) {
                 this.itemInfo = table.ItemBaseDataById[this.superMarkInfo.ItemId];
@@ -43,6 +35,31 @@ module game {
             }
 
             this.itemGroup.visible = true;
+        }
+
+        private initView() {
+            this.initData();
+            this.initAction();
+        }
+
+        private initAction() {
+            let targetX = 0;
+            if ((this.data.pos%2)==1) {
+                targetX = 0 - this.width;
+                this.x = gameConfig.curWidth() + (this.data.columnIdx * 180);
+            } else {
+                targetX = gameConfig.curWidth();
+                this.x = 0 - this.width - (this.data.columnIdx * 180);
+            }
+            this.y = this.carPaddingY * this.data.pos;
+
+            egret.Tween.get(this).to({ x: targetX }, 5000 + (this.data.columnIdx * 1000)).call(() => {
+                this.updateView();
+            })
+        }
+
+        private updateView() {
+            this.initData();
             this.runAction();
         }
 
