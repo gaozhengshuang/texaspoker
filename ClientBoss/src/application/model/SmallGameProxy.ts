@@ -16,12 +16,12 @@ module game {
             this.smallGameList=[];
             let horeGame: SmallGameVO;
 
-            horeGame = new SmallGameVO();
-            horeGame.sgId=SceneType.battle;
-            horeGame.sgIcon="gameTantanle";
-            horeGame.sgName="超级弹弹乐";
-            horeGame.sgType=1;
-            this.smallGameList.push(horeGame);
+            // horeGame = new SmallGameVO(); //todo屏蔽
+            // horeGame.sgId=SceneType.battle;
+            // horeGame.sgIcon="gameTantanle";
+            // horeGame.sgName="超级弹弹乐";
+            // horeGame.sgType=1;
+            // this.smallGameList.push(horeGame);
 
             horeGame = new SmallGameVO();
             horeGame.sgId=SceneType.battle2;

@@ -70,7 +70,7 @@ module game {
 		 */
 		private GW2C_SendUserEvents(msgData: msg.GW2C_SendUserEvents) {
 			this.eventsListInfo = msgData;
-			if (map) {
+			if (map && msgData) {
 				//清空事件图标
 				emptyEventsIcon();
 				//重新添加事件图标
@@ -95,6 +95,9 @@ module game {
 					}
 				}
 				NotificationCenter.postNotification(MapEventsManager.OnMapEventsSend);
+			}
+			else {
+				Console.log("初始化地图事件error  map：", map, "msgData:", msgData);
 			}
 		}
 		private GW2C_RemoveEvent(msgData: msg.GW2C_RemoveEvent) {
@@ -124,8 +127,7 @@ module game {
 				GameConfig.showDownBtnFun(false);
 				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
 			}
-			else
-			{
+			else {
 				GameConfig.setEventsReply(false);
 				GameConfig.showDownBtnFun(true);
 				ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });

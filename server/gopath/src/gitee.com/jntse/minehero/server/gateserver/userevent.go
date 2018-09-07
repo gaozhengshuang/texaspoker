@@ -101,12 +101,12 @@ func (e *GameMapEvent) Process(u *GateUser) bool {
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
 	if find == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", u.Name(), u.Id(), tid)
 		return false
 	}
 
 	if e.ProcessCheck(u, tconf) == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", u.Name(), u.Id(), tid, uid)
 		return false
 	}
 
@@ -126,12 +126,12 @@ func (e *BonusMapEvent) Process(u *GateUser) bool {
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
 	if find == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", u.Name(), u.Id(), tid)
 		return false
 	}
 
 	if e.ProcessCheck(u, tconf) == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", u.Name(), u.Id(), tid, uid)
 		return false
 	}
 
@@ -147,7 +147,7 @@ func (e *BonusMapEvent) Process(u *GateUser) bool {
 
 	log.Info("[地图事件] 玩家[%s %d] 激活事件成功[%d %d]", u.Name(), u.Id(), tid, uid)
 	e.SetProcessing(true)
-	u.events.RemoveEvent(e)
+	u.events.RemoveEvent(e, "处理完成")
 	return true
 }
 
@@ -162,19 +162,19 @@ func (e *BuildingMapEvent) Process(u *GateUser) bool {
 	case uint32(msg.MapEventId_BuildingCarShop):
 	case uint32(msg.MapEventId_BuildingHouseShop):
 	default:
-		log.Error("[地图事件] 玩家[%s %d] 未定义的事件[%d]", e.bin.GetTid())
+		log.Error("[地图事件] 玩家[%s %d] 未定义的事件[%d]", u.Name(), u.Id(), e.bin.GetTid())
 		return false
 	}
 
 	tid, uid := e.bin.GetTid(), e.bin.GetId()
 	tconf, find := tbl.MapEventBase.TMapEventById[tid]
 	if find == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", tid)
+		log.Error("[地图事件] 玩家[%s %d] 激活未定义的tid事件[%d]", u.Name(), u.Id(), tid)
 		return false
 	}
 
 	if e.ProcessCheck(u, tconf) == false {
-		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", tid, uid)
+		log.Error("[地图事件] 玩家[%s %d] 激活事件[%d %d]失败", u.Name(), u.Id(), tid, uid)
 		return false
 	}
 
@@ -210,14 +210,16 @@ func (m *UserMapEvent) Tick(now int64) {
 	m.Refresh(now)
 }
 
+// 依赖个人坐标才会刷新事件点
 func (m *UserMapEvent) Online() {
 	m.CheckRefresh()
-
-	// 打印事件点
-	for _, v := range m.events {
-		log.Trace("[地图事件] 玩家[%s %d] 事件点[%v]", m.owner.Name(), m.owner.Id(), v.Bin())
+	if len(m.events) != 0 {
+		m.SendEvents()
 	}
-
+	// 打印事件点
+	//for _, v := range m.events {
+	//	log.Trace("[地图事件] 玩家[%s %d] 事件点[%v]", m.owner.Name(), m.owner.Id(), v.Bin())
+	//}
 }
 
 // 读盘
@@ -235,6 +237,9 @@ func (m *UserMapEvent) LoadBin(bin *msg.Serialize) {
 		}
 		m.events[v.GetId()] = event
 	}
+
+	// 清除bin上面的事件点(通过SendEvents通知客户端刷新事件点)
+	bin.Base.Mapevent = nil
 }
 
 // 存盘
@@ -262,7 +267,9 @@ func (m *UserMapEvent) CheckRefresh() {
 	tmstart := util.GetDayStart()
 	tmrefresh := tmstart + tbl.Game.MapEvent.TimeRefresh * util.HourSec
 	if tmrefresh > m.refreshtime {
-		m.Refresh(util.CURTIMEMS())
+		if m.Refresh(util.CURTIMEMS()) {
+			m.SendEvents()
+		}
 	}
 }
 
@@ -272,10 +279,16 @@ func (m *UserMapEvent) RefreshActive() {
 }
 
 // 刷新玩家的时间列表
-func (m *UserMapEvent) Refresh(now int64) {
+func (m *UserMapEvent) Refresh(now int64) bool {
 
 	//事件clean
 	m.events = make(map[uint64]IMapEvent)
+	longitude, latitude := m.owner.GetUserPos()
+	if longitude == 0 || latitude == 0 {
+		log.Warn("[地图事件] 玩家[%s %d] 刷新事件点但个人坐标无效", m.owner.Name(), m.owner.Id())
+		return false
+	}
+
 	m.refreshtime = now / 1000			// 秒
 	m.refreshactive = 0
 	eventuid := uint64(1)
@@ -298,6 +311,7 @@ func (m *UserMapEvent) Refresh(now int64) {
 	}
 
 	log.Trace("[地图事件] 玩家[%s %d] 刷新地图事件size[%d]", m.owner.Name(), m.owner.Id(), len(m.events))
+	return true
 }
 
 // 解析配置
@@ -357,29 +371,35 @@ func (m *UserMapEvent) LeaveEvent(uid uint64) {
 		log.Error("玩家没有这个事件[%d]", uid)
 		return
 	}
-	m.RemoveEvent(event)
+	m.RemoveEvent(event, "玩家主动关闭")
 }
 
 func (m *UserMapEvent) RemoveProcessingEvent(tid uint32) {
 	for _, v := range m.events {
 		if v.Tid() != tid { continue }
 		if false == v.IsProcessing() { continue }
-		m.RemoveEvent(v)
+		m.RemoveEvent(v, "移除正在处理的事件")
 	}
 }
 
-func (m *UserMapEvent) RemoveEvent(event IMapEvent) {
+func (m *UserMapEvent) RemoveEvent(event IMapEvent, reason string) {
 	event.SetProcessing(false)
 	event.OnEnd(m.owner)
 	delete(m.events, event.Uid())
+	log.Info("[玩家事件] 玩家[%s %d] 移除事件%d 原因[%s]", m.owner.Name(), m.owner.Id(), event.Uid(), reason)
+}
+
+func (m *UserMapEvent) RemoveEventById(uid uint64, reason string) {
+	event, ok := m.events[uid]
+	if !ok { 
+		log.Error("[玩家事件] 玩家[%s %d] 移除不存在的事件[%d]", m.owner.Name(), m.owner.Id(), uid)
+		return
+	}
+	m.RemoveEvent(event, reason)
 }
 
 func (m *UserMapEvent) AddEvent(uid uint64, tid, rmin, rmax uint32) {
 	//x, y := m.owner.GetUserPos()		// 经纬度
-	//if x == 0 || y == 0 {
-	//	log.Error("[地图事件] 玩家[%s %d]经纬度信息无效", m.owner.Name(), m.owner.Id())
-	//	return
-	//}
 	y, x := float32(31.11325), float32(121.38206)	// 测试代码
 	int_longitude, int_latitude := int32(x * 100000) , int32(y * 100000)	// 米
 

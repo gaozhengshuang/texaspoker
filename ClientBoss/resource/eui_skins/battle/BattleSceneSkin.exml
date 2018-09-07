@@ -107,6 +107,7 @@
 
 	<e:Label id="hitLabel" text="" stroke="2" strokeColor="0xFFFFFF" right="20" top="20" textColor="0x898989" visible="false"/>
 	<e:Label id="noticeLabel" text="" y="92" textColor="0xff678e" horizontalCenter="0"/>
+	<e:Label id="bulletLabel" text="剩余炮弹:0" strokeColor="0xFFFFFF" textAlign="center" verticalAlign="middle" anchorOffsetX="0" width="249" size="34" textColor="0xFFFFFF" y="25" x="460.5"/>
 	<e:Group id="guideGroup" width="720" height="100%" touchChildren="false" touchEnabled="true">
 		<e:Image source="ui_json.yindao" scaleX="1" scaleY="1" horizontalCenter="0.5" verticalCenter="-220.5"/>
 		<e:Group width="200" height="200" x="92" y="1152"/>

@@ -207,7 +207,7 @@ func (this *C2GWMsgHandler) Init() {
 	//个人设置
 	this.msgparser.RegistSendProto(msg.GW2C_AckSetUserSign{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckSetUserName{})
-
+	this.msgparser.RegistSendProto(msg.GW2C_UpdateUserDataByKey{})
 	//位置附近的人
 	this.msgparser.RegistSendProto(msg.GW2C_AckNearUsers{})
 	this.msgparser.RegistSendProto(msg.GW2C_AckPlayerCountByProvince{})
@@ -330,8 +330,8 @@ func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	gamekind := tmsg.GetGamekind()
-	errcode := user.ReqStartGameLocal(gamekind)
+	gamekind, eventuid := tmsg.GetGamekind(), tmsg.GetEventuid()
+	errcode := user.ReqStartGameLocal(gamekind, eventuid)
 	user.ReplyStartGame(errcode, 0)
 }
 
@@ -1694,6 +1694,7 @@ func on_C2GW_ReqSetPos (session network.IBaseNetSession, message interface{}) {
 	province := tmsg.GetProvince()
 	city := tmsg.GetCity()
 	user.SetUserPos(tmsg.GetLng(), tmsg.GetLat(), province, city)
+	user.events.CheckRefresh()
 }
 
 func on_C2GW_ReqSetUserSex (session network.IBaseNetSession, message interface{}) {
@@ -1777,7 +1778,7 @@ func on_C2GW_ReqSetFace (session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	face := tmsg.GetFace()
-	user.SetFace(face)
+	user.SetFace(face, true)
 }
 
 func on_C2GW_ReqPlayerCountByProvince (session network.IBaseNetSession, message interface{}) {

@@ -134,7 +134,7 @@ func (this *TanTanLe) OnEnd(now int64) {
 	log.Info("SCard Redis[%s] Amount[%d]", key, Redis().SCard(key).Val())
 
 	// 如果通过事件打开，移除事件
-	this.owner.events.RemoveProcessingEvent(uint32(msg.MapEventId_GameTanTanLe))
+	this.owner.events.RemoveEventById(this.eventuid, "弹弹乐房间销毁")
 }
 
 // 玩家进游戏，游戏开始
@@ -146,7 +146,9 @@ func (this *TanTanLe) OnStart() {
 
 	log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetGold())
 	this.tm_start = util.CURTIME()
-	this.freebullet = uint32(tbl.Game.MapEvent.TantanleFreeBullet)
+	if this.eventuid != 0 {
+		this.freebullet = uint32(tbl.Game.MapEvent.TantanleFreeBullet)
+	}
 
 
 	// 游戏初始化
@@ -157,6 +159,7 @@ func (this *TanTanLe) OnStart() {
 		Gold:pb.Uint32(this.owner.GetGold()),
 		Diamond:pb.Uint32(this.owner.GetDiamond()),
 		Freebullet:pb.Uint32(this.Freebullet()),
+		Eventuid:pb.Uint64(this.eventuid),
 	}
 	this.SendClientMsg(msginit)
 
@@ -241,7 +244,7 @@ func (this *TanTanLe) ReqLaunchBullet() {
 	bulletid, errmsg := int64(0), ""
 	switch {
 	default:
-		if false {
+		if this.eventuid == 0 {
 			if uint32(tbl.Game.BulletPrice) > this.owner.GetGold() {	// 检查余额
 				errmsg = "金币不足"
 				break
@@ -320,7 +323,7 @@ func (this *TanTanLe) CrushSuperBrick() {
 }
 
 func (this *TanTanLe) RemoveFreebullet(n uint32) {
-	if this.freebullet > n {
+	if this.freebullet >= n {
 		this.freebullet -= n
 		log.Info("玩家[%s %d] 扣除免费炮弹，当前剩余[%d]", this.owner.Name(), this.owner.Id(), this.Freebullet())
 	}

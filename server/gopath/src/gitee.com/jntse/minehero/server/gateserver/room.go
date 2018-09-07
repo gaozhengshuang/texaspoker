@@ -60,9 +60,10 @@ type RoomBase struct {
 	owner			*GateUser
 	ownerid			uint64
 	close_reason	string	// 正常关闭房间的原因
+	eventuid 		uint64	// 事件uid
 }
 
-func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {
+func NewGameRoom(ownerid uint64, id int64, roomkind int32, eventuid uint64) IRoomBase {
 	switch roomkind {
 	case 0:		// 弹弹乐
 		room := &TanTanLe{}
@@ -72,6 +73,7 @@ func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {
 		room.roomkind = roomkind
 		room.owner = nil
 		room.ownerid = ownerid
+		room.eventuid = eventuid
 		return room
 	default:
 		return nil

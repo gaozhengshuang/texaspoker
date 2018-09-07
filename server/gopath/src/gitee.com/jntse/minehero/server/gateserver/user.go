@@ -197,24 +197,46 @@ func (this *GateUser) SetName(nickname string) bool {
 	for _, v := range data {
 		v.ownername = nickname
 	}
+	this.SendUserBase()
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Name))
+	log.Info("玩家[%d] 设置昵称[%s] 成功", this.Id(),nickname)
 	return true
 }
 
 //设置归属地 非定位
 func (this *GateUser) SetBaseArea (province uint32, city uint32) {
+	log.Info("玩家[%d] 设置归属地 province %d, city %d", this.Id(), province, city)
 	this.baseprovince = province
 	this.basecity = city
+	this.UserBase().Baseprovince = pb.Uint32(province)
+	this.UserBase().Basecity = pb.Uint32(city)
+	this.SendUserBase()
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Baseprovince))
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Basecity))
+}
+
+func (this *GateUser) Baseprovince() uint32 {
+	return this.baseprovince
+}
+
+func (this *GateUser) Basecity() uint32 {
+	return this.basecity
 }
 
 func (this *GateUser) Face() string {
 	return this.EntityBase().GetFace()
 }
 
-func (this *GateUser) SetFace(f string) {
+func (this *GateUser) SetFace(f string, bsync bool)  {
+	log.Info("玩家[%d] 设置头像 [%s]",this.Id(), f)
 	this.EntityBase().Face = pb.String(f)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())
 	for _, v := range data {
 		v.ownerface = f
+	}
+	if bsync {
+		this.SendUserBase()
+		//this.UpdataUserInfoByType(uint32(UserInfoType_Face))
 	}
 }
 
@@ -227,11 +249,14 @@ func (this *GateUser) Sex() int32 {
 }
 
 func (this *GateUser) SetSex(sex int32) {
+	log.Info("玩家[%d] 设置性别 [%d]",this.Id(), sex)
 	this.EntityBase().Sex = pb.Int32(sex)
 	data := HouseSvrMgr().GetHousesByUser(this.Id())
 	for _, v := range data {
 		v.ownersex = sex
 	}
+	this.SendUserBase()
+	//this.UpdataUserInfoByType(uint32(UserInfoType_UserSex))
 }
 
 func (this *GateUser) SetSign(sign string) bool {
@@ -240,6 +265,10 @@ func (this *GateUser) SetSign(sign string) bool {
 		return false
 	}
 	this.sign = sign
+	this.UserBase().Sign = pb.String(sign)
+	this.SendUserBase()
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Sign))
+	log.Info("玩家[%d] 设置签名[%s]",this.Id(), sign)
 	return true
 }
 
@@ -248,7 +277,11 @@ func (this *GateUser) Sign() string {
 }
 
 func (this *GateUser) SetConstellation(value uint32) {
+	log.Info("玩家[%d] 设置星座[%d]",this.Id(),value)
 	this.constellation = value
+	this.UserBase().Constellation = pb.Uint32(value)
+	this.SendUserBase()
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Constellation))
 }
 
 func (this *GateUser) Constellation() uint32 {
@@ -256,7 +289,11 @@ func (this *GateUser) Constellation() uint32 {
 }
 
 func (this *GateUser) SetAge(age uint32) {
+	log.Info("玩家[%d] 设置年龄[%d]", this.Id(),age)
 	this.age = age
+	this.UserBase().Age = pb.Uint32(age)
+	this.SendUserBase()
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Age))
 }
 
 func (this *GateUser) Age() uint32 {
@@ -280,6 +317,7 @@ func (this *GateUser) AddLevel(num uint32) {
 	for _, v := range data {
 		v.ownerlevel = this.level
 	}
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Level))
 }
 
 func (this *GateUser) Exp() uint32 {
@@ -288,6 +326,7 @@ func (this *GateUser) Exp() uint32 {
 
 func (this *GateUser) SetExp(exp uint32) {
 	this.exp = exp
+	//this.UpdataUserInfoByType(uint32(UserInfoType_Exp))
 }
 
 func (this *GateUser) Token() string {
@@ -787,7 +826,6 @@ func (this *GateUser) Syn() {
 	this.SynCarData()
 	this.SynParkingData()
 	this.SynParkingRecord()
-	this.events.SendEvents();
 	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
 	//this.TestItem()
@@ -916,8 +954,13 @@ func (this *GateUser) ReplyStartGame(err string, roomid int64) {
 	}
 }
 
-// 在网关创建房间
-func (this *GateUser) ReqStartGameLocal(gamekind int32) (errcode string) {
+// --------------------------------------------------------------------------
+/// @brief 创建游戏房间
+///
+/// @param gamekind 游戏类型
+/// @param eventuid 通过事件进入的事件uid
+// --------------------------------------------------------------------------
+func (this *GateUser) ReqStartGameLocal(gamekind int32, eventuid uint64) (errcode string) {
 	// 创建中
 	if this.IsRoomCreating() {
 		log.Error("玩家[%s %d] 重复创建房间，正在创建房间中", this.Name(), this.Id())
@@ -952,7 +995,7 @@ func (this *GateUser) ReqStartGameLocal(gamekind int32) (errcode string) {
 		}
 
 		// 初始化房间
-		room := NewGameRoom(userid, roomid, gamekind)
+		room := NewGameRoom(userid, roomid, gamekind, eventuid)
 		if errcode = room.Init(); errcode != "" {
 			break
 		}
@@ -1256,6 +1299,45 @@ func (this *GateUser) AckNearUsersData(lng, lat float32) {
 		if max >= 10 {
 			break
 		}
+	}
+	this.SendMsg(send)
+}
+
+//同步客户端玩家key-value 型数据
+func (this *GateUser) UpdataUserInfoByType (key uint32) {
+	send := &msg.GW2C_UpdateUserDataByKey{}
+	send.Key = pb.Uint32(key)
+	switch key {
+		case uint32(msg.UserInfoType_Name):
+			send.Valuestring = pb.String(this.Name())
+			break
+		case uint32(msg.UserInfoType_UserSex):
+			send.Valueint = pb.Uint64(uint64(this.Sex()))
+			break
+		case uint32(msg.UserInfoType_Age):
+			send.Valueint = pb.Uint64(uint64(this.Age()))
+			break
+		case uint32(msg.UserInfoType_Sign):
+			send.Valuestring = pb.String(this.Sign())
+			break
+		case uint32(msg.UserInfoType_Constellation):
+			send.Valueint = pb.Uint64(uint64(this.Constellation()))
+			break
+		case uint32(msg.UserInfoType_Face):
+			send.Valuestring = pb.String(this.Face())
+			break
+		case uint32(msg.UserInfoType_Baseprovince):
+			send.Valueint = pb.Uint64(uint64(this.Baseprovince()))
+			break
+		case uint32(msg.UserInfoType_Basecity):
+			send.Valueint = pb.Uint64(uint64(this.Basecity()))
+			break
+		case uint32(msg.UserInfoType_Level):
+			send.Valueint = pb.Uint64(uint64(this.Level()))
+			break
+		case uint32(msg.UserInfoType_Exp):
+			send.Valueint = pb.Uint64(uint64(this.Exp()))
+			break
 	}
 	this.SendMsg(send)
 }

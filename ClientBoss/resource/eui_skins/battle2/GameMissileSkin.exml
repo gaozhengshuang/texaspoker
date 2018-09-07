@@ -3,205 +3,216 @@
 	<w:Declarations>
 		<tween:TweenGroup id="shakeItemAnim">
 			<tween:TweenItem target="{itemImg1}">
-				<tween:Set/>
-				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{24.68}"/>
+						<e:Object x="{53}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{8.01}"/>
+						<e:Object y="{74}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{13.33}"/>
+						<e:Object x="{56}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{28.67}"/>
+						<e:Object y="{77}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{9.34}"/>
+						<e:Object x="{54}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{24.68}"/>
+						<e:Object y="{80}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{17.34}" y="{24.68}"/>
+						<e:Object x="{58}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{12.02}"/>
+						<e:Object y="{77}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{30}"/>
+						<e:Object x="{55}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{12}" y="{30}"/>
+						<e:Object y="{79}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="50"/>
+				<tween:Set>
+					<tween:props>
+						<e:Object y="{76}" x="{54}"/>
 					</tween:props>
 				</tween:Set>
 			</tween:TweenItem>
 			<tween:TweenItem target="{itemImg2}">
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{58.01}"/>
+						<e:Object x="{82}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{62.01}" y="{3.01}"/>
+						<e:Object y="{54}" x="{83}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{9.66}"/>
+						<e:Object y="{57}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{9.66}"/>
+						<e:Object x="{85}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{70.01}" y="{8.33}"/>
+						<e:Object x="{82}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{7.33}" x="{72}"/>
+						<e:Object y="{59}" x="{80}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{66.66}" y="{5.33}"/>
+						<e:Object x="{83}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{6.66}" x="{71.99}"/>
+						<e:Object y="{57}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{68}" y="{7.99}"/>
+						<e:Object x="{80}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{72}" y="{4}"/>
+						<e:Object x="{85}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{62}" y="{7}"/>
+						<e:Object x="{84}" y="{56}"/>
 					</tween:props>
 				</tween:Set>
 			</tween:TweenItem>
 			<tween:TweenItem target="{itemImg3}">
-				<tween:Set/>
-				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{66}" y="{62.01}"/>
+						<e:Object x="{82}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{68.67}" y="{66}"/>
+						<e:Object y="{83}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{63.34}" y="{63.34}"/>
+						<e:Object x="{85}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{62.01}" y="{68.67}"/>
+						<e:Object x="{82}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{67.35}" y="{66.01}"/>
+						<e:Object y="{86}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{67.35}" y="{66.02}"/>
+						<e:Object y="{83}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{73.33}" y="{68.35}"/>
+						<e:Object x="{85}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object y="{68.35}" x="{70.67}"/>
+						<e:Object y="{86}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{74.68}" y="{63.02}"/>
+						<e:Object x="{83}"/>
 					</tween:props>
 				</tween:Set>
 				<tween:Wait duration="50"/>
 				<tween:Set>
 					<tween:props>
-						<e:Object x="{62}" y="{66}"/>
+						<e:Object y="{85}" x="{85}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="50"/>
+				<tween:Set>
+					<tween:props>
+						<e:Object x="{85}" y="{86}"/>
 					</tween:props>
 				</tween:Set>
 			</tween:TweenItem>
+
+
+
 		</tween:TweenGroup>
 	</w:Declarations>
 	<e:Group id="missileGroup" width="150" height="1000" x="75" y="175" anchorOffsetX="75" anchorOffsetY="175" rotation="0">
 		<e:Image id="line" source="game2_json.line" horizontalCenter="0" bottom="0" x="64" y="135" scaleX="1" scaleY="1"/>
 		<e:Image id="aim" source="game2_json.hook" horizontalCenter="1" width="70" verticalCenter="-416" x="41" y="26" scaleX="1" scaleY="1" anchorOffsetX="35" anchorOffsetY="58"/>
-		<e:Image id="itemImg1" source="item_json.110004" width="60" height="60" x="42" y="30" scaleX="1" scaleY="1" anchorOffsetX="30" anchorOffsetY="30" visible="false"/>
-		<e:Image id="itemImg2" source="item_json.110004" width="60" height="60" x="92" y="37" scaleX="1" scaleY="1" anchorOffsetX="30" anchorOffsetY="30" visible="false"/>
-		<e:Image id="itemImg3" source="item_json.110004" width="60" height="60" x="92" y="96" scaleX="1" scaleY="1" anchorOffsetX="30" anchorOffsetY="30" visible="false"/>
+		<e:Image id="itemImg1" source="item_json.110004" width="60" height="60" x="54" y="76" scaleX="1" scaleY="1" anchorOffsetX="30" anchorOffsetY="30" visible="false"/>
+		<e:Image id="itemImg2" source="item_json.110004" width="60" height="60" x="84" y="56" scaleX="1" scaleY="1" anchorOffsetX="30" anchorOffsetY="30" visible="false"/>
+		<e:Image id="itemImg3" source="item_json.110004" width="60" height="60" x="85" y="86" scaleX="1" scaleY="1" anchorOffsetX="30" anchorOffsetY="30" visible="false"/>
 	</e:Group>
 </e:Skin>
