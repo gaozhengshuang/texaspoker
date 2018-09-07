@@ -21231,6 +21231,36 @@ $root.msg = (function() {
         return values;
     })();
 
+    /**
+     * UserInfoType enum.
+     * @name msg.UserInfoType
+     * @enum {string}
+     * @property {number} Name=1 Name value
+     * @property {number} UserSex=2 UserSex value
+     * @property {number} Age=3 Age value
+     * @property {number} Sign=4 Sign value
+     * @property {number} Constellation=5 Constellation value
+     * @property {number} Face=6 Face value
+     * @property {number} Baseprovince=7 Baseprovince value
+     * @property {number} Basecity=8 Basecity value
+     * @property {number} Level=9 Level value
+     * @property {number} Exp=10 Exp value
+     */
+    msg.UserInfoType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[1] = "Name"] = 1;
+        values[valuesById[2] = "UserSex"] = 2;
+        values[valuesById[3] = "Age"] = 3;
+        values[valuesById[4] = "Sign"] = 4;
+        values[valuesById[5] = "Constellation"] = 5;
+        values[valuesById[6] = "Face"] = 6;
+        values[valuesById[7] = "Baseprovince"] = 7;
+        values[valuesById[8] = "Basecity"] = 8;
+        values[valuesById[9] = "Level"] = 9;
+        values[valuesById[10] = "Exp"] = 10;
+        return values;
+    })();
+
     msg.PersonSocialInfo = (function() {
 
         /**
@@ -44943,13 +44973,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -45198,13 +45222,7 @@ $root.msg = (function() {
                 } else
                     object.uid = options.longs === String ? "0" : 0;
                 object.name = "";
-                if (options.bytes === String)
-                    object.buf = "";
-                else {
-                    object.buf = [];
-                    if (options.bytes !== Array)
-                        object.buf = $util.newBuffer(object.buf);
-                }
+                object.buf = options.bytes === String ? "" : [];
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
                 if (typeof message.uid === "number")
@@ -64036,6 +64054,252 @@ $root.msg = (function() {
         };
 
         return C2GW_ReqSetBaseArea;
+    })();
+
+    msg.GW2C_UpdateUserDataByKey = (function() {
+
+        /**
+         * Properties of a GW2C_UpdateUserDataByKey.
+         * @memberof msg
+         * @interface IGW2C_UpdateUserDataByKey
+         * @property {number|null} [key] GW2C_UpdateUserDataByKey key
+         * @property {number|Long|null} [valueint] GW2C_UpdateUserDataByKey valueint
+         * @property {string|null} [valuestring] GW2C_UpdateUserDataByKey valuestring
+         */
+
+        /**
+         * Constructs a new GW2C_UpdateUserDataByKey.
+         * @memberof msg
+         * @classdesc Represents a GW2C_UpdateUserDataByKey.
+         * @implements IGW2C_UpdateUserDataByKey
+         * @constructor
+         * @param {msg.IGW2C_UpdateUserDataByKey=} [properties] Properties to set
+         */
+        function GW2C_UpdateUserDataByKey(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_UpdateUserDataByKey key.
+         * @member {number} key
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @instance
+         */
+        GW2C_UpdateUserDataByKey.prototype.key = 0;
+
+        /**
+         * GW2C_UpdateUserDataByKey valueint.
+         * @member {number|Long} valueint
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @instance
+         */
+        GW2C_UpdateUserDataByKey.prototype.valueint = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * GW2C_UpdateUserDataByKey valuestring.
+         * @member {string} valuestring
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @instance
+         */
+        GW2C_UpdateUserDataByKey.prototype.valuestring = "";
+
+        /**
+         * Creates a new GW2C_UpdateUserDataByKey instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {msg.IGW2C_UpdateUserDataByKey=} [properties] Properties to set
+         * @returns {msg.GW2C_UpdateUserDataByKey} GW2C_UpdateUserDataByKey instance
+         */
+        GW2C_UpdateUserDataByKey.create = function create(properties) {
+            return new GW2C_UpdateUserDataByKey(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateUserDataByKey message. Does not implicitly {@link msg.GW2C_UpdateUserDataByKey.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {msg.IGW2C_UpdateUserDataByKey} message GW2C_UpdateUserDataByKey message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateUserDataByKey.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.key != null && message.hasOwnProperty("key"))
+                writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.key);
+            if (message.valueint != null && message.hasOwnProperty("valueint"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.valueint);
+            if (message.valuestring != null && message.hasOwnProperty("valuestring"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.valuestring);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_UpdateUserDataByKey message, length delimited. Does not implicitly {@link msg.GW2C_UpdateUserDataByKey.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {msg.IGW2C_UpdateUserDataByKey} message GW2C_UpdateUserDataByKey message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_UpdateUserDataByKey.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_UpdateUserDataByKey message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_UpdateUserDataByKey} GW2C_UpdateUserDataByKey
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateUserDataByKey.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_UpdateUserDataByKey();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.key = reader.uint32();
+                    break;
+                case 2:
+                    message.valueint = reader.uint64();
+                    break;
+                case 3:
+                    message.valuestring = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_UpdateUserDataByKey message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_UpdateUserDataByKey} GW2C_UpdateUserDataByKey
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_UpdateUserDataByKey.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_UpdateUserDataByKey message.
+         * @function verify
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_UpdateUserDataByKey.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.key != null && message.hasOwnProperty("key"))
+                if (!$util.isInteger(message.key))
+                    return "key: integer expected";
+            if (message.valueint != null && message.hasOwnProperty("valueint"))
+                if (!$util.isInteger(message.valueint) && !(message.valueint && $util.isInteger(message.valueint.low) && $util.isInteger(message.valueint.high)))
+                    return "valueint: integer|Long expected";
+            if (message.valuestring != null && message.hasOwnProperty("valuestring"))
+                if (!$util.isString(message.valuestring))
+                    return "valuestring: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_UpdateUserDataByKey message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_UpdateUserDataByKey} GW2C_UpdateUserDataByKey
+         */
+        GW2C_UpdateUserDataByKey.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_UpdateUserDataByKey)
+                return object;
+            var message = new $root.msg.GW2C_UpdateUserDataByKey();
+            if (object.key != null)
+                message.key = object.key >>> 0;
+            if (object.valueint != null)
+                if ($util.Long)
+                    (message.valueint = $util.Long.fromValue(object.valueint)).unsigned = true;
+                else if (typeof object.valueint === "string")
+                    message.valueint = parseInt(object.valueint, 10);
+                else if (typeof object.valueint === "number")
+                    message.valueint = object.valueint;
+                else if (typeof object.valueint === "object")
+                    message.valueint = new $util.LongBits(object.valueint.low >>> 0, object.valueint.high >>> 0).toNumber(true);
+            if (object.valuestring != null)
+                message.valuestring = String(object.valuestring);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_UpdateUserDataByKey message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @static
+         * @param {msg.GW2C_UpdateUserDataByKey} message GW2C_UpdateUserDataByKey
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_UpdateUserDataByKey.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.key = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.valueint = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.valueint = options.longs === String ? "0" : 0;
+                object.valuestring = "";
+            }
+            if (message.key != null && message.hasOwnProperty("key"))
+                object.key = message.key;
+            if (message.valueint != null && message.hasOwnProperty("valueint"))
+                if (typeof message.valueint === "number")
+                    object.valueint = options.longs === String ? String(message.valueint) : message.valueint;
+                else
+                    object.valueint = options.longs === String ? $util.Long.prototype.toString.call(message.valueint) : options.longs === Number ? new $util.LongBits(message.valueint.low >>> 0, message.valueint.high >>> 0).toNumber(true) : message.valueint;
+            if (message.valuestring != null && message.hasOwnProperty("valuestring"))
+                object.valuestring = message.valuestring;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_UpdateUserDataByKey to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_UpdateUserDataByKey
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_UpdateUserDataByKey.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_UpdateUserDataByKey;
     })();
 
     msg.C2GW_ReqPlayerCountByProvince = (function() {

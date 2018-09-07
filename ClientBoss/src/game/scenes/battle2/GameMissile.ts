@@ -68,17 +68,17 @@ module game {
         public runAction(_curStage: any) {
             this._curState = gameConfig.GouziType.start;
 
-            egret.Tween.get(this).to({ x: _curStage.x, y: this.initY - 650 }, 2000).call(() => {
+            egret.Tween.get(this).to({ x: _curStage.x, y: this.initY - 650}, 1000).call(() => {
                 this._curState = gameConfig.GouziType.back;
-
-                egret.Tween.get(this).to({ x: this.initX, y: this.initY - 150 }, 2000).call(() => {
+                
+                egret.Tween.get(this).to({ x: this.initX, y: this.initY - 150}, 1000).call(() => {
                     if (this._curGetNum > 0) {
                         this._curState = gameConfig.GouziType.shakeItem;
-                        egret.Tween.get(this).to({ x: this.initX, y: this.initY - 100 }, 1000).call(() => {
+                        egret.Tween.get(this).to({ x: this.initX, y: this.initY - 100 }, 600).call(() => {
                             this._curState = gameConfig.GouziType.getItem;
                         });
                     } else {
-                        egret.Tween.get(this).to({ x: this.initX, y: this.initY }, 2000).call(() => {
+                        egret.Tween.get(this).to({ x: this.initX, y: this.initY }, 400).call(() => {
                             this._curState = gameConfig.GouziType.over;
                         });
                     }
