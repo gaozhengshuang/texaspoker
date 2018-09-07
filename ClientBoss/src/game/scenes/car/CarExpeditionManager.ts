@@ -27,7 +27,7 @@ module game {
         {
             CarManager.getInstance().ReqMyCarInfo(function(){
                 DataManager.playerModel.getUserInfo().cardatas.forEach(data=>{
-                    if(data.state==msg.CarState.Arrival){
+                    if(data.state==msg.CarState.Arrival||data.state==msg.CarState.Robbing){
                         removeExpeditionCarMarkerById(data.id);
                         if(isShow){
                             addExpeditionCarMarker({id:data.id,imageUrl:'resource/others/images/small_1.png',lat:data.expedition.latitude,lng:data.expedition.longitude});                

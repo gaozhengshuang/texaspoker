@@ -163,7 +163,7 @@ module game {
 /* 			let def = table.TMapEventById[data.tid];
 			ItemGetTips.getInstance().startCollect();
 			this.reqEnterEvent(data.id); */
-			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_EXPEDITION,{latitude:data.latitude,longitude:data.longitude});
+			ApplicationFacade.getInstance().sendNotification(CommandName.PAGE_SWITCH_EXPEDITION,{data:data});
 		}
 		/**
 		 * 请求进入事件

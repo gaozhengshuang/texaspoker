@@ -102,7 +102,7 @@ module game {
                         GameConfig.showDownBtnFun(false);
                         //请求个人车辆数据并刷新界面
                         CarManager.getInstance().ReqMyCarInfo(function(){
-                            CarExpeditionPanel.getInstance().UpdateData(DataManager.playerModel.getUserInfo().cardatas,data.buildingId);
+                            CarExpeditionPanel.getInstance().UpdateData(DataManager.playerModel.getUserInfo().cardatas,data.data);
                         })
 
                     }
