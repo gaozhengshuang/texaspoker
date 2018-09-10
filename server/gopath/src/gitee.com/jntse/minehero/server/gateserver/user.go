@@ -472,6 +472,7 @@ func (this *GateUser) NewPlayerStep() uint32 {
 
 func (this *GateUser) SetNewPlayerStep(step uint32) {
 	this.newplayerstep = step
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_NewPlayerStep))
 }
 
 func (this *GateUser) SetRobCountResumeTime(t int64, syn bool) {
@@ -1330,6 +1331,9 @@ func (this *GateUser) UpdataUserInfoByType (key uint32) {
 			break
 		case uint32(msg.UserInfoType_Exp):
 			send.Valueint = pb.Uint64(uint64(this.Exp()))
+			break
+		case uint32(msg.UserInfoType_NewPlayerStep):
+			send.Valueint = pb.Uint64(uint64(this.NewPlayerStep()))
 			break
 		default:
 			log.Error("UpdataUserInfoByType 无效key:[%d]", key)
