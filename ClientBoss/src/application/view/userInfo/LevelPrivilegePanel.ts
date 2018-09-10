@@ -4,7 +4,7 @@ module game {
         private headImg: UserHeadImgPanel;
 
         private listGroup: eui.Group;
-        private returnBtn: eui.Button;
+        private returnBtn: eui.Group;
 
 
         public constructor() {

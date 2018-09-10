@@ -8,7 +8,7 @@ module game {
         if (houseList && houseList.length > 0) {
             for (let i: number = 0; i < houseList.length; i++) {
                 let house: HouseVO = houseList[i];
-                if (house && house.housecells && house.housecells.length > 0) {
+                if (house && !house.issell && house.housecells && house.housecells.length > 0) {
                     for (let k: number = 0; k < house.housecells.length; k++) {
                         if (type == 1) {
                             if (house.housecells[k].state == 1) {
@@ -37,7 +37,7 @@ module game {
         if (houseList && houseList.length > 0) {
             for (let i: number = 0; i < houseList.length; i++) {
                 let house: HouseVO = houseList[i];
-                if (house && house.housecells && house.housecells.length > 0) {
+                if (house && !house.issell  && house.housecells && house.housecells.length > 0) {
                     for (let k: number = 0; k < house.housecells.length; k++) {
                         if (type == 1) {
                             if (house.housecells[k].state == 1) {
@@ -63,7 +63,7 @@ module game {
      */
     export function AnalyzeHouseGold(house: HouseVO, type: number = 1, userid: number = 0): boolean {
         let bool: boolean = false;
-        if (house && house.housecells && house.housecells.length > 0) {
+        if (house && !house.issell && house.housecells && house.housecells.length > 0) {
             for (let k: number = 0; k < house.housecells.length; k++) {
                 if (type == 1) {
                     if (house.housecells[k].state == 1) {
@@ -86,7 +86,7 @@ module game {
     export function AnalyzeUserGoldTime(house: HouseVO, userid: number = 0): any {
         let obj: any = null;
         if (house) {
-            if (house && house.housecells && house.housecells.length > 0) {
+            if (house && !house.issell && house.housecells && house.housecells.length > 0) {
                 let haveHouse: number = 0;
                 for (let k: number = 0; k < house.housecells.length; k++) {
                     if (house.housecells[k].state == 1) {

@@ -64,7 +64,9 @@ module game {
             if(obj.ownerface!=null){
                 this.ownerface = obj.ownerface;
             }
-
+            if(obj.issell!=null){
+                this.issell = obj.issell;
+            }
         }
         public rId:number=0;
 
@@ -99,6 +101,8 @@ module game {
         public ownerlevel: number = 21; //主人等级
 
         public ownerface: string = "22"; //主人头像
+
+        public issell: boolean=false;//是否出售中
         
     }
 }
