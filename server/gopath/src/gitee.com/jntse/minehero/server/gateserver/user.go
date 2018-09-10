@@ -197,8 +197,7 @@ func (this *GateUser) SetName(nickname string) bool {
 	for _, v := range data {
 		v.ownername = nickname
 	}
-	this.SendUserBase()
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Name))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Name))
 	log.Info("玩家[%d] 设置昵称[%s] 成功", this.Id(),nickname)
 	return true
 }
@@ -210,9 +209,8 @@ func (this *GateUser) SetBaseArea (province uint32, city uint32) {
 	this.basecity = city
 	this.UserBase().Baseprovince = pb.Uint32(province)
 	this.UserBase().Basecity = pb.Uint32(city)
-	this.SendUserBase()
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Baseprovince))
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Basecity))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Baseprovince))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Basecity))
 }
 
 func (this *GateUser) Baseprovince() uint32 {
@@ -235,8 +233,7 @@ func (this *GateUser) SetFace(f string, bsync bool)  {
 		v.ownerface = f
 	}
 	if bsync {
-		this.SendUserBase()
-		//this.UpdataUserInfoByType(uint32(UserInfoType_Face))
+		this.UpdataUserInfoByType(uint32(msg.UserInfoType_Face))
 	}
 }
 
@@ -255,8 +252,7 @@ func (this *GateUser) SetSex(sex int32) {
 	for _, v := range data {
 		v.ownersex = sex
 	}
-	this.SendUserBase()
-	//this.UpdataUserInfoByType(uint32(UserInfoType_UserSex))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_UserSex))
 }
 
 func (this *GateUser) SetSign(sign string) bool {
@@ -266,8 +262,7 @@ func (this *GateUser) SetSign(sign string) bool {
 	}
 	this.sign = sign
 	this.UserBase().Sign = pb.String(sign)
-	this.SendUserBase()
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Sign))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Sign))
 	log.Info("玩家[%d] 设置签名[%s]",this.Id(), sign)
 	return true
 }
@@ -280,8 +275,7 @@ func (this *GateUser) SetConstellation(value uint32) {
 	log.Info("玩家[%d] 设置星座[%d]",this.Id(),value)
 	this.constellation = value
 	this.UserBase().Constellation = pb.Uint32(value)
-	this.SendUserBase()
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Constellation))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Constellation))
 }
 
 func (this *GateUser) Constellation() uint32 {
@@ -292,8 +286,7 @@ func (this *GateUser) SetAge(age uint32) {
 	log.Info("玩家[%d] 设置年龄[%d]", this.Id(),age)
 	this.age = age
 	this.UserBase().Age = pb.Uint32(age)
-	this.SendUserBase()
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Age))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Age))
 }
 
 func (this *GateUser) Age() uint32 {
@@ -317,7 +310,7 @@ func (this *GateUser) AddLevel(num uint32) {
 	for _, v := range data {
 		v.ownerlevel = this.level
 	}
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Level))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Level))
 }
 
 func (this *GateUser) Exp() uint32 {
@@ -326,7 +319,7 @@ func (this *GateUser) Exp() uint32 {
 
 func (this *GateUser) SetExp(exp uint32) {
 	this.exp = exp
-	//this.UpdataUserInfoByType(uint32(UserInfoType_Exp))
+	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Exp))
 }
 
 func (this *GateUser) Token() string {
