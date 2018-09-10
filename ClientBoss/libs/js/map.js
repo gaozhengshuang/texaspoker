@@ -284,14 +284,12 @@ function playerArrayFun(bool) {
   }
 }
 
-//------------------------------//
-
 /**
  * 添加折线
  */
 var polylines = [];
 function addPolyline(data) {
-  if (data) {
+  if (data!=null) {
     let polyline = new qq.maps.Polyline({
           path: [
               new qq.maps.LatLng(data.start.lat,data.start.lng),
@@ -313,7 +311,7 @@ function addPolyline(data) {
 function removePolyline() {
   if(polylines.length>0){
     for(let polyline of polylines){
-      if(polyline && polyline.polyline)
+      if(polyline!=null && polyline.polyline)
       {
         polyline.polyline.setMap(null);
         polyline.polyline=null;
@@ -328,12 +326,12 @@ function removePolylineByCar(id) {
   if(polylines.length>0){
     for (let index = 0; index < polylines.length; index++) {
       let polyline = polylines[index];
-      if(polyline && polyline.id)
+      if(polyline!=null && polyline.id)
       {
         if(polyline.id==id)
         {
           polylines.splice(index,1);
-          if(polyline.polyline)
+          if(polyline.polyline!=null)
           {
             polyline.polyline.setMap(null);
             polyline.polyline=null;
@@ -353,18 +351,20 @@ var expeditionCarArray = [];
  * 添加地图出征路线上车辆图标
  */
 function addExpeditionCarMarker(data) {
+  console.log("addExpeditionCarMarker--------------");
   if (data != null) {
-    console.log(data);
-    let icon = new qq.maps.MarkerImage(
+    console.log(JSON.stringify(data));
+/*     let icon = new qq.maps.MarkerImage(
       data.imageUrl,
-      new qq.maps.Size(150, 73),
+      new qq.maps.Size(150, 73)
+    ); */
+    let icon = new qq.maps.MarkerImage(
+      data.imageUrl
     );
-    
     let marker = new qq.maps.Marker({
       icon: icon,
       map: map,
       position: new qq.maps.LatLng(data.lat, data.lng),
-
       zIndex:100,
     });
 
@@ -381,12 +381,12 @@ function removeExpeditionCarMarkerById(id)
   if(expeditionCarArray.length>0){
     for (let index = 0; index < expeditionCarArray.length; index++) {
       let data = expeditionCarArray[index];
-      if(data && data.id)
+      if(data!=null && data.id)
       {
         if(data.id==id)
         {
           expeditionCarArray.splice(index,1);
-          if(data.marker)
+          if(data.marker!=null)
           {
             data.marker.setMap(null);
             data.marker = null;
@@ -403,7 +403,7 @@ function removeExpeditionCarMarker()
 {
   if(expeditionCarArray.length > 0){
     for (let data of expeditionCarArray) {
-      if(data && data.marker){
+      if(data!=null && data.marker!=null){
         data.marker.setMap(null);
         data.marker = null;
         data = null;
