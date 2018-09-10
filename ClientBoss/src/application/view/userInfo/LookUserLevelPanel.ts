@@ -5,7 +5,7 @@ module game {
 
         private houseMax_txt: eui.Label;
         private tiliMax_txt: eui.Label;
-        private returnBtn: eui.Button;
+        private returnBtn: eui.Group;
         private knowGroup: eui.Group;
         
 

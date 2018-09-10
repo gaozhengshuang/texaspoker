@@ -13,6 +13,7 @@ module game {
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
         static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE";
         static HOUSE_UPDATE = "PlayerModel_HOUSE_UPDATE";
+        static HOUSE_LIST_UPDATE = "PlayerModel_HOUSE_LIST_UPDATE";
         static CAR_UPDATE = "PlayerModel_CAR_UPDATE";
 
         public penetration: number = 0;
@@ -131,6 +132,7 @@ module game {
                     this._houses = [data.data];
                 }
             }
+            NotificationCenter.postNotification(PlayerModel.HOUSE_LIST_UPDATE, this._houses);
             NotificationCenter.postNotification(PlayerModel.HOUSE_UPDATE, data);
         }
         private GW2C_UpdateCar(data: msg.GW2C_UpdateCar) {

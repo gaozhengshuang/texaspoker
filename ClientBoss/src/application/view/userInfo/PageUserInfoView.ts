@@ -4,7 +4,7 @@ module game {
 
 		private view_bg: eui.Rect;
 
-		private returnBtn: eui.Image;
+		private returnBtn: eui.Group;
 		private btGroup1: eui.Group;
 		private btGroup2: eui.Group;
 		private btGroup3: eui.Group;

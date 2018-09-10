@@ -30,6 +30,7 @@ module game {
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseCellLevelUp, "msg.GW2C_AckHouseCellLevelUp");
 			NotificationCenter.addObserver(this, this.OnGW2C_AckHouseDataByHouseId, "msg.GW2C_AckHouseDataByHouseId");
 			NotificationCenter.addObserver(this, this.OnGW2C_UpdateHouseVisitInfo, "msg.GW2C_UpdateHouseVisitInfo");
+			
 
 		}
 		private OnGW2C_UpdateHouseVisitInfo(data: msg.GW2C_UpdateHouseVisitInfo) {
