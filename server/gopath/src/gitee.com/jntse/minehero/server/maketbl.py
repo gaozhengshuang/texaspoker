@@ -246,6 +246,7 @@ gen.maketbl_excel('TSupermarketBase','supermarketbase','TSupermarket.xlsx')
 #gen.maketbl_excel('ClothesPartsShopBase','clothespartsshopbase','TClothesPartsShop.xlsx')
 gen.maketbl_excel('MapStoreBase','mapstorebase','TMapStore.xlsx')
 gen.maketbl_excel('TCharacterLevelBase','characterlevelbase','TCharacterLevel.xlsx')
+gen.maketbl_excel('TGuideBase','guidebase','TGuide.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')

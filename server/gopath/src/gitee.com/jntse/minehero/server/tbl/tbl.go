@@ -101,6 +101,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TCarBase, "carbase.json")
 	this.LoadExcel(NameBase, "namebase.json")
 	this.LoadExcel(TCarPartBase, "carpartbase.json")
+	this.LoadExcel(TGuideBase, "guidebase.json")
 	this.LoadExcel(TCarPartLevelupBase, "carpartlevelupbase.json")
 	this.LoadExcel(TBallBase, "ballbase.json")
 	this.LoadExcel(MapEventRefreshBase, "mapeventrefresh.json")

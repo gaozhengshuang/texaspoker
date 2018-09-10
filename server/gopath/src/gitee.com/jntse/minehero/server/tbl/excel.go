@@ -37,6 +37,7 @@ var THouseCellBase = table.InsTHouseCellBaseTable
 var TCarBase = table.InsTCarBaseTable
 var NameBase = table.InsNameBaseTable
 var TCarPartBase = table.InsTCarPartBaseTable
+var TGuideBase = table.InsTGuideBaseTable
 var TCarPartLevelupBase = table.InsTCarPartLevelupBaseTable
 var TBallBase = table.InsTBallBaseTable
 var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
