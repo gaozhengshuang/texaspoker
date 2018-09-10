@@ -1331,6 +1331,9 @@ func (this *GateUser) UpdataUserInfoByType (key uint32) {
 		case uint32(msg.UserInfoType_Exp):
 			send.Valueint = pb.Uint64(uint64(this.Exp()))
 			break
+		default:
+			log.Error("UpdataUserInfoByType 无效key:[%d]", key)
+			return
 	}
 	this.SendMsg(send)
 }
