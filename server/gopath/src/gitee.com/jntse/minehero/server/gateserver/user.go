@@ -472,6 +472,7 @@ func (this *GateUser) NewPlayerStep() uint32 {
 
 func (this *GateUser) SetNewPlayerStep(step uint32) {
 	this.newplayerstep = step
+	this.UserBase().Newplayerstep = pb.Uint32(step)
 	this.UpdataUserInfoByType(uint32(msg.UserInfoType_NewPlayerStep))
 }
 
