@@ -241,11 +241,10 @@ module game {
 		public showMapUI(bool:boolean){
             var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
 			if(!mapProxy) return;
-			if(!mapProxy.isShowRange) return;
+			//if(!mapProxy.isShowRange) return;
             if(bool){
-				
                 if(!panelIsShow(PanelType.CarExpeditionInfoPanel)){
-                    CarExpeditionManager.getInstance().showExpeditionListInfo(mapProxy.isShowRange);
+                    CarExpeditionManager.getInstance().showExpeditionListInfo(bool);
                 }
             }
             else
@@ -263,18 +262,18 @@ module game {
 			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
 			if(!mapProxy) return;
 			mapProxy.isShowRange = !mapProxy.isShowRange;
-			this.showExpeditionList();	
+			//this.showExpeditionList();	
 			if(!mapProxy.isShowRange) {
 				removeCircle();
-				removePolyline();
-				removeExpeditionCarMarker();
+				//removePolyline();
+				//removeExpeditionCarMarker();
 				CarExpeditionManager.getInstance().showArrivalCarMarkerPos(true);
-				CarExpeditionManager.getInstance().CloseCarMarkerUpdate();
+				//CarExpeditionManager.getInstance().CloseCarMarkerUpdate();
 				return;
 			}
 			this.showSelfPointCircle();
-			this.showExpeditionPolyline();
-			this.showExpeditionCarIcon();
+			//this.showExpeditionPolyline();
+			//this.showExpeditionCarIcon();
 		}
 		//以自身位置为中心，拥有的车辆中最大行驶范围为半径添加地图圆形覆盖物
 		private showSelfPointCircle():void
@@ -297,10 +296,10 @@ module game {
 		{
 			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
 			if(!mapProxy) return;
-			if(!mapProxy.isShowRange) {
+/* 			if(!mapProxy.isShowRange) {
 				removePolyline();
 				return;
-			}
+			} */
 			let self = this;
 			removePolyline();
 			CarManager.getInstance().ReqMyCarInfo(function(){
@@ -316,7 +315,7 @@ module game {
 		{
 			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
 			if(!mapProxy) return;
-			if(!mapProxy.isShowRange) return;
+			//if(!mapProxy.isShowRange) return;
 			if(data.state==msg.CarState.Exped){
 				let linePathData = {id:data.id,start:{lat:mapProxy.selfPoint.lat,lng:mapProxy.selfPoint.lng},end:{lat:data.expedition.latitude,lng:data.expedition.longitude}};
 				addPolyline(linePathData);
@@ -329,7 +328,7 @@ module game {
 		{
 			var mapProxy: MapProxy = <MapProxy><any>this.facade().retrieveProxy(MapProxy.NAME);
 			if(!mapProxy) return;
-			if(!mapProxy.isShowRange) return;
+			//if(!mapProxy.isShowRange) return;
 			CarExpeditionManager.getInstance().OpenCarMarkerUpdate();
 		}
 
