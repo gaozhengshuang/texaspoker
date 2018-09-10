@@ -371,7 +371,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		// 初始元宝和金卷
 		gold := uint32(tbl.Global.NewUser.Gold)
 		userinfo := &msg.Serialize{
-			Entity: &msg.EntityBase{Id: pb.Uint64(userid), Name: pb.String(nickname), Face: pb.String(""), Account: pb.String(account)},
+			Entity: &msg.EntityBase{Id: pb.Uint64(userid), Name: pb.String(nickname), Face: pb.String("1"), Account: pb.String(account)},
 			Base:   &msg.UserBase{Gold: pb.Uint32(gold), Invitationcode: pb.String(invitationcode), Yuanbao: pb.Uint32(0), Level: pb.Uint32(1)},
 			Item:   &msg.ItemBin{},
 		}
