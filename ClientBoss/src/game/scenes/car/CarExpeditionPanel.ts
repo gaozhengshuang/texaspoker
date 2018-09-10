@@ -259,7 +259,8 @@ module game {
                         showTips("出征成功！");
                         self.OnCloseHandle();
                         ApplicationFacade.getInstance().sendNotification(CommandName.MAP_SHOW_POLYLINE_ONE,{data:carData});    
-                        ApplicationFacade.getInstance().sendNotification(CommandName.MAP_SHOW_CAR_MAKER);                            
+                        ApplicationFacade.getInstance().sendNotification(CommandName.MAP_SHOW_CAR_MAKER);     
+			            ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: true });			                
                     }
                 }
             );
