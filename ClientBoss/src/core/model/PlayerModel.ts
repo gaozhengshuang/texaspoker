@@ -73,6 +73,7 @@ module game {
             this.userInfo.name = data.entity.name;
             this.userInfo.sex= data.entity.sex;
             this.userInfo.age= data.base.age;
+            this.userInfo.face=data.entity.face;
             this.userInfo.constellation= data.base.constellation;
             this.userInfo.sign= data.base.sign;
             this.userInfo.baseprovince= data.base.baseprovince;
@@ -91,6 +92,8 @@ module game {
             this.historyMoneyList = data.base.luckydraw.drawlist;
             this.totalMoney = data.base.luckydraw.totalvalue;
             this._tasks = data.base.task.tasks;
+
+            NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
         }
         private GW2C_UpdateHouseDataOne(data: msg.GW2C_UpdateHouseDataOne) {
             if (data.isdel) //删除

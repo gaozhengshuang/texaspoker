@@ -25,12 +25,13 @@ module game {
         }
         private onclick_save(){
             if(this.sign_txt.text!="" && this.sign_txt.text!=this.signStr){
-                sendMessage("msg.C2GW_ReqSetUserSign",msg.C2GW_ReqSetUserSign.encode({sign:this.signStr}));
+
+                sendMessage("msg.C2GW_ReqSetUserSign",msg.C2GW_ReqSetUserSign.encode({sign:this.sign_txt.text}));
             }
             
         }
         private OnGW2C_AckSetUserSign(data: msg.GW2C_AckSetUserSign) {
-			if (data.ret == 1) {
+			if (data.ret == 0) {
                 this.signStr=this.sign_txt.text;
 				this.pageView.delPanelView();
 			}else{

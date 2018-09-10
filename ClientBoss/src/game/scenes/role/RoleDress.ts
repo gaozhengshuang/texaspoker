@@ -94,7 +94,8 @@ module game {
 
             this.initItemList();
 
-            this.gender = DataManager.playerModel.sex;
+            // this.gender = DataManager.playerModel.sex;
+            this.gender = 0;
             this._init = 0;
 
             this._selItems = [];
@@ -160,7 +161,7 @@ module game {
             let levelInfo = table.TLevelMaidById[MaidManager.getInstance().getMaidInfo().level];
             if (levelInfo) {
                 this.lvLabel.text = "Lv."+MaidManager.getInstance().getMaidInfo().level;
-                this.produceGoldLabel.text = "产能：" + levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60) + "/分钟";
+                this.produceGoldLabel.text = "产能：" + Math.floor(levelInfo.ProduceGold/(Number(levelInfo.ProduceTime)/60)) + "/分钟";
                 this.maxGoldLabel.text = "上限：" + levelInfo.ProduceGold + "金币";
                 this.levelUpLabel.text = DataManager.playerModel.getItemNum(levelInfo.UpgradeID) + "/" + levelInfo.Upgradenum;
             }

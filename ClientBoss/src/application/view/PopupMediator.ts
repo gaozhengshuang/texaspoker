@@ -71,6 +71,7 @@ module game {
 
 							this.sceneMediatorName = PageNewHouseHuxingMediator.NAME;
 							ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: false });
+							ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: false });							
                         	ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
 						}
 						break;
@@ -192,6 +193,7 @@ module game {
 								GameConfig.setEventsReply(false);
 								GameConfig.showDownBtnFun(true);
 								ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_USER_INFO, { isShow: true });
+								ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_MAP_UI, { isShow: true });								
 							}
 						}
 						this.removeSceneView();

@@ -91,6 +91,12 @@ module game {
 
                 case CommandName.PAGE_SWITCH_EXPEDITION:
                     {   
+                        let cardatas = DataManager.playerModel.getUserInfo().cardatas.filter(data=>{return data.state==msg.CarState.Ready});
+                        if(cardatas.length==0)
+                        {
+                            showTips("没有可出征车辆！");
+                            return;
+                        }
                         openPanel(PanelType.CarExpeditionPanel);
                         //激活按钮事件
                         GameConfig.setEventsReply(true);
@@ -100,10 +106,12 @@ module game {
                         ApplicationFacade.getInstance().sendNotification(CommandName.SHOW_TOP_ROOM_BG, { isShow: false });
                         //隐藏下方菜单栏
                         GameConfig.showDownBtnFun(false);
-                        //请求个人车辆数据并刷新界面
+/*                         //请求个人车辆数据并刷新界面
                         CarManager.getInstance().ReqMyCarInfo(function(){
-                            CarExpeditionPanel.getInstance().UpdateData(DataManager.playerModel.getUserInfo().cardatas,data.buildingId);
-                        })
+                            CarExpeditionPanel.getInstance().UpdateData(DataManager.playerModel.getUserInfo().cardatas,data.data);
+                        }) */
+
+                        CarExpeditionPanel.getInstance().UpdateData(DataManager.playerModel.getUserInfo().cardatas,data.data);
 
                     }
                 break;
@@ -117,7 +125,7 @@ module game {
                             GameConfig.setEventsReply(true);
                             //GameConfig.closeGameFun(true);
                             if(!this._smallView)
-                            {
+                            {   
                                 this._smallView = new GameSmallGameView();
                             }
                             this._smallView.clear();

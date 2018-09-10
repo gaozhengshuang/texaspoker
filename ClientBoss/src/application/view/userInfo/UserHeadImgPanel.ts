@@ -9,12 +9,15 @@ module game {
             this.skinName = UserHeadSkin;
 
         }
-        public update(index: number) {
+        public update(index: number, w: number = 130, h: number = 130) {
             this.faceIndex = index;
+            this.img.width = this.width;
+            this.img.height = this.height;
             if (this.faceIndex > 0) {
                 this.img.source = RES.getRes("headImg" + this.faceIndex + "_png");
-                this.img.width = this.width;
-                this.img.height = this.height;
+
+            }else{
+                this.img.source ="";
             }
         }
     }
