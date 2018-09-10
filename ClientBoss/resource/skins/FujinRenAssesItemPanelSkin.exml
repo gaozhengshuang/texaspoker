@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="FujinRenAssesItemPanelSkin" width="480" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
-	<e:Rect id="bg_mc" width="654" height="130" x="0" y="0" fillAlpha="0.5" fillColor="0xdddddd"/>
+	<e:Rect id="bg_mc" width="480" height="130" x="0" y="0" fillAlpha="0.5" fillColor="0xdddddd"/>
 	<e:Image source="room_line1_png" width="480" bottom="0" scaleY="1" left="0" height="2"/>
 
 	<e:Image id="youIcon" source="jiaobiaoIcon2_png" right="0" top="0"/>
@@ -17,5 +17,6 @@
 		<e:Image source="hall_4_json.trading_pos_png" scaleX="0.6" scaleY="0.6" x="0" y="0"/>
 		<e:Label id="bPoint_txt" text="上海市·闵行区" size="20" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="160" textColor="0x404A58" stroke="0" strokeColor="0xFFFFFF" x="23.83" y="5"/>
 	</e:Group>
+	<e:Image id="sellIcon" source="hall_4_json.trade_selling_png" right="0" top="0"/>
 
 </e:Skin>

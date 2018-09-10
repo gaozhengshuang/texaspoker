@@ -44,12 +44,16 @@ module game {
 			let cityList:table.ITCitysDefine[]=table.TCitys;
 			let province:number=0;
 			let city:number=0;
+			GameConfig.provinceStr=data[0];
+			GameConfig.cityStr=data[1];
 			for(let i:number=0;i<cityList.length;i++){
 				if(cityList[i].Name==data[0]){
 					province=cityList[i].Id;
+					GameConfig.provinceId=province;
 				}
 				if(cityList[i].Name==data[1]){
 					city=cityList[i].Id;
+					GameConfig.cityId=city;
 				}
 			}
 

@@ -10,6 +10,7 @@ module game {
         private sexIcon: eui.Image;
         private bg_mc:eui.Rect;
         private pointGroup: eui.Group;
+        private sellIcon: eui.Image;
 
         public constructor(data: any = null) {
             super();
@@ -17,6 +18,7 @@ module game {
             this.adaptive();
             this.youIcon.visible = false;
             this.timeGroup.visible = false;
+            this.sellIcon.visible = false;
             this.bg_mc.alpha=0;
             this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onclick_begin, this);
             this.bg_mc.addEventListener(egret.TouchEvent.TOUCH_END, this.onclick_begin, this);
@@ -53,25 +55,29 @@ module game {
                         this.roomNum_txt.text = /*buildInfo.Community+*/this.itemDate.roommember+"号房间";//+this.itemDate.rId+"号房间";
                     }
                 }
-
-                let obj: any = AnalyzeUserGoldTime(this.itemDate, Number(DataManager.playerModel.getUserInfo().userid));
-                if (obj) {
-                    switch (obj.state) {
-                        case 1:
-                            this.youIcon.visible = true;
-                            this.timeGroup.visible = false;
-                            break;
-                        case 2:
-                            this.youIcon.visible = false;
-                            this.timeGroup.visible = true;
-                            this.time_txt.text=obj.time+'"';
-                            break;
-                        case 3:
-                            this.youIcon.visible = false;
-                            this.timeGroup.visible = false;
-                            break;
-
-
+                if(this.itemDate.issell){
+                    this.sellIcon.visible=true;
+                    this.youIcon.visible = false;
+                    this.timeGroup.visible = false;
+                }else{
+                    this.sellIcon.visible=false;
+                    let obj: any = AnalyzeUserGoldTime(this.itemDate, Number(DataManager.playerModel.getUserInfo().userid));
+                    if (obj) {
+                        switch (obj.state) {
+                            case 1:
+                                this.youIcon.visible = true;
+                                this.timeGroup.visible = false;
+                                break;
+                            case 2:
+                                this.youIcon.visible = false;
+                                this.timeGroup.visible = true;
+                                this.time_txt.text = obj.time + '"';
+                                break;
+                            case 3:
+                                this.youIcon.visible = false;
+                                this.timeGroup.visible = false;
+                                break;
+                        }
                     }
                 }
             }

@@ -100,6 +100,12 @@ module game {
         public static explorRId:number=0;
         public static explorLimit:any=null;
 
+        public static provinceStr:string="";
+        public static provinceId:number=0;
+        public static cityStr:string="";
+        public static cityId:number=0;
+
+
         public static exploreUIFun(isShow:boolean){
             exploreUI(isShow);
         }

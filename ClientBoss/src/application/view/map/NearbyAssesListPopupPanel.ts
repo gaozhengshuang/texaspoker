@@ -69,7 +69,9 @@ module game {
 		private onItemTouch(eve:eui.ItemTapEvent){
 			let item:HouseVO=this.houseList[eve.itemIndex];
 			if(item){
-				this.dispatchEvent(new BasicEvent(NearbyAssesListPopupPanel.GOIN_ROOM,{houseid:item.rId}));
+				if(!item.issell){
+					this.dispatchEvent(new BasicEvent(NearbyAssesListPopupPanel.GOIN_ROOM,{houseid:item.rId}));
+				}
 			}
         }
 		
