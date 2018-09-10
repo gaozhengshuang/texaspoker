@@ -351,9 +351,7 @@ var expeditionCarArray = [];
  * 添加地图出征路线上车辆图标
  */
 function addExpeditionCarMarker(data) {
-  console.log("addExpeditionCarMarker--------------");
   if (data != null) {
-    console.log(JSON.stringify(data));
 /*     let icon = new qq.maps.MarkerImage(
       data.imageUrl,
       new qq.maps.Size(150, 73)
@@ -361,7 +359,7 @@ function addExpeditionCarMarker(data) {
     let icon = new qq.maps.MarkerImage(
       data.imageUrl
     );
-    let marker = new qq.maps.Marker({
+    let marker = new qq.maps.Marker({ 
       icon: icon,
       map: map,
       position: new qq.maps.LatLng(data.lat, data.lng),
