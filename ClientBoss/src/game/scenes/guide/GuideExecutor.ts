@@ -44,6 +44,7 @@ module game {
                     return 0;
                 }
             });
+            NotificationCenter.addObserver(this, this.onDataInit, PlayerModel.PLAYERMODEL_DATA_INIT);
             NotificationCenter.addObserver(this, this.onPanelOpen, PanelOpenNotification);
             TickUtil.AddSecondsInvoke(this.onTick, this);
         }
@@ -59,7 +60,15 @@ module game {
                 }
             }
         }
-
+        /**
+         * 初始化定位需要执行哪一步引导
+         */
+        private onDataInit() {
+            NotificationCenter.removeObserver(this, PlayerModel.PLAYERMODEL_DATA_INIT);
+            let group = DataManager.playerModel.userInfo.newplayerstep + 1;
+            group = Math.min(2, group); //由于遗留原因，最小从2开始
+            this._guideStepDef = GuideManager.getInstance().getTGuideDefine(group);
+        }
         private onPanelOpen(panel: PanelType) {
             this.tryTriggerGuide(GuideTriggerType.OpenPanel, [panel]);
         }
@@ -81,6 +90,7 @@ module game {
                     paramsArr = this._guideStepDef.TriggerParams.split(',');
                     for (let i: number = 0; i < params.length; i++) {
                         if (paramsArr[i] != params[i]) {
+                            Console.log("引导触发失败！参数不满足 params:", params);
                             return;//引导触发失败 参数不满足
                         }
                     }
