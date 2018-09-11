@@ -21,7 +21,7 @@ module game {
                     { target: this.reconnectButton, callBackFunc: this.reconnectHandle },
                 ];
                 this.addEventAndNotify();
-                GameLayer.maskLayer.addChild(this);
+                GameLayer.alertLayer.addChild(this);
             }
             this.reconnectButton.label = "点击重新登录";
             this.reasonLabel.visible = false;

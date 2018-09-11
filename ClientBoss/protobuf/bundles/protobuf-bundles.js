@@ -23353,6 +23353,7 @@ $root.msg = (function() {
      * @property {number} Basecity=8 Basecity value
      * @property {number} Level=9 Level value
      * @property {number} Exp=10 Exp value
+     * @property {number} NewPlayerStep=11 NewPlayerStep value
      */
     msg.UserInfoType = (function() {
         var valuesById = {}, values = Object.create(valuesById);
@@ -23366,6 +23367,7 @@ $root.msg = (function() {
         values[valuesById[8] = "Basecity"] = 8;
         values[valuesById[9] = "Level"] = 9;
         values[valuesById[10] = "Exp"] = 10;
+        values[valuesById[11] = "NewPlayerStep"] = 11;
         return values;
     })();
 
@@ -76621,6 +76623,644 @@ $root.table = (function() {
         };
 
         return TGiftProDefine;
+    })();
+
+    table.TGuideBase = (function() {
+
+        /**
+         * Properties of a TGuideBase.
+         * @memberof table
+         * @interface ITGuideBase
+         * @property {Array.<table.ITGuideDefine>|null} [TGuide] TGuideBase TGuide
+         */
+
+        /**
+         * Constructs a new TGuideBase.
+         * @memberof table
+         * @classdesc Represents a TGuideBase.
+         * @implements ITGuideBase
+         * @constructor
+         * @param {table.ITGuideBase=} [properties] Properties to set
+         */
+        function TGuideBase(properties) {
+            this.TGuide = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TGuideBase TGuide.
+         * @member {Array.<table.ITGuideDefine>} TGuide
+         * @memberof table.TGuideBase
+         * @instance
+         */
+        TGuideBase.prototype.TGuide = $util.emptyArray;
+
+        /**
+         * Creates a new TGuideBase instance using the specified properties.
+         * @function create
+         * @memberof table.TGuideBase
+         * @static
+         * @param {table.ITGuideBase=} [properties] Properties to set
+         * @returns {table.TGuideBase} TGuideBase instance
+         */
+        TGuideBase.create = function create(properties) {
+            return new TGuideBase(properties);
+        };
+
+        /**
+         * Encodes the specified TGuideBase message. Does not implicitly {@link table.TGuideBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TGuideBase
+         * @static
+         * @param {table.ITGuideBase} message TGuideBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TGuideBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TGuide != null && message.TGuide.length)
+                for (var i = 0; i < message.TGuide.length; ++i)
+                    $root.table.TGuideDefine.encode(message.TGuide[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TGuideBase message, length delimited. Does not implicitly {@link table.TGuideBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TGuideBase
+         * @static
+         * @param {table.ITGuideBase} message TGuideBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TGuideBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TGuideBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TGuideBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TGuideBase} TGuideBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TGuideBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TGuideBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TGuide && message.TGuide.length))
+                        message.TGuide = [];
+                    message.TGuide.push($root.table.TGuideDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TGuideBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TGuideBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TGuideBase} TGuideBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TGuideBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TGuideBase message.
+         * @function verify
+         * @memberof table.TGuideBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TGuideBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TGuide != null && message.hasOwnProperty("TGuide")) {
+                if (!Array.isArray(message.TGuide))
+                    return "TGuide: array expected";
+                for (var i = 0; i < message.TGuide.length; ++i) {
+                    var error = $root.table.TGuideDefine.verify(message.TGuide[i]);
+                    if (error)
+                        return "TGuide." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TGuideBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TGuideBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TGuideBase} TGuideBase
+         */
+        TGuideBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TGuideBase)
+                return object;
+            var message = new $root.table.TGuideBase();
+            if (object.TGuide) {
+                if (!Array.isArray(object.TGuide))
+                    throw TypeError(".table.TGuideBase.TGuide: array expected");
+                message.TGuide = [];
+                for (var i = 0; i < object.TGuide.length; ++i) {
+                    if (typeof object.TGuide[i] !== "object")
+                        throw TypeError(".table.TGuideBase.TGuide: object expected");
+                    message.TGuide[i] = $root.table.TGuideDefine.fromObject(object.TGuide[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TGuideBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TGuideBase
+         * @static
+         * @param {table.TGuideBase} message TGuideBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TGuideBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TGuide = [];
+            if (message.TGuide && message.TGuide.length) {
+                object.TGuide = [];
+                for (var j = 0; j < message.TGuide.length; ++j)
+                    object.TGuide[j] = $root.table.TGuideDefine.toObject(message.TGuide[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TGuideBase to JSON.
+         * @function toJSON
+         * @memberof table.TGuideBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TGuideBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TGuideBase;
+    })();
+
+    table.TGuideDefine = (function() {
+
+        /**
+         * Properties of a TGuideDefine.
+         * @memberof table
+         * @interface ITGuideDefine
+         * @property {number|null} [Id] TGuideDefine Id
+         * @property {number|null} [PreId] TGuideDefine PreId
+         * @property {number|null} [NextId] TGuideDefine NextId
+         * @property {number|null} [FinishFlag] TGuideDefine FinishFlag
+         * @property {number|null} [EndFlag] TGuideDefine EndFlag
+         * @property {number|null} [Group] TGuideDefine Group
+         * @property {number|null} [TriggerType] TGuideDefine TriggerType
+         * @property {number|null} [Reward] TGuideDefine Reward
+         * @property {string|null} [TriggerParams] TGuideDefine TriggerParams
+         * @property {number|null} [FinishType] TGuideDefine FinishType
+         * @property {string|null} [FinishParams] TGuideDefine FinishParams
+         * @property {string|null} [Desc] TGuideDefine Desc
+         */
+
+        /**
+         * Constructs a new TGuideDefine.
+         * @memberof table
+         * @classdesc Represents a TGuideDefine.
+         * @implements ITGuideDefine
+         * @constructor
+         * @param {table.ITGuideDefine=} [properties] Properties to set
+         */
+        function TGuideDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TGuideDefine Id.
+         * @member {number} Id
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.Id = 0;
+
+        /**
+         * TGuideDefine PreId.
+         * @member {number} PreId
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.PreId = 0;
+
+        /**
+         * TGuideDefine NextId.
+         * @member {number} NextId
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.NextId = 0;
+
+        /**
+         * TGuideDefine FinishFlag.
+         * @member {number} FinishFlag
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.FinishFlag = 0;
+
+        /**
+         * TGuideDefine EndFlag.
+         * @member {number} EndFlag
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.EndFlag = 0;
+
+        /**
+         * TGuideDefine Group.
+         * @member {number} Group
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.Group = 0;
+
+        /**
+         * TGuideDefine TriggerType.
+         * @member {number} TriggerType
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.TriggerType = 0;
+
+        /**
+         * TGuideDefine Reward.
+         * @member {number} Reward
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.Reward = 0;
+
+        /**
+         * TGuideDefine TriggerParams.
+         * @member {string} TriggerParams
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.TriggerParams = "";
+
+        /**
+         * TGuideDefine FinishType.
+         * @member {number} FinishType
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.FinishType = 0;
+
+        /**
+         * TGuideDefine FinishParams.
+         * @member {string} FinishParams
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.FinishParams = "";
+
+        /**
+         * TGuideDefine Desc.
+         * @member {string} Desc
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.Desc = "";
+
+        /**
+         * Creates a new TGuideDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {table.ITGuideDefine=} [properties] Properties to set
+         * @returns {table.TGuideDefine} TGuideDefine instance
+         */
+        TGuideDefine.create = function create(properties) {
+            return new TGuideDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TGuideDefine message. Does not implicitly {@link table.TGuideDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {table.ITGuideDefine} message TGuideDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TGuideDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.PreId);
+            if (message.NextId != null && message.hasOwnProperty("NextId"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.NextId);
+            if (message.FinishFlag != null && message.hasOwnProperty("FinishFlag"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.FinishFlag);
+            if (message.EndFlag != null && message.hasOwnProperty("EndFlag"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.EndFlag);
+            if (message.Group != null && message.hasOwnProperty("Group"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.Group);
+            if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.TriggerType);
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.Reward);
+            if (message.TriggerParams != null && message.hasOwnProperty("TriggerParams"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.TriggerParams);
+            if (message.FinishType != null && message.hasOwnProperty("FinishType"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.FinishType);
+            if (message.FinishParams != null && message.hasOwnProperty("FinishParams"))
+                writer.uint32(/* id 11, wireType 2 =*/90).string(message.FinishParams);
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Desc);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TGuideDefine message, length delimited. Does not implicitly {@link table.TGuideDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {table.ITGuideDefine} message TGuideDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TGuideDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TGuideDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TGuideDefine} TGuideDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TGuideDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TGuideDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.PreId = reader.int32();
+                    break;
+                case 3:
+                    message.NextId = reader.int32();
+                    break;
+                case 4:
+                    message.FinishFlag = reader.int32();
+                    break;
+                case 5:
+                    message.EndFlag = reader.int32();
+                    break;
+                case 6:
+                    message.Group = reader.int32();
+                    break;
+                case 7:
+                    message.TriggerType = reader.int32();
+                    break;
+                case 8:
+                    message.Reward = reader.int32();
+                    break;
+                case 9:
+                    message.TriggerParams = reader.string();
+                    break;
+                case 10:
+                    message.FinishType = reader.int32();
+                    break;
+                case 11:
+                    message.FinishParams = reader.string();
+                    break;
+                case 12:
+                    message.Desc = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TGuideDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TGuideDefine} TGuideDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TGuideDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TGuideDefine message.
+         * @function verify
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TGuideDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                if (!$util.isInteger(message.PreId))
+                    return "PreId: integer expected";
+            if (message.NextId != null && message.hasOwnProperty("NextId"))
+                if (!$util.isInteger(message.NextId))
+                    return "NextId: integer expected";
+            if (message.FinishFlag != null && message.hasOwnProperty("FinishFlag"))
+                if (!$util.isInteger(message.FinishFlag))
+                    return "FinishFlag: integer expected";
+            if (message.EndFlag != null && message.hasOwnProperty("EndFlag"))
+                if (!$util.isInteger(message.EndFlag))
+                    return "EndFlag: integer expected";
+            if (message.Group != null && message.hasOwnProperty("Group"))
+                if (!$util.isInteger(message.Group))
+                    return "Group: integer expected";
+            if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
+                if (!$util.isInteger(message.TriggerType))
+                    return "TriggerType: integer expected";
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                if (!$util.isInteger(message.Reward))
+                    return "Reward: integer expected";
+            if (message.TriggerParams != null && message.hasOwnProperty("TriggerParams"))
+                if (!$util.isString(message.TriggerParams))
+                    return "TriggerParams: string expected";
+            if (message.FinishType != null && message.hasOwnProperty("FinishType"))
+                if (!$util.isInteger(message.FinishType))
+                    return "FinishType: integer expected";
+            if (message.FinishParams != null && message.hasOwnProperty("FinishParams"))
+                if (!$util.isString(message.FinishParams))
+                    return "FinishParams: string expected";
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                if (!$util.isString(message.Desc))
+                    return "Desc: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TGuideDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TGuideDefine} TGuideDefine
+         */
+        TGuideDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TGuideDefine)
+                return object;
+            var message = new $root.table.TGuideDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.PreId != null)
+                message.PreId = object.PreId | 0;
+            if (object.NextId != null)
+                message.NextId = object.NextId | 0;
+            if (object.FinishFlag != null)
+                message.FinishFlag = object.FinishFlag | 0;
+            if (object.EndFlag != null)
+                message.EndFlag = object.EndFlag | 0;
+            if (object.Group != null)
+                message.Group = object.Group | 0;
+            if (object.TriggerType != null)
+                message.TriggerType = object.TriggerType | 0;
+            if (object.Reward != null)
+                message.Reward = object.Reward | 0;
+            if (object.TriggerParams != null)
+                message.TriggerParams = String(object.TriggerParams);
+            if (object.FinishType != null)
+                message.FinishType = object.FinishType | 0;
+            if (object.FinishParams != null)
+                message.FinishParams = String(object.FinishParams);
+            if (object.Desc != null)
+                message.Desc = String(object.Desc);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TGuideDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TGuideDefine
+         * @static
+         * @param {table.TGuideDefine} message TGuideDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TGuideDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.PreId = 0;
+                object.NextId = 0;
+                object.FinishFlag = 0;
+                object.EndFlag = 0;
+                object.Group = 0;
+                object.TriggerType = 0;
+                object.Reward = 0;
+                object.TriggerParams = "";
+                object.FinishType = 0;
+                object.FinishParams = "";
+                object.Desc = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                object.PreId = message.PreId;
+            if (message.NextId != null && message.hasOwnProperty("NextId"))
+                object.NextId = message.NextId;
+            if (message.FinishFlag != null && message.hasOwnProperty("FinishFlag"))
+                object.FinishFlag = message.FinishFlag;
+            if (message.EndFlag != null && message.hasOwnProperty("EndFlag"))
+                object.EndFlag = message.EndFlag;
+            if (message.Group != null && message.hasOwnProperty("Group"))
+                object.Group = message.Group;
+            if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
+                object.TriggerType = message.TriggerType;
+            if (message.Reward != null && message.hasOwnProperty("Reward"))
+                object.Reward = message.Reward;
+            if (message.TriggerParams != null && message.hasOwnProperty("TriggerParams"))
+                object.TriggerParams = message.TriggerParams;
+            if (message.FinishType != null && message.hasOwnProperty("FinishType"))
+                object.FinishType = message.FinishType;
+            if (message.FinishParams != null && message.hasOwnProperty("FinishParams"))
+                object.FinishParams = message.FinishParams;
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                object.Desc = message.Desc;
+            return object;
+        };
+
+        /**
+         * Converts this TGuideDefine to JSON.
+         * @function toJSON
+         * @memberof table.TGuideDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TGuideDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TGuideDefine;
     })();
 
     table.THouseBase = (function() {
