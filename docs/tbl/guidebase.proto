@@ -43,7 +43,13 @@ message TGuideDefine
 	optional string TriggerParams = 8; // 面板枚举，按钮名称，坐标偏移，x,y
 	
 	
-	optional string Desc = 9; // 描述
+	optional int32 FinishType = 9; // 该步引导完成类型(1.点击面板元素)
+	
+	
+	optional string FinishParams = 10; // 完成参数
+	
+	
+	optional string Desc = 11; // 描述
 
 }
 
