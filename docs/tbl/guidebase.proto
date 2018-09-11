@@ -37,7 +37,7 @@ message TGuideDefine
 	optional int32 Group = 6; // 组ID
 	
 	
-	optional int32 TriggerType = 7; // 类型(0.立即执行下一步引导，如果下一步引导不在，则停止引导1.面板打开)
+	optional int32 TriggerType = 7; // 类型(0.立即执行下一步引导，如果下一步引导不在，则停止引导;1.面板打开)
 	
 	
 	optional int32 Reward = 8; // 奖励金币数
@@ -49,7 +49,7 @@ message TGuideDefine
 	optional int32 FinishType = 10; // 该步引导完成类型(1.点击面板元素)
 	
 	
-	optional string FinishParams = 11; // 完成参数
+	optional string FinishParams = 11; // 完成参数(any，点击任何地方完成)
 	
 	
 	optional string Desc = 12; // 描述
