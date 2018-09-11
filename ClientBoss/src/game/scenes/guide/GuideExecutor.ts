@@ -15,6 +15,15 @@ module game {
          */
         private _listeners: egret.DisplayObject[] = [];
 
+        /**
+         * 该步引导点击任何地方可以关闭
+         */
+        private _anyStr: string = "any";
+        /**
+         * 该引导步骤不需要点击组件 需要协议返回
+         */
+        private _none: string = "none";
+
         private _isOnGuide: boolean;
         public get isOnGuide(): boolean {
             return this._isOnGuide;
@@ -104,12 +113,17 @@ module game {
                     if (!rect) {
                         return;
                     }
-                    openPanel(PanelType.GuidePanel);
-                    GuidePanel.getInstance().setData(this._guideStepDef, rect);
                     break;
             }
+            GameConfig.showDownBtnFun(false);
+
+            openPanel(PanelType.GuidePanel);
+            GuidePanel.getInstance().setData(this._guideStepDef, rect);
             this._runStartTime = Date.now();
             this._isOnGuide = true;
+            if (this._guideStepDef.AutoFinishFlag == 1) {
+                GuideManager.getInstance().reqSetGuideSetp(this._guideStepDef.Group);
+            }
             this.addFinishLisener(finishArr);
         }
 
@@ -119,14 +133,14 @@ module game {
         private addFinishLisener(paramsArr: any[]) {
             switch (this._guideStepDef.FinishType) {
                 case GuideFinishType.ClickEle:
-                    if (paramsArr[0] == "any") {
+                    if (paramsArr[0] == this._anyStr) {
                         GuidePanel.getInstance().bitmap.pixelHitTest = false;
                         GuidePanel.getInstance().bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBgClick, this)
                     }
                     else {
                         let panel: PanelComponent = getPanel(paramsArr[0]);
                         if (panel) {
-                            let targetEle: egret.DisplayObject = panel[paramsArr[1]];
+                            let targetEle: egret.DisplayObject = getTreeProperty(panel, paramsArr);
                             if (targetEle) {
                                 targetEle.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onEleClick, this);
                                 this._listeners.push(targetEle);
@@ -140,6 +154,9 @@ module game {
                         }
                     }
                     break;
+                case GuideFinishType.ReceiveMsg:
+                    NotificationCenter.addObserver(this, this.onReceiveMsg, paramsArr[0]);
+                    break;
             }
         }
 
@@ -148,21 +165,24 @@ module game {
          */
         public finishGuide() {
             this._isOnGuide = false;
-            if (this._guideStepDef.FinishFlag == 1) {
+            if (this._guideStepDef.FinishFlag == 1 && this._guideStepDef.AutoFinishFlag != 1) {
                 GuideManager.getInstance().reqSetGuideSetp(this._guideStepDef.Group);
             }
+            let isHaveNext = this._guideStepDef.NextId > 0;
+
             if (this._guideStepDef.EndFlag == 1) {
                 let group = this._guideStepDef.Group + 1;
                 //引导步骤从2开始
                 group = Math.min(2, group);
                 this._guideStepDef = GuideManager.getInstance().getTGuideDefine(group);
+                GameConfig.showDownBtnFun(true);
             }
             else {
                 this._guideStepDef = <table.TGuideDefine>table.TGuideById[this._guideStepDef.NextId];
             }
             GuidePanel.getInstance().remove();
             if (this._guideStepDef) {
-                let isImmediatelyRun = this._guideStepDef.TriggerType == GuideTriggerType.None;
+                let isImmediatelyRun = this._guideStepDef.TriggerType == GuideTriggerType.None || isHaveNext;
                 if (isImmediatelyRun) {
                     this.run(null);
                 }
@@ -177,6 +197,16 @@ module game {
             GuidePanel.getInstance().bitmap.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBgClick, this);
             this.finishGuide();
         }
+        /**
+         * 接受消息
+         */
+        private onReceiveMsg(data: any) {
+            let finishArr = this._guideStepDef.FinishParams.split(',');
+            if (finishArr) {
+                NotificationCenter.removeObserver(this, finishArr[0]);
+                this.finishGuide();
+            }
+        }
 
         private onEleClick(event: egret.TouchEvent) {
             let target = event.currentTarget;
@@ -187,30 +217,48 @@ module game {
 
         private getRect(paramsArr: any[], finishArr: any[]): egret.Rectangle {
             let rect;
-            let panel: PanelComponent = getPanel(paramsArr[0]);
-            if (panel) {
-                let targetEle: egret.DisplayObject = panel[finishArr[0]];
-                if (targetEle) {
-                    let p = targetEle.localToGlobal();
+            if (paramsArr.length < 1) {
+                Console.log("引导触发异常！引导指向区域配置长度错误", paramsArr);
+                return;
+            }
+            if (paramsArr[1] == this._none) {
+                if (paramsArr.length >= 6) {
                     rect = egret.Rectangle.create();
-                    rect.x = p.x;
-                    rect.y = p.y;
-                    rect.width = targetEle.width;
-                    rect.height = targetEle.height;
-                    if (rect.width <= 0 || rect.height <= 0) {
-                        let bounds = targetEle.getBounds();
-                        rect.width = bounds.width;
-                        rect.height = bounds.height;
-                    }
+                    rect.x = paramsArr[2];
+                    rect.y = paramsArr[3];
+                    rect.width = paramsArr[4];
+                    rect.height = paramsArr[5];
                 }
                 else {
-                    Console.log("引导触发异常！未找到指向的原件：", finishArr[1]);
-                    return;
+                    Console.log("引导触发异常！引导指向区域配置长度错误：", paramsArr);
                 }
             }
             else {
-                Console.log("引导触发异常！未找到引导面板：", paramsArr[0]);
-                return;
+                let panel: PanelComponent = getPanel(paramsArr[0]);
+                if (panel) {
+                    let targetEle: egret.DisplayObject = panel[finishArr[0]];
+                    if (targetEle) {
+                        let p = targetEle.localToGlobal();
+                        rect = egret.Rectangle.create();
+                        rect.x = p.x;
+                        rect.y = p.y;
+                        rect.width = targetEle.width;
+                        rect.height = targetEle.height;
+                        if (rect.width <= 0 || rect.height <= 0) {
+                            let bounds = targetEle.getBounds();
+                            rect.width = bounds.width;
+                            rect.height = bounds.height;
+                        }
+                    }
+                    else {
+                        Console.log("引导触发异常！未找到指向的原件：", finishArr[1]);
+                        return;
+                    }
+                }
+                else {
+                    Console.log("引导触发异常！未找到引导面板：", paramsArr[0]);
+                    return;
+                }
             }
             return rect;
         }
@@ -222,17 +270,6 @@ module game {
             }
             return GuideExecutor._instance;
         }
-    }
-
-    /**
-    * 引导步骤类型
-    */
-    export enum GuideStepType {
-        None = 0,
-    	/**
-		 * 元素点击
-		 */
-        ClickElement = 1,
     }
 
 	/**
@@ -255,5 +292,9 @@ module game {
          * 点击面板元素
          */
         ClickEle = 1,
+        /**
+         * 接受消息
+         */
+        ReceiveMsg = 2,
     }
 }

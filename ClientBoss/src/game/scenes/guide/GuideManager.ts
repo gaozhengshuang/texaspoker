@@ -7,8 +7,6 @@ module game {
 		//注
 		//当前已完成的最大引导步骤 在userinfo newplayerstep
 
-		
-
 		public init()
 		{
 			GuideExecutor.getInstance().init();

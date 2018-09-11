@@ -32375,6 +32375,9 @@ declare namespace table {
         /** TGuideDefine EndFlag */
         EndFlag?: (number|null);
 
+        /** TGuideDefine AutoFinishFlag */
+        AutoFinishFlag?: (number|null);
+
         /** TGuideDefine Group */
         Group?: (number|null);
 
@@ -32420,6 +32423,9 @@ declare namespace table {
 
         /** TGuideDefine EndFlag. */
         public EndFlag: number;
+
+        /** TGuideDefine AutoFinishFlag. */
+        public AutoFinishFlag: number;
 
         /** TGuideDefine Group. */
         public Group: number;

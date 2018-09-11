@@ -1,10 +1,9 @@
 module game {
-    export enum ClickState
-    {
-        Normal      = 0,
-        Click       = 1,
-        LongPress   = 2,
-        
+    export enum ClickState {
+        Normal = 0,
+        Click = 1,
+        LongPress = 2,
+
     }
     //获取道具图片
     export function getItemIconSource(id: number) {
@@ -517,22 +516,18 @@ module game {
      * 将源对象属性copy到目标对象，仅一维浅拷贝
      */
     export function copyFromTarget(source: any, target: any = null) {
-        if(source && target)
-        {
-            for(let key in source)
-            {
+        if (source && target) {
+            for (let key in source) {
                 target[key] = source[key];
             }
         }
     }
-    
+
     /**
      * 根据3个点，产生一个贝塞尔曲线点 t[0-1]
      */
-    export function besselPoint(t: number, p0: egret.Point, p1: egret.Point, p2: egret.Point, movePoint: egret.Point)
-    {
-        if (t < 0 || t > 1 || !p0 || !p1 || !p2 || !movePoint)
-        {
+    export function besselPoint(t: number, p0: egret.Point, p1: egret.Point, p2: egret.Point, movePoint: egret.Point) {
+        if (t < 0 || t > 1 || !p0 || !p1 || !p2 || !movePoint) {
             Console.log("贝塞尔曲线参数不合法");
             return;
         }
@@ -540,5 +535,24 @@ module game {
         let y: number;
         movePoint.x = (1 - t) * (1 - t) * p0.x + 2 * t * (1 - t) * p1.x + t * t * p2.x;
         movePoint.y = (1 - t) * (1 - t) * p0.y + 2 * t * (1 - t) * p1.y + t * t * p2.y;
+    }
+    
+    /**
+    * 以树级形式获取对象的属性
+    */
+    export function getTreeProperty(target: any, props: Array<string>): any {
+        if (target && props) {
+            let property: any = target;
+            for (let i: number = 0; i < props.length; i++) {
+                if (property) {
+                    property = property[props[i]];
+                }
+                else {
+                    Console.log("树级获取对象异常！" + props + "i：" + props[i]);
+                }
+            }
+            return property;
+        }
+        return null;
     }
 }

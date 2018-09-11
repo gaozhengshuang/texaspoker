@@ -76844,6 +76844,7 @@ $root.table = (function() {
          * @property {number|null} [NextId] TGuideDefine NextId
          * @property {number|null} [FinishFlag] TGuideDefine FinishFlag
          * @property {number|null} [EndFlag] TGuideDefine EndFlag
+         * @property {number|null} [AutoFinishFlag] TGuideDefine AutoFinishFlag
          * @property {number|null} [Group] TGuideDefine Group
          * @property {number|null} [TriggerType] TGuideDefine TriggerType
          * @property {number|null} [Reward] TGuideDefine Reward
@@ -76907,6 +76908,14 @@ $root.table = (function() {
          * @instance
          */
         TGuideDefine.prototype.EndFlag = 0;
+
+        /**
+         * TGuideDefine AutoFinishFlag.
+         * @member {number} AutoFinishFlag
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.AutoFinishFlag = 0;
 
         /**
          * TGuideDefine Group.
@@ -76998,20 +77007,22 @@ $root.table = (function() {
                 writer.uint32(/* id 4, wireType 0 =*/32).int32(message.FinishFlag);
             if (message.EndFlag != null && message.hasOwnProperty("EndFlag"))
                 writer.uint32(/* id 5, wireType 0 =*/40).int32(message.EndFlag);
+            if (message.AutoFinishFlag != null && message.hasOwnProperty("AutoFinishFlag"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.AutoFinishFlag);
             if (message.Group != null && message.hasOwnProperty("Group"))
-                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.Group);
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.Group);
             if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
-                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.TriggerType);
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.TriggerType);
             if (message.Reward != null && message.hasOwnProperty("Reward"))
-                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.Reward);
+                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.Reward);
             if (message.TriggerParams != null && message.hasOwnProperty("TriggerParams"))
-                writer.uint32(/* id 9, wireType 2 =*/74).string(message.TriggerParams);
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.TriggerParams);
             if (message.FinishType != null && message.hasOwnProperty("FinishType"))
-                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.FinishType);
+                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.FinishType);
             if (message.FinishParams != null && message.hasOwnProperty("FinishParams"))
-                writer.uint32(/* id 11, wireType 2 =*/90).string(message.FinishParams);
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.FinishParams);
             if (message.Desc != null && message.hasOwnProperty("Desc"))
-                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Desc);
+                writer.uint32(/* id 13, wireType 2 =*/106).string(message.Desc);
             return writer;
         };
 
@@ -77062,24 +77073,27 @@ $root.table = (function() {
                     message.EndFlag = reader.int32();
                     break;
                 case 6:
-                    message.Group = reader.int32();
+                    message.AutoFinishFlag = reader.int32();
                     break;
                 case 7:
-                    message.TriggerType = reader.int32();
+                    message.Group = reader.int32();
                     break;
                 case 8:
-                    message.Reward = reader.int32();
+                    message.TriggerType = reader.int32();
                     break;
                 case 9:
-                    message.TriggerParams = reader.string();
+                    message.Reward = reader.int32();
                     break;
                 case 10:
-                    message.FinishType = reader.int32();
+                    message.TriggerParams = reader.string();
                     break;
                 case 11:
-                    message.FinishParams = reader.string();
+                    message.FinishType = reader.int32();
                     break;
                 case 12:
+                    message.FinishParams = reader.string();
+                    break;
+                case 13:
                     message.Desc = reader.string();
                     break;
                 default:
@@ -77132,6 +77146,9 @@ $root.table = (function() {
             if (message.EndFlag != null && message.hasOwnProperty("EndFlag"))
                 if (!$util.isInteger(message.EndFlag))
                     return "EndFlag: integer expected";
+            if (message.AutoFinishFlag != null && message.hasOwnProperty("AutoFinishFlag"))
+                if (!$util.isInteger(message.AutoFinishFlag))
+                    return "AutoFinishFlag: integer expected";
             if (message.Group != null && message.hasOwnProperty("Group"))
                 if (!$util.isInteger(message.Group))
                     return "Group: integer expected";
@@ -77178,6 +77195,8 @@ $root.table = (function() {
                 message.FinishFlag = object.FinishFlag | 0;
             if (object.EndFlag != null)
                 message.EndFlag = object.EndFlag | 0;
+            if (object.AutoFinishFlag != null)
+                message.AutoFinishFlag = object.AutoFinishFlag | 0;
             if (object.Group != null)
                 message.Group = object.Group | 0;
             if (object.TriggerType != null)
@@ -77214,6 +77233,7 @@ $root.table = (function() {
                 object.NextId = 0;
                 object.FinishFlag = 0;
                 object.EndFlag = 0;
+                object.AutoFinishFlag = 0;
                 object.Group = 0;
                 object.TriggerType = 0;
                 object.Reward = 0;
@@ -77232,6 +77252,8 @@ $root.table = (function() {
                 object.FinishFlag = message.FinishFlag;
             if (message.EndFlag != null && message.hasOwnProperty("EndFlag"))
                 object.EndFlag = message.EndFlag;
+            if (message.AutoFinishFlag != null && message.hasOwnProperty("AutoFinishFlag"))
+                object.AutoFinishFlag = message.AutoFinishFlag;
             if (message.Group != null && message.hasOwnProperty("Group"))
                 object.Group = message.Group;
             if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
