@@ -28,28 +28,31 @@ message TGuideDefine
 	optional int32 NextId = 3; // 下一步ID
 	
 	
-	optional int32 FinishFlag = 4; // 完成标记1是完成
+	optional int32 FinishFlag = 4; // 服务器完成标记1.完成
 	
 	
-	optional int32 Group = 5; // 组ID
+	optional int32 EndFlag = 5; // 客户端完成标记1.完成
 	
 	
-	optional int32 TriggerType = 6; // 类型(1.面板打开)
+	optional int32 Group = 6; // 组ID
 	
 	
-	optional int32 Reward = 7; // 奖励金币数
+	optional int32 TriggerType = 7; // 类型(0.立即执行下一步引导，如果下一步引导不在，则停止引导1.面板打开)
 	
 	
-	optional string TriggerParams = 8; // 面板枚举，按钮名称，坐标偏移，x,y
+	optional int32 Reward = 8; // 奖励金币数
 	
 	
-	optional int32 FinishType = 9; // 该步引导完成类型(1.点击面板元素)
+	optional string TriggerParams = 9; // 面板枚举，按钮名称，坐标偏移，x,y
 	
 	
-	optional string FinishParams = 10; // 完成参数
+	optional int32 FinishType = 10; // 该步引导完成类型(1.点击面板元素)
 	
 	
-	optional string Desc = 11; // 描述
+	optional string FinishParams = 11; // 完成参数
+	
+	
+	optional string Desc = 12; // 描述
 
 }
 
