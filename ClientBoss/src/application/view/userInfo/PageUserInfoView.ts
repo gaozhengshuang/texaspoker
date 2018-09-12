@@ -190,7 +190,9 @@ module game {
 			this.delPanelView();
 			this.panelView=new ModifyAgePanel(this);
 			this.addChild(this.panelView);
-			this.panelView.update(this.userInfo.age);
+			let nowDate:Date=new Date(SysTimeEventManager.getInstance().systimeNum*1000);
+			//console.log(nowDate.getFullYear(),nowDate.getMonth()+1,nowDate.getDate())
+			this.panelView.update(nowDate.getFullYear(),nowDate.getMonth()+1,nowDate.getDate());
 			this.panelView.x=0;
 			this.panelView.y=0;
 			this.maskMC.visible=true;
