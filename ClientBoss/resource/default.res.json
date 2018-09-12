@@ -9,7 +9,7 @@
 			"name": "common"
 		},
 		{
-			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,girl_suit6_json,hall_4_json,item_json,mapevent_houseshopbanner_png,hall_5_json,hall_6_json",
+			"keys": "hall_3_json,hall_2_json,hall_1_json,carParkBg_png,carShopBuyBg_png,carIconAltas_json,uiCarAltas_json,huxing_1001_b_png,huxing_2001_b_png,huxing_3001_b_png,huxing_4001_b_png,girl_suitx_json,girl_suit5_json,girl_suit4_json,girl_suit3_json,girl_suit2_json,girl_suit1_json,boy_suitx_json,boy_suit6_json,boy_suit5_json,boy_suit4_json,boy_suit3_json,boy_suit2_json,boy_suit1_json,boy_tex_png,boy_tex_json,boy_ske_json,girl_ske_json,girl_tex_json,girl_tex_png,equip_json,dress_01_json,shopItemButtonBg_png,grilbg_png,boybg_png,shopbg_png,girl_suit6_json,hall_4_json,item_json,mapevent_houseshopbanner_png,hall_5_json,hall_6_json,BG_png,carPublicLotBg_png,game2_bg_jpg,ditushijian-fangwuBG_png,ditushijian_nvpuBG_png,dise_png,youxi_png,tingchechangBG_png,loginbg_png,chekuBG_png,ditushijian_qicheBG_png",
 			"name": "hall"
 		},
 		{
@@ -422,6 +422,46 @@
 			"type": "sheet",
 			"name": "hall_6_json",
 			"subkeys": "0_png,1_png,2_png,3_png,4_png,5_png,6_png,7_png,8_png,9_png,LV_png,chehui_png,cheku_1_png,cheku_2_png,cheku_3_png,chewei_png,chezi_png,dangqianweizhi_png,daojishi_png,dingwei_png,dingweihong_png,duihao_png,fang hong_png,fang hui_png,fangchan_png,fangwushengji158_png,gupiao_png,hongbaoi_png,huanguan_png,jiantou zhankai_png,jiasu_png,jiesuo_png,jihuo_png,jilu_png,jinbi_png,jinbilingqu_png,juli_png,kefu_png,keshengji_png,lianyiqun_png,lingqu_png,linju88_png,linju_png,mima_png,mingwen_png,moshidi_png,nanweixuanzhong_png,nanxuanzhong_png,nvweixuanzhong_png,nvxuanzhong_png,qunzi_png,ren hong_png,ren hui_png,renwudi_png,shanchu_png,shangyi_png,shengji anniu_png,shengji88_png,shengji_png,shezhi_png,shou_png,shouhui_png,shouqutishi_png,sousuo_png,suipianhuangse_png,suipianhuise_png,tingchezhong_png,tongtong_1_png,tongtong_2_png,tongtong_3_png,tongtong_4_png,tongtong_5_png,tongtong_6_png,tongtong_7_png,tongtong_8_png,tongtong_9_png,tongyong_+_png,tongyong_-_png,tongyong_.9 yindaodi_png,tongyong_00_png,tongyong_11_png,tongyong_22_png,tongyong_33_png,tongyong_44_png,tongyong_55_png,tongyong_66_png,tongyong_77_png,tongyong_88_png,tongyong_99_png,tongyong_LVLV_png,tongyong_LV_png,tongyong_baise_png,tongyong_baiyang_png,tongyong_chefangdikuang.9_png,tongyong_chunv_png,tongyong_daojishi_png,tongyong_dengjidikuang.9_png,tongyong_dibutanchuang.9_png,tongyong_dongtai158_png,tongyong_dongtai88_png,tongyong_faxian-dianji_png,tongyong_faxian_png,tongyong_guanbi_png,tongyong_heise_png,tongyong_hongdian_png,tongyong_jinbi2_png,tongyong_jinbi_png,tongyong_jinniu_png,tongyong_juxie_png,tongyong_moxie_png,tongyong_nan_png,tongyong_nv_png,tongyong_qingchu_png,tongyong_shang xia_png,tongyong_shang_png,tongyong_shangxia1_png,tongyong_shangxia2_png,tongyong_sheshou_png,tongyong_shizi_png,tongyong_shouye_png,tongyong_shouyexuanzhong_png,tongyong_shuangyu_png,tongyong_shuangzi_png,tongyong_shuiping_png,tongyong_shurukuang_png,tongyong_sousuo_png,tongyong_tiancheng_png,tongyong_tianxie_png,tongyong_tilizhi_png,tongyong_weixuanzekuang_png,tongyong_wode-dianji_png,tongyong_wode_png,tongyong_woyaochushou_png,tongyong_xia_png,tongyong_xiaojiantou youbian_png,tongyong_xiaoxi_png,tongyong_xingbiedikuang.9_png,tongyong_xingji_png,tongyong_xingzuodikuang.9_png,tongyong_xingzuodikuang9_png,tongyong_xuanzhongkuang_png,tongyong_zhongbutanchuang.9_png,tongyong_zichan-dianji_png,tongyong_zichan_png,tongyong_zuanshi_png,toufa_png,weizhi_png,xiezi_png,xitong-chakanzhuhu_png,xitong-goumailoupan_png,xitong-yishouqing_png,yijianfankui_png,yijianlingqu_png,yincang_png,zhanghao_png,zhurenjiuwo_png,zuanshi_png"
+		},
+		{
+			"url": "assets/bg/BG.png",
+			"type": "image",
+			"name": "BG_png"
+		},
+		{
+			"url": "assets/bg/chekuBG.png",
+			"type": "image",
+			"name": "chekuBG_png"
+		},
+		{
+			"url": "assets/bg/dise.png",
+			"type": "image",
+			"name": "dise_png"
+		},
+		{
+			"url": "assets/bg/ditushijian-fangwuBG.png",
+			"type": "image",
+			"name": "ditushijian-fangwuBG_png"
+		},
+		{
+			"url": "assets/bg/ditushijian_nvpuBG.png",
+			"type": "image",
+			"name": "ditushijian_nvpuBG_png"
+		},
+		{
+			"url": "assets/bg/ditushijian_qicheBG.png",
+			"type": "image",
+			"name": "ditushijian_qicheBG_png"
+		},
+		{
+			"url": "assets/bg/tingchechangBG.png",
+			"type": "image",
+			"name": "tingchechangBG_png"
+		},
+		{
+			"url": "assets/bg/youxi.png",
+			"type": "image",
+			"name": "youxi_png"
 		}
 	]
 }
