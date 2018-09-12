@@ -58,7 +58,10 @@ message TGuideDefine
 	optional string FinishParams = 13; // 完成参数(点击参数填any，点击任何地方完成)
 	
 	
-	optional string Desc = 14; // 描述
+	optional float BgAlpha = 14; 
+	
+	
+	optional string Desc = 15; // 描述
 
 }
 
