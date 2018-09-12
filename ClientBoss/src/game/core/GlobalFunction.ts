@@ -536,7 +536,7 @@ module game {
         movePoint.x = (1 - t) * (1 - t) * p0.x + 2 * t * (1 - t) * p1.x + t * t * p2.x;
         movePoint.y = (1 - t) * (1 - t) * p0.y + 2 * t * (1 - t) * p1.y + t * t * p2.y;
     }
-    
+
     /**
     * 以树级形式获取对象的属性
     */
@@ -554,5 +554,23 @@ module game {
             return property;
         }
         return null;
+    }
+
+    export function toGlobalPoint(tar: egret.DisplayObject) {
+        let p = new egret.Point();
+        let tmpX = 0;
+        let tmpY = 0;
+        while (tar.parent != null) {
+            if (isNaN(tar.x) != false) {
+                tmpX += tar.x;
+            }
+            if (isNaN(tmpY) != false) {
+                tmpY += tar.y;
+            }
+            tar = tar.parent;
+        }
+        p.x = tmpX;
+        p.y = tmpY;
+        return p;
     }
 }

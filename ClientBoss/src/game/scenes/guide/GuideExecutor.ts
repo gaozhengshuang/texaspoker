@@ -9,7 +9,7 @@ module game {
         /**
          * 引导超时时间
          */
-        private _timeOut: number = 10000;
+        private _timeOut: number = 100000000;
         /**
          * 侦听器列表
          */
@@ -45,6 +45,7 @@ module game {
                 }
             });
             NotificationCenter.addObserver(this, this.onDataInit, PlayerModel.PLAYERMODEL_DATA_INIT);
+            NotificationCenter.addObserver(this, this.onUserInfo, CommandName.UPDATE_USER_INFO);
             NotificationCenter.addObserver(this, this.onPanelOpen, PanelOpenNotification);
             TickUtil.AddSecondsInvoke(this.onTick, this);
         }
@@ -66,8 +67,28 @@ module game {
         private onDataInit() {
             NotificationCenter.removeObserver(this, PlayerModel.PLAYERMODEL_DATA_INIT);
             let group = DataManager.playerModel.userInfo.newplayerstep + 1;
-            group = Math.min(2, group); //由于遗留原因，最小从2开始
-            this._guideStepDef = GuideManager.getInstance().getTGuideDefine(group);
+            if (group > 1) {
+                this._guideStepDef = GuideManager.getInstance().getTGuideDefine(group);
+            }
+        }
+        /**
+         * 用户信息
+         */
+        private onUserInfo(key: number) {
+            if (key == msg.UserInfoType.NewPlayerStep) {
+                if (DataManager.playerModel.userInfo.newplayerstep == 1) //第一步引导特殊处理
+                {
+                    this.onDataInit();
+                    this.tryRun();
+                }
+            }
+        }
+        private tryRun() {
+            let data = null;
+            if (this._guideStepDef.TriggerParams) {
+                data = this._guideStepDef.TriggerParams.split(',');
+            }
+            this.run(data);
         }
         private onPanelOpen(panel: PanelType) {
             this.tryTriggerGuide(GuideTriggerType.OpenPanel, [panel]);
@@ -89,10 +110,22 @@ module game {
                 if (this._guideStepDef.TriggerParams) {
                     paramsArr = this._guideStepDef.TriggerParams.split(',');
                     for (let i: number = 0; i < params.length; i++) {
-                        if (paramsArr[i] != params[i]) {
-                            Console.log("引导触发失败！参数不满足 params:", params);
-                            return;//引导触发失败 参数不满足
+                        let typeStr = typeof params[i];
+                        switch (typeStr) {
+                            case "number":
+                                if (parseInt(paramsArr[i]) != params[i]) {
+                                    Console.log("引导触发失败！参数不满足 params:", params);
+                                    return;
+                                }
+                                break;
+                            default:
+                                if (paramsArr[i] != params[i]) {
+                                    Console.log("引导触发失败！参数不满足 params:", params);
+                                    return;
+                                }
+                                break;
                         }
+
                     }
                     this.run(paramsArr);
                 }
@@ -132,7 +165,7 @@ module game {
             this._runStartTime = Date.now();
             this._isOnGuide = true;
             if (this._guideStepDef.AutoFinishFlag == 1) {
-                GuideManager.getInstance().reqSetGuideSetp(this._guideStepDef.Group);
+                GuideManager.getInstance().reqSetGuideSetp(this._guideStepDef.Group, this._guideStepDef.Id);
             }
             this.addFinishLisener(finishArr);
         }
@@ -148,9 +181,10 @@ module game {
                         GuidePanel.getInstance().bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBgClick, this)
                     }
                     else {
-                        let panel: PanelComponent = getPanel(paramsArr[0]);
+                        let panel: PanelComponent = getPanel(parseInt(paramsArr[0]));
                         if (panel) {
-                            let targetEle: egret.DisplayObject = getTreeProperty(panel, paramsArr);
+                            let tempArr = paramsArr.slice(1);
+                            let targetEle: egret.DisplayObject = getTreeProperty(panel, tempArr);
                             if (targetEle) {
                                 targetEle.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onEleClick, this);
                                 this._listeners.push(targetEle);
@@ -176,14 +210,14 @@ module game {
         public finishGuide() {
             this._isOnGuide = false;
             if (this._guideStepDef.FinishFlag == 1 && this._guideStepDef.AutoFinishFlag != 1) {
-                GuideManager.getInstance().reqSetGuideSetp(this._guideStepDef.Group);
+                GuideManager.getInstance().reqSetGuideSetp(this._guideStepDef.Group, this._guideStepDef.Id);
             }
             let isHaveNext = this._guideStepDef.NextId > 0;
 
             if (this._guideStepDef.EndFlag == 1) {
                 let group = this._guideStepDef.Group + 1;
                 //引导步骤从2开始
-                group = Math.min(2, group);
+                group = Math.max(2, group);
                 this._guideStepDef = GuideManager.getInstance().getTGuideDefine(group);
                 GameConfig.showDownBtnFun(true);
             }
@@ -194,7 +228,7 @@ module game {
             if (this._guideStepDef) {
                 let isImmediatelyRun = this._guideStepDef.TriggerType == GuideTriggerType.None || isHaveNext;
                 if (isImmediatelyRun) {
-                    this.run(null);
+                    this.tryRun();
                 }
             }
         }
@@ -234,26 +268,37 @@ module game {
             if (paramsArr[1] == this._none) {
                 if (paramsArr.length >= 6) {
                     rect = egret.Rectangle.create();
-                    rect.x = paramsArr[2];
-                    rect.y = paramsArr[3];
-                    rect.width = paramsArr[4];
-                    rect.height = paramsArr[5];
+                    rect.x = parseInt(paramsArr[2]);
+                    rect.y = parseInt(paramsArr[3]);
+                    rect.width = parseInt(paramsArr[4]);
+                    rect.height = parseInt(paramsArr[5]);
                 }
                 else {
                     Console.log("引导触发异常！引导指向区域配置长度错误：", paramsArr);
                 }
             }
             else {
-                let panel: PanelComponent = getPanel(paramsArr[0]);
+                let panel: PanelComponent = getPanel(parseInt(paramsArr[0]));
                 if (panel) {
-                    let targetEle: egret.DisplayObject = panel[finishArr[0]];
+                    let targetEle: eui.Component = panel[finishArr[1]];
                     if (targetEle) {
                         let p = targetEle.localToGlobal();
                         rect = egret.Rectangle.create();
                         rect.x = p.x;
                         rect.y = p.y;
+
+                        // if (isNaN(targetEle.verticalCenter) == false) {
+                        //     let globalP = toGlobalPoint(targetEle);
+                        //     rect.y = globalP.y + targetEle.parent.height / 2 + targetEle.verticalCenter - targetEle.height / 2;
+                        // }
+                        // if (isNaN(targetEle.horizontalCenter) == false) {
+                        //     let globalP = toGlobalPoint(targetEle);
+                        //     rect.x = globalP.x + targetEle.parent.width / 2 + targetEle.horizontalCenter - targetEle.width / 2;
+                        // }
+
                         rect.width = targetEle.width;
                         rect.height = targetEle.height;
+
                         if (rect.width <= 0 || rect.height <= 0) {
                             let bounds = targetEle.getBounds();
                             rect.width = bounds.width;
@@ -306,5 +351,15 @@ module game {
          * 接受消息
          */
         ReceiveMsg = 2,
+    }
+    /**
+     * 引导手指方向
+     */
+    export enum GuideFingerOrientation {
+        None = 0,
+        Up = 1,
+        Down = 2,
+        Left = 3,
+        Right = 4
     }
 }

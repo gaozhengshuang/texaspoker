@@ -4,7 +4,9 @@ module game {
         let panel = getPanel(panelType);
         if (panel) {
             panel.show();
-            NotificationCenter.postNotification(PanelOpenNotification, panelType);
+             egret.callLater(() => {
+                 NotificationCenter.postNotification(PanelOpenNotification, panelType);
+             }, this);
         }
     }
     export function panelIsShow(panelType: PanelType): boolean {

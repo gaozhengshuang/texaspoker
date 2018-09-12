@@ -30,7 +30,7 @@ module game {
 					if (this.houseAssetsList.length > 0) {
 						ApplicationFacade.getInstance().sendNotification(CommandName.POPUP_WELCOME, { room: this.houseAssetsList[0] });
 						GameConfig.newPlayerStep=1;
-						GuideManager.getInstance().reqSetGuideSetp(GameConfig.newPlayerStep);
+						GuideManager.getInstance().reqSetGuideSetp(GameConfig.newPlayerStep, 0);
 						// sendMessage("msg.C2GW_ReqSetNewPlayerStep", msg.C2GW_ReqSetNewPlayerStep.encode({step:GameConfig.newPlayerStep}));
 					}
 				} else {

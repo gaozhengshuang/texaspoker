@@ -10533,6 +10533,9 @@ declare namespace msg {
 
         /** C2GW_ReqSetNewPlayerStep step */
         step?: (number|null);
+
+        /** C2GW_ReqSetNewPlayerStep index */
+        index?: (number|null);
     }
 
     /** Represents a C2GW_ReqSetNewPlayerStep. */
@@ -10546,6 +10549,9 @@ declare namespace msg {
 
         /** C2GW_ReqSetNewPlayerStep step. */
         public step: number;
+
+        /** C2GW_ReqSetNewPlayerStep index. */
+        public index: number;
 
         /**
          * Creates a new C2GW_ReqSetNewPlayerStep instance using the specified properties.
@@ -32390,11 +32396,17 @@ declare namespace table {
         /** TGuideDefine TriggerParams */
         TriggerParams?: (string|null);
 
+        /** TGuideDefine Direction */
+        Direction?: (number|null);
+
         /** TGuideDefine FinishType */
         FinishType?: (number|null);
 
         /** TGuideDefine FinishParams */
         FinishParams?: (string|null);
+
+        /** TGuideDefine BgAlpha */
+        BgAlpha?: (number|null);
 
         /** TGuideDefine Desc */
         Desc?: (string|null);
@@ -32439,11 +32451,17 @@ declare namespace table {
         /** TGuideDefine TriggerParams. */
         public TriggerParams: string;
 
+        /** TGuideDefine Direction. */
+        public Direction: number;
+
         /** TGuideDefine FinishType. */
         public FinishType: number;
 
         /** TGuideDefine FinishParams. */
         public FinishParams: string;
+
+        /** TGuideDefine BgAlpha. */
+        public BgAlpha: number;
 
         /** TGuideDefine Desc. */
         public Desc: string;

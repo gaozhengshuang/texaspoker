@@ -66,7 +66,7 @@ module game {
 					
 			}
 			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_USER_INFO, DataManager.playerModel.getUserInfo());
-			NotificationCenter.postNotification(CommandName.UPDATE_USER_INFO);
+			NotificationCenter.postNotification(CommandName.UPDATE_USER_INFO, data.key);
 		}
 
 		public getUserInfo(): IUserInfo {

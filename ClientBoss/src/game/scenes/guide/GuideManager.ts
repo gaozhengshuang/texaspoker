@@ -15,9 +15,12 @@ module game {
 		/**
 		 * 请求设置引导步骤
 		 */
-		public reqSetGuideSetp(step: number) {
+		public reqSetGuideSetp(step: number, id:number) {
 			if (step > 0) {
-				sendMessage("msg.C2GW_ReqSetNewPlayerStep", msg.C2GW_ReqSetNewPlayerStep.encode({ step: step }));
+				let data = new msg.C2GW_ReqSetNewPlayerStep();
+				data.index = id;
+				data.step = step;
+				sendMessage("msg.C2GW_ReqSetNewPlayerStep", msg.C2GW_ReqSetNewPlayerStep.encode(data));
 			}
 			else {
 				Console.log("设置引导步骤参数非法！step:", step);
@@ -38,7 +41,7 @@ module game {
 			while (defList.length > 0) {
 				let def: table.TGuideDefine = defList.shift();
 				let preDef = <table.TGuideDefine>table.TGuideById[def.PreId];
-				if (preDef && preDef.Group != def.Group) {
+				if (preDef && preDef.Group != def.Group || !preDef) {
 					return def;
 				}
 			}

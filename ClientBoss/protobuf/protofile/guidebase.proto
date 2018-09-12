@@ -46,16 +46,22 @@ message TGuideDefine
 	optional int32 Reward = 9; // 奖励金币数
 	
 	
-	optional string TriggerParams = 10; // 面板枚举，按钮名称，坐标偏移，x,y
+	optional string TriggerParams = 10; // 面板枚举，按钮名称，坐标偏移，擦除区域大小x,y
 	
 	
-	optional int32 FinishType = 11; // 该步引导完成类型(0.触发即完成1.点击面板元素)
+	optional int32 Direction = 11; // 指示箭头方向(1.上 2.下 3.左 4.右)
 	
 	
-	optional string FinishParams = 12; // 完成参数(any，点击任何地方完成)
+	optional int32 FinishType = 12; // 该步引导完成类型(0.触发即完成1.点击面板元素2.协议返回)
 	
 	
-	optional string Desc = 13; // 描述
+	optional string FinishParams = 13; // 完成参数(点击参数填any，点击任何地方完成)
+	
+	
+	optional float BgAlpha = 14; 
+	
+	
+	optional string Desc = 15; // 描述
 
 }
 

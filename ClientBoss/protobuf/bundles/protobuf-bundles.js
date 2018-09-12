@@ -25894,6 +25894,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IC2GW_ReqSetNewPlayerStep
          * @property {number|null} [step] C2GW_ReqSetNewPlayerStep step
+         * @property {number|null} [index] C2GW_ReqSetNewPlayerStep index
          */
 
         /**
@@ -25918,6 +25919,14 @@ $root.msg = (function() {
          * @instance
          */
         C2GW_ReqSetNewPlayerStep.prototype.step = 0;
+
+        /**
+         * C2GW_ReqSetNewPlayerStep index.
+         * @member {number} index
+         * @memberof msg.C2GW_ReqSetNewPlayerStep
+         * @instance
+         */
+        C2GW_ReqSetNewPlayerStep.prototype.index = 0;
 
         /**
          * Creates a new C2GW_ReqSetNewPlayerStep instance using the specified properties.
@@ -25945,6 +25954,8 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.step != null && message.hasOwnProperty("step"))
                 writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.step);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
             return writer;
         };
 
@@ -25981,6 +25992,9 @@ $root.msg = (function() {
                 switch (tag >>> 3) {
                 case 1:
                     message.step = reader.uint32();
+                    break;
+                case 2:
+                    message.index = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -26020,6 +26034,9 @@ $root.msg = (function() {
             if (message.step != null && message.hasOwnProperty("step"))
                 if (!$util.isInteger(message.step))
                     return "step: integer expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
             return null;
         };
 
@@ -26037,6 +26054,8 @@ $root.msg = (function() {
             var message = new $root.msg.C2GW_ReqSetNewPlayerStep();
             if (object.step != null)
                 message.step = object.step >>> 0;
+            if (object.index != null)
+                message.index = object.index >>> 0;
             return message;
         };
 
@@ -26053,10 +26072,14 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults)
+            if (options.defaults) {
                 object.step = 0;
+                object.index = 0;
+            }
             if (message.step != null && message.hasOwnProperty("step"))
                 object.step = message.step;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
             return object;
         };
 
@@ -76849,8 +76872,10 @@ $root.table = (function() {
          * @property {number|null} [TriggerType] TGuideDefine TriggerType
          * @property {number|null} [Reward] TGuideDefine Reward
          * @property {string|null} [TriggerParams] TGuideDefine TriggerParams
+         * @property {number|null} [Direction] TGuideDefine Direction
          * @property {number|null} [FinishType] TGuideDefine FinishType
          * @property {string|null} [FinishParams] TGuideDefine FinishParams
+         * @property {number|null} [BgAlpha] TGuideDefine BgAlpha
          * @property {string|null} [Desc] TGuideDefine Desc
          */
 
@@ -76950,6 +76975,14 @@ $root.table = (function() {
         TGuideDefine.prototype.TriggerParams = "";
 
         /**
+         * TGuideDefine Direction.
+         * @member {number} Direction
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.Direction = 0;
+
+        /**
          * TGuideDefine FinishType.
          * @member {number} FinishType
          * @memberof table.TGuideDefine
@@ -76964,6 +76997,14 @@ $root.table = (function() {
          * @instance
          */
         TGuideDefine.prototype.FinishParams = "";
+
+        /**
+         * TGuideDefine BgAlpha.
+         * @member {number} BgAlpha
+         * @memberof table.TGuideDefine
+         * @instance
+         */
+        TGuideDefine.prototype.BgAlpha = 0;
 
         /**
          * TGuideDefine Desc.
@@ -77017,12 +77058,16 @@ $root.table = (function() {
                 writer.uint32(/* id 9, wireType 0 =*/72).int32(message.Reward);
             if (message.TriggerParams != null && message.hasOwnProperty("TriggerParams"))
                 writer.uint32(/* id 10, wireType 2 =*/82).string(message.TriggerParams);
+            if (message.Direction != null && message.hasOwnProperty("Direction"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.Direction);
             if (message.FinishType != null && message.hasOwnProperty("FinishType"))
-                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.FinishType);
+                writer.uint32(/* id 12, wireType 0 =*/96).int32(message.FinishType);
             if (message.FinishParams != null && message.hasOwnProperty("FinishParams"))
-                writer.uint32(/* id 12, wireType 2 =*/98).string(message.FinishParams);
+                writer.uint32(/* id 13, wireType 2 =*/106).string(message.FinishParams);
+            if (message.BgAlpha != null && message.hasOwnProperty("BgAlpha"))
+                writer.uint32(/* id 14, wireType 5 =*/117).float(message.BgAlpha);
             if (message.Desc != null && message.hasOwnProperty("Desc"))
-                writer.uint32(/* id 13, wireType 2 =*/106).string(message.Desc);
+                writer.uint32(/* id 15, wireType 2 =*/122).string(message.Desc);
             return writer;
         };
 
@@ -77088,12 +77133,18 @@ $root.table = (function() {
                     message.TriggerParams = reader.string();
                     break;
                 case 11:
-                    message.FinishType = reader.int32();
+                    message.Direction = reader.int32();
                     break;
                 case 12:
-                    message.FinishParams = reader.string();
+                    message.FinishType = reader.int32();
                     break;
                 case 13:
+                    message.FinishParams = reader.string();
+                    break;
+                case 14:
+                    message.BgAlpha = reader.float();
+                    break;
+                case 15:
                     message.Desc = reader.string();
                     break;
                 default:
@@ -77161,12 +77212,18 @@ $root.table = (function() {
             if (message.TriggerParams != null && message.hasOwnProperty("TriggerParams"))
                 if (!$util.isString(message.TriggerParams))
                     return "TriggerParams: string expected";
+            if (message.Direction != null && message.hasOwnProperty("Direction"))
+                if (!$util.isInteger(message.Direction))
+                    return "Direction: integer expected";
             if (message.FinishType != null && message.hasOwnProperty("FinishType"))
                 if (!$util.isInteger(message.FinishType))
                     return "FinishType: integer expected";
             if (message.FinishParams != null && message.hasOwnProperty("FinishParams"))
                 if (!$util.isString(message.FinishParams))
                     return "FinishParams: string expected";
+            if (message.BgAlpha != null && message.hasOwnProperty("BgAlpha"))
+                if (typeof message.BgAlpha !== "number")
+                    return "BgAlpha: number expected";
             if (message.Desc != null && message.hasOwnProperty("Desc"))
                 if (!$util.isString(message.Desc))
                     return "Desc: string expected";
@@ -77205,10 +77262,14 @@ $root.table = (function() {
                 message.Reward = object.Reward | 0;
             if (object.TriggerParams != null)
                 message.TriggerParams = String(object.TriggerParams);
+            if (object.Direction != null)
+                message.Direction = object.Direction | 0;
             if (object.FinishType != null)
                 message.FinishType = object.FinishType | 0;
             if (object.FinishParams != null)
                 message.FinishParams = String(object.FinishParams);
+            if (object.BgAlpha != null)
+                message.BgAlpha = Number(object.BgAlpha);
             if (object.Desc != null)
                 message.Desc = String(object.Desc);
             return message;
@@ -77238,8 +77299,10 @@ $root.table = (function() {
                 object.TriggerType = 0;
                 object.Reward = 0;
                 object.TriggerParams = "";
+                object.Direction = 0;
                 object.FinishType = 0;
                 object.FinishParams = "";
+                object.BgAlpha = 0;
                 object.Desc = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
@@ -77262,10 +77325,14 @@ $root.table = (function() {
                 object.Reward = message.Reward;
             if (message.TriggerParams != null && message.hasOwnProperty("TriggerParams"))
                 object.TriggerParams = message.TriggerParams;
+            if (message.Direction != null && message.hasOwnProperty("Direction"))
+                object.Direction = message.Direction;
             if (message.FinishType != null && message.hasOwnProperty("FinishType"))
                 object.FinishType = message.FinishType;
             if (message.FinishParams != null && message.hasOwnProperty("FinishParams"))
                 object.FinishParams = message.FinishParams;
+            if (message.BgAlpha != null && message.hasOwnProperty("BgAlpha"))
+                object.BgAlpha = options.json && !isFinite(message.BgAlpha) ? String(message.BgAlpha) : message.BgAlpha;
             if (message.Desc != null && message.hasOwnProperty("Desc"))
                 object.Desc = message.Desc;
             return object;
