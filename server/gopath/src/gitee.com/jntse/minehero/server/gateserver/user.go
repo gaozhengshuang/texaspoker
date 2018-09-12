@@ -1242,16 +1242,6 @@ func (this *GateUser) CheckAddStrength() {
 			this.SetRobCountResumeTime(0, true)
 		}
 	}
-
-	//if this.tmaddrobcount > 0 && now >= this.tmaddrobcount {
-	//	//this.SetRobCount(this.GetStrength() + 5)
-	//	if this.robcount < 20 {
-	//		this.tmaddrobcount = now + 3600
-	//	} else {
-	//		this.tmaddrobcount = 0
-	//	}
-	//	this.NotifyRobCountResumeTime()
-	//}
 }
 
 func (this *GateUser) NotifyRobCount() {
