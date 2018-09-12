@@ -9,7 +9,7 @@ module game {
         /**
          * 引导超时时间
          */
-        private _timeOut: number = 100000000;
+        private _timeOut: number = 1000000;
         /**
          * 侦听器列表
          */
@@ -114,13 +114,11 @@ module game {
                         switch (typeStr) {
                             case "number":
                                 if (parseInt(paramsArr[i]) != params[i]) {
-                                    Console.log("引导触发失败！参数不满足 params:", params);
                                     return;
                                 }
                                 break;
                             default:
                                 if (paramsArr[i] != params[i]) {
-                                    Console.log("引导触发失败！参数不满足 params:", params);
                                     return;
                                 }
                                 break;
@@ -348,7 +346,7 @@ module game {
          */
         ClickEle = 1,
         /**
-         * 接受消息
+         * 接收消息
          */
         ReceiveMsg = 2,
     }
