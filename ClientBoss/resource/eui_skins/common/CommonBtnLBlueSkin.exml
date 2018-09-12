@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<e:Skin class="CommonBtnSkin" states="up,down,disabled" minHeight="50" minWidth="100" xmlns:e="http://ns.egret.com/eui">
+<e:Skin class="CommonBtnLBlueSkin" states="up,down,disabled" minHeight="50" minWidth="100" xmlns:e="http://ns.egret.com/eui">
     <e:Image width="100%" height="100%" scale9Grid="1,3,8,8" alpha.disabled="1"
             
-             source.disabled="buyBtn2" source.up="tongyong_anniu_png" source="tongyong_anniu_png" source.down="tongyong_anniu_png"/>
+             source="tongyong_querenchushou_png" source.up="tongyong_querenchushou_png" source.down="tongyong_querenchushou_png" source.disabled="tongyong_querenchushou_png"/>
     <e:Label id="labelDisplay" top="8" bottom="8" left="8" right="8"
              size="22"
              textColor="0xFFFFFF" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" left.up="8" right.up="8" top.up="8" bottom.up="8" size.up="26" bold.up="true"/>

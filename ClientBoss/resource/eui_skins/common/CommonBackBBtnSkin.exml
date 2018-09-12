@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<e:Skin class="CommonBackBBtnSkin" states="up,down,disabled" minHeight="50" minWidth="100" xmlns:e="http://ns.egret.com/eui" width="18" height="32">
+    <e:Image width="100%" height="100%" alpha.disabled="1"
+            
+             horizontalCenter="0" verticalCenter="0" source="tongyong_heise_png" source.up="tongyong_heise_png" source.down="tongyong_heise_png" source.disabled="tongyong_heise_png"/>
+</e:Skin>
