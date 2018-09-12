@@ -37,6 +37,7 @@ module game {
 		protected beforeShow() {
 			//this.return_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
 			this.returnBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+			this.maskMC.addEventListener(egret.TouchEvent.TOUCH_TAP, this.close_popup_begin, this);
 			this.btGroup1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
 			this.btGroup2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
 			this.btGroup3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
@@ -49,6 +50,7 @@ module game {
 		protected beforeRemove() {
 			//this.return_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
 			this.returnBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.return_begin, this);
+			this.maskMC.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.close_popup_begin, this);
 			this.btGroup1.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
 			this.btGroup2.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
 			this.btGroup3.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.next_begin, this);
@@ -68,6 +70,10 @@ module game {
 			this.dispatchEvent(new BasicEvent(PageUserInfoView.CLOSE));
 
 		}
+		private close_popup_begin(eve: egret.TouchEvent) {
+			this.delPanelView();
+
+		}
 		private next_begin(eve: egret.TouchEvent) {
 			switch (eve.target.name) {
 				case "btGroup1":
@@ -83,7 +89,7 @@ module game {
 					break;
 
 				case "btGroup4":
-
+					this.modifyAge();
 					break;
 
 				case "btGroup5":
@@ -172,6 +178,19 @@ module game {
 			this.panelView=new ModifyPointViewPanel(this);
 			this.addChild(this.panelView);
 			this.panelView.update(this.userInfo);
+			this.panelView.x=0;
+			this.panelView.y=0;
+			this.maskMC.visible=true;
+		}
+
+		/**
+		 * 修改年龄
+		 */
+		private modifyAge(){
+			this.delPanelView();
+			this.panelView=new ModifyAgePanel(this);
+			this.addChild(this.panelView);
+			this.panelView.update(this.userInfo.age);
 			this.panelView.x=0;
 			this.panelView.y=0;
 			this.maskMC.visible=true;
