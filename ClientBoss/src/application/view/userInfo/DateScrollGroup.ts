@@ -8,23 +8,24 @@ module game {
 		private middleNum: number = 0;
 		private offsetS: number = 20;
 		private maskMC: eui.Rect;
-		private parentView:ModifyAgePanel;
-		public constructor(w: number, h: number, itemH: number,view:ModifyAgePanel) {
+		private parentView: ModifyAgePanel;
+		private currentIndex: number = 0;
+		public constructor(w: number, h: number, itemH: number, view: ModifyAgePanel) {
 			super();
 			this.width = w;
 			this.height = h;
 			this.itemHeight = itemH;
-			this.parentView=view;
-			this.itemNum = (Math.floor(this.width / this.itemHeight) + 1);
-			this.middleNum = (Math.floor((this.width / 2) / this.itemHeight));
+			this.parentView = view;
+			this.itemNum = (Math.floor(this.height / this.itemHeight) + 1);
+			this.middleNum = (Math.floor((this.height / 2) / this.itemHeight));
 			this.offsetS = this.middleNum * this.itemHeight;
 			this.scrollEnabled = true;
 			this.touchChildren = false;
 			this.maskMC = new eui.Rect(this.width, this.itemHeight, 0xffffff);
 			this.maskMC.x = 0;
-			this.maskMC.y = this.width / 2 - this.itemHeight / 2;
+			this.maskMC.y = this.height / 2 - this.itemHeight / 2;
 			this.addChild(this.maskMC);
-			
+
 		}
 		private dateItemList: eui.List;
 		private showItemList: eui.List;
@@ -36,7 +37,8 @@ module game {
 		private duration: number = 300;
 		private topBorder: number = 0;
 		private downBorder: number = 0;
-
+		private arrCollection: eui.ArrayCollection;
+		private showArrCollection: eui.ArrayCollection;
 		public updateDateList(list: any[]) {
 			this.dateList = list;
 			if (this.dateItemList == null) {
@@ -47,10 +49,12 @@ module game {
 				//this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onMouseMoveHandler, this);
 				this.addEventListener(egret.TouchEvent.TOUCH_END, this.onmoveEnd, this);
 				this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onmoveEnd, this);
+
 			}
-			let arrCollection: eui.ArrayCollection = new eui.ArrayCollection(this.dateList);
-			this.dateItemList.dataProvider = arrCollection;
-			this.topBorder = -(this.dateItemList.dataProvider.length * this.itemHeight - (this.middleNum + 0.5) * this.itemHeight);
+			this.arrCollection = new eui.ArrayCollection(this.dateList);
+			this.dateItemList.dataProvider = this.arrCollection;
+
+			this.topBorder = this.height / 2 - this.itemHeight * (this.dateItemList.dataProvider.length - 1) - this.itemHeight / 2
 			this.downBorder = this.middleNum * this.itemHeight;
 			this.updateShowList(this.dateList);
 		}
@@ -70,9 +74,10 @@ module game {
 					this.addChild(this.showItemList);
 					this.showItemList.itemRenderer = AgeDateItemPanel;
 					this.showItemList.mask = this.maskMC;
+
 				}
-				let arrCollection: eui.ArrayCollection = new eui.ArrayCollection(showList);
-				this.showItemList.dataProvider = arrCollection;
+				this.showArrCollection = new eui.ArrayCollection(showList);
+				this.showItemList.dataProvider = this.showArrCollection;
 			}
 		}
 		private onMouseDownHandler(e: egret.TouchEvent): void {
@@ -82,7 +87,7 @@ module game {
 		}
 		private onMouseMoveHandler(e: egret.TouchEvent): void {
 			let mousemove: number = (e.stageY - this.downpoint);
-			this.dateItemList.y += mousemove;
+			this.dateItemList.y = mousemove;
 		}
 		private onmoveEnd(e: egret.TouchEvent) {
 			if (!this.hasMouseDown)
@@ -125,9 +130,22 @@ module game {
 
 		}
 		private onComplete() {
-			let index:number=Math.floor((this.width/2-this.dateItemList.y)/this.itemHeight);
-			if(index>=0 && index<this.dateList.length){
-				this.parentView.selectCallBack(this.dateList[index]);
+			this.currentIndex = Math.floor((this.height / 2 - this.dateItemList.y) / this.itemHeight);
+			if (this.currentIndex >= 0 && this.currentIndex < this.dateList.length) {
+				this.parentView.selectCallBack(this.dateList[this.currentIndex]);
+			}
+		}
+
+		public assignIndex(num: number) {
+			if (this.dateList && this.dateList.length > 0) {
+				for (let i: number = 0; i < this.dateList.length; i++) {
+					if (this.dateList[i].num == num) {
+						this.currentIndex = i;
+						this.showItemList.y = this.dateItemList.y =
+							this.height / 2 - this.itemHeight * this.currentIndex - this.itemHeight / 2;
+						break;
+					}
+				}
 			}
 		}
 		public delPanel() {
