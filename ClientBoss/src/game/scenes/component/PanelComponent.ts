@@ -3,7 +3,7 @@ module game {
         protected _isShow: boolean = false;
         protected _isShowEffect: boolean = true;
         protected _isShowDark: boolean = true;
-        protected _darkAlpha:number = 0.5;
+        protected _darkAlpha: number = 0.5;
         public darkRect: eui.Rect;
         protected _layerType: PanelLayerType = PanelLayerType.Panel;
 
@@ -33,6 +33,10 @@ module game {
                     return GameLayer.panelLayer;
                 case PanelLayerType.Diy:
                     return GameLayer.diyLayer;
+                case PanelLayerType.MaskLayer:
+                    return GameLayer.maskLayer;
+                case PanelLayerType.AlertLayer:
+                    return GameLayer.alertLayer;
                 default:
                     return GameLayer.panelLayer;
             }

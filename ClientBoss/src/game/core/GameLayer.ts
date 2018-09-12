@@ -71,5 +71,7 @@ module game {
     export const enum PanelLayerType {
         Panel,
         Diy,
+        AlertLayer,
+        MaskLayer,
     }
 }

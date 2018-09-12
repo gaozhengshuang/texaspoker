@@ -9442,7 +9442,8 @@ declare namespace msg {
         Baseprovince = 7,
         Basecity = 8,
         Level = 9,
-        Exp = 10
+        Exp = 10,
+        NewPlayerStep = 11
     }
 
     /** Properties of a PersonSocialInfo. */
@@ -32261,6 +32262,258 @@ declare namespace table {
 
         /**
          * Converts this TGiftProDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TGuideBase. */
+    interface ITGuideBase {
+
+        /** TGuideBase TGuide */
+        TGuide?: (table.ITGuideDefine[]|null);
+    }
+
+    /** Represents a TGuideBase. */
+    class TGuideBase implements ITGuideBase {
+
+        /**
+         * Constructs a new TGuideBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITGuideBase);
+
+        /** TGuideBase TGuide. */
+        public TGuide: table.ITGuideDefine[];
+
+        /**
+         * Creates a new TGuideBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TGuideBase instance
+         */
+        public static create(properties?: table.ITGuideBase): table.TGuideBase;
+
+        /**
+         * Encodes the specified TGuideBase message. Does not implicitly {@link table.TGuideBase.verify|verify} messages.
+         * @param message TGuideBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITGuideBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TGuideBase message, length delimited. Does not implicitly {@link table.TGuideBase.verify|verify} messages.
+         * @param message TGuideBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITGuideBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TGuideBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TGuideBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TGuideBase;
+
+        /**
+         * Decodes a TGuideBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TGuideBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TGuideBase;
+
+        /**
+         * Verifies a TGuideBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TGuideBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TGuideBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TGuideBase;
+
+        /**
+         * Creates a plain object from a TGuideBase message. Also converts values to other types if specified.
+         * @param message TGuideBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TGuideBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TGuideBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TGuideDefine. */
+    interface ITGuideDefine {
+
+        /** TGuideDefine Id */
+        Id?: (number|null);
+
+        /** TGuideDefine PreId */
+        PreId?: (number|null);
+
+        /** TGuideDefine NextId */
+        NextId?: (number|null);
+
+        /** TGuideDefine FinishFlag */
+        FinishFlag?: (number|null);
+
+        /** TGuideDefine EndFlag */
+        EndFlag?: (number|null);
+
+        /** TGuideDefine AutoFinishFlag */
+        AutoFinishFlag?: (number|null);
+
+        /** TGuideDefine Group */
+        Group?: (number|null);
+
+        /** TGuideDefine TriggerType */
+        TriggerType?: (number|null);
+
+        /** TGuideDefine Reward */
+        Reward?: (number|null);
+
+        /** TGuideDefine TriggerParams */
+        TriggerParams?: (string|null);
+
+        /** TGuideDefine FinishType */
+        FinishType?: (number|null);
+
+        /** TGuideDefine FinishParams */
+        FinishParams?: (string|null);
+
+        /** TGuideDefine Desc */
+        Desc?: (string|null);
+    }
+
+    /** Represents a TGuideDefine. */
+    class TGuideDefine implements ITGuideDefine {
+
+        /**
+         * Constructs a new TGuideDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITGuideDefine);
+
+        /** TGuideDefine Id. */
+        public Id: number;
+
+        /** TGuideDefine PreId. */
+        public PreId: number;
+
+        /** TGuideDefine NextId. */
+        public NextId: number;
+
+        /** TGuideDefine FinishFlag. */
+        public FinishFlag: number;
+
+        /** TGuideDefine EndFlag. */
+        public EndFlag: number;
+
+        /** TGuideDefine AutoFinishFlag. */
+        public AutoFinishFlag: number;
+
+        /** TGuideDefine Group. */
+        public Group: number;
+
+        /** TGuideDefine TriggerType. */
+        public TriggerType: number;
+
+        /** TGuideDefine Reward. */
+        public Reward: number;
+
+        /** TGuideDefine TriggerParams. */
+        public TriggerParams: string;
+
+        /** TGuideDefine FinishType. */
+        public FinishType: number;
+
+        /** TGuideDefine FinishParams. */
+        public FinishParams: string;
+
+        /** TGuideDefine Desc. */
+        public Desc: string;
+
+        /**
+         * Creates a new TGuideDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TGuideDefine instance
+         */
+        public static create(properties?: table.ITGuideDefine): table.TGuideDefine;
+
+        /**
+         * Encodes the specified TGuideDefine message. Does not implicitly {@link table.TGuideDefine.verify|verify} messages.
+         * @param message TGuideDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITGuideDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TGuideDefine message, length delimited. Does not implicitly {@link table.TGuideDefine.verify|verify} messages.
+         * @param message TGuideDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITGuideDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TGuideDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TGuideDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TGuideDefine;
+
+        /**
+         * Decodes a TGuideDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TGuideDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TGuideDefine;
+
+        /**
+         * Verifies a TGuideDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TGuideDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TGuideDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TGuideDefine;
+
+        /**
+         * Creates a plain object from a TGuideDefine message. Also converts values to other types if specified.
+         * @param message TGuideDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TGuideDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TGuideDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

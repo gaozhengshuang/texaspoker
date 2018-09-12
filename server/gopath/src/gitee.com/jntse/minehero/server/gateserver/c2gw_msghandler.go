@@ -1153,10 +1153,11 @@ func on_C2GW_ReqSetNewPlayerStep(session network.IBaseNetSession, message interf
 		return
 	}
 	step := tmsg.GetStep()
-	user.SetNewPlayerStep(step)
-
-	send := &msg.GW2C_AckNewPlayerStep{Step: pb.Uint32(step)}
-	user.SendMsg(send)
+	index := tmsg.GetIndex()
+	if user.SetNewPlayerStep(step, index) == true {
+		send := &msg.GW2C_AckNewPlayerStep{Step: pb.Uint32(step)}
+		user.SendMsg(send)
+	}
 }
 
 func on_C2GW_ReqHouseData(session network.IBaseNetSession, message interface{}) {

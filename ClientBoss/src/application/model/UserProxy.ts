@@ -57,12 +57,16 @@ module game {
 					case msg.UserInfoType.Level:
 						DataManager.playerModel.getUserInfo().level=Number(data.valueint);
 					break;
+					case msg.UserInfoType.NewPlayerStep: //更新引导步骤
+						DataManager.playerModel.getUserInfo().newplayerstep=Number(data.valueint);
+					break;
 					case msg.UserInfoType.Exp:
 						//DataManager.playerModel.getUserInfo().=Number(data.valueint);
 					break;
 					
 			}
 			ApplicationFacade.getInstance().sendNotification(CommandName.UPDATE_USER_INFO, DataManager.playerModel.getUserInfo());
+			NotificationCenter.postNotification(CommandName.UPDATE_USER_INFO);
 		}
 
 		public getUserInfo(): IUserInfo {

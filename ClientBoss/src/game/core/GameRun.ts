@@ -32,6 +32,10 @@ module game {
         MaidManager.getInstance().init();
         //地图事件初始化
         MapEventsManager.getInstance().init();
+        //汽车事件初始化
+        CarManager.getInstance().init();
+        //引导初始化
+        GuideManager.getInstance().init();
 
         SysTimeEventManager.getInstance().delAllFunction();
         SysTimeEventManager.getInstance().stopTimer();

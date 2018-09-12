@@ -470,10 +470,22 @@ func (this *GateUser) NewPlayerStep() uint32 {
 	return this.newplayerstep
 }
 
-func (this *GateUser) SetNewPlayerStep(step uint32) {
+//只允许增大
+func (this *GateUser) SetNewPlayerStep(step uint32, index uint32) bool {
+	if this.newplayerstep >= step {
+		return false
+	}
 	this.newplayerstep = step
 	this.UserBase().Newplayerstep = pb.Uint32(step)
 	this.UpdataUserInfoByType(uint32(msg.UserInfoType_NewPlayerStep))
+	if index > 0 {
+		guidbase, find := tbl.TGuideBase.TGuideById[int32(index)]
+		if find == true && guidbase.FinishFlag == 1 && guidbase.Group == int32(step) {
+			gold := guidbase.Reward
+			this.AddGold(uint32(gold), "引导奖励", true)
+		}
+	}
+	return true
 }
 
 func (this *GateUser) SetRobCountResumeTime(t int64, syn bool) {

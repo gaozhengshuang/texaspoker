@@ -147,6 +147,7 @@ enum UserInfoType {
 	Basecity = 8; //归属地 市
 	Level = 9;  //等级
 	Exp = 10;   //经验
+	NewPlayerStep = 11; //新手引导
 }
 
 //人物社交信息

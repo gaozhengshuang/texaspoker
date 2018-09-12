@@ -12,6 +12,7 @@ module game {
         static TASK_UPDATE = "PlayerModel_TASK_UPDATE";
         static SKILL_UPDATE = "PlayerModel_SKILL_UPDATE";
         static PLAYERMODEL_UPDATE = "PlayerModel_UPDATE";
+        static PLAYERMODEL_DATA_INIT = "PLAYERMODEL_DATA_INIT";
         static HOUSE_UPDATE = "PlayerModel_HOUSE_UPDATE";
         static HOUSE_LIST_UPDATE = "PlayerModel_HOUSE_LIST_UPDATE";
         static CAR_UPDATE = "PlayerModel_CAR_UPDATE";
@@ -95,6 +96,7 @@ module game {
             this._tasks = data.base.task.tasks;
 
             NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_UPDATE);
+            NotificationCenter.postNotification(PlayerModel.PLAYERMODEL_DATA_INIT);
         }
         private GW2C_UpdateHouseDataOne(data: msg.GW2C_UpdateHouseDataOne) {
             if (data.isdel) //删除

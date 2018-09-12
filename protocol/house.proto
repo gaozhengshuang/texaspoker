@@ -29,6 +29,7 @@ message GW2C_UpdateHouseVisitInfo {
 // 请求设置引导标记
 message C2GW_ReqSetNewPlayerStep {
 	optional uint32 step = 1;
+	optional uint32 index = 2; //对应引导表的id 用来查找 引导奖励
 }
 
 // 返回设置引导标记
