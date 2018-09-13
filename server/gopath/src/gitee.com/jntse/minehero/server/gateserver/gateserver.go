@@ -57,7 +57,7 @@ type GateServer struct {
 	tblloader		*tbl.TblLoader
 	rcounter 		util.RedisCounter
 	tickers       	[]util.IGameTicker
-	quit_graceful 	bool
+	gracefulquit	bool
 	runtimestamp  	int64
 	hourmonitor   	*util.IntHourMonitorPool
 	mysqldb			*sql.DB
