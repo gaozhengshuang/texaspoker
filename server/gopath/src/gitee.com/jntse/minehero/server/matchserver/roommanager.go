@@ -246,7 +246,6 @@ func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, 
 		Gamekind: pb.Int32(kind), 
 		Sidgate: pb.Int(sid_gate), 
 		Userid: pb.Uint64(userid),
-		Quotaflag: pb.Bool(left_quota > 0),
 	}
 	agent.SendMsg(rmsg)
 	tm2 := util.CURTIMEUS()
