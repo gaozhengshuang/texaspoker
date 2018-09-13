@@ -50,7 +50,6 @@ func (this *C2GWMsgHandler) Init() {
 	// 收
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
 	this.msgparser.RegistProtoMsg(msg.C2GW_HeartBeat{}, on_C2GW_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqStartGame{}, on_C2GW_ReqStartGame)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
@@ -67,6 +66,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
 
 	// 游戏房间
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqStartGame{}, on_C2GW_ReqStartGame)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
 
@@ -81,9 +81,6 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateYuanbao{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateDiamond{})
 	this.msgparser.RegistSendProto(msg.GW2C_UpdateGold{})
-
-	// 游戏房间
-	this.msgparser.RegistSendProto(msg.GW2C_RetStartGame{})
 
 	// 杂项
 	this.msgparser.RegistSendProto(msg.GW2C_Ret7DayReward{})
@@ -103,7 +100,8 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_RemoveEvent{})
 	this.msgparser.RegistSendProto(msg.GW2C_EnterGameEvent{})
 
-	// Room
+	// 游戏房间
+	this.msgparser.RegistSendProto(msg.GW2C_RetStartGame{})
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
 	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
 	this.msgparser.RegistSendProto(msg.BT_GameStart{})
