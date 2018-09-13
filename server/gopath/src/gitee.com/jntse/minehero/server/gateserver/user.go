@@ -89,7 +89,6 @@ type GateUser struct {
 	tm_disconnect   int64
 	tm_heartbeat    int64                   // 心跳时间
 	tm_asynsave     int64                   // 异步存盘超时
-	savedone        bool                    // 存盘标记
 	cleanup         bool                    // 清理标记
 	roomdata        UserRoomData            // 房间信息
 	token           string                  // token
@@ -115,7 +114,6 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.tm_disconnect = 0
 	u.continuelogin = 1
 	u.tm_asynsave = 0
-	u.savedone = false
 	u.token = token
 	u.broadcastbuffer = make([]uint64, 0)
 	u.roomdata.Reset()
@@ -566,13 +564,19 @@ func (this *GateUser) Save() {
 		log.Error("保存玩家[%s %d]数据失败", this.Name(), this.Id())
 		return
 	}
-
 	log.Info("保存玩家[%s %d]数据成功", this.Name(), this.Id())
+}
+
+// 异步存盘
+func (this *GateUser) AsynSave() {
+	log.Info("玩家[%s %d] 发起异步存盘", this.Name(), this.Id())
+	event := NewUserSaveEvent(this.Save, this.AsynSaveFeedback)
+	this.AsynEventInsert(event)
 }
 
 // 异步存盘完成回调
 func (this *GateUser) AsynSaveFeedback() {
-	this.savedone = true
+	log.Info("玩家[%s %d] 异步存盘完成", this.Name(), this.Id())
 }
 
 // 新用户回调
@@ -580,7 +584,7 @@ func (this *GateUser) OnCreateNew() {
 }
 
 // 上线回调，玩家数据在LoginOk中发送
-func (this *GateUser) Online(session network.IBaseNetSession) bool {
+func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
 
 	if this.online == true {
 		log.Error("Sid[%d] 账户[%s] 玩家[%d %s] Online失败，已经处于在线状态", this.Sid(), this.account, this.Id(), this.Name())
@@ -596,9 +600,8 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.tm_login = curtime
 	this.tm_disconnect = 0
 	this.tm_heartbeat = util.CURTIMEMS()
-	this.savedone = false
 	this.roomdata.Reset()
-	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功", this.Sid(), this.account, this.Id(), this.Name())
+	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", this.Sid(), this.account, this.Id(), this.Name(), way)
 
 	// 上线任务检查
 	this.OnlineTaskCheck()
@@ -640,6 +643,7 @@ func (this *GateUser) OnDisconnect() {
 	if this.IsInRoom() == true {
 		this.SendRsUserDisconnect()
 	}
+	this.AsynSave()
 	//this.PlatformPushUserOnlineTime()
 }
 
@@ -656,6 +660,7 @@ func (this *GateUser) KickOut(way string) {
 	if this.IsInRoom() == true {
 		this.SendRsUserDisconnect()
 	}
+	this.AsynSave()
 	//this.PlatformPushUserOnlineTime()
 }
 
@@ -665,8 +670,8 @@ func (this *GateUser) CheckDisconnectTimeOut(now int64) {
 		return
 	}
 
-	// 延迟存盘清理
-	if now < this.tm_disconnect+tbl.Global.Disconclean {
+	// 延迟清理离线玩家
+	if !GateSvr().IsGracefulQuit() && (now < this.tm_disconnect+tbl.Global.Disconclean) {
 		return
 	}
 
@@ -681,14 +686,6 @@ func (this *GateUser) CheckDisconnectTimeOut(now int64) {
 	}
 
 	// 异步存盘，最大延迟1秒
-	//if this.tm_asynsave == 0 {
-	//	this.tm_asynsave = now + 1000
-	//	event := NewUserSaveEvent(this.Save)
-	//	this.AsynEventInsert(event)
-	//}
-	//if now < this.tm_asynsave {
-	//	return
-	//}
 
 	this.Logout()
 }
