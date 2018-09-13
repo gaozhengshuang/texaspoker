@@ -38,28 +38,26 @@ func (this* RS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
 	this.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
-	//this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
-	//this.msgparser.RegistProtoMsg(msg.BT_SendBattleUser{}, on_BT_SendBattleUser)
-	//this.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
 	this.msgparser.RegistProtoMsg(msg.BT_GameEnd{}, on_BT_GameEnd)
-	//this.msgparser.RegistProtoMsg(msg.BT_PickItem{}, on_BT_PickItem)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2RS_RetRegist{})
 	this.msgparser.RegistSendProto(msg.GW2RS_UserDisconnect{})
 	this.msgparser.RegistSendProto(msg.GW2RS_MsgTransfer{})
+
 	this.msgparser.RegistSendProto(msg.BT_UploadGameUser{})
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
 	this.msgparser.RegistSendProto(msg.BT_ReqQuitGameRoom{})
-	//this.msgparser.RegistSendProto(msg.BT_UpdateMoney{})
+
 	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
 	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
 	this.msgparser.RegistSendProto(msg.C2GW_GoldExchange{})
-	this.msgparser.RegistSendProto(msg.BT_ReqLaunchBullet{})
-	this.msgparser.RegistSendProto(msg.BT_StepOnBomb{})
-	this.msgparser.RegistSendProto(msg.BT_BulletEarnMoney{})
-	this.msgparser.RegistSendProto(msg.BT_UseUltimateSkil{})
-	this.msgparser.RegistSendProto(msg.BT_ReqCrushSuperBrick{})
+
+	//this.msgparser.RegistSendProto(msg.BT_ReqLaunchBullet{})
+	//this.msgparser.RegistSendProto(msg.BT_StepOnBomb{})
+	//this.msgparser.RegistSendProto(msg.BT_BulletEarnMoney{})
+	//this.msgparser.RegistSendProto(msg.BT_UseUltimateSkil{})
+	//this.msgparser.RegistSendProto(msg.BT_ReqCrushSuperBrick{})
 }
 
 func on_RS2GW_ReqRegist(session network.IBaseNetSession, message interface{}) {
@@ -125,17 +123,6 @@ func on_BT_GameEnd(session network.IBaseNetSession, message interface{}) {
 	if user.IsOnline() { user.SendMsg(&msg.BT_GameOver{Roomid:tmsg.Roomid}) }
 	user.OnGameEnd(tmsg.GetBin(), tmsg.GetReason())
 	log.Info("房间[%d] BT_GameEnd 游戏结束，Owner[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
-}
-
-func on_BT_PickItem(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_PickItem)
-	//log.Info(reflect.TypeOf(tmsg).String())
-	user := UserMgr().FindById(tmsg.GetUserid())
-	if user == nil {
-		log.Error("BT_PickItem 找不到玩家[%d]", tmsg.GetUserid())
-		return
-	}
-	user.SendMsg(tmsg)
 }
 
 func on_RS2GW_RetUserDisconnect(session network.IBaseNetSession, message interface{}) {

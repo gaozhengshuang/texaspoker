@@ -42,9 +42,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateYuanbao{}, on_GW2C_UpdateYuanbao)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateGold{}, on_GW2C_UpdateGold)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateDiamond{}, on_GW2C_UpdateDiamond)
-	this.msgparser.RegistProtoMsg(msg.Sync_BigRewardPickNum{}, on_Sync_BigRewardPickNum)
 	this.msgparser.RegistProtoMsg(msg.GW2C_Ret7DayReward{}, on_GW2C_Ret7DayReward)
-	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateFreeStep{}, on_GW2C_UpdateFreeStep)
 	this.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
@@ -55,7 +53,6 @@ func (this* GW2CMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.BT_SendBattleUser{}, on_BT_SendBattleUser)
 	this.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
 	this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
-	this.msgparser.RegistProtoMsg(msg.BT_PickItem{}, on_BT_PickItem)
 	
 	// 发
 	this.msgparser.RegistSendProto(msg.C2GW_ReqLogin{})
@@ -198,17 +195,6 @@ func on_GW2C_Ret7DayReward(session network.IBaseNetSession, message interface{})
 	//log.Info(reflect.TypeOf(tmsg).String())
 }
 
-func on_GW2C_UpdateFreeStep(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.GW2C_UpdateFreeStep)
-	//log.Info(reflect.TypeOf(tmsg).String())
-}
-
-func on_Sync_BigRewardPickNum(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.Sync_BigRewardPickNum)
-	//log.Info(reflect.TypeOf(tmsg).String())
-	//log.Info("大奖获取次数同步:%v", tmsg)
-}
-
 func on_GW2C_LuckyDrawHit(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_LuckyDrawHit)
 	//log.Info(reflect.TypeOf(tmsg).String())
@@ -231,8 +217,5 @@ func on_GW2C_UpdateItemPos(session network.IBaseNetSession, message interface{})
 	tmsg := message.(*msg.GW2C_UpdateItemPos)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
-}
-
-func on_GW2C_FreePresentNotify(session network.IBaseNetSession, message interface{}) {
 }
 

@@ -172,7 +172,6 @@ message MS2RS_CreateRoom {
     optional int32 gamekind = 3;    // 游戏模式
     optional int32 gridnum = 4;     // 
     optional int32 sidgate = 5;     // 
-    optional bool  quotaflag = 6;   // 大奖配额
 }
 
 //创建返回

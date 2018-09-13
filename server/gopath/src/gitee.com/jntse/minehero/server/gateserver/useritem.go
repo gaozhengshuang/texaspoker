@@ -306,24 +306,6 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 	this.SendNotify("提货成功")
 }
 
-// 同步大奖被拿走次数
-func (this *GateUser) SyncBigRewardPickNum() {
-	send := &msg.Sync_BigRewardPickNum{}
-	picklist , err := Redis().ZRangeWithScores("bigreward_picknum", 0, -1).Result()
-	if err != nil {
-		this.SendMsg(send)
-		log.Error("玩家[%s %d] 同步奖被拿走计数失败 err[%s]", this.Name(), this.Id(), err)
-		return
-	}
-
-	for _, v := range picklist {
-		stritemid := v.Member.(string)
-		itemid, _ := strconv.ParseInt(stritemid, 10, 32)
-		send.List = append(send.List, &msg.BigRewardItem{Id:pb.Uint32(uint32(itemid)), Num:pb.Uint32(uint32(v.Score))})
-	}
-	this.SendMsg(send)
-}
-
 // 签到
 func (this *GateUser) GetSignReward(){
 	if util.IsSameDay(int64(this.signtime), util.CURTIME()) {

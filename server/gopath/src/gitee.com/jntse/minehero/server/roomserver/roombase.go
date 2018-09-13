@@ -43,42 +43,25 @@ const (
 /// @brief 房间格子道具管理
 // --------------------------------------------------------------------------
 
-type RoomGridItem struct {
-	gridsum			int32				// 格子总数
-	griditems		[]*msg.GridItem		// 格子道具信息
-}
-
 // --------------------------------------------------------------------------
 /// @brief TODO: 一个房间可以对应一个单独的协程
 // --------------------------------------------------------------------------
-type GameRoom struct {
-	id				int64
-	tm_create		int64
-	tm_start		int64
-	tm_end			int64
-	roomkind		int32
-	owner			*RoomUser
-	ownerid			uint64
-	close_reason	string					// 正常关闭房间的原因
-	totalcost		int64					// 本局游戏总消耗
-	RoomGridItem
+type TanTanLe struct {
+	RoomBase
+
+	bulletid    int64
+	energy      int64
+	save_amt    int64
+	topscore    int64
+	freebullet  uint32
+	totalcost	int64	// 本局游戏总消耗
 }
 
-func NewGameRoom(ownerid uint64, id int64, roomkind int32, quota bool) *GameRoom {
-	room := &GameRoom{id:id, tm_create: util.CURTIME(), tm_start:0}
-	room.griditems = make([]*msg.GridItem, 0)
-	room.roomkind = roomkind
-	room.gridsum = 0
-	room.owner = nil
-	room.ownerid = ownerid
-	return room
-}
+func (this *TanTanLe) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
+func (this *TanTanLe) Id() int64 { return this.id }
+func (this *TanTanLe) Kind() int32 { return this.roomkind }
 
-func (this *GameRoom) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
-func (this *GameRoom) Id() int64 { return this.id }
-func (this *GameRoom) Kind() int32 { return this.roomkind }
-
-func (this *GameRoom) SendMsg(msg pb.Message) {
+func (this *TanTanLe) SendMsg(msg pb.Message) {
 	if this.owner == nil {
 		log.Error("房间[%d] Owner数据未初始化", this.id)
 		return
@@ -86,7 +69,7 @@ func (this *GameRoom) SendMsg(msg pb.Message) {
 	this.owner.SendMsg(msg)
 }
 
-func (this *GameRoom) SendClientMsg(msg pb.Message) {
+func (this *TanTanLe) SendClientMsg(msg pb.Message) {
 	if this.owner == nil {
 		log.Error("房间[%d] Owner数据未初始化", this.id)
 		return
@@ -95,7 +78,7 @@ func (this *GameRoom) SendClientMsg(msg pb.Message) {
 }
 
 // 房间参数初始化
-func (this *GameRoom) Init() (errcode string) {
+func (this *TanTanLe) Init() (errcode string) {
 	switch{
 	default:
 		// 更新房间数量到redis
@@ -136,14 +119,14 @@ func PickNumItemNotice(user *RoomUser, itemname string, num int64) {
 }
 
 //
-func (this *GameRoom) CanStart() bool {
+func (this *TanTanLe) CanStart() bool {
 	if this.IsStart() == true {
 		return false
 	}
 	return true
 }
 
-func (this *GameRoom) IsStart() bool {
+func (this *TanTanLe) IsStart() bool {
 	if ( this.tm_start == 0 ) {
 		return false
 	}
@@ -151,7 +134,7 @@ func (this *GameRoom) IsStart() bool {
 }
 
 //
-func (this *GameRoom) IsEnd(now int64) bool {
+func (this *TanTanLe) IsEnd(now int64) bool {
 
 	// 超过10秒还未开始游戏
 	if ( this.tm_start == 0 && (now/1000) > this.tm_create + 10) {
@@ -170,7 +153,7 @@ func (this *GameRoom) IsEnd(now int64) bool {
 
 
 // 游戏结束
-func (this *GameRoom) OnEnd(now int64) {
+func (this *TanTanLe) OnEnd(now int64) {
 	log.Info("房间[%d] 游戏结束，模式[%d]", this.Id(), this.Kind())
 
 	// 序列化玩家个人数据
@@ -193,7 +176,7 @@ func (this *GameRoom) OnEnd(now int64) {
 }
 
 // 玩家进游戏，游戏开始
-func (this *GameRoom) OnStart() {
+func (this *TanTanLe) OnStart() {
 	if this.owner == nil {
 		log.Error("房间[%d] Owner[%d] OnStart 玩家不在房间中", this.id, this.ownerid)
 		return
@@ -223,7 +206,7 @@ func (this *GameRoom) OnStart() {
 }
 
 // 加载玩家
-func (this *GameRoom) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
+func (this *TanTanLe) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
 	if this.owner != nil {
 		log.Error("房间[%d] 玩家[%s %d]个人数据已经在房间了", this.id, this.owner.Id(), this.owner.Name())
 		return
@@ -231,7 +214,6 @@ func (this *GameRoom) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession)
 
 	// 
 	user := UserMgr().CreateRoomUser(this.id, bin, gate, this.roomkind)
-	user.InitEquipSkills()
 	this.owner = user
 
 	// 
@@ -239,7 +221,7 @@ func (this *GameRoom) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession)
 }
 
 // 玩家进房间，开始游戏
-func (this *GameRoom) UserEnter(userid uint64, token string) {
+func (this *TanTanLe) UserEnter(userid uint64, token string) {
 	if this.IsStart() == true {
 		log.Error("房间[%d] 玩家[%d] 游戏已经开始了，不要重复进入", this.id, userid)
 		return
@@ -256,7 +238,7 @@ func (this *GameRoom) UserEnter(userid uint64, token string) {
 }
 
 // 玩家正常离开
-func (this *GameRoom) UserLeave(userid uint64, money uint32) {
+func (this *TanTanLe) UserLeave(userid uint64, money uint32) {
 	this.tm_end = util.CURTIME()
 	this.close_reason = "玩家退出房间"
 	if owner := this.owner; owner != nil {
@@ -273,14 +255,14 @@ func (this *GameRoom) UserLeave(userid uint64, money uint32) {
 }
 
 // 玩家断开连接
-func (this *GameRoom) UserDisconnect(userid uint64) {
+func (this *TanTanLe) UserDisconnect(userid uint64) {
 	this.tm_end = util.CURTIME()
 	this.close_reason = "玩家断开连接"
 	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, userid)
 }
 
 // 网关断开
-func (this *GameRoom) GateLeave(sid int) {
+func (this *TanTanLe) GateLeave(sid int) {
 	this.tm_end = util.CURTIME()
 	log.Info("房间[%d] Owner[%d] 网关断开连接Sid[%d]", this.id, this.ownerid, sid)
 }

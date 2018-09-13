@@ -1,27 +1,59 @@
 package main
 import (
-	_"fmt"
-	_"gitee.com/jntse/minehero/server/tbl"
-	_"gitee.com/jntse/minehero/pbmsg"
-	_"gitee.com/jntse/gotoolkit/util"
+	pb "github.com/gogo/protobuf/proto"
+
+	"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/net"
+
+	"gitee.com/jntse/minehero/pbmsg"
 )
 
-//func (this *GameRoom) UpdateMoneyByClient(money uint64) {
-//	if this.owner == nil {
-//		return
-//	}
-//
-//	// 设置
-//	this.owner.SetGold(uint32(money), "同步客户端", true)
-//
-//	// 检查任务
-//	taskid := int32(msg.TaskId_RegisterTopScore)
-//	task, find := tbl.TaskBase.TTaskById[uint32(taskid)]
-//	if this.owner.task.IsTaskFinish(taskid) == false && find && money >= uint64(task.Count) {
-//		this.owner.task.TaskFinish(taskid) 
-//		inviter := this.owner.Inviter()
-//		if inviter != 0 { Redis().SAdd(fmt.Sprintf("task_invitee_topscorefinish_%d", inviter), this.owner.Id()) }
-//	}
-//
-//}
+// --------------------------------------------------------------------------
+/// @brief room接口，各种room从这里派生
+// --------------------------------------------------------------------------
+type IRoomBase interface {
+	Id() int64
+	Init() string
+	Kind() int32
+	Tick(now int64)
+	SendMsg(msg pb.Message)
+	IsStart() bool
+	IsEnd(now int64) bool
+	OnEnd(now int64)
+	UserLoad(bin *msg.Serialize, session network.IBaseNetSession)
+	UserEnter(userid uint64, token string)
+	UserLeave(userid uint64, money uint32)
+	UserDisconnect(userid uint64)
+}
+
+
+// --------------------------------------------------------------------------
+/// @brief 房间基础数据
+// --------------------------------------------------------------------------
+type RoomBase struct {
+	id				int64
+	tm_create		int64
+	tm_start		int64
+	tm_end			int64
+	roomkind		int32
+	owner			*RoomUser
+	ownerid			uint64
+	close_reason	string	// 正常关闭房间的原因
+}
+
+func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {
+	switch roomkind {
+	case 0:		// 弹弹乐
+		room := &TanTanLe{}
+		room.id = id
+		room.tm_create = util.CURTIME()
+		room.tm_start = 0
+		room.roomkind = roomkind
+		room.owner = nil
+		room.ownerid = ownerid
+		return room
+	default:
+		return nil
+	}
+}
 

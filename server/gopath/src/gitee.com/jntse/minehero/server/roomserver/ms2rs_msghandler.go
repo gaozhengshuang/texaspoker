@@ -109,7 +109,7 @@ func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 		}
 
 		// 初始化房间
-		room := NewGameRoom(userid, roomid, gamekind, tmsg.GetQuotaflag())
+		room := NewGameRoom(userid, roomid, gamekind)
 		if errcode = room.Init(); errcode != "" {
 			break
 		}
