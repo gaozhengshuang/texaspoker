@@ -3,10 +3,10 @@ package main
 import (
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/pbmsg"
-	"gitee.com/jntse/minehero/server/def"
+	_"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
-	"strconv"
+	_"strconv"
 	"strings"
 )
 
@@ -103,10 +103,10 @@ func (this *UserTask) GiveTaskReward(id int32) {
 		return
 	}
 	//reward, _ := strconv.ParseInt(rewardpair[0], 10, 32)
-	count, _ := strconv.ParseInt(rewardpair[1], 10, 32)
+	//count, _ := strconv.ParseInt(rewardpair[1], 10, 32)
 
 	//
 	if id == int32(msg.TaskId_RegistAccount) || id == int32(msg.TaskId_RegisterTopScore) || id == int32(msg.TaskId_InviteeTopScore) {
-		def.HttpWechatCompanyPay(this.owner.OpenId(), count, taskbase.Desc)
+		//def.HttpWechatCompanyPay(this.owner.OpenId(), count, taskbase.Desc)
 	}
 }

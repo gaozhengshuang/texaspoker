@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	"strconv"
+	_"strconv"
 	"strings"
 	"time"
 
@@ -146,27 +146,27 @@ func Authenticate(session network.IBaseNetSession, account string, passwd string
 	return ""
 }
 
-func ProcessInvitationUser(charid uint64, invitationcode string) {
-
-	// 保存邀请人信息
-	if len(invitationcode) < 2 {
-		return
-	}
-	inviter, _ := strconv.ParseInt(invitationcode[2:], 10, 32)
-	Redis().Set(fmt.Sprintf("user_%d_inviter", charid), inviter, 0)
-
-	// 转账给邀请人
-	invitation_openid, errget := Redis().Get(fmt.Sprintf("user_%d_wechat_openid", inviter)).Result()
-	if errget != nil {
-		log.Error("获取邀请人[%d]的openid失败 errmsg[%s]", inviter, errget)
-	} else {
-		def.HttpWechatCompanyPay(invitation_openid, 100, "邀请新玩家注册")
-	}
-
-	// 邀请人任务计数
-	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", inviter)
-	Redis().Incr(invite_count_key).Result()
-}
+//func ProcessInvitationUser(charid uint64, invitationcode string) {
+//
+//	// 保存邀请人信息
+//	if len(invitationcode) < 2 {
+//		return
+//	}
+//	inviter, _ := strconv.ParseInt(invitationcode[2:], 10, 32)
+//	Redis().Set(fmt.Sprintf("user_%d_inviter", charid), inviter, 0)
+//
+//	// 转账给邀请人
+//	invitation_openid, errget := Redis().Get(fmt.Sprintf("user_%d_wechat_openid", inviter)).Result()
+//	if errget != nil {
+//		log.Error("获取邀请人[%d]的openid失败 errmsg[%s]", inviter, errget)
+//	} else {
+//		def.HttpWechatCompanyPay(invitation_openid, 100, "邀请新玩家注册")
+//	}
+//
+//	// 邀请人任务计数
+//	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", inviter)
+//	Redis().Incr(invite_count_key).Result()
+//}
 
 // 微信小游戏，直接注册账户
 func RegistAccountFromWechatMiniGame(account, passwd, invitationcode, name, face string) string {
@@ -390,7 +390,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		Redis().Set(setopenidkey, openid, 0).Result()
 
 		log.Info("账户[%s] UserId[%d] 创建新用户成功", account, userid)
-		ProcessInvitationUser(userid, invitationcode)
+		//ProcessInvitationUser(userid, invitationcode)
 	}
 
 	if errcode != "" {

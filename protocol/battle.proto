@@ -11,15 +11,6 @@ package msg;
 //    optional int32  stepindex = 3;
 //}
 
-
-//message GridItem {
-//    optional int32 index    = 1;    // 格子编号
-//    optional int32 id       = 2;    // 道具id
-//    optional int32 num      = 3;    // 数量
-//    optional int32 gridtype = 4;    // 类型：0默认道具，1大奖，2高级中元宝，3高级大元宝，4钻石
-//    optional bool  control  = 5;    // 作假控制
-//}
-
 // 发送个人信息到游戏房间
 message BT_UploadGameUser   {
     optional int64 roomid = 1;
@@ -40,11 +31,6 @@ message BT_GameInit {
     optional int64  roomid = 1;
     optional uint64 ownerid = 2;
     optional int32  gamekind = 3;
-    optional uint32 diamond = 4;
-    optional uint32 gold = 5;
-    optional uint32 freebullet = 6;     // 免费炮弹数
-    optional uint64 eventuid = 7;       // 事件uid，通过事件创建游戏
-    //repeated GridItem listitem = 4;
 }
 
 

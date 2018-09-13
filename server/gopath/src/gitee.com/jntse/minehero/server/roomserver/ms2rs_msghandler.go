@@ -47,7 +47,6 @@ func (this* MS2RSMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.RS2MS_ReqRegist{})
 	this.msgparser.RegistSendProto(msg.RS2MS_HeartBeat{})
 	this.msgparser.RegistSendProto(msg.RS2MS_RetCreateRoom{})
-	this.msgparser.RegistSendProto(msg.RS2MS_UpdateRewardPool{})
 	this.msgparser.RegistSendProto(msg.RS2MS_MsgNotice{})
 	//this.msgparser.RegistSendProto(msg.RS2MS_DeleteRoom{})
 

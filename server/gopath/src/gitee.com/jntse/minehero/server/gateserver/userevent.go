@@ -341,7 +341,7 @@ func (m *UserMapEvent) GetRandRangePos(lo, la int32, rangemin, rangemax uint32) 
 
 	difflo := util.RandBetween(-int32(rangemax), int32(rangemax))
 	longitude := lo + difflo
-	log.Trace("[地图事件] 原点[%d %d] 生成点[%d %d] 范围[%d %d] Rand[%d %d]", lo, la, longitude, latitude, rangemin, rangemax, difflo, diffla)
+	//log.Trace("[地图事件] 原点[%d %d] 生成点[%d %d] 范围[%d %d] Rand[%d %d]", lo, la, longitude, latitude, rangemin, rangemax, difflo, diffla)
 	return longitude, latitude
 }
 
