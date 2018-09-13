@@ -27,9 +27,7 @@ func (this *GateUser) AddItem(item uint32, num uint32, reason string, syn bool) 
 	}else if item == uint32(msg.ItemId_Diamond) {
 		this.AddDiamond(num, reason, syn)
 	}else if item == uint32(msg.ItemId_FreeStep) {
-		this.AddFreeStep(int32(num), reason)
 	}else if item == uint32(msg.ItemId_Strength) {
-		this.AddStrength(num, reason, syn)
 	}else {
 		this.bag.AddItem(item, num, reason)
 	}
@@ -120,20 +118,6 @@ func (this *GateUser) RemoveDiamond(num uint32, reason string, syn bool) bool {
 	log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)
 	return false
 }
-
-// 添加免费步数
-func (this *GateUser) GetFreeStep() int32 { return this.freestep }
-func (this *GateUser) SetFreeStep(num int32, reason string) {
-	this.freestep = 0
-	this.AddFreeStep(num, reason)
-}
-func (this *GateUser) AddFreeStep(num int32, reason string) {
-	this.freestep = this.GetFreeStep() + num
-	send := &msg.GW2C_UpdateFreeStep{Num:pb.Int32(this.GetFreeStep())}
-	this.SendMsg(send)
-	log.Info("玩家[%d] 添加免费步数[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetFreeStep(), reason)
-}
-
 
 // 购买道具
 func (this* GateUser) BuyItem(productid uint32, num uint32) {
@@ -664,31 +648,6 @@ func (this *GateUser) LuckyDraw() {
 	send := &msg.GW2C_LuckyDrawHit{Id:pb.Int32(int32(uid))}
 	this.SendMsg(send)
 }
-
-func (this *GateUser) CheckFreePresentDiamond(syn bool) {
-	if this.GetDiamond() >= uint32(tbl.Game.FreePresentRule.FloorTrigger) {
-		return
-	}
-
-	curtime := util.CURTIME()
-	if this.presentcount >= int32(tbl.Game.FreePresentRule.Count) {
-		if util.IsSameDay(this.presentrecord, curtime) {
-			return
-		}else {
-			this.presentcount = 0;
-		}
-	}
-
-	diamond := tbl.Game.FreePresentRule.Money
-	this.AddDiamond(uint32(diamond), "每日免费赠送", syn)
-	this.presentcount += 1
-	this.presentrecord = curtime
-
-	// 客户端界面展示
-	send := &msg.GW2C_FreePresentNotify{Money:pb.Int32(int32(diamond))}
-	this.SendMsg(send)
-}
-
 
 // 添加经验
 func (this *GateUser) AddExp(num uint32, reason string) {

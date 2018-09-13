@@ -1,7 +1,0 @@
-{
-	"Tool": "github.com/davyxu/tabtoy",
-	"Version": "2.8.10",
-	"TParking":[
-		{ "Id": 1001, "Type": 1, "RewardPercent": 80 },
-		{ "Id": 1002, "Type": 2, "RewardPercent": 100 }
-	]}

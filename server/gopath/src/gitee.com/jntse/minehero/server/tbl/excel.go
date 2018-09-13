@@ -13,44 +13,25 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 /// @brief 为excel config 实例取一个别名
 // --------------------------------------------------------------------------
+var TaskBase = table.InsTaskBaseTable
 var MusicBase = table.InsMusicBaseTable
+var RechargeBase = table.InsRechargeBaseTable
+var TEquipBase = table.InsTEquipBaseTable
 var LevelBasee = table.InsLevelBaseeTable
-var TCarStarAttrBase = table.InsTCarStarAttrBaseTable
-var MapEventBase = table.InsMapEventBaseTable
-var TStarupCarBase = table.InsTStarupCarBaseTable
-var TCharacterLevelBase = table.InsTCharacterLevelBaseTable
+var TBirckItembase = table.InsTBirckItembaseTable
 var TbirckInfobase = table.InsTbirckInfobaseTable
-var GiftProBase = table.InsGiftProBaseTable
-var CarShopBase = table.InsCarShopBaseTable
-var TBirckBase = table.InsTBirckBaseTable
-var TLevelCarPartBase = table.InsTLevelCarPartBaseTable
+var SignBase = table.InsSignBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
+var GiftProBase = table.InsGiftProBaseTable
+var TSkillpBase = table.InsTSkillpBaseTable
+var NameBase = table.InsNameBaseTable
+var TBirckBase = table.InsTBirckBaseTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
-var TCarModelBase = table.InsTCarModelBaseTable
-var THouseBase = table.InsTHouseBaseTable
-var TSupermarketBase = table.InsTSupermarketBaseTable
-var RechargeBase = table.InsRechargeBaseTable
-var TBirckItembase = table.InsTBirckItembaseTable
-var SignBase = table.InsSignBaseTable
-var THouseCellBase = table.InsTHouseCellBaseTable
-var TCarBase = table.InsTCarBaseTable
-var NameBase = table.InsNameBaseTable
-var TCarPartBase = table.InsTCarPartBaseTable
-var TGuideBase = table.InsTGuideBaseTable
-var TCarPartLevelupBase = table.InsTCarPartLevelupBaseTable
-var TBallBase = table.InsTBallBaseTable
-var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
-var MapStoreBase = table.InsMapStoreBaseTable
-var TCarBrandBase = table.InsTCarBrandBaseTable
-var TEquipBase = table.InsTEquipBaseTable
-var TCitysBase = table.InsTCitysBaseTable
-var TaskBase = table.InsTaskBaseTable
-var TSkillpBase = table.InsTSkillpBaseTable
-var TBuildingsBase = table.InsTBuildingsBaseTable
-var TParkingBase = table.InsTParkingBaseTable
+var MapEventBase = table.InsMapEventBaseTable
 var ShopBase = table.InsShopBaseTable
 var TbirckRefreshbase = table.InsTbirckRefreshbaseTable
-var LevelMaidBase = table.InsLevelMaidBaseTable
+var TBallBase = table.InsTBallBaseTable
 var ItemBase = table.InsItemBaseTable
+var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
 

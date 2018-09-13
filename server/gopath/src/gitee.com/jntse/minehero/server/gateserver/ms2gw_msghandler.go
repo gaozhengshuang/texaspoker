@@ -127,8 +127,5 @@ func DoGMCmd(cmd map[string]*util.VarType) {
 	case "reload":
 		GateSvr().Reload()
 		break
-	case "carshop":
-		Carshop().DoGMCmd(cmd)
-		break
 	}
 }

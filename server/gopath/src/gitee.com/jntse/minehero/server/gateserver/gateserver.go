@@ -44,33 +44,23 @@ func init() {
 }
 
 type GateServer struct {
-	netconf     *network.NetConf
-	net         *network.NetWork
-	loginsvr    network.IBaseNetSession
-	matchsvr    network.IBaseNetSession
-	hredis      *redis.Client
-	usermgr     UserManager
-	waitpool    LoginWaitPool
-	roomsvrmgr  RoomSvrManager
-	roommgr     RoomManager
-	msghandlers []network.IBaseMsgHandler
-	tblloader   *tbl.TblLoader
-	//countmgr		CountManager
-	rcounter util.RedisCounter
-	//ticker1m		*util.GameTicker
-	//ticker1s		*util.GameTicker
-	//ticker100ms	*util.GameTicker
-	tickers       []util.IGameTicker
-	quit_graceful bool
-	runtimestamp  int64
-	hourmonitor   *util.IntHourMonitorPool
-	carmgr        CarManager
-	housesvrmgr   HouseManager
-	buildingmgr   BuildingManager
-	mapstore 		MapStore
-	carshop       	CarShop
-	mysqldb		  	*sql.DB
-	maidmgr			MaidManager
+	netconf			*network.NetConf
+	net				*network.NetWork
+	loginsvr		network.IBaseNetSession
+	matchsvr		network.IBaseNetSession
+	hredis			*redis.Client
+	usermgr			UserManager
+	waitpool		LoginWaitPool
+	roomsvrmgr		RoomSvrManager
+	roommgr			RoomManager
+	msghandlers		[]network.IBaseMsgHandler
+	tblloader		*tbl.TblLoader
+	rcounter 		util.RedisCounter
+	tickers       	[]util.IGameTicker
+	quit_graceful 	bool
+	runtimestamp  	int64
+	hourmonitor   	*util.IntHourMonitorPool
+	mysqldb			*sql.DB
 }
 
 var g_GateServer *GateServer = nil
@@ -109,32 +99,6 @@ func RoomSvrMgr() *RoomSvrManager {
 func RoomMgr() *RoomManager {
 	return &GateSvr().roommgr
 }
-
-func CarMgr() *CarManager {
-	return &GateSvr().carmgr
-}
-func HouseSvrMgr() *HouseManager {
-	return &GateSvr().housesvrmgr
-}
-func BuildSvrMgr() *BuildingManager {
-	return &GateSvr().buildingmgr
-}
-
-func MaidMgr() *MaidManager {
-	return &GateSvr().maidmgr
-}
-
-func Carshop() *CarShop {
-	return &GateSvr().carshop
-}
-
-func Mapstore() *MapStore {
-	return &GateSvr().mapstore
-}
-
-//func CountMgr() *CountManager {
-//	return &GateSvr().countmgr
-//}
 
 func RCounter() *util.RedisCounter {
 	return &GateSvr().rcounter
@@ -256,7 +220,6 @@ func (this *GateServer) Init(fileconf string) bool {
 	this.roomsvrmgr.Init()
 	this.roommgr.Init()
 	this.InitMySql()
-	//this.carmgr.Init()
 	//this.countmgr.Init()
 	//this.gamemgr.Init()
 	this.tickers = append(this.tickers, util.NewGameTicker(60*time.Second, this.Handler1mTick))
@@ -377,12 +340,6 @@ func (this *GateServer) OnStart() {
 
 	//
 	this.runtimestamp = util.CURTIMEMS()
-	this.buildingmgr.Init()
-	this.housesvrmgr.Init()
-	this.carmgr.Init()
-	this.maidmgr.Init()
-	this.carshop.Init()
-	this.mapstore.Init()
 	log.Info("结束执行OnStart")
 }
 
@@ -391,12 +348,6 @@ func (this *GateServer) OnStop() {
 	for _, t := range this.tickers {
 		t.Stop()
 	}
-	this.housesvrmgr.SaveAllHousesData()
-	this.buildingmgr.SaveAllBuildings()
-	this.carmgr.SaveAllData(true)
-	this.maidmgr.SaveAll()
-	this.carshop.SaveAll()
-	this.mapstore.SaveAll()
 	this.hredis.Close()
 	this.mysqldb.Close()
 }
@@ -424,10 +375,6 @@ func (this *GateServer) Run() {
 	//
 	this.usermgr.Tick(now)
 	this.roommgr.Tick(now)
-	this.carmgr.Tick(now)
-	this.maidmgr.Tick(now)
-	this.carshop.Tick(now)
-	this.mapstore.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 
 	//
@@ -437,14 +384,11 @@ func (this *GateServer) Run() {
 	}
 	tm_svrticker := util.CURTIMEMS()
 
-	this.housesvrmgr.Tick(now)
-	tm_houseticker := util.CURTIMEMS()
-
 	// 每帧统计耗时
-	delay := tm_houseticker - now
+	delay := tm_svrticker - now
 	if lastrun+delay > 20 { // 20毫秒
-		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d] houseticker[%d]",
-			lastrun, delay, tm_dispath-now, tm_usrticker-tm_dispath, tm_svrticker-tm_usrticker, tm_houseticker-tm_svrticker)
+		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d] ",
+			lastrun, delay, tm_dispath-now, tm_usrticker-tm_dispath, tm_svrticker-tm_usrticker)
 	}
 	this.runtimestamp = util.CURTIMEMS()
 }
@@ -495,22 +439,6 @@ func (this *GateServer) RegistRoomServer(agent *RoomAgent) {
 	this.roomsvrmgr.AddRoom(agent)
 	log.Info("注册房间服 id=%d [%s] 当前总数:%d", agent.Id(), agent.name, this.roomsvrmgr.Num())
 }
-
-//func (this *GateServer) GetUserBySession(session network.IBaseNetSession) *GateUser {
-//	defdata := session.UserDefData()
-//	if defdata == nil {
-//		log.Error("客户端Session没有绑定账户数据 sid[%d]", session.Id())
-//		return nil
-//	}
-//
-//	account, ok := defdata.(string)
-//	if ok == false {
-//		log.Error("客户端Session绑定了错误的数据")
-//		return nil
-//	}
-//
-//	return UserMgr().FindByAccount(account)
-//}
 
 // 通用公告
 func (this *GateServer) SendNotice(face string, ty msg.NoticeType, subtext ...string) {

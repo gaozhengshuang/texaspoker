@@ -94,7 +94,6 @@ func (this *GateUser) OnTicker100ms(now int64) {
 }
 
 func (this *GateUser) OnTicker1s(now int64) {
-	this.CheckAddStrength()
 }
 
 func (this *GateUser) OnTicker5s(now int64) {

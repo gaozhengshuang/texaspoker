@@ -63,8 +63,6 @@ type DBUserData struct {
 	signreward     uint32
 	signtime       uint32
 	addrlist       []*msg.UserAddress
-	freestep       int32
-	givestep       int64
 	wechatopenid   string
 	presentcount   int32
 	presentrecord  int64
@@ -72,14 +70,6 @@ type DBUserData struct {
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
 	totalrecharge  uint32 // 总充值
-	newplayerstep  uint32 // 新手引导步骤
-	robcount       uint32 // 抢钱次数
-	tmaddrobcount  int64  // 下次涨抢钱次数的时间戳
-	age			   uint32 // 年龄
-	constellation  uint32 // 星座
-	sign		   string // 玩家签名
-	baseprovince   uint32 // 归属地 省
-	basecity 	   uint32 // 归属地 市
 }
 
 // --------------------------------------------------------------------------
@@ -107,8 +97,6 @@ type GateUser struct {
 	broadcastbuffer []uint64                // 广播消息缓存
 	synbalance      bool                    // 充值中
 	events			UserMapEvent			// 地图事件
-	housedata       []*msg.HouseData        //房屋信息 登录后matchserver回传
-
 	//定位经纬度靠客户端同步
 	longitude		float32 //经度
 	latitude		float32 //纬度
@@ -193,32 +181,8 @@ func (this *GateUser) SetName(nickname string) bool {
 	}
 
 	this.EntityBase().Name = pb.String(nickname)
-	data := HouseSvrMgr().GetHousesByUser(this.Id())
-	for _, v := range data {
-		v.ownername = nickname
-	}
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Name))
 	log.Info("玩家[%d] 设置昵称[%s] 成功", this.Id(),nickname)
 	return true
-}
-
-//设置归属地 非定位
-func (this *GateUser) SetBaseArea (province uint32, city uint32) {
-	log.Info("玩家[%d] 设置归属地 province %d, city %d", this.Id(), province, city)
-	this.baseprovince = province
-	this.basecity = city
-	this.UserBase().Baseprovince = pb.Uint32(province)
-	this.UserBase().Basecity = pb.Uint32(city)
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Baseprovince))
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Basecity))
-}
-
-func (this *GateUser) Baseprovince() uint32 {
-	return this.baseprovince
-}
-
-func (this *GateUser) Basecity() uint32 {
-	return this.basecity
 }
 
 func (this *GateUser) Face() string {
@@ -228,13 +192,6 @@ func (this *GateUser) Face() string {
 func (this *GateUser) SetFace(f string, bsync bool)  {
 	log.Info("玩家[%d] 设置头像 [%s]",this.Id(), f)
 	this.EntityBase().Face = pb.String(f)
-	data := HouseSvrMgr().GetHousesByUser(this.Id())
-	for _, v := range data {
-		v.ownerface = f
-	}
-	if bsync {
-		this.UpdataUserInfoByType(uint32(msg.UserInfoType_Face))
-	}
 }
 
 func (this *GateUser) Id() uint64 {
@@ -248,49 +205,6 @@ func (this *GateUser) Sex() int32 {
 func (this *GateUser) SetSex(sex int32) {
 	log.Info("玩家[%d] 设置性别 [%d]",this.Id(), sex)
 	this.EntityBase().Sex = pb.Int32(sex)
-	data := HouseSvrMgr().GetHousesByUser(this.Id())
-	for _, v := range data {
-		v.ownersex = sex
-	}
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_UserSex))
-}
-
-func (this *GateUser) SetSign(sign string) bool {
-	if strings.Count(sign, "")-1 > 30 {
-		this.SendNotify("昵称长度不能大于30个字符")
-		return false
-	}
-	this.sign = sign
-	this.UserBase().Sign = pb.String(sign)
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Sign))
-	log.Info("玩家[%d] 设置签名[%s]",this.Id(), sign)
-	return true
-}
-
-func (this *GateUser) Sign() string {
-	return this.sign
-}
-
-func (this *GateUser) SetConstellation(value uint32) {
-	log.Info("玩家[%d] 设置星座[%d]",this.Id(),value)
-	this.constellation = value
-	this.UserBase().Constellation = pb.Uint32(value)
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Constellation))
-}
-
-func (this *GateUser) Constellation() uint32 {
-	return this.constellation
-}
-
-func (this *GateUser) SetAge(age uint32) {
-	log.Info("玩家[%d] 设置年龄[%d]", this.Id(),age)
-	this.age = age
-	this.UserBase().Age = pb.Uint32(age)
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Age))
-}
-
-func (this *GateUser) Age() uint32 {
-	return this.age
 }
 
 func (this *GateUser) Sid() int {
@@ -306,11 +220,6 @@ func (this *GateUser) Level() uint32 {
 
 func (this *GateUser) AddLevel(num uint32) {
 	this.level += num
-	data := HouseSvrMgr().GetHousesByUser(this.Id())
-	for _, v := range data {
-		v.ownerlevel = this.level
-	}
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Level))
 }
 
 func (this *GateUser) Exp() uint32 {
@@ -319,7 +228,6 @@ func (this *GateUser) Exp() uint32 {
 
 func (this *GateUser) SetExp(exp uint32) {
 	this.exp = exp
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_Exp))
 }
 
 func (this *GateUser) Token() string {
@@ -328,6 +236,26 @@ func (this *GateUser) Token() string {
 
 func (this *GateUser) SetToken(t string) {
 	this.token = t
+}
+
+func (this *GateUser) GetDiamondCost() int64 {
+	userbase := this.UserBase()
+	return userbase.GetScounter().GetMoneyCost()
+}
+
+func (this *GateUser) GetDiamondCostReset() int64 {
+	userbase := this.UserBase()
+	return userbase.GetScounter().GetMoneyCostReset()
+}
+
+func (this *GateUser) SetDiamondCost(cost int64) {
+	userbase := this.UserBase()
+	userbase.GetScounter().MoneyCost = pb.Int64(cost)
+}
+
+func (this *GateUser) SetDiamondCostReset(reset int64) {
+	userbase := this.UserBase()
+	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
 }
 
 func (this *GateUser) GetDefaultAddress() *msg.UserAddress {
@@ -434,26 +362,6 @@ func (this *GateUser) Inviter() uint64 {
 	return 0
 }
 
-func (this *GateUser) GetDiamondCost() int64 {
-	userbase := this.UserBase()
-	return userbase.GetScounter().GetMoneyCost()
-}
-
-func (this *GateUser) GetDiamondCostReset() int64 {
-	userbase := this.UserBase()
-	return userbase.GetScounter().GetMoneyCostReset()
-}
-
-func (this *GateUser) SetDiamondCost(cost int64) {
-	userbase := this.UserBase()
-	userbase.GetScounter().MoneyCost = pb.Int64(cost)
-}
-
-func (this *GateUser) SetDiamondCostReset(reset int64) {
-	userbase := this.UserBase()
-	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
-}
-
 func (this *GateUser) TotalRecharge() uint32 {
 	return this.totalrecharge
 }
@@ -464,83 +372,6 @@ func (this *GateUser) SetTotalRecharge(r uint32) {
 
 func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
-}
-
-func (this *GateUser) NewPlayerStep() uint32 {
-	return this.newplayerstep
-}
-
-//只允许增大
-func (this *GateUser) SetNewPlayerStep(step uint32, index uint32) bool {
-	if this.newplayerstep >= step {
-		return false
-	}
-	this.newplayerstep = step
-	this.UserBase().Newplayerstep = pb.Uint32(step)
-	this.UpdataUserInfoByType(uint32(msg.UserInfoType_NewPlayerStep))
-	if index > 0 {
-		guidbase, find := tbl.TGuideBase.TGuideById[int32(index)]
-		if find == true && guidbase.FinishFlag == 1 && guidbase.Group == int32(step) {
-			gold := guidbase.Reward
-			this.AddGold(uint32(gold), "引导奖励", true)
-		}
-	}
-	return true
-}
-
-func (this *GateUser) SetRobCountResumeTime(t int64, syn bool) {
-	this.tmaddrobcount = t
-	if syn {
-		this.NotifyRobCountResumeTime()
-	}
-}
-
-func (this *GateUser) GetStrength() uint32 {
-	return this.robcount
-}
-
-// 增加体力
-func (this *GateUser) AddStrength(count uint32, reason string, syn bool) {
-	if this.IsRobCountFull() {
-		return
-	}
-
-	this.robcount += count
-	if this.IsRobCountFull() {
-		this.robcount = uint32(tbl.Game.MaxRobCount)
-	}
-
-	if this.IsRobCountFull() {
-		this.SetRobCountResumeTime(0, true)
-	}
-
-	if syn {
-		this.NotifyRobCount()
-	}
-	log.Info("玩家[%d] 添加体力[%d] 库存[%d] 原因[%s]", this.Id(), count, this.GetStrength(), reason)
-}
-
-// 扣除体力
-func (this *GateUser) RemoveStrength(count uint32, reason string, syn bool) {
-	active := this.IsRobCountFull()
-	if this.robcount >= count {
-		this.robcount -= count
-	}else {
-		this.robcount = 0
-	}
-
-	if active { 
-		this.SetRobCountResumeTime(util.CURTIME() + 3600, true) 
-	}
-
-	if syn {
-		this.NotifyRobCount()
-	}
-	log.Info("玩家[%d] 扣除体力[%d] 库存[%d] 原因[%s]", this.Id(), count, this.GetStrength(), reason)
-}
-
-func (this *GateUser) IsRobCountFull() bool {
-	return this.robcount >= 20
 }
 
 func (this *GateUser) SendMsg(msg pb.Message) {
@@ -609,9 +440,6 @@ func (this *GateUser) OnLoadDB(way string) {
 	if this.bin.Base == nil {
 		this.bin.Base = &msg.UserBase{}
 	}
-	if this.bin.Base.Scounter == nil {
-		this.bin.Base.Scounter = &msg.SimpleCounter{}
-	}
 	if this.bin.Base.Wechat == nil {
 		this.bin.Base.Wechat = &msg.UserWechat{}
 	}
@@ -620,9 +448,6 @@ func (this *GateUser) OnLoadDB(way string) {
 	}
 	if this.bin.Base.Addrlist == nil {
 		this.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
-	}
-	if this.bin.Base.Freepresent == nil {
-		this.bin.Base.Freepresent = &msg.FreePresentMoney{}
 	}
 	if this.bin.Base.Task == nil {
 		this.bin.Base.Task = &msg.UserTask{}
@@ -656,7 +481,6 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	//bin.Base.Scounter = &msg.SimpleCounter{}
 	//bin.Base.Wechat = &msg.UserWechat{}
 	//bin.Base.Addrlist = make([]*msg.UserAddress,0)
-	//bin.Base.Freepresent = &msg.FreePresentMoney{}
 
 	userbase := bin.GetBase()
 	userbase.Tmlogin = pb.Int64(this.tm_login)
@@ -671,21 +495,9 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase.Signreward = pb.Uint32(this.signreward)
 	userbase.Signtime = pb.Uint32(this.signtime)
 	userbase.Addrlist = this.addrlist[:]
-	userbase.GetScounter().Freestep = pb.Int32(this.freestep)
-	userbase.GetScounter().Givestep = pb.Int64(this.givestep)
 	userbase.Wechat.Openid = pb.String(this.wechatopenid)
-	userbase.GetFreepresent().Count = pb.Int32(this.presentcount)
-	userbase.GetFreepresent().Tmrecord = pb.Int64(this.presentrecord)
 	userbase.Invitationcode = pb.String(this.invitationcode)
 	userbase.TotalRecharge = pb.Uint32(this.totalrecharge)
-	userbase.Newplayerstep = pb.Uint32(this.newplayerstep)
-	userbase.Robcount = pb.Uint32(this.robcount)
-	userbase.Tmaddrobcount = pb.Int64(this.tmaddrobcount)
-	userbase.Age = pb.Uint32(this.age)
-	userbase.Constellation = pb.Uint32(this.constellation)
-	userbase.Sign = pb.String(this.sign)
-	userbase.Baseprovince = pb.Uint32(this.baseprovince)
-	userbase.Basecity = pb.Uint32(this.basecity)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -722,21 +534,9 @@ func (this *GateUser) LoadBin() {
 	this.signreward = userbase.GetSignreward()
 	this.signtime = userbase.GetSigntime()
 	this.addrlist = userbase.GetAddrlist()[:]
-	this.freestep = userbase.GetScounter().GetFreestep()
-	this.givestep = userbase.GetScounter().GetGivestep()
 	this.wechatopenid = userbase.GetWechat().GetOpenid()
-	this.presentcount = userbase.GetFreepresent().GetCount()
-	this.presentrecord = userbase.GetFreepresent().GetTmrecord()
 	this.invitationcode = userbase.GetInvitationcode()
 	this.totalrecharge = userbase.GetTotalRecharge()
-	this.newplayerstep = userbase.GetNewplayerstep()
-	this.robcount = userbase.GetRobcount()
-	this.tmaddrobcount = userbase.GetTmaddrobcount()
-	this.age = userbase.GetAge()
-	this.constellation = userbase.GetConstellation()
-	this.sign = userbase.GetSign()
-	this.baseprovince = userbase.GetBaseprovince()
-	this.basecity = userbase.GetBasecity()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -777,13 +577,6 @@ func (this *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (this *GateUser) OnCreateNew() {
-	houseData := HouseSvrMgr().CreateNewHouse(this, 1001, 0, 0, 0, 0)
-
-	if houseData != nil {
-		CarMgr().CreateNewCar(this.Id(), 1001, this.Name(),1000)
-		CarMgr().CreateNewParking(this.Id(), 1002, this.Name(), houseData.id)
-		MaidMgr().CreateNewMaid(this.Id(), this.Name(), houseData.id)
-	}
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -807,20 +600,14 @@ func (this *GateUser) Online(session network.IBaseNetSession) bool {
 	this.roomdata.Reset()
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功", this.Sid(), this.account, this.Id(), this.Name())
 
-	// 免费赠送钻石
-	this.CheckFreePresentDiamond(false)
-
 	// 上线任务检查
 	this.OnlineTaskCheck()
 	this.events.Online()
 
 	// 同步数据到客户端
 	this.Syn()
-	this.SyncTimeStamp()
 	// 同步midas平台充值金额
 	//this.SynMidasBalance()
-	this.ReqMatchHouseData()
-	this.CheckAddStrength()
 	return true
 }
 
@@ -830,10 +617,6 @@ func (this *GateUser) Syn() {
 	//this.CheckGiveFreeStep(util.CURTIME(), "上线跨整点")
 	this.CheckHaveCompensation()
 	this.SyncBigRewardPickNum()
-	this.SynCarData()
-	this.SynParkingData()
-	this.SynParkingRecord()
-	MaidMgr().SendUserMaids(this)
 	//this.QueryPlatformCoins()
 	//this.TestItem()
 }
@@ -1187,7 +970,6 @@ func (this *GateUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 		recharge := uint32(amt_save) - this.TotalRecharge()
 		this.SetTotalRecharge(uint32(amt_save))
 		this.AddDiamond(recharge, "充值获得", true)
-		this.SetDiamondCost(this.GetDiamondCost() + int64(recharge))
 	}
 }
 
@@ -1225,122 +1007,3 @@ func (this *GateUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount
 	}
 }
 
-func (this *GateUser) SyncTimeStamp() {
-	now := util.CURTIME()
-	send := &msg.GW2C_NotifyTimeStamp{}
-	send.Timestamp = pb.Uint64(uint64(now))
-	this.SendMsg(send)
-}
-
-func (this *GateUser) CheckAddStrength() {
-	now := util.CURTIME()
-	if !this.IsRobCountFull() && this.tmaddrobcount !=0 && now >= this.tmaddrobcount {
-		this.AddStrength(5, "自动回复", true)
-		if !this.IsRobCountFull() {
-			this.SetRobCountResumeTime(util.CURTIME() + 3600, true)
-		}else {
-			this.SetRobCountResumeTime(0, true)
-		}
-	}
-}
-
-func (this *GateUser) NotifyRobCount() {
-	send := &msg.GW2C_NotifyRobCount{Value:pb.Uint32(this.robcount)}
-	this.SendMsg(send)
-}
-
-func (this *GateUser) NotifyRobCountResumeTime() {
-	send := &msg.GW2C_NotifyAddRobCountTime{}
-	send.Time = pb.Int64(this.tmaddrobcount)
-	this.SendMsg(send)
-}
-
-func (this *GateUser) GetUserPos() (float32, float32){
-	return this.longitude, this.latitude
-}
-
-func (this *GateUser) SetUserPos(x,y float32, province,city uint32) {
-	if UserMgr().UpdateUserPos(this.Id(), x, y, province, city) == true {
-		//log.Info("玩家[%s] 设置位置 经度:%f  纬度:%f", this.Name(), x, y)
-		this.longitude = x
-		this.latitude = y
-		this.province = province
-		this.city = city
-	}
-}
-//获取玩家定位的所属行政区
-func (this *GateUser) GetUserCanton() (uint32, uint32){
-	return this.province, this.city
-}
-
-func (this *GateUser) AckNearUsersData(lng, lat float32) {
-	send := &msg.GW2C_AckNearUsers{}
-	data := UserMgr().GetNearUsers(lng, lat)
-	max := 0
-	for _, v := range data {
-		tmp := &msg.PersonSocialInfo{}
-		tmp.Id = pb.Uint64(v.Id())
-		tmp.Face = pb.String(v.Face())
-		tmp.Name = pb.String(v.Name())
-		tmp.Sex = pb.Int32(v.Sex())
-		tmp.Level = pb.Uint32(v.Level()) 
-		tmp.Age = pb.Uint32(v.Age())  
-		tmp.Constellation = pb.Uint32(v.Constellation())
-		tmp.Lng = pb.Float32(v.longitude)
-		tmp.Lat = pb.Float32(v.latitude)
-		tmp.Sign = pb.String(v.Sign())
-		tmp.Province = pb.Uint32(v.baseprovince)
-		tmp.City = pb.Uint32(v.basecity)
-		send.Data = append(send.Data, tmp)
-		max = max + 1
-		if max >= 10 {
-			break
-		}
-	}
-	this.SendMsg(send)
-}
-
-//同步客户端玩家key-value 型数据
-func (this *GateUser) UpdataUserInfoByType (key uint32) {
-	send := &msg.GW2C_UpdateUserDataByKey{}
-	send.Key = pb.Uint32(key)
-	switch key {
-		case uint32(msg.UserInfoType_Name):
-			send.Valuestring = pb.String(this.Name())
-			break
-		case uint32(msg.UserInfoType_UserSex):
-			send.Valueint = pb.Uint64(uint64(this.Sex()))
-			break
-		case uint32(msg.UserInfoType_Age):
-			send.Valueint = pb.Uint64(uint64(this.Age()))
-			break
-		case uint32(msg.UserInfoType_Sign):
-			send.Valuestring = pb.String(this.Sign())
-			break
-		case uint32(msg.UserInfoType_Constellation):
-			send.Valueint = pb.Uint64(uint64(this.Constellation()))
-			break
-		case uint32(msg.UserInfoType_Face):
-			send.Valuestring = pb.String(this.Face())
-			break
-		case uint32(msg.UserInfoType_Baseprovince):
-			send.Valueint = pb.Uint64(uint64(this.Baseprovince()))
-			break
-		case uint32(msg.UserInfoType_Basecity):
-			send.Valueint = pb.Uint64(uint64(this.Basecity()))
-			break
-		case uint32(msg.UserInfoType_Level):
-			send.Valueint = pb.Uint64(uint64(this.Level()))
-			break
-		case uint32(msg.UserInfoType_Exp):
-			send.Valueint = pb.Uint64(uint64(this.Exp()))
-			break
-		case uint32(msg.UserInfoType_NewPlayerStep):
-			send.Valueint = pb.Uint64(uint64(this.NewPlayerStep()))
-			break
-		default:
-			log.Error("UpdataUserInfoByType 无效key:[%d]", key)
-			return
-	}
-	this.SendMsg(send)
-}
