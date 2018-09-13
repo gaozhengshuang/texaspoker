@@ -48,12 +48,6 @@ const (
 // --------------------------------------------------------------------------
 type TanTanLe struct {
 	RoomBase
-
-	bulletid    int64
-	energy      int64
-	save_amt    int64
-	topscore    int64
-	freebullet  uint32
 	totalcost	int64	// 本局游戏总消耗
 }
 
