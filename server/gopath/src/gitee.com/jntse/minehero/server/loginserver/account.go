@@ -377,9 +377,6 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 		userinfo.Entity.Sex = pb.Int32(int32(msg.Sex_Female))
 		userinfo.Base.Wechat = &msg.UserWechat{Openid: pb.String(openid)}
-		userinfo.Base.Newplayerstep = pb.Uint32(0)
-		userinfo.Base.Robcount = pb.Uint32(20)
-		userinfo.Base.Tmaddrobcount = pb.Int64(0)
 		userkey := fmt.Sprintf("userbin_%d", userid)
 		log.Info("userinfo=%v", userinfo)
 		if err := utredis.SetProtoBin(Redis(), userkey, userinfo); err != nil {

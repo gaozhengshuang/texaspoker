@@ -77,32 +77,23 @@ func (this *TblLoader) ReloadJson() {
 func (this *TblLoader) Init() {
 
 	// load excels
-    this.LoadExcel(TaskBase, "taskbase.json")
-	this.LoadExcel(MusicBase, "music.json")
+    this.LoadExcel(GiftProBase, "giftprobase.json")
 	this.LoadExcel(RechargeBase, "recharge.json")
-	this.LoadExcel(TEquipBase, "equipbase.json")
 	this.LoadExcel(LevelBasee, "levelbase.json")
-	this.LoadExcel(TBirckItembase, "birckitem.json")
-	this.LoadExcel(TbirckInfobase, "birckinfobase.json")
+	this.LoadExcel(MapEventBase, "mapevent.json")
 	this.LoadExcel(SignBase, "signbase.json")
 	this.LoadExcel(ProtoMsgIndex, "proto_index.json")
-	this.LoadExcel(GiftProBase, "giftprobase.json")
-	this.LoadExcel(TSkillpBase, "skillbase.json")
+	this.LoadExcel(TaskBase, "taskbase.json")
 	this.LoadExcel(NameBase, "namebase.json")
-	this.LoadExcel(TBirckBase, "birckbase.json")
 	this.LoadExcel(TBallGiftbase, "ballgiftbase.json")
 	this.LoadExcel(NoticeBase, "noticebase.json")
-	this.LoadExcel(MapEventBase, "mapevent.json")
 	this.LoadExcel(ShopBase, "shopbase.json")
-	this.LoadExcel(TbirckRefreshbase, "birckrefreshbase.json")
-	this.LoadExcel(TBallBase, "ballbase.json")
 	this.LoadExcel(ItemBase, "itembase.json")
 	this.LoadExcel(MapEventRefreshBase, "mapeventrefresh.json")
 	
 
 	// load jsons
-    this.LoadJson(Car, "car.json")
-	this.LoadJson(Game, "game.json")
+    this.LoadJson(Game, "game.json")
 	this.LoadJson(Global, "global.json")
 	this.LoadJson(Room, "room.json")
 	this.LoadJson(Mysql, "mysql.json")

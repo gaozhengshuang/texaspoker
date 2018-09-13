@@ -148,88 +148,6 @@ func (this* GateUser) BuyItem(productid uint32, num uint32) {
 	;
 }
 
-// 购买服装
-func (this *GateUser) BuyClothes(ItemList []int32) {
-
-	// 检查是否已经购买过，计算总价
-	goldprice, diamondprice := int32(0), int32(0)
-	for _, id := range ItemList {
-		if item := this.bag.FindById(uint32(id)); item != nil {
-			this.SendNotify("购物车添加了已经购买过的服装")
-			log.Error("玩家[%s %d] 已经购买过服装[%s %d]", this.Name(), this.Id(), item.Name(), item.Id())
-			return
-		}
-		equip, find := tbl.TEquipBase.EquipById[id]
-		if find == false {
-			this.SendNotify("购买无效的服装")
-			log.Error("玩家[%s %d] 购买无效的服装[%d]", this.Name(), this.Id(), id)
-			return
-		}
-
-		//
-		if equip.Pos != int32(msg.ItemPos_Suit) && equip.SuitId != 0 {
-			this.SendNotify("套装配件不能单独购买")
-			return
-		}
-
-		if equip.CoinType == int32(msg.MoneyType__Gold) {
-			goldprice += equip.Price
-		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
-			diamondprice += equip.Price
-		}else {
-			log.Error("玩家[%s %d] 购买的服装[%d]，无效的货币类型[%d]", this.Name(), this.Id(), id, equip.CoinType)
-			return
-		}
-	}
-
-	// 
-	if int32(this.GetGold()) < goldprice {
-		this.SendNotify("金币不足")
-		return
-	}
-
-	if int32(this.GetDiamond()) < diamondprice {
-		this.SendNotify("钻石不足")
-		return
-	}
-
-	//
-	for _, id := range ItemList {
-		equip, _ := tbl.TEquipBase.EquipById[id]
-		if equip.CoinType == int32(msg.MoneyType__Gold) {
-			this.RemoveGold(uint32(equip.Price), "购买服装", true)
-		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
-			this.RemoveDiamond(uint32(equip.Price), "购买服装", true)
-		}
-		this.AddItem(uint32(id), 1, "购买服装", true)
-	}
-
-	this.SendNotify("购买成功")
-
-}
-
-
-// 道具换元宝
-//func (this *GateUser) SellBagItem(itemid, num uint32) {
-//	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
-//	if ok == false {
-//		log.Error("[道具换元宝] 玩家[%s %d] 无效的道具[%d]", this.Name(), this.Id(), itemid)
-//		return
-//	}
-//
-//	have := this.bag.GetItemNum(itemid)
-//	if have < num {
-//		this.SendNotify("道具数量不足")
-//		return
-//	}
-//	this.RemoveItem(itemid, num, "出售道具");
-//
-//	//
-//	yuanbao := uint32(item.Sold) * num		// 价值，元宝
-//	this.AddYuanbao(yuanbao, "出售道具", true)
-//	this.SendNotify("出售成功")
-//}
-
 // 使用道具
 func (this* GateUser) UseItem(itemid , num uint32) {
 	have := this.bag.GetItemNum(itemid)
@@ -251,77 +169,6 @@ func (this* GateUser) CheckEnoughItems(info map[uint32] uint32) bool {
 	}
 	return true
 }
-
-
-//// 提钻石
-//func (this *GateUser) DeliveryDiamond(list []*msg.DeliveryGoods, token string) {
-//
-//	var diamondNum, partsNum uint32 = 0, 0
-//	for _, item := range list {
-//
-//		base, ok := tbl.ItemBase.ItemBaseDataById[item.GetItemid()]
-//		if ok == false { 
-//			this.SendNotify("存在无效的道具")
-//			return
-//		}
-//
-//		if item.GetNum() == 0 {
-//			this.SendNotify("提取数量不能是0")
-//			return
-//		}
-//
-//		if base.Id == uint32(msg.ItemId_RedDiamond) {
-//			diamondNum += item.GetNum()
-//		}else if base.Id == uint32(msg.ItemId_RedDiamondParts) {
-//			partsNum += item.GetNum()
-//		}else {
-//			this.SendNotify("只能提取钻石道具")
-//			return
-//		}
-//
-//		if this.bag.GetItemNum(item.GetItemid()) < item.GetNum()  {
-//			this.SendNotify("提钻石失败，道具数量不足")
-//			log.Error("[提钻石] 玩家[%s %d] 提钻石[%d] 数量[%d]，道具数量不足", this.Name(), this.Id(), item.GetItemid(), item.GetNum())
-//			return
-//		}
-//	}
-//
-//	// 扣除钻石
-//	//if diamondNum > 0 { this.RemoveItem(uint32(msg.ItemId_Diamond), diamondNum, "提取钻石") }
-//
-//	// 碎片转换钻石
-//	convertDiamond, remainParts := uint32(0), partsNum
-//	for remainParts >= uint32(tbl.Room.DiamondpartsToDiamond) {
-//		convertDiamond += 1
-//		remainParts -= uint32(tbl.Room.DiamondpartsToDiamond)
-//	}
-//	//if partsNum - remainParts > 0 { this.RemoveItem(uint32(msg.ItemId_DiamondParts), partsNum - remainParts, "提取碎片") }
-//
-//
-//	totalNum := diamondNum + convertDiamond
-//	if totalNum <= 0 {
-//		this.SendNotify(fmt.Sprintf("钻石券不足%d个，无法提取", tbl.Room.DiamondpartsToDiamond))
-//		return
-//	}
-//
-//	// Http请求
-//	if def.HttpRequestIncrDiamonds(this.Id(), token, this.Account(), int32(totalNum), "提取钻石") == true {
-//		// 扣除钻石和碎片
-//		if diamondNum > 0 { this.RemoveItem(uint32(msg.ItemId_Diamond), diamondNum, "提取钻石") }
-//		if partsNum - remainParts > 0 { this.RemoveItem(uint32(msg.ItemId_RedDiamondParts), partsNum - remainParts, "提取碎片") }
-//
-//		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), totalNum, 0, "提取钻石")
-//		send := &msg.GW2C_RetDeliveryDiamond{}
-//		send.Diamond = pb.Int32(int32(diamondNum))
-//		send.Diamondparts = pb.Int32(int32(partsNum - remainParts))
-//		send.Total = pb.Int32(int32(totalNum))
-//		this.SendMsg(send)
-//	}else {
-//		log.Info("玩家[%s %d] 提取钻石异常，消耗钻石%d个，卷%d个", this.Name(), this.Id(), diamondNum, partsNum-remainParts)
-//		this.SendNotify("提取钻石暂不可用，请稍后再试")
-//	}
-//
-//}
 
 // 提货
 func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
@@ -607,7 +454,6 @@ func (this *GateUser) LuckyDraw() {
 		}
 	}
 
-	//
 	//for k ,v := range tbl.TBallGiftbase.TBallGiftById {
 	//	giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
 	//}
@@ -673,41 +519,5 @@ func (this *GateUser) AddExp(num uint32, reason string) {
 // 升级
 func (this *GateUser) OnLevelUp() {
 	this.AddLevel(1)
-}
-
-// 合成时装
-func (this *GateUser) MakeClothes(debris uint32) {
-	base, ok := tbl.ItemBase.ItemBaseDataById[debris]
-	if ok == false {
-		log.Error("[时装] 玩家[%s %d] 使用了不存在的道具", this.Name(), this.Id())
-		return
-	}
-
-	if base.Type != int32(msg.ItemType_ClothesParts) || base.Clothes == 0 {
-		log.Error("[时装] 玩家[%s %d] 合成使用的不是时装碎片")
-		return
-	}
-
-	clothebase, ok := tbl.TEquipBase.EquipById[int32(base.Clothes)]
-	if ok == false {
-		log.Error("[时装] 玩家[%s %d] 合成无效的时装")
-		return
-	}
-
-	if clothebase.DebrisId != debris {
-		log.Error("[时装] 玩家[%s %d] 合成时装异常，时装表和道具表不匹配")
-		return
-	}
-
-	if this.bag.GetItemNum(debris) < clothebase.DebrisNum {
-		this.SendNotify("碎片不足")
-		log.Error("[时装] 玩家[%s %d] 合成时装失败，碎片[%d]不足", debris)
-		return
-	}
-
-	this.RemoveItem(debris, clothebase.DebrisNum, "合成时装")
-	this.AddItem(uint32(clothebase.Id), 1, "合成时装", true)
-	//this.SendNotify("合成时装成功")
-	return
 }
 

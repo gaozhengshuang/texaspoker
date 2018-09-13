@@ -327,49 +327,11 @@ func (this *User) ChangeDeliveryAddress() {
 	this.SendGateMsg(send)
 }
 
-// 购买服饰
-func (this *User) BuyClothes() {
-	send := &msg.C2GW_BuyClothes{ItemList:make([]int32, 0)}
-	send.ItemList = append(send.ItemList, 101)
-	//send.ItemList = append(send.ItemList, 201)
-	//send.ItemList = append(send.ItemList, 701)
-	this.SendGateMsg(send)
-}
-
-// 穿戴
-func (this *User) DressClothes() {
-	send := &msg.C2GW_DressClothes{Pos:pb.Int32(1), Itemid:pb.Int32(101) }
-	this.SendGateMsg(send)
-}
-
-// 脱下
-func (this *User) UnDressClothes() {
-	send := &msg.C2GW_UnDressClothes{Pos:pb.Int32(1)}
-	this.SendGateMsg(send)
-}
-
 // 进入事件
 func (this *User) EnterEvent(uid uint64) {
 	send := &msg.C2GW_ReqEnterEvents{Uid:pb.Uint64(uid)}
 	this.SendGateMsg(send)
 }
-
-
-//func (this *User) ChangeSex() {
-//	newsex := int32(msg.Sex_Female)
-//	if this.Sex() == int32(msg.Sex_Female) { newsex = int32(msg.Sex_Male) }
-//	send := &msg.C2GW_ChangeImageSex{ Sex:pb.Int32(newsex) }
-//	this.SendGateMsg(send)
-//}
-
-
-//func (this *User) ReqMatch() {
-//	this.SendGateMsg(this.NewReqMatchMsg(int(msg.GameMode_Normal_1v1)))
-//}
-
-//func (this *User) CancelMatch() {
-//	this.SendGateMsg(this.NewCancelMatchMsg())
-//}
 
 func (this *User) DoInputCmd(cmd string) {
 	switch cmd {
@@ -397,14 +359,6 @@ func (this *User) DoInputCmd(cmd string) {
 		this.LuckyDraw()
 	case "address":
 		this.ChangeDeliveryAddress()
-	case "buyc":
-		this.BuyClothes()
-	case "dress":
-		this.DressClothes()
-	case "undress":
-		this.UnDressClothes()
-	case "sex":
-		//this.ChangeSex()
 	case "rechargedone":
 		this.RechargeDone()
 	case "event":
