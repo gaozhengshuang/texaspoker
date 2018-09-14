@@ -66,9 +66,9 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
 
 	// 游戏房间
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqStartGame{}, on_C2GW_ReqStartGame)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
+	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveGameRoom{}, on_BT_ReqLeaveGameRoom)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
@@ -101,12 +101,11 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2C_EnterGameEvent{})
 
 	// 游戏房间
-	this.msgparser.RegistSendProto(msg.GW2C_RetStartGame{})
+	this.msgparser.RegistSendProto(msg.GW2C_RetCreateRoom{})
 	this.msgparser.RegistSendProto(msg.BT_GameInit{})
 	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
 	this.msgparser.RegistSendProto(msg.BT_GameStart{})
 	this.msgparser.RegistSendProto(msg.BT_GameOver{})
-	this.msgparser.RegistSendProto(msg.BT_GameRoomDestroy{})
 }
 
 // 客户端心跳
@@ -151,8 +150,8 @@ func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{})
 	user.GetSignReward()
 }
 
-func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqStartGame)
+func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqCreateRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -161,13 +160,13 @@ func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 	gamekind := tmsg.GetGamekind()
-	if errcode := user.ReqStartGameRemote(gamekind); errcode != "" {
-		user.ReplyStartGame(errcode, 0)
+	if errcode := user.CreateRoomRemote(gamekind); errcode != "" {
+		user.ReplyCreateRoom(errcode, 0)
 	}
 
 	//gamekind, eventuid := tmsg.GetGamekind(), tmsg.GetEventuid()
 	//errcode := user.ReqStartGameLocal(gamekind, eventuid)
-	//user.ReplyStartGame(errcode, 0)
+	//user.ReplyCreateRoom(errcode, 0)
 }
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
@@ -199,8 +198,8 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	//room.UserEnter(userid, "")
 }
 
-func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqQuitGameRoom)
+func on_BT_ReqLeaveGameRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_ReqLeaveGameRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
 	user := ExtractSessionUser(session)
@@ -216,7 +215,7 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 	//roomid, userid := user.RoomId(), user.Id()
 	//room := RoomMgr().Find(roomid)
 	//if room == nil {
-	//	log.Error("BT_ReqQuitGameRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+	//	log.Error("BT_ReqLeaveGameRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 	//	return
 	//}
 	//room.UserLeave(userid, tmsg.GetGold())

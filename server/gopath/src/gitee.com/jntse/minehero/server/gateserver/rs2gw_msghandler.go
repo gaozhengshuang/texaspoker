@@ -47,7 +47,7 @@ func (this* RS2GWMsgHandler) Init() {
 
 	this.msgparser.RegistSendProto(msg.BT_UploadGameUser{})
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
-	this.msgparser.RegistSendProto(msg.BT_ReqQuitGameRoom{})
+	this.msgparser.RegistSendProto(msg.BT_ReqLeaveGameRoom{})
 
 	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
 	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
@@ -120,7 +120,6 @@ func on_BT_GameEnd(session network.IBaseNetSession, message interface{}) {
 		log.Error("房间[%d] BT_GameEnd 找不到玩家[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
 		return
 	}
-	if user.IsOnline() { user.SendMsg(&msg.BT_GameOver{Roomid:tmsg.Roomid}) }
 	user.OnGameEnd(tmsg.GetBin(), tmsg.GetReason())
 	log.Info("房间[%d] BT_GameEnd 游戏结束，Owner[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
 }

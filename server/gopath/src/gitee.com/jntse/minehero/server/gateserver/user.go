@@ -718,8 +718,8 @@ func (this *GateUser) SendRoomMsg(msg pb.Message) {
 }
 
 // 回复客户端
-func (this *GateUser) ReplyStartGame(err string, roomid int64) {
-	send := &msg.GW2C_RetStartGame{Errcode: pb.String(err), Roomid: pb.Int64(roomid)}
+func (this *GateUser) ReplyCreateRoom(err string, roomid int64) {
+	send := &msg.GW2C_RetCreateRoom{Errcode: pb.String(err), Roomid: pb.Int64(roomid)}
 	this.SendMsg(send)
 	if err != "" {
 		log.Info("玩家[%s %d] 开始游戏失败: roomid=%d errcode=%s", this.Name(), this.Id(), roomid, err)
@@ -727,7 +727,7 @@ func (this *GateUser) ReplyStartGame(err string, roomid int64) {
 }
 
 // 向match请求创建房间
-func (this *GateUser) ReqStartGameRemote(gamekind int32) (errcode string) {
+func (this *GateUser) CreateRoomRemote(gamekind int32) (errcode string) {
 
 	if Match() == nil {
 		log.Error("玩家[%s %d] 匹配服务器未连接", this.Name(), this.Id())
@@ -797,11 +797,10 @@ func (this *GateUser) StartGameFail(err string) {
 
 // 房间关闭
 func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
-
-	// 重置房间数据
-	send := &msg.BT_GameRoomDestroy{Roomid:pb.Int64(this.RoomId())}
-	this.SendMsg(send)
-
+	if this.IsOnline() { 
+		this.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(this.RoomId())}) 
+	}
+	
 	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", this.Name(), this.Id(), this.RoomId(), reason)
 	this.roomdata.Reset()
 

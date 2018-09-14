@@ -92,7 +92,7 @@ func on_MS2GW_RetCreateRoom(session network.IBaseNetSession, message interface{}
 		user.StartGameFail(err)
 	}
 
-	user.ReplyStartGame(err, roomid)
+	user.ReplyCreateRoom(err, roomid)
 }
 
 func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}) {

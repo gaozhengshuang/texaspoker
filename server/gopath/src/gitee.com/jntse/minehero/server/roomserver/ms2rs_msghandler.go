@@ -120,7 +120,6 @@ func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 	rmsg := &msg.RS2MS_RetCreateRoom{ Roomid : tmsg.Roomid , Errcode: pb.String(errcode), Userid: tmsg.Userid, Sidgate: tmsg.Sidgate}
 	session.SendCmd(rmsg)
 	if errcode != "" { log.Error(errcode) }
-
 }
 
 //
