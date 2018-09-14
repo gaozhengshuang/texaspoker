@@ -234,3 +234,11 @@ func (this *TanTanLe) GateLeave(sid int) {
 	log.Info("房间[%d] Owner[%d] 网关断开连接Sid[%d]", this.id, this.ownerid, sid)
 }
 
+// 棋牌类站起
+func (this *TanTanLe) UserStandUp(userid uint64) {
+}
+
+// 棋牌类坐下
+func (this *TanTanLe) UserSitDown(userid uint64) {
+}
+

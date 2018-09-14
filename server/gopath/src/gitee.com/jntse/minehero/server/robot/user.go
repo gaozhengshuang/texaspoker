@@ -281,11 +281,11 @@ func (this *User) HttpWetchatLogin() {
 
 
 func (this *User) StartGame() {
-	this.SendGateMsg(&msg.C2GW_ReqStartGame{Gamekind:pb.Int32(0)})
+	this.SendGateMsg(&msg.C2GW_ReqCreateRoom{Gamekind:pb.Int32(0)})
 }
 
 func (this *User) LeaveGame() {
-	this.SendGateMsg(&msg.BT_ReqQuitGameRoom{})
+	this.SendGateMsg(&msg.BT_ReqLeaveGameRoom{})
 }
 
 //func (this *User) JumpStep() {

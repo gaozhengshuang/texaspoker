@@ -37,7 +37,7 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2RS_RetRegist{}, on_GW2RS_RetRegist)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UserDisconnect{}, on_GW2RS_UserDisconnect)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_MsgTransfer{}, on_GW2RS_MsgTransfer)
-	this.msgparser.RegistProtoMsg(msg.BT_UploadGameUser{}, on_BT_UploadGameUser)
+	this.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveGameRoom{}, on_BT_ReqLeaveGameRoom)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
@@ -110,8 +110,8 @@ func on_GW2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) 
 	//log.Info("msg=%v", protomsg)
 }
 
-func on_BT_UploadGameUser(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UploadGameUser)
+func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2RS_UploadUserBin)
 	roomid := tmsg.GetRoomid()
 	room := RoomMgr().Find(roomid)
 	if room == nil {

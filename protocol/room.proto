@@ -1,5 +1,6 @@
 syntax = "proto2";
 package msg;
+import "serialize.proto";
 
 // 请求开始游戏(开房间)
 message C2GW_ReqCreateRoom {
@@ -31,6 +32,12 @@ message RS2MS_RetCreateRoom {
 // 通知删除房间
 message RS2MS_DeleteRoom {
     optional int64 roomid = 1;
+}
+
+// G2R 发送个人信息到游戏房间
+message GW2RS_UploadUserBin   {
+    optional int64 roomid = 1;
+    optional msg.Serialize bin = 2;     // TODO: 玩家数据没必要全部发送
 }
 
 

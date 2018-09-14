@@ -5,13 +5,8 @@ syntax = "proto2";
 import "serialize.proto";
 package msg;
 
-// G2R 发送个人信息到游戏房间
-message BT_UploadGameUser   {
-    optional int64 roomid = 1;
-    optional msg.Serialize bin = 2;     // TODO: 玩家数据没必要全部发送
-}
 
-// C2R 房间存在，直接进入房间, 客户端参数留空
+// C2R 进入创建好的房间, 客户端参数留空
 message BT_ReqEnterRoom {
     optional int64 roomid = 1;
     optional uint64 userid = 2;

@@ -36,7 +36,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_HeartBeat{}, on_GW2C_HeartBeat)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetStartGame{}, on_GW2C_RetStartGame)
+	this.msgparser.RegistProtoMsg(msg.GW2C_RetCreateRoom{}, on_GW2C_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.GW2C_AddPackageItem{}, on_GW2C_AddPackageItem)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RemovePackageItem{}, on_GW2C_RemovePackageItem)
 	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateYuanbao{}, on_GW2C_UpdateYuanbao)
@@ -57,7 +57,7 @@ func (this* GW2CMsgHandler) Init() {
 	// 发
 	this.msgparser.RegistSendProto(msg.C2GW_ReqLogin{})
 	this.msgparser.RegistSendProto(msg.C2GW_HeartBeat{})
-	this.msgparser.RegistSendProto(msg.C2GW_ReqStartGame{})
+	this.msgparser.RegistSendProto(msg.C2GW_ReqCreateRoom{})
 	this.msgparser.RegistSendProto(msg.C2GW_BuyItem{})
 	this.msgparser.RegistSendProto(msg.C2GW_ReqRechargeMoney{})
 	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
@@ -69,7 +69,7 @@ func (this* GW2CMsgHandler) Init() {
 
 	// 发room消息
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
-	this.msgparser.RegistSendProto(msg.BT_ReqQuitGameRoom{})
+	this.msgparser.RegistSendProto(msg.BT_ReqLeaveGameRoom{})
 
 }
 
@@ -128,8 +128,8 @@ func on_GW2C_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	//}
 }
 
-func on_GW2C_RetStartGame(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_RetStartGame)
+func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_RetCreateRoom)
 	log.Info(reflect.TypeOf(tmsg).String())
 
 	client, ok := session.UserDefData().(*User)

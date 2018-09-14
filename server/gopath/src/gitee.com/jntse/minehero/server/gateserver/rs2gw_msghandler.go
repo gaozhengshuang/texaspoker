@@ -44,8 +44,8 @@ func (this* RS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2RS_RetRegist{})
 	this.msgparser.RegistSendProto(msg.GW2RS_UserDisconnect{})
 	this.msgparser.RegistSendProto(msg.GW2RS_MsgTransfer{})
+	this.msgparser.RegistSendProto(msg.GW2RS_UploadUserBin{})
 
-	this.msgparser.RegistSendProto(msg.BT_UploadGameUser{})
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
 	this.msgparser.RegistSendProto(msg.BT_ReqLeaveGameRoom{})
 

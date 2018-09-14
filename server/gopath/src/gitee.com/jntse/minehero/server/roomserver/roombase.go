@@ -24,6 +24,8 @@ type IRoomBase interface {
 	UserEnter(userid uint64, token string)
 	UserLeave(userid uint64, money uint32)
 	UserDisconnect(userid uint64)
+	UserStandUp(userid uint64)		// 棋牌类站起
+	UserSitDown(userid uint64)		// 棋牌类坐下
 }
 
 

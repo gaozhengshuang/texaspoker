@@ -782,9 +782,7 @@ func (this *GateUser) StartGameOk(servername string, roomid int64) {
 	this.roomdata.sid_room = agent.Id()
 
 	// TODO: 将个人信息上传到Room
-	send := &msg.BT_UploadGameUser{}
-	send.Roomid = pb.Int64(roomid)
-	send.Bin = this.PackBin()
+	send := &msg.GW2RS_UploadUserBin{Roomid:pb.Int64(roomid), Bin:this.PackBin()}
 	agent.SendMsg(send)
 
 	log.Info("玩家[%s %d] 创建房间[%d]成功 向RS上传玩家个人数据 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
