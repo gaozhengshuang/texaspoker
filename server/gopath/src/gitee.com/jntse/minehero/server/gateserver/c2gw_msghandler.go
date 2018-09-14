@@ -106,6 +106,7 @@ func (this *C2GWMsgHandler) Init() {
 	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
 	this.msgparser.RegistSendProto(msg.BT_GameStart{})
 	this.msgparser.RegistSendProto(msg.BT_GameOver{})
+	this.msgparser.RegistSendProto(msg.BT_GameRoomDestroy{})
 }
 
 // 客户端心跳
