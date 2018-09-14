@@ -34,6 +34,7 @@ func (this *Robot) NetConf() *network.NetConf {
 }
 
 func (this *Robot) InitMsgHandler() {
+	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
 	this.msghandlers = append(this.msghandlers, NewGW2CMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewLS2CMsgHandler())
 }

@@ -14,7 +14,8 @@ import (
 //}
 
 type LS2CMsgHandler struct {
-	msgparser *network.ProtoParser
+	//msgparser *network.ProtoParser
+	msgparser network.IBaseParser
 }
 
 func NewLS2CMsgHandler() *LS2CMsgHandler {
@@ -31,15 +32,15 @@ func (this* LS2CMsgHandler) Init() {
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.L2C_RetLogin{}, on_L2C_RetLogin)
-	this.msgparser.RegistProtoMsg(msg.L2C_RetRegistAccount{}, on_L2C_RetRegistAccount)
+	this.msgparser.RegistRecvMsg(msg.L2C_RetLogin{}, on_L2C_RetLogin)
+	this.msgparser.RegistRecvMsg(msg.L2C_RetRegistAccount{}, on_L2C_RetRegistAccount)
 
 
 	// 发
-	this.msgparser.RegistSendProto(msg.C2L_ReqLogin{})
-	this.msgparser.RegistSendProto(msg.C2L_ReqLoginWechat{})
-	this.msgparser.RegistSendProto(msg.C2L_ReqRegistAccount{})
-	this.msgparser.RegistSendProto(msg.C2L_ReqRegistAuthCode{})
+	//this.msgparser.RegistSendMsg(msg.C2L_ReqLogin{})
+	//this.msgparser.RegistSendMsg(msg.C2L_ReqLoginWechat{})
+	//this.msgparser.RegistSendMsg(msg.C2L_ReqRegistAccount{})
+	//this.msgparser.RegistSendMsg(msg.C2L_ReqRegistAuthCode{})
 }
 
 func on_L2C_RetLogin(session network.IBaseNetSession, message interface{}) {

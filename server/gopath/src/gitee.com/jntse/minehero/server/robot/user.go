@@ -285,7 +285,7 @@ func (this *User) StartGame() {
 }
 
 func (this *User) LeaveGame() {
-	this.SendGateMsg(&msg.BT_ReqLeaveGameRoom{})
+	this.SendGateMsg(&msg.BT_ReqLeaveRoom{})
 }
 
 //func (this *User) JumpStep() {

@@ -55,21 +55,21 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
 	
 	// 发
-	this.msgparser.RegistSendProto(msg.C2GW_ReqLogin{})
-	this.msgparser.RegistSendProto(msg.C2GW_HeartBeat{})
-	this.msgparser.RegistSendProto(msg.C2GW_ReqCreateRoom{})
-	this.msgparser.RegistSendProto(msg.C2GW_BuyItem{})
-	this.msgparser.RegistSendProto(msg.C2GW_ReqRechargeMoney{})
-	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
-	this.msgparser.RegistSendProto(msg.C2GW_ReqDeliveryGoods{})
-	this.msgparser.RegistSendProto(msg.C2GW_ChangeDeliveryAddress{})
-	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
-	this.msgparser.RegistSendProto(msg.C2GW_ReqEnterEvents{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_ReqLogin{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_HeartBeat{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_ReqCreateRoom{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_BuyItem{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_ReqRechargeMoney{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_StartLuckyDraw{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_ReqDeliveryGoods{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_ChangeDeliveryAddress{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_PlatformRechargeDone{})
+	//this.msgparser.RegistSendMsg(msg.C2GW_ReqEnterEvents{})
 
 
-	// 发room消息
-	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
-	this.msgparser.RegistSendProto(msg.BT_ReqLeaveGameRoom{})
+	//// 发room消息
+	//this.msgparser.RegistSendMsg(msg.BT_ReqEnterRoom{})
+	//this.msgparser.RegistSendMsg(msg.BT_ReqLeaveRoom{})
 
 }
 
