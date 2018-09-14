@@ -68,7 +68,7 @@ func (this *C2GWMsgHandler) Init() {
 	// 游戏房间
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveGameRoom{}, on_BT_ReqLeaveGameRoom)
+	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
 
 	// 发
 	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
@@ -198,8 +198,8 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	//room.UserEnter(userid, "")
 }
 
-func on_BT_ReqLeaveGameRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqLeaveGameRoom)
+func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_ReqLeaveRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
 	user := ExtractSessionUser(session)
@@ -215,7 +215,7 @@ func on_BT_ReqLeaveGameRoom(session network.IBaseNetSession, message interface{}
 	//roomid, userid := user.RoomId(), user.Id()
 	//room := RoomMgr().Find(roomid)
 	//if room == nil {
-	//	log.Error("BT_ReqLeaveGameRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+	//	log.Error("BT_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 	//	return
 	//}
 	//room.UserLeave(userid, tmsg.GetGold())

@@ -47,7 +47,7 @@ func (this* RS2GWMsgHandler) Init() {
 	this.msgparser.RegistSendProto(msg.GW2RS_UploadUserBin{})
 
 	this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
-	this.msgparser.RegistSendProto(msg.BT_ReqLeaveGameRoom{})
+	this.msgparser.RegistSendProto(msg.BT_ReqLeaveRoom{})
 
 	this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
 	this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})

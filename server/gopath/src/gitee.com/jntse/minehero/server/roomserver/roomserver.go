@@ -96,7 +96,7 @@ func Redis() *redis.Client {
 	return RoomSvr().hredis
 }
 
-func CMHandler() *ClientMsgHandler {
+func ClientMsgAgent() *ClientMsgHandler {
 	return RoomSvr().clienthandler
 }
 

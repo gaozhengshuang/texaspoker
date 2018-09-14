@@ -13,6 +13,13 @@ message BT_ReqEnterRoom {
     optional string token = 3;
 }
 
+// C2R 退出游戏房间
+message BT_ReqLeaveRoom {
+    optional int64 roomid = 1;
+    optional uint64 userid = 2;
+    optional uint32 gold = 3;
+}
+
 // R2C 房间初始化
 message BT_GameInit {
     optional int64  roomid = 1;
@@ -55,17 +62,5 @@ message BT_GameEnd {
 // G2C 通知客户端游戏结束
 message BT_GameOver {
     optional int64 roomid = 1;
-}
-
-// C2R 退出游戏房间
-message BT_ReqLeaveGameRoom {
-    optional int64 roomid = 1;
-    optional uint64 userid = 2;
-    optional uint32 gold = 3;
-}
-
-// C2R 从座位站起
-message BT_ReqStandUpFromSeat {
-    optional uint64 userid = 1;
 }
 
