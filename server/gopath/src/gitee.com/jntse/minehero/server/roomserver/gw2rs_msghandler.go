@@ -114,14 +114,14 @@ func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.BT_ReqEnterRoom)
-	roomid, userid, token := tmsg.GetRoomid(), tmsg.GetUserid(), tmsg.GetToken()
+	roomid, userid  := tmsg.GetRoomid(), tmsg.GetUserid()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
 		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
 
-	room.UserEnter(userid, token)
+	room.UserEnter(userid)
 }
 
 func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
@@ -132,7 +132,8 @@ func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 		log.Error("on_BT_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
-	room.UserLeave(userid, tmsg.GetGold())
+	//room.UserLeave(userid, tmsg.GetGold())
+	room.UserLeave(userid) 
 }
 
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {

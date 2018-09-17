@@ -21,8 +21,8 @@ type IRoomBase interface {
 	IsEnd(now int64) bool
 	OnEnd(now int64)
 	UserLoad(bin *msg.Serialize, session network.IBaseNetSession)
-	UserEnter(userid uint64, token string)
-	UserLeave(userid uint64, money uint32)
+	UserEnter(userid uint64)
+	UserLeave(userid uint64)
 	UserDisconnect(userid uint64)
 	UserStandUp(userid uint64)		// 棋牌类站起
 	UserSitDown(userid uint64)		// 棋牌类坐下
@@ -41,6 +41,14 @@ type RoomBase struct {
 	owner			*RoomUser
 	ownerid			uint64
 	close_reason	string	// 正常关闭房间的原因
+}
+
+func (r *RoomBase) Id() int64 {
+	return r.id
+}
+
+func (r *RoomBase) Kind() int32 {
+	return r.roomkind
 }
 
 func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {
