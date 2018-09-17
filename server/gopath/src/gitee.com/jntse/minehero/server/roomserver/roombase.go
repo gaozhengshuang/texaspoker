@@ -77,8 +77,8 @@ func (r *RoomBase) BroadCastMsg(m pb.Message, except ...uint64) {
 }
 
 func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {
-	switch roomkind {
-	case 0:		// 弹弹乐
+	switch msg.RoomKind(roomkind) {
+	case msg.RoomKind_TanTanLe:		// 弹弹乐
 		room := &TanTanLe{}
 		room.id = id
 		room.tm_create = util.CURTIME()
@@ -87,6 +87,8 @@ func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {
 		room.owner = nil
 		room.ownerid = ownerid
 		return room
+	case msg.RoomKind_TexasPoker:
+		return nil
 	default:
 		return nil
 	}

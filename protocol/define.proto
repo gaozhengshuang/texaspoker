@@ -113,3 +113,7 @@ enum UserInfoType {
 	NewPlayerStep = 11; //新手引导
 }
 
+enum RoomKind {
+    TanTanLe = 1;
+    TexasPoker = 2;
+}
