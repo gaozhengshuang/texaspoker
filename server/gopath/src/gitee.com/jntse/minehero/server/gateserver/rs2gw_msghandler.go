@@ -39,25 +39,6 @@ func (this* RS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
 	this.msgparser.RegistProtoMsg(msg.BT_GameEnd{}, on_BT_GameEnd)
-
-	//// 发
-	//this.msgparser.RegistSendProto(msg.GW2RS_RetRegist{})
-	//this.msgparser.RegistSendProto(msg.GW2RS_UserDisconnect{})
-	//this.msgparser.RegistSendProto(msg.GW2RS_MsgTransfer{})
-	//this.msgparser.RegistSendProto(msg.GW2RS_UploadUserBin{})
-
-	//this.msgparser.RegistSendProto(msg.BT_ReqEnterRoom{})
-	//this.msgparser.RegistSendProto(msg.BT_ReqLeaveRoom{})
-
-	//this.msgparser.RegistSendProto(msg.C2GW_StartLuckyDraw{})
-	//this.msgparser.RegistSendProto(msg.C2GW_PlatformRechargeDone{})
-	//this.msgparser.RegistSendProto(msg.C2GW_GoldExchange{})
-
-	////this.msgparser.RegistSendProto(msg.BT_ReqLaunchBullet{})
-	////this.msgparser.RegistSendProto(msg.BT_StepOnBomb{})
-	////this.msgparser.RegistSendProto(msg.BT_BulletEarnMoney{})
-	////this.msgparser.RegistSendProto(msg.BT_UseUltimateSkil{})
-	////this.msgparser.RegistSendProto(msg.BT_ReqCrushSuperBrick{})
 }
 
 func on_RS2GW_ReqRegist(session network.IBaseNetSession, message interface{}) {

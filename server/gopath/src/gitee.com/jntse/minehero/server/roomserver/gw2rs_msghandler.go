@@ -42,16 +42,6 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
-
-
-	//// 发
-	//this.msgparser.RegistSendProto(msg.RS2GW_ReqRegist{})
-	//this.msgparser.RegistSendProto(msg.RS2GW_RetUserDisconnect{})
-	//this.msgparser.RegistSendProto(msg.RS2GW_MsgTransfer{})
-	//this.msgparser.RegistSendProto(msg.BT_GameEnd{})
-
-	//// 发Gate
-	//this.msgparser.RegistSendProto(msg.GW2C_MsgNotify{})
 }
 
 func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {

@@ -53,24 +53,6 @@ func (this* GW2CMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.BT_SendBattleUser{}, on_BT_SendBattleUser)
 	this.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
 	this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
-	
-	// 发
-	//this.msgparser.RegistSendMsg(msg.C2GW_ReqLogin{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_HeartBeat{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_ReqCreateRoom{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_BuyItem{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_ReqRechargeMoney{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_StartLuckyDraw{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_ReqDeliveryGoods{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_ChangeDeliveryAddress{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_PlatformRechargeDone{})
-	//this.msgparser.RegistSendMsg(msg.C2GW_ReqEnterEvents{})
-
-
-	//// 发room消息
-	//this.msgparser.RegistSendMsg(msg.BT_ReqEnterRoom{})
-	//this.msgparser.RegistSendMsg(msg.BT_ReqLeaveRoom{})
-
 }
 
 func on_GW2C_UpdateDiamond(session network.IBaseNetSession, message interface{}) {

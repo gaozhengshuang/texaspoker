@@ -34,13 +34,6 @@ func (this* LS2CMsgHandler) Init() {
 	// 收
 	this.msgparser.RegistRecvMsg(msg.L2C_RetLogin{}, on_L2C_RetLogin)
 	this.msgparser.RegistRecvMsg(msg.L2C_RetRegistAccount{}, on_L2C_RetRegistAccount)
-
-
-	// 发
-	//this.msgparser.RegistSendMsg(msg.C2L_ReqLogin{})
-	//this.msgparser.RegistSendMsg(msg.C2L_ReqLoginWechat{})
-	//this.msgparser.RegistSendMsg(msg.C2L_ReqRegistAccount{})
-	//this.msgparser.RegistSendMsg(msg.C2L_ReqRegistAuthCode{})
 }
 
 func on_L2C_RetLogin(session network.IBaseNetSession, message interface{}) {
