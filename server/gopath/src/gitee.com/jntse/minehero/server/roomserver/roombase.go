@@ -16,7 +16,9 @@ type IRoomBase interface {
 	Init() string
 	Kind() int32
 	Tick(now int64)
-	SendMsg(msg pb.Message)
+	SendMsg(userid uint64, msg pb.Message)
+	SendClientMsg(userid uint64, msg pb.Message)
+	BroadCastMsg(msg pb.Message, except ...uint64)
 	IsStart() bool
 	IsEnd(now int64) bool
 	OnEnd(now int64)
@@ -40,6 +42,7 @@ type RoomBase struct {
 	roomkind		int32
 	owner			*RoomUser
 	ownerid			uint64
+	members			map[uint64]*RoomUser
 	close_reason	string	// 正常关闭房间的原因
 }
 
@@ -49,6 +52,28 @@ func (r *RoomBase) Id() int64 {
 
 func (r *RoomBase) Kind() int32 {
 	return r.roomkind
+}
+
+func (r *RoomBase) SendMsg(userid uint64, m pb.Message) {
+	if u, find := r.members[userid]; find == true {
+		u.SendMsg(m)
+	}
+}
+
+func (r *RoomBase) SendClientMsg(userid uint64, m pb.Message) {
+	if u, find := r.members[userid]; find == true {
+		u.SendClientMsg(m)
+	}
+}
+
+func (r *RoomBase) BroadCastMsg(m pb.Message, except ...uint64) {
+	memloop:
+	for id, u := range r.members {
+		for _, exc := range except {
+			if id == exc { continue memloop }
+		}
+		u.SendClientMsg(m)
+	}
 }
 
 func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {

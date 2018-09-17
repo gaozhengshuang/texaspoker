@@ -27,10 +27,7 @@ type TanTanLe struct {
 }
 
 func (this *TanTanLe) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
-func (this *TanTanLe) Id() int64 { return this.id }
-func (this *TanTanLe) Kind() int32 { return this.roomkind }
-
-func (this *TanTanLe) SendMsg(msg pb.Message) {
+func (this *TanTanLe) SendMsg(userid uint64, msg pb.Message) {
 	if this.owner == nil {
 		log.Error("房间[%d] Owner数据未初始化", this.id)
 		return
@@ -38,7 +35,7 @@ func (this *TanTanLe) SendMsg(msg pb.Message) {
 	this.owner.SendMsg(msg)
 }
 
-func (this *TanTanLe) SendClientMsg(msg pb.Message) {
+func (this *TanTanLe) SendClientMsg(userid uint64, msg pb.Message) {
 	if this.owner == nil {
 		log.Error("房间[%d] Owner数据未初始化", this.id)
 		return
@@ -133,7 +130,7 @@ func (this *TanTanLe) OnEnd(now int64) {
 	// 通知Gate删除房间，回传个人数据
 	msgend := &msg.BT_GameEnd { Roomid:pb.Int64(this.Id()) ,Ownerid:pb.Uint64(this.ownerid), Reason:pb.String(this.close_reason)}
 	if this.owner != nil { msgend.Bin = this.owner.PackBin() }
-	this.SendMsg(msgend)
+	this.SendMsg(0, msgend)
 
 
 	// 更新房间数量到redis
@@ -161,7 +158,7 @@ func (this *TanTanLe) OnStart() {
 		Ownerid:pb.Uint64(this.ownerid),
 		Gamekind:pb.Int32(this.Kind()), 
 	}
-	this.SendClientMsg(msginit)
+	this.SendClientMsg(0, msginit)
 
 
 	// 同步玩家数据
@@ -169,7 +166,7 @@ func (this *TanTanLe) OnStart() {
 
 	// 游戏开始
 	msgstart := &msg.BT_GameStart{Roomid:pb.Int64(this.Id()), Ownerid:pb.Uint64(this.ownerid)}
-	this.SendClientMsg(msgstart)
+	this.SendClientMsg(0, msgstart)
 }
 
 // 加载玩家

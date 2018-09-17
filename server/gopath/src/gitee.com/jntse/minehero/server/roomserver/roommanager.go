@@ -1,6 +1,6 @@
 package main
 import (
-	pb"github.com/gogo/protobuf/proto"
+	//pb"github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/log"
 	_"gitee.com/jntse/gotoolkit/util"
 )
@@ -51,11 +51,11 @@ func (this *RoomManager) Tick(now int64) {
 	}
 }
 
-func (this *RoomManager) BroadCast(msg pb.Message) {
-	for _, v := range this.rooms {
-		v.SendMsg(msg)
-	}
-}
+//func (this *RoomManager) BroadCast(msg pb.Message) {
+//	for _, v := range this.rooms {
+//		v.SendMsg(msg)
+//	}
+//}
 
 func (this *RoomManager) OnGateClose(sid int) {
 	//for _, v := range this.rooms {
