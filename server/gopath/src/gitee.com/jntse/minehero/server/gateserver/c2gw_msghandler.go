@@ -71,41 +71,41 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
 
 	// 发
-	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
-	this.msgparser.RegistSendProto(msg.GW2C_MsgNotice{})
-	this.msgparser.RegistSendProto(msg.GW2C_MsgNotify{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetLogin{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendUserInfo{})
-	this.msgparser.RegistSendProto(msg.GW2C_AddPackageItem{})
-	this.msgparser.RegistSendProto(msg.GW2C_RemovePackageItem{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateYuanbao{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateDiamond{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateGold{})
+	//this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
+	//this.msgparser.RegistSendProto(msg.GW2C_MsgNotice{})
+	//this.msgparser.RegistSendProto(msg.GW2C_MsgNotify{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RetLogin{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendUserInfo{})
+	//this.msgparser.RegistSendProto(msg.GW2C_AddPackageItem{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RemovePackageItem{})
+	//this.msgparser.RegistSendProto(msg.GW2C_UpdateYuanbao{})
+	//this.msgparser.RegistSendProto(msg.GW2C_UpdateDiamond{})
+	//this.msgparser.RegistSendProto(msg.GW2C_UpdateGold{})
 
-	// 杂项
-	this.msgparser.RegistSendProto(msg.GW2C_Ret7DayReward{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetRechargeMoney{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendTaskList{})
+	//// 杂项
+	//this.msgparser.RegistSendProto(msg.GW2C_Ret7DayReward{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RetRechargeMoney{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendTaskList{})
 
-	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
-	this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendDeliveryAddressList{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
+	//this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
+	//this.msgparser.RegistSendProto(msg.GW2C_SendDeliveryAddressList{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
+	//this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
 
-	// 地图事件
-	this.msgparser.RegistSendProto(msg.GW2C_SendUserEvents{})
-	this.msgparser.RegistSendProto(msg.GW2C_RemoveEvent{})
-	this.msgparser.RegistSendProto(msg.GW2C_EnterGameEvent{})
+	//// 地图事件
+	//this.msgparser.RegistSendProto(msg.GW2C_SendUserEvents{})
+	//this.msgparser.RegistSendProto(msg.GW2C_RemoveEvent{})
+	//this.msgparser.RegistSendProto(msg.GW2C_EnterGameEvent{})
 
-	// 游戏房间
-	this.msgparser.RegistSendProto(msg.GW2C_RetCreateRoom{})
-	this.msgparser.RegistSendProto(msg.BT_GameInit{})
-	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
-	this.msgparser.RegistSendProto(msg.BT_GameStart{})
-	this.msgparser.RegistSendProto(msg.BT_GameOver{})
+	//// 游戏房间
+	//this.msgparser.RegistSendProto(msg.GW2C_RetCreateRoom{})
+	//this.msgparser.RegistSendProto(msg.BT_GameInit{})
+	////this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
+	//this.msgparser.RegistSendProto(msg.BT_GameStart{})
+	//this.msgparser.RegistSendProto(msg.BT_GameOver{})
 }
 
 // 客户端心跳

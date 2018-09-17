@@ -45,12 +45,12 @@ func (this *MS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
 
 	// 发
-	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
-	this.msgparser.RegistSendProto(msg.GW2MS_HeartBeat{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqStartMatch{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqCancelMatch{})
-	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateRoom{})
-	this.msgparser.RegistSendProto(msg.GW2MS_MsgNotice{})
+	//this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
+	//this.msgparser.RegistSendProto(msg.GW2MS_HeartBeat{})
+	////this.msgparser.RegistSendProto(msg.GW2MS_ReqStartMatch{})
+	////this.msgparser.RegistSendProto(msg.GW2MS_ReqCancelMatch{})
+	//this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateRoom{})
+	//this.msgparser.RegistSendProto(msg.GW2MS_MsgNotice{})
 
 }
 
