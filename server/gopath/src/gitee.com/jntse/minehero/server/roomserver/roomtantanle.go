@@ -28,18 +28,10 @@ type TanTanLe struct {
 
 func (this *TanTanLe) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
 func (this *TanTanLe) SendMsg(userid uint64, msg pb.Message) {
-	if this.owner == nil {
-		log.Error("房间[%d] Owner数据未初始化", this.id)
-		return
-	}
 	this.owner.SendMsg(msg)
 }
 
 func (this *TanTanLe) SendClientMsg(userid uint64, msg pb.Message) {
-	if this.owner == nil {
-		log.Error("房间[%d] Owner数据未初始化", this.id)
-		return
-	}
 	this.owner.SendClientMsg(msg)
 }
 

@@ -16,9 +16,10 @@ type IRoomBase interface {
 	Init() string
 	Kind() int32
 	Tick(now int64)
-	SendMsg(userid uint64, msg pb.Message)
-	SendClientMsg(userid uint64, msg pb.Message)
-	BroadCastMsg(msg pb.Message, except ...uint64)
+	SendUserMsg(userid uint64, msg pb.Message)
+	SendGateMsg(userid uint64, msg pb.Message)
+	BroadCastUserMsg(msg pb.Message, except ...uint64)
+	BroadCastGateMsg(msg pb.Message, except ...uint64)
 	IsStart() bool
 	IsEnd(now int64) bool
 	OnEnd(now int64)
@@ -54,19 +55,29 @@ func (r *RoomBase) Kind() int32 {
 	return r.roomkind
 }
 
-func (r *RoomBase) SendMsg(userid uint64, m pb.Message) {
+func (r *RoomBase) SendGateMsg(userid uint64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {
 		u.SendMsg(m)
 	}
 }
 
-func (r *RoomBase) SendClientMsg(userid uint64, m pb.Message) {
+func (r *RoomBase) SendUserMsg(userid uint64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {
 		u.SendClientMsg(m)
 	}
 }
 
-func (r *RoomBase) BroadCastMsg(m pb.Message, except ...uint64) {
+func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...uint64) {
+	memloop:
+	for id, u := range r.members {
+		for _, exc := range except {
+			if id == exc { continue memloop }
+		}
+		u.SendMsg(m)
+	}
+}
+
+func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...uint64) {
 	memloop:
 	for id, u := range r.members {
 		for _, exc := range except {
