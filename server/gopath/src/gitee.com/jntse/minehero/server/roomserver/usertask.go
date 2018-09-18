@@ -70,7 +70,7 @@ func (this *UserTask) IsTaskFinish(id int32) bool {
 
 
 func (this *UserTask) GiveTaskReward(id int32) {
-	taskbase, find := tbl.TaskBase.TTaskById[uint32(id)]
+	taskbase, find := tbl.TaskBase.TTaskById[int32(id)]
 	if find == false {
 		log.Error("玩家[%s %d] 找不到任务配置[%d]", this.owner.Name(), this.owner.Id(), id)
 		return

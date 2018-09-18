@@ -159,7 +159,7 @@ func RequestUserHomeAddress(tvmid string, token string) ( receiver, phone, addre
 }
 
 // 请求充值
-func RequestRecharge(tvmid string, token string, user *GateUser, amount uint32) {
+func RequestRecharge(tvmid string, token string, user *GateUser, amount int32) {
 	if user == nil {
 		return
 	}

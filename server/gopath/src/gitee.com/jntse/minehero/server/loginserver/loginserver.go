@@ -332,16 +332,16 @@ func (this *LoginServer) AsynEventInsert(event eventque.IEvent) {
 }
 
 // 生成唯一userid
-func GenerateUserId() (userid uint64, errcode string ) {
+func GenerateUserId() (userid int64, errcode string ) {
 	key := "genuserid"
 	id, err := Redis().Incr(key).Result()
-	var idstart uint64 = 1000
+	var idstart int64 = 1000
 	if err != nil {
 		log.Error("生成userid redis报错, err: %s", err)
 		return 0, "redis不可用"
 	}
 
-	return idstart + uint64(id), ""
+	return idstart + int64(id), ""
 }
 
 

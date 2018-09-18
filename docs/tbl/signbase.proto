@@ -19,7 +19,7 @@ message TSignDefine
 {	
 	
 	
-	optional uint32 Id = 1; // 签到ID
+	optional int32 Id = 1; // 签到ID
 	
 	
 	optional int32 CostId = 2; // 花费ID

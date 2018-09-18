@@ -77,7 +77,7 @@ package main
 //}
 //
 //func (this *UserImage) DressClothes(pos int32, itemid int32) {
-//	newEquip := this.owner.bag.FindById(uint32(itemid))
+//	newEquip := this.owner.bag.FindById(int32(itemid))
 //	if newEquip == nil {
 //		this.owner.SendNotify("找不到穿戴的服装")
 //		return

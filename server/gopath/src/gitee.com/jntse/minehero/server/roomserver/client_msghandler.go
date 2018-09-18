@@ -14,7 +14,7 @@ import (
 /// @brief 转发客户端消息Handler
 /// @return 
 // --------------------------------------------------------------------------
-type ClientMsgFunHandler func(session network.IBaseNetSession, message interface{}, uid uint64)
+type ClientMsgFunHandler func(session network.IBaseNetSession, message interface{}, uid int64)
 type ClientMsgHandler struct {
 	msghandler map[string]ClientMsgFunHandler
 }
@@ -37,7 +37,7 @@ func (this *ClientMsgHandler) Regist(message interface{} , fn ClientMsgFunHandle
 	this.msghandler[msg_type.String()] = fn
 }
 
-func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message interface{}, uid uint64) {
+func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message interface{}, uid int64) {
 	pbmsg := message.(pb.Message)
 	name := pb.MessageName(pbmsg)
 	fn, ok := this.msghandler[name]
@@ -48,7 +48,7 @@ func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message i
 	fn(session, message, uid)
 }
 
-//func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}, uid uint64) {
+//func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}, uid int64) {
 //	//tmsg := message.(*msg.C2GW_StartLuckyDraw)
 //	user := UserMgr().FindUser(uid)
 //	if user == nil { 

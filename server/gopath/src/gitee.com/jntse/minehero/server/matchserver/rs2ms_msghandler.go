@@ -97,7 +97,7 @@ func on_RS2MS_RetCreateRoom(session network.IBaseNetSession, message interface{}
 	}
 
 	rsend := &msg.MS2GW_RetCreateRoom  { 
-		Userid : pb.Uint64(userid),
+		Userid : pb.Int64(userid),
 		Errcode : pb.String(errcode),
 		Roomid : pb.Int64(roomid),
 		Roomagent : pb.String(agentname),

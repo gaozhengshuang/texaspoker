@@ -19,7 +19,7 @@ import (
 )
 
 
-func GetUserToken(redis *redis.Client, charid uint64) string {
+func GetUserToken(redis *redis.Client, charid int64) string {
 	if redis == nil {
 		log.Error("redis is nil")
 		return ""
@@ -35,7 +35,7 @@ func GetUserToken(redis *redis.Client, charid uint64) string {
 	return token
 }
 
-func HttpPostDataStatistics(charid uint64, mapset map[string]interface{}, sortVal, tvmid, url, secret, mode string) (errcode string, resp *network.HttpResponse) {
+func HttpPostDataStatistics(charid int64, mapset map[string]interface{}, sortVal, tvmid, url, secret, mode string) (errcode string, resp *network.HttpResponse) {
 	if tbl.Global.IntranetFlag {
 		log.Warn("本版本推送暂不可用")
 		return "本版本推送暂不可用", nil
@@ -89,14 +89,14 @@ func HttpRequestNewUserArglist(arglist []interface{}) []interface{} {
 	username, ok := arglist[2].(string)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[2]).String()); return nil }
 
-	charid, ok := arglist[3].(uint64)
+	charid, ok := arglist[3].(int64)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[3]).String()); return nil }
 
 	HttpRequestNewUser(tvmid,token,username,charid)
 	return nil
 }
 
-func HttpRequestNewUser(tvmid, token, username string, charid uint64) {
+func HttpRequestNewUser(tvmid, token, username string, charid int64) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
@@ -150,7 +150,7 @@ func HttpRequestUserOnlineTimeArglist(arglist []interface{}) []interface{} {
 	token, ok := arglist[1].(string)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[1]).String()); return nil }
 
-	charid, ok := arglist[2].(uint64)
+	charid, ok := arglist[2].(int64)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[2]).String()); return nil }
 
 	tm_online, ok := arglist[3].(int64)
@@ -159,7 +159,7 @@ func HttpRequestUserOnlineTimeArglist(arglist []interface{}) []interface{} {
 	HttpRequestUserOnlineTime(tvmid, token, charid, tm_online)
 	return nil
 }
-func HttpRequestUserOnlineTime(tvmid, token string, charid uint64, tm_online int64) {
+func HttpRequestUserOnlineTime(tvmid, token string, charid int64, tm_online int64) {
 	//token := GetUserToken(redis, charid)
 	if token == "" {
 		log.Error("玩家[%d] token is empty", charid)
@@ -212,7 +212,7 @@ func HttpRequestUserBattleCountArglist(arglist []interface{}) []interface{} {
 	token, ok := arglist[1].(string)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[1]).String()); return nil }
 
-	charid, ok := arglist[2].(uint64)
+	charid, ok := arglist[2].(int64)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[2]).String()); return nil }
 
 	playtype, ok := arglist[3].(string)
@@ -224,7 +224,7 @@ func HttpRequestUserBattleCountArglist(arglist []interface{}) []interface{} {
 	HttpRequestUserBattleCount(tvmid, token, charid, playtype, palycount)
 	return nil
 }
-func HttpRequestUserBattleCount(tvmid, token string, charid uint64, playtype string, palycount int32) {
+func HttpRequestUserBattleCount(tvmid, token string, charid int64, playtype string, palycount int32) {
 
 	url := tbl.Global.HongBaoAPI.Battles
 	secret := tbl.Global.HongBaoAPI.Secret
@@ -273,17 +273,17 @@ func HttpRequestUserLevelArglist(arglist []interface{}) []interface{} {
 	token, ok := arglist[1].(string)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[1]).String()); return nil }
 
-	charid, ok := arglist[2].(uint64)
+	charid, ok := arglist[2].(int64)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[2]).String()); return nil }
 
-	level, ok := arglist[3].(uint32)
+	level, ok := arglist[3].(int32)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[3]).String()); return nil }
 
 	HttpRequestUserLevel(tvmid, token, charid, level)
 	return nil
 }
 
-func HttpRequestUserLevel(tvmid, token string, charid uint64, level uint32) {
+func HttpRequestUserLevel(tvmid, token string, charid int64, level int32) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
@@ -340,13 +340,13 @@ func HttpRequestUserResourceConsumeArglist(arglist []interface{}) []interface{} 
 		return nil 
 	}
 
-	charid, ok := arglist[2].(uint64)
+	charid, ok := arglist[2].(int64)
 	if ok == false { 
 		log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[2]).String())
 		return nil 
 	}
 
-	price, ok := arglist[3].(uint32)
+	price, ok := arglist[3].(int32)
 	if ok == false { 
 		log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[3]).String())
 		return nil 
@@ -356,7 +356,7 @@ func HttpRequestUserResourceConsumeArglist(arglist []interface{}) []interface{} 
 	return nil
 }
 
-func HttpRequestUserResourceConsume(tvmid, token string, charid uint64, price uint32) {
+func HttpRequestUserResourceConsume(tvmid, token string, charid int64, price int32) {
 
 	if price <= 0 {
 		return
@@ -408,17 +408,17 @@ func HttpRequestUserResourceEarnArglist(arglist []interface{}) []interface{} {
 	token, ok := arglist[1].(string)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[1]).String()); return nil }
 
-	charid, ok := arglist[2].(uint64)
+	charid, ok := arglist[2].(int64)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[2]).String()); return nil }
 
-	price, ok := arglist[3].(uint32)
+	price, ok := arglist[3].(int32)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[3]).String()); return nil }
 
 	HttpRequestUserResourceEarn(tvmid, token, charid, price)
 	return nil
 }
 
-func HttpRequestUserResourceEarn(tvmid, token string, charid uint64, price uint32) {
+func HttpRequestUserResourceEarn(tvmid, token string, charid int64, price int32) {
 
 	if price <= 0 {
 		return
@@ -469,7 +469,7 @@ func HttpRequestUserVictoryArglist(arglist []interface{}) []interface{} {
 	token, ok := arglist[1].(string)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[1]).String()); return nil }
 
-	charid, ok := arglist[2].(uint64)
+	charid, ok := arglist[2].(int64)
 	if ok == false { log.Fatal("类型转换错误 argu 真实类型是：%s", reflect.TypeOf(arglist[2]).String()); return nil }
 
 	victype, ok := arglist[3].(string)
@@ -482,7 +482,7 @@ func HttpRequestUserVictoryArglist(arglist []interface{}) []interface{} {
 	return nil
 }
 
-func HttpRequestUserVictory(tvmid, token string, charid uint64, victype string, count int32) {
+func HttpRequestUserVictory(tvmid, token string, charid int64, victype string, count int32) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
@@ -521,7 +521,7 @@ func HttpRequestUserVictory(tvmid, token string, charid uint64, victype string, 
 }
 
 // 获得平台金币和钻石
-func HttpRequestFinanceQuery(charid uint64, token, tvmid string) (errocde string, coin, diamond int32) {
+func HttpRequestFinanceQuery(charid int64, token, tvmid string) (errocde string, coin, diamond int32) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/Query"
 	//url := "http://open.std.tvmopt.com/public/finance/Query"
@@ -604,7 +604,7 @@ func HttpRequestFinanceQuery(charid uint64, token, tvmid string) (errocde string
 }
 
 // 扣除平台金币
-func HttpRequestDecrCoins(charid uint64, token, tvmid string, count int32, desc string) bool {
+func HttpRequestDecrCoins(charid int64, token, tvmid string, count int32, desc string) bool {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/DecrCoins"
 	//url := "http://open.std.tvmopt.com/public/finance/DecrCoins"
@@ -666,7 +666,7 @@ func HttpRequestDecrCoins(charid uint64, token, tvmid string, count int32, desc 
 }
 
 // 增加钻石，需要绑定微信号
-func HttpRequestIncrDiamonds(charid uint64, token, tvmid string, count int32, desc string) bool {
+func HttpRequestIncrDiamonds(charid int64, token, tvmid string, count int32, desc string) bool {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/IncrDiamonds"
 	//url := "http://open.std.tvmopt.com/public/finance/IncrDiamonds"
@@ -728,7 +728,7 @@ func HttpRequestIncrDiamonds(charid uint64, token, tvmid string, count int32, de
 
 
 // 检查是否绑定微信
-func HttpRequestCheckWechatBound(charid uint64, token, tvmid string) {
+func HttpRequestCheckWechatBound(charid int64, token, tvmid string) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/user/CheckWechatBound"
 	//url := "http://open.std.tvmopt.com/public/user/CheckWechatBound"

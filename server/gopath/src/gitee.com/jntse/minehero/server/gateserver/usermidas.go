@@ -27,9 +27,9 @@ func (this *GateUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg st
 
 	// 同步客户端本次充值金额,增量
 	//this.SetTotalRecharge(0)
-	if uint32(amt_save) > this.TotalRecharge() {
-		recharge := uint32(amt_save) - this.TotalRecharge()
-		this.SetTotalRecharge(uint32(amt_save))
+	if int32(amt_save) > this.TotalRecharge() {
+		recharge := int32(amt_save) - this.TotalRecharge()
+		this.SetTotalRecharge(int32(amt_save))
 		this.AddDiamond(recharge, "充值获得", true)
 	}
 }

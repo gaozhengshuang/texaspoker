@@ -146,7 +146,7 @@ func Authenticate(session network.IBaseNetSession, account string, passwd string
 	return ""
 }
 
-//func ProcessInvitationUser(charid uint64, invitationcode string) {
+//func ProcessInvitationUser(charid int64, invitationcode string) {
 //
 //	// 保存邀请人信息
 //	if len(invitationcode) < 2 {
@@ -358,7 +358,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		info := &msg.AccountInfo{
 			Account: &account,
 			Passwd:  &passwd,
-			Userid:  pb.Uint64(userid),
+			Userid:  pb.Int64(userid),
 		}
 
 		keyaccount := fmt.Sprintf("accounts_%s", account)
@@ -369,10 +369,10 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 
 		// 初始元宝和金卷
-		gold := uint32(tbl.Global.NewUser.Gold)
+		gold := int32(tbl.Global.NewUser.Gold)
 		userinfo := &msg.Serialize{
-			Entity: &msg.EntityBase{Id: pb.Uint64(userid), Name: pb.String(nickname), Face: pb.String("1"), Account: pb.String(account)},
-			Base:   &msg.UserBase{Gold: pb.Uint32(gold), Invitationcode: pb.String(invitationcode), Yuanbao: pb.Uint32(0), Level: pb.Uint32(1)},
+			Entity: &msg.EntityBase{Id: pb.Int64(userid), Name: pb.String(nickname), Face: pb.String("1"), Account: pb.String(account)},
+			Base:   &msg.UserBase{Gold: pb.Int32(gold), Invitationcode: pb.String(invitationcode), Yuanbao: pb.Int32(0), Level: pb.Int32(1)},
 			Item:   &msg.ItemBin{},
 		}
 		userinfo.Entity.Sex = pb.Int32(int32(msg.Sex_Female))

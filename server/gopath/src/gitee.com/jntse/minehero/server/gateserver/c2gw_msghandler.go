@@ -149,7 +149,7 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 
 	// 进入游戏房间
 	log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
-	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
 	user.SendRoomMsg(tmsg)
 
 	//roomid, userid := user.RoomId(), user.Id()
@@ -173,7 +173,7 @@ func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 	}
 
 	// 离开游戏房间
-	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
+	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
 	user.SendRoomMsg(tmsg)
 	//roomid, userid := user.RoomId(), user.Id()
 	//room := RoomMgr().Find(roomid)
@@ -468,11 +468,11 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
+	gold := int32(tbl.Game.DiamondToCoins) * diamonds
 	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
 	user.AddGold(gold, "钻石兑换金币", false)
 
-	send := &msg.GW2C_RetGoldExchange{Gold: pb.Uint32(gold)}
+	send := &msg.GW2C_RetGoldExchange{Gold: pb.Int32(gold)}
 	user.SendMsg(send)
 
 }

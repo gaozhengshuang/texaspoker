@@ -9,11 +9,11 @@ import (
 /// @brief 玩家管理器
 // --------------------------------------------------------------------------
 type UserManager struct {
-	ids	map[uint64]*RoomUser
+	ids	map[int64]*RoomUser
 }
 
 func (this *UserManager) Init() {
-	this.ids = make(map[uint64]*RoomUser)
+	this.ids = make(map[int64]*RoomUser)
 }
 
 func (this *UserManager) Amount() int {
@@ -24,7 +24,7 @@ func (this *UserManager) AddUser(user *RoomUser) {
 	this.ids[user.Id()] = user
 }
 
-func (this *UserManager) FindUser(id uint64) *RoomUser {
+func (this *UserManager) FindUser(id int64) *RoomUser {
 	user, _ := this.ids[id]
 	return user
 }
@@ -33,7 +33,7 @@ func (this *UserManager) DelUser(user *RoomUser) {
 	delete(this.ids, user.Id())
 }
 
-func (this *UserManager) IsRegisted(id uint64) bool {
+func (this *UserManager) IsRegisted(id int64) bool {
 	_, ok := this.ids[id]
 	return ok
 }

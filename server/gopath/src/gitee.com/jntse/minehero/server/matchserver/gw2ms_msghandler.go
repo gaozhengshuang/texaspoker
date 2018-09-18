@@ -54,9 +54,9 @@ func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}
 
 	userid := tmsg.GetUserid()
 	log.Info("收到玩家[%d] 创建房间请求 ts[%d]", userid, util.CURTIMEMS())
-	doCreateRoomReply := func(id uint64, err string) {
+	doCreateRoomReply := func(id int64, err string) {
 		send := &msg.MS2GW_RetCreateRoom{
-			Userid:  pb.Uint64(id),
+			Userid:  pb.Int64(id),
 			Errcode: pb.String(err),
 			Roomid:  pb.Int64(0),
 		}
