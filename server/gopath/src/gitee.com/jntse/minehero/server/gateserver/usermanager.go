@@ -75,22 +75,22 @@ type BufferMsg struct {
 // --------------------------------------------------------------------------
 type UserManager struct {
 	accounts  map[string]*GateUser
-	ids       map[uint64]*GateUser
+	ids       map[int64]*GateUser
 	names     map[string]*GateUser
-	msgbuffer map[uint64]*BufferMsg
-	posmap	  map[uint32]map[uint32]map[uint64]*GateUser //经度参数|维度参数|uid|*GateUser
-	canton 	  map[uint32]map[uint32]uint32 //省|市|人数 市级行政区的在线人数
-	bigcanton map[uint32]uint32 //省|人数 省级在线数
+	msgbuffer map[int64]*BufferMsg
+	posmap	  map[int32]map[int32]map[int64]*GateUser //经度参数|维度参数|uid|*GateUser
+	canton 	  map[int32]map[int32]int32 //省|市|人数 市级行政区的在线人数
+	bigcanton map[int32]int32 //省|人数 省级在线数
 }
 
 func (this *UserManager) Init() {
 	this.accounts = make(map[string]*GateUser)
 	this.names = make(map[string]*GateUser)
-	this.ids = make(map[uint64]*GateUser)
-	this.msgbuffer = make(map[uint64]*BufferMsg)
-	this.posmap = make(map[uint32]map[uint32]map[uint64]*GateUser)
-	this.canton = make(map[uint32]map[uint32]uint32)
-	this.bigcanton = make(map[uint32]uint32)
+	this.ids = make(map[int64]*GateUser)
+	this.msgbuffer = make(map[int64]*BufferMsg)
+	this.posmap = make(map[int32]map[int32]map[int64]*GateUser)
+	this.canton = make(map[int32]map[int32]int32)
+	this.bigcanton = make(map[int32]int32)
 }
 
 func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account, key, token, face string) (*GateUser, string) {
@@ -159,7 +159,7 @@ func (this *UserManager) FindByName(name string) *GateUser {
 	return user
 }
 
-func (this *UserManager) FindById(id uint64) *GateUser {
+func (this *UserManager) FindById(id int64) *GateUser {
 	user, _ := this.ids[id]
 	return user
 }
@@ -237,7 +237,7 @@ func (this *UserManager) BroadcastMsgFaster(msg pb.Message) {
 	log.Trace("BroadcastMsgFaster Amount[%d] 耗时[%d]us", len(this.accounts), util.CURTIMEUS()-t1)
 }
 
-func (this *UserManager) PickBroadcastMsg(uid uint64) pb.Message {
+func (this *UserManager) PickBroadcastMsg(uid int64) pb.Message {
 	buffermsg, ok := this.msgbuffer[uid]
 	if ok == false {
 		return nil

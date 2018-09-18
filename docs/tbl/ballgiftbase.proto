@@ -19,7 +19,7 @@ message TBallGiftDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID
+	optional int32 Id = 1; // ID
 	
 	
 	optional string Name = 2; // 名字

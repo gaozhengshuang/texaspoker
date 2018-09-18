@@ -213,7 +213,7 @@ func (this *RoomSvrManager) SendGateToRoom(gate *GateAgent) {
 	this.BroadCast(send)
 }
 
-func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, userid uint64) (string) {
+func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, userid int64) (string) {
 
 	tm1 := util.CURTIMEUS()
 	agent := this.FindLowLoadRoom()
@@ -230,7 +230,7 @@ func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, 
 		Roomid : pb.Int64(roomid), 
 		Gamekind: pb.Int32(kind), 
 		Sidgate: pb.Int(sid_gate), 
-		Userid: pb.Uint64(userid),
+		Userid: pb.Int64(userid),
 	}
 	agent.SendMsg(rmsg)
 	tm2 := util.CURTIMEUS()

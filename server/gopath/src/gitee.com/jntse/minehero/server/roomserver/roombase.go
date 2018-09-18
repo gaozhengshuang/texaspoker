@@ -16,19 +16,19 @@ type IRoomBase interface {
 	Init() string
 	Kind() int32
 	Tick(now int64)
-	SendUserMsg(userid uint64, msg pb.Message)
-	SendGateMsg(userid uint64, msg pb.Message)
-	BroadCastUserMsg(msg pb.Message, except ...uint64)
-	BroadCastGateMsg(msg pb.Message, except ...uint64)
+	SendUserMsg(userid int64, msg pb.Message)
+	SendGateMsg(userid int64, msg pb.Message)
+	BroadCastUserMsg(msg pb.Message, except ...int64)
+	BroadCastGateMsg(msg pb.Message, except ...int64)
 	IsStart() bool
 	IsEnd(now int64) bool
 	OnEnd(now int64)
 	UserLoad(bin *msg.Serialize, session network.IBaseNetSession)
-	UserEnter(userid uint64)
-	UserLeave(userid uint64)
-	UserDisconnect(userid uint64)
-	UserStandUp(userid uint64)		// 棋牌类站起
-	UserSitDown(userid uint64)		// 棋牌类坐下
+	UserEnter(userid int64)
+	UserLeave(userid int64)
+	UserDisconnect(userid int64)
+	UserStandUp(userid int64)		// 棋牌类站起
+	UserSitDown(userid int64)		// 棋牌类坐下
 }
 
 
@@ -42,8 +42,8 @@ type RoomBase struct {
 	tm_end			int64
 	roomkind		int32
 	owner			*RoomUser
-	ownerid			uint64
-	members			map[uint64]*RoomUser
+	ownerid			int64
+	members			map[int64]*RoomUser
 	close_reason	string	// 正常关闭房间的原因
 }
 
@@ -55,19 +55,19 @@ func (r *RoomBase) Kind() int32 {
 	return r.roomkind
 }
 
-func (r *RoomBase) SendGateMsg(userid uint64, m pb.Message) {
+func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {
 		u.SendMsg(m)
 	}
 }
 
-func (r *RoomBase) SendUserMsg(userid uint64, m pb.Message) {
+func (r *RoomBase) SendUserMsg(userid int64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {
 		u.SendClientMsg(m)
 	}
 }
 
-func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...uint64) {
+func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
 		for _, exc := range except {
@@ -77,7 +77,7 @@ func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...uint64) {
 	}
 }
 
-func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...uint64) {
+func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
 		for _, exc := range except {
@@ -87,7 +87,7 @@ func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...uint64) {
 	}
 }
 
-func NewGameRoom(ownerid uint64, id int64, roomkind int32) IRoomBase {
+func NewGameRoom(ownerid int64, id int64, roomkind int32) IRoomBase {
 	switch msg.RoomKind(roomkind) {
 	case msg.RoomKind_TanTanLe:		// 弹弹乐
 		room := &TanTanLe{}

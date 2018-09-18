@@ -19,7 +19,7 @@ message TLevelDefine
 {	
 	
 	
-	optional uint32 Id = 1; // id
+	optional int32 Id = 1; // id
 	
 	
 	optional int32 ExpNums = 2; // 经验

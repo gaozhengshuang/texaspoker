@@ -27,11 +27,11 @@ type TanTanLe struct {
 }
 
 func (this *TanTanLe) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
-func (this *TanTanLe) SendMsg(userid uint64, msg pb.Message) {
+func (this *TanTanLe) SendMsg(userid int64, msg pb.Message) {
 	this.owner.SendMsg(msg)
 }
 
-func (this *TanTanLe) SendClientMsg(userid uint64, msg pb.Message) {
+func (this *TanTanLe) SendClientMsg(userid int64, msg pb.Message) {
 	this.owner.SendClientMsg(msg)
 }
 
@@ -120,7 +120,7 @@ func (this *TanTanLe) OnEnd(now int64) {
 	}
 
 	// 通知Gate删除房间，回传个人数据
-	msgend := &msg.BT_GameEnd { Roomid:pb.Int64(this.Id()) ,Ownerid:pb.Uint64(this.ownerid), Reason:pb.String(this.close_reason)}
+	msgend := &msg.BT_GameEnd { Roomid:pb.Int64(this.Id()) ,Ownerid:pb.Int64(this.ownerid), Reason:pb.String(this.close_reason)}
 	if this.owner != nil { msgend.Bin = this.owner.PackBin() }
 	this.SendMsg(0, msgend)
 
@@ -147,7 +147,7 @@ func (this *TanTanLe) OnStart() {
 	// 游戏初始化
 	msginit := &msg.BT_GameInit {
 		Roomid:pb.Int64(this.Id()), 
-		Ownerid:pb.Uint64(this.ownerid),
+		Ownerid:pb.Int64(this.ownerid),
 		Gamekind:pb.Int32(this.Kind()), 
 	}
 	this.SendClientMsg(0, msginit)
@@ -157,7 +157,7 @@ func (this *TanTanLe) OnStart() {
 	//this.owner.SendBattleUser()
 
 	// 游戏开始
-	msgstart := &msg.BT_GameStart{Roomid:pb.Int64(this.Id()), Ownerid:pb.Uint64(this.ownerid)}
+	msgstart := &msg.BT_GameStart{Roomid:pb.Int64(this.Id()), Ownerid:pb.Int64(this.ownerid)}
 	this.SendClientMsg(0, msgstart)
 }
 
@@ -177,7 +177,7 @@ func (this *TanTanLe) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession)
 }
 
 // 玩家进房间，开始游戏
-func (this *TanTanLe) UserEnter(userid uint64) {
+func (this *TanTanLe) UserEnter(userid int64) {
 	if this.IsStart() == true {
 		log.Error("房间[%d] 玩家[%d] 游戏已经开始了，不要重复进入", this.id, userid)
 		return
@@ -194,7 +194,7 @@ func (this *TanTanLe) UserEnter(userid uint64) {
 }
 
 // 玩家正常离开
-func (this *TanTanLe) UserLeave(userid uint64) {
+func (this *TanTanLe) UserLeave(userid int64) {
 	this.tm_end = util.CURTIME()
 	this.close_reason = "玩家退出房间"
 	//if owner := this.owner; owner != nil {
@@ -211,7 +211,7 @@ func (this *TanTanLe) UserLeave(userid uint64) {
 }
 
 // 玩家断开连接
-func (this *TanTanLe) UserDisconnect(userid uint64) {
+func (this *TanTanLe) UserDisconnect(userid int64) {
 	this.tm_end = util.CURTIME()
 	this.close_reason = "玩家断开连接"
 	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, userid)
@@ -224,10 +224,10 @@ func (this *TanTanLe) GateLeave(sid int) {
 }
 
 // 棋牌类站起
-func (this *TanTanLe) UserStandUp(userid uint64) {
+func (this *TanTanLe) UserStandUp(userid int64) {
 }
 
 // 棋牌类坐下
-func (this *TanTanLe) UserSitDown(userid uint64) {
+func (this *TanTanLe) UserSitDown(userid int64) {
 }
 

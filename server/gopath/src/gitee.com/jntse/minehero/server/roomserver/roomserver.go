@@ -396,7 +396,7 @@ func (this *RoomServer) cleanRoom() {
 
 // 通用公告
 func (this *RoomServer) SendNotice(face string, ty msg.NoticeType, subtext ...string) {
-	noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Uint64(0), Name:pb.String(""), Face:pb.String(face), Type:pb.Int32(int32(ty))}
+	noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Int64(0), Name:pb.String(""), Face:pb.String(face), Type:pb.Int32(int32(ty))}
 	noticemsg.Text = pb.String(strings.Join(subtext, ""))
 	send := &msg.RS2MS_MsgNotice{ Notice: noticemsg}
 	Match().SendCmd(send)
@@ -427,7 +427,7 @@ func (this *RoomServer) TickCacheNotice(now int64) {
 	amount := int32(len(this.noticerepeat))
 	if amount < 100 || util.SelectPercent(50) == true {
 		// 头像
-		noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Uint64(0), Name:pb.String(""), Face:pb.String(""), Type:pb.Int32(int32(msg.NoticeType_Suspension))}
+		noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Int64(0), Name:pb.String(""), Face:pb.String(""), Type:pb.Int32(int32(msg.NoticeType_Suspension))}
 		imageindex := util.RandBetween(0, 1200)
 		faceurl := fmt.Sprintf("http://jump.cdn.giantfun.cn/cdn/jumphead/tx (%d).jpg",imageindex)
 

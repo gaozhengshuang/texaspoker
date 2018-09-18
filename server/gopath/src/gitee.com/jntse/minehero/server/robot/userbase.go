@@ -47,7 +47,7 @@ func (this *UserBase) Name() string {
 	return this.data.GetEntity().GetName()
 }
 
-func (this *UserBase) Id() uint64 {
+func (this *UserBase) Id() int64 {
 	return this.data.GetEntity().GetId()
 }
 
@@ -124,7 +124,7 @@ func (this *UserBase) NewReqLoginGateMsg() *msg.C2GW_ReqLogin {
 //func (this *UserBase) NewCancelMatchMsg() *msg.C2GW_ReqCancelMatch {
 //
 //	msg := &msg.C2GW_ReqCancelMatch {
-//		//Userid : pb.Uint64(this.id),
+//		//Userid : pb.Int64(this.id),
 //	}
 //	return msg
 //}

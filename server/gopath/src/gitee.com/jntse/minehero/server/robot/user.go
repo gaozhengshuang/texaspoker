@@ -293,43 +293,43 @@ func (this *User) LeaveGame() {
 //}
 
 func (this *User) BuyItem() {
-	this.SendGateMsg(&msg.C2GW_BuyItem{Productid:pb.Uint32(7), Num:pb.Uint32(1)})
+	this.SendGateMsg(&msg.C2GW_BuyItem{Productid:pb.Int32(7), Num:pb.Int32(1)})
 }
 
 func (this *User) DeliveryGoods() {
 	send := &msg.C2GW_ReqDeliveryGoods{}
-	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Uint32(7001), Num:pb.Uint32(1)})
-	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Uint32(7002), Num:pb.Uint32(2)})
-	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Uint32(7003), Num:pb.Uint32(3)})
+	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Int32(7001), Num:pb.Int32(1)})
+	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Int32(7002), Num:pb.Int32(2)})
+	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Int32(7003), Num:pb.Int32(3)})
 	this.SendGateMsg(send)
 }
 
 func (this *User) Recharge() {
-	send := &msg.C2GW_ReqRechargeMoney{Amount:pb.Uint32(10)}
+	send := &msg.C2GW_ReqRechargeMoney{Amount:pb.Int32(10)}
 	this.SendGateMsg(send)
 }
 
 func (this *User) RechargeDone() {
-	send := &msg.C2GW_PlatformRechargeDone{ Userid:pb.Uint64(this.Id())}
+	send := &msg.C2GW_PlatformRechargeDone{ Userid:pb.Int64(this.Id())}
 	this.SendGateMsg(send)
 }
 
 // 抽奖
 func (this *User) LuckyDraw() {
-	send := &msg.C2GW_StartLuckyDraw{ Userid:pb.Uint64(this.Id())}
+	send := &msg.C2GW_StartLuckyDraw{ Userid:pb.Int64(this.Id())}
 	this.SendGateMsg(send)
 }
 
 // 设置抽奖地址
 func (this *User) ChangeDeliveryAddress() {
 	addr := &msg.UserAddress{Receiver:pb.String("机器人"), Phone:pb.String("188888888"), Address:pb.String("中国上海闵行区新龙路1333弄28号31栋901")}
-	send := &msg.C2GW_ChangeDeliveryAddress{ Index:pb.Uint32(0), Info:addr }
+	send := &msg.C2GW_ChangeDeliveryAddress{ Index:pb.Int32(0), Info:addr }
 	this.SendGateMsg(send)
 }
 
 // 进入事件
-func (this *User) EnterEvent(uid uint64) {
-	send := &msg.C2GW_ReqEnterEvents{Uid:pb.Uint64(uid)}
+func (this *User) EnterEvent(uid int64) {
+	send := &msg.C2GW_ReqEnterEvents{Uid:pb.Int64(uid)}
 	this.SendGateMsg(send)
 }
 

@@ -102,13 +102,13 @@ func DoUserRecharge(cmd map[string]interface{}) {
 
 	// 解析 userid
 	orderid := lo_orderid.(string)
-	amount := uint32(lo_amount.(float64))		// 单位，分
+	amount := int32(lo_amount.(float64))		// 单位，分
 	orderpart := strings.Split(orderid ,"_")
 	if len(orderpart) != 3 {
 		return
 	}
 	userid := orderpart[0]
-	yuanbao := uint32(amount * 10 / 100)		// 1元:10元宝
+	yuanbao := int32(amount * 10 / 100)		// 1元:10元宝
 
 	// 标记已经处理的订单
 	Redis().Del(orderid)
@@ -178,7 +178,7 @@ func DoConsumeCount(cmd map[string]*util.VarType) {
 		datetime := newtime.Format("2006-01-02")
 
 		for _, j := range currencylist {
-			iconfig := tbl.ItemBase.ItemBaseDataById[uint32(j)]
+			iconfig := tbl.ItemBase.ItemBaseDataById[int32(j)]
 			if iconfig == nil {
 				continue
 			}

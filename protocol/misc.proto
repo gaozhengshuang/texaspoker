@@ -4,9 +4,9 @@ import "serialize.proto";
 
 // 请求充值页面
 message C2GW_ReqRechargeMoney {
-    optional uint32 amount = 1;
+    optional int32 amount = 1;
     optional string token = 2;
-    optional uint32 type = 3;
+    optional int32 type = 3;
 }
 
 // 返回充值请求
@@ -16,7 +16,7 @@ message GW2C_RetRechargeMoney {
 
 // 红包平台充值完成通知
 message C2GW_PlatformRechargeDone {
-    optional uint64 userid = 1;
+    optional int64 userid = 1;
 }
 
 // 同步玩家绑定微信信息
@@ -26,7 +26,7 @@ message GW2C_SendWechatInfo {
 
 // 抽奖
 message C2GW_StartLuckyDraw {
-    optional uint64 userid = 1;
+    optional int64 userid = 1;
 }
 
 message GW2C_LuckyDrawHit {
@@ -49,7 +49,7 @@ message C2GW_ReqTaskList {
 }
 
 message GW2C_Ret7DayReward {
-    optional uint32 day = 1;
+    optional int32 day = 1;
 }
 
 message C2GW_Get7DayReward {

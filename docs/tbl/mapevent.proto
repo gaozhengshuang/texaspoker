@@ -19,19 +19,19 @@ message TMapEventDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID 规则类型*1000 + 顺序数
+	optional int32 Id = 1; // ID 规则类型*1000 + 顺序数
 	
 	
-	optional uint32 Type = 2; // 类型
+	optional int32 Type = 2; // 类型
 	
 	
 	optional string Desc = 3; // 描述
 	
 	
-	optional uint32 MoneyType = 4; // 消耗(1金币2钻石3体力4道具)
+	optional int32 MoneyType = 4; // 消耗(1金币2钻石3体力4道具)
 	
 	
-	optional uint32 Price = 5; // 消耗数值
+	optional int32 Price = 5; // 消耗数值
 	
 	
 	optional string Icon = 6; // 图标

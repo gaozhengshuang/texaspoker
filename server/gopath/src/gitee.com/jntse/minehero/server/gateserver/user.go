@@ -49,15 +49,15 @@ type DBUserData struct {
 	bin            *msg.Serialize // db二进制数据
 	tm_login       int64
 	tm_logout      int64
-	gold           uint32
-	diamond        uint32
-	yuanbao        uint32
-	level          uint32
-	exp            uint32
-	continuelogin  uint32
-	nocountlogin   uint32
-	signreward     uint32
-	signtime       uint32
+	gold           int32
+	diamond        int32
+	yuanbao        int32
+	level          int32
+	exp            int32
+	continuelogin  int32
+	nocountlogin   int32
+	signreward     int32
+	signtime       int32
 	addrlist       []*msg.UserAddress
 	wechatopenid   string
 	presentcount   int32
@@ -65,7 +65,7 @@ type DBUserData struct {
 	invitationcode string
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
-	totalrecharge  uint32 // 总充值
+	totalrecharge  int32 // 总充值
 }
 
 // --------------------------------------------------------------------------
@@ -92,7 +92,7 @@ type GateUser struct {
 	cartflag		bool
 	roomdata        UserRoomData            // 房间信息
 	token           string                  // token
-	broadcastbuffer []uint64                // 广播消息缓存
+	broadcastbuffer []int64                // 广播消息缓存
 	synbalance      bool                    // 充值中
 	events			UserMapEvent			// 地图事件
 }
@@ -110,7 +110,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.continuelogin = 1
 	u.tm_asynsave = 0
 	u.token = token
-	u.broadcastbuffer = make([]uint64, 0)
+	u.broadcastbuffer = make([]int64, 0)
 	u.roomdata.Reset()
 	return u
 }
@@ -187,7 +187,7 @@ func (this *GateUser) SetFace(f string, bsync bool)  {
 	this.EntityBase().Face = pb.String(f)
 }
 
-func (this *GateUser) Id() uint64 {
+func (this *GateUser) Id() int64 {
 	return this.EntityBase().GetId()
 }
 
@@ -207,19 +207,19 @@ func (this *GateUser) Sid() int {
 	return 0
 }
 
-func (this *GateUser) Level() uint32 {
+func (this *GateUser) Level() int32 {
 	return this.level
 }
 
-func (this *GateUser) AddLevel(num uint32) {
+func (this *GateUser) AddLevel(num int32) {
 	this.level += num
 }
 
-func (this *GateUser) Exp() uint32 {
+func (this *GateUser) Exp() int32 {
 	return this.exp
 }
 
-func (this *GateUser) SetExp(exp uint32) {
+func (this *GateUser) SetExp(exp int32) {
 	this.exp = exp
 }
 
@@ -271,8 +271,8 @@ func (this *GateUser) ClearAddress() {
 	this.addrlist = make([]*msg.UserAddress, 0)
 }
 
-func (this *GateUser) GetAddressSize() uint32 {
-	return uint32(len(this.addrlist))
+func (this *GateUser) GetAddressSize() int32 {
+	return int32(len(this.addrlist))
 }
 
 func (this *GateUser) SendAddress() {
@@ -347,19 +347,19 @@ func (this *GateUser) InvitationCode() string {
 }
 
 // 邀请人
-func (this *GateUser) Inviter() uint64 {
+func (this *GateUser) Inviter() int64 {
 	if code := this.InvitationCode(); len(code) > 2 {
-		inviter, _ := strconv.ParseUint(code[2:], 10, 64)
+		inviter, _ := strconv.ParseInt(code[2:], 10, 64)
 		return inviter
 	}
 	return 0
 }
 
-func (this *GateUser) TotalRecharge() uint32 {
+func (this *GateUser) TotalRecharge() int32 {
 	return this.totalrecharge
 }
 
-func (this *GateUser) SetTotalRecharge(r uint32) {
+func (this *GateUser) SetTotalRecharge(r int32) {
 	this.totalrecharge = r
 }
 
@@ -376,7 +376,7 @@ func (this *GateUser) SendMsg(msg pb.Message) {
 }
 
 // 广播缓存
-func (this *GateUser) AddBroadCastMsg(uuid uint64) {
+func (this *GateUser) AddBroadCastMsg(uuid int64) {
 	this.broadcastbuffer = append(this.broadcastbuffer, uuid)
 }
 
@@ -478,19 +478,19 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	userbase := bin.GetBase()
 	userbase.Tmlogin = pb.Int64(this.tm_login)
 	userbase.Tmlogout = pb.Int64(this.tm_logout)
-	userbase.Gold = pb.Uint32(this.gold)
-	userbase.Diamond = pb.Uint32(this.diamond)
-	userbase.Yuanbao = pb.Uint32(this.yuanbao)
-	userbase.Level = pb.Uint32(this.level)
-	userbase.Exp = pb.Uint32(this.exp)
-	userbase.Continuelogin = pb.Uint32(this.continuelogin)
-	userbase.Nocountlogin = pb.Uint32(this.nocountlogin)
-	userbase.Signreward = pb.Uint32(this.signreward)
-	userbase.Signtime = pb.Uint32(this.signtime)
+	userbase.Gold = pb.Int32(this.gold)
+	userbase.Diamond = pb.Int32(this.diamond)
+	userbase.Yuanbao = pb.Int32(this.yuanbao)
+	userbase.Level = pb.Int32(this.level)
+	userbase.Exp = pb.Int32(this.exp)
+	userbase.Continuelogin = pb.Int32(this.continuelogin)
+	userbase.Nocountlogin = pb.Int32(this.nocountlogin)
+	userbase.Signreward = pb.Int32(this.signreward)
+	userbase.Signtime = pb.Int32(this.signtime)
 	userbase.Addrlist = this.addrlist[:]
 	userbase.Wechat.Openid = pb.String(this.wechatopenid)
 	userbase.Invitationcode = pb.String(this.invitationcode)
-	userbase.TotalRecharge = pb.Uint32(this.totalrecharge)
+	userbase.TotalRecharge = pb.Int32(this.totalrecharge)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -762,7 +762,7 @@ func (this *GateUser) CreateRoomRemote(gamekind int32) (errcode string) {
 
 	//
 	send := &msg.GW2MS_ReqCreateRoom{
-		Userid:   pb.Uint64(this.Id()),
+		Userid:   pb.Int64(this.Id()),
 		Gamekind: pb.Int32(gamekind),
 	}
 	Match().SendCmd(send)
@@ -818,7 +818,7 @@ func (this *GateUser) SendRsUserDisconnect() {
 		return
 	}
 	this.roomdata.tm_closing = util.CURTIMEMS()
-	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Uint64(this.Id())}
+	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Int64(this.Id())}
 	this.SendRoomMsg(msgclose)
 	log.Info("玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
 }

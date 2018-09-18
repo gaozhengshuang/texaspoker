@@ -13,16 +13,16 @@ import (
 // --------------------------------------------------------------------------
 /// @brief 获取充值页面
 // --------------------------------------------------------------------------
-type RechargeEventHandle func(tvmid string, token string, user *GateUser, amount uint32)
+type RechargeEventHandle func(tvmid string, token string, user *GateUser, amount int32)
 type UserRechargeEvent struct {
 	user *GateUser
 	tvmid string
 	token string
-	amount uint32
+	amount int32
 	handler RechargeEventHandle
 }
 
-func NewUserRechargeEvent(user *GateUser, tvmid, token string, amount uint32, handler RechargeEventHandle) *UserRechargeEvent {
+func NewUserRechargeEvent(user *GateUser, tvmid, token string, amount int32, handler RechargeEventHandle) *UserRechargeEvent {
 	return &UserRechargeEvent{tvmid:tvmid,token:token,user:user,amount:amount,handler:handler}
 }
 

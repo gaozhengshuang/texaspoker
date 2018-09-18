@@ -19,7 +19,7 @@ message TRechargeDefine
 {	
 	
 	
-	optional uint32 Id = 1; // ID
+	optional int32 Id = 1; // ID
 	
 	
 	optional int32 Price = 2; // 价格

@@ -15,14 +15,14 @@ func TestHttpPostRedPacketPlatform(subcmd []string) {
 
 	cmd, token := subcmd[1], subcmd[3]
 	charid, _ := strconv.ParseInt(subcmd[2], 10, 64)
-	pUser := UserMgr().FindById(uint64(charid))
+	pUser := UserMgr().FindById(int64(charid))
 	if pUser == nil {
 		log.Error("not find user charid=[%s]", subcmd[2])
 		return
 	}
 
 	if token == "" {
-		token = def.GetUserToken(Redis(), uint64(charid))
+		token = def.GetUserToken(Redis(), int64(charid))
 	}
 
 	tvmid := pUser.Account();
@@ -33,41 +33,41 @@ func TestHttpPostRedPacketPlatform(subcmd []string) {
 	case "recharge":
 		RequestRecharge(tvmid, token, pUser, 100)
 	case "new":
-		arglist := []interface{}{tvmid, token, pUser.Name(), uint64(charid)}
+		arglist := []interface{}{tvmid, token, pUser.Name(), int64(charid)}
 		event := eventque.NewCommonEvent(arglist, def.HttpRequestNewUserArglist, nil)
 		pUser.AsynEventInsert(event)
 	case "online":
-		arglist := []interface{}{tvmid, token, uint64(charid), int64(1)}
+		arglist := []interface{}{tvmid, token, int64(charid), int64(1)}
 		event := eventque.NewCommonEvent(arglist, def.HttpRequestUserOnlineTimeArglist, nil)
 		pUser.AsynEventInsert(event)
 	case "battle":
-		arglist := []interface{}{tvmid, token, uint64(charid), "1", int32(1)}
+		arglist := []interface{}{tvmid, token, int64(charid), "1", int32(1)}
 		event := eventque.NewCommonEvent(arglist, def.HttpRequestUserBattleCountArglist, nil)
 		pUser.AsynEventInsert(event)
 	case "level":
-		arglist := []interface{}{tvmid, token, uint64(charid), uint32(pUser.Level() + 2)}
+		arglist := []interface{}{tvmid, token, int64(charid), int32(pUser.Level() + 2)}
 		event := eventque.NewCommonEvent(arglist, def.HttpRequestUserLevelArglist, nil)
 		pUser.AsynEventInsert(event)
 	case "win":
-		arglist := []interface{}{tvmid, token, uint64(charid), "1", int32(1)}
+		arglist := []interface{}{tvmid, token, int64(charid), "1", int32(1)}
 		event := eventque.NewCommonEvent(arglist, def.HttpRequestUserVictoryArglist, nil)
 		pUser.AsynEventInsert(event)
 	case "resadd":
-		arglist := []interface{}{tvmid, token, uint64(charid), uint32(10)}
+		arglist := []interface{}{tvmid, token, int64(charid), int32(10)}
 		event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceEarnArglist, nil)
 		pUser.AsynEventInsert(event)
 	case "resdec":
-		arglist := []interface{}{tvmid, token, uint64(charid), uint32(10)}
+		arglist := []interface{}{tvmid, token, int64(charid), int32(10)}
 		event := eventque.NewCommonEvent(arglist, def.HttpRequestUserResourceConsumeArglist, nil)
 		pUser.AsynEventInsert(event)
 	case "query":
-		def.HttpRequestFinanceQuery(uint64(charid), token, tvmid)
+		def.HttpRequestFinanceQuery(int64(charid), token, tvmid)
 	case "decrcoin":
-		def.HttpRequestDecrCoins(uint64(charid), token, tvmid, 1, "跳跃测试扣除")
+		def.HttpRequestDecrCoins(int64(charid), token, tvmid, 1, "跳跃测试扣除")
 	case "wechat":
-		def.HttpRequestCheckWechatBound(uint64(charid), token, tvmid)
+		def.HttpRequestCheckWechatBound(int64(charid), token, tvmid)
 	case "diamond":
-		def.HttpRequestIncrDiamonds(uint64(charid), token, tvmid, 1, "跳跳测试添加")
+		def.HttpRequestIncrDiamonds(int64(charid), token, tvmid, 1, "跳跳测试添加")
 	case "balance":
 		def.HttpWechatMiniGameGetBalance(Redis(),"oYITD5MPbYAEtLtAD8T0-kkfiPQs")
 	default:

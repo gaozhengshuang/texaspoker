@@ -43,8 +43,8 @@ enum ItemType {
 }
 
 message PairNumItem {
-    optional uint32 itemid = 1;
-    optional uint32 num = 2;
+    optional int32 itemid = 1;
+    optional int32 num = 2;
 }
 
 enum TaskId {
