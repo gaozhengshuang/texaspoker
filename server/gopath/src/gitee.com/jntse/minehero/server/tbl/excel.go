@@ -21,10 +21,10 @@ var SignBase = table.InsSignBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TaskBase = table.InsTaskBaseTable
 var NameBase = table.InsNameBaseTable
-var TexasRoom = table.InsTexasRoomTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
 var ShopBase = table.InsShopBaseTable
+var TexasRoomBase = table.InsTexasRoomBaseTable
 var ItemBase = table.InsItemBaseTable
 var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
 

@@ -5,8 +5,8 @@
 package table;
 
 
-// Defined in table: TexasRoom
-message TexasRoom
+// Defined in table: TexasRoomBase
+message TexasRoomBase
 {	
 	
 	
