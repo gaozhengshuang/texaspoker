@@ -2,27 +2,6 @@ syntax = "proto2";
 package msg;
 import "serialize.proto";
 
-// 添加收货地址
-message C2GW_AddDeliveryAddress {
-    optional msg.UserAddress info = 1;
-}
-
-// 删除地址
-message C2GW_DelDeliveryAddress {
-    optional uint32 index = 1;
-}
-
-// 修改地址
-message C2GW_ChangeDeliveryAddress {
-    optional uint32 index = 1;
-    optional msg.UserAddress info = 2;
-}
-
-// 同步地址列表
-message GW2C_SendDeliveryAddressList {
-    repeated msg.UserAddress list = 1;
-}
-
 // 请求充值页面
 message C2GW_ReqRechargeMoney {
     optional uint32 amount = 1;
@@ -68,3 +47,17 @@ message GW2C_SendLuckyDrawRecord {
 message C2GW_ReqTaskList {
 	
 }
+
+message GW2C_Ret7DayReward {
+    optional uint32 day = 1;
+}
+
+message C2GW_Get7DayReward {
+}
+
+// 上传微信授权code
+message C2GW_SendWechatAuthCode {
+    optional string code = 1;
+}
+
+

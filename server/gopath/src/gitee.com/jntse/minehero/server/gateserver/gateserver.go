@@ -21,22 +21,22 @@ import (
 
 func SignalInt(signal os.Signal) {
 	log.Info("SignalInt")
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalTerm(signal os.Signal) {
 	log.Info("SignalTerm")
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalHup(signal os.Signal) {
 	log.Info("SignalHup")
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalCoreDump(signal os.Signal) {
 	log.Info("Signal[%d] Received", signal)
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func init() {
@@ -52,12 +52,11 @@ type GateServer struct {
 	usermgr			UserManager
 	waitpool		LoginWaitPool
 	roomsvrmgr		RoomSvrManager
-	roommgr			RoomManager
 	msghandlers		[]network.IBaseMsgHandler
 	tblloader		*tbl.TblLoader
 	rcounter 		util.RedisCounter
 	tickers       	[]util.IGameTicker
-	quit_graceful 	bool
+	gracefulquit	bool
 	runtimestamp  	int64
 	hourmonitor   	*util.IntHourMonitorPool
 	mysqldb			*sql.DB
@@ -96,10 +95,6 @@ func RoomSvrMgr() *RoomSvrManager {
 	return &GateSvr().roomsvrmgr
 }
 
-func RoomMgr() *RoomManager {
-	return &GateSvr().roommgr
-}
-
 func RCounter() *util.RedisCounter {
 	return &GateSvr().rcounter
 }
@@ -115,7 +110,7 @@ func (this *GateServer) Name() string {
 func (this *GateServer) DoInputCmd(cmd string) {
 	subcmd := strings.Split(cmd, " ")
 	switch subcmd[0] {
-	case "quit_graceful":
+	case "gracefulquit":
 		this.QuitGraceful()
 	case "gates":
 		log.Info("show gates list")
@@ -218,7 +213,6 @@ func (this *GateServer) Init(fileconf string) bool {
 	this.usermgr.Init()
 	this.waitpool.Init()
 	this.roomsvrmgr.Init()
-	this.roommgr.Init()
 	this.InitMySql()
 	//this.countmgr.Init()
 	//this.gamemgr.Init()
@@ -260,8 +254,8 @@ func (this *GateServer) Handler100msTick(now int64) {
 	this.waitpool.Tick(now)
 
 	//
-	if this.quit_graceful && this.usermgr.Amount() == 0 {
-		g_KeyBordInput.Insert("quit")
+	if this.gracefulquit && this.usermgr.Amount() == 0 {
+		g_KeyBordInput.Push("quit")
 	}
 }
 
@@ -269,6 +263,7 @@ func (this *GateServer) InitMsgHandler() {
 	if this.tblloader == nil {
 		panic("should init 'tblloader' first")
 	}
+	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
 	this.msghandlers = append(this.msghandlers, NewC2GWMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewLS2GMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewMS2GWMsgHandler())
@@ -322,9 +317,13 @@ func (this *GateServer) Quit() {
 
 // 优雅退出
 func (this *GateServer) QuitGraceful() {
-	this.quit_graceful = true
-	UserMgr().OnServerClose()
 	log.Info("服务器 QuitGraceful")
+	this.gracefulquit = true
+	UserMgr().OnServerClose()
+}
+
+func (this *GateServer) IsGracefulQuit() bool {
+	return this.gracefulquit
 }
 
 // 启动完成
@@ -374,7 +373,6 @@ func (this *GateServer) Run() {
 
 	//
 	this.usermgr.Tick(now)
-	this.roommgr.Tick(now)
 	tm_usrticker := util.CURTIMEMS()
 
 	//

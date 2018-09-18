@@ -42,15 +42,7 @@ func (this* MS2RSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2RS_GateInfo{}, on_MS2RS_GateInfo)
 	this.msgparser.RegistProtoMsg(msg.MS2RS_CreateRoom{}, on_MS2RS_CreateRoom)
 	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
-
-	// 发
-	this.msgparser.RegistSendProto(msg.RS2MS_ReqRegist{})
-	this.msgparser.RegistSendProto(msg.RS2MS_HeartBeat{})
-	this.msgparser.RegistSendProto(msg.RS2MS_RetCreateRoom{})
-	this.msgparser.RegistSendProto(msg.RS2MS_UpdateRewardPool{})
-	this.msgparser.RegistSendProto(msg.RS2MS_MsgNotice{})
-	//this.msgparser.RegistSendProto(msg.RS2MS_DeleteRoom{})
-
+	
 }
 
 func on_MS2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -109,7 +101,7 @@ func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 		}
 
 		// 初始化房间
-		room := NewGameRoom(userid, roomid, gamekind, tmsg.GetQuotaflag())
+		room := NewGameRoom(userid, roomid, gamekind)
 		if errcode = room.Init(); errcode != "" {
 			break
 		}
@@ -121,7 +113,6 @@ func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 	rmsg := &msg.RS2MS_RetCreateRoom{ Roomid : tmsg.Roomid , Errcode: pb.String(errcode), Userid: tmsg.Userid, Sidgate: tmsg.Sidgate}
 	session.SendCmd(rmsg)
 	if errcode != "" { log.Error(errcode) }
-
 }
 
 //

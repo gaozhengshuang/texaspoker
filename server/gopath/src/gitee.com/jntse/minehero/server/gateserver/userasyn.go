@@ -38,19 +38,23 @@ func (this *UserRechargeEvent) Feedback() {
 /// @brief  玩家存盘
 // --------------------------------------------------------------------------
 type UserSaveEventHandle func()
+type UserSaveEventFeedbackHandle func()
 type UserSaveEvent struct {
-	handler UserSaveEventHandle
+	handler  UserSaveEventHandle
+	feedback UserSaveEventFeedbackHandle
 }
 
-func NewUserSaveEvent(handler UserSaveEventHandle) *UserSaveEvent {
-	return &UserSaveEvent{handler:handler}
+func NewUserSaveEvent(handler UserSaveEventHandle, feedback UserSaveEventFeedbackHandle) *UserSaveEvent {
+	return &UserSaveEvent{handler:handler, feedback:feedback}
 }
 
 func (this *UserSaveEvent) Process(ch_fback chan eventque.IEvent) {
 	this.handler()
+	ch_fback <- this
 }
 
 func (this *UserSaveEvent) Feedback() {
+	if this.feedback != nil { this.feedback() }
 }
 
 

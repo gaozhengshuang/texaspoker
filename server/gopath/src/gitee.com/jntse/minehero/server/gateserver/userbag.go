@@ -11,7 +11,6 @@ import "gitee.com/jntse/minehero/server/tbl/excel"
 type Item struct {
 	bin *msg.ItemData
 	base *table.ItemBaseDataDefine
-	equipbase *table.EquipDefine
 }
 
 func (t *Item) Bin() *msg.ItemData {
@@ -51,10 +50,6 @@ func (t *Item) SetPos(pos int32) {
 	t.bin.Pos = pb.Int32(pos)
 }
 
-func (t *Item) EquipBase() *table.EquipDefine {
-	return t.equipbase
-}
-
 func NewItem(data *msg.ItemData) *Item {
 	base := FindItemBase(data.GetId())
 	if base == nil { 
@@ -65,7 +60,6 @@ func NewItem(data *msg.ItemData) *Item {
 	item := new(Item)
 	item.bin = data
 	item.base = base
-	item.equipbase = FindEquipBase(data.GetId())
 	return item
 }
 
@@ -77,11 +71,6 @@ func NewItemData(id uint32, num uint32, pos int32) *msg.ItemData {
 func FindItemBase(id uint32) *table.ItemBaseDataDefine {
 	return tbl.ItemBase.ItemBaseDataById[id]
 }
-
-func FindEquipBase(id uint32) *table.EquipDefine {
-	return tbl.TEquipBase.EquipById[int32(id)]
-}
-
 
 // --------------------------------------------------------------------------
 /// @brief 背包

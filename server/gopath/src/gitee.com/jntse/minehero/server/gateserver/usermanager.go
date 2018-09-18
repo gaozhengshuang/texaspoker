@@ -101,15 +101,23 @@ func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account,
 	//玩家自己设置不从第三方带入头像
 	//user.SetFace(face, false)
 
-	if user.Online(session) == false {
+	if user.Online(session, "使用DB登陆") == false {
 		return nil, "Online失败"
 	}
 
 	WaitPool().Remove(account)
 	this.AddUser(user)
-	log.Info("当前在线人数:%d", len(this.accounts))
-	//this.AddAccount(user)
+	log.Info("当前在线人数:%d", this.AmountOnline())
 	return user, ""
+}
+
+// 从缓存登陆
+func (this *UserManager) LoginByCache(session network.IBaseNetSession, user *GateUser) string {
+	if user.Online(session, "使用缓存登陆") == false {
+		return "Online失败"
+	}
+	log.Info("当前在线人数:%d", this.AmountOnline())
+	return ""
 }
 
 func (this *UserManager) Amount() int {

@@ -11,7 +11,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/def"
 	pb"github.com/gogo/protobuf/proto"
-	"github.com/go-redis/redis"
+	_"github.com/go-redis/redis"
 )
 
 // --------------------------------------------------------------------------
@@ -226,27 +226,11 @@ func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, 
 		return errcode
 	}
 
-	quotakey := fmt.Sprintf("global_rewardpool_%d_quota", kind)
-	left_quota, err_quota := Redis().Get(quotakey).Int64()
-	if err_quota != nil && err_quota != redis.Nil {
-		errcode = fmt.Sprintf("向RS请求创建房间[%d] 获取大奖配额失败 err:%s", roomid, err_quota)
-		return errcode
-	}
-
-	if left_quota > 0  {
-		val, err := Redis().Decr(quotakey).Result()
-		if err != nil {
-			errcode = fmt.Sprintf("向RS请求创建房间[%d] 设置大奖配额失败 err:%s", roomid, err)
-			return errcode
-		}
-		log.Info("房间[%d] 玩家[%d] 模式[%d] 本次房间获得大奖配额，剩余配额[%d]", roomid, userid, kind, val)
-	}
 	rmsg := &msg.MS2RS_CreateRoom { 
 		Roomid : pb.Int64(roomid), 
 		Gamekind: pb.Int32(kind), 
 		Sidgate: pb.Int(sid_gate), 
 		Userid: pb.Uint64(userid),
-		Quotaflag: pb.Bool(left_quota > 0),
 	}
 	agent.SendMsg(rmsg)
 	tm2 := util.CURTIMEUS()

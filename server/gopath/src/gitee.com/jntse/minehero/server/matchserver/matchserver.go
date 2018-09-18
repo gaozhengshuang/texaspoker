@@ -20,22 +20,22 @@ import (
 
 func SignalInt(signal os.Signal) {
 	log.Info("SignalInt")
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalTerm(signal os.Signal) {
 	log.Info("SignalTerm")
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalHup(signal os.Signal) {
 	log.Info("SignalHup")
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalCoreDump(signal os.Signal) {
 	log.Info("Signal[%d] Received", signal)
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func init() {
@@ -200,6 +200,7 @@ func (this *MatchServer) InitMsgHandler() {
 	if this.tblloader == nil {
 		panic("should init 'tblloader' first")
 	}
+	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
 	this.msghandlers = append(this.msghandlers, NewGW2MSMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewRS2MSMsgHandler())
 }

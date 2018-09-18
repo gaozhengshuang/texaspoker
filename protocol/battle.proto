@@ -5,67 +5,53 @@ syntax = "proto2";
 import "serialize.proto";
 package msg;
 
-//message BattleUser {
-//    optional uint64 userid = 1;
-//    optional int32  gold = 2;
-//    optional int32  stepindex = 3;
-//}
 
-
-message GridItem {
-    optional int32 index    = 1;    // 格子编号
-    optional int32 id       = 2;    // 道具id
-    optional int32 num      = 3;    // 数量
-    optional int32 gridtype = 4;    // 类型：0默认道具，1大奖，2高级中元宝，3高级大元宝，4钻石
-    optional bool  control  = 5;    // 作假控制
-}
-
-// 发送个人信息到游戏房间
-message BT_UploadGameUser   {
-    optional int64 roomid = 1;
-    optional msg.Serialize bin = 2;     // TODO: 玩家数据没必要全部发送
-}
-
-
-// 房间存在，直接进入房间, 客户端参数留空
+// C2R 进入创建好的房间, 客户端参数留空
 message BT_ReqEnterRoom {
     optional int64 roomid = 1;
     optional uint64 userid = 2;
     optional string token = 3;
 }
 
+// C2R 退出游戏房间
+message BT_ReqLeaveRoom {
+    optional int64 roomid = 1;
+    optional uint64 userid = 2;
+    optional uint32 gold = 3;
+}
 
-// 房间初始化
+// R2C 房间初始化
 message BT_GameInit {
     optional int64  roomid = 1;
     optional uint64 ownerid = 2;
     optional int32  gamekind = 3;
-    optional uint32 diamond = 4;
-    optional uint32 gold = 5;
-    optional uint32 freebullet = 6;     // 免费炮弹数
-    optional uint64 eventuid = 7;       // 事件uid，通过事件创建游戏
-    //repeated GridItem listitem = 4;
 }
 
+// 对象定义
+message BT_RoomUser {
+    optional uint64 id = 1;
+    optional string name = 2;
+    optional string face = 3;
+    optional uint32 seatno = 4;     // 座位号
+}
 
-// 同步玩家数据
-//message BT_SendBattleUser {
-//    optional uint64 ownerid = 2;
-//    optional uint32 gold = 3;           // 红包金币
-//    optional uint32 coupon = 4;         // 代金卷
-//    optional uint32 yuanbao = 5;        // 元宝
-//    optional uint32 level = 6;          // 等级
-//    optional int32 freestep = 7;        // 免费步数，免费场
-//}
+// R2C 新玩家进入房间
+message BT_NewUserInRoom {
+    optional BT_RoomUser user = 1;
+}
 
+// R2C 发送房间所有玩家
+message BT_SendRoomUser {
+    repeated BT_RoomUser users = 1;
+}
 
-// 游戏开始
+// R2C 游戏开始
 message BT_GameStart {
     optional int64 roomid = 1;
     optional uint64 ownerid = 2;
 }
 
-// 游戏结束
+// R2G 游戏结束
 message BT_GameEnd {
     optional int64 roomid = 1;
     optional uint64 ownerid = 2;
@@ -73,89 +59,8 @@ message BT_GameEnd {
     optional msg.Serialize bin = 4;     // TODO: 玩家数据没必要全部发送
 }
 
-// 通知客户端游戏结束
+// G2C 通知客户端游戏结束
 message BT_GameOver {
     optional int64 roomid = 1;
 }
-
-// C2R 退出游戏房间，游戏结束,参数客户端留空
-message BT_ReqQuitGameRoom {
-    optional int64 roomid = 1;
-    optional uint64 userid = 2;
-    optional uint32 gold = 3;
-}
-
-// 房间销毁
-message BT_GameRoomDestroy {
-    optional int64 roomid = 1;
-}
-
-// R2C 获得道具
-message BT_PickItem {
-    optional uint64 userid = 1;
-    optional GridItem item = 2;
-}
-
-// C2R 更新gold
-//message BT_UpdateMoney {
-//    optional uint64 userid = 1;
-//    optional int64  roomid = 2;
-//    optional uint64 gold  = 3;
-//}
-
-// C2R 请求发送子弹
-message BT_ReqLaunchBullet {
-    optional uint64 userid = 1;
-}
-
-// R2C 返回
-message BT_RetLaunchBullet {
-    optional int64 bulletid = 1;
-    optional int64 energy = 2;
-    optional string errmsg = 3;
-    optional uint32 freebullet = 4;     // 免费炮弹数
-}
-
-// C2R 客户端通知踩到炸弹
-message BT_StepOnBomb {
-    optional uint64 userid = 1;
-}
-
-message BT_RetStepOnBomb {
-}
-
-
-// C2R 子弹获取金币
-message BT_BulletEarnMoney {
-    optional uint64 userid = 1;
-    optional int64 bulletid = 2;
-    optional uint32 gold = 3;
-}
-
-message BT_RetBulletEarnMoney { 
-}
-
-
-// C2R 使用大招
-message BT_UseUltimateSkil {
-    optional uint64 userid = 1;
-    optional uint32 gold = 2;
-}
-
-// R2C 通知客户端充钱到账
-//message BT_SynUserRechargeMoney {
-//    optional uint64 userid = 1;
-//    optional uint32 diamond = 2;    // 增量
-//}
-
-// C2R 击中超级砖块
-message BT_ReqCrushSuperBrick {
-    optional uint64 userid = 1;
-}
-
-// C2R 击中超级砖块
-message BT_RetCrushSuperBrick {
-    optional string errmsg = 1;
-}
-
 
