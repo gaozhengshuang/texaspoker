@@ -1,0 +1,11 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"TexasRoom":[
+		{ "Id": 1001, "Desc": "初级", "Type": 1, "SBlind": 10, "BBlind": 20 },
+		{ "Id": 1002, "Desc": "初级", "Type": 1, "SBlind": 50, "BBlind": 100 },
+		{ "Id": 2001, "Desc": "中级", "Type": 2, "SBlind": 1000, "BBlind": 2000 },
+		{ "Id": 2002, "Desc": "中级", "Type": 2, "SBlind": 2000, "BBlind": 4000 },
+		{ "Id": 3001, "Desc": "高级", "Type": 3, "SBlind": 10000, "BBlind": 20000 },
+		{ "Id": 3002, "Desc": "高级", "Type": 3, "SBlind": 100000, "BBlind": 200000 }
+	]}

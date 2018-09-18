@@ -85,6 +85,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(ProtoMsgIndex, "proto_index.json")
 	this.LoadExcel(TaskBase, "taskbase.json")
 	this.LoadExcel(NameBase, "namebase.json")
+	this.LoadExcel(TexasRoom, "texasroom.json")
 	this.LoadExcel(TBallGiftbase, "ballgiftbase.json")
 	this.LoadExcel(NoticeBase, "noticebase.json")
 	this.LoadExcel(ShopBase, "shopbase.json")

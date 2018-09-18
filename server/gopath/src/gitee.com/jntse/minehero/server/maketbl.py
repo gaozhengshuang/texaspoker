@@ -214,6 +214,7 @@ gen.maketbl_excel('GiftProBase', 'giftprobase', 'TGiftPro.xlsx')
 gen.maketbl_excel('TaskBase', 'taskbase', 'TTask.xlsx')
 gen.maketbl_excel('MapEventBase','mapevent','TMapEvent.xlsx')
 gen.maketbl_excel('MapEventRefreshBase','mapeventrefresh','TMapEventRefresh.xlsx')
+gen.maketbl_excel('TexasRoom','texasroom','TTexasRoom.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')
