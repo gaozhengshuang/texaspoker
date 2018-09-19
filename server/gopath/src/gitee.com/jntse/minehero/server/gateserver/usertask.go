@@ -3,10 +3,10 @@ package main
 import (
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/pbmsg"
-	"gitee.com/jntse/minehero/server/def"
+	_"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
-	"strconv"
+	_"strconv"
 	"strings"
 )
 
@@ -90,7 +90,7 @@ func (this *UserTask) IsTaskFinish(id int32) bool {
 }
 
 func (this *UserTask) GiveTaskReward(id int32) {
-	taskbase, find := tbl.TaskBase.TTaskById[uint32(id)]
+	taskbase, find := tbl.TaskBase.TTaskById[int32(id)]
 	if find == false {
 		log.Error("玩家[%s %d] 找不到任务配置[%d]", this.owner.Name(), this.owner.Id(), id)
 		return
@@ -103,10 +103,10 @@ func (this *UserTask) GiveTaskReward(id int32) {
 		return
 	}
 	//reward, _ := strconv.ParseInt(rewardpair[0], 10, 32)
-	count, _ := strconv.ParseInt(rewardpair[1], 10, 32)
+	//count, _ := strconv.ParseInt(rewardpair[1], 10, 32)
 
 	//
 	if id == int32(msg.TaskId_RegistAccount) || id == int32(msg.TaskId_RegisterTopScore) || id == int32(msg.TaskId_InviteeTopScore) {
-		def.HttpWechatCompanyPay(this.owner.OpenId(), count, taskbase.Desc)
+		//def.HttpWechatCompanyPay(this.owner.OpenId(), count, taskbase.Desc)
 	}
 }

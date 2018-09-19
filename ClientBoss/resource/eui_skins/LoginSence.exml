@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoginSenceSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="292" height="130" y="103" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_logo_png" horizontalCenter="0"/>
+	<e:Group id="registerGroup" y="310" horizontalCenter="0">
+		<e:Image width="611" height="116" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_usernamebg_png"/>
+		<e:EditableText id="regNameput" width="457" height="62" x="122" y="27" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="50" fontFamily="Microsoft YaHei"/>
+		<e:Image width="611" height="116" x="0" y="162" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
+		<e:EditableText id="regPassput1" width="457" height="62" x="122" y="189" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="50" fontFamily="Microsoft YaHei"/>
+		<e:Image width="611" height="116" x="0" y="324" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
+		<e:EditableText id="regPassput2" width="457" height="62" x="122" y="351" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0A0909" size="50" fontFamily="Microsoft YaHei"/>
+		<e:Button id="RegisterBtn" label="注册" y="486" anchorOffsetX="0" width="611" anchorOffsetY="0" height="116" enabled="true" x="0">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="30" ellipseHeight="30"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" size="50" fontFamily="Microsoft YaHei"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="loginUrl_Btn" label="" y="645" x="249">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="ui_login_button_go_login_png" source.down="ui_login_button_go_login_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+	<e:Group id="loginGroup" y="310" horizontalCenter="0">
+		<e:Image width="611" height="116" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_usernamebg_png"/>
+		<e:EditableText id="loginNameput" width="457" height="62" x="122" y="27" anchorOffsetX="0" anchorOffsetY="0" textColor="0x0c0c0c" size="50" fontFamily="Microsoft YaHei" text="" verticalAlign="middle" textAlign="left"/>
+		<e:Image width="611" height="116" x="0" y="161" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_passwordbg_png"/>
+		<e:EditableText id="loginPassput" width="457" height="62" x="122" y="188" anchorOffsetX="0" anchorOffsetY="0" displayAsPassword="true" textColor="0x0a0909" size="50" text="" verticalAlign="middle" textAlign="left" fontFamily="Microsoft YaHei"/>
+		<e:Button id="LoginBtn" label="登录" y="321" anchorOffsetX="0" width="611" anchorOffsetY="0" height="116" enabled="true" x="0">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0x4fc1e9" ellipseWidth="30" ellipseHeight="30" enabled="true" fillAlpha="1" strokeColor="0x4fc1e9"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" size="50" fontFamily="Microsoft YaHei"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Image y="595" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_thirdpartytex_png" x="82"/>
+		<e:Image x="255.37" y="661" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_button_qq_png"/>
+		<e:Image x="83" y="661" anchorOffsetX="0" anchorOffsetY="0" source="ui_login_button_weixin_png" width="100" height="100"/>
+		<e:Image x="427.37" y="661" source="ui_login_button_weibo_png" width="100" height="100"/>
+		<e:Button id="registerUrl_Btn" label="" x="83" y="486" visible="false">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="ui_login_button_go_register_png" source.down="ui_login_button_go_register_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="forgetUrl_btn" label="" y="486" x="239">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="ui_login_button_forget_png" source.down="ui_login_button_forget_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+</e:Skin>

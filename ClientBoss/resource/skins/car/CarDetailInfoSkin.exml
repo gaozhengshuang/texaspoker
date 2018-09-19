@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarDetailInfoSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="view_bg" width="720" height="1280" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xc4c4c4"/>
+	<e:Image id="Bg" width="720" height="1280" x="0" scaleX="1" scaleY="1" y="0" source="carParkBg_png"/>
+	<e:Group id="top" height="1280" width="720" x="0" y="0">
+	</e:Group>
+	<e:Group id="center" height="1280" horizontalCenter="0" verticalCenter="0" width="720">
+		<e:Image width="657" anchorOffsetX="0" anchorOffsetY="0" height="17%" y="821.2" source="uiCarAltas_json.dialogBg" horizontalCenter="0.5"/>
+		<e:Label id="carNameTxt" text="宝马 smart" width="422" anchorOffsetY="0" height="52.88" anchorOffsetX="0" size="24" scaleX="1" scaleY="1" verticalAlign="middle" stroke="0" x="138.77" y="766.7" textAlign="center"/>
+		<e:Label id="InfoTxt_1" text="宝马 smart" width="646" anchorOffsetY="0" height="55.67" anchorOffsetX="0" size="24" scaleX="1" scaleY="1" verticalAlign="middle" stroke="0" x="37.77" y="889.7" textAlign="center" fontFamily="Microsoft YaHei" textColor="0x000000"/>
+		<e:Label id="InfoTxt_2" text="宝马 smart" width="264" anchorOffsetY="0" height="107.67" anchorOffsetX="0" size="24" scaleX="1" scaleY="1" verticalAlign="middle" stroke="0" x="91.77" y="932.7" textAlign="left" fontFamily="Microsoft YaHei" textColor="0x000000"/>
+		<e:Label id="InfoTxt_3" text="宝马 smart" width="249.33" anchorOffsetY="0" height="107.67" anchorOffsetX="0" size="24" scaleX="1" scaleY="1" verticalAlign="middle" stroke="0" x="376.77" y="932.7" textAlign="left" fontFamily="Microsoft YaHei" textColor="0x070707"/>
+		<e:Image id="carIcon" width="720" height="350" x="-0.5" scaleX="1" scaleY="1" y="457.2" source="carIconAltas_json.big_1"/>
+		<e:Image id="infoBgImage" height="99" scaleX="1" scaleY="1" y="810.2" source="uiCarAltas_json.infobg" horizontalCenter="0.5"/>
+		<e:Label id="parkingInfoTxt" text="停在马云家" x="36.89" y="823.53" width="524.55" anchorOffsetY="0" height="62.12" anchorOffsetX="0" size="28" verticalAlign="middle" textAlign="center" stroke="0" fontFamily="Arial" textColor="0xff573c"/>
+		<e:Label id="parkingNameTxt" text="" x="36.89" y="823.53" width="634.55" anchorOffsetY="0" height="62.12" anchorOffsetX="0" size="24" verticalAlign="middle" textAlign="center" stroke="0" fontFamily="Arial" textColor="0xffee9f" bold="true"/>
+		<e:Label id="parkingEmptyTxt" text="空闲中...." x="31.68" y="822.53" width="653.82" anchorOffsetY="0" height="62.12" anchorOffsetX="0" size="28" verticalAlign="middle" textAlign="center" stroke="0" fontFamily="Arial" textColor="0xffffff"/>
+		<e:Image id="btnDriveAwayBg" width="121" height="65" x="565.5" scaleX="1" scaleY="1" y="821.2" source="uiCarAltas_json.driveBtn"/>
+		<e:Label id="btnDriveAwayTxt" text="收回" x="564.5" y="854.2" size="35" verticalAlign="middle" textAlign="center" anchorOffsetX="0" width="88.79" height="45" bold="true" anchorOffsetY="0" visible="false"/>
+		<game:IconButton id="btnDriveAway" height="60.88" enabled="true" skinName="IconButtonSkin" width="122.79" x="557.5" y="823.2" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0"/>
+		<e:Button id="starUpBtn" label="升 星" width="150" height="56" horizontalCenter="0" y="619.2" visible="false">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Group id="starsGroup" width="0" height="0" x="344.59" y="726.2">
+			<e:Image id="star_0" width="40" height="38" x="530" y="753" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_1" width="40" height="38" x="540" y="763" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_2" width="40" height="38" x="550" y="773" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_3" width="40" height="38" x="560" y="783" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_4" width="40" height="38" x="570" y="793" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_5" width="40" height="38" x="580" y="803" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_6" width="40" height="38" x="590" y="813" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_7" width="40" height="38" x="600" y="823" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_8" width="40" height="38" x="610" y="833" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:Image id="star_9" width="40" height="38" x="620" y="843" scaleX="1" scaleY="1" source="hall_4_json.star_png"/>
+			<e:layout>
+				<e:HorizontalLayout gap="-8" horizontalAlign="center"/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="CarPartGroup" width="0" height="0" x="310.59" y="320.2" scaleX="1" scaleY="1">
+			<game:CarPartInfoItem id="Battery" width="366.67" height="116.67" x="-87" y="101" skinName="CarPartQiPaoSkin" scaleX="0.6" scaleY="0.6" anchorOffsetY="0" anchorOffsetX="0"/>
+			<game:CarPartInfoItem id="Engine" width="366" height="116" x="-265" y="168" skinName="CarPartQiPaoSkin" scaleX="0.6" scaleY="0.6"/>
+			<game:CarPartInfoItem id="Trunk" width="366" height="116" x="169" y="125" skinName="CarPartQiPaoSkin" scaleX="0.6" scaleY="0.6"/>
+			<game:CarPartInfoItem id="Tyre" width="366" height="116" x="160" y="264" skinName="CarPartQiPaoSkin" scaleX="0.6" scaleY="0.6"/>
+			<game:CarPartInfoItem id="Tank" width="366" height="116" x="-260" y="399" skinName="CarPartQiPaoSkin" scaleX="0.6" scaleY="0.6"/>
+		</e:Group>
+
+	</e:Group>
+
+
+	<e:Group id="bottom" width="0" height="0" horizontalCenter="-360" top="0">
+
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="0" scaleX="1" scaleY="1"/>
+
+
+
+
+	</e:Group>
+	<e:Group id="down_bg" width="720" height="108" left="0" y="1172">
+		<e:Image source="room_down_bg1_png" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" y="0"/>
+	</e:Group>
+	<e:Group id="downBtnGroup" y="1121" anchorOffsetX="0" x="50" width="415" height="125">
+		<e:Button id="btnState" label="" x="0" y="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="uiCarAltas_json.stateBtn" source.down="uiCarAltas_json.stateBtn"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="btnNeighbor" label="" x="157" y="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="uiCarAltas_json.publiclotIcon" source.down="uiCarAltas_json.publiclotIcon"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+
+		</e:Button>
+	</e:Group>
+
+	<e:Group id="down_bg_partpiece" width="0" height="0" horizontalCenter="-360" bottom="1280">
+		<e:Button id="hideList_btn" label="返 回" width="150" height="56" y="1224" x="295">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<game:CarPieceTweenSroller id="partPieceList" width="720" height="1280" scaleX="1" scaleY="1" enabled="true" skinName="TweenScrollerSkin" x="0" y="0" visible="false"/>
+
+	</e:Group>
+
+</e:Skin>

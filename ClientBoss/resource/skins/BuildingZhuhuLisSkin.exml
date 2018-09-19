@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BuildingZhuhuLisSkin" width="670" height="1058" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="654" height="1058" ellipseWidth="120" ellipseHeight="120" fillColor="0xf0f0f0" horizontalCenter="-8" verticalCenter="0"/>
+	<e:Image source="room_line1_png" width="654" scaleY="1" height="2" horizontalCenter="-8" verticalCenter="-438"/>
+	<e:Image source="room_line1_png" width="654" scaleY="1" height="2" verticalCenter="478" horizontalCenter="-8"/>
+	<e:Group id="listGroup" width="654" anchorOffsetY="0" height="914" verticalCenter="20" horizontalCenter="-8"></e:Group>
+	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" verticalCenter="-520.5" horizontalCenter="308.5"/>
+	<e:Label text="住  户" textColor="0x404a58" size="42" fontFamily="Microsoft YaHei" horizontalCenter="0.5" verticalCenter="-485"/>
+</e:Skin>

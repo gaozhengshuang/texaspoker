@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>弹弹乐</title>
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="full-screen" content="true"/>
-    <meta name="screen-orientation" content="portrait"/>
-    <meta name="x5-fullscreen" content="true"/>
-    <meta name="360-fullscreen" content="true"/>
+    <title>City Star</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <link rel="stylesheet" type="text/css" href="resource/others/css/mapUI.css">
     <style>
         html, body {
             -ms-touch-action: none;
@@ -43,26 +43,79 @@
             max-width: 100%;
         }
     </style>
-    <div id="preloading">
-        <img src="loading2.gif">
-    </div>
+<script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=UIDBZ-S5UK4-WQLUD-DR2DA-CI5I7-WCBCG&libraries=drawing,geometry,autocomplete,convertor"></script>
+<script egret="lib" src="libs/js/map.js" src-release="libs/js/map.js"></script>
+<script egret="lib" src="libs/js/ui.js" src-release="libs/js/ui.js"></script>
+<script egret="lib" src="libs/js/cookie.file.js" src-release="libs/js/cookie.file.js"></script>
 </head>
 
 <body>
+<div id="map" style="margin: auto;width: 100%;height: 100%; position:absolute"></div>
+<div id="xiaoxiBtn"></div>
+<div id="dingweiBtn"></div>
+<div id="shouyiBtn"></div>
+<div id="buyHouseBtn"></div>
+<div id="buyCarBtn"></div>
+<div id="expeditionBtn"></div>
+<div id="returnTradeBtn"></div>
+
+<div id="expeditionStateBg">
+    <div id="expeditionStateInfoLabel"></div>
+</div>
+
+<div id="expeditionStateBtn_1_Bg">
+    <div id="expeditionStateBtn_1_Label"></div>
+    <div id="expeditionStateBtn_1"></div>
+</div>
+<div id="expeditionStateBtn_2_Bg">
+    <div id="expeditionStateBtn_2_Label"></div>
+    <div id="expeditionStateBtn_2"></div>
+</div>
+<div id="expeditionStateBtn_3_Bg">
+    <div id="expeditionStateBtn_3_Label"></div>
+    <div id="expeditionStateBtn_3"></div>
+</div>
+<div id="expeditionStateBtn_4_Bg">
+    <div id="expeditionStateBtn_4_Label"></div>
+    <div id="expeditionStateBtn_4"></div>
+</div>
+<div id="expeditionStateBtn_5_Bg">
+    <div id="expeditionStateBtn_5_Label"></div>
+    <div id="expeditionStateBtn_5"></div>
+</div>
+
+<div id="fujinSwitchBtn" class="fujinJianzhu">
+    <div id='fjJianzhuBtn'></div>
+    <div id='fjRenBtn'></div>
+</div>
+<div id="returnBtn"></div>
+<div id="maskBg"></div>
+
 <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
      data-entry-class="Main"
      data-orientation="auto"
      data-scale-mode="fixedWidth"
      data-frame-rate="60"
      data-content-width="720"
-     data-content-height="1100"
+     data-content-height="1280"
      data-multi-fingered="1"
      data-show-fps="false" data-show-log="false"
      data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
 </div>
 
+<div id="downPanel">
+    <div id="zichanBtn" class="zichan_default"></div>
+    <div id="zichanRedIcon"></div>
+    <div id="faxianBtn" class="faxian_default"></div>
+    <div id="homeBtn" class="home_activate"></div>
+    <div id="jiaoyiBtn" class="jiaoyi_default"></div>
+    <div id="wodeBtn" class="wode_default"></div>
+</div>
+<div id="mainBg"></div>
+<div id="gameCloseBtn"></div>
 <script>
-    var manifestUrl = "./manifest.json";
+	var manifestUrl = "./manifest.json";
     var resUrl = "default.res.json";
     var div = document.getElementsByClassName("egret-player")[0];
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
@@ -70,6 +123,7 @@
     } else {
         div.setAttribute("data-scale-mode", "showAll")
     }
+
     var loadScript = function (list, callback) {
         var loaded = 0;
         var loadNext = function () {
@@ -88,7 +142,7 @@
 
     var loadSingleScript = function (src, callback) {
         var s = document.createElement('script');
-        s.async640 = false;
+        s.async = false;
         s.src = src;
         s.addEventListener('load', function () {
             s.parentNode.removeChild(s);
@@ -99,14 +153,11 @@
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', manifestUrl + '?v=' + Math.random(), true);
+    xhr.open('GET', './manifest.json?v=' + Math.random(), true);
     xhr.addEventListener("load", function () {
         var manifest = JSON.parse(xhr.response);
         var list = manifest.initial.concat(manifest.game);
         loadScript(list, function () {
-            egret.ImageLoader.crossOrigin = "anonymous";
-            egret.TextField.default_fontFamily = "微软雅黑";
-            game._platform = 1;
             /**
              * {
              * "renderMode":, //Engine rendering mode, "canvas" or "webgl"

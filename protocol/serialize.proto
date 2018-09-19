@@ -1,7 +1,8 @@
+syntax = "proto2";
 package msg;
 
 message EntityBase {
-    optional uint64 id      = 1;
+    optional int64 id       = 1;
     optional string name    = 2;
     optional string face    = 3;
     optional int32  sex     = 4;
@@ -50,38 +51,40 @@ message LuckyDrawRecord {
     optional int64 totalvalue = 2;          // 总价值
 }
 
-// 形象信息
-message ImageData {
-    optional int32 sex = 1;
-    repeated ItemData clothes = 2;
+// 地图事件
+message MapEvent {
+    optional int64 id = 1;         // 事件uid
+    optional int32 tid = 2;        // 事件tid
+    optional int32 longitude = 3;   // 经度 * 100000
+    optional int32 latitude = 4;    // 纬度 * 100000
 }
 
-// 个人形象
-message PersonalImage {
-    repeated ImageData lists = 2;
+// 玩家地图事件
+message UserMapEvent {
+    repeated MapEvent events = 1;   // 事件列表
+    optional int64 tmrefresh = 2;   // 刷新时间(服务器使用)
 }
 
 message UserBase {
-    optional uint32     level   = 1;
-    optional uint32     exp     = 2;
-    optional uint32     gold    = 3;    // 金币
-    optional uint32     diamond = 4;    // 钻石
-    optional uint32     yuanbao = 5;    // 元宝
+    optional int32      level   = 1;
+    optional int32      exp     = 2;
+    optional int32      gold    = 3;    // 金币
+    optional int32      diamond = 4;    // 钻石
+    optional int32      yuanbao = 5;    // 元宝
     optional int64      tmlogin  = 6;   // 登陆时间
     optional int64      tmlogout = 7;   // 离线时间
-    optional uint32     continuelogin = 8;  // 连续登陆
-    optional uint32     nocountlogin = 9;   // 不统计
-    optional uint32     signreward  = 10;   // 签到
-    optional uint32     signtime    = 11;   // 签到时间
+    optional int32      continuelogin = 8;  // 连续登陆
+    optional int32      nocountlogin = 9;   // 不统计
+    optional int32      signreward  = 10;   // 签到
+    optional int32      signtime    = 11;   // 签到时间
     repeated UserAddress addrlist   = 12;   // 地址列表
     optional SimpleCounter scounter = 13;   // 简单计数器
     optional UserWechat wechat = 14;
     optional string     invitationcode = 15;    // 邀请码
-    optional FreePresentMoney freepresent = 16;
-    optional UserTask   task = 17;          // 任务
-    optional LuckyDrawRecord luckydraw = 18;   // 抽奖
-    optional uint32     total_recharge = 19; // 总充值
-    optional PersonalImage images = 20;     // 个人形象
+    optional UserTask   task = 17;              // 任务
+    optional LuckyDrawRecord luckydraw = 18;    // 抽奖
+    optional int32      total_recharge = 19;    // 总充值
+    optional UserMapEvent mapevent = 27;    // 地图事件
 }
 
 message UserAddress {
@@ -91,8 +94,8 @@ message UserAddress {
 }
 
 message ItemData {
-    optional uint32 id = 1;     // 目前id就是道具baseid
-    optional uint32 num = 2;
+    optional int32 id = 1;     // 目前id就是道具baseid
+    optional int32 num = 2;
     optional int32 pos = 3;     // ItemPos
 }
 
@@ -105,5 +108,4 @@ message Serialize {
     optional UserBase   base    = 2;
     optional ItemBin    item    = 3;
 }
-
 

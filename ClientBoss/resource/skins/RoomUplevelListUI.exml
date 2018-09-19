@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RoomUplevelListUI" width="720" height="160" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<e:Image id="quyuImg" source="roomLevelIcon1_png" x="9" verticalCenter="0"/>
+	<e:Label id="level_txt" text="房屋等级4级——房屋等级5级" x="152" y="20" textColor="0x3F4957" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="363" verticalAlign="middle" textAlign="center" bold="true"/>
+	<e:Label id="chanliang_txt" text="金币产量999&gt;金币产量999" x="152" y="54" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" width="363" verticalAlign="middle" textAlign="center" bold="true" textColor="0xec5339"/>
+	<e:Group id="btnGruop" x="532" y="28">
+		<e:Image id="btn_bg" source="btnBg_red3_png" x="0" y="0" width="170" height="66"/>
+		<e:Label id="btnName_txt" text="房屋请先提升" fontFamily="Microsoft YaHei" size="26" textAlign="center" verticalAlign="middle" width="166" height="60" anchorOffsetY="0" anchorOffsetX="0" x="2" y="0"/>
+	</e:Group>
+	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
+	<e:Label id="manji_txt" text="满 级" x="571" fontFamily="Microsoft YaHei" size="40" anchorOffsetX="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0xed788b" verticalCenter="0"/>
+	<e:Image id="goldImg" x="548" scaleX="1" scaleY="1" source="smallGoldIcon1_png" y="103"/>
+	<e:Label id="spend_txt" text="1000金币" x="587" y="111" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="100" textAlign="center" verticalAlign="middle" textColor="0x414a59"/>
+</e:Skin>

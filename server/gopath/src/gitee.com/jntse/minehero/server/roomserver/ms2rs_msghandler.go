@@ -42,15 +42,7 @@ func (this* MS2RSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.MS2RS_GateInfo{}, on_MS2RS_GateInfo)
 	this.msgparser.RegistProtoMsg(msg.MS2RS_CreateRoom{}, on_MS2RS_CreateRoom)
 	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
-
-	// 发
-	this.msgparser.RegistSendProto(msg.RS2MS_ReqRegist{})
-	this.msgparser.RegistSendProto(msg.RS2MS_HeartBeat{})
-	this.msgparser.RegistSendProto(msg.RS2MS_RetCreateRoom{})
-	this.msgparser.RegistSendProto(msg.RS2MS_UpdateRewardPool{})
-	this.msgparser.RegistSendProto(msg.RS2MS_MsgNotice{})
-	//this.msgparser.RegistSendProto(msg.RS2MS_DeleteRoom{})
-
+	
 }
 
 func on_MS2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -99,7 +91,7 @@ func on_MS2RS_GateInfo(session network.IBaseNetSession, message interface{}) {
 
 func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.MS2RS_CreateRoom)
-	userid, roomid, gamekind, errcode := tmsg.GetUserid(), tmsg.GetRoomid(), tmsg.GetGamekind(), ""
+	userid, roomid, gamekind, texas, errcode := tmsg.GetUserid(), tmsg.GetRoomid(), tmsg.GetGamekind(), tmsg.GetTexas(),  ""
 
 	switch {
 	default:
@@ -109,19 +101,28 @@ func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 		}
 
 		// 初始化房间
-		room := NewGameRoom(userid, roomid, gamekind, tmsg.GetQuotaflag())
-		if errcode = room.Init(); errcode != "" {
+		var room IRoomBase = nil
+		switch msg.RoomKind(gamekind) {
+			case msg.RoomKind_TanTanLe:		// 弹弹乐
+			room = NewTanTanLeRoom(userid, roomid)
+		case msg.RoomKind_TexasPoker:
+			room = NewTexasRoom(userid, roomid, texas.GetRoomId(), texas.GetAnte(), texas.GetPwd())
+		}
+
+		if room == nil {
+			errcode = "无效的游戏类型"
 			break
 		}
 
-		RoomMgr().Add(room)
+		if errcode = room.Init(); errcode != "" {
+			RoomMgr().Add(room)
+		}
 		//log.Info("添加房间[%d]成功，等待玩家[%d]个人数据", roomid, tmsg.GetUserid())
 	}
 
 	rmsg := &msg.RS2MS_RetCreateRoom{ Roomid : tmsg.Roomid , Errcode: pb.String(errcode), Userid: tmsg.Userid, Sidgate: tmsg.Sidgate}
 	session.SendCmd(rmsg)
 	if errcode != "" { log.Error(errcode) }
-
 }
 
 //

@@ -1,8 +1,9 @@
+syntax = "proto2";
 package msg;
 
 // 个人提示信息
 message GW2C_MsgNotify {
-    optional uint64 userid = 1;
+    optional int64 userid = 1;
     optional string text = 2;
 }
 
@@ -14,7 +15,7 @@ enum NoticeType {
 
 // 公告提示信息
 message GW2C_MsgNotice {
-    optional uint64 userid = 1;
+    optional int64 userid = 1;
     optional string face = 2;
     optional string name = 3;
     optional int32  type = 4;

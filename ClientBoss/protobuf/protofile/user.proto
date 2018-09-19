@@ -1,5 +1,7 @@
+syntax = "proto2";
 package msg;
 import "serialize.proto";
+import "define.proto";
 
 // 添加收货地址
 message C2GW_AddDeliveryAddress {
@@ -71,4 +73,86 @@ message GW2C_SendLuckyDrawRecord {
 // 请求任务列表
 message C2GW_ReqTaskList {
 	
+}
+
+// 请求附近的人
+message C2GW_ReqNearUsers {
+	optional float lng = 1;
+	optional float lat = 2;
+}
+
+// 返回附近的人
+message GW2C_AckNearUsers {
+	repeated PersonSocialInfo data = 1;
+}
+
+// 请求设置位置
+message C2GW_ReqSetPos {
+	optional float lng = 1;
+	optional float lat = 2;
+	optional uint32 province = 3;
+	optional uint32 city = 4;
+}
+
+// 设置性别
+message C2GW_ReqSetUserSex {
+	optional int32 sex = 1; 
+}
+
+// 设置年龄
+message C2GW_ReqSetUserAge {
+	optional uint32 age = 1;
+}
+
+// 设置星座
+message C2GW_ReqSetUserConstellation {
+	optional uint32 constellation = 1;
+}
+
+// 设置签名
+message C2GW_ReqSetUserSign {
+	optional string sign = 1;
+}
+// 返回签名设置是否成功
+message GW2C_AckSetUserSign {
+	optional uint32 ret = 1; //0成功 >0失败
+}
+
+// 设置头像
+message C2GW_ReqSetFace {
+	optional string face = 1;
+}
+
+// 设置名字
+message C2GW_ReqSetUserName {
+	optional string name = 1;
+}
+
+// 返回名字是否设置成功
+message GW2C_AckSetUserName {
+	optional uint32 ret = 1;
+}
+
+// 设置个人归属地
+message C2GW_ReqSetBaseArea {
+	optional uint32 province = 1;
+	optional uint32 city = 2;
+}
+
+//同步客户端单条的任务属性
+message GW2C_UpdateUserDataByKey {
+	optional uint32 key = 1;    //类型
+	optional uint64 valueint = 2; //整数值
+	optional string valuestring = 3; //string值
+}
+
+// 请求查看行政区人数
+message C2GW_ReqPlayerCountByProvince {
+	optional uint32 province = 1;  //省id 大于0 时返回对应省的各市人数 等于0 时返回各个省的人数
+}
+
+// 返回行政区人数
+message GW2C_AckPlayerCountByProvince {
+	optional uint32 province = 1;
+	repeated CommonKeyValue data = 2;
 }

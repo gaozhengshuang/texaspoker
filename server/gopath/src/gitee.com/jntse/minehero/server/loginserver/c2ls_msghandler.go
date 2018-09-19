@@ -44,8 +44,8 @@ func (this* C2LSMsgHandler) Init() {
 
 
 	// 发
-	this.msgparser.RegistSendProto(msg.L2C_RetLogin{})
-	this.msgparser.RegistSendProto(msg.L2C_RetRegistAccount{})
+	//this.msgparser.RegistSendProto(msg.L2C_RetLogin{})
+	//this.msgparser.RegistSendProto(msg.L2C_RetRegistAccount{})
 }
 
 func newL2C_RetLogin(reason string, ip string, port int, key string) *msg.L2C_RetLogin {
@@ -107,6 +107,11 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 		// 2. 已经登陆上的账户，在对应的Gate中要验证是否重复登陆
 		if account == "" || strings.Contains(account, " ") {
 			errcode = "账户空字符串或包含空格"
+			break
+		}
+
+		// 目前暂时先免注册，客户端直接账户密码登陆
+		if errcode = DirectRegistAccount(account, passwd); errcode != "" {
 			break
 		}
 

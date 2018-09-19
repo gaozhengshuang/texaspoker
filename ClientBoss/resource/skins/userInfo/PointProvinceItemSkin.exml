@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PointProvinceItemSkin" width="720" height="106" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="100%" height="100%" x="0" y="0" fillAlpha="0"/>
+	<e:Label id="point_txt" text="上海市" x="30" textColor="0x5f5f6c" fontFamily="Microsoft YaHei" verticalCenter="0" anchorOffsetX="0" width="450"/>
+	<e:Group id="jiantouGroup" width="22" height="22" verticalCenter="0" right="38">
+		<e:Image id="jiantouIcon1" source="hall_5_json.xiaojiantou youbian_png" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="jiantouIcon2" source="hall_5_json.uf_jiantou zhankai_png" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+	<e:Rect width="690" height="1" fillColor="0xf5f5f5" fillAlpha="1" bottom="0" right="0"/>
+	<e:Image id="selectIcon" source="hall_5_json.uf_duihao_png" x="590" verticalCenter="0"/>
+</e:Skin>

@@ -18,22 +18,22 @@ import (
 
 func SignalInt(signal os.Signal)    {
 	log.Info("SignalInt");
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalTerm(signal os.Signal)   {
 	log.Info("SignalTerm");
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalHup(signal os.Signal)    {
 	log.Info("SignalHup");
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 func SignalCoreDump(signal os.Signal)   {
 	log.Info("Signal[%d] Received", signal);
-	g_KeyBordInput.Insert("quit_graceful")
+	g_KeyBordInput.Push("gracefulquit")
 }
 
 
@@ -59,7 +59,7 @@ type RoomServer struct {
 	ticker5s		*util.GameTicker
 	ticker100ms		*util.GameTicker
 	runtimestamp 	int64
-	quit_graceful 	bool
+	gracefulquit 	bool
 	noticerepeat 	[]*msg.RS2MS_MsgNotice
 	noticepause 	int64
 	itembase		[]*table.ItemBaseDataDefine
@@ -96,7 +96,7 @@ func Redis() *redis.Client {
 	return RoomSvr().hredis
 }
 
-func CMHandler() *ClientMsgHandler {
+func ClientMsgAgent() *ClientMsgHandler {
 	return RoomSvr().clienthandler
 }
 
@@ -110,7 +110,7 @@ func RCounter() *util.RedisCounter {
 
 func (this *RoomServer) DoInputCmd(cmd string) {
 	switch cmd {
-	case "quit_graceful":
+	case "gracefulquit":
 		this.QuitGraceful()
 	case "gates":
 		log.Info("show gates list")
@@ -227,13 +227,14 @@ func (this *RoomServer) Handler5sTick(now int64) {
 }
 
 func (this *RoomServer) Handler100msTick(now int64) {
-	if this.quit_graceful && this.roommgr.Num() == 0 {
-		g_KeyBordInput.Insert("quit")
+	if this.gracefulquit && this.roommgr.Num() == 0 {
+		g_KeyBordInput.Push("quit")
 	}
 }
 
 func (this *RoomServer) InitMsgHandler() {
 	if this.tblloader == nil { panic("should init 'tblloader' first") }
+	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
 	this.msghandlers = append(this.msghandlers, NewC2GWMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewMS2RSMsgHandler())
 	this.clienthandler = NewClientMsgHandler()
@@ -291,11 +292,12 @@ func (this *RoomServer) OnStop() {
 	this.ticker1m.Stop()
 	this.ticker5s.Stop()
 	this.ticker100ms.Stop()
+	this.hredis.Close()
 }
 
 // 优雅退出
 func (this *RoomServer) QuitGraceful() {
-	this.quit_graceful = true
+	this.gracefulquit = true
 	this.roommgr.Shutdown()
 	RCounter().Save()
 	log.Info("服务器 QuitGraceful")
@@ -394,7 +396,7 @@ func (this *RoomServer) cleanRoom() {
 
 // 通用公告
 func (this *RoomServer) SendNotice(face string, ty msg.NoticeType, subtext ...string) {
-	noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Uint64(0), Name:pb.String(""), Face:pb.String(face), Type:pb.Int32(int32(ty))}
+	noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Int64(0), Name:pb.String(""), Face:pb.String(face), Type:pb.Int32(int32(ty))}
 	noticemsg.Text = pb.String(strings.Join(subtext, ""))
 	send := &msg.RS2MS_MsgNotice{ Notice: noticemsg}
 	Match().SendCmd(send)
@@ -425,7 +427,7 @@ func (this *RoomServer) TickCacheNotice(now int64) {
 	amount := int32(len(this.noticerepeat))
 	if amount < 100 || util.SelectPercent(50) == true {
 		// 头像
-		noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Uint64(0), Name:pb.String(""), Face:pb.String(""), Type:pb.Int32(int32(msg.NoticeType_Suspension))}
+		noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Int64(0), Name:pb.String(""), Face:pb.String(""), Type:pb.Int32(int32(msg.NoticeType_Suspension))}
 		imageindex := util.RandBetween(0, 1200)
 		faceurl := fmt.Sprintf("http://jump.cdn.giantfun.cn/cdn/jumphead/tx (%d).jpg",imageindex)
 
@@ -476,4 +478,5 @@ func (this *RoomServer) GetRandNickName() string {
 
 	return ""
 }
+
 

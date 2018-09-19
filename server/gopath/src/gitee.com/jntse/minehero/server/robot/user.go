@@ -281,11 +281,11 @@ func (this *User) HttpWetchatLogin() {
 
 
 func (this *User) StartGame() {
-	this.SendGateMsg(&msg.C2GW_ReqStartGame{Gamekind:pb.Int32(0)})
+	this.SendGateMsg(&msg.C2GW_ReqCreateRoom{Gamekind:pb.Int32(0)})
 }
 
 func (this *User) LeaveGame() {
-	this.SendGateMsg(&msg.BT_ReqQuitGameRoom{})
+	this.SendGateMsg(&msg.BT_ReqLeaveRoom{})
 }
 
 //func (this *User) JumpStep() {
@@ -293,76 +293,45 @@ func (this *User) LeaveGame() {
 //}
 
 func (this *User) BuyItem() {
-	this.SendGateMsg(&msg.C2GW_BuyItem{Productid:pb.Uint32(7), Num:pb.Uint32(1)})
+	this.SendGateMsg(&msg.C2GW_BuyItem{Productid:pb.Int32(7), Num:pb.Int32(1)})
 }
 
 func (this *User) DeliveryGoods() {
 	send := &msg.C2GW_ReqDeliveryGoods{}
-	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Uint32(7001), Num:pb.Uint32(1)})
-	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Uint32(7002), Num:pb.Uint32(2)})
-	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Uint32(7003), Num:pb.Uint32(3)})
+	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Int32(7001), Num:pb.Int32(1)})
+	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Int32(7002), Num:pb.Int32(2)})
+	send.List = append(send.List, &msg.DeliveryGoods{Itemid:pb.Int32(7003), Num:pb.Int32(3)})
 	this.SendGateMsg(send)
 }
 
 func (this *User) Recharge() {
-	send := &msg.C2GW_ReqRechargeMoney{Amount:pb.Uint32(10)}
+	send := &msg.C2GW_ReqRechargeMoney{Amount:pb.Int32(10)}
 	this.SendGateMsg(send)
 }
 
 func (this *User) RechargeDone() {
-	send := &msg.C2GW_PlatformRechargeDone{ Userid:pb.Uint64(this.Id())}
+	send := &msg.C2GW_PlatformRechargeDone{ Userid:pb.Int64(this.Id())}
 	this.SendGateMsg(send)
 }
 
 // 抽奖
 func (this *User) LuckyDraw() {
-	send := &msg.C2GW_StartLuckyDraw{ Userid:pb.Uint64(this.Id())}
+	send := &msg.C2GW_StartLuckyDraw{ Userid:pb.Int64(this.Id())}
 	this.SendGateMsg(send)
 }
 
 // 设置抽奖地址
 func (this *User) ChangeDeliveryAddress() {
 	addr := &msg.UserAddress{Receiver:pb.String("机器人"), Phone:pb.String("188888888"), Address:pb.String("中国上海闵行区新龙路1333弄28号31栋901")}
-	send := &msg.C2GW_ChangeDeliveryAddress{ Index:pb.Uint32(0), Info:addr }
+	send := &msg.C2GW_ChangeDeliveryAddress{ Index:pb.Int32(0), Info:addr }
 	this.SendGateMsg(send)
 }
 
-// 购买服饰
-func (this *User) BuyClothes() {
-	send := &msg.C2GW_BuyClothes{ItemList:make([]int32, 0)}
-	send.ItemList = append(send.ItemList, 101)
-	//send.ItemList = append(send.ItemList, 201)
-	//send.ItemList = append(send.ItemList, 701)
+// 进入事件
+func (this *User) EnterEvent(uid int64) {
+	send := &msg.C2GW_ReqEnterEvents{Uid:pb.Int64(uid)}
 	this.SendGateMsg(send)
 }
-
-// 穿戴
-func (this *User) DressClothes() {
-	send := &msg.C2GW_DressClothes{Pos:pb.Int32(1), Itemid:pb.Int32(101) }
-	this.SendGateMsg(send)
-}
-
-// 脱下
-func (this *User) UnDressClothes() {
-	send := &msg.C2GW_UnDressClothes{Pos:pb.Int32(1)}
-	this.SendGateMsg(send)
-}
-
-func (this *User) ChangeSex() {
-	newsex := int32(msg.Sex_Female)
-	if this.Sex() == int32(msg.Sex_Female) { newsex = int32(msg.Sex_Male) }
-	send := &msg.C2GW_ChangeImageSex{ Sex:pb.Int32(newsex) }
-	this.SendGateMsg(send)
-}
-
-
-//func (this *User) ReqMatch() {
-//	this.SendGateMsg(this.NewReqMatchMsg(int(msg.GameMode_Normal_1v1)))
-//}
-
-//func (this *User) CancelMatch() {
-//	this.SendGateMsg(this.NewCancelMatchMsg())
-//}
 
 func (this *User) DoInputCmd(cmd string) {
 	switch cmd {
@@ -390,16 +359,12 @@ func (this *User) DoInputCmd(cmd string) {
 		this.LuckyDraw()
 	case "address":
 		this.ChangeDeliveryAddress()
-	case "buyc":
-		this.BuyClothes()
-	case "dress":
-		this.DressClothes()
-	case "undress":
-		this.UnDressClothes()
-	case "sex":
-		this.ChangeSex()
 	case "rechargedone":
 		this.RechargeDone()
+	case "event":
+		this.EnterEvent(5)
+		this.EnterEvent(16)
+		//this.EnterEvent(26)
 	}
 }
 

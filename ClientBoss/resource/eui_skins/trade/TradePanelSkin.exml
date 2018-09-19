@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TradePanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*" xmlns:utils="utils.*">
+	<e:Rect id="view_bg" width="720" height="100%" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0"
+	        strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e6e6" />
+	<e:Group id="titleRadioGroup" x="0" y="179" width="720" height="120" scaleX="1" scaleY="1">
+		<e:RadioButton id="houseBarBtn" label="" x="55" value="1" y="34" groupName="1">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="trading_fangchan_tabBar2_png"
+					         source.down="trading_fangchan_tabBar1_png" />
+					<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+				</e:Skin>
+			</e:skinName>
+		</e:RadioButton>
+		<e:RadioButton id="carBarBtn" label="" value="2" x="309" y="34" groupName="1">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="trading_car_tabBar2_png" source.down="trading_car_tabBar1_png" />
+					<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+				</e:Skin>
+			</e:skinName>
+		</e:RadioButton>
+		<e:RadioButton id="itemBarBtn" label="" x="566" value="3" y="34" groupName="1">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+					<e:Image width="100%" height="100%" source="item_bar_png" source.down="item_bar_select_png" />
+					<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+				</e:Skin>
+			</e:skinName>
+		</e:RadioButton>
+		<e:Image source="room_line1_png" width="720" scaleY="1" height="2" x="0" scaleX="1" bottom="0" />
+	</e:Group>
+	<e:Button id="tradeRecordBtn" label="交易记录" x="400" skinName="CommonBtnSkin" top="307" y="213" scaleX="1" scaleY="1" />
+	<e:Button id="sellBtn" label="我要出售" x="565" skinName="CommonBtnSkin" top="307" y="213" scaleX="1" scaleY="1" />
+	<e:Image width="720" height="94" x="0" scaleX="1" scaleY="1" y="384" anchorOffsetY="0"
+	         source="uiCarAltas_json.filterBg_3" />
+	<e:Image x="10" scaleX="1" scaleY="1" y="314" anchorOffsetY="0" source="trading_search_png" />
+	<e:Group id="houseGroup" x="0" y="380" anchorOffsetY="0" height="877" anchorOffsetX="0" width="720" scaleX="1"
+	         scaleY="1" visible="false">
+		<game:FilterBtn id="houseAreaBtn" skinName="FilterBtnSkin" x="1" y="25" />
+		<game:FilterBtn id="houseTypeBtn" skinName="FilterBtnSkin" x="201" y="25" />
+		<game:SortBtn id="housePriceBtn" skinName="SortBtnSkin" x="404.32" y="25" />
+		<utils:VScrollerPanel id="houseScroller" x="0" y="101" anchorOffsetX="0" width="720"
+		                      anchorOffsetY="0" height="700"></utils:VScrollerPanel>
+		<!--<game:FilterComponent id="houseFilter" skinName="FilterComponentSkin"  y="100"/>-->
+	</e:Group>
+	<e:Group id="carGroup" x="0" y="380" anchorOffsetY="0" height="877" anchorOffsetX="0" width="720" scaleX="1" scaleY="1"
+	         visible="false">
+		<game:FilterBtn id="carBrandBtn" skinName="FilterBtnSkin" x="1" y="25" />
+		<game:SortBtn id="carPriceBtn" skinName="SortBtnSkin" x="201" y="25" />
+		<game:SortBtn id="carIncomeBtn" skinName="SortBtnSkin" x="404.32" y="25" />
+		<utils:VScrollerPanel id="carScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720"
+		                      anchorOffsetY="0" height="700" />
+	</e:Group>
+	<e:Group id="itemGroup" x="0" y="380" anchorOffsetY="0" height="877" anchorOffsetX="0" width="720" scaleX="1"
+	         scaleY="1">
+		<game:FilterBtn id="itemTypeBtn" skinName="FilterBtnSkin" x="1" y="25" />
+		<game:FilterBtn id="itemPartBtn" skinName="FilterBtnSkin" x="201" y="25" />
+		<game:SortBtn id="itemPriceBtn" skinName="SortBtnSkin" x="204.32" y="25" />
+		<utils:VScrollerPanel id="itemScroller" skinName="VScrollBarPanelSkin" x="0" y="101" anchorOffsetX="0" width="720"
+		                      anchorOffsetY="0" height="700" />
+	</e:Group>
+	<e:EditableText id="searchTxt" width="322" height="49" text="" x="69" y="314" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="left" textColor="0x000000"/>
+	<!--<game:PageTitlePanel id="titlePanel" skinName="PageTitlePanelSkin" />-->
+</e:Skin>

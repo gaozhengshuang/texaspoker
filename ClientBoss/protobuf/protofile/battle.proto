@@ -1,6 +1,7 @@
 // --------------------------------------------------------------------------
 /// @brief 战场消息, 消息通过Gate转发到客户端
 // --------------------------------------------------------------------------
+syntax = "proto2";
 import "serialize.proto";
 package msg;
 
@@ -41,6 +42,8 @@ message BT_GameInit {
     optional int32  gamekind = 3;
     optional uint32 diamond = 4;
     optional uint32 gold = 5;
+    optional uint32 freebullet = 6;     // 免费炮弹数
+    optional uint64 eventuid = 7;       // 事件uid，通过事件创建游戏
     //repeated GridItem listitem = 4;
 }
 
@@ -82,6 +85,11 @@ message BT_ReqQuitGameRoom {
     optional uint32 gold = 3;
 }
 
+// 房间销毁
+message BT_GameRoomDestroy {
+    optional int64 roomid = 1;
+}
+
 // R2C 获得道具
 message BT_PickItem {
     optional uint64 userid = 1;
@@ -105,6 +113,7 @@ message BT_RetLaunchBullet {
     optional int64 bulletid = 1;
     optional int64 energy = 2;
     optional string errmsg = 3;
+    optional uint32 freebullet = 4;     // 免费炮弹数
 }
 
 // C2R 客户端通知踩到炸弹
@@ -122,6 +131,10 @@ message BT_BulletEarnMoney {
     optional int64 bulletid = 2;
     optional uint32 gold = 3;
 }
+
+message BT_RetBulletEarnMoney { 
+}
+
 
 // C2R 使用大招
 message BT_UseUltimateSkil {

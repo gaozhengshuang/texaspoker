@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ModifySexSkin" width="642" height="642" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xffffff" ellipseWidth="40" ellipseHeight="40"/>
+	<e:Label text="修改性别" y="60" textColor="0x5f5f6c" fontFamily="Microsoft YaHei" size="34" horizontalCenter="0"/>
+	<e:RadioButton id="titleRadio1" label="男性" x="80" bottom="146" value="1">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image source="hall_5_json.uf_nan weixuanzhong_png" source.down="hall_5_json.uf_nan xuanzhong_png"/>
+			<e:Label id="labelDisplay" y="230" textColor="0xbbbbd0" fontFamily="Microsoft YaHei" horizontalCenter="0" textColor.down="0x67c4ff"/>
+			</e:Skin>
+		</e:skinName>
+	</e:RadioButton>
+	<e:RadioButton id="titleRadio2" label="女性" bottom="140" right="80" value="2">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image source="hall_5_json.uf_nv weixuanzhong_png" source.down="hall_5_json.uf_nv xuanzhong_png"/>
+			<e:Label id="labelDisplay" y="230" textColor="0xbbbbd0" fontFamily="Microsoft YaHei" horizontalCenter="0" textColor.down="0xff6772"/>
+			</e:Skin>
+		</e:skinName>
+	</e:RadioButton>
+</e:Skin>

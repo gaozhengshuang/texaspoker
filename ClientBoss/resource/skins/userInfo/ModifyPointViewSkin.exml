@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ModifyPointViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xf9f9f9" locked="true"/>
+	<e:Rect width="720" height="96" x="0" y="0" fillColor="0xffffff"/>
+	<e:Label text="设置地区" x="292" y="31" textColor="0x5f5f6c" fontFamily="Microsoft YaHei" size="34" bold="true"/>
+	<e:Label id="cancel_btn" text="取消" x="28" y="31" textColor="0xbbbbd0" fontFamily="Microsoft YaHei" bold="true" size="34"/>
+	<e:Label text="当前位置" x="28" y="126" textColor="0xBBBBD0" fontFamily="Microsoft YaHei" bold="true" size="24"/>
+	<e:Label text="全部" x="28" y="300" textColor="0xBBBBD0" fontFamily="Microsoft YaHei" bold="true" size="24"/>
+	<e:Label id="save_btn" text="保存" y="31" fontFamily="Microsoft YaHei" bold="true" size="34" textColor="0xff6772" right="28"/>
+	<e:Group id="dingweiGroup" x="0" y="166">
+		<e:Rect width="720" height="106" x="0" y="0" fillColor="0xFFFFFF"/>
+		<e:Label id="nowPoint_txt" text="上海市 闵行区" x="76" y="38" textColor="0x5F5F6C" fontFamily="Microsoft YaHei" size="30" anchorOffsetX="0" width="360"/>
+		<e:Image source="hall_5_json.uf_dangqianweizhi_png" x="32" y="35"/>
+		<e:Image id="selectIcon" source="hall_5_json.uf_duihao_png" x="590" verticalCenter="0"/>
+	</e:Group>
+	<game:CommonFilterPanel id="filterPanel" width="720" height="400" x="0" y="370" visible="false"/>
+	<e:ViewStack id="listScroller" width="720" height="940" x="0" y="340" anchorOffsetY="0">
+		<e:Group id="listGroup" width="100%" height="100%" name="Group">
+			<e:Rect id="list_bg" width="100%" height="100%" x="0" y="0" scaleX="1" scaleY="1" fillColor="0xffffff"/>
+		</e:Group>
+	</e:ViewStack>
+	<e:Group id="cityListGroup" x="0" y="340" height="288" width="720">
+		<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xffffff"/>
+		<e:Rect width="690" height="1" fillColor="0xF5F5F5" fillAlpha="1" x="30" bottom="0"/>
+	</e:Group>
+	
+</e:Skin>

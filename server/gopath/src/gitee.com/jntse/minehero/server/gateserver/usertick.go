@@ -1,70 +1,93 @@
 package main
+
 import (
 	"fmt"
-	"time"
-	"strings"
-	"strconv"
-	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
-	"github.com/go-redis/redis"
+	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/server/tbl"
+	"github.com/go-redis/redis"
+	"strconv"
+	"strings"
+	"time"
 )
 
 // --------------------------------------------------------------------------
-/// @brief 
+/// @brief
 // --------------------------------------------------------------------------
 type UserTicker struct {
-	ticker1s	*util.GameTicker
-	ticker5s	*util.GameTicker
-	ticker1m	*util.GameTicker
-	ticker10ms 	*util.GameTicker
-	ticker100ms *util.GameTicker
+	//ticker1s	*util.GameTicker
+	//ticker5s	*util.GameTicker
+	//ticker1m	*util.GameTicker
+	//ticker10ms *util.GameTicker
+	//ticker100ms *util.GameTicker
+	tickers []*util.GameTicker
 }
 
 func (t *UserTicker) Init(handler10ms, handler100ms, handler1s, handler5s, handler1m util.TickerCallbackHandle) {
-	t.ticker10ms = util.NewGameTicker(10 * time.Millisecond, handler10ms)
-	t.ticker100ms = util.NewGameTicker(100 * time.Millisecond, handler100ms)
-	t.ticker1s = util.NewGameTicker(1 * time.Second, handler1s)
-	t.ticker5s = util.NewGameTicker(5 * time.Second, handler5s)
-	t.ticker1m = util.NewGameTicker(1 * time.Minute, handler1m)
+	ticker10ms := util.NewGameTicker(10*time.Millisecond, handler10ms)
+	ticker100ms := util.NewGameTicker(100*time.Millisecond, handler100ms)
+	ticker1s := util.NewGameTicker(1*time.Second, handler1s)
+	ticker5s := util.NewGameTicker(5*time.Second, handler5s)
+	ticker1m := util.NewGameTicker(1*time.Minute, handler1m)
+
+	t.tickers = make([]*util.GameTicker, 0)
+	t.tickers = append(t.tickers, ticker10ms)
+	t.tickers = append(t.tickers, ticker100ms)
+	t.tickers = append(t.tickers, ticker1s)
+	t.tickers = append(t.tickers, ticker5s)
+	t.tickers = append(t.tickers, ticker1m)
 }
 
-
 func (t *UserTicker) Start() {
-	t.ticker10ms.Start()
-	t.ticker100ms.Start()
-	t.ticker1s.Start()
-	t.ticker5s.Start()
-	t.ticker1m.Start()
+	for _, t := range t.tickers {
+		t.Start()
+	}
+
+	//t.ticker10ms.Start()
+	//t.ticker100ms.Start()
+	//t.ticker1s.Start()
+	//t.ticker5s.Start()
+	//t.ticker1m.Start()
 }
 
 func (t *UserTicker) Stop() {
-	t.ticker10ms.Stop()
-	t.ticker100ms.Stop()
-	t.ticker1s.Stop()
-	t.ticker5s.Stop()
-	t.ticker1m.Stop()
+	for _, t := range t.tickers {
+		t.Stop()
+	}
+
+	//t.ticker10ms.Stop()
+	//t.ticker100ms.Stop()
+	//t.ticker1s.Stop()
+	//t.ticker5s.Stop()
+	//t.ticker1m.Stop()
 }
 
 func (this *UserTicker) Run(now int64) {
-	// 嵌套节省
-	this.ticker10ms.Run(now)
-	this.ticker100ms.Run(now)
-	if this.ticker1s.Run(now) {
-		if this.ticker5s.Run(now) { this.ticker1m.Run(now) }
+	for _, t := range this.tickers {
+		t.Run(now)
 	}
+
+	// 嵌套节省
+	//this.ticker10ms.Run(now)
+	//this.ticker100ms.Run(now)
+	//if this.ticker1s.Run(now) {
+	//	if this.ticker5s.Run(now) { this.ticker1m.Run(now) }
+	//}
 }
 
 func (this *GateUser) OnTicker10ms(now int64) {
 	this.asynev.Dispatch()
+	this.events.Tick(now)
 }
 
 func (this *GateUser) OnTicker100ms(now int64) {
 	if len(this.broadcastbuffer) != 0 {
 		uuid := this.broadcastbuffer[0]
-		msg  := UserMgr().PickBroadcastMsg(uuid)
-		if msg != nil { this.SendMsg(msg) }
-		this.broadcastbuffer= this.broadcastbuffer[1:]
+		msg := UserMgr().PickBroadcastMsg(uuid)
+		if msg != nil {
+			this.SendMsg(msg)
+		}
+		this.broadcastbuffer = this.broadcastbuffer[1:]
 	}
 	this.CheckOffline(now)
 	this.CheckDisconnectTimeOut(now)
@@ -86,7 +109,7 @@ func (this *GateUser) Tick(now int64) {
 
 // 处理充值订单
 func (this *GateUser) CheckRechargeOrders() {
-	if this.IsInRoom () == true {
+	if this.IsInRoom() == true {
 		return
 	}
 	keyorder := fmt.Sprintf("%d_verified_recharge_orders", this.Id())
@@ -104,14 +127,14 @@ func (this *GateUser) CheckRechargeOrders() {
 		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
 		return
 	}
-	
+
 	amount, perr := strconv.ParseInt(orderparts[4], 10, 32)
 	if perr != nil {
 		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
 		return
 	}
 
-	this.AddYuanbao(uint32(amount), "充值获得", true)
+	this.AddYuanbao(int32(amount), "充值获得", true)
 }
 
 // 心跳,毫秒
@@ -121,7 +144,7 @@ func (this *GateUser) SetHeartBeat(now int64) {
 	this.tm_heartbeat = now
 	if tm_delay < 1000 {
 		//log.Warn("玩家[%s %d] 心跳太过频繁[%d ms]", this.Name(), this.Id(), tm_delay)
-	}else if tm_delay > 6000 {
+	} else if tm_delay > 6000 {
 		log.Warn("玩家[%s %d] 心跳延迟了[%d ms]，网络不好?", this.Name(), this.Id(), tm_delay)
 	}
 }
@@ -137,4 +160,3 @@ func (this *GateUser) CheckOffline(now int64) {
 		this.KickOut("心跳超时")
 	}
 }
-

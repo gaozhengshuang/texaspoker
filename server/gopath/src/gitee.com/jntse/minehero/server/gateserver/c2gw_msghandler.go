@@ -7,7 +7,7 @@ import (
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
-	"gitee.com/jntse/minehero/server/def"
+	_"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
@@ -50,78 +50,25 @@ func (this *C2GWMsgHandler) Init() {
 	// 收
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
 	this.msgparser.RegistProtoMsg(msg.C2GW_HeartBeat{}, on_C2GW_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqStartGame{}, on_C2GW_ReqStartGame)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
 	this.msgparser.RegistProtoMsg(msg.C2GW_UseBagItem{}, on_C2GW_UseBagItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
-	this.msgparser.RegistProtoMsg(msg.C2GW_SellBagItem{}, on_C2GW_SellBagItem)
-	//this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryDiamond{}, on_C2GW_ReqDeliveryDiamond)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 
 	this.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
 	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
-	//this.msgparser.RegistProtoMsg(msg.C2GW_AddDeliveryAddress{}, on_C2GW_AddDeliveryAddress)
-	//this.msgparser.RegistProtoMsg(msg.C2GW_DelDeliveryAddress{}, on_C2GW_DelDeliveryAddress)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeDeliveryAddress{}, on_C2GW_ChangeDeliveryAddress)
-	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
-	this.msgparser.RegistProtoMsg(msg.C2GW_BuyClothes{}, on_C2GW_BuyClothes)
-	this.msgparser.RegistProtoMsg(msg.C2GW_DressClothes{}, on_C2GW_DressClothes)
-	this.msgparser.RegistProtoMsg(msg.C2GW_UnDressClothes{}, on_C2GW_UnDressClothes)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ChangeImageSex{}, on_C2GW_ChangeImageSex)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 
-	// 收战场消息
+	// 地图事件
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
+	this.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
+
+	// 游戏房间
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqQuitGameRoom{}, on_BT_ReqQuitGameRoom)
-	//this.msgparser.RegistProtoMsg(msg.BT_UpdateMoney{}, on_BT_UpdateMoney)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqLaunchBullet{}, on_BT_ReqLaunchBullet)
-	this.msgparser.RegistProtoMsg(msg.BT_StepOnBomb{}, on_BT_StepOnBomb)
-	this.msgparser.RegistProtoMsg(msg.BT_BulletEarnMoney{}, on_BT_BulletEarnMoney)
-	this.msgparser.RegistProtoMsg(msg.BT_UseUltimateSkil{}, on_BT_UseUltimateSkil)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqCrushSuperBrick{}, on_BT_ReqCrushSuperBrick)
-
-	// 发
-	this.msgparser.RegistSendProto(msg.GW2C_HeartBeat{})
-	this.msgparser.RegistSendProto(msg.GW2C_MsgNotice{})
-	this.msgparser.RegistSendProto(msg.GW2C_MsgNotify{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetLogin{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendUserInfo{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetStartGame{})
-	this.msgparser.RegistSendProto(msg.GW2C_AddPackageItem{})
-	this.msgparser.RegistSendProto(msg.GW2C_RemovePackageItem{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateYuanbao{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateDiamond{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateGold{})
-	this.msgparser.RegistSendProto(msg.GW2C_Ret7DayReward{})
-	this.msgparser.RegistSendProto(msg.Sync_BigRewardPickNum{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetRechargeMoney{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateFreeStep{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendUserPlatformMoney{})
-	//this.msgparser.RegistSendProto(msg.GW2C_RetDeliveryDiamond{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendLuckyDrawRecord{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendShowImage{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendTaskList{})
-
-	this.msgparser.RegistSendProto(msg.GW2C_SendWechatInfo{})
-	this.msgparser.RegistSendProto(msg.GW2C_LuckyDrawHit{})
-	this.msgparser.RegistSendProto(msg.GW2C_SendDeliveryAddressList{})
-	this.msgparser.RegistSendProto(msg.GW2C_FreePresentNotify{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetGoldExchange{})
-	this.msgparser.RegistSendProto(msg.GW2C_UpdateItemPos{})
-	this.msgparser.RegistSendProto(msg.GW2C_RetChangeImageSex{})
-
-	// Room
-	this.msgparser.RegistSendProto(msg.BT_GameInit{})
-	//this.msgparser.RegistSendProto(msg.BT_SendBattleUser{})
-	this.msgparser.RegistSendProto(msg.BT_GameStart{})
-	this.msgparser.RegistSendProto(msg.BT_GameOver{})
-	this.msgparser.RegistSendProto(msg.BT_PickItem{})
-	this.msgparser.RegistSendProto(msg.BT_RetLaunchBullet{})
-	this.msgparser.RegistSendProto(msg.BT_RetStepOnBomb{})
-	//this.msgparser.RegistSendProto(msg.BT_SynUserRechargeMoney{})
-	this.msgparser.RegistSendProto(msg.BT_RetCrushSuperBrick{})
+	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
 }
 
 // 客户端心跳
@@ -148,14 +95,11 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	user.SetHeartBeat(util.CURTIMEMS())
-
-	//curtime := util.CURTIMEUS()
-	//log.Info("receive heart beat msg interval=%d", curtime - tmsg.GetTime())
-	//session.SendCmd(&msg.GW2C_HeartBeat{
-	//	Uid: tmsg.Uid,
-	//	Time: pb.Int64(util.CURTIMEUS()),
-	//	Test: tmsg.Test,
-	//})
+	curtime := util.CURTIME()
+	//log.Info("receive heart beat msg now=%d", curtime)
+	user.SendMsg(&msg.GW2C_HeartBeat{
+		Time: pb.Int64(curtime),
+	})
 }
 
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
@@ -169,8 +113,8 @@ func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{})
 	user.GetSignReward()
 }
 
-func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqStartGame)
+func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqCreateRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -178,14 +122,17 @@ func on_C2GW_ReqStartGame(session network.IBaseNetSession, message interface{}) 
 		session.Close()
 		return
 	}
+	if errcode := user.CreateRoomRemote(tmsg); errcode != "" {
+		user.ReplyCreateRoom(errcode, 0)
+	}
 
-	gamekind := tmsg.GetGamekind()
-	errcode := user.ReqStartGameLocal(gamekind)
-	user.ReplyStartGame(errcode, 0)
+	//gamekind, eventuid := tmsg.GetGamekind(), tmsg.GetEventuid()
+	//errcode := user.ReqStartGameLocal(gamekind, eventuid)
+	//user.ReplyCreateRoom(errcode, 0)
 }
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.BT_ReqEnterRoom)
+	tmsg := message.(*msg.BT_ReqEnterRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -200,20 +147,21 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	}
 
 	// 进入游戏房间
-	//log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
-	//tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
-	//user.SendRoomMsg(tmsg)
-	roomid, userid := user.RoomId(), user.Id()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
-		return
-	}
-	room.UserEnter(userid, "")
+	log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
+	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
+	user.SendRoomMsg(tmsg)
+
+	//roomid, userid := user.RoomId(), user.Id()
+	//room := RoomMgr().Find(roomid)
+	//if room == nil {
+	//	log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
+	//	return
+	//}
+	//room.UserEnter(userid, "")
 }
 
-func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqQuitGameRoom)
+func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.BT_ReqLeaveRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
 	user := ExtractSessionUser(session)
@@ -224,49 +172,51 @@ func on_BT_ReqQuitGameRoom(session network.IBaseNetSession, message interface{})
 	}
 
 	// 离开游戏房间
-	//tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Uint64(user.Id())
-	//user.SendRoomMsg(tmsg)
-	roomid, userid := user.RoomId(), user.Id()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
-		return
-	}
-	room.UserLeave(userid, tmsg.GetGold())
+	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
+	user.SendRoomMsg(tmsg)
+	//roomid, userid := user.RoomId(), user.Id()
+	//room := RoomMgr().Find(roomid)
+	//if room == nil {
+	//	log.Error("BT_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+	//	return
+	//}
+	//room.UserLeave(userid, tmsg.GetGold())
 }
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLogin)
-	reason, account, verifykey, token, face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetFace()
+	errmsg, account, verifykey, token, face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetFace()
 	islogin := false
 
 	switch {
 	default:
-		if UserMgr().FindByAccount(account) != nil {
-			islogin, reason = true, "玩家已经登陆了"
-			log.Info("账户%s 登录Gate失败，已经登陆了", account)
-			break
-		}
+		user := UserMgr().FindByAccount(account)
+		if user != nil {
+			if user.IsOnline() {
+				islogin, errmsg = true, "玩家已经登陆了"
+				break
+			}
 
-		wAccount := WaitPool().Find(account)
-		if wAccount == nil {
-			reason = "非法登陆网关"
-			//log.Info("账户%s 登录Gate失败，没有注册信息", account)
-			break
-		}
+			if errmsg = UserMgr().LoginByCache(session, user); errmsg != "" {
+				break
+			}
+		}else {
+			wAccount := WaitPool().Find(account)
+			if wAccount == nil {
+				errmsg = "非法登陆网关"
+				break
+			}
 
-		if wAccount.verifykey != verifykey {
-			reason = "登陆网关校验失败"
-			log.Info("账户%s 登陆Gate校验Key不正确 want:%s have:%s", account, wAccount.verifykey, verifykey)
-			break
-		}
+			if wAccount.verifykey != verifykey {
+				errmsg = "登陆网关校验失败"
+				log.Info("账户%s 登陆Gate校验Key不正确 want:%s have:%s", account, wAccount.verifykey, verifykey)
+				break
+			}
 
-		// 构造新GateUser
-		user, newerr := UserMgr().CreateNewUser(session, account, verifykey, token, face)
-		if newerr != "" || user == nil {
-			reason = newerr
-			log.Info("账户%s 创建新GateUser失败 原因[%s]", account, newerr)
-			break
+			user, errmsg = UserMgr().CreateNewUser(session, account, verifykey, token, face)	// 构造user指针 from redis db
+			if errmsg != "" || user == nil {
+				break
+			}
 		}
 
 		session.SetUserDefData(user) // TODO: 登陆成功才绑定账户到会话
@@ -274,34 +224,16 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 	}
 
 	// 返回给客户端，失败才回
-	if reason != "" {
+	if errmsg != "" {
 		if !islogin {
 			UnBindingAccountGateWay(account)
 		}
-		log.Error("sid[%d] 账户[%s] 登陆网关失败 reason[%s]", session.Id(), account, reason)
-		send := &msg.GW2C_RetLogin{Errcode: pb.String(reason)}
+		log.Error("sid[%d] 账户[%s] 登陆网关失败 errmsg[%s]", session.Id(), account, errmsg)
+		send := &msg.GW2C_RetLogin{Errcode: pb.String(errmsg)}
 		session.SendCmd(send)
 		session.Close()
 	}
 }
-
-//func on_C2GW_ReqUserInfo(session network.IBaseNetSession, message interface{}) {
-//	//tmsg := message.(*msg.C2GW_ReqUserInfo)
-//	user := ExtractSessionUser(session)
-//	if user == nil {
-//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-//		session.Close()
-//		return
-//	}
-//
-//	if user.IsOnline() == false {
-//		log.Error("账户%s 没有登陆Gate成功", account)
-//		session.Close()
-//		return
-//	}
-//
-//	user.Syn()
-//}
 
 // 购买道具
 func on_C2GW_BuyItem(session network.IBaseNetSession, message interface{}) {
@@ -349,32 +281,6 @@ func on_C2GW_ReqDeliveryGoods(session network.IBaseNetSession, message interface
 	}
 }
 
-//func on_C2GW_ReqDeliveryDiamond(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.C2GW_ReqDeliveryDiamond)
-//
-//	user := ExtractSessionUser(session)
-//	if user == nil {
-//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-//		session.Close()
-//		return
-//	}
-//
-//	if user.IsOnline() == false {
-//		log.Error("玩家[%s %d]没有登陆Gate成功", user.Name(), user.Id())
-//		session.Close()
-//		return
-//	}
-//
-//	// 提钻石
-//	if tbl.Global.IntranetFlag {
-//		user.SendNotify("本版本暂不可用")
-//		return
-//	}else {
-//		event := NewDeliveryGoodsEvent(tmsg.GetList(), tmsg.GetToken(), user.DeliveryDiamond)
-//		user.AsynEventInsert(event)
-//	}
-//}
-
 func on_C2GW_UseBagItem(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_UseBagItem)
 
@@ -403,21 +309,6 @@ func on_C2GW_ReqRechargeMoney(session network.IBaseNetSession, message interface
 	// 充值
 	event := NewUserRechargeEvent(user, user.Account(), tmsg.GetToken(), tmsg.GetAmount(), RequestRecharge)
 	user.AsynEventInsert(event)
-}
-
-func on_C2GW_SellBagItem(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_SellBagItem)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	for _, v := range tmsg.GetList() {
-		itemid, num := v.GetItemid(), v.GetNum()
-		user.SellBagItem(itemid, num)
-	}
 }
 
 // 玩家充值完成(大厅和房间都自己获取金币返回)
@@ -503,7 +394,7 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 		user.SendMsg(send)
 
 		// 转账给新用户
-		def.HttpWechatCompanyPay(respok.Openid, 1, "绑定微信奖励")
+		//def.HttpWechatCompanyPay(respok.Openid, 1, "绑定微信奖励")
 
 		// 完成任务
 		log.Info("玩家[%d] 绑定wechat openid[%s]", user.Id(), respok.Openid)
@@ -550,123 +441,6 @@ func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message inte
 	log.Info("玩家[%s %d] 修改收货地址，新地址[%s %s %s]", user.Name(), user.Id(), Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
 }
 
-//func on_BT_UpdateMoney(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.BT_UpdateMoney)
-//	user := ExtractSessionUser(session)
-//	if user == nil {
-//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-//		session.Close()
-//		return
-//	}
-//	user.SendRoomMsg(tmsg)
-//}
-
-func on_BT_ReqLaunchBullet(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.BT_ReqLaunchBullet)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	//user.SendRoomMsg(tmsg)
-	roomid, userid := user.RoomId(), user.Id()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
-		return
-	}
-	if tantan, ok := room.(*TanTanLe); ok == true {
-		tantan.ReqLaunchBullet()
-	}
-
-}
-
-func on_BT_StepOnBomb(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.BT_StepOnBomb)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	//user.SendRoomMsg(tmsg)
-	roomid, userid := user.RoomId(), user.Id()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
-		return
-	}
-
-	if tantan, ok := room.(*TanTanLe); ok == true {
-		tantan.StepOnBomb()
-	}
-}
-
-func on_BT_BulletEarnMoney(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_BulletEarnMoney)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	//user.SendRoomMsg(tmsg)
-	roomid, userid := user.RoomId(), user.Id()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("玩家[%d]子弹死亡同步，找不到游戏房间[%d]", userid, roomid)
-		return
-	}
-
-	if tantan, ok := room.(*TanTanLe); ok == true {
-		tantan.BulletEarnMoney(tmsg.GetGold())
-	}
-
-}
-
-func on_BT_UseUltimateSkil(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_UseUltimateSkil)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	//user.SendRoomMsg(tmsg)
-	roomid, userid := user.RoomId(), user.Id()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
-		return
-	}
-
-	if tantan, ok := room.(*TanTanLe); ok == true {
-		tantan.UseUltimateSkil(tmsg.GetGold())
-	}
-}
-
-func on_BT_ReqCrushSuperBrick(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.BT_ReqCrushSuperBrick)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	//user.SendRoomMsg(tmsg)
-	roomid, userid := user.RoomId(), user.Id()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
-		return
-	}
-
-	if tantan, ok := room.(*TanTanLe); ok == true {
-		tantan.CrushSuperBrick()
-	}
-}
-
 func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_GoldExchange)
 	user := ExtractSessionUser(session)
@@ -693,113 +467,37 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	gold := uint32(tbl.Game.DiamondToCoins) * diamonds
+	gold := int32(tbl.Game.DiamondToCoins) * diamonds
 	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
 	user.AddGold(gold, "钻石兑换金币", false)
 
-	send := &msg.GW2C_RetGoldExchange{Gold: pb.Uint32(gold)}
+	send := &msg.GW2C_RetGoldExchange{Gold: pb.Int32(gold)}
 	user.SendMsg(send)
 
 }
 
-func on_C2GW_BuyClothes(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_BuyClothes)
+// 请求激活事件
+func on_C2GW_ReqEnterEvents(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqEnterEvents)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
-
-	user.BuyClothes(tmsg.ItemList)
+	user.events.EnterEvent(tmsg.GetUid())
 }
 
-func on_C2GW_DressClothes(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_DressClothes)
+// 请求激活事件
+func on_C2GW_LeaveEvent(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_LeaveEvent)
 	user := ExtractSessionUser(session)
 	if user == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
-
-	if def.IsValidEquipPos(tmsg.GetPos()) == false {
-		user.SendNotify("无效的穿戴部位")
-		return
-	}
-
-	// 套装
-	if tmsg.GetPos() == int32(msg.ItemPos_Suit) || user.image.IsHaveDressSuit() == true {
-		user.image.UnDressAll(false)
-	} else if tmsg.GetPos() == int32(msg.ItemPos_LongClothes) { // 长衣/裙子
-		user.image.UnDressClothes(int32(msg.ItemPos_Clothes), false) // 脱掉上衣
-		user.image.UnDressClothes(int32(msg.ItemPos_Pants), false)   // 脱掉裤子
-	} else if tmsg.GetPos() == int32(msg.ItemPos_Clothes) || tmsg.GetPos() == int32(msg.ItemPos_Pants) {
-		user.image.UnDressClothes(int32(msg.ItemPos_LongClothes), false) //  脱掉长衣/裙子
-		user.image.UnDressClothes(tmsg.GetPos(), false)
-	} else if user.image.GetClothesByPos(tmsg.GetPos()) != nil {
-		user.image.UnDressClothes(tmsg.GetPos(), false)
-	}
-
-	user.image.DressClothes(tmsg.GetPos(), tmsg.GetItemid())
-}
-
-func on_C2GW_UnDressClothes(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_UnDressClothes)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
-
-	// 脱下
-	user.image.UnDressClothes(tmsg.GetPos(), true)
-}
-
-func on_C2GW_ChangeImageSex(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ChangeImageSex)
-	user := ExtractSessionUser(session)
-	if user == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("正在游戏中")
-		return
-	}
-
-	if user.Sex() == tmsg.GetSex() {
-		user.SendNotify("和当前性别一致，无需切换")
-		return
-	}
-
-	user.SetSex(tmsg.GetSex())
-	send := &msg.GW2C_RetChangeImageSex{Sex: pb.Int32(user.Sex())}
-	user.SendMsg(send)
-
-	user.image.SendShowImage()
+	user.events.LeaveEvent(tmsg.GetUid())
 }
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
@@ -817,5 +515,3 @@ func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//}
 	user.task.SendTaskList()
 }
-
-

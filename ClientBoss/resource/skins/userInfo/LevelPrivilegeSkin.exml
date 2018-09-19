@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LevelPrivilegeSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xf9f9f9" strokeColor="0xffffff"/>
+	<e:Group id="returnBtn" x="0" y="8" anchorOffsetX="0" width="100" anchorOffsetY="0" height="80" touchChildren="false">
+		<e:Image source="hall_5_json.uf_fanhui_png" verticalCenter="0" x="28"/>
+	</e:Group>
+	<e:Label text="等级特权" y="31" textColor="0x5f5f6c" fontFamily="Microsoft YaHei" size="34" bold="true" horizontalCenter="0"/>
+	<e:Label text="等级：" y="126" fontFamily="Microsoft YaHei" size="24" textColor="0xbbbbd0" x="38"/>
+	<e:Label text="特权：" y="126" textColor="0xBBBBD0" fontFamily="Microsoft YaHei" size="24" x="252"/>
+	<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" y="96"/>
+	<e:Rect width="720" height="1" x="0" fillColor="0xF5F5F5" y="180"/>
+    <e:Group id="listGroup" y="180" width="720" anchorOffsetY="0" height="1099"></e:Group>
+</e:Skin>

@@ -4,13 +4,13 @@
 	<e:Image id="img_girlbg" source="grilbg_png" width="720" anchorOffsetY="0" height="1559" horizontalCenter="0" verticalCenter="0" visible="false"/>
 	<e:Image id="img_boybg" source="boybg_png" width="720" anchorOffsetY="0" height="1559" horizontalCenter="0" verticalCenter="0"/>
 
-	<e:Group id="roleGroup" width="721.21" height="53%" anchorOffsetX="0" anchorOffsetY="0" top="0" horizontalCenter="0.5">
+	<e:Group id="roleGroup" width="720" height="53%" anchorOffsetX="0" anchorOffsetY="0" top="0" horizontalCenter="0">
 
-		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" verticalCenter="-20.5" horizontalCenter="247.39499999999998">
+		<e:Group id="grp_dressinfo" width="220" height="280" scaleX="1" scaleY="1" verticalCenter="-20.5" horizontalCenter="247.39499999999998" visible="false">
 		<game:EquipInfo id="dress_info" skinName="EquipInfoSkin" anchorOffsetX="0" anchorOffsetY="0" width="220" height="280" y="0" x="0"/>
 		</e:Group>
 		<e:Group id="topGroup" width="720" height="100" y="0" x="0" scaleX="1" scaleY="1">
-			<e:Group id="grp_coins" width="593" height="58" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="53.5" y="11" x="80">
+			<e:Group id="grp_coins" width="593" height="58" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="53.5" y="11" x="80" visible="false">
 			<game:Coins id="coin_money" width="195" height="55" x="0" y="0" skinName="CoinsSkin"/>
 			<game:Coins id="coin_gold" width="195" height="55" x="237" y="-14.5" anchorOffsetX="0" anchorOffsetY="0" skinName="CoinsSkin"/>
 			<e:layout>
@@ -18,38 +18,32 @@
 			</e:layout>
 			</e:Group>
 			<game:IconButton id="btn_close" width="80" height="68" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="-320" y="9" x="28"/>
+			<e:Group id="levelGroup" width="300" height="80" touchEnabled="false" touchChildren="false" touchThrough="false" y="6" anchorOffsetX="0" scaleX="1" scaleY="1" horizontalCenter="-108">
+				<e:Image source="dress_01_json.maidLevelBar" scaleX="1" scaleY="1" y="0" x="8.5"/>
+				<e:Label id="lvLabel" text="Lv.1" size="25" textColor="0xc96b20" horizontalCenter="-93" verticalCenter="3.5"/>
+				<e:Label id="produceGoldLabel" text="产能：1000/分钟" x="105" y="20.16" size="23" textAlign="left"/>
+				<e:Label id="maxGoldLabel" text="上限：6000金币" x="105" y="48.16" size="23" textAlign="left"/>
+			</e:Group>
 		</e:Group>
-		<game:IconButton id="btn_cart" width="183" height="69" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="262.895" bottom="20"/>
-		<e:Image id="shopNumBg" height="48" width="48" anchorOffsetY="0" scaleX="1" scaleY="1" source="dress_01_json.numBg" bottom="62" horizontalCenter="335.395"/>
-		<e:Label id="shopNum" text="0" fontFamily="Arial" size="27" textAlign="center" verticalAlign="justify" width="38" scaleX="1" scaleY="1" horizontalCenter="336.395" bottom="73"/>
+
+
+
 
 
 
 
 		<e:Group id="grp_role" width="311" height="278" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-3.105000000000018" bottom="75" touchEnabled="false"/>
-		<e:Group id="grp_misc" width="131" height="69" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-262.105" bottom="20">
+		<e:Group id="grp_misc" width="131" height="69" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="-262.105" bottom="20" visible="false">
 			<e:Image source="dress_01_json.dress_01_26" x="-4" y="3" anchorOffsetX="0" width="131" anchorOffsetY="0" height="69"/>
 			<e:Image id="icon_boy" source="dress_01_json.dress_01_15" x="64" y="9"/>
 			<e:Image id="icon_girl" source="dress_01_json.dress_01_20" x="0.5" y="9"/>
 			<e:Image id="img_iconmask" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="true" source="shopItemButtonBg_png" right="0" left="0" top="0" bottom="0"/>
 		</e:Group>
+		<game:IconButton id="btn_level" width="80" height="68" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="243" bottom="6"/>
+		<e:Label id="levelUpLabel" text="0/10" textColor="0xc96b20" size="24" textAlign="center" horizontalCenter="245.5" bottom="7" touchEnabled="false"/>
 
-		<e:Button id="btn_test" label="换" x="30" y="243" anchorOffsetX="0" width="130" anchorOffsetY="0" height="60" scaleX="1" scaleY="1" visible="false">
-			<e:skinName>
-			<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="cube_json.1_2"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-			</e:Skin>
-			</e:skinName>
-		</e:Button>
-		<e:Button id="btn_test2" label="重设" x="30" y="320" width="130" height="60" scaleX="1" scaleY="1" visible="false">
-			<e:skinName>
-			<e:Skin states="up,down,disabled">
-				<e:Image width="100%" height="100%" source="cube_json.1_4"/>
-				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
-			</e:Skin>
-			</e:skinName>
-		</e:Button>
+
+
 	</e:Group>
 
 
@@ -65,7 +59,7 @@
 		<e:Image source="dress_01_json.taboard-bg2" height="90%" horizontalCenter="0" bottom="0"/>
 		<e:Group id="listGroup" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" height="100%" right="0" bottom="0" left="0">
 
-			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" width="720" scaleX="1" scaleY="1" height="85%" bottom="0" horizontalCenter="0">
+			<e:Scroller id="sr_item" anchorOffsetX="0" anchorOffsetY="0" width="720" scaleX="1" scaleY="1" height="70%" horizontalCenter="0" top="90">
 			<e:List id="ls_items" itemRendererSkinName="ItemPriceSkin" anchorOffsetY="0" height="356" x="0" y="-32">
 				<e:layout>
 				<e:TileLayout paddingLeft="30" paddingRight="30" paddingTop="10" paddingBottom="0" verticalGap="22" horizontalGap="18"/>
@@ -92,6 +86,14 @@
 
 			</e:Group>
 			</e:Scroller>
+		</e:Group>
+		<e:Group id="composeGroup" width="720" height="12%" horizontalCenter="0" bottom="0">
+			<game:IconButton id="btn_compose" width="80" height="68" skinName="IconButtonSkin" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
+			<e:Label text="合 成" size="32" strokeColor="0xde8d00" scaleX="1" scaleY="1" horizontalCenter="0.5" verticalCenter="-4" touchEnabled="false" stroke="2"/>
+		</e:Group>
+		<e:Group id="uncomposeGroup" width="720" height="12%" horizontalCenter="0" bottom="0" visible="false">
+			<e:Image source="dress_01_json.uncomposeBtn" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
+			<e:Label text="碎片不足" size="32" strokeColor="0x8e8e8e" scaleX="1" scaleY="1" horizontalCenter="0.5" verticalCenter="-4" touchEnabled="false" stroke="2"/>
 		</e:Group>
 	</e:Group>
 

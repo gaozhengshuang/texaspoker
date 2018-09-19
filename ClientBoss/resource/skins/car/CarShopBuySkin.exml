@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarShopBuySkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="view_bg" width="720" height="1280" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xe5e5e5" visible="false"/>
+	<e:Image width="720" height="1280" x="0" scaleX="1" scaleY="1" y="0" anchorOffsetY="0" source="carShopBuyBg_png"/>
+	<e:Image id="Bg" width="720" height="215.42" x="0" scaleX="1" scaleY="1" y="0" anchorOffsetY="0" source="uiCarAltas_json.ziyuan_di"/>
+	<e:Image id="carIcon" width="720" height="350" x="0" scaleX="1" scaleY="1" y="456" anchorOffsetY="0" source="carIconAltas_json.big_6"/>
+	<e:Group id="top" height="1280" width="720" x="0" y="21">
+		<e:Image id="diamondBg" width="50" height="50" scaleX="1" scaleY="1" y="73" source="uiCarAltas_json.diamonds_icon" x="89"/>
+		<e:Image id="goldbg" width="50" height="50" scaleX="1" scaleY="1" y="73" x="361" source="uiCarAltas_json.coin_icon"/>
+		<e:Image id="percentBg" width="50" height="50" scaleX="1" scaleY="1" y="73" x="588" source="uiCarAltas_json.lightning_icon"/>
+		<e:Label id="diamondNum" text="999999" y="122" anchorOffsetY="0" height="39.76" anchorOffsetX="0" width="135.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0xffffff" x="47"/>
+		<e:Label id="goldNum" text="999999" y="122" anchorOffsetY="0" height="39.76" anchorOffsetX="0" width="135.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0xFFFFFF" x="319"/>
+		<e:Label id="percentNum" text="999999" y="122" anchorOffsetY="0" height="39.76" anchorOffsetX="0" width="135.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0xFFFFFF" x="546"/>
+		<e:Image width="4" height="62" scaleX="1" scaleY="1" y="94" x="232" source="uiCarAltas_json.fengexian"/>
+		<e:Image width="4" height="62" scaleX="1" scaleY="1" y="94" source="uiCarAltas_json.fengexian" x="529"/>
+		<e:Label id="carInfoTxt" text="公共车位效率只有个人的50%" y="5" anchorOffsetY="0" height="65.76" anchorOffsetX="0" width="346.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" horizontalCenter="0" textColor="0x006a81" bold="true" visible="false"/>
+
+	</e:Group>
+
+
+	<e:Group id="bottom" width="0" height="0" horizontalCenter="-360" top="0">
+		<e:Image width="1440" height="440" scaleX="1" scaleY="1" source="uiCarAltas_json.scrollviewBg" y="1042" x="-4" visible="false"/>
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="0" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btnState" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="85" y="994" scaleX="1" scaleY="1" visible="false"/>
+		<game:IconButton id="btnNeighbor" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="270" y="994" scaleX="1" scaleY="1" visible="false"/>
+	</e:Group>
+	<e:Group id="center" width="653" height="221" x="31" y="862">
+		<e:Image id="infoBg" width="653" height="221" x="0" scaleX="1" scaleY="1" y="0" anchorOffsetY="0" source="uiCarAltas_json.buyItemInfoBg"/>
+		<e:Label id="carNameTxt" text="宝马 smart" width="652" anchorOffsetY="0" height="65" anchorOffsetX="0" size="30" scaleX="1" scaleY="1" verticalAlign="middle" stroke="0" x="0" y="0" textAlign="center" textColor="0x000000" bold="true"/>
+		<e:Label id="txt_info" text="10000" x="0" y="65" size="24" textAlign="center" width="650.52" verticalAlign="middle" anchorOffsetX="0" anchorOffsetY="0" height="80" bold="true" textColor="0x000000"/>
+		<e:Image id="buyBtnBg" width="295" height="60" x="181" scaleX="1" scaleY="1" y="188" anchorOffsetY="0" source="uiCarAltas_json.buyBtn3" touchEnabled="true"/>
+		<e:Label text="确认购买" width="285" anchorOffsetY="0" height="49" anchorOffsetX="0" size="30" scaleX="1" scaleY="1" verticalAlign="middle" stroke="0" x="184" y="189" textAlign="center" bold="true" textColor="0xffffff" touchEnabled="false"/>
+	</e:Group>
+
+
+
+
+</e:Skin>

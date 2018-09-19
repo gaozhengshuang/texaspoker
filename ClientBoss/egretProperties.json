@@ -1,60 +1,64 @@
 {
-  "engineVersion": "5.2.4",
-  "compilerVersion": "5.2.4",
-  "template": {},
-  "target": {
-    "current": "web"
-  },
-  "eui": {
-    "exmlRoot": [
-      "resource/eui_skins"
-    ],
-    "themes": [
-      "resource/default.thm.json"
-    ],
-    "exmlPublishPolicy": "commonjs2"
-  },
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "eui"
-    },
-    {
-      "name": "assetsmanager"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "game"
-    },
-    {
-      "name": "socket"
-    },
-    {
-      "name": "dragonbones"
-    },
-    {
-      "name": "promise",
-      "path": "../../tools/egret/promise/libsrc"
-    },
-    {
-      "name": "protobuf-library",
-      "path": "protobuf/library"
-    },
-    {
-      "name": "protobuf-bundles",
-      "path": "protobuf/bundles"
-    },
-    {
-      "name": "physics",
-      "path": "../../tools/egret/physics/libsrc"
-    },
-    {
-      "name": "particle",
-      "path": "../../tools/egret/particle/libsrc"
-    }
-  ]
+	"engineVersion": "5.2.5",
+	"compilerVersion": "5.2.5",
+	"template": {},
+	"target": {
+		"current": "web"
+	},
+	"eui": {
+		"exmlRoot": [
+			"resource/eui_skins"
+		],
+		"themes": [
+			"resource/default.thm.json"
+		],
+		"exmlPublishPolicy": "commonjs2"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "dragonBones"
+		},
+		{
+			"name": "promise",
+			"path": "../../tools/egret/promise/libsrc"
+		},
+		{
+			"name": "protobuf-library",
+			"path": "protobuf/library"
+		},
+		{
+			"name": "protobuf-bundles",
+			"path": "protobuf/bundles"
+		},
+		{
+			"name": "physics",
+			"path": "../../tools/egret/physics/libsrc"
+		},
+		{
+			"name": "particle",
+			"path": "../../tools/egret/particle/libsrc"
+		},
+		{
+			"name": "puremvc",
+			"path": "../../tools/egret/puremvc/"
+		}
+	]
 }

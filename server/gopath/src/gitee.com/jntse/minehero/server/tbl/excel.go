@@ -13,23 +13,18 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 /// @brief 为excel config 实例取一个别名
 // --------------------------------------------------------------------------
-var TaskBase = table.InsTaskBaseTable
-var MusicBase = table.InsMusicBaseTable
+var GiftProBase = table.InsGiftProBaseTable
 var RechargeBase = table.InsRechargeBaseTable
-var TEquipBase = table.InsTEquipBaseTable
 var LevelBasee = table.InsLevelBaseeTable
-var TBirckItembase = table.InsTBirckItembaseTable
-var TbirckInfobase = table.InsTbirckInfobaseTable
+var MapEventBase = table.InsMapEventBaseTable
 var SignBase = table.InsSignBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
-var GiftProBase = table.InsGiftProBaseTable
-var TSkillpBase = table.InsTSkillpBaseTable
+var TaskBase = table.InsTaskBaseTable
 var NameBase = table.InsNameBaseTable
-var TBirckBase = table.InsTBirckBaseTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
 var ShopBase = table.InsShopBaseTable
-var TbirckRefreshbase = table.InsTbirckRefreshbaseTable
-var TBallBase = table.InsTBallBaseTable
+var TexasRoomBase = table.InsTexasRoomBaseTable
 var ItemBase = table.InsItemBaseTable
+var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
 

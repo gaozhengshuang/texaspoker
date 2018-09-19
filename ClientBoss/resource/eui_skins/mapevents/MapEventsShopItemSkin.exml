@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MapEventsShopItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*">
+	<e:Rect id="bg_mc" width="720" height="200" x="0" y="0" fillColor="0xd8d8d8"/>
+	<e:Image source="room_line1_png" width="720" bottom="0" scaleY="1" horizontalCenter="0" height="2"/>
+	<e:Button id="buyBtn" label="购 买" x="548" skinName="CommonBtnSkin" verticalCenter="0">
+	</e:Button>
+	<e:Label id="priceLabel" text="5000金币" x="313.32" y="84" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" bold="false" strokeColor="0xFFFFFF" textColor="0xec5339"/>
+	<e:Label id="nameLabel" text="道具名称XX" x="229" y="26" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0x404A58" touchEnabled="false" bold="true" strokeColor="0xFFFFFF"/>
+	<e:Label text="单价：" x="229" y="84" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" bold="false" strokeColor="0xFFFFFF" textColor="0xec5339"/>
+	<e:Label id="desLabel" text="可提升厕所等级" x="229" y="118" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" touchEnabled="false" textColor="0xec5339"/>
+	<game:ItemIcon skinName="ItemIconSkin" id="icon" left="40" top="25" />
+</e:Skin>

@@ -1,3 +1,4 @@
+syntax = "proto2";
 package msg;
 
 message IpHost { 
@@ -11,17 +12,19 @@ message IpHost {
 //    optional int64 roomid = 2;
 //}
 
-// 道具id规则 = 类型 * 1000 + id
+// 道具id规则 = 类型 * 10000 + 顺序号
 enum ItemId {
-    YuanBao = 6001;         // 元宝
-    Diamond = 6002;         // 钻石
-    Gold = 6003;            // 金币
-    FreeStep = 6005;        // 免费步数
-    RedDiamond = 10001;        // 红包钻石
-    RedDiamondParts = 10002;   // 红包钻石碎片
+    YuanBao = 60001;            // 元宝
+    Diamond = 60002;            // 钻石
+    Gold = 60003;               // 金币
+    FreeStep = 60005;           // 免费步数
+    Strength = 60006;           // 体力
+    RedDiamond = 100001;        // 红包钻石
+    RedDiamondParts = 100002;   // 红包钻石碎片
 }
 
 enum ItemType {
+    Normal          = 0;    // 普通道具
     Digital         = 1;    // 数码产品
     ShoppingCard    = 2;    // 购物卡
     DailyUse        = 3;    // 生活用品
@@ -32,12 +35,16 @@ enum ItemType {
     Advertisement   = 8;    // 广告
     Smallware       = 9;    // 小商品
     DiamondItem     = 10;   // 钻石道具
-    ClothesItem     = 11;   // 时装
+    ClothesParts    = 11;   // 时装配件
+    HouseParts      = 12;   // 房子配件
+    CarParts        = 13;   // 车子配件
+    MaidParts       = 14;   // 仆人配件
+    ClothesItem     = 15;   // 时装道具
 }
 
 message PairNumItem {
-    optional uint32 itemid = 1;
-    optional uint32 num = 2;
+    optional int32 itemid = 1;
+    optional int32 num = 2;
 }
 
 enum TaskId {
@@ -60,6 +67,24 @@ enum ItemPos {
     LongClothes = 8;    // 裙子/长衣
 }
 
+// 地图事件类型
+enum MapEventType {
+    Game = 1;       // 游戏
+    Bonus = 2;      // 奖励 
+    Building = 3;   // 建筑
+}
+
+// 地图事件定义id
+enum MapEventId {
+    GameTanTanLe = 1001;        // 弹弹乐
+    GameSuperMarket = 1002;     // 超市钩物
+    GameFanFanLe = 1003;        // 红包翻翻乐
+    BonusGold = 2001;           // 随机奖励金币
+    BonusStrength = 2002;       // 随机奖励体力
+    BuildingMaidShop = 3001;    // 女仆商店
+    BuildingCarShop = 3002;     // 汽车配件商店
+    BuildingHouseShop = 3003;   // 房屋升级碎片商店
+}
 
 enum Sex {
     Female = 0;
@@ -68,7 +93,27 @@ enum Sex {
 }
 
 enum MoneyType {
-    _Gold = 1;
-    _Diamond = 2;
+    _Gold = 1;          // 金币
+    _Diamond = 2;       // 钻石
+    _Strength = 3;      // 体力
+    _Item = 4;          // 道具
 }
 
+enum UserInfoType {
+	Name = 1;	//名字 string
+	UserSex = 2;//性别
+	Age = 3; 	//年龄 
+	Sign = 4;	//签名 string
+	Constellation = 5; //星座
+	Face = 6;   //头像 string
+	Baseprovince = 7; //归属地 省
+	Basecity = 8; //归属地 市
+	Level = 9;  //等级
+	Exp = 10;   //经验
+	NewPlayerStep = 11; //新手引导
+}
+
+enum RoomKind {
+    TanTanLe = 1;
+    TexasPoker = 2;
+}

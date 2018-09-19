@@ -19,10 +19,10 @@ message TNoticeDefine
 {	
 	
 	
-	optional uint32 Id = 1; // 自增id
+	optional int32 Id = 1; // 自增id
 	
 	
-	optional uint32 Avatar = 2; // 头像
+	optional int32 Avatar = 2; // 头像
 	
 	
 	optional string Info = 3; // 内容

@@ -27,38 +27,30 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-
-import GameLayer = game.GameLayer;
-
 declare var resUrl;
 
 class Main extends eui.UILayer {
-
-
     protected createChildren(): void {
         super.createChildren();
 
-        this.addChild(new game.GameLayer());
-
-        RES.setMaxLoadingThread(6);
+        egret.lifecycle.addLifecycleListener((context) => {
+            // custom lifecycle plugin
+        })
 
         egret.lifecycle.onPause = () => {
-            //egret.ticker.pause();
-            game.leaveTime = new Date().getTime();
-            game.SoundManager.hideBgSound();
-        };
+            egret.ticker.pause();
+        }
 
         egret.lifecycle.onResume = () => {
-            //egret.ticker.resume();
-            game.leaveTime = null;
-            game.SoundManager.showBgSound();
-        };
+            egret.ticker.resume();
+        }
 
         //inject the custom material parser
         //注入自定义的素材解析器
         let assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
+
 
         this.runGame().catch(e => {
             console.log(e);
@@ -67,28 +59,22 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         await this.loadResource();
-        game.run();
-    }
-
-    private async loadLoding() {
-        const loadingView = new game.LoadingUI();
-        GameLayer.loadLayer.addChild(loadingView);
+        game.run(this.stage);
     }
 
     private async loadResource() {
         try {
-            if (typeof(resUrl) != "undefined") {
-                game.$isWx = false;
-                await RES.loadConfig(`${resUrl}?v=${Math.random()}`, "resource/");
-            } else {
-                game.$isWx = true;
-                await RES.loadConfig(`default.res.json`, "resource/");
+            await RES.loadConfig(resUrl, "resource/");
+            if (DEBUG) {
+                await this.loadTheme();
             }
-            await this.loadTheme();
-            await RES.loadGroup("preload", 0);
+            const loadingView = new LoadingUI();
+            this.stage.addChild(loadingView);
             if (document && document.getElementById("preloading")) {
                 document.getElementById("preloading").style.display = "none";
             }
+            await RES.loadGroup(gameConfig.ResGroupEnum.Preload, 0, loadingView);
+            this.stage.removeChild(loadingView);
         }
         catch (e) {
             console.error(e);

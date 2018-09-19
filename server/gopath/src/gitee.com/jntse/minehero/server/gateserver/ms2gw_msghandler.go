@@ -1,16 +1,16 @@
 package main
+
 import (
-	"reflect"
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
-	//pb"github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
+	_ "github.com/gogo/protobuf/proto"
+	"reflect"
 )
-
 
 //func init() {
 //	log.Info("ms2gw_msghandler.init")
@@ -27,13 +27,12 @@ func NewMS2GWMsgHandler() *MS2GWMsgHandler {
 	return handler
 }
 
-func (this* MS2GWMsgHandler) Init() {
+func (this *MS2GWMsgHandler) Init() {
 
 	this.msgparser = network.NewProtoParser("MS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
 	if this.msgparser == nil {
 		return
 	}
-
 
 	// 收
 	this.msgparser.RegistProtoMsg(msg.MS2GW_RetRegist{}, on_MS2GW_RetRegist)
@@ -44,15 +43,6 @@ func (this* MS2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.MS2GW_MatchOk{}, on_MS2GW_MatchOk)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
-
-	// 发
-	this.msgparser.RegistSendProto(msg.GW2MS_ReqRegist{})
-	this.msgparser.RegistSendProto(msg.GW2MS_HeartBeat{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqStartMatch{})
-	//this.msgparser.RegistSendProto(msg.GW2MS_ReqCancelMatch{})
-	this.msgparser.RegistSendProto(msg.GW2MS_ReqCreateRoom{})
-	this.msgparser.RegistSendProto(msg.GW2MS_MsgNotice{})
-
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -89,11 +79,11 @@ func on_MS2GW_RetCreateRoom(session network.IBaseNetSession, message interface{}
 
 	if err == "" {
 		user.StartGameOk(roomagent, roomid)
-	}else {
+	} else {
 		user.StartGameFail(err)
 	}
 
-	user.ReplyStartGame(err, roomid)
+	user.ReplyCreateRoom(err, roomid)
 }
 
 func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}) {
@@ -108,25 +98,25 @@ func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}
 	}
 
 	// GM指令
-	if _ , ok := cmdmap["gmcmd"]; ok {
-		gmcommands:= make(map[string]string)
-		for k ,v := range cmdmap { gmcommands[k] = v.(string) }
+	if _, ok := cmdmap["gmcmd"]; ok {
+		gmcommands := make(map[string]*util.VarType)
+		for k, v := range cmdmap {
+			gmcommands[k] = util.NewVarType(v.(string))
+		}
 		DoGMCmd(gmcommands)
 	}
 }
 
-func DoGMCmd(cmd map[string]string) {
+func DoGMCmd(cmd map[string]*util.VarType) {
 	value, ok := cmd["gmcmd"]
 	if !ok {
 		log.Error("找不到gmcmd字段")
 		return
 	}
 
-	switch value {
+	switch value.String() {
 	case "reload":
 		GateSvr().Reload()
 		break
 	}
 }
-
-

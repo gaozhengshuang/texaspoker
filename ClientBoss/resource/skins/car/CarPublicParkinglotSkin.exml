@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CarPublicParkinglotSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="view_bg" width="720" height="1280" x="0" strokeAlpha="0" ellipseWidth="0" ellipseHeight="0" y="0" strokeColor="0x000000" strokeWeight="0" fillColor="0xc4c4c4"/>
+	<e:Image id="Bg" width="720" height="1280" x="0" scaleX="1" scaleY="1" y="0" source="carPublicLotBg_png"/>
+	<e:Group id="top" height="1280" width="720" x="0" y="0">
+		<e:Image id="goldbg" width="685" height="99" scaleX="1" scaleY="1" y="73" horizontalCenter="0" source="uiCarAltas_json.publicArea"/>
+		<e:Label id="carInfoTxt" text="公共车位效率只有个人的50%" y="5" anchorOffsetY="0" height="65.76" anchorOffsetX="0" width="346.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" horizontalCenter="0" textColor="0x006a81" fontFamily="Microsoft YaHei" bold="true"/>
+		<e:Label text="公共车位" y="86" anchorOffsetY="0" height="65.76" anchorOffsetX="0" width="346.7" size="22" stroke="0" verticalAlign="middle" textAlign="center" horizontalCenter="0" textColor="0xffe776" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+	<e:Group id="center" width="720" height="1280" horizontalCenter="0" top="0">
+
+
+
+
+
+
+
+
+		<e:Scroller id="sr_item" width="720" height="887" x="0" y="392.67" enabled="true" touchEnabled="true" anchorOffsetY="0">
+			<e:List id="ls_items" itemRendererSkinName="CarParkingLotSkin">
+				<e:layout>
+					<e:TileLayout orientation="rows" horizontalGap="18" requestedColumnCount="3" paddingLeft="35" verticalGap="50"/>
+				</e:layout>
+			</e:List>
+		</e:Scroller>
+	</e:Group>
+	<e:Group id="bottom" width="0" height="0" horizontalCenter="-360" top="0">
+		<e:Image width="1440" height="440" scaleX="1" scaleY="1" source="uiCarAltas_json.scrollviewBg" y="1042" x="-4" visible="false"/>
+		<game:IconButton id="btnClose" height="72" enabled="true" skinName="IconButtonSkin" width="114" x="0" y="0" scaleX="1" scaleY="1"/>
+		<game:IconButton id="btnState" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="85" y="994" scaleX="1" scaleY="1" visible="false"/>
+		<game:IconButton id="btnNeighbor" height="125" enabled="true" skinName="IconButtonSkin" width="125" x="270" y="994" scaleX="1" scaleY="1" visible="false"/>
+	</e:Group>
+	<e:Group id="down_bg" width="720" height="108" left="0" y="1172" visible="false">
+		<e:Image source="room_down_bg1_png" width="100%" anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="90,56,540,10" height="100%" y="0"/>
+	</e:Group>
+	<e:Group id="downBtnGroup" y="1121" anchorOffsetX="0" x="50" width="415" height="125" visible="false">
+		<e:Button id="dongtai_btn" label="" x="0" y="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="uiCarAltas_json.stateBtn" source.down="uiCarAltas_json.stateBtn"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="lingju_btn" label="" x="157" y="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="uiCarAltas_json.neighbor" source.down="uiCarAltas_json.neighbor"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+	<e:Button id="hideList_btn" label="返 回" width="150" height="56" horizontalCenter="0" y="1211" visible="false">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

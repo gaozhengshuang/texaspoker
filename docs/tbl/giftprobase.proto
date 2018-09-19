@@ -22,10 +22,10 @@ message TGiftProDefine
 	optional uint32 Id = 1; // ID
 	
 	
-	optional uint32 Limitmin = 2; // 消费最小值
+	optional int32 Limitmin = 2; // 消费最小值
 	
 	
-	optional uint32 Limitmax = 3; // 消费最大值
+	optional int32 Limitmax = 3; // 消费最大值
 	
 	
 	repeated string Pro = 4; // 概率万分比gift表物品ID-概率

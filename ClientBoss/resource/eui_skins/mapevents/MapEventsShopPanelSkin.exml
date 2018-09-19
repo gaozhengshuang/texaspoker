@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MapEventsShopPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:utils="utils.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="bg_mc" width="100%" height="100%" x="0" y="0" fillColor="0xD8D8D8"/>
+	<utils:VScrollerPanel id="scroller" anchorOffsetX="0" width="720" anchorOffsetY="0" x="0" top="400" bottom="0"/>
+	<e:Image width="720" x="0" scaleX="1" scaleY="1" y="104" anchorOffsetY="0" source="mapevent_houseshopbanner_png"/>
+	<game:PageTitlePanel id="titlePanel" skinName="PageTitlePanelSkin"/>
+</e:Skin>

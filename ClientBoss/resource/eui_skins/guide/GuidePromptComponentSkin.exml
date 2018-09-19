@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GuidePromptComponentSkin" width="400" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="100%" height="100%" x="0" y="0" fillColor="0xd8d8d8" alpha="1" touchEnabled="true"/>
+	<e:Label id="desLabel" text="引导提示引导提示引导提示引导提示引导提示引导提示引导提示引导提示引导提示引导提示引导提示引导提示" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei" multiline="true" width="380"/>
+</e:Skin>

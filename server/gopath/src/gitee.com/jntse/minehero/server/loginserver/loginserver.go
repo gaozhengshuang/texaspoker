@@ -20,22 +20,22 @@ import (
 
 func SignalInt(signal os.Signal)    {
 	log.Info("SignalInt");
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalTerm(signal os.Signal)   {
 	log.Info("SignalTerm");
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalHup(signal os.Signal)    {
 	log.Info("SignalHup");
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 func SignalCoreDump(signal os.Signal)   {
 	log.Info("Signal[%d] Received", signal);
-	g_KeyBordInput.Insert("quit")
+	g_KeyBordInput.Push("quit")
 }
 
 
@@ -163,6 +163,7 @@ func (this *LoginServer) GetSession(id int) network.IBaseNetSession {
 
 func (this *LoginServer) InitMsgHandler() {
 	if this.tblloader == nil { panic("should init 'tblloader' first") }
+	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
 	this.msghandlers = append(this.msghandlers, NewGW2LMsgHandler())
 	this.msghandlers = append(this.msghandlers, NewC2LSMsgHandler())
 }
@@ -198,7 +199,7 @@ func (this *LoginServer) Init(fileconf string) bool {
 	//this.sessions = make(map[int]network.IBaseNetSession)
 	this.checkinset = make(map[string]*CheckInAccount)
 	this.runtimestamp = 0
-	this.asynev.Start(1,10000)
+	this.asynev.Start(1, 1000000)
 
 	return true
 }
@@ -249,6 +250,7 @@ func (this *LoginServer) OnStart() {
 
 // 程序退出最后清理
 func (this *LoginServer) OnStop() {
+	this.hredis.Close()
 }
 
 //  退出
@@ -330,16 +332,16 @@ func (this *LoginServer) AsynEventInsert(event eventque.IEvent) {
 }
 
 // 生成唯一userid
-func GenerateUserId() (userid uint64, errcode string ) {
+func GenerateUserId() (userid int64, errcode string ) {
 	key := "genuserid"
 	id, err := Redis().Incr(key).Result()
-	var idstart uint64 = 1000
+	var idstart int64 = 1000
 	if err != nil {
 		log.Error("生成userid redis报错, err: %s", err)
 		return 0, "redis不可用"
 	}
 
-	return idstart + uint64(id), ""
+	return idstart + int64(id), ""
 }
 
 

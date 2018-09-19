@@ -1,3 +1,4 @@
+syntax = "proto2";
 package msg;
 
 message EntityBase {
@@ -61,6 +62,38 @@ message PersonalImage {
     repeated ImageData lists = 2;
 }
 
+// 仆人对象
+message HouseMaidData { 
+    //repeated ImageData images = 1;  // 装扮
+    repeated ItemData clothes = 1;  // 服装装扮
+    optional uint64 id = 2;         // uuid
+    optional int32  level = 3;      // 等级
+    optional uint64 ownerid = 4;    // 主人id
+    optional string ownername = 5;  // 主人name
+    optional uint64 robberid = 6;   // 掠夺者id
+    optional string robbername = 7; // 掠夺者name
+    optional uint32 earning = 8;    // 收益
+    optional uint64 houseid = 9;    // 所在房间
+    optional int32  sex = 10;       // 仆人性别
+    optional int64  tmworking = 11; // 开始工作时间戳
+    optional uint64 robberto = 12;  // 被掠夺到house
+}
+
+// 地图事件
+message MapEvent {
+    optional uint64 id = 1;         // 事件uid
+    optional uint32 tid = 2;        // 事件tid
+    optional int32 longitude = 3;   // 经度 * 100000
+    optional int32 latitude = 4;    // 纬度 * 100000
+}
+
+// 玩家地图事件
+message UserMapEvent {
+    repeated MapEvent events = 1;   // 事件列表
+    optional int64 tmrefresh = 2;   // 刷新时间(服务器使用)
+}
+
+
 message UserBase {
     optional uint32     level   = 1;
     optional uint32     exp     = 2;
@@ -81,7 +114,16 @@ message UserBase {
     optional UserTask   task = 17;          // 任务
     optional LuckyDrawRecord luckydraw = 18;   // 抽奖
     optional uint32     total_recharge = 19; // 总充值
-    optional PersonalImage images = 20;     // 个人形象
+    //optional PersonalImage images = 20;     // 个人形象
+	optional uint32 	newplayerstep = 21; // 新手引导
+	optional uint32 	robcount = 22;		// 抢钱次数
+	optional int64 		tmaddrobcount = 23; // 下次涨抢钱次数的时间戳
+	optional uint32 	age = 24; 	//年龄
+	optional uint32 	constellation = 25; //星座
+	optional string 	sign = 26;  //个人签名
+    optional UserMapEvent mapevent = 27;    // 地图事件
+	optional uint32 	baseprovince = 28; //归属地省份
+	optional uint32 	basecity = 29; //归属地城市
 }
 
 message UserAddress {
@@ -106,4 +148,157 @@ message Serialize {
     optional ItemBin    item    = 3;
 }
 
+message CarPartData
+{
+    optional uint32 partid = 1;             //部件id
+    optional uint32 parttype = 2;           //部件类型
+    optional uint32 level = 3;              //部件等级
+    optional uint32 exp = 4;                //部件经验
+}
 
+message CarAttribute 
+{
+    optional uint32 reward = 1;             //每分钟收益
+    optional float range = 2;               //移动范围
+    optional uint32 itemlimit = 3;          //物品上限
+    optional uint32 moneylimit = 4;         //货币上限
+    optional float speed = 5;              //速度
+    optional float stoptime = 6;           //停靠时间
+}
+
+message CarPartPiece 
+{
+    optional uint32 id = 1;
+    optional uint32 num = 2;
+}
+message CarReward
+{
+    optional uint32 money = 1;              //货币
+    repeated CarPartPiece items = 2;        //物品
+}
+message ExpeditionData
+{
+    optional uint32 type = 1;               //目标点类型
+    optional uint64 id = 2;                 //目标点id
+    optional float latitude = 3;            //目标点维度
+    optional float longitude = 4;           //目标点精度
+}
+//车的相关信息
+message CarData 
+{
+    optional uint64 id = 1;                 //车辆id
+    optional uint32 tid = 2;                //配置id
+    optional uint64 ownerid = 3;            //拥有者id 
+    optional uint64 createtime = 4;         //创建时间
+    optional uint64 parkingid = 5;          //停车位id 未停车为0
+    optional string ownername = 6;          //拥有者名字
+    optional CarReward reward = 7;          //停车收益(自动回收)
+    optional uint32 star = 8;               //星级
+    repeated CarPartData parts = 9;         //部件
+    optional CarAttribute attr = 10;        //车辆属性
+    optional uint32 state = 11;             //车辆状态 define.proto CarState
+    optional uint64 starttime = 12;         //开始时间
+    optional uint64 endtime = 13;           //预计结束时间
+    optional float latitude = 14;           //维度
+    optional float longitude = 15;          //经度
+    optional uint32 price = 16;             //价值
+    optional uint32 tradeendtime = 17;       //交易结束时间
+    optional uint64 tradeuid = 18;           //交易id
+    optional uint32 tradeprice = 19;         //交易价格
+    optional uint32 initprice = 20;         //初始价值
+    optional ExpeditionData expedition = 21; //出征目标点数据
+}
+
+//车位信息
+message ParkingData
+{
+    optional uint64 id = 1;                 //车位id
+    optional uint32 tid = 2;                //配置id
+    optional uint32 parkingtype = 3;        //停车场类型
+    optional uint64 ownerid = 4;            //拥有者id 公共车位为0
+    optional uint64 parkingcar = 5;         //停的车辆id
+    optional uint64 parkingcarownerid = 6;  //停的车主人id
+    optional string parkingcarownername = 7;//停的车主人名字
+    optional uint64 parkingtime = 8;        //开始停车时间戳
+    optional uint32 parkingreward = 9;      //停车获得收益
+    optional string ownername = 10;         //车位主人名字
+    optional uint32 parkingcartid = 11;     //停的车辆配置id
+    optional uint64 houseid = 12;           //所属房屋id
+}
+
+//单个房间信息
+message HouseCell {
+	optional uint32 tid = 1; //房间的配置id
+	optional uint32 index = 2; //房间在房屋内的编号
+	optional uint32 level = 3; //房间等级
+	optional int64 tmproduce = 4; //产金币的起始时间戳
+	optional uint32 gold = 5; //当前待收取的金币
+	optional uint32 state = 6; //当前生产状态
+	repeated uint64 robers = 7; //记录抢钱的玩家id
+}
+
+//房屋访问者操作信息
+message HouseVisitInfo {
+	optional uint64 visitorid = 1; //来访玩家的id
+	optional int64  tmvisit = 2; //来访时间
+	optional uint32 optindex = 3; //操作的房间编号
+	optional uint32 opttype = 4; //操作类型 1主人收钱 2别人抢钱
+	optional uint32 optparam = 5; //操作附加参数 例如主人收了多少钱 别人抢了多少钱
+	optional string visitorname = 6; //来访玩家的名字
+	optional uint64 visitorhouse = 7; //来访玩家的house，用于直接拜访house
+	optional uint64 id = 8; // 记录编号
+}
+
+//房屋信息包含若干房间 
+message HouseData {
+	optional uint64	id	= 1; //唯一id
+	optional uint32 tid = 2; //配置id tbl
+	optional uint64 ownerid = 3; //所有者id
+	optional uint32 buildingid = 4; //所在楼房的id  新手所租房为虚拟的所在楼房id为0
+	optional uint32 level = 5; //房屋等级
+	repeated HouseCell housecells = 6; //每个房间信息 
+	repeated HouseVisitInfo visitinfo = 7; //操作记录 要限定条数 
+	optional string ownername = 8; //主人的名字
+	optional uint32 robcheckflag = 9; //标记是否被抢过钱 有人抢置1 客户端查看过之后置0
+    repeated ParkingData parkings = 10;
+	optional uint32 roommember = 11; //房间号
+    optional uint32 area = 12;      //面积
+    optional bool issell = 13;      //出售中
+    optional uint32 tradeendtime = 14;  //交易结束时间
+    optional uint32 income = 15;        //收益    
+    optional uint32 sumvalue = 16;      //总价值
+    optional uint64 tradeuid = 17;      //交易id
+    optional uint32 tradeprice = 18;         //交易价格
+    optional uint64 visitrecordid = 19;  // 访问记录uuid,服务器使用
+	optional int32 ownersex = 20; //主人性别
+	optional uint32 ownerlevel = 21; //主人等级
+	optional string ownerface = 22; //主人头像
+}
+
+// 汽车商店商品存储结构
+message CarProductData {
+    optional uint32 pid  = 1;       // 商品id
+    optional uint32 sell = 2;       // 可以出售数量，限量
+    optional uint32 sold = 3;       // 已经出售数量
+}
+
+// 地图商店商品存储结构
+message StoreProductData {
+    optional uint32 pid  = 1;       // 商品id
+    optional uint32 shopid = 2;     // 商店id
+    optional uint32 sell = 3;       // 可以出售数量，限量
+    optional uint32 sold = 4;       // 已经出售数量
+}
+
+
+//楼里的房屋入住信息
+message BuidingSoldData {
+	optional uint32 index = 1; //入住户型
+	repeated uint64 houseid = 2; //入住此户型的房屋的数据id HouseData的id
+}
+
+//楼数据
+message BuildingData {
+	optional uint32 id = 1; //唯一id也是配置表里的id 一一对应
+	repeated BuidingSoldData data = 2; //已卖出入住信息
+}

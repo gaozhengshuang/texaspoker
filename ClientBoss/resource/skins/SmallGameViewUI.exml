@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SmallGameViewUI" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="view_bg" width="720" height="1280" x="0" y="0" fillColor="0xffffff"/>
+	<e:Group id="gameGroup" x="0" y="0" width="720" height="1280">
+	</e:Group>
+</e:Skin>

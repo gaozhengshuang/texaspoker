@@ -18,47 +18,47 @@ import (
 )
 
 // 添加道具
-func (this *GateUser) AddItem(item uint32, num uint32, reason string, syn bool) {
-
-	if item == uint32(msg.ItemId_YuanBao) {
+func (this *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
+	//log.Info("玩家[%d] 添加道具 itemid[%d] num[%d] reason:%s",this.Id(),item,num,reason)
+	if item == int32(msg.ItemId_YuanBao) {
 		this.AddYuanbao(num, reason, syn)
-	}else if item == uint32(msg.ItemId_Gold) {
+	}else if item == int32(msg.ItemId_Gold) {
 		this.AddGold(num, reason, syn)
-	}else if item == uint32(msg.ItemId_Diamond) {
+	}else if item == int32(msg.ItemId_Diamond) {
 		this.AddDiamond(num, reason, syn)
-	}else if item == uint32(msg.ItemId_FreeStep) {
-		this.AddFreeStep(int32(num), reason)
+	}else if item == int32(msg.ItemId_FreeStep) {
+	}else if item == int32(msg.ItemId_Strength) {
 	}else {
 		this.bag.AddItem(item, num, reason)
 	}
 	//CountMgr().AddGet(item, num)
-	RCounter().IncrByDate("item_add", uint32(item), num)
+	RCounter().IncrByDate("item_add", int32(item), num)
 }
 
 // 扣除道具
-func (this *GateUser) RemoveItem(item uint32, num uint32, reason string) bool{
+func (this *GateUser) RemoveItem(item int32, num int32, reason string) bool{
 	return this.bag.RemoveItem(item, num, reason)
 }
 
 // 金币
-func (this *GateUser) GetGold() uint32   { return this.gold }
-func (this *GateUser) AddGold(gold uint32, reason string, syn bool) {
+func (this *GateUser) GetGold() int32   { return this.gold }
+func (this *GateUser) AddGold(gold int32, reason string, syn bool) {
 	this.gold = this.GetGold() + gold
 	if syn {
-		send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetGold())}
+		send := &msg.GW2C_UpdateGold{Num:pb.Int32(this.GetGold())}
 		this.SendMsg(send)
 	}
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
-func (this *GateUser) RemoveGold(gold uint32, reason string, syn bool) bool {
-	if this.GetGold() > gold {
+func (this *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
+	if this.GetGold() >= gold {
 		this.gold = this.GetGold() - gold
 		if syn {
-			send := &msg.GW2C_UpdateGold{Num:pb.Uint32(this.GetGold())}
+			send := &msg.GW2C_UpdateGold{Num:pb.Int32(this.GetGold())}
 			this.SendMsg(send)
 		}
-		log.Info("玩家[%d] 扣除金币[%d] 剩余[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
-		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Gold), gold)
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
 		return true
 	}
 	log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", this.Id(), gold, reason)
@@ -66,25 +66,25 @@ func (this *GateUser) RemoveGold(gold uint32, reason string, syn bool) bool {
 }
 
 // 添加元宝
-func (this *GateUser) GetYuanbao() uint32 { return this.yuanbao }
-func (this *GateUser) AddYuanbao(yuanbao uint32, reason string, syn bool) {
+func (this *GateUser) GetYuanbao() int32 { return this.yuanbao }
+func (this *GateUser) AddYuanbao(yuanbao int32, reason string, syn bool) {
 	this.yuanbao = this.GetYuanbao() + yuanbao
 	if syn { 
-		send := &msg.GW2C_UpdateYuanbao{ Num : pb.Uint32(this.GetYuanbao())}
+		send := &msg.GW2C_UpdateYuanbao{ Num : pb.Int32(this.GetYuanbao())}
 		this.SendMsg(send)
 	}
-	RCounter().IncrByDate("item_add", uint32(msg.ItemId_YuanBao), yuanbao)
+	RCounter().IncrByDate("item_add", int32(msg.ItemId_YuanBao), yuanbao)
 	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", this.Id(), yuanbao, this.GetYuanbao(), reason)
 }
-func (this *GateUser) RemoveYuanbao(yuanbao uint32, reason string, syn bool) bool {
+func (this *GateUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
 	if this.GetYuanbao() >= yuanbao {
 		this.yuanbao = this.GetYuanbao() - yuanbao
 		if syn { 
-			send := &msg.GW2C_UpdateYuanbao{Num:pb.Uint32(this.GetYuanbao())}
+			send := &msg.GW2C_UpdateYuanbao{Num:pb.Int32(this.GetYuanbao())}
 			this.SendMsg(send)
 		}
 		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", this.Id(), yuanbao, this.GetYuanbao(), reason)
-		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_YuanBao), yuanbao)
+		RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)
 		return true
 	}
 	log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", this.Id(), yuanbao, this.GetYuanbao(), reason)
@@ -93,160 +93,63 @@ func (this *GateUser) RemoveYuanbao(yuanbao uint32, reason string, syn bool) boo
 
 
 // 添加钻石
-func (this *GateUser) GetDiamond() uint32  { return this.diamond }
-func (this *GateUser) AddDiamond(num uint32, reason string, syn bool) {
+func (this *GateUser) GetDiamond() int32  { return this.diamond }
+func (this *GateUser) AddDiamond(num int32, reason string, syn bool) {
 	this.diamond = this.GetDiamond() + num
 	//this.SynAddMidsMoney(int64(num), reason)
 	if syn { 
-		send := &msg.GW2C_UpdateDiamond{Num:pb.Uint32(this.GetDiamond())} 
+		send := &msg.GW2C_UpdateDiamond{Num:pb.Int32(this.GetDiamond())} 
 		this.SendMsg(send)
 	}
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)
 }
-func (this *GateUser) RemoveDiamond(num uint32, reason string, syn bool) bool {
+func (this *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 	if this.GetDiamond() >= num {
 		this.diamond = this.GetDiamond() - num
 		//this.SynRemoveMidsMoney(int64(num), reason)
 		if syn {
-			send := &msg.GW2C_UpdateDiamond{Num:pb.Uint32(this.GetDiamond())}
+			send := &msg.GW2C_UpdateDiamond{Num:pb.Int32(this.GetDiamond())}
 			this.SendMsg(send)
 		}
 		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)
-		RCounter().IncrByDate("item_remove", uint32(msg.ItemId_Diamond), num)
+		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
 		return true
 	}
 	log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)
 	return false
 }
 
-// 添加免费步数
-func (this *GateUser) GetFreeStep() int32 { return this.freestep }
-func (this *GateUser) SetFreeStep(num int32, reason string) {
-	this.freestep = 0
-	this.AddFreeStep(num, reason)
-}
-func (this *GateUser) AddFreeStep(num int32, reason string) {
-	this.freestep = this.GetFreeStep() + num
-	send := &msg.GW2C_UpdateFreeStep{Num:pb.Int32(this.GetFreeStep())}
-	this.SendMsg(send)
-	log.Info("玩家[%d] 添加免费步数[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetFreeStep(), reason)
-}
-
-
 // 购买道具
-func (this* GateUser) BuyItem(productid uint32, num uint32) {
+func (this* GateUser) BuyItem(productid int32, num int32) {
 	product , ok := tbl.ShopBase.TShopById[productid]
 	if ok == false {
 		log.Error("[元宝商店] 玩家[%s %d] 购买商品[%d]，配置不存在", this.Name(), this.Id(), productid)
 		return
 	}
 
-	itemid := uint32(product.Itemid)
+	itemid := int32(product.Itemid)
 	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
 	if ok == false {
 		log.Error("[元宝商店] 玩家[%s %d] 购买商品[%d]，无效的道具[%d]", this.Name(), this.Id(), productid, itemid)
 		return
 	}
-	
-	cost := uint32(product.Price) * num
+
+	cost := int32(product.Price) * num
 	if this.GetYuanbao() < cost {
 		log.Error("[元宝商店] 玩家[%s %d] 购买商品[%d]，元宝不足", this.Name(), this.Id(), itemid)
 		this.SendNotify("元宝不足")		// 元宝要提示为积分，唉
 		return;
 	}
 	this.RemoveYuanbao(cost, "商店购买道具", true)
-	this.AddItem(itemid, num * uint32(product.Num), "商店购买道具", true)
+	this.AddItem(itemid, num * int32(product.Num), "商店购买道具", true)
 	this.SendNotify("购买成功")
 	GateSvr().SendNotice(	this.Face(), msg.NoticeType_Marquee, def.MakeNoticeText(this.Name(), "#00ff00", 26),
-		def.MakeNoticeText("获得", "#00ff00", 26), def.MakeNoticeText(item.Name, "#00ff00", 26));
+	def.MakeNoticeText("获得", "#00ff00", 26), def.MakeNoticeText(item.Name, "#00ff00", 26));
 	;
 }
 
-// 购买服装
-func (this *GateUser) BuyClothes(ItemList []int32) {
-
-	// 检查是否已经购买过，计算总价
-	goldprice, diamondprice := int32(0), int32(0)
-	for _, id := range ItemList {
-		if item := this.bag.FindById(uint32(id)); item != nil {
-			this.SendNotify("购物车添加了已经购买过的服装")
-			log.Error("玩家[%s %d] 已经购买过服装[%s %d]", this.Name(), this.Id(), item.Name(), item.Id())
-			return
-		}
-		equip, find := tbl.TEquipBase.EquipById[id]
-		if find == false {
-			this.SendNotify("购买无效的服装")
-			log.Error("玩家[%s %d] 购买无效的服装[%d]", this.Name(), this.Id(), id)
-			return
-		}
-
-		//
-		if equip.Pos != int32(msg.ItemPos_Suit) && equip.SuitId != 0 {
-			this.SendNotify("套装配件不能单独购买")
-			return
-		}
-
-		if equip.CoinType == int32(msg.MoneyType__Gold) {
-			goldprice += equip.Price
-		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
-			diamondprice += equip.Price
-		}else {
-			log.Error("玩家[%s %d] 购买的服装[%d]，无效的货币类型[%d]", this.Name(), this.Id(), id, equip.CoinType)
-			return
-		}
-	}
-
-	// 
-	if int32(this.GetGold()) < goldprice {
-		this.SendNotify("金币不足")
-		return
-	}
-
-	if int32(this.GetDiamond()) < diamondprice {
-		this.SendNotify("钻石不足")
-		return
-	}
-
-	//
-	for _, id := range ItemList {
-		equip, _ := tbl.TEquipBase.EquipById[id]
-		if equip.CoinType == int32(msg.MoneyType__Gold) {
-			this.RemoveGold(uint32(equip.Price), "购买服装", true)
-		}else if equip.CoinType == int32(msg.MoneyType__Diamond) {
-			this.RemoveDiamond(uint32(equip.Price), "购买服装", true)
-		}
-		this.AddItem(uint32(id), 1, "购买服装", true)
-	}
-
-	this.SendNotify("购买成功")
-
-}
-
-
-// 道具换元宝
-func (this *GateUser) SellBagItem(itemid, num uint32) {
-	item, ok := tbl.ItemBase.ItemBaseDataById[itemid]
-	if ok == false {
-		log.Error("[道具换元宝] 玩家[%s %d] 无效的道具[%d]", this.Name(), this.Id(), itemid)
-		return
-	}
-	
-	have := this.bag.GetItemNum(itemid)
-	if have < num {
-		this.SendNotify("道具数量不足")
-		return
-	}
-	this.RemoveItem(itemid, num, "出售道具");
-
-	//
-	yuanbao := uint32(item.Sold) * num		// 价值，元宝
-	this.AddYuanbao(yuanbao, "出售道具", true)
-	this.SendNotify("出售成功")
-}
-
-
 // 使用道具
-func (this* GateUser) UseItem(itemid , num uint32) {
+func (this* GateUser) UseItem(itemid , num int32) {
 	have := this.bag.GetItemNum(itemid)
 	if have < num {
 		this.SendNotify("道具数量不足")
@@ -256,76 +159,16 @@ func (this* GateUser) UseItem(itemid , num uint32) {
 	this.bag.RemoveItem(itemid, num, "使用背包道具")
 }
 
-
-//// 提钻石
-//func (this *GateUser) DeliveryDiamond(list []*msg.DeliveryGoods, token string) {
-//
-//	var diamondNum, partsNum uint32 = 0, 0
-//	for _, item := range list {
-//
-//		base, ok := tbl.ItemBase.ItemBaseDataById[item.GetItemid()]
-//		if ok == false { 
-//			this.SendNotify("存在无效的道具")
-//			return
-//		}
-//
-//		if item.GetNum() == 0 {
-//			this.SendNotify("提取数量不能是0")
-//			return
-//		}
-//
-//		if base.Id == uint32(msg.ItemId_RedDiamond) {
-//			diamondNum += item.GetNum()
-//		}else if base.Id == uint32(msg.ItemId_RedDiamondParts) {
-//			partsNum += item.GetNum()
-//		}else {
-//			this.SendNotify("只能提取钻石道具")
-//			return
-//		}
-//
-//		if this.bag.GetItemNum(item.GetItemid()) < item.GetNum()  {
-//			this.SendNotify("提钻石失败，道具数量不足")
-//			log.Error("[提钻石] 玩家[%s %d] 提钻石[%d] 数量[%d]，道具数量不足", this.Name(), this.Id(), item.GetItemid(), item.GetNum())
-//			return
-//		}
-//	}
-//
-//	// 扣除钻石
-//	//if diamondNum > 0 { this.RemoveItem(uint32(msg.ItemId_Diamond), diamondNum, "提取钻石") }
-//
-//	// 碎片转换钻石
-//	convertDiamond, remainParts := uint32(0), partsNum
-//	for remainParts >= uint32(tbl.Room.DiamondpartsToDiamond) {
-//		convertDiamond += 1
-//		remainParts -= uint32(tbl.Room.DiamondpartsToDiamond)
-//	}
-//	//if partsNum - remainParts > 0 { this.RemoveItem(uint32(msg.ItemId_DiamondParts), partsNum - remainParts, "提取碎片") }
-//
-//
-//	totalNum := diamondNum + convertDiamond
-//	if totalNum <= 0 {
-//		this.SendNotify(fmt.Sprintf("钻石券不足%d个，无法提取", tbl.Room.DiamondpartsToDiamond))
-//		return
-//	}
-//
-//	// Http请求
-//	if def.HttpRequestIncrDiamonds(this.Id(), token, this.Account(), int32(totalNum), "提取钻石") == true {
-//		// 扣除钻石和碎片
-//		if diamondNum > 0 { this.RemoveItem(uint32(msg.ItemId_Diamond), diamondNum, "提取钻石") }
-//		if partsNum - remainParts > 0 { this.RemoveItem(uint32(msg.ItemId_RedDiamondParts), partsNum - remainParts, "提取碎片") }
-//
-//		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), totalNum, 0, "提取钻石")
-//		send := &msg.GW2C_RetDeliveryDiamond{}
-//		send.Diamond = pb.Int32(int32(diamondNum))
-//		send.Diamondparts = pb.Int32(int32(partsNum - remainParts))
-//		send.Total = pb.Int32(int32(totalNum))
-//		this.SendMsg(send)
-//	}else {
-//		log.Info("玩家[%s %d] 提取钻石异常，消耗钻石%d个，卷%d个", this.Name(), this.Id(), diamondNum, partsNum-remainParts)
-//		this.SendNotify("提取钻石暂不可用，请稍后再试")
-//	}
-//
-//}
+// 检查玩家身上是否有哪些道具 参数info 为道具id做key 数量做Value的map
+func (this* GateUser) CheckEnoughItems(info map[int32] int32) bool {
+	for itemid, num := range info {
+		have := this.bag.GetItemNum(itemid)
+		if have < num {
+			return false
+		}
+	}
+	return true
+}
 
 // 提货
 func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
@@ -358,13 +201,13 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 	}
 
 	// 虚拟道具不扣运费，实物道具邮寄少于2个道具扣运费
-	amount, delivercost := uint32(0), uint32(0)
+	amount, delivercost := int32(0), int32(0)
 	if IsFreeDelivercost == false {
 		for _, item := range list {
 			amount += item.GetNum()
 		}
 		if int64(amount) < tbl.Global.Delivery.Freelimit  {
-			delivercost = uint32(tbl.Global.Delivery.Cost)
+			delivercost = int32(tbl.Global.Delivery.Cost)
 			if this.GetYuanbao() < delivercost {
 				this.SendNotify("运费不足")
 				return
@@ -400,12 +243,12 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 
 	// 发送到订单到平台
 	type OrderItem struct {
-		Id		uint32		`json:"itemid"`
+		Id		int32		`json:"itemid"`
 		Desc 	string		`json:"itemname"`
-		Count	uint32		`json:"count"`
+		Count	int32		`json:"count"`
 	}
 	type DeliveryOrder struct {
-		Id			uint64		`json:"uid"`
+		Id			int64		`json:"uid"`
 		Way			string		`json:"way"`
 		Name		string		`json:"playerName"`
 		Phone		string		`json:"playerMobile"`
@@ -463,57 +306,39 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 	this.SendNotify("提货成功")
 }
 
-// 同步大奖被拿走次数
-func (this *GateUser) SyncBigRewardPickNum() {
-	send := &msg.Sync_BigRewardPickNum{}
-	picklist , err := Redis().ZRangeWithScores("bigreward_picknum", 0, -1).Result()
-	if err != nil {
-		this.SendMsg(send)
-		log.Error("玩家[%s %d] 同步奖被拿走计数失败 err[%s]", this.Name(), this.Id(), err)
-		return
-	}
-	
-	for _, v := range picklist {
-		stritemid := v.Member.(string)
-		itemid, _ := strconv.ParseInt(stritemid, 10, 32)
-		send.List = append(send.List, &msg.BigRewardItem{Id:pb.Uint32(uint32(itemid)), Num:pb.Uint32(uint32(v.Score))})
-	}
-	this.SendMsg(send)
-}
-
 // 签到
 func (this *GateUser) GetSignReward(){
 	if util.IsSameDay(int64(this.signtime), util.CURTIME()) {
 		return
 	}
-	sconfig , ok := tbl.SignBase.TSignById[uint32(this.signreward + 1)]
+	sconfig , ok := tbl.SignBase.TSignById[int32(this.signreward + 1)]
 	if !ok {
 		return
 	}
 	this.SendNotify("领取成功")
-	this.signtime = uint32(util.CURTIME())
-	this.AddItem(uint32(sconfig.CostId), uint32(sconfig.Num), "签到奖励", true)
+	this.signtime = int32(util.CURTIME())
+	this.AddItem(int32(sconfig.CostId), int32(sconfig.Num), "签到奖励", true)
 	this.signreward += 1
 	if this.signreward >= 7 {
 		this.signreward = 0
 	}
 
-	item, itemok := tbl.ItemBase.ItemBaseDataById[uint32(sconfig.CostId)]
+	item, itemok := tbl.ItemBase.ItemBaseDataById[int32(sconfig.CostId)]
 	if itemok {
 		GateSvr().SendNotice(this.Face(), msg.NoticeType_Marquee, 
-			def.MakeNoticeText(this.Name(), "#00ff00", 26),
-			def.MakeNoticeText("领取每日签到奖励", "#00ff00", 26), 
-			def.MakeNoticeText(strconv.Itoa(int(sconfig.Num)), "#00ff00", 26),
-			def.MakeNoticeText(item.Name, "#00ff00", 26),
-		);
-	}
+		def.MakeNoticeText(this.Name(), "#00ff00", 26),
+		def.MakeNoticeText("领取每日签到奖励", "#00ff00", 26), 
+		def.MakeNoticeText(strconv.Itoa(int(sconfig.Num)), "#00ff00", 26),
+		def.MakeNoticeText(item.Name, "#00ff00", 26),
+	);
+}
 }
 
 func (this *GateUser) SendSign(){
 	if util.IsSameDay(int64(this.signtime), util.CURTIME()) {
 		return
 	}
-    send := &msg.GW2C_Ret7DayReward{Day: pb.Uint32(this.signreward + 1)}
+	send := &msg.GW2C_Ret7DayReward{Day: pb.Int32(this.signreward + 1)}
 	this.SendMsg(send)
 }
 
@@ -534,7 +359,7 @@ func (this *GateUser) CheckHaveCompensation() {
 			continue
 		}
 
-		this.AddItem(uint32(intid), uint32(intnum), "系统补偿", true)
+		this.AddItem(int32(intid), int32(intnum), "系统补偿", true)
 		Redis().Del(strkey)
 		//log.Info("玩家%s获得系统补偿 id:%d, 数量:%d", this.account, intid, intnum)
 	}
@@ -573,7 +398,7 @@ func (this *GateUser) LoginStatistics() {
 func (this *GateUser) LuckyDraw() {
 
 	// 检查消耗
-	cost := uint32(tbl.Game.LuckDrawPrice)
+	cost := int32(tbl.Game.LuckDrawPrice)
 	if this.GetGold() < cost {
 		this.SendNotify("金币不足")
 		return
@@ -589,15 +414,14 @@ func (this *GateUser) LuckyDraw() {
 	// 解析概率配置
 	ParseProString := func (sliceweight* []util.WeightOdds, Pro []string) (bool) {
 		log.Trace("[%d %s] 抽奖概率为[%v]", this.Id(), this.Name(), Pro)
-		for _ , strpro := range Pro {
-			slicepro := strings.Split(strpro, "-")
-			if len(slicepro) != 2 {
-				log.Error("[%d %s] 抽奖异常，解析概率配置异常 strpro=%s", this.Id(), this.Name(), strpro)
+		ProObj := util.SplitIntString(Pro, "-")
+		for _, v := range ProObj {
+			if v.Len() != 2 {
+				log.Error("[幸运抽奖] 解析道具产出概率配置异常 ObjSplit=%#v", v)
 				return false
 			}
-			id    , _ := strconv.ParseInt(slicepro[0], 10, 32)
-			weight, _ := strconv.ParseInt(slicepro[1], 10, 32)
-			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id)})
+			id , weight := v.Value(0), v.Value(1)
+			*sliceweight = append(*sliceweight, util.WeightOdds{Weight:int32(weight), Uid:int64(id), Num:int64(0)})
 		}
 		return true
 	}
@@ -612,7 +436,6 @@ func (this *GateUser) LuckyDraw() {
 		}
 	}
 
-	//
 	//for k ,v := range tbl.TBallGiftbase.TBallGiftById {
 	//	giftweight = append(giftweight, util.WeightOdds{Weight:v.Pro, Uid:int64(k)})
 	//}
@@ -623,7 +446,7 @@ func (this *GateUser) LuckyDraw() {
 	}
 
 	uid := giftweight[index].Uid
-	gift, find := tbl.TBallGiftbase.TBallGiftById[uint32(uid)]
+	gift, find := tbl.TBallGiftbase.TBallGiftById[int32(uid)]
 	if find == false {
 		log.Error("[%d %s] 无效的奖励id[%d]", this.Id(), this.Name(), uid)
 		return
@@ -631,11 +454,11 @@ func (this *GateUser) LuckyDraw() {
 
 
 	this.RemoveGold(cost, "幸运抽奖", true)
-	
-	if uint32(gift.ItemId) == uint32(msg.ItemId_Gold) {
-		this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖", false)	// 金币不同步，客户端自己添加
+
+	if int32(gift.ItemId) == int32(msg.ItemId_Gold) {
+		this.AddItem(int32(gift.ItemId), int32(gift.Num), "幸运抽奖", false)	// 金币不同步，客户端自己添加
 	}else {
-		this.AddItem(uint32(gift.ItemId), uint32(gift.Num), "幸运抽奖", true)
+		this.AddItem(int32(gift.ItemId), int32(gift.Num), "幸运抽奖", true)
 	}
 	drawitem := &msg.LuckyDrawItem{Time:pb.Int64(curtime), Item:pb.Int32(gift.ItemId), Num:pb.Int32(gift.Num), Worth:pb.Int32(gift.Cost)}
 	this.luckydraw = append(this.luckydraw, drawitem)
@@ -654,28 +477,29 @@ func (this *GateUser) LuckyDraw() {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) CheckFreePresentDiamond(syn bool) {
-	if this.GetDiamond() >= uint32(tbl.Game.FreePresentRule.FloorTrigger) {
-		return
-	}
-
-	curtime := util.CURTIME()
-	if this.presentcount >= int32(tbl.Game.FreePresentRule.Count) {
-		if util.IsSameDay(this.presentrecord, curtime) {
-			return
-		}else {
-			this.presentcount = 0;
+// 添加经验
+func (this *GateUser) AddExp(num int32, reason string) {
+	old, exp := this.Level(), this.Exp() + num
+	for {
+		lvlbase, ok := tbl.LevelBasee.TLevelById[this.Level()]
+		if ok == false {
+			break
 		}
+
+		// 下一级需要经验
+		if exp < int32(lvlbase.ExpNums) || lvlbase.ExpNums == 0 {
+			break
+		}
+
+		exp = exp - int32(lvlbase.ExpNums)
+		this.OnLevelUp()
 	}
-
-	diamond := tbl.Game.FreePresentRule.Money
-	this.AddDiamond(uint32(diamond), "每日免费赠送", syn)
-	this.presentcount += 1
-	this.presentrecord = curtime
-
-	// 客户端界面展示
-	send := &msg.GW2C_FreePresentNotify{Money:pb.Int32(int32(diamond))}
-	this.SendMsg(send)
+	this.SetExp(exp)
+	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", this.Id(), num, old, this.Level(), this.Exp(), reason)
 }
 
+// 升级
+func (this *GateUser) OnLevelUp() {
+	this.AddLevel(1)
+}
 

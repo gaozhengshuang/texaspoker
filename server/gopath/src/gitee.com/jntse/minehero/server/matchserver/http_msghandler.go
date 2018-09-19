@@ -8,7 +8,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	pb"github.com/gogo/protobuf/proto"
 	"net/http"
-	"strconv"
+	_"strconv"
 	"strings"
 	"time"
 	"encoding/json"
@@ -39,8 +39,10 @@ func HttpServerResponseCallBack(w http.ResponseWriter, urlpath string, rawquery 
 
 		// GM指令
 		if _ , ok := cmdmap["gmcmd"]; ok {
-			gmcommands:= make(map[string]string)
-			for k ,v := range cmdmap { gmcommands[k] = v.(string) }
+			gmcommands:= make(map[string]*util.VarType)
+			for k ,v := range cmdmap { 
+				gmcommands[k] = util.NewVarType(v.(string))
+			}
 			DoGMCmd(gmcommands, util.BytesToString(body))
 			break
 		}
@@ -100,13 +102,13 @@ func DoUserRecharge(cmd map[string]interface{}) {
 
 	// 解析 userid
 	orderid := lo_orderid.(string)
-	amount := uint32(lo_amount.(float64))		// 单位，分
+	amount := int32(lo_amount.(float64))		// 单位，分
 	orderpart := strings.Split(orderid ,"_")
 	if len(orderpart) != 3 {
 		return
 	}
 	userid := orderpart[0]
-	yuanbao := uint32(amount * 10 / 100)		// 1元:10元宝
+	yuanbao := int32(amount * 10 / 100)		// 1元:10元宝
 
 	// 标记已经处理的订单
 	Redis().Del(orderid)
@@ -120,14 +122,14 @@ func DoUserRecharge(cmd map[string]interface{}) {
 }
 
 // GM指令处理
-func DoGMCmd(cmd map[string]string, origin string) {
+func DoGMCmd(cmd map[string]*util.VarType, origin string) {
 	value, ok := cmd["gmcmd"]
-	if !ok {
+	if !ok || value == nil {
 		log.Error("找不到gmcmd字段")
 		return
 	}
 
-	switch value {
+	switch value.String() {
 	case "consume":
 		DoConsumeCount(cmd)
 		break
@@ -140,32 +142,35 @@ func DoGMCmd(cmd map[string]string, origin string) {
 	case "reload":
 		DoReload(cmd, origin)
 		break
+	case "carshop":
+		DoCarShopOpt(cmd, origin)
+		break
 	}
 }
 
-func DoConsumeCount(cmd map[string]string) {
+func DoConsumeCount(cmd map[string]*util.VarType) {
 	strdate, dateok := cmd["date"]
-	if !dateok {
+	if !dateok || strdate == nil {
 		log.Info("没有date")
 		return
 	}
 
 	strday, dayok := cmd["day"]
-	if !dayok {
+	if !dayok || strday == nil {
 		log.Info("没有day")
 		return
 	}
 
-	intday, err := strconv.Atoi(strday)
-	if err != nil {
-		log.Info("没有day2")
-		return
+	starttime, _ := time.Parse("2006-01-02", strdate.String())
+	currencylist := []int32{ 
+		int32(msg.ItemId_YuanBao),
+		int32(msg.ItemId_Diamond),
+		int32(msg.ItemId_Gold),
+		int32(msg.ItemId_FreeStep),
+		int32(msg.ItemId_RedDiamond),
+		int32(msg.ItemId_RedDiamondParts),
 	}
-
-	starttime, _ := time.Parse("2006-01-02", strdate)
-
-	currencylist := []int32{6001, 6002, 6003, 10001, 10002}
-	for i := 0; i < intday; i++ {
+	for i := 0; i < strday.Int(); i++ {
 		newtime := starttime.AddDate(0, 0, 0+i)
 		if newtime.YearDay() > time.Now().YearDay() {
 			break
@@ -173,7 +178,7 @@ func DoConsumeCount(cmd map[string]string) {
 		datetime := newtime.Format("2006-01-02")
 
 		for _, j := range currencylist {
-			iconfig := tbl.ItemBase.ItemBaseDataById[uint32(j)]
+			iconfig := tbl.ItemBase.ItemBaseDataById[int32(j)]
 			if iconfig == nil {
 				continue
 			}
@@ -213,28 +218,21 @@ func DoConsumeCount(cmd map[string]string) {
 	}
 }
 
-func DoLoginCount(cmd map[string]string) {
+func DoLoginCount(cmd map[string]*util.VarType) {
 	strdate, dateok := cmd["date"]
-	if !dateok {
+	if !dateok || strdate == nil {
 		log.Info("没有date")
 		return
 	}
 
 	strday, dayok := cmd["day"]
-	if !dayok {
+	if !dayok || strday == nil {
 		log.Info("没有day")
 		return
 	}
 
-	intday, err := strconv.Atoi(strday)
-	if err != nil {
-		log.Info("没有day2")
-		return
-	}
-
-	starttime, _ := time.Parse("2006-01-02", strdate)
-
-	for i := 0; i < intday; i++ {
+	starttime, _ := time.Parse("2006-01-02", strdate.String())
+	for i := 0; i < strday.Int(); i++ {
 		newtime := starttime.AddDate(0, 0, 0+i)
 		datetime := newtime.Format("2006-01-02")
 		if newtime.YearDay() > time.Now().YearDay() {
@@ -269,35 +267,33 @@ func DoLoginCount(cmd map[string]string) {
 	}
 }
 
-func DoCompensation(cmd map[string]string) {
+func DoCompensation(cmd map[string]*util.VarType) {
 
 	strname, nameok := cmd["name"]
-	if !nameok {
+	if !nameok || strname == nil {
 		log.Info("没有名字")
 		return
 	}
 
 	strid, idok := cmd["id"]
-	if !idok {
+	if !idok || strid == nil {
 		log.Info("没有id")
 		return
 	}
 
 	strnum, numok := cmd["num"]
-	if !numok {
+	if !numok || strnum == nil {
 		log.Info("没有num")
 		return
 	}
 
-	strinfo := strid + ":" + strnum
-
-	strkey := fmt.Sprintf("compen_%s", strname)
+	strinfo := strid.String() + ":" + strnum.String()
+	strkey := fmt.Sprintf("compen_%s", strname.String())
 	Redis().SAdd(strkey, strinfo)
-
-	log.Info("GM指令补偿玩家%s, 道具%s, 数量%s", strname, strid, strnum)
+	log.Info("GM指令补偿玩家%s, 道具%s, 数量%s", strname.String(), strid.String(), strnum.String())
 }
 
-func DoReload(cmd map[string]string, origin string) {	
+func DoReload(cmd map[string]*util.VarType, origin string) {	
 	Match().Reload()
 
 	send := &msg.MS2Server_BroadCast{}
@@ -306,4 +302,10 @@ func DoReload(cmd map[string]string, origin string) {
 	GateSvrMgr().Broadcast(send)
 }
 
+func DoCarShopOpt(cmd map[string]*util.VarType, origin string) {	
+	send := &msg.MS2Server_BroadCast{}
+	send.Cmd = pb.String(origin)
+	RoomSvrMgr().BroadCast(send)
+	GateSvrMgr().Broadcast(send)
+}
 

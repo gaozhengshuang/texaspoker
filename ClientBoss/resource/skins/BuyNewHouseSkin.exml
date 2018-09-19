@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BuyNewHouseSkin" width="700" height="668" xmlns:e="http://ns.egret.com/eui" xmlns:game="game.*" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect width="680" height="636" fillColor="0xe4e4e5" y="32" x="0"/>
+	<e:Image id="huxingImg" x="260" source="huxing_1001_s_png" y="108"/>
+	<e:Label id="name_txt" text="1室厅1厨1卫(50平)" x="193" y="343" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" width="294" textColor="0x404A58" touchEnabled="false" bold="true" stroke="2" strokeColor="0xFFFFFF" verticalAlign="middle" textAlign="center"/>
+	<e:Group x="190" y="402">
+		<e:Label id="weizhi_txt0" text="单价：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="danjia_txt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="190" y="459">
+		<e:Label id="shouyi_txt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="weizhi_txt3" text="基础收益：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Group x="190" y="517">
+		<e:Label id="zongjia_txt" text="10,000金币" x="120" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="180" textColor="0x404A58" touchEnabled="false"/>
+		<e:Label id="weizhi_txt4" text="总价：" x="0" y="0" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="120" textColor="0x404A58" touchEnabled="false"/>
+	</e:Group>
+	<e:Button id="buy_btn" label="购 买" width="150" height="56" x="265" y="585">
+		<e:skinName>
+		<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+			<e:Image width="100%" height="100%" source="btnBg_red3_png" source.down="btnBg_red3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<game:IconButton id="close_btn" skinName="IconButtonSkin" scaleX="1" scaleY="1" touchEnabled="true" right="0" top="0"/>
+</e:Skin>

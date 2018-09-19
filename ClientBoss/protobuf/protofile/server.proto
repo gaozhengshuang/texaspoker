@@ -1,8 +1,6 @@
+syntax = "proto2";
 package msg;
-import "serialize.proto";
 import "define.proto";
-
-
 
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> LoginServer
@@ -88,8 +86,6 @@ message MS2GW_RetCreateRoom {
     optional string errcode = 3;
     optional string roomagent = 4;
 }
-
-
 
 
 // --------------------------------------------------------------------------
@@ -206,4 +202,6 @@ message RS2MS_UpdateRewardPool {
 message MS2Server_BroadCast {
     optional string cmd = 1;
 }
+
+
 
