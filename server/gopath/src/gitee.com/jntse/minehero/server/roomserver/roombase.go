@@ -13,9 +13,13 @@ import (
 // --------------------------------------------------------------------------
 type IRoomBase interface {
 	Id() int64
+	Tid() int32
 	Init() string
 	Kind() int32
 	Tick(now int64)
+	Owner() *RoomUser
+	OwnerId() int64
+	NumMembers() int32
 	SendUserMsg(userid int64, msg pb.Message)
 	SendGateMsg(userid int64, msg pb.Message)
 	BroadCastUserMsg(msg pb.Message, except ...int64)
@@ -53,6 +57,9 @@ func (r *RoomBase) Tid() int32 { return r.tid }
 func (r *RoomBase) Kind() int32 { return r.gamekind }
 func (r *RoomBase) IsStart() bool { return r.tm_start != 0 }
 func (r *RoomBase) IsEnd(now int64) bool { return r.tm_end != 0  }
+func (r *RoomBase) Owner() *RoomUser { return r.owner }
+func (r *RoomBase) OwnerId() int64 { return r.ownerid }
+func (r *RoomBase) NumMembers() int32 { return int32(len(r.members)) }
 
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {

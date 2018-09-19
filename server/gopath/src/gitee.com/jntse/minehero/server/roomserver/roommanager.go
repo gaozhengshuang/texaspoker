@@ -1,9 +1,13 @@
 package main
 import (
+	"fmt"
+	_"github.com/go-redis/redis"
 	//pb"github.com/gogo/protobuf/proto"
+
 	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/gotoolkit/util"
+
+	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/def"
 )
@@ -18,11 +22,11 @@ type RoomManager struct {
 
 func (this *RoomManager) Init() bool {
 	this.rooms = make(map[int64]IRoomBase)
-	this.InitTexas()
+	this.InitPublicTexas()
 	return true
 }
 
-func (this *RoomManager) InitTexas() bool {
+func (this *RoomManager) InitPublicTexas() bool {
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
 		roomid, errcode := def.GenerateRoomId(Redis())
 		if errcode != "" {
@@ -43,6 +47,10 @@ func (this *RoomManager) Num() int {
 func (this *RoomManager) Add(room IRoomBase) {
 	id := room.Id()
 	this.rooms[id] = room
+	key := fmt.Sprintf("room_%d", id)
+	Redis().HSet(key, "ownerid", room.OwnerId())
+	Redis().HSet(key, "tid", room.Tid())
+	Redis().HSet(key, "members", room.NumMembers())
 	log.Info("添加房间[%d]--当前房间数[%d]", id, len(this.rooms))
 }
 
