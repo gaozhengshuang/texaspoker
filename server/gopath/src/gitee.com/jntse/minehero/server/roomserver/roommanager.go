@@ -183,8 +183,8 @@ func NewTanTanLeRoom(ownerid, uid int64) *TanTanLe {
 	return room
 }
 
-func NewTexasRoom(ownerid, uid int64, tid int32, ante int32, pwd string) *TexasRoom {
-	room := &TexasRoom{}
+func NewTexasRoom(ownerid, uid int64, tid int32, ante int32, pwd string) *TexasPokerRoom {
+	room := &TexasPokerRoom{}
 	room.id = uid
 	room.tm_create = util.CURTIME()
 	room.tm_start = 0
@@ -192,7 +192,6 @@ func NewTexasRoom(ownerid, uid int64, tid int32, ante int32, pwd string) *TexasR
 	room.owner = nil
 	room.ownerid = ownerid
 	room.tid = tid
-	room.ante = ante
 	room.passwd = pwd
 	return room
 }

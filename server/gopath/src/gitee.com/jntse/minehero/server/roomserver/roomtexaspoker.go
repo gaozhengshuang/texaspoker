@@ -49,7 +49,7 @@ type TexasPokerRoom struct {
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
-//func (this *TexasPokerRoom) Kind() int32 { return this.roomkind }
+func (this *TexasPokerRoom) Kind() int32 { return this.gamekind }
 
 func (this *TexasPokerRoom) PlayersNum() int32{
 	return int32(len(this.players))
@@ -60,7 +60,7 @@ func (this *TexasPokerRoom) PlayersNum() int32{
 对于花色：0代表黑桃、1代表红桃、2代表梅花、3代表方块，详见card包
 对于值：0代表two，1代表three .. 12代表A
 */
-func (this *TexasPokerRoom) Init() {
+func (this *TexasPokerRoom) Init() string {
 	this.cards = make(Cards, 0, SUITSIZE * CARDRANK)
 	for i := 0; i < SUITSIZE; i++{
 		for j := 0; j < CARDRANK; j++{
@@ -76,6 +76,7 @@ func (this *TexasPokerRoom) Init() {
 	this.smallblindnum = 10
 	this.restarttime = 3
 	this.ticker1s = util.NewGameTicker(1 * time.Second, this.Handler1sTick)
+	return ""
 }
 
 /*
@@ -121,25 +122,25 @@ func (this *TexasPokerRoom) SwapCard(a int32, b int32){
 	this.cards[b] = tmp
 }
 
-func (this *TexasPokerRoom) UserEnter(user *RoomUser) {
-	if _, ok := this.members[user.Id()]; ok {
-		return
-	}
-	this.members[user.Id()] = user
-}
+//func (this *TexasPokerRoom) UserEnter(user *RoomUser) {
+//	if _, ok := this.members[user.Id()]; ok {
+//		return
+//	}
+//	this.members[user.Id()] = user
+//}
 
-func (this *TexasPokerRoom) UserLeave(userid int64) {
-	delete(this.members, userid)
-}
+//func (this *TexasPokerRoom) UserLeave(userid int64) {
+//	delete(this.members, userid)
+//}
 
-func (this *TexasPokerRoom) UserSitDown(user *RoomUser, pos int32) {
+//func (this *TexasPokerRoom) UserSitDown(user *RoomUser, pos int32) {
 	//先判断玩家盲注钱够不够
 	//if !user.CheckMoney(this.bigblindnum) {
 	//	return
 	//}
-	tplayer := NewTexasPlayer(user)
-	tplayer.Init()
-}
+//	tplayer := NewTexasPlayer(user)
+//	tplayer.Init()
+//}
 
 //从start开始
 func (this *TexasPokerRoom) ForEachPlayer(start int32, f func(p *TexasPlayer) bool) {
@@ -441,28 +442,31 @@ func (this *TexasPokerRoom) OnStart() {
 func (this *TexasPokerRoom) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
 }
 
+func (this *TexasPokerRoom) Tick(now int64) {
+}
+
 // 玩家进房间，开始游戏
-//func (this *TexasPokerRoom) UserEnter(userid int64) {
-//}
+func (this *TexasPokerRoom) UserEnter(userid int64) {
+}
 
 // 玩家正常离开
-//func (this *TexasPokerRoom) UserLeave(userid int64) {
-//}
+func (this *TexasPokerRoom) UserLeave(userid int64) {
+}
 
 // 玩家断开连接
-//func (this *TexasPokerRoom) UserDisconnect(userid int64) {
-//}
+func (this *TexasPokerRoom) UserDisconnect(userid int64) {
+}
 
 // 网关断开
-//func (this *TexasPokerRoom) GateLeave(sid int) {
-//}
+func (this *TexasPokerRoom) GateLeave(sid int) {
+}
 
 // 棋牌类站起
-//func (this *TexasPokerRoom) UserStandUp(userid int64) {
-//}
+func (this *TexasPokerRoom) UserStandUp(userid int64) {
+}
 
 // 棋牌类坐下
-//func (this *TexasPokerRoom) UserSitDown(userid int64) {
-//}
+func (this *TexasPokerRoom) UserSitDown(userid int64) {
+}
 
 

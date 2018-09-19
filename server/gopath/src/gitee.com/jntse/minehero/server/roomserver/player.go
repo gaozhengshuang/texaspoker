@@ -4,13 +4,22 @@ import (
 		//"fmt"
 )
 
+const (
+	GSNone int32 = iota
+	GSWaitNext
+	GSGame
+	GSFold
+	GSAllIn
+)
+
 type TexasPlayer struct{
 	hand *Hand
 	hole Cards
 	owner *RoomUser
 	room *TexasPokerRoom
 	pos int32
-	state int32
+	gamestate int32
+	playstate int32
 	curbet int32
 	betover bool
 }
@@ -32,12 +41,23 @@ func (this *TexasPlayer)Init(){
 }
 
 func (this *TexasPlayer) IsWait() bool{
-	//if state == wait
+	if this.gamestate == GSWaitNext {
+		return true
+	}
 	return false
 }
 
 func (this *TexasPlayer) IsFold() bool{
-	//if state == flop
+	if this.gamestate == GSFold {
+		return true
+	}
+	return false
+}
+
+func (this *TexasPlayer) IsAllIn() bool {
+	if this.gamestate == GSAllIn {
+		return true
+	}
 	return false
 }
 
@@ -55,6 +75,7 @@ func (this *TexasPlayer) Betting(num int32) {
 		this.hand.Init()
 		num = 0
 		this.betover = true
+		this.gamestate = GSFold
 	} else if num == 0 { // 让牌
 		this.betover = true
 	} else if num + this.curbet < this.room.curbet {
@@ -78,6 +99,7 @@ func (this *TexasPlayer) Betting(num int32) {
 		this.betover = true
 	}
 	if this.GetChip() == 0 {
+		this.gamestate = GSAllIn
 	}
 	return
 }
@@ -94,7 +116,7 @@ func (this *TexasPlayer) Next() *TexasPlayer {
 		return nil
 	}
 	for i := this.pos % this.room.PlayersNum(); i != this.pos-1; i = (i + 1) % this.room.PlayersNum() {
-		if this.room.players[i] != nil && this.room.players[i].state != 0 {
+		if this.room.players[i] != nil && this.room.players[i].gamestate != 0 {
 			return this.room.players[i]
 		}
 	}
