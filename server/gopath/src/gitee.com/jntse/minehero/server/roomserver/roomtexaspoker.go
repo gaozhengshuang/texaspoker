@@ -6,11 +6,10 @@ import (
 	"math/rand"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/minehero/pbmsg"
+	//"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/tbl/excel"
-	"gitee.com/jntse/gotoolkit/net"
-	//"fmt"
+	//"gitee.com/jntse/gotoolkit/net"
 )
 
 const (
@@ -133,22 +132,6 @@ func (this *TexasPokerRoom) SwapCard(a int32, b int32){
 	tmp := this.cards[a]
 	this.cards[a] = this.cards[b]
 	this.cards[b] = tmp
-}
-
-func (this *TexasPokerRoom) UserEnter(userid int64) {
-}
-
-// 玩家离开房间
-func (this *TexasPokerRoom) UserLeave(userid int64) {
-	delete(this.members, userid)
-}
-
-// 棋牌类站起
-func (this *TexasPokerRoom) UserStandUp(u *RoomUser) {
-}
-
-// 棋牌类坐下
-func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
 }
 
 //从start开始
@@ -510,29 +493,5 @@ func (this *TexasPokerRoom) Handler1sTick(now int64) {
 		this.ShutDown()
 	}
 }
-
-// 游戏结束
-func (this *TexasPokerRoom) OnEnd(now int64) {
-}
-
-// 玩家进游戏，游戏开始
-func (this *TexasPokerRoom) OnStart() {
-}
-
-// 加载玩家
-func (this *TexasPokerRoom) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
-}
-
-func (this *TexasPokerRoom) Tick(now int64) {
-}
-
-// 玩家断开连接
-func (this *TexasPokerRoom) UserDisconnect(userid int64) {
-}
-
-// 网关断开
-func (this *TexasPokerRoom) GateLeave(sid int) {
-}
-
 
 
