@@ -5,7 +5,10 @@ import (
 	"errors"
 	"math/rand"
 	"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/tbl/excel"
 	"gitee.com/jntse/gotoolkit/net"
 	//"fmt"
 )
@@ -27,6 +30,8 @@ const (
 
 type TexasPokerRoom struct {
 	RoomBase
+	tconf *table.TexasRoomDefine
+	ante int32
 	cards Cards							//52张牌
 	topCardIndex int32					//当前牌顶
 	initilized bool						//是否已经初始化
@@ -60,7 +65,14 @@ func (this *TexasPokerRoom) PlayersNum() int32{
 对于花色：0代表黑桃、1代表红桃、2代表梅花、3代表方块，详见card包
 对于值：0代表two，1代表three .. 12代表A
 */
-func (this *TexasPokerRoom) Init() {
+func (this *TexasPokerRoom) Init() string {
+	tconf, ok := tbl.TexasRoomBase.TexasRoomById[this.tid]
+	if ok == false {
+		log.Error("[房间] not found room tconf[%d]", this.tid)
+		return "找不到房间配置"
+	}
+	this.tconf = tconf
+
 	this.cards = make(Cards, 0, SUITSIZE * CARDRANK)
 	for i := 0; i < SUITSIZE; i++{
 		for j := 0; j < CARDRANK; j++{
@@ -76,6 +88,7 @@ func (this *TexasPokerRoom) Init() {
 	this.smallblindnum = 10
 	this.restarttime = 3
 	this.ticker1s = util.NewGameTicker(1 * time.Second, this.Handler1sTick)
+	return ""
 }
 
 /*
@@ -121,23 +134,26 @@ func (this *TexasPokerRoom) SwapCard(a int32, b int32){
 	this.cards[b] = tmp
 }
 
-func (this *TexasPokerRoom) UserEnter(user *RoomUser) {
-	if _, ok := this.members[user.Id()]; ok {
-		return
-	}
-	this.members[user.Id()] = user
+// 玩家进入房间
+func (this *TexasPokerRoom) UserEnter(userid int64) {
 }
 
+// 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(userid int64) {
 	delete(this.members, userid)
 }
 
-func (this *TexasPokerRoom) UserSitDown(user *RoomUser, pos int32) {
+// 棋牌类站起
+func (this *TexasPokerRoom) UserStandUp(u *RoomUser) {
+}
+
+// 棋牌类坐下
+func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
 	//先判断玩家盲注钱够不够
 	//if !user.CheckMoney(this.bigblindnum) {
 	//	return
 	//}
-	tplayer := NewTexasPlayer(user)
+	tplayer := NewTexasPlayer(u)
 	tplayer.Init()
 }
 
@@ -390,6 +406,9 @@ func (this *TexasPokerRoom) RestartGame() int32{
 	return TPShutDown
 }
 
+func (this *TexasPokerRoom) Tick(now int64) {
+}
+
 func (this *TexasPokerRoom) PlayerTick() {
 	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
 		player.Tick()
@@ -441,28 +460,12 @@ func (this *TexasPokerRoom) OnStart() {
 func (this *TexasPokerRoom) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
 }
 
-// 玩家进房间，开始游戏
-//func (this *TexasPokerRoom) UserEnter(userid int64) {
-//}
-
-// 玩家正常离开
-//func (this *TexasPokerRoom) UserLeave(userid int64) {
-//}
-
 // 玩家断开连接
-//func (this *TexasPokerRoom) UserDisconnect(userid int64) {
-//}
+func (this *TexasPokerRoom) UserDisconnect(userid int64) {
+}
 
 // 网关断开
-//func (this *TexasPokerRoom) GateLeave(sid int) {
-//}
-
-// 棋牌类站起
-//func (this *TexasPokerRoom) UserStandUp(userid int64) {
-//}
-
-// 棋牌类坐下
-//func (this *TexasPokerRoom) UserSitDown(userid int64) {
-//}
+func (this *TexasPokerRoom) GateLeave(sid int) {
+}
 
 
