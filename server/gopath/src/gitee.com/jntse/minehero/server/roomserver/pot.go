@@ -35,7 +35,7 @@ func CalcPot(bets []int32) (pots []handPot) {
 	//fmt.Println("amount bets:", bets)
 	for i, bet := range bets {
 		if bet > 0 {
-			obs = append(obs, handBet{Pos: i + 1, Bet: int(bet)})
+			obs = append(obs, handBet{Pos: i, Bet: int(bet)})
 		}
 	}
 	sort.Sort(handBets(obs))

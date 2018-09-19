@@ -82,19 +82,19 @@ func (this *TexasPlayer) Betting(num int32) {
 		//钱不够 allin
 		this.RemoveChip(num)
 		this.curbet += num
-		this.room.gambpool += num
 		this.betover = true
+		this.room.chips[this.pos] += num
 	} else if num + this.curbet == this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
 		//扣钱
 		this.RemoveChip(num)
 		this.curbet += num
-		this.room.gambpool += num
 		this.betover = true
+		this.room.chips[this.pos] += num
 	} else { // 加注
 		this.RemoveChip(num)
 		this.curbet += num
-		this.room.gambpool += num
 		this.room.curbet = this.curbet
+		this.room.chips[this.pos] += num
 		this.room.ClearBetOver()//清除所有人的下注成功
 		this.betover = true
 	}
