@@ -213,9 +213,9 @@ func (this *RoomSvrManager) SendGateToRoom(gate *GateAgent) {
 	this.BroadCast(send)
 }
 
-func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, userid int64) (string) {
+func (this *RoomSvrManager) CreateGameRoom(tmsg *msg.GW2MS_ReqCreateRoom, now int64, sid_gate int, userid int64) (string) {
 
-	tm1 := util.CURTIMEUS()
+	kind, tm1 := tmsg.GetGamekind(), util.CURTIMEUS()
 	agent := this.FindLowLoadRoom()
 	if agent == nil {
 		return "找不到合适的房间服务器"
@@ -231,6 +231,7 @@ func (this *RoomSvrManager) CreateGameRoom(kind int32, now int64, sid_gate int, 
 		Gamekind: pb.Int32(kind), 
 		Sidgate: pb.Int(sid_gate), 
 		Userid: pb.Int64(userid),
+		Texas: pb.Clone(tmsg.Texas).(*msg.TexasPersonalRoom),
 	}
 	agent.SendMsg(rmsg)
 	tm2 := util.CURTIMEUS()

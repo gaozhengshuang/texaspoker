@@ -20,7 +20,7 @@ import (
 /// @brief 玩家信息
 // --------------------------------------------------------------------------
 type RoomUser struct {
-	roomkind  	int32
+	gamekind  	int32
 	roomid    	int64
 	sid_gate  	int
 	bin 		*msg.Serialize
@@ -38,8 +38,8 @@ type RoomUser struct {
 	maxenergy	int64
 }
 
-func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
-	user := &RoomUser{roomid:rid, bin:b, sid_gate:gate.Id(), roomkind:roomkind}
+func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
+	user := &RoomUser{roomid:rid, bin:b, sid_gate:gate.Id(), gamekind:gamekind}
 	user.ticker1s = util.NewGameTicker(1 * time.Second, user.Handler1sTick)
 	user.ticker10ms = util.NewGameTicker(10 * time.Millisecond, user.Handler10msTick)
 	user.ticker1s.Start()
@@ -288,7 +288,7 @@ func (this *RoomUser) GetYuanbao() int32 {
 func (this *RoomUser) AddYuanbao(yuanbao int32, reason string) {
 	userbase := this.bin.GetBase()
 	userbase.Yuanbao = pb.Int32(userbase.GetYuanbao() + yuanbao)
-	RCounter().IncrByDate("room_output", int32(this.roomkind), yuanbao)
+	RCounter().IncrByDate("room_output", int32(this.gamekind), yuanbao)
 	//this.PlatformPushLootMoney(float32(yuanbao))
 	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", this.Id(), yuanbao, userbase.GetYuanbao(), reason) 
 }
@@ -298,7 +298,7 @@ func (this *RoomUser) RemoveYuanbao(yuanbao int32, reason string) bool {
 		userbase := this.bin.GetBase()
 		userbase.Yuanbao = pb.Int32(this.GetYuanbao() - yuanbao)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)
-		RCounter().IncrByDate("room_income", int32(this.roomkind), yuanbao)
+		RCounter().IncrByDate("room_income", int32(this.gamekind), yuanbao)
 		//this.PlatformPushConsumeMoney(float32(yuanbao))
 		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", this.Id(), yuanbao, this.GetYuanbao(), reason)
 		return true

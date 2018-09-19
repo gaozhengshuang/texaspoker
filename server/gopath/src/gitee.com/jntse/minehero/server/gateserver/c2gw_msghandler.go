@@ -122,8 +122,7 @@ func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{})
 		session.Close()
 		return
 	}
-	gamekind := tmsg.GetGamekind()
-	if errcode := user.CreateRoomRemote(gamekind); errcode != "" {
+	if errcode := user.CreateRoomRemote(tmsg); errcode != "" {
 		user.ReplyCreateRoom(errcode, 0)
 	}
 

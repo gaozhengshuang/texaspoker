@@ -65,26 +65,25 @@ message UserMapEvent {
     optional int64 tmrefresh = 2;   // 刷新时间(服务器使用)
 }
 
-
 message UserBase {
-    optional int32     level   = 1;
-    optional int32     exp     = 2;
-    optional int32     gold    = 3;    // 金币
-    optional int32     diamond = 4;    // 钻石
-    optional int32     yuanbao = 5;    // 元宝
+    optional int32      level   = 1;
+    optional int32      exp     = 2;
+    optional int32      gold    = 3;    // 金币
+    optional int32      diamond = 4;    // 钻石
+    optional int32      yuanbao = 5;    // 元宝
     optional int64      tmlogin  = 6;   // 登陆时间
     optional int64      tmlogout = 7;   // 离线时间
-    optional int32     continuelogin = 8;  // 连续登陆
-    optional int32     nocountlogin = 9;   // 不统计
-    optional int32     signreward  = 10;   // 签到
-    optional int32     signtime    = 11;   // 签到时间
+    optional int32      continuelogin = 8;  // 连续登陆
+    optional int32      nocountlogin = 9;   // 不统计
+    optional int32      signreward  = 10;   // 签到
+    optional int32      signtime    = 11;   // 签到时间
     repeated UserAddress addrlist   = 12;   // 地址列表
     optional SimpleCounter scounter = 13;   // 简单计数器
     optional UserWechat wechat = 14;
     optional string     invitationcode = 15;    // 邀请码
     optional UserTask   task = 17;              // 任务
     optional LuckyDrawRecord luckydraw = 18;    // 抽奖
-    optional int32     total_recharge = 19;    // 总充值
+    optional int32      total_recharge = 19;    // 总充值
     optional UserMapEvent mapevent = 27;    // 地图事件
 }
 

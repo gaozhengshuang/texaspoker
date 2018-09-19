@@ -72,7 +72,7 @@ func on_GW2MS_ReqCreateRoom(session network.IBaseNetSession, message interface{}
 	}
 
 	// 创建房间信息
-	errcode := RoomSvrMgr().CreateGameRoom(tmsg.GetGamekind(), time.Now().Unix(), session.Id(), userid)
+	errcode := RoomSvrMgr().CreateGameRoom(tmsg, time.Now().Unix(), session.Id(), userid)
 	if errcode != "" {
 		doCreateRoomReply(userid, errcode)
 		return

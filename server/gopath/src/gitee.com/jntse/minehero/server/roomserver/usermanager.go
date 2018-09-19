@@ -41,8 +41,8 @@ func (this *UserManager) IsRegisted(id int64) bool {
 func (this *UserManager) Tick(now int64) {
 }
 
-func (this *UserManager) CreateRoomUser(roomid int64, bin *msg.Serialize, gate network.IBaseNetSession, roomkind int32) *RoomUser {
-	user := NewRoomUser(roomid, bin, gate, roomkind)
+func (this *UserManager) CreateRoomUser(roomid int64, bin *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
+	user := NewRoomUser(roomid, bin, gate, gamekind)
 	if _, find := this.ids[user.Id()]; find ==true { 
 		log.Error("创建RoomUser失败，服务器已经存在这个User了")
 		return nil

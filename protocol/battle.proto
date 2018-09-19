@@ -10,7 +10,6 @@ package msg;
 message BT_ReqEnterRoom {
     optional int64 roomid = 1;
     optional int64 userid = 2;
-    optional string token = 3;
 }
 
 // C2R 退出游戏房间

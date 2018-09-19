@@ -27,11 +27,12 @@ import (
 /// @brief 玩家房间简单数据
 // --------------------------------------------------------------------------
 type UserRoomData struct {
-	roomid     int64
-	sid_room   int
-	kind       int32
-	tm_closing int64 // 房间关闭超时
-	creating   bool
+	roomid     	int64
+	sid_room   	int
+	kind       	int32
+	tm_closing 	int64 	// 房间关闭超时
+	creating   	bool
+	seatpos		int32	// 座位号
 }
 
 func (this *UserRoomData) Reset() {
@@ -727,8 +728,9 @@ func (this *GateUser) ReplyCreateRoom(err string, roomid int64) {
 }
 
 // 向match请求创建房间
-func (this *GateUser) CreateRoomRemote(gamekind int32) (errcode string) {
+func (this *GateUser) CreateRoomRemote(tmsg *msg.C2GW_ReqCreateRoom) (errcode string) {
 
+	gamekind := tmsg.GetGamekind()
 	if Match() == nil {
 		log.Error("玩家[%s %d] 匹配服务器未连接", this.Name(), this.Id())
 		errcode = "创建房间服务器不可用"
@@ -764,6 +766,7 @@ func (this *GateUser) CreateRoomRemote(gamekind int32) (errcode string) {
 	send := &msg.GW2MS_ReqCreateRoom{
 		Userid:   pb.Int64(this.Id()),
 		Gamekind: pb.Int32(gamekind),
+		Texas: pb.Clone(tmsg.Texas).(*msg.TexasPersonalRoom),
 	}
 	Match().SendCmd(send)
 	log.Info("玩家[%s %d] 请求创建房间类型:%d ts[%d]", this.Name(), this.Id(), gamekind, util.CURTIMEMS())

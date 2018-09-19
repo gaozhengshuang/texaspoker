@@ -46,7 +46,7 @@ func (this *TanTanLe) Init() (errcode string) {
 			errcode = fmt.Sprintf("更新房间数量到redis失败 key:%s , err: %s", key, err)
 			break
 		}
-		log.Info("玩家[%d] 创建房间[%d]完成 类型[%d]", this.ownerid, this.id, this.roomkind)
+		log.Info("玩家[%d] 创建房间[%d]完成 类型[%d]", this.ownerid, this.id, this.gamekind)
 		return ""
 	}
 
@@ -169,7 +169,7 @@ func (this *TanTanLe) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession)
 	}
 
 	// 
-	user := UserMgr().CreateRoomUser(this.id, bin, gate, this.roomkind)
+	user := UserMgr().CreateRoomUser(this.id, bin, gate, this.gamekind)
 	this.owner = user
 
 	// 

@@ -2,7 +2,7 @@ package main
 import (
 	pb "github.com/gogo/protobuf/proto"
 
-	"gitee.com/jntse/gotoolkit/util"
+	_"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/net"
 
 	"gitee.com/jntse/minehero/pbmsg"
@@ -36,24 +36,24 @@ type IRoomBase interface {
 /// @brief 房间基础数据
 // --------------------------------------------------------------------------
 type RoomBase struct {
-	id				int64
-	tm_create		int64
-	tm_start		int64
-	tm_end			int64
-	roomkind		int32
-	owner			*RoomUser
-	ownerid			int64
-	members			map[int64]*RoomUser
-	close_reason	string	// 正常关闭房间的原因
+	id				int64		// 房间uid
+	tid				int32		// 房间配置tid
+	tm_create		int64		// 创建时间戳
+	tm_start		int64		// 开始时间戳
+	tm_end			int64		// 结束时间戳
+	gamekind		int32		// 游戏类型
+	owner			*RoomUser	// 房主
+	ownerid			int64		// 房主
+	members			map[int64]*RoomUser		// 房间成员
+	close_reason	string		// 关闭房间的原因
 }
 
-func (r *RoomBase) Id() int64 {
-	return r.id
-}
+func (r *RoomBase) Id() int64 { return r.id }
+func (r *RoomBase) Tid() int32 { return r.tid }
+func (r *RoomBase) Kind() int32 { return r.gamekind }
+func (r *RoomBase) IsStart() bool { return r.tm_start != 0 }
+func (r *RoomBase) IsEnd(now int64) bool { return r.tm_end != 0  }
 
-func (r *RoomBase) Kind() int32 {
-	return r.roomkind
-}
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {
@@ -84,24 +84,6 @@ func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...int64) {
 			if id == exc { continue memloop }
 		}
 		u.SendClientMsg(m)
-	}
-}
-
-func NewGameRoom(ownerid int64, id int64, roomkind int32) IRoomBase {
-	switch msg.RoomKind(roomkind) {
-	case msg.RoomKind_TanTanLe:		// 弹弹乐
-		room := &TanTanLe{}
-		room.id = id
-		room.tm_create = util.CURTIME()
-		room.tm_start = 0
-		room.roomkind = roomkind
-		room.owner = nil
-		room.ownerid = ownerid
-		return room
-	case msg.RoomKind_TexasPoker:
-		return nil
-	default:
-		return nil
 	}
 }
 

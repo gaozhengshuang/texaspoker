@@ -479,3 +479,4 @@ func (this *RoomServer) GetRandNickName() string {
 	return ""
 }
 
+
