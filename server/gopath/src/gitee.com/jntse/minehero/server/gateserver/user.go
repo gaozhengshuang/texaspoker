@@ -368,6 +368,10 @@ func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
 }
 
+func (this *GateUser) GetUserPos() (float32, float32){
+	return 0, 0
+}
+
 func (this *GateUser) SendMsg(msg pb.Message) {
 	if this.online == false {
 		log.Info("账户[%s] [%d %s] 不在线", this.Account(), this.Id(), this.Name())

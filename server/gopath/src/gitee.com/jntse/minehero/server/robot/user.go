@@ -333,6 +333,11 @@ func (this *User) EnterEvent(uid int64) {
 	this.SendGateMsg(send)
 }
 
+func (this *User) ReqRoomList() {
+	send := &msg.C2GW_ReqTexasRoomList{Type:pb.Int32(util.RandBetween(1,3))}
+	this.SendGateMsg(send)
+}
+
 func (this *User) DoInputCmd(cmd string) {
 	switch cmd {
 	case "reg":
@@ -365,6 +370,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.EnterEvent(5)
 		this.EnterEvent(16)
 		//this.EnterEvent(26)
+	case "list":
+		this.ReqRoomList()
 	}
 }
 

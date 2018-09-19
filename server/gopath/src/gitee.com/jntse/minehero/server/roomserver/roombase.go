@@ -27,6 +27,7 @@ type IRoomBase interface {
 	SendGateMsg(userid int64, msg pb.Message)
 	BroadCastUserMsg(msg pb.Message, except ...int64)
 	BroadCastGateMsg(msg pb.Message, except ...int64)
+	BroadCastWatcherMsg(msg pb.Message, except ...int64)
 	IsStart() bool
 	IsEnd(now int64) bool
 	OnEnd(now int64)
@@ -51,7 +52,8 @@ type RoomBase struct {
 	gamekind		int32		// 游戏类型
 	owner			*RoomUser	// 房主
 	ownerid			int64		// 房主
-	members			map[int64]*RoomUser		// 房间成员
+	members			map[int64]*RoomUser		// 正式，已坐下
+	watchers		map[int64]*RoomUser		// 观战，未坐下
 	passwd			string		// 房间密码
 	subkind			int32		// 房间子类型
 	close_reason	string		// 关闭房间的原因
@@ -97,6 +99,16 @@ func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...int64) {
 func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
+		for _, exc := range except {
+			if id == exc { continue memloop }
+		}
+		u.SendClientMsg(m)
+	}
+}
+
+func (r *RoomBase) BroadCastWatcherMsg(m pb.Message, except ...int64) {
+	memloop:
+	for id, u := range r.watchers {
 		for _, exc := range except {
 			if id == exc { continue memloop }
 		}

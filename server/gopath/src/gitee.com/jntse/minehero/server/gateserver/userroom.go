@@ -144,11 +144,11 @@ func (this *GateUser) SendTexasRoomList(rtype int32) {
 		sscmd := cmd.(*redis.StringStringMapCmd)
 		for k, v := range sscmd.Val() {
 			vt := util.NewVarType(v)
-			if k == "uid" { info.Id = pb.Int64(vt.Int64()) }
-			if k == "tid" { info.RoomId = pb.Int32(vt.Int32())}
-			if k == "members" { info.Player = pb.Int32(vt.Int32()) }
-			if k == "passwd"  {
-				if vt.String() != "" { info.HasPwd = pb.Bool(true) }
+			switch k {
+			case "uid": info.Id = pb.Int64(vt.Int64())
+			case "tid": info.RoomId = pb.Int32(vt.Int32())
+			case "members": info.Player = pb.Int32(vt.Int32())
+			case "passwd": if vt.String() != "" { info.HasPwd = pb.Bool(true) }
 			}
 		}
 		send.List = append(send.List, info)
