@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="FilterBtnSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Label id="infoLabel" text="" y="6" anchorOffsetY="0" height="43.03" anchorOffsetX="0" width="113" size="30" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0x717A7A" x="1.67" touchEnabled="false" scaleX="1" scaleY="1"/>
-	<e:Image id="arrowFlag" width="36" height="21" scaleX="1" scaleY="1" y="25" x="135" source="uiCarAltas_json.arrowdown" touchEnabled="false" rotation="180" anchorOffsetX="18" anchorOffsetY="10"/>
-</e:Skin>

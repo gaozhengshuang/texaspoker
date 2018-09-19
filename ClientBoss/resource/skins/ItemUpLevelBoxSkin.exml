@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="ItemUpLevelBoxSkin" width="200" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="hall_2_json.itemBoxBg_png" y="0" x="0"/>
-	<e:Label id="name_txt" text="房屋设计图纸" x="45.5" y="0" textColor="0x3f4b57" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="130"/>
-	<e:Label id="num_txt" text="100/100" x="45.5" y="21.5" textColor="0x3F4B57" fontFamily="Microsoft YaHei" size="20" anchorOffsetX="0" width="130"/>
-	<e:Image id="iconImg" x="1.5" y="2" scaleX="1" scaleY="1" width="40" height="40" source=""/>
-	<e:Image id="full_border" source="hall_2_json.fullItemBoxBorder_png" x="0" y="0"/>
-	<e:Image id="no_border" source="hall_2_json.noItemBoxBorder_png" left="1" top="0"/>
-</e:Skin>

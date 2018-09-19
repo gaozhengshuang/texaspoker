@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="UserHeadSkin" width="130" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="img" source="hall_5_json.headImg1_png" horizontalCenter="0" verticalCenter="0"/>
-</e:Skin>

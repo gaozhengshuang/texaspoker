@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="RoomLockSkin" width="140" height="220" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Group id="lockGroup" x="0" y="21">
-		<e:Image id="unlockImg" source="roomUnlock1_png" y="0" x="38"/>
-		<e:Image id="lockImg" source="roomLock1_png" y="0" x="38"/>
-		<e:Label id="lock_txt" text="厕所\n需4级解锁" y="110" size="28" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="140" textAlign="center" stroke="3" strokeColor="0xe29313" bold="true" textColor="0xffffff" verticalAlign="top" x="0"/>
-	</e:Group>
-</e:Skin>

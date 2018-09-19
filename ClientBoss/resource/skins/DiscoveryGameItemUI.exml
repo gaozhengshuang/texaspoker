@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="DiscoveryGameItemUI" width="210" height="210" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="gameIcon" y="14" scaleX="0.8" scaleY="0.8" source="gameTantanle_png" x="31"/>
-	<e:Label id="name_txt" text="running car" y="167" textColor="0x404a58" fontFamily="Microsoft YaHei" size="30" verticalAlign="middle" textAlign="center" anchorOffsetY="0" height="35" anchorOffsetX="0" width="210" x="-1"/>
-</e:Skin>

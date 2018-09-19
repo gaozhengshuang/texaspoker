@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="CommonFilterListItemSkin" width="240" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Rect id="word_bg" width="240" height="50" x="0" y="0" fillColor="0xd9d9d9"/>
-	<e:Label id="word_txt" text="上海" textColor="0x606060" fontFamily="Microsoft YaHei" size="35" verticalAlign="middle" textAlign="center" anchorOffsetX="0" verticalCenter="0.5" width="240" horizontalCenter="0"/>
-</e:Skin>

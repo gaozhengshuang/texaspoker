@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="SortBtnSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Label id="infoLabel" text="" y="6" anchorOffsetY="0" height="43.03" anchorOffsetX="0" width="143.67" size="30" stroke="0" verticalAlign="middle" textAlign="center" bold="true" textColor="0x717A7A" x="-1" touchEnabled="false" scaleX="1" scaleY="1"/>
-	<e:Image id="arrowUp" width="23" height="13" scaleX="1" scaleY="-1" y="19" x="134" touchEnabled="false" anchorOffsetX="11.5" anchorOffsetY="6.5" source="uiCarAltas_json.arrowDownL"/>
-	<e:Image id="arrowUpRed" width="23" height="13" scaleX="1" scaleY="1" y="19" x="134" touchEnabled="false" anchorOffsetX="11.5" anchorOffsetY="6.5" source="uiCarAltas_json.arrowUpRed"/>
-	<e:Image id="arrowDown" width="23" height="13" scaleX="1" scaleY="1" y="36" x="134" source="uiCarAltas_json.arrowDownL" touchEnabled="false" anchorOffsetX="11.5" anchorOffsetY="6.5"/>
-	<e:Image id="arrowDownRed" width="23" height="13" scaleX="1" scaleY="-1" y="36" x="134" touchEnabled="false" anchorOffsetX="11.5" anchorOffsetY="6.5" source="uiCarAltas_json.arrowUpRed"/>
-</e:Skin>

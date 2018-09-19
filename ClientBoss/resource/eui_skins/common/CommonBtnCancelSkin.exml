@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<e:Skin class="CommonBtnCancelSkin" states="up,down,disabled" minHeight="50" minWidth="100" xmlns:e="http://ns.egret.com/eui" width="240" height="86">
-    <e:Image width="100%" height="100%" alpha.disabled="1"
-            
-             fillMode="scale" horizontalCenter="0" verticalCenter="0" scale9Grid="35,24,19,1" source="tongyong_quxiao_png" source.up="tongyong_quxiao_png" source.down="tongyong_quxiao_png" source.disabled="tongyong_quxiao_png"/>
-    <e:Label id="labelDisplay" top="8" bottom="8" left="8" right="8"
-             size="22"
-             textColor="0xFFFFFF" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" left.up="8" right.up="8" top.up="8" bottom.up="8" size.up="26" bold.up="true"/>
-</e:Skin>

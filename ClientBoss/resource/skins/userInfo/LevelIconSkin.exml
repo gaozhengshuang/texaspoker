@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="LevelIconSkin" width="96" height="28" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Group x="0" y="0">
-		<e:Image source="hall_5_json.rLevelLV_png" x="0" y="0"/>
-		<e:Image id="num1" source="hall_5_json.rLevel8_png" x="45" y="0"/>
-		<e:Image id="num2" source="hall_5_json.rLevel8_png" x="72" y="0"/>
-	</e:Group>
-</e:Skin>

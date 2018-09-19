@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<e:Skin class="CommonCloseBtnSkin" states="up,down,disabled" minHeight="50" minWidth="100" xmlns:e="http://ns.egret.com/eui" width="25" height="25">
-    <e:Image width="100%" height="100%" alpha.disabled="1"
-            
-             source="tongyong_guanbi_png" horizontalCenter="0" verticalCenter="0" source.up="tongyong_guanbi_png" source.down="tongyong_guanbi_png" source.disabled="tongyong_guanbi_png"/>
-</e:Skin>
