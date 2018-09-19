@@ -35,11 +35,8 @@ type TexasPokerRoom struct {
 	topCardIndex int32					//当前牌顶
 	initilized bool						//是否已经初始化
 	players TexasPlayers				//参与玩家
-	gambpool int32						//总奖池
 	state int32							//状态
 	winlist TexasPlayers				//赢家列表
-	maxhandlevel int32					//最大牌型
-	maxhandfinalvalue int32				//最大价值
 	dealerpos int32						//庄家位置
 	dealer *TexasPlayer					//庄家
 	bigblinder *TexasPlayer				//大盲
@@ -49,7 +46,8 @@ type TexasPokerRoom struct {
 	ticker1s *util.GameTicker
 	curbet int32						//当前总压注
 	restarttime int32	
-	
+	pot []int32							// 奖池筹码数, 第一项为主池，其他项(若存在)为边池
+	chips []int32						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码		
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -81,6 +79,8 @@ func (this *TexasPokerRoom) Init() string {
 			this.cards = append(this.cards, c)
 		}
 	}
+	this.players = make([]*TexasPlayer, 5, 5)
+	this.chips = make([]int32, 5, 5)
 	this.topCardIndex = 0
 	this.initilized = true
 	this.bigblindnum = 20
@@ -222,6 +222,7 @@ func (this *TexasPokerRoom) PreFlopBet() int32{
 		}
 	})
 	if this.AllBetOver() {
+		this.CalcGambPool()
 		return TPFlop
 	}
 	return TPPreFlopBet
@@ -246,6 +247,7 @@ func (this *TexasPokerRoom) FlopBet() int32{
 		}
 	})
 	if this.AllBetOver() {
+		this.CalcGambPool()
 		return TPTurn
 	}
 	return TPFlopBet
@@ -270,6 +272,7 @@ func (this *TexasPokerRoom) TurnBet() int32{
 		}
 	})
 	if this.AllBetOver() {
+		this.CalcGambPool()
 		return TPRiver
 	}
 	return TPTurnBet
@@ -294,6 +297,7 @@ func (this *TexasPokerRoom) RiverBet() int32{
 		}
 	})
 	if this.AllBetOver() {
+		this.CalcGambPool()
 		return TPShowDown
 	}
 	return TPRiverBet
@@ -322,38 +326,58 @@ func (this *TexasPokerRoom) AllBetOver() bool{
 	return false
 }
 
-func (this *TexasPokerRoom) AnalyseCard() {
+func (this *TexasPokerRoom) ShowDown() int32{
 	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
 		player.hand.AnalyseHand()
 		return true
 	})
-	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
-		if player.hand.level > this.maxhandlevel {
-			this.maxhandlevel = player.hand.level
-			this.maxhandfinalvalue = player.hand.finalvalue
-		} else if player.hand.level == this.maxhandlevel && player.hand.finalvalue > this.maxhandfinalvalue {
-			this.maxhandfinalvalue = player.hand.finalvalue
-		}
-		return true
-	})
-	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
-		if player.hand.level == this.maxhandlevel && player.hand.finalvalue == this.maxhandfinalvalue {
-			this.winlist = append(this.winlist, player)
-		}
-		return true
-	})
-}
 
-func (this *TexasPokerRoom) ShowDown() int32{
-	this.AnalyseCard()
 	this.restarttime = 3
-	if len(this.winlist) == 0 {
-		return TPRestart
+	pots := this.CalcGambPool()
+
+	for i := range this.chips {
+		this.chips[i] = 0
 	}
-	reward := this.gambpool / int32(len(this.winlist))
-	for _, player := range this.winlist {
-		player.AddChip(reward)
+
+	for _, pot := range pots { // 遍历奖池
+		var maxhandlevel int32 = -1
+		var maxhandfinalvalue int32 = -1
+		// 计算该池子最大牌型和牌值
+		for _, pos := range pot.OPos {
+			p := this.players[pos]
+			if p != nil {
+				if p.hand.level > maxhandlevel {
+					maxhandlevel = p.hand.level
+					maxhandfinalvalue = p.hand.finalvalue
+				} else if p.hand.level == maxhandlevel && p.hand.finalvalue > maxhandfinalvalue {
+					maxhandfinalvalue = p.hand.finalvalue
+				}
+			}
+		}
+		var winners []int
+		for _, pos := range pot.OPos {
+			p := this.players[pos]
+			if p != nil && len(p.hole) > 0 {
+				if p.hand.level == maxhandlevel && p.hand.finalvalue == maxhandfinalvalue {
+					winners = append(winners, pos)
+				}
+			}
+		}
+		if len(winners) == 0 {
+			//fmt.Println("!!!no winners!!!")
+			return TPShutDown
+		}
+		for _, winner := range winners {
+			this.chips[winner] += int32(pot.Pot / len(winners))
+		}
 	}
+	//最终瓜分奖励
+	for i := range this.chips {
+		if this.players[i] != nil {
+			this.players[i].AddChip(this.chips[i])
+		}
+	}
+
 	return TPRestart
 }
 
@@ -363,9 +387,6 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		return TPRestart
 	}
 	this.winlist = nil
-	this.gambpool = 0
-	this.maxhandlevel = 0
-	this.maxhandfinalvalue = 0
 	this.dealerpos++
 	this.dealer = nil
 	this.bigblinder = nil
@@ -390,6 +411,16 @@ func (this *TexasPokerRoom) PlayerTick() {
 }
 
 func (this *TexasPokerRoom) ShutDown() {
+}
+
+// 计算奖池
+func (this *TexasPokerRoom) CalcGambPool() (pots []handPot) {
+	pots = CalcPot(this.chips)
+	this.pot = nil
+	for _, pot := range pots {
+		this.pot = append(this.pot, int32(pot.Pot))
+	}
+	return
 }
 
 //主循环逻辑
