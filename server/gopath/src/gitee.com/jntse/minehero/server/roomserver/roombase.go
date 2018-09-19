@@ -116,3 +116,16 @@ func (r *RoomBase) BroadCastWatcherMsg(m pb.Message, except ...int64) {
 	}
 }
 
+func IsTexasRoomBaseType(subkind int32) bool {
+	switch msg.PlayingFieldType(subkind) {
+	case msg.PlayingFieldType_Primary:	return true
+	case msg.PlayingFieldType_Middle:	return true
+	case msg.PlayingFieldType_High:		return true
+	}
+	return false
+}
+
+func IsTexasRoomPrivateType(subkind int32) bool {
+	return subkind == int32(msg.PlayingFieldType_PlayFieldPersonal)
+}
+

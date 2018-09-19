@@ -37,6 +37,9 @@ func (this *RoomManager) Init() bool {
 // 初始德州公共房间
 func (this *RoomManager) InitPublicTexas() bool {
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
+		if IsTexasRoomBaseType(tconf.Type) == false {
+			continue
+		}
 		roomid, errcode := def.GenerateRoomId(Redis())
 		if errcode != "" {
 			log.Error("初始化德州公共房间失败[%s]", errcode)
@@ -146,7 +149,7 @@ func (this *RoomManager) CleanCache() {
 // 自动增加房间
 func (this *RoomManager) TexasRoomAmountCheck() {
 	for subtype, subrooms := range this.texasrooms {
-		if subtype == int32(msg.PlayingFieldType_PlayFieldPersonal) { continue }
+		if IsTexasRoomBaseType(subtype) == false { continue }
 		notfullamount := 0
 		for _, r := range subrooms {
 			if r.IsFull() == false { notfullamount += 1 }
@@ -159,7 +162,9 @@ func (this *RoomManager) TexasRoomAmountCheck() {
 
 func (this *RoomManager) AutoIncTexasRoomAmount(subtype int32) bool {
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
-		if tconf.Type != subtype { continue }
+		if IsTexasRoomBaseType(tconf.Type) == false {
+			continue
+		}
 		roomid, errcode := def.GenerateRoomId(Redis())
 		if errcode != "" {
 			log.Error("初始化德州公共房间失败[%s]", errcode)
