@@ -20,6 +20,9 @@ type IRoomBase interface {
 	Owner() *RoomUser
 	OwnerId() int64
 	NumMembers() int32
+	Passwd() string
+	SubKind() int32
+	IsFull() bool
 	SendUserMsg(userid int64, msg pb.Message)
 	SendGateMsg(userid int64, msg pb.Message)
 	BroadCastUserMsg(msg pb.Message, except ...int64)
@@ -49,6 +52,8 @@ type RoomBase struct {
 	owner			*RoomUser	// 房主
 	ownerid			int64		// 房主
 	members			map[int64]*RoomUser		// 房间成员
+	passwd			string		// 房间密码
+	subkind			int32		// 房间子类型
 	close_reason	string		// 关闭房间的原因
 }
 
@@ -60,6 +65,9 @@ func (r *RoomBase) IsEnd(now int64) bool { return r.tm_end != 0  }
 func (r *RoomBase) Owner() *RoomUser { return r.owner }
 func (r *RoomBase) OwnerId() int64 { return r.ownerid }
 func (r *RoomBase) NumMembers() int32 { return int32(len(r.members)) }
+func (r *RoomBase) Passwd() string { return r.passwd }
+func (r *RoomBase) SubKind() int32 { return r.subkind }
+func (r *RoomBase) IsFull() bool { return false }
 
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {

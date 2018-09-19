@@ -69,6 +69,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 }
 
 // 客户端心跳
@@ -125,10 +126,6 @@ func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{})
 	if errcode := user.CreateRoomRemote(tmsg); errcode != "" {
 		user.ReplyCreateRoom(errcode, 0)
 	}
-
-	//gamekind, eventuid := tmsg.GetGamekind(), tmsg.GetEventuid()
-	//errcode := user.ReqStartGameLocal(gamekind, eventuid)
-	//user.ReplyCreateRoom(errcode, 0)
 }
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
@@ -150,14 +147,6 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
 	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
 	user.SendRoomMsg(tmsg)
-
-	//roomid, userid := user.RoomId(), user.Id()
-	//room := RoomMgr().Find(roomid)
-	//if room == nil {
-	//	log.Error("玩家[%d ]找不到游戏房间[%d]", userid, roomid)
-	//	return
-	//}
-	//room.UserEnter(userid, "")
 }
 
 func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
@@ -174,13 +163,17 @@ func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 	// 离开游戏房间
 	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
 	user.SendRoomMsg(tmsg)
-	//roomid, userid := user.RoomId(), user.Id()
-	//room := RoomMgr().Find(roomid)
-	//if room == nil {
-	//	log.Error("BT_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
-	//	return
-	//}
-	//room.UserLeave(userid, tmsg.GetGold())
+}
+
+func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTexasRoomList)
+	user := ExtractSessionUser(session)
+	if user == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	user.SendTexasRoomList(tmsg.GetType())
 }
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
