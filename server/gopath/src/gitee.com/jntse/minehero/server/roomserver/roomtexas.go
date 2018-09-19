@@ -4,7 +4,7 @@ import (
 	_"time"
 	_"strings"
 	_"strconv"
-	_"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/gotoolkit/log"
 	_"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/minehero/pbmsg"
@@ -27,10 +27,11 @@ type TexasRoom struct {
 }
 
 func (this *TexasRoom) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
-func (this *TexasRoom) Init() (errcode string) {
+func (this *TexasRoom) Init() string {
 	tconf, ok := tbl.TexasRoomBase.TexasRoomById[this.tid]
 	if ok == false {
-		return "not found room tconf"
+		log.Error("[房间] not found room tconf[%d]", this.tid)
+		return "找不到房间配置"
 	}
 	this.tconf = tconf
 	return ""
@@ -66,10 +67,10 @@ func (this *TexasRoom) GateLeave(sid int) {
 }
 
 // 棋牌类站起
-func (this *TexasRoom) UserStandUp(userid int64) {
+func (this *TexasRoom) UserStandUp(u *RoomUser) {
 }
 
 // 棋牌类坐下
-func (this *TexasRoom) UserSitDown(userid int64) {
+func (this *TexasRoom) UserSitDown(u *RoomUser, userid int64) {
 }
 

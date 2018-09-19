@@ -1,6 +1,6 @@
 package main
 import (
-	"fmt"
+	_"fmt"
 	_"time"
 	_"strings"
 	"strconv"
@@ -36,21 +36,15 @@ func (this *TanTanLe) SendClientMsg(userid int64, msg pb.Message) {
 }
 
 // 房间参数初始化
-func (this *TanTanLe) Init() (errcode string) {
-	switch{
-	default:
-		// 更新房间数量到redis
-		key := RoomSizeKey()
-		_, err := Redis().SAdd(key, this.id).Result()
-		if err != nil {
-			errcode = fmt.Sprintf("更新房间数量到redis失败 key:%s , err: %s", key, err)
-			break
-		}
-		log.Info("玩家[%d] 创建房间[%d]完成 类型[%d]", this.ownerid, this.id, this.gamekind)
-		return ""
+func (this *TanTanLe) Init() string {
+	// 更新房间数量到redis
+	key := RoomSizeKey()
+	_, err := Redis().SAdd(key, this.id).Result()
+	if err != nil {
+		return "更新房间数量到redis失败"
 	}
-
-	return
+	log.Info("玩家[%d] 创建房间[%d]完成 类型[%d]", this.ownerid, this.id, this.gamekind)
+	return ""
 }
 
 // 大奖公告
@@ -221,13 +215,5 @@ func (this *TanTanLe) UserDisconnect(userid int64) {
 func (this *TanTanLe) GateLeave(sid int) {
 	this.tm_end = util.CURTIME()
 	log.Info("房间[%d] Owner[%d] 网关断开连接Sid[%d]", this.id, this.ownerid, sid)
-}
-
-// 棋牌类站起
-func (this *TanTanLe) UserStandUp(userid int64) {
-}
-
-// 棋牌类坐下
-func (this *TanTanLe) UserSitDown(userid int64) {
 }
 
