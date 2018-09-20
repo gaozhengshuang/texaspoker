@@ -85,8 +85,8 @@ func (this* RoomManager) Find(id int64) IRoomBase {
 func (this *RoomManager) Tick(now int64) {
 	this.ticker1s.Run(now)
 	for id, room := range this.rooms {
-		if room.IsEnd(now) == true {
-			room.OnEnd(now)
+		if room.IsDestory(now) == true {
+			room.OnDestory(now)
 			this.Del(id)
 			continue
 		}
@@ -191,7 +191,7 @@ func (this *RoomManager) OnGateClose(sid int) {
 func (this *RoomManager) Shutdown() {
 	this.ticker1s.Stop()
 	//for id, room := range this.rooms {
-	//	room.OnEnd(util.CURTIMEMS())
+	//	room.OnDestory(util.CURTIMEMS())
 	//}
 	//this.rooms = make(map[int64]*IRoomBase)
 }

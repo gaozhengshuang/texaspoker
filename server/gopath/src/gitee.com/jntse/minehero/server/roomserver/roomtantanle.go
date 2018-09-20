@@ -72,21 +72,21 @@ func PickNumItemNotice(user *RoomUser, itemname string, num int64) {
 
 //
 func (this *TanTanLe) CanStart() bool {
-	if this.IsStart() == true {
+	if this.IsGameStart() == true {
 		return false
 	}
 	return true
 }
 
-func (this *TanTanLe) IsStart() bool {
+func (this *TanTanLe) IsGameStart() bool {
 	if ( this.tm_start == 0 ) {
 		return false
 	}
 	return true
 }
 
-//
-func (this *TanTanLe) IsEnd(now int64) bool {
+// 是否销毁房间
+func (this *TanTanLe) IsDestory(now int64) bool {
 
 	// 超过10秒还未开始游戏
 	if ( this.tm_start == 0 && (now/1000) > this.tm_create + 10) {
@@ -95,7 +95,7 @@ func (this *TanTanLe) IsEnd(now int64) bool {
 		return true
 	}
 
-	if ( this.tm_end != 0)	{
+	if ( this.tm_destory != 0)	{
 		log.Info("房间[%d] 准备删除房间，玩家[%d]", this.id, this.ownerid)
 		return true
 	}
@@ -104,13 +104,13 @@ func (this *TanTanLe) IsEnd(now int64) bool {
 }
 
 
-// 游戏结束
-func (this *TanTanLe) OnEnd(now int64) {
+// 房间销毁
+func (this *TanTanLe) OnDestory(now int64) {
 	log.Info("房间[%d] 游戏结束，模式[%d]", this.Id(), this.Kind())
 
 	// 序列化玩家个人数据
 	if this.owner != nil { 
-		this.owner.OnEnd(now) 
+		this.owner.OnGameEnd(now) 
 	}
 
 	// 通知Gate删除房间，回传个人数据
@@ -127,8 +127,9 @@ func (this *TanTanLe) OnEnd(now int64) {
 
 }
 
+
 // 玩家进游戏，游戏开始
-func (this *TanTanLe) OnStart() {
+func (this *TanTanLe) OnGameStart() {
 	if this.owner == nil {
 		log.Error("房间[%d] Owner[%d] OnStart 玩家不在房间中", this.id, this.ownerid)
 		return
@@ -155,6 +156,11 @@ func (this *TanTanLe) OnStart() {
 	this.SendClientMsg(0, msgstart)
 }
 
+// 游戏结束
+func (this *TanTanLe) OnGameOver() {
+}
+
+
 // 加载玩家
 func (this *TanTanLe) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
 	if this.owner != nil {
@@ -172,7 +178,7 @@ func (this *TanTanLe) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBase
 
 // 玩家进房间，开始游戏
 func (this *TanTanLe) UserEnter(u *RoomUser) {
-	if this.IsStart() == true {
+	if this.IsGameStart() == true {
 		log.Error("房间[%d] 玩家[%d] 游戏已经开始了，不要重复进入", this.id, u.Id())
 		return
 	}
@@ -183,26 +189,26 @@ func (this *TanTanLe) UserEnter(u *RoomUser) {
 	}
 
 	log.Info("房间[%d] 玩家[%d]进入游戏 ts[%d]", this.id, u.Id(), util.CURTIMEMS())
-	this.OnStart()
+	this.OnGameStart()
 }
 
 // 玩家正常离开
 func (this *TanTanLe) UserLeave(u *RoomUser) {
-	this.tm_end = util.CURTIME()
+	this.tm_destory = util.CURTIME()
 	this.close_reason = "玩家退出房间"
 	log.Info("房间[%d] 玩家[%d]退出房间，同步money[%d]，准备删除房间", this.id, u.Id(), 0)
 }
 
 // 玩家断开连接
 func (this *TanTanLe) UserDisconnect(userid int64) {
-	this.tm_end = util.CURTIME()
+	this.tm_destory = util.CURTIME()
 	this.close_reason = "玩家断开连接"
 	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, userid)
 }
 
 // 网关断开
 func (this *TanTanLe) GateLeave(sid int) {
-	this.tm_end = util.CURTIME()
+	this.tm_destory = util.CURTIME()
 	log.Info("房间[%d] Owner[%d] 网关断开连接Sid[%d]", this.id, this.ownerid, sid)
 }
 

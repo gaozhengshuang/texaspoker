@@ -205,7 +205,7 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 }
 
 // 游戏结束，将数据回传Gate
-func (this *RoomUser) OnEnd(now int64) {
+func (this *RoomUser) OnGameEnd(now int64) {
 	this.ticker1s.Stop()
 	this.ticker10ms.Stop()
 	this.asynev.Shutdown()
