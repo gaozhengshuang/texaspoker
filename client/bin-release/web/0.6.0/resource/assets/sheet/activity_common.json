@@ -1,9 +1,0 @@
-{"file":"activity_common.png","frames":{
-"xrl_button_png":{"x":828,"y":655,"w":124,"h":55,"offX":0,"offY":0,"sourceW":124,"sourceH":55},
-"sc_bg_png":{"x":1,"y":1,"w":656,"h":652,"offX":0,"offY":0,"sourceW":656,"sourceH":652},
-"sc_bg_1_png":{"x":1,"y":868,"w":630,"h":113,"offX":0,"offY":0,"sourceW":630,"sourceH":113},
-"sc_bg_2_png":{"x":634,"y":655,"w":192,"h":210,"offX":0,"offY":0,"sourceW":192,"sourceH":210},
-"sc_button_png":{"x":634,"y":867,"w":249,"h":85,"offX":0,"offY":0,"sourceW":249,"sourceH":85},
-"shou_yue_bg_png":{"x":1,"y":655,"w":631,"h":211,"offX":0,"offY":0,"sourceW":631,"sourceH":211},
-"xinrenli_bg_png":{"x":885,"y":796,"w":63,"h":106,"offX":0,"offY":0,"sourceW":63,"sourceH":106},
-"xinrenli_bg_2_png":{"x":828,"y":712,"w":82,"h":82,"offX":0,"offY":0,"sourceW":82,"sourceH":82}}}

@@ -30,3 +30,6 @@ git
 /client/resource/default.thm.json
 /client/manifest.json
 /client/node_modules
+/client/bin-debug
+/client/bin-publish
+/client/bin-release

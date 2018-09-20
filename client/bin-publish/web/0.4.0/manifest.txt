@@ -1,3 +1,0 @@
-window.web_config_scripts = ['libs/modules-4ba3520f21.min.js','libs/bundle-caf1c3a11a.min.js','libs/main-03e2f83118.min.js'];
-window.web_config_defaultResJson = 'resource/default-f466065f90.res.json';
-window.web_config_defaultThmJson = 'resource/default-e24ee64278.thm.json';
