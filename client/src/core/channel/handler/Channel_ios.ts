@@ -1,0 +1,210 @@
+class Channel_ios extends ChannelBase
+{
+	public Login(loginType: string, isAutoLogin: boolean)
+	{
+		if (loginType == ChannelLoginType.Weixin)
+		{
+			//微信登录
+			if (isAutoLogin)
+			{
+				let token: string = PrefsManager.getLoginToken();
+				if (token)
+				{
+					ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.App + '###2###' + token);
+					return;
+				}
+			}
+			qin.ExternalInterface.call(ExtFuncName.Login, loginType);
+		}
+		else if (loginType == ChannelLoginType.Account || ChannelManager.loginType == ChannelLoginType.IntranetAccount) //微端测试使用
+		{
+			this.accountLogin(isAutoLogin);
+		}
+	}
+	private accountLogin(isAutoLogin: boolean): void
+	{
+		let account: string = PrefsManager.getValue(PrefsManager.Login_Account);
+		let password: string = PrefsManager.getValue(PrefsManager.Login_Password);
+		if (isAutoLogin && account && password)
+		{
+			ChannelManager.DispatchAccountLoginSucceed(account, password);
+		}
+		else
+		{
+			if (!UIManager.isShowPanel(UIModuleName.LoginLocalPanel))
+			{
+				UIManager.showPanel(UIModuleName.LoginLocalPanel);
+			}
+		}
+	}
+	public PaySend(payState: number, awardId: number, serverId: number, orderId: string, price: number, productName: string)
+	{
+		let bagId: number;
+		let data: any;
+		if (payState == PayState.Normal || VersionManager.isSafe)
+		{
+			UIManager.showPanel(UIModuleName.PayMaskPanel);
+			bagId = BundleManager.getBid();//数字包ID
+
+			data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
+			qin.ExternalInterface.call(ExtFuncName.Pay, JSON.stringify(data));
+		}
+		else if (payState == PayState.Mixed)
+		{
+			bagId = BundleManager.getBid();//数字包ID
+			ChannelManager.OnPayModelSelectEvent.addListener(this.onSelectPayModelHandler, this);
+			data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
+			UIManager.showPanel(UIModuleName.PayModePanel, data);
+		}
+		else if (payState == PayState.Third)
+		{
+			ChannelUtil.openWebPay(serverId, orderId, price, productName, awardId);
+		}
+		else
+		{
+			AlertManager.showAlertByString('支付状态错误');
+		}
+	}
+	private onSelectPayModelHandler(data: any)
+	{
+		this.PaySend(data.payState, data.awardId, UserManager.serverInfo.id, data.passData.orderId, data.price, data.name);
+		ChannelManager.OnPayModelSelectEvent.removeListener(this.onSelectPayModelHandler, this);
+	}
+	public share(type: string, title: string, message: string, inviteCode?: string)
+	{
+		let data: Object = {};
+		data['type'] = type;
+		data['title'] = title;
+		data['message'] = message;
+		data['url'] = ProjectDefined.GetInstance().getShareWebUrl(GameSetting.AppId, inviteCode);
+		qin.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
+	}
+	/**
+	 * 检查支付订单
+	 */
+	public checkUnFinishedPayList()
+	{
+		qin.ExternalInterface.call(ExtFuncName.CheckUnFinishedPayList, qin.StringConstants.Empty);
+	}
+	/// <summary>
+	/// 支付成功（sdk -> unity）
+	/// </summary>
+	/// <param name="data"></param>
+	public sdkPaySucceed(data: any)
+	{
+		UIManager.closePanel(UIModuleName.PayModePanel);
+		//购买成功后，通知服务器
+		//通过post发送数据给服务器
+		if (data)
+		{
+			let awardId: number = this.ParseAwardId(data.productId);
+			let def: ShopDefinition = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
+			if (def != null)
+			{
+				this.PostDataToServer(data.passData, data.receipt, awardId);
+			}
+			else
+			{
+				UIManager.closePanel(UIModuleName.PayMaskPanel);
+			}
+		}
+		else
+		{
+			UIManager.closePanel(UIModuleName.PayMaskPanel);
+		}
+	}
+	/// <summary>
+	/// 将商品名转化为product id
+	/// </summary>
+	/// <param name="productId"></param>
+	/// <returns></returns>
+	private ParseAwardId(productId: string): number
+	{
+		let reg: RegExp = new RegExp(/\d+$/);
+		let result: RegExpMatchArray = productId.match(reg);
+		if (result && result.length > 0)
+		{
+			return parseInt(result[0]);
+		}
+		return 0;
+	}
+	/// <summary>
+	/// 发送服务器给数据
+	/// receipt
+	//  orderid 订单号
+	//fee 金额
+	/// </summary>
+	/// <param name="data"></param>
+	/// <returns></returns>
+	private PostDataToServer(passData: string, receipt: string, payId: number): void
+	{
+		let passDataObj: any;
+		try
+		{
+			passDataObj = JSON.parse(passData);
+		}
+		catch (e)
+		{
+			qin.Console.log("苹果支付转换透传数据失败！");
+		}
+		let orderId: string;
+		let bagId: number;
+		if (!passDataObj)
+		{
+			orderId = ChannelUtil.GenerateOrder(payId, VersionManager.isServerTest);
+			bagId = BundleManager.getBid();
+		}
+		else
+		{
+			orderId = passDataObj.orderId;
+			bagId = passDataObj.bagId
+		}
+		if (ChannelUtil.IsOrderIlleg(orderId))
+		{
+			orderId = ChannelUtil.GenerateOrder(payId, VersionManager.isServerTest);
+		}
+		let params: string = "orderid=" + orderId + "&receipt=" + receipt + '&bagid=' + bagId;
+		let path: string = ProjectDefined.GetInstance().getPayCallbackUrl(VersionManager.isServerTest);
+		URLLoader.downloadContent(path, this, (data: any) =>
+		{
+			if (data != "21005")
+			{
+				if (data != "0")
+				{
+					let message: string = (data == '-1') ? '非法支付' : '支付失败';
+					qin.Console.log("服务器验证支付失败" + data);
+					AlertManager.showAlert(message, null, null, null, null, data);
+				}
+				else
+				{
+					qin.Console.log("服务器验证支付成功" + orderId);
+					qin.ExternalInterface.call(ExtFuncName.DeleteOrder, receipt);
+				}
+			}
+			qin.Tick.AddTimeoutInvoke(() =>
+			{
+				UIManager.closePanel(UIModuleName.PayMaskPanel);
+			}, 1000, this);
+		}, (data: any) =>
+			{
+				qin.Console.log("服务器验证支付失败" + orderId);
+				UIManager.closePanel(UIModuleName.PayMaskPanel);
+			}, params, 1);
+	}
+	/**
+	 * 选择图片
+	 */
+	public imageSelect(size: number, quality: number): void
+	{
+		let obj: Object = { size: size, quality: quality };
+		qin.ExternalInterface.call(ExtFuncName.ImageSelect, JSON.stringify(obj));
+	}
+	public openURL(url: string): void
+	{
+		qin.ExternalInterface.call(ExtFuncName.OpenURL, url);
+	}
+	public copyToPastboard(data: string)
+	{
+		qin.ExternalInterface.call(ExtFuncName.CopyToPastboard, data);
+	}
+}

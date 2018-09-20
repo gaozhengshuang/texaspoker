@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoginBarPanelSkin" width="666" height="400" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0">
+        <e:Image width="666" height="400" horizontalCenter="0" verticalCenter="0"
+                  source="pub_bg2_png" scale9Grid="4,106,655,7"/>
+			<e:Label text="账号" textAlign="right" size="26" bold="false" fontFamily="Microsoft YaHei" textColor="0xffffff" x="129" y="159"/>
+			<e:Image width="340" height="56" anchorOffsetX="0" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,10,4,7" x="216" y="144"/>
+			<e:Label id="accountLabel" text="Label11111111111111" wordWrap="false" anchorOffsetX="0" width="310" textAlign="left" size="24" x="231" height="40" verticalAlign="middle" y="152"/>
+			<e:Group y="265" horizontalCenter="0">
+				<ns1:ShadowButton id="switchAccountButton" label="切换账号" y="0" x="0" skinName="commonButtonY2Skin"/>
+				<ns1:ShadowButton id="enterBtn" label="登录" y="0" anchorOffsetX="0" anchorOffsetY="0" x="260.6" skinName="commonButtonY2Skin"/>
+			</e:Group>
+    </e:Group>
+</e:Skin>

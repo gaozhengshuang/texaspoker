@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="noise" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="play">
+			<tween:TweenItem target="{image}">
+				<tween:Set/>
+				<tween:Wait duration="200"/>
+				<tween:Set/>
+				<tween:Wait duration="1050"/>
+				<tween:Set/>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image0}">
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="400"/>
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="850"/>
+				<tween:Set/>
+				<tween:props>
+					<e:Object loop="{true}" />
+				</tween:props>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image1}">
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="600"/>
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="650"/>
+				<tween:Set/>
+				<tween:props>
+					<e:Object loop="{true}" />
+				</tween:props>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image2}">
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="850"/>
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="400"/>
+				<tween:Set/>
+				<tween:props>
+					<e:Object loop="{true}" />
+				</tween:props>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image3}">
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="1050"/>
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{1}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="200"/>
+				<tween:Set/>
+				<tween:props>
+					<e:Object loop="{true}" />
+				</tween:props>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	    <e:Group id="tweenGroup">
+				<e:Image width="230" height="230" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="yuyin_bg_png" scale9Grid="25,25,25,27"/>
+				<e:Group id="recordGroup" width="200" height="200" horizontalCenter="0" verticalCenter="0">
+					<e:Image y="20" source="yuyin_1_png" left="30"/>
+					<e:Group y="34" right="30">
+						<e:Image id="image3" x="0" y="0" scale9Grid="2,1,13,8" width="58" height="10" source="yuyin_3_png"/>
+						<e:Image id="image2" x="0" y="15" scale9Grid="2,1,13,8" width="48" height="10" source="yuyin_3_png"/>
+						<e:Image id="image1" x="0" y="30" scale9Grid="2,1,13,8" width="38" height="10" source="yuyin_3_png"/>
+						<e:Image id="image0" x="0" y="46" scale9Grid="2,1,13,8" width="28" source="yuyin_3_png"/>
+						<e:Image id="image" x="0" y="61" source="yuyin_3_png" scale9Grid="5,3,10,2"/>
+						<e:layout>
+							<e:VerticalLayout gap="10"/>
+						</e:layout>
+					</e:Group>
+					<e:Label id="cancel" text="手指上滑，取消发送" size="18" fontFamily="Microsoft YaHei" horizontalCenter="0" textColor="0xffffff" bottom="30"/>
+				</e:Group>
+				<e:Group id="cancelGroup" width="200" height="200" horizontalCenter="0" verticalCenter="0" visible="false">
+					<e:Image scaleX="1" scaleY="1" source="yuyin_4_png" horizontalCenter="-10" top="20"/>
+					<e:Label text="松开手指，取消发送" size="18" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xffffff" horizontalCenter="0" bottom="30"/>
+				</e:Group>
+	</e:Group>
+</e:Skin>

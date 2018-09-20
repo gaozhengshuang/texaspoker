@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="question_buttonSkin" states="up,down,disabled" xmlns:e="http://ns.egret.com/eui">
+    <e:Image  id="btnImg" alpha.disabled="0.5"  x="0" y="0" source="wenhao_png"/>
+</e:Skin>

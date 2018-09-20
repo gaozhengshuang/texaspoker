@@ -1,0 +1,4 @@
+interface IHaveDefintionInfo
+{
+    definition: IBaseDefintion;
+}

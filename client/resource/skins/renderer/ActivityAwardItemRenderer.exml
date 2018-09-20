@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ActivityAwardItemRendererSkin" width="680" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Label id="desLabel" text="1，活动内容活动内容活动内容" x="0" size="30" height="30" width="450" scaleX="1" scaleY="1" verticalCenter="0"/>
+	<ns1:ShadowButton id="takeBtn" label="领取" x="480" y="0" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1"/>
+	<e:Label id="statusLabel" text="已领取" x="510" textColor="0xfad050" verticalCenter="0"/>
+</e:Skin>

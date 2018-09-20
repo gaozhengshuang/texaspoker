@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HundredWarHelpPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0">
+		<e:Image id="bg" y="2" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="900" width="666"
+		         scale9Grid="0,105,666,6" />
+		<e:Image y="15" horizontalCenter="0"  source="br_bz_png"/>
+		<e:Image y="120" source="pub_biankuang1_png" width="598" horizontalCenter="0" scale9Grid="25,23,15,8" />
+		<ns1:TabComponent id="tab" skinName="TabComponentSkin" scaleX="1" scaleY="1" horizontalCenter="0" y="120" />
+		<e:Group id="playHelpGroup" width="630" height="660" y="200" scaleX="1" scaleY="1" name="VIP介绍" horizontalCenter="0">
+			<e:Group id="imgLabelGroup" y="0" width="100%" horizontalCenter="0">
+				<e:Label id="playwayLabel"
+				         text=""
+				         x="397" y="-138" scaleX="1" scaleY="1" width="606" multiline="true"  lineSpacing="6"/>
+				<e:Group width="606" x="314" y="-51" scaleX="1" scaleY="1">
+					<e:Group width="606" x="316" y="-60" scaleX="1" scaleY="1">
+						<e:Label text="排序" x="50" y="59" border="true" borderColor="0x308c7f" height="50" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Label text="牌型" x="50" y="59" border="true" borderColor="0x308c7f" height="50" width="368" verticalAlign="middle" textAlign="center"/>
+						<e:Label text="赔率" x="60" y="69" border="true" borderColor="0x308c7f" height="50" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+							<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="326" y="-50" scaleX="1" scaleY="1" height="80">
+						<e:Label text="1" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+							<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+								<e:Image x="266" y="227" source="pai_hong1_png" scaleX="1" scaleY="1"/>
+								<e:Image x="350" y="227" source="pai_hong13_png" scaleX="1" scaleY="1"/>
+								<e:Image x="434" y="227" source="pai_hong12_png" scaleX="1" scaleY="1"/>
+								<e:Image x="518" y="227" source="pai_hong11_png" scaleX="1" scaleY="1"/>
+								<e:Image x="602" y="227" source="pai_hong10_png" scaleX="1" scaleY="1"/>
+								<e:layout>
+									<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+								</e:layout>
+							</e:Group>
+							<e:Label text="皇家同花顺" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="7" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="326" y="-50" scaleX="1" scaleY="1">
+						<e:Label text="2" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="91" y="106" source="pai_hei10_png"/>
+							<e:Image x="101" y="116" source="pai_hei9_png"/>
+							<e:Image x="111" y="126" source="pai_hei8_png"/>
+							<e:Image x="121" y="136" source="pai_hei7_png"/>
+							<e:Image x="131" y="146" source="pai_hei6_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="同花顺" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="6" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="336" y="-40" scaleX="1" scaleY="1">
+						<e:Label text="3" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="141" y="156" source="pai_mei12_png"/>
+							<e:Image x="151" y="166" source="pai_fang12_png"/>
+							<e:Image x="161" y="176" source="pai_hong12_png"/>
+							<e:Image x="171" y="186" source="pai_hei12_png"/>
+							<e:Image x="181" y="196" source="pai_hong10_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="四条" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="5" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="346" y="-30" scaleX="1" scaleY="1">
+						<e:Label text="4" x="118" y="-274" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="151" y="166" source="pai_mei12_png"/>
+							<e:Image x="161" y="176" source="pai_fang12_png"/>
+							<e:Image x="171" y="186" source="pai_hong12_png"/>
+							<e:Image x="191" y="206" source="pai_hong10_png"/>
+							<e:Image x="101" y="116" source="pai_hei10_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="葫芦" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="4" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="356" y="-20" scaleX="1" scaleY="1">
+						<e:Label text="5" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="181" y="196" source="pai_hei12_png"/>
+							<e:Image x="191" y="206" source="pai_hei10_png"/>
+							<e:Image x="201" y="216" source="pai_hei8_png"/>
+							<e:Image x="211" y="226" source="pai_hei6_png"/>
+							<e:Image x="221" y="236" source="pai_hei5_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="同花" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="3" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="366" y="-10" scaleX="1" scaleY="1">
+						<e:Label text="6" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="161" y="176" source="pai_mei12_png"/>
+							<e:Image x="81" y="96" source="pai_hong11_png"/>
+							<e:Image x="201" y="216" source="pai_hong10_png"/>
+							<e:Image x="111" y="126" source="pai_hei9_png"/>
+							<e:Image x="121" y="136" source="pai_hei8_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="顺子" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="2" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="376" y="0" scaleX="1" scaleY="1">
+						<e:Label text="7" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="171" y="186" source="pai_mei12_png"/>
+							<e:Image x="181" y="196" source="pai_fang12_png"/>
+							<e:Image x="191" y="206" source="pai_hei12_png"/>
+							<e:Image x="211" y="226" source="pai_hong10_png"/>
+							<e:Image x="221" y="236" source="pai_hei6_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="三条" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="2" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="386" y="10" scaleX="1" scaleY="1">
+						<e:Label text="8" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="201" y="216" source="pai_hei12_png"/>
+							<e:Image x="171" y="186" source="pai_hong12_png"/>
+							<e:Image x="211" y="226" source="pai_hei10_png"/>
+							<e:Image x="221" y="236" source="pai_hong10_png"/>
+							<e:Image x="131" y="146" source="pai_hei7_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="两对" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="1" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="396" y="20" scaleX="1" scaleY="1">
+						<e:Label text="9" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="211" y="226" source="pai_hei10_png"/>
+							<e:Image x="231" y="246" source="pai_hong10_png"/>
+							<e:Image x="181" y="196" source="pai_mei12_png"/>
+							<e:Image x="241" y="256" source="pai_hei5_png"/>
+							<e:Image x="51" y="66" source="pai_hong1_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="一对" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="1" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:Group width="606" x="406" y="30" scaleX="1" scaleY="1">
+						<e:Label text="10" x="50" y="59" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:Group width="368" height="100%" x="83" y="-202" scaleX="1" scaleY="1">
+						<e:Group scaleX="0.7" scaleY="0.7" left="0" verticalCenter="2">
+							<e:Image x="61" y="76" source="pai_hong1_png"/>
+							<e:Image x="181" y="196" source="pai_fang12_png"/>
+							<e:Image x="91" y="106" source="pai_hong11_png"/>
+							<e:Image x="231" y="246" source="pai_hei6_png"/>
+							<e:Image x="241" y="256" source="pai_hei5_png"/>
+							<e:layout>
+							<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" gap="-61"/>
+							</e:layout>
+						</e:Group>
+						<e:Label text="高牌" border="true" borderColor="0x308c7f" height="100%" width="100%" verticalAlign="middle" textAlign="right" scaleX="1" scaleY="1"/>
+						</e:Group>
+						<e:Label text="1" x="60" y="69" border="true" borderColor="0x308c7f" height="100%" width="120" verticalAlign="middle" textAlign="center"/>
+						<e:layout>
+						<e:HorizontalLayout gap="-1" horizontalAlign="center" verticalAlign="top"/>
+						</e:layout>
+					</e:Group>
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="center" verticalAlign="top" gap="-1"/>
+					</e:layout>
+				</e:Group>
+				<e:layout>
+					<e:VerticalLayout horizontalAlign="center" verticalAlign="top" gap="10" />
+				</e:layout>
+			</e:Group>
+			<e:Scroller id="playHelpScroller" width="100%" height="660" y="0" horizontalCenter="0"></e:Scroller>
+		</e:Group>
+		<e:Group id="uiHelpGroup" width="606" height="660" scaleX="1" scaleY="1" name="VIP介绍" horizontalCenter="0" y="200">
+			<e:Group id="imgGroup" width="606" height="660" x="0" y="0">
+				<e:Image id="uiHelpBg" scaleX="1" scaleY="1" top="0" y="0"  horizontalCenter="0" width="606"/>
+			</e:Group>
+			<e:Scroller id="uiHelpScroller" width="606" height="660" x="0" y="0" />
+		</e:Group>
+		<e:Group id="prizeHelpGroup" width="606" height="660" y="200" scaleX="1" scaleY="1" name="VIP介绍" horizontalCenter="0">
+			<e:Group id="labelGroup" width="606" height="660" x="0" y="0">
+				<e:Label id="prizeLabel"
+				         text=""
+				         scaleX="1" scaleY="1" width="100%" multiline="true" horizontalCenter="0" top="0"  lineSpacing="6"/>
+			</e:Group>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27"
+		                  scaleX="1" skinName="closeButtonSkin" />
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,62 @@
+// --------------------------------------------------------------------------
+/// @brief 道具相关协议
+// --------------------------------------------------------------------------
+syntax = "proto2";
+package msg;
+import "serialize.proto";
+
+// 购买道具
+message C2GW_BuyItem {
+    optional int32 productid = 1;  // 商品id,不是道具id
+    optional int32 num = 2;
+}
+
+// 更新背包添加
+message GW2C_AddPackageItem {
+    optional int32 itemid = 1;
+    optional int32 num = 2;
+}
+
+// 更新背包扣除
+message GW2C_RemovePackageItem {
+    optional int32 itemid = 1;
+    optional int32 num = 2;
+}
+
+// 更新金币
+message GW2C_UpdateGold {
+    optional int32 num = 1;
+}
+
+// 更新元宝
+message GW2C_UpdateYuanbao {
+    optional int32 num = 1;
+}
+
+// 更新钻石
+message GW2C_UpdateDiamond {
+    optional int32 num = 1;
+}
+
+// 使用道具
+message C2GW_UseBagItem {
+    optional int32 itemid = 1;
+    optional int32 num = 2;
+}
+
+// 更新道具位置信息
+message GW2C_UpdateItemPos {
+    repeated msg.ItemData items = 1;
+}
+
+// 钻石兑换金币
+message C2GW_GoldExchange {
+    optional int64 userid = 1;
+    optional int32 diamonds = 2;
+}
+
+// 返回
+message GW2C_RetGoldExchange {
+    optional int32 gold = 1;       // 增量
+}
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="minuteRemindPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+    <w:Config id="15c813d330f" />
+    <e:Group id="anmGroup" width="640" anchorOffsetY="0" horizontalCenter="0" height="108">
+        <e:Image y="-5"
+                 anchorOffsetY="0"  source="pub_bg_ts_png" horizontalCenter="0"/>
+        <e:Label id="desLabel" text="您报名的比赛将于00:60秒后开始！"  anchorOffsetX="0" width="411" x="20" textAlign="left" size="26" verticalCenter="0"/>
+        <ns1:ShadowButton id="enterBtn" label="进入比赛" x="445"  skinName="BannerEnterButtonSkin" verticalCenter="0.5"/>
+			<e:Button id="closeButton" label="Button" x="595" skinName="closeButton3Skin" verticalCenter="0"/>
+    </e:Group>
+</e:Skin>

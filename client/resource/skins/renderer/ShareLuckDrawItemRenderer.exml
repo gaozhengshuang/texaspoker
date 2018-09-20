@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="shareLuckDrawItemRendererSkin" height="25" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" width="228">
+    <e:Label text="玩家" x="8" size="18" textAlign="center"
+              fontFamily="Microsoft YaHei" textColor="0xb74101" verticalCenter="0"/>
+    <e:Label id="nameLabel" text="用户名字" x="45" size="18" fontFamily="Microsoft YaHei"
+             textAlign="center"  width="73" textColor="0x0276d8" verticalCenter="0"/>
+    <e:Label id="awardDesLabel" text="66.66万" x="157" size="18" anchorOffsetX="0"
+             textAlign="center"  fontFamily="Microsoft YaHei" textColor="0xfd1604" verticalCenter="0"/>
+
+    <e:Label text="获得" x="119" size="18" anchorOffsetX="0"
+             textAlign="center"  fontFamily="Microsoft YaHei" textColor="0xb74101" verticalCenter="0"/>
+</e:Skin>

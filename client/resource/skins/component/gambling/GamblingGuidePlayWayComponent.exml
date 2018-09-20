@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingGuidePlayWayComponentSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui">
+			<e:Group id="guidePlayWayTipsPosGroup" width="1" height="1" bottom="60" horizontalCenter="0" />
+			<e:Group id="guidePlayWayTipsPosGroup0" width="1" height="1" horizontalCenter="0" verticalCenter="-350"/>
+			<e:Group id="guidePlayWayGroup" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" width="100%" height="100%"
+			         verticalCenter="0" horizontalCenter="0">
+				<e:Image id="guidePlayWayBg" source="pub_bg_png" left="0" top="0" right="0" bottom="0" scale9Grid="1,1,10,10" x="0"
+				         y="-621" scaleX="1" scaleY="1" alpha="0.5" />
+				<e:Group id="guidePlayWayFlopGroup" x="180" verticalCenter="109">
+					<e:Image source="kuohao_png" y="-34" scaleX="1" scaleY="1" horizontalCenter="0" />
+					<e:Label text="翻牌" size="26" scaleX="1" scaleY="1" textAlign="center" y="-3" horizontalCenter="0.5" />
+				</e:Group>
+				<e:Label id="guidePlayTurnLabel" text="转牌" x="420" size="26" scaleX="1" scaleY="1" width="83" textAlign="center"
+				          verticalCenter="106.5"/>
+				<e:Label id="guidePlayRiverLabel" text="河牌" size="26" scaleX="1" scaleY="1" width="83" textAlign="center" x="518"
+				          verticalCenter="106.5"/>
+			</e:Group>
+			<e:Group id="guidePlayWayTipsPosGroup1" width="1" height="1" horizontalCenter="0"  verticalCenter="-183.5"/>
+</e:Skin>

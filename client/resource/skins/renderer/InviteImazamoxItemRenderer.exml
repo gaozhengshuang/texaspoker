@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="InviteImazamoxItemRendererSkin" width="600" height="48" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Label id="timeLabel" text="3-23" x="28" size="26" textAlign="center" verticalCenter="0"  width="75" textColor="0xb74101" fontFamily="Microsoft YaHei"/>
+    <e:Label id="nameLabel" text="用户名字六字" x="125" width="200" size="26" fontFamily="Microsoft YaHei"
+             textAlign="center"  textColor="0xb74101" verticalCenter="0"/>
+    <e:Label id="desLabel" text="已完成" x="450" width="126" size="26" anchorOffsetX="0" verticalCenter="1"
+             textAlign="center"  textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+
+    <e:Label id="idLabel" text="10006" x="315" verticalCenter="0" size="26"  width="120" textAlign="center" textColor="0xb74101" fontFamily="Microsoft YaHei"/>
+	<e:Image y="47" width="564" horizontalCenter="0" source="yq_line_png"/>
+</e:Skin>

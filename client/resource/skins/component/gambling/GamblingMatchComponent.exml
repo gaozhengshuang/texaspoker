@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingMatchComponentSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="championshipGroup" width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+			<e:Group id="mttGroup" width="720" height="1280" horizontalCenter="0" verticalCenter="0" touchEnabled="false">
+				<e:Image scaleX="1" scaleY="1" anchorOffsetX="41.5" anchorOffsetY="59.5" horizontalCenter="0" source="game_sy_2_png" verticalCenter="5" x="215" y="581"/>
+				<e:Button id="rebuyButton" label="重购筹码" anchorOffsetX="0" scaleX="1" scaleY="1" skinName="gambling_rebuy_addon_btn" horizontalCenter="0" verticalCenter="-331.5" x="303" y="282"/>
+				<e:Button id="addonButton" label="增购筹码" anchorOffsetX="0" scaleX="1" scaleY="1" skinName="gambling_rebuy_addon_btn" horizontalCenter="0" verticalCenter="-331.5" x="303" y="282"/>
+			</e:Group>
+			<e:Group id="sngGroup" width="720" height="1280" horizontalCenter="0" verticalCenter="0" x="10" y="10" touchEnabled="false">
+				<e:Group id="sngCountDownGroup" verticalCenter="-132" horizontalCenter="0">
+					<e:Image scaleX="1" scaleY="1" horizontalCenter="0" source="pai_bg1_png" width="480" height="120" alpha="0.6" scale9Grid="9,12,56,77" x="-80" verticalCenter="0"/>
+					<e:Image scaleX="1" scaleY="1" source="pipei_png" left="30" verticalCenter="1"/>
+					<e:Label id="sngCountDownLabel" text="（10）" size="32" textColor="0xf0d199" verticalCenter="0" right="0" textAlign="center" width="120"/>
+				</e:Group>
+				<e:Image scaleX="1" scaleY="1" anchorOffsetX="41.5" anchorOffsetY="59.5" horizontalCenter="0" verticalCenter="5" x="215" y="581" source="game_zuoman_png"/>
+			</e:Group>
+        <e:Label id="blindAddNameLabel" text="下次涨盲:" textAlign="left" anchorOffsetX="0" size="20" anchorOffsetY="0"
+                 fontFamily="SourceHanSansCN-Normal" height="24" scaleX="1" scaleY="1" textColor="0xFFFFFF" x="530"
+                 top="114" />
+        <e:Label id="rankLabel" text="999/999" anchorOffsetX="0" size="20" anchorOffsetY="0"
+                 fontFamily="SourceHanSansCN-Normal" height="24" scaleX="1" scaleY="1" textColor="0xFFFFFF"
+                 textAlign="center" top="86" horizontalCenter="203" />
+        <e:Label id="avgChipsLabel" text="均码:9991" textAlign="left" anchorOffsetX="0" size="20" anchorOffsetY="0"
+                 fontFamily="SourceHanSansCN-Normal" height="24" scaleX="1" scaleY="1" textColor="0xFFFFFF" x="603"
+                 width="118" top="86" />
+        <e:Label id="blindAddTimeLabel" text="00:00" textAlign="left" anchorOffsetX="0" size="22" anchorOffsetY="0"
+                 fontFamily="SourceHanSansCN-Normal" height="24" scaleX="1" scaleY="1" textColor="0xFFAE00" x="622"
+                 top="114" />
+        <e:Image id="championshipInfoBg" scaleX="1" scaleY="1" anchorOffsetX="43.49" anchorOffsetY="59.5"
+                 source="game_bg_16_png" height="62" width="197" scale9Grid="9,12,56,77" x="566.49" top="80" />
+        <e:Label id="mttNameLabel" text="11111" textAlign="left" anchorOffsetX="0" size="24" anchorOffsetY="0"
+                 fontFamily="SourceHanSansCN-Normal" scaleX="1" scaleY="1" textColor="0xFFFFFF" horizontalCenter="0"
+                 verticalCenter="80.5" x="332" y="709" />
+    </e:Group>
+</e:Skin>

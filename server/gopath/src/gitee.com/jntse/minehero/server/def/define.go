@@ -212,4 +212,10 @@ func CalculateDistance(originlat float64,originlon float64,destlat float64,destl
 //    return false
 //}
 
+// roomserver 负载redis key
+func RoomAgentLoadRedisKey(name string) string {
+	key := fmt.Sprintf("%s_RoomAmount", name)
+	return key
+}
+
 

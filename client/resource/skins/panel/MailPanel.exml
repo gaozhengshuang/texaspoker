@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MailPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" horizontalCenter="0">
+		<e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="900" width="666" scale9Grid="0,105,666,6"/>
+		<e:Image y="15" horizontalCenter="0" source="mailbox_yx_png"/>
+		<e:Image y="120" source="pub_biankuang1_png" width="600" horizontalCenter="0" scale9Grid="24,24,18,6"/>
+		<ns1:TabComponent id="tab" y="120" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Label id="noMailLabel" text="您当前没有邮件哦~" size="25" horizontalCenter="0" verticalCenter="0"/>
+		<e:Label id="noMailLabel0" text="提示：每封邮件最多保留30天，请及时查收！ " size="25" horizontalCenter="0" y="830" width="602"/>
+		<e:Group id="mailGroup" width="602" height="620" y="200" horizontalCenter="0">
+			<e:List id="mailList" width="612" height="620" y="0" horizontalCenter="0">
+				<e:layout>
+					<e:VerticalLayout gap="10" paddingLeft="5" paddingRight="5"/>
+				</e:layout>
+			</e:List>
+			<e:Scroller id="mailScroller" width="612" height="620" y="0" scrollPolicyH="off" horizontalCenter="0">
+			</e:Scroller>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+	</e:Group>
+</e:Skin>

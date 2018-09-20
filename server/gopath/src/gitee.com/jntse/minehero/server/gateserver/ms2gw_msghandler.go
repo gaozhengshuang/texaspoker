@@ -77,13 +77,7 @@ func on_MS2GW_RetCreateRoom(session network.IBaseNetSession, message interface{}
 		return
 	}
 
-	if err == "" {
-		user.StartGameOk(roomagent, roomid)
-	} else {
-		user.StartGameFail(err)
-	}
-
-	user.ReplyCreateRoom(err, roomid)
+	user.OnCreateRoom(err, roomagent, roomid)
 }
 
 func on_MS2Server_BroadCast(session network.IBaseNetSession, message interface{}) {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="VipPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0">
+		<e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="900" width="666" scale9Grid="0,105,666,6"/>
+		<e:Image y="15" horizontalCenter="0" source="vip_png"/>
+		<e:Image y="120" source="pub_biankuang1_png" width="598" horizontalCenter="0" scale9Grid="25,23,15,8"/>
+		<ns1:TabComponent id="tab" skinName="TabComponentSkin" scaleX="1" scaleY="1" horizontalCenter="0" y="120"/>
+		<e:Group id="myVipGroup" width="600" y="200" scaleX="1" scaleY="1" name="我的VIP" horizontalCenter="0">
+			<e:Group width="600" height="150" y="0" scaleX="1" scaleY="1" horizontalCenter="0">
+				<ns1:CircleHeadComponent id="userHeadComp" skinName="CircleHeadComponentSkin"/>
+				<e:Image id="yearVipImg" x="185" y="20" scaleX="1" scaleY="1" source="nfhy_png"/>
+				<e:Label id="userNameLabel" text="用户名字六字" x="180" y="70" size="30" scaleX="1" scaleY="1" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label text="等级：" x="180" y="118" size="25" scaleX="1" scaleY="1" textColor="0xfad050"/>
+				<e:Label id="vipLevelLabel" text="VIP0" x="260" y="118" size="25" scaleX="1" scaleY="1" textColor="0xfad050"/>
+				<ns1:GreenShadowButton id="buyVipButton" x="400" y="60" scaleX="1" scaleY="1" label="开通会员" skinName="commonButtonGYSkin"/>
+			</e:Group>
+			<e:Group width="560" height="120" y="150" scaleX="1" scaleY="1" horizontalCenter="0">
+				<e:Label text="VIP1" x="0" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xfad050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP2" x="56" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP3" x="168" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP4" x="336" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP5" x="560" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="(600)" x="56" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="26" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+				<e:Label text="(1800)" x="168" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="32" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+				<e:Label text="(3600)" x="336" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="32" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+				<e:Label text="(6000)" x="560" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="32" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+				<e:Group width="560" height="50" y="70">
+					<e:Image scaleY="1" scaleX="1" width="560" height="15" source="jindutiao_1_png" top="0" left="0" scale9Grid="8,7,10,4"/>
+					<e:Image id="vipProgressImg" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" height="15" width="56" source="jindutiao_2_png" top="0" left="0" scale9Grid="6,6,11,2"/>
+					<e:Image id="processBg" anchorOffsetX="32" anchorOffsetY="0" scale9Grid="6,6,11,2" x="0" y="20" source="vip_bg_1_png"/>
+					<e:Label id="vipProgressLabel" text="99999" x="0" scaleX="1" scaleY="1" size="20" y="35" anchorOffsetX="30" anchorOffsetY="0" textAlign="center" width="60" height="20" textColor="0xffffff"/>
+				</e:Group>
+			</e:Group>
+			<e:Label text="我的会员成长值：" x="25" y="310" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+			<e:Group width="600" height="250" x="0" y="350" scaleX="1" scaleY="1">
+				<e:Image width="560" height="220" x="20" y="0" anchorOffsetX="0" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+				<e:Label text="总计：" x="40" y="20" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label text="目前等级：" x="40" y="70" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label text="成长速度：" x="40" y="120" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label text="到期时间：" x="40" y="170" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label id="vipExpLabel" text="0点" x="120" y="20" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label id="currentVipLevel" text="0" x="170" y="70" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label id="vipSpeedLabel" text="0点" x="170" y="120" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label id="vipTimeLabel" text="1970-1-1" x="170" y="170" scaleX="1" scaleY="1" size="26" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+				<e:Label id="buyYearVip" text="开通年费，每日15点&gt;&gt;" x="312" y="122" scaleX="1" scaleY="1" size="25" textColor="0xfad050" fontFamily="Microsoft YaHei"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="vipIntroduceGroup" width="646" height="630" y="200" scaleX="1" scaleY="1" name="VIP介绍" horizontalCenter="0">
+			<e:Group id="imgGroup" width="646" height="630" x="0" y="0">
+				<e:Image id="vipBg" scaleX="1" scaleY="1"  top="0" horizontalCenter="0" x="323" y="0"/>
+			</e:Group>
+			<e:Scroller id="vipIntroduceScroller" width="646" height="630" x="0" y="0">
+			</e:Scroller>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+	</e:Group>
+</e:Skin>

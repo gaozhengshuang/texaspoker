@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HappyGiftPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+
+	<e:Group id="anmGroup1" width="720" height="1180" x="0" y="100" anchorOffsetY="0">
+		<e:Image width="720" height="1200" x="1" y="-20" anchorOffsetY="0" source="assets/bg/activity_happyGift_bg_png"/>
+
+
+
+		<e:Group y="240" horizontalCenter="0">
+			<e:Image width="400" height="50" y="0" x="0" source="happyGift_wenzi_bg_png" scale9Grid="5,5,35,34" alpha="0.7"/>
+			<e:Label id="leftTimeLabel" text="距离结束还有：9天" size="24" horizontalCenter="0" verticalCenter="0" alpha="0.8"/>
+		</e:Group>
+		<ns1:TabComponent id="activityTab" y="320" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Group y="400" horizontalCenter="0">
+			<e:Image width="680" height="50" y="0" scale9Grid="13,14,23,23" x="0" source="happyGift_wenzi_bg_png" alpha="0.6"/>
+
+			<e:Label id="ticketNumLabel" text="您的欢乐券：999" x="20" verticalCenter="0" alpha="0.6" size="24"/>
+		</e:Group>
+		<e:Group id="prizeGroup" horizontalCenter="0" y="470" width="700">
+			<e:Scroller id="prizeScroller" width="680" height="700" y="0" horizontalCenter="0"/>
+			<e:List id="prizeList" width="680" height="700" y="0" horizontalCenter="0">
+				<e:layout>
+					<e:TileLayout orientation="rows" horizontalAlign="center" verticalAlign="top" requestedColumnCount="3" rowAlign="top" columnAlign="justifyUsingGap" verticalGap="22" horizontalGap="20"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<e:Group id="rankGroup" horizontalCenter="0" y="470" width="700" visible="false">
+
+			<ns1:TabComponent id="rankTab" skinName="TabComponentSkin" horizontalCenter="0" top="0"/>
+			<e:Group y="70" horizontalCenter="0">
+				<e:Image width="660" height="50" y="0" scale9Grid="13,14,23,23" source="happyGift_paihang_bg_png" horizontalCenter="0"/>
+				<e:Label text="排行" verticalCenter="0" left="40" textColor="0x962e01" size="24"/>
+				<e:Label text="玩家" verticalCenter="0" horizontalCenter="-90" textColor="0x962e01" size="24"/>
+				<e:Label text="积分" verticalCenter="0" right="82" textColor="0x962e01" size="24"/>
+			</e:Group>
+
+			<e:Group id="rankScrollerGroup" x="0" y="130" width="700">
+				<e:Image width="660" height="580" scaleX="1" scaleY="1" horizontalCenter="0" top="0" source="happyGift_wenzi_bg_png" scale9Grid="5,5,35,34" alpha="0.2"/>
+				<e:Scroller id="rankScroller" width="660" height="580" y="0" horizontalCenter="0"/>
+				<e:List id="rankList" width="660" height="580" y="0" horizontalCenter="0">
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="center" verticalAlign="top"/>
+					</e:layout>
+				</e:List>
+
+			</e:Group>
+		</e:Group>
+		<e:Group id="useGroup" horizontalCenter="0" height="780" y="470" width="700" visible="false">
+			<e:Group horizontalCenter="0" x="0" scaleX="1" scaleY="1" y="0">
+				<e:Image width="660" height="50" y="0" scale9Grid="13,14,23,23" x="0" source="happyGift_paihang_bg_png"/>
+				<e:Label text="兑换奖品" verticalCenter="0" left="85" textColor="0x962e01" size="24"/>
+
+
+				<e:Label text="兑换数量" verticalCenter="0" right="85" textColor="0x962e01" size="24"/>
+			</e:Group>
+			<e:Image width="660" height="640" scaleX="1" scaleY="1" horizontalCenter="0" source="happyGift_wenzi_bg_png" scale9Grid="5,5,35,34" alpha="0.2" y="60"/>
+			<e:Label id="noUseLabel" text="暂无使用记录" horizontalCenter="0" size="24" y="90" alpha="0.8" visible="false"/>
+
+			<e:Scroller id="useScroller" width="660" height="640" horizontalCenter="0" x="0" scaleX="1" scaleY="1" y="60"/>
+			<e:List id="useList" width="660" height="640" horizontalCenter="0" y="60" x="0" scaleX="1" scaleY="1"/>
+		</e:Group>
+		<e:Group id="helpGroup" horizontalCenter="0" height="700" y="470" width="700">
+			<e:Label id="helpTitleLabel" text="活动说明" y="0" size="30" horizontalCenter="0"/>
+
+			<e:Group id="helpTextGroup" y="60" horizontalCenter="0">
+				<e:Label id="helpLabel" text="活动说明\n活动说明\n活动说明\n活动说明" y="0" size="22" width="675" x="0" lineSpacing="6"/>
+			</e:Group>
+			<e:Scroller id="helpScroller" width="700" height="640" horizontalCenter="0" x="0" scaleX="1" scaleY="1" y="60"/>
+		</e:Group>
+
+
+
+
+
+
+
+	</e:Group>
+	<e:Group id="anmGroup" width="720" height="100" x="0" y="0">
+		<e:Image id="bg" source="bg_biaoti_png"/>
+
+		<e:Group id="titleGroup" height="100" horizontalCenter="0" y="0">
+			<e:Label id="titleLabel" text="活动标题" y="25" size="50" bold="true" textAlign="center" horizontalCenter="0" verticalAlign="middle" x="-102" scaleX="1" scaleY="1" textColor="0xffe5b2"/>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="返回" x="40" y="40" anchorOffsetX="31" anchorOffsetY="32" skinName="closeButton2Skin"/>
+	</e:Group>
+
+
+
+
+</e:Skin>

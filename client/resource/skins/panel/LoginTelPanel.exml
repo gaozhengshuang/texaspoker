@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" width="666" height="580" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0">
+		<e:Image width="666" height="580" horizontalCenter="0" verticalCenter="0" source="pub_bg2_png"
+		         scale9Grid="34,105,601,9" />
+		<e:Image y="65" width="600" horizontalCenter="0" scale9Grid="34,33,14,7" source="pub_biankuang1_png"/>
+		<ns1:TabComponent id="tabCom" y="65" anchorOffsetY="0" skinName="TabComponentSkin" horizontalCenter="0.5"/>
+		<e:Group y="148.34" horizontalCenter="0">
+			<e:Image height="94" anchorOffsetX="0" anchorOffsetY="0" x="0" y="0" source="dl_2_png" scale9Grid="22,24,33,48"
+			         width="556" />
+			<e:Image source="dl_1_png" y="8" x="8" />
+			<e:Image source="login_icon_6_png" x="34" y="26" />
+			<e:EditableText id="accountText" width="430" text="" x="95" size="30" prompt="请输入您的手机号" height="60"
+			                promptColor="0x969191" verticalAlign="middle" anchorOffsetX="0" verticalCenter="0"
+			                textColor="0x2b3833"  fontFamily="Microsoft YaHei"/>
+		</e:Group>
+		<e:Group id="pwdLoginGroup" x="59" y="265.02">
+			<e:Group y="0" x="0">
+				<e:Image width="556" height="94" anchorOffsetX="0" anchorOffsetY="0" y="0" source="dl_2_png" scale9Grid="19,20,37,55"/>
+				<e:Image source="dl_1_png" y="8" x="8"/>
+				<e:Image x="34" y="26" source="login_icon_2_png"/>
+				<e:EditableText id="pwdText" width="430" text="" x="95" size="30" height="60" prompt="请输入密码" promptColor="0x969191" verticalAlign="middle" maxChars="20" verticalCenter="0" textColor="0x2b3833" fontFamily="Microsoft YaHei" displayAsPassword="true"/>
+			</e:Group>
+			<e:Group y="235.27" anchorOffsetX="0" width="382" x="87">
+				<e:Label id="findPwdBtn" text="忘记密码" y="2" size="30" textColor="0x4bc6a5"/>
+				<e:Label id="registerBtn" text="注册账号" y="2" size="30" right="0" textColor="0x4bc6a5"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="codeLoginGroup" x="59" y="265.02">
+			<e:Label id="telErrorLabel" text="" x="13" y="-22.32" size="22" textColor="0xEA0B0B"/>
+			<e:Group y="0" x="0">
+			<e:Image width="556" height="94" anchorOffsetX="0" anchorOffsetY="0" y="0" source="dl_2_png" scale9Grid="19,20,37,55"/>
+			<e:Image source="dl_1_png" y="8" x="8"/>
+			<e:Image x="34" y="26" source="login_icon_2_png"/>
+			<e:EditableText id="codeLabel" width="267" text="" x="95" size="30" height="60" prompt="手机短信验证码" promptColor="0x969191" verticalAlign="middle" maxChars="20" verticalCenter="0" textColor="0x2B3833" fontFamily="Microsoft YaHei" displayAsPassword="true" anchorOffsetX="0"/>
+				<e:Button id="sendCodeBtn" label="发送验证码" height="76" width="180" skinName="retrieveCode_buttonSkin" x="367" scaleX="1" scaleY="1" verticalCenter="0"/>
+			</e:Group>
+		</e:Group>
+		<ns1:ShadowButton id="loginBtn" label="" y="392" scaleY="1" skinName="loginTel_buttonSkin" x="55" />
+		<e:Image touchEnabled="false" source="text_dl_png" x="295" y="420" />
+
+	</e:Group>
+</e:Skin>

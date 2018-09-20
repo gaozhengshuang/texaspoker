@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShimTaeYoonResultPanelSkin" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+    <e:Group id="tweenGroup" horizontalCenter="0" anchorOffsetY="0" verticalCenter="0" anchorOffsetX="0"
+            >
+        <e:Image id="bgImage" width="338" height="208" horizontalCenter="0" anchorOffsetY="0" alpha="1"
+                  top="0" source="laBa_text_bg_png" scale9Grid="35,36,65,59"/>
+			<e:Image id="desImg" source="laBa_text_1_png" horizontalCenter="0" top="36"/>
+
+			<e:Group id="numGroup" bottom="35" horizontalCenter="0">
+				<e:Label id="charLabel" text="+$" size="48" textAlign="center" fontFamily="Microsoft YaHei" maxWidth="620" backgroundColor="0x000000" borderColor="0x000000" maxHeight="1000" anchorOffsetY="0" verticalAlign="middle" x="5" y="0" textColor="0x4f4788"/>
+				<e:Label id="numLabel" text="100" size="48" textAlign="center" fontFamily="Microsoft YaHei" maxWidth="620" backgroundColor="0x000000" borderColor="0x000000" maxHeight="1000" anchorOffsetY="0" verticalAlign="middle" x="0" y="0" textColor="0x4f4788"/>
+				<e:layout>
+					<e:HorizontalLayout/>
+				</e:layout>
+			</e:Group>
+    </e:Group>
+</e:Skin>

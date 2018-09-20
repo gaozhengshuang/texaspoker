@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="blindItemRendererSkin" width="602" height="64" xmlns:ns1="*"
+        xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="602" source="pub_lines_png" height="64" scale9Grid="14,12,2,3"/>
+    <e:Image id="bgImg" width="602" height="64" anchorOffsetX="0" anchorOffsetY="0" y="0"
+              source="assets/bg/pub_bg11_png" alpha="0"/>
+    <e:Image id="rebuyImg" x="52.34"  verticalCenter="0" source="game_icon_19_png"/>
+	<e:Image id="addonImg" x="52.34" verticalCenter="0" source="game_icon_20_png"/>
+    <e:Label id="rankLabel" text="11" x="7" height="30" width="50" size="24"  textAlign="center" verticalCenter="0" verticalAlign="middle"/>
+    <e:Label id="blindLabel" text="1500/3000" x="88" height="30" width="240" size="24" textAlign="center"  verticalCenter="0" verticalAlign="middle"/>
+    <e:Label id="anteLabel" text="999999" x="337" height="30" width="100" size="24" textAlign="center"  verticalCenter="0" verticalAlign="middle"/>
+	<e:Label id="timeLabel" text="120秒" x="468" width="100" textAlign="center" size="24" verticalCenter="0" verticalAlign="middle"/>
+</e:Skin>

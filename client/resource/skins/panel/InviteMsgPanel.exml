@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="InviteMsgPanelSkin4" width="666" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+
+	<e:Group id="tweenGroup" width="666" height="600" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0">
+		<e:Image y="0" anchorOffsetY="0" x="0" source="pub_bg2_png" height="600" width="666" scale9Grid="0,101,666,13" anchorOffsetX="0"/>
+		<e:Image y="11.55" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" source="hyyq_png"/>
+
+
+		<ns1:CircleHeadComponent id="headComp" y="95" skinName="CircleHeadComponentSkin" horizontalCenter="0"/>
+		<e:Image y="328" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" scale9Grid="12,11,15,10" width="601" height="72" horizontalCenter="10.5" source="pub_bg_3_1_png"/>
+		<e:Label id="roomIdLabel" text="9999" x="200" y="328" textColor="0xffffff" anchorOffsetX="0" height="72" verticalAlign="middle" size="30" fontFamily="Microsoft YaHei"/>
+		<e:Label id="infoTxt" text="房间号：" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="30" horizontalCenter="-196.5" fontFamily="Microsoft YaHei" textColor="0xffffff" y="328" height="72"/>
+		<e:Label id="inviteMsgLable" text="你的好友好友名字六字现在邀请您一起游戏！" y="258" anchorOffsetX="0" textColor="0xffffff" size="30" textAlign="center" horizontalCenter="0"/>
+		<e:Group id="omahaGroup" y="258" horizontalCenter="0" width="610" height="66">
+			<e:Label id="omahaInviteLable" text="你的好友好友名字六字现在邀请您一起进行" anchorOffsetX="0" width="610" textColor="0xFFFFFF" size="30" textAlign="center"/>
+			<e:Group y="36" horizontalCenter="0">
+				<e:Label text="奥马哈扑克" y="0" anchorOffsetX="0" size="30" textAlign="center" textColor="0xfad050" x="0"/>
+				<e:Label text="！" y="0" anchorOffsetX="0" size="30" textAlign="center" textColor="0xffffff" x="60"/>
+				<e:layout>
+					<e:HorizontalLayout gap="0"/>
+				</e:layout>
+			</e:Group>
+		</e:Group>
+		<e:Image y="340.55" anchorOffsetY="0" scaleX="1" scaleY="1" source="icon_jinbi_png" x="351"/>
+		<e:Label id="roomBuyLabel" text="20万买入" x="406.5" y="328" textColor="0xaffffff" anchorOffsetX="0" width="216" fontFamily="Microsoft YaHei" height="72" verticalAlign="middle"/>
+		<ns1:ShadowButton id="joinBtn" label="立即加入" x="365" y="440" anchorOffsetX="0" anchorOffsetY="0" skinName="commonButtonY2Skin"/>
+		<ns1:ShadowButton id="backBtn" label="下次再说" x="80" y="440" anchorOffsetX="0" anchorOffsetY="0" skinName="commonButtonY2Skin"/>
+		<ns1:ShadowButton id="closeButton" label="Button" x="583" y="41" skinName="closeButtonSkin"/>
+	</e:Group>
+</e:Skin>

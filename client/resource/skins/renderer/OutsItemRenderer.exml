@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="outsItemRenderer" width="720" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing" height="160">
+	<e:Image id="bgImage" width="720" anchorOffsetX="0" anchorOffsetY="0" y="0"
+	         x="0"  source="jbs_bg_png"/>
+	<e:Label id="nameLabel" text="10元话费赛" x="240" y="36.64" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0"
+	         textColor="0xffffff" />
+	<e:Label id="dateLabel" text="今天" x="25.66" y="36.64" textAlign="left" fontFamily="Microsoft YaHei" size="26"
+	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" />
+	<e:Label id="timeLabel" text="12:00" x="106.16" y="36.64" size="26"  fontFamily="Microsoft YaHei"/>
+	<e:ToggleSwitch id="dirBtn" label="更多" x="640" skinName="zkTSSkin" y="69" />
+	<e:Label id="rankLabel" text="冠军" x="26" y="90.29" size="26" textColor="0xf4c857" bold="false"  fontFamily="Microsoft YaHei"/>
+	<e:Label id="userNameLabel" text="用户名称" x="120" y="90.29" size="26"  fontFamily="Microsoft YaHei"/>
+	<e:Label id="awardLabel" text="获得10元话费" x="340" y="90.29" size="26" textColor="0xf4c857" bold="false"  fontFamily="Microsoft YaHei"/>
+
+</e:Skin>

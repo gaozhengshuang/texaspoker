@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HWHeadComponentSkin" maxWidth="96" maxHeight="150" xmlns:e="http://ns.egret.com/eui"
+        xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="emptyGroup" x="0" y="24" minHeight="90">
+		<e:Image id="bgImg" scaleX="1" scaleY="1" source="touxiang_1_png" width="86" height="86" alpha="0.25" x="2" y="2" />
+		<e:Image scaleX="1" scaleY="1" alpha="0.25" source="n_game_26_png" x="0" y="0" />
+		<e:Group id="canSitDownLabel" x="24.6" y="5">
+			<e:Image scale9Grid="5,5,8,8" scaleX="1" scaleY="1" y="11" horizontalCenter="0.5" source="n_game_24_png" />
+			<e:Label text="坐下" size="20" textAlign="center" fontFamily="Microsoft YaHei" textColor="0xFFFFFF" y="46" scaleX="1"
+			         scaleY="1" bold="true" horizontalCenter="0" />
+		</e:Group>
+	</e:Group>
+	<e:Group id="playerGroup" x="0" y="24" maxWidth="96" maxHeight="128">
+		<ns1:CircleHeadComponent id="headIcon" skinName="CircleHeadComponentSkin" maxHeight="90" maxWidth="90" width="90"
+		                         height="90" />
+		<e:Image id="borderImg" source="n_game_2_png" touchEnabled="false" />
+		<e:Group id="vipGroup" x="23.5" y="65.94" scaleX="1" scaleY="1">
+			<e:Image anchorOffsetX="0" source="game_vip_png" x="0" y="0" />
+			<e:Label id="vipLabel" text="1111" size="12" textAlign="center" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+			         x="8" y="3" textColor="0x8f4402" />
+		</e:Group>
+		<e:Group id="chipsGroup" x="0" y="101.25">
+			<e:Image id="cardTypeBg" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" width="90" scale9Grid="13,12,9,2"
+			         source="n_game_20_png"  alpha="0.4"/>
+			<e:Label id="chipsLabel" text="1111" size="20" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+			         y="3" width="100%" textAlign="center" horizontalCenter="0"  textColor="0xf7bd11"/>
+		</e:Group>
+		<e:Image id="maskImg" alpha="0.5" x="-2" y="-1" scaleX="1" scaleY="1" anchorOffsetX="0" width="93" anchorOffsetY="0"
+		         height="94" source="touxiang_1_png" touchEnabled="false" />
+		<e:Image id="emojiImg" width="100" height="100" anchorOffsetX="50" anchorOffsetY="50" x="45.5" y="45"/>
+	</e:Group>
+</e:Skin>

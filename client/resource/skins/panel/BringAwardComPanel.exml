@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" width="666" height="450" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0">
+        <e:Image width="666" height="447" horizontalCenter="0" verticalCenter="0" source="pub_bg2_png"
+                 scale9Grid="4,106,656,8" />
+        <e:Label id="titleLabel" text="" horizontalCenter="0" size="30" top="130"  width="550" textAlign="center"/>
+        <e:Group horizontalCenter="0" bottom="160">
+            <e:Image anchorOffsetX="0" anchorOffsetY="0" x="0" scale9Grid="18,18,8,2" width="200" verticalCenter="0"
+                     source="game_bg_7_png" />
+            <ns1:CommonIcon id="iconImg" x="10" skinName="CommonIconSkin" verticalCenter="0" width="47" height="48" />
+            <e:Label id="goldNumLabel" text="4000" x="60" size="30" verticalCenter="0" textAlign="left"
+                     verticalAlign="middle" />
+        </e:Group>
+        <e:Button id="bringBtn" label="确定" skinName="commonButtonY2Skin" horizontalCenter="0" bottom="50" />
+        <e:Image anchorOffsetX="0" anchorOffsetY="0" scale9Grid="18,18,8,2" source="xtts_png" horizontalCenter="0"
+                 top="15" />
+    </e:Group>
+</e:Skin>

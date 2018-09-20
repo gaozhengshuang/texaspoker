@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gambling_guess_btn" xmlns:e="http://ns.egret.com/eui">
+    <e:Image id="btnImg" source="shoupai_png" />
+</e:Skin>

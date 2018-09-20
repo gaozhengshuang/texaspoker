@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShimTaeYoonRankItemRendererSkin" width="564" height="65" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+
+	<ns1:CircleHeadComponent id="head" width="50" height="50" x="80"  verticalCenter="0" skinName="CircleHeadComponentSkin"/>
+	<e:Label id="rankLabel" text="100" x="7" size="28" textAlign="center"  textColor="0x40435e" verticalCenter="0" width="50"/>
+	<e:Image id="rankImg" x="10" scaleX="1" scaleY="1" verticalCenter="0"  source="laBa_paiming_1_png"/>
+	<e:Label id="nameLabel" text="用户名字" x="150" width="200" size="28" fontFamily="Microsoft YaHei"  verticalCenter="0" textColor="0x6d7389" textAlign="center"/>
+	<e:Label id="numLabel" text="11111万" x="410" width="126" size="28"  anchorOffsetX="0" verticalCenter="0.5" textColor="0x6d7389" textAlign="center"/>
+	<e:Image x="0" y="63" width="564" height="2" source="laBa_line_png"/>
+
+
+
+
+</e:Skin>

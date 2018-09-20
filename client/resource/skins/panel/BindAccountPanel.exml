@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" width="666" height="650" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0">
+		<e:Image width="666" height="650" horizontalCenter="0" verticalCenter="0" source="pub_bg2_png"
+		         scale9Grid="4,106,656,8" />
+		<e:Image y="28" horizontalCenter="0.5" source="bangding_png" />
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27"
+		                  scaleX="1" skinName="closeButtonSkin" />
+		<e:Image width="650" height="198.67" y="119" source="banding_bg_png" anchorOffsetY="0" horizontalCenter="0" />
+		<ns1:CircleHeadComponent id="userHeadCom" skinName="CircleHeadComponentSkin" y="130" horizontalCenter="0" />
+		<e:Label id="nameLabel" text="用户名" y="250" horizontalCenter="0" size="26" />
+		<e:Group y="278" horizontalCenter="0.5">
+			<e:Label id="idLabel" text="111111" y="3" x="43.01" size="26" />
+			<e:Label text="ID:" x="0" y="3" size="26" />
+		</e:Group>
+		<e:Group x="78" y="346.31">
+			<e:Label text="手机" y="0" size="26" x="84" />
+			<e:Image id="phoneImg" source="shouji_png" x="54" y="39" />
+			<ns1:ShadowButton id="bindPhoneBtn" label="绑定手机账号" scaleY="1" y="62" horizontalCenter="0"
+			                  skinName="bindAccount_PhoneBtnSkin" />
+			<e:Label id="phoneNumLabel" text="未绑定" size="26" width="220" textAlign="center" x="0" y="164" />
+		</e:Group>
+		<e:Group id="wxGroup" x="368" y="346.32">
+			<e:Label text="微信" y="0" size="26" x="84" />
+			<e:Image id="wxImg" source="weixin_png" x="54" y="39" />
+			<ns1:ShadowButton id="bindWXBtn" label="绑定微信" scaleY="1" y="62" horizontalCenter="0" skinName="bindAccount_WxBtnSkin" />
+			<e:Label id="wxNameLabel" text="未绑定" size="26" width="220" textAlign="center" x="0" y="164" />
+		</e:Group>
+		<e:Image width="600" y="560" source="line_png" horizontalCenter="0" />
+		<e:Label text="绑定手机和微信，可以在其他设备上使用手机或微信进行登录！" y="575" anchorOffsetX="0" size="24" textColor="0xffffff"
+		         alpha="0.8" horizontalCenter="0"  fontFamily="Microsoft YaHei" width="577"/>
+	</e:Group>
+</e:Skin>

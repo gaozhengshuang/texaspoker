@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="hundredWarNoSeatItemRendererSkin" width="300" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+        <e:Image width="300" height="100" alpha="1"  source="pub_lines_png" scale9Grid="13,13,4,1"/>
+        <e:Label id="nameLabel" text="好友名字六字" x="125" y="20" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0"
+                 width="160" textColor="0xdfe5e5" />
+        <e:Label id="goldNumLabel" text="$99.99亿" x="125" y="60" width="120" textAlign="left"
+                 fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0"  textColor="0xf9cb55"/>
+
+
+
+
+        <ns1:CircleHeadComponent id="userHeadCom" x="10" verticalCenter="0" skinName="CircleHeadComponentSkin"  width="90" height="90"/>
+</e:Skin>

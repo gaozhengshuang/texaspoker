@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" width="720" height="1280" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImg" horizontalCenter="0" verticalCenter="0" x="0" y="0" bottom="0" left="0" right="0" top="0" source="" scale9Grid="34,34,46,39"/>
+	<e:Image horizontalCenter="0" scale9Grid="34,34,46,39" x="0" source="js_bg_1_png" width="664" height="1212" top="34"/>
+	<e:Image source="js_bg_png" horizontalCenter="0" top="43"/>
+	<e:Image source="paixing_png" horizontalCenter="0" top="97"/>
+
+
+	<e:Group id="desGroup" height="915" top="199" horizontalCenter="0">
+		<e:Group scaleX="1" scaleY="1" y="0" width="628" horizontalCenter="0">
+			<e:Image x="41" y="56" source="pai_hong1_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="51" y="66" source="pai_hong13_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="61" y="76" source="pai_hong12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="71" y="86" source="pai_hong11_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="81" y="96" source="pai_hong10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="91" y="106" source="pai_hei10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="101" y="116" source="pai_hei9_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="111" y="126" source="pai_hei8_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="121" y="136" source="pai_hei7_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="131" y="146" source="pai_hei6_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="141" y="156" source="pai_mei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="151" y="166" source="pai_fang12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="161" y="176" source="pai_hong12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="171" y="186" source="pai_hei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="181" y="196" source="pai_hong10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="151" y="166" source="pai_mei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="161" y="176" source="pai_fang12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="171" y="186" source="pai_hong12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="191" y="206" source="pai_hong10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="101" y="116" source="pai_hei10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="181" y="196" source="pai_hei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="191" y="206" source="pai_hei10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="201" y="216" source="pai_hei8_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="211" y="226" source="pai_hei6_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="221" y="236" source="pai_hei5_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="161" y="176" source="pai_mei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="81" y="96" source="pai_hong11_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="201" y="216" source="pai_hong10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="111" y="126" source="pai_hei9_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="121" y="136" source="pai_hei8_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="171" y="186" source="pai_mei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="171" y="186" source="pai_fang12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="191" y="206" source="pai_hei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="211" y="226" source="pai_hong10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="221" y="236" source="pai_hei6_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="201" y="216" source="pai_hei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="171" y="186" source="pai_hong12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="201" y="216" source="pai_hei10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="221" y="236" source="pai_hong10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="131" y="146" source="pai_hei7_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="211" y="226" source="pai_hei10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="231" y="246" source="pai_hong10_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="181" y="196" source="pai_mei12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="231" y="246" source="pai_hei5_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="51" y="66" source="pai_hong1_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="61" y="76" source="pai_hong1_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="181" y="196" source="pai_fang12_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="91" y="106" source="pai_hong11_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="231" y="246" source="pai_hei6_png" scaleX="0.8" scaleY="0.8"/>
+			<e:Image x="231" y="246" source="pai_hei5_png" scaleX="0.8" scaleY="0.8"/>
+			<e:layout>
+			<e:TileLayout orientation="rows" requestedColumnCount="5" horizontalAlign="left" verticalAlign="top" verticalGap="-5" horizontalGap="-5.5"/>
+			</e:layout>
+		</e:Group>
+		<e:Label text="1.皇家同花顺" x="350" size="26" textAlign="left" width="308" y="6" textColor="0xffd059"/>
+		<e:Label text="花色相同的A、K、Q、J、10组成" x="350" size="24" textAlign="left" width="308" y="36" textColor="0xccfff6"/>
+		<e:Label text="2.同花顺" x="350" size="26" scaleX="1" scaleY="1" textAlign="left" y="95" width="308" textColor="0xffd059"/>
+		<e:Label text="五张花色相同的连续牌组成，但不包括皇家同花顺" x="350" size="24" y="125" scaleX="1" scaleY="1" textAlign="left" width="312" textColor="0xccfff6"/>
+		<e:Label text="3.四条" x="350" size="26" y="187" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="四张点数相同的牌加任一张其他牌组成" x="350" size="24" y="217" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+		<e:Label text="4.葫芦" x="350" size="26" y="278" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="三张点数相同的牌和一对组成。" x="350" size="24" y="308" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+		<e:Label text="5.同花" x="350" size="26" y="370" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="由花色相同牌，但点数不相连的五张组成" x="350" size="24" y="400" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+		<e:Label text="6.顺子" x="350" size="26" y="463" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="由五张点数相连，但花色不同的牌组成。" x="350" size="24" y="493" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+		<e:Label text="7.三条" x="350" size="26" y="556" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="五张中有三张点数相同的牌和两张非对子的牌组成" x="350" size="24" y="586" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+		<e:Label text="8.两对" x="350" size="26" y="649" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="由两个对子组合而成" x="350" size="24" y="683" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+		<e:Label text="9.一对" x="350" size="26" y="740" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="由一个对子和三张点数不同的牌组成" x="350" size="24" y="770" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+		<e:Label text="10.高牌" x="350" size="26" y="834" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xffd059"/>
+		<e:Label text="五张点数没有任何排列的牌组成" x="350" size="24" y="864" scaleX="1" scaleY="1" textAlign="left" width="308" textColor="0xccfff6"/>
+
+	</e:Group>
+	<e:Scroller id="desScroller" width="660" height="915" horizontalCenter="-2" y="199">
+
+	</e:Scroller>
+	<ns1:ShadowButton id="nextStepBtn" label="下一步" scaleY="1" skinName="commonButtonY2_323x74Skin" horizontalCenter="0" x="250" bottom="63"/>
+
+</e:Skin>

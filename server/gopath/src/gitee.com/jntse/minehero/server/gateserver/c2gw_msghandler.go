@@ -11,7 +11,7 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	_ "reflect"
+	"reflect"
 	_ "strconv"
 )
 
@@ -50,6 +50,7 @@ func (this *C2GWMsgHandler) Init() {
 	// 收
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
 	this.msgparser.RegistProtoMsg(msg.C2GW_HeartBeat{}, on_C2GW_HeartBeat)
+	this.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
@@ -103,6 +104,28 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	})
 }
 
+func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2RS_MsgTransfer)
+	msg_type := pb.MessageType(tmsg.GetName())
+	if msg_type == nil {
+		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+		return
+	}
+
+	protomsg := reflect.New(msg_type.Elem()).Interface()
+	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	if err != nil {
+		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+		return
+	}
+
+	user := UserMgr().FindById(tmsg.GetUid())
+	if user == nil { return }
+	user.SendRoomMsg(protomsg.(pb.Message))
+}
+
+
+
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -124,7 +147,7 @@ func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{})
 		return
 	}
 	if errcode := user.CreateRoomRemote(tmsg); errcode != "" {
-		user.ReplyCreateRoom(errcode, 0)
+		user.CreateRoomResponse(errcode)
 	}
 }
 
@@ -138,15 +161,26 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if !user.IsInRoom() {
-		user.SendNotify("房间不存在")
+	roomid := tmsg.GetRoomid()
+	if roomid == 0 {
+		log.Error("[房间] 玩家[%s %d]请求进入无效的房间[%d]", user.Name(), user.Id(), roomid)
 		return
 	}
 
+	sid := GetRoomSid(roomid)
+	if sid == 0 {
+		log.Error("[房间] 玩家[%s %d]请求进入的房间[%d]已经销毁", user.Name(), user.Id(), roomid)
+		return
+	}
+
+	// 重新进入房间，不需要上传玩家二进制数据
+	if user.RoomId() != roomid {
+		user.SendUserBinToRoom(sid, roomid)
+	}
+
 	// 进入游戏房间
-	log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
-	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
-	user.SendRoomMsg(tmsg)
+	log.Info("玩家[%d] 请求进入房间[%d] ts[%d]", user.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
+	RoomSvrMgr().SendMsg(sid, tmsg)
 }
 
 func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {

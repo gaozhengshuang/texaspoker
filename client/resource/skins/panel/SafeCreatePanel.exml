@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SafeCreatePanelSk" width="670" height="676" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetY="0">
+		<e:Image id="bg0" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="698" width="666" scale9Grid="0,105,666,6"/>
+		<e:Image y="15" horizontalCenter="0" source="safe_bxx_png"/>
+		<e:Label text="尊贵的VIP用户，请先创建您的保险箱密码，创建后才可使用保险箱功能。" y="119.4" size="30" width="532" height="124" verticalAlign="middle" textAlign="center" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
+		<e:Group id="createPwdGroup" anchorOffsetY="0" horizontalCenter="0" verticalCenter="-39.5" width="500" scaleX="1" scaleY="1">
+			<e:Label text="创建密码" x="0" y="0" size="25" width="150" height="50" textAlign="right" verticalAlign="middle"/>
+			<e:Label text="再输入一次" x="0" y="70" size="25" width="150" height="50" verticalAlign="middle" textAlign="right"/>
+			<e:Label id="tipPwd" text="Label" y="147" size="28" horizontalCenter="0" textColor="0xFF0000"/>
+			<e:Group id="pwdGroup" anchorOffsetY="0" x="160" y="1" scaleX="0.7" scaleY="0.7" width="482">
+				<e:layout>
+					<e:VerticalLayout gap="35"/>
+				</e:layout>
+			</e:Group>
+			<ns1:ShadowButton id="createPwdBtn" label="创建密码" y="200" anchorOffsetX="0" horizontalCenter="0" skinName="commonButtonY2Skin"/>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+	</e:Group>
+</e:Skin>

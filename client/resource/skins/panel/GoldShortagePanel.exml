@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GoldShortagePanelSkin" width="675" height="494" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" width="675" height="494" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0">
+		<e:Image anchorOffsetY="0" source="pub_bg2_png" height="473" width="664" scale9Grid="0,101,666,13" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="insufficientImage" anchorOffsetY="0" height="69" width="179" y="33" source="jbbz_png" anchorOffsetX="0" scaleX="1" scaleY="1" horizontalCenter="0"/>
+		<e:Image id="bankruptcyImage" anchorOffsetY="0" height="69" width="179" y="33" anchorOffsetX="0" source="nypc_png" scaleX="1" scaleY="1" horizontalCenter="0"/>
+		<e:Label id="priceLabel" text="仅需648元" y="149.88" anchorOffsetX="0" width="210" anchorOffsetY="0" textColor="0xFFFDFC" size="40" textAlign="center" scaleX="1" scaleY="1" horizontalCenter="0.5"/>
+		<e:Label id="goldLabel" text="1200万金币" y="234" size="50" textAlign="center" textColor="0xE2C322" horizontalCenter="0" x="189" scaleX="1" scaleY="1"/>
+		<ns1:ShadowButton id="closeButton" label="Button" y="51" skinName="closeButtonSkin" x="589" scaleX="1" scaleY="1"/>
+		<ns1:ShadowButton id="buyNowBtn" label="立即购买" y="368" anchorOffsetX="0" width="222" anchorOffsetY="0" height="70" skinName="commonButtonY2Skin" scaleX="1" scaleY="1" horizontalCenter="0"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MailItemRendererSkin" width="602" height="139" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="bgImg" width="602" height="139" anchorOffsetX="0" anchorOffsetY="0"
+              y="1" source="pub_lines_png" scale9Grid="14,13,2,1"/>
+	<ns1:CommonIcon id="itemComp" x="20" y="26" skinName="CommonIconSkin"/>
+	<e:Label id="itemTitleLabel" text="" x="130" y="15" height="30" width="300" size="26" textColor="0xfad050" anchorOffsetX="0"/>
+	<e:Label id="dateLabel" text="" height="30" size="26" anchorOffsetX="0" right="20" top="15" textColor="0xffffff" textAlign="right"/>
+	<e:Label id="itemDesLabel" text="" x="130" y="55" size="20" width="280" anchorOffsetX="0" height="70" lineSpacing="5"/>
+	<ns1:ShadowButton id="takePrizeBtn" label="领取" enabled="true" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="20" skinName="commonButtonYSkin" right="15"/>
+	<e:Label id="takeDesLabel" text="已领取" height="66" textAlign="center" verticalAlign="middle" size="25" anchorOffsetX="0" anchorOffsetY="0" textColor="0xfad050" width="160" verticalCenter="20" right="15"/>
+
+
+
+</e:Skin>

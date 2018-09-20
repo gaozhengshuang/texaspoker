@@ -102,19 +102,17 @@ func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 
 		// 初始化房间
 		var room IRoomBase = nil
-		switch msg.RoomKind(gamekind) {
-			case msg.RoomKind_TanTanLe:		// 弹弹乐
+		if msg.RoomKind(gamekind) == msg.RoomKind_TanTanLe {
 			room = NewTanTanLeRoom(userid, roomid)
-		case msg.RoomKind_TexasPoker:
+		}else if msg.RoomKind(gamekind) == msg.RoomKind_TexasPoker {
+			if texas.GetPwd() == "" { errcode = "密码不能为空"; break }
 			room = NewTexasRoom(userid, roomid, texas.GetRoomId(), texas.GetAnte(), texas.GetPwd())
-		}
-
-		if room == nil {
+		}else {
 			errcode = "无效的游戏类型"
 			break
 		}
 
-		if errcode = room.Init(); errcode != "" {
+		if errcode = room.Init(); errcode == "" {
 			RoomMgr().Add(room)
 		}
 		//log.Info("添加房间[%d]成功，等待玩家[%d]个人数据", roomid, tmsg.GetUserid())

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="mail_buttonSkin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui" width="93" height="102">
+	<e:Image  id="btnImg" alpha.disabled="0.5" y="0" x="0"  anchorOffsetX="0" anchorOffsetY="0" width="93" height="94" source="youxiang_png"/>
+	<e:Image y="80" horizontalCenter="0" source="txt_yx_png"/>
+</e:Skin>

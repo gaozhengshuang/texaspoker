@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="moreplay_buttonSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:tween="egret.tween.*" width="100" height="103">
+	<w:Declarations>
+	</w:Declarations>
+	<e:Image id="btnImg" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" source="gengduo_icon_1_png" top="-5" />
+	<e:Image id="star0" source="gengduo_guang_png" y="41" x="36" anchorOffsetX="11.5" anchorOffsetY="11.5" />
+	<e:Image id="star1" source="gengduo_guang_png" y="41" x="58" anchorOffsetX="11.5" anchorOffsetY="11.5" />
+	<e:Image id="star2" source="gengduo_guang_png" y="61" x="32" anchorOffsetX="11.5" anchorOffsetY="11.5" />
+	<e:Image id="star3" source="gengduo_guang_png" x="61" anchorOffsetX="11.5" anchorOffsetY="11.5" y="11" />
+	<e:Image id="star4" source="gengduo_guang_png" x="25" anchorOffsetX="11.5" anchorOffsetY="11.5" y="11" />
+	<e:Image id="star5" source="gengduo_guang_png" y="56" x="86" anchorOffsetX="11.5" anchorOffsetY="11.5" />
+	<e:Image horizontalCenter="0" bottom="-5" source="gengduo_icon_png" />
+</e:Skin>

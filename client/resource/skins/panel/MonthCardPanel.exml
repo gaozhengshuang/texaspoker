@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MonthCardPanelSkin" width="666" height="915" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" width="666" height="815" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" y="100">
+		<e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="815" width="666" source="sc_bg_png"
+		         scale9Grid="0,268,656,20" />
+		<e:Image y="-135" source="shou_yue_bg_png" horizontalCenter="0" />
+		<e:Image y="-27" horizontalCenter="0.5" source="text_yueka_png" />
+		<e:Label text="黄金月卡和白银月卡可以同时激活哦~" y="746" horizontalCenter="0" size="26" textColor="0x3b1001"
+		         fontFamily="Microsoft YaHei" alpha="0.8" />
+		<e:Scroller id="scroller" width="600" height="630" y="90" anchorOffsetY="0" horizontalCenter="0"></e:Scroller>
+		<e:List id="list" width="600" height="630" y="90" horizontalCenter="0">
+			<e:layout>
+				<e:VerticalLayout gap="20" />
+			</e:layout>
+		</e:List>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="60" scaleY="1" anchorOffsetY="27" anchorOffsetX="27"
+		                  scaleX="1" skinName="closeButton4Skin" />
+	</e:Group>
+</e:Skin>

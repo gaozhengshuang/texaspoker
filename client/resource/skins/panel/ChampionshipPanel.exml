@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChampionshipPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+	<e:Group id="anmGroup1" width="720" height="1195" x="0" y="86" anchorOffsetY="0">
+		<e:Image width="720" height="1205" anchorOffsetY="0"  x="0" y="-10" source="assets/bg/pub_bg11_png"/>
+		<e:Image width="674" y="26" source="pub_biankuang2_png" horizontalCenter="0" scale9Grid="34,31,14,12"/>
+		<ns1:TabComponent id="matchTab" y="27" anchorOffsetX="0" anchorOffsetY="0"  skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Image id="selfMatchBG" width="720" y="110" source="ld_4_png" scale9Grid="3,31,23,12" horizontalCenter="0"/>
+		<ns1:TabComponent id="selfMatchTab" y="112" anchorOffsetX="0" anchorOffsetY="0" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Group id="matchGroup" width="720" height="1070" y="115" anchorOffsetX="0" anchorOffsetY="0" name="赛事列表">
+			<e:Group id="hasMatchGroup" x="0" height="1070" width="720">
+				<e:List id="matchList" width="720" y="45" anchorOffsetY="0" x="0" height="1020">
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="left"  gap="-12"/>
+					</e:layout>
+				</e:List>
+				<e:Scroller id="matchScroller" width="720" height="1020" y="42" anchorOffsetY="0" x="0">
+					<e:Group/>
+				</e:Scroller>
+				<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
+				<e:Label text="赛事" x="6" y="10" anchorOffsetX="0" width="112" anchorOffsetY="0" verticalAlign="middle"
+				         textAlign="center"  size="24" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事信息" x="162" y="10" anchorOffsetX="0" width="130" anchorOffsetY="0" textAlign="center"
+				         verticalAlign="middle"  size="24" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="开始时间" x="394" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center"
+				         verticalAlign="middle"  size="24" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+			</e:Group>
+			<e:Group id="noMatchGroup" x="0" width="720" height="1070">
+				<e:Label text="暂无赛事" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle"
+				         horizontalCenter="0" verticalCenter="0"  fontFamily="Microsoft YaHei"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="sitAndPlayMatchGroup" width="720" height="1070" y="115" anchorOffsetX="0" anchorOffsetY="0" name="赛事列表">
+			<e:Group id="hasSitAndPlayMatchGroup" x="0" height="1070" width="720">
+			<e:List id="sitAndPlayMatchList" width="720" y="45" anchorOffsetY="0" x="0" height="1020">
+				<e:layout>
+				<e:VerticalLayout horizontalAlign="left" gap="-12"/>
+				</e:layout>
+			</e:List>
+			<e:Scroller id="sitAndPlayMatchScroller" width="720" height="1020" y="42" anchorOffsetY="0" x="0">
+				<e:Group/>
+			</e:Scroller>
+			<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
+			<e:Label text="赛事" x="6" y="10" anchorOffsetX="0" width="112" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="24" textColor="0x4BC6B7" fontFamily="Microsoft YaHei"/>
+			<e:Label text="赛事信息" x="162" y="10" anchorOffsetX="0" width="130" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" textColor="0x4BC6B7" fontFamily="Microsoft YaHei"/>
+			<e:Label text="奖励" x="394" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" textColor="0x4BC6B7" fontFamily="Microsoft YaHei"/>
+			</e:Group>
+			<e:Group id="noSitAndPlayMatchGroup" x="0" width="720" height="1070">
+			<e:Label text="暂无赛事" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+			</e:Group>
+		</e:Group>
+
+		<e:Group id="selfMatchGroup" x="0" y="185">
+			<e:Group id="signedUpGroup" width="720" height="1000" y="0" anchorOffsetX="0" anchorOffsetY="0" name="已报名" x="0">
+				<e:Group id="hasSignedUpGroup" x="0" anchorOffsetY="0" height="1000" width="720">
+				<e:List id="signedUpList" width="720" y="45" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="950">
+					<e:layout>
+					<e:VerticalLayout horizontalAlign="left" gap="-12"/>
+					</e:layout>
+				</e:List>
+				<e:Scroller id="signedUpScroller" width="720" height="950" y="41" anchorOffsetY="0" x="0" scaleX="1" scaleY="1">
+					<e:Group/>
+				</e:Scroller>
+				<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
+				<e:Label text="赛事" x="6" y="10" anchorOffsetX="0" width="112" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="24" scaleX="1" scaleY="1" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事信息" x="162" y="10" anchorOffsetX="0" width="130" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="开始时间" x="394" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				</e:Group>
+				<e:Group id="noSignedUpGroup" x="0" width="720" scaleX="1" scaleY="1" height="1000">
+				<e:Label text="您还未参加任何赛事" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+				</e:Group>
+			</e:Group>
+			<e:Group id="outMatchGroup" width="720" height="1000" y="0" anchorOffsetX="0" anchorOffsetY="0" name="已报名" x="0">
+				<e:Group id="hasOutMatchGroup" x="0" anchorOffsetY="0" height="1000" width="720">
+				<e:List id="outMatchList" width="720" y="45" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="950">
+					<e:layout>
+					<e:VerticalLayout horizontalAlign="left" gap="-12"/>
+					</e:layout>
+				</e:List>
+				<e:Scroller id="outMatchScroller" width="720" height="950" y="41" anchorOffsetY="0" x="0" scaleX="1" scaleY="1">
+					<e:Group/>
+				</e:Scroller>
+				<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
+				<e:Label text="赛事" x="6" y="10" anchorOffsetX="0" width="112" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="24" scaleX="1" scaleY="1" textColor="0x4BC6B7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事信息" x="162" y="10" anchorOffsetX="0" width="130" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x4BC6B7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="开始时间" x="394" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x4BC6B7" fontFamily="Microsoft YaHei"/>
+					<e:Label text="奖励" x="560" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x4BC6B7" fontFamily="Microsoft YaHei"/>
+				</e:Group>
+				<e:Group id="noOutMatchGroup" x="0" width="720" scaleX="1" scaleY="1" height="1000">
+				<e:Label text="您还未结束任何赛事" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+				</e:Group>
+			</e:Group>
+			<e:Group id="ticketsGroup" width="720" height="1000" y="0" anchorOffsetX="0" anchorOffsetY="0" name="我的门票" x="0">
+				<e:Group id="hasTicketGroup" x="0" scaleX="1" scaleY="1" height="1000" width="720">
+				<e:List id="ticketList" width="720" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="1000">
+					<e:layout>
+					<e:VerticalLayout horizontalAlign="left" gap="-12"/>
+					</e:layout>
+				</e:List>
+				<e:Scroller id="ticketScroller" width="720" height="1000" anchorOffsetY="0" x="0" scaleX="1" scaleY="1">
+					<e:Group anchorOffsetY="0" height="955"/>
+				</e:Scroller>
+				</e:Group>
+				<e:Group id="noTicketGroup" x="0" width="720" height="1000" scaleX="1" scaleY="1" anchorOffsetY="0">
+				<e:Label text="您暂无任何门票" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+				</e:Group>
+			</e:Group>
+		</e:Group>
+		<e:Group id="resultsGroup" width="720" height="1070" y="115" anchorOffsetX="0" anchorOffsetY="0" name="最近赛况">
+			<e:Group id="hasResultGroup" x="0" scaleX="1" scaleY="1" height="1070" width="720">
+				<e:List id="resultList" width="720" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" y="45" height="1020">
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="left" verticalAlign="contentJustify" gap="-12" />
+					</e:layout>
+				</e:List>
+				<e:Scroller id="resultScroller" width="720" height="1020" y="42" anchorOffsetY="0" x="0" scaleX="1" scaleY="1">
+					<e:Group anchorOffsetY="0" height="955" />
+				</e:Scroller>
+				<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
+				<e:Label text="赛事时间" x="30" size="24" scaleX="1" scaleY="1" y="10" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事信息" x="280" size="24" scaleX="1" scaleY="1" y="10" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+			</e:Group>
+			<e:Group id="noResultGroup" x="0" width="720" height="1070" scaleX="1" scaleY="1" anchorOffsetY="0">
+				<e:Label text="暂无任何最近赛况" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle"
+				         horizontalCenter="0" verticalCenter="0"  fontFamily="Microsoft YaHei"/>
+			</e:Group>
+
+
+		</e:Group>
+	</e:Group>
+	<e:Group id="anmGroup" width="720" height="100" x="0" y="0">
+		<e:Image id="bg" width="720" height="100" x="0" y="0"  source="bg_biaoti_png"/>
+		<e:Group id="titleGroup" height="100" horizontalCenter="0" y="0">
+			<e:Image id="titleImg" scaleX="1" scaleY="1" source="game_jbs_png" horizontalCenter="0" verticalCenter="0"/>
+
+
+			<e:Image source="pub_bt_1_png" scaleX="-1" scaleY="1" verticalCenter="0" horizontalCenter="-128"/>
+			<e:Image scaleX="1" scaleY="1" verticalCenter="0" source="pub_bt_1_png" horizontalCenter="128"/>
+		</e:Group>
+
+		<ns1:ShadowButton id="helpBtn" label="" x="640"  skinName="helpButtonSkin" verticalCenter="0.5"/>
+		<ns1:ShadowButton id="closeButton" label="返回" x="15"
+		           skinName="closeButton2Skin" verticalCenter="0"/>
+	</e:Group>
+</e:Skin>

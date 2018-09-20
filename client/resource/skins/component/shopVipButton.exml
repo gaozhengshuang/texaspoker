@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="shopVipButtonSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="btnImg" source="mall_button_2_png"/>
+	<e:Group height="73" anchorOffsetX="0" anchorOffsetY="0" width="171">
+		<e:Label id="labelDisplay" text="999" x="75" size="30" textAlign="center" scaleX="1" scaleY="1" verticalCenter="-3.5" width="77" name="label" anchorOffsetY="0" height="62" verticalAlign="middle" anchorOffsetX="0"/>
+		<e:Image source="zuanshi2_png" x="24" y="2" scaleX="1" scaleY="1" anchorOffsetY="0"/>
+	</e:Group>
+</e:Skin>

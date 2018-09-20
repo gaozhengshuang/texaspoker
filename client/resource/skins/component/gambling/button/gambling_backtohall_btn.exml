@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gambling_backtohall_btn" xmlns:e="http://ns.egret.com/eui">
+     <e:Image id="bgImg" source="game_bg_9_png"  width="267" height="108" scale9Grid="1,1,9,2"/>
+     	<e:Image id="line" source="line_png" width="100%" x="0" bottom="0"/>
+  <e:Image id="btnImg" source="game_icon_14_png"  verticalCenter="0.5" horizontalCenter="-71"/>
+    <e:Label id="labelDisplay" size="26" textColor="0xFFFFFF"
+             verticalAlign="middle" textAlign="left"  text="返回大厅" verticalCenter="0" x="105"/>
+</e:Skin>

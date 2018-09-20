@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CommonIconSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="100" height="100">
+	<e:Image id="bgImg" horizontalCenter="0" verticalCenter="0" height="100%" width="100%" source="bg_pub_2_png"/>
+	<e:Image id="highLightImg" width="100%" height="100%" horizontalCenter="0" verticalCenter="0" source="jbs_bg2_png"/>
+	<e:Image id="itemImg" verticalCenter="0" horizontalCenter="0"/>
+</e:Skin>

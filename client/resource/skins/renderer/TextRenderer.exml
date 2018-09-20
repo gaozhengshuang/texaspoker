@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TextRendererSkin" width="642" height="30" xmlns:e="http://ns.egret.com/eui">
+    <e:Label id="txtLabel" text="" width="620" lineSpacing="5" fontFamily="Microsoft YaHei" size="30" multiline="true" textAlign="left" verticalAlign="justify" x="22" anchorOffsetX="0" textColor="0xffffff"/>
+</e:Skin>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="get_buttonSkin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui" width="156" height="62">
+	<e:Image  id="btnImg" alpha.disabled="0.5" y="0" x="0"  anchorOffsetX="0" anchorOffsetY="0" source="button_huoqu_png" scale9Grid="73,31,5,2" width="100%" height="100%"/>
+	<e:Label id="labelDisplay" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" text="按钮" width="100%" height="100%" name="label" size="26"/>
+</e:Skin>

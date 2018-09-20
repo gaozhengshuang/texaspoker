@@ -46,6 +46,8 @@ type User struct {
 	ticker1s   	*util.GameTicker
 	ticker5s   	*util.GameTicker
 	ticker100ms *util.GameTicker
+	roomid		int64
+	roompwd		string
 }
 
 func NewUser() *User {
@@ -66,6 +68,7 @@ func (this *User) Init(account string, passwd string) bool {
 	this.loginstat = kNetStatLoginDisconnect
 	this.gatestat = kNetStatGateDisConnect
 	this.ch_cmd = make(chan string, 10)
+	this.roomid = 0
 
 	//
 	this.UserBase.Init(account, passwd, "13681626939", "510722")
@@ -280,12 +283,18 @@ func (this *User) HttpWetchatLogin() {
 }
 
 
-func (this *User) StartGame() {
-	this.SendGateMsg(&msg.C2GW_ReqCreateRoom{Gamekind:pb.Int32(0)})
+func (this *User) CreateRoom() {
+	send := &msg.C2GW_ReqCreateRoom{Gamekind:pb.Int32(int32(msg.RoomKind_TexasPoker))}
+	send.Texas = &msg.TexasPersonalRoom{RoomId:pb.Int32(11001), Ante:pb.Int32(100), Pwd:pb.String("12345") }
+	this.SendGateMsg(send)
 }
 
-func (this *User) LeaveGame() {
-	this.SendGateMsg(&msg.BT_ReqLeaveRoom{})
+func (this *User) EnterRoom() {
+	this.SendGateMsg(&msg.BT_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String("12345")})
+}
+
+func (this *User) LeaveRoom() {
+	this.SendGateMsg(&msg.BT_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
 }
 
 //func (this *User) JumpStep() {
@@ -346,10 +355,12 @@ func (this *User) DoInputCmd(cmd string) {
 		this.HttpWetchatLogin()
 	case "login":
 		this.SendLogin()
-	case "start":
-		this.StartGame()
+	case "create":
+		this.CreateRoom()
+	case "enter":
+		this.EnterRoom()
 	case "leave":
-		this.LeaveGame()
+		this.LeaveRoom()
 	case "jump":
 		this.do_jump = !this.do_jump
 	case "buy":

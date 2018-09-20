@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="playingFieldItemRenderer" width="720" height="80" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="720" height="80" source="assets/bg/pub_bg11_png" alpha="0"/>
+
+    <e:Label id="roomIdLabel" text="00001" x="55" fontFamily="Microsoft YaHei" size="26"  textColor="0xdfe5e5" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn0" label="" anchorOffsetX="0" x="164.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn1" label="" anchorOffsetX="0" x="182.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn2" label="" anchorOffsetX="0" x="202.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn3" label="" anchorOffsetX="0" x="222.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn4" label="" anchorOffsetX="0" x="239.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn5" label="" anchorOffsetX="0" x="258.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn6" label="" anchorOffsetX="0" x="277.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn7" label="" anchorOffsetX="0" x="296.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:ToggleButton id="toggleBtn8" label="" anchorOffsetX="0" x="315.51" anchorOffsetY="0" skinName="playfieldTBSkin" verticalCenter="0"/>
+    <e:Label id="blindLabel" text="5/10" x="343.64" width="165" textAlign="center" fontFamily="Microsoft YaHei" size="26"  anchorOffsetX="0" textColor="0xdfe5e5" verticalCenter="0"/>
+    <e:Label id="buyLabel" text="200/2000" x="526.12" width="187" textAlign="center" fontFamily="Microsoft YaHei" size="26"  anchorOffsetX="0" textColor="0xdfe5e5" verticalCenter="0"/>
+	<e:Image id="patternImage" x="19" verticalCenter="-1.5" />
+	<e:Label id="anteLabel" text="1000万" x="2" y="46" size="14" width="50" textAlign="center" textColor="0xe60012"/>
+	<e:Image width="720" source="line_png" y="0"/>
+	<e:Image id="bottomLineImg" width="720" source="line_png" y="79"/>
+</e:Skin>

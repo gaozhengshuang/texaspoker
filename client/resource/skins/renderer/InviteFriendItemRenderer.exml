@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="InvitefriendItemRenderer" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="bgImage" width="600" height="110" anchorOffsetX="0" anchorOffsetY="0"
+             y="1"  x="1" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+	<ns1:CircleHeadComponent id="userHeadCom" x="10" verticalCenter="0" skinName="CircleHeadComponentSkin"/>
+
+    <e:Label id="nameLabel" text="好友名字六字" x="120" y="20" fontFamily="Microsoft YaHei" size="25"
+              textColor="0xffffff"/>
+	<e:Label id="isOnlineLabel" text="在线" x="120" y="60" fontFamily="Microsoft YaHei" size="25" textColor="0xfad050"/>
+
+
+
+
+
+
+	<e:CheckBox id="isCheckedBtn" label="" x="530" skinName="CheckBoxSkin1" anchorOffsetX="0" anchorOffsetY="0" touchEnabled="false" verticalCenter="0"/>
+</e:Skin>

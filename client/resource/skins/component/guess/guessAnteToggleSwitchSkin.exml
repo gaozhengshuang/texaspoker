@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="guessAnteToggleSwitchSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        xmlns:e="http://ns.egret.com/eui">
+    <e:Image source="jc_3_png" source.upAndSelected="jc_2_png" width="42" height="42" />
+    <e:Label id="labelDisplay" size="24" textColor="0xFFFFFF" verticalAlign="middle" textAlign="center" text=""
+             horizontalCenter="0" verticalCenter="0" />
+</e:Skin>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gambling_review_btnSkin" xmlns:e="http://ns.egret.com/eui">
+    <e:Image id="btnImg"  source="game_huigu_png"/>
+</e:Skin>

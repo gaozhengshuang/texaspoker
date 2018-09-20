@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="happyGiftItemButton160x50Skin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui"
+        width="160" height="50">
+	<e:Image  id="btnImg" alpha.disabled="0.5"  anchorOffsetX="0" anchorOffsetY="0" source="happyGift_button_2_png" width="160" scale9Grid="6,0,38,50"/>
+	<e:Label id="labelDisplay" size="28" verticalAlign="middle" textAlign="center"
+	         fontFamily="Microsoft YaHei"  textColor="0xffffff" text="按钮" width="160" height="45" name="label"/>
+</e:Skin>

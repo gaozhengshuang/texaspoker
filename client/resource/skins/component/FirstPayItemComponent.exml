@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FirstPayItemComponentSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="sc_bg_2_png" scale9Grid="13,5,84,32"/>
+	<e:Label id="nameLabel" text="111" horizontalCenter="0" size="24" textColor="0xa7560f" top="20"/>
+	<e:Label id="countLabel" text="999,999,999" y="170" horizontalCenter="0" size="24"/>
+	<ns1:CommonIcon id="itemComp" y="40" skinName="CommonIconSkin" width="120" height="120" horizontalCenter="0"/>
+</e:Skin>

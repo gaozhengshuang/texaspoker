@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="brdz_buttonSkin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*"
+        width="227" height="227">
+	<w:Declarations>
+	</w:Declarations>
+	<e:Image id="highLight" source="hall_tx_2_png" width="210" height="210" horizontalCenter="0" verticalCenter="0"/>
+    <e:Image  id="btnImg" alpha.disabled="0.5"  horizontalCenter="0" verticalCenter="0" source="brdz_png"/>
+	<e:Image horizontalCenter="0" verticalCenter="0" source="brdz_1_png"/>
+	<e:Image id="animeImg" source="brdz_1_png" anchorOffsetX="81.5" anchorOffsetY="79.5" x="113.5" y="113.5" width="163" height="159"/>
+	<e:Image id="star0" source="hall_tx_1_png" anchorOffsetX="36" anchorOffsetY="35.5" x="173" y="43" scaleX="0" scaleY="0"/>
+	<e:Image id="star1" source="hall_tx_1_png" anchorOffsetX="36" anchorOffsetY="35.5" x="95" y="12" scaleX="0.8" scaleY="0.8"/>
+	<e:Image source="hall_btdz_png" bottom="10" horizontalCenter="5"/>
+</e:Skin>
