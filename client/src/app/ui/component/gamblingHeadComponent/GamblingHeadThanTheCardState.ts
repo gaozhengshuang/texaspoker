@@ -16,7 +16,7 @@ class GamblingHeadThanTheCardState extends BaseGamblingHeadState
 			this.context.showBase();
 			this.context.showHaveCardImg(false);
 			this.context.showCardFace(true);
-			qin.Console.log("比牌状态显示手牌");
+			game.Console.log("比牌状态显示手牌");
 			if (!this._point1)
 			{
 				this._point1 = new egret.Point(55, 72);
@@ -26,7 +26,7 @@ class GamblingHeadThanTheCardState extends BaseGamblingHeadState
 			}
 			if (this.context.bindData)
 			{
-				//	qin.QinLog.log(this.context.bindData.userInfo.name + "在比牌！");
+				//	game.QinLog.log(this.context.bindData.userInfo.name + "在比牌！");
 			}
 			if (GamblingUtil.isOmaha)
 			{

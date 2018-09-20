@@ -10,7 +10,7 @@ class GuideRunPanelFuncStepProcess extends BaseGuideStepProcess
 			let panel: BasePanel = UIManager.getPanel(this.stepDef.panelName);
 			if (!panel)
 			{
-				qin.Console.logError("引导执行面板函数触发异常！未找到面板，面板名：" + this.stepDef.panelName);
+				game.Console.logError("引导执行面板函数触发异常！未找到面板，面板名：" + this.stepDef.panelName);
 				return;
 			}
 			if (this.stepDef.component)
@@ -23,7 +23,7 @@ class GuideRunPanelFuncStepProcess extends BaseGuideStepProcess
 				}
 				if (!component)
 				{
-					qin.Console.logError("引导执行面板函数触发异常！未找到属性，面板名：" + this.stepDef.panelName + "属性列表：" + this.stepDef.component);
+					game.Console.logError("引导执行面板函数触发异常！未找到属性，面板名：" + this.stepDef.panelName + "属性列表：" + this.stepDef.component);
 					return;
 				}
 				if (component[this.stepDef.component[len - 1]])
@@ -36,17 +36,17 @@ class GuideRunPanelFuncStepProcess extends BaseGuideStepProcess
 				}
 				else
 				{
-					qin.Console.logError("引导执行面板函数触发异常！未找到函数，面板名：" + this.stepDef.panelName + "属性列表：" + this.stepDef.component);
+					game.Console.logError("引导执行面板函数触发异常！未找到函数，面板名：" + this.stepDef.panelName + "属性列表：" + this.stepDef.component);
 				}
 			}
 			else
 			{
-				qin.Console.logError("引导执行面板函数触发异常！未找到属性，面板名：" + this.stepDef.panelName + "属性列表：" + this.stepDef.component);
+				game.Console.logError("引导执行面板函数触发异常！未找到属性，面板名：" + this.stepDef.panelName + "属性列表：" + this.stepDef.component);
 			}
 		}
 		else
 		{
-			qin.Console.log("引导数据未找到");
+			game.Console.log("引导数据未找到");
 		}
 	}
 }

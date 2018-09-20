@@ -8,7 +8,7 @@ class BindPhoneManager
     */
     public static reqGetCode(mno: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             BindPhoneManager.onGetCodeEvent.dispatch();
         };
@@ -19,7 +19,7 @@ class BindPhoneManager
     */
     public static reqBindPhone(mno: string, code: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             BindPhoneManager.onBindPhoneEvent.dispatch();
         };
@@ -29,9 +29,9 @@ class BindPhoneManager
     /**
      * 获取手机验证码成功广播
     */
-    public static onGetCodeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetCodeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 绑定手机成功广播
     */
-    public static onBindPhoneEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onBindPhoneEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

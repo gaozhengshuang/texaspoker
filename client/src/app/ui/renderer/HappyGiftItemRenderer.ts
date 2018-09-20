@@ -25,7 +25,7 @@ class HappyGiftItemRenderer extends BaseItemRenderer<HappyGiftItemInfo>
     {
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.costLabel.text = qin.MathUtil.numAddSpace(this.bindData.definition.cost) + "欢乐券";
+            this.costLabel.text = game.MathUtil.numAddSpace(this.bindData.definition.cost) + "欢乐券";
             if (this.bindData.awardInfoDef)
             {
                 let rewardList = this.bindData.awardInfoDef.rewardList;
@@ -36,7 +36,7 @@ class HappyGiftItemRenderer extends BaseItemRenderer<HappyGiftItemInfo>
                     {
                         if (itemDef.id == ItemFixedId.gold)
                         {
-                            this.nameLabel.text = itemDef.name + " * " + qin.MathUtil.formatNum(rewardList[0].count);
+                            this.nameLabel.text = itemDef.name + " * " + game.MathUtil.formatNum(rewardList[0].count);
                         }
                         else
                         {

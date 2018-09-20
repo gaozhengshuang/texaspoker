@@ -3,7 +3,7 @@
  */
 class ChampionshipHandler
 {
-    public initializeRoomInfo(result: qin.SpRpcResult)
+    public initializeRoomInfo(result: game.SpRpcResult)
     {
         if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match) 
         {
@@ -194,7 +194,7 @@ class ChampionshipHandler
         {
             return;
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             SocketManager.RemoveCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
             SocketManager.RemoveErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
@@ -223,12 +223,12 @@ class ChampionshipHandler
                         if (type == ChampionshipBuyType.Rebuy)
                         {
                             GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.initialChips;
-                            AlertManager.showAlert(qin.StringUtil.format("重购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.initialChips));
+                            AlertManager.showAlert(game.StringUtil.format("重购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.initialChips));
                         }
                         else
                         {
                             GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.addonChips;
-                            AlertManager.showAlert(qin.StringUtil.format("增购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.addonChips));
+                            AlertManager.showAlert(game.StringUtil.format("增购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.addonChips));
                         }
                     }
                     else
@@ -246,7 +246,7 @@ class ChampionshipHandler
             }
             GamblingManager.RebuyORAddonEvent.dispatch({ isSuccess: true })
         };
-        let callbackError: Function = function (result: qin.SpRpcResult)
+        let callbackError: Function = function (result: game.SpRpcResult)
         {
             SocketManager.RemoveCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
             SocketManager.RemoveErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
@@ -270,18 +270,18 @@ class ChampionshipHandler
     public outChampionship(recordId: number)
     {
         GamblingManager.roomInfo.isMatchOut = true;
-        qin.Console.log("房间处于旁观状态状态");
+        game.Console.log("房间处于旁观状态状态");
     }
     /**
      * 比赛房间侦听自动解散
      */
     public startRoomDisbandListener()
     {
-        qin.Tick.AddSecondsInvoke(this.checkRoomPlayerList, this);
+        game.Tick.AddSecondsInvoke(this.checkRoomPlayerList, this);
     }
     public stopRoomDisbandListener()
     {
-        qin.Tick.RemoveSecondsInvoke(this.checkRoomPlayerList, this);
+        game.Tick.RemoveSecondsInvoke(this.checkRoomPlayerList, this);
     }
     private checkRoomPlayerList()
     {

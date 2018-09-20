@@ -19,7 +19,7 @@ class CardFaceBright extends BaseAnimation<CardFaceComponent>{
 		super.run(rotation, y);
 		this.target.x = this.target.initMatrix.tx - initOffsetX;
 		let tween: egret.Tween = egret.Tween.get(this.target);
-		this.callBack = new qin.Delegate(callBack, thisObj);
+		this.callBack = new game.Delegate(callBack, thisObj);
 		this.target.visible = true;
 
 		tween.to({ x: this.target.initMatrix.tx + x, y: this.target.initMatrix.ty + y, scaleX: 1, scaleY: 1, alpha: 1 }, 300).wait(20).to({ rotation: rotation, y: this.target.initMatrix.ty + y - 25 }, 100).call(this.runOver, this);

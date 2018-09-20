@@ -143,8 +143,8 @@ class GiftShopPanel extends BasePanel
 	{
 		this.buyBtn.label = this._userInfo.roleId == UserManager.userInfo.roleId ? "购买" : "赠送";
 		this.buyBtn.enabled = ShopManager.giftShopSelect ? true : false;
-		this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
-		this.diamondNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.diamond);
+		this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
+		this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
 	}
 
 	private onSelect()
@@ -262,10 +262,10 @@ class GiftShopPanel extends BasePanel
 				this.vipTimeLabel.visible = true;
 				break;
 		}
-		this.vipTimeLabel.text = qin.DateTimeUtil.formatDate(new Date(VipManager.GetVipTime(userInfo) * 1000), qin.DateTimeUtil.Format_Standard_Date);
+		this.vipTimeLabel.text = game.DateTimeUtil.formatDate(new Date(VipManager.GetVipTime(userInfo) * 1000), game.DateTimeUtil.Format_Standard_Date);
 		this.buyVipButton.visible = userInfo.roleId == UserManager.userInfo.roleId;
 		this.vipProgressImg.width = 560;
-		this.vipProgressImg.width *= qin.MathUtil.clamp(parseFloat((userInfo.vipExp / 6000).toFixed(2)), 0, 1);
+		this.vipProgressImg.width *= game.MathUtil.clamp(parseFloat((userInfo.vipExp / 6000).toFixed(2)), 0, 1);
 		this.vipProgressLabel.text = userInfo.vipExp.toString();
 		this.vipProgressLabel.x = this.vipProgressImg.width;
 		this.processBg.x = this.vipProgressImg.width;
@@ -279,8 +279,8 @@ class GiftShopPanel extends BasePanel
  	*/
 	private refreshGold(num?: number)
 	{
-		this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
-		this.diamondNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.diamond);
+		this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
+		this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
 	}
 
 	private onSend(data: any)
@@ -306,7 +306,7 @@ class GiftShopPanel extends BasePanel
 			}
 			else
 			{
-				qin.Console.logError("未选中商品！");
+				game.Console.logError("未选中商品！");
 			}
 
 		}

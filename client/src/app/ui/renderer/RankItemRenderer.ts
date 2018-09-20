@@ -56,14 +56,14 @@ class RankItemRenderer extends BaseItemRenderer<RankInfo>
                 {
                     case RankType.Gold:
                     case RankType.FriendGold:
-                        this.numLabel.text = "$ " + qin.MathUtil.numAddSpace(this.bindData.score);
+                        this.numLabel.text = "$ " + game.MathUtil.numAddSpace(this.bindData.score);
                         break;
                     case RankType.Level:
                     case RankType.FriendLevel:
-                        this.numLabel.text = "等级：" + qin.MathUtil.formatNum(this.bindData.score);
+                        this.numLabel.text = "等级：" + game.MathUtil.formatNum(this.bindData.score);
                         break;
                     case RankType.Vip:
-                        this.numLabel.text = "成长值：" + qin.MathUtil.formatNum(this.bindData.score);
+                        this.numLabel.text = "成长值：" + game.MathUtil.formatNum(this.bindData.score);
                         break;
                 }
             }

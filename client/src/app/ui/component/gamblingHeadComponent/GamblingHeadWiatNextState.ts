@@ -18,12 +18,12 @@ class GamblingHeadWiatNextState extends BaseGamblingHeadState
 			// if (this.context.bindData.userInfo)
 			// {
 			// this.context.infoLabel.text = this.context.bindData.userInfo.name;
-			//	qin.QinLog.log("等待下一局显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
+			//	game.QinLog.log("等待下一局显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
 			// }
 			this.context.showStateGroup(false);
 			this.context.showBankRoll();
-			// this.context.chipsLabel.text = qin.MathUtil.formatNum(this.context.bindData.bankRoll);
-			//qin.QinLog.log(this.context.bindData.userInfo.name + "等待下一局");
+			// this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankRoll);
+			//game.QinLog.log(this.context.bindData.userInfo.name + "等待下一局");
 		}
 	}
 }

@@ -55,8 +55,8 @@ class HundredWarItemRenderer extends BaseItemRenderer<HundredWarListInfo>
             this.titleImg.source = this.bindData.definition.titleImg + ResSuffixName.PNG;
             this.poolImg.source = this.bindData.definition.poolImg + ResSuffixName.PNG;
             this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.maxRole;
-            this.priceLabel.text = qin.MathUtil.formatNum(this.bindData.definition.minBuyin);
-            this.numComp.init("$" + qin.MathUtil.numAddSpace(this.bindData.pool), NumResType.HundredWar2, 2);
+            this.priceLabel.text = game.MathUtil.formatNum(this.bindData.definition.minBuyin);
+            this.numComp.init("$" + game.MathUtil.numAddSpace(this.bindData.pool), NumResType.HundredWar2, 2);
             for (let i: number = 0; i < this.labelGroup.numChildren; i++)
             {
                 let label: eui.Label = this.labelGroup.getChildAt(i) as eui.Label;

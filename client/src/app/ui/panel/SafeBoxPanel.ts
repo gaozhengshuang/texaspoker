@@ -205,8 +205,8 @@ class SafeBoxPanel extends BasePanel
 	public refreshProperty()
 	{
 		this.withdrawPwd.init({ isNotMaskKeyPanel: true });
-		this.currentGold.text = qin.MathUtil.numAddSpace(UserManager.userInfo.gold);
-		this.saveGold.text = qin.MathUtil.numAddSpace(UserManager.userInfo.safeGold);
+		this.currentGold.text = game.MathUtil.numAddSpace(UserManager.userInfo.gold);
+		this.saveGold.text = game.MathUtil.numAddSpace(UserManager.userInfo.safeGold);
 		if (this._safeGold > UserManager.userInfo.safeGold)
 		{
 			this.withdrawGoldHs.value = 0;

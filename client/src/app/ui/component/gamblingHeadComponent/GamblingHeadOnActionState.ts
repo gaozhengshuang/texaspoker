@@ -18,11 +18,11 @@ class GamblingHeadOnActionState extends BaseGamblingHeadState
 				// {
 				// 	let offsetTime: number = TimeManager.GetServerUtcTimestamp() - GamblingManager.roomInfo.posTime;
 				// 	this._timeId = egret.setTimeout(this.actionTimeOut, this, offsetTime * 1000000);
-				// 	// qin.Tick.getInstance().AddTimeoutInvoke(this.actionTimeOut, offsetTime * 10000, this);
+				// 	// game.Tick.getInstance().AddTimeoutInvoke(this.actionTimeOut, offsetTime * 10000, this);
 				// }
 				// else
 				// {
-				// 	// qin.Tick.getInstance().AddTimeoutInvoke(this.actionTimeOut, GamblingManager.roomInfo.definition.cd * 10000, this);
+				// 	// game.Tick.getInstance().AddTimeoutInvoke(this.actionTimeOut, GamblingManager.roomInfo.definition.cd * 10000, this);
 				// 	this._timeId = egret.setTimeout(this.actionTimeOut, this, GamblingManager.roomInfo.definition.cd * 1000000);
 				// }
 				let index: number = this.context.playerGroup.getChildIndex(this.context.haveCard1.parent);
@@ -35,10 +35,10 @@ class GamblingHeadOnActionState extends BaseGamblingHeadState
 				if (this.context.bindData)
 				{
 					// this.context.infoLabel.text = PlayerInfo.getStateDes(PlayerState.Action);
-					this.context.chipsLabel.text = qin.MathUtil.formatNum(this.context.bindData.bankRoll);
+					this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankRoll);
 					if (this.context.bindData.userInfo)
 					{
-						qin.Console.log("说话状态显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
+						game.Console.log("说话状态显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
 					}
 				}
 			}
@@ -46,11 +46,11 @@ class GamblingHeadOnActionState extends BaseGamblingHeadState
 			{
 				if (this.context.cardFace1.visible == false || this.context.cardFace2.visible == false)
 				{
-					qin.Console.log("异常处理说话状态自己还看不到手牌");
+					game.Console.log("异常处理说话状态自己还看不到手牌");
 					//this.context.showCardFace(true);
 				}
 			}
-			//	qin.QinLog.log(this.context.bindData.userInfo.name + "在说话");
+			//	game.QinLog.log(this.context.bindData.userInfo.name + "在说话");
 		}
 	}
 }

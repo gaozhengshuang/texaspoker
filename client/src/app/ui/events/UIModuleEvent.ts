@@ -10,7 +10,7 @@ class UIModuleEvent extends egret.Event
 	/**
 	 * 面板名
 	 */
-	public panelName: string = qin.StringConstants.Empty;
+	public panelName: string = game.StringConstants.Empty;
 	//面板事件-----
 	/**
     * 面传入回调target初始化事件

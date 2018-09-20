@@ -3,7 +3,7 @@
  */
 class HundredWarCardsAnimationSupport 
 {
-    private _actionList: qin.Dictionary<string, BaseAnimation<any>>;
+    private _actionList: game.Map<string, BaseAnimation<any>>;
 	/**
  	* 本家手牌Y坐标
  	*/
@@ -55,7 +55,7 @@ class HundredWarCardsAnimationSupport
     {
         if (!this._actionList)
         {
-            this._actionList = new qin.Dictionary<string, BaseAnimation<any>>();
+            this._actionList = new game.Map<string, BaseAnimation<any>>();
         }
         let key: string = type.toString() + "_" + index.toString();
         if (!this._actionList.containsKey(key))

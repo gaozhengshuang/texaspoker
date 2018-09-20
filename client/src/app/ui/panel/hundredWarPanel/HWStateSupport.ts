@@ -34,9 +34,9 @@ class HWStateSupport extends BaseHWPanelSupport
         super.onDisable();
         HundredWarManager.onRoomStateChangeEvent.removeListener(this.onStateChange, this);
         HundredWarManager.onHideCardsEvent.removeListener(this.showRestCountDown, this)
-        qin.Tick.RemoveSecondsInvoke(this.betCountDown, this);
-        qin.Tick.RemoveSecondsInvoke(this.restCountDown, this);
-        qin.Tick.RemoveTimeoutInvoke(this.reqNextRoundStart, this);
+        game.Tick.RemoveSecondsInvoke(this.betCountDown, this);
+        game.Tick.RemoveSecondsInvoke(this.restCountDown, this);
+        game.Tick.RemoveTimeoutInvoke(this.reqNextRoundStart, this);
     }
 
     /**
@@ -114,10 +114,10 @@ class HWStateSupport extends BaseHWPanelSupport
     */
     public showBetCountDown()
     {
-        qin.Tick.RemoveSecondsInvoke(this.restCountDown, this);
+        game.Tick.RemoveSecondsInvoke(this.restCountDown, this);
         this.betCountDown();
         this.isOnBet = true;
-        qin.Tick.AddSecondsInvoke(this.betCountDown, this);
+        game.Tick.AddSecondsInvoke(this.betCountDown, this);
     }
     /**
      * 下注倒计时
@@ -140,7 +140,7 @@ class HWStateSupport extends BaseHWPanelSupport
         {
             this.target.alertLabel.visible = false;
             this.isOnBet = false;
-            qin.Tick.RemoveSecondsInvoke(this.betCountDown, this);
+            game.Tick.RemoveSecondsInvoke(this.betCountDown, this);
         }
     }
     /**
@@ -148,9 +148,9 @@ class HWStateSupport extends BaseHWPanelSupport
     */
     public proceedRestCountDown()
     {
-        qin.Tick.RemoveSecondsInvoke(this.betCountDown, this);
+        game.Tick.RemoveSecondsInvoke(this.betCountDown, this);
         this.restCountDown();
-        qin.Tick.AddSecondsInvoke(this.restCountDown, this);
+        game.Tick.AddSecondsInvoke(this.restCountDown, this);
     }
     /**
      * 显示休息倒计时
@@ -173,8 +173,8 @@ class HWStateSupport extends BaseHWPanelSupport
         if (this._restCountDownTime < 0)
         {
             this.target.alertLabel.visible = false;
-            qin.Tick.AddTimeoutInvoke(this.reqNextRoundStart, 1000, this);
-            qin.Tick.RemoveSecondsInvoke(this.restCountDown, this);
+            game.Tick.AddTimeoutInvoke(this.reqNextRoundStart, 1000, this);
+            game.Tick.RemoveSecondsInvoke(this.restCountDown, this);
         }
     }
     /**

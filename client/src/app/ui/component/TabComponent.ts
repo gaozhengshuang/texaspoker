@@ -33,7 +33,7 @@ class TabComponent extends BaseComponent<any>
         this.bindData = data;
         if (data.groupList == null || data.nameList == null)
         {
-            qin.Console.log("传入数据为空");
+            game.Console.log("传入数据为空");
             return;
         }
         if (data.groupList[0])
@@ -125,7 +125,7 @@ class TabComponent extends BaseComponent<any>
     */
     public clear()
     {
-        qin.ArrayUtil.Clear(this._tabInfoList);
+        game.ArrayUtil.Clear(this._tabInfoList);
         if (this.tabGroup.numChildren > 0)
         {
             this.tabGroup.removeChildren();
@@ -211,11 +211,11 @@ class TabComponent extends BaseComponent<any>
             let button: eui.ToggleButton = this._tabInfoList[num].tabButton;
             if (flag)
             {
-                // qin.FilterUtil.setDefault(button);
+                // game.FilterUtil.setDefault(button);
             }
             else
             {
-                // qin.FilterUtil.setGray(button);
+                // game.FilterUtil.setGray(button);
             }
             button.touchEnabled = flag;
         }
@@ -228,7 +228,7 @@ class TabComponent extends BaseComponent<any>
     {
         if (!this.bindData)
         {
-            qin.Console.log("传入数据为空");
+            game.Console.log("传入数据为空");
             return;
         }
         for (let i = 0; i < this.bindData.groupList.length; i++)
@@ -287,7 +287,7 @@ class TabComponent extends BaseComponent<any>
     /**
      * 选项卡改变事件
      */
-    public tabChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public tabChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 
 class TabComponentData

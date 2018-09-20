@@ -57,7 +57,7 @@ class OutsItemRenderer extends BaseItemRenderer<OutsInfo>
             {
                 this.dateLabel.text = "今天";
             }
-            this.timeLabel.text = qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(qin.StringConstants.Blank)[1];
+            this.timeLabel.text = game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(game.StringConstants.Blank)[1];
             this.nameLabel.text = this.bindData.name;
             this.rankLabel.text = "冠军";
             this.userNameLabel.text = this.bindData.rankList[0].name;

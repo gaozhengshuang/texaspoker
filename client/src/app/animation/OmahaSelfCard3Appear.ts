@@ -17,12 +17,12 @@ class OmahaSelfCard3Appear extends BaseAnimation<CardFaceComponent>
     {
         super.run();
         this._isSound = isSound;
-        qin.Tick.AddTimeoutInvoke(this.delayRun, 400, this);
+        game.Tick.AddTimeoutInvoke(this.delayRun, 400, this);
     }
     private delayRun()
     {
         this.target.visible = true; //设置本家手牌3显示
-        qin.Console.log("显示本家手牌3");
+        game.Console.log("显示本家手牌3");
         let tween: egret.Tween = egret.Tween.get(this.tsfMatrix, { onChange: this.change.bind(this) });
 
         tween.to({ a: GamblingPanelSetting.handCardMatrix5.a, b: GamblingPanelSetting.handCardMatrix5.b, c: GamblingPanelSetting.handCardMatrix5.c, d: GamblingPanelSetting.handCardMatrix5.d }, 300).call(this.runOver, this);
@@ -38,7 +38,7 @@ class OmahaSelfCard3Appear extends BaseAnimation<CardFaceComponent>
     }
     public clear()
     {
-        qin.Tick.RemoveTimeoutInvoke(this.delayRun, this);
+        game.Tick.RemoveTimeoutInvoke(this.delayRun, this);
         super.clear();
     }
 }

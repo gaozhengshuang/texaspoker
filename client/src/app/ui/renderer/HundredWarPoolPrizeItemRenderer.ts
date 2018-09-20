@@ -50,7 +50,7 @@ class HundredWarPoolPrizeItemRenderer extends BaseItemRenderer<SimpleUserInfo>
             this.rankLabel.text = rank.toString();
             this.userHeadCom.init(this.bindData, 60);
             this.nameLabel.text = this.bindData.name;
-            this.goldNumLabel.text = "$" + qin.MathUtil.formatNum(this.bindData.gold);
+            this.goldNumLabel.text = "$" + game.MathUtil.formatNum(this.bindData.gold);
         }
     }
 

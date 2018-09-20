@@ -36,7 +36,7 @@ class UIUtil
 	{
 		if (!list || !scroller || !renderer)
 		{
-			qin.Console.log("初始化失败！绑定的组件对象不能为空！");
+			game.Console.log("初始化失败！绑定的组件对象不能为空！");
 			return;
 		}
 		if (dir != undefined && operation != undefined)
@@ -175,7 +175,7 @@ class UIUtil
 		{
 			return SheetSubName.MaleImg;
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 	/**
 	 * 对容器进行子项重排
@@ -196,7 +196,7 @@ class UIUtil
 	 */
 	public static containerImgOper(container: egret.DisplayObjectContainer)
 	{
-		qin.ArrayUtil.Clear(UIUtil._imgList);
+		game.ArrayUtil.Clear(UIUtil._imgList);
 		let numImg: eui.Image;
 		for (let i: number = 0; i < container.numChildren; i++)
 		{
@@ -308,7 +308,7 @@ class UIUtil
 	{
 		UIUtil.addNotify(target, type, params, top, right);
 	}
-	private static _notifyComponentMap: qin.Dictionary<string, NotifyComponent> = new qin.Dictionary<string, NotifyComponent>();
+	private static _notifyComponentMap: game.Map<string, NotifyComponent> = new game.Map<string, NotifyComponent>();
 	private static addNotify(target: egret.DisplayObjectContainer, type: NotifyType, params?: any, top?: number, right?: number)
 	{
 		if (!type)
@@ -340,7 +340,7 @@ class UIUtil
 	{
 		if (target["btnImg"])
 		{
-			qin.FilterUtil.setColorFilters(target["btnImg"], color);
+			game.FilterUtil.setColorFilters(target["btnImg"], color);
 		}
 	}
 	/**
@@ -463,7 +463,7 @@ class UIUtil
 	{
 		if (!url || !img)
 		{
-			qin.Console.logError("加载背景异常！" + "url:" + url + "img:" + img);
+			game.Console.logError("加载背景异常！" + "url:" + url + "img:" + img);
 			return;
 		}
 		url = ResPrefixPathName.Bg + url;

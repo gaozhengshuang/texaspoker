@@ -131,7 +131,7 @@ class LoginPanel extends BasePanel
 		SoundManager.playButtonEffect(event.target);
 		if (this.isAgreeUserAgreement())
 		{
-			if (qin.System.isWeb || ChannelManager.hasWeixin)
+			if (game.System.isWeb || ChannelManager.hasWeixin)
 			{
 				UIManager.dispatchEvent(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, ChannelLoginType.Weixin);
 			}

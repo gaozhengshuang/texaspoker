@@ -176,7 +176,7 @@ class GamblingManager
 		GamblingManager.lastCallPos = undefined;
 		GamblingManager.clearMatchRoomInfo();
 		GamblingManager.timeAwardHandler.isGetTimeAward = false;
-		qin.Tick.RemoveSecondsInvoke(GamblingManager.sngReadyCountDown, this);
+		game.Tick.RemoveSecondsInvoke(GamblingManager.sngReadyCountDown, this);
 	}
 	public static clearMatchRoomInfo()
 	{
@@ -273,7 +273,7 @@ class GamblingManager
 	/**
 	 * 推送离开房间
 	 */
-	public static pushExitRoom(result: qin.SpRpcResult)
+	public static pushExitRoom(result: game.SpRpcResult)
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && result.data && GamblingManager.roomInfo.id == result.data["id"])
 		{
@@ -302,9 +302,9 @@ class GamblingManager
 	 */
 	public static reqEnterRoom(id: number = 0, password?: string, isQuicklyEnter?: boolean, isReconnect?: boolean)
 	{
-		// qin.QinLog.log("gamlbingmanager进入房间：reqEnterRoom" + id);
+		// game.QinLog.log("gamlbingmanager进入房间：reqEnterRoom" + id);
 		// GamblingManager.roomDataPushHandler.reset();
-		let callback: Function = function (result: qin.SpRpcResult)
+		let callback: Function = function (result: game.SpRpcResult)
 		{
 			SocketManager.RemoveCommandListener(Command.EnterRoomInfo_Req_3600, callback, this);
 			GamblingManager.isQuicklyEnter = isQuicklyEnter;
@@ -329,7 +329,7 @@ class GamblingManager
 			SocketManager.Send(Command.EnterRoomInfo_Req_3600);
 		}
 	}
-	public static initialize(result: qin.SpRpcResult, isReconnect?: boolean)
+	public static initialize(result: game.SpRpcResult, isReconnect?: boolean)
 	{
 		GamblingManager.reset();
 		if (result.data && result.data["id"])
@@ -355,7 +355,7 @@ class GamblingManager
 
 			if (GamblingManager.roomInfo.handCard && GamblingManager.roomInfo.handCard.length > 2)
 			{
-				qin.Console.logError("手牌张数大于2" + GamblingManager.roomInfo.handCard.length);
+				game.Console.logError("手牌张数大于2" + GamblingManager.roomInfo.handCard.length);
 			}
 			if (GamblingManager.roomInfo.playerList && GamblingManager.roomInfo.playerList.length > 0)
 			{
@@ -396,7 +396,7 @@ class GamblingManager
 	/**
 	 * 推送下一局开始
 	 */
-	public static pushNextRoundStart(result: qin.SpRpcResult)
+	public static pushNextRoundStart(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.NextRoundStart_Push_2107, result);
 		if (result.data && GamblingManager.roomInfo)
@@ -451,7 +451,7 @@ class GamblingManager
 	/**
 	 * 推送盲注前注变化
 	 */
-	public static pushBlindChange(result: qin.SpRpcResult)
+	public static pushBlindChange(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.BlindChange_Push_2100, result);
 		if (result.data && GamblingManager.roomInfo)
@@ -467,7 +467,7 @@ class GamblingManager
 			GamblingManager.BlindChangeEvent.dispatch({ isAddLevel: isAddLevel });
 		}
 	}
-	private static pushPotChipsChange(result: qin.SpRpcResult)
+	private static pushPotChipsChange(result: game.SpRpcResult)
 	{
 		if (result.data && GamblingManager.roomInfo)
 		{
@@ -478,7 +478,7 @@ class GamblingManager
 	/**
 	 * 推送公共牌
 	 */
-	public static pushOneLoopOver(result: qin.SpRpcResult)
+	public static pushOneLoopOver(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.OneLoopOver_Push_2102, result);
 		if (result.data && GamblingManager.roomInfo)
@@ -497,7 +497,7 @@ class GamblingManager
 			// }
 			if (!GamblingManager.roomInfo.publicCard)
 			{
-				// qin.CopyUtil.supCopyList(GamblingManager.roomInfo, result.data, "cardList", CardInfo);
+				// game.CopyUtil.supCopyList(GamblingManager.roomInfo, result.data, "cardList", CardInfo);
 				GamblingManager.roomInfo.publicCard = new Array<CardInfo>();
 			}
 			GamblingUtil.cardArr2CardInfoList(result.data["card"], GamblingManager.roomInfo.publicCard);
@@ -525,7 +525,7 @@ class GamblingManager
 	/**
 	 * 推送玩家坐下或站起
 	 */
-	public static pushSitOrStand(result: qin.SpRpcResult)
+	public static pushSitOrStand(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.SitOrStand_Push_2103, result);
 		if (result.data)
@@ -564,7 +564,7 @@ class GamblingManager
 	/**
 	 * 推送玩家状态变更
 	 */
-	public static pushStateChange(result: qin.SpRpcResult)
+	public static pushStateChange(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.PlayerStateChange_Push_2104, result);
 		if (result.data)
@@ -679,7 +679,7 @@ class GamblingManager
 	/**
 	 * 推送说话位置变更
 	 */
-	public static pushActionPosChange(result: qin.SpRpcResult)
+	public static pushActionPosChange(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.ActionPosChange_Push_2105, result);
 		if (result.data && GamblingManager.roomInfo)
@@ -691,7 +691,7 @@ class GamblingManager
 	/**
 	 * 推送一局结束
 	 */
-	public static pushOneRoundOver(result: qin.SpRpcResult)
+	public static pushOneRoundOver(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.OneRoundOver_Push_2106, result);
 		if (result.data)
@@ -726,7 +726,7 @@ class GamblingManager
 	/**
 	 * 推送玩家手牌
 	 */
-	public static pushHandCard(result: qin.SpRpcResult)
+	public static pushHandCard(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.HandCard_Push_2108, result);
 		if (result.data && GamblingManager.self)
@@ -746,7 +746,7 @@ class GamblingManager
 				}
 				if (GamblingManager.roomInfo.handCard && GamblingManager.roomInfo.handCard.length > 2)
 				{
-					qin.Console.logError("手牌张数大于2" + GamblingManager.roomInfo.handCard.length);
+					game.Console.logError("手牌张数大于2" + GamblingManager.roomInfo.handCard.length);
 				}
 			}
 			let cardList: Array<CardInfo>;
@@ -761,7 +761,7 @@ class GamblingManager
 	/**
 	 * 推送筹码变更
 	 */
-	public static pushChipsChange(result: qin.SpRpcResult)
+	public static pushChipsChange(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.ChipsChange_Push_2110, result);
 		if (result.data)
@@ -779,7 +779,7 @@ class GamblingManager
 	/**
 	 * 推送玩家列表状态变更
 	 */
-	private static pushPlayerListStateChange(result: qin.SpRpcResult)
+	private static pushPlayerListStateChange(result: game.SpRpcResult)
 	{
 		if (result.data)
 		{
@@ -800,7 +800,7 @@ class GamblingManager
 			}
 		}
 	}
-	public static pushInTrusteeship(result: qin.SpRpcResult)
+	public static pushInTrusteeship(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.InTrusteeship_Push_2119, result);
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && !GamblingManager.roomInfo.isTrusteeship)
@@ -812,7 +812,7 @@ class GamblingManager
 	/**
 	 * 推送有人立即亮牌
 	 */
-	public static pushImmediatelyBirhgtCard(result: qin.SpRpcResult)
+	public static pushImmediatelyBirhgtCard(result: game.SpRpcResult)
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && result.data)
 		{
@@ -827,7 +827,7 @@ class GamblingManager
 			egret.log("重连从新拉取数据！");
 			let id: number = GamblingManager.roomInfo.id;
 			GamblingManager.reset();
-			GamblingManager.reqEnterRoom(id, qin.StringConstants.Empty, false, true); //从新拉取房间数据
+			GamblingManager.reqEnterRoom(id, game.StringConstants.Empty, false, true); //从新拉取房间数据
 		}
 	}
 	//--------------------------------------------------------------------
@@ -853,15 +853,15 @@ class GamblingManager
 				GamblingManager.sngReadyCountDownTime = 8;
 			}
 		}
-		qin.Tick.RemoveSecondsInvoke(GamblingManager.sngReadyCountDown, this);
-		qin.Tick.AddSecondsInvoke(GamblingManager.sngReadyCountDown, this);
+		game.Tick.RemoveSecondsInvoke(GamblingManager.sngReadyCountDown, this);
+		game.Tick.AddSecondsInvoke(GamblingManager.sngReadyCountDown, this);
 	}
 	private static sngReadyCountDown()
 	{
 		GamblingManager.sngReadyCountDownTime--;
 		if (GamblingManager.sngReadyCountDownTime <= 0)
 		{
-			qin.Tick.RemoveSecondsInvoke(GamblingManager.sngReadyCountDown, this);
+			game.Tick.RemoveSecondsInvoke(GamblingManager.sngReadyCountDown, this);
 			GamblingManager.reqNextRoundStart();
 		}
 		GamblingManager.SngReadyCountDownEvent.dispatch();
@@ -892,7 +892,7 @@ class GamblingManager
 		SocketManager.Send(Command.NextRound_Req_3601);
 	}
 
-	private static onNextRoundStart(result: qin.SpRpcResult)
+	private static onNextRoundStart(result: game.SpRpcResult)
 	{
 		SocketManager.RemoveCommandListener(Command.NextRound_Req_3601, GamblingManager.onNextRoundStart, this);
 		if (GamblingManager.roomInfo)
@@ -912,7 +912,7 @@ class GamblingManager
 	 */
 	public static reqAction(state: PlayerState, num: number = 0)
 	{
-		let callBack: Function = function (result: qin.SpRpcResult)
+		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			if (GamblingManager.self)
 			{
@@ -953,7 +953,7 @@ class GamblingManager
 	 */
 	public static reqLeaveRoom(isInMtt: boolean = false)
 	{
-		let callBack: Function = function (result: qin.SpRpcResult)
+		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			let type: GamblingType = GamblingType.Common;
 			if (GamblingManager.roomInfo)
@@ -969,7 +969,7 @@ class GamblingManager
 			GamblingManager.leaveRoom();
 			GamblingManager.LeaveRoomEvent.dispatch({ type: type, isInMtt: isInMtt });
 		};
-		let callBackError: Function = function (result: qin.SpRpcResult)
+		let callBackError: Function = function (result: game.SpRpcResult)
 		{
 			let type: GamblingType = GamblingType.Common;
 			if (GamblingManager.roomInfo)
@@ -1029,7 +1029,7 @@ class GamblingManager
 	 */
 	public static reqBuyInGame(num: number, isAutoBuy: boolean, pos: number)
 	{
-		let callBack: Function = function (result: qin.SpRpcResult)
+		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			SocketManager.RemoveCommandListener(Command.BuyInGame_Req_3604, callBack, this);
 			GamblingManager._isOnSeat = true;
@@ -1054,7 +1054,7 @@ class GamblingManager
 		{
 			if (UserManager.userInfo.gold < GamblingManager.roomInfo.definition.sBuyin)
 			{
-				qin.Console.log("快速买入失败！玩家身上金币小于最低买入金额");
+				game.Console.log("快速买入失败！玩家身上金币小于最低买入金额");
 				return false;
 			}
 			let willBuyNum: number = Math.ceil(GamblingManager.roomInfo.definition.bBuyin / 2);
@@ -1072,12 +1072,12 @@ class GamblingManager
 					}
 				}
 			}
-			qin.Console.log("快速买入失败！买入金额" + willBuyNum + "位子已满？");
+			game.Console.log("快速买入失败！买入金额" + willBuyNum + "位子已满？");
 			return false;
 		}
 		else
 		{
-			qin.Console.log("快速买入失败！房间信息不能为空！");
+			game.Console.log("快速买入失败！房间信息不能为空！");
 			return false;
 		}
 	}
@@ -1086,7 +1086,7 @@ class GamblingManager
 	 */
 	public static reqStandUp()
 	{
-		let callBack: Function = function (result: qin.SpRpcResult)
+		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			SocketManager.RemoveCommandListener(Command.StandUp_Req_3605, callBack, this);
 			GamblingManager.StandUpEvent.dispatch();
@@ -1099,7 +1099,7 @@ class GamblingManager
 	 */
 	public static reqBrightCard()
 	{
-		let callBack: Function = function (result: qin.SpRpcResult)
+		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			SocketManager.RemoveCommandListener(Command.BrightCard_Req_3606, callBack, this);
 			if (GamblingManager.roomInfo)
@@ -1118,7 +1118,7 @@ class GamblingManager
 	{
 		if (num > 0)
 		{
-			let callBack: Function = function (result: qin.SpRpcResult)
+			let callBack: Function = function (result: game.SpRpcResult)
 			{
 				SocketManager.RemoveCommandListener(Command.AddCoin_Req_3607, callBack, this);
 				GamblingManager.AddCoinEvent.dispatch();
@@ -1128,7 +1128,7 @@ class GamblingManager
 		}
 		else
 		{
-			qin.Console.log("增加金币数量异常！");
+			game.Console.log("增加金币数量异常！");
 		}
 	}
 	//--------------------------组全用户信息用-----------------------------
@@ -1172,7 +1172,7 @@ class GamblingManager
 		if (!GamblingManager._isOnGetUserInfo)
 		{
 			GamblingManager._isOnGetUserInfo = true;
-			let callBack: Function = function (result: qin.SpRpcResult)
+			let callBack: Function = function (result: game.SpRpcResult)
 			{
 				GamblingManager._isOnGetUserInfo = false;
 				GamblingManager._getUserInfoQueue[0].userInfo = new UserInfo(result.data);
@@ -1184,7 +1184,7 @@ class GamblingManager
 					GamblingManager.getNext();
 				}
 			};
-			let errorCallBack: Function = function (result: qin.SpRpcResult)
+			let errorCallBack: Function = function (result: game.SpRpcResult)
 			{
 				GamblingManager._isOnGetUserInfo = false;
 				GamblingManager._getUserInfoQueue.shift();
@@ -1277,7 +1277,7 @@ class GamblingManager
 	public static removePlayer(roleId: number)
 	{
 		let player: PlayerInfo = GamblingManager.getPlayerInfo(roleId);
-		qin.ArrayUtil.RemoveItem(player, GamblingManager.roomInfo.playerList);
+		game.ArrayUtil.RemoveItem(player, GamblingManager.roomInfo.playerList);
 	}
 	/**
 	 * 获取玩家信息
@@ -1375,113 +1375,113 @@ class GamblingManager
 	/**
 	 * 拉取房间信息
 	 */
-	public static OnGetRoomInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnGetRoomInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 获取玩家房间信息
 	 */
-	public static OnGetRoomUserInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnGetRoomUserInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 下一局开始事件
 	 */
-	public static NextRoundStartEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static NextRoundStartEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 买入游戏事件
 	 */
-	public static BuyInGameEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static BuyInGameEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 坐下或站起
 	 */
-	public static SitOrStandEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static SitOrStandEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 玩家状态变更
 	 */
-	public static PlayerStateChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static PlayerStateChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 手牌推送
 	 */
-	public static HandCardComeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static HandCardComeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 筹码变更
 	 */
-	public static ChipsChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static ChipsChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 底池变更
 	 */
-	public static PotChipsChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static PotChipsChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 公共牌变化
 	 */
-	public static OneLoopOverEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OneLoopOverEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 推送说话位置变更
 	 */
-	public static ActionPosChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static ActionPosChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 准备状态变更
 	 */
-	public static ReadyStateChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static ReadyStateChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 说话完毕
 	 */
-	public static ActionOverEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static ActionOverEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 离开房间事件
 	 */
-	public static LeaveRoomEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static LeaveRoomEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 服务器主动推送房间离开
 	 */
-	public static OnPushLeaveRoomEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPushLeaveRoomEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 离开房间错误事件
 	 */
-	public static LeaveRoomErrorEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static LeaveRoomErrorEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 站起
 	 */
-	public static StandUpEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static StandUpEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 请求亮牌
 	 */
-	public static BrightCardFlagEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static BrightCardFlagEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 增加金币
 	 */
-	public static AddCoinEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static AddCoinEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 玩家列表状态变更
 	 */
-	public static PlayerListStateChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static PlayerListStateChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 一局结束
 	 */
-	public static RoundOverEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static RoundOverEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 盲注前注变更
 	 */
-	public static BlindChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static BlindChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
      * 重购/增购完成
      */
-	public static RebuyORAddonEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static RebuyORAddonEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 进入托管状态
 	 */
-	public static InTrusteeshipEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static InTrusteeshipEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 超时事件
 	 */
-	public static TimeOutEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static TimeOutEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 发牌完毕事件
 	 */
-	public static FlopCardOverEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static FlopCardOverEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 淘汰赛准备倒计时事件
 	 */
-	public static SngReadyCountDownEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static SngReadyCountDownEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 推送某人亮牌事件
 	 */
-	public static SomeBodyBrightCardEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static SomeBodyBrightCardEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

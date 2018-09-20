@@ -42,7 +42,7 @@ abstract class BaseServerValueInfo
 						}
 						else if (typeof this[key] == "string")
 						{
-							this[key] = qin.StringConstants.Empty;
+							this[key] = game.StringConstants.Empty;
 						}
 					}
 					else

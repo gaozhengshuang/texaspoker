@@ -6,7 +6,7 @@ class VersionManager
 	/**
 	 * 检测完成
 	 */
-	public static onServerComplete: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onServerComplete: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	private static _isMaintain: boolean = false;//是否维护
 	private static _clientVersion: string;//安装包版本
@@ -32,21 +32,21 @@ class VersionManager
 	 */
 	public static Initialize(callback: Function, thisObject: any): void
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			//微端
 			VersionManager._isSafe = DEBUG ? false : WebConfig.isSafe;
 			VersionManager._clientVersion = WebConfig.clientVersion;
-			VersionManager._clientVersionArray = qin.StringUtil.toIntArray(VersionManager._clientVersion, qin.StringConstants.Dot);
+			VersionManager._clientVersionArray = game.StringUtil.toIntArray(VersionManager._clientVersion, game.StringConstants.Dot);
 			if (VersionManager._clientVersionArray && VersionManager._clientVersionArray.length > 2)
 			{
 				let serverVersion: string = WebConfig.serverVersion;
-				let serverVersionArray: number[] = qin.StringUtil.toIntArray(serverVersion, qin.StringConstants.Dot);
+				let serverVersionArray: number[] = game.StringUtil.toIntArray(serverVersion, game.StringConstants.Dot);
 				let isNewClient: boolean = VersionUtil.CompareAllForce(VersionManager._clientVersionArray, serverVersionArray);
 				VersionManager._isServerTest = DEBUG ? true : isNewClient;
 				VersionManager.parsePackageVersion(serverVersion, serverVersionArray, VersionManager._clientVersionArray, function ()
 				{
-					qin.FuncUtil.invoke(callback, thisObject);
+					game.FuncUtil.invoke(callback, thisObject);
 				}, function ()
 					{
 						GameManager.reload();
@@ -62,15 +62,15 @@ class VersionManager
 			//web版
 			VersionManager._isSafe = false;
 			VersionManager._isServerTest = DEBUG ? true : URLOption.getBoolean(URLOption.ServerTest);
-			qin.FuncUtil.invoke(callback, thisObject);
+			game.FuncUtil.invoke(callback, thisObject);
 		}
 	}
 	private static onLoadVersionComplete(data: any, url: string)
 	{
-		qin.Console.log("version.json的数据：" + JSON.stringify(data));
+		game.Console.log("version.json的数据：" + JSON.stringify(data));
 		if (data)
 		{
-			VersionManager._isMaintain = qin.StringUtil.toBoolean(data.mt);
+			VersionManager._isMaintain = game.StringUtil.toBoolean(data.mt);
 			//web版、微端
 			if (RELEASE && VersionManager._isServerTest == false && VersionManager._isMaintain)
 			{
@@ -107,7 +107,7 @@ class VersionManager
 				}
 				else
 				{
-					qin.FuncUtil.invoke(callback, VersionManager, data);
+					game.FuncUtil.invoke(callback, VersionManager, data);
 				}
 			}
 		}
@@ -136,8 +136,8 @@ class VersionManager
 	 */
 	public static VerifyGameServer(gameServerVersion: string): boolean
 	{
-		let gsv: Array<number> = qin.StringUtil.toIntArray(gameServerVersion, qin.StringConstants.Dot);
-		let codeVersionArray: Array<number> = qin.StringUtil.toIntArray(ProjectDefined.GetInstance().codeVersion, qin.StringConstants.Dot);
+		let gsv: Array<number> = game.StringUtil.toIntArray(gameServerVersion, game.StringConstants.Dot);
+		let codeVersionArray: Array<number> = game.StringUtil.toIntArray(ProjectDefined.GetInstance().codeVersion, game.StringConstants.Dot);
 		if (codeVersionArray.length > 1)
 		{
 			if ((codeVersionArray[0] != gsv[0]) || (codeVersionArray[1] < gsv[1]))
@@ -193,7 +193,7 @@ class VersionManager
 	public static getVersionStr(): string
 	{
 		let vstr: string = "v" + ProjectDefined.GetInstance().codeVersion;
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			vstr = vstr + "(" + VersionManager._clientVersion + ")";
 		}

@@ -46,7 +46,7 @@ class GuessHandler
     public reset()
     {
         this.totalAnte = 0;
-        qin.ArrayUtil.Clear(this.guessOddsList);
+        game.ArrayUtil.Clear(this.guessOddsList);
     }
     /**
      * 离开房间重置数据
@@ -55,8 +55,8 @@ class GuessHandler
     {
         this.totalAnte = 0;
         GamblingManager.guessHandler.buyInning = undefined;
-        qin.ArrayUtil.Clear(this.resultList);
-        qin.ArrayUtil.Clear(this.buyGuessAnteInfo);
+        game.ArrayUtil.Clear(this.resultList);
+        game.ArrayUtil.Clear(this.buyGuessAnteInfo);
         this.onDisable();
     }
     public onEnable()
@@ -253,7 +253,7 @@ class GuessHandler
     */
     public reqBuyGuessAnte(type: number = 0, anteList?: Array<BuyGuessAnteInfo>)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
 
         };
@@ -272,7 +272,7 @@ class GuessHandler
     {
         SocketManager.call(Command.GuessCrunchies_Req_3623, null, this.getWeekInfoResponse, null, this);
     }
-    public getWeekInfoResponse(result: qin.SpRpcResult)
+    public getWeekInfoResponse(result: game.SpRpcResult)
     {
         if (result.data && result.data.Array)
         {
@@ -287,7 +287,7 @@ class GuessHandler
     {
         SocketManager.call(Command.GuessRecord_Req_3624, null, this.getBuyRecordInfoResponse, null, this);
     }
-    public getBuyRecordInfoResponse(result: qin.SpRpcResult)
+    public getBuyRecordInfoResponse(result: game.SpRpcResult)
     {
         if (result.data && result.data.Array)
         {
@@ -295,7 +295,7 @@ class GuessHandler
             {
                 this.recordList = new Array<GuessRecordInfo>();
             }
-            qin.ArrayUtil.Clear(this.recordList);
+            game.ArrayUtil.Clear(this.recordList);
             for (let dataInfo of result.data.Array)
             {
                 let recordInfo: GuessRecordInfo = new GuessRecordInfo();
@@ -339,27 +339,27 @@ class GuessHandler
     /**
      * 获取投注的手牌类型以及赔率的数据成功的广播
     */
-    public onGetGuessOddsInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onGetGuessOddsInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 投注注数更改广播
     */
-    public onChangeTotalAnteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onChangeTotalAnteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取本周榜单信息成功广播
     */
-    public onWeekInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onWeekInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取购买记录信息成功广播
     */
-    public onGetBuyRecordInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onGetBuyRecordInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 竞猜中奖广播
     */
-    public onGuessCorrectlyEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onGuessCorrectlyEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 下一局开始重置购买一次按钮状态广播
     */
-    public onResetBuyOnceStateEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onResetBuyOnceStateEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 /**
  * 投注手牌信息

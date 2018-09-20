@@ -43,7 +43,7 @@ class WebConfig
      */
     public static get isSafe(): boolean
     {
-        return window['web_config_isSafe'] == true && qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Ios;
+        return window['web_config_isSafe'] == true && game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Ios;
     }
     /**
      * 微信用户的openid，微信里打开有效
@@ -71,6 +71,6 @@ class WebConfig
      */
     public static get isWxWebAuthorize():boolean
     {
-        return qin.System.isWeb && WebConfig.wxAuthorizeType == WxAuthorizeType.Web && qin.StringUtil.isNullOrEmpty(WebConfig.wxRefreshToken) == false;
+        return game.System.isWeb && WebConfig.wxAuthorizeType == WxAuthorizeType.Web && game.StringUtil.isNullOrEmpty(WebConfig.wxRefreshToken) == false;
     }
 }

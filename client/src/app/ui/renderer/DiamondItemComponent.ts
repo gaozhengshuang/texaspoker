@@ -55,7 +55,7 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
         //             def = cost;
         //         }
         //     }
-        //     AlertManager.showConfirm(qin.StringUtil.format("是否花费{0}元，购买{1}？", def.count, this._awardDef.name), ChannelManager.PaySend, null, this._info.id);
+        //     AlertManager.showConfirm(game.StringUtil.format("是否花费{0}元，购买{1}？", def.count, this._awardDef.name), ChannelManager.PaySend, null, this._info.id);
         // }
     }
 }

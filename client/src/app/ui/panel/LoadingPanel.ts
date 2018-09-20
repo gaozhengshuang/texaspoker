@@ -39,7 +39,7 @@ class LoadingPanel extends BasePanel
 		{
 			this.container.parent.removeChild(this.container);
 		}
-		qin.Tick.AddTimeoutInvoke(this.delayShowContainer, 1000, this);
+		game.Tick.AddTimeoutInvoke(this.delayShowContainer, 1000, this);
 	}
 	private delayShowContainer()
 	{
@@ -56,7 +56,7 @@ class LoadingPanel extends BasePanel
 		super.onDisable(event);
 		this.removeAnime();
 		this.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
-		qin.Tick.RemoveTimeoutInvoke(this.delayShowContainer, this);
+		game.Tick.RemoveTimeoutInvoke(this.delayShowContainer, this);
 	}
 	private update(event: egret.Event)
 	{

@@ -12,7 +12,7 @@ class GamblingHeadWaitActionState extends BaseGamblingHeadState
 			this.context.showBase();
 			this.context.showStateGroupAuto();
 			// this.context.showHaveCardImg(false);
-			//	qin.QinLog.log(this.context.bindData.userInfo.name + "等待说话！");
+			//	game.QinLog.log(this.context.bindData.userInfo.name + "等待说话！");
 		}
 		// if (this.context.bindData && this.context.bindData.userInfo)
 		// {

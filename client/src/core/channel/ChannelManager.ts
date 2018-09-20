@@ -18,7 +18,7 @@ class ChannelManager
 	// 
 	//------------------------------------------------------------------
 
-	private static _channelType: string = qin.StringConstants.Empty;
+	private static _channelType: string = game.StringConstants.Empty;
 	/**
 	 * 渠道类型
 	 */
@@ -41,7 +41,7 @@ class ChannelManager
 	private static _accountHandler: AccountHandler = new AccountHandler();//Qin 帐号系统 登录
 	private static _channel: ChannelBase;//渠道处理类
 	private static _isInitComplete: boolean = false;//渠道初始化是否完成
-	private static _appName: string = qin.StringConstants.Empty;
+	private static _appName: string = game.StringConstants.Empty;
 	/**
 	 * 应用名
 	 */
@@ -49,7 +49,7 @@ class ChannelManager
 	{
 		return ChannelManager._appName;
 	}
-	private static _deviceId: string = qin.StringConstants.Empty;
+	private static _deviceId: string = game.StringConstants.Empty;
 	/**
 	 * 设备id
 	 */
@@ -57,7 +57,7 @@ class ChannelManager
 	{
 		return ChannelManager._deviceId;
 	}
-	private static _bundleId: string = qin.StringConstants.Empty;
+	private static _bundleId: string = game.StringConstants.Empty;
 	/**
 	 * 包id
 	 */
@@ -81,7 +81,7 @@ class ChannelManager
 	{
 		return ChannelManager._hasMicrophone;
 	}
-	private static _clientVersion: string = qin.StringConstants.Empty;
+	private static _clientVersion: string = game.StringConstants.Empty;
 	/**
 	 * 本地客户端安装包版本(web版没有)
 	 */
@@ -104,13 +104,13 @@ class ChannelManager
 			ChannelManager.OnInitComplete.dispatch();
 			return;
 		}
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			if (qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Ios)
+			if (game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Ios)
 			{
 				ChannelManager._channel = new Channel_ios();
 			}
-			else if (qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Android)
+			else if (game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Android)
 			{
 				ChannelManager._channel = new Channel_android();
 			}
@@ -125,18 +125,18 @@ class ChannelManager
 	}
 	private static initPackage(): void
 	{
-		qin.ExternalInterface.addCallback(ExtFuncName.OnApplicationFocus, (status: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.OnApplicationFocus, (status: string) =>
 		{
-			let isStatus: boolean = qin.StringUtil.toBoolean(status);
-			if (isStatus && qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Android)
+			let isStatus: boolean = game.StringUtil.toBoolean(status);
+			if (isStatus && game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Android)
 			{
 				UIManager.closePanel(UIModuleName.PayMaskPanel);
 			}
 			ChannelManager.OnApplicationFocus.dispatch(isStatus);
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.Share, (status: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.Share, (status: string) =>
 		{
-			if (qin.StringUtil.toBoolean(status)) //直接抛送分享类型
+			if (game.StringUtil.toBoolean(status)) //直接抛送分享类型
 			{
 				ChannelManager.OnShareSucceed.dispatch(status);
 			}
@@ -145,10 +145,10 @@ class ChannelManager
 				ChannelManager.OnShareFailed.dispatch();
 			}
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.Login, (json: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.Login, (json: string) =>
 		{
 			let data: any = JSON.parse(json);
-			if (qin.StringUtil.toBoolean(data.status))
+			if (game.StringUtil.toBoolean(data.status))
 			{
 				ChannelManager.OnTokenLoginSucceed.dispatch(data.token);
 			} else
@@ -156,10 +156,10 @@ class ChannelManager
 				ChannelManager.OnLoginFailed.dispatch();
 			}
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.Pay, (json: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.Pay, (json: string) =>
 		{
 			let data: any = JSON.parse(json);
-			if (qin.StringUtil.toBoolean(data.status))
+			if (game.StringUtil.toBoolean(data.status))
 			{
 				ChannelManager._channel.sdkPaySucceed(JSON.parse(data.data));//不同平台可能有特殊处理
 			} else
@@ -168,38 +168,38 @@ class ChannelManager
 				ChannelManager._channel.sdkPayFailed();
 			}
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.Logout, ChannelManager.sdk_Logout);
-		qin.ExternalInterface.addCallback(ExtFuncName.OnBackToApplication, (status: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.Logout, ChannelManager.sdk_Logout);
+		game.ExternalInterface.addCallback(ExtFuncName.OnBackToApplication, (status: string) =>
 		{
-			ChannelManager.OnBackToApplication.dispatch(qin.StringUtil.toBoolean(status));
+			ChannelManager.OnBackToApplication.dispatch(game.StringUtil.toBoolean(status));
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.RecordAudio, (data: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.RecordAudio, (data: string) =>
 		{
 			RecordAudioManager.RecordComplete(data);
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.HasRecordData, (json: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.HasRecordData, (json: string) =>
 		{
 			ChatManager.checkComplete(json);
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.RequestMicrophone, (status: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.RequestMicrophone, (status: string) =>
 		{
-			ChannelManager._hasMicrophone = qin.StringUtil.toBoolean(status);
+			ChannelManager._hasMicrophone = game.StringUtil.toBoolean(status);
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.ImageSelect, (data: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.ImageSelect, (data: string) =>
 		{
 			ChannelManager.OnImageSelect.dispatch({ type: HeadUploadSystemType.native, data: data });
 		});
-		qin.ExternalInterface.addCallback(ExtFuncName.CopyToPastboard, (data: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.CopyToPastboard, (data: string) =>
 		{
 			UIManager.showFloatTips("邀请码复制成功");
 		});
 		//
-		qin.ExternalInterface.addCallback(ExtFuncName.Initialize, (json: string) =>
+		game.ExternalInterface.addCallback(ExtFuncName.Initialize, (json: string) =>
 		{
 			ChannelManager._isInitComplete = true;
 			let data: any = JSON.parse(json);
 			ChannelManager._channelType = data['channelType'];
-			if (qin.StringUtil.isNullOrEmpty(ChannelManager._channelType))
+			if (game.StringUtil.isNullOrEmpty(ChannelManager._channelType))
 			{
 				ChannelManager._channelType = ChannelType.qin;
 			}
@@ -207,17 +207,17 @@ class ChannelManager
 			ChannelManager._deviceId = data['deviceId'];
 			ChannelManager._bundleId = data['bundleId'];
 			ChannelManager._clientVersion = data['clientVersion'];
-			ChannelManager._hasWeixin = qin.StringUtil.toBoolean(data['hasWeixin']);
+			ChannelManager._hasWeixin = game.StringUtil.toBoolean(data['hasWeixin']);
 			ChannelManager.OnInitComplete.dispatch();
 		});
-		qin.ExternalInterface.call(ExtFuncName.Initialize, '');
+		game.ExternalInterface.call(ExtFuncName.Initialize, '');
 	}
 	private static initWeb(): void
 	{
 		ChannelManager._channel = new Channel_web();
 		ChannelManager._isInitComplete = true;
 		ChannelManager._channelType = URLOption.getString(URLOption.Channel);
-		if (qin.StringUtil.isNullOrEmpty(ChannelManager._channelType))
+		if (game.StringUtil.isNullOrEmpty(ChannelManager._channelType))
 		{
 			ChannelManager._channelType = ChannelType.qin;
 		}
@@ -249,9 +249,9 @@ class ChannelManager
 		}
 		else
 		{
-			if (qin.System.isMicro)
+			if (game.System.isMicro)
 			{
-				qin.ExternalInterface.call(ExtFuncName.Logout, '');
+				game.ExternalInterface.call(ExtFuncName.Logout, '');
 			}
 			else
 			{
@@ -282,11 +282,11 @@ class ChannelManager
 					if (price > 0)
 					{
 						let orderId: string = ChannelUtil.GenerateOrder(payDef.awardId, VersionManager.isServerTest);//订单id		
-						ChannelManager._channel.PaySend(payState, payDef.awardId, UserManager.serverInfo.id, orderId, price, awardDef.name);
+						// ChannelManager._channel.PaySend(payState, payDef.awardId, UserManager.serverInfo.id, orderId, price, awardDef.name);
 					}
 					else
 					{
-						qin.Console.log("支付异常");
+						game.Console.log("支付异常");
 					}
 				}
 			}
@@ -297,13 +297,13 @@ class ChannelManager
 	 */
 	public static SetExtData()
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			let data: any = {};
-			data["channelToken"] = LoginManager.channelToken;
-			data["userId"] = LoginManager.loginInfo.userid;
+			// data["channelToken"] = game.LoginManager.channelToken;
+			// data["userId"] = game.LoginManager.loginInfo.userid;
 			data["loginChannel"] = ChannelManager.getLoginChannel();
-			qin.ExternalInterface.call(ExtFuncName.SetExtData, JSON.stringify(data));
+			game.ExternalInterface.call(ExtFuncName.SetExtData, JSON.stringify(data));
 		}
 	}
 	/**
@@ -311,9 +311,9 @@ class ChannelManager
 	 */
 	public static SetChannelData(account: string, token: string): void
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			qin.ExternalInterface.call(ExtFuncName.SetChannelData, JSON.stringify({ account: account, token: token }));
+			game.ExternalInterface.call(ExtFuncName.SetChannelData, JSON.stringify({ account: account, token: token }));
 		}
 	}
 	/**
@@ -321,7 +321,7 @@ class ChannelManager
  	 */
 	public static checkUnFinishedPayList()
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			ChannelManager._channel.checkUnFinishedPayList();
 		}
@@ -338,9 +338,9 @@ class ChannelManager
 	 */
 	public static requestMicrophone()
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			qin.ExternalInterface.call(ExtFuncName.RequestMicrophone, '');
+			game.ExternalInterface.call(ExtFuncName.RequestMicrophone, '');
 		}
 	}
 	/**
@@ -348,10 +348,10 @@ class ChannelManager
 	 */
 	public static recordAudio(code: number)
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			RecordAudioManager.RecordVoice(code);
-			qin.ExternalInterface.call(ExtFuncName.RecordAudio, code.toString());
+			game.ExternalInterface.call(ExtFuncName.RecordAudio, code.toString());
 		}
 	}
 	/**
@@ -359,9 +359,9 @@ class ChannelManager
  	*/
 	public static stopRecord(guid: string)
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			qin.ExternalInterface.call(ExtFuncName.StopRecord, guid);
+			game.ExternalInterface.call(ExtFuncName.StopRecord, guid);
 		}
 	}
 	/**
@@ -369,9 +369,9 @@ class ChannelManager
 	 */
 	public static setRecordData(guid: string, data: string, playNow: boolean)
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			qin.ExternalInterface.call(ExtFuncName.SetRecordData, JSON.stringify({ "guid": guid, "data": data, "playNow": playNow }));
+			game.ExternalInterface.call(ExtFuncName.SetRecordData, JSON.stringify({ "guid": guid, "data": data, "playNow": playNow }));
 		}
 	}
 	/**
@@ -379,9 +379,9 @@ class ChannelManager
 	 */
 	public static hasRecordData(guid: string)
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			qin.ExternalInterface.call(ExtFuncName.HasRecordData, guid);
+			game.ExternalInterface.call(ExtFuncName.HasRecordData, guid);
 		}
 	}
 	/**
@@ -389,9 +389,9 @@ class ChannelManager
 	 */
 	public static playRecord(guid: string)
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			qin.ExternalInterface.call(ExtFuncName.PlayRecord, guid);
+			game.ExternalInterface.call(ExtFuncName.PlayRecord, guid);
 		}
 	}
 	/**
@@ -410,13 +410,13 @@ class ChannelManager
 	 */
 	public static shake()
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
-			qin.ExternalInterface.call(ExtFuncName.Shake, qin.StringConstants.Empty);
+			game.ExternalInterface.call(ExtFuncName.Shake, game.StringConstants.Empty);
 		}
 		else
 		{
-			qin.System.webVibrate();
+			game.System.webVibrate();
 		}
 	}
 	public static copyToPastboard(data: string)
@@ -430,11 +430,11 @@ class ChannelManager
 	/**
 	 * 应用 获取/失去 焦点
 	 */
-	public static OnApplicationFocus: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnApplicationFocus: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 账号登录成功
 	 */
-	public static OnAccountLoginSucceed: qin.DelegateDispatcher = new qin.DelegateDispatcher();//Action< string, string, bool >
+	public static OnAccountLoginSucceed: game.DelegateDispatcher = new game.DelegateDispatcher();//Action< string, string, bool >
 	public static DispatchAccountLoginSucceed(account: string, password: string, isRegister: boolean = false)
 	{
 		ChannelManager.OnAccountLoginSucceed.dispatch([account, password, isRegister]);
@@ -442,37 +442,37 @@ class ChannelManager
 	/**
 	 * 初始化完成
 	 */
-	public static OnInitComplete: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnInitComplete: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * token登录成功
 	 */
-	public static OnTokenLoginSucceed: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnTokenLoginSucceed: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 登录失败
 	 */
-	public static OnLoginFailed: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnLoginFailed: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 游戏登出
 	 */
-	public static OnLogout: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnLogout: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 从其他程序返回当前程序的事件
 	 */
-	public static OnBackToApplication: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnBackToApplication: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 分享成功
 	 */
-	public static OnShareSucceed: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnShareSucceed: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 分享失败
 	 */
-	public static OnShareFailed: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnShareFailed: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 图片选择完成回调
 	 */
-	public static OnImageSelect: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnImageSelect: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 支付模式选择
 	 */
-	public static OnPayModelSelectEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPayModelSelectEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

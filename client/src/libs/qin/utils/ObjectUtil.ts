@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * 对象工具
@@ -21,7 +21,7 @@ module qin
 					}
 					else
 					{
-						qin.Console.log("树级获取对象异常！" + props + "i：" + props[i]);
+						game.Console.log("树级获取对象异常！" + props + "i：" + props[i]);
 					}
 				}
 				return property;

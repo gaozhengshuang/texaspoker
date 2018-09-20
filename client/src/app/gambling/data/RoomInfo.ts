@@ -260,7 +260,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     public copyValueFrom(data: any) 
     {
         super.copyValueFrom(data);
-        qin.CopyUtil.supCopyList<PlayerInfo>(this, data, "playerList", PlayerInfo);
+        game.CopyUtil.supCopyList<PlayerInfo>(this, data, "playerList", PlayerInfo);
         if (data["playerList"]) 
         {
             let playerInfo: PlayerInfo;
@@ -275,8 +275,8 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
                 }
             }
         }
-        // qin.CopyUtil.supCopyList<CardInfo>(this, data, "handCardList", CardInfo);
-        // qin.CopyUtil.supCopyList<CardInfo>(this, data, "cardList", CardInfo);
+        // game.CopyUtil.supCopyList<CardInfo>(this, data, "handCardList", CardInfo);
+        // game.CopyUtil.supCopyList<CardInfo>(this, data, "cardList", CardInfo);
     }
 }
 

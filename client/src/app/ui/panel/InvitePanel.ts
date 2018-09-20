@@ -232,22 +232,22 @@ class InvitePanel extends BasePanel
     private setGetAwardInfo()
     {
         //领取金豆奖励数据设置
-        this.hasGetImazamoxLabel.text = qin.MathUtil.formatNum(InviteManager.inviteAwardInfo.gotBean) + ",";
-        this.canGetImazamoxLabel.text = qin.MathUtil.formatNum(ProjectDefined.GetInstance().goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
+        this.hasGetImazamoxLabel.text = game.MathUtil.formatNum(InviteManager.inviteAwardInfo.gotBean) + ",";
+        this.canGetImazamoxLabel.text = game.MathUtil.formatNum(ProjectDefined.GetInstance().goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
         if ((InviteManager.inviteAwardInfo.getBean + InviteManager.inviteAwardInfo.gotBean) > ProjectDefined.GetInstance().goldBeanLimit)
         {
-            this.canBringImazamoxLabel.text = qin.MathUtil.formatNum(ProjectDefined.GetInstance().goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
+            this.canBringImazamoxLabel.text = game.MathUtil.formatNum(ProjectDefined.GetInstance().goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
         } else
         {
-            this.canBringImazamoxLabel.text = qin.MathUtil.formatNum(InviteManager.inviteAwardInfo.getBean);
+            this.canBringImazamoxLabel.text = game.MathUtil.formatNum(InviteManager.inviteAwardInfo.getBean);
         }
         this.totalBindNumLabel.text = "绑定好友：" + InviteManager.inviteAwardInfo.bind + "人";
         this.totalFinishNumLabel.text = "完成新人礼：" + InviteManager.inviteAwardInfo.finish + "人";
         this.setBringBeanBtnEnabled();
 
         //领取金币奖励数据设置
-        this.hasGetGoldLabel.text = qin.MathUtil.formatNum(InviteManager.inviteAwardInfo.gotGold);
-        this.canBringGoldLabel.text = qin.MathUtil.formatNum(InviteManager.inviteAwardInfo.getGold);
+        this.hasGetGoldLabel.text = game.MathUtil.formatNum(InviteManager.inviteAwardInfo.gotGold);
+        this.canBringGoldLabel.text = game.MathUtil.formatNum(InviteManager.inviteAwardInfo.getGold);
         this.totalBindNumLabel0.text = "绑定好友：" + InviteManager.inviteAwardInfo.bind + "人";
         this.setBringGoldBtnEnabled();
     }
@@ -388,17 +388,17 @@ class InvitePanel extends BasePanel
     private onInviteBtnClick(event: egret.TouchEvent)
     {
         SoundManager.playEffect(MusicAction.buttonClick);
-        if (!(qin.System.isWeChat || qin.System.isMicro))
+        if (!(game.System.isWeChat || game.System.isMicro))
         {
             UIManager.showFloatTips('当前打开方式不支持分享，请在微信里打开或使用App版本');
             return;
         }
-        if (qin.System.isMicro && ChannelManager.hasWeixin == false)
+        if (game.System.isMicro && ChannelManager.hasWeixin == false)
         {
             AlertManager.showAlert("您未安装微信，分享失败。");
             return;
         }
-        UIManager.showPanel(UIModuleName.ChooseShareWayPanel, { wxMsgTitle: qin.StringUtil.format("送你一个[{0}]游戏大礼包，快来领取！", ChannelManager.appName), wxTimeLineTitle: qin.StringUtil.format("送你一个[{0}]游戏大礼包，快来领取！", ChannelManager.appName), msg: "这里有紧张刺激的锦标赛，多人参与的休闲活动。更有丰富的奖励等你来拿，快来和我一起玩吧！", isHasShareId: true });
+        UIManager.showPanel(UIModuleName.ChooseShareWayPanel, { wxMsgTitle: game.StringUtil.format("送你一个[{0}]游戏大礼包，快来领取！", ChannelManager.appName), wxTimeLineTitle: game.StringUtil.format("送你一个[{0}]游戏大礼包，快来领取！", ChannelManager.appName), msg: "这里有紧张刺激的锦标赛，多人参与的休闲活动。更有丰富的奖励等你来拿，快来和我一起玩吧！", isHasShareId: true });
     }
     /**
      * 领取金豆按钮点击事件

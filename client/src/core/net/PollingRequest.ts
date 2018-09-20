@@ -18,13 +18,13 @@ class PollingRequest
 	/**
 	 * 重连
  	 */
-	public onConnectDelegate: qin.Delegate;
+	public onConnectDelegate: game.Delegate;
 	/**
 	 * 超次数
 	 */
-	public onTimeoutDelegate: qin.Delegate;
+	public onTimeoutDelegate: game.Delegate;
 
-	public constructor(connect: qin.Delegate, timeout: qin.Delegate)
+	public constructor(connect: game.Delegate, timeout: game.Delegate)
 	{
 		this.onConnectDelegate = connect;
 		this.onTimeoutDelegate = timeout;
@@ -44,7 +44,7 @@ class PollingRequest
 	public connect(isAutoConnect: boolean = true)
 	{
 		this.resetTime();
-		qin.Tick.addFrameInvoke(this.timing, this);
+		game.Tick.addFrameInvoke(this.timing, this);
 		if (this.onConnectDelegate && isAutoConnect)
 		{
 			this.onConnectDelegate.invoke();
@@ -56,7 +56,7 @@ class PollingRequest
 	}
 	public stop()
 	{
-		qin.Tick.removeFrameInvoke(this.timing, this);
+		game.Tick.removeFrameInvoke(this.timing, this);
 	}
 	//超时自动轮询
 	private timing(event: egret.Event)

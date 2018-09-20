@@ -122,7 +122,7 @@ class SitAndPlayOverPanel extends BasePanel
                     let num: number = AwardDefined.GetInstance().getAwardNumByAwardId(championshipPrize.awardId);
                     if (num)
                     {
-                        this.goldNumLabel.text = qin.MathUtil.formatNum(num);
+                        this.goldNumLabel.text = game.MathUtil.formatNum(num);
                     }
                     break;
                 } else

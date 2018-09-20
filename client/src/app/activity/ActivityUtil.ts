@@ -88,23 +88,23 @@ class ActivityUtil
 		{
 			if (info.definition.openServerTimeStart > 0)
 			{
-				info.startDateTime = qin.DateTimeUtil.secondes2Date(UserManager.userInfo.openServerTime + info.definition.openServerTimeStart);
+				info.startDateTime = game.DateTimeUtil.secondes2Date(UserManager.userInfo.openServerTime + info.definition.openServerTimeStart);
 			}
 			else
 			{
-				info.startDateTime = qin.DateTimeUtil.secondes2Date(UserManager.userInfo.openServerTime);
+				info.startDateTime = game.DateTimeUtil.secondes2Date(UserManager.userInfo.openServerTime);
 			}
 		}
 		else if (ActivityUtil.IsCreateRoleActivity(info.definition) && UserManager.userInfo.createdTime > 0)
 		{
 			if (info.definition.keepDayStart > 0)
 			{
-				info.startDateTime = qin.DateTimeUtil.secondes2Date(UserManager.userInfo.createdTime + info.definition.keepDayStart);
+				info.startDateTime = game.DateTimeUtil.secondes2Date(UserManager.userInfo.createdTime + info.definition.keepDayStart);
 			}
 			else
 			{
 
-				info.startDateTime = qin.DateTimeUtil.secondes2Date(UserManager.userInfo.createdTime);
+				info.startDateTime = game.DateTimeUtil.secondes2Date(UserManager.userInfo.createdTime);
 			}
 		}
 	}
@@ -118,14 +118,14 @@ class ActivityUtil
 		{
 			if (info.definition.openServerTimeEnd > 0 && UserManager.userInfo.openServerTime > 0)
 			{
-				info.endDateTime = qin.DateTimeUtil.secondes2Date(UserManager.userInfo.openServerTime + info.definition.openServerTimeEnd);
+				info.endDateTime = game.DateTimeUtil.secondes2Date(UserManager.userInfo.openServerTime + info.definition.openServerTimeEnd);
 			}
 		}
 		else if (ActivityUtil.IsCreateRoleActivity(info.definition))
 		{
 			if (info.definition.keepDayEnd > 0 && UserManager.userInfo.createdTime > 0)
 			{
-				info.endDateTime = qin.DateTimeUtil.secondes2Date(UserManager.userInfo.createdTime + info.definition.keepDayEnd);
+				info.endDateTime = game.DateTimeUtil.secondes2Date(UserManager.userInfo.createdTime + info.definition.keepDayEnd);
 			}
 		}
 	}

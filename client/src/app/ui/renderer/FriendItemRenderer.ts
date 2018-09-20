@@ -37,7 +37,7 @@ class FriendItemRenderer extends BaseItemRenderer<FriendInfo>
             this.isOnlinetoggleBtn.touchEnabled = false;
             this.userHeadCom.init(this.bindData, 110);
             this.nameLabel.text = this.bindData.name;
-            this.goldNumLabel.text = qin.MathUtil.formatNum(this.bindData.gold);
+            this.goldNumLabel.text = game.MathUtil.formatNum(this.bindData.gold);
             if (this.bindData.offlineTime)
             {
                 this.isOnlinetoggleBtn.selected = false;

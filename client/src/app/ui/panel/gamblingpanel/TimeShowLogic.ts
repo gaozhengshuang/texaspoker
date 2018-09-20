@@ -43,7 +43,7 @@ class TimeShowLogic
 	constructor(label: eui.Label)
 	{
 		this.timeLabel = label;
-		this.timeLabel.text = qin.StringConstants.Empty;
+		this.timeLabel.text = game.StringConstants.Empty;
 	}
 	public setWaitTimeGroup(group: eui.Group)
 	{
@@ -52,11 +52,11 @@ class TimeShowLogic
 	}
 	public onEnable()
 	{
-		qin.Tick.AddSecondsInvoke(this.refreshTime, this);
+		game.Tick.AddSecondsInvoke(this.refreshTime, this);
 	}
 	public onDisable()
 	{
-		qin.Tick.RemoveSecondsInvoke(this.refreshTime, this);
+		game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
 	}
 	public refreshTime()
 	{
@@ -65,13 +65,13 @@ class TimeShowLogic
 			this._offsetTime = Math.round(this.nowTotal - TimeManager.GetServerUtcTimestamp());
 			if (this._offsetTime >= 0)
 			{
-				this.timeLabel.text = qin.DateTimeUtil.formatCountdown(this._offsetTime);
+				this.timeLabel.text = game.DateTimeUtil.formatCountdown(this._offsetTime);
 				// SceneManager.gameScene.gameProcesser.tryPutCardOut(this._offsetTime);
 			}
 		}
 		else
 		{
-			this.timeLabel.text = qin.StringConstants.Empty;
+			this.timeLabel.text = game.StringConstants.Empty;
 		}
 
 		/**
@@ -86,7 +86,7 @@ class TimeShowLogic
 				// let min: number = Math.floor(this._offsetTime / 60);
 				// let seconds: number = Math.floor(this._offsetTime - min * 60);
 
-				// let minStr: string = qin.StringUtil.timeStringFormat(min);
+				// let minStr: string = game.StringUtil.timeStringFormat(min);
 				// let index: number = 0;
 				// let img: eui.Image;
 				// for (let i: number = 0; i < minStr.length; i++)
@@ -96,7 +96,7 @@ class TimeShowLogic
 				// 	index++;
 				// }
 
-				// let secondsStr: string = qin.StringUtil.timeStringFormat(seconds);
+				// let secondsStr: string = game.StringUtil.timeStringFormat(seconds);
 
 				// img = this._imgList[index]; //冒号
 				// img.source = ImageSource.Yellow_MaoHao;

@@ -10,7 +10,7 @@ class AccountUtil
 		}
 		catch (e)
 		{
-			qin.Console.logError("账号系统接收数据错误！" + url);
+			game.Console.logError("账号系统接收数据错误！" + url);
 		}
 		return null;
 	}
@@ -21,9 +21,9 @@ class AccountUtil
 	public static ShowCodeFloatTips(code: string, message: string)
 	{
 		let des: string = AccountCode.GetDescription(code);
-		if (qin.StringUtil.isNullOrEmpty(des))
+		if (game.StringUtil.isNullOrEmpty(des))
 		{
-			if (!qin.StringUtil.isNullOrEmpty(message))
+			if (!game.StringUtil.isNullOrEmpty(message))
 			{
 				try
 				{
@@ -31,7 +31,7 @@ class AccountUtil
 				}
 				catch (e)
 				{
-					qin.Console.logError("转义失败！" + message);
+					game.Console.logError("转义失败！" + message);
 				}
 			}
 		}
@@ -60,7 +60,7 @@ class AccountUtil
 	}
 	public static VerifyRegisterAccount(text: string): boolean
 	{
-		if (qin.RegexUtil.IsNumeric(text))
+		if (game.RegexUtil.IsNumeric(text))
 		{
 			UIManager.showFloatTips("帐号至少包含一个英文字母");
 			return false;
@@ -69,22 +69,22 @@ class AccountUtil
 	}
 	public static VerifyAccount(text: string): boolean
 	{
-		if (qin.StringUtil.isNullOrEmpty(text))
+		if (game.StringUtil.isNullOrEmpty(text))
 		{
 			UIManager.showFloatTips("请输入帐号");
 			return false;
 		}
 		if (text.length < AccountConfig.InputCharMin)
 		{
-			UIManager.showFloatTips(qin.StringUtil.format("帐号不能小于{0}个字符", AccountConfig.InputCharMin));
+			UIManager.showFloatTips(game.StringUtil.format("帐号不能小于{0}个字符", AccountConfig.InputCharMin));
 			return false;
 		}
 		else if (text.length > AccountConfig.InputCharMax)
 		{
-			UIManager.showFloatTips(qin.StringUtil.format("帐号不能大于{0}个字符", AccountConfig.InputCharMax));
+			UIManager.showFloatTips(game.StringUtil.format("帐号不能大于{0}个字符", AccountConfig.InputCharMax));
 			return false;
 		}
-		if (qin.RegexUtil.IsEnglishAndNumber(text) == false)
+		if (game.RegexUtil.IsEnglishAndNumber(text) == false)
 		{
 			UIManager.showFloatTips("帐号只能使用英文和数字");
 			return false;
@@ -93,22 +93,22 @@ class AccountUtil
 	}
 	public static VerifyPassword(text: string): boolean
 	{
-		if (qin.StringUtil.isNullOrEmpty(text))
+		if (game.StringUtil.isNullOrEmpty(text))
 		{
 			UIManager.showFloatTips("请输入密码");
 			return false;
 		}
 		if (text.length < AccountConfig.InputCharMin)
 		{
-			UIManager.showFloatTips(qin.StringUtil.format("密码不能小于{0}个字符", AccountConfig.InputCharMin));
+			UIManager.showFloatTips(game.StringUtil.format("密码不能小于{0}个字符", AccountConfig.InputCharMin));
 			return false;
 		}
 		else if (text.length > AccountConfig.InputCharMax)
 		{
-			UIManager.showFloatTips(qin.StringUtil.format("密码不能大于{0}个字符", AccountConfig.InputCharMax));
+			UIManager.showFloatTips(game.StringUtil.format("密码不能大于{0}个字符", AccountConfig.InputCharMax));
 			return false;
 		}
-		if (qin.RegexUtil.IsEnglishAndNumber(text) == false) 
+		if (game.RegexUtil.IsEnglishAndNumber(text) == false) 
 		{
 			UIManager.showFloatTips("密码只能使用英文和数字");
 			return false;
@@ -137,7 +137,7 @@ class AccountUtil
 	/// <returns></returns>
 	public static VerifyMobileNo(text: string): boolean
 	{
-		if (qin.StringUtil.isNullOrEmpty(text) || text.length < AccountConfig.MobileNoMin || text.length > AccountConfig.MobileNoMax || qin.RegexUtil.IsUInt(text) == false)
+		if (game.StringUtil.isNullOrEmpty(text) || text.length < AccountConfig.MobileNoMin || text.length > AccountConfig.MobileNoMax || game.RegexUtil.IsUInt(text) == false)
 		{
 			UIManager.showFloatTips("请输入手机号码");
 			return false;
@@ -151,7 +151,7 @@ class AccountUtil
 	/// <returns></returns>
 	public static VerifyMobileCode(text: string): boolean
 	{
-		if (qin.StringUtil.isNullOrEmpty(text) || text.length > AccountConfig.InputCharMax || qin.RegexUtil.IsUInt(text) == false)
+		if (game.StringUtil.isNullOrEmpty(text) || text.length > AccountConfig.InputCharMax || game.RegexUtil.IsUInt(text) == false)
 		{
 			UIManager.showFloatTips("请输入短信验证码");
 			return false;
@@ -161,7 +161,7 @@ class AccountUtil
 
 	public static ToStringArray(content: string, separator: string = ','): Array<string>
 	{
-		if (qin.StringUtil.isNullOrEmpty(content))
+		if (game.StringUtil.isNullOrEmpty(content))
 		{
 			return null;
 		}

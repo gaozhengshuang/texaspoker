@@ -19,19 +19,19 @@ class PollingSocket
 	/**
 	 * 重连
 	 */
-	public onConnectDelegate: qin.Delegate;
+	public onConnectDelegate: game.Delegate;
 	/**
 	 * 超次数
 	 */
-	public onTimeoutDelegate: qin.Delegate;
+	public onTimeoutDelegate: game.Delegate;
 	private _isShowLoading: boolean;
 
-	constructor(type: number, connect: qin.Delegate, timeout: qin.Delegate)
+	constructor(type: number, connect: game.Delegate, timeout: game.Delegate)
 	{
 		this._type = type;
 		this.onConnectDelegate = connect;
 		this.onTimeoutDelegate = timeout;
-		this._pollingRequest = new PollingRequest(qin.Delegate.getOut(this.onConnectHandler, this), qin.Delegate.getOut(this.onTimeOutHandler, this));
+		this._pollingRequest = new PollingRequest(game.Delegate.getOut(this.onConnectHandler, this), game.Delegate.getOut(this.onTimeOutHandler, this));
 	}
 	/**
  	* 是否轮询
@@ -92,12 +92,12 @@ class PollingSocket
 		if (this._pollingRequest.isPolling)
 		{
 			let index: number = this._pollingRequest.addressIndex;
-			let repStr: string = qin.StringConstants.Empty;
+			let repStr: string = game.StringConstants.Empty;
 			if (index > 0)
 			{
 				repStr = index.toString();
 			}
-			this.address = this.address.replace(qin.StringConstants.Asterisk, repStr);
+			this.address = this.address.replace(game.StringConstants.Asterisk, repStr);
 		}
 		this.port = ProjectDefined.GetInstance().getLoginPort(this._pollingRequest.isIntranet, VersionManager.isServerTest);
 	}
@@ -110,18 +110,18 @@ class PollingSocket
 		if (this._pollingRequest.isPolling)
 		{
 			let index: number = this._pollingRequest.addressIndex;
-			let repStr: string = qin.StringConstants.Empty;
+			let repStr: string = game.StringConstants.Empty;
 			if (index > 0)
 			{
 				repStr = index.toString();
 			}
 			if (this._initAdress) //使用服务器传入的地址
 			{
-				this.address = this._initAdress.replace(qin.StringConstants.Asterisk, repStr);
+				this.address = this._initAdress.replace(game.StringConstants.Asterisk, repStr);
 			}
 			else
 			{ 
-				this.address = this.address.replace(qin.StringConstants.Asterisk, repStr); //使用登录的地址
+				this.address = this.address.replace(game.StringConstants.Asterisk, repStr); //使用登录的地址
 			}
 		}
 	}

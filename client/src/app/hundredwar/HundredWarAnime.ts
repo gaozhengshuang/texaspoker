@@ -121,14 +121,14 @@ class HundredWarAnime
     {
         for (let i: number = 0; i < posList.length; i++)
         {
-            let offsetX: number = qin.MathUtil.getRandom(0, this.betOffset.x);
-            let offsetY: number = qin.MathUtil.getRandom(0, this.betOffset.y);
+            let offsetX: number = game.MathUtil.getRandom(0, this.betOffset.x);
+            let offsetY: number = game.MathUtil.getRandom(0, this.betOffset.y);
             let endPos: egret.Point = new egret.Point(this.betPosList[posList[i] - 1].x + offsetX, this.betPosList[posList[i] - 1].y + offsetY);
             this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, posList[i], 500, i * 100);
             if (offsetX < offsetY)
             {
-                offsetX = qin.MathUtil.getRandom(0, this.betOffset.x);
-                offsetY = qin.MathUtil.getRandom(0, this.betOffset.y);
+                offsetX = game.MathUtil.getRandom(0, this.betOffset.x);
+                offsetY = game.MathUtil.getRandom(0, this.betOffset.y);
                 endPos = new egret.Point(this.betPosList[posList[i] - 1].x + offsetX, this.betPosList[posList[i] - 1].y + offsetY);
                 this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, posList[i], 500, i * 100);
             }
@@ -142,14 +142,14 @@ class HundredWarAnime
         let index: number = pos - 1;
         for (let i: number = 0; i < num; i++)
         {
-            let offsetX: number = qin.MathUtil.getRandom(0, this.betOffset.x);
-            let offsetY: number = qin.MathUtil.getRandom(0, this.betOffset.y);
+            let offsetX: number = game.MathUtil.getRandom(0, this.betOffset.x);
+            let offsetY: number = game.MathUtil.getRandom(0, this.betOffset.y);
             let endPos: egret.Point = new egret.Point(this.betPosList[index].x + offsetX, this.betPosList[index].y + offsetY);
             this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, i + 1, 500, i * 10);
             if (offsetX < offsetY)
             {
-                offsetX = qin.MathUtil.getRandom(0, this.betOffset.x);
-                offsetY = qin.MathUtil.getRandom(0, this.betOffset.y);
+                offsetX = game.MathUtil.getRandom(0, this.betOffset.x);
+                offsetY = game.MathUtil.getRandom(0, this.betOffset.y);
                 endPos = new egret.Point(this.betPosList[index].x + offsetX, this.betPosList[index].y + offsetY);
                 this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, i + 1, 500, i * 10);
             }
@@ -230,7 +230,7 @@ class HundredWarAnime
     public clear()
     {
         this.resetAllCoins();
-        qin.ArrayUtil.Clear(this.coinList);
+        game.ArrayUtil.Clear(this.coinList);
     }
 }
 /**
@@ -533,7 +533,7 @@ class HundredWarCardAnime
     public clear()
     {
         this.hideAllCards();
-        qin.ArrayUtil.Clear(this.cardList);
+        game.ArrayUtil.Clear(this.cardList);
     }
 }
 

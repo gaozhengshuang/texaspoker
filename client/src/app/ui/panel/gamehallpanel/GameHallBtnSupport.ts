@@ -144,7 +144,7 @@ class GameHallBtnSupport
         }
         else
         {
-            qin.Console.logError("按钮不存在于队列!");
+            game.Console.logError("按钮不存在于队列!");
         }
     }
     private refreshBtnList()

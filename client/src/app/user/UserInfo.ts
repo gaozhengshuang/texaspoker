@@ -22,13 +22,13 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this.timestamp = 0;
 		this.timezone = 0;
 		this.roleId = 0;
-		this.name = qin.StringConstants.Empty;
+		this.name = game.StringConstants.Empty;
 		this.head = null;
 		this.sex = 0;
 		this.level = 0;
 		this.exp = 0;
-		this.ip = qin.StringConstants.Empty;
-		this.sign = qin.StringConstants.Empty;
+		this.ip = game.StringConstants.Empty;
+		this.sign = game.StringConstants.Empty;
 		this.age = 0;
 		this.lastGoldTime = Math.round(TimeManager.Utc1970.getTime() / 1000);
 		//概况
@@ -41,7 +41,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this.entryTimes = 0;
 		this.showdownTimes = 0;
 		this.maxHandList = undefined;
-		this.maxHandName = qin.StringConstants.Empty;
+		this.maxHandName = game.StringConstants.Empty;
 
 		this.mttJoinTimes = 0;
 		this.mttPrizeTimes = 0;
@@ -51,11 +51,11 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this.showdownTimes2 = 0;
 		this.championTimes = 0;
 		//收货信息
-		this.addressName = qin.StringConstants.Empty;
-		this.phoneNum = qin.StringConstants.Empty;
-		this.qqNum = qin.StringConstants.Empty;
-		this.eMail = qin.StringConstants.Empty;
-		this.address = qin.StringConstants.Empty;
+		this.addressName = game.StringConstants.Empty;
+		this.phoneNum = game.StringConstants.Empty;
+		this.qqNum = game.StringConstants.Empty;
+		this.eMail = game.StringConstants.Empty;
+		this.address = game.StringConstants.Empty;
 		//Vip信息
 		this.vipType = 0;
 		// this.vipLevel = 0;
@@ -151,7 +151,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	{
 		this._isHeadUnPass = false;
 		this._isHeadVerify = false;
-		if (qin.StringUtil.isNullOrEmpty(value) == false)
+		if (game.StringUtil.isNullOrEmpty(value) == false)
 		{
 			this._isHeadVerify = value.indexOf(GameSetting.HeadUploadVerifySign) != -1;
 			this._isHeadUnPass = value.indexOf(GameSetting.HeadUploadUnPassSign) != -1;
@@ -166,7 +166,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	}
 	public get head(): string
 	{
-		if (qin.StringUtil.isNullOrEmpty(this._head))
+		if (game.StringUtil.isNullOrEmpty(this._head))
 		{
 			return SheetSubName.getdefaultHead(this.sex);
 		}

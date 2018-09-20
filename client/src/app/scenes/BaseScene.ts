@@ -10,7 +10,7 @@ abstract class BaseScene
     {
         return this._isResLoaded;
     }
-    public LoadCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public LoadCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     protected resGroupName: string[] = [];
     public async initialize()
     {
@@ -34,19 +34,19 @@ abstract class BaseScene
     }
     protected onResourceLoadComplete(event: RES.ResourceEvent)
     {
-        qin.Console.log("场景资源组加载成功：" + event.groupName);
+        game.Console.log("场景资源组加载成功：" + event.groupName);
     }
     private onResourceLoadError(event: RES.ResourceEvent): void
     {
-        qin.Console.log("资源组:" + event.groupName + "加载出错");
+        game.Console.log("资源组:" + event.groupName + "加载出错");
     }
     private onItemLoadError(event: RES.ResourceEvent): void
     {
-        qin.Console.log("资源项:" + event.resItem.url + "加载出错");
+        game.Console.log("资源项:" + event.resItem.url + "加载出错");
     }
     protected onResourceProgress(event: RES.ResourceEvent)
     {
-        qin.Console.log("场景资源加载地址：" + event.resItem.url);
+        game.Console.log("场景资源加载地址：" + event.resItem.url);
         SceneManager.updateSwitchProgress(event.itemsLoaded / event.itemsTotal);
     }
 }

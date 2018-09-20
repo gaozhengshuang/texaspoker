@@ -70,7 +70,7 @@ class AddChipsPanel extends BasePanel
 		this.addChipsVs.thumb.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.confirmAddChips, this);
 		this.addChipsVs.thumb.addEventListener(egret.TouchEvent.TOUCH_END, this.confirmAddChips, this);
 		GamblingManager.ActionOverEvent.addListener(this.actionOverHandler, this);
-		qin.Tick.addFrameInvoke(this.update, this);
+		game.Tick.addFrameInvoke(this.update, this);
 	}
 	protected onDisable(event: eui.UIEvent): void
 	{
@@ -79,7 +79,7 @@ class AddChipsPanel extends BasePanel
 		this.addChipsVs.thumb.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.confirmAddChips, this);
 		this.addChipsVs.thumb.removeEventListener(egret.TouchEvent.TOUCH_END, this.confirmAddChips, this);
 		GamblingManager.ActionOverEvent.removeListener(this.actionOverHandler, this);
-		qin.Tick.removeFrameInvoke(this.update, this);
+		game.Tick.removeFrameInvoke(this.update, this);
 		this._isPosChanged = false;
 	}
 	/**
@@ -95,7 +95,7 @@ class AddChipsPanel extends BasePanel
 		}
 		else
 		{
-			this.countLabel.text = qin.MathUtil.formatNum(readChips);
+			this.countLabel.text = game.MathUtil.formatNum(readChips);
 		}
 		SoundManager.playEffect(MusicAction.bet_slider);
 	}

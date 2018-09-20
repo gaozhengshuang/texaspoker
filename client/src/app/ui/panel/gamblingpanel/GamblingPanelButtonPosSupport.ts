@@ -25,7 +25,7 @@ class GamblingPanelButtonPosSupport extends BaseGamblingPanelSupport
 	{
 		super.onDisable();
 		GamblingManager.NextRoundStartEvent.removeListener(this.onNextRoundStart, this);
-		qin.Tick.RemoveTimeoutInvoke(this.delayMove, this);
+		game.Tick.RemoveTimeoutInvoke(this.delayMove, this);
 	}
 	/**
 	 * 是否需要延迟
@@ -116,7 +116,7 @@ class GamblingPanelButtonPosSupport extends BaseGamblingPanelSupport
 			}
 			if (isRun)
 			{
-				qin.Tick.AddTimeoutInvoke(this.delayMove, GameManager.stage.frameRate, this);
+				game.Tick.AddTimeoutInvoke(this.delayMove, GameManager.stage.frameRate, this);
 			}
 			else
 			{
@@ -125,7 +125,7 @@ class GamblingPanelButtonPosSupport extends BaseGamblingPanelSupport
 		}
 		else
 		{
-			qin.Console.logError("显示按钮位信息失败！按钮位：" + pos);
+			game.Console.logError("显示按钮位信息失败！按钮位：" + pos);
 		}
 	}
 	private delayMove()

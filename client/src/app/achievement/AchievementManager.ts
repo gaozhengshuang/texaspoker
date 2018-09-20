@@ -6,11 +6,11 @@ class AchievementManager
     /**
     * 成就解锁事件
     */
-    public static achieveChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static achieveChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 领取成就奖励事件
      */
-    public static getAchievementPrizeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static getAchievementPrizeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 总成就和任务列表
      */
@@ -18,9 +18,9 @@ class AchievementManager
     /**
      * 别的玩家任务进度
      */
-    public static otherProcessList: qin.Dictionary<number, number>;
+    public static otherProcessList: game.Map<number, number>;
 
-    public static initialize(result: qin.SpRpcResult)
+    public static initialize(result: game.SpRpcResult)
     {
         TimeManager.resetTime0Event.addListener(this.onResetTime, this);
         if (!AchievementManager.allList)
@@ -49,7 +49,7 @@ class AchievementManager
             info.allAchieveList = UserManager.userInfo.allAchieveList;
             return;
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             AchievementManager.setAllAchieveList(info, result);
             // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.GoldGroup, info.maxGold);
@@ -61,7 +61,7 @@ class AchievementManager
     /**
      * 设置某用户已解锁的成就信息
      */
-    public static setAllAchieveList(info: UserInfo, result: qin.SpRpcResult)
+    public static setAllAchieveList(info: UserInfo, result: game.SpRpcResult)
     {
         let list: Array<AchievementInfo> = new Array<AchievementInfo>();
         if (AchievementManager.otherProcessList)
@@ -70,7 +70,7 @@ class AchievementManager
         }
         else
         {
-            AchievementManager.otherProcessList = new qin.Dictionary<number, number>();
+            AchievementManager.otherProcessList = new game.Map<number, number>();
         }
         if (result.data["groupList"])
         {
@@ -187,7 +187,7 @@ class AchievementManager
     /**
      * 接收到推送的回调
      */
-    private static onGetAchieveInfo(result: qin.SpRpcResult)
+    private static onGetAchieveInfo(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -339,7 +339,7 @@ class AchievementManager
         SocketManager.call(Command.Achievement_GetPrize_3088, { "Id": id }, AchievementManager.onTakeAchievePrize, null, this);
     }
 
-    private static onTakeAchievePrize(result: qin.SpRpcResult)
+    private static onTakeAchievePrize(result: game.SpRpcResult)
     {
         if (result.data && result.data["Id"])
         {
@@ -362,7 +362,7 @@ class AchievementManager
     /**
      * 重置任务
      */
-    private static onResetTime(result: qin.SpRpcResult)
+    private static onResetTime(result: game.SpRpcResult)
     {
         AchievementManager.resetAchievement(AchieveDailyType.Daily);
         if (TimeManager.GetServerLocalDateTime().getDay() == WeekDay.Monday)

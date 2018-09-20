@@ -24,5 +24,5 @@ class BindPhoneAwardHandler extends BaseActivitySubHandler<BindPhoneAwardInfo>
     /**
      * 领取奖励成功
     */
-    public bringSuccessEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public bringSuccessEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

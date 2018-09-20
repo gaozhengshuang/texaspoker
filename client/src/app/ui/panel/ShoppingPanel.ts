@@ -48,8 +48,8 @@ class ShoppingPanel extends BasePanel
         UIUtil.listRenderer(this.diamondList, this.diamond_scroller, ShopDiamondItemRenderer, ScrollViewDirection.Vertical_T_D, eui.ScrollPolicy.ON, null, true);
         UIUtil.listRenderer(this.vipList, this.vip_scroller, VipListItemRenderer, ScrollViewDirection.Vertical_T_D, eui.ScrollPolicy.ON, null, true);
         UIUtil.listRenderer(this.propList, this.prop_scroller, VipListItemRenderer, ScrollViewDirection.Vertical_T_D, eui.ScrollPolicy.ON, null, true);
-        this.diamondNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.diamond);
-        this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+        this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
+        this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
         if (VersionManager.isSafe)
         {
             this.shoppingTab.build(TabComponent.CreatData(["饮料", "钻石"], [this.goldGroup, this.diamondGroup], TabButtonType.BigOf2));
@@ -113,16 +113,16 @@ class ShoppingPanel extends BasePanel
     */
     private refreshUI()
     {
-        this.diamondNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.diamond);
-        this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+        this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
+        this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
     }
     private onRefreshProperty(awardId: number)
     {
         let shopDef: ShopDefinition = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
         if (shopDef)
         {
-            this.diamondNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.diamond);
-            this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+            this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
+            this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
             PropertyManager.ShowItemList();
         }
     }
@@ -167,7 +167,7 @@ class ShoppingPanel extends BasePanel
             {
                 if (UserManager.userInfo.diamond >= costInfo.count)
                 {
-                    AlertManager.showConfirm(qin.StringUtil.format("是否花费{0}钻石，购买{1}？", costInfo.count, awardDef.name), this.tryPay, null, selectedItem);
+                    AlertManager.showConfirm(game.StringUtil.format("是否花费{0}钻石，购买{1}？", costInfo.count, awardDef.name), this.tryPay, null, selectedItem);
                 }
                 else
                 {

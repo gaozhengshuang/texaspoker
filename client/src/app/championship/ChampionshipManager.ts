@@ -78,7 +78,7 @@ class ChampionshipManager
         //推送有新的赛事
         SocketManager.AddCommandListener(Command.MTTNew_Push_2121, ChampionshipManager.onMTTNewPush, this);
     }
-    public static initialize(result: qin.SpRpcResult)
+    public static initialize(result: game.SpRpcResult)
     {
         ChampionshipManager.addPushListener();
         if (!ChampionshipManager.mttRemindStartHandler)
@@ -136,7 +136,7 @@ class ChampionshipManager
     */
     private static initSitAndPlayListInfo()
     {
-        qin.ArrayUtil.Clear(ChampionshipManager.showSitAndPlayList);
+        game.ArrayUtil.Clear(ChampionshipManager.showSitAndPlayList);
         let matchDefList: Array<ChampionshipDefinition> = ChampionshipDefined.GetInstance().getSitAndPlayMatchList();
         if (matchDefList)
         {
@@ -172,13 +172,13 @@ class ChampionshipManager
     {
         SocketManager.call(Command.MTTList_Req_3611, null, ChampionshipManager.getMTTListInfoResponse, null, this);
     }
-    private static getMTTListInfoResponse(result: qin.SpRpcResult)
+    private static getMTTListInfoResponse(result: game.SpRpcResult)
     {
         if (result.data && result.data["MTTList"])
         {
             let tmpProcessList: Array<MatchRoomInfo> = ChampionshipManager.processMTTList.concat();
-            qin.ArrayUtil.Clear(ChampionshipManager.processMTTList);
-            qin.ArrayUtil.Clear(ChampionshipManager.showMTTList);
+            game.ArrayUtil.Clear(ChampionshipManager.processMTTList);
+            game.ArrayUtil.Clear(ChampionshipManager.showMTTList);
 
             for (let mttInfo of result.data["MTTList"])
             {
@@ -278,11 +278,11 @@ class ChampionshipManager
     */
     public static reqJoinedMTTList()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data && result.data.Array)
             {
-                qin.ArrayUtil.Clear(ChampionshipManager.joinMTTList);
+                game.ArrayUtil.Clear(ChampionshipManager.joinMTTList);
                 for (let mttInfo of result.data.Array)
                 {
                     let matchinfo: MatchRoomInfo = new MatchRoomInfo();
@@ -327,11 +327,11 @@ class ChampionshipManager
     {
         SocketManager.call(Command.MTTRecordList_Req_3615, null, ChampionshipManager.getGetRecentActionInfoResponse, null, this);
     }
-    public static getGetRecentActionInfoResponse(result: qin.SpRpcResult)
+    public static getGetRecentActionInfoResponse(result: game.SpRpcResult)
     {
         if (result.data)
         {
-            qin.ArrayUtil.Clear(ChampionshipManager.outsList);
+            game.ArrayUtil.Clear(ChampionshipManager.outsList);
             for (let recordInfo of result.data["recordList"])
             {
                 let record: OutsInfo = new OutsInfo();
@@ -388,7 +388,7 @@ class ChampionshipManager
     */
     public static reqGetRankList(recordId: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data && result.data["rankList"])
             {
@@ -432,7 +432,7 @@ class ChampionshipManager
     */
     public static reqRequestJoin(recordId: number, flag: JoinChampionshipWay, startTime: number, id: number, type: MatchType)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (type == MatchType.SNG)
             {
@@ -446,7 +446,7 @@ class ChampionshipManager
                         sngInfo.joinWay = flag;
                         ChampionshipManager.setOpenAndCloseTime(sngInfo);
                         ChampionshipManager.joinMTTList.push(sngInfo);
-                        ChampionshipManager.enterMttHandler.enterMatch(sngInfo, qin.StringConstants.Empty);
+                        ChampionshipManager.enterMttHandler.enterMatch(sngInfo, game.StringConstants.Empty);
                         break;
                     }
                 }
@@ -461,7 +461,7 @@ class ChampionshipManager
                     ChampionshipManager.setOpenAndCloseTime(info);
                     ChampionshipManager.processMTTList.push(info);
                     ChampionshipManager.joinMTTList.push(info);
-                    ChampionshipManager.enterMttHandler.enterMatch(info, qin.StringConstants.Empty);
+                    ChampionshipManager.enterMttHandler.enterMatch(info, game.StringConstants.Empty);
                 }
             }
             else if (type == MatchType.MTT)
@@ -545,7 +545,7 @@ class ChampionshipManager
     /**
      * 赛事已取消后报名错误处理
     */
-    public static MTTCancelErrorDispose(result: qin.SpRpcResult)
+    public static MTTCancelErrorDispose(result: game.SpRpcResult)
     {
         if (result.cmdId == Command.MTTRequestJoin_Req_3612)
         {
@@ -557,7 +557,7 @@ class ChampionshipManager
     */
     public static reqOutsInfo(recordId: number, blindType: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -601,7 +601,7 @@ class ChampionshipManager
     /**
      * 赛事已结束错误处理
     */
-    public static MTTOverErrorDispose(result: qin.SpRpcResult)
+    public static MTTOverErrorDispose(result: game.SpRpcResult)
     {
         if (result.cmdId == Command.MTTOutsInfo_Req_3617 || result.cmdId == Command.EnterRoomInfo_Req_3600)
         {
@@ -614,7 +614,7 @@ class ChampionshipManager
     */
     public static reqRankInfo(recordId: number, startRank: number = 0, count: number = 10)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let isBottom: boolean = true;
             let mttRankInfo: Array<ChampionshipRankInfo> = new Array<ChampionshipRankInfo>();
@@ -643,7 +643,7 @@ class ChampionshipManager
     */
     public static reqWithdraw(recordId: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let withdrawMatch: MatchRoomInfo;
             if (ChampionshipManager.joinMTTList && ChampionshipManager.joinMTTList.length > 0)
@@ -709,7 +709,7 @@ class ChampionshipManager
     /**
      * 各赛事报名人数数据推送对应的操作
     */
-    public static onJoinNumPush(result: qin.SpRpcResult)
+    public static onJoinNumPush(result: game.SpRpcResult)
     {
         if (result.data && result.data["MTTList"])
         {
@@ -752,7 +752,7 @@ class ChampionshipManager
     /**
      * 赛事因为人数不满足最小报名人数而取消推送对应的操作
      */
-    public static onCancelMTTPush(result: qin.SpRpcResult)
+    public static onCancelMTTPush(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -776,14 +776,14 @@ class ChampionshipManager
     /**
      * 赛事结束推送对应的操作（该玩家被淘汰）
     */
-    public static onMTTOverPush(result: qin.SpRpcResult)
+    public static onMTTOverPush(result: game.SpRpcResult)
     {
         if (result.data && result.data["recordId"])
         {
             if (SceneManager.sceneType == SceneType.Game && InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match
                 && GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.recordId == result.data["recordId"])
             {
-                qin.Console.log("推送锦标赛结束，recordId：" + result.data["recordId"]);
+                game.Console.log("推送锦标赛结束，recordId：" + result.data["recordId"]);
                 GamblingManager.championshipHandler.outChampionship(result.data["recordId"]);
             }
             ChampionshipManager.refreshMTTMatchInfo(result.data["recordId"], true);
@@ -793,7 +793,7 @@ class ChampionshipManager
     /**
      * 赛事房间信息推送
     */
-    public static onMTTRoomIdPush(result: qin.SpRpcResult)
+    public static onMTTRoomIdPush(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -805,7 +805,7 @@ class ChampionshipManager
             if (GamblingManager.matchRoomInfo.recordId == result.data.mttId && GamblingManager.matchRoomInfo.roomId != result.data.id) //赛事的房间ID变更
             {
                 GamblingManager.matchRoomInfo.roomId = result.data.id;
-                ChampionshipManager.enterMttHandler.enterMatch(GamblingManager.matchRoomInfo, qin.StringConstants.Empty);
+                ChampionshipManager.enterMttHandler.enterMatch(GamblingManager.matchRoomInfo, game.StringConstants.Empty);
             }
             ChampionshipManager.OnMTTRoomIdPushEvent.dispatch();
         }
@@ -813,7 +813,7 @@ class ChampionshipManager
     /**
      * 比赛信息定时推送
      */
-    public static onMTTRankPush(result: qin.SpRpcResult)
+    public static onMTTRankPush(result: game.SpRpcResult)
     {
         if (result.data && result.data["recordId"])
         {
@@ -836,7 +836,7 @@ class ChampionshipManager
     /**
      * 有新的赛事推送
     */
-    public static onMTTNewPush(result: qin.SpRpcResult)
+    public static onMTTNewPush(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -1012,63 +1012,63 @@ class ChampionshipManager
     /**
 	 * 请求赛事列表广播事件
 	 */
-    public static onGetMatchListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetMatchListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
 	 * 请求已参加赛事列表广播事件
 	 */
-    public static onGetJoinedMatchListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetJoinedMatchListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 请求最近赛况信息广播事件
     */
-    public static onGetRecentActionInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetRecentActionInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 刷新MTT赛事列表信息广播事件
     */
-    public static onRefreshMTTListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onRefreshMTTListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 立即报名成功广播事件
     */
-    public static onRequestJoinEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onRequestJoinEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 最近赛况列表点击事件广播
     */
-    public static onOutsItemClickEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onOutsItemClickEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 请求赛况信息广播事件
     */
-    public static OnOutsInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnOutsInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 请求排名信息广播事件
     */
-    public static OnRankInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnRankInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 请求退赛广播事件
     */
-    public static OnWithdrawEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnWithdrawEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取最近赛况的排名信息成功广播事件
     */
-    public static OnGetRankListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnGetRankListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 锦标赛房间Id推送广播事件
      */
-    public static OnMTTRoomIdPushEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnMTTRoomIdPushEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
     *  锦标赛排名推送广播事件
     */
-    public static OnMTTRankPushEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnMTTRankPushEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 比赛结束
      */
-    public static OnMTTOverPushEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnMTTOverPushEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 比赛取消
      */
-    public static OnCancelMTTPushEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnCancelMTTPushEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 有新比赛广播
      */
-    public static OnNewMTTPushEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnNewMTTPushEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 enum MTTRefreshType
 {

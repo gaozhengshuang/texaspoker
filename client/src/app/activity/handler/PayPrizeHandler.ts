@@ -69,5 +69,5 @@ class PayPrizeHandler extends BaseActivitySubHandler<PayPrizeInfo>
     /**
      * 领取奖励完成事件
      */
-    public onGetAwardCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onGetAwardCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

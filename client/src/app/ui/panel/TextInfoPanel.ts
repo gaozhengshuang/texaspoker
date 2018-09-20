@@ -102,7 +102,7 @@ class TextInfoPanel extends BasePanel
 			}
 			else
 			{
-				this.txtLabel.textFlow = qin.TextUtil.parse(this._def.text);
+				this.txtLabel.textFlow = game.TextUtil.parse(this._def.text);
 				this.txtGroup.visible = true;
 				this._lastShowContainer = this.txtGroup;
 			}
@@ -112,7 +112,7 @@ class TextInfoPanel extends BasePanel
 	}
 	private contentOper()
 	{
-		qin.ArrayUtil.Clear(this._contentList);
+		game.ArrayUtil.Clear(this._contentList);
 		let str: string = this._def.text;
 		let splitStr: string = "\n";
 		// if (this._def.isRichTxt)
@@ -126,7 +126,7 @@ class TextInfoPanel extends BasePanel
 		else
 		{
 			let index: number = 0;
-			let tmpStr: string = qin.StringConstants.Empty;
+			let tmpStr: string = game.StringConstants.Empty;
 			let line: number = 0;
 			let oneStr: string;
 			let reaLine: number;

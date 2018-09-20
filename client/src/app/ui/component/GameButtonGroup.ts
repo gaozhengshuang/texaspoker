@@ -72,7 +72,7 @@ class GameButtonGroup extends eui.Group
 			let nowY: number = -(nowH - this._initH) / 2;
 			this.btnGroup.x = nowX;
 			this.btnGroup.y = nowY;
-			// qin.QinLog.log(this._initW, nowW, nowX, nowY);
+			// game.QinLog.log(this._initW, nowW, nowX, nowY);
 		}
 	}
 	protected rendererStart(event: egret.Event)

@@ -84,11 +84,11 @@ class AnimationFactory
 	/**
 	 * 粒子特效缓存列表
 	 */
-	private static _particleList: qin.Dictionary<AnimationType, particle.GravityParticleSystem>;
+	private static _particleList: game.Map<AnimationType, particle.GravityParticleSystem>;
 	/**
 	 * 粒子特效加载状态表
 	 */
-	private static _particleStateList: qin.Dictionary<AnimationType, boolean>;
+	private static _particleStateList: game.Map<AnimationType, boolean>;
 	/**
 	 * 获取粒子特效
 	 */
@@ -96,11 +96,11 @@ class AnimationFactory
 	{
 		if (!AnimationFactory._particleList)
 		{
-			AnimationFactory._particleList = new qin.Dictionary<AnimationType, particle.GravityParticleSystem>();
+			AnimationFactory._particleList = new game.Map<AnimationType, particle.GravityParticleSystem>();
 		}
 		if (!AnimationFactory._particleStateList)
 		{
-			AnimationFactory._particleStateList = new qin.Dictionary<AnimationType, boolean>();
+			AnimationFactory._particleStateList = new game.Map<AnimationType, boolean>();
 		}
 		if (AnimationFactory._particleStateList.containsKey(type) && !AnimationFactory._particleStateList.getValue(type))
 		{

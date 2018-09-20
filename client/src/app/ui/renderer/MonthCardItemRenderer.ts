@@ -103,7 +103,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         {
             this.openGroup.visible = true;
             this.closeGroup.visible = false;
-            this.surplusDayLabel.text = "剩余:" + qin.DateTimeUtil.GetLefttimeText(surplusTime, false, true);
+            this.surplusDayLabel.text = "剩余:" + game.DateTimeUtil.GetLefttimeText(surplusTime, false, true);
             this.surplusDayLabel.textColor = ColorEnum.White;
             if (AwardManager.isToLimit(this._bringAwardDef))  //判断当天是否领取完
             {

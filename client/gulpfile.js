@@ -430,7 +430,7 @@ Gulp.task('lang',function()
     }
     const paths = [ProjectSrcPath,ProjectConfigPath];
     const suffixs = ['.ts', '.json', '.txt', '.xml'];
-    const filterKeywords = ['console.', 'qin.Console.', 'egret.log'];
+    const filterKeywords = ['console.', 'game.Console.', 'egret.log'];
     const filterPaths = [ProjectConfigPath+'/name.json', ProjectConfigPath+'/forbidden.json'];
     //
     const langFile = Path.join(ProjectLangPath, lang + '.json');

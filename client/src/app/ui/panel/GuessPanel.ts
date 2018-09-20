@@ -169,10 +169,10 @@ class GuessPanel extends BasePanel
         if (playInfo)
         {
             let bankRoll: number = playInfo.bankRoll;  //桌内的筹码             
-            this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold + bankRoll);
+            this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold + bankRoll);
         } else
         {
-            this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+            this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
         }
     }
     /**
@@ -255,7 +255,7 @@ class GuessPanel extends BasePanel
     */
     private setBuyInfo(anteList: Array<BuyGuessAnteInfoBase>)
     {
-        qin.ArrayUtil.Clear(this.buyAnteInfo);
+        game.ArrayUtil.Clear(this.buyAnteInfo);
         if (!this.buyAnteInfo)
         {
             this.buyAnteInfo = new Array<BuyGuessAnteInfoBase>();
@@ -306,8 +306,8 @@ class GuessPanel extends BasePanel
         this._def = TextDefined.GetInstance().getDefinition(TextFixedId.GuessHelp);
         if (this._def)
         {
-            this.helpTitleLabel.textFlow = qin.TextUtil.parse(this._def.title);
-            this.txtLabel.textFlow = qin.TextUtil.parse(this._def.text);
+            this.helpTitleLabel.textFlow = game.TextUtil.parse(this._def.title);
+            this.txtLabel.textFlow = game.TextUtil.parse(this._def.text);
             this.txtGroup.visible = true;
             this._lastShowContainer = this.txtGroup;
         }

@@ -23,7 +23,7 @@ class LoadingSwitchPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		let randomId: number = qin.MathUtil.getRandom(0, LoadingTextDefined.GetInstance().dataList.length - 1);
+		let randomId: number = game.MathUtil.getRandom(0, LoadingTextDefined.GetInstance().dataList.length - 1);
 		let loadingTextDef: LoadingTextDefinition = LoadingTextDefined.GetInstance().getDefinition(randomId);
 		if (loadingTextDef)
 		{
@@ -41,14 +41,14 @@ class LoadingSwitchPanel extends BasePanel
 		super.onEnable(event);
 		if (this._allowTimeout)
 		{
-			qin.Tick.addFrameInvoke(this.update, this);
+			game.Tick.addFrameInvoke(this.update, this);
 		}
 	}
 	protected onDisable(event: eui.UIEvent): void
 	{
 		super.onDisable(event);
 		this.loading.pause();
-		qin.Tick.removeFrameInvoke(this.update, this);
+		game.Tick.removeFrameInvoke(this.update, this);
 	}
 	private update(event: egret.Event)
 	{

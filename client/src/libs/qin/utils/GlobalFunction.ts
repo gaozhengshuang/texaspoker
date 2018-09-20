@@ -436,7 +436,7 @@ module game
     {
         if (t < 0 || t > 1 || !p0 || !p1 || !p2 || !movePoint)
         {
-            qin.Console.log("贝塞尔曲线参数不合法");
+            game.Console.log("贝塞尔曲线参数不合法");
             return;
         }
         let x: number;
@@ -461,7 +461,7 @@ module game
                 }
                 else
                 {
-                    qin.Console.log("树级获取对象异常！" + props + "i：" + props[i]);
+                    game.Console.log("树级获取对象异常！" + props + "i：" + props[i]);
                 }
             }
             return property;

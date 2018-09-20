@@ -52,7 +52,7 @@ class NewPayGiftPanel extends BaseActivityPanel
 		{
 			if (this._subInfo)
 			{
-				this.payBtn.label = qin.StringUtil.format("充值{0}元领取", this._subInfo.definition.payNum / 100);
+				this.payBtn.label = game.StringUtil.format("充值{0}元领取", this._subInfo.definition.payNum / 100);
 			}
 		}
 	}

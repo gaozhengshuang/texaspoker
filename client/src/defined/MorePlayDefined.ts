@@ -47,7 +47,7 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
     private getDate(def: MorePlayDefinition, timeStr: string): Date
     {
         let dataArr: Array<number>;
-        dataArr = qin.StringUtil.toIntArray(timeStr);
+        dataArr = game.StringUtil.toIntArray(timeStr);
         if (dataArr)
         {
             if (dataArr.length == 6)
@@ -56,7 +56,7 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
             }
             else
             {
-                qin.Console.log("时间格式不对！活动ID：" + def.id);
+                game.Console.log("时间格式不对！活动ID：" + def.id);
             }
         }
         return null;

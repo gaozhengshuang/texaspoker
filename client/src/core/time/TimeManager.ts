@@ -10,7 +10,7 @@ class TimeManager
 	/**
 	 * 零点重置事件
 	 */
-	public static resetTime0Event: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static resetTime0Event: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 1970UTC
 	 */
@@ -34,7 +34,7 @@ class TimeManager
 		SocketManager.AddCommandListener(Command.System_Push_ResetTime0_2015, TimeManager.onResetTime, this);
 	}
 
-	private static onResetTime(result: qin.SpRpcResult)
+	private static onResetTime(result: game.SpRpcResult)
 	{
 		TimeManager.resetTime0Event.dispatch();
 	}

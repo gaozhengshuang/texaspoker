@@ -57,8 +57,8 @@ class LoginTelPanel extends BasePanel
     public init(appendData: any)
     {
         super.init(appendData);
-        this.accountText.text = qin.StringConstants.Empty;
-        this.pwdText.text = qin.StringConstants.Empty;
+        this.accountText.text = game.StringConstants.Empty;
+        this.pwdText.text = game.StringConstants.Empty;
         this.setDefaultAccount();
         UserUtil.initCode(this.sendCodeBtn);
         this.tabCom.init(0);
@@ -250,7 +250,7 @@ class LoginTelPanel extends BasePanel
             this.telErrorLabel.text = "*手机号不能为空";
             return false;
         }
-        if (qin.RegexUtil.isPhoneNumber(account))
+        if (game.RegexUtil.isPhoneNumber(account))
         {
             this.telErrorLabel.text = "";
             return true;

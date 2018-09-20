@@ -15,20 +15,20 @@ class MailManager
     public static Reset()
     {
         MailManager.unReadCount = 0;
-        qin.ArrayUtil.Clear(MailManager.mailList);
+        game.ArrayUtil.Clear(MailManager.mailList);
         SocketManager.AddCommandListener(Command.Mail_Push_New_2024, MailManager.OnMailNewNofityFromServer, this);
     }
 
     /**
      * 新邮件的通知协议
      */
-    private static OnMailNewNofityFromServer(result: qin.SpRpcResult)
+    private static OnMailNewNofityFromServer(result: game.SpRpcResult)
     {
         MailManager.unReadCount++;
         MailManager.RequestMailList(0, 1);
     }
 
-    public static initialize(result: qin.SpRpcResult, isPush: boolean)
+    public static initialize(result: game.SpRpcResult, isPush: boolean)
     {
         if (result.data["MailList"])
         {
@@ -53,7 +53,7 @@ class MailManager
                     }
                     catch (e)
                     {
-                        qin.Console.logError("解析邮件json失败！    mailId：" + mail.Id);
+                        game.Console.logError("解析邮件json失败！    mailId：" + mail.Id);
                     }
                 }
                 if (mail.SubType)
@@ -75,7 +75,7 @@ class MailManager
                         {
                             if (mail.Content)
                             {
-                                let paramStr: Array<string> = mail.Content.split(qin.StringConstants.VerticalLine);
+                                let paramStr: Array<string> = mail.Content.split(game.StringConstants.VerticalLine);
                                 for (let i: number = 0; i < paramStr.length; i++)
                                 {
                                     content = content.replace("{" + i + "}", paramStr[i]);
@@ -107,7 +107,7 @@ class MailManager
                             }
                             if (mail.Content)
                             {
-                                let paramStr: Array<string> = mail.Content.split(qin.StringConstants.VerticalLine);
+                                let paramStr: Array<string> = mail.Content.split(game.StringConstants.VerticalLine);
                                 for (let i: number = 0; i < paramStr.length; i++)
                                 {
                                     let index: number = i + 1;
@@ -125,7 +125,7 @@ class MailManager
         }
     }
 
-    public static unshiftList(result: qin.SpRpcResult)
+    public static unshiftList(result: game.SpRpcResult)
     {
         MailManager.initialize(result, false);
     }
@@ -222,9 +222,9 @@ class MailManager
     /**
 	 * 拉取邮件完成事件
 	 */
-    public static getMailListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static getMailListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 领取邮件附件事件
      */
-    public static getMailPrizeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static getMailPrizeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

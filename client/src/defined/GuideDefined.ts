@@ -40,7 +40,7 @@ class GuideDefined extends BaseDefined<GuideDefinition>
 				}
 			}
 		}
-		qin.Console.log("未找到引导配置数据---->type:" + type + "phase:" + phase);
+		game.Console.log("未找到引导配置数据---->type:" + type + "phase:" + phase);
 		return def;
 	}
 	/**

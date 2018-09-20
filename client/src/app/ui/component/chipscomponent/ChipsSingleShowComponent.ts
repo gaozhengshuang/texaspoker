@@ -74,6 +74,6 @@ class ChipsSingleShowComponent extends BaseComponent<any>
     }
     private refreshNum(num: number)
     {
-        this.numLabel.text = qin.MathUtil.formatNum(num);
+        this.numLabel.text = game.MathUtil.formatNum(num);
     }
 }

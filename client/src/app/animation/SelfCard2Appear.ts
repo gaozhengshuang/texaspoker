@@ -19,12 +19,12 @@ class SelfCard2Appear extends BaseAnimation<CardFaceComponent>
 		// return;
 		super.run();
 		this._isSound = isSound;
-		qin.Tick.AddTimeoutInvoke(this.delayRun, 200, this);
+		game.Tick.AddTimeoutInvoke(this.delayRun, 200, this);
 	}
 	private delayRun()
 	{
 		this.target.visible = true; //设置本家手牌2显示
-		qin.Console.log("显示本家手牌2");
+		game.Console.log("显示本家手牌2");
 		let tween: egret.Tween = egret.Tween.get(this.tsfMatrix, { onChange: this.change.bind(this) });
 
 		tween.to({ a: GamblingPanelSetting.handCardMatrix2.a, b: GamblingPanelSetting.handCardMatrix2.b, c: GamblingPanelSetting.handCardMatrix2.c, d: GamblingPanelSetting.handCardMatrix2.d }, 300).call(this.runOver, this);
@@ -48,7 +48,7 @@ class SelfCard2Appear extends BaseAnimation<CardFaceComponent>
 	}
 	public clear()
 	{
-		qin.Tick.RemoveTimeoutInvoke(this.delayRun, this);
+		game.Tick.RemoveTimeoutInvoke(this.delayRun, this);
 		super.clear();
 	}
 }

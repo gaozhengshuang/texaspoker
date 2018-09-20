@@ -8,7 +8,7 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 	private _initH: number;
 	private _initV: number;
 
-	private _angleVec: qin.Vector2D;
+	private _angleVec: game.Vector2D;
 	private _params: any;
 	private _runStart: number;
 	private readonly _runTime: number = 400;
@@ -18,7 +18,7 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 	public constructor()
 	{
 		super();
-		this._angleVec = new qin.Vector2D(0, 0);
+		this._angleVec = new game.Vector2D(0, 0);
 	}
 	private _verticalCenter: number;
 	public reset()
@@ -36,7 +36,7 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 	private _flopAngle: number = 18;
 	public run(point: egret.Point, callBack: Function, thisObj: any, params: any)
 	{
-		// this.callBack = new qin.Delegate(callBack, thisObj);
+		// this.callBack = new game.Delegate(callBack, thisObj);
 		// this._params = params;
 		// this.runOver();
 		// return;
@@ -44,10 +44,10 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 		this._angleVec.x = point.x - this._initMatrix.tx;
 		this._angleVec.y = point.y - this.target.y;
 		this._params = params;
-		this.callBack = new qin.Delegate(callBack, thisObj);
+		this.callBack = new game.Delegate(callBack, thisObj);
 
 		let angle: number = this._angleVec.angle;
-		angle = angle * qin.MathUtil.Radian2Angle;
+		angle = angle * game.MathUtil.Radian2Angle;
 		angle += 270;
 
 		this._p0.x = this.target.x;
@@ -56,10 +56,10 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 		this._vecotr.x = point.x - this.target.x;
 		this._vecotr.y = point.y - this.target.y;
 		this._vecotr = this._vecotr.multiply(0.5);
-		let oppLen: number = Math.tan(this._flopAngle * qin.MathUtil.Angle2Radian) * Math.sqrt(this._vecotr.lengthSQ);
+		let oppLen: number = Math.tan(this._flopAngle * game.MathUtil.Angle2Radian) * Math.sqrt(this._vecotr.lengthSQ);
 		let len: number = Math.sqrt(this._vecotr.lengthSQ + oppLen * oppLen);
 		this._vecotr.distance = len;
-		this._vecotr.angle = this._vecotr.angle - this._flopAngle * qin.MathUtil.Angle2Radian;
+		this._vecotr.angle = this._vecotr.angle - this._flopAngle * game.MathUtil.Angle2Radian;
 
 		this._p1.x = this._vecotr.x + GameManager.stage.stageWidth / GameSetting.StageWidth * this._initMatrix.tx;
 		this._p1.y = this._vecotr.y + GameManager.stage.stageHeight / GameSetting.StageHeight * this._initMatrix.ty;
@@ -78,7 +78,7 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 		this.target.visible = true;
 		this._isCallBackIsRuned = false;
 		this.runNext();
-		qin.Tick.addFrameInvoke(this.runNext, this);
+		game.Tick.addFrameInvoke(this.runNext, this);
 		tween.play();
 	}
 
@@ -86,7 +86,7 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 	private _p0: egret.Point = new egret.Point();
 	private _p1: egret.Point = new egret.Point();
 	private _p2: egret.Point = new egret.Point();
-	private _vecotr: qin.Vector2D = new qin.Vector2D(0, 0);
+	private _vecotr: game.Vector2D = new game.Vector2D(0, 0);
 	private _factor:number;
 	private get factor():number
 	{
@@ -95,7 +95,7 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 	private set factor(value: number)
 	{
 		this._factor = value;
-		qin.MathUtil.besselPoint(this._factor, this._p0, this._p1, this._p2, this._movePoint);
+		game.MathUtil.besselPoint(this._factor, this._p0, this._p1, this._p2, this._movePoint);
 		this.target.x = this._movePoint.x;
 		this.target.y = this._movePoint.y;
 	}
@@ -105,7 +105,7 @@ class FlopCardAnimation extends BaseAnimation<egret.DisplayObject>{
 		{
 			this.callBack.invoke(this._params);
 			this._isCallBackIsRuned = true;
-			qin.Tick.removeFrameInvoke(this.runNext, this);
+			game.Tick.removeFrameInvoke(this.runNext, this);
 			this.callBack = null;
 		}
 	}

@@ -16,13 +16,13 @@ class UIManager
 	//警告层
 	private static _warnLayer: eui.Group;
 	//面板对象存储
-	private static _panelDict: qin.Dictionary<string, BasePanel>;
-	public static get panelDict(): qin.Dictionary<string, BasePanel>
+	private static _panelDict: game.Map<string, BasePanel>;
+	public static get panelDict(): game.Map<string, BasePanel>
 	{
 		return UIManager._panelDict;
 	}
 	//游戏层级存储
-	private static _layerDict: qin.Dictionary<UILayerType, eui.Group>;
+	private static _layerDict: game.Map<UILayerType, eui.Group>;
 	private static _layers: Array<eui.Group>;
 	/**
 	 * 自适应的显示对象集合
@@ -52,8 +52,8 @@ class UIManager
 		stage.addChild(UIManager._guideLayer);
 		stage.addChild(UIManager._warnLayer);
 
-		UIManager._panelDict = new qin.Dictionary<string, BasePanel>();
-		UIManager._layerDict = new qin.Dictionary<UILayerType, eui.Group>();
+		UIManager._panelDict = new game.Map<string, BasePanel>();
+		UIManager._layerDict = new game.Map<UILayerType, eui.Group>();
 		UIManager._layerDict.add(UILayerType.GameContent, UIManager._gameLayer);
 		UIManager._layerDict.add(UILayerType.MainUI, UIManager._mainUiLayer);
 		UIManager._layerDict.add(UILayerType.Module, UIManager._moduleLayer);
@@ -138,7 +138,7 @@ class UIManager
 			let panel = UIManager._panelDict.getValue(panelName);
 			return panel;
 		}
-		qin.Console.logError("面板名为空！");
+		game.Console.logError("面板名为空！");
 	}
 	public static getLayerContainer(layer: UILayerType): eui.Group
 	{
@@ -429,7 +429,7 @@ class UIManager
 		}
 	}
 
-	private static _eventDispatcher: qin.CallDispatcher<any> = new qin.CallDispatcher<any>();
+	private static _eventDispatcher: game.CallDispatcher<any> = new game.CallDispatcher<any>();
 	/**
 	 * 添加事件
 	 */
@@ -454,11 +454,11 @@ class UIManager
 	/**
 	 * 面板打开事件
 	 */
-	public static onPanelOpenEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onPanelOpenEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 面板关闭事件
 	 */
-	public static onPanelCloseEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onPanelCloseEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 清除所有事件
 	 */

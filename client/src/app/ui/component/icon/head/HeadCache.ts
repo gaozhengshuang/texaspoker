@@ -45,7 +45,7 @@ class HeadCache
 
     public clear()
     {
-        qin.ArrayUtil.Clear(this._heads);
-        qin.ArrayUtil.Clear(this._textures);
+        game.ArrayUtil.Clear(this._heads);
+        game.ArrayUtil.Clear(this._textures);
     }
 }

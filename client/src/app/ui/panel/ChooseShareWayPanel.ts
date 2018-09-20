@@ -109,11 +109,11 @@ class ChooseShareWayPanel extends BasePanel
         data['title'] = title;
         data['message'] = this._msg;
         data['url'] = ProjectDefined.GetInstance().getShareWebUrl(GameSetting.AppId, inviteCode);
-        if (qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Ios)
+        if (game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Ios)
         {
-            qin.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
+            game.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
         }
-        else if (qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Android)
+        else if (game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Android)
         {
             egret.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
         }

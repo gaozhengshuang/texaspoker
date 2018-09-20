@@ -20,7 +20,7 @@ class GamblingUtil
 						if (cardInfo.card[0] == data[i - 1] && cardInfo.card[1] == data[i])
 						{
 							AlertManager.showAlertByString("已存在相同的牌");
-							qin.Console.logError("已存在相同的牌");
+							game.Console.logError("已存在相同的牌");
 							continue; //容错 推送了相同的牌不添加
 						}
 					}
@@ -52,17 +52,17 @@ class GamblingUtil
 				{
 					return getNum > pInfo.totalnum; //收益大于投入
 				}
-				qin.Console.log("获取是否赢牌失败,奖励的roleID列表为空！：" + roleId);
+				game.Console.log("获取是否赢牌失败,奖励的roleID列表为空！：" + roleId);
 				return false;
 			}
 			else
 			{
-				qin.Console.log("获取是否赢牌失败,底池为空！roleId：" + roleId);
+				game.Console.log("获取是否赢牌失败,底池为空！roleId：" + roleId);
 			}
 		}
 		else
 		{
-			qin.Console.log("获取是否赢牌失败，结算信息为空！roleId：" + roleId);
+			game.Console.log("获取是否赢牌失败，结算信息为空！roleId：" + roleId);
 		}
 	}
 	/**
@@ -556,7 +556,7 @@ class GamblingUtil
 		{
 			return info.isWaitStart ? GamblingPanelStateIndex.MatchWait : GamblingPanelStateIndex.Match;
 		}
-		qin.Console.logError("切换到游戏场景状态有问题，比赛的房间信息为空！");
+		game.Console.logError("切换到游戏场景状态有问题，比赛的房间信息为空！");
 		return GamblingPanelStateIndex.Match;
 	}
 	/**

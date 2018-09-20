@@ -33,14 +33,14 @@ class HWBetPotComponent extends BaseComponent<HWBetPotInfo>
         {
             if (data.bet)
             {
-                this.allChipsLabel.text = qin.MathUtil.formatNum(data.bet);
+                this.allChipsLabel.text = game.MathUtil.formatNum(data.bet);
             } else
             {
                 this.allChipsLabel.text = "";
             }
             if (data.myBet)
             {
-                this.myChipsLabel.text = qin.MathUtil.formatNum(data.myBet);
+                this.myChipsLabel.text = game.MathUtil.formatNum(data.myBet);
             } else
             {
                 this.myChipsLabel.text = "";

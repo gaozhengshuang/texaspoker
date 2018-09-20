@@ -132,7 +132,7 @@ class BaseRegisterTelPanel extends BasePanel
             this.telErrorLabel.text = "*手机号不能为空";
             return false;
         }
-        if (qin.RegexUtil.isPhoneNumber(account))
+        if (game.RegexUtil.isPhoneNumber(account))
         {
             this.clearTelError();
             return true;

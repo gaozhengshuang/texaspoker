@@ -38,7 +38,7 @@ class GuideGamblingProcess
 		let pInfo: PlayerInfo = GamblingManager.getPlayerInfoByPos(target);
 		if (!pInfo)
 		{
-			qin.Console.logError("新手引导房间状态变更异常！未找到状态变更的玩家数据！" + target);
+			game.Console.logError("新手引导房间状态变更异常！未找到状态变更的玩家数据！" + target);
 			return;
 		}
 		if (num == undefined)
@@ -120,7 +120,7 @@ class GuideGamblingProcess
 		let pInfo: PlayerInfo = GamblingManager.getPlayerInfoByPos(pos);
 		if (!pInfo)
 		{
-			qin.Console.logError("更新玩家筹码失败，找不到玩家信息！pos" + pos);
+			game.Console.logError("更新玩家筹码失败，找不到玩家信息！pos" + pos);
 			return;
 		}
 		let br: number = definition.stepParams["bankRoll"];

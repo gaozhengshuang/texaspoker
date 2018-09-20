@@ -35,7 +35,7 @@ class TimeAwardHandler
     {
         this.time = undefined;
         this.round = undefined;
-        qin.ArrayUtil.Clear(this.timeAwardList);
+        game.ArrayUtil.Clear(this.timeAwardList);
     }
     /**
      * 添加监听推送
@@ -60,7 +60,7 @@ class TimeAwardHandler
     /**
      * 刷新计时奖励时间
     */
-    public refreshTimeAwardTime(result: qin.SpRpcResult)
+    public refreshTimeAwardTime(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -87,7 +87,7 @@ class TimeAwardHandler
     */
     public reqGetTimeAwardInfo(roomFieldType: PlayingFieldType)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -146,7 +146,7 @@ class TimeAwardHandler
     {
         SocketManager.call(Command.TimeAwardGet_Req_3621, { roomType: roomFieldType }, this.getTimeAwardResponse, null, this);
     }
-    public getTimeAwardResponse(result: qin.SpRpcResult)
+    public getTimeAwardResponse(result: game.SpRpcResult)
     {
         PropertyManager.ShowItemList();
         this.round++;
@@ -165,7 +165,7 @@ class TimeAwardHandler
         let awardList = TimeAwardDefined.GetInstance().dataList;
         if (awardList)
         {
-            qin.ArrayUtil.Clear(this.timeAwardList);
+            game.ArrayUtil.Clear(this.timeAwardList);
             if (!this.timeAwardList)
             {
                 this.timeAwardList = new Array<TimeAwardInfo>();
@@ -190,7 +190,7 @@ class TimeAwardHandler
         {
             return;
         }
-        qin.Tick.AddSecondsInvoke(this.countDown, this);
+        game.Tick.AddSecondsInvoke(this.countDown, this);
         this.startTimeFlag = false;
     }
     /**
@@ -229,27 +229,27 @@ class TimeAwardHandler
     */
     public stopCountDown()
     {
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
         this.startTimeFlag = true;
     }
     /**
      * 获取轮数和下次领奖时间的数据成功广播
     */
-    public GetTimeAwardInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public GetTimeAwardInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取对应场次计时奖励数据成功广播
     */
-    public getTimeAwardEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public getTimeAwardEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      *计时奖励可领取广播
     */
-    public BringTimeAwardEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public BringTimeAwardEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      *计时进行中广播
     */
-    public TimeAwardCountDownEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public TimeAwardCountDownEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      *拉取计时奖励信息成功广播
     */
-    public TimeAwardInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public TimeAwardInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

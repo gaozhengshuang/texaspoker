@@ -17,11 +17,11 @@ class AwardDefined extends BaseDefined<AwardDefinition>
 		}
 		return AwardDefined._instance;
 	}
-	public awardDefinitionDic: qin.Dictionary<number, AwardDefinition>;
+	public awardDefinitionDic: game.Map<number, AwardDefinition>;
 
 	private initialize()
 	{
-		this.awardDefinitionDic = new qin.Dictionary<number, AwardDefinition>();
+		this.awardDefinitionDic = new game.Map<number, AwardDefinition>();
 		this.dataList = DefinedManager.GetData(AwardDefined.awardConfig) as Array<AwardDefinition>;
 		for (let def of this.dataList)
 		{
@@ -114,7 +114,7 @@ class AwardDefined extends BaseDefined<AwardDefinition>
 						}
 					} else
 					{
-						str += qin.MathUtil.formatNum(count) + name;
+						str += game.MathUtil.formatNum(count) + name;
 					}
 					if (award.rewardList && i < len - 1)
 					{

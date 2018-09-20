@@ -53,7 +53,8 @@
 			"name": "dragonbones"
 		},
 		{
-			"name": "promise"
+			"name": "promise",
+			"path": "../../tools/egret/promise/libsrc"
 		},
 		{
 			"name": "protobuf-library",

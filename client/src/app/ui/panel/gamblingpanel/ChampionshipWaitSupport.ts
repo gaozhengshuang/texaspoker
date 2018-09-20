@@ -13,7 +13,7 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
         let component: GamblingMatchWaitComponent = state.getCompoent<GamblingMatchWaitComponent>(GamblingMatchWaitComponent);
         component.waitNameLabel.text = UserManager.userInfo.name;
         component.waitHeadIcon.init(UserManager.userInfo, 90);
-        qin.Tick.RemoveSecondsInvoke(this.refreshTime, this);
+        game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
         {
             component.waitChipsLabel.text = GamblingManager.matchRoomInfo.definition.initialChips.toString();
@@ -21,7 +21,7 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
             switch (GamblingManager.matchRoomInfo.definition.type)
             {
                 case MatchType.MTT:
-                    qin.Tick.AddSecondsInvoke(this.refreshTime, this);
+                    game.Tick.AddSecondsInvoke(this.refreshTime, this);
                     this.refreshTime();
                     break;
                 case MatchType.SNG:
@@ -45,7 +45,7 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
             let leftTime: number = GamblingManager.matchRoomInfo.startTime - TimeManager.GetServerUtcTimestamp();
             if (leftTime > 0)
             {
-                component.championshipWaitLabel.text = qin.DateTimeUtil.countDownFormat(Math.floor(leftTime), false);
+                component.championshipWaitLabel.text = game.DateTimeUtil.countDownFormat(Math.floor(leftTime), false);
             }
             else
             {
@@ -54,8 +54,8 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
                 //锦标赛开始是会推送房间Id,所以到锦标赛开始时可能取不到房间id
                 if (GamblingManager.matchRoomInfo.roomId > 0)
                 {
-                    qin.Tick.RemoveSecondsInvoke(this.refreshTime, this);
-                    qin.Tick.AddTimeoutInvoke(this.delayEnterRoom, 600, this);
+                    game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
+                    game.Tick.AddTimeoutInvoke(this.delayEnterRoom, 600, this);
                 }
             }
         }
@@ -63,8 +63,8 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
 
     private delayEnterRoom()
     {
-        ChampionshipManager.enterMttHandler.enterMatch(GamblingManager.matchRoomInfo, qin.StringConstants.Empty);
-        qin.Console.log("锦标赛开始进入房间refreshTime" + GamblingManager.matchRoomInfo.roomId);
+        ChampionshipManager.enterMttHandler.enterMatch(GamblingManager.matchRoomInfo, game.StringConstants.Empty);
+        game.Console.log("锦标赛开始进入房间refreshTime" + GamblingManager.matchRoomInfo.roomId);
     }
 
     private onCancelMTTPushEvent(info: MatchRoomInfo)
@@ -97,10 +97,10 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
     public onDisable()
     {
         super.onDisable();
-        qin.Tick.RemoveSecondsInvoke(this.refreshTime, this);
+        game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
         ChampionshipManager.OnCancelMTTPushEvent.removeListener(this.onCancelMTTPushEvent, this);
         ChampionshipManager.onRefreshMTTListEvent.removeListener(this.refreshMatchHandler, this);
-        qin.Tick.RemoveTimeoutInvoke(this.delayEnterRoom, this);
+        game.Tick.RemoveTimeoutInvoke(this.delayEnterRoom, this);
     }
     private refreshMatchHandler()
     {
@@ -115,7 +115,7 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
 
                     if (GamblingManager.matchRoomInfo.join >= GamblingManager.matchRoomInfo.definition.bNum) //人满请求进入牌局
                     {
-                        qin.Tick.AddTimeoutInvoke(this.delayEnterRoom, 600, this);
+                        game.Tick.AddTimeoutInvoke(this.delayEnterRoom, 600, this);
                     }
                     break;
             }

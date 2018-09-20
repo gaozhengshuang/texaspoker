@@ -34,7 +34,7 @@ class TextNotifyHandler
 	 */
 	public showTextNotify()
 	{
-		if (VersionManager.isSafe || qin.System.isLocalhost)
+		if (VersionManager.isSafe || game.System.isLocalhost)
 		{
 			this.onTextNotifyException();
 			return;
@@ -55,7 +55,7 @@ class TextNotifyHandler
 		if (data)
 		{
 			this.createTextNotify();
-			this._textNotify.text = qin.StringUtil.format(data, ChannelManager.appName);
+			this._textNotify.text = game.StringUtil.format(data, ChannelManager.appName);
 			UIManager.showPanel(UIModuleName.TextInfoPanel, this._textNotify);
 		}
 		else
@@ -80,10 +80,10 @@ class TextNotifyHandler
 	{
 		this._checkNextCallBack = checkCallBack;
 		this._checkNextThisObj = thisObj;
-		if ((VersionManager.isSafe || qin.System.isLocalhost))
+		if ((VersionManager.isSafe || game.System.isLocalhost))
 		{
-			qin.Console.log("编辑器运行和安全开关开启不自动加载公告");
-			qin.FuncUtil.invoke(this._checkNextCallBack, this._checkNextThisObj);
+			game.Console.log("编辑器运行和安全开关开启不自动加载公告");
+			game.FuncUtil.invoke(this._checkNextCallBack, this._checkNextThisObj);
 			return false;
 		}
 		let url: string = ProjectDefined.GetInstance().getNoticeUrl(GameSetting.AppId);
@@ -103,10 +103,10 @@ class TextNotifyHandler
 				}
 				catch (e)
 				{
-					qin.Console.log("文字公告本地数据存储异常！storageData：" + storageData);
+					game.Console.log("文字公告本地数据存储异常！storageData：" + storageData);
 				}
 			}
-			let nowMd5: string = qin.Crypt.hex_md5(data);
+			let nowMd5: string = game.Crypt.hex_md5(data);
 			let isShow: boolean = false;
 			if (storageData)
 			{
@@ -131,24 +131,24 @@ class TextNotifyHandler
 			{
 				PrefsManager.setValue(PrefsManager.LoginTextNotify, JSON.stringify({ time: Date.now().toString(), md5: nowMd5 }));
 				this.createTextNotify();
-				if (!qin.StringUtil.isNullOrEmpty(data))
+				if (!game.StringUtil.isNullOrEmpty(data))
 				{
-					this._textNotify.text = qin.StringUtil.format(data, ChannelManager.appName);
+					this._textNotify.text = game.StringUtil.format(data, ChannelManager.appName);
 				}
 				else
 				{
-					this._textNotify.text = qin.StringConstants.Empty;
+					this._textNotify.text = game.StringConstants.Empty;
 				}
 				UIManager.showPanel(UIModuleName.TextInfoPanel, this._textNotify);
 			}
 			else
 			{
-				qin.FuncUtil.invoke(this._checkNextCallBack, this._checkNextThisObj);
+				game.FuncUtil.invoke(this._checkNextCallBack, this._checkNextThisObj);
 			}
 		}
 		else
 		{
-			qin.FuncUtil.invoke(this._checkNextCallBack, this._checkNextThisObj);
+			game.FuncUtil.invoke(this._checkNextCallBack, this._checkNextThisObj);
 		}
 	}
 }

@@ -8,11 +8,11 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 	/**
 	 * 一圈结束动画结束回调
 	 */
-	public onLoopOverCallback: qin.Delegate;
+	public onLoopOverCallback: game.Delegate;
 	/**
 	 * 公共牌出现结束
 	 */
-	public onBoardCardApearComplete: qin.Delegate;
+	public onBoardCardApearComplete: game.Delegate;
 	/**
 	 * 底池动画下注动画结束标记
 	 */
@@ -126,7 +126,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		// GamblingManager.HandCardComeEvent.addListener(this.handCardComHandler, this);
 		GamblingManager.PlayerStateChangeEvent.addListener(this.playerStateChange, this);
 		GamblingManager.SitOrStandEvent.addListener(this.sitOrStandHandler, this);
-		qin.Tick.addFrameInvoke(this.tryStartNext, this);
+		game.Tick.addFrameInvoke(this.tryStartNext, this);
 	}
 	public onDisable()
 	{
@@ -137,10 +137,10 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		// GamblingManager.HandCardComeEvent.removeListener(this.handCardComHandler, this);
 		GamblingManager.PlayerStateChangeEvent.removeListener(this.playerStateChange, this);
 		GamblingManager.SitOrStandEvent.removeListener(this.sitOrStandHandler, this);
-		qin.Tick.removeFrameInvoke(this.tryStartNext, this);
+		game.Tick.removeFrameInvoke(this.tryStartNext, this);
 
-		qin.Tick.RemoveTimeoutInvoke(this.showOneLoop, this);
-		qin.Tick.RemoveTimeoutInvoke(this.showRoundOver, this);
+		game.Tick.RemoveTimeoutInvoke(this.showOneLoop, this);
+		game.Tick.RemoveTimeoutInvoke(this.showRoundOver, this);
 		this._cardList = undefined;
 		this._publicCardList = undefined;
 	}
@@ -157,7 +157,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		}
 		this.setPotChips();
 		this.target.hideSateGroup(true);
-		qin.Tick.AddTimeoutInvoke(this.showOneLoop, 450, this);
+		game.Tick.AddTimeoutInvoke(this.showOneLoop, 450, this);
 	}
 	private showOneLoop()
 	{
@@ -293,7 +293,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 				this._isPotChipsAnimOver = false;
 				if (list.length == 0) //兼容异常情况
 				{
-					qin.Console.log("兼容异常情况_isOnRoundOVer");
+					game.Console.log("兼容异常情况_isOnRoundOVer");
 					this._isOnRoundOVer = true;
 				}
 				else
@@ -303,7 +303,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 			}
 			if (this._isOneLoopShowChips == false && this._isPotChipsAnimOver == true)
 			{
-				qin.Tick.AddTimeoutInvoke(this.showRoundOver, 300, this);
+				game.Tick.AddTimeoutInvoke(this.showRoundOver, 300, this);
 			}
 			else
 			{
@@ -314,11 +314,11 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		{
 			if (!GamblingManager.roundOverInfo)
 			{
-				qin.Console.log("结算异常，结算信息为空！");
+				game.Console.log("结算异常，结算信息为空！");
 			}
 			if (GamblingManager.roundOverInfo && !GamblingManager.roundOverInfo.potList)
 			{
-				qin.Console.log("结算异常，结算底池列表为空");
+				game.Console.log("结算异常，结算底池列表为空");
 			}
 			this._isOnRoundOVer = true;
 		}
@@ -492,7 +492,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 			}
 			// this.target.chipsGroup.removeChildren();
 			// this.target.chipsNumGroup.removeChildren();
-			qin.Console.log("底池数量_dataList：" + this._dataList.length);
+			game.Console.log("底池数量_dataList：" + this._dataList.length);
 			let comp1: ChipsShowComponent;
 			let comp2: ChipsShowComponent;
 			// for (let i: number = this._dataList.length - 1; i >= 0; i--)
@@ -535,7 +535,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		if (this._isOnRoundOVer && this._isBoardCardAnimOver) //allin 时 一次性出5张牌
 		{
 			// this.showRoundOver();
-			qin.Tick.AddTimeoutInvoke(this.showRoundOver, 300, this);
+			game.Tick.AddTimeoutInvoke(this.showRoundOver, 300, this);
 		}
 	}
 	/**
@@ -571,8 +571,8 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		bgChips.init(objClone);
 		this.target.chipsBgGroup.addChildAt(bgChips, 0);
 	}
-	private _actionList1: qin.Dictionary<CardFaceComponent, CardFaceBoardAppear>;
-	private _actionList2: qin.Dictionary<CardFaceComponent, CardFaceTurnToFace>;
+	private _actionList1: game.Map<CardFaceComponent, CardFaceBoardAppear>;
+	private _actionList2: game.Map<CardFaceComponent, CardFaceTurnToFace>;
 	/**
  	* 跑公共牌动画
  	*/
@@ -584,8 +584,8 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		}
 		if (!this._actionList1)
 		{
-			this._actionList1 = new qin.Dictionary<CardFaceComponent, CardFaceBoardAppear>();
-			this._actionList2 = new qin.Dictionary<CardFaceComponent, CardFaceTurnToFace>();
+			this._actionList1 = new game.Map<CardFaceComponent, CardFaceBoardAppear>();
+			this._actionList2 = new game.Map<CardFaceComponent, CardFaceTurnToFace>();
 		}
 		let run: CardFaceBoardAppear = this._actionList1.getValue(target);
 		let run2: CardFaceTurnToFace = this._actionList2.getValue(target);
@@ -605,7 +605,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 			this._actionList2.add(target, run2);
 		}
 		run.nextAnimation = run2;
-		(run.nextAnimation as CardFaceTurnToFace).callback = new qin.Delegate(callBack, thisObj);
+		(run.nextAnimation as CardFaceTurnToFace).callback = new game.Delegate(callBack, thisObj);
 		run.run(point, delay);
 	}
 	/**
@@ -622,7 +622,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		if (this._isOnRoundOVer && this._isPotChipsAnimOver) //allin 时 一次性出5张牌
 		{
 			// this.showRoundOver();
-			qin.Tick.AddTimeoutInvoke(this.showRoundOver, 300, this);
+			game.Tick.AddTimeoutInvoke(this.showRoundOver, 300, this);
 		}
 		// if (this._isBetAnimOver && this.onLoopOverCallback && this._isOnRoundOVer)
 		// {
@@ -758,12 +758,12 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 	// 	{
 	// 		if (this._isOneLoopShowChips)
 	// 		{
-	// 			qin.Tick.AddTimeoutInvoke(this.showOneLoop, 150, this);
+	// 			game.Tick.AddTimeoutInvoke(this.showOneLoop, 150, this);
 	// 		}
 	// 		else if (this._isOnRoundOVer)
 	// 		{
 	// 			// this._isPotChipsAnimOver = false;
-	// 			qin.Tick.AddTimeoutInvoke(this.showRoundOver, 150, this);
+	// 			game.Tick.AddTimeoutInvoke(this.showRoundOver, 150, this);
 	// 		}
 	// 		//播放收集筹码动画
 	// 	}

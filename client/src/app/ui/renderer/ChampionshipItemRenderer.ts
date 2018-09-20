@@ -136,9 +136,9 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.enterBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onEnterBtnClick, this);
         this.enterBtn.removeEventListener(egret.TouchEvent.TOUCH_END, this.cancelBubble, this);
         ChampionshipManager.onRequestJoinEvent.removeListener(this.requestJoinSuccess, this);
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
-        qin.Tick.RemoveSecondsInvoke(this.delayTimeCountDown, this);
-        qin.Tick.RemoveSecondsInvoke(this.getNowTime, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.delayTimeCountDown, this);
+        game.Tick.RemoveSecondsInvoke(this.getNowTime, this);
     }
 
     /***************锦标赛*******************/
@@ -190,7 +190,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
                 this.beyondFiveMinStart();
             }
             this.countDown();
-            qin.Tick.AddSecondsInvoke(this.countDown, this);
+            game.Tick.AddSecondsInvoke(this.countDown, this);
         }
     }
 
@@ -232,10 +232,10 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         let date: Date = new Date((this.bindData.startTime - this.bindData.definition.signTime) * 1000);
         if (this.bindData.startTime - this.bindData.definition.signTime > Math.floor(todayLastTime / 1000))  //大于一天
         {
-            this.startJoinTimeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + "  " + qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(qin.StringConstants.Blank)[1];
+            this.startJoinTimeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + "  " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(game.StringConstants.Blank)[1];
         } else
         {
-            this.startJoinTimeLabel.text = "今日" + "  " + qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(qin.StringConstants.Blank)[1];
+            this.startJoinTimeLabel.text = "今日" + "  " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(game.StringConstants.Blank)[1];
         }
     }
 
@@ -283,9 +283,9 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private sitAndPlayNotJoinedShow()
     {
         this.sitAndPlayAwardGroup.visible = true;
-        this.awardLabel.text = qin.MathUtil.formatNum(this.getSNGAllAward());
+        this.awardLabel.text = game.MathUtil.formatNum(this.getSNGAllAward());
         this.notJoinedShow();
-        qin.Tick.AddSecondsInvoke(this.getNowTime, this);
+        game.Tick.AddSecondsInvoke(this.getNowTime, this);
     }
     /**
      * 获得坐满即玩总奖励
@@ -346,8 +346,8 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.startJoinGroup.visible = this.waitJoinGroup.visible = false;
         this.sitAndGoNumGroup.visible = this.sitAndPlayAwardGroup.visible = false;  //坐满即玩
         this.mttNumGroup.visible = false;  //锦标赛
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
-        qin.Tick.RemoveSecondsInvoke(this.delayTimeCountDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.delayTimeCountDown, this);
     }
     /**
      * 托管中或者坐满即玩报名人数未达到开赛人数显示设置
@@ -504,7 +504,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         {
             this.timeDesLabel.text = "今日";
         }
-        this.timeLabel.text = qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(qin.StringConstants.Blank)[1];
+        this.timeLabel.text = game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(game.StringConstants.Blank)[1];
     }
     /**
      * 距离比赛开始小于5分钟大于1分钟
@@ -545,10 +545,10 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.ticketImg.visible = false;
         if (this.bindData.definition.signCost == 0 || this.bindData.definition.signCost == undefined)
         {
-            this.priceLabel.text = "免费" + "+" + qin.MathUtil.formatNum(this.bindData.definition.serveCost);
+            this.priceLabel.text = "免费" + "+" + game.MathUtil.formatNum(this.bindData.definition.serveCost);
         } else
         {
-            this.priceLabel.text = qin.MathUtil.formatNum(this.bindData.definition.signCost) + "+" + qin.MathUtil.formatNum(this.bindData.definition.serveCost);
+            this.priceLabel.text = game.MathUtil.formatNum(this.bindData.definition.signCost) + "+" + game.MathUtil.formatNum(this.bindData.definition.serveCost);
         }
     }
     /**
@@ -577,7 +577,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
                     if (time < 0)
                     {
                         // 直接进入比赛房间
-                        ChampionshipManager.enterMttHandler.enterMatch(this.bindData, qin.StringConstants.Empty);
+                        ChampionshipManager.enterMttHandler.enterMatch(this.bindData, game.StringConstants.Empty);
 
                     } else
                     {
@@ -620,13 +620,13 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         SoundManager.playButtonEffect(event.target);
         if (this.bindData.definition.type == MatchType.MTT)
         {
-            ChampionshipManager.enterMttHandler.enterMatch(this.bindData, qin.StringConstants.Empty);
+            ChampionshipManager.enterMttHandler.enterMatch(this.bindData, game.StringConstants.Empty);
         } else if (this.bindData.definition.type == MatchType.SNG)
         {
             let enterMatch: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(this.bindData.recordId);
             if (enterMatch)
             {
-                ChampionshipManager.enterMttHandler.enterMatch(enterMatch, qin.StringConstants.Empty);
+                ChampionshipManager.enterMttHandler.enterMatch(enterMatch, game.StringConstants.Empty);
             } else
             {
                 AlertManager.showAlert("获取赛事信息异常");
@@ -649,14 +649,14 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this._countDownNum--;
         if (this._countDownNum <= 300)
         {
-            this.timeLabel.text = qin.DateTimeUtil.countDownFormat(this._countDownNum, false);
+            this.timeLabel.text = game.DateTimeUtil.countDownFormat(this._countDownNum, false);
             if (this._countDownNum < 60)
             {
                 this.oneMinStart();
             }
             if (this._countDownNum <= 0)
             {
-                qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+                game.Tick.RemoveSecondsInvoke(this.countDown, this);
                 this.countDownOver();
             }
         }
@@ -677,11 +677,11 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this._countDownNum--;
         if (this._countDownNum >= 0)
         {
-            this.timeLabel.text = qin.DateTimeUtil.countDownFormat(this._countDownNum, false);
+            this.timeLabel.text = game.DateTimeUtil.countDownFormat(this._countDownNum, false);
 
         } else
         {
-            qin.Tick.RemoveSecondsInvoke(this.delayTimeCountDown, this);
+            game.Tick.RemoveSecondsInvoke(this.delayTimeCountDown, this);
             this.delFromMTTList();
         }
     }
@@ -707,7 +707,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
                 }
                 this._countDownNum = Math.floor(this.bindData.startTime + this.bindData.definition.delaySign - TimeManager.GetServerUtcTimestamp());
                 this.delayTimeCountDown();
-                qin.Tick.AddSecondsInvoke(this.delayTimeCountDown, this);
+                game.Tick.AddSecondsInvoke(this.delayTimeCountDown, this);
             }
         } else
         {

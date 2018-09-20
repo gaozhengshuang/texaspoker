@@ -36,7 +36,7 @@ class GuideCreateRoomStepProcess extends BaseGuideStepProcess
 			}
 			else
 			{
-				qin.Console.logError("新手引导创建房间数据异常！引导房间ID：" + this.definition.stepParams.id);
+				game.Console.logError("新手引导创建房间数据异常！引导房间ID：" + this.definition.stepParams.id);
 			}
 		}
 	}

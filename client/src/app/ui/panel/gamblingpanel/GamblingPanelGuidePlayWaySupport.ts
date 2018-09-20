@@ -75,7 +75,7 @@ class GamblingPanelGuidePlayWaySupport extends BaseGamblingPanelSupport
 		}
 		else
 		{
-			qin.Console.logError("引导玩法执行异常！");
+			game.Console.logError("引导玩法执行异常！");
 		}
 	}
 }

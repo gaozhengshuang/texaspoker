@@ -22,8 +22,8 @@ class InviteGoldItemRenderer extends BaseItemRenderer<InviteBindInfo>
             let date: Date = new Date(this.bindData.time * 1000);
             this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate();
             this.nameLabel.text = this.bindData.name;
-            this.payNumLabel.text = qin.MathUtil.formatNum(this.bindData.gold);
-            this.getNumLabel.text = qin.MathUtil.formatNum(this.bindData.gold * 0.1);
+            this.payNumLabel.text = game.MathUtil.formatNum(this.bindData.gold);
+            this.getNumLabel.text = game.MathUtil.formatNum(this.bindData.gold * 0.1);
         }
     }
     private onDisable(event: egret.Event)

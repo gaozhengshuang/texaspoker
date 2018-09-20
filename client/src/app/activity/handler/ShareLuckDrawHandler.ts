@@ -20,7 +20,7 @@ class ShareLuckDrawHandler extends BaseActivitySubHandler<ShareLuckDrawInfo>
     */
     public reqShareSuccess(type: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             ActivityManager.shareLuckDrawHandler.OnShareSuccessEvent.dispatch();
         }
@@ -30,5 +30,5 @@ class ShareLuckDrawHandler extends BaseActivitySubHandler<ShareLuckDrawInfo>
     /**
      * 请求增加分享成功次数成功
     */
-    public OnShareSuccessEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public OnShareSuccessEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

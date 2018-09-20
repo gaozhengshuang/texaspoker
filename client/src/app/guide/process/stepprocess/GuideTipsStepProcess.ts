@@ -16,15 +16,15 @@ class GuideTipsStepProcess extends BaseGuideStepProcess
 		let panel: BasePanel = UIManager.getPanel(this.stepDef.panelName);
 		if (!panel)
 		{
-			qin.Console.logError("引导添加tips显示异常！未找到显示的面板，面板名：" + this.stepDef.panelName);
+			game.Console.logError("引导添加tips显示异常！未找到显示的面板，面板名：" + this.stepDef.panelName);
 			return;
 		}
 		if (this.stepDef.component)
 		{
-			let component: any = qin.ObjectUtil.getTreeProperty(panel, this.stepDef.component);
+			let component: any = game.ObjectUtil.getTreeProperty(panel, this.stepDef.component);
 			if (!component)
 			{
-				qin.Console.logError("引导添加tips显示异常！未找到显示的组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
+				game.Console.logError("引导添加tips显示异常！未找到显示的组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
 				return;
 			}
 			this._component = GuideTipsComponent.get();
@@ -36,7 +36,7 @@ class GuideTipsStepProcess extends BaseGuideStepProcess
 		}
 		else
 		{
-			qin.Console.logError("引导添加tips显示异常！未找到显示的组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
+			game.Console.logError("引导添加tips显示异常！未找到显示的组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
 		}
 	}
 	public complete()

@@ -17,7 +17,7 @@ class GuideSlideStepProcess extends BaseGuideStepProcess
 		let panel: BasePanel = UIManager.getPanel(this.stepDef.panelName);
 		if (!panel)
 		{
-			qin.Console.logError("引导滑动条处理异常！未找到显示的面板，面板名：" + this.stepDef.panelName);
+			game.Console.logError("引导滑动条处理异常！未找到显示的面板，面板名：" + this.stepDef.panelName);
 			return;
 		}
 		if (this.stepDef.component)
@@ -25,12 +25,12 @@ class GuideSlideStepProcess extends BaseGuideStepProcess
 			this._slider = panel[this.stepDef.component[0]];
 			if (!this._slider)
 			{
-				qin.Console.logError("引导滑动条处理异常！未找到显示的滑动条，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
+				game.Console.logError("引导滑动条处理异常！未找到显示的滑动条，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
 				return;
 			}
 			if (this._slider instanceof eui.SliderBase == false)
 			{
-				qin.Console.logError("引导滑动条处理异常！组件类型不是滑动条：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
+				game.Console.logError("引导滑动条处理异常！组件类型不是滑动条：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
 				return;
 			}
 			this._thumb = this._slider[this.stepDef.component[1]];
@@ -41,7 +41,7 @@ class GuideSlideStepProcess extends BaseGuideStepProcess
 		}
 		else
 		{
-			qin.Console.logError("引导滑动条处理异常！未找到显示的组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
+			game.Console.logError("引导滑动条处理异常！未找到显示的组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
 		}
 	}
 	private confirmAddChips(event: egret.TouchEvent)

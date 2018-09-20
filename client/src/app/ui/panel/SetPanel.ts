@@ -37,7 +37,7 @@ class SetPanel extends BasePanel
 		this._anime = new PanelAnime(this);
 		this.maskAlpha = 0;
 		this.isCloseButtonTween = true;
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			this.autoVoiceGroup.visible = true;;
 			this.verticalGroup.addChildAt(this.autoVoiceGroup, 5);
@@ -49,7 +49,7 @@ class SetPanel extends BasePanel
 				this.autoVoiceGroup.parent.removeChild(this.autoVoiceGroup);
 			}
 		}
-		if (qin.System.isMicro || qin.System.isWebVibrate)
+		if (game.System.isMicro || game.System.isWebVibrate)
 		{
 			this.verticalGroup.addChildAt(this.shockGroup, 5);
 		}

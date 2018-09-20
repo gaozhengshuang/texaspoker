@@ -24,7 +24,7 @@ class BindAccountManager
 	 */
 	public static reqGetList()
 	{
-		let callBack: Function = function (result: qin.SpRpcResult)
+		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			BindAccountManager._bindedList.length = 0;
 			if (result.data && result.data.Array)
@@ -38,7 +38,7 @@ class BindAccountManager
 	public static reqBind(token: string, logintype: string)
 	{
 		let channel: string = ChannelUtil.GetLoginChannel(ChannelManager.channelType, logintype);
-		let callBack: Function = function (result: qin.SpRpcResult)
+		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			let info: BindAccountInfo = new BindAccountInfo();
 			info.channel = channel;
@@ -76,11 +76,11 @@ class BindAccountManager
 	/**
 	 * 绑定成功事件
 	 */
-	public static bindSuccessEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static bindSuccessEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 获取绑定的渠道列表事件
 	 */
-	public static bindListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static bindListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	//--------------沁游内置账号绑定-------------
 	public static startBindQin(prevPanelName:string)
@@ -126,7 +126,7 @@ class BindAccountManager
 	*/
 	public static tryBindWx()
 	{
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			if (ChannelManager.hasWeixin == false)
 			{

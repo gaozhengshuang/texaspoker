@@ -4,7 +4,7 @@
 class ActivityTriggerHandler
 {
 	private _registerList: Array<ActivityInfo> = new Array<ActivityInfo>();
-	private _propMap: qin.Dictionary<any, ActivityInfo> = new qin.Dictionary<any, ActivityInfo>();
+	private _propMap: game.Map<any, ActivityInfo> = new game.Map<any, ActivityInfo>();
 
 	public initialize()
 	{
@@ -32,7 +32,7 @@ class ActivityTriggerHandler
 	 */
 	public unRegister(info: ActivityInfo)
 	{
-		qin.ArrayUtil.RemoveItem(info, this._registerList);
+		game.ArrayUtil.RemoveItem(info, this._registerList);
 	}
 	private onEnable()
 	{
@@ -61,7 +61,7 @@ class ActivityTriggerHandler
 							let params: Array<string> = info.definition.triggerParams.concat();
 							params.shift();
 
-							let prop: egret.DisplayObject = qin.ObjectUtil.getTreeProperty(panel, params);
+							let prop: egret.DisplayObject = game.ObjectUtil.getTreeProperty(panel, params);
 							if (prop)
 							{
 								prop.addEventListener(egret.TouchEvent.TOUCH_TAP, this.triggerActivity, this);
@@ -69,12 +69,12 @@ class ActivityTriggerHandler
 							}
 							else
 							{
-								qin.Console.log("开启触发组件未找到 面板名：" + panel + "---参数：" + params);
+								game.Console.log("开启触发组件未找到 面板名：" + panel + "---参数：" + params);
 							}
 						}
 						else
 						{
-							qin.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.trigger);
+							game.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.trigger);
 						}
 					}
 				}
@@ -98,7 +98,7 @@ class ActivityTriggerHandler
 							let params: Array<string> = info.definition.triggerParams.concat();
 							params.shift();
 
-							let prop: egret.DisplayObject = qin.ObjectUtil.getTreeProperty(panel, params);
+							let prop: egret.DisplayObject = game.ObjectUtil.getTreeProperty(panel, params);
 							if (prop)
 							{
 								prop.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.triggerActivity, this);
@@ -106,12 +106,12 @@ class ActivityTriggerHandler
 							}
 							else
 							{
-								qin.Console.log("关闭触发组件未找到 面板名：" + panel + "---参数：" + params);
+								game.Console.log("关闭触发组件未找到 面板名：" + panel + "---参数：" + params);
 							}
 						}
 						else
 						{
-							qin.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.trigger);
+							game.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.trigger);
 						}
 					}
 				}
@@ -130,13 +130,13 @@ class ActivityTriggerHandler
 			}
 			else
 			{
-				qin.Console.log("活动面板绑定异常！" + info.definition.panelName);
+				game.Console.log("活动面板绑定异常！" + info.definition.panelName);
 			}
 		}
 	}
 	public clear()
 	{
-		qin.ArrayUtil.Clear(this._registerList);
+		game.ArrayUtil.Clear(this._registerList);
 		this._propMap.clear();
 	}
 }

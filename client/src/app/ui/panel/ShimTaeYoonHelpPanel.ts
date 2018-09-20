@@ -26,8 +26,8 @@ class ShimTaeYoonHelpPanel extends BasePanel
     public init(appendData: any)
     {
         super.init(appendData);
-        qin.ArrayUtil.Clear(this._coefficientList);
-        qin.ArrayUtil.Clear(this._shimTaeYoonHelpInfotList);
+        game.ArrayUtil.Clear(this._coefficientList);
+        game.ArrayUtil.Clear(this._shimTaeYoonHelpInfotList);
         if (appendData)
         {
             this._coefficientList = appendData.coefficientList.concat();

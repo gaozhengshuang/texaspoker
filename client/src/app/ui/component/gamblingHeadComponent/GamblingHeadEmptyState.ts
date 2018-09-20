@@ -8,7 +8,7 @@ class GamblingHeadEmptyState extends BaseGamblingHeadState
 		super.run(parms);
 		if (this.context.bindData)
 		{
-			qin.Console.log(this.context.bindData.userInfo.name + "已站起");
+			game.Console.log(this.context.bindData.userInfo.name + "已站起");
 		}
 		this.context.showMask(true);
 		this.context.setEmpty();

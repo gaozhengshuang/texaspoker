@@ -9,14 +9,14 @@ class FoldCardAnimation extends BaseAnimation<egret.DisplayObject>
 	private _initH: number;
 	private _initV: number;
 
-	private _angleVec: qin.Vector2D;
+	private _angleVec: game.Vector2D;
 	private readonly _runTime: number = 400;
 
 
 	public constructor()
 	{
 		super();
-		this._angleVec = new qin.Vector2D(0, 0);
+		this._angleVec = new game.Vector2D(0, 0);
 	}
 	public reset()
 	{
@@ -38,7 +38,7 @@ class FoldCardAnimation extends BaseAnimation<egret.DisplayObject>
 		this._angleVec.y = point.y - parent.y;
 
 		let angle: number = this._angleVec.angle;
-		angle = angle * qin.MathUtil.Radian2Angle;
+		angle = angle * game.MathUtil.Radian2Angle;
 		let tween: egret.Tween = egret.Tween.get(this.target);
 
 		this.target.visible = true;

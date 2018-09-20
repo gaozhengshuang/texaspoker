@@ -3,15 +3,15 @@
 */
 class SafeBoxManager
 {
-    public static readonly pwdSuccessEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
-    public static readonly modifyPwdEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
-    public static readonly saveWithdrawEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static readonly pwdSuccessEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
+    public static readonly modifyPwdEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
+    public static readonly saveWithdrawEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      *  请求存取金币
     */
     public static reqSaveWithdrawGold(num: number, type: number, pwd?: string)
     {
-        let successCallBack: Function = function (result: qin.SpRpcResult)
+        let successCallBack: Function = function (result: game.SpRpcResult)
         {
             if (type == SafeBoxOperateType.Save)
             {
@@ -23,7 +23,7 @@ class SafeBoxManager
             }
             SafeBoxManager.saveWithdrawEvent.dispatch(type);
         }
-        let errorCallBack: Function = function (result: qin.SpRpcResult)
+        let errorCallBack: Function = function (result: game.SpRpcResult)
         {
             if (result.error == 3004)
             {
@@ -37,7 +37,7 @@ class SafeBoxManager
     */
     public static reqCreatePwd(newPwd: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             UserManager.userInfo.isSafePwd = true;
             SafeBoxManager.pwdSuccessEvent.dispatch();//协议发送后抛出存取完事件       
@@ -49,11 +49,11 @@ class SafeBoxManager
     */
     public static reqModifyPwd(newPwd: string, oldPwd: string)
     {
-        let successCallBack: Function = function (result: qin.SpRpcResult)
+        let successCallBack: Function = function (result: game.SpRpcResult)
         {
             SafeBoxManager.modifyPwdEvent.dispatch();//协议发送后抛出存取完事件       
         }
-        let errorCallBack: Function = function (result: qin.SpRpcResult)
+        let errorCallBack: Function = function (result: game.SpRpcResult)
         {
             if (result.error == 3001)
             {
@@ -67,7 +67,7 @@ class SafeBoxManager
     */
     public static reqGetCode(mno: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             SafeBoxManager.onGetCodeEvent.dispatch();
         };
@@ -78,7 +78,7 @@ class SafeBoxManager
      */
     public static reqRetrievePwd(newPwd: string, code: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             SafeBoxManager.onRetrievePwdEvent.dispatch();
         };
@@ -88,9 +88,9 @@ class SafeBoxManager
     /**
     * 获取手机验证码成功广播
    */
-    public static readonly onGetCodeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static readonly onGetCodeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
     *找回密码成功广播
    */
-    public static readonly onRetrievePwdEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static readonly onRetrievePwdEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

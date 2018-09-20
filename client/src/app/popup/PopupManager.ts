@@ -96,7 +96,7 @@ class PopupManager
 					info.isPopuped = true;
 					if (info.isDelay)
 					{
-						qin.Tick.AddTimeoutInvoke(() =>
+						game.Tick.AddTimeoutInvoke(() =>
 						{
 							PopupManager.popup(info, type, params);
 						}, 50, this);

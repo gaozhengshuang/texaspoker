@@ -48,7 +48,7 @@ class HWHeadComponent extends BaseComponent<HWHundredWarRoomPlayerInfo>{
         this.maxHeight = 150;
         this.maskImg.touchEnabled = false;
         this.maskImg.visible = false;
-        qin.FilterUtil.setColorFilters(this.cardTypeBg, 0x000000);
+        game.FilterUtil.setColorFilters(this.cardTypeBg, 0x000000);
     }
 	/**
 	 * 默认初始化
@@ -71,7 +71,7 @@ class HWHeadComponent extends BaseComponent<HWHundredWarRoomPlayerInfo>{
         super.onDisable(event);
         ChatManager.onNewMessageCome.removeListener(this.showOtherMsg, this);
         egret.Tween.removeTweens(this.emojiImg);
-        qin.Tick.RemoveTimeoutInvoke(this.hideWinEffect, this);
+        game.Tick.RemoveTimeoutInvoke(this.hideWinEffect, this);
     }
 
 	/**
@@ -198,7 +198,7 @@ class HWHeadComponent extends BaseComponent<HWHundredWarRoomPlayerInfo>{
     {
         if (this.bindData)
         {
-            this.chipsLabel.text = qin.MathUtil.formatNum(this.bindData.gold);
+            this.chipsLabel.text = game.MathUtil.formatNum(this.bindData.gold);
         }
     }
 

@@ -42,7 +42,7 @@ class GamblingCdComponent extends BaseComponent<number>
 	protected onDisable(event: eui.UIEvent): void
 	{
 		super.onDisable(event);
-		qin.Tick.removeFrameInvoke(this.tick, this);
+		game.Tick.removeFrameInvoke(this.tick, this);
 		this._shape.graphics.clear();
 	}
 	public init(data: number)
@@ -85,7 +85,7 @@ class GamblingCdComponent extends BaseComponent<number>
 
 		this.setColorData();
 		this._isShock = false;
-		qin.Tick.addFrameInvoke(this.tick, this);
+		game.Tick.addFrameInvoke(this.tick, this);
 		this.tick();
 	}
 	private setColorData()
@@ -165,7 +165,7 @@ class GamblingCdComponent extends BaseComponent<number>
 		if (this._phase > this._maxPhase)
 		{
 			//超时操作
-			qin.Tick.removeFrameInvoke(this.tick, this);
+			game.Tick.removeFrameInvoke(this.tick, this);
 			this.mgraphics(this._totalAngle);
 			GamblingManager.TimeOutEvent.dispatch();
 		}
@@ -182,7 +182,7 @@ class GamblingCdComponent extends BaseComponent<number>
 		}
 		else
 		{
-			this.cdLabel.text = qin.DateTimeUtil.formatCountdown(num);
+			this.cdLabel.text = game.DateTimeUtil.formatCountdown(num);
 		}
 	}
 	private _lastShape: egret.Shape;

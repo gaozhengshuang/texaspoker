@@ -23,7 +23,7 @@ class AccountPlayerPrefs
 			}
 			catch (e)
 			{
-				qin.Console.log("获取账号列表解析json格式失败：" + data);
+				game.Console.log("获取账号列表解析json格式失败：" + data);
 			}
 		}
 		return AccountPlayerPrefs._accountList;

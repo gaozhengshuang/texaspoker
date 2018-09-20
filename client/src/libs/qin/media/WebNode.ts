@@ -1,4 +1,4 @@
-module qin
+module game
 {
     /**
      * 显示到 egret 中的 DOM 元件

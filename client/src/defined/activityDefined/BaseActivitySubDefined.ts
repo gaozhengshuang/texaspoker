@@ -18,7 +18,7 @@ abstract class BaseActivitySubDefined<T extends BaseActivitySubDefnition> extend
 				}
 			}
 		}
-		qin.Console.log("获取活动子表定义异常！Id:" + id + " " + "subId:" + subId);
+		game.Console.log("获取活动子表定义异常！Id:" + id + " " + "subId:" + subId);
 		return null;
 	}
 }

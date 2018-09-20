@@ -75,13 +75,13 @@ class PlayingFieldItemRenderer extends BaseItemRenderer<PlayingFieldRoomInfo>{
             {
                 this.roomIdLabel.text = this.bindData.id.toString();
             }
-            this.blindLabel.text = qin.MathUtil.formatNum(this.bindData.definition.sBlind) + "/" + qin.MathUtil.formatNum(this.bindData.definition.bBlind);
+            this.blindLabel.text = game.MathUtil.formatNum(this.bindData.definition.sBlind) + "/" + game.MathUtil.formatNum(this.bindData.definition.bBlind);
             if (this.bindData.definition.bBuyin)
             {
-                this.buyLabel.text = qin.MathUtil.formatNum(this.bindData.definition.sBuyin) + "/" + qin.MathUtil.formatNum(this.bindData.definition.bBuyin);
+                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.sBuyin) + "/" + game.MathUtil.formatNum(this.bindData.definition.bBuyin);
             } else
             {
-                this.buyLabel.text = qin.MathUtil.formatNum(this.bindData.definition.sBuyin);
+                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.sBuyin);
             }
             this.setRoomPattern();
             for (let i: number = 0; i < this.bindData.definition.seat; i++)
@@ -112,7 +112,7 @@ class PlayingFieldItemRenderer extends BaseItemRenderer<PlayingFieldRoomInfo>{
             case GamblingPattern.Ante:
                 this.patternImage.source = SheetSubName.AnteImg;
                 this.anteLabel.visible = true;
-                this.anteLabel.text = qin.MathUtil.formatNum(this.bindData.ante);
+                this.anteLabel.text = game.MathUtil.formatNum(this.bindData.ante);
                 break;
             case GamblingPattern.NoUpperLimit:
                 this.patternImage.source = "";

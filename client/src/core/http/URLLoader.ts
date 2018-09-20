@@ -96,7 +96,7 @@ class URLLoader
 			if (loadInfo && loadInfo.url == loader["url"])
 			{
 				URLLoader._waitList.splice(i, 1);
-				qin.FuncUtil.invoke(loadInfo.onComplete, loadInfo.thisObject, data);
+				game.FuncUtil.invoke(loadInfo.onComplete, loadInfo.thisObject, data);
 				loadInfo.dispose();
 			}
 		}
@@ -120,7 +120,7 @@ class URLLoader
 				}
 				else
 				{
-					qin.FuncUtil.invoke(loadInfo.onError, loadInfo.thisObject, event);
+					game.FuncUtil.invoke(loadInfo.onError, loadInfo.thisObject, event);
 					URLLoader._waitList.splice(i, 1);
 				}
 				loadInfo.dispose();

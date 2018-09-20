@@ -8,7 +8,7 @@ class GuideRoomActionStepProcess extends BaseGuideStepProcess
 		super.run();
 		if (this.definition.stepParams.cd > 0)
 		{
-			qin.Tick.AddTimeoutInvoke(this.cdOper, this.definition.stepParams.cd, this);
+			game.Tick.AddTimeoutInvoke(this.cdOper, this.definition.stepParams.cd, this);
 		}
 		else
 		{
@@ -17,7 +17,7 @@ class GuideRoomActionStepProcess extends BaseGuideStepProcess
 	}
 	private cdOper()
 	{
-		qin.Tick.RemoveTimeoutInvoke(this.cdOper, this);
+		game.Tick.RemoveTimeoutInvoke(this.cdOper, this);
 		if (this.definition)
 		{
 			//底池筹码变更
@@ -37,6 +37,6 @@ class GuideRoomActionStepProcess extends BaseGuideStepProcess
 	public clear()
 	{
 		super.clear();
-		qin.Tick.RemoveTimeoutInvoke(this.cdOper, this);
+		game.Tick.RemoveTimeoutInvoke(this.cdOper, this);
 	}
 }

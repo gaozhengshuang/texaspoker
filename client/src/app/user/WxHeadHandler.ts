@@ -10,7 +10,7 @@ class WxHeadHandler
 
 	public tryUpLoadHead()
 	{
-		if (qin.StringUtil.isNullOrEmpty(this.headUrl) == false)
+		if (game.StringUtil.isNullOrEmpty(this.headUrl) == false)
 		{
 			this.upLoadHead();
 		}
@@ -22,22 +22,22 @@ class WxHeadHandler
 			var img: egret.Texture = data;
 			if (img instanceof egret.Texture)
 			{
-				let headData: string = qin.StringConstants.Empty;
+				let headData: string = game.StringConstants.Empty;
 				try
 				{
 					headData = img.toDataURL("image/jpeg");
-					if (qin.StringUtil.isNullOrEmpty(headData))
+					if (game.StringUtil.isNullOrEmpty(headData))
 					{
 						headData = img.toDataURL("image/png");
 					}
 					if (!headData)
 					{
-						qin.Console.log("微信头像转base64失败！");
+						game.Console.log("微信头像转base64失败！");
 					}
 				}
 				catch (e)
 				{
-					qin.Console.log("微信头像转base64出错！");
+					game.Console.log("微信头像转base64出错！");
 				}
 				if (headData)
 				{

@@ -17,7 +17,7 @@ class GoldenBeanRecordItemRenderer extends BaseItemRenderer<AwardRecordInfo>
         super.dataChanged();
         if (this.bindData)
         {
-            this.timeLabel.text = qin.DateTimeUtil.formatTimestamp(this.bindData.time, qin.DateTimeUtil.Format_Standard_NoSecondAndYear);
+            this.timeLabel.text = game.DateTimeUtil.formatTimestamp(this.bindData.time, game.DateTimeUtil.Format_Standard_NoSecondAndYear);
             let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId);
             if (awardDef)
             {

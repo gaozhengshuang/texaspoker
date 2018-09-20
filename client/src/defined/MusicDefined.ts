@@ -27,11 +27,11 @@ class MusicDefined extends BaseDefined<MusicDefinition>
 			{
 				if (def.boy)
 				{
-					def.boy = def.boy.toString().split(qin.StringConstants.Semicolon);
+					def.boy = def.boy.toString().split(game.StringConstants.Semicolon);
 				}
 				if (def.girl)
 				{
-					def.girl = def.girl.toString().split(qin.StringConstants.Semicolon);
+					def.girl = def.girl.toString().split(game.StringConstants.Semicolon);
 				}
 			}
 		}
@@ -47,24 +47,24 @@ class MusicDefined extends BaseDefined<MusicDefinition>
 			let index: number = 0;
 			if (sex == Sex.Female && def.girl)
 			{
-				index = qin.MathUtil.getRandom(0, def.girl.length - 1);
+				index = game.MathUtil.getRandom(0, def.girl.length - 1);
 				return def.girl[index];
 			}
 			else if (sex == Sex.Male && def.boy)
 			{
-				index = qin.MathUtil.getRandom(0, def.boy.length - 1);
+				index = game.MathUtil.getRandom(0, def.boy.length - 1);
 				return def.boy[index];
 			}
 			else
 			{
 				if (def.boy)
 				{
-					index = qin.MathUtil.getRandom(0, def.boy.length - 1);
+					index = game.MathUtil.getRandom(0, def.boy.length - 1);
 					return def.boy[index];
 				}
 			}
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 	/**
 	 * 获取音效定义 

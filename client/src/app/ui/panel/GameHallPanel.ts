@@ -191,8 +191,8 @@ class GameHallPanel extends BasePanel
 	 */
 	private refreshGold(num?: number)
 	{
-		this.goldNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
-		this.diamondNumLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.diamond);
+		this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
+		this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
 	}
 
 	protected onEnable(event: eui.UIEvent): void
@@ -208,7 +208,7 @@ class GameHallPanel extends BasePanel
 		UserManager.onCreateRoleEvent.addListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.addListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.addListener(this.refreshUserInfoUI, this);
-		qin.Tick.AddSecondsInvoke(this.refreshFreeGoldTime, this);
+		game.Tick.AddSecondsInvoke(this.refreshFreeGoldTime, this);
 		UserManager.getFreeGoldEvent.addListener(this.resetFreeGoldTime, this);
 		UIManager.onPanelCloseEvent.addListener(this._panelAnime.setRankEnterAnime.bind(this._panelAnime), this);
 	}
@@ -225,7 +225,7 @@ class GameHallPanel extends BasePanel
 		UserManager.onCreateRoleEvent.removeListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.removeListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.removeListener(this.refreshUserInfoUI, this);
-		qin.Tick.RemoveSecondsInvoke(this.refreshFreeGoldTime, this);
+		game.Tick.RemoveSecondsInvoke(this.refreshFreeGoldTime, this);
 		UserManager.getFreeGoldEvent.removeListener(this.resetFreeGoldTime, this);
 		UIManager.onPanelCloseEvent.removeListener(this._panelAnime.setRankEnterAnime.bind(this._panelAnime), this);
 	}
@@ -238,7 +238,7 @@ class GameHallPanel extends BasePanel
 		}
 		else
 		{
-			qin.ArrayUtil.Clear(this._rankList);
+			game.ArrayUtil.Clear(this._rankList);
 		}
 		if (this._rankListInfo && this._rankListInfo.list)
 		{
@@ -446,12 +446,12 @@ class GameHallPanel extends BasePanel
 				.to({ y: 90 }, 800, egret.Ease.bounceOut)
 				.wait(2000);
 			this.freeGoldGroup.touchEnabled = true;
-			qin.Tick.RemoveSecondsInvoke(this.refreshFreeGoldTime, this);
+			game.Tick.RemoveSecondsInvoke(this.refreshFreeGoldTime, this);
 		}
 		else
 		{
 			let left: number = Math.floor(UserManager.userInfo.lastGoldTime + ProjectDefined.GetInstance().getValue(ProjectDefined.freeGoldTime) - TimeManager.GetServerUtcTimestamp());
-			this.freeGoldTimeLabel.text = qin.DateTimeUtil.countDownFormat(left, false);
+			this.freeGoldTimeLabel.text = game.DateTimeUtil.countDownFormat(left, false);
 		}
 	}
 	/**
@@ -469,7 +469,7 @@ class GameHallPanel extends BasePanel
 			egret.Tween.removeTweens(this.freeGoldBtn);
 			this.freeGoldBtn.y = 90;
 			this.freeGoldGroup.touchEnabled = false;
-			qin.Tick.AddSecondsInvoke(this.refreshFreeGoldTime, this);
+			game.Tick.AddSecondsInvoke(this.refreshFreeGoldTime, this);
 		}
 	}
 }
