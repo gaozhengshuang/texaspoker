@@ -23,25 +23,6 @@ import (
 //	GamePlaying  = 4	// 游戏中
 //	)
 
-// --------------------------------------------------------------------------
-/// @brief 玩家房间简单数据
-// --------------------------------------------------------------------------
-type UserRoomData struct {
-	roomid     	int64
-	sid_room   	int
-	kind       	int32
-	tm_closing 	int64 	// 房间关闭超时
-	creating   	bool
-	seatpos		int32	// 座位号
-}
-
-func (this *UserRoomData) Reset() {
-	this.roomid = 0
-	this.sid_room = 0
-	this.kind = 0
-	this.tm_closing = 0
-	this.creating = false
-}
 
 // --------------------------------------------------------------------------
 /// @brief db数据管理
@@ -290,43 +271,6 @@ func (this *GateUser) Verifykey() string {
 
 func (this *GateUser) IsOnline() bool {
 	return this.online
-}
-
-func (this *GateUser) GameKind() int32 {
-	return this.roomdata.kind
-}
-
-// 房间id
-func (this *GateUser) RoomId() int64 {
-	return this.roomdata.roomid
-}
-
-// 房间服务器 sid
-func (this *GateUser) RoomSid() int {
-	return this.roomdata.sid_room
-}
-
-// 是否有房间
-func (this *GateUser) IsInRoom() bool {
-	if this.RoomId() != 0 {
-		return true
-	}
-	return false
-}
-
-// 正在创建房间
-func (this *GateUser) IsRoomCreating() bool {
-	return this.roomdata.creating
-}
-
-// 房间关闭中
-func (this *GateUser) IsRoomClosing() bool {
-	return this.roomdata.tm_closing != 0
-}
-
-// 关闭超时, 10秒
-func (this *GateUser) IsRoomCloseTimeOut() bool {
-	return util.CURTIMEMS() > (this.roomdata.tm_closing + 10000)
 }
 
 func (this *GateUser) SetOpenId(id string) {
