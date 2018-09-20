@@ -13,8 +13,9 @@ import (
 /// @brief 玩家房间简单数据
 // --------------------------------------------------------------------------
 type UserRoomData struct {
-	roomid     	int64
+	roomid     	int64	// 房间uid
 	seatpos		int32	// 座位号,0观战
+	passwd		string	// 房间密码
 	roomsid   	int
 	kind      	int32
 	creating   	bool
@@ -27,6 +28,7 @@ func (this *UserRoomData) Reset(u *GateUser) {
 	this.kind = 0
 	//this.tm_closing = 0
 	this.creating = false
+	this.passwd = ""
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 }
 
@@ -47,6 +49,7 @@ func (this *UserRoomData) Online(u *GateUser) {
 		log.Error("[房间] 玩家[%s %d] 房间[%d]已经销毁", u.Name(), u.Id(), this.roomid)
 		return
 	}
+	passwd := Redis().HGet(keybrief, "passwd").Val()
 
 	var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
 	if agent == nil {
@@ -58,31 +61,19 @@ func (this *UserRoomData) Online(u *GateUser) {
 	this.roomid = roomid
 	this.roomsid = agent.Id()
 	this.kind = int32(kind)
+	this.passwd = passwd
+
+	// 通知客户端房间信息
+	send := &msg.GW2C_SendUserRoomInfo{Roomid:pb.Int64(roomid), Passwd:pb.String(passwd)}
+	u.SendMsg(send)
 }
 
-func (this *GateUser) GameKind() int32 {
-	return this.roomdata.kind
-}
-
-// 房间id
-func (this *GateUser) RoomId() int64 {
-	return this.roomdata.roomid
-}
-
-// 房间服务器 sid
-func (this *GateUser) RoomSid() int {
-	return this.roomdata.roomsid
-}
-
-// 是否有房间
-func (this *GateUser) IsInRoom() bool {
-	return this.RoomId() != 0 
-}
-
-// 正在创建房间
-func (this *GateUser) IsRoomCreating() bool {
-	return this.roomdata.creating
-}
+func (this *GateUser) GameKind() int32 { return this.roomdata.kind }
+func (this *GateUser) RoomId() int64 { return this.roomdata.roomid }
+func (this *GateUser) RoomSid() int { return this.roomdata.roomsid }
+func (this *GateUser) RoomPwd() string { return this.roomdata.passwd }
+func (this *GateUser) IsInRoom() bool { return this.RoomId() != 0 }
+func (this *GateUser) IsRoomCreating() bool { return this.roomdata.creating }
 
 // 房间关闭中
 //func (this *GateUser) IsRoomClosing() bool { return this.roomdata.tm_closing != 0 }
@@ -149,6 +140,7 @@ func (this *GateUser) CreateRoomRemote(tmsg *msg.C2GW_ReqCreateRoom) (errcode st
 	// 请求创建房间
 	this.roomdata.kind = gamekind
 	this.roomdata.creating = true
+	if tmsg.Texas != nil { this.roomdata.passwd = tmsg.Texas.GetPwd() }
 
 	//
 	send := &msg.GW2MS_ReqCreateRoom{

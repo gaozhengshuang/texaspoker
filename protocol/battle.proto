@@ -19,6 +19,7 @@ message BT_ReqLeaveRoom {
     optional int64 userid = 2;
 }
 
+
 // R2C 房间初始化
 message BT_GameInit {
     optional int64  roomid = 1;

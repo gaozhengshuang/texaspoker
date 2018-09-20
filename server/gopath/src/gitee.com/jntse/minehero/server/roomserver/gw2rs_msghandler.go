@@ -97,7 +97,12 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	roomid, userid  := tmsg.GetRoomid(), tmsg.GetUserid()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		log.Error("玩家[%d] 请求进入房间[%d]，但房间不存在", userid, roomid)
+		return
+	}
+
+	if room.Passwd() != tmsg.GetPasswd() {
+		log.Error("玩家[%d] 请求进入房间[%d]，但密码不正确", userid, roomid)
 		return
 	}
 
