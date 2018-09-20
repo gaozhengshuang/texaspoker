@@ -10,22 +10,22 @@ message GW2C_SendUserEvents {
 
 // 进入激活事件
 message C2GW_ReqEnterEvents {
-    optional uint64 uid = 1;
+    optional int64 uid = 1;
 }
 
 // 移除事件
 message GW2C_RemoveEvent {
-    optional uint64 uid = 1;
+    optional int64 uid = 1;
 }
 
 // 关闭事件，例如关闭商店界面
 message C2GW_LeaveEvent {
-    optional uint64 uid = 1;
+    optional int64 uid = 1;
 }
 
 // 服务器通知进入游戏事件
 message GW2C_EnterGameEvent {
-    optional uint64 uid = 1;
+    optional int64 uid = 1;
 }
 
 

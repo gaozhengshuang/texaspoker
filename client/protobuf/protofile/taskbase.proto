@@ -19,7 +19,7 @@ message TTaskDefine
 {	
 	
 	
-	optional uint32 Id = 1; // id
+	optional int32 Id = 1; // id
 	
 	
 	optional string Desc = 2; // 描述

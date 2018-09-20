@@ -19,19 +19,19 @@ message ItemBaseDataDefine
 {	
 	
 	
-	optional uint32 Id = 1; // 道具ID(规则：类型x10000+自然递增)
+	optional int32 Id = 1; // 道具ID(规则：类型x10000+自然递增)
 	
 	
 	optional int32 Type = 2; // 道具类型
 	
 	
-	optional uint32 SubType = 3; 
+	optional int32 SubType = 3; 
 	
 	
-	optional uint32 Color = 4; // 1白2绿3蓝4紫5橙
+	optional int32 Color = 4; // 1白2绿3蓝4紫5橙
 	
 	
-	optional uint32 ImageId = 5; 
+	optional int32 ImageId = 5; 
 	
 	
 	optional string Name = 6; // 道具名
@@ -40,13 +40,13 @@ message ItemBaseDataDefine
 	optional string Desc = 7; // 道具简介
 	
 	
-	optional uint32 Clothes = 8; // 合成时装
+	optional int32 Clothes = 8; // 合成时装
 	
 	
 	optional string TypeDes = 9; // 类型名
 	
 	
-	optional uint32 Tradable = 10; // 可否交易1可以0不可以
+	optional int32 Tradable = 10; // 可否交易1可以0不可以
 
 }
 

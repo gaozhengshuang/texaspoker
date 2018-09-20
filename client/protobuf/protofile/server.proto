@@ -73,20 +73,6 @@ message GW2MS_HeartBeat {
 message MS2GW_HeartBeat {
 }
 
-// 请求创建游戏房间
-message GW2MS_ReqCreateRoom {
-    optional uint64 userid = 1;
-    optional int32 gamekind = 2;
-}
-
-// 
-message MS2GW_RetCreateRoom {
-    optional uint64 userid = 1;
-    optional int64  roomid = 2;
-    optional string errcode = 3;
-    optional string roomagent = 4;
-}
-
 
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> RoomServer
@@ -107,26 +93,26 @@ message GW2RS_RetRegist {
 // 通知RS玩家断开连接清理房间
 message GW2RS_UserDisconnect {
     optional int64 roomid = 1;
-    optional uint64 userid = 2;
+    optional int64 userid = 2;
 }
 
 // 通知RS玩家断开连接清理房间,返回
 message RS2GW_RetUserDisconnect {
     optional int64 roomid = 1;
-    optional uint64 userid = 2;
+    optional int64 userid = 2;
     optional string errcode = 3;
 }
 
 // Client消息转发到Room
-message GW2RS_MsgTransfer {
-    optional uint64 uid  = 1;
+message C2RS_MsgTransfer {
+    optional int64 uid  = 1;
     optional string name = 2;
     optional bytes buf = 3;
 }
 
 //Room 消息转发到Client 
 message RS2GW_MsgTransfer {
-    optional uint64 uid  = 1;
+    optional int64 uid  = 1;
     optional string name = 2;
     optional bytes buf = 3;
 }
@@ -164,37 +150,6 @@ message GateSimpleInfo {
 message MS2RS_GateInfo {
     repeated GateSimpleInfo gates = 1;
 }
-
-//通知Room创建游戏房间
-message MS2RS_CreateRoom {
-    optional uint64 userid = 1;     // 玩家id
-    optional int64 roomid = 2;      // 房间id
-    optional int32 gamekind = 3;    // 游戏模式
-    optional int32 gridnum = 4;     // 
-    optional int32 sidgate = 5;     // 
-    optional bool  quotaflag = 6;   // 大奖配额
-}
-
-//创建返回
-message RS2MS_RetCreateRoom {
-    optional int64 roomid = 1;
-    optional uint64 userid = 2;
-    optional int32  sidgate = 3;
-    optional string errcode = 4;
-}
-
-// 通知删除房间
-message RS2MS_DeleteRoom {
-    optional int64 roomid = 1;
-}
-
-// 通知更新奖池
-message RS2MS_UpdateRewardPool {
-    optional int32 mapid = 1;
-    optional int32 cost = 2;
-}
-
-
 
 // --------------------------------------------------------------------------
 /// @brief MatchServer 广播消息到其他服务器

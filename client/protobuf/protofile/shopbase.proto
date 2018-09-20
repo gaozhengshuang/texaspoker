@@ -19,7 +19,7 @@ message TShopDefine
 {	
 	
 	
-	optional uint32 Id = 1; // 商城ID
+	optional int32 Id = 1; // 商城ID
 	
 	
 	optional int32 Itemid = 2; // 商品id

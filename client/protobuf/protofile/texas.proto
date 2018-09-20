@@ -1,0 +1,30 @@
+syntax = "proto2";
+package msg;
+
+
+// 请求房间列表
+message C2GW_ReqTexasRoomList {
+    optional int32 type = 1;        //房间类型
+}
+
+// 房间简单信息
+message TexasRoomSimpleInfo {
+    optional int64 id = 1;          //房间uid
+    optional int32 player = 2;      //房间当前人数
+    optional int32 roomId = 3;      //房间配置id
+    optional bool  hasPwd = 4;      //是否有密码
+}
+
+// 返回
+message GW2C_RetTexasRoomList {
+    repeated TexasRoomSimpleInfo list = 1;
+}
+
+// 私人场房间
+message TexasPersonalRoom {
+    optional int32 roomId = 1;
+    optional int32 ante = 2;
+    optional string pwd = 3;
+}
+
+
