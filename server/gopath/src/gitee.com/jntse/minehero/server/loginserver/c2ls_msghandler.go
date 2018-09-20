@@ -171,7 +171,7 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2L_ReqLoginWechat)
 	tm1  := util.CURTIMEUS()
-	errcode, openid, face, nickname := "", tmsg.GetOpenid(), tmsg.GetFace(), tmsg.GetNickname()
+	errcode, openid, face, nickname := "", tmsg.GetOpenid(), tmsg.GetHead(), tmsg.GetNickname()
 	account, passwd, invitationcode := openid, "", tmsg.GetInvitationcode()
 	switch {
 	default:

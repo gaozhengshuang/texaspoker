@@ -99,7 +99,7 @@ func (this *MatchServer) DoInputCmd(cmd string) {
 		debug.FreeOSMemory() // 谨慎使用
 	case "notice1":
 		log.Info("Notice Suspension Test!")
-		noticemsg := &msg.GW2C_MsgNotice{Userid: pb.Int64(0), Name: pb.String("玩家名字"), Face: pb.String("")}
+		noticemsg := &msg.GW2C_MsgNotice{Userid: pb.Int64(0), Name: pb.String("玩家名字"), Head: pb.String("")}
 		text := def.MakeNoticeText("玩家名字", "#ffffff", 26) + def.MakeNoticeText("获得", "#fffc00", 30) + def.MakeNoticeText("道具名字", "#ffffff", 26)
 		noticemsg.Text = pb.String(text)
 		noticemsg.Type = pb.Int32(int32(msg.NoticeType_Suspension))
@@ -107,7 +107,7 @@ func (this *MatchServer) DoInputCmd(cmd string) {
 		this.BroadcastGateMsg(send)
 	case "notice2":
 		log.Info("Notice Marquee  Test!")
-		noticemsg := &msg.GW2C_MsgNotice{Userid: pb.Int64(0), Name: pb.String("玩家名字"), Face: pb.String(""), Type: pb.Int32(0)}
+		noticemsg := &msg.GW2C_MsgNotice{Userid: pb.Int64(0), Name: pb.String("玩家名字"), Head: pb.String(""), Type: pb.Int32(0)}
 		text := def.MakeNoticeText("玩家名字", "#ffffff", 26) + def.MakeNoticeText("获得", "#fffc00", 30) + def.MakeNoticeText("道具名字", "#ffffff", 26)
 		noticemsg.Text = pb.String(text)
 		noticemsg.Type = pb.Int32(int32(msg.NoticeType_Marquee))

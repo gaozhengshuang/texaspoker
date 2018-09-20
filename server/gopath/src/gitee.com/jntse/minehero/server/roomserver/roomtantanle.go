@@ -46,7 +46,7 @@ func (this *TanTanLe) Init() string {
 
 // 大奖公告
 func PickItemNotice(user *RoomUser, itemname string) {
-	RoomSvr().SendNotice(user.Face(), msg.NoticeType_Suspension, 
+	RoomSvr().SendNotice(user.Head(), msg.NoticeType_Suspension, 
 		def.MakeNoticeText("恭喜", "#ffffff", 26),
 		def.MakeNoticeText(user.Name(), "#ffffff", 26),
 		def.MakeNoticeText("获得", "#fffc00", 26), 
@@ -58,7 +58,7 @@ func PickItemNotice(user *RoomUser, itemname string) {
 // 元宝公告
 func PickNumItemNotice(user *RoomUser, itemname string, num int64) {
 	strnum := strconv.FormatInt(num, 10)
-	RoomSvr().SendNotice(user.Face(), msg.NoticeType_Suspension, 
+	RoomSvr().SendNotice(user.Head(), msg.NoticeType_Suspension, 
 		def.MakeNoticeText("恭喜", "#ffffff", 26),
 		def.MakeNoticeText(user.Name(), "#ffffff", 26),
 		def.MakeNoticeText("获得", "#fffc00", 26),  

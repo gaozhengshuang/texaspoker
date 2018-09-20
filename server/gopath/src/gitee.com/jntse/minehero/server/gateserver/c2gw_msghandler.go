@@ -68,8 +68,8 @@ func (this *C2GWMsgHandler) Init() {
 
 	// 游戏房间
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 }
 
@@ -151,8 +151,8 @@ func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{})
 	}
 }
 
-func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqEnterRoom)
+func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqEnterRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	user := ExtractSessionUser(session)
 	if user == nil {
@@ -183,8 +183,8 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	RoomSvrMgr().SendMsg(sid, tmsg)
 }
 
-func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqLeaveRoom)
+func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqLeaveRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
 	user := ExtractSessionUser(session)
@@ -212,7 +212,7 @@ func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLogin)
-	errmsg, account, verifykey, token, face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetFace()
+	errmsg, account, verifykey, token, face := "", tmsg.GetAccount(), tmsg.GetVerifykey(), tmsg.GetToken(), tmsg.GetHead()
 	islogin := false
 
 	switch {

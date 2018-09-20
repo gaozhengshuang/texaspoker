@@ -59,16 +59,40 @@ message RS2MS_DeleteRoom {
     optional int64 roomid = 1;
 }
 
-// G2R 发送个人信息到游戏房间
+// GW2RS 发送个人信息到游戏房间
 message GW2RS_UploadUserBin   {
     optional int64 roomid = 1;
     optional int64 userid = 2;
     optional msg.Serialize bin = 3;     // TODO: 玩家数据没必要全部发送
 }
 
+// RS2GW 离开房间，下发玩家个人数据到网关
+message RS2GW_UserLeaveRoom {
+    optional int64 userid = 1;
+    optional msg.Serialize bin = 2;
+}
+
 // 通知玩家房间信息
 message GW2C_SendUserRoomInfo {
     optional int64 roomid = 1;
     optional string passwd = 2;
+}
+
+
+// C2GW 进入房间
+message C2GW_ReqEnterRoom {
+    optional int64 roomid = 1;      // 房间唯一id
+    optional string passwd = 2;     // 密码
+    optional int64 userid = 3;
+}
+
+// C2GW 退出游戏房间
+message C2GW_ReqLeaveRoom {
+    optional int64 roomid = 1;
+    optional int64 userid = 2;
+}
+
+// GW2C 退出游戏房间
+message GW2C_RetLeaveRoom {
 }
 

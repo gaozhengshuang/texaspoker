@@ -143,7 +143,7 @@ func (this* GateUser) BuyItem(productid int32, num int32) {
 	this.RemoveYuanbao(cost, "商店购买道具", true)
 	this.AddItem(itemid, num * int32(product.Num), "商店购买道具", true)
 	this.SendNotify("购买成功")
-	GateSvr().SendNotice(	this.Face(), msg.NoticeType_Marquee, def.MakeNoticeText(this.Name(), "#00ff00", 26),
+	GateSvr().SendNotice(	this.Head(), msg.NoticeType_Marquee, def.MakeNoticeText(this.Name(), "#00ff00", 26),
 	def.MakeNoticeText("获得", "#00ff00", 26), def.MakeNoticeText(item.Name, "#00ff00", 26));
 	;
 }
@@ -325,7 +325,7 @@ func (this *GateUser) GetSignReward(){
 
 	item, itemok := tbl.ItemBase.ItemBaseDataById[int32(sconfig.CostId)]
 	if itemok {
-		GateSvr().SendNotice(this.Face(), msg.NoticeType_Marquee, 
+		GateSvr().SendNotice(this.Head(), msg.NoticeType_Marquee, 
 		def.MakeNoticeText(this.Name(), "#00ff00", 26),
 		def.MakeNoticeText("领取每日签到奖励", "#00ff00", 26), 
 		def.MakeNoticeText(strconv.Itoa(int(sconfig.Num)), "#00ff00", 26),

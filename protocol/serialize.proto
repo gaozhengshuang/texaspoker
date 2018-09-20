@@ -4,7 +4,7 @@ package msg;
 message EntityBase {
     optional int64 id       = 1;
     optional string name    = 2;
-    optional string face    = 3;
+    optional string head    = 3;
     optional int32  sex     = 4;
     optional string account = 5;
 }
@@ -77,14 +77,15 @@ message UserBase {
     optional int32      nocountlogin = 9;   // 不统计
     optional int32      signreward  = 10;   // 签到
     optional int32      signtime    = 11;   // 签到时间
-    repeated UserAddress addrlist   = 12;   // 地址列表
-    optional SimpleCounter scounter = 13;   // 简单计数器
-    optional UserWechat wechat = 14;
-    optional string     invitationcode = 15;    // 邀请码
-    optional UserTask   task = 17;              // 任务
-    optional LuckyDrawRecord luckydraw = 18;    // 抽奖
-    optional int32      total_recharge = 19;    // 总充值
-    optional UserMapEvent mapevent = 27;    // 地图事件
+    optional string     invitationcode = 12;    // 邀请码
+    optional int32      total_recharge = 13;    // 总充值
+
+    repeated UserAddress addrlist   = 31;   // 地址列表
+    optional SimpleCounter scounter = 32;   // 简单计数器
+    optional UserWechat wechat = 33;        //
+    optional UserTask   task = 34;              // 任务
+    optional LuckyDrawRecord luckydraw = 35;    // 抽奖
+    optional UserMapEvent mapevent = 36;        // 地图事件
 }
 
 message UserAddress {

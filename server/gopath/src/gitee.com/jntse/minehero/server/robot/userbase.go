@@ -51,8 +51,8 @@ func (this *UserBase) Id() int64 {
 	return this.data.GetEntity().GetId()
 }
 
-func (this *UserBase) Face() string {
-	return this.data.GetEntity().GetFace()
+func (this *UserBase) Head() string {
+	return this.data.GetEntity().GetHead()
 }
 
 func (this *UserBase) Sex() int32 {
@@ -100,7 +100,7 @@ func (this *UserBase) NewReqLoginWechatMsg() *msg.C2L_ReqLoginWechat {
 	msg := &msg.C2L_ReqLoginWechat {
 		Openid:pb.String(this.account),
 		Nickname:pb.String(this.account),
-		Face:pb.String(""),
+		Head:pb.String(""),
 	}
 	return msg
 }

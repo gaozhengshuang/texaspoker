@@ -8,7 +8,7 @@ import (
 	//_"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/minehero/pbmsg"
-	////pb"github.com/gogo/protobuf/proto"
+	pb"github.com/gogo/protobuf/proto"
 	//"gitee.com/jntse/minehero/server/tbl"
 	//"gitee.com/jntse/minehero/server/tbl/excel"
 	"gitee.com/jntse/minehero/server/def"
@@ -38,21 +38,23 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 // 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 	delete(this.members, u.Id())
-	delete(this.watchers, u.Id())
+	delete(this.watchmembers, u.Id())
+	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id()), Bin:u.PackBin() }
+	u.SendMsg(msgleave)
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
 // 棋牌类站起
 func (this *TexasPokerRoom) UserStandUp(u *RoomUser) {
 	delete(this.members, u.Id())
-	this.watchers[u.Id()] = u
+	this.watchmembers[u.Id()] = u
 	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
 	log.Info("[房间] 玩家[%s %d] 站起观战[%d]", u.Name(), u.Id(), this.Id())
 }
 
 // 棋牌类坐下
 func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
-	delete(this.watchers, u.Id())
+	delete(this.watchmembers, u.Id())
 	this.members[u.Id()] = u
 
 	// 更新房间人数
@@ -70,7 +72,7 @@ func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network
 	}
 
 	user = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
-	this.watchers[user.Id()]= user
+	this.watchmembers[user.Id()]= user
 	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", user.Name(), user.Id(), this.Id())
 }
 
