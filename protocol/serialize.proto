@@ -68,11 +68,11 @@ message UserMapEvent {
 message UserBase {
     optional int32      level   = 1;
     optional int32      exp     = 2;
-    optional int32      gold    = 3;    // 金币
-    optional int32      diamond = 4;    // 钻石
-    optional int32      yuanbao = 5;    // 元宝
-    optional int64      tmlogin  = 6;   // 登陆时间
-    optional int64      tmlogout = 7;   // 离线时间
+    optional int32      gold    = 3;        // 金币
+    optional int32      diamond = 4;        // 钻石
+    optional int32      yuanbao = 5;        // 元宝
+    optional int64      tmlogin  = 6;       // 登陆时间
+    optional int64      tmlogout = 7;       // 离线时间
     optional int32      continuelogin = 8;  // 连续登陆
     optional int32      nocountlogin = 9;   // 不统计
     optional int32      signreward  = 10;   // 签到
