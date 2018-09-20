@@ -147,7 +147,7 @@ func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{})
 		return
 	}
 	if errcode := user.CreateRoomRemote(tmsg); errcode != "" {
-		user.ReplyCreateRoom(errcode, 0)
+		user.CreateRoomResponse(errcode)
 	}
 }
 

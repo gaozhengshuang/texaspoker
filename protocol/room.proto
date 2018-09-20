@@ -17,6 +17,7 @@ message C2GW_ReqCreateRoom {
 message GW2C_RetCreateRoom {
     optional string errcode = 1;
     optional int64 roomid = 2;
+    optional string passwd = 3;
 }
 
 // GW2MS 请求创建游戏房间

@@ -98,11 +98,11 @@ func (this *GateUser) SendRoomMsg(msg pb.Message) {
 }
 
 // 回复客户端
-func (this *GateUser) ReplyCreateRoom(err string, roomid int64) {
-	send := &msg.GW2C_RetCreateRoom{Errcode: pb.String(err), Roomid: pb.Int64(roomid)}
+func (this *GateUser) CreateRoomResponse(err string) {
+	send := &msg.GW2C_RetCreateRoom{Errcode: pb.String(err), Roomid: pb.Int64(this.RoomId()), Passwd:pb.String(this.RoomPwd())}
 	this.SendMsg(send)
 	if err != "" {
-		log.Info("玩家[%s %d] 开始游戏失败: roomid=%d errcode=%s", this.Name(), this.Id(), roomid, err)
+		log.Info("玩家[%s %d] 开始游戏失败[%s]", this.Name(), this.Id(), err)
 	}
 }
 

@@ -47,6 +47,7 @@ type User struct {
 	ticker5s   	*util.GameTicker
 	ticker100ms *util.GameTicker
 	roomid		int64
+	roompwd		string
 }
 
 func NewUser() *User {
@@ -289,7 +290,7 @@ func (this *User) CreateRoom() {
 }
 
 func (this *User) LeaveRoom() {
-	this.SendGateMsg(&msg.BT_ReqLeaveRoom{})
+	this.SendGateMsg(&msg.BT_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
 }
 
 //func (this *User) JumpStep() {
