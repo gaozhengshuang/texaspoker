@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="championshipItemRenderer" width="720" height="160" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImage" width="720" anchorOffsetX="0" anchorOffsetY="0" source="jbs_bg_png" height="160" />
+	<e:Label id="nameLabel" text="免费-10元话费赛" x="144.8" y="28" fontFamily="Microsoft YaHei" size="28" anchorOffsetX="0"
+	         textColor="0xffffff" />
+	<e:Image width="100" height="100" x="20" source="pub_bg1_png" verticalCenter="-5" />
+	<ns1:CommonIcon id="itemComp" x="20" skinName="CommonIconSkin" verticalCenter="-5" />
+	<e:Group id="mttNumGroup" x="143.28" y="98">
+		<e:Image id="smIcomImg" x="0" y="0" source="game_icon_21_png" />
+		<e:Label id="numLabel" text="200/600" x="31.5" size="20" fontFamily="Microsoft YaHei"
+		         verticalCenter="0"  textColor="0x60f6e4"/>
+	</e:Group>
+	<e:Group id="sitAndGoNumGroup" x="143.28" y="101.05">
+		<e:Label id="sitAndGonumLabel" text="开赛人数:18" x="0" y="0" size="22" fontFamily="Microsoft YaHei"  textColor="0x60f6e4"/>
+	</e:Group>
+	<e:Image id="rebuyImg" x="310.07" y="98" source="game_icon_19_png" />
+	<e:Image id="addonImg" x="343.13" y="98" source="game_icon_20_png" />
+	<e:Label text="报名费:" x="144.8" y="64" textAlign="left" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0"
+	         anchorOffsetY="0" alpha="0.7" textColor="0xffffff" />
+	<e:Group x="221.52" y="61" anchorOffsetY="0">
+		<e:Image id="goldImg" x="4" y="1" source="game_icon_18_png" />
+		<e:Image id="ticketImg" x="4" verticalCenter="0.5" source="game_icon_22_png" />
+		<e:Label id="priceLabel" text="6000+1000" x="36.66" size="24" verticalCenter="0" alpha="0.7" textColor="0xffffff"
+		         fontFamily="Microsoft YaHei" />
+	</e:Group>
+	<e:Image id="trusteeshipImg" x="410" verticalCenter="-5" source="tuoguan_png" />
+	<e:Group id="notStartGroup" width="134" x="395.43" anchorOffsetY="0" anchorOffsetX="0" y="38">
+		<e:Image id="timeDesBGImg" y="0" source="shijian_bg_2_png" horizontalCenter="0" />
+		<e:Image id="timeBGImg" y="37" source="shijian_bg_3_png" horizontalCenter="0" />
+		<e:Label id="timeDesLabel" text="即将开始" y="4" anchorOffsetX="0" width="129" textAlign="center" horizontalCenter="0.5"
+		         size="24" textColor="0xe6c21d" fontFamily="Microsoft YaHei" />
+		<e:Label id="timeLabel" text="00:00" y="42.12" anchorOffsetY="0" height="26" horizontalCenter="0.5" textAlign="center"
+		         size="24" fontFamily="Microsoft YaHei" textColor="0x4bc6b7" />
+	</e:Group>
+	<e:Group id="sitAndPlayAwardGroup" x="400" anchorOffsetY="0" verticalCenter="-5">
+		<e:Image x="4" y="1" source="game_icon_18_png" />
+		<e:Label id="awardLabel" text="3000万" x="36.66" size="24" verticalCenter="0" textColor="0xFFFFFF"
+		         fontFamily="Microsoft YaHei" />
+	</e:Group>
+	<e:Group id="startJoinGroup" x="542" y="37">
+		<ns1:ShadowButton id="applyBtn" label="立即报名" x="0" y="0"  skinName="MTTJoinBtnSkin"/>
+		<ns1:ShadowButton id="enterBtn" label="立即进入" x="0" y="1"  skinName="MTTEnterBtnSkin"/>
+		<e:Label id="waitLabel" text="等待开始" size="26" textColor="0x7cc988" y="22" fontFamily="Microsoft YaHei"  horizontalCenter="0"/>
+	</e:Group>
+	<e:Group id="waitJoinGroup" x="549" y="42">
+		<e:Label id="startJoinTimeLabel" text="1-11  20:00" x="0" y="0" size="28" fontFamily="Microsoft YaHei"
+		         textColor="0xffffff" />
+		<e:Label text="开启报名" y="38.56" size="28" fontFamily="Microsoft YaHei" textColor="0xffffff" horizontalCenter="0" />
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,54 @@
+<e:Skin class="panelSkin13" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="720" height="1280" anchorOffsetY="0" x="0" y="0">
+		<e:Group id="privateRoomGroup" width="660" height="900" anchorOffsetX="0" anchorOffsetY="0"
+		         horizontalCenter="0" verticalCenter="0">
+			<e:Image width="660" height="900" anchorOffsetY="0"  source="pub_bg2_png" scale9Grid="32,104,606,16"/>
+			<e:Image y="14.7" source="cjsrf_png" horizontalCenter="0"/>
+
+			<ns1:GameButton id="closeButton" label="Button" x="566.89" y="38.8"  skinName="closeButtonSkin"/>
+			<e:Image y="113.5" source="pub_lines_png" width="600" height="346" scale9Grid="14,10,2,7" anchorOffsetY="0" horizontalCenter="0"/>
+
+			<e:Label text="选择盲注" y="120.6" anchorOffsetX="0" width="364" anchorOffsetY="0" height="52" verticalAlign="middle"
+			         textAlign="center" horizontalCenter="0"  textColor="0xf9cb55" size="26"/>
+			<e:Label text="小盲/大盲" x="116" y="231.88" size="26" textColor="0x3fafa3"/>
+			<e:Label text="最小买入" x="448.33" y="231.88" size="26" textColor="0x3fafa3"/>
+			<e:Label id="blindLabel" text="1000万/1500万" x="22" y="176" width="300" textAlign="center" size="42" textColor="0xf9cb55"/>
+			<e:Label id="sBuyLabel" text="20万" x="400.33" y="176" width="200" textAlign="center" size="42" textColor="0xf9cb55"/>
+			<e:HSlider id="blindHS" width="550" height="40" skinName="HSliderSkin1" rotation="359.86" y="314.63" horizontalCenter="0"/>
+			<e:Group y="401.72" horizontalCenter="0">
+				<e:Label id="goldLabel" text="9.99亿" y="0" size="26" anchorOffsetX="0" textColor="0xffffff" x="122"/>
+				<e:Label text="现有资产:" x="0" y="0" size="26" textColor="0x3fafa3"/>
+			</e:Group>
+			<e:Label text="前注" y="467.16" anchorOffsetX="0" width="364" anchorOffsetY="0" height="52" verticalAlign="middle"
+			         textAlign="center"  textColor="0xf9cb55" size="26" horizontalCenter="0"/>
+			<e:Image y="526.8599999999999" source="pub_lines_png" width="600" height="80" scale9Grid="14,10,2,7" x="30"/>
+			<e:ToggleSwitch id="ante1ToggleSwitch" label="0" x="48.91" skinName="playfieldAnteTSSkin" y="539.8599999999999"/>
+			<e:ToggleSwitch id="ante2ToggleSwitch" label="400" x="198.91" skinName="playfieldAnteTSSkin" y="539.8599999999999"/>
+			<e:ToggleSwitch id="ante3ToggleSwitch" label="4000" x="349.90999999999997" skinName="playfieldAnteTSSkin" y="539.8599999999999"/>
+			<e:ToggleSwitch id="ante4ToggleSwitch" label="4万" x="499.90999999999997" skinName="playfieldAnteTSSkin" y="539.8599999999999"/>
+			<e:Label text="请输入私人房密码" y="621.02" anchorOffsetX="0" width="364" anchorOffsetY="0" height="52" verticalAlign="middle" textAlign="center" textColor="0xf9cb55" size="26" horizontalCenter="0"/>
+			<e:Group id="labelGroup" anchorOffsetX="0" width="531" anchorOffsetY="0" height="67" horizontalCenter="0.5"
+			         verticalCenter="276.5">
+				<e:layout>
+					<e:HorizontalLayout gap="22" />
+				</e:layout>
+			</e:Group>
+			<ns1:ShadowButton id="createBtn" label="创建房间" y="790"  skinName="commonButtonY2Skin" horizontalCenter="0"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</e:Group>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChangeUserNamePanelSkin" width="666" height="400" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+	<e:Group id="tweenGroup" width="666" height="400" x="0" y="0">
+		<e:Image height="400" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="pub_bg2_png" scale9Grid="0,100,666,14"/>
+		<e:Image y="16" horizontalCenter="0.5" source="xgnc_png"/>
+		<e:Image width="300" x="90" source="pub_lines_png" scale9Grid="14,11,2,5" y="140" height="50"/>
+		<e:EditableText id="nameTextLabel" width="300" height="50" text="昵称" x="90" y="140" anchorOffsetX="0" anchorOffsetY="0" textAlign="center" verticalAlign="middle" border="false" textColor="0xffffff" fontFamily="Microsoft YaHei"/>
+		<ns1:GreenShadowButton id="randomBtn" label="随机昵称" x="420" y="140" skinName="commonButtonGSkin" width="150" height="50"/>
+		<ns1:ShadowButton id="changeNameBtn" label="修改昵称" y="270" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" skinName="commonButtonY2Skin"/>
+		<e:Label text="提示：昵称只能为汉字、英文和数字，长度不可大于6个字。" y="220" size="22" anchorOffsetX="0" textColor="0xffffff" horizontalCenter="0"/>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" anchorOffsetY="27" anchorOffsetX="27" skinName="closeButtonSkin"/>
+		
+	</e:Group>
+</e:Skin>

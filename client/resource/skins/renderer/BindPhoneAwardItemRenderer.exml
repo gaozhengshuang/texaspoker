@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BindPhoneAwardItemRendererSkin" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="sc_bg_2_png" scale9Grid="13,5,84,32" scaleX="0.85" scaleY="0.85"/>
+	<ns1:CommonIcon id="comIcon" width="100" height="100" top="31" horizontalCenter="0" skinName="CommonIconSkin"/>
+	<e:Label id="nameLabel" text="111" horizontalCenter="0.5" size="24" textColor="0xA7560F" top="13" fontFamily="Microsoft YaHei"/>
+    <e:Label id="numDesLabel" text="20000" textAlign="center" size="24" verticalAlign="middle" y="143"
+             horizontalCenter="0.5"  fontFamily="Microsoft YaHei"/>
+
+</e:Skin>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="zkTSSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        xmlns:e="http://ns.egret.com/eui">
+    <e:Image source="jbs_icon1_png" source.upAndSelected="jbs_icon2_png" />
+</e:Skin>

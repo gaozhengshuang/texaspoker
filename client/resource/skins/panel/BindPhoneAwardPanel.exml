@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BindPhoneAwardPanelSkin" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="tweenGroup" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" y="100">
+        <e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1"
+                  width="660" source="sc_bg_png"/>
+			<e:Image y="539" source="sc_bg_1_png" horizontalCenter="0.5" width="635" height="100"/>
+        <e:Image y="-135" source="shou_yue_bg_png"  horizontalCenter="0"/>
+        <e:Image y="-27"  source="text_bddlb_png" horizontalCenter="0"/>
+
+        <e:Image y="84.03" anchorOffsetX="0"
+                 anchorOffsetY="0"  source="bangding_bg_png" horizontalCenter="0" width="634"/>
+			<e:Image y="105.37" anchorOffsetX="0" anchorOffsetY="0" source="slogan_bangding_png" horizontalCenter="0.5"/>
+			<ns1:ShadowButton id="closeButton" label="Button" y="62" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButton4Skin" right="25"/>
+        <e:Label text="绑定手机账号，可以在其他设备上使用手机账号进行登录！还可获得以下绑定好礼！" y="266.66" anchorOffsetX="0" width="546" anchorOffsetY="0"
+                 size="26" horizontalCenter="0" lineSpacing="5"  textColor="0x3b1001" fontFamily="Microsoft YaHei"/>
+        <e:Scroller id="scroller" height="210" y="323" anchorOffsetY="0" maxWidth="600" horizontalCenter="0"></e:Scroller>
+        <e:List id="list" height="210" y="323" maxWidth="600" horizontalCenter="0">
+					<e:layout>
+						<e:HorizontalLayout gap="30" horizontalAlign="center" verticalAlign="middle"/>
+					</e:layout>
+
+
+        </e:List>
+        <ns1:ShadowButton id="bringBtn" label="" y="545.99" horizontalCenter="0.5"  skinName="bringAwardBtnSkin"/>
+        <ns1:ShadowButton id="goToBtn" label="" y="545.99" horizontalCenter="0.5"  skinName="goToBindBtnSkin"/>
+    </e:Group>
+</e:Skin>

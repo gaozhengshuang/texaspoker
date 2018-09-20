@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="fastChatItemRenderer" width="720" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing" height="64">
+
+	<e:Group x="0" y="0">
+		<e:Image source="bg_liaotian_6_png" height="64" x="0" y="0" scale9Grid="0,0,130,77"/>
+		<e:Image source="bg_liaotian_6_png" height="64" scale9Grid="0,0,130,77" x="10" y="10"/>
+		<e:Image source="bg_liaotian_6_png" height="64" scale9Grid="0,0,130,77" x="20" y="20"/>
+		<e:Image source="bg_liaotian_6_png" height="64" scale9Grid="0,0,130,77" x="30" y="30"/>
+		<e:Image source="bg_liaotian_6_png" height="64" scale9Grid="0,0,130,77" x="40" y="40"/>
+		<e:Image source="bg_liaotian_6_png" height="64" scale9Grid="0,0,130,77" x="50" y="50"/>
+		<e:layout>
+			<e:HorizontalLayout gap="-1"/>
+		</e:layout>
+	</e:Group>
+	<e:Image id="bgImage" width="720" anchorOffsetX="0" anchorOffsetY="0" source="bg_liaotian_3_png" y="63"/>
+    <e:Label id="desLabel" text="快捷输入文本内容" fontFamily="Microsoft YaHei" size="26"
+             anchorOffsetX="0" width="694"  textAlign="left" right="6" verticalCenter="0" textColor="0x484848"/>
+
+
+
+
+
+</e:Skin>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AchieveInHundredWarItemRendererSkin" width="480" height="90" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1609279dcbf"/>
+	<e:Image width="480" source="line_png" bottom="0" height="2"/>
+	<e:Label id="desLabel" text="在德州扑克初级场对局20场" x="20" y="20" width="300" size="22"/>
+	<e:Label text="奖励：" x="20" size="22" anchorOffsetX="0" textAlign="left" y="55"/>
+	<e:Label id="rewardLabel" text="999999" x="120" width="120" size="22" anchorOffsetX="0" textAlign="left" y="55" verticalAlign="middle"/>
+	<e:Image id="rewardImg" x="85" y="48" source="gold2_png" width="30" height="30"/>
+	<e:Group id="progresGroup" width="250" height="90" verticalCenter="0" right="0">
+		<e:Label id="achieveProgresLabel" text="1 / 5" size="20" anchorOffsetX="0" textAlign="left" verticalCenter="20" right="20" textColor="0x4bc6b7" x="191" y="55" scaleX="1" scaleY="1"/>
+		<e:Image scaleY="0.9" x="9" width="152" verticalCenter="20" source="jindutiao_1_png" y="58" scale9Grid="9,8,8,2"/>
+		<e:Image id="achieveProgressImg" x="10" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" fillMode="clip" width="150" source="jindutiao_2_png" scale9Grid="6,6,11,2" y="58"/>
+	</e:Group>
+	<ns1:ShadowButton id="takeBtn" label="领取" verticalCenter="10" skinName="hundredWarAchieveButtonSkin" right="10" visible="false"/>
+</e:Skin>

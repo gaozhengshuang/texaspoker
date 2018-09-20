@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GiftItemPanelSkin" width="498" height="486" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="498" height="486" x="0" y="0">
+		<e:Image id="bg" width="498" height="486" source="pub_bg_4_png" scale9Grid="29,69,20,16"/>
+		<ns1:CommonIcon id="giftComp" y="50" skinName="CommonIconSkin" width="130" height="130" horizontalCenter="0"/>
+		<e:Label id="giftNameLabel" text="111" y="200" fontFamily="Microsoft YaHei" textAlign="center" size="30" horizontalCenter="0" textColor="0xfad050"/>
+		<e:Label id="wearingLabel" text="佩戴中" y="90" fontFamily="Microsoft YaHei" textAlign="center" size="25" textColor="0xFAD050" rotation="-45" x="170"/>
+		<e:Group id="friendGiveGroup" width="300" height="50" horizontalCenter="0" y="230">
+			<e:Label id="friendName" text="000" fontFamily="Microsoft YaHei" textAlign="center" size="30" horizontalCenter="0" x="65" scaleX="1" scaleY="1" textColor="0xffffff" verticalCenter="0" height="50" verticalAlign="middle"/>
+			<e:Label text="赠送" fontFamily="Microsoft YaHei" textAlign="center" size="30" horizontalCenter="0" textColor="0xFFFFFF" x="65" scaleX="1" scaleY="1" verticalCenter="0" height="50" verticalAlign="middle"/>
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" gap="10"/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="leftTimeGroup" width="300" height="50" y="280" horizontalCenter="0">
+			<e:Label text="剩余时间：" y="20" fontFamily="Microsoft YaHei" textAlign="center" size="26" horizontalCenter="0" textColor="0xffffff" x="98" scaleX="1" scaleY="1" height="50" verticalAlign="middle"/>
+			<e:Label id="leftTimeLabel" text="24H" y="60" fontFamily="Microsoft YaHei" textAlign="center" size="24" horizontalCenter="0" textColor="0xffffff" x="-30" scaleX="1" scaleY="1" height="50" verticalAlign="middle"/>
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle"/>
+			</e:layout>
+		</e:Group>
+		<ns1:ShadowButton id="wearGiftBtn" label="佩戴礼物" horizontalCenter="0" skinName="commonButtonY2Skin" bottom="50" x="190" y="617" scaleX="1" scaleY="1"/>
+	</e:Group>
+</e:Skin>

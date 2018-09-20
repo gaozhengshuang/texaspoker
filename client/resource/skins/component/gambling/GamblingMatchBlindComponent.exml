@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingMatchBlindComponentSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui">
+    <e:Group id="blindAddAlertGroup" width="701" height="79" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1"
+             horizontalCenter="0" verticalCenter="-186.5">
+        <e:Image id="blindAddAlertImage" anchorOffsetY="0" height="44" width="542" verticalCenter="0"
+                 horizontalCenter="0" source="game_bg_16_png" scale9Grid="6,5,62,89" />
+        <e:Label id="blindAddLabel" text="下000/8前注6000" anchorOffsetX="0" size="26" anchorOffsetY="0"
+                 fontFamily="SourceHanSansCN-Normal" scaleX="1" scaleY="1" textColor="0xffae00" verticalAlign="justify"
+                 textAlign="center" horizontalCenter="0" verticalCenter="0" />
+    </e:Group>
+    <e:Group id="championshipAlertGroup" width="579" height="79" anchorOffsetX="0" anchorOffsetY="0"
+             horizontalCenter="2" scaleX="1" scaleY="1" top="0">
+        <e:Image anchorOffsetY="0" height="107" width="590" horizontalCenter="0" y="-23" source="pub_bg_ts_png"
+                 scale9Grid="36,31,577,66" />
+        <e:Label id="championshipAlertLabel" text="比赛进行99分钟,剩余比赛人数:999" anchorOffsetX="0" anchorOffsetY="0"
+                 textColor="0xFFFDFC" size="24" width="595" horizontalCenter="-3" height="66" verticalAlign="middle"
+                 y="1" textAlign="center" fontFamily="SourceHanSansCN-Norma" />
+    </e:Group>
+</e:Skin>

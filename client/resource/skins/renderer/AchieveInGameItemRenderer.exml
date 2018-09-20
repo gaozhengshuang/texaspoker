@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AchieveInGameItemRendererSkin" width="674" height="110" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Image width="674" height="110" scale9Grid="13,13,12,7" source="pub_bg_3_1_png"/>
+	<ns1:CommonIcon id="commonItem" x="20" verticalCenter="0" skinName="CommonIconSkin"/>
+	<e:Label id="desLabel" text="在德州扑克初级场对局20场" x="130" y="25" width="300" size="22"/>
+	<e:Label text="奖励：" x="130" size="22" anchorOffsetX="0" textAlign="left" y="65"/>
+	<e:Label id="rewardLabel" text="999999" x="240" width="120" size="22" anchorOffsetX="0" textAlign="left" y="65" verticalAlign="middle"/>
+	<e:Image id="rewardImg" x="200" y="58" source="gold2_png" width="30" height="30"/>
+	<ns1:ShadowButton id="takeBtn" label="领取" y="25" x="490" skinName="commonButtonYSkin"/>
+</e:Skin>

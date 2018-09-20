@@ -1,0 +1,27 @@
+<e:Skin class="AchievementInHundredWarPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Group id="anmGroup" height="600" top="0" horizontalCenter="0" width="720">
+
+        <e:Image id="bgImg" anchorOffsetX="0" anchorOffsetY="0"
+                  height="300" width="500" right="42" y="90" source="game_bg_1_png" scale9Grid="19,15,113,39"/>
+			<e:Image x="582.67" y="74.5" source="game_bg_2_png" scaleY="-1" anchorOffsetY="23"/>
+			<e:List id="achieveList" height="280" width="480" y="100" right="50">
+				<e:layout>
+				<e:VerticalLayout gap="9" horizontalAlign="center" verticalAlign="top" paddingLeft="0" paddingRight="0"/>
+				</e:layout>
+			</e:List>
+
+
+
+
+
+			<e:Scroller id="achieveScroller" width="480" height="280" y="100" right="50">
+
+			</e:Scroller>
+
+
+
+
+
+    </e:Group>
+</e:Skin>

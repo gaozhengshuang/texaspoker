@@ -46,6 +46,8 @@ type User struct {
 	ticker1s   	*util.GameTicker
 	ticker5s   	*util.GameTicker
 	ticker100ms *util.GameTicker
+	roomid		int64
+	roompwd		string
 }
 
 func NewUser() *User {
@@ -66,6 +68,7 @@ func (this *User) Init(account string, passwd string) bool {
 	this.loginstat = kNetStatLoginDisconnect
 	this.gatestat = kNetStatGateDisConnect
 	this.ch_cmd = make(chan string, 10)
+	this.roomid = 0
 
 	//
 	this.UserBase.Init(account, passwd, "13681626939", "510722")
@@ -286,8 +289,12 @@ func (this *User) CreateRoom() {
 	this.SendGateMsg(send)
 }
 
+func (this *User) EnterRoom() {
+	this.SendGateMsg(&msg.BT_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String("12345")})
+}
+
 func (this *User) LeaveRoom() {
-	this.SendGateMsg(&msg.BT_ReqLeaveRoom{})
+	this.SendGateMsg(&msg.BT_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
 }
 
 //func (this *User) JumpStep() {
@@ -350,6 +357,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.SendLogin()
 	case "create":
 		this.CreateRoom()
+	case "enter":
+		this.EnterRoom()
 	case "leave":
 		this.LeaveRoom()
 	case "jump":

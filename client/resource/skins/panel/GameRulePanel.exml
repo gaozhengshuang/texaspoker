@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameRulePanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+	<e:Group id="anmGroup1" width="720" height="1180" x="0" y="100" anchorOffsetY="0">
+		<e:Image anchorOffsetY="0" source="assets/bg/pub_bg11_png" y="-20" height="1200"  width="720"/>
+		<e:Image width="674" y="28" horizontalCenter="0" source="pub_biankuang2_png" scale9Grid="32,33,17,8" />
+		<ns1:TabComponent id="gameRullTab" y="29" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"
+		                  skinName="TabComponentSkin" />
+		<e:Group id="RuleIntroGroup" width="720" height="1020" y="120" anchorOffsetX="0" anchorOffsetY="0" name="玩法介绍"
+		         visible="false">
+			<e:Group id="resizeBottomGroup" y="-220" horizontalCenter="0" x="0" scaleX="1" scaleY="1">
+				<e:Image width="720" source="line_png" scaleX="1" scaleY="1" horizontalCenter="0" bottom="186" />
+				<e:Label text="在牌局开始的时候，每个玩家分得两张牌作为“手牌” （仅自己可见），荷官会分三次陆续发出五张公共牌（3张+1张+1张）。从每个玩家的底牌和公共牌中，选出组合最大牌型的五张与其他玩家进行比较，决出胜负。"
+				         size="25" anchorOffsetY="0" textAlign="left" width="640" lineSpacing="15" scaleX="1" scaleY="1"
+				         horizontalCenter="0" bottom="22" />
+			</e:Group>
+			<e:Group id="resizeScrollerGroup" width="720" height="820" x="0" y="0">
+				<e:Group x="30" y="16" scaleX="1" scaleY="1">
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="mrtx_png" x="0" y="7" />
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" source="lb_tx_png" scale9Grid="2,2,2,2" width="100" height="100"
+					         x="0" y="7" />
+					<e:Label text="玩家1" x="0" y="120" size="26" width="100" textAlign="center" />
+					<e:Image x="120" source="pai_mei12_png" />
+					<e:Image x="208" source="pai_hong1_png" />
+				</e:Group>
+				<e:Group y="16" x="399" scaleX="1" scaleY="1">
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" x="0" y="7" source="mrtx_nan_png" />
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" width="100" height="100" x="0" y="7" source="lb_tx_png"
+					         scale9Grid="2,2,2,2" />
+					<e:Label text="玩家2" x="0" y="120" size="26" width="100" textAlign="center" />
+					<e:Image x="120" source="pai_hong13_png" />
+					<e:Image x="208" source="pai_hong11_png" />
+				</e:Group>
+				<e:Label text="公共牌" y="199" size="25" textColor="0xfad050" horizontalCenter="0" x="323" scaleX="1"
+				         scaleY="1" />
+				<e:Group y="239" scaleX="1" scaleY="1" horizontalCenter="0" x="138">
+					<e:Image x="-152" y="-240" scaleX="1" scaleY="1" source="pai_hei12_png" />
+					<e:Image x="-142" y="-230" scaleX="1" scaleY="1" source="pai_hong10_png" />
+					<e:Image x="-132" y="-220" scaleX="1" scaleY="1" source="pai_hong12_png" />
+					<e:Image x="-122" y="-210" scaleX="1" scaleY="1" source="pai_hei10_png" />
+					<e:Image x="-112" y="-200" scaleX="1" scaleY="1" source="pai_hei5_png" />
+					<e:layout>
+						<e:HorizontalLayout gap="5" />
+					</e:layout>
+				</e:Group>
+				<e:Group y="360" scaleX="1" scaleY="1" width="435" horizontalCenter="0" x="143">
+					<e:Image source="kuohao_png" x="50" top="0" />
+					<e:Label text="翻牌" size="26" scaleX="1" scaleY="1" width="83" textAlign="center" y="25" x="85" />
+					<e:Label text="转牌" x="264" size="26" scaleX="1" scaleY="1" width="83" textAlign="center" verticalCenter="0" />
+					<e:Label text="河牌" size="26" scaleX="1" scaleY="1" width="83" right="0" textAlign="center" verticalCenter="0" />
+				</e:Group>
+				<e:Label text="成牌" y="440" size="26" horizontalCenter="0" textColor="0xfad050" x="334" scaleX="1"
+				         scaleY="1" />
+				<e:Group y="480" horizontalCenter="0" x="68" scaleX="1" scaleY="1">
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="mrtx_png" x="0" y="7" />
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" source="lb_tx_png" scale9Grid="2,2,2,2" width="100" height="100"
+					         x="0" y="7" />
+					<e:Group anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" x="140">
+						<e:Image x="-252" y="-200" scaleX="1" scaleY="1" source="pai_hei12_png" />
+						<e:Image x="-242" y="-190" scaleX="1" scaleY="1" source="pai_hong12_png" />
+						<e:Image x="-232" y="-180" scaleX="1" scaleY="1" source="pai_mei12_png" />
+						<e:Image x="-212" y="-160" scaleX="1" scaleY="1" source="pai_hei10_png" />
+						<e:Image x="-222" y="-170" scaleX="1" scaleY="1" source="pai_hong10_png" />
+						<e:layout>
+							<e:HorizontalLayout gap="5" horizontalAlign="center" verticalAlign="middle" />
+						</e:layout>
+					</e:Group>
+					<e:Label text="玩家1" x="0" y="120" size="26" scaleX="1" scaleY="1" width="100" textAlign="center"
+					         verticalAlign="middle" />
+					<e:Label text="葫芦 赢家" size="26" scaleX="1" scaleY="1" width="435" textAlign="center" right="0" y="120" />
+				</e:Group>
+				<e:Group y="640" horizontalCenter="0" x="68" scaleX="1" scaleY="1">
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" x="0" y="7" source="mrtx_nan_png" />
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" source="lb_tx_png" scale9Grid="2,2,2,2" width="100" height="100"
+					         x="0" y="7" />
+					<e:Group anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" x="140">
+						<e:Image x="-352" y="-160" scaleX="1" scaleY="1" source="pai_hei12_png" />
+						<e:Image x="-342" y="-150" scaleX="1" scaleY="1" source="pai_hong12_png" />
+						<e:Image x="-332" y="-140" scaleX="1" scaleY="1" source="pai_hei10_png" />
+						<e:Image x="-322" y="-130" scaleX="1" scaleY="1" source="pai_hong10_png" />
+						<e:Image x="-312" y="-120" scaleX="1" scaleY="1" source="pai_hong13_png" />
+						<e:layout>
+							<e:HorizontalLayout gap="5" horizontalAlign="center" verticalAlign="middle" />
+						</e:layout>
+					</e:Group>
+					<e:Label text="玩家2" x="0" y="120" size="26" scaleX="1" scaleY="1" width="100" textAlign="center"
+					         verticalAlign="middle" />
+					<e:Label text="两对 输家" size="26" scaleX="1" scaleY="1" width="435" textAlign="center" right="0" y="120" />
+				</e:Group>
+			</e:Group>
+			<e:Scroller id="resizeScroller" width="720" height="820" x="0" y="0">
+				<e:Group/>
+			</e:Scroller>
+		</e:Group>
+		<e:Group id="cardTypeGroup" width="720" height="1020" x="0" y="120" name="牌型介绍" visible="false">
+			<e:Group id="cardGroup" width="720" y="0" anchorOffsetX="0" anchorOffsetY="0" name="牌型介绍" x="0" scaleX="1" scaleY="1">
+				<e:Group scaleX="1" scaleY="1">
+					<e:Image x="41" y="56" source="pai_hong1_png" />
+					<e:Image x="51" y="66" source="pai_hong13_png" />
+					<e:Image x="61" y="76" source="pai_hong12_png" />
+					<e:Image x="71" y="86" source="pai_hong11_png" />
+					<e:Image x="81" y="96" source="pai_hong10_png" />
+					<e:Image x="91" y="106" source="pai_hei10_png" />
+					<e:Image x="101" y="116" source="pai_hei9_png" />
+					<e:Image x="111" y="126" source="pai_hei8_png" />
+					<e:Image x="121" y="136" source="pai_hei7_png" />
+					<e:Image x="131" y="146" source="pai_hei6_png" />
+					<e:Image x="141" y="156" source="pai_mei12_png" />
+					<e:Image x="151" y="166" source="pai_fang12_png" />
+					<e:Image x="161" y="176" source="pai_hong12_png" />
+					<e:Image x="171" y="186" source="pai_hei12_png" />
+					<e:Image x="181" y="196" source="pai_hong10_png" />
+					<e:Image x="151" y="166" source="pai_mei12_png" />
+					<e:Image x="161" y="176" source="pai_fang12_png" />
+					<e:Image x="171" y="186" source="pai_hong12_png" />
+					<e:Image x="191" y="206" source="pai_hong10_png" />
+					<e:Image x="101" y="116" source="pai_hei10_png" />
+					<e:Image x="181" y="196" source="pai_hei12_png" />
+					<e:Image x="191" y="206" source="pai_hei10_png" />
+					<e:Image x="201" y="216" source="pai_hei8_png" />
+					<e:Image x="211" y="226" source="pai_hei6_png" />
+					<e:Image x="221" y="236" source="pai_hei5_png" />
+					<e:Image x="161" y="176" source="pai_mei12_png" />
+					<e:Image x="81" y="96" source="pai_hong11_png" />
+					<e:Image x="201" y="216" source="pai_hong10_png" />
+					<e:Image x="111" y="126" source="pai_hei9_png" />
+					<e:Image x="121" y="136" source="pai_hei8_png" />
+					<e:Image x="171" y="186" source="pai_mei12_png" />
+					<e:Image x="171" y="186" source="pai_fang12_png" />
+					<e:Image x="191" y="206" source="pai_hei12_png" />
+					<e:Image x="211" y="226" source="pai_hong10_png" />
+					<e:Image x="221" y="236" source="pai_hei6_png" />
+					<e:Image x="201" y="216" source="pai_hei12_png" />
+					<e:Image x="171" y="186" source="pai_hong12_png" />
+					<e:Image x="201" y="216" source="pai_hei10_png" />
+					<e:Image x="221" y="236" source="pai_hong10_png" />
+					<e:Image x="131" y="146" source="pai_hei7_png" />
+					<e:Image x="211" y="226" source="pai_hei10_png" />
+					<e:Image x="231" y="246" source="pai_hong10_png" />
+					<e:Image x="181" y="196" source="pai_mei12_png" />
+					<e:Image x="231" y="246" source="pai_hei5_png" />
+					<e:Image x="51" y="66" source="pai_hong1_png" />
+					<e:Image x="61" y="76" source="pai_hong1_png" />
+					<e:Image x="181" y="196" source="pai_fang12_png" />
+					<e:Image x="91" y="106" source="pai_hong11_png" />
+					<e:Image x="231" y="246" source="pai_hei6_png" />
+					<e:Image x="231" y="246" source="pai_hei5_png" />
+					<e:layout>
+						<e:TileLayout orientation="rows" requestedColumnCount="5" horizontalGap="10" verticalGap="10"
+						              horizontalAlign="left" verticalAlign="top" />
+					</e:layout>
+				</e:Group>
+				<e:Group horizontalCenter="0">
+					<e:Label text="1.皇家同花顺" x="500" size="26" verticalCenter="0" height="119" verticalAlign="middle" textAlign="left" />
+					<e:Label text="2.同花顺" x="250" size="26" verticalCenter="0" y="82" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="3.四条" x="250" size="26" verticalCenter="0" y="113" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="4.葫芦" x="250" size="26" verticalCenter="0" y="144" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="5.同花" x="250" size="26" verticalCenter="0" y="175" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="6.顺子" x="250" size="26" verticalCenter="0" y="206" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="7.三条" x="38" size="26" verticalCenter="0" y="-35" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="8.两对" x="250" size="26" verticalCenter="0" y="268" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="9.一对" x="250" size="26" verticalCenter="0" y="299" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:Label text="10.高牌" x="250" size="26" verticalCenter="0" y="330" scaleX="1" scaleY="1" height="119"
+					         verticalAlign="middle" textAlign="left" />
+					<e:layout>
+						<e:VerticalLayout gap="10" paddingTop="0" />
+					</e:layout>
+				</e:Group>
+				<e:layout>
+					<e:HorizontalLayout horizontalAlign="center" verticalAlign="top" gap="50" />
+				</e:layout>
+			</e:Group>
+			<e:Scroller id="cardScroller" width="720" height="1020" x="0" y="0" scaleX="1" scaleY="1" />
+		</e:Group>
+		<e:Group id="resizeGroup" width="720" height="1020" y="120" anchorOffsetX="0" anchorOffsetY="0" name="功能键介绍"
+		         horizontalCenter="0">
+			<e:Group id="funcKeyIntroGroup" width="720" height="1020" y="0" anchorOffsetX="0" anchorOffsetY="0" name="功能键介绍"
+			         x="0" scaleX="1" scaleY="1">
+				<e:Group x="94" y="16" width="600">
+
+					<e:Label text="选择看牌，看牌是不进行下注的！" size="26" verticalCenter="0" x="128" fontFamily="Microsoft YaHei" />
+
+					<e:Image id="img1" scaleX="1" scaleY="1" left="0" verticalCenter="0" source="button_genzhu_png"/>
+					<e:Image scaleX="1" scaleY="1" verticalCenter="0" y="10" source="text_guopai_png" left="25"/>
+
+				</e:Group>
+				<e:Group x="94" y="580" width="600">
+
+					<e:Label text="牌不好，就选择弃牌，不再参与这次对局。" x="128" size="26" verticalCenter="0" fontFamily="Microsoft YaHei" />
+					<e:Image scaleX="1" scaleY="1" left="0" verticalCenter="0" x="10" y="10" width="96" height="96" alpha="0.2" source="touxiang_1_png"/>
+					<e:Image id="img2" scaleX="1" scaleY="1" left="0" verticalCenter="0" source="button_qipai_png"/>
+					<e:Image scaleX="1" scaleY="1" verticalCenter="0" y="10" left="25" source="text_qipai_png"/>
+				</e:Group>
+				<e:Group x="94" y="500" width="600">
+
+					<e:Label text="如果觉得牌可以，就可进行跟注。" x="128" size="26" verticalCenter="0" fontFamily="Microsoft YaHei" />
+					<e:Image scaleX="1" scaleY="1" left="0" verticalCenter="0" x="10" y="10" width="96" height="96" alpha="0.2" source="touxiang_1_png"/>
+					<e:Image id="img3" scaleX="1" scaleY="1" left="0" verticalCenter="0" source="button_genzhu_png"/>
+					<e:Image scaleX="1" scaleY="1" verticalCenter="-0.5" y="10" left="25" source="text_genzhu_png"/>
+				</e:Group>
+				<e:Group x="94" y="420" width="600">
+
+					<e:Label text="如果觉得牌优势明显，可进行加注。" x="128" size="26" verticalCenter="0" fontFamily="Microsoft YaHei" />
+					<e:Image scaleX="1" scaleY="1" left="0" verticalCenter="0" x="10" y="10" width="96" height="96" alpha="0.2" source="touxiang_1_png"/>
+					<e:Image id="img4" scaleX="1" scaleY="1" left="0" verticalCenter="0" source="button_jiazhu_png"/>
+					<e:Image scaleX="1" scaleY="1" verticalCenter="0" y="10" left="25" source="text_jiazhu_png"/>
+				</e:Group>
+				<e:Group x="94" y="340" width="600">
+
+					<e:Label text="如果对你的牌相当有信心，就全下吧。" x="128" size="26" verticalCenter="0" fontFamily="Microsoft YaHei" />
+					<e:Image scaleX="1" scaleY="1" left="0" verticalCenter="0" x="10" y="10" width="96" height="96" alpha="0.2" source="touxiang_1_png"/>
+					<e:Image id="img5" scaleX="1" scaleY="1" left="0" verticalCenter="0" source="button_jiazhu_png"/>
+					<e:Image scaleX="1" scaleY="1" verticalCenter="0" y="10" left="25" source="text_quanxia_png"/>
+				</e:Group>
+				<e:Group x="94" y="260" width="600">
+
+					<e:Label text="首先让牌，如果需要下注则选择弃牌。" x="128" size="26" verticalCenter="0" fontFamily="Microsoft YaHei" />
+					<e:Image scaleX="1" scaleY="1" left="0" verticalCenter="0" x="10" y="10" width="96" height="96" alpha="0.2" source="touxiang_1_png"/>
+					<e:Image id="img6" scaleX="1" scaleY="1" left="0" verticalCenter="0" source="button_qipai_png"/>
+					<e:Image scaleX="1" scaleY="1" verticalCenter="0" y="10" left="12" source="text_qipai_1_png"/>
+				</e:Group>
+				<e:Group x="94" y="180" width="600">
+
+					<e:Label text="自动选择跟注。" x="128" size="26" verticalCenter="0" fontFamily="Microsoft YaHei" />
+					<e:Image scaleX="1" scaleY="1" left="0" verticalCenter="0" x="10" y="10" width="96" height="96" alpha="0.2" source="touxiang_1_png"/>
+					<e:Image id="img7" scaleX="1" scaleY="1" left="0" verticalCenter="0" source="button_genzhu_png"/>
+					<e:Image scaleX="1" scaleY="1" verticalCenter="0" y="10" left="25" source="text_genzhu_1_png"/>
+				</e:Group>
+				<e:layout>
+					<e:VerticalLayout horizontalAlign="center" verticalAlign="top" gap="30" paddingTop="30" />
+				</e:layout>
+			</e:Group>
+			<e:Scroller id="funcKeyIntroScroller" width="720" height="1020" scaleX="1" scaleY="1" x="0" y="0">
+				<e:Group>
+				</e:Group>
+			</e:Scroller>
+		</e:Group>
+	</e:Group>
+	<e:Group id="anmGroup" width="720" height="100" x="0" y="0">
+		<e:Image id="bg" x="0" y="0" source="bg_biaoti_png" />
+		<e:Group id="titleGroup" height="100" horizontalCenter="0" y="0">
+			<e:Image id="titleImg" horizontalCenter="0" x="54" scaleX="1" scaleY="1" verticalCenter="0" y="9" source="game_wf_png"/>
+
+
+			<e:Image source="pub_bt_1_png" scaleX="-1" scaleY="1" verticalCenter="0" horizontalCenter="-105"/>
+			<e:Image scaleX="1" scaleY="1" verticalCenter="0" source="pub_bt_1_png" horizontalCenter="105"/>
+		</e:Group>
+
+		<ns1:ShadowButton id="closeButton" label="返回" x="40" y="40" anchorOffsetX="31" anchorOffsetY="32"
+		                  skinName="closeButton2Skin" scaleX="1" scaleY="1" />
+	</e:Group>
+</e:Skin>

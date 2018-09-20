@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AssignmentItemRendererSkin" width="720" height="145" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Image width="720" x="0" source="line_png" scale9Grid="2,0,14,1" bottom="0"/>
+	<ns1:CommonIcon id="itemComp" x="25" skinName="CommonIconSkin" verticalCenter="0"/>
+	<e:Label id="desLabel" text="在德州扑克初级场对局20场" x="150" y="23" height="30" width="350" size="25"/>
+	<e:Label text="奖励：" x="150" height="25" width="90" size="25" anchorOffsetX="0" textAlign="left" y="55"/>
+	<e:Label id="rewardLabel" text="999999" x="280" height="25" width="120" size="25" anchorOffsetX="0" textAlign="left" y="55"/>
+	<e:Image id="rewardImg" x="240" y="55" source="gold2_png" width="30" height="30"/>
+	<ns1:ShadowButton id="takePrizeBtn" label="领取金币" enabled="true" anchorOffsetX="0" anchorOffsetY="0" x="530" verticalCenter="0.5" scaleX="1" scaleY="1" skinName="commonButtonBSkin"/>
+	<ns1:ShadowButton id="gotoBtn" label="前往" enabled="true" anchorOffsetX="0" anchorOffsetY="0" x="530" verticalCenter="0.5" skinName="shopping_ButtonSkin2"/>
+	<e:Image width="250" x="150" y="100" source="jindutiao_1_png" scale9Grid="8,8,10,2"/>
+	<e:Image id="processImg" width="246" x="152" y="102" scaleX="1" scaleY="1" source="jindutiao_2_png" scale9Grid="6,6,11,2"/>
+	<e:Label id="processLabel" text="5/5" x="430" y="95" size="25"/>
+</e:Skin>

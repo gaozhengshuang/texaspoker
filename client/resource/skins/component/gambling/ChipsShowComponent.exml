@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChipsShowComponentSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="chipBar" x="0" y="0">
+		<e:Image id="bgImg" x="0" y="0" source="game_bg_7_png" width="71" scale9Grid="12,13,12,8"/>
+		<e:Label id="numLabel" text="1" textAlign="right" size="22" textColor="0xf9cb55" x="0" y="8"/>
+	</e:Group>
+</e:Skin>

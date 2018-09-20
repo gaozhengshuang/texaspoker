@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MTTEnterBtnSkin" states="enabled,disabled" xmlns:e="http://ns.egret.com/eui">
+	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"
+	         source.disabled="mall_button_2_1_png"  source="button_jinru_png"/>
+	<e:Image horizontalCenter="0" verticalCenter="0" source="text_jinru_png"/>
+
+</e:Skin>

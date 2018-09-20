@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="giftItemRenderer" width="720" height="145" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="720" height="145" source="assets/bg/pub_bg11_png" alpha="0"/>
+
+    <e:Label id="nameLabel" text="好友名字六字" x="150" y="33" fontFamily="Microsoft YaHei" size="26"
+             anchorOffsetX="0" width="250"  textColor="0xdfe5e5"/>
+    <e:Label id="goldNumLabel" text="赠送给您188好友金币" x="150" y="86" width="380" textAlign="left" fontFamily="Microsoft YaHei"
+             size="26" anchorOffsetX="0"  textColor="0xdfe5e5"/>
+
+    <ns1:ShadowButton id="receiveBtn" label="领取" x="540"  verticalCenter="0" skinName="commonButtonYSkin"/>
+	<e:Image width="720" y="144" source="line_png"/>
+	<ns1:CircleHeadComponent id="userHeadCom" x="25" verticalCenter="0" skinName="CircleHeadComponentSkin"/>
+
+</e:Skin>

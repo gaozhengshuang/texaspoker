@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="loginComBtnSkin" states="up,down,disabled" minHeight="65" minWidth="172"
+        xmlns:e="http://ns.egret.com/eui" width="200" height="48">
+    <e:Image id="btnImg" alpha.disabled="0.5" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"  source="login_button_1_png" scale9Grid="21,22,10,4" width="200" height="48"/>
+    <e:Label id="labelDisplay" size="26" textAlign="center" fontFamily="Microsoft YaHei"
+             anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" text="按钮" width="200" height="44" name="label"  verticalAlign="middle" alpha="0.8"/>
+</e:Skin>

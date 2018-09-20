@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="bringAwardBtnSkin" states="enabled,disabled" xmlns:e="http://ns.egret.com/eui">
+	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"
+	          source="sc_button_png" source.disabled="sc_button_png"/>
+	<e:Image source="text_linqu_png" horizontalCenter="0" verticalCenter="-3"/>
+	<e:Label id="labelDisplay" size="30" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
+	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" text="" width="171" height="62.42" name="label"
+	         verticalCenter="-2.5" horizontalCenter="0" />
+</e:Skin>

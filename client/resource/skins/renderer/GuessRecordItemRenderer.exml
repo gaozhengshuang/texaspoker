@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="guessRecordItemRenderer" width="680" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="680" height="50" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0" source="pub_lines_png" scale9Grid="13,12,5,3"/>
+
+    <e:Label id="timeLabel" text="10:00" x="20.56"  verticalCenter="0" size="26"/>
+    <e:Label id="anteLabel" text="10" x="395" width="120" textAlign="center"  verticalCenter="0" size="26"/>
+	<e:Label id="goldLabel" text="200" x="520" width="150" textAlign="center" verticalCenter="0" size="26"/>
+
+
+	<e:Label id="recordLabel" text="手牌非对子" x="280" verticalCenter="0" size="26"/>
+	<e:Group id="resultGroup" x="155" verticalCenter="2">
+		<ns1:CardFaceComponent id="card1" skinName="CardFaceComponentSkin" scaleX="0.4" scaleY="0.4" verticalCenter="0"/>
+		<ns1:CardFaceComponent id="card2" skinName="CardFaceComponentSkin" scaleX="0.4" scaleY="0.4" x="50" verticalCenter="0"/>
+	</e:Group>
+</e:Skin>

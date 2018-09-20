@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MorePlayItemRendererSkin" width="720" height="200" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="720" source="line_png" scale9Grid="2,0,14,1" height="150" alpha="0"/>
+	<e:Image width="720" y="199" source="line_png" scale9Grid="2,0,14,1" horizontalCenter="0"/>
+	<e:Image id="morePlayIcon" x="25" source="wanfa_aomaha_png" verticalCenter="0"/>
+
+
+
+
+
+
+
+
+	<e:Label id="itemTitleLabel" text="111" x="200" y="23" height="35" size="30" textColor="0xfad050"/>
+	<e:Label id="itemDesLabel" text="1111" x="200" y="70" height="120" width="500" size="26" fontFamily="Microsoft YaHei" lineSpacing="10"/>
+	<e:Button id="playWayBtn" label="Button" skinName="question_buttonSkin" right="0" top="0"/>
+
+
+
+
+
+</e:Skin>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="chatBQJPSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        xmlns:e="http://ns.egret.com/eui">
+	    <e:Image source="bg_liaotian_4_png" source.upAndSelected="bg_liaotian_5_png" source.downAndSelected="bg_liaotian_5_png" />
+    <e:Image source="biaoqing_png"  horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

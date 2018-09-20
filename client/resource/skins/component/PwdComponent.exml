@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="pwdComponentSkin" width="525" height="69" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="numGroup" anchorOffsetX="0" width="526" anchorOffsetY="0" height="70" x="0" y="0">
+		<e:layout>
+		<e:HorizontalLayout gap="22"/>
+		</e:layout>
+	</e:Group>
+	<e:Label id="inputSelectLabel" text="|" y="19" size="28" x="9" textColor="0xffffff"/>
+</e:Skin>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="laBaRankTabComponentBtn4Skin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" width="120" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="btnImg" y="45"  source.upAndSelected="laBa_xuanzhong_png" horizontalCenter.upAndSelected="0" source.downAndSelected="laBa_xuanzhong_png" horizontalCenter.downAndSelected="0"/>
+	<e:Label id="labelDisplay" text="{data}" horizontalCenter="0" verticalCenter="0" verticalAlign="middle" textAlign="center" size.upAndSelected="28" width.upAndSelected="120" height.upAndSelected="60" width="120" height="50" size="28" textColor="0x40435e" textColor.upAndSelected="0x6692ff" textColor.downAndSelected="0x6692ff"/>
+</e:Skin>

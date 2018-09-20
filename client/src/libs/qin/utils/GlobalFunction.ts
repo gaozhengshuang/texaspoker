@@ -1,0 +1,493 @@
+module game
+{
+    export enum ClickState
+    {
+        Normal = 0,
+        Click = 1,
+        LongPress = 2,
+
+    }
+    //获取道具图片
+    export function getItemIconSource(id: number)
+    {
+        return `item_json.${id}`;
+    }
+
+    //获取道具品质图片
+    export function getItemColorSource(color: number)
+    {
+        return `hall_4_json.frame${color}_png`;
+    }
+
+
+    //获取html文本
+    export function getTextFlow(str: string): egret.ITextElement[]
+    {
+        let styleParser = new egret.HtmlTextParser();
+        return styleParser.parser(str);
+    }
+
+    export function parseCSV(csv: string): Array<Array<string>>
+    {
+        let lines = [];
+        let line = [];
+        let inQuote = false;
+        let str = "";
+        for (let i = 0; i < csv.length; ++i)
+        {
+            let c = csv[i];
+            if (!inQuote)
+            {
+                if (c == ",")
+                {
+                    line.push(str);
+                    str = "";
+                } else if (c == "\n")
+                {
+                    line.push(str);
+                    str = "";
+                    lines.push(line);
+                    line = [];
+                } else if (c == "\"")
+                    inQuote = true;
+                else
+                    str += c;
+            } else
+            {
+                if (c == "\"")
+                {
+                    if (i < csv.length - 1 && csv[i + 1] == "\"")
+                        str += c;
+                    inQuote = false;
+                } else
+                    str += c;
+            }
+        }
+        return lines;
+    }
+
+    export function splitStringToNumberArray(str: string, splitStr: string = "|", splitStr2 = ";")
+    {
+        let strArray = str.split(splitStr);
+        let numberArray = [];
+        for (let i = 0; i < strArray.length; i++)
+        {
+            if (strArray[i] == "") continue;
+            if (strArray[i].indexOf(splitStr2) > -1)
+            {
+                numberArray.push(splitStringToNumberArray(strArray[i], splitStr2));
+            } else
+            {
+                numberArray.push(Number(strArray[i]));
+            }
+        }
+        return numberArray;
+    }
+
+
+
+    export interface LootItem<T>
+    {
+        Id: number;
+        pro: number;
+        data?: T;
+    }
+
+
+
+    export function lootEvent(event: number[]): number
+    {
+        let randomNum = Math.random();
+        let value = 0;
+        let pos = 1;
+        for (let i = 0; i < event.length; i++)
+        {
+            value += event[i];
+            if (randomNum < value)
+            {
+                pos = i + 1;
+                break;
+            }
+        }
+        return pos;
+    }
+
+
+    export function setNumber(num: number): string
+    {
+        let tempNum: string = Math.floor(num).toString();
+        let len = tempNum.length;
+        switch (len)
+        {
+            case 1://个
+            case 2://十
+            case 3://百
+            case 4://千
+            case 5://万
+                return tempNum;
+            case 6://十万
+            case 7://百万
+            case 8://千万
+                var num1 = Math.floor(num / 10000);
+                var num2 = Math.floor((num - num1 * 10000) / 1000).toString().slice(0, 1);
+                if (num2 == "0")
+                {
+                    tempNum = num1 + "万";
+                } else
+                {
+                    tempNum = num1 /*+ "." + num2 */ + "万";
+                }
+                break;
+            default:
+                var num1 = Math.floor(num / 100000000);
+                var num2 = Math.floor((num - num1 * 100000000) / 10000).toString();
+                if (num2 == "0")
+                {
+                    tempNum = num1 + "亿";
+                } else
+                {
+                    tempNum = num1 + "亿" + num2 + "万";
+                }
+                break;
+        }
+        return tempNum;
+    }
+
+    export function formatString(str: string, ...parms)
+    {
+        if (!str || !parms || parms.length == 0) return;
+        for (let i = 0; i < parms.length; i++)
+        {
+            if (parms[i] == null) continue;
+            str = str.replace(`{${i}}`, parms[i].toString())
+        }
+        return str;
+    }
+
+    export function copyObject(object: any, r: any = null)
+    {
+        r = r || {};
+        for (let i in object)
+        {
+            if (object.hasOwnProperty(i))
+            {
+                if (typeof object[i] === "object")
+                {
+                    if (!object[i])
+                    {
+                        r[i] = null;
+                    } else
+                    {
+                        r[i] = (object[i].constructor === Array) ? [] : {};
+                        copyObject(object[i], r[i]);
+                    }
+                } else
+                {
+                    r[i] = object[i];
+                }
+            }
+        }
+        return r;
+    }
+
+    export interface Dictionary<TValue>
+    {
+        [key: string]: TValue;
+
+        [key: number]: TValue;
+    }
+
+    export function ToNumber(val: string): number
+    {
+        if (!val)
+            return undefined;
+        return Number(val);
+    }
+
+    export let DarkRectPool: ObjectPool<eui.Rect> = new ObjectPool<eui.Rect>(eui.Rect);
+
+    export function checkPointAtRect(pointX: number, pointY: number, rectX: number, rectY: number, rectWidth: number, rectHeight: number)
+    {
+        return pointX >= rectX && pointX <= (rectX + rectWidth) && pointY >= rectY && pointY <= (rectY + rectHeight);
+    }
+
+    export function parseColorText(str: string): Array<egret.ITextElement>
+    {
+        if (!str) return [];
+        let colorArray = str.match(/\[(.+?)\]/g);
+        let textArray = str.split(/\[.*?\]/);
+        let resultArray = [];
+        if (colorArray)
+        {
+            for (let i = 0; i < colorArray.length; i++)
+            {
+                colorArray[i] = colorArray[i].substr(1, colorArray[i].length - 2);
+            }
+            for (let i = 1; i < textArray.length; i++)
+            {
+                resultArray.push({ text: textArray[i], style: { textColor: parse16Color(colorArray[i - 1]) } });
+            }
+        } else
+        {
+            for (let i = 0; i < textArray.length; i++)
+            {
+                resultArray.push({ text: textArray[i], color: 0x000000 });
+            }
+        }
+        return resultArray;
+    }
+
+    export function parse16Color(colorStr: string)
+    {
+        if (colorStr.indexOf("#") > -1)
+        {
+            colorStr = colorStr.replace("#", "0x");
+        } else
+        {
+            colorStr = "0x" + colorStr;
+        }
+        return Number(colorStr);
+    }
+
+    export function createColorText(str: string)
+    {
+        let textArray = parseColorText(str);
+        let levelThreeReedLabel = new eui.Label();
+        levelThreeReedLabel.textFlow = [];
+        for (let i = 0; i < textArray.length; i++)
+        {
+            levelThreeReedLabel.textFlow.push(textArray[i])
+        }
+        levelThreeReedLabel.lineSpacing = 10;
+        return levelThreeReedLabel;
+    }
+
+    export function angle(startX: number, startY: number, endX: number, endY: number)
+    {
+        let diff_x = endX - startX,
+            diff_y = endY - startY;
+        //返回角度,不是弧度
+        return 360 * Math.atan(diff_y / diff_x) / (2 * Math.PI);
+    }
+
+    export function deleteBlank(str: string)
+    {
+        return str.replace(/\s+/g, "");
+    }
+
+    export function randomRange(min, max)
+    {
+        return min + (max - min) * Math.random();
+    }
+    export function randRange(min, max)
+    {
+        return Math.floor(randomRange(min, max));
+    }
+
+    export function clamp(x, min, max)
+    {
+        return x < min ? min : x > max ? max : x;
+    }
+
+    export function showDialog(contentTxt: string, btnTxt: string, func: Function = null, func2: Function = null)
+    {
+        // CommonDialog.getInstance().OnShowPanel(contentTxt, btnTxt, func, null, func2); //move todo
+    }
+    export let TipsPool: ObjectPool<egret.TextField> = new ObjectPool<egret.TextField>(egret.TextField);
+    export let TipsImagePool: ObjectPool<eui.Image> = new ObjectPool<eui.Image>(eui.Image);
+
+    export function showTips(str: string = "", isWarning: boolean = false, fonzSize: number = 30, moveY: number = 220, y?: number, textColor?: number): void
+    {
+        // let panel = TextTipsPanel.createOnce(); //move todo
+        // panel.show();
+        // panel.setData(str);
+    }
+    export function TextCopy(message)
+    {
+        var input = document.createElement("input");
+        input.value = message;
+        document.body.appendChild(input);
+        input.select();
+        input.setSelectionRange(0, input.value.length);
+        document.execCommand('Copy');
+        document.body.removeChild(input);
+        showTips("复制成功!");
+    }
+
+
+    export function adjustBone(o: egret.DisplayObject, e: egret.DisplayObjectContainer, scale = 1.0)
+    {
+        o.x = e.width * .5;
+        o.y = e.height;
+        o.scaleX = o.scaleY = scale;
+    }
+
+    export function hideAllChildren(e: egret.DisplayObjectContainer)
+    {
+        for (let i = 0; i < e.numChildren; ++i)
+        {
+            e.$children[i].visible = false;
+        }
+    }
+
+    export function setAnchor(e: egret.DisplayObject, x = 0.0, y = 0.0)
+    {
+        e.anchorOffsetX = e.width * x;
+        e.anchorOffsetY = e.height * y;
+    }
+
+    export function copyAnchor(to: egret.DisplayObject, from: egret.DisplayObject)
+    {
+        let xp = from.anchorOffsetX / from.width;
+        let yp = from.anchorOffsetY / from.height;
+        console.log(xp, yp)
+        setAnchor(to, xp, yp);
+    }
+
+    /**
+    * 将数字用逗号以 splitNum 进行分割(用于Label 显示空间大,数值有变化)
+    * 当 splitNum=3 :1234567=1,234,567
+    * num 为小数时向下取整,支持负数
+    */
+    export function numAddSpace(num: number): string
+    {
+        let splitNum = 3;
+        num = Math.floor(num);
+        let isNegative: boolean = false;
+        if (num < 0)
+        {
+            isNegative = true;
+            num *= -1;
+        }
+        let str: string = num.toString();
+        if (str.length <= splitNum || splitNum < 1)
+        {
+            if (isNegative)
+            {
+                return "-" + str;
+            }
+            return str;
+        }
+        let len = str.length % splitNum;
+        let strResult: string = "";
+        if (isNegative)
+        {
+            strResult = "-"
+        }
+        let strList: Array<string> = new Array<string>();
+        for (let i: number = 0; i < str.length;)
+        {
+            if (i == 0 && len > 0)
+            {
+                let index = i + len;
+                if (index > str.length)
+                {
+                    index = str.length;
+                }
+                strResult += str.substring(i, index);
+                i += len;
+            }
+            else
+            {
+                let index = i + splitNum;
+                if (index > str.length)
+                {
+                    index = str.length;
+                }
+                strResult += str.substring(i, index);
+                i += splitNum;
+            }
+            if (i <= str.length - splitNum)
+            {
+                strResult += ",";
+            }
+        }
+        return strResult;
+    }
+
+    export function getCouponStr(coupon: number)
+    {
+        if (coupon > 9999)
+        {
+            let ret = Number((coupon / 1000).toFixed(2));
+            ret = ret == Math.floor(ret) ? Math.floor(ret) : ret;
+            return ret + 'k';
+        }
+        return coupon;
+    }
+    /**
+     * 将源对象属性copy到目标对象，仅一维浅拷贝
+     */
+    export function copyFromTarget(source: any, target: any = null)
+    {
+        if (source && target)
+        {
+            for (let key in source)
+            {
+                target[key] = source[key];
+            }
+        }
+    }
+
+    /**
+     * 根据3个点，产生一个贝塞尔曲线点 t[0-1]
+     */
+    export function besselPoint(t: number, p0: egret.Point, p1: egret.Point, p2: egret.Point, movePoint: egret.Point)
+    {
+        if (t < 0 || t > 1 || !p0 || !p1 || !p2 || !movePoint)
+        {
+            qin.Console.log("贝塞尔曲线参数不合法");
+            return;
+        }
+        let x: number;
+        let y: number;
+        movePoint.x = (1 - t) * (1 - t) * p0.x + 2 * t * (1 - t) * p1.x + t * t * p2.x;
+        movePoint.y = (1 - t) * (1 - t) * p0.y + 2 * t * (1 - t) * p1.y + t * t * p2.y;
+    }
+
+    /**
+    * 以树级形式获取对象的属性
+    */
+    export function getTreeProperty(target: any, props: Array<string>): any
+    {
+        if (target && props)
+        {
+            let property: any = target;
+            for (let i: number = 0; i < props.length; i++)
+            {
+                if (property)
+                {
+                    property = property[props[i]];
+                }
+                else
+                {
+                    qin.Console.log("树级获取对象异常！" + props + "i：" + props[i]);
+                }
+            }
+            return property;
+        }
+        return null;
+    }
+
+    export function toGlobalPoint(tar: egret.DisplayObject)
+    {
+        let p = new egret.Point();
+        let tmpX = 0;
+        let tmpY = 0;
+        while (tar.parent != null)
+        {
+            if (isNaN(tar.x) != false)
+            {
+                tmpX += tar.x;
+            }
+            if (isNaN(tmpY) != false)
+            {
+                tmpY += tar.y;
+            }
+            tar = tar.parent;
+        }
+        p.x = tmpX;
+        p.y = tmpY;
+        return p;
+    }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gambling_achieve_btn" xmlns:e="http://ns.egret.com/eui">
+<e:Image id="btnImg" source="game_rw_png" />
+</e:Skin>

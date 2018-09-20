@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="tabComponentButton4Skin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" width="150" height="52" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="btnImg" height="52" width="150"  source.upAndSelected="pub_a4_png" source.downAndSelected="pub_a4_png"/>
+	<e:Label id="labelDisplay" text="{data}" horizontalCenter="0" verticalCenter.disabledAndSelected="0" verticalCenter.downAndSelected="-3" verticalCenter.disabled="0" verticalCenter.down="0" verticalCenter.up="0" width="150" height="52" verticalAlign="middle" textAlign="center" anchorOffsetY.upAndSelected="0" horizontalCenter.upAndSelected="-1" height.upAndSelected="42.83" size.upAndSelected="30" anchorOffsetX.upAndSelected="0" width.upAndSelected="191.75" y.upAndSelected="1.75" anchorOffsetX.downAndSelected="0" horizontalCenter.downAndSelected="-1" width.downAndSelected="191.5" anchorOffsetY.downAndSelected="0" height.downAndSelected="42.25" textColor="0x4bc6b7" textColor.upAndSelected="0xffffff" textColor.downAndSelected="0xffffff" textColor.disabledAndSelected="0xffffff"/>
+</e:Skin>

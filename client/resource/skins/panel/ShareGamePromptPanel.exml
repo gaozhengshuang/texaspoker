@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShareGamePromptPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0" touchEnabled="false" touchChildren="false">
+			<e:Label text="1.点击右上角选择按钮" fontFamily="Microsoft YaHei" horizontalCenter="145" verticalCenter="-484" size="32" textColor="0x4afc91"/>
+			<e:Label text="2.选择分享朋友圈" fontFamily="Microsoft YaHei" horizontalCenter="146" verticalCenter="-430" size="32" textColor="0x4afc91"/>
+			<e:Image x="549" y="-67" source="fenxiang_png"/>
+    </e:Group>
+</e:Skin>

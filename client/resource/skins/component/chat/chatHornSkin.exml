@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="chatHornSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+
+	<e:Group x="0" y="0">
+		<e:Image source="bg_liaotian_4_png" source.upAndSelected="bg_liaotian_5_png" source.downAndSelected="bg_liaotian_5_png" x="0" y="0"/>
+		<e:Image horizontalCenter="0" verticalCenter="-10" source="yuyin_png"/>
+	</e:Group>
+	<e:Label id="desLabel" text="20" y="47" width="70" textAlign="center" size="20" textColor="0x000000" horizontalCenter="0"/>
+</e:Skin>

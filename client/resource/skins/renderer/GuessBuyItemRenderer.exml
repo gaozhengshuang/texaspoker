@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="guessBuyItemRenderer" width="680" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImage" width="680" height="50" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="2,2,8,8"
+	         y="0"  source="assets/bg/pub_bg11_png" x="0" alpha="0"/>
+	<e:Image width="680" height="50" source="pub_lines_png" scale9Grid="14,10,2,7"/>
+	<e:Label id="typeLabel" text="全红" x="85.67"  verticalCenter="0" textColor="0xecc456" size="26"/>
+	<e:Label id="oddsLabel" text="1:100" x="230" width="120" textAlign="center"  verticalCenter="0" size="26"/>
+
+
+
+	<e:Label text="手牌" verticalCenter="0" x="33.77" size="26"/>
+	<e:ToggleButton id="ante1RB" label="1" x="483" skinName="guessAnteToggleSwitchSkin" verticalCenter="0" width="42"/>
+	<e:ToggleButton id="ante2RB" label="5" x="550" skinName="guessAnteToggleSwitchSkin" verticalCenter="0"/>
+	<e:ToggleButton id="ante3RB" label="10" x="617" skinName="guessAnteToggleSwitchSkin" verticalCenter="0"/>
+</e:Skin>

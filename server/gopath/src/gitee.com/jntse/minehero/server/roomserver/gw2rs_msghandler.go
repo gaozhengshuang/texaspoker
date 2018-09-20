@@ -1,7 +1,7 @@
 package main
 import (
 	"fmt"
-	"reflect"
+	_"reflect"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/minehero/pbmsg"
@@ -36,7 +36,6 @@ func (this* C2GWMsgHandler) Init() {
 	// 收
 	this.msgparser.RegistProtoMsg(msg.GW2RS_RetRegist{}, on_GW2RS_RetRegist)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UserDisconnect{}, on_GW2RS_UserDisconnect)
-	this.msgparser.RegistProtoMsg(msg.GW2RS_MsgTransfer{}, on_GW2RS_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
@@ -77,27 +76,9 @@ func on_GW2RS_UserDisconnect(session network.IBaseNetSession, message interface{
 		session.SendCmd(rsend)
 		return
 	}
+
 	room.UserDisconnect(userid)
 	session.SendCmd(rsend)
-}
-
-func on_GW2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2RS_MsgTransfer)
-	msg_type := pb.MessageType(tmsg.GetName())
-	if msg_type == nil {
-		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
-		return
-	}
-
-	protomsg := reflect.New(msg_type.Elem()).Interface()
-	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
-	if err != nil {
-		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
-		return
-	}
-
-	ClientMsgAgent().Handler(session, protomsg, tmsg.GetUid())
-	//log.Info("msg=%v", protomsg)
 }
 
 func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}) {
@@ -109,7 +90,7 @@ func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}
 		return
 	}
 
-	room.UserLoad(tmsg.GetBin(), session)
+	room.UserLoad(tmsg, session)
 }
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
@@ -117,11 +98,22 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	roomid, userid  := tmsg.GetRoomid(), tmsg.GetUserid()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("BT_ReqEnterRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		log.Error("玩家[%d] 请求进入房间[%d]，但房间不存在", userid, roomid)
 		return
 	}
 
-	room.UserEnter(userid)
+	user := UserMgr().FindUser(userid)
+	if user == nil {
+		log.Error("玩家[%d] 请求进入房间[%d]，但没有玩家实例", userid, roomid)
+		return
+	}
+
+	if room.Passwd() != tmsg.GetPasswd() {
+		log.Error("玩家[%d] 请求进入房间[%d]，但密码不正确", userid, roomid)
+		return
+	}
+
+	room.UserEnter(user)
 }
 
 func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
@@ -132,8 +124,14 @@ func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 		log.Error("on_BT_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
-	//room.UserLeave(userid, tmsg.GetGold())
-	room.UserLeave(userid) 
+
+	user := UserMgr().FindUser(userid)
+	if user == nil {
+		log.Error("玩家[%d] 请求离开房间[%d]，但没有玩家实例", userid, roomid)
+		return
+	}
+
+	room.UserLeave(user) 
 }
 
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {

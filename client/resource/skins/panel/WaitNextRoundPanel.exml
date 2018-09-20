@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WaitNextRoundPanelSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" height="110" width="181">
+	<e:Group id="tweenGroup" x="0" y="0" width="181" height="110">
+		<e:Image source="chouma_ddks_png" horizontalCenter="0" verticalCenter="0" x="64" y="26" scaleX="1" scaleY="1"/>
+		<e:Image id="rotateImg" x="109.19" y="43.73" source="gaoliang_ddks_png" anchorOffsetX="6" anchorOffsetY="6.5" rotation="300" scaleX="1" scaleY="1"/>
+		<e:Label text="等待下局开始" fontFamily="Microsoft YaHei" y="85.02" size="24" x="0" scaleX="1" scaleY="1" textAlign="left"/>
+		<e:Label id="desLabel" text="..." fontFamily="Microsoft YaHei" y="85.02" size="24" x="145" scaleX="1" scaleY="1" textAlign="left"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="bindAccount_WxBtnSkin" states="up,down,disabled" minHeight="65" minWidth="172"
+        xmlns:e="http://ns.egret.com/eui">
+    <e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="23,0,4,67"
+             source="pub_button_22_png" source.disabled="pub_button_22_1_png" />
+    <e:Label id="labelDisplay" size="28" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
+             anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" text="" width="154" height="66.92" name="label"
+             x="62" y="0" />
+    <e:Image x="34" verticalCenter="-0.5" source="bd_weixin_png" />
+</e:Skin>

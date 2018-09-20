@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="chatSendSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" minHeight="65"
+        minWidth="172" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="72" height="72">
+    <e:Image source="bg_liaotian_4_png" source.up="bg_liaotian_4_png" source.down="bg_liaotian_5_png"
+             source.disabled="bg_liaotian_4_png" source.upAndSelected="bg_liaotian_4_png"
+             source.downAndSelected="bg_liaotian_5_png" />
+    <e:Image id="btnImg" source="fasong_png" horizontalCenter="0" verticalCenter="0" />
+</e:Skin>

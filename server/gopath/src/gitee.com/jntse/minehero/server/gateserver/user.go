@@ -23,25 +23,6 @@ import (
 //	GamePlaying  = 4	// 游戏中
 //	)
 
-// --------------------------------------------------------------------------
-/// @brief 玩家房间简单数据
-// --------------------------------------------------------------------------
-type UserRoomData struct {
-	roomid     	int64
-	sid_room   	int
-	kind       	int32
-	tm_closing 	int64 	// 房间关闭超时
-	creating   	bool
-	seatpos		int32	// 座位号
-}
-
-func (this *UserRoomData) Reset() {
-	this.roomid = 0
-	this.sid_room = 0
-	this.kind = 0
-	this.tm_closing = 0
-	this.creating = false
-}
 
 // --------------------------------------------------------------------------
 /// @brief db数据管理
@@ -112,7 +93,6 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.tm_asynsave = 0
 	u.token = token
 	u.broadcastbuffer = make([]int64, 0)
-	u.roomdata.Reset()
 	return u
 }
 
@@ -290,43 +270,6 @@ func (this *GateUser) Verifykey() string {
 
 func (this *GateUser) IsOnline() bool {
 	return this.online
-}
-
-func (this *GateUser) GameKind() int32 {
-	return this.roomdata.kind
-}
-
-// 房间id
-func (this *GateUser) RoomId() int64 {
-	return this.roomdata.roomid
-}
-
-// 房间服务器 sid
-func (this *GateUser) RoomSid() int {
-	return this.roomdata.sid_room
-}
-
-// 是否有房间
-func (this *GateUser) IsInRoom() bool {
-	if this.RoomId() != 0 {
-		return true
-	}
-	return false
-}
-
-// 正在创建房间
-func (this *GateUser) IsRoomCreating() bool {
-	return this.roomdata.creating
-}
-
-// 房间关闭中
-func (this *GateUser) IsRoomClosing() bool {
-	return this.roomdata.tm_closing != 0
-}
-
-// 关闭超时, 10秒
-func (this *GateUser) IsRoomCloseTimeOut() bool {
-	return util.CURTIMEMS() > (this.roomdata.tm_closing + 10000)
 }
 
 func (this *GateUser) SetOpenId(id string) {
@@ -600,7 +543,7 @@ func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	this.tm_login = curtime
 	this.tm_disconnect = 0
 	this.tm_heartbeat = util.CURTIMEMS()
-	this.roomdata.Reset()
+	this.roomdata.Online(this)
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", this.Sid(), this.account, this.Id(), this.Name(), way)
 
 	// 上线任务检查
@@ -673,10 +616,10 @@ func (this *GateUser) CheckDisconnectTimeOut(now int64) {
 		return
 	}
 
-	// 等待房间关闭
-	if this.IsInRoom() && !this.IsRoomCloseTimeOut() {
-		return
-	}
+	//// 等待房间关闭
+	//if this.IsInRoom() && !this.IsRoomCloseTimeOut() {
+	//	return
+	//}
 
 	// 异步事件未处理完
 	if this.asynev.EventSize() != 0 || this.asynev.FeedBackSize() != 0 {
@@ -699,7 +642,7 @@ func (this *GateUser) Logout() {
 
 	//下线通知MatchServer
 	//this.OnDisconnectMatchServer()
-	log.Info("账户%s 玩家[%s %d] 存盘下线", this.account, this.Name(), this.Id())
+	log.Info("账户%s 玩家[%s %d] 存盘清理下线", this.account, this.Name(), this.Id())
 }
 
 // logout完成，做最后清理
@@ -713,17 +656,6 @@ func (this *GateUser) SendNotify(text string) {
 	this.SendMsg(send)
 }
 
-
-// 通知RS 玩家已经断开连接了
-func (this *GateUser) SendRsUserDisconnect() {
-	if this.roomdata.tm_closing != 0 {
-		return
-	}
-	this.roomdata.tm_closing = util.CURTIMEMS()
-	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Int64(this.Id())}
-	this.SendRoomMsg(msgclose)
-	log.Info("玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
-}
 
 // 插入新异步事件
 func (this *GateUser) AsynEventInsert(event eventque.IEvent) {

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="rankTabComponentButton2Skin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" width="240" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="btnImg" source.upAndSelected="ld_3_png" source.downAndSelected="ld_3_png" y="55" />
+	<e:Label id="labelDisplay" text="{data}" horizontalCenter="0" verticalCenter="0" verticalAlign="middle" textAlign="center" size.upAndSelected="30" width.upAndSelected="240" height.upAndSelected="60" width="240" height="60" textColor="0x4bc6b7" textColor.upAndSelected="0xffffff" textColor.downAndSelected="0xffffff" textColor.disabledAndSelected="0xffffff"/>
+</e:Skin>

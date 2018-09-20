@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShoppingPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+	<e:Image width="720" height="1180" x="0" y="100" anchorOffsetY="0" source="mall_bg_10_png" scale9Grid="0,18,720,17"/>
+
+	<e:Group id="anmGroup" width="720" height="100" x="0" y="0">
+		<e:Image y="230" source="guang_1_png" anchorOffsetX="122.5" anchorOffsetY="110" scaleX="1" scaleY="1" x="135"/>
+		<e:Image y="230" source="guang_1_png" anchorOffsetX="122.5" anchorOffsetY="110" horizontalCenter="0"/>
+		<e:Image y="230" source="guang_1_png" anchorOffsetX="122.5" anchorOffsetY="110" x="585"/>
+		<e:Image x="120" y="230" source="deng_png"/>
+		<e:Image y="230" source="deng_png" x="570"/>
+		<e:Image id="bg" source="mall_bg_2_png"/>
+		<ns1:ShadowButton id="closeButton" label="返回" x="40" y="40" anchorOffsetX="31" anchorOffsetY="32" skinName="closeButton2Skin"/>
+		<e:Image id="titleImg" scaleX="1" scaleY="1" source="mall_png" top="0" horizontalCenter="0"/>
+		<e:Group id="titleGroup" height="100" horizontalCenter="0" top="0">
+
+		</e:Group>
+	</e:Group>
+	<e:Group id="anmGroup1" width="720" height="1180" x="0" y="100" anchorOffsetY="0">
+		<e:Image width="674" y="45" horizontalCenter="0" source="pub_biankuang2_png" scale9Grid="34,33,14,9"/>
+		<ns1:TabComponent id="shoppingTab" y="46" anchorOffsetX="0" anchorOffsetY="0" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Group id="goldGroup" width="720" height="900" y="170" anchorOffsetX="0" anchorOffsetY="0" name="金币" horizontalCenter="0" visible="false">
+
+
+		<e:Scroller id="gold_scroller" width="720" height="900" y="0" anchorOffsetX="0" x="0">
+		</e:Scroller>
+		<e:List id="goldList" width="720" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0">
+			<e:layout>
+				<e:VerticalLayout horizontalAlign="center" verticalAlign="middle" gap="-10"/>
+			</e:layout>
+
+		</e:List>
+		</e:Group>
+		<e:Group id="diamondGroup" width="720" height="900" y="170" anchorOffsetX="0" anchorOffsetY="0" name="钻石" horizontalCenter="0" visible="false">
+		<e:Scroller id="diamond_scroller" width="720" height="900" y="0" anchorOffsetX="0" x="0">
+			<e:Group/>
+		</e:Scroller>
+		<e:List id="diamondList" width="720" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0">
+			<e:layout>
+				<e:VerticalLayout horizontalAlign="center" verticalAlign="middle" gap="-10"/>
+			</e:layout>
+
+		</e:List>
+		</e:Group>
+		<e:Group id="propGroup" width="720" height="950" y="150" horizontalCenter="0">
+			<e:Scroller id="prop_scroller" width="720" height="950" anchorOffsetX="0" scaleX="1" scaleY="1"/>
+			<e:List id="propList" width="720" height="950" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
+				<e:layout>
+				<e:VerticalLayout horizontalAlign="center" verticalAlign="top" paddingLeft="0" gap="-90"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<e:Group id="vipGroup" width="720" height="950" y="150" anchorOffsetX="0" anchorOffsetY="0" name="VIP" x="0">
+		<e:Scroller id="vip_scroller" width="720" height="950" y="0" anchorOffsetX="0"/>
+		<e:List id="vipList" width="720" height="950" anchorOffsetX="0" anchorOffsetY="0" y="0">
+			<e:layout>
+			<e:VerticalLayout horizontalAlign="center" verticalAlign="top" paddingLeft="0" gap="-90"/>
+			</e:layout>
+		</e:List>
+		</e:Group>
+
+		<e:Group id="resizeGroup" horizontalCenter="0" y="-100">
+			<e:Group id="diamondNumLabelGroup" touchChildren="true" width="225" height="65" anchorOffsetY="0" anchorOffsetX="0" x="-183.00000000000003" scaleX="1" scaleY="1" bottom="15" y="1014">
+				<e:Image anchorOffsetX="0" anchorOffsetY="0" x="0" source="mall_bg_3_png" width="200" scale9Grid="18,18,8,2" verticalCenter="0"/>
+				<e:Image id="diamondImg" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.7" scaleY="0.7" touchEnabled="true" x="10" source="icon_zhuanshi_png" verticalCenter="0"/>
+				<e:Label id="diamondNumLabel" text="1000万" size="30" textAlign="left" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" touchEnabled="false" y="18" x="60" textColor="0xffffff"/>
+			</e:Group>
+			<e:Group id="goldNumLabelGroup" touchChildren="true" width="225" height="65" anchorOffsetY="0" anchorOffsetX="0" x="61.99999999999997" scaleX="1" scaleY="1" bottom="15" y="1014">
+				<e:Image anchorOffsetX="0" anchorOffsetY="0" x="0" width="200" source="mall_bg_3_png" scale9Grid="18,18,8,2" verticalCenter="0"/>
+				<e:Image id="goldImg" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.7" scaleY="0.7" touchEnabled="true" x="10" source="icon_jinbi_png" y="17"/>
+				<e:Label id="goldNumLabel" text="1000万" size="30" textAlign="left" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" touchEnabled="false" y="18" x="60" textColor="0xffffff"/>
+			</e:Group>
+		</e:Group>
+	</e:Group>
+
+
+
+
+
+</e:Skin>

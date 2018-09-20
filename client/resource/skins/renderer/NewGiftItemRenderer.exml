@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="NewGiftItemRendererSkin" width="626" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Image width="626" source="xinrenli_bg_png" scale9Grid="25,0,12,106"/>
+	<e:Image verticalCenter="0" source="xinrenli_bg_2_png" left="10"/>
+	<ns1:CommonIcon id="icon" x="10" verticalCenter="0" skinName="CommonIconSkin" width="82" height="82"/>
+	<e:Image id="completeImg" source="xrl_ywc_png" verticalCenter="0" right="30"/>
+	<e:Label id="titleLabel" text="游戏等级达到5级" x="130" width="200" size="26" textColor="0x3b1001" top="20"/>
+	<e:Label text="进度：" x="130" size="24" anchorOffsetX="0" textAlign="left" y="65" textColor="0xb74101"/>
+	<e:Label id="processLabel" text="1/1" x="190" size="24" anchorOffsetX="0" textAlign="left" y="66" verticalAlign="middle" textColor="0xb74101"/>
+	<e:Image id="itemImg" source="achieve_1_png" width="50" height="50" verticalCenter="0" x="330"/>
+	<e:Label id="numLabel" text="99" size="26" anchorOffsetX="0" textAlign="left" verticalCenter="0" x="380" textColor="0x3b1001"/>
+	<ns1:ShadowButton id="takeBtn" label="领取" right="20" verticalCenter="0" skinName="newGiftTake_buttonSkin"/>
+</e:Skin>

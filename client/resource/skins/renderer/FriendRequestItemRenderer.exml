@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="friendRequestItemRenderer" width="720" height="145" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="720" height="145" source="assets/bg/pub_bg11_png" alpha="0"/>
+
+    <e:Label id="nameLabel" text="好友名字六字" x="150" y="37" fontFamily="Microsoft YaHei" size="26"
+             anchorOffsetX="0" width="220"  textColor="0xdfe5e5"/>
+    <e:Label text="ID:" x="150" y="90" textAlign="left" fontFamily="Microsoft YaHei"
+             size="26" anchorOffsetX="0"  width="45" textColor="0xdfe5e5"/>
+
+    <ns1:ShadowButton id="refuseBtn" label="拒绝" x="373.59"  skinName="commonButtonYSkin" verticalCenter="0"/>
+	<ns1:ShadowButton id="receiveBtn" label="接受" x="544.16" skinName="commonButtonYSkin" verticalCenter="0"/>
+	<e:Label id="idLabel" text="9999999" x="196" y="90" textColor="0xdfe5e5" size="26"/>
+	<e:Image width="720" y="144" source="line_png"/>
+	<ns1:CircleHeadComponent id="userHeadCom" x="25" verticalCenter="0" skinName="CircleHeadComponentSkin"/>
+
+</e:Skin>

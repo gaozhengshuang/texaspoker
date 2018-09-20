@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" width="720" height="1280">
+	<e:Group id="tweenGroup" x="0" y="0" height="100%">
+		<e:Image id="bgImg" width="100%" height="100%" x="0" y="0"  source="assets/bg/hall_bg_1_png"/>
+		<e:Image id="dealerImg" touchEnabled="false" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0"
+		         horizontalCenter="20" y="120"/>
+		<e:Group horizontalCenter="0" verticalCenter="0">
+			<e:Image width="670" height="445" source="pub_bg2_png" scale9Grid="4,106,656,8" />
+			<e:Label id="titleLabel" text="您熟悉德州扑克吗？" x="40" y="44" />
+
+			<e:Group id="chooseGroup1" verticalCenter="0" width="100%">
+
+
+
+
+
+				<e:Group id="passBtn1">
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="infor_pub_png" verticalCenter="0" horizontalCenter="0"/>
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="wsls_png" horizontalCenter="0" bottom="6"/>
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="xinshou_2_png" horizontalCenter="0" top="8"/>
+					<e:Label text="跳过新手引导!" size="26" scaleX="1" scaleY="1" horizontalCenter="0" bottom="-52"/>
+				</e:Group>
+				<e:Group id="enterBtn1" x="10" y="10">
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="infor_pub_png" horizontalCenter="0" verticalCenter="0"/>
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" horizontalCenter="0" bottom="6" source="wsxs_png"/>
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" horizontalCenter="0" top="8" source="xinshou_1_png"/>
+					<e:Label text="进入新手引导!" size="26" scaleX="1" scaleY="1" horizontalCenter="0" bottom="-52"/>
+				</e:Group>
+				<e:layout>
+					<e:HorizontalLayout gap="75" horizontalAlign="center"/>
+				</e:layout>
+			</e:Group>
+			<e:Group id="chooseGroup2" verticalCenter="0" width="100%" locked="true">
+				<e:Group id="passBtn2">
+				<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="infor_pub_png" verticalCenter="0" horizontalCenter="0"/>
+				<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" horizontalCenter="0" bottom="6" source="jryx_png"/>
+				<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="xinshou_2_png" horizontalCenter="0" top="8"/>
+				<e:Label text="我已了解德州\n扑克规则" size="26" scaleX="1" scaleY="1" horizontalCenter="0" bottom="-76" textAlign="center"/>
+				</e:Group>
+				<e:Group id="enterBtn2">
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="infor_pub_png" verticalCenter="0" horizontalCenter="0"/>
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" horizontalCenter="0" bottom="6" source="jrxly_png"/>
+					<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" horizontalCenter="0" top="8" source="xinshou_1_png"/>
+					<e:Label text="我还想继续\n了解德州扑克" size="26" scaleX="1" scaleY="1" horizontalCenter="0" bottom="-76" textAlign="center"/>
+				</e:Group>
+				<e:layout>
+				<e:HorizontalLayout gap="75" horizontalAlign="center"/>
+				</e:layout>
+			</e:Group>
+			<e:Group id="goldGroup" x="367.5" y="93">
+
+
+
+
+
+
+
+
+			</e:Group>
+		</e:Group>
+	</e:Group>
+</e:Skin>

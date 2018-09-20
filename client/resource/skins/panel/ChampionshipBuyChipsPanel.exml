@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChampionshipBuyChipsPanelSkin" width="675" height="496" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Group id="tweenGroup" width="666" height="491" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0">
+		<e:Image anchorOffsetY="0" source="pub_bg2_png" height="473" width="664" scale9Grid="0,101,666,13" y="0" x="0"/>
+		<e:Image anchorOffsetY="0" height="69" width="179" anchorOffsetX="0" source="xtts_png" verticalCenter="-194" horizontalCenter="0"/>
+		<e:Group id="rebuyGroup" width="220" height="88" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="-120.5">
+			<e:Image anchorOffsetY="0" height="50" width="50" y="23" anchorOffsetX="0" x="25" source="game_icon_19_png" scaleX="1" scaleY="1"/>
+			<e:Label text="Rebuy" y="23" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFDFC" size="38" textAlign="center" x="79" scaleX="1" scaleY="1"/>
+		</e:Group>
+		<e:Group id="addonGroup" width="220" height="88" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" x="10" verticalCenter="-120.5">
+			<e:Image anchorOffsetY="0" height="50" width="50" y="23" anchorOffsetX="0" x="25" scaleX="1" scaleY="1" source="game_icon_20_png"/>
+			<e:Label text="Addon" y="23" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFDFC" size="38" textAlign="center" x="79" scaleX="1" scaleY="1"/>
+		</e:Group>
+		<e:Label id="desLabel" text="9999999999999999999999999999999999999999999999" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFDFC" size="37" width="598" textAlign="center" horizontalCenter="0" verticalCenter="-18.5"/>
+		<e:Label id="timesLabel" text="999999999" size="35" textAlign="center" horizontalCenter="0" textColor="0xffffff" verticalCenter="65"/>
+		<ns1:ShadowButton id="buyBtn" label="立即购买" anchorOffsetX="0" width="224" anchorOffsetY="0" height="70" skinName="commonButtonY2Skin" x="392" verticalCenter="155"/>
+		<ns1:ShadowButton id="outButton" label="取消" anchorOffsetX="0" width="223" anchorOffsetY="0" height="73" skinName="commonButtonY2Skin" x="73" verticalCenter="155"/>
+	</e:Group>
+</e:Skin>

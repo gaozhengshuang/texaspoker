@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="takeNow_BtnSkin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui" width="412" height="227">
+	<e:Image  id="btnImg" y="0" x="0"  anchorOffsetX="0" anchorOffsetY="0" source="pochan_button_1_png" touchEnabled="false" source.disabled="pochan_button_2_png" horizontalCenter.disabled="0" verticalCenter.disabled="0"/>
+	<e:Label id="labelDisplay" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" text="按钮" width="286" height="80" name="label" size="38" x="100" y="95" textColor="0xca0001" textColor.disabled="0x6e6e6e" y.disabled="95" x.disabled="100"/>
+</e:Skin>

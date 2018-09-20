@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="InvitePanelSkin" width="666" height="950" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="tweenGroup" width="666" height="820" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" y="100">
+        <e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="850" width="666" source="sc_bg_png"
+                 scale9Grid="0,420,656,62" />
+        <e:Image y="-135" source="shou_yue_bg_png" horizontalCenter="0" />
+        <e:Image y="-27" horizontalCenter="0" source="text_yaoqing_png" />
+        <ns1:ShadowButton id="closeButton" label="Button" x="603" y="55" scaleY="1" anchorOffsetY="27"
+                          anchorOffsetX="27" scaleX="1" skinName="closeButton4Skin" />
+        <e:Image y="89.6" width="598" horizontalCenter="0" source="yq_biankuang_png" scale9Grid="27,24,51,7" />
+        <ns1:TabComponent id="tabCom" skinName="TabComponentSkin" y="89.6" horizontalCenter="0.5" />
+			<e:Group id="bindGroup" width="660" height="675" y="149.36" horizontalCenter="0">
+				<e:Image width="640" y="10" anchorOffsetX="0" anchorOffsetY="0" source="fenxiang_bg_2_png" horizontalCenter="0"/>
+				<e:Image y="31.22" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" source="text_bangding_5_png"/>
+				<e:Image y="123.65" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" source="text_bangding_6_png"/>
+				<e:Image source="yq_sousuo_png" width="540" scale9Grid="5,6,9,9" y="281.81" horizontalCenter="0" x="75" height="60"/>
+				<e:EditableText id="inviteCodeLabel" width="500" text="111111" scaleX="1" scaleY="1" anchorOffsetX="0" height="50" verticalAlign="middle" size="30" border="false" borderColor="0xf7f2f2" fontFamily="Microsoft YaHei" maxChars="15" restrict="a-zA-Z0-9" textColor="0x6c4229" y="286.81" textAlign="center" horizontalCenter="0"/>
+				<ns1:GreenShadowButton id="bindBtn" label="确认绑定" scaleX="1" scaleY="1" anchorOffsetX="0" skinName="inviteBindBtnSkin" y="375.35" horizontalCenter="0.5"/>
+				<e:Label text="仅限3级及以下用户" y="484.36" textColor="0x3b1001" size="26" fontFamily="Microsoft YaHei" horizontalCenter="0"/>
+			</e:Group>
+        <e:Group id="inviteIdGroup" y="149.36" name="资料" width="600" horizontalCenter="0" height="675" anchorOffsetY="0">
+
+            <e:Group id="hasBindGroup" width="600">
+                <e:Label id="bindDesLabel" text="您已绑定邀请码" size="25" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                         height="55" verticalAlign="middle" verticalCenter="0" x="6" anchorOffsetX="0" width="586"
+                         textColor="0x3b1001" />
+            </e:Group>
+            <e:Scroller id="shareScroller" width="600" height="422" x="0" y="57" anchorOffsetY="0"></e:Scroller>
+            <e:Group id="scrollGroup" x="0" y="57">
+                <e:Group width="600" height="60" scaleX="1" scaleY="1" y="0" x="0">
+                    <e:Image width="600" height="60" anchorOffsetX="0" scaleX="1" scaleY="1" x="0"
+                             source="xinrenli_bg_png"  anchorOffsetY="0" scale9Grid="13,13,38,80"/>
+                    <e:Image anchorOffsetX="0" anchorOffsetY="0" source="yq_bg_png" width="580"
+                             scale9Grid="5,5,32,30" horizontalCenter="0"  verticalCenter="0"/>
+                    <e:Label text="推荐好友进入游戏" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                             textColor="0x3B1001"  verticalCenter="0"/>
+
+                </e:Group>
+                <e:List id="shareList" width="600" height="204" y="140" x="0">
+                    <e:layout>
+                        <e:HorizontalLayout gap="10" />
+                    </e:layout>
+                </e:List>
+                <e:Group width="600" height="154" scaleX="1" scaleY="1" y="10" x="10">
+                    <e:Image width="600" height="154" anchorOffsetX="0" scaleX="1" scaleY="1" x="0"
+                             scale9Grid="13,13,4,1" source="xinrenli_bg_png" />
+                    <e:Image y="6" anchorOffsetX="0" anchorOffsetY="0" source="yq_bg_png" width="580"
+                             scale9Grid="5,5,32,30" horizontalCenter="0" />
+                    <e:Label text="好友每次进行金币充值" x="20" y="12" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                             textColor="0x3B1001" />
+                    <e:Label text="您可获得" x="93" y="64" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                             textColor="0xb74101" />
+                    <e:Label id="paySelfDes" text="好友充值金币的10%" x="27" y="105" size="26" fontFamily="Microsoft YaHei"
+                             scaleX="1" scaleY="1" textColor="0x3b1001" />
+                    <e:Label text="好友可获得" x="383" y="64" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                             textColor="0xB74101" />
+                    <e:Label id="payFriendDes" text="大量金币+豪华首充奖励" x="298" y="105" size="26" fontFamily="Microsoft YaHei"
+                             scaleX="1" scaleY="1" textColor="0x3B1001" />
+                </e:Group>
+                <e:layout>
+                    <e:VerticalLayout gap="2" />
+                </e:layout>
+            </e:Group>
+            <e:Group x="-20" y="488.52">
+                <e:Label id="introDes" text="好友通过您的分享链接进入游戏或者填写您的邀请码，都可获得奖励！（仅限3级及以下用户）" x="20" y="35.01" size="26"
+                         width="600" lineSpacing="5" textColor="0x3b1001" fontFamily="Microsoft YaHei" />
+                <e:Image y="98.29" source="sc_bg_1_png" width="640" height="100" x="0" />
+                <ns1:ShadowButton id="inviteBtn" label="" skinName="inviteFriendBtnSkin" x="196" y="106.97" />
+                <e:Label text="您的邀请码:" x="138" y="3.08" size="26" fontFamily="Microsoft YaHei" textColor="0x3b1001" />
+                <e:Label id="selfInviteCodeLabel" text="ad1234" x="279.35" y="3.08" size="26" fontFamily="Microsoft YaHei"
+                         textColor="0xb74101" />
+                <e:Group id="copyBtn" x="407.67" y="-1.59">
+                    <e:Label text="复制邀请码" y="0" textColor="0x1c4bea" fontFamily="Microsoft YaHei" size="26"  horizontalCenter="0"/>
+                    <e:Label text="________" textColor="0x1c4bea" horizontalCenter="0" />
+                </e:Group>
+            </e:Group>
+        </e:Group>
+        <e:Group id="imazamoxGroup" width="600" height="680" y="149.36" anchorOffsetY="0" horizontalCenter="0">
+            <e:Group width="600" height="132" scaleX="1" scaleY="1" y="0">
+                <e:Image width="600" height="132" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" scale9Grid="13,13,4,1"
+                         source="xinrenli_bg_png" />
+                <e:Group x="20" y="12">
+                    <e:Group x="0" y="0">
+                        <e:Label text="您已累计获得" x="0" y="0" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                                 textColor="0x3b1001" />
+                        <e:Image x="162.68" y="0" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.6" scaleY="0.6"
+                                 source="jindou_1_png" />
+                        <e:Label id="hasGetImazamoxLabel" text="0," x="199.34" y="0" size="26"
+                                 fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x3b1001" />
+                    </e:Group>
+                    <e:Group x="263.01" y="0">
+                        <e:Label text="还可以获得" x="0" y="0" size="26" fontFamily="Microsoft YaHei" textColor="0x3b1001" />
+                        <e:Image x="135.41" y="0" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.6" scaleY="0.6"
+                                 source="jindou_1_png" />
+                        <e:Label id="canGetImazamoxLabel" text="0" x="170.71" y="0" size="26"
+                                 fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x3b1001" />
+                    </e:Group>
+                    <e:layout>
+                        <e:HorizontalLayout gap="6" />
+                    </e:layout>
+                </e:Group>
+                <e:Label text="当前可以领取" x="20" y="77.32" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                         textColor="0x3b1001" />
+                <e:Image x="181.33" y="77.32" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.6" scaleY="0.6"
+                         source="jindou_1_png" />
+                <e:Label id="canBringImazamoxLabel" text="0" x="216.63" y="77.32" size="26" fontFamily="Microsoft YaHei"
+                         scaleX="1" scaleY="1" textColor="0x3b1001" />
+                <ns1:GreenShadowButton id="bringImazamoxBtn" label="领取" scaleX="1" scaleY="1" anchorOffsetX="0"
+                                       skinName="newGiftTake_buttonSkin" x="449" y="64" />
+                <e:Image width="570" y="51" horizontalCenter="0" source="yq_line_png" scale9Grid="9,0,59,1" />
+            </e:Group>
+            <e:Image width="600" height="490" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" scale9Grid="13,13,4,1"
+                     source="xinrenli_bg_png" y="134.31" anchorOffsetY="0" />
+            <e:Image width="580" height="40" y="146.28" anchorOffsetY="0" source="yq_bg_png" scale9Grid="5,5,32,30"
+                     horizontalCenter="0" />
+            <e:Label text="绑定时间" x="20" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" />
+            <e:Label text="好友昵称" x="171" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" />
+            <e:Label text="ID" x="362" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" />
+            <e:Label text="完成新人礼" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" right="20" />
+            <e:Group id="hasBindFriendGroup" x="0" y="186.28" anchorOffsetY="0" height="430">
+                <e:Scroller id="imazamoxScroller" width="600" height="430" y="0" anchorOffsetX="0" anchorOffsetY="0"
+                            x="0" />
+                <e:List id="imazamoxList" width="600" height="430" y="0" x="0" />
+            </e:Group>
+            <e:Group id="noBindFriendGroup" y="186.28" width="600" height="430">
+                <e:Label text="暂无绑定好友" y="130" horizontalCenter="0" textColor="0x3b1001" />
+            </e:Group>
+            <e:Label id="totalBindNumLabel" text="绑定玩家：6人" x="20" y="640.8" size="26" textColor="0x3b1001" />
+            <e:Label id="totalFinishNumLabel" text="完成新人礼：4人" x="253" y="640.8" size="26" textColor="0x3b1001" />
+        </e:Group>
+        <e:Group id="goldGroup" width="600" height="680" y="149.36" anchorOffsetY="0" horizontalCenter="0">
+            <e:Group width="600" height="132" scaleX="1" scaleY="1">
+                <e:Image width="600" height="132" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" scale9Grid="13,13,4,1"
+                         source="xinrenli_bg_png" />
+                <e:Label text="您已累计获得" x="20" y="12" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                         textColor="0x3b1001" />
+                <e:Image x="180.02" y="0.01" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.5" scaleY="0.5"
+                         source="gold2_png" />
+                <e:Label id="hasGetGoldLabel" text="0" x="232.69" y="12" size="26" fontFamily="Microsoft YaHei"
+                         scaleX="1" scaleY="1" textColor="0x3b1001" />
+                <e:Label text="当前可以领取" x="20" y="77.32" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+                         textColor="0x3b1001" />
+                <e:Image x="180.02" y="65.31" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.5" scaleY="0.5"
+                         source="gold2_png" />
+                <e:Label id="canBringGoldLabel" text="0" x="232.69" y="77.32" size="26" fontFamily="Microsoft YaHei"
+                         scaleX="1" scaleY="1" textColor="0x3b1001" />
+                <ns1:GreenShadowButton id="bringGoldBtn" label="领取" scaleX="1" scaleY="1" anchorOffsetX="0"
+                                       skinName="newGiftTake_buttonSkin" x="449" y="64" width="124" height="55" />
+                <e:Image width="570" y="51" horizontalCenter="0" source="yq_line_png" />
+            </e:Group>
+            <e:Image width="600" height="490" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" scale9Grid="13,13,4,1"
+                     source="xinrenli_bg_png" y="134.31" anchorOffsetY="0" />
+            <e:Image width="580" height="40" y="146.28" anchorOffsetY="0" source="yq_bg_png" horizontalCenter="0"
+                     scale9Grid="5,5,32,30" />
+            <e:Label text="充值时间" x="20" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" />
+            <e:Label text="好友昵称" x="171" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" />
+            <e:Label text="充值金币" x="312" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" />
+            <e:Label text="可获得金币" x="452" size="26" scaleX="1" scaleY="1" y="154.28" fontFamily="Microsoft YaHei"
+                     textColor="0x3b1001" />
+            <e:Group id="hasBuyGroup" x="0" y="186.28" height="430">
+                <e:Scroller id="goldScroller" width="600" height="430" y="0" anchorOffsetX="0" anchorOffsetY="0" x="0" />
+                <e:List id="goldList" width="600" height="430" y="0" x="0" />
+            </e:Group>
+            <e:Group id="noBuyGroup" y="186.28" width="600" height="430">
+                <e:Label text="暂无绑定好友充值" y="130" horizontalCenter="0" textColor="0x3b1001" />
+            </e:Group>
+            <e:Label id="totalBindNumLabel0" text="绑定玩家：6人" x="20" y="640.8" size="26" textColor="0x3b1001" />
+        </e:Group>
+    </e:Group>
+</e:Skin>

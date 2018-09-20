@@ -1,0 +1,50 @@
+<e:Skin class="panelSkin13" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" height="735">
+		<e:Image width="666" height="632" anchorOffsetY="0"  source="pub_bg2_png" scale9Grid="2,106,658,7" bottom="0"/>
+		<e:Image id="overBgImg" y="0" horizontalCenter="0" source="br_shu_bg_png"/>
+		<e:Image id="titleImg" horizontalCenter="0" y="73" source="br_shu_png"/>
+		<e:Label id="tipsLabel" text="恭喜，您赢取了" y="210" size="30" horizontalCenter="0" textColor="0xffffff"/>
+		<e:Image y="270" horizontalCenter="0" source="br_bg_10_png"/>
+
+
+
+
+		<e:Label id="awardDesLabel" text="$99999999" y="250"  size="70" lineSpacing="7" textAlign="center" textColor="0xfbca54" horizontalCenter="0" width="640" visible="false"/>
+		<ns1:HundredWarNumComponent id="numComp" height="70" horizontalCenter="0" y="310" skinName="HundredWarNumComponentSkin"/>
+		<e:Image y="448" horizontalCenter="0" width="620" height="150" source="qd_3_png" scale9Grid="14,13,28,18"/>
+		<e:Group id="userGroup" y="460" width="600" horizontalCenter="0">
+			<e:Group id="user0" x="0" y="0">
+				<ns1:HeadComponent id="head0" width="100" height="100" y="0" skinName="HeadComponentSkin" horizontalCenter="0"/>
+				<e:Label id="winGold0" text="6666" y="100" size="26" horizontalCenter="0"/>
+
+			</e:Group>
+			<e:Group id="user1" x="106" y="0">
+				<ns1:HeadComponent id="head1" width="100" height="100" y="0" skinName="HeadComponentSkin" horizontalCenter="0"/>
+				<e:Label id="winGold1" text="6666" y="100" size="26" horizontalCenter="0"/>
+			</e:Group>
+			<e:Group id="user2" x="211" y="0">
+				<ns1:HeadComponent id="head2" width="100" height="100" y="0" skinName="HeadComponentSkin" horizontalCenter="0"/>
+				<e:Label id="winGold2" text="6666" y="100" size="26" horizontalCenter="0"/>
+			</e:Group>
+			<e:Group id="user3" x="317" y="0">
+				<ns1:HeadComponent id="head3" width="100" height="100" y="0" skinName="HeadComponentSkin" horizontalCenter="0"/>
+				<e:Label id="winGold3" text="6666" y="100" size="26" horizontalCenter="0"/>
+			</e:Group>
+			<e:Group id="user4" x="422" y="0">
+				<ns1:HeadComponent id="head4" width="100" height="100" y="0" skinName="HeadComponentSkin" horizontalCenter="0"/>
+				<e:Label id="winGold4" text="6666" y="100" size="26" horizontalCenter="0"/>
+			</e:Group>
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="justify"/>
+			</e:layout>
+		</e:Group>
+		<ns1:ShadowButton id="confirmBtn" label="确定" y="620" horizontalCenter="0" skinName="hundredWarOverButtonSkin"/>
+
+
+
+
+
+
+	</e:Group>
+</e:Skin>

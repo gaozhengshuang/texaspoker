@@ -1,0 +1,27 @@
+<e:Skin class="NewGiftPanelSkin" width="666" height="915" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="666" height="815" anchorOffsetY="0" horizontalCenter="1" y="100">
+		<e:Image anchorOffsetY="0" source="sc_bg_png" height="808" scale9Grid="0,338,656,18" bottom="0" horizontalCenter="0"/>
+		<e:Image source="shou_yue_bg_png" horizontalCenter="0" y="-135"/>
+		<e:Image y="-27" horizontalCenter="0" source="text_xrl_png"/>
+		<e:Image y="80" horizontalCenter="0" source="xinrenli_bg_1_png"/>
+		<e:Image source="text_xrl_1_png" y="105" horizontalCenter="0"/>
+
+		<e:Image y="195" source="text_xrl_4_png" right="30"/>
+
+
+
+		<e:Scroller id="newGiftScroller" width="666" height="545" anchorOffsetY="0" horizontalCenter="0" y="250"/>
+		<e:List id="newGiftList" width="626" height="545" anchorOffsetX="0" anchorOffsetY="0" y="250" horizontalCenter="0">
+			<e:layout>
+			<e:VerticalLayout verticalAlign="top" horizontalAlign="center" gap="2" paddingTop="5"/>
+			</e:layout>
+		</e:List>
+
+
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="80" scaleY="1" anchorOffsetY="34" anchorOffsetX="34" scaleX="1" skinName="closeButton4Skin"/>
+
+
+
+	</e:Group>
+</e:Skin>

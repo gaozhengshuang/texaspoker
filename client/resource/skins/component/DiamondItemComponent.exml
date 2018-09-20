@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DiamondItemComponentSkin" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="15e7a5649ad"/>
+	<e:Group id="btnGroup0" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Image x="0" y="0" scaleX="1" scaleY="1" source="mall_bg_9_png"/>
+		<e:Image scale9Grid="24,23,33,34" scaleX="1" scaleY="1" horizontalCenter="0" source="jbzs_bg_png" verticalCenter="-50"/>
+		<e:Image id="diamondImg" scale9Grid="9,8,25,7" source="mall_zs_1_png" horizontalCenter="0" verticalCenter="-20"/>
+		<e:Label id="diamondNum" text="20" fontFamily="Microsoft YaHei" y="18" scaleX="1" scaleY="1" size="26" horizontalCenter="0" textColor="0xf9cb55"/>
+		<ns1:ShadowButton id="diamondBtn" label="11" y="243" horizontalCenter="3" skinName="shopping_ButtonSkin"/>
+	</e:Group>
+</e:Skin>

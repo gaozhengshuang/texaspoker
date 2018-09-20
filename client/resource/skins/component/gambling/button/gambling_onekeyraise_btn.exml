@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gambling_onekeyraise_btn" states="up,down,disabled" xmlns:e="http://ns.egret.com/eui">
+       <e:Image id="btnImg" width="100%" height="100%"  alpha.disabled="0.5" horizontalCenter="0" verticalCenter="0" source="n_game_1_24_png"/>
+    <e:Label id="labelDisplay" size="24" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"
+             verticalAlign="middle" textAlign="center"  width="73" height="79" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

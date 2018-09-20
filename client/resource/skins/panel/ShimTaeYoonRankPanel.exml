@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShimTaeYoonRankPanelSkin" width="666" height="912" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="666" height="912" anchorOffsetX="0" anchorOffsetY="0" y="0" horizontalCenter="0">
+		<e:Image id="bg" y="40" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="872" width="674" source="laBa_bg_png" scale9Grid="0,73,666,18"/>
+		<e:Image y="0" horizontalCenter="0" source="laBa_biaoti_bg_png"/>
+		<e:Image y="13.3" horizontalCenter="0" source="top100_png"/>
+		<e:Image y="118" width="280" horizontalCenter="0" scale9Grid="27,23,13,8" source="shijian_bg_png"/>
+		<e:Image id="listTabBg" width="590" height="50" y="190" horizontalCenter="0" scale9Grid="3,8,25,52" source="jiazhu_bg_png"/>
+		<ns1:TabComponent id="rankTypeTab" y="118" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<ns1:TabComponent id="listTypeTab" y="190" horizontalCenter="0" skinName="TabComponentSkin"/>
+
+		<e:Label text="排名" x="60" size="28" scaleX="1" scaleY="1" y="269" textColor="0x40435e" alpha="0.6"/>
+		<e:Label text="玩家" x="270" size="28" scaleX="1" scaleY="1" y="269" textColor="0x40435e" alpha="0.6"/>
+		<e:Label text="获得奖励" x="465" size="28" scaleX="1" scaleY="1" y="269" textColor="0x40435e" alpha="0.6"/>
+		<e:Group id="rankGroup" y="313" horizontalCenter="0">
+			<e:List id="rankList" width="564" height="530" x="0" y="0">
+				<e:layout>
+					<e:VerticalLayout paddingTop="10" gap="0"/>
+				</e:layout>
+			</e:List>
+			<e:Scroller id="rankScroller" width="564" height="530" x="0" y="0" scrollPolicyH="off">
+			</e:Scroller>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="611" y="96" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="laBaCloseButtonSkin"/>
+
+
+		<e:Group id="selfRankGroup" x="65" y="863">
+			<e:Label id="myRankLabel" text="100" y="0" size="28" textColor="0x6692ff" width="50" textAlign="center" x="-8"/>
+			<e:Label id="myNameLabel" text="用户名六个字" x="149" y="0" size="28" textColor="0x6692ff" textAlign="center" width="168"/>
+			<e:Label id="awardLabel" text="11111" x="400" y="0" size="28" textColor="0x6692ff" width="112" textAlign="center"/>
+		</e:Group>
+		<e:Label id="noRankLabel" text="未上榜" y="863" horizontalCenter="0" size="28" textColor="0x6692ff"/>
+		<e:Image y="309" source="xuxian_png" x="51"/>
+		<e:Image y="844" horizontalCenter="0" source="laBa_line_1_png" width="564"/>
+	</e:Group>
+</e:Skin>

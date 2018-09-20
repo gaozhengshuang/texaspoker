@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CustomVSliderSkin" minWidth="25" minHeight="30" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" height="453">
+	<e:Image id="track" scale9Grid="1,1,4,4" horizontalCenter="0" verticalCenter="0" height="100%" />
+	<e:Image scale9Grid="1,1,4,4" horizontalCenter="0" source="game_line_png" verticalCenter="0"/>
+	<e:Image id="bgImg" y="1" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="n_game_22_png" width="95" height="96" horizontalCenter="-1"/>
+
+
+	<e:Image id="allInImg" y="40" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" horizontalCenter="0" source="allin_png"/>
+
+	<ns1:ShadowButton id="thumb" skinName="AddChipsButtonSkin" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" label="" horizontalCenter="0" width="102" height="102"/>
+</e:Skin>

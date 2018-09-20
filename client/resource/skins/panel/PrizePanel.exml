@@ -1,0 +1,72 @@
+<e:Skin class="panelSkin13" width="666" height="900" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" height="900" width="666">
+		<e:Image width="666" height="900" anchorOffsetY="0" x="0"  source="pub_bg2_png" scale9Grid="0,106,666,12"/>
+		<e:Image y="15" source="wdjp_png" horizontalCenter="0.5"/>
+		<e:Image width="598" y="120" horizontalCenter="0.5" source="pub_biankuang1_png" scale9Grid="25,23,15,8"/>
+
+
+		<ns1:TabComponent id="tabComponent" y="120"  anchorOffsetY="0" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Group id="notReceiveGroup" y="200" anchorOffsetY="0" height="670" width="666" name="未领取">
+			<e:Group id="enAwardGroup" x="0" y="0" anchorOffsetY="0" height="670" width="666">
+				<e:Scroller id="notReceiveScroller" width="666" height="670" anchorOffsetX="0" anchorOffsetY="0" y="0" />
+				<e:List id="notReceiveList" width="666" height="670" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0">
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="center"  gap="10"/>
+					</e:layout>
+				</e:List>
+			</e:Group>
+			<e:Group id="disAwardGroup" width="666" height="670" x="0" y="0" scaleX="1" scaleY="1" anchorOffsetY="0">
+				<e:Label text="暂无可领取奖品\n参加锦标赛或者活动可赢取奖品" anchorOffsetY="0" height="122" anchorOffsetX="0" width="501" textAlign="center"
+				         verticalCenter="-113" verticalAlign="middle" lineSpacing="5"  horizontalCenter="0.5" size="26"/>
+				<ns1:ShadowButton id="joinChampionshipsBtn" label="参加锦标赛" y="310.81"  horizontalCenter="0.5" skinName="commonButtonY2Skin"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="hasReceiveGroup" y="200" anchorOffsetY="0" height="670" width="666" name="已领取">
+			<e:Group id="enHasReceiveGroup" x="0" y="0" anchorOffsetY="0" height="670" width="666">
+				<e:Scroller id="hasReceiveScroller" width="666" height="670" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0" />
+				<e:List id="hasReceiveList" width="666" height="670" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0">
+					<e:layout>
+						<e:VerticalLayout gap="5" horizontalAlign="center" />
+					</e:layout>
+				</e:List>
+			</e:Group>
+			<e:Group id="disHasReceiveGroup" width="666" height="670" x="0" y="0" scaleX="1" scaleY="1" anchorOffsetY="0">
+				<e:Label text="暂无已领取奖品" anchorOffsetY="0" height="122" anchorOffsetX="0" width="296" textAlign="center"
+				         verticalCenter="0.5" verticalAlign="middle" lineSpacing="5" horizontalCenter="0"  size="26"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="receiveAwardInfoGroup" x="0" y="200" anchorOffsetY="0" height="670" width="666" name="领奖信息">
+			<e:Label text="收件人" x="0" y="15" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
+			<e:Image width="450" height="50" x="160" y="15" source="pub_lines_png" scale9Grid="13,10,4,7"/>
+			<e:Label id="nameLabel" text="" x="165" y="15" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			         verticalAlign="middle" border="false" borderColor="0x827f7f"  size="26" maxChars="10"/>
+
+			<e:Label text="手机号码" x="0" y="80" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
+			<e:Image width="450" height="50" x="160" y="80" source="pub_lines_png" scale9Grid="13,10,4,7"/>
+			<e:Label id="telLabel" text="" x="165" y="80" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			         verticalAlign="middle" border="false" borderColor="0x827F7F"  size="26" maxChars="11" restrict="0-9"/>
+
+			<e:Label text="QQ号码" x="0" y="145" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
+			<e:Image width="450" height="50" x="160" y="145" source="pub_lines_png" scale9Grid="13,10,4,7"/>
+			<e:Label id="qqLabel" text="" x="165" y="145" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			         verticalAlign="middle" border="false" borderColor="0x827F7F"  size="26" maxChars="15"/>
+
+			<e:Label text="邮箱地址" x="0" y="210" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
+			<e:Image width="450" height="50" x="160" y="210" source="pub_lines_png" scale9Grid="13,10,4,7"/>
+			<e:Label id="emailLabel" text="" x="165" y="210" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			         verticalAlign="middle" border="false" borderColor="0x827F7F"  size="26" maxChars="40"/>
+
+			<e:Label text="详细地址" x="0" y="275" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
+			<e:Image width="450" height="110" x="160" y="275" source="pub_lines_png" scale9Grid="13,10,4,7"/>
+			<e:Label id="addressLabel" text="" x="165" y="285" anchorOffsetX="0" width="440" verticalAlign="top" border="false" lineSpacing="10" multiline="true" scaleX="1" scaleY="1" height="90" borderColor="0xf7efef" size="26" maxChars="35"/>
+
+			<e:Label text="请务必认真填写所有领奖信息，以便成功领取您的奖品。" y="412.82" anchorOffsetX="0" width="445" textAlign="left"
+			          textColor="0xdfe5e5" size="24" x="165" lineSpacing="5" alpha="0.8"/>
+			<ns1:ShadowButton id="saveBtn" label="保存" y="514.11" horizontalCenter="0.5"  skinName="commonButtonY2Skin"/>
+
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="commonButtonGY60x60Skin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui"
+        height="60" width="60">
+	<e:Image  id="btnImg" alpha.disabled="0.5" y="0" x="0"  anchorOffsetX="0" width="100%" anchorOffsetY="0" source="pub_button_1_png" height="100%" scale9Grid="13,13,25,30"/>
+	<e:Label id="labelDisplay" size="55"
+	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  text="-" width="100%" height="100%" name="label" textColor="0xf9cb55" textAlign="center" verticalCenter="-2"/>
+</e:Skin>

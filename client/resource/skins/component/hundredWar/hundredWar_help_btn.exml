@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="hundredWar_help_btn" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="br_button_2_png" scale9Grid="15,19,29,29"/>
+    <e:Image id="btnImg"  horizontalCenter="0" verticalCenter="0" source="br_icon_3_png"/>
+</e:Skin>

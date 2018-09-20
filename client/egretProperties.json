@@ -1,0 +1,75 @@
+{
+	"native": {
+		"path_ignore": [
+			"resource/(skins|eui_skins|images)",
+			"resource/config/.*\\.json",
+			"resource/config/.*\\.bin",
+			"resource/config/files.txt"
+		]
+	},
+	"web": {
+		"path_ignore": [
+			"resource/(skins|eui_skins|images)",
+			"resource/config/.*\\.json",
+			"resource/config/.*\\.bin",
+			"resource/config/files.txt"
+		]
+	},
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"eui": {
+		"exmlRoot": "resource/skins",
+		"themes": [
+			"resource/default.thm.json"
+		],
+		"exmlPublishPolicy": "commonjs2"
+	},
+	"engineVersion": "5.2.5",
+	"compilerVersion": "5.2.5",
+	"template": {},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "dragonbones"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "protobuf-library",
+			"path": "protobuf/library"
+		},
+		{
+			"name": "protobuf-bundles",
+			"path": "protobuf/bundles"
+		},
+		{
+			"name": "particle",
+			"path": "../../tools/egret/particle/libsrc"
+		},
+		{
+			"name": "md5",
+			"path": "../../tools/egret/md5/libsrc"
+		}
+	]
+}

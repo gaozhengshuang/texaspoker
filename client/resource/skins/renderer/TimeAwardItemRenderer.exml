@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="timeAwardItemRenderer" width="110" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Label id="numLabel" text="200" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0"
+             horizontalCenter="0"  textColor="0xffffff" verticalAlign="bottom" bottom="0"/>
+    <e:Group width="100" height="100" horizontalCenter="0">
+
+			<e:Image x="1" y="3" source="jc_1_png"/>
+			<e:Image id="iconImg" scale9Grid="9,8,25,7" verticalCenter="0" horizontalCenter="0" source="js_1_png"/>
+			<e:Image id="flagImg" scale9Grid="9,8,25,7" horizontalCenter="11.5" verticalCenter="38.5" source="qd_duigou_png"/>
+    </e:Group>
+</e:Skin>

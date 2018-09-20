@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0">
+		<e:Image width="666" height="661" source="pub_bg2_png" scale9Grid="4,106,656,8" y="0" />
+		<e:Image source="hdcw_png" horizontalCenter="0" top="15" />
+		<e:Group id="cardGroup" horizontalCenter="0" top="105">
+			<e:List id="cardList" height="140" maxWidth="610">
+				<e:layout>
+					<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" paddingLeft="0"  gap="0"/>
+				</e:layout>
+			</e:List>
+			<e:Scroller id="cardScroller" height="140"></e:Scroller>
+		</e:Group>
+		<e:Group id="cardGroup0" horizontalCenter="0" top="323">
+			<e:List id="cardList0" height="140" maxWidth="610">
+				<e:layout>
+					<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" paddingLeft="0"  gap="0"/>
+				</e:layout>
+			</e:List>
+			<e:Scroller id="cardScroller0" height="140"></e:Scroller>
+		</e:Group>
+		<e:Image horizontalCenter="0" source="xinshou_5_png" verticalCenter="-48" />
+		<e:Button id="confirmBtn" label="确定" skinName="commonButtonY2Skin" horizontalCenter="0" bottom="50" />
+		<e:Label id="desLabel" text="您的牌型为高牌" horizontalCenter="0" bottom="148" />
+	</e:Group>
+</e:Skin>

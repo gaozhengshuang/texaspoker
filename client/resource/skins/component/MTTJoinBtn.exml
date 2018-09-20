@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MTTJoinBtnSkin" states="enabled,disabled" xmlns:e="http://ns.egret.com/eui">
+	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"
+	          source.enabled="button_baoming_png" source="button_baoming_png" source.disabled="button_baoming_1_png"/>
+	<e:Image horizontalCenter="0" verticalCenter="0" source.enabled="text_baoming_png" source="text_baoming_png"/>
+
+</e:Skin>

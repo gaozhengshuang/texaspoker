@@ -1,0 +1,28 @@
+<e:Skin class="panelSkin13" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="anmGroup" y="0" horizontalCenter="0">
+		<e:Group height="532" scaleX="1" scaleY="1" horizontalCenter="0" bottom="0">
+			<e:Image id="bgImg" width="720" height="532" anchorOffsetX="0" anchorOffsetY="0" y="0" scaleX="1" scaleY="1" x="0" source="game_tc_png" scale9Grid="0,123,720,38"/>
+			<e:Image y="16" source="game_jsjl_png" horizontalCenter="0.5"/>
+			<ns1:ShadowButton id="getBtn" label="领取奖励" y="442" skinName="commonButtonYSkin" horizontalCenter="0"/>
+			<e:Label id="resetLabel" text="每日重置时间为00:00" y="96" textColor="0xffffff" horizontalCenter="0"/>
+			<e:Scroller id="awardScroller" width="720" height="140" y="156" anchorOffsetY="0" anchorOffsetX="0">
+			<e:Group>
+				<e:List id="awardList" width="675" height="140" horizontalCenter="0">
+				<e:layout>
+					<e:HorizontalLayout gap="1" horizontalAlign="center"/>
+				</e:layout>
+				</e:List>
+			</e:Group>
+			</e:Scroller>
+			<e:Group x="25" y="483">
+				<e:Image anchorOffsetX="0" anchorOffsetY="0" x="0" source="mall_bg_3_png" scale9Grid="18,18,8,2" width="200"/>
+				<e:Image x="10" source="icon_jinbi_png" verticalCenter="0" scaleX="0.7" scaleY="0.7"/>
+				<e:Label id="goldLabel" text="15.2万" x="60" size="30" verticalCenter="0" textAlign="left"/>
+			</e:Group>
+			<e:Label id="desLabel" text="您正在进行中级场第1轮" y="318" horizontalCenter="0.5" textColor="0xfaca52"/>
+			<e:Label id="timeLabel" text="距离下次领奖时间05:00" y="358" size="27" horizontalCenter="0" textColor="0xffffff"/>
+			<e:Label text="规则：坐下开始计时" y="396" size="24" horizontalCenter="0" textColor="0xffffff"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>

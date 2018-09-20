@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="shimTaeYoonHelpItemRenderer" width="564" height="80" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="iconImg0" source="item_104_png" horizontalCenter="-232.5" verticalCenter="0.5"  scaleX="0.7" scaleY="0.7"/>
+	<e:Image id="iconImg1" source="item_104_png" x="113" scaleY="0.7" scaleX="0.7" verticalCenter="0"/>
+	<e:Image id="iconImg2" source="item_104_png" verticalCenter="0" x="210" scaleY="0.7" scaleX="0.7"/>
+	<e:Label id="oddLabel" text="100000" x="330" anchorOffsetX="0" width="154" textAlign="center" size="28" textColor="0x6d7389" verticalCenter="0"/>
+	<e:Image x="0" y="78" width="564" height="2" source="laBa_line_png"/>
+</e:Skin>
