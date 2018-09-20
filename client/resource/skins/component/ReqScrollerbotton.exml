@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ReqScrollerbottonSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="itemGroup" width="400" height="20" horizontalCenter="0" verticalCenter="0">
+		<e:Image height="100%" horizontalCenter="0" verticalCenter="0" width="100%" source="bg_pub_1_png" scale9Grid="13,13,20,19" scaleX="0.5" scaleY="0.5"/>
+		<e:Label id="itemLabel" text="正在请求数据..." size="15" width="100%" height="100%" horizontalCenter="0" verticalCenter="0" textAlign="center" verticalAlign="middle" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GoldenBeanAwardItemRendererSkin" width="300" height="220" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="300" height="220" source="pub_bg_3_1_png" scale9Grid="17,16,4,1"/>
+	<e:Group y="0" horizontalCenter="0">
+		<e:Image source="jpdh_bg_png" scale9Grid="26,0,15,50" width="300" x="0" y="0"/>
+		<e:Label id="nameLabel" text="Label" y="10" horizontalCenter="0"/>
+	</e:Group>
+
+
+	<e:Group horizontalCenter="0" verticalCenter="25">
+		<ns1:CommonIcon id="icon" width="120" height="120" skinName="CommonIconSkin" x="0" y="0"/>
+		<e:Image anchorOffsetY="0" scaleX="1" scaleY="1" source="jindou_1_png" verticalCenter="-35" horizontalCenter="25.5"/>
+		<e:Label id="goldenBeanLabel" text="11111" verticalCenter="-35" horizontalCenter="90"/>
+		<e:Button id="awardBtn" label="兑换" skinName="commonButtonY135x55Skin" x="135" y="68"/>
+	</e:Group>
+
+
+
+
+
+
+
+
+
+</e:Skin>

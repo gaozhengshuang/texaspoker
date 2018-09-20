@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SignInGoldListItemRendererSkin" width="580" height="55" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="signInBg" width="580" height="55" verticalCenter="0" source="qd_3_png" scale9Grid="14,14,28,15"/>
+	<e:Image width="580" height="55" x="0" y="0" anchorOffsetY="0" fillMode="scale" anchorOffsetX="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+	<e:Image id="signInCheck" width="50" height="50" x="500" source="qd_duigou_png" verticalCenter="0"/>
+	<e:Image id="prizeImg" x="140" anchorOffsetX="0" anchorOffsetY="0" width="55" height="55" source="" y="3"/>
+	<e:Label id="signInDayLabel" text="第1天" x="25" fontFamily="Microsoft YaHei" size="25" anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" verticalCenter="0"/>
+	<e:Label id="signInGoldLabel" text="金币x1800" x="250" fontFamily="Microsoft YaHei" size="25" verticalAlign="middle" anchorOffsetY="0" height="33" anchorOffsetX="0" width="230" textColor="0xfad050" verticalCenter="0"/>
+
+</e:Skin>

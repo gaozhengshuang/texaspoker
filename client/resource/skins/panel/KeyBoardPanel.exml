@@ -1,0 +1,20 @@
+<e:Skin class="panelSkin13" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="panelBottom" y="0">
+		<e:Group id="anmGroup" scaleX="1" scaleY="1" horizontalCenter="0" bottom="0">
+			<e:Image id="bgImg" width="720" height="501.5" anchorOffsetX="0" anchorOffsetY="0" y="0" scaleX="1" scaleY="1" x="0" scale9Grid="2,2,44,43" source="jianpan_1_png"/>
+			<e:Button id="numBtn1" label="1" scaleX="1" scaleY="1" x="7.5" y="7.5" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn2" label="2" scaleX="1" scaleY="1" x="245" y="7.5" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn3" label="3" scaleX="1" scaleY="1" x="482.5" y="7.5" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn4" label="4" scaleX="1" scaleY="1" x="7.5" y="131" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn5" label="5" scaleX="1" scaleY="1" x="245" y="131" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn6" label="6" scaleX="1" scaleY="1" x="482.5" y="131" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn7" label="7" scaleX="1" scaleY="1" x="7.5" y="254.5" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn8" label="8" scaleX="1" scaleY="1" x="245" y="254.5" skinName="keyBoardButtonSkin"/>
+			<e:Button id="numBtn9" label="9" scaleX="1" scaleY="1" x="482.5" y="254.5" skinName="keyBoardButtonSkin"/>
+			<e:Button id="resetBtn" label="重输" scaleX="1" scaleY="1" x="7.5" y="378" skinName="keyBoardButton30Skin"/>
+			<e:Button id="numBtn0" label="0" scaleX="1" scaleY="1" x="245" y="378" skinName="keyBoardButtonSkin"/>
+			<e:Button id="delBtn" label="删除" scaleX="1" scaleY="1" x="482.5" y="378" skinName="keyBoardButton30Skin"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>

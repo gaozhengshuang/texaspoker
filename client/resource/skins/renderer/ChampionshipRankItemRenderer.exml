@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChampionshipRankItemRendererSkin" width="602" height="64" xmlns:ns1="*"
+        xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="602" height="64" source="pub_lines_png" scale9Grid="14,10,2,7"/>
+    <e:Image id="bgImg" width="602" height="64" anchorOffsetX="0" anchorOffsetY="0" y="0"
+              source="assets/bg/pub_bg11_png" alpha="0"/>
+
+
+	<e:Group x="13" y="14">
+		<e:Image id="rankBgImg" source="paiming_1_png" horizontalCenter="0" verticalCenter="0"/>
+		<e:Label id="rankLabel" text="冠" x="0" height="30" width="50" size="24" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
+	</e:Group>
+    <e:Label id="nameLabel" text="用户名字" x="230" height="30" width="200" size="24" textAlign="center"  verticalAlign="middle" verticalCenter="0"/>
+    <e:Label id="numLabel" text="999999" x="420" height="30" width="180" size="24" textAlign="center"  verticalAlign="middle" verticalCenter="0"/>
+	<ns1:CircleHeadComponent id="headComponent" x="145" verticalCenter="0" skinName="CircleHeadComponentSkin"/>
+</e:Skin>

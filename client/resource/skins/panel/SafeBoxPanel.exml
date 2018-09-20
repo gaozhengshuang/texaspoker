@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SafeBoxPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetY="0" x="0" y="0">
+		<e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="900" width="666"
+		         scale9Grid="0,105,666,6" />
+		<e:Image y="15" horizontalCenter="0" source="safe_bxx_png" />
+		<e:Image y="120" source="pub_biankuang1_png" width="598" horizontalCenter="0" scale9Grid="25,23,15,7" />
+		<ns1:TabComponent id="saveTab" y="120.5" skinName="TabComponentSkin" horizontalCenter="0" />
+		<e:Group id="goldGroup" x="50" y="200">
+			<e:Label text="当前金币：" x="0" y="0" scaleX="1" scaleY="1" size="26" />
+			<e:Label text="保险箱金币：" x="0" y="50" scaleX="1" scaleY="1" size="26" />
+			<e:Label id="currentGold" text="99999999" x="130" y="0" scaleX="1" scaleY="1" size="26" />
+			<e:Label id="saveGold" text="999900" x="150" y="50" scaleX="1" scaleY="1" size="26" />
+		</e:Group>
+		<e:Group id="saveGoldGroup" width="666" height="620" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"
+		         name="存款" y="200" visible="false">
+			<e:Image width="602" height="350" y="100" source="pub_lines_png" horizontalCenter="0" scale9Grid="14,13,2,1" />
+			<e:Label text="请选择存入金额" y="120" horizontalCenter="0" />
+			<e:Label id="saveCount" text="0万" y="165" horizontalCenter="0" textColor="0xfad050" />
+			<e:HSlider id="saveGoldHs" width="400" height="40" skinName="HSliderSkin1" rotation="359.86" y="230"
+			           horizontalCenter="0" />
+			<ns1:GreenShadowButton id="subBtn" label="-" x="65" y="217" rotation="359.86"  width="60" height="60" skinName="commonButtonGY60x60Skin"/>
+			<ns1:GreenShadowButton id="addBtn" label="+" x="540" y="217"  width="60" height="60" skinName="commonButtonGY60x60Skin"/>
+			<ns1:ShadowButton id="saveBtn" label="存入" y="320" anchorOffsetX="0" rotation="359.86" horizontalCenter="0"
+			                  skinName="commonButtonY2Skin" />
+			<e:Label text="只有VIP才可使用保险箱，当您VIP过期后，将不可再使用存入功能。非VIP用户请                                             注：保险箱存款最小操作单位为1万游戏币"
+			         y="470" size="25" width="600" horizontalCenter="0" lineSpacing="10" textColor="0xcccccc" />
+			<e:Label id="buyVIPlabel" text="续费VIP " x="359.17" y="504.96" size="25" border="false" textColor="0xfad050" />
+		</e:Group>
+		<e:Group id="withdrawGroup" width="666" height="620" anchorOffsetX="0" anchorOffsetY="0" name="提现" y="200"
+		         horizontalCenter="0">
+			<e:Image width="602" height="480" y="100" source="pub_lines_png" horizontalCenter="0" scale9Grid="14,13,2,1" />
+			<e:Label text="请选择要取出的金额" y="120" horizontalCenter="0" />
+			<e:Label id="withdrawCount" text="0万" y="165" textColor="0xfad050" horizontalCenter="0" />
+			<e:HSlider id="withdrawGoldHs" width="400" height="40" skinName="HSliderSkin1" rotation="359.86" horizontalCenter="0"
+			           y="230" />
+			<e:Label text="输入密码" y="320" horizontalCenter="0" />
+			<e:Label text="  注：保险箱取款最小操作单位为1万游戏币" x="50" y="600" size="24" width="500" textColor="0xcccccc" />
+			<e:Label id="retrievePwd" text="取回密码" x="500" y="530" size="25" textColor="0xfad050" />
+			<e:Group id="withdrawPwdGroup" anchorOffsetX="0" anchorOffsetY="0" name="提现" y="370" horizontalCenter="0" scaleX="0.9"
+			         scaleY="0.9"></e:Group>
+			<ns1:GreenShadowButton id="withdrawSubBtn" label="-" x="65" y="217" rotation="359.86"  skinName="commonButtonGY60x60Skin"/>
+			<ns1:GreenShadowButton id="withdrawAddBtn" label="+" x="540" y="217"  skinName="commonButtonGY60x60Skin"/>
+			<ns1:ShadowButton id="withdrawBtn" label="取出" y="460" anchorOffsetX="0" rotation="359.86" horizontalCenter="0"
+			                  skinName="commonButtonY2Skin" />
+		</e:Group>
+		<e:Group id="modifyPwdGroup" anchorOffsetY="0" horizontalCenter="0" name="修改密码" width="666" y="200" height="620"
+		         visible="false">
+			<e:Label text="原密码" y="20" size="25" height="50" width="150" textAlign="center" verticalAlign="middle" x="30" />
+			<e:Label text="新密码" y="90" size="25" width="150" height="50" textAlign="center" verticalAlign="middle" x="30" />
+			<e:Label text="再输入一次" size="25" y="160" width="150" height="50" textAlign="center" verticalAlign="middle" x="30" />
+			<e:Label id="tipPwd" text="Label" y="230" size="28" horizontalCenter="0" textColor="0xFF0000" />
+			<e:Group id="pwdGroup" anchorOffsetY="0" x="220" y="20" scaleX="0.7" scaleY="0.7">
+				<e:layout>
+					<e:VerticalLayout gap="35" />
+				</e:layout>
+			</e:Group>
+			<ns1:ShadowButton id="modifyPwdBtn" label="修改密码" anchorOffsetX="0" horizontalCenter="0" y="280"
+			                  skinName="commonButtonY2Skin" />
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27"
+		                  scaleX="1" skinName="closeButtonSkin" />
+	</e:Group>
+</e:Skin>

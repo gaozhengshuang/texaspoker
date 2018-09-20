@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BannerEnterButtonSkin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        width="125" height="49">
+    <e:Image id="btnImg" alpha.disabled="0.5" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"  source="pub_button_ts_png" scale9Grid="22,22,7,6" width="125"/>
+	<e:Label id="labelDisplay" text="进入比赛" size="26" width="125" height="49" textAlign="center" verticalAlign="middle" textColor="0xf7ca56"/>
+</e:Skin>

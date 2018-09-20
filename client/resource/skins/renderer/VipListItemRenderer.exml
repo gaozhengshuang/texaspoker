@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="VipListItemRendererSkin" width="720" height="320" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group x="0" y="0" height="220" touchChildren="false">
+		<e:Image width="720" y="190" x="0" source="mall_bg_1_3_png" alpha="0.8" />
+		<e:Image scale9Grid="39,0,8,49" y="120" source="guang_2_png" scaleX="0.73" scaleY="0.73" x="15" touchEnabled="false" />
+		<e:Image source="guang_2_png" scale9Grid="39,0,8,49" y="120" scaleX="0.73" scaleY="0.73" x="245" touchEnabled="false" />
+		<e:Image source="guang_2_png" scale9Grid="39,0,8,49" y="120" scaleX="0.73" scaleY="0.73" x="483" touchEnabled="false" />
+		<e:Image source="mall_bg_1_2_png" width="720" y="185" scale9Grid="45,0,8,35" x="0" />
+		<e:Image id="vipImg" source="vip_1_png" scaleX="0.9" scaleY="0.9" verticalCenter="-19" horizontalCenter="-245" />
+		<e:Group width="290" horizontalCenter="-10" verticalCenter="-20">
+			<e:Label id="monthVip" text="111" fontFamily="Microsoft YaHei" size="26" textColor="0xfad050" />
+			<e:Label id="desVip" text="111" fontFamily="Microsoft YaHei" size="24" verticalAlign="middle" anchorOffsetY="0"
+			         anchorOffsetX="0" width="290" textColor="0xffffff" lineSpacing="5" y="35" />
+		</e:Group>
+		<ns1:ShadowButton id="vipCountBtn" label="99" x="510" skinName="shopVipButtonSkin" y="60" />
+	</e:Group>
+</e:Skin>

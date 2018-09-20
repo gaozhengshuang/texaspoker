@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingReviewPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"
+             verticalCenter="0">
+        <e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="900" width="666"
+                 scale9Grid="0,101,666,13" source="pub_bg2_png" />
+        <e:Image y="15" horizontalCenter="0"  source="text_sjhg_png"/>
+        <ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27"
+                          anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin" />
+			<e:Group id="hasReviewGroup" width="625" height="760" y="120" horizontalCenter="0">
+				<e:Scroller id="reviewScroller" width="625" height="760" y="0" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" x="0" scaleX="1" scaleY="1"/>
+				<e:List id="reviewList" width="625" height="760" y="0" horizontalCenter="0" x="0" scaleX="1" scaleY="1">
+					<e:layout>
+					<e:VerticalLayout gap="6" horizontalAlign="center"/>
+					</e:layout>
+				</e:List>
+			</e:Group>
+			<e:Group id="noReviewGroup" width="625" height="760" y="120" horizontalCenter="0">
+				<e:Label text="该房间暂无上局回顾" horizontalCenter="0" y="200"/>
+			</e:Group>
+
+
+    </e:Group>
+</e:Skin>

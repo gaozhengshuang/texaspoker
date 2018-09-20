@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="sc_buttonSkin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui"
+       >
+	<e:Image  id="btnImg" alpha.disabled="0.5"  anchorOffsetX="0" anchorOffsetY="0" scale9Grid="23,0,4,67" source="sc_button_png" x="0" y="0"/>
+	<e:Image anchorOffsetX="0" anchorOffsetY="0" source="tet_goumai_png" horizontalCenter="0" verticalCenter="-3"/>
+</e:Skin>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GiftShopItemRendererSkin" width="580" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="selectImg" width="580" height="100" horizontalCenter="0" verticalCenter="0" source="qd_3_png" scale9Grid="14,12,28,19"/>
+	<e:Image width="580" height="100" source="pub_bg_3_1_png" scale9Grid="18,16,2,2"/>
+	<ns1:CommonIcon id="icon" width="80" height="80" verticalCenter="0" left="10" skinName="CommonIconSkin"/>
+
+	<e:Label id="nameLabel" text="111" verticalCenter="0" left="120"/>
+	<ns1:CommonIcon id="costIcon" width="60" height="60" verticalCenter="0" skinName="CommonIconSkin" horizontalCenter="140"/>
+
+	<e:Label id="costCount" text="9999" scaleX="1" scaleY="1" verticalCenter="0" left="470"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

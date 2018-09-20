@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="loginWXBtnSkin" states="up,down,disabled" minHeight="65" minWidth="172"
+        xmlns:e="http://ns.egret.com/eui">
+    <e:Image id="btnImg" alpha.disabled="0.5" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"  scale9Grid="21,22,10,4" source="login_button_3_png"/>
+
+</e:Skin>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingActionComponentSkin" maxHeight="340" maxWidth="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:ToggleButton id="brightCardBtn" maxWidth="96" label="" y="105" skinName="gambling_checkshow_btn" width="102" x="309"/>
+	<e:ToggleButton id="immediatelyBrightCardBtn" maxWidth="96" label="" y="105" skinName="gambling_immediatelybrightcard_btn" width="102" horizontalCenter="0"/>
+	<e:ToggleButton id="centerPointComponent" skinName="gambling_checkdrop_btn" label="结束时" y="235" x="309" visible="false"/>
+	<e:Group id="preActionGroup" touchEnabled="false" y="195" anchorOffsetY="0" anchorOffsetX="0" width="720" horizontalCenter="0">
+		<e:ToggleButton id="checkOrDropBtn" skinName="gambling_checkdrop_btn" label="" y="41"  x="150"/>
+		<e:ToggleButton id="callAnyBtn" label="" y="41"  skinName="gambling_checkcall_btn" x="590"/>
+		<e:ToggleButton id="autoCheckBtn" label="" y="41" x="468" skinName="gambling_autocheck_btn"/>
+		<e:ToggleButton id="preCallBtn" label="9999万" y="41" x="468" skinName="gambling_precall_btn"/>
+		<e:layout>
+			<e:BasicLayout/>
+		</e:layout>
+	</e:Group>
+	<e:Group id="raiseGroup" touchEnabled="false" y="16" horizontalCenter="0" width="420" height="94">
+		<ns1:GameButton id="oneOfThreeBtn" includeInLayout="false"  skinName="gambling_onekeyraise_btn" label="1/3\n底池" x="0"  width="90" height="94"/>
+		<ns1:GameButton id="oneOfTwoBtn" includeInLayout="false" skinName="gambling_onekeyraise_btn" label="1/2\n底池" x="110" y="0"  width="90" height="94"/>
+		<ns1:GameButton id="twoOfThreeBtn" includeInLayout="false" skinName="gambling_onekeyraise_btn" label="2/3\n底池" x="220" y="0"  width="90" height="94"/>
+		<ns1:GameButton id="oneBtn" includeInLayout="false" skinName="gambling_onekeyraise_btn" label="X1\n底池" x="330" y="0"  width="90" height="94"/>
+	</e:Group>
+	<e:Group id="actionGroup" touchEnabled="false" anchorOffsetX="0" width="720" anchorOffsetY="0" height="340" y="0" horizontalCenter="0">
+		<ns1:GameButton id="raiseBtn" skinName="gambling_raise_btn" label=""  y="105" x="309"/>
+		<ns1:GameButton id="foldBtn" skinName="gambling_drop_btn" label="" y="235"  height="96" x="150"/>
+		<ns1:GameButton id="checkBtn" label="" y="235"  skinName="gambling_pass_btn" x="468"/>
+		<ns1:GameButton id="callBtn" skinName="gambling_call_btn" label="9999万" y="235"  x="468"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="chatFastSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui"
+        width="72" height="72">
+            <e:Image source="bg_liaotian_4_png" source.upAndSelected="bg_liaotian_5_png" source.downAndSelected="bg_liaotian_5_png" />
+    <e:Image id="btnImg" alpha.disabled="0.5" anchorOffsetX="0" anchorOffsetY="0" source="kuaijie_png"  horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HundredWarBankerListPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="16025b05e5a"/>
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" horizontalCenter="0">
+		<e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="900" width="666" scale9Grid="0,105,666,6"/>
+		<e:Image y="15" horizontalCenter="0" source="br_zjlb_png"/>
+
+
+
+
+
+		<e:Group id="bankerGroup" width="630" height="520" y="120" anchorOffsetY="0" horizontalCenter="0">
+
+			<e:List id="bankerList" width="600" height="100%" y="0" horizontalCenter="0">
+				<e:layout>
+					<e:VerticalLayout gap="10" horizontalAlign="center" verticalAlign="top" paddingTop="10"/>
+				</e:layout>
+
+
+			</e:List>
+			<e:Scroller id="bankerScroller" width="630" height="100%" y="0" scrollPolicyH="off" horizontalCenter="0">
+			</e:Scroller>
+
+		</e:Group>
+		<e:HSlider id="bankerGoldHs" width="500" height="40" skinName="HSliderSkin1" rotation="359.86" horizontalCenter="0" y="660"/>
+		<e:Label id="tipsLabel" text="上庄至少需要2亿" y="710" horizontalCenter="0" size="26"/>
+		<e:Label id="tipsLabel1" text="每次最多坐庄99轮比赛！" size="26" left="30" bottom="30"/>
+		<ns1:ShadowButton id="bankBtn" label="我要上庄" y="750" horizontalCenter="0" skinName="hundredWarOverButtonSkin"/>
+		<e:Group width="180" height="50" right="30" bottom="20">
+			<e:Image anchorOffsetX="0" anchorOffsetY="0" width="100%" source="mall_bg_3_png" verticalCenter="0" height="40" scale9Grid="26,19,2,1"/>
+			<e:Image id="goldImg" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.7" scaleY="0.7" touchEnabled="true" source="icon_jinbi_png" left="10" verticalCenter="0"/>
+			<e:Label id="goldLabel" text="99.99亿" verticalCenter="0" right="10"/>
+		</e:Group>
+
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+
+	</e:Group>
+</e:Skin>

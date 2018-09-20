@@ -1,0 +1,27 @@
+<e:Skin class="NewPayGiftPanelSkin" width="666" height="800" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="666" height="700" anchorOffsetY="0" bottom="0" horizontalCenter="0">
+		<e:Image anchorOffsetY="0" scale9Grid="0,98,666,20" source="sc_bg_png" horizontalCenter="0"/>
+		<e:Image horizontalCenter="0" top="-140" source="shou_yue_bg_png"/>
+		<e:Image horizontalCenter="0" source="text_xrczl_1_png" top="-35"/>
+		<e:Image y="72" horizontalCenter="0" source="xinrenli_bg_1_png"/>
+		<e:Image y="86" horizontalCenter="0" source="text_xrczl_png"/>
+		<e:Image y="190" source="text_xrl_4_png" right="35"/>
+
+
+		<e:Label id="desLabel" text="首次充值6元，返现5元话费。实际只消耗一元！" y="250" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="26" horizontalCenter="0" width="600" textColor="0x3b1001"/>
+		<ns1:FirstPayItemComponent id="firstPayComp" y="290" skinName="FirstPayItemComponentSkin" horizontalCenter="0"/>
+		<e:Image source="sc_bg_1_png" horizontalCenter="0" bottom="60"/>
+
+
+
+
+
+
+		<ns1:ShadowButton id="closeButton" label="Button" scaleY="1" anchorOffsetY="34" anchorOffsetX="34" scaleX="1" skinName="closeButton4Skin" right="32" top="50"/>
+		<e:Button id="payBtn" label="充值6元领取" horizontalCenter="0" bottom="72" skinName="sc_button2Skin"/>
+
+
+
+	</e:Group>
+</e:Skin>

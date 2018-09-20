@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingReviewItemRendererSkin" width="602" height="118" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image width="602" height="118" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0" source="pub_lines_png"
+             scale9Grid="13,12,5,3" />
+	<ns1:CircleHeadComponent id="headCom" x="45" skinName="CircleHeadComponentSkin" verticalCenter="-10"/>
+	<e:Group id="posDesGroup" x="38" y="8">
+		<e:Image id="posImg" source="daxiaomang_png"/>
+		<e:Label id="posDesLabel" text="大盲" size="20" fontFamily="Microsoft YaHei" textColor="0x0a4d3f" horizontalCenter="0" verticalCenter="-2"/>
+	</e:Group>
+
+	<e:Label id="nameLabel" text="玩家昵称六字" x="5" y="87" size="24" width="160" textAlign="center" fontFamily="Microsoft YaHei"/>
+
+
+
+
+    <e:Group id="bottomGroup" x="186" y="5">
+        <ns1:CardFaceComponent id="card0" skinName="CardFaceComponentSkin" scaleX="0.6" scaleY="0.6"  y="60" x="14"/>
+        <ns1:CardFaceComponent id="card1" skinName="CardFaceComponentSkin" scaleX="0.6" scaleY="0.6" x="29"
+                                y="60"/>
+			<e:Label id="operation0" text="跟注" x="-16" y="3" size="22" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei"/>
+			<e:Label id="num0" text="11.11万" x="-20" y="91" size="16" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei" width="60"/>
+    </e:Group>
+	<e:Group id="pubGroup0" x="267" y="5">
+		<ns1:CardFaceComponent id="card2" skinName="CardFaceComponentSkin" scaleX="0.6" scaleY="0.6" y="60" x="14"/>
+		<ns1:CardFaceComponent id="card3" skinName="CardFaceComponentSkin" scaleX="0.6" scaleY="0.6" x="29" y="60"/>
+		<ns1:CardFaceComponent id="card4" skinName="CardFaceComponentSkin" scaleX="0.6" scaleY="0.6" x="44" y="60"/>
+		<e:Label id="operation1" text="跟注" x="-8" y="3" size="22" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei"/>
+		<e:Label id="num1" text="11" x="-20" y="91" size="16" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei" width="75"/>
+	</e:Group>
+	<e:Group id="pubGroup1" x="341" y="5">
+		<ns1:CardFaceComponent id="card5" skinName="CardFaceComponentSkin" scaleX="0.6" scaleY="0.6" x="35" y="60"/>
+		<e:Label text="跟注" x="0" y="3" size="22" id="operation2" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei"/>
+		<e:Label id="num2" text="11.11万" x="-6" y="91" size="16" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei" width="60"/>
+	</e:Group>
+	<e:Group id="pubGroup2" x="410" y="5">
+		<ns1:CardFaceComponent id="card6" skinName="CardFaceComponentSkin" scaleX="0.6" scaleY="0.6" x="32" y="60"/>
+		<e:Label text="跟注" x="-4" y="3" size="22" id="operation3" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei"/>
+		<e:Label id="num3" text="11" x="-9" y="91" size="16" textAlign="center" alpha="0.6" fontFamily="Microsoft YaHei" width="60"/>
+	</e:Group>
+	<e:Label id="resultNumLabel" text="10万" x="467" verticalCenter="0" width="130" textAlign="center" size="26" textColor="0x90f68e" fontFamily="Microsoft YaHei"/>
+	<e:Label id="cardTypeLabel" text="皇家同花顺" x="467" size="22" width="130" textAlign="center" textColor="0xf9cb55" fontFamily="Microsoft YaHei" y="83"/>
+</e:Skin>

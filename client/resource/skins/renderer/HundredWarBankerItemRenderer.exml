@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HundredWarBankerItemRendererSkin" width="600" height="80" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+        <e:Image width="100%" height="80" alpha="1"  source="pub_lines_png" scale9Grid="13,13,4,1"/>
+
+        <e:Label id="nameLabel" text="好友名字六字" x="150" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0"
+                 width="200" textColor="0xdfe5e5"  textAlign="left" verticalCenter="0"/>
+        <e:Label id="goldNumLabel" text="$99.99亿" x="450" width="130" textAlign="left"
+                 fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0"  verticalCenter="0" textColor="0xf9cb55"/>
+
+
+
+
+        <ns1:CircleHeadComponent id="userHeadCom" x="50" verticalCenter="0" skinName="CircleHeadComponentSkin"  width="70" height="70"/>
+	<e:Image id="bankImg" x="10" source="dongjia_png" verticalCenter="2"/>
+
+</e:Skin>

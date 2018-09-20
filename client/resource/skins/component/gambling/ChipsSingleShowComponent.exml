@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChipsSingleShowComponentSkin" maxWidth="30" maxHeight="60" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="bgImg" touchEnabled="false" y="22" anchorOffsetY="0" source="n_game_7_png" horizontalCenter="0" />
+    <e:Label id="numLabel" touchEnabled="false" text="2" textAlign="center" size="24" fontFamily="Microsoft YaHei" y="0"
+             textColor="0xffffff"  horizontalCenter="0"/>
+</e:Skin>

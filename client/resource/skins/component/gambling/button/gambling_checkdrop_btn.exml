@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gambling_checkdrop_btn" states="up,down" maxWidth="96" maxHeight="96" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" width.down="102" height.down="102" width.up="102" height.up="102" width="102" height="102">
+	<e:Image id="btnImg" source.up="button_qipai_png" source.down="button_qipai_1_png" source="button_qipai_png"/>
+	<e:Image horizontalCenter="0" verticalCenter="-2" source="text_qipai_1_png" alpha.down="0.8"/>
+    <e:Label id="labelDisplay" size="24" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
+             textColor="0xffffff" text="" verticalCenter="0" horizontalCenter="0"/>
+</e:Skin>

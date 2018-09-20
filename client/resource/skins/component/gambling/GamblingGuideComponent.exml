@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingGuideComponentSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui">
+    <e:Image anchorOffsetY="0" horizontalCenter="0" source="xinshou_4_png" top="0" width="335" height="80"
+             scale9Grid="64,0,36,80" />
+    <e:Image anchorOffsetY="0" horizontalCenter="0" source="xly_png" top="10" />
+    <e:Group id="guideTipsBar" width="579" height="79" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="2"
+             scaleX="1" scaleY="1" top="120" x="63" y="0">
+        <e:Image anchorOffsetY="0" height="107" width="590" horizontalCenter="0" source="pub_bg_ts_png"
+                 scale9Grid="36,31,577,66" verticalCenter="0" />
+        <e:Label text="欢迎进入训练营" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFDFC" size="30" horizontalCenter="0"
+                 fontFamily="SourceHanSansCN-Norma" verticalCenter="-4" textAlign="center" />
+    </e:Group>
+</e:Skin>

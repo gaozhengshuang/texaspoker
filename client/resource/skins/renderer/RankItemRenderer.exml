@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RankItemRendererSkin" width="600" height="100" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImg" width="600" height="100" anchorOffsetX="0" anchorOffsetY="0" y="0" source="pub_lines_png"
+	         scale9Grid="13,13,4,1" />
+	<ns1:HeadComponent id="head" width="80" height="80" x="80" y="10" skinName="HeadComponentSkin" />
+	<e:Label id="rankLabel" text="冠" x="0" y="35" height="30" width="80" size="30" textAlign="center" />
+	<e:Image id="rankImg" x="10" source="icon_1_png" scaleX="1" scaleY="1" verticalCenter="0" />
+	<e:Label id="nameLabel" text="用户名字" x="170" y="10" height="30" width="200" size="26" fontFamily="Microsoft YaHei" />
+	<e:Label id="numLabel" text="1,234,567,890,123" x="170" y="50" height="30" width="300" size="26" textColor="0xfad050" />
+	<e:Image id="upImage" x="500" y="35" source="lb_up_png" />
+	<e:Image id="downImage" x="500" y="35" source="lb_down_png" />
+	<e:Image id="gotoImage" x="550" y="38" source="lb_2_png" />
+	<e:Image id="noChangeImage" x="500" y="50" source="lb_1_png" />
+</e:Skin>

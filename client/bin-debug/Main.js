@@ -1,31 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////////
-//
-//  Copyright (c) 2014-present, Egret Technology.
-//  All rights reserved.
-//  Redistribution and use in source and binary forms, with or without
-//  modification, are permitted provided that the following conditions are met:
-//
-//     * Redistributions of source code must retain the above copyright
-//       notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above copyright
-//       notice, this list of conditions and the following disclaimer in the
-//       documentation and/or other materials provided with the distribution.
-//     * Neither the name of the Egret nor the
-//       names of its contributors may be used to endorse or promote products
-//       derived from this software without specific prior written permission.
-//
-//  THIS SOFTWARE IS PROVIDED BY EGRET AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
-//  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-//  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-//  IN NO EVENT SHALL EGRET AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-//  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-//  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;LOSS OF USE, DATA,
-//  OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-//  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-//  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-//////////////////////////////////////////////////////////////////////////////////////
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
@@ -78,192 +50,158 @@ var Main = (function (_super) {
     }
     Main.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
-        egret.lifecycle.addLifecycleListener(function (context) {
-            // custom lifecycle plugin
-        });
-        egret.lifecycle.onPause = function () {
-            egret.ticker.pause();
-        };
-        egret.lifecycle.onResume = function () {
-            egret.ticker.resume();
-        };
-        //inject the custom material parser
+        if (false) {
+            egret.Logger.logLevel = egret.Logger.ERROR;
+        }
+        qin.Console.enabled = true || URLOption.getBoolean(URLOption.Log) || qin.System.isLocalhost;
+        // qin.Console.enabled = false;
+        //
+        this.stage.setContentSize(GameSetting.StageWidth, GameSetting.StageHeight);
+        if (egret.Capabilities.isMobile == false && qin.System.isWeb && qin.System.isEditor == false) {
+            this.stage.scaleMode = egret.StageScaleMode.SHOW_ALL;
+            this.stage.orientation = egret.OrientationMode.AUTO;
+        }
+        if (qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.WindowsPhone || qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.WindowsPC) {
+            egret.TextField.default_fontFamily = 'Microsoft YaHei';
+        }
+        RES.setMaxLoadingThread(qin.System.isMicro ? 8 : 4);
+        qin.I18n.initSystem(PrefsManager.getValue(PrefsManager.Language), OperatePlatform.getLangs());
         //注入自定义的素材解析器
-        var assetAdapter = new AssetAdapter();
-        egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
+        egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-        this.runGame().catch(function (e) {
-            console.log(e);
-        });
+        //初始化Resource资源加载库
+        this.startLoadConfig();
     };
-    Main.prototype.runGame = function () {
+    Main.prototype.startLoadConfig = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result, userInfo;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.loadResource()];
+                    case 0:
+                        console.log("test1111");
+                        if (!(qin.System.isWeb || qin.System.isMicro)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, RES.loadConfig(WebConfig.resUrl + WebConfig.defaultResJson, WebConfig.resUrl + 'resource/')];
                     case 1:
                         _a.sent();
-                        this.createGameScene();
-                        return [4 /*yield*/, RES.getResAsync("description_json")];
-                    case 2:
-                        result = _a.sent();
-                        this.startAnimation(result);
-                        return [4 /*yield*/, platform.login()];
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, RES.loadConfig(PathName.Default_res_json, 'resource/')];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, platform.getUserInfo()];
+                        _a.label = 4;
                     case 4:
-                        userInfo = _a.sent();
-                        console.log(userInfo);
+                        this.onConfigComplete();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    Main.prototype.loadResource = function () {
+    /**
+     * 配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
+     */
+    Main.prototype.onConfigComplete = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var loadingView, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 4, , 5]);
-                        loadingView = new LoadingUI();
-                        this.stage.addChild(loadingView);
-                        return [4 /*yield*/, RES.loadConfig("resource/default.res.json", "resource/")];
+                        if (!qin.I18n.isDefault) return [3 /*break*/, 1];
+                        this.loadAssetText();
+                        return [3 /*break*/, 5];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.loadTheme()];
+                        if (!true) return [3 /*break*/, 3];
+                        return [4 /*yield*/, RES.getResByUrl(PathName.LangDirectory + qin.I18n.lang + AssetsSuffixName.JSON, this.onLangComplete, this)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, RES.loadGroup("preload", 0, loadingView)];
-                    case 3:
-                        _a.sent();
-                        this.stage.removeChild(loadingView);
                         return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, RES.getResAsync(ResPrefixPathName.Lang + qin.I18n.lang + ResSuffixName.ZIP)];
                     case 4:
-                        e_1 = _a.sent();
-                        console.error(e_1);
-                        return [3 /*break*/, 5];
+                        _a.sent();
+                        _a.label = 5;
                     case 5: return [2 /*return*/];
                 }
             });
         });
     };
-    Main.prototype.loadTheme = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            // load skin theme configuration file, you can manually modify the file. And replace the default skin.
-            //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            var theme = new eui.Theme("resource/default.thm.json", _this.stage);
-            theme.addEventListener(eui.UIEvent.COMPLETE, function () {
-                resolve();
-            }, _this);
+    Main.prototype.onLangComplete = function (data) {
+        if (data) {
+            qin.I18n.initMap(data);
+        }
+        this.loadAssetText();
+    };
+    Main.prototype.loadAssetText = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var name;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        name = qin.I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + qin.StringConstants.UnderLine + qin.I18n.lang;
+                        return [4 /*yield*/, RES.loadGroup(name)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.loadTheme()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, RES.loadGroup(ResGroupName.Login)];
+                    case 3:
+                        _a.sent();
+                        egret.ImageLoader.crossOrigin = "anonymous"; //本机跨域访问问题
+                        this.createScene();
+                        return [2 /*return*/];
+                }
+            });
         });
     };
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    Main.prototype.createGameScene = function () {
-        var sky = this.createBitmapByName("bg_jpg");
-        this.addChild(sky);
-        var stageW = this.stage.stageWidth;
-        var stageH = this.stage.stageHeight;
-        sky.width = stageW;
-        sky.height = stageH;
-        var topMask = new egret.Shape();
-        topMask.graphics.beginFill(0x000000, 0.5);
-        topMask.graphics.drawRect(0, 0, stageW, 172);
-        topMask.graphics.endFill();
-        topMask.y = 33;
-        this.addChild(topMask);
-        var icon = this.createBitmapByName("egret_icon_png");
-        this.addChild(icon);
-        icon.x = 26;
-        icon.y = 33;
-        var line = new egret.Shape();
-        line.graphics.lineStyle(2, 0xffffff);
-        line.graphics.moveTo(0, 0);
-        line.graphics.lineTo(0, 117);
-        line.graphics.endFill();
-        line.x = 172;
-        line.y = 61;
-        this.addChild(line);
-        var colorLabel = new egret.TextField();
-        colorLabel.textColor = 0xffffff;
-        colorLabel.width = stageW - 172;
-        colorLabel.textAlign = "center";
-        colorLabel.text = "Hello Egret";
-        colorLabel.size = 24;
-        colorLabel.x = 172;
-        colorLabel.y = 80;
-        this.addChild(colorLabel);
-        var textfield = new egret.TextField();
-        this.addChild(textfield);
-        textfield.alpha = 0;
-        textfield.width = stageW - 172;
-        textfield.textAlign = egret.HorizontalAlign.CENTER;
-        textfield.size = 24;
-        textfield.textColor = 0xffffff;
-        textfield.x = 172;
-        textfield.y = 135;
-        this.textfield = textfield;
-        var button = new eui.Button();
-        button.label = "Click!";
-        button.horizontalCenter = 0;
-        button.verticalCenter = 0;
-        this.addChild(button);
-        button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+    Main.prototype.loadTheme = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var thmUrl;
+            return __generator(this, function (_a) {
+                thmUrl = '';
+                if (qin.System.isWeb || qin.System.isMicro) {
+                    thmUrl = WebConfig.resUrl + WebConfig.defaultThmJson;
+                }
+                else {
+                    thmUrl = PathName.Default_thm_json;
+                }
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        // load skin theme configuration file, you can manually modify the file. And replace the default skin.
+                        //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
+                        var theme = new eui.Theme(thmUrl, _this.stage);
+                        theme.addEventListener(eui.UIEvent.COMPLETE, function () {
+                            resolve();
+                        }, _this);
+                    })];
+            });
+        });
     };
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    Main.prototype.createBitmapByName = function (name) {
-        var result = new egret.Bitmap();
-        var texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
+    Main.prototype.createScene = function () {
+        this.setLoadingText(qin.I18n.getText('正在进入游戏...'));
+        GameManager.initialize(this.stage, this);
+        UIManager.initialize(this.stage);
+        qin.Tick.initialize(this.stage);
+        ChannelManager.OnInitComplete.addListener(this.OnChannelInitComplete, this);
+        ChannelManager.initialize();
     };
-    /**
-     * 描述文件加载成功，开始播放动画
-     * Description file loading is successful, start to play the animation
-     */
-    Main.prototype.startAnimation = function (result) {
-        var _this = this;
-        var parser = new egret.HtmlTextParser();
-        var textflowArr = result.map(function (text) { return parser.parse(text); });
-        var textfield = this.textfield;
-        var count = -1;
-        var change = function () {
-            count++;
-            if (count >= textflowArr.length) {
-                count = 0;
+    Main.prototype.OnChannelInitComplete = function () {
+        this.closeLoading();
+        ChannelManager.OnInitComplete.removeListener(this.OnChannelInitComplete, this);
+        SceneManager.switcScene(SceneType.Login);
+    };
+    Main.prototype.setLoadingText = function (text) {
+        if (qin.System.isWeb) {
+            WebLoading.setText(text);
+        }
+    };
+    Main.prototype.closeLoading = function () {
+        if (qin.System.isWeb) {
+            WebLoading.hide();
+        }
+        else if (qin.System.isMicro) {
+            //关闭启动页,egret微端提供的方法
+            if (window['closeLoadingView']) {
+                window['closeLoadingView']();
             }
-            var textFlow = textflowArr[count];
-            // 切换描述内容
-            // Switch to described content
-            textfield.textFlow = textFlow;
-            var tw = egret.Tween.get(textfield);
-            tw.to({ "alpha": 1 }, 200);
-            tw.wait(2000);
-            tw.to({ "alpha": 0 }, 200);
-            tw.call(change, _this);
-        };
-        change();
-    };
-    /**
-     * 点击按钮
-     * Click the button
-     */
-    Main.prototype.onButtonClick = function (e) {
-        var panel = new eui.Panel();
-        panel.title = "Title";
-        panel.horizontalCenter = 0;
-        panel.verticalCenter = 0;
-        this.addChild(panel);
+        }
     };
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");
+//# sourceMappingURL=Main.js.map

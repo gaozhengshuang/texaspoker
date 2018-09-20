@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ImgNotifyPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0" height="880" width="660">
+		<e:Image horizontalCenter="0" width="100%" height="100%" verticalCenter="0" source="assets/bg/bg_gonggao_png"/>
+		<e:Label text="图片加载中..." size="35" horizontalCenter="0" bottom="60"/>
+		<e:Image id="noticeImg" source="" horizontalCenter="0" width="100%" height="100%" verticalCenter="0"/>
+		<ns1:ShadowButton id="closeButton" xmlns:ns1="*" label="Button" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin" top="10" right="10"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,29 @@
+<e:Skin class="AchievementInGameSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Group id="anmGroup" horizontalCenter="0" y="0">
+        <e:Image id="bgImg" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1"
+                 x="0"  source="game_tc_png" bottom="0" height="519" scale9Grid="0,140,720,19"/>
+			<e:Image id="titleImg" scaleX="1" scaleY="1" source="game_rw1_png" horizontalCenter="0" bottom="450"/>
+
+
+			<e:List id="achieveList" height="360" horizontalCenter="0" bottom="65" width="700">
+				<e:layout>
+					<e:VerticalLayout gap="9" horizontalAlign="center" verticalAlign="top" paddingTop="5" paddingLeft="0" paddingRight="0"/>
+				</e:layout>
+
+			</e:List>
+
+			<e:Scroller id="achieveScroller" width="700" height="360" horizontalCenter="0" bottom="65">
+
+			</e:Scroller>
+
+			<e:Group id="goldNumLabelGroup" touchChildren="true" anchorOffsetY="0" anchorOffsetX="0" scaleX="1" scaleY="1" x="23" bottom="14">
+				<e:Image anchorOffsetX="0" anchorOffsetY="0" x="0" width="200" source="mall_bg_3_png" scale9Grid="18,18,8,2" verticalCenter="0"/>
+				<e:Image anchorOffsetX="0" anchorOffsetY="0" scaleX="0.7" scaleY="0.7" touchEnabled="true" x="10" source="icon_jinbi_png" verticalCenter="0"/>
+				<e:Label id="goldLabel" text="1000万" size="30" textAlign="left" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" touchEnabled="false" x="60" textColor="0xFFFFFF" verticalCenter="0"/>
+			</e:Group>
+
+
+
+    </e:Group>
+</e:Skin>

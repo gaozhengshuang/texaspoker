@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoginSceneBgPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImg" width="100%" y="0" x="0" height="100%" source="assets/bg/login_background_1_jpg"/>
+	<e:Image y="28" id="logoImg" horizontalCenter="0"/>
+	<e:Label id="versionLabel" size="22" verticalAlign="middle" fontFamily="Microsoft YaHei" text="" anchorOffsetX="0" bold="false" textColor="0xFFFFFF" alpha="0.8" y="273" textAlign="center" x="478"/>
+</e:Skin>

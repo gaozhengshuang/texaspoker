@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RankPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" horizontalCenter="0">
+		<e:Image y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="900" width="666" scale9Grid="0,101,666,13"/>
+		<e:Image y="15" horizontalCenter="0" source="text_lwsc_png"/>
+		<e:Image y="118" source="pub_biankuang1_png" width="598" horizontalCenter="0" scale9Grid="27,23,13,8"/>
+		<e:Image id="listTabBg" width="600" height="60" y="190" horizontalCenter="0" source="ld_4_png" scale9Grid="3,8,25,52"/>
+		<ns1:TabComponent id="shopTypeTab" y="118" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Group id="giftGroup" width="600" height="500" y="270" horizontalCenter="0" visible="false">
+			<ns1:TabComponent id="giftTab" y="-80" horizontalCenter="0" skinName="TabComponentSkin" x="299" scaleX="1" scaleY="1"/>
+			<e:Scroller id="giftScroller" width="600" height="500"/>
+			<e:List id="giftList" width="600" height="500" horizontalCenter="0">
+				<e:layout>
+				<e:TileLayout orientation="rows" horizontalAlign="center" verticalAlign="top" requestedColumnCount="3" paddingLeft="10" horizontalGap="10" verticalGap="10" paddingTop="10" paddingBottom="10" paddingRight="10"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<e:Group id="itemGroup" width="600" height="500" y="270" horizontalCenter="0" visible="false">
+			<ns1:TabComponent id="itemTab" y="-80" horizontalCenter="0" skinName="TabComponentSkin" x="299" scaleX="1" scaleY="1"/>
+			<e:Scroller id="itemScroller" width="600" height="500"/>
+			<e:List id="itemList" width="600" height="500" horizontalCenter="0">
+				<e:layout>
+					<e:VerticalLayout horizontalAlign="center" verticalAlign="top" gap="10" paddingTop="10" paddingBottom="10" paddingLeft="0" paddingRight="0"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<e:Group id="vipGroup" width="600" height="500" y="270" horizontalCenter="0" visible="false">
+			<ns1:TabComponent id="vipTab" y="-80" horizontalCenter="0" skinName="TabComponentSkin" x="299" scaleX="1" scaleY="1"/>
+			<e:Group id="buyVipGroup" width="600" height="500" horizontalCenter="0" visible="false">
+				<e:Scroller id="vipScroller" width="600" height="500" x="0" y="0" scaleX="1" scaleY="1"/>
+				<e:List id="vipList" width="600" height="500" horizontalCenter="0" x="0" y="0" scaleX="1" scaleY="1">
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="center" verticalAlign="top" gap="10" paddingTop="10" paddingBottom="10" paddingRight="0"/>
+					</e:layout>
+				</e:List>
+			</e:Group>
+			<e:Group id="myVipGroup" width="600" scaleX="1" scaleY="1" name="我的VIP" horizontalCenter="0" visible="false">
+				<e:Group width="600" height="150" y="0" scaleX="1" scaleY="1" horizontalCenter="0">
+				<ns1:CircleHeadComponent id="userHeadComp" skinName="CircleHeadComponentSkin"/>
+				<e:Image id="yearVipImg" x="185" y="20" scaleX="1" scaleY="1" source="nfhy_png"/>
+				<e:Label id="userNameLabel" text="用户名字六字" x="180" y="70" size="30" scaleX="1" scaleY="1" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label text="等级：" x="180" y="118" size="25" scaleX="1" scaleY="1" textColor="0xFAD050"/>
+				<e:Label id="vipLevelLabel" text="VIP0" x="260" y="118" size="25" scaleX="1" scaleY="1" textColor="0xFAD050"/>
+				<ns1:GreenShadowButton id="buyVipButton" x="400" y="60" scaleX="1" scaleY="1" label="开通会员" skinName="commonButtonGYSkin"/>
+				</e:Group>
+				<e:Group width="560" height="120" y="150" scaleX="1" scaleY="1" horizontalCenter="0">
+				<e:Label text="VIP1" x="0" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP2" x="56" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP3" x="168" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP4" x="336" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="VIP5" x="560" y="20" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="24" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				<e:Label text="(600)" x="56" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="26" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>
+				<e:Label text="(1800)" x="168" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="32" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>
+				<e:Label text="(3600)" x="336" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="32" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>
+				<e:Label text="(6000)" x="560" y="40" size="22" scaleX="1" scaleY="1" textAlign="left" anchorOffsetX="32" fontFamily="Microsoft YaHei" textColor="0xFFFFFF"/>
+				<e:Group width="560" height="50" y="70">
+					<e:Image scaleY="1" scaleX="1" width="560" height="15" source="jindutiao_1_png" top="0" left="0" scale9Grid="8,7,10,4"/>
+					<e:Image id="vipProgressImg" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" height="15" width="56" source="jindutiao_2_png" top="0" left="0" scale9Grid="6,6,11,2"/>
+					<e:Image id="processBg" anchorOffsetX="32" anchorOffsetY="0" scale9Grid="6,6,11,2" x="0" y="20" source="vip_bg_1_png"/>
+					<e:Label id="vipProgressLabel" text="99999" x="0" scaleX="1" scaleY="1" size="20" y="35" anchorOffsetX="30" anchorOffsetY="0" textAlign="center" width="60" height="20" textColor="0xFFFFFF"/>
+				</e:Group>
+				</e:Group>
+				<e:Label text="我的会员成长值：" x="25" y="310" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Group width="600" height="250" x="0" y="350" scaleX="1" scaleY="1">
+				<e:Image width="560" height="220" x="20" y="0" anchorOffsetX="0" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+				<e:Label text="总计：" x="40" y="20" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label text="目前等级：" x="40" y="70" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label text="成长速度：" x="40" y="120" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label text="到期时间：" x="40" y="170" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label id="vipExpLabel" text="0点" x="120" y="20" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label id="currentVipLevel" text="0" x="170" y="70" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label id="vipSpeedLabel" text="0点" x="170" y="120" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label id="vipTimeLabel" text="1970-1-1" x="170" y="170" scaleX="1" scaleY="1" size="26" textColor="0xFFFFFF" fontFamily="Microsoft YaHei"/>
+				<e:Label id="buyYearVip" text="开通年费，每日15点>>" x="312" y="122" scaleX="1" scaleY="1" size="25" textColor="0xFAD050" fontFamily="Microsoft YaHei"/>
+				</e:Group>
+			</e:Group>
+			<e:Group id="vipIntroduceGroup" width="646" height="600" scaleX="1" scaleY="1" name="VIP介绍" horizontalCenter="0" visible="false">
+				<e:Group id="imgGroup" width="646" height="600" x="0" y="0">
+				<e:Image id="vipBg" scaleX="1" scaleY="1" horizontalCenter="0" top="0"/>
+				</e:Group>
+				<e:Scroller id="vipIntroduceScroller" width="646" height="600" x="0" y="0"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="buyGroup" width="600" height="100" y="770" horizontalCenter="0" visible="false">
+			<e:Button id="buyBtn" label="购买" y="14" horizontalCenter="0" skinName="commonButtonY2Skin"/>
+			<e:Image scaleX="0.9" scaleY="0.9" source="icon_jinbi_png" top="5" x="4"/>
+			<e:Label id="goldNumLabel" text="11.11万" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xFFFFFF" left="50" top="13"/>
+			<e:Image scaleX="0.9" scaleY="0.9" source="icon_zhuanshi_png" bottom="5" x="0"/>
+			<e:Label id="diamondNumLabel" text="11.11万" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetY="0" textColor="0xFFFFFF" left="50" bottom="13"/>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FirstPayPanelSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" height="800">
+	<w:Config id="1631e98da68"/>
+	<e:Group id="tweenGroup" width="666" anchorOffsetY="0" horizontalCenter="0" bottom="0" height="700">
+		<e:Image anchorOffsetY="0" horizontalCenter="0" source="sc_bg_png"/>
+		<e:Image source="sc_bg_1_png" scaleX="1" scaleY="1" horizontalCenter="0" bottom="61"/>
+		<e:Image horizontalCenter="0" top="-140" source="shou_yue_bg_png"/>
+		<e:Image horizontalCenter="0" source="text_sc_png" top="-35"/>
+		<e:Image horizontalCenter="0" y="93" source="sc_bg_3_png" scale9Grid="38,0,6,60" width="320"/>
+		<e:Image horizontalCenter="0" y="410" source="sc_bg_4_png" scale9Grid="38,0,6,60" width="534"/>
+		<e:Image horizontalCenter="0" source="text_sc_2_png" y="100"/>
+		<e:Label id="deslabel1" text="11111" y="426" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center" horizontalCenter="0" size="26" textColor="0xffffff"/>
+		<e:Label id="deslabel2" text="11111" y="480" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center" horizontalCenter="0" size="24" textColor="0x3b1001"/>
+		<e:Group id="itemGroup" width="666" height="210" y="170" horizontalCenter="0">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="center" verticalAlign="top"/>
+			</e:layout>
+		</e:Group>
+		<ns1:ShadowButton id="prizeBtn" label="" anchorOffsetY="0" anchorOffsetX="0" y="540" skinName="sc_buttonSkin" horizontalCenter="0"/>
+		<ns1:ShadowButton id="closeButton" label="Button" scaleY="1" anchorOffsetY="34" anchorOffsetX="34" scaleX="1" skinName="closeButton4Skin" right="32" top="56"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="	SafeBoxRetrievePwdPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="tweenGroup" width="666" height="900" x="0" y="0">
+        <e:Image height="900" x="2" y="0" anchorOffsetX="0" anchorOffsetY="0" source="pub_bg2_png"
+                 scale9Grid="0,100,666,14" scaleX="1" scaleY="1" />
+        <e:Image y="16" horizontalCenter="0.5" source="safe_zhmm_png" x="244.00000000000003" scaleX="1" scaleY="1" />
+			<e:Label text="手机号" size="26" scaleX="1" scaleY="1" width="180" textAlign="right" x="0" y="145"/>
+			<e:Image width="340" source="pub_lines_png" scale9Grid="14,11,2,5" height="56" x="210" y="130" scaleX="1" scaleY="1"/>
+			<e:EditableText id="telephoneLabel" width="300" height="50" text="" anchorOffsetX="0" anchorOffsetY="0" textAlign="left" verticalAlign="middle" border="false" textColor="0xFFFFFF" x="230" scaleX="1" scaleY="1" prompt="请输入您的手机号码" promptColor="0xcccccc" size="24" y="133" fontFamily="Microsoft YaHei"/>
+			<e:Label text="验证码" size="26" scaleX="1" scaleY="1" width="180" textAlign="right" x="0" y="235"/>
+			<e:Image width="150" source="pub_lines_png" scale9Grid="14,11,2,5" height="56" y="220" x="210" scaleX="1" scaleY="1"/>
+			<e:EditableText id="verificationCodeLabel" width="110" height="50" text="" y="223" anchorOffsetX="0" anchorOffsetY="0" textAlign="left" verticalAlign="middle" border="false" textColor="0xFFFFFF" x="230" scaleX="1" scaleY="1" size="24" fontFamily="Microsoft YaHei"/>
+			<e:Button id="sendCodeBtn" label="发送验证码" y="220" x="390" skinName="commonButtonGSkin" height="56" width="160"/>
+
+
+
+
+
+
+			<e:Label id="phoneErrorLabel" text="" y="280.8" size="22" scaleX="1" scaleY="1" textAlign="left" verticalAlign="middle" textColor="0xff0000" x="220"/>
+			<e:Label text="新密码" size="26" x="0" scaleX="1" scaleY="1" width="180" textAlign="right" height="50" verticalAlign="middle" y="310"/>
+			<ns1:PwdComponent id="newSafePwd" skinName="pwdComponentSkin" scaleX="0.7" scaleY="0.7" x="210" y="311"/>
+			<e:Label text="确认密码" size="26" x="0" scaleX="1" scaleY="1" width="180" textAlign="right" height="50" verticalAlign="middle" y="394"/>
+			<ns1:PwdComponent id="confirmSafePwd" skinName="pwdComponentSkin" scaleX="0.7" scaleY="0.7" x="210" y="395"/>
+
+
+
+
+
+
+        <e:Label id="pwdErrorLabel" text="" y="450.16" size="22" scaleX="1" scaleY="1" textAlign="left"
+                 verticalAlign="middle" textColor="0xFF0000"  x="220"/>
+			<ns1:ShadowButton id="confirmBtn" label="" y="527.27" x="29" scaleX="1" scaleY="1" skinName="retrievelPwdConfirm_buttonSkin"/>
+			<e:Image source="tijiao_png" touchEnabled="false" x="296" y="555.27"/>
+
+        <ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" anchorOffsetY="27" anchorOffsetX="27"
+                          skinName="closeButtonSkin" scaleX="1" scaleY="1" />
+    </e:Group>
+</e:Skin>

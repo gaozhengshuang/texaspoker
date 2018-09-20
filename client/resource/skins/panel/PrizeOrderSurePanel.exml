@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin4" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="tweenGroup" width="720" height="1280" anchorOffsetX="0" anchorOffsetY="0" x="0" y="0">
+        <e:Image width="666" height="500" horizontalCenter="0" verticalCenter="10" source="pub_bg2_png"
+                 scale9Grid="5,108,655,8" />
+        <ns1:ShadowButton id="confirmBtn" label="兑换" anchorOffsetX="0" y="803.29" scaleX="1" scaleY="1"
+                          skinName="commonButtonY2Skin" horizontalCenter="0.5" />
+        <e:Label text="兑换道具：" x="115" y="546.26" size="26" width="150" textAlign="right" />
+        <e:Label id="awardNameLabel" text="免费-10元话费赛" x="265" y="546.26" size="26" width="340" textColor="0xffffff"
+                 lineSpacing="5" />
+        <e:Label text="手机号码：" x="115" y="587.26" size="26" width="150" textAlign="right" />
+        <e:Label id="telLabel" text="110" x="265" y="587.26" size="26" width="340" textColor="0xffffff" />
+        <e:Label text="QQ号码：" x="115" y="628.26" size="26" width="150" textAlign="right" />
+        <e:Label id="qqLabel" text="999999999" x="265" y="628.26" size="26" width="340" textColor="0xffffff" />
+        <e:Group id="nameGroup" x="115" y="668.26">
+            <e:Label id="nameLabel" text="帅" x="150" y="0" size="26" width="340" textColor="0xffffff" />
+            <e:Label text="收件人：" x="0" y="0" size="26" width="150" textAlign="right" />
+        </e:Group>
+        <e:Group id="addressGroup" x="115" y="709">
+            <e:Label id="addressLabel" text="吴中路" x="150" y="0" size="26" anchorOffsetX="0" width="340" lineSpacing="5"
+                     textColor="0xffffff" />
+            <e:Label text="详细地址：" x="0" y="0" size="26" width="150" textAlign="right" />
+        </e:Group>
+        <ns1:ShadowButton id="closeButton" label="Button" x="600" y="439" skinName="closeButtonSkin" />
+        <e:Label text="您要兑换内容为" y="500" horizontalCenter="0" textColor="0xe2bf58" size="26" />
+        <e:Image y="418" source="ddqr_png"  horizontalCenter="0"/>
+    </e:Group>
+</e:Skin>

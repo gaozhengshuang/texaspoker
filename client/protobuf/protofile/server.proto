@@ -1,0 +1,207 @@
+syntax = "proto2";
+package msg;
+import "define.proto";
+
+// --------------------------------------------------------------------------
+/// @brief GateServer <----> LoginServer
+// --------------------------------------------------------------------------
+// gw请求注册到login
+message GW2L_ReqRegist {
+    optional string account = 1;
+    optional string passwd  = 2;
+    optional msg.IpHost host = 3;
+    optional string name = 4;
+}
+
+// 注册返回
+message L2GW_RetRegist {
+    optional string errocde = 1;
+    optional msg.IpHost host = 2;
+}
+
+// 心跳
+message GW2L_HeartBeat {
+}
+
+// 
+message L2GW_HeartBeat {
+}
+
+// 玩家登陆ls成功，注册他到相应的Gw
+message L2GW_ReqRegistUser {
+    optional string account = 1;
+    optional int64  expire  = 2;
+    optional string gatehost = 3;
+    optional int32  sid = 4;     // 玩家在Login的Taskid
+    optional int64  timestamp = 5;
+    optional string verifykey = 6;
+}
+
+// 注册返回
+message GW2L_RegistUserRet {
+    optional string account  = 1;
+    optional string gatehost = 2;
+    optional string errcode  = 3;
+    optional int32  sid = 4;
+    optional string verifykey = 5;
+}
+
+
+
+// --------------------------------------------------------------------------
+/// @brief GateServer <----> MatchServer
+// --------------------------------------------------------------------------
+// gw请求注册到match
+message GW2MS_ReqRegist {
+    optional string account = 1;
+    optional string passwd  = 2;
+    optional string agentname = 3;
+    optional msg.IpHost host = 4;
+}
+
+// 注册返回
+message MS2GW_RetRegist {
+    optional string errcode = 1;
+    optional msg.IpHost host = 2;
+}
+
+// 心跳
+message GW2MS_HeartBeat {
+}
+
+// 
+message MS2GW_HeartBeat {
+}
+
+// 请求创建游戏房间
+message GW2MS_ReqCreateRoom {
+    optional uint64 userid = 1;
+    optional int32 gamekind = 2;
+}
+
+// 
+message MS2GW_RetCreateRoom {
+    optional uint64 userid = 1;
+    optional int64  roomid = 2;
+    optional string errcode = 3;
+    optional string roomagent = 4;
+}
+
+
+// --------------------------------------------------------------------------
+/// @brief GateServer <----> RoomServer
+// --------------------------------------------------------------------------
+// room 注册到GW
+message RS2GW_ReqRegist {
+    optional string account = 1;
+    optional string passwd  = 2;
+    optional string agentname = 3;
+}
+
+// 注册返回
+message GW2RS_RetRegist {
+    optional string errcode = 1;
+    optional string agentname = 2;
+}
+
+// 通知RS玩家断开连接清理房间
+message GW2RS_UserDisconnect {
+    optional int64 roomid = 1;
+    optional uint64 userid = 2;
+}
+
+// 通知RS玩家断开连接清理房间,返回
+message RS2GW_RetUserDisconnect {
+    optional int64 roomid = 1;
+    optional uint64 userid = 2;
+    optional string errcode = 3;
+}
+
+// Client消息转发到Room
+message GW2RS_MsgTransfer {
+    optional uint64 uid  = 1;
+    optional string name = 2;
+    optional bytes buf = 3;
+}
+
+//Room 消息转发到Client 
+message RS2GW_MsgTransfer {
+    optional uint64 uid  = 1;
+    optional string name = 2;
+    optional bytes buf = 3;
+}
+
+
+
+// --------------------------------------------------------------------------
+/// @brief MatchServer <----> RoomServer
+// --------------------------------------------------------------------------
+// room请求注册到match
+message RS2MS_ReqRegist {
+    optional string account = 1;
+    optional string passwd  = 2;
+    optional string name = 3;
+}
+
+// 注册返回
+message MS2RS_RetRegist {
+    optional string errcode = 1;
+}
+
+// 心跳
+message RS2MS_HeartBeat {
+}
+
+// 
+message MS2RS_HeartBeat {
+}
+
+//发送Gate信息给Room
+message GateSimpleInfo {
+    optional string name = 1;
+    optional msg.IpHost host = 2;
+}
+message MS2RS_GateInfo {
+    repeated GateSimpleInfo gates = 1;
+}
+
+//通知Room创建游戏房间
+message MS2RS_CreateRoom {
+    optional uint64 userid = 1;     // 玩家id
+    optional int64 roomid = 2;      // 房间id
+    optional int32 gamekind = 3;    // 游戏模式
+    optional int32 gridnum = 4;     // 
+    optional int32 sidgate = 5;     // 
+    optional bool  quotaflag = 6;   // 大奖配额
+}
+
+//创建返回
+message RS2MS_RetCreateRoom {
+    optional int64 roomid = 1;
+    optional uint64 userid = 2;
+    optional int32  sidgate = 3;
+    optional string errcode = 4;
+}
+
+// 通知删除房间
+message RS2MS_DeleteRoom {
+    optional int64 roomid = 1;
+}
+
+// 通知更新奖池
+message RS2MS_UpdateRewardPool {
+    optional int32 mapid = 1;
+    optional int32 cost = 2;
+}
+
+
+
+// --------------------------------------------------------------------------
+/// @brief MatchServer 广播消息到其他服务器
+// --------------------------------------------------------------------------
+message MS2Server_BroadCast {
+    optional string cmd = 1;
+}
+
+
+

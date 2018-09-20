@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HappyGiftItemRendererSkin" width="212" height="248" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image width="100%" height="100%" horizontalCenter="0" verticalCenter="0" source="happyGift_item_bg_png" scale9Grid="10,10,32,40"/>
+	<ns1:CommonIcon id="itemComp" y="0" skinName="CommonIconSkin" width="130" height="130" horizontalCenter="0"/>
+	<e:Label id="nameLabel" text="999元话费兑换券" y="135" horizontalCenter="0" size="22" textColor="0x433d38"/>
+	<e:Label id="costLabel" text="999999" y="160" horizontalCenter="0" size="22" textColor="0xf44a15"/>
+	<e:Label id="haveTakenLabel" text="已兑换" y="208" horizontalCenter="0" size="24" textColor="0xFF0000"/>
+	<e:Button id="getPrizeBtn" label="兑换" y="190" horizontalCenter="0" scaleX="0.9" scaleY="0.9" skinName="happyGiftItemButton160x50Skin"/>
+</e:Skin>

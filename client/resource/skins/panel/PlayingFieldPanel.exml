@@ -1,0 +1,57 @@
+<e:Skin class="panelSkin13" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="anmGroup1" x="0" y="100" height="1180" width="720">
+		<e:Image width="720" height="1200" anchorOffsetY="0" x="0" y="-20" source="assets/bg/pub_bg11_png" />
+		<e:Image width="674" y="25" source="pub_biankuang2_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"
+		          scale9Grid="35,33,11,9"/>
+		<ns1:TabComponent id="playingFieldTabCompontent" y="26" anchorOffsetY="0" skinName="TabComponentSkin"
+		                  horizontalCenter="0" />
+		<e:Image width="720" height="45" y="114" anchorOffsetY="0" source="game_bg1_png" />
+		<e:Label id="roomIdLable" text="房间ID" x="42" y="114" size="24" textColor="0x3fafa3" height="45" verticalAlign="middle"
+		         width="106" textAlign="center"  fontFamily="Microsoft YaHei"/>
+		<e:Label id="playerNumLable" text="在玩人数" x="162" y="114" size="24" textColor="0x3fafa3" height="45"
+		         verticalAlign="middle" width="128" textAlign="center"  fontFamily="Microsoft YaHei"/>
+		<e:Label id="blindLable" text="小/大盲" x="366" y="114" size="24" textColor="0x3fafa3" height="45" verticalAlign="middle"
+		         width="113" textAlign="center"  fontFamily="Microsoft YaHei"/>
+		<e:Label id="buyLable" text="最小/最大买入" x="529" y="114" size="24" textColor="0x3fafa3" height="45"
+		         verticalAlign="middle" width="179" textAlign="center"  fontFamily="Microsoft YaHei"/>
+		<e:Group id="tabGroup" x="1" y="160" anchorOffsetY="0" height="880">
+			<e:Image width="694" height="54" y="15" source="game_bg2_png" horizontalCenter="0" scale9Grid="12,12,14,8" />
+			<e:Group id="focuseOutGroup" y="29" horizontalCenter="0">
+				<e:Image id="searchImg" x="0" y="0" source="game_icon_png" />
+				<e:Label text="搜索房间" x="37.35" y="0" size="26" textColor="0xa9a9a9" />
+			</e:Group>
+			<e:EditableText id="searchLable" text="" y="15" anchorOffsetX="0" width="694" anchorOffsetY="0" height="54"
+			                verticalAlign="middle" border="false" borderColor="0xEA1717" horizontalCenter="0" textAlign="center"
+			                size="34" promptColor="0x484858" textColor="0x484848"  fontFamily="Microsoft YaHei"/>
+
+			<e:Scroller id="scroller" width="720" height="780" y="90" anchorOffsetX="0" anchorOffsetY="0" />
+			<e:List id="list" width="720" height="780" x="0" y="90" anchorOffsetX="0" anchorOffsetY="0" >
+				<e:layout>
+					<e:VerticalLayout gap="2"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<e:Group id="actionBtnGroup" horizontalCenter="0" y="-100" touchEnabled="false">
+			<ns1:ShadowButton id="createPrivateRoomBtn" label="创建私人房" x="0" width="316" height="101"
+			                  skinName="pubButton66Skin"  bottom="27"/>
+			<ns1:ShadowButton id="startGameBtn" label="开始游戏" x="344" skinName="pubButton55Skin"  bottom="27"/>
+			<e:layout>
+				<e:HorizontalLayout gap="20" horizontalAlign="center" verticalAlign="bottom"/>
+			</e:layout>
+		</e:Group>
+	</e:Group>
+	<e:Group id="anmGroup" width="720" height="100">
+		<e:Image id="bg" width="720" height="100" anchorOffsetX="0" anchorOffsetY="0" y="1" scaleX="1" scaleY="1" x="0"
+		         source="bg_biaoti_png" />
+		<ns1:GameButton id="closeButton" label="Button" x="15" verticalCenter="0.5" skinName="closeButton2Skin" />
+
+		<e:Group id="titleGroup" height="100" horizontalCenter="0" y="0">
+			<e:Image id="titleImg" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0" source="game_yxc_png"/>
+
+
+			<e:Image id="leftImg" source="pub_bt_1_png" scaleX="-1" scaleY="1" verticalCenter="0" horizontalCenter="-108"/>
+			<e:Image id="rightImg" scaleX="1" scaleY="1" verticalCenter="0" source="pub_bt_1_png" horizontalCenter="108"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>

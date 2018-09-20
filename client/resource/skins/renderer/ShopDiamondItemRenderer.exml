@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShopDiamondItemRendererSkin" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing" width="720" height="368">
+	<e:Image horizontalCenter="0" y="300" width="720" x="10" source="mall_bg_1_3_png" alpha="0.8"/>
+	<e:Image scale9Grid="39,0,8,49" y="227" source="guang_2_png" scaleX="0.73" scaleY="0.73" x="15" touchEnabled="false"/>
+	<e:Image source="guang_2_png" scale9Grid="39,0,8,49" y="227" scaleX="0.73" scaleY="0.73" x="245" touchEnabled="false"/>
+	<e:Image source="guang_2_png" scale9Grid="39,0,8,49" y="227" scaleX="0.73" scaleY="0.73" x="483" touchEnabled="false"/>
+	<e:Image source="mall_bg_1_2_png" horizontalCenter="0" y="293" width="720" scale9Grid="39,0,18,35"/>
+	<ns1:DiamondItemComponent id="item0" y="0" skinName="DiamondItemComponentSkin" x="25"/>
+	<ns1:DiamondItemComponent id="item1" y="0" skinName="DiamondItemComponentSkin" horizontalCenter="0"/>
+	<ns1:DiamondItemComponent id="item2" y="0" skinName="DiamondItemComponentSkin" x="465"/>
+</e:Skin>

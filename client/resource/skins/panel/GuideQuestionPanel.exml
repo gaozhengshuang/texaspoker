@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0">
+		<e:Image width="666" height="315" source="pub_bg2_png" scale9Grid="4,106,656,8"  horizontalCenter="0" verticalCenter="0"/>
+		<e:Image source="qhdwt_png" top="15" horizontalCenter="0"/>
+
+		<e:List id="answerList" width="400" height="120" left="82" top="161">
+			<e:layout>
+				<e:VerticalLayout gap="25" />
+			</e:layout>
+		</e:List>
+		<e:Scroller id="answerScroller" width="400" height="120" left="82" top="161">
+
+		</e:Scroller>
+
+		<e:Label id="titleLabel" text="" top="103" left="65"/>
+	</e:Group>
+</e:Skin>

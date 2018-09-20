@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="guideQuestionRadioBtnSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+
+    <e:Label id="labelDisplay" left="45" right="8" size="30" textColor="0xFFFFFF"
+             verticalAlign="middle" textAlign="center" text="一对"  anchorOffsetX="0" verticalCenter="0" left.disabled="46" text.disabled=""/>
+
+	<e:Image id="border" source="game_srmm_png" verticalCenter="-0.5" x="0" source.up="xinshou_3_png" source.down="xinshou_3_png" verticalCenter.down="0" verticalCenter.up="0" source.upAndSelected="xinshou_3_png" source.downAndSelected="xinshou_3_png" source.disabledAndSelected="xinshou_3_png" source.disabled="xinshou_3_png"/>
+	<e:Image source="online_png" verticalCenter="0" includeIn="downAndSelected" left="4"/>
+	<e:Image source="online_png" verticalCenter="0" includeIn="upAndSelected" left="4"/>
+	<e:Image source="online_png" verticalCenter="0" includeIn="down" left="4"/>
+	<e:Image source="online_png" verticalCenter="0" includeIn="down" left="4"/>
+</e:Skin>

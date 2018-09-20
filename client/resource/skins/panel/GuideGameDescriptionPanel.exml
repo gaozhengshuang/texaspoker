@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin21_1" width="720" height="1280" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImg" width="720" height="1280" x="0" y="0" source=""/>
+	<e:Group id="tweenGroup" width="666" horizontalCenter="0" verticalCenter="-2">
+		<e:Image width="664" height="990" scaleX="1" scaleY="1"  horizontalCenter="0" anchorOffsetY="0" source="js_bg_1_png" scale9Grid="35,31,44,42" top="0"/>
+		<e:Image id="titleImg" horizontalCenter="0.5"  top="71" source="jianjie_png"/>
+		<e:Image id="titleImg0" horizontalCenter="0.5" top="15" source="js_bg_png"/>
+		<e:Scroller id="txtGroupScroller" width="664" height="620" anchorOffsetX="0" y="180" anchorOffsetY="0" x="0" />
+		<e:List id="txtList" anchorOffsetX="0" width="578" anchorOffsetY="0" height="620" y="180" horizontalCenter="0" />
+		<e:Group id="txtGroup" anchorOffsetY="0" height="620" anchorOffsetX="0" y="180" horizontalCenter="0">
+			<e:Label id="txtLabel" text="5555" width="578" fontFamily="Microsoft YaHei" size="30"
+			         multiline="true" textAlign="left" verticalAlign="justify" y="0" horizontalCenter="0" lineSpacing="3"  textColor="0xffffff"/>
+		</e:Group>
+
+
+		<ns1:ShadowButton id="nextStepBtn" label="下一步" scaleY="1" skinName="commonButtonY2_323x74Skin" horizontalCenter="0.5" bottom="72"/>
+	</e:Group>
+
+</e:Skin>

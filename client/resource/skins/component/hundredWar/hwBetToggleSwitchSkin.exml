@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="hwBetToggleSwitchSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="132" height="132">
+    <e:Image id="lightImg" source="br_button_guang_png" />
+    <e:Image id="bgImg" source="br_button_3_png" horizontalCenter="1" verticalCenter="-0.5" />
+    <e:Label id="labelDisplay" size="24" textColor="0xFFFFFF" verticalAlign="middle" textAlign="center" text=""
+             horizontalCenter="0" verticalCenter="0" width="60" touchEnabled="false" />
+    <e:Image id="maskImg" alpha="0.5" scaleX="1" scaleY="1" anchorOffsetX="0" width="108" anchorOffsetY="0" height="108"
+             source="touxiang_1_png" touchEnabled="true" horizontalCenter="0" verticalCenter="0" />
+</e:Skin>

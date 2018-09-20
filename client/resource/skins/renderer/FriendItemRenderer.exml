@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="friendItemRenderer" width="720" height="145" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+        <e:Image width="720" height="145" source="assets/bg/pub_bg11_png" alpha="0" />
+        <e:Label id="nameLabel" text="好友名字六字" x="150" y="35" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0"
+                 width="250" textColor="0xdfe5e5" />
+        <e:Label id="goldNumLabel" text="99999999" x="167.24" y="88" width="254" textAlign="left"
+                 fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" textColor="0xdfe5e5" />
+        <e:Button id="giveBtn" label="" skinName="friendGiveGoldBtnSkin" horizontalCenter="286.5" verticalCenter="26" />
+        <e:ToggleButton id="isOnlinetoggleBtn" label="在线" anchorOffsetX="0" x="608" y="30" anchorOffsetY="0" width="70"
+                        skinName="friendIsOnlineTB" />
+        <e:Image width="720" y="144" source="line_png" />
+        <e:Label text="$" x="150" y="88" size="26" />
+        <ns1:CircleHeadComponent id="userHeadCom" x="25" verticalCenter="0" skinName="CircleHeadComponentSkin" />
+</e:Skin>

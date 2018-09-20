@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HundredWarTrendItemRendererSkin" width="630" height="70" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="500" height="70" x="85">
+		<e:layout>
+			<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" gap="32"/>
+		</e:layout>
+		<e:Group x="96" y="21">
+			<e:Image id="bg0" scaleX="1" scaleY="1" source=""/>
+			<e:Label id="text0" text="" horizontalCenter="0" verticalCenter="0"/>
+		</e:Group>
+		<e:Group x="106" y="31">
+			<e:Image id="bg1" scaleX="1" scaleY="1" source=""/>
+			<e:Label text="" id="text1" horizontalCenter="0" verticalCenter="0"/>
+		</e:Group>
+		<e:Group x="116" y="41">
+			<e:Image id="bg2" scaleX="1" scaleY="1" source=""/>
+			<e:Label text="" id="text2" horizontalCenter="0" verticalCenter="0"/>
+		</e:Group>
+		<e:Group x="126" y="51">
+			<e:Image id="bg3" scaleX="1" scaleY="1" source=""/>
+			<e:Label text="" id="text3" horizontalCenter="0" verticalCenter="0"/>
+		</e:Group>
+	</e:Group>
+	<e:Image x="50" verticalCenter="0" width="20" height="20" source="br_zoushi_1_png"/>
+	<e:Label id="newLabel" text="NEW" x="30" textColor="0xff732e" rotation="-20" verticalCenter="0" size="26"/>
+</e:Skin>

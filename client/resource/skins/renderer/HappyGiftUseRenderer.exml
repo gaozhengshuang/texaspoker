@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HappyGiftUseRendererSkin" width="660" height="70" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="161115e97a2"/>
+	<e:Image width="94%" horizontalCenter="0" scale9Grid="0,0,18,1" bottom="0" height="2" source="happyGift_line_png"/>
+	<e:Label id="nameLabel" text="话费兑换" size="24" verticalCenter="0" left="10" textColor="0xffffff" height="26" textAlign="center" width="250" alpha="0.8"/>
+	<e:Label id="countLabel" text="999" size="24" verticalCenter="0" textColor="0xFFFFFF" right="30" height="26" width="200" textAlign="center" alpha="0.8"/>
+</e:Skin>

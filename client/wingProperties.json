@@ -1,9 +1,15 @@
 {
-	"resourcePlugin":{
-		"configs":[{
-			"configPath":"resource/default.res.json",
-			"relativePath":"resource/"
-		}]
+	"resourcePlugin": {
+		"configs": [
+			{
+				"configPath": "bin-publish/web/0.4.2/resource/default-55fc9af10a.res.json",
+				"relativePath": "resource/"
+			},
+			{
+				"configPath": "resource/default.res.json",
+				"relativePath": "resource/"
+			}
+		]
 	},
-	"theme":"resource/default.thm.json"
+	"theme": "resource/default.thm.json"
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AutoLoginPanelSkin" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Group id="tweenGroup" horizontalCenter="0" verticalCenter="0">
+			<e:Image id="bgImage" width="300" height="80" horizontalCenter="0" anchorOffsetY="0" alpha="1" verticalCenter="0" scale9Grid="27,31,15,37" source=""/>
+			<e:Label id="label" text="正在登陆..." size="26" horizontalCenter="0" textAlign="center" fontFamily="Microsoft YaHei" maxWidth="620" textColor="0xFFFFFF" verticalCenter="-3" backgroundColor="0x000000" borderColor="0x000000" maxHeight="1000" anchorOffsetY="0" height="60" verticalAlign="middle"/>
+
+
+
+
+    </e:Group>
+</e:Skin>

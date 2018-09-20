@@ -1,0 +1,106 @@
+<e:Skin class="panelSkin13" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="anmGroup1" x="0" y="85" height="1195" width="720">
+		<e:Image width="720" height="1211" anchorOffsetY="0" x="0" source="assets/bg/pub_bg11_png" y="-16"/>
+		<e:Image y="28" source="pub_biankuang2_png" width="674" horizontalCenter="0" scale9Grid="34,33,14,7"/>
+		<ns1:TabComponent id="friendTabCompontent" y="29" anchorOffsetY="0" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Group id="tabGroup" y="110" anchorOffsetY="0" height="1070" name="好友">
+		<e:Group id="hasFriendGroup" x="0" y="0" anchorOffsetY="0" height="1070" width="720">
+			<e:Scroller id="scroller" width="720" height="1070" anchorOffsetX="0" anchorOffsetY="0" y="0"/>
+			<e:List id="list" width="720" height="1070" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0">
+				<e:layout>
+					<e:VerticalLayout gap="2"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<e:Group id="noFriendGroup" width="720" height="1070" x="0" y="0" scaleX="1" scaleY="1" anchorOffsetY="0">
+			<e:Label text="您暂时还没有添加好友，点击上方按钮邀请好友一起游戏吧！" anchorOffsetY="0" height="122" anchorOffsetX="0" width="532" textAlign="center" horizontalCenter="0" verticalAlign="middle" lineSpacing="5" y="270"/>
+		</e:Group>
+		</e:Group>
+		<e:Group id="giftTabGroup" x="1" y="110" anchorOffsetY="0" height="1070" name="收到礼物">
+			<e:Group id="hasGiftGroup" x="0" y="0" anchorOffsetY="0" height="880">
+			<e:Scroller id="giftScroller" width="720" height="880" x="0.9700000000000273" anchorOffsetX="0" anchorOffsetY="0" y="0"/>
+			<e:List id="giftList" width="720" height="880" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0">
+				<e:layout>
+					<e:VerticalLayout gap="2"/>
+				</e:layout>
+			</e:List>
+			</e:Group>
+			<e:Group id="noGiftGroup" width="720" height="880" x="0" y="0" scaleX="1" scaleY="1" anchorOffsetY="0">
+			<e:Label text="暂时未收到好友金币先给好友赠送金币吧" anchorOffsetY="0" height="122" anchorOffsetX="0" width="296" textAlign="center" verticalAlign="middle" lineSpacing="5" horizontalCenter="0" y="270"/>
+			</e:Group>
+
+			<e:Group id="actionBtnGroup" y="-210" horizontalCenter="0">
+				<e:Group width="720" height="160" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" bottom="0">
+
+					<ns1:ShadowButton id="fastReceiveBtn" label="快速领取好友金币" y="40" skinName="friendKSLQButtonSkin" horizontalCenter="0.5"/>
+					<e:Image width="720" source="line_png" y="1"/>
+				</e:Group>
+			</e:Group>
+		</e:Group>
+		<e:Group id="requestTabGroup" y="110" anchorOffsetY="0" height="1070" name="好友请求" width="720">
+			<e:Group id="hasRequestGroup" x="0" y="0" anchorOffsetY="0" height="1070">
+			<e:Scroller id="requestScroller" width="720" height="1070" anchorOffsetX="0" anchorOffsetY="0" y="0"/>
+			<e:List id="requestList" width="720" height="1070" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0">
+				<e:layout>
+					<e:VerticalLayout gap="2"/>
+				</e:layout>
+			</e:List>
+			</e:Group>
+			<e:Group id="noRequestGroup" width="720" height="1070" x="0" y="0" scaleX="1" scaleY="1" anchorOffsetY="0">
+			<e:Label text="暂无好友请求" anchorOffsetY="0" height="122" anchorOffsetX="0" width="532" textAlign="center" horizontalCenter="0" verticalAlign="middle" lineSpacing="5" y="270"/>
+			</e:Group>
+		</e:Group>
+		<e:Group id="addTabGroup" y="110" anchorOffsetY="0" height="1070" name="添加">
+			<e:Group anchorOffsetY="0" horizontalCenter="1" height="90" y="5">
+				<e:Image source="bg_sousuo_png" width="720" y="0" scale9Grid="2,3,54,88"/>
+				<e:EditableText id="searchText" width="416" height="60" text="" x="104" anchorOffsetX="0" border="false" borderColor="0x6b6464" verticalAlign="middle" anchorOffsetY="0" prompt="请输入对方用户名或ID！" size="32" textColor="0x4bc6b7" promptColor="0x4bc6b7" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+				<e:Image anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0.5" x="32" source="icon_sousuo_png"/>
+				<ns1:GreenShadowButton id="searchBtn" label="搜索" x="530" verticalCenter="0" width="158" height="56" skinName="commonButtonGSkin"/>
+			</e:Group>
+
+			<e:Scroller id="addScroller" width="720" height="940" x="0" y="110" anchorOffsetY="0">
+
+			</e:Scroller>
+			<e:Group id="addViewportGroup" x="0" y="110">
+				<e:List id="addList" width="720" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0" scaleX="1" scaleY="1">
+					<e:layout>
+					<e:VerticalLayout gap="2"/>
+					</e:layout>
+				</e:List>
+				<e:Group id="recDesGroup" x="0" y="10">
+					<e:Image x="0" y="0" source="tuijian_bg_png" height="45" width="720"/>
+					<e:Label text="好友推荐" x="0" textAlign="center" width="720" size="26" fontFamily="Microsoft YaHei" textColor="0x40cab9" verticalCenter="0"/>
+				</e:Group>
+				<e:List id="recList" width="720" x="10" anchorOffsetX="0" anchorOffsetY="0" y="10" scaleX="1" scaleY="1">
+					<e:layout>
+					<e:VerticalLayout gap="2"/>
+					</e:layout>
+				</e:List>
+				<e:layout>
+					<e:VerticalLayout gap="0"/>
+				</e:layout>
+			</e:Group>
+		</e:Group>
+	</e:Group>
+    <e:Group id="anmGroup" width="720" height="100">
+        <e:Image id="bg" width="720" anchorOffsetX="0" anchorOffsetY="0" y="0" scaleX="1" scaleY="1"
+                 x="0"  source="bg_biaoti_png"/>
+			<e:Group id="titleGroup" height="100" horizontalCenter="0" y="0">
+				<e:Image id="titleImg" source="friend_hy_png" horizontalCenter="0" x="54" scaleX="1" scaleY="1" verticalCenter="0" y="9"/>
+
+
+				<e:Image source="pub_bt_1_png" scaleX="-1" scaleY="1" verticalCenter="0" horizontalCenter="-105"/>
+				<e:Image scaleX="1" scaleY="1" verticalCenter="0" source="pub_bt_1_png" horizontalCenter="105"/>
+			</e:Group>
+
+
+        <ns1:GameButton id="closeButton" label="Button" x="15"  skinName="closeButton2Skin" verticalCenter="0"/>
+
+			<e:Group id="inviteGroup" x="645" y="36">
+				<e:Label text="___" x="4.5" y="4" anchorOffsetY="0" height="36" textColor="0xf9cc58"/>
+				<e:Image id="inviteLabel" x="0" source="friend_yq_png" y="0"/>
+			</e:Group>
+    </e:Group>
+
+</e:Skin>

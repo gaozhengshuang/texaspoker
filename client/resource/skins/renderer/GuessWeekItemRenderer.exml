@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="guessWeekItemRenderer" width="680" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image width="680" height="50" anchorOffsetX="0" anchorOffsetY="0"
+             y="0"  x="0" source="pub_lines_png" scale9Grid="13,12,5,3"/>
+    <e:Label id="rankLabel" text="1" x="29"  verticalCenter="0" size="26"/>
+    <e:Label id="nameLabel" text="玩家名字" x="72" width="200" textAlign="center"  verticalCenter="0" size="26"/>
+    <e:Label id="anteLabel" text="99" x="301" width="120" textAlign="center"  verticalCenter="0" size="26"/>
+    <e:Label id="numLabel" text="999999999" x="460" width="220" textAlign="center"  verticalCenter="0" size="26"/>
+</e:Skin>

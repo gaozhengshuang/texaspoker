@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="outsChildItemRenderer" width="720" height="64" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="bgImage" width="720" height="64" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="2,2,8,8" y="0"
+             source="jbs_bg3_png" x="0" />
+    <e:Label id="rankLabel" text="冠军" x="36" size="26" textColor="0xf4c857" bold="false" width="74"
+             textAlign="center" anchorOffsetX="0"  fontFamily="Microsoft YaHei" y="19"/>
+    <e:Label id="userNameLabel" text="用户名称" x="140" size="26"  fontFamily="Microsoft YaHei" y="19"/>
+    <e:Label id="awardLabel" text="获得10元话费" x="340" size="26" textColor="0xf4c857" bold="false"  fontFamily="Microsoft YaHei" y="19"/>
+    <e:Image width="720" y="63" source="line_png" />
+</e:Skin>

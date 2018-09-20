@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShimTaeYoonHelpPanelSkin" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group id="tweenGroup" width="674" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"
+             verticalCenter="0">
+        <e:Image id="bg" y="40" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="872" width="674"
+                  source="laBa_bg_png" scale9Grid="0,62,666,32"/>
+        <e:Image y="0" horizontalCenter="0"  source="laBa_biaoti_bg_png"/>
+			<e:Image y="13.3" horizontalCenter="0" source="jcpfl_png"/>
+        <ns1:ShadowButton id="closeButton" label="Button" x="611" y="96" scaleY="1" anchorOffsetY="27"
+                          anchorOffsetX="27" scaleX="1"  skinName="laBaCloseButtonSkin"/>
+        <e:Scroller id="scroller" width="500" height="730" y="120" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"></e:Scroller>
+        <e:List id="list" width="500" height="730" y="120" horizontalCenter="0" />
+    </e:Group>
+</e:Skin>

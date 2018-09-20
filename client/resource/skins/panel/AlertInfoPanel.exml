@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin4" width="666" height="450" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" width="666" height="450" verticalCenter="0" horizontalCenter="0">
+		<e:Image height="450" width="666" source="pub_bg2_png" scale9Grid="12,98,644,22" x="0"/>
+		<e:Image scaleX="1" scaleY="1" anchorOffsetX="0" verticalCenter="-175.5" source="xtts_png" horizontalCenter="0.5"/>
+		<e:Label id="subTxt" text="111" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="30" horizontalCenter="0" fontFamily="Microsoft YaHei" y="120" width="600" height="50" textColor="0x999595"/>
+		<e:Label id="infoTxt" text="111" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="top" textAlign="center" size="30" horizontalCenter="1" fontFamily="Microsoft YaHei" y="200" width="600" textColor="0xffffff" lineSpacing="6" height="102"/>
+		<e:Group id="group" horizontalCenter="0" y="320">
+			<ns1:ShadowButton id="cancelBtn" label="取消" anchorOffsetX="0" scaleX="1" scaleY="1" verticalCenter="0" x="300" skinName="commonButtonB2Skin"/>
+			<ns1:ShadowButton id="confirmBtn" label="确定" anchorOffsetX="0" scaleX="1" scaleY="1" skinName="commonButtonY2Skin"/>
+			<e:layout>
+				<e:HorizontalLayout gap="100" horizontalAlign="center" verticalAlign="middle"/>
+			</e:layout>
+		</e:Group>
+	</e:Group>
+</e:Skin>

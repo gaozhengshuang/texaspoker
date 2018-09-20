@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="NumRenderer" width="70" height="70" xmlns:e="http://ns.egret.com/eui">
+    <e:Image horizontalCenter="-0" verticalCenter="0" width="66"
+             height="66"  scale9Grid="14,12,14,14" source="game_srmm_png"/>
+    <e:Label id="label1" text="1" width="60" height="55" textAlign="center" verticalAlign="middle"  anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" size="47" verticalCenter="0"/>
+</e:Skin>
