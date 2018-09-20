@@ -5,7 +5,7 @@ import (
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	//pb "github.com/gogo/protobuf/proto"
+	pb "github.com/gogo/protobuf/proto"
 )
 
 
@@ -120,15 +120,15 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 		panic("没有为Session设置UserDefData")
 	}
 
-	err, roomid := tmsg.GetErrcode(), tmsg.GetRoomid()
+	err, roomid, passwd := tmsg.GetErrcode(), tmsg.GetRoomid(), tmsg.GetPasswd()
 	name, id := client.Name(), client.Id()
 	if err != "" {
 		log.Info("玩家[%s %d] 开始游戏失败 err: %s", name, id, err)
 		return
 	}
-	client.roomid = roomid
+	client.roomid, client.roompwd = roomid, passwd
 
-	sendmsg := &msg.BT_ReqEnterRoom{}
+	sendmsg := &msg.BT_ReqEnterRoom{Roomid:pb.Int64(roomid),Passwd:pb.String(passwd) }
 	session.SendCmd(sendmsg)
 	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
 

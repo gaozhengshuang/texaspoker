@@ -32,7 +32,6 @@ func (this* RS2GWMsgHandler) Init() {
 		return
 	}
 
-
 	// 收
 	this.msgparser.RegistProtoMsg(msg.RS2GW_ReqRegist{}, on_RS2GW_ReqRegist)
 	this.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
