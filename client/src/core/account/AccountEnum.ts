@@ -35,14 +35,14 @@ class AccountCode
 
 	public static GetDescription(code: string): string
 	{
-		if (qin.StringUtil.isNullOrEmpty(code))
+		if (game.StringUtil.isNullOrEmpty(code))
 		{
 			return "状态码为空";
 		}
 		switch (code)
 		{
 			case AccountCode.Success:
-				return qin.StringConstants.Empty;//成功返回空
+				return game.StringConstants.Empty;//成功返回空
 			case "-1": //系统
 				return "帐号系统错误";
 			case "-2":
@@ -92,7 +92,7 @@ class AccountCode
 			case "2004":
 				return "应用已禁用";
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 }
 class AccountHttpUrl

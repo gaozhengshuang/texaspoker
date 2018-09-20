@@ -6,7 +6,6 @@ class InitServerHandler
 	private _isComplete: boolean = false;
 	public get isComplete(): boolean
 	{
-
 		return this._isComplete;
 	}
 
@@ -26,70 +25,36 @@ class InitServerHandler
 	/// <param name="serverInfo"></param>
 	/// <param name="complete"></param>
 	/// <param name="error"></param>
-	public Invoke(loginInfo: LoginInfo, serverInfo: ServerInfo, complete: Function, error: Function)
+	public Invoke(complete: Function, error: Function)
 	{
 		this._isComplete = false;
 		this._complete = complete;
 		this._error = error;
-		UserManager.serverInfo = serverInfo;
-
-		SocketManager.Close();
-		SocketManager.Initialize(loginInfo.userid, serverInfo.roleId, serverInfo.id, loginInfo.secret, loginInfo.session);
-		this.RemoveEvents();
-		SocketManager.OnConnect.addListener(this.OnSocketConnect, this);
-		SocketManager.OnEnterError.addListener(this.OnEnterError, this);
-		SocketManager.isEntering = true;
-
-		SocketManager.pollingConnect(loginInfo.domain, loginInfo.port, true);
 	}
 	/// <summary>
 	/// 当发送给服务器成功，在服务器返回之前断线，然后重连请求一样的session时候，重新拉数据
 	/// </summary>
 	public AfreshGetInfo()
 	{
-		if (this._isGeting == false)
-		{
-			this._isGeting = true;
-			if (!UIManager.isShowPanel(UIModuleName.LoadingSwitchPanel))
-			{
-				UIManager.showPanel(UIModuleName.LoadingSwitchPanel);
-			}
-			SocketManager.ImplCall(Command.Role_GetInfo_3000, null, this.OnRoleInfo, null, this);
-		}
+		// if (this._isGeting == false) //move todo
+		// {
+		// 	this._isGeting = true;
+		// 	if (!UIManager.isShowPanel(UIModuleName.LoadingSwitchPanel))
+		// 	{
+		// 		UIManager.showPanel(UIModuleName.LoadingSwitchPanel);
+		// 	}
+		// 	SocketManager.ImplCall(Command.Role_GetInfo_3000, null, this.OnRoleInfo, null, this);
+		// }
 	}
-	private RemoveEvents()
-	{
-		SocketManager.OnConnect.removeListener(this.OnSocketConnect, this);
-		SocketManager.OnEnterError.removeListener(this.OnEnterError, this);
-	}
-	private OnSocketConnect()
+
+	private OnRoleInfo(result: game.SpRpcResult)
 	{
 		if (!UIManager.isShowPanel(UIModuleName.LoadingSwitchPanel))
 		{
 			UIManager.showPanel(UIModuleName.LoadingSwitchPanel);
 		}
-		SocketManager.ImplCall(Command.Role_GetInfo_3000, null, this.OnRoleInfo, null, this);
-	}
-	private OnEnterError()
-	{
-		this.DispatchError();
-	}
-	private OnRoleInfo(result: qin.SpRpcResult)
-	{
-		if (LoginManager.loginInfo.hasAlreadyCreateRole == false)
-		{
-			LoginManager.loginInfo.hasAlreadyCreateRole = true;
-		}
-		if (UserManager.serverInfo.roleId == 0)
-		{
-			//创建角色后，从socket里获取角色id
-			UserManager.serverInfo.roleId = SocketManager.roleId;
-		}
-		//
-		// LoggerManager.emailLogger.SetRoleId(SocketManager.roleId, _serverInfo.id);
-		qin.Console.roleId = SocketManager.roleId;
+		game.Console.roleId = UserManager.userInfo.roleId;
 		TimeManager.initialize(result.data);
-		UserManager.initialize(SocketManager.roleId, result.data);//一定要用socket返回的roleId
 		this.reqAwardInfo();
 	}
 	/**
@@ -100,7 +65,7 @@ class InitServerHandler
 		SocketManager.ImplCall(Command.Award_GetInfo_3112, null, this.onReqAwardInfo, null, this);
 	}
 
-	private onReqAwardInfo(result: qin.SpRpcResult)
+	private onReqAwardInfo(result: game.SpRpcResult)
 	{
 		AwardManager.Initialize(result);
 		this.reqItemList();
@@ -112,12 +77,11 @@ class InitServerHandler
 	{
 		SocketManager.ImplCall(Command.Req_ItemList_3020, null, this.onGetItemList, null, this);
 	}
-	private onGetItemList(result: qin.SpRpcResult)
+	private onGetItemList(result: game.SpRpcResult)
 	{
 		ItemManager.initialize(result);
 		this.reqFriendListInfo();
 	}
-
 	/**
 	* 发送好友列表信息获取请求
 	*/
@@ -125,7 +89,7 @@ class InitServerHandler
 	{
 		SocketManager.ImplCall(Command.Friend_GetList_3156, null, this.FriendListInfoResponse, null, this);
 	}
-	private FriendListInfoResponse(result: qin.SpRpcResult)
+	private FriendListInfoResponse(result: game.SpRpcResult)
 	{
 		FriendManager.Initialize(result);
 		this.reqAddFriendListInfo();
@@ -137,7 +101,7 @@ class InitServerHandler
 	{
 		SocketManager.ImplCall(Command.Friend_RequestList_3157, null, this.addFriendListInfoResponse, null, this);
 	}
-	private addFriendListInfoResponse(result: qin.SpRpcResult)
+	private addFriendListInfoResponse(result: game.SpRpcResult)
 	{
 		FriendManager.FriendRequestResponse(result);
 		this.reqAchievementList();
@@ -150,7 +114,7 @@ class InitServerHandler
 		SocketManager.ImplCall(Command.Achievement_GetList_3090, { "roleId": UserManager.userInfo.roleId }, this.OnAchievementListInfo, null, this);
 	}
 
-	private OnAchievementListInfo(result: qin.SpRpcResult)
+	private OnAchievementListInfo(result: game.SpRpcResult)
 	{
 		AchievementManager.initialize(result);
 		AchieveProcessManager.Initialize(result);
@@ -161,7 +125,7 @@ class InitServerHandler
 		//拉取锦标赛赛事所在房间信息列表
 		SocketManager.ImplCall(Command.InsideRoomInfoList_Req_3614, null, this.onGetInsideRoomListInfo, null, this);
 	}
-	private onGetInsideRoomListInfo(result: qin.SpRpcResult)
+	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
 		InsideRoomManager.initialize(result);
 		this.reqGetMTTListInfo();
@@ -173,7 +137,7 @@ class InitServerHandler
 	{
 		SocketManager.ImplCall(Command.MTTList_Req_3611, null, this.onGetMTTListInfo, null, this);
 	}
-	private onGetMTTListInfo(result: qin.SpRpcResult)
+	private onGetMTTListInfo(result: game.SpRpcResult)
 	{
 		ChampionshipManager.initialize(result);
 		this.reqInviteAwardInfo();
@@ -185,7 +149,7 @@ class InitServerHandler
 	{
 		SocketManager.ImplCall(Command.InviteAward_Req_3714, null, this.onInviteAwardInfo, null, this);
 	}
-	private onInviteAwardInfo(result: qin.SpRpcResult)
+	private onInviteAwardInfo(result: game.SpRpcResult)
 	{
 		InviteManager.initialize(result);
 		this.reqGetMailList();
@@ -197,7 +161,7 @@ class InitServerHandler
 	{
 		SocketManager.ImplCall(Command.Mail_GetList_3097, { "StartId": 0, "Count": GameSetting.MaxMailNum }, this.onGetMailList, null, this);
 	}
-	private onGetMailList(result: qin.SpRpcResult)
+	private onGetMailList(result: game.SpRpcResult)
 	{
 		MailManager.Reset();
 		MailManager.initialize(result, true);
@@ -211,29 +175,22 @@ class InitServerHandler
 		ActivityManager.OnActivityGetListEvent.addListener(this.onGetreqGetActivityList, this);
 		ActivityManager.reqActivityInfo(0);
 	}
-	private onGetreqGetActivityList(result: qin.SpRpcResult)
+	private onGetreqGetActivityList(result: game.SpRpcResult)
 	{
 		ActivityManager.OnActivityGetListEvent.removeListener(this.onGetreqGetActivityList, this);
 		ActivityManager.initialize(result);
 		this.requestNotice();
 	}
-	/// <summary>
-	/// 请求服务器推送 在所有拉取协议之后调用
-	/// </summary>
+
 	private requestNotice()
-	{
-		//发送3004开启推送通知
-		SocketManager.ImplCall(Command.System_GetNotice_3004, { sessionId: SocketManager.requestSessionMax }, this.onGetNotice, null, this);
-	}
-	private onGetNotice()
 	{
 		SocketManager.isEntering = false;//进游戏结束,开启重连，提示正常处理
 		this.DispatchComplete();
 	}
+
 	private DispatchComplete()
 	{
 		// UIManager.closePanel(UIModuleName.LoadingSwitchPanel); //为了登录体验流畅
-		this.RemoveEvents();
 		this._isGeting = false;
 		this._isComplete = true;
 		if (this._complete != null) 
@@ -245,7 +202,6 @@ class InitServerHandler
 	private DispatchError()
 	{
 		UIManager.closePanel(UIModuleName.LoadingSwitchPanel);
-		this.RemoveEvents();
 		this._isGeting = false;
 		if (this._error != null)
 		{

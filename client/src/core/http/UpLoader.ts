@@ -14,7 +14,7 @@ class UpLoader
 	 */
 	public static UpLoad(url: string, sign: string, bytes: string, isReTry: boolean, complete: Function = null, error: Function = null, thisObj?: any)
 	{
-		if (qin.StringUtil.isNullOrEmpty(url))
+		if (game.StringUtil.isNullOrEmpty(url))
 		{
 			return;
 		}
@@ -41,7 +41,7 @@ class UpLoader
 
 				UpLoader._upLoader["url"] = data.url;
 
-				let params: any = qin.StringConstants.Empty;
+				let params: any = game.StringConstants.Empty;
 				params += "sign=" + encodeURIComponent(data.sign);
 				params += "&pvp=" + encodeURIComponent(data.bytes);
 				UpLoader._upLoader.send(params);
@@ -71,9 +71,9 @@ class UpLoader
 			data = UpLoader._uploadQueue[i];
 			if (data && data.url == loader["url"])
 			{
-				qin.Console.log("上传成功key：" + data.sign);
+				game.Console.log("上传成功key：" + data.sign);
 				UpLoader._uploadQueue.splice(i, 1);
-				qin.FuncUtil.invoke(data.complete, data.thisObj, data);
+				game.FuncUtil.invoke(data.complete, data.thisObj, data);
 			}
 		}
 		UpLoader.UpLoadNext();
@@ -89,7 +89,7 @@ class UpLoader
 			if (data && data.url == loader["url"])
 			{
 				UpLoader._uploadQueue.splice(i, 1);
-				qin.FuncUtil.invoke(data.error, data.thisObj, event);
+				game.FuncUtil.invoke(data.error, data.thisObj, event);
 			}
 		}
 		if (data && data.isReTry)
@@ -103,7 +103,7 @@ class UpLoader
 	}
 	private static reTry(data: UpLoadData)
 	{
-		qin.Console.log("重试key：" + data.sign);
+		game.Console.log("重试key：" + data.sign);
 		if (data.reTryCount < UpLoader.ReTryMax)
 		{
 			data.reTryCount++;

@@ -1,4 +1,4 @@
-module qin
+module game
 {
     export class ExternalInterface
     {

@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * 函数调用工具

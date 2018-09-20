@@ -257,7 +257,7 @@ class PrizePanel extends BasePanel
     {
         let prizeList: Array<ItemInfo>;
         prizeList = ItemManager.getItemListByType(ItemType.Raffle);
-        qin.ArrayUtil.Clear(this.notReceiveInfoList);
+        game.ArrayUtil.Clear(this.notReceiveInfoList);
         if (!this.notReceiveInfoList)
         {
             this.notReceiveInfoList = new Array<PrizeInfo>();

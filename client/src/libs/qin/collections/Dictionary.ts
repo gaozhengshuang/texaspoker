@@ -1,9 +1,9 @@
-module qin
+module game
 {
 	/**
 	 * 字典
 	 */
-	export class Dictionary<KT, VT>
+	export class Map<KT, VT>
 	{
 		private _keys: KT[] = [];
 		private _values: VT[] = [];

@@ -27,11 +27,11 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
         HundredWarManager.onShowCardsEvent.removeListener(this.showCardsInfo, this);
         HundredWarManager.OnGetRoomInfoEvent.removeListener(this.setPoolInfo, this);
         HundredWarManager.onShowCardsAnimOverEvent.removeListener(this.refreshInfo, this);
-        qin.Tick.RemoveTimeoutInvoke(this.hidePoolDes, this);
-        qin.Tick.RemoveTimeoutInvoke(this.showBankerLoseAccountAnim, this);
-        qin.Tick.RemoveTimeoutInvoke(this.showPlayerAccounfAnim, this);
-        qin.Tick.RemoveTimeoutInvoke(this.onShowCardsOver, this);
-        qin.Tick.RemoveTimeoutInvoke(this.hideCards, this);
+        game.Tick.RemoveTimeoutInvoke(this.hidePoolDes, this);
+        game.Tick.RemoveTimeoutInvoke(this.showBankerLoseAccountAnim, this);
+        game.Tick.RemoveTimeoutInvoke(this.showPlayerAccounfAnim, this);
+        game.Tick.RemoveTimeoutInvoke(this.onShowCardsOver, this);
+        game.Tick.RemoveTimeoutInvoke(this.hideCards, this);
     }
 
     /**
@@ -41,7 +41,7 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
     {
         if (HundredWarManager.hundredWarOverInfo)
         {
-            qin.ArrayUtil.Clear(this.hwResultsCardInfo);
+            game.ArrayUtil.Clear(this.hwResultsCardInfo);
             let cardsCom: HWCardsComponent;
             let hundredWarCardsInfo: HundredWarCardsInfo;
             let hwResult: HWResultCardsInfo;
@@ -67,10 +67,10 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
                             str = "X " + odds + "  ";
                             if (betInfo.win == HundredWarResultType.Win)
                             {
-                                str = str + "+" + qin.MathUtil.formatNum(HundredWarManager.getSelfPoolGoldByPos(betInfo.pos));
+                                str = str + "+" + game.MathUtil.formatNum(HundredWarManager.getSelfPoolGoldByPos(betInfo.pos));
                             } else if (betInfo.win == HundredWarResultType.Lose)
                             {
-                                str = str + "-" + qin.MathUtil.formatNum(HundredWarManager.getSelfPoolGoldByPos(betInfo.pos));
+                                str = str + "-" + game.MathUtil.formatNum(HundredWarManager.getSelfPoolGoldByPos(betInfo.pos));
                             } else if (betInfo.win == HundredWarResultType.Dogfall)
                             {
                                 str = "";
@@ -120,7 +120,7 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
     */
     public setPoolInfo()
     {
-        this.target.potLabel.text = qin.MathUtil.formatNum(HundredWarManager.roomInfo.pool);
+        this.target.potLabel.text = game.MathUtil.formatNum(HundredWarManager.roomInfo.pool);
     }
     /**
      * 切换牌和筹码的层级
@@ -206,7 +206,7 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
             this._poolDesEffect = ptc;
         });
         this.showPoolAnim();
-        qin.Tick.AddTimeoutInvoke(this.hidePoolDes, 2000, this);
+        game.Tick.AddTimeoutInvoke(this.hidePoolDes, 2000, this);
     }
     /**
      * 隐藏爆奖池信息
@@ -271,7 +271,7 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
                 this.showBankerLoseAccountAnim(flag);  //庄家全赢
             } else
             {
-                qin.Tick.AddTimeoutInvoke(this.showBankerLoseAccountAnim, 2000, this, flag);  //庄家有输
+                game.Tick.AddTimeoutInvoke(this.showBankerLoseAccountAnim, 2000, this, flag);  //庄家有输
             }
         }
     }
@@ -302,7 +302,7 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
                     }
                 }
             }
-            qin.Tick.AddTimeoutInvoke(this.showPlayerAccounfAnim, 1000, this, flag);  //闲家赢
+            game.Tick.AddTimeoutInvoke(this.showPlayerAccounfAnim, 1000, this, flag);  //闲家赢
         }
     }
 
@@ -386,8 +386,8 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
             this.showTaxAndSelfWinAnim();  //收税、自己和坐下玩家            
         } else
         {
-            qin.Tick.AddTimeoutInvoke(this.hideCards, 3000, this);
-            qin.Tick.AddTimeoutInvoke(this.onShowCardsOver, 2000, this);
+            game.Tick.AddTimeoutInvoke(this.hideCards, 3000, this);
+            game.Tick.AddTimeoutInvoke(this.onShowCardsOver, 2000, this);
         }
     }
     /**
@@ -416,8 +416,8 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
                 }
             }
         }
-        qin.Tick.AddTimeoutInvoke(this.onShowCardsOver, 2000, this)
-        qin.Tick.AddTimeoutInvoke(this.hideCards, 3000, this);
+        game.Tick.AddTimeoutInvoke(this.onShowCardsOver, 2000, this)
+        game.Tick.AddTimeoutInvoke(this.hideCards, 3000, this);
     }
     /**
      * 播放自己赢动画

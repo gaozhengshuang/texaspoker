@@ -3,8 +3,8 @@
  */
 class GuideExecutor
 {
-	private static _notClearStepList: qin.Dictionary<number, Array<BaseGuideProcess<GuideControllerDefinition>>> = new qin.Dictionary<number, Array<BaseGuideProcess<GuideControllerDefinition>>>();
-	public static get notClearStepList(): qin.Dictionary<number, Array<BaseGuideProcess<GuideControllerDefinition>>>
+	private static _notClearStepList: game.Map<number, Array<BaseGuideProcess<GuideControllerDefinition>>> = new game.Map<number, Array<BaseGuideProcess<GuideControllerDefinition>>>();
+	public static get notClearStepList(): game.Map<number, Array<BaseGuideProcess<GuideControllerDefinition>>>
 	{
 		return GuideExecutor._notClearStepList;
 	}
@@ -54,7 +54,7 @@ class GuideExecutor
 		else
 		{
 			GuideExecutor.guideProcess = undefined;
-			qin.Console.log("未检测到有合适的引导开启or引导已经完成or引导数据异常!");
+			game.Console.log("未检测到有合适的引导开启or引导已经完成or引导数据异常!");
 		}
 	}
 
@@ -69,7 +69,7 @@ class GuideExecutor
 		}
 		else
 		{
-			qin.Console.logError("未找到合适引导触发类型！");
+			game.Console.logError("未找到合适引导触发类型！");
 		}
 	}
 	private static tmpChildStepProcess: Array<BaseGuideProcess<GuideControllerDefinition>> = new Array<BaseGuideProcess<GuideControllerDefinition>>();
@@ -121,10 +121,10 @@ class GuideExecutor
 		}
 		if (!guideDef)
 		{
-			qin.Console.log("GuideExecutor.run执行引导异常，引导数据为空！");
+			game.Console.log("GuideExecutor.run执行引导异常，引导数据为空！");
 			return;
 		}
-		qin.Console.log("引导------------>" + guideDef.des);
+		game.Console.log("引导------------>" + guideDef.des);
 		GuideExecutor.clearChildStepProcess();
 		if (GuideExecutor.guideProcess)
 		{
@@ -154,7 +154,7 @@ class GuideExecutor
 		}
 		else
 		{
-			qin.Console.log("引导步骤数据为空！引导ID：" + guideDef.id);
+			game.Console.log("引导步骤数据为空！引导ID：" + guideDef.id);
 			GuideExecutor.guideProcessComplete(GuideExecutor.guideProcess); //没有子步骤执行的话，直接执行结束
 		}
 	}
@@ -193,7 +193,7 @@ class GuideExecutor
 		}
 		else
 		{
-			qin.Console.logError("处理引导完毕逻辑异常！target：" + target);
+			game.Console.logError("处理引导完毕逻辑异常！target：" + target);
 		}
 	}
 	private static trySetGuideStep(definition: GuideDefinition, next?: number)
@@ -217,7 +217,7 @@ class GuideExecutor
 		{
 			if (definition.delay > 0)
 			{
-				qin.Tick.AddTimeoutInvoke((data: any) =>
+				game.Tick.AddTimeoutInvoke((data: any) =>
 				{
 					GuideExecutor.clearNotClearSteps(definition);
 					GuideExecutor._isOnGuide = false;
@@ -234,7 +234,7 @@ class GuideExecutor
 		else
 		{
 			GuideExecutor._isOnGuide = false;
-			qin.Console.logError("同阶段触发下一步引导异常！ID:" + definition.id);
+			game.Console.logError("同阶段触发下一步引导异常！ID:" + definition.id);
 		}
 	}
 	private static setGuideRecordComplete(data: any)
@@ -247,7 +247,7 @@ class GuideExecutor
 			{
 				if (guideDef.delay > 0)
 				{
-					qin.Tick.AddTimeoutInvoke((tmp: any) =>
+					game.Tick.AddTimeoutInvoke((tmp: any) =>
 					{
 						GuideExecutor.clearNotClearSteps(guideDef);
 						GuideExecutor._isOnGuide = false;
@@ -266,7 +266,7 @@ class GuideExecutor
 			{
 				if (guideDef.delay > 0)
 				{
-					qin.Tick.AddTimeoutInvoke(() =>
+					game.Tick.AddTimeoutInvoke(() =>
 					{
 						GuideExecutor.clearNotClearSteps(guideDef);
 						GuideExecutor._isOnGuide = false;
@@ -323,7 +323,7 @@ class GuideExecutor
 		}
 
 	}
-	private static stepProcessMap: qin.Dictionary<any, Array<BaseGuideProcess<GuideControllerDefinition>>> = new qin.Dictionary<any, Array<BaseGuideProcess<GuideControllerDefinition>>>();
+	private static stepProcessMap: game.Map<any, Array<BaseGuideProcess<GuideControllerDefinition>>> = new game.Map<any, Array<BaseGuideProcess<GuideControllerDefinition>>>();
 	/**
 	 * 获取步骤处理器
 	 */
@@ -359,7 +359,7 @@ class GuideExecutor
 			case GuideStepType.RunPanelFunc:
 				return GuideExecutor.getStepProcessInstance(GuideRunPanelFuncStepProcess, def, par);
 			default:
-				qin.Console.logError("获取引导步骤处理器异常！" + stepDef.type);
+				game.Console.logError("获取引导步骤处理器异常！" + stepDef.type);
 				break;
 		}
 		return null;
@@ -434,7 +434,7 @@ class GuideExecutor
 				clz = GuideRunPanelFuncStepProcess;
 				break;
 			default:
-				qin.Console.logError("回收引导步骤处理器异常！" + type);
+				game.Console.logError("回收引导步骤处理器异常！" + type);
 				return;
 		}
 		let list: Array<BaseGuideProcess<GuideControllerDefinition>> = GuideExecutor.stepProcessMap.getValue(clz);

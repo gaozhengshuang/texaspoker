@@ -203,8 +203,8 @@ class ChampionshipInfoPanel extends BasePanel
         this.matchInfoTab.tabChangeEvent.removeListener(this.onTabClickHandler, this);
         ChampionshipManager.OnOutsInfoEvent.removeListener(this.setOutsInfo, this);
         ChampionshipManager.OnRankInfoEvent.removeListener(this.setRankInfo, this);
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
-        qin.Tick.RemoveSecondsInvoke(this.countUp, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countUp, this);
         this.applicationBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onApplicationBtnClick, this);
         this.withdrawBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onWithdrawBtnClick, this);
         ChampionshipManager.OnWithdrawEvent.removeListener(this.closePanel, this);
@@ -453,12 +453,12 @@ class ChampionshipInfoPanel extends BasePanel
                 {
                     this.countUpNum = num;
                     this.countUpLabel = this.forTimeLabel;
-                    qin.Tick.AddSecondsInvoke(this.countUp, this);
+                    game.Tick.AddSecondsInvoke(this.countUp, this);
                     this.surplusTimeGroup.visible = true;
                     this.notStartGroup.visible = false;
                     this.countDownNum = ChampionshipManager.matchOutsInfo.addBlindTime;
                     this.countDownLabel = this.surplusTimeLabel;
-                    qin.Tick.AddSecondsInvoke(this.countDown, this);
+                    game.Tick.AddSecondsInvoke(this.countDown, this);
                 } else
                 {
                     this.surplusTimeGroup.visible = false;
@@ -473,12 +473,12 @@ class ChampionshipInfoPanel extends BasePanel
                     {
                         this.countUpNum = num;
                         this.countUpLabel = this.forTimeLabel;
-                        qin.Tick.AddSecondsInvoke(this.countUp, this);
+                        game.Tick.AddSecondsInvoke(this.countUp, this);
                         this.surplusTimeGroup.visible = true;
                         this.notStartGroup.visible = false;
                         this.countDownNum = ChampionshipManager.matchOutsInfo.addBlindTime;
                         this.countDownLabel = this.surplusTimeLabel;
-                        qin.Tick.AddSecondsInvoke(this.countDown, this);
+                        game.Tick.AddSecondsInvoke(this.countDown, this);
                     }
                 } else
                 {
@@ -487,15 +487,15 @@ class ChampionshipInfoPanel extends BasePanel
                 }
             }
 
-            this.nowBlindLabel.text = qin.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nowSBlind) + "/" + qin.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nowBBlind);
+            this.nowBlindLabel.text = game.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nowSBlind) + "/" + game.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nowBBlind);
             if (ChampionshipManager.matchOutsInfo.nowAnte)
             {
-                this.nowAnteLabel.text = qin.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nowAnte);
+                this.nowAnteLabel.text = game.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nowAnte);
             }
-            this.nextBlindLabel.text = qin.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nextSBlind) + "/" + qin.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nextBBlind);
+            this.nextBlindLabel.text = game.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nextSBlind) + "/" + game.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nextBBlind);
             if (ChampionshipManager.matchOutsInfo.nextAnte)
             {
-                this.nextAnteLabel.text = qin.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nextAnte);
+                this.nextAnteLabel.text = game.MathUtil.formatNum(ChampionshipManager.matchOutsInfo.nextAnte);
             }
         }
         this.setApplicationInfo();
@@ -568,10 +568,10 @@ class ChampionshipInfoPanel extends BasePanel
         let date: Date = new Date(this._championshipInfo.startTime * 1000);
         if (champDef.delaySign)
         {
-            this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + " " + qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "（延迟报名" + Math.floor(champDef.delaySign / 60) + "分钟）";
+            this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + " " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "（延迟报名" + Math.floor(champDef.delaySign / 60) + "分钟）";
         } else
         {
-            this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + " " + qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1];
+            this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + " " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1];
         }
         this.joinNumLabel.text = champDef.sNum + "-" + champDef.bNum + "人";
         this.setRebuyAndAddonInfo(champDef);
@@ -584,7 +584,7 @@ class ChampionshipInfoPanel extends BasePanel
         this.timeDesLabel.text = "开放时间:";
         let date: Date = new Date(this._championshipInfo.openTime);
         let endDate: Date = new Date(this._championshipInfo.closeTime);
-        this.timeLabel.text = qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "-" + qin.DateTimeUtil.formatDate(endDate, qin.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "，坐满即开";
+        this.timeLabel.text = game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "-" + game.DateTimeUtil.formatDate(endDate, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "，坐满即开";
         this.joinNumLabel.text = champDef.bNum + "人";
     }
     /**
@@ -595,7 +595,7 @@ class ChampionshipInfoPanel extends BasePanel
         if (champDef.rebuy)
         {
             this.rebuyGroup.visible = true;
-            this.rebuyDesLabel.textFlow = qin.TextUtil.parse(
+            this.rebuyDesLabel.textFlow = game.TextUtil.parse(
                 '可重购比赛，次数：' +
                 '<font color="#F3C655" size="24">' + champDef.rebuy + '次' + '</font>' +
                 '，第' + '<font color="#F3C655" size="24">' + this.nthRebuy + '</font>' +
@@ -606,7 +606,7 @@ class ChampionshipInfoPanel extends BasePanel
         if (champDef.addon)
         {
             this.addonGroup.visible = true;
-            this.addonDesLabel.textFlow = qin.TextUtil.parse(
+            this.addonDesLabel.textFlow = game.TextUtil.parse(
                 '可增购比赛，次数：' +
                 '<font color="#F3C655" size="24">' + champDef.addon + '次' + '</font>' +
                 '，第' + '<font color="#F3C655" size="24">' + this.nthAddon + '</font>' +
@@ -673,15 +673,15 @@ class ChampionshipInfoPanel extends BasePanel
     {
         if (this.countDownNum <= 0)
         {
-            this.countDownLabel.text = qin.DateTimeUtil.countDownFormat(this.countDownNum, false);
+            this.countDownLabel.text = game.DateTimeUtil.countDownFormat(this.countDownNum, false);
         } else
         {
             this.countDownNum--;
-            this.countDownLabel.text = qin.DateTimeUtil.countDownFormat(this.countDownNum, false);
+            this.countDownLabel.text = game.DateTimeUtil.countDownFormat(this.countDownNum, false);
         }
         if (this.countDownNum <= 0)
         {
-            qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+            game.Tick.RemoveSecondsInvoke(this.countDown, this);
             if (ChampionshipManager.blindList && ChampionshipManager.blindList.length > 0 && ChampionshipManager.nowBlindRank < ChampionshipManager.blindList.length)
             {
                 ChampionshipManager.nowBlindRank++;
@@ -729,10 +729,10 @@ class ChampionshipInfoPanel extends BasePanel
     private countUp()
     {
         this.countUpNum++;
-        this.countUpLabel.text = qin.DateTimeUtil.countDownFormat(this.countUpNum, true);
+        this.countUpLabel.text = game.DateTimeUtil.countDownFormat(this.countUpNum, true);
         if (this.countUpNum >= 359999)
         {
-            qin.Tick.RemoveSecondsInvoke(this.countUp, this);
+            game.Tick.RemoveSecondsInvoke(this.countUp, this);
         }
     }
 }

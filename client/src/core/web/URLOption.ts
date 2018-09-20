@@ -47,7 +47,7 @@ class URLOption
     }
     public static getBoolean(key: string): boolean
     {
-        return qin.StringUtil.toBoolean(egret.getOption(key));
+        return game.StringUtil.toBoolean(egret.getOption(key));
     }
     public static getNumber(key: string): number
     {

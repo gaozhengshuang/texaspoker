@@ -12,18 +12,18 @@ class InviteManager
     */
     private static _time: number;
 
-    public static initialize(result: qin.SpRpcResult)
+    public static initialize(result: game.SpRpcResult)
     {
         //设置奖励数据
         InviteManager.setAwardInfo(result);
-        qin.Tick.AddSecondsInvoke(InviteManager.refreshAwardInfo, InviteManager);
+        game.Tick.AddSecondsInvoke(InviteManager.refreshAwardInfo, InviteManager);
     }
     /**
      * 发送绑定邀请码请求
     */
     public static reqBindInviteCode(shareId: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -31,7 +31,7 @@ class InviteManager
                 InviteManager.OnBindInviteCodeEvent.dispatch();
             }
         };
-        let errorCallback: Function = function (result: qin.SpRpcResult)
+        let errorCallback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -50,7 +50,7 @@ class InviteManager
     /**
      * 设置奖励数据
     */
-    public static setAwardInfo(result: qin.SpRpcResult)
+    public static setAwardInfo(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -77,7 +77,7 @@ class InviteManager
     */
     public static reqBindListInfo(startId: number = 0, count: number = 10)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let isBottom: boolean = true;
             let bindList: Array<InviteBindInfo> = new Array<InviteBindInfo>();
@@ -106,7 +106,7 @@ class InviteManager
     */
     public static reqPayListInfo(startId: number = 0, count: number = 10)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let isBottom: boolean = true;
             let payList: Array<InviteBindInfo> = new Array<InviteBindInfo>();
@@ -135,7 +135,7 @@ class InviteManager
     */
     public static reqBringBean()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             PropertyManager.ShowItemList();
             InviteManager.OnBringBeanEvent.dispatch();
@@ -148,7 +148,7 @@ class InviteManager
     */
     public static reqBringGold()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             PropertyManager.ShowItemList();
             InviteManager.OnBringGoldEvent.dispatch();
@@ -220,25 +220,25 @@ class InviteManager
     /**
      *绑定好友邀请码成功
     */
-    public static OnBindInviteCodeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnBindInviteCodeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 领取新人礼金豆奖励成功
     */
-    public static OnBringBeanEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnBringBeanEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 领取绑定充值金币奖励成功
     */
-    public static OnBringGoldEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnBringGoldEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取绑定数据成功
     */
-    public static OnBindListInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnBindListInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取充值数据成功
     */
-    public static OnPayListInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnPayListInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取奖励数据成功
     */
-    public static OnInviteAwardEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnInviteAwardEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

@@ -66,7 +66,7 @@ class HundredWarBankerListPanel extends BasePanel
     }
     private refreshGold()
     {
-        this.goldLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+        this.goldLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
     }
     private refreshBankerBtn(flag: boolean)
     {
@@ -97,13 +97,13 @@ class HundredWarBankerListPanel extends BasePanel
                     this.bankerGoldHs.maximum = UserManager.userInfo.gold;
                     this.bankerGoldHs.touchChildren = true;
                     this.bankerGoldHs.minimum = this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.bankerGold;
-                    this.tipsLabel.text = qin.MathUtil.formatNum(this.bankerGoldHs.value);
+                    this.tipsLabel.text = game.MathUtil.formatNum(this.bankerGoldHs.value);
                 }
                 else
                 {
                     this.bankerGoldHs.maximum = this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.bankerGold;
                     this.bankerGoldHs.touchChildren = false;
-                    this.tipsLabel.text = "上庄至少需要" + qin.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerGold);
+                    this.tipsLabel.text = "上庄至少需要" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerGold);
                 }
             }
         }
@@ -116,7 +116,7 @@ class HundredWarBankerListPanel extends BasePanel
         {
             if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.bankerGold)
             {
-                this.tipsLabel.text = qin.MathUtil.formatNum(this.bankerGoldHs.value);
+                this.tipsLabel.text = game.MathUtil.formatNum(this.bankerGoldHs.value);
             }
             else
             {
@@ -144,7 +144,7 @@ class HundredWarBankerListPanel extends BasePanel
                     }
                     else
                     {
-                        AlertManager.showConfirm("您的金币不足" + qin.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerGold) + "，无法上庄！", null, () => 
+                        AlertManager.showConfirm("您的金币不足" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerGold) + "，无法上庄！", null, () => 
                         {
                             JumpUtil.JumpToShopping(ShopGroupIndex.Gold, UIModuleName.HundredWarBankerListPanel)
                         }, null, "系统提示", null, "确定", "充值", null);

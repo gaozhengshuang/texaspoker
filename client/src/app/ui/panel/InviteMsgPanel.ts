@@ -34,7 +34,7 @@ class InviteMsgPanel extends BasePanel
 			this.headComp.init(info, 120);
 			if (def)
 			{
-				this.roomBuyLabel.text = qin.MathUtil.formatNum(def.sBuyin) + "买入";
+				this.roomBuyLabel.text = game.MathUtil.formatNum(def.sBuyin) + "买入";
 				if (def.type == PlayingFieldType.OmahaPrimary || def.type == PlayingFieldType.OmahaMiddle || def.type == PlayingFieldType.OmahaHigh || def.type == PlayingFieldType.OmahaPersonal)
 				{
 					this.inviteMsgLable.visible = false;
@@ -49,7 +49,7 @@ class InviteMsgPanel extends BasePanel
 		}
 		else
 		{
-			qin.Console.logError("ERROR好友信息未找到角色ID：" + appendData.roleId);
+			game.Console.logError("ERROR好友信息未找到角色ID：" + appendData.roleId);
 		}
 		if (appendData.id)
 		{

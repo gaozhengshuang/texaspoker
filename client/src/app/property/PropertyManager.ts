@@ -19,7 +19,7 @@ class PropertyManager
     /**
      * 物品
      */
-    private static _itemOldList: qin.Dictionary<number, number> = new qin.Dictionary<number, number>();
+    private static _itemOldList: game.Map<number, number> = new game.Map<number, number>();
     /**
      * item获取列表
      */
@@ -32,7 +32,7 @@ class PropertyManager
     public static OpenGet()
     {
         PropertyManager._isOpen = true;
-        qin.ArrayUtil.Clear(PropertyManager._itemGetList);
+        game.ArrayUtil.Clear(PropertyManager._itemGetList);
         PropertyManager._itemOldList.clear();
         for (let itemInfo of ItemManager.itemList)
         {
@@ -54,7 +54,7 @@ class PropertyManager
         {
             if (count > 0)
             {
-                UIManager.showPanel(UIModuleName.GetCoinTipsPanel, "您获得了" + qin.MathUtil.formatNum(count) + "金币");
+                UIManager.showPanel(UIModuleName.GetCoinTipsPanel, "您获得了" + game.MathUtil.formatNum(count) + "金币");
             }
         }
     }

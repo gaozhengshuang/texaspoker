@@ -51,7 +51,7 @@ class NameDefined extends BaseDefined<NameDefinition>
                 }
             }
             if(!(this._lastNameRange || this._boyFirstNameRange)){
-                qin.Console.log("获取姓名或男孩名范围失败");
+                game.Console.log("获取姓名或男孩名范围失败");
             }
         }
     }
@@ -62,19 +62,19 @@ class NameDefined extends BaseDefined<NameDefinition>
     {
         sex = sex < Sex.Female ? Sex.Male : Sex.Female;
         //姓
-        let firstNameIndex: number = qin.MathUtil.getRandom(0, this._lastNameRange - 1);
+        let firstNameIndex: number = game.MathUtil.getRandom(0, this._lastNameRange - 1);
         let firstName: string = this.dataList[firstNameIndex].name;
         //名
         let lastName: string;
         if (sex == Sex.Male)
         {
-            let index: number = qin.MathUtil.getRandom(0, this._boyFirstNameRange - 1);
+            let index: number = game.MathUtil.getRandom(0, this._boyFirstNameRange - 1);
             let def: NameDefinition = this.dataList[index];
             lastName = def.boy;
         }
         else
         {
-            let index: number = qin.MathUtil.getRandom(0, this.dataList.length - 1);
+            let index: number = game.MathUtil.getRandom(0, this.dataList.length - 1);
             let def: NameDefinition = this.dataList[index];
             lastName = def.girl;
         }

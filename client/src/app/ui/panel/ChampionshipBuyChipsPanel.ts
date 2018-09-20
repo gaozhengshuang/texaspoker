@@ -49,34 +49,34 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		{
 			if (this.panelData && this.panelData.isRebuy)
 			{
-				this.timesLabel.text = qin.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.rebuy - GamblingManager.roomInfo.rebuyTimes);
+				this.timesLabel.text = game.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.rebuy - GamblingManager.roomInfo.rebuyTimes);
 				this.rebuyGroup.visible = true;
 				this.addonGroup.visible = false;
 				if (this.panelData.isOver)
 				{
-					this.desLabel.text = qin.StringUtil.format("比赛筹码输光了,是否花费{0}金币重新购买{1}比赛筹码?",
+					this.desLabel.text = game.StringUtil.format("比赛筹码输光了,是否花费{0}金币重新购买{1}比赛筹码?",
 						GamblingManager.matchRoomInfo.definition.rebuyCost, GamblingManager.matchRoomInfo.definition.initialChips)
 					this._text = this.desLabel.text;
 					this.showDownCount();
 					return;
 				}
-				this.desLabel.text = qin.StringUtil.format("是否花费{0}金币重新购买{1}比赛筹码?",
+				this.desLabel.text = game.StringUtil.format("是否花费{0}金币重新购买{1}比赛筹码?",
 					GamblingManager.matchRoomInfo.definition.rebuyCost, GamblingManager.matchRoomInfo.definition.initialChips)
 			}
 			else
 			{
-				this.timesLabel.text = qin.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.addon - GamblingManager.roomInfo.addonTimes);
+				this.timesLabel.text = game.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.addon - GamblingManager.roomInfo.addonTimes);
 				this.rebuyGroup.visible = false;
 				this.addonGroup.visible = true;
 				if (this.panelData && this.panelData.isOver)
 				{
-					this.desLabel.text = qin.StringUtil.format("比赛筹码输光了,是否花费{0}金币重新购买{1}比赛筹码?",
+					this.desLabel.text = game.StringUtil.format("比赛筹码输光了,是否花费{0}金币重新购买{1}比赛筹码?",
 						GamblingManager.matchRoomInfo.definition.addonCost, GamblingManager.matchRoomInfo.definition.addonChips)
 					this._text = this.desLabel.text;
 					this.showDownCount();
 					return;
 				}
-				this.desLabel.text = qin.StringUtil.format("是否花费{0}金币增购{1}比赛筹码?",
+				this.desLabel.text = game.StringUtil.format("是否花费{0}金币增购{1}比赛筹码?",
 					GamblingManager.matchRoomInfo.definition.addonCost, GamblingManager.matchRoomInfo.definition.addonChips)
 			}
 		}
@@ -86,12 +86,12 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		if (GamblingManager.roomInfo)
 		{
 			let time: number = Math.floor(this._starTime - TimeManager.GetServerUtcTimestamp());
-			qin.Tick.AddSecondsInvoke(this.refreshTime, this);
+			game.Tick.AddSecondsInvoke(this.refreshTime, this);
 			if (time <= 0)
 			{
 				time = 0;
 			}
-			this.desLabel.text = this._text + qin.StringUtil.format("({0})", time);
+			this.desLabel.text = this._text + game.StringUtil.format("({0})", time);
 		}
 	}
 	private refreshTime()
@@ -103,7 +103,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 			this.outChampionship();
 			return;
 		}
-		this.desLabel.text = this._text + qin.StringUtil.format("({0})", time);
+		this.desLabel.text = this._text + game.StringUtil.format("({0})", time);
 	}
 	protected onRender(event: egret.Event)
 	{
@@ -226,6 +226,6 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		this.outButton.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.outBtnClick, this);
 		GamblingManager.RebuyORAddonEvent.removeListener(this.onRebuyORAddonEvent, this);
 		GamblingManager.NextRoundStartEvent.removeListener(this.onNextRoundStartEvent, this);
-		qin.Tick.RemoveSecondsInvoke(this.refreshTime, this);
+		game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
 	}
 }

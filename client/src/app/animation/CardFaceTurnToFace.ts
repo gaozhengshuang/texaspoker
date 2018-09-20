@@ -6,7 +6,7 @@ class CardFaceTurnToFace extends BaseAnimation<CardFaceComponent>{
 	private _frontFaceMatrix: egret.Matrix;
 	public scale: number = 1;
 	public time: number = 120;
-	public callback: qin.Delegate;
+	public callback: game.Delegate;
 
 	/**
 	 * 动画是否显示音效

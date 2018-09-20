@@ -8,7 +8,7 @@ class ShadowButton extends eui.Button
         let label: eui.Label = this.labelDisplay as eui.Label;
         if (label)
         {
-            qin.FilterUtil.setShadow(label);
+            game.FilterUtil.setShadow(label);
         }
     }
 }
@@ -22,7 +22,7 @@ class GreenShadowButton extends eui.Button
         let label: eui.Label = this.labelDisplay as eui.Label;
         if (label)
         {
-            qin.FilterUtil.setGreenShadow(label);
+            game.FilterUtil.setGreenShadow(label);
         }
     }
 }

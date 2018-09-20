@@ -90,7 +90,7 @@ class Channel_web extends ChannelBase
 		{
 			ChannelManager.OnTokenLoginSucceed.dispatch(WebConfig.wxAuthorizeType + '###2###' + token);
 		}
-		else if (qin.System.isWeChat == false)
+		else if (game.System.isWeChat == false)
 		{
 			token = PrefsManager.getLoginToken();
 			if (PrefsManager.getValue(PrefsManager.Login_LoginType) == ChannelLoginType.Weixin && token)
@@ -115,7 +115,7 @@ class Channel_web extends ChannelBase
 		{
 			AwardManager.Exchange(awardId, 1, false);//直接兑换
 		}
-		else if (qin.System.isWeChat)
+		else if (game.System.isWeChat)
 		{
 			//微信里打开使用jsapi支付
 			let openId: string = WebConfig.wxOpenId;
@@ -136,7 +136,7 @@ class Channel_web extends ChannelBase
 
 	public share(type: string, title: string, message: string, inviteCode?: string)
 	{
-		if (qin.System.isWeChat)
+		if (game.System.isWeChat)
 		{
 			this.setWxConfig(() =>
 			{
@@ -182,7 +182,7 @@ class Channel_web extends ChannelBase
 	}
 	public imageSelect(size: number, quality: number): void
 	{
-		if (qin.System.isWeChat)
+		if (game.System.isWeChat)
 		{
 			this.setWxConfig(() =>
 			{
@@ -197,7 +197,7 @@ class Channel_web extends ChannelBase
 		}
 		else
 		{
-			qin.WebImageSelect.browse(this, function (data: string)
+			game.WebImageSelect.browse(this, function (data: string)
 			{
 				ChannelManager.OnImageSelect.dispatch({ type: HeadUploadSystemType.web, data: data });
 			}, function (msg: string)

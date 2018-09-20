@@ -8,7 +8,7 @@ class AlertManager
 	 */
 	public static showAlert(msg: string, onConfirm?: Function, onCancel?: Function, onConfirmParam?: any, title?: string, subTitle?: string, confirmLabel?: string, cancelLabel?: string, onCancelParam?: any)
 	{
-		let alertInfo: AlertInfo = qin.PoolUtil.GetObject<AlertInfo>(AlertInfo);
+		let alertInfo: AlertInfo = game.PoolUtil.GetObject<AlertInfo>(AlertInfo);
 		alertInfo.title = title;
 		alertInfo.subTitle = subTitle;
 		alertInfo.message = msg;
@@ -23,7 +23,7 @@ class AlertManager
 	}
 	public static showAlert2(msg: string, thisObject:any, onConfirm?: Function, onCancel?: Function, confirmParam?: any, cancelParam?: any)
 	{
-		let alertInfo: AlertInfo = qin.PoolUtil.GetObject<AlertInfo>(AlertInfo);
+		let alertInfo: AlertInfo = game.PoolUtil.GetObject<AlertInfo>(AlertInfo);
 		alertInfo.thisObject = thisObject;
 		alertInfo.message = msg;
 		alertInfo.OnConfirm = onConfirm;
@@ -38,7 +38,7 @@ class AlertManager
 	 */
 	public static showConfirm(msg: string, onConfirm?: Function, onCancel?: Function, onConfirmParam?: any, title?: string, subTitle?: string, confirmLabel?: string, cancelLabel?: string, onCancelParam?: any)
 	{
-		let alertInfo: AlertInfo = qin.PoolUtil.GetObject<AlertInfo>(AlertInfo);
+		let alertInfo: AlertInfo = game.PoolUtil.GetObject<AlertInfo>(AlertInfo);
 		alertInfo.title = title;
 		alertInfo.subTitle = subTitle;
 		alertInfo.message = msg;
@@ -53,7 +53,7 @@ class AlertManager
 	}
 	public static showConfirm2(msg: string, thisObject:any, onConfirm?: Function, onCancel?: Function, confirmParam?: any, cancelParam?: any)
 	{
-		let alertInfo: AlertInfo = qin.PoolUtil.GetObject<AlertInfo>(AlertInfo);
+		let alertInfo: AlertInfo = game.PoolUtil.GetObject<AlertInfo>(AlertInfo);
 		alertInfo.thisObject = thisObject;
 		alertInfo.message = msg;
 		alertInfo.OnConfirm = onConfirm;

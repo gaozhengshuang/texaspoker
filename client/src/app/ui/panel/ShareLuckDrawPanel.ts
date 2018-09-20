@@ -116,7 +116,7 @@ class ShareLuckDrawPanel extends BaseActivityPanel
         egret.clearTimeout(this._timer);
         egret.clearInterval(this._timer1);
         egret.clearTimeout(this._timer2);
-        qin.Tick.RemoveTimeoutInvoke(this.constantSpeedAnim, this);
+        game.Tick.RemoveTimeoutInvoke(this.constantSpeedAnim, this);
         egret.Tween.removeTweens(this.scroller.viewport);
     }
 
@@ -236,12 +236,12 @@ class ShareLuckDrawPanel extends BaseActivityPanel
     private shareBtnClick(event: egret.TouchEvent)
     {
         SoundManager.playEffect(MusicAction.buttonClick);
-        if (!(qin.System.isWeChat || qin.System.isMicro))
+        if (!(game.System.isWeChat || game.System.isMicro))
         {
             UIManager.showFloatTips("当前打开方式不支持分享，请在微信里打开或使用App版本");
             return;
         }
-        if (qin.System.isMicro && ChannelManager.hasWeixin == false)
+        if (game.System.isMicro && ChannelManager.hasWeixin == false)
         {
             AlertManager.showAlert("您未安装微信，分享失败。");
             return;
@@ -344,7 +344,7 @@ class ShareLuckDrawPanel extends BaseActivityPanel
     private scrollAnim()
     {
         let itemListLen: number = this.itemList.length;
-        let turnsNum: number = qin.MathUtil.getRandom(4, 7);  //一共转动的圈数        
+        let turnsNum: number = game.MathUtil.getRandom(4, 7);  //一共转动的圈数        
         this._index = this._itemIndex;
         this._roundItemIndex = 0;
         this._totalItem = itemListLen - this._itemIndex + itemListLen * (turnsNum - 1) + this._result + 1;
@@ -362,7 +362,7 @@ class ShareLuckDrawPanel extends BaseActivityPanel
                 } else
                 {
                     egret.clearTimeout(this._timer);
-                    qin.Tick.AddTimeoutInvoke(this.constantSpeedAnim, this._addSpendList[len - 1], this)
+                    game.Tick.AddTimeoutInvoke(this.constantSpeedAnim, this._addSpendList[len - 1], this)
                     break;
                 }
             }
@@ -427,10 +427,10 @@ class ShareLuckDrawPanel extends BaseActivityPanel
         if ((this._totalItem >= this._roundItemIndex) && (this._totalItem - this._roundItemIndex <= this._cutSpendList.length))
         {
             egret.clearInterval(this._timer1);
-            qin.Tick.AddTimeoutInvoke(this.setHighLight, this._cutSpendList[this._cutSpendList.length - (this._totalItem - this._roundItemIndex)], this);  //减速
+            game.Tick.AddTimeoutInvoke(this.setHighLight, this._cutSpendList[this._cutSpendList.length - (this._totalItem - this._roundItemIndex)], this);  //减速
             if (this._index == this._result)
             {
-                qin.Tick.RemoveTimeoutInvoke(this.setHighLight, this);
+                game.Tick.RemoveTimeoutInvoke(this.setHighLight, this);
                 this.hideAfterHighLight();
                 this._itemIndex = this._result;
                 this.drawBtn.enabled = true;

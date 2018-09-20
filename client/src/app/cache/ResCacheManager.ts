@@ -35,7 +35,7 @@ class ResCacheManager
 	// 
 	//------------------------------------------------------------------
 
-    private _cacheMap: qin.Dictionary<ResCacheType, ResCache<any>> = new qin.Dictionary<ResCacheType, ResCache<any>>();
+    private _cacheMap: game.Map<ResCacheType, ResCache<any>> = new game.Map<ResCacheType, ResCache<any>>();
 
     constructor()
     {
@@ -101,7 +101,7 @@ class ResCacheManager
         {
             return this._cacheMap.getValue(resType);
         }
-        qin.Console.log("类型不存在")
+        game.Console.log("类型不存在")
         return null;
     }
 }

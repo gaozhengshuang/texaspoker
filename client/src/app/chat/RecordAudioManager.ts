@@ -7,19 +7,19 @@ class RecordAudioManager
 	/**
 	 * 录音结束
 	 */
-	public static OnRecordVoiceComplete: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnRecordVoiceComplete: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 上传录音完毕
 	 */
-	public static OnUploadRecordVoiceComplete: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnUploadRecordVoiceComplete: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 播放录音完成事件
 	 */
-	public static OnPlayRecordComplete: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPlayRecordComplete: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 准备播放事件
 	 */
-	public static OnPrepearPlay: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPrepearPlay: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 用于上传的签名
 	 */
@@ -45,7 +45,7 @@ class RecordAudioManager
 	/**
 	 * 正在播放的录音id
 	 */
-	public static playingGuid: string = qin.StringConstants.Empty;
+	public static playingGuid: string = game.StringConstants.Empty;
 	/**
 	 * 正在下载数据
 	 */
@@ -85,7 +85,7 @@ class RecordAudioManager
 				return;
 			}
 			RecordAudioManager.OnRecordVoiceComplete.dispatch([RecordAudioManager._armTime, RecordAudioManager._armGuid]);
-			if (qin.StringUtil.isNullOrEmpty(RecordAudioManager._updateSign))
+			if (game.StringUtil.isNullOrEmpty(RecordAudioManager._updateSign))
 			{
 				//重新请求sign
 				RecordAudioManager.RequestUpdateSign();
@@ -121,7 +121,7 @@ class RecordAudioManager
 	 */
 	public static IsStillHandling(): boolean
 	{
-		return !qin.StringUtil.isNullOrEmpty(RecordAudioManager._armGuid);
+		return !game.StringUtil.isNullOrEmpty(RecordAudioManager._armGuid);
 	}
 	/**
 	 * 上传失败也清理
@@ -169,7 +169,7 @@ class RecordAudioManager
 
 	private static OnDownLoadError(guid: string)
 	{
-		qin.Console.log("加载录音文件失败！:" + guid);
+		game.Console.log("加载录音文件失败！:" + guid);
 	}
 
 	private static DispatchPlayRecordComplete(guid: string)
@@ -188,7 +188,7 @@ class RecordAudioManager
 	{
 		if (code == AudioRecordActions.StartRecord)
 		{
-			if (!qin.StringUtil.isNullOrEmpty(RecordAudioManager.playingGuid))
+			if (!game.StringUtil.isNullOrEmpty(RecordAudioManager.playingGuid))
 			{
 				ChannelManager.stopRecord(RecordAudioManager.playingGuid); //开始录音的时候停止播放正在播放的录音 
 			}
@@ -251,7 +251,7 @@ class RecordAudioManager
 	/**
 	 * 请求上传签名数据返回
 	 */
-	private static OnUpdateSignCallBack(obj: qin.SpRpcResult)
+	private static OnUpdateSignCallBack(obj: game.SpRpcResult)
 	{
 		if (obj.data != null)
 		{
@@ -265,7 +265,7 @@ class RecordAudioManager
 	 */
 	private static CheckToUploadData()
 	{
-		if (qin.StringUtil.isNullOrEmpty(RecordAudioManager._updateSign) == false && RecordAudioManager._armData != null)
+		if (game.StringUtil.isNullOrEmpty(RecordAudioManager._updateSign) == false && RecordAudioManager._armData != null)
 		{
 			RecordAudioManager.UploadAmrRecordData();
 		}
@@ -295,7 +295,7 @@ class RecordAudioManager
 	{
 		egret.clearTimeout(RecordAudioManager._resumeTimer);
 		let tempGuid: string = RecordAudioManager.playingGuid;
-		RecordAudioManager.playingGuid = qin.StringConstants.Empty;
+		RecordAudioManager.playingGuid = game.StringConstants.Empty;
 		RecordAudioManager.DispatchPlayRecordComplete(tempGuid);
 		RecordAudioManager.RestoreMusicSetting();
 	}

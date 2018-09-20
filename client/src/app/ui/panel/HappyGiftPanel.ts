@@ -100,7 +100,7 @@ class HappyGiftPanel extends BaseActivityPanel
     private refreshUI()
     {
         this.titleLabel.text = this.activityInfo.definition.name;
-        this.ticketNumLabel.text = "您的欢乐券：" + qin.MathUtil.numAddSpace(this.activityInfo.step);
+        this.ticketNumLabel.text = "您的欢乐券：" + game.MathUtil.numAddSpace(this.activityInfo.step);
         if (ActivityUtil.isInJoinTime(this.activityInfo))
         {
             let startTime: number = Math.round(this.activityInfo.startDateTime.getTime() / 1000);
@@ -114,8 +114,8 @@ class HappyGiftPanel extends BaseActivityPanel
             {
                 leftTime = endTime - TimeManager.GetServerUtcTimestamp();
             }
-            qin.DateTimeUtil.GetLefttimeText(leftTime, false, false);
-            this.leftTimeLabel.text = "距离结束还有：" + qin.DateTimeUtil.GetLefttimeText(leftTime);
+            game.DateTimeUtil.GetLefttimeText(leftTime, false, false);
+            this.leftTimeLabel.text = "距离结束还有：" + game.DateTimeUtil.GetLefttimeText(leftTime);
         }
         else
         {
@@ -131,8 +131,8 @@ class HappyGiftPanel extends BaseActivityPanel
         {
             if (def.isRichTxt)
             {
-                text.textFlow = qin.TextUtil.parse(def.text);
-                title.textFlow = qin.TextUtil.parse(def.title);
+                text.textFlow = game.TextUtil.parse(def.text);
+                title.textFlow = game.TextUtil.parse(def.title);
             }
             else
             {

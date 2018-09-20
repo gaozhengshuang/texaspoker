@@ -32,7 +32,7 @@ class HWFuncSupport extends BaseHWPanelSupport
         HundredWarManager.onPosChangeEvent.removeListener(this.setStandUpBtn, this);
         HundredWarManager.onShowCardsAnimOverEvent.removeListener(this.reqStandUp, this);
         HundredWarManager.onStandUpEvent.removeListener(this.onStandUp, this);
-        qin.Tick.RemoveTimeoutInvoke(this.leaveRoom, this);
+        game.Tick.RemoveTimeoutInvoke(this.leaveRoom, this);
     }
 
     /**

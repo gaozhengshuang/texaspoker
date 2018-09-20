@@ -2,7 +2,7 @@
  * 动画基类
  */
 abstract class BaseAnimation<T>{
-	public callBack: qin.Delegate;
+	public callBack: game.Delegate;
 	public target: T;
 	public setTarget(target: T)
 	{

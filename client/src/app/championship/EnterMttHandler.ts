@@ -35,7 +35,7 @@ class EnterMttHandler
             if (roomId > 0) //有房间ID的比赛，直接进入
             {
                 GamblingManager.reqEnterRoom(roomId);
-                qin.Console.log("进入比赛房间enterMatch" + roomId);
+                game.Console.log("进入比赛房间enterMatch" + roomId);
             }
             else
             {   //等待状态处理

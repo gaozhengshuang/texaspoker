@@ -27,7 +27,7 @@ class AchievementItemRenderer extends BaseItemRenderer<AchievementInfo>
 		if (InfoUtil.checkAvailable(this.bindData))
 		{
 			this.itemImg.source = this.bindData.definition.icon + ResSuffixName.PNG;
-			this._numContentInfo.content = qin.MathUtil.formatNum(this.bindData.definition.para1);
+			this._numContentInfo.content = game.MathUtil.formatNum(this.bindData.definition.para1);
 			this.numImg.init(this._numContentInfo);
 			this.refreshiUI();
 			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDisable, this);
@@ -74,7 +74,7 @@ class AchievementItemRenderer extends BaseItemRenderer<AchievementInfo>
 	{
 		this.info = info;
 		this.itemImg.source = info.definition.icon + ResSuffixName.PNG;
-		this._numContentInfo.content = qin.MathUtil.formatNum(info.definition.para1);
+		this._numContentInfo.content = game.MathUtil.formatNum(info.definition.para1);
 		this.numImg.init(this._numContentInfo);
 		this.achieveGroup.visible = true;
 		this.achieveMask.visible = false;

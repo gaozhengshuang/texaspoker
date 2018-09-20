@@ -33,11 +33,11 @@ class HundredWarPanelHandler
         {
             HundredWarManager.panelHandler.hundredWarList = new Array<HundredWarListInfo>();
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data.Array)
             {
-                qin.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarList);
+                game.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarList);
                 for (let requestInfo of result.data.Array)
                 {
                     let info: HundredWarListInfo = new HundredWarListInfo();
@@ -58,7 +58,7 @@ class HundredWarPanelHandler
         {
             HundredWarManager.panelHandler.hundredWarNoSeatList = new Array<SimpleUserInfo>();
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let isBottom: boolean = false;
             let playerNum: number;
@@ -68,7 +68,7 @@ class HundredWarPanelHandler
                 {
                     isBottom = true;
                 }
-                qin.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarNoSeatList);
+                game.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarNoSeatList);
                 for (let playerInfo of result.data["playerList"])
                 {
                     if (!HundredWarManager.isSysBanker(playerInfo.roleId))
@@ -96,11 +96,11 @@ class HundredWarPanelHandler
         {
             HundredWarManager.panelHandler.HundredWarTrendList = new Array<number[]>();
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data["trendList"])
             {
-                qin.ArrayUtil.Clear(HundredWarManager.panelHandler.HundredWarTrendList);
+                game.ArrayUtil.Clear(HundredWarManager.panelHandler.HundredWarTrendList);
                 for (let trendInfo of result.data["trendList"])
                 {
                     let info: number[] = Array<number>();
@@ -125,11 +125,11 @@ class HundredWarPanelHandler
         {
             HundredWarManager.panelHandler.HundredWarBankerList = new Array<SimpleUserInfo>();
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data["bankerList"])
             {
-                qin.ArrayUtil.Clear(HundredWarManager.panelHandler.HundredWarBankerList);
+                game.ArrayUtil.Clear(HundredWarManager.panelHandler.HundredWarBankerList);
                 for (let bankerInfo of result.data["bankerList"])
                 {
                     let info: SimpleUserInfo;
@@ -154,7 +154,7 @@ class HundredWarPanelHandler
      */
     public reqUpBanker(gold: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let info: SimpleUserInfo = new SimpleUserInfo();
             info.copyValueFromThis(UserManager.userInfo);
@@ -169,7 +169,7 @@ class HundredWarPanelHandler
      */
     public reqDownBanker()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (HundredWarManager.panelHandler.isBanker() && HundredWarManager.roomInfo.state != HWState.WaitNext)
             {
@@ -227,7 +227,7 @@ class HundredWarPanelHandler
         {
             HundredWarManager.panelHandler.lastPoolInfo = new HundredWarlastPoolInfo();
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -240,25 +240,25 @@ class HundredWarPanelHandler
     /**
      * 上/下庄完成事件(true为上庄,false为下庄)
      */
-    public onUpDownBankerEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onUpDownBankerEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
     * 获取百人大战广播事件
     */
-    public OnGetHundredWarInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public OnGetHundredWarInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取无座玩家事件
      */
-    public OnGetHundredWarNoSeatInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public OnGetHundredWarNoSeatInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取胜负走势事件
      */
-    public OnGetHundredWarTrendListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public OnGetHundredWarTrendListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取庄家列表事件
      */
-    public OnGetHundredWarBankerListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public OnGetHundredWarBankerListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取奖池信息事件
      */
-    public OnGetHundredWarPoolInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public OnGetHundredWarPoolInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

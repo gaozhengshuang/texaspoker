@@ -13,7 +13,7 @@ class AlphaChangeAnimation extends BaseAnimation<egret.DisplayObject>
 		this.callBack = null;
 		if (callBack)
 		{
-			this.callBack = qin.Delegate.getOut(callBack, thisObj);
+			this.callBack = game.Delegate.getOut(callBack, thisObj);
 		}
 
 		this.target.alpha = initAlpha;
@@ -28,7 +28,7 @@ class AlphaChangeAnimation extends BaseAnimation<egret.DisplayObject>
 		{
 			this.callBack.invoke();
 		}
-		qin.Delegate.putIn(this.callBack);
+		game.Delegate.putIn(this.callBack);
 		this.callBack = null;
 
 	}

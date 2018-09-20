@@ -33,7 +33,7 @@ class BaseBannerRemindPanel extends BasePanel
         this.setRemindInfo();
         this.enterAnime();
         this.countDown();
-        qin.Tick.AddSecondsInvoke(this.countDown, this);
+        game.Tick.AddSecondsInvoke(this.countDown, this);
     }
     protected onEnable(event: eui.UIEvent): void
     {
@@ -42,7 +42,7 @@ class BaseBannerRemindPanel extends BasePanel
     protected onDisable(event: eui.UIEvent): void
     {
         super.onDisable(event);
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
     }
 
     /**
@@ -91,7 +91,7 @@ class BaseBannerRemindPanel extends BasePanel
         this.countDownNum--;
         if (this.countDownNum <= 0)
         {
-            qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+            game.Tick.RemoveSecondsInvoke(this.countDown, this);
             ChampionshipManager.mttRemindStartHandler.ResetThreeMinFlagEvent.dispatch();
             this.outAnime();
         }

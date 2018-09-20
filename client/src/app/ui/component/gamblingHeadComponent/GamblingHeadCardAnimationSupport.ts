@@ -3,7 +3,7 @@
  */
 class GamblingHeadCardAnimationSupport
 {
-	private _actionList: qin.Dictionary<string, BaseAnimation<any>>;
+	private _actionList: game.Map<string, BaseAnimation<any>>;
 	/**
  	* 本家手牌Y坐标
  	*/
@@ -35,7 +35,7 @@ class GamblingHeadCardAnimationSupport
 			let run2: SelfCard2Appear = <SelfCard2Appear>this.getAnimation(AnimationType.OmahaSelfCard2Appear, this.context.cardFace2, 2);
 			let run3: SelfCard2Appear = <SelfCard2Appear>this.getAnimation(AnimationType.OmahaSelfCard3Appear, this.context.cardFace3, 3);
 			let run4: SelfCard2Appear = <SelfCard2Appear>this.getAnimation(AnimationType.OmahaSelfCard4Appear, this.context.cardFace4, 4);
-			run4.callBack = new qin.Delegate(callback, thisObject);
+			run4.callBack = new game.Delegate(callback, thisObject);
 			run.run(true);
 			run2.run(true);
 			run3.run(true);
@@ -44,7 +44,7 @@ class GamblingHeadCardAnimationSupport
 		{
 			let run: SelfCard1Appear = <SelfCard1Appear>this.getAnimation(AnimationType.SelfCard1Appear, this.context.cardFace1, 1);
 			let run2: SelfCard2Appear = <SelfCard2Appear>this.getAnimation(AnimationType.SelfCard2Appear, this.context.cardFace2, 2);
-			run2.callBack = new qin.Delegate(callback, thisObject);
+			run2.callBack = new game.Delegate(callback, thisObject);
 			run.run(true);
 			run2.run(true);
 		}
@@ -118,7 +118,7 @@ class GamblingHeadCardAnimationSupport
 	{
 		if (!this._actionList)
 		{
-			this._actionList = new qin.Dictionary<string, BaseAnimation<any>>();
+			this._actionList = new game.Map<string, BaseAnimation<any>>();
 		}
 		let key: string = type.toString() + "_" + index.toString();
 		if (!this._actionList.containsKey(key))

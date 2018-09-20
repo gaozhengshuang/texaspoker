@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * 日志
@@ -56,7 +56,7 @@ module qin
 		{
 			if(Console.enabled)
 			{
-				Console.log('qin.SocketMessageType.'+msg.type+': code['+msg.errorCode+'] message['+msg.message+']');
+				Console.log('game.SocketMessageType.'+msg.type+': code['+msg.errorCode+'] message['+msg.message+']');
 			}
 		}
 	}

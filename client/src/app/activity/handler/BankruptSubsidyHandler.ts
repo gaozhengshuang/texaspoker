@@ -45,7 +45,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
         }
         else
         {
-            qin.Console.log("活动id不存在！");
+            game.Console.log("活动id不存在！");
             return 0;
         }
     }
@@ -64,7 +64,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
             }
             else
             {
-                qin.Console.log("子id不存在！");
+                game.Console.log("子id不存在！");
             }
         }
         return 0;
@@ -112,7 +112,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
     /**
      * 领取破产奖励完成事件
      */
-    public takeBankruptcyCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public takeBankruptcyCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 /**
  * 破产补助信息

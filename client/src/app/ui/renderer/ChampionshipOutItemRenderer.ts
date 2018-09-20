@@ -101,7 +101,7 @@ class ChampionshipOutItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         {
             this.timeDesLabel.text = "今日";
         }
-        this.timeLabel.text = qin.DateTimeUtil.formatDate(date, qin.DateTimeUtil.Format_Standard_NoSecond).split(qin.StringConstants.Blank)[1];
+        this.timeLabel.text = game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(game.StringConstants.Blank)[1];
     }
     /**
      * 设置奖励信息

@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * 数组工具

@@ -241,7 +241,7 @@ class JumpUtil
         }
         else
         {
-            qin.Console.log("打开签到面板失败，签到活动数据异常！");
+            game.Console.log("打开签到面板失败，签到活动数据异常！");
         }
     }
     /**
@@ -263,7 +263,7 @@ class JumpUtil
         }
         else
         {
-            qin.Console.log("打开首充面板失败，首充数据异常！");
+            game.Console.log("打开首充面板失败，首充数据异常！");
         }
     }
     /**

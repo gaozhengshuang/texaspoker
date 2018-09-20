@@ -306,7 +306,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		this.addChildAt(this._cardFace2, this.getChildIndex(this._cardFace1) + 1);
 		this.addChildAt(this._cardFace3, this.getChildIndex(this._cardFace2) + 1);
 		this.addChildAt(this._cardFace4, this.getChildIndex(this._cardFace3) + 1);
-		this.dispatchEvent(new UIModuleEvent(UIModuleEvent.COMPLETE, qin.StringConstants.Empty));
+		this.dispatchEvent(new UIModuleEvent(UIModuleEvent.COMPLETE, game.StringConstants.Empty));
 	}
 	/**
 	 * 默认初始化
@@ -362,7 +362,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 							}
 							else
 							{
-								qin.Tick.AddTimeoutInvoke(this.tryReqNextRound, 2000, this);
+								game.Tick.AddTimeoutInvoke(this.tryReqNextRound, 2000, this);
 							}
 						}
 						else
@@ -383,7 +383,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 								}
 								else
 								{
-									qin.Tick.AddTimeoutInvoke(this.tryReqNextRound, 2000, this);
+									game.Tick.AddTimeoutInvoke(this.tryReqNextRound, 2000, this);
 								}
 							}
 						}
@@ -397,7 +397,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 				}
 				else
 				{
-					qin.Console.log("自己无手牌");
+					game.Console.log("自己无手牌");
 					this.showCardFace(false);
 				}
 			}
@@ -500,7 +500,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 				{
 					if (this.bindData.userInfo.name.length > 3)
 					{
-						let size: number = qin.CodeUtil.getStringByteLength(this.bindData.userInfo.name);
+						let size: number = game.CodeUtil.getStringByteLength(this.bindData.userInfo.name);
 						if (size <= 9) //按一个汉字占3个字节算 3 * 3
 						{
 							this.infoLabel.text = this.bindData.userInfo.name;
@@ -517,20 +517,20 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 				}
 				else
 				{
-					this.infoLabel.text = qin.StringConstants.Empty;
+					this.infoLabel.text = game.StringConstants.Empty;
 				}
 				this.refreshVip();
 			}
 			else
 			{
-				this.infoLabel.text = qin.StringConstants.Empty;
+				this.infoLabel.text = game.StringConstants.Empty;
 			}
 		}
 		else
 		{
 			this.headIcon.visible = false;
 			this.borderImg.visible = false;
-			this.infoLabel.text = qin.StringConstants.Empty;
+			this.infoLabel.text = game.StringConstants.Empty;
 		}
 	}
 
@@ -648,8 +648,8 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		super.onDisable(event);
 		this.headIcon.clear();
 		this._headChatSpt.onDisable();
-		qin.Tick.RemoveTimeoutInvoke(this.hideWinEffect, this);
-		qin.Tick.RemoveTimeoutInvoke(this.tryReqNextRound, this);
+		game.Tick.RemoveTimeoutInvoke(this.hideWinEffect, this);
+		game.Tick.RemoveTimeoutInvoke(this.tryReqNextRound, this);
 		this._cardAnimationSpt.clear();
 	}
 	/**
@@ -687,7 +687,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		}
 		if (this.bindData && this.bindData.roleId == UserManager.userInfo.roleId)
 		{
-			qin.Console.log("显示隐藏自己的手牌：" + flag);
+			game.Console.log("显示隐藏自己的手牌：" + flag);
 		}
 	}
 	/**
@@ -750,7 +750,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 			this._winChipsAnim = <WinChipsAnim>AnimationFactory.getDisplayObjectContainerAnimation(AnimationType.WinChips);
 			this._winChipsAnim.setTarget(this.chipsAnimLabel);
 		}
-		this.chipsAnimLabel.text = "+" + qin.MathUtil.formatNum(num);
+		this.chipsAnimLabel.text = "+" + game.MathUtil.formatNum(num);
 		this.chipsAnimLabel.visible = true;
 		this._winChipsAnim.run();
 		SoundManager.playEffect(MusicAction.chipfly);
@@ -980,14 +980,14 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 			{
 				if (this.bindData.bankRoll <= this.bindData.lastBankRoll)
 				{
-					this.chipsLabel.text = qin.MathUtil.formatNum(this.bindData.bankRoll);
-					//	qin.QinLog.log("showBankRoll小于显示筹码：" + this.bindData.bankRoll + this.bindData.userInfo.name);
+					this.chipsLabel.text = game.MathUtil.formatNum(this.bindData.bankRoll);
+					//	game.QinLog.log("showBankRoll小于显示筹码：" + this.bindData.bankRoll + this.bindData.userInfo.name);
 				}
 			}
 			else
 			{
-				this.chipsLabel.text = qin.MathUtil.formatNum(this.bindData.bankRoll);
-				//qin.QinLog.log("showBankRoll显示筹码：" + this.bindData.bankRoll + this.bindData.userInfo.name);
+				this.chipsLabel.text = game.MathUtil.formatNum(this.bindData.bankRoll);
+				//game.QinLog.log("showBankRoll显示筹码：" + this.bindData.bankRoll + this.bindData.userInfo.name);
 			}
 		}
 	}
@@ -1002,7 +1002,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		}
 		else
 		{
-			qin.Console.log("遮罩图片是空");
+			game.Console.log("遮罩图片是空");
 		}
 	}
 	/**
@@ -1046,7 +1046,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		{
 			this.refreshStateGroupPos();
 		}
-		qin.Console.log("状态组的visible:" + flag);
+		game.Console.log("状态组的visible:" + flag);
 	}
 	private refreshStateGroupPos()
 	{

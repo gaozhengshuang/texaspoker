@@ -39,7 +39,7 @@ class HundredWarPanel extends BasePanel
     {
         super.init(appendData);
         this.getHundredWarInfo();
-        qin.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarList);
+        game.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarList);
         if (!HundredWarManager.panelHandler.hundredWarList)
         {
             HundredWarManager.panelHandler.hundredWarList = new Array<HundredWarListInfo>();
@@ -55,7 +55,7 @@ class HundredWarPanel extends BasePanel
         HundredWarManager.OnGetRoomInfoEvent.addListener(this.closePanel, this);
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
         this.matchList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.setRoomId, this);
-        qin.Tick.AddSecondsInvoke(this.refreshPerTenSeconds, this);
+        game.Tick.AddSecondsInvoke(this.refreshPerTenSeconds, this);
     }
     protected onDisable(event: eui.UIEvent): void
     {
@@ -65,7 +65,7 @@ class HundredWarPanel extends BasePanel
         HundredWarManager.OnGetRoomInfoEvent.removeListener(this.closePanel, this);
         this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
         this.matchList.removeEventListener(eui.ItemTapEvent.ITEM_TAP, this.setRoomId, this);
-        qin.Tick.RemoveSecondsInvoke(this.refreshPerTenSeconds, this);
+        game.Tick.RemoveSecondsInvoke(this.refreshPerTenSeconds, this);
 
     }
     private _secondNum = 0;

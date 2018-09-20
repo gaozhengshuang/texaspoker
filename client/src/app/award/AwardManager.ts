@@ -3,19 +3,19 @@
  */
 class AwardManager
 {
-    public static OnExchanged: qin.DelegateDispatcher = new qin.DelegateDispatcher();
-    public static OnAwardValueChanged: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnExchanged: game.DelegateDispatcher = new game.DelegateDispatcher();
+    public static OnAwardValueChanged: game.DelegateDispatcher = new game.DelegateDispatcher();
 
-    private static _map: qin.Dictionary<number, AwardTimesInfo> = new qin.Dictionary<number, AwardTimesInfo>();
+    private static _map: game.Map<number, AwardTimesInfo> = new game.Map<number, AwardTimesInfo>();
 
-    public static Initialize(data: qin.SpRpcResult)
+    public static Initialize(data: game.SpRpcResult)
     {
         AwardManager.Reset();
         SocketManager.AddCommandListener(Command.ExchangeTimeRefresh_Push_2031, this.refreshExchangeTime, this);
-        let objs: Array<qin.SpRpcResult> = data.data["DataList"] as Array<qin.SpRpcResult>;
+        let objs: Array<game.SpRpcResult> = data.data["DataList"] as Array<game.SpRpcResult>;
         if (objs)
         {
-            let data: qin.SpRpcResult;
+            let data: game.SpRpcResult;
             for (let i: number = 0; i < objs.length; i++)
             {
                 data = objs[i];
@@ -27,7 +27,7 @@ class AwardManager
     /**
      * 兑换次数更新
     */
-    private static refreshExchangeTime(result: qin.SpRpcResult)
+    private static refreshExchangeTime(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -70,7 +70,7 @@ class AwardManager
         let type: AwardExchangeErrorType = AwardManager.GetNotFitErrorType(id);
         if (type != AwardExchangeErrorType.NoError)
         {
-            qin.Console.log("[兑换错误，错误id]：" + type.toString());
+            game.Console.log("[兑换错误，错误id]：" + type.toString());
             return;
         }
         if (needAlert)
@@ -81,7 +81,7 @@ class AwardManager
         {
             count = 1;
         }
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             AwardManager.OnExchangeFromServer(id, count, needAlert);
         }
@@ -165,7 +165,7 @@ class AwardManager
         let def: AwardDefinition = AwardDefined.GetInstance().getDefinition(awardId);
         if (def)
         {
-            if (qin.StringUtil.isNullOrEmpty(def.costName))
+            if (game.StringUtil.isNullOrEmpty(def.costName))
             {
                 return def.limit;
             }
@@ -215,7 +215,7 @@ class AwardManager
     private static Reset()
     {
         AwardManager._map.clear();
-        let defDic: qin.Dictionary<number, AwardDefinition> = AwardDefined.GetInstance().awardDefinitionDic;
+        let defDic: game.Map<number, AwardDefinition> = AwardDefined.GetInstance().awardDefinitionDic;
         let keys: Array<number> = defDic.getKeys();
         for (let i: number = 0; i < keys.length; i++)
         {
@@ -233,7 +233,7 @@ class AwardManager
      */
     public static reqAwardRecord(logId: number, startId: number, count: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let recordList: Array<AwardRecordInfo> = new Array<AwardRecordInfo>();
             if (result.data["logList"])
@@ -253,9 +253,9 @@ class AwardManager
     /**
      * 拉取兑换数据成功广播
     */
-    public static getExChangeInfoEa: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static getExChangeInfoEa: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取兑换记录事件
      */
-    public static getAwardRecordEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static getAwardRecordEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

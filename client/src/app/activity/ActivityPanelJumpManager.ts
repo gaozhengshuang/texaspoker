@@ -88,7 +88,7 @@ class ActivityPanelJumpManager
         }
         else
         {
-            qin.Console.logError("跳转活动页面信息异常！   活动info:" + JSON.stringify(activityInfo));
+            game.Console.logError("跳转活动页面信息异常！   活动info:" + JSON.stringify(activityInfo));
         }
     }
 
@@ -100,7 +100,7 @@ class ActivityPanelJumpManager
 
     private static onResourceProgress(event: RES.ResourceEvent)
     {
-        qin.Console.log("资源加载地址：" + event.resItem.url);
+        game.Console.log("资源加载地址：" + event.resItem.url);
     }
 
     private static jumpToActivity(info: ActivityInfo)

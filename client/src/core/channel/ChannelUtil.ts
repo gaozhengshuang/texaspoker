@@ -7,7 +7,7 @@ class ChannelUtil
 	 */
 	public static IsOrderIlleg(orderId: string): boolean
 	{
-		if (qin.StringUtil.isNullOrEmpty(orderId))
+		if (game.StringUtil.isNullOrEmpty(orderId))
 		{
 			return true;
 		}
@@ -22,7 +22,7 @@ class ChannelUtil
 	{
 		let t: string = isTest ? "1" : "0";
 		let timeStr: string = TimeManager.GetServerUtcTimestamp().toString();
-		let result: string = LoginManager.loginInfo.userid + "-" + UserManager.userInfo.roleId + "-" + UserManager.serverInfo.id + "-" + productId + "-" + t + "-" + timeStr.substring(4);
+		let result: string ="";// LoginManager.loginInfo.userid + "-" + UserManager.userInfo.roleId + "-" + UserManager.serverInfo.id + "-" + productId + "-" + t + "-" + timeStr.substring(4);
 		if (result.length > 32)
 		{
 			result = result.substring(0, 32);//订单号不超过32个字符
@@ -34,13 +34,13 @@ class ChannelUtil
 	 */
 	public static GetLoginChannel(channel: string, loginType: string): string
 	{
-		if (qin.StringUtil.isNullOrEmpty(loginType))
+		if (game.StringUtil.isNullOrEmpty(loginType))
 		{
 			return channel;
 		}
 		else
 		{
-			return qin.StringUtil.format("{0}_{1}", channel, loginType);
+			return game.StringUtil.format("{0}_{1}", channel, loginType);
 		}
 	}
 	/**
@@ -53,20 +53,20 @@ class ChannelUtil
 	}
 	public static iframeWebPay(serverId: number, orderId: string, price: number, productName: string, awardId: number): void
 	{
-		qin.WebView.getInstance().width = GameManager.stage.stageWidth;
-		qin.WebView.getInstance().height = GameManager.stage.stageHeight;
-		qin.WebView.getInstance().backgroundColor = '#ffffff';
-		qin.WebView.getInstance().closeButton = true;
-		qin.WebView.getInstance().src = ChannelUtil.getWebPayUrl(serverId, orderId, price, productName, awardId);
-		GameManager.stage.addChild(qin.WebView.getInstance());
+		game.WebView.getInstance().width = GameManager.stage.stageWidth;
+		game.WebView.getInstance().height = GameManager.stage.stageHeight;
+		game.WebView.getInstance().backgroundColor = '#ffffff';
+		game.WebView.getInstance().closeButton = true;
+		game.WebView.getInstance().src = ChannelUtil.getWebPayUrl(serverId, orderId, price, productName, awardId);
+		GameManager.stage.addChild(game.WebView.getInstance());
 
-		UIManager.pushResizeDom(qin.WebView.getInstance(), 0, 0);
+		UIManager.pushResizeDom(game.WebView.getInstance(), 0, 0);
 	}
 	private static getWebPayUrl(serverId: number, orderId: string, price: number, productName: string, awardId: number): string
 	{
 		let url: string = ProjectDefined.GetInstance().getPayIndexUrl();
 		let appId: string = GameSetting.AppId;
-		let platform: string = qin.RuntimeTypeName.getCurrentName();
+		let platform: string = game.RuntimeTypeName.getCurrentName();
 		let roleId: number = UserManager.userInfo.roleId;
 		let roleName: string = encodeURIComponent(UserManager.userInfo.name);
 		let appName: string = encodeURIComponent(ChannelManager.appName);
@@ -134,7 +134,7 @@ class ChannelUtil
 				}
 				else
 				{
-					qin.FuncUtil.invoke(func, thisObject, obj);
+					game.FuncUtil.invoke(func, thisObject, obj);
 				}
 			}
 			else

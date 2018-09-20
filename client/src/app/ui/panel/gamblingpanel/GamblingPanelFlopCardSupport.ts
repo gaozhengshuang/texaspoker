@@ -85,7 +85,7 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 		this._isNextRoundStart = false;
 		if (!cardList)
 		{
-			qin.Console.log("手牌推送过来是空！");
+			game.Console.log("手牌推送过来是空！");
 		}
 		if (this.isDisabled) //处理动画异步访问数据的问题
 		{
@@ -122,12 +122,12 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 				}
 			}
 			this._isOnFlop = true;
-			qin.Console.log("开始发牌,玩家总数: " + this._flopPosList.length);
+			game.Console.log("开始发牌,玩家总数: " + this._flopPosList.length);
 			this.runNext();
 		}
 		else
 		{
-			qin.Console.log("发牌时房间信息是空");
+			game.Console.log("发牌时房间信息是空");
 		}
 	}
 	private runNext()
@@ -138,7 +138,7 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 		}
 		if (this.isDisabled) //处理动画异步访问数据的问题
 		{
-			qin.Console.log("发牌runNext：isDisabled" + this._flopRound);
+			game.Console.log("发牌runNext：isDisabled" + this._flopRound);
 			return;
 		}
 		if (GamblingManager.roomInfo)
@@ -147,7 +147,7 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 			let animation: FlopCardAnimation;
 			if (this._runIndex == this._flopPosList.length)
 			{
-				qin.Console.log("发了一圈牌_flopRound: " + this._flopRound);
+				game.Console.log("发了一圈牌_flopRound: " + this._flopRound);
 				this._flopRound++;
 				this._runIndex = 0;
 			}
@@ -176,10 +176,10 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 				else
 				{
 					AlertManager.showAlert("发牌出现异常!");
-					qin.Console.log("发牌异常！未找到发牌的头像组件 _runIndex： " + this._runIndex + " _animationIndex: " + this._animationIndex + " _runPos: " + this._runPos + " _flopPosList " + this._flopPosList);
+					game.Console.log("发牌异常！未找到发牌的头像组件 _runIndex： " + this._runIndex + " _animationIndex: " + this._animationIndex + " _runPos: " + this._runPos + " _flopPosList " + this._flopPosList);
 					this.flopOver();
 				}
-				qin.Console.log(" 给玩家发牌玩家位置: " + this._runPos);
+				game.Console.log(" 给玩家发牌玩家位置: " + this._runPos);
 			}
 			else
 			{
@@ -190,7 +190,7 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 	private flopOver()
 	{
 		this._isOnFlop = false;
-		qin.Console.log("发牌结束");
+		game.Console.log("发牌结束");
 		if (GamblingManager.roomInfo)
 		{
 			GamblingManager.roomInfo.isFlopCardOver = true;
@@ -230,17 +230,17 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 	{
 		if (this.isDisabled) //处理动画异步访问数据的问题
 		{
-			qin.Console.log("发牌Disabled");
+			game.Console.log("发牌Disabled");
 			return;
 		}
-		let name: string = qin.StringConstants.Empty;
+		let name: string = game.StringConstants.Empty;
 		let pos: number = -1;
 		if (params.bindData && params.bindData.userInfo)
 		{
 			name = params.bindData.userInfo.name;
 			pos = params.bindData.pos;
 		}
-		qin.Console.log("发了一张牌玩家：" + name + " posIndex: " + params.posIndex + " pos: " + pos);
+		game.Console.log("发了一张牌玩家：" + name + " posIndex: " + params.posIndex + " pos: " + pos);
 		params.flopIndex++;
 		//是自己
 		this.runNext();

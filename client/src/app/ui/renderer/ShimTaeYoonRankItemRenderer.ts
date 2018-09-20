@@ -40,7 +40,7 @@ class ShimTaeYoonRankItemRenderer extends BaseItemRenderer<RankInfo>
             }
 
             this.nameLabel.text = this.bindData.name;
-            this.numLabel.text = qin.MathUtil.formatNum(this.bindData.score);
+            this.numLabel.text = game.MathUtil.formatNum(this.bindData.score);
         }
     }
     private onDisable(event: egret.Event)

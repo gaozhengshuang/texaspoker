@@ -54,7 +54,7 @@ class MarqueePanel extends BasePanel
 		}
 		this.move.to({ scrollH: targetPos }, duration).call(this.onTweenGroupComplete, this);
 		this.move.play();
-		// qin.QinLog.log("this.textLabel.textWidth", targetPos);
+		// game.QinLog.log("this.textLabel.textWidth", targetPos);
 		super.onRender(event);
 	}
 	protected onEnable(event: eui.UIEvent): void

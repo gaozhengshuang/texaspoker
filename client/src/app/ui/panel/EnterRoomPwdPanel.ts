@@ -154,7 +154,7 @@ class EnterRoomPwdPanel extends BasePanel
     */
     protected getRoomPwd()
     {
-        let str: string = qin.StringConstants.Empty;
+        let str: string = game.StringConstants.Empty;
         for (let i: number = 0; i < this._labelList.length; i++)
         {
             str += this._labelList[i].label1.text;

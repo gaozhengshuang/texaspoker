@@ -34,7 +34,7 @@ class VipDefined extends BaseDefined<VipDefinition>
                 return def;
             }
         }
-        qin.Console.log("获取失败！level:" + level.toString());
+        game.Console.log("获取失败！level:" + level.toString());
         return null;
     }
 
@@ -45,7 +45,7 @@ class VipDefined extends BaseDefined<VipDefinition>
     {
         if (!this.dataList || this.dataList.length == 0)
         {
-            qin.Console.log("vip表为空");
+            game.Console.log("vip表为空");
         }
         for (let i = this.dataList.length - 1; i >= 0; i--)
         {

@@ -48,8 +48,8 @@ class GamblingMatchWaitComponent extends BaseGamblingSlotComponent
 		{
 			let join: number = GamblingManager.matchRoomInfo.join;
 			let leftJoin: number = GamblingManager.matchRoomInfo.definition.bNum - join;
-			let text: string = qin.StringUtil.format("<font size=30 color=0xffffff>已报名{0}人，还需</font><font color=0xf9cb55 size=42>{1}</font><font size=30 color=0xffffff>人即可开赛</font>", join, leftJoin);
-			this.sngInfoLabel.textFlow = qin.TextUtil.htmlParser.parser(text);
+			let text: string = game.StringUtil.format("<font size=30 color=0xffffff>已报名{0}人，还需</font><font color=0xf9cb55 size=42>{1}</font><font size=30 color=0xffffff>人即可开赛</font>", join, leftJoin);
+			this.sngInfoLabel.textFlow = game.TextUtil.htmlParser.parser(text);
 		}
 	}
 }

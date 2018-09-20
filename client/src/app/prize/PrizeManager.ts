@@ -8,7 +8,7 @@ class PrizeManager
     */
     public static reqGetAwardList(startId: number = 0, count: number = 10)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let isBottom: boolean = true;
             let hasReceiveList: Array<PrizeInfo> = new Array<PrizeInfo>();
@@ -38,7 +38,7 @@ class PrizeManager
     */
     public static reqGetAward(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             PrizeManager.onGetAwardEvent.dispatch(id);
         };
@@ -49,7 +49,7 @@ class PrizeManager
     */
     public static getAddressInfo()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -68,7 +68,7 @@ class PrizeManager
     */
     public static reqSaveInfo(name: string, tel: string, qq: string, email: string, address: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             UserManager.userInfo.addressName = name;
             UserManager.userInfo.address = address;
@@ -84,7 +84,7 @@ class PrizeManager
     */
     public static getOrderDetailInfo(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -97,23 +97,23 @@ class PrizeManager
     /**
      * 获取已领取奖品信息成功后发送的广播
     */
-    public static onGetAwardListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetAwardListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 领取奖品成功后发送的广播
     */
-    public static onGetAwardEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetAwardEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 跳转到领奖信息的广播
     */
-    public static onSkipEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onSkipEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取收货信息成功回调
     */
-    public static onGetAddressInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetAddressInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取订单详情成功回调
     */
-    public static onGetOrderDetailInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetOrderDetailInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 /**
  * 订单状态

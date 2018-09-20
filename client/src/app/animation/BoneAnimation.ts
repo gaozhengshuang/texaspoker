@@ -6,7 +6,7 @@ class BoneAnimation
 	/**
 	 * 极速动画缓存列表
 	 */
-    public static _boneList: qin.Dictionary<string, BoneAnimeInfo>;
+    public static _boneList: game.Map<string, BoneAnimeInfo>;
     /**
      * 加载动画资源
      */
@@ -20,7 +20,7 @@ class BoneAnimation
             }
             else
             {
-                qin.Console.log("parent对象出错");
+                game.Console.log("parent对象出错");
             }
         }
         else
@@ -77,7 +77,7 @@ class BoneAnimeInfo
     {
         if (!this.isLoaded)
         {
-            qin.Console.log("资源未加载完成");
+            game.Console.log("资源未加载完成");
             return;
         }
         this.movie.timeScale = timeScale;

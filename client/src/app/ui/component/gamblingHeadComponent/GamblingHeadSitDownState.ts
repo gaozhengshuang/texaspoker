@@ -17,11 +17,11 @@ class GamblingHeadSitDownState extends BaseGamblingHeadState
 			// {
 			// 	this.context.infoLabel.text = this.context.bindData.userInfo.name;
 			// }
-			// this.context.chipsLabel.text = qin.MathUtil.formatNum(this.context.bindData.bankRoll);
+			// this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankRoll);
 			this.context.chipsLabel.text = PlayerInfo.getStateDes(this.context.bindData.state); //坐下等待
 			this.context.showStateGroup(false);
-			//qin.QinLog.log(this.context.bindData.userInfo.name + "刚坐下");
-			//	qin.QinLog.log("坐下显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
+			//game.QinLog.log(this.context.bindData.userInfo.name + "刚坐下");
+			//	game.QinLog.log("坐下显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
 		}
 	}
 }

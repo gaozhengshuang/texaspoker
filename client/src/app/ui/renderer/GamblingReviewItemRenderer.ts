@@ -234,7 +234,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
             if (this.bindData.isWin)
             {
                 this.resultNumLabel.textColor = ColorEnum.Review_Win_Orange;
-                this.resultNumLabel.text = "+" + qin.MathUtil.formatNum(this.bindData.betNum);
+                this.resultNumLabel.text = "+" + game.MathUtil.formatNum(this.bindData.betNum);
             } else
             {
                 this.resultNumLabel.textColor = ColorEnum.Review_Lost_Green;
@@ -243,7 +243,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
                     this.resultNumLabel.text = this.bindData.betNum.toString();
                 } else
                 {
-                    this.resultNumLabel.text = "-" + qin.MathUtil.formatNum(this.bindData.betNum);
+                    this.resultNumLabel.text = "-" + game.MathUtil.formatNum(this.bindData.betNum);
                 }
             }
 
@@ -333,7 +333,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
         }
         if (num > 0)
         {
-            this["num" + index].text = qin.MathUtil.formatNum(num);
+            this["num" + index].text = game.MathUtil.formatNum(num);
         }
     }
     /**

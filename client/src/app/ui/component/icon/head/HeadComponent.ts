@@ -39,13 +39,13 @@ class HeadComponent extends BaseComponent<IBaseHead>
     {
         if (!head)
         {
-            qin.Console.log("头像为空");
+            game.Console.log("头像为空");
             this.userImg.texture = null;
             this.drawHead(true);
             return;
         }
         //本地开发加载默认头像，不从网络上载
-        if(qin.System.isLocalhost)
+        if(game.System.isLocalhost)
         {
             head = SheetSubName.getdefaultHead(this.bindData.sex);
         }
@@ -92,14 +92,14 @@ class HeadComponent extends BaseComponent<IBaseHead>
                         {
                             this.userImg.texture = RES.getRes(SheetSubName.getdefaultHead(this.bindData.sex)); //转换失败则用默认的头像
                             this.drawHead(true);
-                            qin.Console.logError("头像数据转换失败！头像路径：" + head);
+                            game.Console.logError("头像数据转换失败！头像路径：" + head);
                         }
                     }
                     catch (e)
                     {
                         this.userImg.texture = RES.getRes(SheetSubName.getdefaultHead(this.bindData.sex)); //转换失败则用默认的头像
                         this.drawHead(true);
-                        qin.Console.logError("头像数据转换失败！头像路径：" + head);
+                        game.Console.logError("头像数据转换失败！头像路径：" + head);
                     }
                 }
             }, this, RES.ResourceItem.TYPE_IMAGE);

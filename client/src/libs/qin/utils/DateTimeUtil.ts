@@ -1,4 +1,4 @@
-﻿module qin
+﻿module game
 {
 	/**
 	 * 时间处理工具
@@ -144,15 +144,15 @@
 			let leftT: number = Math.floor(leftTime / 86400);
 			if (isShowHour && leftT <= 0)
 			{
-				result = qin.StringUtil.format("{0}小时", Math.floor(leftTime / 3600));
+				result = game.StringUtil.format("{0}小时", Math.floor(leftTime / 3600));
 			} else
 			{
-				result = qin.StringUtil.format("{0}天", Math.floor(leftTime / 86400));
+				result = game.StringUtil.format("{0}天", Math.floor(leftTime / 86400));
 			}
 			if (isHour)
 			{
 				leftTime %= 86400;
-				result += qin.StringUtil.format("{0}小时", Math.floor(leftTime / 3600));
+				result += game.StringUtil.format("{0}小时", Math.floor(leftTime / 3600));
 			}
 			return result;
 		}

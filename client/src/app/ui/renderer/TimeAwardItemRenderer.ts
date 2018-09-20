@@ -33,7 +33,7 @@ class TimeAwardItemRenderer extends BaseItemRenderer<TimeAwardInfo>
                 this.numLabel.textColor = ColorEnum.TimeAward_Finish_Yellow;
             }
             this.iconImg.source = this.bindData.icon;
-            this.numLabel.text = qin.MathUtil.formatNum(this.bindData.num);
+            this.numLabel.text = game.MathUtil.formatNum(this.bindData.num);
         }
     }
 }

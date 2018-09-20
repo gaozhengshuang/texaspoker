@@ -13,22 +13,22 @@ class GuideClickStepProcess extends BaseGuideStepProcess
 		let panel: BasePanel = UIManager.getPanel(this.stepDef.panelName);
 		if (!panel)
 		{
-			qin.Console.logError("引导点击触发异常！未找到面板，面板名：" + this.stepDef.panelName);
+			game.Console.logError("引导点击触发异常！未找到面板，面板名：" + this.stepDef.panelName);
 			return;
 		}
 		if (this.stepDef.component)
 		{
-			let component: egret.DisplayObject = qin.ObjectUtil.getTreeProperty(panel, this.stepDef.component);
+			let component: egret.DisplayObject = game.ObjectUtil.getTreeProperty(panel, this.stepDef.component);
 			if (!component)
 			{
-				qin.Console.logError("引导点击触发异常！未找到组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
+				game.Console.logError("引导点击触发异常！未找到组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
 				return;
 			}
 			component.addEventListener(egret.TouchEvent.TOUCH_TAP, this.componentClickHandler, this);
 		}
 		else
 		{
-			qin.Console.logError("引导点击触发异常！未找到组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
+			game.Console.logError("引导点击触发异常！未找到组件，面板名：" + this.stepDef.panelName + "组件名：" + this.stepDef.component);
 		}
 	}
 	private componentClickHandler(event: egret.TouchEvent)
@@ -43,7 +43,7 @@ class GuideClickStepProcess extends BaseGuideStepProcess
 		}
 		else
 		{
-			qin.Console.logError("点击子步骤无goto！");
+			game.Console.logError("点击子步骤无goto！");
 		}
 	}
 	public clear()
@@ -53,7 +53,7 @@ class GuideClickStepProcess extends BaseGuideStepProcess
 			let panel: BasePanel = UIManager.getPanel(this.stepDef.panelName);
 			if (this.stepDef.component && panel)
 			{
-				let component: egret.DisplayObject = qin.ObjectUtil.getTreeProperty(panel, this.stepDef.component);
+				let component: egret.DisplayObject = game.ObjectUtil.getTreeProperty(panel, this.stepDef.component);
 				if (component)
 				{
 					component.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.componentClickHandler, this);

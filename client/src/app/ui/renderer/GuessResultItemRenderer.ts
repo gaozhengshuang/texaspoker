@@ -27,7 +27,7 @@ class GuessResultItemRenderer extends BaseItemRenderer<GuessResultInfo>
         super.dataChanged();
         if (this.bindData)
         {
-            let date = qin.DateTimeUtil.formatTimestamp(this.bindData.time, qin.DateTimeUtil.Format_Standard_NoSecond)
+            let date = game.DateTimeUtil.formatTimestamp(this.bindData.time, game.DateTimeUtil.Format_Standard_NoSecond)
             this.timeLabel.text = date.split(" ")[1];
             this.anteLabel.text = this.bindData.ante.toString();
             this.card1.init(this.bindData.card1);

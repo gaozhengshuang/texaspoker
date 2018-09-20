@@ -27,7 +27,7 @@ class NumComponent extends BaseComponent<number>
 			}
 			else
 			{
-				this.label1.text = qin.StringConstants.Empty;
+				this.label1.text = game.StringConstants.Empty;
 			}
 		}
 	}

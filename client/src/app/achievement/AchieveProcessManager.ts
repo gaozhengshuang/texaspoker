@@ -8,9 +8,9 @@ class AchieveProcessManager
     /**
      * 任务进度更新事件
      */
-    public static processUpdateEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static processUpdateEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
-    public static Initialize(result: qin.SpRpcResult)
+    public static Initialize(result: game.SpRpcResult)
     {
         AchieveProcessManager.ClearList();
         AchieveProcessManager.initList();
@@ -203,7 +203,7 @@ class AchieveProcessManager
             {
                 AchieveProcessManager._list[i].destroy();
             }
-            qin.ArrayUtil.Clear(AchieveProcessManager._list);
+            game.ArrayUtil.Clear(AchieveProcessManager._list);
         }
     }
 

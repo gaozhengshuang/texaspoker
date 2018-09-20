@@ -42,7 +42,7 @@ class ActivityManager
     /**
      *邀请活动管理
      */
-    private static _subHandlerList: qin.Dictionary<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>> = new qin.Dictionary<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>>();
+    private static _subHandlerList: game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>> = new game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>>();
     /**
      * 活动列表
      */
@@ -61,7 +61,7 @@ class ActivityManager
         ActivityManager.triggerHandler.clear();
     }
 
-    public static initialize(result: qin.SpRpcResult)
+    public static initialize(result: game.SpRpcResult)
     {
         ActivityManager.clear();
         ActivityManager.triggerHandler.initialize();
@@ -100,7 +100,7 @@ class ActivityManager
      */
     public static reqPubJson(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -115,7 +115,7 @@ class ActivityManager
     */
     public static reqJoinActivity(Id: number, SubId: number, Param1?: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -135,7 +135,7 @@ class ActivityManager
     */
     public static reqActionRecord(id: number, count: number, act: number, idx: number = 0, roleId?: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data && result.data.Array)
             {
@@ -195,7 +195,7 @@ class ActivityManager
 
     private static initActivityList()
     {
-        qin.ArrayUtil.Clear(ActivityManager.list);
+        game.ArrayUtil.Clear(ActivityManager.list);
         ActivityManager._subHandlerList.foreach((k, v) => { v.clear(); }, this);
         for (let info of ActivityDefined.GetInstance().dataList)
         {
@@ -214,7 +214,7 @@ class ActivityManager
             }
             else
             {
-                qin.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
+                game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
             }
             ActivityManager.triggerHandler.register(activityInfo);
             ActivityManager.list.push(activityInfo);
@@ -225,7 +225,7 @@ class ActivityManager
      */
     public static checkCompleteHide()
     {
-        qin.ArrayUtil.Clear(ActivityManager.showList);
+        game.ArrayUtil.Clear(ActivityManager.showList);
         for (let info of ActivityManager.list)
         {
             if (!info.definition.unInShowPanel) //在面板里面显示
@@ -294,13 +294,13 @@ class ActivityManager
                     }
                     else
                     {
-                        qin.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
+                        game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
                     }
                 }
                 catch (e)
                 {
-                    qin.Console.log("解析活动协议出错 Json：" + data["Json"]);
-                    qin.Console.log("解析活动协议出错 GotJson：" + data["GotJson"]);
+                    game.Console.log("解析活动协议出错 Json：" + data["Json"]);
+                    game.Console.log("解析活动协议出错 GotJson：" + data["GotJson"]);
                 }
             }
         }
@@ -335,7 +335,7 @@ class ActivityManager
     /**
      * 活动信息推送
      */
-    public static pushActivityInfo(result: qin.SpRpcResult)
+    public static pushActivityInfo(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -357,7 +357,7 @@ class ActivityManager
      */
     public static ReqGetActivityAward(activityId: number, subId: number, isShowList: boolean = true)
     {
-        let callback: Function = function (sp: qin.SpRpcResult)
+        let callback: Function = function (sp: game.SpRpcResult)
         {
             PropertyManager.ShowItemList();
             ActivityManager.getAwardResult(activityId, subId);
@@ -402,7 +402,7 @@ class ActivityManager
             }
             else
             {
-                qin.Console.log("参加活动结果返回 获取子活动handler异常！" + def.type);
+                game.Console.log("参加活动结果返回 获取子活动handler异常！" + def.type);
             }
         }
     }
@@ -410,25 +410,25 @@ class ActivityManager
     /**
 	 * 请求参与活动广播事件
 	 */
-    public static onJoinActivityEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onJoinActivityEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 请求公共数据完成事件   
      */
-    public static onReqPubJsonEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onReqPubJsonEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取单个活动数据事件
      */
-    public static onReqSingleActivityEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onReqSingleActivityEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 活动信息推送事件
      */
-    public static onPushActivityEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onPushActivityEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取活动列表事件
      */
-    public static OnActivityGetListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnActivityGetListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取活动操作记录成功广播
      */
-    public static OnActionRecordEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnActionRecordEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

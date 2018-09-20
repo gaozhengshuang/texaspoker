@@ -45,7 +45,7 @@ class SceneManager
 	/**
 	 * 场景缓存列表
 	 */
-	public static cacheSceneList: qin.Dictionary<SceneType, BaseScene>;
+	public static cacheSceneList: game.Map<SceneType, BaseScene>;
 	/**
 	 * 当前场景
 	 */
@@ -79,7 +79,7 @@ class SceneManager
 		{
 			if (!SceneManager.cacheSceneList)
 			{
-				SceneManager.cacheSceneList = new qin.Dictionary<SceneType, BaseScene>();
+				SceneManager.cacheSceneList = new game.Map<SceneType, BaseScene>();
 			}
 			if (SceneManager._currentScene)
 			{
@@ -106,7 +106,7 @@ class SceneManager
 						scene = new HundredWarScene();
 						break;
 					default:
-						qin.Console.logError("切换场景失败！未知的场景类型：" + type);
+						game.Console.logError("切换场景失败！未知的场景类型：" + type);
 						break;
 				}
 				if (scene)
@@ -130,7 +130,7 @@ class SceneManager
 				}
 				if (isFirstCreate)
 				{
-					qin.Tick.AddTimeoutInvoke(SceneManager.delaySwitch, SceneManager.delayNum, this, scene);
+					game.Tick.AddTimeoutInvoke(SceneManager.delaySwitch, SceneManager.delayNum, this, scene);
 				}
 				else
 				{
@@ -205,7 +205,7 @@ class SceneManager
 		}
 		else
 		{
-			qin.Console.log("添加切场景不关闭面板异常！面板信息为空！");
+			game.Console.log("添加切场景不关闭面板异常！面板信息为空！");
 		}
 	}
 	public static removeSwitchDontClosePanel(...args)
@@ -214,17 +214,17 @@ class SceneManager
 		{
 			for (let panel of args)
 			{
-				qin.ArrayUtil.RemoveItem(panel, SceneManager._switchDontClosePanelList);
+				game.ArrayUtil.RemoveItem(panel, SceneManager._switchDontClosePanelList);
 			}
 		}
 		else
 		{
-			qin.Console.log("移除切场景不关闭面板异常！面板信息为空！");
+			game.Console.log("移除切场景不关闭面板异常！面板信息为空！");
 		}
 	}
 	/**
 	 * 场景切换完成广播
 	*/
-	public static onSwitchCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onSwitchCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 

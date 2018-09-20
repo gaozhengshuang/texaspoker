@@ -26,7 +26,7 @@ class MttLogic
 		let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.delaySign - TimeManager.GetServerUtcTimestamp();
 		if (leftTime > 0)
 		{
-			qin.Tick.AddTimeoutInvoke(this.delaySignOver, leftTime * 1000, this)
+			game.Tick.AddTimeoutInvoke(this.delaySignOver, leftTime * 1000, this)
 		}
 
 		this.onRebuyORAddonEvent();
@@ -47,7 +47,7 @@ class MttLogic
 		GamblingManager.ChipsChangeEvent.removeListener(this.onChipsChangeEvent, this);
 		GamblingManager.RebuyORAddonEvent.removeListener(this.onRebuyORAddonEvent, this);
 		GamblingManager.RoundOverEvent.removeListener(this.onRoundOverEvent, this);
-		qin.Tick.RemoveTimeoutInvoke(this.delaySignOver, this)
+		game.Tick.RemoveTimeoutInvoke(this.delaySignOver, this)
 
 
 		let state: GamblingPanelMatchState = this._context.panelState;
@@ -84,7 +84,7 @@ class MttLogic
 				{
 					leftTime = 0.1;
 				}
-				qin.Tick.AddTimeoutInvoke(this.delaySignOver, leftTime * 1000, this)
+				game.Tick.AddTimeoutInvoke(this.delaySignOver, leftTime * 1000, this)
 			}
 		}
 	}

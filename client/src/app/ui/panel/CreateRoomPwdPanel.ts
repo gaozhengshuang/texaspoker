@@ -61,7 +61,7 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
     public init(appendData: any)
     {
         super.init(appendData);
-        this.goldLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+        this.goldLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
         this.getMaxCarrayInfo();
     }
     protected onEnable(event: eui.UIEvent): void
@@ -112,8 +112,8 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
     private chooseBlind()
     {
         let roomInfo: RoomDefinition = this._maxCarryList[this.blindHS.value];
-        this.blindLabel.text = qin.MathUtil.formatNum(roomInfo.sBlind) + "/" + qin.MathUtil.formatNum(roomInfo.bBlind);
-        this.sBuyLabel.text = qin.MathUtil.formatNum(roomInfo.sBuyin);
+        this.blindLabel.text = game.MathUtil.formatNum(roomInfo.sBlind) + "/" + game.MathUtil.formatNum(roomInfo.bBlind);
+        this.sBuyLabel.text = game.MathUtil.formatNum(roomInfo.sBuyin);
         this.setAnte(roomInfo.id);
     }
     /**
@@ -124,10 +124,10 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
         let roomDef: RoomDefinition = RoomDefined.GetInstance().getDefinition(id);
         if (roomDef)
         {
-            this.ante1ToggleSwitch.label = qin.MathUtil.formatNum(roomDef.ante[0]);
-            this.ante2ToggleSwitch.label = qin.MathUtil.formatNum(roomDef.ante[1]);
-            this.ante3ToggleSwitch.label = qin.MathUtil.formatNum(roomDef.ante[2]);
-            this.ante4ToggleSwitch.label = qin.MathUtil.formatNum(roomDef.ante[3]);
+            this.ante1ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[0]);
+            this.ante2ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[1]);
+            this.ante3ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[2]);
+            this.ante4ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[3]);
         }
         this._ante = 0;
         if (this.selectedAnte)
@@ -146,10 +146,10 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
         if (this._maxCarryList)
         {
             this._selectedId = this._maxCarryList[0].id;
-            this.ante1ToggleSwitch.label = qin.MathUtil.formatNum(this._maxCarryList[0].ante[0]);
-            this.ante2ToggleSwitch.label = qin.MathUtil.formatNum(this._maxCarryList[0].ante[1]);
-            this.ante3ToggleSwitch.label = qin.MathUtil.formatNum(this._maxCarryList[0].ante[2]);
-            this.ante4ToggleSwitch.label = qin.MathUtil.formatNum(this._maxCarryList[0].ante[3]);
+            this.ante1ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[0]);
+            this.ante2ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[1]);
+            this.ante3ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[2]);
+            this.ante4ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[3]);
         }
         if (this.selectedAnte)
         {
@@ -262,8 +262,8 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
             let roomInfo: RoomDefinition = new RoomDefinition();
             roomInfo = this._maxCarryList[0];
             this.setAnte(this._maxCarryList[0].id);
-            this.blindLabel.text = qin.MathUtil.formatNum(roomInfo.sBlind) + "/" + qin.MathUtil.formatNum(roomInfo.bBlind);
-            this.sBuyLabel.text = qin.MathUtil.formatNum(roomInfo.sBuyin);
+            this.blindLabel.text = game.MathUtil.formatNum(roomInfo.sBlind) + "/" + game.MathUtil.formatNum(roomInfo.bBlind);
+            this.sBuyLabel.text = game.MathUtil.formatNum(roomInfo.sBuyin);
         }
     }
     /**
@@ -289,7 +289,7 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
             {
                 if (UserManager.userInfo.gold < roomInfo.sBuyin)
                 {
-                    AlertManager.showAlert("您的金币不足" + qin.MathUtil.formatNum(roomInfo.sBuyin) + ",请补充金币或者选择较低场次。");
+                    AlertManager.showAlert("您的金币不足" + game.MathUtil.formatNum(roomInfo.sBuyin) + ",请补充金币或者选择较低场次。");
                     return;
                 }
             }

@@ -32,12 +32,12 @@ class SitAndPlayStartRemindPanel extends BasePanel
         {
             this._countDownNum = appendData.countDownNum;
             this._startMatch = appendData.startMatch;
-            this.desLabel.textFlow = qin.TextUtil.parse(
+            this.desLabel.textFlow = game.TextUtil.parse(
                 '您报名的坐满即玩' +
                 '<font color="#F3C655" size="24">' + this._startMatch.definition.name + '</font>' +
-                '马上就要开赛，是否立即进入？' + '（' + qin.DateTimeUtil.countDownFormat(this._countDownNum, false) + '）'
+                '马上就要开赛，是否立即进入？' + '（' + game.DateTimeUtil.countDownFormat(this._countDownNum, false) + '）'
             );
-            qin.Tick.AddSecondsInvoke(this.countDown, this);
+            game.Tick.AddSecondsInvoke(this.countDown, this);
         }
     }
     protected onRender(event: egret.Event)
@@ -53,7 +53,7 @@ class SitAndPlayStartRemindPanel extends BasePanel
     {
         super.onDisable(event);
         this.confirmBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.enterMatch, this);
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
     }
 
     protected onCloseBtnClickHandler(event: egret.TouchEvent): void
@@ -78,15 +78,15 @@ class SitAndPlayStartRemindPanel extends BasePanel
     private countDown()
     {
         this._countDownNum--;
-        this.desLabel.textFlow = qin.TextUtil.parse(
+        this.desLabel.textFlow = game.TextUtil.parse(
             '您报名的坐满即玩' +
             '<font color="#F3C655" size="24">' + this._startMatch.definition.name + '</font>' +
-            '马上就要开赛，是否立即进入？' + '（' + qin.DateTimeUtil.countDownFormat(this._countDownNum, false) + '）'
+            '马上就要开赛，是否立即进入？' + '（' + game.DateTimeUtil.countDownFormat(this._countDownNum, false) + '）'
         );
         if (this._countDownNum <= 0)
         {
             this.desLabel.text = "比赛即将开始";
-            qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+            game.Tick.RemoveSecondsInvoke(this.countDown, this);
             this.onCloseBtnClickHandler(null);
         }
     }

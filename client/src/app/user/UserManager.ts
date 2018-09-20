@@ -12,22 +12,18 @@ class UserManager
 	 */
 	public static otherUserInfo: UserInfo;
 	/**
-	 * 服务器信息
-	 */
-	public static serverInfo: ServerInfo;
-	/**
      * 等级升级事件
      */
-	public static levelUpgrade: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static levelUpgrade: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 资产变更事件
 	 */
-	public static propertyChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static propertyChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/**
  	* 创建角色成功事件/修改昵称事件
 	*/
-	public static onCreateRoleEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onCreateRoleEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 微信头像处理
 	 */
@@ -38,7 +34,7 @@ class UserManager
 	public static resetByReLogin()
 	{
 		UserManager.userInfo = null;
-		//qin.ArrayUtil.Clear(UserManager.achievementInfoList);
+		//game.ArrayUtil.Clear(UserManager.achievementInfoList);
 		UserManager.otherUserInfoClear();
 	}
 	private static otherUserInfoClear()
@@ -66,7 +62,7 @@ class UserManager
 	/**
 	 * 用户经验更改
 	 */
-	public static onExpChangeResult(result: qin.SpRpcResult)
+	public static onExpChangeResult(result: game.SpRpcResult)
 	{
 		if (result.data)
 		{
@@ -80,7 +76,7 @@ class UserManager
 			UserManager.userInfo.exp = result.data["exp"];
 		}
 	}
-	public static onPropetyChangeHandler(result: qin.SpRpcResult)
+	public static onPropetyChangeHandler(result: game.SpRpcResult)
 	{
 		if (result.data && UserManager.userInfo)
 		{
@@ -93,7 +89,7 @@ class UserManager
 	/**
 	 * 头像上传完毕推送
 	 */
-	public static onHeadReviewPass(result: qin.SpRpcResult)
+	public static onHeadReviewPass(result: game.SpRpcResult)
 	{
 		if (result.data && result.data["head"])
 		{
@@ -117,7 +113,7 @@ class UserManager
 	}
 	public static reqGetOtherUserInfo(roleId: number, flag?: number)
 	{
-		let callback: Function = function (result: qin.SpRpcResult)
+		let callback: Function = function (result: game.SpRpcResult)
 		{
 			if (!UserManager.otherUserInfo)
 			{
@@ -144,7 +140,7 @@ class UserManager
 	}
 	public static reqShowOtherUserInfoPanel(roleId: number)
 	{
-		let callback: Function = function (result: qin.SpRpcResult)
+		let callback: Function = function (result: game.SpRpcResult)
 		{
 			UserManager.otherUserInfo = new UserInfo();
 			if (result.data)
@@ -178,7 +174,7 @@ class UserManager
 
 	public static reqSimpleUserInfo(roleId: number)
 	{
-		let callback: Function = function (result: qin.SpRpcResult)
+		let callback: Function = function (result: game.SpRpcResult)
 		{
 			UserManager.OnGetSimpleUserInfoEvent.dispatch(result.data);
 		}
@@ -189,7 +185,7 @@ class UserManager
 	*/
 	public static reqCreateRole(name: string, sex: number)
 	{
-		let callback: Function = function (result: qin.SpRpcResult)
+		let callback: Function = function (result: game.SpRpcResult)
 		{
 			if (name != null)
 			{
@@ -227,7 +223,7 @@ class UserManager
 	{
 		if (sign != null || sex != undefined || age != undefined)
 		{
-			let callBack: Function = function (result: qin.SpRpcResult)
+			let callBack: Function = function (result: game.SpRpcResult)
 			{
 				if (obj["sign"] != null)
 				{
@@ -265,7 +261,7 @@ class UserManager
 		if (pInfo && pInfo.hasOwnProperty(propertyId))
 		{
 			let tmpObj: any = pInfo;
-			let pre: string = qin.StringConstants.Empty;
+			let pre: string = game.StringConstants.Empty;
 			if ((ChannelManager.loginType == ChannelLoginType.Guest || ChannelManager.loginType == ChannelLoginType.IntranetGuest) && tmpObj[propertyName] != "游客")
 			{
 				pre = "游客";
@@ -373,7 +369,7 @@ class UserManager
 		PropertyManager.OpenGet();
 		SocketManager.call(Command.Req_GetFreeGold_3024, null, this.onGetFreeGold, null, this);
 	}
-	private static onGetFreeGold(result: qin.SpRpcResult)
+	private static onGetFreeGold(result: game.SpRpcResult)
 	{
 		if (result.data)
 		{
@@ -387,7 +383,7 @@ class UserManager
 	 */
 	public static reqBindPhone(mno: string)
 	{
-		SocketManager.callAsync(Command.PhoneBind_3688, { mno: mno }, (result: qin.SpRpcResult) =>
+		SocketManager.callAsync(Command.PhoneBind_3688, { mno: mno }, (result: game.SpRpcResult) =>
 		{
 			UserManager.userInfo.mno = mno;
 			UIManager.showFloatTips("绑定手机成功");
@@ -458,29 +454,29 @@ class UserManager
 	/**
 	 * 拉取用户信息事件
 	 */
-	public static getOtherUserInfoEa: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static getOtherUserInfoEa: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 设置用户信息完毕
 	 */
-	public static onSetUserInfoComplete: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onSetUserInfoComplete: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 领取免费金币成功事件
 	 */
-	public static getFreeGoldEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static getFreeGoldEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 头像更新事件
 	 */
-	public static headImageUpdateEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static headImageUpdateEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 绑定手机事件
 	 */
-	public static bindPhoneEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static bindPhoneEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
      * 拉取某个角色信息（简单）成功广播
     */
-	public static OnGetSimpleUserInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnGetSimpleUserInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 微信登录，微信头像加载完毕事件
 	 */
-	public static onWxHeadLoadCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onWxHeadLoadCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

@@ -431,7 +431,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
         if (headComponent.bindData == null && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && UserManager.userInfo.gold < HundredWarManager.roomInfo.definition.seatGold)
         {
             SoundManager.playEffect(MusicAction.buttonClick);
-            AlertManager.showConfirm("坐下需要金币大于" + qin.MathUtil.formatNum(HundredWarManager.roomInfo.definition.seatGold) + "，您的余额不足！", null, this.showShopping, null, null, null, null, "充值");
+            AlertManager.showConfirm("坐下需要金币大于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.seatGold) + "，您的余额不足！", null, this.showShopping, null, null, null, null, "充值");
             return;
         }
         for (let pit of this.target.pitList) 
@@ -483,7 +483,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
     {
         if (this.isDisabled) //处理动画异步访问数据的问题
         {
-            qin.Console.log("异步不显示自己的手牌");
+            game.Console.log("异步不显示自己的手牌");
             return;
         }
         let com: HWHeadComponent = this.target.getHeadComponentByRole(UserManager.userInfo.roleId);

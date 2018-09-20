@@ -83,14 +83,14 @@ class AccountRetrievePwdPanel extends BasePanel
    */
     protected onPhoneLabelFouseOut(e: egret.TouchEvent)
     {
-        this.phoneErrorLabel.text = qin.RegexUtil.isPhoneNumber(this.telephoneLabel.text) ? "" : "您输入的手机号错误，请重新输入！";
+        this.phoneErrorLabel.text = game.RegexUtil.isPhoneNumber(this.telephoneLabel.text) ? "" : "您输入的手机号错误，请重新输入！";
     }
     /**
      * 点击发送验证码执行的操作
     */
     protected sendCodeBtnClick(e: egret.TouchEvent)
     {
-        if (qin.RegexUtil.isPhoneNumber(this.telephoneLabel.text))
+        if (game.RegexUtil.isPhoneNumber(this.telephoneLabel.text))
         {
             SoundManager.playButtonEffect(e.target);
             this.phoneErrorLabel.text = "";
@@ -106,7 +106,7 @@ class AccountRetrievePwdPanel extends BasePanel
     protected sendCodeRes()
     {
         AccountManager.PhoneFindPassword(this.telephoneLabel.text.trim(), this.telephoneLabel.text.trim());
-        qin.Console.log("账号找回密码发送手机验证码");
+        game.Console.log("账号找回密码发送手机验证码");
     }
     /**
      * 发送成功回调
@@ -130,7 +130,7 @@ class AccountRetrievePwdPanel extends BasePanel
         SoundManager.playButtonEffect(e.target);
         let newPwd = this.newPwdLabel.text.trim();
         let againPwd = this.confirmPwdLabel.text.trim();
-        if (qin.RegexUtil.isPhoneNumber(this.telephoneLabel.text) && this.codeValidate(false) && UserUtil.checkTwoPwd(newPwd, againPwd, 16, 6, this.pwdErrorLabel))
+        if (game.RegexUtil.isPhoneNumber(this.telephoneLabel.text) && this.codeValidate(false) && UserUtil.checkTwoPwd(newPwd, againPwd, 16, 6, this.pwdErrorLabel))
         {
             AccountManager.PhoneModifyPassword(this.verificationCodeLabel.text.trim(), this.telephoneLabel.text.trim(), this.newPwdLabel.text.trim());
         }

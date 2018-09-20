@@ -21,7 +21,7 @@ class GamblingHeadChatSupport
     public onDisable()
     {
         ChatManager.onNewMessageCome.removeListener(this.showOtherMsg, this);
-        qin.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
+        game.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
         egret.Tween.removeTweens(this.context.chatScroller.viewport);
         egret.Tween.removeTweens(this.context.emojiImg);
     }
@@ -60,12 +60,12 @@ class GamblingHeadChatSupport
 
     private setVoiceInfo(msg: ChatInfo)
     {
-        if (qin.System.isMicro)
+        if (game.System.isMicro)
         {
             this.context.voiceGroup.visible = true;
             this.context.voiceTimeLabel.text = Math.ceil(parseFloat(msg.param[0])) + "\"";
-            qin.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
-            qin.Tick.AddTimeoutInvoke(this.countDownToCloseChat, 4000, this);
+            game.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
+            game.Tick.AddTimeoutInvoke(this.countDownToCloseChat, 4000, this);
         }
         else
         {
@@ -98,12 +98,12 @@ class GamblingHeadChatSupport
         this.context.chatLabel.text = msg.message;
 
         egret.Tween.removeTweens(this.context.chatScroller.viewport);
-        qin.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
+        game.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
 
         if (this.context.chatLabel.width < 6 * this.context.chatLabel.size)
         {
             this.context.chatScroller.viewport.scrollH = 0;
-            qin.Tick.AddTimeoutInvoke(this.countDownToCloseChat, 4000, this);
+            game.Tick.AddTimeoutInvoke(this.countDownToCloseChat, 4000, this);
         } else
         {
             this.context.chatScroller.viewport.scrollH = (this.context.chatScroller.viewport.width - this.context.chatLabel.width) / 2 - 2;
@@ -115,7 +115,7 @@ class GamblingHeadChatSupport
 	*/
     private countDownToCloseChat()
     {
-        qin.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
+        game.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);
         this.clear();
     }
     /**

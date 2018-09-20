@@ -46,10 +46,10 @@ class ForbiddenDefined extends BaseDefined<ForbiddenDefinition>
             if (str.indexOf(this.dataList[i].des.toString()) >= 0)
             {
                 let forbiddenStr: string = this.dataList[i].des;
-                let replaceStr: string = qin.StringConstants.Empty;
+                let replaceStr: string = game.StringConstants.Empty;
                 for (let j: number = 0; j < forbiddenStr.length; j++)
                 {
-                    replaceStr += qin.StringConstants.Asterisk;
+                    replaceStr += game.StringConstants.Asterisk;
                 }
                 str = str.replace(new RegExp(forbiddenStr, 'g'), replaceStr);
             }

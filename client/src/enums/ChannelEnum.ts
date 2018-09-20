@@ -121,9 +121,9 @@ class ChannelLoginType
 	public static GetChannelLoginList(op: string, channelType: string, isTest: boolean, isSafe: boolean): string[]
 	{
 		let list: string[] = [];
-		if (DEBUG || qin.System.isLocalhost)
+		if (DEBUG || game.System.isLocalhost)
 		{
-			if(qin.System.isMicro || qin.System.isWeChat || qin.System.isLocalhost == false)
+			if(game.System.isMicro || game.System.isWeChat || game.System.isLocalhost == false)
 			{
 				list.push(ChannelLoginType.Weixin);
 			}
@@ -132,7 +132,7 @@ class ChannelLoginType
 			list.push(ChannelLoginType.Guest);
 			list.push(ChannelLoginType.IntranetAccount);
 			list.push(ChannelLoginType.IntranetGuest);
-			if (qin.System.isWeb)
+			if (game.System.isWeb)
 			{
 				//debug的web版有token登录调试用
 				list.push(ChannelLoginType.Normal);
@@ -140,7 +140,7 @@ class ChannelLoginType
 		}
 		else
 		{
-			if (qin.System.isMicro)
+			if (game.System.isMicro)
 			{
 				//安装包
 				if (isTest == false || isSafe == false)
@@ -158,7 +158,7 @@ class ChannelLoginType
 		}
 		if (list.length <= 0)
 		{
-			qin.Console.logError("登录类型列表长度不可能为0");
+			game.Console.logError("登录类型列表长度不可能为0");
 		}
 		return list;
 	}

@@ -35,7 +35,7 @@ class ShareLuckDrawItemRenderer extends BaseItemRenderer<ChampionshipRankInfo>
         let len: number = length - 1;
         if (str.length > len)
         {
-            let size: number = qin.CodeUtil.getStringByteLength(str);
+            let size: number = game.CodeUtil.getStringByteLength(str);
             if (size <= len * 3) //按一个汉字占3个字节算 
             {
                 return str;

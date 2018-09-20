@@ -22,7 +22,7 @@ class FirstPayItemComponent extends BaseComponent<AwardInfoDefinition>
                 this.nameLabel.text = itemDef.name;
                 this.itemComp.init(itemDef.icon + ResSuffixName.PNG, 130, null, false, true);
             }
-            this.countLabel.text = qin.MathUtil.numAddSpace(this.bindData.count);
+            this.countLabel.text = game.MathUtil.numAddSpace(this.bindData.count);
         }
     }
 }

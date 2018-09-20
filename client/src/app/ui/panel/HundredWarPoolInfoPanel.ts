@@ -56,7 +56,7 @@ class HundredWarPoolInfoPanel extends BasePanel
     {
         super.init(appendData);
         HundredWarManager.panelHandler.reqPoolInfo();
-        this.poolNumComp.init("$" + qin.MathUtil.numAddSpace(HundredWarManager.roomInfo.pool));
+        this.poolNumComp.init("$" + game.MathUtil.numAddSpace(HundredWarManager.roomInfo.pool));
     }
     protected onRender(event: egret.Event)
     {
@@ -107,8 +107,8 @@ class HundredWarPoolInfoPanel extends BasePanel
                     }
                 }
             }
-            this.poolLastLabel.text = "$" + qin.MathUtil.formatNum(HundredWarManager.panelHandler.lastPoolInfo.gold);
-            this.dateLabel.text = qin.DateTimeUtil.formatDate(new Date(HundredWarManager.panelHandler.lastPoolInfo.time * 1000), qin.DateTimeUtil.Format_Standard_NoSecondAndYear);
+            this.poolLastLabel.text = "$" + game.MathUtil.formatNum(HundredWarManager.panelHandler.lastPoolInfo.gold);
+            this.dateLabel.text = game.DateTimeUtil.formatDate(new Date(HundredWarManager.panelHandler.lastPoolInfo.time * 1000), game.DateTimeUtil.Format_Standard_NoSecondAndYear);
         }
         else
         {

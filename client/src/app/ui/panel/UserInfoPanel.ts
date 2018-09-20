@@ -151,15 +151,15 @@ class UserInfoPanel extends BasePanel
 
 	private setInfo(info: UserInfo)
 	{
-		this.diamondNumLabel.text = qin.MathUtil.numAddSpace(info.diamond);
-		this.goldNumLabel.text = qin.MathUtil.numAddSpace(info.gold);
+		this.diamondNumLabel.text = game.MathUtil.numAddSpace(info.diamond);
+		this.goldNumLabel.text = game.MathUtil.numAddSpace(info.gold);
 		this.refreshUserInfo(info);
 		this.refreshOtherVipInfo(info);
 		this.userIdLabel.text = info.roleId.toString();
 		this.levelLabel.text = info.level.toString();
 		this.titleLabel.text = UserUtil.getTitle(info.level);
 		this.levelProgressImg.width = 340;
-		this.levelProgressImg.width *= qin.MathUtil.clamp(UserUtil.getPercentage(info.level, info.exp), 0, 1);
+		this.levelProgressImg.width *= game.MathUtil.clamp(UserUtil.getPercentage(info.level, info.exp), 0, 1);
 		this.expLabel.text = UserUtil.getExpStringPercent(info.level, info.exp);
 		this.setStateLabel(info);
 	}
@@ -184,21 +184,21 @@ class UserInfoPanel extends BasePanel
 				if (roomDef)
 				{
 					let patternName: string = PlayingFieldManager.getPatternName(roomDef.type);
-					this.stateLabel.text = qin.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), qin.MathUtil.formatNum(roomDef.sBuyin));
+					this.stateLabel.text = game.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), game.MathUtil.formatNum(roomDef.sBuyin));
 				}
 				break;
 			case UserState.InMatch:
 				let matchDef: ChampionshipDefinition = ChampionshipDefined.GetInstance().getDefinition(info.stateConfId);
 				if (matchDef)
 				{
-					this.stateLabel.text = qin.StringUtil.format("{0}中", matchDef.name);
+					this.stateLabel.text = game.StringUtil.format("{0}中", matchDef.name);
 				}
 				break;
 			case UserState.InHundredWar:
 				let hundredWarDef: HundredWarDefinition = HundredWarDefined.GetInstance().getDefinition(info.stateConfId);
 				if (hundredWarDef)
 				{
-					this.stateLabel.text = qin.StringUtil.format("百人大战：{0}中", hundredWarDef.name);
+					this.stateLabel.text = game.StringUtil.format("百人大战：{0}中", hundredWarDef.name);
 				}
 				break;
 		}
@@ -207,9 +207,9 @@ class UserInfoPanel extends BasePanel
 	private setSituation(info: UserInfo)
 	{
 
-		this.joinTimeLabel.text = qin.DateTimeUtil.formatDate(new Date(info.createdTime * 1000), qin.DateTimeUtil.Format_Standard_Date);
-		this.maxGoldLabel.text = qin.MathUtil.numAddSpace(info.maxGold);
-		this.maxGoldOnetimeLabel.text = qin.MathUtil.numAddSpace(info.maxGoldOnetimes);
+		this.joinTimeLabel.text = game.DateTimeUtil.formatDate(new Date(info.createdTime * 1000), game.DateTimeUtil.Format_Standard_Date);
+		this.maxGoldLabel.text = game.MathUtil.numAddSpace(info.maxGold);
+		this.maxGoldOnetimeLabel.text = game.MathUtil.numAddSpace(info.maxGoldOnetimes);
 		this.frindNumLabel.text = info.friendNum.toString();
 		this.winTimeLabel.text = info.winTimes.toString() + "/" + info.gameTimes.toString();
 		this.winProbabilityLabel.text = Math.round(info.gameTimes == 0 ? 0 : (info.winTimes / info.gameTimes) * 100).toString() + "%";

@@ -188,7 +188,7 @@ class GamblingPanelPitTurnSupport extends BaseGamblingPanelSupport
 	{
 		if (this.isDisabled) //处理动画异步访问数据的问题
 		{
-			qin.Console.log("异步不显示自己的手牌");
+			game.Console.log("异步不显示自己的手牌");
 			return;
 		}
 		let pitInfo: GamblingPitInfo = this.target.getPitInfo((obj.pInfo as PlayerInfo).pos);
@@ -219,7 +219,7 @@ class GamblingPanelPitTurnSupport extends BaseGamblingPanelSupport
 
 					p.x = pitInfo.headComponent.x;
 					p.y = pitInfo.headComponent.y;
-					// qin.QinLog.log("点：" + p.x, p.y, pitInfo.headComponent.hashCode);
+					// game.QinLog.log("点：" + p.x, p.y, pitInfo.headComponent.hashCode);
 				}
 				this.runNext();
 			}

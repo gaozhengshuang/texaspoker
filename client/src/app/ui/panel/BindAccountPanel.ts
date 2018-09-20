@@ -99,11 +99,11 @@ class BindAccountPanel extends BasePanel
         }
         else
         {
-            if (qin.System.isWeChat)
+            if (game.System.isWeChat)
             {
                 this.bindWXBtn.enabled = true;
             }
-            else if (qin.System.isWeb)
+            else if (game.System.isWeb)
             {
                 this.bindWXBtn.enabled = false;
             }

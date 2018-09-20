@@ -105,7 +105,7 @@ class UserUtil
         let result: boolean = false;
         if (!maxChar || maxChar < 0 || !minChar || minChar < 0)
         {
-            qin.Console.log("长度错误");
+            game.Console.log("长度错误");
             return result;
         }
         if (pwd.length == 0)
@@ -164,7 +164,7 @@ class UserUtil
     private static forbidCode(sendCodeBtn: eui.Button, time: number)
     {
         sendCodeBtn.touchEnabled = false;
-        sendCodeBtn.label = qin.DateTimeUtil.formatCountdown(time);
+        sendCodeBtn.label = game.DateTimeUtil.formatCountdown(time);
     }
     /**
      * 添加验证码倒计时
@@ -182,14 +182,14 @@ class UserUtil
         {
             UserUtil.updateCodeCountDown(obj);
         };
-        qin.Tick.AddSecondsInvoke(UserUtil.timer, UserUtil);
+        game.Tick.AddSecondsInvoke(UserUtil.timer, UserUtil);
     }
     /**
      * 移除验证码倒计时
     */
     public static removeCodeCountDown()
     {
-        qin.Tick.RemoveSecondsInvoke(UserUtil.timer, UserUtil);
+        game.Tick.RemoveSecondsInvoke(UserUtil.timer, UserUtil);
     }
     /**
      * 验证码倒计时
@@ -198,7 +198,7 @@ class UserUtil
     {
         if (obj.leftTime == 0)
         {
-            qin.Tick.RemoveSecondsInvoke(UserUtil.timer, UserUtil);
+            game.Tick.RemoveSecondsInvoke(UserUtil.timer, UserUtil);
             obj.leftTime = obj.time;
             obj.sendCodeBtn.touchEnabled = true;
             obj.sendCodeBtn.label = "重新发送";
@@ -210,7 +210,7 @@ class UserUtil
             obj.sendCodeBtn.label = obj.leftTime.toString();
         } else
         {
-            obj.sendCodeBtn.label = qin.DateTimeUtil.formatCountdown(obj.leftTime);
+            obj.sendCodeBtn.label = game.DateTimeUtil.formatCountdown(obj.leftTime);
         }
     }
 }

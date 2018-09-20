@@ -6,7 +6,7 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 	/**
 	 * 签到成功事件
 	 */
-	public signInCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public signInCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	public initialize(info: ActivityInfo)
 	{
@@ -79,7 +79,7 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 	 */
 	public getAwardDes(awardDef: AwardDefinition): string
 	{
-		let result: string = qin.StringConstants.Empty;
+		let result: string = game.StringConstants.Empty;
 		if (awardDef && awardDef.rewardList)
 		{
 			for (let i: number = 0; i < awardDef.rewardList.length; i++)

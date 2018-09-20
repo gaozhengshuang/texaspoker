@@ -32,8 +32,8 @@ class SecondRemindPanel extends BasePanel
 		{
 			this.countDownNum = appendData.countDownNum;
 			this.recordId = appendData.recordId;
-			this.desLabel.text = "您报名的比赛将于" + qin.DateTimeUtil.countDownFormat(this.countDownNum, false) + "秒后开始，是否立即进入比赛？";
-			qin.Tick.AddSecondsInvoke(this.countDown, this);
+			this.desLabel.text = "您报名的比赛将于" + game.DateTimeUtil.countDownFormat(this.countDownNum, false) + "秒后开始，是否立即进入比赛？";
+			game.Tick.AddSecondsInvoke(this.countDown, this);
 		}
 	}
 	protected onRender(event: egret.Event)
@@ -49,7 +49,7 @@ class SecondRemindPanel extends BasePanel
 	{
 		super.onDisable(event);
 		this.enterBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.enterMatch, this);
-		qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+		game.Tick.RemoveSecondsInvoke(this.countDown, this);
 	}
 
 	protected onCloseBtnClickHandler(event: egret.TouchEvent): void
@@ -75,11 +75,11 @@ class SecondRemindPanel extends BasePanel
 	private countDown()
 	{
 		this.countDownNum--;
-		this.desLabel.text = "您报名的比赛将于" + qin.DateTimeUtil.countDownFormat(this.countDownNum, false) + "秒后开始，是否立即进入比赛？";
+		this.desLabel.text = "您报名的比赛将于" + game.DateTimeUtil.countDownFormat(this.countDownNum, false) + "秒后开始，是否立即进入比赛？";
 		if (this.countDownNum <= 0)
 		{
 			this.desLabel.text = "比赛即将开始";
-			qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+			game.Tick.RemoveSecondsInvoke(this.countDown, this);
 			this.onCloseBtnClickHandler(null);
 		}
 	}

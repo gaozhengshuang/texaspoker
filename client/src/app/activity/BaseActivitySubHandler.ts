@@ -83,7 +83,7 @@ abstract class BaseActivitySubHandler<T extends BaseActivitySubInfo<BaseActivity
 	 */
 	public clear()
 	{
-		qin.ArrayUtil.Clear(this._list);
+		game.ArrayUtil.Clear(this._list);
 	}
 	protected getInfo(id: number): ActivityInfo
 	{

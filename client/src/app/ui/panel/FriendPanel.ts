@@ -127,7 +127,7 @@ class FriendPanel extends BasePanel
         {
             this.friendTabCompontent.setSelectIndex(this._tabFlag - 1);
         }
-        this.inviteGroup.visible = (qin.System.isWeChat || qin.System.isMicro) && !VersionManager.isSafe;
+        this.inviteGroup.visible = (game.System.isWeChat || game.System.isMicro) && !VersionManager.isSafe;
         this.setFriendListInfo();
         this.setFriendRequestList();
         this.setGiftListInfo();
@@ -352,13 +352,13 @@ class FriendPanel extends BasePanel
     private inviteFriend()
     {
         SoundManager.playEffect(MusicAction.buttonClick);
-        if (qin.System.isMicro && ChannelManager.hasWeixin == false)
+        if (game.System.isMicro && ChannelManager.hasWeixin == false)
         {
             AlertManager.showAlert("您未安装微信，分享失败。");
         }
         else
         {
-            UIManager.showPanel(UIModuleName.ChooseShareWayPanel, { wxMsgTitle: ChannelManager.appName, wxTimeLineTitle: qin.StringUtil.format("一直听说你的牌技不错，快来和我较量较量。我已经在玩{0}，你不来吗？", ChannelManager.appName), msg: qin.StringUtil.format("一直听说你的牌技不错，快来和我较量较量。我已经在玩{0}，你不来吗？", ChannelManager.appName) });
+            UIManager.showPanel(UIModuleName.ChooseShareWayPanel, { wxMsgTitle: ChannelManager.appName, wxTimeLineTitle: game.StringUtil.format("一直听说你的牌技不错，快来和我较量较量。我已经在玩{0}，你不来吗？", ChannelManager.appName), msg: game.StringUtil.format("一直听说你的牌技不错，快来和我较量较量。我已经在玩{0}，你不来吗？", ChannelManager.appName) });
         }
     }
     /**

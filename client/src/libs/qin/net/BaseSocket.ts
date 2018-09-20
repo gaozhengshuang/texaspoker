@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * 通信基础socket
@@ -30,6 +30,8 @@ module qin
 		//
 		private _enabledSend: boolean = false; //close的时候，是否还允许发送
 		//
+		public static SOCKET_CONNECT_SUCCESS = "ClientNet_SOCKET_CONNECT_SUCCESS";
+		public static SOCKET_CONNECT_CLOSE = "ClientNet_SOCKET_CONNECT_CLOSE";
 		private _useHandshake: boolean = false;//是否使用握手
 		protected _isHandshaking: boolean = false;//是否正在处理握手中
 
@@ -133,6 +135,7 @@ module qin
 					this._socket.removeEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this); 	//添加异常侦听，出现异常会调用此方法
 					this._socket.close();
 					this._socket = null;
+					NotificationCenter.postNotification(BaseSocket.SOCKET_CONNECT_CLOSE);
 				}
 				catch (Exception)
 				{
@@ -226,6 +229,7 @@ module qin
 				this._isHandshaking = false;
 				this.DispatchMessage(new SocketMessage(SocketMessageType.Connect, "0", "connect succeed"));
 			}
+			NotificationCenter.postNotification(BaseSocket.SOCKET_CONNECT_SUCCESS);
 		}
 		/**
 		 * 简单正常发送，没有断线重发，不能重复连续发送相同的命令

@@ -7,18 +7,18 @@ class ItemManager
     /**
      * 物品增加事件
      */
-    public static itemAddEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static itemAddEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 物品减少事件
      */
-    public static itemReduceEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static itemReduceEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
     public static reset()
     {
-        qin.ArrayUtil.Clear(ItemManager.itemList);
+        game.ArrayUtil.Clear(ItemManager.itemList);
     }
 
-    public static initialize(result: qin.SpRpcResult)
+    public static initialize(result: game.SpRpcResult)
     {
         ItemManager.reset();
         if (result.data && result.data.Array)
@@ -37,7 +37,7 @@ class ItemManager
     /**
      * 物品增加
      */
-    private static onItemListAdd(result: qin.SpRpcResult)
+    private static onItemListAdd(result: game.SpRpcResult)
     {
         if (result.data && result.data.Array)
         {
@@ -63,7 +63,7 @@ class ItemManager
     /**
      * 物品减少
      */
-    private static onItemListReduce(result: qin.SpRpcResult)
+    private static onItemListReduce(result: game.SpRpcResult)
     {
         if (result.data && result.data.Array)
         {
@@ -117,7 +117,7 @@ class ItemManager
         {
             let callback: Function = function ()
             {
-                // UIManager.showFloatTips(qin.StringUtil.format("使用了{0} * {1}", iteminfo.definition.name, count))
+                // UIManager.showFloatTips(game.StringUtil.format("使用了{0} * {1}", iteminfo.definition.name, count))
                 let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(id);
                 if (def)
                 {
@@ -143,7 +143,7 @@ class ItemManager
     {
         if (info.count == 0)
         {
-            qin.ArrayUtil.RemoveItem<ItemInfo>(info, ItemManager.itemList);
+            game.ArrayUtil.RemoveItem<ItemInfo>(info, ItemManager.itemList);
         }
     }
     /**

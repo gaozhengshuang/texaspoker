@@ -54,7 +54,7 @@ class GamblingPanelInfoRefreshSupport extends BaseGamblingPanelSupport
 		GamblingManager.NextRoundStartEvent.removeListener(this.onNextRoundStartEvent, this)
 		GamblingManager.OnGetRoomUserInfoEvent.removeListener(this.getRoomUserInfoHandler, this);
 		GamblingManager.guessHandler.onGuessCorrectlyEvent.removeListener(this.showGuessCorrectlyRemind, this);
-		qin.Tick.RemoveTimeoutInvoke(this.closeGuessCorrectlyRemind, this);
+		game.Tick.RemoveTimeoutInvoke(this.closeGuessCorrectlyRemind, this);
 	}
 	private playerStateChangeHandler()
 	{
@@ -77,12 +77,12 @@ class GamblingPanelInfoRefreshSupport extends BaseGamblingPanelSupport
 		}
 		else
 		{
-			qin.Console.log("该玩家的头像组件未找到！" + roleId);
+			game.Console.log("该玩家的头像组件未找到！" + roleId);
 		}
 	}
 	private refreshPotLabel()
 	{
-		this.target.potLabel.text = qin.MathUtil.formatNum(GamblingManager.showPotChips);
+		this.target.potLabel.text = game.MathUtil.formatNum(GamblingManager.showPotChips);
 		// egret.callLater(this.refreshPotGroupPos, this);
 	}
 	private refreshPotGroupPos()
@@ -91,9 +91,9 @@ class GamblingPanelInfoRefreshSupport extends BaseGamblingPanelSupport
 	}
 	private refreshBlindLabel()
 	{
-		this.target.usualblindLabel.text = qin.MathUtil.formatNum(GamblingManager.roomInfo.sBlind) + "/" + qin.MathUtil.formatNum(GamblingManager.roomInfo.bBlind);
-		this.target.anteLabel.text = qin.MathUtil.formatNum(GamblingManager.roomInfo.ante);
-		// this.target.anteLabel.text = qin.MathUtil.formatNum(100000);
+		this.target.usualblindLabel.text = game.MathUtil.formatNum(GamblingManager.roomInfo.sBlind) + "/" + game.MathUtil.formatNum(GamblingManager.roomInfo.bBlind);
+		this.target.anteLabel.text = game.MathUtil.formatNum(GamblingManager.roomInfo.ante);
+		// this.target.anteLabel.text = game.MathUtil.formatNum(100000);
 		if (GamblingManager.roomInfo.ante > 0)
 		// if (100000 > 0)
 		{
@@ -164,14 +164,14 @@ class GamblingPanelInfoRefreshSupport extends BaseGamblingPanelSupport
 	private showGuessCorrectlyRemind()
 	{
 		this.target.guessCorrectlyGroup.visible = true;
-		qin.Tick.AddTimeoutInvoke(this.closeGuessCorrectlyRemind, 1500, this);
+		game.Tick.AddTimeoutInvoke(this.closeGuessCorrectlyRemind, 1500, this);
 	}
 	/**
 	 * 关闭中奖提示
 	*/
 	private closeGuessCorrectlyRemind()
 	{
-		qin.Tick.RemoveTimeoutInvoke(this.closeGuessCorrectlyRemind, this);
+		game.Tick.RemoveTimeoutInvoke(this.closeGuessCorrectlyRemind, this);
 		this.target.guessCorrectlyGroup.visible = false;
 	}
 }

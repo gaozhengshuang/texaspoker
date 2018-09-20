@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/// <summary>
 	/// 客户端socket，异步的

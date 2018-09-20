@@ -142,7 +142,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
     {
         super.init(appendData);
         this.group0.visible = this.group1.visible = this.group2.visible = false;
-        qin.Tick.AddTimeoutInvoke(this.setGroupvisble, 300, this);
+        game.Tick.AddTimeoutInvoke(this.setGroupvisble, 300, this);
         this.setScrollerImg();
         this._activityInfo = new ActivityInfo();
         if (appendData)
@@ -170,12 +170,12 @@ class ShimTaeYoonPanel extends BaseActivityPanel
         ActivityManager.onJoinActivityEvent.removeListener(this.setActivityInfo, this);
         UIManager.onPanelCloseEvent.removeListener(this.resetPanel, this);
         ActivityManager.onReqPubJsonEvent.removeListener(this.setPoolInfo, this)
-        qin.Tick.RemoveTimeoutInvoke(this.showResultPanel, this);
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
-        qin.Tick.RemoveTimeoutInvoke(this.setGroupvisble, this);
+        game.Tick.RemoveTimeoutInvoke(this.showResultPanel, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveTimeoutInvoke(this.setGroupvisble, this);
         for (let i: number = 0; i < 3; i++)
         {
-            qin.Tick.RemoveTimeoutInvoke(this["scrollAnim" + i], this);
+            game.Tick.RemoveTimeoutInvoke(this["scrollAnim" + i], this);
             egret.Tween.removeTweens(this["scroller" + i].viewport);
         }
     }
@@ -189,7 +189,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
     */
     private reset()
     {
-        qin.ArrayUtil.Clear(this._bottomList);
+        game.ArrayUtil.Clear(this._bottomList);
         this.setOffsetScrollV([0, 0, 0]);
         this.setStartImgIndex([0, 0, 0]);
         this.setResultImgIndex([0, 0, 0]);
@@ -207,7 +207,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
             this.betLabel.text = num.toString();
             this._bottomList.push(num);
             this.reqPubInfo();
-            qin.ArrayUtil.Clear(this._coefficientList);
+            game.ArrayUtil.Clear(this._coefficientList);
             this._coefficientList = LaBaDefined.GetInstance().getCoefficientListByBottom(this._activityInfo.id, num);
         }
         this._isAutoStart = false;
@@ -221,7 +221,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
         this._isNext = true;
         this._countDownTime = this._autoReqPoolTime;
         this._isUnderway = false;
-        qin.Tick.AddSecondsInvoke(this.countDown, this);
+        game.Tick.AddSecondsInvoke(this.countDown, this);
     }
     /**
      * 倒计时拉取奖池信息
@@ -245,16 +245,16 @@ class ShimTaeYoonPanel extends BaseActivityPanel
             switch (num)
             {
                 case 200:
-                    this.poolLabel.text = qin.MathUtil.numAddSpace(data.Array[0].Step1);
+                    this.poolLabel.text = game.MathUtil.numAddSpace(data.Array[0].Step1);
                     break;
                 case 2000:
-                    this.poolLabel.text = qin.MathUtil.numAddSpace(data.Array[0].Step2);
+                    this.poolLabel.text = game.MathUtil.numAddSpace(data.Array[0].Step2);
                     break;
                 case 20000:
-                    this.poolLabel.text = qin.MathUtil.numAddSpace(data.Array[0].Step3);
+                    this.poolLabel.text = game.MathUtil.numAddSpace(data.Array[0].Step3);
                     break;
                 case 200000:
-                    this.poolLabel.text = qin.MathUtil.numAddSpace(data.Array[0].Step4);
+                    this.poolLabel.text = game.MathUtil.numAddSpace(data.Array[0].Step4);
                     break;
             }
             this._countDownTime = this._autoReqPoolTime;
@@ -299,7 +299,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
     */
     private setSelfGold()
     {
-        this.selfGoldLabel.text = qin.MathUtil.numAddSpace(UserManager.userInfo.gold);
+        this.selfGoldLabel.text = game.MathUtil.numAddSpace(UserManager.userInfo.gold);
         this._selfGold = UserManager.userInfo.gold;
     }
     /**
@@ -452,7 +452,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
             }
             this.betLabel.text = num.toString();
             this.reqPubInfo();
-            qin.ArrayUtil.Clear(this._coefficientList);
+            game.ArrayUtil.Clear(this._coefficientList);
             this._coefficientList = LaBaDefined.GetInstance().getCoefficientListByBottom(this._activityInfo.id, num);
         }
     }
@@ -483,7 +483,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
             }
             this.betLabel.text = num.toString();
             this.reqPubInfo();
-            qin.ArrayUtil.Clear(this._coefficientList);
+            game.ArrayUtil.Clear(this._coefficientList);
             this._coefficientList = LaBaDefined.GetInstance().getCoefficientListByBottom(this._activityInfo.id, num);
         }
     }
@@ -514,7 +514,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
                 this.shimTaeYoonInfo.gold = data.AwardList[0].Count;
             }
             this.startScroll();
-            this.selfGoldLabel.text = qin.MathUtil.numAddSpace(this._selfGold - parseInt(this.betLabel.text));
+            this.selfGoldLabel.text = game.MathUtil.numAddSpace(this._selfGold - parseInt(this.betLabel.text));
             this._isUnderway = true;
         }
     }
@@ -545,7 +545,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
             this.scrollAnim0(round);
             for (let i: number = 1; i < 3; i++)
             {
-                qin.Tick.AddTimeoutInvoke(this["scrollAnim" + i], i * 500, this, round);
+                game.Tick.AddTimeoutInvoke(this["scrollAnim" + i], i * 500, this, round);
             }
         }
     }
@@ -798,7 +798,7 @@ class ShimTaeYoonPanel extends BaseActivityPanel
     {
         if (index == 2)
         {
-            qin.Tick.AddTimeoutInvoke(this.showResultPanel, 500, this);
+            game.Tick.AddTimeoutInvoke(this.showResultPanel, 500, this);
         }
     }
     /**

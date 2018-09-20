@@ -40,13 +40,13 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
             }
             else
             {
-                qin.Tick.RemoveTimeoutInvoke(this.fixedTimeAlert, this)
+                game.Tick.RemoveTimeoutInvoke(this.fixedTimeAlert, this)
             }
         }
     }
     private checkFixedTimeAlert()
     {
-        qin.Tick.RemoveTimeoutInvoke(this.fixedTimeAlert, this)
+        game.Tick.RemoveTimeoutInvoke(this.fixedTimeAlert, this)
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
         {
             let time: number = TimeManager.GetServerUtcTimestamp() - GamblingManager.matchRoomInfo.startTime;
@@ -57,7 +57,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
                 {
                     outTime = 1;
                 }
-                qin.Tick.AddTimeoutInvoke(this.fixedTimeAlert, outTime * 1000, this)
+                game.Tick.AddTimeoutInvoke(this.fixedTimeAlert, outTime * 1000, this)
             }
         }
     }
@@ -157,10 +157,10 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
                 let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel, GamblingManager.matchRoomInfo.definition.blindType);
                 if (def)
                 {
-                    let text: string = "下局盲注将增长至:" + qin.MathUtil.formatNum(def.sBlind) + "/" + qin.MathUtil.formatNum(def.bBlind)
+                    let text: string = "下局盲注将增长至:" + game.MathUtil.formatNum(def.sBlind) + "/" + game.MathUtil.formatNum(def.bBlind)
                     if (def.preBet)
                     {
-                        text += ",前注:" + qin.MathUtil.formatNum(def.preBet);
+                        text += ",前注:" + game.MathUtil.formatNum(def.preBet);
                     }
                     this._newsLogic.showAddBlind(text);
                 }
@@ -196,7 +196,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         GamblingManager.OnGetRoomInfoEvent.removeListener(this.onGetRoomInfoHandler, this);
         ChampionshipManager.OnMTTRankPushEvent.removeListener(this.onMTTRankPushEvent, this);
         ChampionshipManager.OnMTTOverPushEvent.removeListener(this.onMTTOverPushEvent, this);
-        qin.Tick.RemoveSecondsInvoke(this.refreshTime, this);
+        game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
 
         let state: GamblingPanelMatchState = this.target.panelState;
         let component: GamblingMatchComponent = state.getCompoent<GamblingMatchComponent>(GamblingMatchComponent);
@@ -221,7 +221,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         }
         if (GamblingManager.matchRoomInfo.avgChips)
         {
-            component.avgChipsLabel.text = "均码:" + qin.MathUtil.formatNum(GamblingManager.matchRoomInfo.avgChips);
+            component.avgChipsLabel.text = "均码:" + game.MathUtil.formatNum(GamblingManager.matchRoomInfo.avgChips);
         }
         else
         {
@@ -232,13 +232,13 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
     }
     private showBlind()
     {
-        qin.Tick.RemoveSecondsInvoke(this.refreshTime, this);
+        game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
         if (GamblingManager.roomInfo.blindTime != -1)
         {
             let time: number = GamblingManager.roomInfo.blindTime - TimeManager.GetServerUtcTimestamp();
             if (time > 0)
             {
-                qin.Tick.AddSecondsInvoke(this.refreshTime, this);
+                game.Tick.AddSecondsInvoke(this.refreshTime, this);
             }
         }
     }
@@ -261,7 +261,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
                     time = 0;
                 }
                 component.blindAddNameLabel.text = "下次涨盲:";
-                component.blindAddTimeLabel.text = qin.DateTimeUtil.countDownFormat(Math.floor(time), false);
+                component.blindAddTimeLabel.text = game.DateTimeUtil.countDownFormat(Math.floor(time), false);
             }
         }
     }

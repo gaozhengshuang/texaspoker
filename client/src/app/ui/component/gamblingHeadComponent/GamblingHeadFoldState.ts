@@ -14,7 +14,7 @@ class GamblingHeadFoldState extends BaseGamblingHeadState
 			this.context.showHaveCardImg(false);
 			this.context.showBankRoll();
 			this.context.refreshState();
-			//qin.QinLog.log(this.context.bindData.userInfo.name + "已弃牌");
+			//game.QinLog.log(this.context.bindData.userInfo.name + "已弃牌");
 		}
 	}
 }

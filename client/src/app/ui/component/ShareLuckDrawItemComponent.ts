@@ -19,7 +19,7 @@ class ShareLuckDrawItemComponent extends BaseComponent<any>
 
         if (num && num > 1)
         {
-            this.numLabel.text = qin.MathUtil.formatNum(num);
+            this.numLabel.text = game.MathUtil.formatNum(num);
             this.numLabel.visible = true;
         } else
         {

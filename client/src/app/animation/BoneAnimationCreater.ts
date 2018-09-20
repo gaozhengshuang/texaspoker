@@ -10,7 +10,7 @@ class BoneAnimationCreater
     {
         if (!BoneAnimation._boneList)
         {
-            BoneAnimation._boneList = new qin.Dictionary<string, BoneAnimeInfo>();
+            BoneAnimation._boneList = new game.Map<string, BoneAnimeInfo>();
         }
 
         if (BoneAnimation._boneList.containsKey(name) && !BoneAnimation._boneList.getValue(name).isLoaded)

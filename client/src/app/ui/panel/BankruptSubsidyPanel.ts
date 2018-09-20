@@ -82,7 +82,7 @@ class BankruptSubsidyPanel extends BaseActivityPanel
         }
         else
         {
-            qin.Console.log("领取次数已用尽");
+            game.Console.log("领取次数已用尽");
         }
     }
     protected onCloseBtnClickHandler(event: egret.TouchEvent): void

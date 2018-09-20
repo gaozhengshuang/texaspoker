@@ -28,6 +28,6 @@ class HandCardInfo extends BaseServerValueInfo
 				this.cardList = undefined;
 			}
 		}
-		// qin.CopyUtil.supCopyList(this, data, "cardList", CardInfo);
+		// game.CopyUtil.supCopyList(this, data, "cardList", CardInfo);
 	}
 }

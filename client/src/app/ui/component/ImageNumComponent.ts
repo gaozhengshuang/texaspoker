@@ -75,13 +75,13 @@ class ImageNumComponent extends BaseComponent<NumContentInfo>
             case ":":
                 return SheetSubName.CountDown_Colon;
             default:
-                if (str != qin.StringConstants.Empty && str != undefined)
+                if (str != game.StringConstants.Empty && str != undefined)
                 {
                     return resName + str + "_png";
                 }
                 else
                 {
-                    return qin.StringConstants.Empty;
+                    return game.StringConstants.Empty;
                 }
         }
     }
@@ -104,7 +104,7 @@ class ImageNumComponent extends BaseComponent<NumContentInfo>
     public clear()
     {
         this.numGroup.removeChildren();
-        qin.ArrayUtil.Clear(this._imgList);
+        game.ArrayUtil.Clear(this._imgList);
 
     }
     public destroy()

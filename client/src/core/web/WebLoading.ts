@@ -6,7 +6,7 @@ class WebLoading
     private static _element:HTMLElement;
     private static getElement():HTMLElement
     {
-        if(qin.System.isWeb)
+        if(game.System.isWeb)
         {
             if(WebLoading._element == null)
             {

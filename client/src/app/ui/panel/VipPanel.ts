@@ -84,18 +84,18 @@ class VipPanel extends BasePanel
 				this.buyYearVip.visible = true;
 				this.buyVipButton.label = "续费会员";
 				this.vipTimeLabel.visible = true;
-				this.vipTimeLabel.text = qin.DateTimeUtil.formatDate(new Date(VipManager.GetVipTime() * 1000), qin.DateTimeUtil.Format_Standard_Date);
+				this.vipTimeLabel.text = game.DateTimeUtil.formatDate(new Date(VipManager.GetVipTime() * 1000), game.DateTimeUtil.Format_Standard_Date);
 				break;
 			case VipType.YearVip:
 				this.yearVipImg.visible = true;
 				this.buyYearVip.visible = false;
 				this.buyVipButton.label = "续费会员";
 				this.vipTimeLabel.visible = true;
-				this.vipTimeLabel.text = qin.DateTimeUtil.formatDate(new Date(VipManager.GetVipTime() * 1000), qin.DateTimeUtil.Format_Standard_Date);
+				this.vipTimeLabel.text = game.DateTimeUtil.formatDate(new Date(VipManager.GetVipTime() * 1000), game.DateTimeUtil.Format_Standard_Date);
 				break;
 		}
 		this.vipProgressImg.width = 560;
-		this.vipProgressImg.width *= qin.MathUtil.clamp(parseFloat((UserManager.userInfo.vipExp / 6000).toFixed(2)), 0, 1);
+		this.vipProgressImg.width *= game.MathUtil.clamp(parseFloat((UserManager.userInfo.vipExp / 6000).toFixed(2)), 0, 1);
 		this.vipProgressLabel.text = UserManager.userInfo.vipExp.toString();
 		this.vipProgressLabel.x = this.vipProgressImg.width;
 		this.processBg.x = this.vipProgressImg.width;

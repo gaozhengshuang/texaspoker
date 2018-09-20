@@ -14,7 +14,7 @@ class Channel_ios extends ChannelBase
 					return;
 				}
 			}
-			qin.ExternalInterface.call(ExtFuncName.Login, loginType);
+			game.ExternalInterface.call(ExtFuncName.Login, loginType);
 		}
 		else if (loginType == ChannelLoginType.Account || ChannelManager.loginType == ChannelLoginType.IntranetAccount) //微端测试使用
 		{
@@ -47,7 +47,7 @@ class Channel_ios extends ChannelBase
 			bagId = BundleManager.getBid();//数字包ID
 
 			data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
-			qin.ExternalInterface.call(ExtFuncName.Pay, JSON.stringify(data));
+			game.ExternalInterface.call(ExtFuncName.Pay, JSON.stringify(data));
 		}
 		else if (payState == PayState.Mixed)
 		{
@@ -67,7 +67,7 @@ class Channel_ios extends ChannelBase
 	}
 	private onSelectPayModelHandler(data: any)
 	{
-		this.PaySend(data.payState, data.awardId, UserManager.serverInfo.id, data.passData.orderId, data.price, data.name);
+		// this.PaySend(data.payState, data.awardId, UserManager.serverInfo.id, data.passData.orderId, data.price, data.name);
 		ChannelManager.OnPayModelSelectEvent.removeListener(this.onSelectPayModelHandler, this);
 	}
 	public share(type: string, title: string, message: string, inviteCode?: string)
@@ -77,14 +77,14 @@ class Channel_ios extends ChannelBase
 		data['title'] = title;
 		data['message'] = message;
 		data['url'] = ProjectDefined.GetInstance().getShareWebUrl(GameSetting.AppId, inviteCode);
-		qin.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
+		game.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
 	}
 	/**
 	 * 检查支付订单
 	 */
 	public checkUnFinishedPayList()
 	{
-		qin.ExternalInterface.call(ExtFuncName.CheckUnFinishedPayList, qin.StringConstants.Empty);
+		game.ExternalInterface.call(ExtFuncName.CheckUnFinishedPayList, game.StringConstants.Empty);
 	}
 	/// <summary>
 	/// 支付成功（sdk -> unity）
@@ -145,7 +145,7 @@ class Channel_ios extends ChannelBase
 		}
 		catch (e)
 		{
-			qin.Console.log("苹果支付转换透传数据失败！");
+			game.Console.log("苹果支付转换透传数据失败！");
 		}
 		let orderId: string;
 		let bagId: number;
@@ -172,22 +172,22 @@ class Channel_ios extends ChannelBase
 				if (data != "0")
 				{
 					let message: string = (data == '-1') ? '非法支付' : '支付失败';
-					qin.Console.log("服务器验证支付失败" + data);
+					game.Console.log("服务器验证支付失败" + data);
 					AlertManager.showAlert(message, null, null, null, null, data);
 				}
 				else
 				{
-					qin.Console.log("服务器验证支付成功" + orderId);
-					qin.ExternalInterface.call(ExtFuncName.DeleteOrder, receipt);
+					game.Console.log("服务器验证支付成功" + orderId);
+					game.ExternalInterface.call(ExtFuncName.DeleteOrder, receipt);
 				}
 			}
-			qin.Tick.AddTimeoutInvoke(() =>
+			game.Tick.AddTimeoutInvoke(() =>
 			{
 				UIManager.closePanel(UIModuleName.PayMaskPanel);
 			}, 1000, this);
 		}, (data: any) =>
 			{
-				qin.Console.log("服务器验证支付失败" + orderId);
+				game.Console.log("服务器验证支付失败" + orderId);
 				UIManager.closePanel(UIModuleName.PayMaskPanel);
 			}, params, 1);
 	}
@@ -197,14 +197,14 @@ class Channel_ios extends ChannelBase
 	public imageSelect(size: number, quality: number): void
 	{
 		let obj: Object = { size: size, quality: quality };
-		qin.ExternalInterface.call(ExtFuncName.ImageSelect, JSON.stringify(obj));
+		game.ExternalInterface.call(ExtFuncName.ImageSelect, JSON.stringify(obj));
 	}
 	public openURL(url: string): void
 	{
-		qin.ExternalInterface.call(ExtFuncName.OpenURL, url);
+		game.ExternalInterface.call(ExtFuncName.OpenURL, url);
 	}
 	public copyToPastboard(data: string)
 	{
-		qin.ExternalInterface.call(ExtFuncName.CopyToPastboard, data);
+		game.ExternalInterface.call(ExtFuncName.CopyToPastboard, data);
 	}
 }

@@ -9,7 +9,7 @@ class CommonMoveToRelativelyPos extends BaseAnimation<egret.DisplayObject>
 		this.callBack = null;
 		if (callBack)
 		{
-			this.callBack = qin.Delegate.getOut(callBack, thisObj);
+			this.callBack = game.Delegate.getOut(callBack, thisObj);
 		}
 		let tween: egret.Tween = egret.Tween.get(this.target);
 		tween.to({ x: x, y: y }, 300, egret.Ease.sineIn).call(this.runOver, this);

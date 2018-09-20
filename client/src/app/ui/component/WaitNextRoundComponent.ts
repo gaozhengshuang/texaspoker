@@ -41,12 +41,12 @@ class WaitNextRoundComponent extends BaseComponent<any>
 	protected onEnable(event: eui.UIEvent): void
 	{
 		super.onEnable(event);
-		qin.Tick.addFrameInvoke(this.update, this);
+		game.Tick.addFrameInvoke(this.update, this);
 	}
 	protected onDisable(event: eui.UIEvent): void
 	{
 		super.onDisable(event);
-		qin.Tick.removeFrameInvoke(this.update, this);
+		game.Tick.removeFrameInvoke(this.update, this);
 	}
 	private update()
 	{
@@ -67,10 +67,10 @@ class WaitNextRoundComponent extends BaseComponent<any>
 			this.rotateImg.rotation = tmpRotation;
 
 			let index: number = Math.ceil(this._rotateIndex / 2);
-			let str: string = qin.StringConstants.Empty;
+			let str: string = game.StringConstants.Empty;
 			for (let i: number = 0; i < index; i++)
 			{
-				str += qin.StringConstants.Dot;
+				str += game.StringConstants.Dot;
 			}
 			this.desLabel.text = str;
 			this._rotateIndex++;

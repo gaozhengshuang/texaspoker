@@ -13,16 +13,16 @@ class GamblingHeadRoundStartState extends BaseGamblingHeadState
 			this.context.showMask(false);
 			this.context.chipsSingleShowComponent.visible = false;
 
-			this.context.chipsLabel.text = qin.MathUtil.formatNum(this.context.bindData.bankRoll);
+			this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankRoll);
 			this.context.showCardTypeBgFilter(0);
 			// if (this.context.bindData.userInfo)
 			// {
 			// 	this.context.infoLabel.text = this.context.bindData.userInfo.name;
 			// }
 			this.context.showBankRoll();
-			// this.context.chipsLabel.text = qin.MathUtil.formatNum(this.context.bindData.bankRoll);
-			// qin.QinLog.log("一局开始显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
-			//	qin.QinLog.log(this.context.bindData.userInfo.name + "一局开始");
+			// this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankRoll);
+			// game.QinLog.log("一局开始显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
+			//	game.QinLog.log(this.context.bindData.userInfo.name + "一局开始");
 		}
 	}
 }

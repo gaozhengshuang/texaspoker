@@ -15,11 +15,11 @@ class PlayingFieldManager
     {
         SocketManager.call(Command.Req_RoomInfo_3002, { "type": type }, PlayingFieldManager.RoomListInfoResponse, null, this);
     }
-    public static RoomListInfoResponse(result: qin.SpRpcResult)
+    public static RoomListInfoResponse(result: game.SpRpcResult)
     {
         if (result.data && result.data["roomList"])
         {
-            qin.ArrayUtil.Clear(PlayingFieldManager.roomList);
+            game.ArrayUtil.Clear(PlayingFieldManager.roomList);
             if (!PlayingFieldManager.roomList)
             {
                 PlayingFieldManager.roomList = new Array<PlayingFieldRoomInfo>();
@@ -38,7 +38,7 @@ class PlayingFieldManager
     */
     public static reqCreatePersonalRoom(roomId: number, pwd: string, ante: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data && result.data["id"] > 0)
             {
@@ -60,7 +60,7 @@ class PlayingFieldManager
     {
         if (id)
         {
-            return qin.StringUtil.beforeZeroFill(id, 5);
+            return game.StringUtil.beforeZeroFill(id, 5);
         }
         return '';
     }
@@ -120,13 +120,13 @@ class PlayingFieldManager
     /**
 	 * 请求房间列表事件
 	 */
-    public static onGetRoomListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetRoomListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 直接关闭键盘事件
     */
-    public static onCloseKeyboardEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onCloseKeyboardEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 键盘关闭事件广播
     */
-    public static onKeyBoardCloseEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onKeyBoardCloseEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

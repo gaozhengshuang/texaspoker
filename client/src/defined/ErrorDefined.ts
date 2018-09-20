@@ -29,7 +29,7 @@ class ErrorDefined extends BaseDefined<ErrorDefinition>
 		{
 			return def.des;
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 }
 /**

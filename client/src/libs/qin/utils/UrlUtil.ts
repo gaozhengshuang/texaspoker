@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * url功能，部分api只有web版才可使用
@@ -7,7 +7,7 @@ module qin
 	{
 		public static getCurrentPublicUrl(removeQuerys?:string[]): string
 		{
-			let query: Object = qin.UrlUtil.getCurrentQueryMap();
+			let query: Object = game.UrlUtil.getCurrentQueryMap();
 			if(removeQuerys && removeQuerys.length > 0)
 			{
 				for(let name of removeQuerys)
@@ -15,7 +15,7 @@ module qin
 					delete query[name];
 				}
 			}
-			return qin.UrlUtil.getCurrentHostPath() + "?" + qin.UrlUtil.toHttpQuery(query);
+			return game.UrlUtil.getCurrentHostPath() + "?" + game.UrlUtil.toHttpQuery(query);
 		}
 		/**
 		 * 获取当前url的主机路径
@@ -35,7 +35,7 @@ module qin
 		 */
 		public static getCurrentHostDirectory(): string
 		{
-			let url: string = qin.UrlUtil.getCurrentHostPath();
+			let url: string = game.UrlUtil.getCurrentHostPath();
 			let index: number = url.lastIndexOf("/");
 			if (index >= 0)
 			{
