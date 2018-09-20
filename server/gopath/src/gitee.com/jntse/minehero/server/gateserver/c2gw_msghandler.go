@@ -161,15 +161,26 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if !user.IsInRoom() {
-		user.SendNotify("房间不存在")
+	roomid := tmsg.GetRoomid()
+	if roomid == 0 {
+		log.Error("[房间] 玩家[%s %d]请求进入无效的房间[%d]", user.Name(), user.Id(), roomid)
 		return
 	}
 
+	sid := GetRoomSid(roomid)
+	if sid == 0 {
+		log.Error("[房间] 玩家[%s %d]请求进入的房间[%d]已经销毁", user.Name(), user.Id(), roomid)
+		return
+	}
+
+	// 重新进入房间，不需要上传玩家二进制数据
+	if user.RoomId() != roomid {
+		user.SendUserBinToRoom(sid, roomid)
+	}
+
 	// 进入游戏房间
-	log.Info("玩家[%d] 开始进入房间[%d] ts[%d]", user.Id(), user.RoomId(), util.CURTIMEMS())
-	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
-	user.SendRoomMsg(tmsg)
+	log.Info("玩家[%d] 请求进入房间[%d] ts[%d]", user.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
+	RoomSvrMgr().SendMsg(sid, tmsg)
 }
 
 func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {

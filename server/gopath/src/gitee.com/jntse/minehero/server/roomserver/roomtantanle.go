@@ -156,14 +156,14 @@ func (this *TanTanLe) OnStart() {
 }
 
 // 加载玩家
-func (this *TanTanLe) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
+func (this *TanTanLe) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
 	if this.owner != nil {
 		log.Error("房间[%d] 玩家[%s %d]个人数据已经在房间了", this.id, this.owner.Id(), this.owner.Name())
 		return
 	}
 
 	// 
-	user := UserMgr().CreateRoomUser(this.id, bin, gate, this.gamekind)
+	user := UserMgr().CreateRoomUser(this.id, tmsg.Bin, gate, this.gamekind)
 	this.owner = user
 
 	// 
@@ -171,9 +171,9 @@ func (this *TanTanLe) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession)
 }
 
 // 玩家进房间，开始游戏
-func (this *TanTanLe) UserEnter(userid int64) {
+func (this *TanTanLe) UserEnter(u *RoomUser) {
 	if this.IsStart() == true {
-		log.Error("房间[%d] 玩家[%d] 游戏已经开始了，不要重复进入", this.id, userid)
+		log.Error("房间[%d] 玩家[%d] 游戏已经开始了，不要重复进入", this.id, u.Id())
 		return
 	}
 
@@ -182,26 +182,15 @@ func (this *TanTanLe) UserEnter(userid int64) {
 		return
 	}
 
-	log.Info("房间[%d] 玩家[%d]进入游戏 ts[%d]", this.id, userid, util.CURTIMEMS())
-	//this.owner.UpdateToken(token)
+	log.Info("房间[%d] 玩家[%d]进入游戏 ts[%d]", this.id, u.Id(), util.CURTIMEMS())
 	this.OnStart()
 }
 
 // 玩家正常离开
-func (this *TanTanLe) UserLeave(userid int64) {
+func (this *TanTanLe) UserLeave(u *RoomUser) {
 	this.tm_end = util.CURTIME()
 	this.close_reason = "玩家退出房间"
-	//if owner := this.owner; owner != nil {
-	//	if money > owner.GetGold() + 10000 {
-	//		log.Warn("[玩家[%s %d] 退出房间同步金币差距过大 old[%d] new[%d]", owner.Name(), owner.Id(), owner.GetGold(), money)
-	//	}else {
-	//		if owner.GetGold() < money {
-	//			addmoney := money - owner.GetGold()
-	//			owner.AddGold(addmoney, "退出房间同步", false)
-	//		}
-	//	}
-	//}
-	log.Info("房间[%d] 玩家[%d]退出房间，同步money[%d]，准备删除房间", this.id, userid , 0)
+	log.Info("房间[%d] 玩家[%d]退出房间，同步money[%d]，准备删除房间", this.id, u.Id(), 0)
 }
 
 // 玩家断开连接

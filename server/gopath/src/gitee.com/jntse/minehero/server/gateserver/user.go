@@ -642,7 +642,7 @@ func (this *GateUser) Logout() {
 
 	//下线通知MatchServer
 	//this.OnDisconnectMatchServer()
-	log.Info("账户%s 玩家[%s %d] 存盘下线", this.account, this.Name(), this.Id())
+	log.Info("账户%s 玩家[%s %d] 存盘清理下线", this.account, this.Name(), this.Id())
 }
 
 // logout完成，做最后清理

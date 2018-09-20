@@ -106,6 +106,7 @@ func (this *RoomManager) Cache(room IRoomBase) {
 	pipe.HSet(key, "tid", room.Tid())
 	pipe.HSet(key, "members", room.NumMembers())
 	pipe.HSet(key, "passwd", room.Passwd())
+	pipe.HSet(key, "agentname", RoomSvr().Name())
 	pipe.SAdd("roomlist", room.Id())
 	pipe.SAdd(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {

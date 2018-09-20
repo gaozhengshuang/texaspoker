@@ -31,9 +31,9 @@ type IRoomBase interface {
 	IsStart() bool
 	IsEnd(now int64) bool
 	OnEnd(now int64)
-	UserLoad(bin *msg.Serialize, session network.IBaseNetSession)
-	UserEnter(userid int64)
-	UserLeave(userid int64)
+	UserLoad(tmsg *msg.GW2RS_UploadUserBin, session network.IBaseNetSession)
+	UserEnter(u *RoomUser)
+	UserLeave(u *RoomUser)
 	UserDisconnect(userid int64)
 	UserStandUp(u *RoomUser)				// 棋牌类站起
 	UserSitDown(u *RoomUser, seat int32)	// 棋牌类坐下
