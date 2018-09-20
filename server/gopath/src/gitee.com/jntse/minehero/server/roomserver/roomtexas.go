@@ -18,11 +18,11 @@ import (
 func (this *TexasPokerRoom) OnDestory(now int64) {
 }
 
-// 游戏开始
+// 单局游戏开始
 func (this *TexasPokerRoom) OnGameStart() {
 }
 
-// 游戏结束
+// 单局游戏结束
 func (this *TexasPokerRoom) OnGameOver() {
 }
 
