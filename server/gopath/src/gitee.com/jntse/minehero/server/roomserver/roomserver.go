@@ -194,7 +194,6 @@ func (this *RoomServer) Init(fileconf string) bool {
 	//
 	//this.sessions = make(map[int]network.IBaseNetSession)
 	this.gatemgr.Init()
-	this.roommgr.Init()
 	this.usermgr.Init()
 
 	//this.countmgr.Init()
@@ -283,6 +282,7 @@ func (this *RoomServer) OnStart() {
 	this.runtimestamp = util.CURTIMEMS()
 	this.cleanRoom()	// 删除房间
 	this.rcounter.Init(Redis())	// 计数器
+	this.roommgr.Init()
 
 	log.Info("结束执行OnStart")
 }

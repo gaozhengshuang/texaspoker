@@ -19,7 +19,7 @@ message TexasRoomDefine
 {	
 	
 	
-	optional int32 Id = 1; // id
+	optional int32 Id = 1; // id(规则是类型*1000+顺序码)
 	
 	
 	optional string Desc = 2; // 描述

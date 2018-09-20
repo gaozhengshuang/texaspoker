@@ -3,10 +3,15 @@ package msg;
 import "serialize.proto";
 import "texas.proto";
 
+message TanTanLeRoom {
+    optional int32 tid = 1;
+}
+
 // 请求开始游戏(开房间)
 message C2GW_ReqCreateRoom {
-    optional int32 gamekind = 1;    // 游戏类型
-    optional TexasPersonalRoom texas = 2;   // 德州游戏
+    optional int32 gamekind = 1;            // 游戏类型
+    optional TanTanLeRoom tantanle = 2;     // 弹弹乐
+    optional TexasPersonalRoom texas = 3;   // 德州游戏
 }
 
 message GW2C_RetCreateRoom {

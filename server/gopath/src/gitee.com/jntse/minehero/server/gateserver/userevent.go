@@ -274,8 +274,8 @@ func (m *UserMapEvent) Refresh(now int64) bool {
 
 	//事件clean
 	m.events = make(map[int64]IMapEvent)
-	//longitude, latitude := m.owner.GetUserPos()
-	longitude, latitude := float32(121.38206), float32(31.11325) // 测试代码
+	longitude, latitude := m.owner.GetUserPos()
+	//longitude, latitude := float32(121.38206), float32(31.11325) // 测试代码
 	if longitude == 0 || latitude == 0 {
 		log.Warn("[地图事件] 玩家[%s %d] 刷新事件点但个人坐标无效", m.owner.Name(), m.owner.Id())
 		return false
@@ -391,8 +391,8 @@ func (m *UserMapEvent) RemoveEventById(uid int64, reason string) {
 }
 
 func (m *UserMapEvent) AddEvent(uid int64, tid, rmin, rmax int32) {
-	//longitude, latitude := m.owner.GetUserPos()		// 经纬度
-	longitude, latitude := float32(121.38206), float32(31.11325) // 测试代码
+	longitude, latitude := m.owner.GetUserPos()		// 经纬度
+	//longitude, latitude := float32(121.38206), float32(31.11325) // 测试代码
 	int_longitude, int_latitude := int32(longitude * 100000) , int32(latitude * 100000)	// 米
 
 	lo, la := m.GetRandRangePos(int_longitude, int_latitude, rmin, rmax)

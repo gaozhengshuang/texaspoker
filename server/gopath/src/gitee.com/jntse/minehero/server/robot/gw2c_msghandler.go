@@ -46,6 +46,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 
 
 	// 收room消息
@@ -125,6 +126,7 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 		log.Info("玩家[%s %d] 开始游戏失败 err: %s", name, id, err)
 		return
 	}
+	client.roomid = roomid
 
 	sendmsg := &msg.BT_ReqEnterRoom{}
 	session.SendCmd(sendmsg)
@@ -197,6 +199,12 @@ func on_GW2C_SendLuckyDrawRecord(session network.IBaseNetSession, message interf
 
 func on_GW2C_UpdateItemPos(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_UpdateItemPos)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
+}
+
+func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTexasRoomList)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
