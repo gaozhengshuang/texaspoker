@@ -76,15 +76,10 @@ func (this *TexasPlayer) Betting(num int32) {
 		num = 0
 		this.betover = true
 		this.gamestate = GSFold
+		this.room.remain--
 	} else if num == 0 { // 让牌
 		this.betover = true
-	} else if num + this.curbet < this.room.curbet {
-		//钱不够 allin
-		this.RemoveChip(num)
-		this.curbet += num
-		this.betover = true
-		this.room.chips[this.pos] += num
-	} else if num + this.curbet == this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
+	} else if num + this.curbet <= this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
 		//扣钱
 		this.RemoveChip(num)
 		this.curbet += num
@@ -100,12 +95,13 @@ func (this *TexasPlayer) Betting(num int32) {
 	}
 	if this.GetChip() == 0 {
 		this.gamestate = GSAllIn
+		this.room.allin++
 	}
 	return
 }
 
 func (this *TexasPlayer) BetOver() bool {
-	if this.IsFold() || this.betover{
+	if this.IsFold() || this.IsAllIn() || this.betover{
 		return true
 	}
 	return false

@@ -47,7 +47,9 @@ type TexasPokerRoom struct {
 	curbet int32						//当前总压注
 	restarttime int32	
 	pot []int32							// 奖池筹码数, 第一项为主池，其他项(若存在)为边池
-	chips []int32						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码		
+	chips []int32						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码
+	remain	int32						// 剩余人
+	allin int32							// allin人数
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -160,6 +162,10 @@ func (this *TexasPokerRoom) StartGame() int32 {
 	if !this.SetBigBlind() {
 		return TPWait
 	}
+	this.ForEachPlayer(this.smallblinder.pos, func(p *TexasPlayer) bool {
+		this.remain++
+		return true
+	})
 	this.BlindBet()
 	this.Shuffle()
 	this.SetHoleCard()
@@ -212,6 +218,9 @@ func (this *TexasPokerRoom) SetHoleCard() {
 }
 
 func (this *TexasPokerRoom) PreFlopBet() int32{
+	if this.allin + 1 >= this.remain {
+		return TPPreFlopBet
+	}
 	this.ForEachPlayer(this.bigblinder.pos+1, func(player *TexasPlayer) bool {
 		player.BetStart()
 		if player.BetOver() {
@@ -220,6 +229,9 @@ func (this *TexasPokerRoom) PreFlopBet() int32{
 			return false
 		}
 	})
+	if this.remain <= 1 {
+		return TPShowDown
+	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
 		return TPFlop
@@ -237,6 +249,9 @@ func (this *TexasPokerRoom) Flop() int32{
 }
 
 func (this *TexasPokerRoom) FlopBet() int32{
+	if this.allin + 1 >= this.remain {
+		return TPFlopBet
+	}
 	this.ForEachPlayer(this.smallblinder.pos, func(player *TexasPlayer) bool {
 		player.BetStart()
 		if player.BetOver() {
@@ -245,6 +260,9 @@ func (this *TexasPokerRoom) FlopBet() int32{
 			return false
 		}
 	})
+	if this.remain <= 1 {
+		return TPShowDown
+	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
 		return TPTurn
@@ -262,6 +280,9 @@ func (this *TexasPokerRoom) Turn() int32{
 }
 
 func (this *TexasPokerRoom) TurnBet() int32{
+	if this.allin + 1 >= this.remain {
+		return TPTurnBet
+	}
 	this.ForEachPlayer(this.smallblinder.pos, func(player *TexasPlayer) bool {
 		player.BetStart()
 		if player.BetOver() {
@@ -270,6 +291,9 @@ func (this *TexasPokerRoom) TurnBet() int32{
 			return false
 		}
 	})
+	if this.remain <= 1 {
+		return TPShowDown
+	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
 		return TPRiver
@@ -295,8 +319,11 @@ func (this *TexasPokerRoom) RiverBet() int32{
 			return false
 		}
 	})
+	if this.remain <= 1 {
+		return TPShowDown
+	}
 	if this.AllBetOver() {
-		this.CalcGambPool()
+		//this.CalcGambPool()
 		return TPShowDown
 	}
 	return TPRiverBet
@@ -392,6 +419,9 @@ func (this *TexasPokerRoom) RestartGame() int32{
 	this.smallblinder = nil
 	this.curbet = 0
 	this.restarttime = 3
+	this.pot = nil
+	this.chips = nil
+	this.winlist = nil
 	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
 		player.Init()
 		return true
