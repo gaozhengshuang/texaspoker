@@ -1,7 +1,7 @@
 package main
 import (
 	"sort"
-	"fmt"
+	_"fmt"
 	"time"
 	"math"
 	"gitee.com/jntse/gotoolkit/net"
@@ -93,7 +93,7 @@ func (this *RoomAgent) RoomSize() int64 {
 }
 
 func (this *RoomAgent) DoCalcRoomSize(argu []interface{}) []interface{} {
-	key := fmt.Sprintf("RS_%s_RoomSize", this.Name())
+	key := def.RoomAgentLoadRedisKey(this.Name())
 	size, err := Redis().SCard(key).Result()
 	if err != nil {
 		log.Error("获取%s房间数失败 err: %s", key, err)

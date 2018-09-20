@@ -9,6 +9,19 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 )
 
+func GetRoomSid(roomid int64) int {
+	if roomid == 0 {
+		return 0
+	}
+	keybrief  := fmt.Sprintf("roombrief_%d", roomid)
+	agentname := Redis().HGet(keybrief, "agentname").Val()
+	var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
+	if agent == nil {
+		return 0
+	}
+	return agent.Id()
+}
+
 // --------------------------------------------------------------------------
 /// @brief 玩家房间简单数据
 // --------------------------------------------------------------------------
@@ -34,23 +47,20 @@ func (this *UserRoomData) Reset(u *GateUser) {
 
 func (this *UserRoomData) Online(u *GateUser) {
 	roomid, _ 	:= Redis().HGet(fmt.Sprintf("userinroom_%d", u.Id()), "uid").Int64()
+	kind, _ 	:= Redis().HGet(fmt.Sprintf("userinroom_%d", u.Id()), "kind").Int()
 	if roomid == 0 {
 		this.Reset(u)
 		return
 	}
-	agentname	:= Redis().HGet(fmt.Sprintf("userinroom_%d", u.Id()), "agentname").Val()
-	kind, _ 	:= Redis().HGet(fmt.Sprintf("userinroom_%d", u.Id()), "kind").Int()
-
 
 	// 检查房间是否存在
 	keybrief := fmt.Sprintf("roombrief_%s", this.roomid)
-	if Redis().Exists(keybrief).Val() == 0 {
-		this.Reset(u)
-		log.Error("[房间] 玩家[%s %d] 房间[%d]已经销毁", u.Name(), u.Id(), this.roomid)
-		return
-	}
-	passwd := Redis().HGet(keybrief, "passwd").Val()
-
+	//if Redis().Exists(keybrief).Val() == 0 {
+	//	this.Reset(u)
+	//	log.Error("[房间] 玩家[%s %d] 房间[%d]已经销毁", u.Name(), u.Id(), this.roomid)
+	//	return
+	//}
+	agentname := Redis().HGet(keybrief, "agentname").Val()
 	var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
 	if agent == nil {
 		this.Reset(u)
@@ -61,10 +71,10 @@ func (this *UserRoomData) Online(u *GateUser) {
 	this.roomid = roomid
 	this.roomsid = agent.Id()
 	this.kind = int32(kind)
-	this.passwd = passwd
+	this.passwd = Redis().HGet(keybrief, "passwd").Val()
 
 	// 通知客户端房间信息
-	send := &msg.GW2C_SendUserRoomInfo{Roomid:pb.Int64(roomid), Passwd:pb.String(passwd)}
+	send := &msg.GW2C_SendUserRoomInfo{Roomid:pb.Int64(roomid), Passwd:pb.String(this.passwd)}
 	u.SendMsg(send)
 }
 
@@ -95,6 +105,12 @@ func (this *GateUser) SendRoomMsg(msg pb.Message) {
 		return
 	}
 	RoomSvrMgr().SendMsg(this.roomdata.roomsid, msg)
+}
+
+// TODO: 将个人信息上传到Room
+func (this *GateUser) SendUserBinToRoom(roomsid int, roomid int64) {
+	send := &msg.GW2RS_UploadUserBin{Roomid:pb.Int64(roomid), Userid:pb.Int64(this.Id()), Bin:this.PackBin()}
+	RoomSvrMgr().SendMsg(roomsid, send)
 }
 
 // 回复客户端
@@ -167,11 +183,9 @@ func (this *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 		this.roomdata.roomid = roomid
 		this.roomdata.roomsid = agent.Id()
 		this.roomdata.creating = false
+		this.SendUserBinToRoom(agent.Id(), roomid)
 
-		// TODO: 将个人信息上传到Room
-		send := &msg.GW2RS_UploadUserBin{Roomid:pb.Int64(roomid), Bin:this.PackBin()}
-		agent.SendMsg(send)
-		log.Info("玩家[%s %d] 创建房间[%d]成功 向RS上传玩家个人数据 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
+		log.Info("玩家[%s %d] 创建房间[%d]成功 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
 	}
 
 	this.CreateRoomResponse(errmsg)

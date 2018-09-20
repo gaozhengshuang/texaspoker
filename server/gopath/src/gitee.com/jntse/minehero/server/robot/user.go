@@ -289,6 +289,10 @@ func (this *User) CreateRoom() {
 	this.SendGateMsg(send)
 }
 
+func (this *User) EnterRoom() {
+	this.SendGateMsg(&msg.BT_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String("12345")})
+}
+
 func (this *User) LeaveRoom() {
 	this.SendGateMsg(&msg.BT_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
 }
@@ -353,6 +357,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.SendLogin()
 	case "create":
 		this.CreateRoom()
+	case "enter":
+		this.EnterRoom()
 	case "leave":
 		this.LeaveRoom()
 	case "jump":

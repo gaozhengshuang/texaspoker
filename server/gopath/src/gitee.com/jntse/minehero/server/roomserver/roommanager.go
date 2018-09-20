@@ -85,8 +85,8 @@ func (this* RoomManager) Find(id int64) IRoomBase {
 func (this *RoomManager) Tick(now int64) {
 	this.ticker1s.Run(now)
 	for id, room := range this.rooms {
-		if room.IsEnd(now) == true {
-			room.OnEnd(now)
+		if room.IsDestory(now) == true {
+			room.OnDestory(now)
 			this.Del(id)
 			continue
 		}
@@ -106,6 +106,7 @@ func (this *RoomManager) Cache(room IRoomBase) {
 	pipe.HSet(key, "tid", room.Tid())
 	pipe.HSet(key, "members", room.NumMembers())
 	pipe.HSet(key, "passwd", room.Passwd())
+	pipe.HSet(key, "agentname", RoomSvr().Name())
 	pipe.SAdd("roomlist", room.Id())
 	pipe.SAdd(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {
@@ -190,7 +191,7 @@ func (this *RoomManager) OnGateClose(sid int) {
 func (this *RoomManager) Shutdown() {
 	this.ticker1s.Stop()
 	//for id, room := range this.rooms {
-	//	room.OnEnd(util.CURTIMEMS())
+	//	room.OnDestory(util.CURTIMEMS())
 	//}
 	//this.rooms = make(map[int64]*IRoomBase)
 }

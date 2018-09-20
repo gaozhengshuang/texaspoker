@@ -38,11 +38,8 @@ func (this *TanTanLe) SendClientMsg(userid int64, msg pb.Message) {
 // 房间参数初始化
 func (this *TanTanLe) Init() string {
 	// 更新房间数量到redis
-	key := RoomSizeKey()
-	_, err := Redis().SAdd(key, this.id).Result()
-	if err != nil {
-		return "更新房间数量到redis失败"
-	}
+	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	Redis().SAdd(loadkey, this.id)
 	log.Info("玩家[%d] 创建房间[%d]完成 类型[%d]", this.ownerid, this.id, this.gamekind)
 	return ""
 }
@@ -72,21 +69,21 @@ func PickNumItemNotice(user *RoomUser, itemname string, num int64) {
 
 //
 func (this *TanTanLe) CanStart() bool {
-	if this.IsStart() == true {
+	if this.IsGameStart() == true {
 		return false
 	}
 	return true
 }
 
-func (this *TanTanLe) IsStart() bool {
+func (this *TanTanLe) IsGameStart() bool {
 	if ( this.tm_start == 0 ) {
 		return false
 	}
 	return true
 }
 
-//
-func (this *TanTanLe) IsEnd(now int64) bool {
+// 是否销毁房间
+func (this *TanTanLe) IsDestory(now int64) bool {
 
 	// 超过10秒还未开始游戏
 	if ( this.tm_start == 0 && (now/1000) > this.tm_create + 10) {
@@ -95,7 +92,7 @@ func (this *TanTanLe) IsEnd(now int64) bool {
 		return true
 	}
 
-	if ( this.tm_end != 0)	{
+	if ( this.tm_destory != 0)	{
 		log.Info("房间[%d] 准备删除房间，玩家[%d]", this.id, this.ownerid)
 		return true
 	}
@@ -104,13 +101,13 @@ func (this *TanTanLe) IsEnd(now int64) bool {
 }
 
 
-// 游戏结束
-func (this *TanTanLe) OnEnd(now int64) {
+// 房间销毁
+func (this *TanTanLe) OnDestory(now int64) {
 	log.Info("房间[%d] 游戏结束，模式[%d]", this.Id(), this.Kind())
 
 	// 序列化玩家个人数据
 	if this.owner != nil { 
-		this.owner.OnEnd(now) 
+		this.owner.OnGameEnd(now) 
 	}
 
 	// 通知Gate删除房间，回传个人数据
@@ -120,15 +117,15 @@ func (this *TanTanLe) OnEnd(now int64) {
 
 
 	// 更新房间数量到redis
-	key := RoomSizeKey()
-	_, err := Redis().SRem(key, this.id).Result()
-	if err != nil { log.Error("更新房间数量到redis失败 key:%s , err: %s", key, err) }
-	log.Info("SCard Redis[%s] Amount[%d]", key, Redis().SCard(key).Val())
+	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	Redis().SRem(loadkey, this.Id())
+	log.Info("服务器房间数量[%d]", Redis().SCard(loadkey).Val())
 
 }
 
+
 // 玩家进游戏，游戏开始
-func (this *TanTanLe) OnStart() {
+func (this *TanTanLe) OnGameStart() {
 	if this.owner == nil {
 		log.Error("房间[%d] Owner[%d] OnStart 玩家不在房间中", this.id, this.ownerid)
 		return
@@ -155,15 +152,20 @@ func (this *TanTanLe) OnStart() {
 	this.SendClientMsg(0, msgstart)
 }
 
+// 游戏结束
+func (this *TanTanLe) OnGameOver() {
+}
+
+
 // 加载玩家
-func (this *TanTanLe) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession) {
+func (this *TanTanLe) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
 	if this.owner != nil {
 		log.Error("房间[%d] 玩家[%s %d]个人数据已经在房间了", this.id, this.owner.Id(), this.owner.Name())
 		return
 	}
 
 	// 
-	user := UserMgr().CreateRoomUser(this.id, bin, gate, this.gamekind)
+	user := UserMgr().CreateRoomUser(this.id, tmsg.Bin, gate, this.gamekind)
 	this.owner = user
 
 	// 
@@ -171,9 +173,9 @@ func (this *TanTanLe) UserLoad(bin *msg.Serialize, gate network.IBaseNetSession)
 }
 
 // 玩家进房间，开始游戏
-func (this *TanTanLe) UserEnter(userid int64) {
-	if this.IsStart() == true {
-		log.Error("房间[%d] 玩家[%d] 游戏已经开始了，不要重复进入", this.id, userid)
+func (this *TanTanLe) UserEnter(u *RoomUser) {
+	if this.IsGameStart() == true {
+		log.Error("房间[%d] 玩家[%d] 游戏已经开始了，不要重复进入", this.id, u.Id())
 		return
 	}
 
@@ -182,38 +184,27 @@ func (this *TanTanLe) UserEnter(userid int64) {
 		return
 	}
 
-	log.Info("房间[%d] 玩家[%d]进入游戏 ts[%d]", this.id, userid, util.CURTIMEMS())
-	//this.owner.UpdateToken(token)
-	this.OnStart()
+	log.Info("房间[%d] 玩家[%d]进入游戏 ts[%d]", this.id, u.Id(), util.CURTIMEMS())
+	this.OnGameStart()
 }
 
 // 玩家正常离开
-func (this *TanTanLe) UserLeave(userid int64) {
-	this.tm_end = util.CURTIME()
+func (this *TanTanLe) UserLeave(u *RoomUser) {
+	this.tm_destory = util.CURTIME()
 	this.close_reason = "玩家退出房间"
-	//if owner := this.owner; owner != nil {
-	//	if money > owner.GetGold() + 10000 {
-	//		log.Warn("[玩家[%s %d] 退出房间同步金币差距过大 old[%d] new[%d]", owner.Name(), owner.Id(), owner.GetGold(), money)
-	//	}else {
-	//		if owner.GetGold() < money {
-	//			addmoney := money - owner.GetGold()
-	//			owner.AddGold(addmoney, "退出房间同步", false)
-	//		}
-	//	}
-	//}
-	log.Info("房间[%d] 玩家[%d]退出房间，同步money[%d]，准备删除房间", this.id, userid , 0)
+	log.Info("房间[%d] 玩家[%d]退出房间，同步money[%d]，准备删除房间", this.id, u.Id(), 0)
 }
 
 // 玩家断开连接
 func (this *TanTanLe) UserDisconnect(userid int64) {
-	this.tm_end = util.CURTIME()
+	this.tm_destory = util.CURTIME()
 	this.close_reason = "玩家断开连接"
 	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, userid)
 }
 
 // 网关断开
 func (this *TanTanLe) GateLeave(sid int) {
-	this.tm_end = util.CURTIME()
+	this.tm_destory = util.CURTIME()
 	log.Info("房间[%d] Owner[%d] 网关断开连接Sid[%d]", this.id, this.ownerid, sid)
 }
 

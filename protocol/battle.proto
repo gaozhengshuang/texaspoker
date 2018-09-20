@@ -6,7 +6,7 @@ import "serialize.proto";
 package msg;
 
 
-// C2R 进入创建好的房间
+// C2R 进入房间
 message BT_ReqEnterRoom {
     optional int64 roomid = 1;      // 房间唯一id
     optional string passwd = 2;     // 密码

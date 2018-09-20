@@ -76,6 +76,7 @@ func on_GW2RS_UserDisconnect(session network.IBaseNetSession, message interface{
 		session.SendCmd(rsend)
 		return
 	}
+
 	room.UserDisconnect(userid)
 	session.SendCmd(rsend)
 }
@@ -89,7 +90,7 @@ func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}
 		return
 	}
 
-	room.UserLoad(tmsg.GetBin(), session)
+	room.UserLoad(tmsg, session)
 }
 
 func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
@@ -101,12 +102,18 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
+	user := UserMgr().FindUser(userid)
+	if user == nil {
+		log.Error("玩家[%d] 请求进入房间[%d]，但没有玩家实例", userid, roomid)
+		return
+	}
+
 	if room.Passwd() != tmsg.GetPasswd() {
 		log.Error("玩家[%d] 请求进入房间[%d]，但密码不正确", userid, roomid)
 		return
 	}
 
-	room.UserEnter(userid)
+	room.UserEnter(user)
 }
 
 func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
@@ -117,8 +124,14 @@ func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 		log.Error("on_BT_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
-	//room.UserLeave(userid, tmsg.GetGold())
-	room.UserLeave(userid) 
+
+	user := UserMgr().FindUser(userid)
+	if user == nil {
+		log.Error("玩家[%d] 请求离开房间[%d]，但没有玩家实例", userid, roomid)
+		return
+	}
+
+	room.UserLeave(user) 
 }
 
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {

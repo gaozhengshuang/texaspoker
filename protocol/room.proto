@@ -62,7 +62,8 @@ message RS2MS_DeleteRoom {
 // G2R 发送个人信息到游戏房间
 message GW2RS_UploadUserBin   {
     optional int64 roomid = 1;
-    optional msg.Serialize bin = 2;     // TODO: 玩家数据没必要全部发送
+    optional int64 userid = 2;
+    optional msg.Serialize bin = 3;     // TODO: 玩家数据没必要全部发送
 }
 
 // 通知玩家房间信息
