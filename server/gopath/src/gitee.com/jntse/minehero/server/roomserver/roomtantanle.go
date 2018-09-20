@@ -38,11 +38,8 @@ func (this *TanTanLe) SendClientMsg(userid int64, msg pb.Message) {
 // 房间参数初始化
 func (this *TanTanLe) Init() string {
 	// 更新房间数量到redis
-	key := RoomSizeKey()
-	_, err := Redis().SAdd(key, this.id).Result()
-	if err != nil {
-		return "更新房间数量到redis失败"
-	}
+	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	Redis().SAdd(loadkey, this.id)
 	log.Info("玩家[%d] 创建房间[%d]完成 类型[%d]", this.ownerid, this.id, this.gamekind)
 	return ""
 }
@@ -120,10 +117,9 @@ func (this *TanTanLe) OnDestory(now int64) {
 
 
 	// 更新房间数量到redis
-	key := RoomSizeKey()
-	_, err := Redis().SRem(key, this.id).Result()
-	if err != nil { log.Error("更新房间数量到redis失败 key:%s , err: %s", key, err) }
-	log.Info("SCard Redis[%s] Amount[%d]", key, Redis().SCard(key).Val())
+	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	Redis().SRem(loadkey, this.Id())
+	log.Info("服务器房间数量[%d]", Redis().SCard(loadkey).Val())
 
 }
 

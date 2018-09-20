@@ -379,19 +379,10 @@ func (this *RoomServer) RegistToGateServer(session network.IBaseNetSession) {
 	log.Info("请求注册Room[%s]到Gate[%s]",this.Name(), session.Name())
 }
 
-func RoomSizeKey() string {
-	key := fmt.Sprintf("RS_%s_RoomSize", RoomSvr().Name())
-	return key
-}
-
 func (this *RoomServer) cleanRoom() {
-	key := RoomSizeKey()
+	key := def.RoomAgentLoadRedisKey(this.Name())
 	_, err := Redis().Del(key).Result()
-	if err != nil {
-		log.Error("def key:%s err: %s", key, err)
-		return
-	}
-	log.Info("del key:%s ok", key)
+	log.Info("del key:%s result:%s", key, err)
 }
 
 // 通用公告
@@ -419,37 +410,37 @@ func (this *RoomServer) CacheNotice(notice *msg.RS2MS_MsgNotice) {
 }
 
 // 随机重复公告
-func (this *RoomServer) TickCacheNotice(now int64) {
-	if now < this.noticepause || Match() == nil { 
-		return 
-	}
-
-	amount := int32(len(this.noticerepeat))
-	if amount < 100 || util.SelectPercent(50) == true {
-		// 头像
-		noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Int64(0), Name:pb.String(""), Face:pb.String(""), Type:pb.Int32(int32(msg.NoticeType_Suspension))}
-		imageindex := util.RandBetween(0, 1200)
-		faceurl := fmt.Sprintf("http://jump.cdn.giantfun.cn/cdn/jumphead/tx (%d).jpg",imageindex)
-
-		itemname, username := "钻石", this.GetRandNickName()
-		if util.SelectPercent(50) == true { itemname = this.GetRandItemName() }
-		if itemname == "" || username == "" { return }
-		subtext := []string	{
-			def.MakeNoticeText("恭喜","#ffffff", 26), def.MakeNoticeText(username,"#ffffff", 26),
-			def.MakeNoticeText("获得","#fffc00", 26), def.MakeNoticeText(itemname,"#ffffff", 26),
-		}
-
-		noticemsg.Face, noticemsg.Text = pb.String(faceurl), pb.String(strings.Join(subtext, ""))
-		send := &msg.RS2MS_MsgNotice{ Notice:noticemsg }
-		this.SendNoticeByMsg(send)
-		return
-	}
-
-	randnotice := util.RandBetween(0, amount-1)
-	if randnotice >= 0 && randnotice < amount {
-		this.SendNoticeByMsg(this.noticerepeat[randnotice])
-	}
-}
+//func (this *RoomServer) TickCacheNotice(now int64) {
+//	if now < this.noticepause || Match() == nil { 
+//		return 
+//	}
+//
+//	amount := int32(len(this.noticerepeat))
+//	if amount < 100 || util.SelectPercent(50) == true {
+//		// 头像
+//		noticemsg := &msg.GW2C_MsgNotice{Userid:pb.Int64(0), Name:pb.String(""), Face:pb.String(""), Type:pb.Int32(int32(msg.NoticeType_Suspension))}
+//		imageindex := util.RandBetween(0, 1200)
+//		faceurl := fmt.Sprintf("http://jump.cdn.giantfun.cn/cdn/jumphead/tx (%d).jpg",imageindex)
+//
+//		itemname, username := "钻石", this.GetRandNickName()
+//		if util.SelectPercent(50) == true { itemname = this.GetRandItemName() }
+//		if itemname == "" || username == "" { return }
+//		subtext := []string	{
+//			def.MakeNoticeText("恭喜","#ffffff", 26), def.MakeNoticeText(username,"#ffffff", 26),
+//			def.MakeNoticeText("获得","#fffc00", 26), def.MakeNoticeText(itemname,"#ffffff", 26),
+//		}
+//
+//		noticemsg.Face, noticemsg.Text = pb.String(faceurl), pb.String(strings.Join(subtext, ""))
+//		send := &msg.RS2MS_MsgNotice{ Notice:noticemsg }
+//		this.SendNoticeByMsg(send)
+//		return
+//	}
+//
+//	randnotice := util.RandBetween(0, amount-1)
+//	if randnotice >= 0 && randnotice < amount {
+//		this.SendNoticeByMsg(this.noticerepeat[randnotice])
+//	}
+//}
 
 func (this *RoomServer) GetRandItemName() string {
 	lenlist := int32(len(this.itembase))

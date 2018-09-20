@@ -7,6 +7,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
 	//"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/tbl/excel"
 	//"gitee.com/jntse/gotoolkit/net"
@@ -70,6 +71,7 @@ func (this *TexasPokerRoom) Init() string {
 	}
 	this.tconf = tconf
 	this.subkind = tconf.Type
+	Redis().SAdd(def.RoomAgentLoadRedisKey(RoomSvr().Name()), this.Id())
 	this.cards = make(Cards, 0, SUITSIZE * CARDRANK)
 	for i := 0; i < SUITSIZE; i++{
 		for j := 0; j < CARDRANK; j++{

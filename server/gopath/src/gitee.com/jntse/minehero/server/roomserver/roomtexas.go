@@ -11,11 +11,13 @@ import (
 	////pb"github.com/gogo/protobuf/proto"
 	//"gitee.com/jntse/minehero/server/tbl"
 	//"gitee.com/jntse/minehero/server/tbl/excel"
-	//_"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/def"
 )
 
 // 房间销毁
 func (this *TexasPokerRoom) OnDestory(now int64) {
+	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	Redis().SRem(loadkey, this.Id())
 }
 
 // 单局游戏开始
