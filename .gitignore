@@ -18,17 +18,15 @@
 
 # files
 *.log
-
+*.map
+*.wing
 # dir
 server/gopath/pkg
 git
-/ClientBoss/bin-debug
-/ClientBoss/resource_Publish
-/ClientBoss/bin-release
-.wing
-/ClientBoss_wxgame/js/main.min.js
-/ClientBoss/libs/exml.e.d.ts
-/ClientBoss/resource/default.thm.json
-/ClientBoss/manifest.json
-/ClientBoss/resource/default.res.json
-/ClientBoss/node_modules
+/client/bin-debug
+/client/resource_Publish
+/client/bin-release
+/client/libs/exml.e.d.ts
+/client/resource/default.thm.json
+/client/manifest.json
+/client/node_modules

@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	/**
 	 * 委托派发器

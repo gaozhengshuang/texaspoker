@@ -345,19 +345,7 @@ class TestPanel extends eui.Component
 
 	private testldhexchange()
 	{
-		let v: string = qin.Crypt.ldhexchange("<¢`û");
-		// v = "\b×Ë\f";
-		//	v = "sss1";
-		qin.Console.log(v);
-		// v = Crypt.lb64encode(v);
-		let arr = [];
-		for (let i: number = 0; i < 4; i++)
-		{
-			arr[i] = v.charCodeAt(i);
-		}
-		let buf = array2arraybuffer(arr);
-		v = egret.Base64Util.encode(buf);
-		qin.Console.log(v);
+		
 	}
 	private testCharCode()
 	{

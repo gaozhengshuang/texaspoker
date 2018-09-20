@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	export class CallDispatcher<T>
 	{

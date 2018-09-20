@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	/**
 	 * 字符串静态常量枚举

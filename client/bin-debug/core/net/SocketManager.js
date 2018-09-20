@@ -39,14 +39,14 @@ var SocketManager = (function () {
         enumerable: true,
         configurable: true
     });
-    SocketManager.Initialize = function (userId, roleId, serverId, secret, session, c2s, s2c, msgType) {
+    SocketManager.Initialize = function (userId, roleId, serverId, secret, session, msgType) {
         if (msgType === void 0) { msgType = egret.WebSocket.TYPE_BINARY; }
         SocketManager._isReconnecting = false;
         if (!SocketManager._socket) {
             SocketManager._socket = new qin.GameSocket();
             SocketManager._socket.enabledErrorCode = (SocketManager._isEntering == false);
             SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode);
-            SocketManager._socket.initialize(userId, roleId, serverId, secret, session, c2s, s2c, msgType);
+            SocketManager._socket.initialize(userId, roleId, serverId, secret, session, msgType);
             SocketManager._socket.AddMessageListener(SocketManager.OnMessage, this);
         }
         qin.Tick.AddSecondsInvoke(SocketManager.tickHnadler, this);
@@ -136,7 +136,7 @@ var SocketManager = (function () {
         }
         SocketManager.AddAllListener();
         egret.log("socket重连");
-        SocketManager._socket.Connect(SocketManager._connectHandler.address, SocketManager._connectHandler.port);
+        SocketManager._socket.Connect(SocketManager._connectHandler.port, SocketManager._connectHandler.address);
     };
     /// <summary>
     /// 重连，必须先Close才可以重连

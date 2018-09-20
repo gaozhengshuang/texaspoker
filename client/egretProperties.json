@@ -56,16 +56,20 @@
 			"name": "promise"
 		},
 		{
-			"name": "bundle",
-			"path": "libs"
-		},
-		{
 			"name": "protobuf-library",
 			"path": "protobuf/library"
 		},
 		{
 			"name": "protobuf-bundles",
 			"path": "protobuf/bundles"
+		},
+		{
+			"name": "particle",
+			"path": "../../tools/egret/particle/libsrc"
+		},
+		{
+			"name": "md5",
+			"path": "../../tools/egret/md5/libsrc"
 		}
 	]
 }

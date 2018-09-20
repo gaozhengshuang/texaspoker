@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	/**
 	 * 函数调用工具

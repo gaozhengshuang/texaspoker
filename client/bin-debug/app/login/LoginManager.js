@@ -140,7 +140,7 @@ var LoginManager = (function () {
     LoginManager.Connect = function () {
         if (LoginManager._socket == null) {
             LoginManager._socket = new qin.LoginSocket();
-            LoginManager._socket.initialize(ProtocolManager.LoginBin);
+            LoginManager._socket.initialize();
         }
         //
         LoginManager.Close();
@@ -150,7 +150,7 @@ var LoginManager = (function () {
         UIManager.showPanel(UIModuleName.LoadingSwitchPanel, true);
         LoginManager._socket.AddMessageListener(LoginManager.OnLoginMessage, this);
         LoginManager._socket.AddResultListener(LoginManager.OnResult, this);
-        LoginManager._socket.Connect(LoginManager._connectHandler.address, LoginManager._connectHandler.port);
+        LoginManager._socket.Connect(LoginManager._connectHandler.port, LoginManager._connectHandler.address);
     };
     LoginManager.OnLoadingTimeout = function () {
         LoginManager.Close();
@@ -167,7 +167,7 @@ var LoginManager = (function () {
             // LoginManager._hexsecret = qin.Crypt.ltohex(secret);
             //
             LoginManager._hexsecret = "266f889930929ff7";
-            var hmac = qin.Crypt.HmacSha1(LoginManager._hexsecret, challenge);
+            var hmac = ""; //move todo
             //交换
             LoginManager._socket.AddCommandListener(Command.Login_exchange, LoginManager.OnExchange, this);
             LoginManager._socket.SimpleSend(Command.Login_exchange, { "hmac": hmac });
@@ -184,7 +184,7 @@ var LoginManager = (function () {
         var deviceId = ChannelManager.deviceId;
         var token = qin.StringConstants.Empty;
         if (LoginManager._loginMode == LoginMode.Account) {
-            token = qin.StringUtil.format("{0}@{1}:{2}", qin.Crypt.lb64encode(LoginManager._account), qin.Crypt.lb64encode(LoginManager._password), LoginManager._isLogin);
+            token = qin.StringUtil.format("{0}@{1}:{2}", LoginManager._account, LoginManager._password, LoginManager._isLogin);
         }
         else if (LoginManager._loginMode == LoginMode.Guest) {
             token = deviceId;
@@ -192,7 +192,7 @@ var LoginManager = (function () {
         else {
             token = LoginManager._tokenCode;
         }
-        token = qin.Crypt.AESEncrypt(token, LoginManager._hexsecret);
+        token = token;
         LoginManager._socket.AddCommandListener(Command.Login_auth, LoginManager.OnAuth, this);
         //
         var bid = BundleManager.getBid();

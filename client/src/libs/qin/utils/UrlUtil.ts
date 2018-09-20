@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	/**
 	 * url功能，部分api只有web版才可使用

@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	/**
 	 * 编码工具

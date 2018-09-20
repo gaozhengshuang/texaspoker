@@ -64,7 +64,7 @@ class SocketManager
 	private static _autoReconnect: boolean = false;//是自动重连
 	private static _delayId: number = undefined;
 
-	public static Initialize(userId: number, roleId: number, serverId: number, secret: string, session: number, c2s: ArrayBuffer, s2c: ArrayBuffer, msgType: string = egret.WebSocket.TYPE_BINARY)
+	public static Initialize(userId: number, roleId: number, serverId: number, secret: string, session: number, msgType: string = egret.WebSocket.TYPE_BINARY)
 	{
 		SocketManager._isReconnecting = false;
 		if (!SocketManager._socket)
@@ -72,7 +72,7 @@ class SocketManager
 			SocketManager._socket = new qin.GameSocket();
 			SocketManager._socket.enabledErrorCode = (SocketManager._isEntering == false);
 			SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode);
-			SocketManager._socket.initialize(userId, roleId, serverId, secret, session, c2s, s2c, msgType);
+			SocketManager._socket.initialize(userId, roleId, serverId, secret, session, msgType);
 			SocketManager._socket.AddMessageListener(SocketManager.OnMessage, this);
 		}
 		qin.Tick.AddSecondsInvoke(SocketManager.tickHnadler, this);
@@ -166,7 +166,7 @@ class SocketManager
 		}
 		SocketManager.AddAllListener();
 		egret.log("socket重连");
-		SocketManager._socket.Connect(SocketManager._connectHandler.address, SocketManager._connectHandler.port);
+		SocketManager._socket.Connect(SocketManager._connectHandler.port, SocketManager._connectHandler.address);
 	}
 	/// <summary>
 	/// 重连，必须先Close才可以重连

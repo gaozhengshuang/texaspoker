@@ -27,7 +27,6 @@ class Main extends eui.UILayer
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
         //初始化Resource资源加载库
         this.startLoadConfig();
-
     }
     private async startLoadConfig()
     {
@@ -101,7 +100,7 @@ class Main extends eui.UILayer
                 resolve();
             }, this);
 
-        })
+        });
     }
 
     private createScene()

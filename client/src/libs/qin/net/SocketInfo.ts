@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	/**
 	 * 消息发送
@@ -8,7 +8,7 @@ namespace qin
 		/**
 		 * 内容
 		 */
-		public args: any;
+		public msg: protobuf.Writer;
 		/**
 		 * 会话
 		 */

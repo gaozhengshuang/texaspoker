@@ -34,7 +34,7 @@ class InitServerHandler
 		UserManager.serverInfo = serverInfo;
 
 		SocketManager.Close();
-		SocketManager.Initialize(loginInfo.userid, serverInfo.roleId, serverInfo.id, loginInfo.secret, loginInfo.session, ProtocolManager.Gamec2sBin, ProtocolManager.Games2cBin);
+		SocketManager.Initialize(loginInfo.userid, serverInfo.roleId, serverInfo.id, loginInfo.secret, loginInfo.session);
 		this.RemoveEvents();
 		SocketManager.OnConnect.addListener(this.OnSocketConnect, this);
 		SocketManager.OnEnterError.addListener(this.OnEnterError, this);

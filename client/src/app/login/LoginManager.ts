@@ -155,7 +155,7 @@ class LoginManager
 		if (LoginManager._socket == null)
 		{
 			LoginManager._socket = new qin.LoginSocket();
-			LoginManager._socket.initialize(ProtocolManager.LoginBin);
+			LoginManager._socket.initialize();
 		}
 		//
 		LoginManager.Close();
@@ -166,7 +166,7 @@ class LoginManager
 		UIManager.showPanel(UIModuleName.LoadingSwitchPanel, true);
 		LoginManager._socket.AddMessageListener(LoginManager.OnLoginMessage, this);
 		LoginManager._socket.AddResultListener(LoginManager.OnResult, this);
-		LoginManager._socket.Connect(LoginManager._connectHandler.address, LoginManager._connectHandler.port);
+		LoginManager._socket.Connect(LoginManager._connectHandler.port, LoginManager._connectHandler.address);
 	}
 	private static OnLoadingTimeout()
 	{
@@ -188,7 +188,8 @@ class LoginManager
 
 			//
 			LoginManager._hexsecret = "266f889930929ff7";
-			let hmac = qin.Crypt.HmacSha1(LoginManager._hexsecret, challenge);
+			let hmac =""; //move todo
+
 			//交换
 			LoginManager._socket.AddCommandListener(Command.Login_exchange, LoginManager.OnExchange, this)
 			LoginManager._socket.SimpleSend(Command.Login_exchange, { "hmac": hmac });
@@ -208,7 +209,7 @@ class LoginManager
 		let token: string = qin.StringConstants.Empty;
 		if (LoginManager._loginMode == LoginMode.Account)
 		{
-			token = qin.StringUtil.format("{0}@{1}:{2}", qin.Crypt.lb64encode(LoginManager._account), qin.Crypt.lb64encode(LoginManager._password), LoginManager._isLogin);
+			token = qin.StringUtil.format("{0}@{1}:{2}", LoginManager._account, LoginManager._password, LoginManager._isLogin);
 		}
 		else if (LoginManager._loginMode == LoginMode.Guest)
 		{
@@ -218,7 +219,7 @@ class LoginManager
 		{
 			token = LoginManager._tokenCode;
 		}
-		token = qin.Crypt.AESEncrypt(token, LoginManager._hexsecret);
+		token = token;
 		LoginManager._socket.AddCommandListener(Command.Login_auth, LoginManager.OnAuth, this);
 		//
 		let bid: number = BundleManager.getBid();

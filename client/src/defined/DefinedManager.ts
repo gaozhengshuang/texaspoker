@@ -12,7 +12,7 @@ class DefinedManager
 	/**
 	 * 设置配置表数据
 	 */
-	public static SetConfigData(zipList: JSZipObject[])
+	public static SetConfigData(zipList: any[])
 	{
 		DefinedManager._parseSet = [];
 		DefinedManager._textMap = [];

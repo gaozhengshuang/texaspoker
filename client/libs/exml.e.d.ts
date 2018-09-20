@@ -596,17 +596,17 @@ declare class GamblingMatchWaitComponentSkin extends eui.Skin{
 }
 declare class OmahaCardTypeBtnComponentSkin extends eui.Skin{
 }
-declare class GuidePromptComponentSkin extends eui.Skin{
-}
-declare class guideQuestionRadioBtnSkin extends eui.Skin{
-}
-declare class GuideTipsComponentSkin extends eui.Skin{
-}
 declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
 }
 declare class guessAnteToggleSwitchSkin extends eui.Skin{
 }
 declare class guessSelBtnSkin extends eui.Skin{
+}
+declare class GuidePromptComponentSkin extends eui.Skin{
+}
+declare class guideQuestionRadioBtnSkin extends eui.Skin{
+}
+declare class GuideTipsComponentSkin extends eui.Skin{
 }
 declare class hundredWarAchieveButtonSkin extends eui.Skin{
 }
@@ -636,6 +636,8 @@ declare class HWHeadComponentSkin extends eui.Skin{
 }
 declare class CommonIconSkin extends eui.Skin{
 }
+declare class GetItemRendererSkin extends eui.Skin{
+}
 declare class laBaAutoStartBtnSkin extends eui.Skin{
 }
 declare class laBaCloseButtonSkin extends eui.Skin{
@@ -649,8 +651,6 @@ declare class laBaRankBtnSkin extends eui.Skin{
 declare class laBaStartBtnSkin extends eui.Skin{
 }
 declare class laBaTabCompontBtn2Skin extends eui.Skin{
-}
-declare class GetItemRendererSkin extends eui.Skin{
 }
 declare class loginCheckBoxSkin extends eui.Skin{
 }

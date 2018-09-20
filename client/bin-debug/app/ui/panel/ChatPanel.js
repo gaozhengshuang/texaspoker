@@ -174,16 +174,16 @@ var ChatPanel = (function (_super) {
     ChatPanel.prototype.sendMsg = function (event) {
         //判断用户是否入座  未入座消息在哪都不显示  百人大战不用坐下就可以发消息 小喇叭不受是否入座影响
         if ((SceneManager.sceneType == SceneType.Game && GamblingManager.self) || (SceneManager.sceneType == SceneType.HundredWar) || this.hornTB.selected) {
-            var msg = this.writeLabel.text.trim();
-            if (msg) {
+            var msg_1 = this.writeLabel.text.trim();
+            if (msg_1) {
                 //发送聊天的通知给服务器
                 if (this.hornTB.selected) {
                     this.userHorn();
                 }
                 else {
                     var reg = /\#/g; //过滤#
-                    msg = msg.replace(reg, qin.StringConstants.Empty);
-                    ChatManager.SendChatMessage(msg, ChatMessageType.InRoom);
+                    msg_1 = msg_1.replace(reg, qin.StringConstants.Empty);
+                    ChatManager.SendChatMessage(msg_1, ChatMessageType.InRoom);
                 }
             }
         }

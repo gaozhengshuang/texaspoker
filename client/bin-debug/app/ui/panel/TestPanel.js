@@ -308,18 +308,6 @@ var TestPanel = (function (_super) {
         alert("编码后：" + str);
     };
     TestPanel.prototype.testldhexchange = function () {
-        var v = qin.Crypt.ldhexchange("<¢`û");
-        // v = "\b×Ë\f";
-        //	v = "sss1";
-        qin.Console.log(v);
-        // v = Crypt.lb64encode(v);
-        var arr = [];
-        for (var i = 0; i < 4; i++) {
-            arr[i] = v.charCodeAt(i);
-        }
-        var buf = array2arraybuffer(arr);
-        v = egret.Base64Util.encode(buf);
-        qin.Console.log(v);
     };
     TestPanel.prototype.testCharCode = function () {
         var arr = [];

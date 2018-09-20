@@ -1,4 +1,4 @@
-namespace qin
+module qin
 {
 	/**
 	 * 通信基础socket
@@ -20,6 +20,7 @@ namespace qin
 		private _socket: egret.WebSocket;
 		private _address: string = StringConstants.Empty; 	//地址
 		private _port: number;
+		private _connectUrl: string;
 		protected _msgType: string = egret.WebSocket.TYPE_BINARY;
 		//event callback
 		private _commandDispatcher: CallDispatcher<SpRpcResult> = new CallDispatcher<SpRpcResult>();
@@ -29,8 +30,6 @@ namespace qin
 		//
 		private _enabledSend: boolean = false; //close的时候，是否还允许发送
 		//
-		protected _spRpc: Sproto.CreateNewRet;
-		protected _attchRet: Sproto.CreateNewRet.AttachRet;
 		private _useHandshake: boolean = false;//是否使用握手
 		protected _isHandshaking: boolean = false;//是否正在处理握手中
 
@@ -90,7 +89,6 @@ namespace qin
 				this._errorDispatcher.dispose();
 				this._errorDispatcher = null;
 			}
-			this._spRpc = null;
 			this._onResult = null;
 		}
 		/// <summary>
@@ -152,10 +150,11 @@ namespace qin
 		/// <param name="ip"></param>
 		/// <param name="port"></param>
 		/// <param name="address"></param>
-		public Connect(address: string, port: number)
+
+		Connect(port: number, address: string);
+		Connect(url: string);
+		public Connect(param: any, address?: string)
 		{
-			this._address = address;
-			this._port = port;
 			if (this._socket != null)
 			{
 				this.resetSocket();
@@ -171,8 +170,26 @@ namespace qin
 			this._socket.addEventListener(egret.Event.CLOSE, this.onSocketClose, this);
 			//添加异常侦听，出现异常会调用此方法
 			this._socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onSocketError, this);
-			//连接服务器
-			this._socket.connect(this._address, this._port);
+
+			let typeStr = typeof (param);
+			if (typeStr == "number")
+			{
+				this._address = address;
+				this._port = param;
+				//连接服务器
+				this._socket.connect(this._address, this._port);
+			}
+			else
+			{
+				this._connectUrl = param;
+				this._socket.connectByUrl(this._connectUrl);
+			}
+			window.addEventListener('offline', () =>
+			{
+				// this.onConnectClose();
+				// this.onSocketClose();
+				// NetFailed.getInstance().show();
+			});
 		}
 		/**
 		 * 移除发送回调(只对回调有效，不影响事件侦听)
@@ -198,21 +215,16 @@ namespace qin
 			{
 				return;
 			}
-			if (this._spRpc)
+			this._enabledSend = true;
+			if (this._useHandshake)
 			{
-				this._enabledSend = true;
-				this._spRpc.host("package");
-				this._attchRet = this._spRpc.attach();
-				if (this._useHandshake)
-				{
-					this._isHandshaking = true;
-					this.Handshake();
-				}
-				else
-				{
-					this._isHandshaking = false;
-					this.DispatchMessage(new SocketMessage(SocketMessageType.Connect, "0", "connect succeed"));
-				}
+				this._isHandshaking = true;
+				this.Handshake();
+			}
+			else
+			{
+				this._isHandshaking = false;
+				this.DispatchMessage(new SocketMessage(SocketMessageType.Connect, "0", "connect succeed"));
 			}
 		}
 		/**
@@ -234,11 +246,11 @@ namespace qin
 		 * <param name="isSole">一样的命令和回调是否独占发送，(如果是，当还没接收到上一个包的时候，再次发包，会忽略掉)</param>
 		 * <param name="isDiscRetry">断线重发</param>
 		 */
-		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any)
 		{
 			if (this._enabledSend)
 			{
-				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject);
+				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject);
 				if (info != null)
 				{
 					this.SendObject(info);
@@ -248,25 +260,35 @@ namespace qin
 			{
 				if (isDiscRetry)
 				{
-					this.AddSocketInfo(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject);
+					this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject);
 				}
 			}
 		}
 		protected SendObject(info: SocketInfo)
 		{
-			if (this._socket == null || this._spRpc == null || this._attchRet == null)
+			if (this._socket == null)
 			{
 				this.DispatchMessage(new SocketMessage(SocketMessageType.NotInitialized, "-1", "NotInitialized"));
 				return;
 			}
 			try
 			{
-				Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "- >session:" + info.session);
-				let arr = this._attchRet(info.cmdId, info.args, info.session).buf;
-				let buff: ArrayBuffer = array2arraybuffer(arr);
-				let byteArr: egret.ByteArray = new egret.ByteArray(buff);
-				this._socket.writeBytes(byteArr);
-				this._socket.flush();
+				Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "params:", JSON.stringify(info.msg), "- >session:" + info.session);
+
+				let msgId = this.findMsgId(info.cmdId);
+				if (msgId == 0)
+				{
+					egret.error("传入了错误的消息名或Proto文件没有初始化");
+					return;
+				}
+				let buffer = info.msg.finish();
+				let sendMsg: egret.ByteArray = new egret.ByteArray();
+				let dataMsg: egret.ByteArray = new egret.ByteArray(buffer);
+				sendMsg.endian = egret.Endian.LITTLE_ENDIAN;
+				sendMsg.writeShort(dataMsg.length + 4); //消息组合(内容+包头4字节)
+				sendMsg.writeShort(msgId); //消息ID
+				sendMsg.writeBytes(dataMsg);
+				this._socket.writeBytes(sendMsg);
 			}
 			catch (e)
 			{
@@ -274,13 +296,21 @@ namespace qin
 				this.DispatchMessage(msg);
 			}
 		}
-		private onSocketClose(event:egret.Event): void
+		private findMsgId(msgName: string): number
+		{
+			if (table.ProtoIdByName[msgName])
+			{
+				return table.ProtoIdByName[msgName].Id;
+			}
+			return 0;
+		}
+		private onSocketClose(event: egret.Event): void
 		{
 			Console.log("WebSocket Close");
 			this.DispatchMessage(new SocketMessage(SocketMessageType.Failing, "close", "Server Close"));
 		}
 
-		private onSocketError(event:egret.IOErrorEvent): void
+		private onSocketError(event: egret.IOErrorEvent): void
 		{
 			Console.log("WebSocket connect error");
 			this.DispatchMessage(new SocketMessage(SocketMessageType.NetworkError, "close", "WebSocket connect error"));
@@ -291,12 +321,25 @@ namespace qin
 			{
 				return;
 			}
-			let btyearray: egret.ByteArray = new egret.ByteArray();
-			this._socket.readBytes(btyearray);
-			btyearray.position = 0;
-			let arr = arraybuffer2array(btyearray.buffer);
-			Console.log("receive server message" + " size:" + arr.length);
-			this._spRpc.dispatch({ buf: arr, sz: arr.length }, this.handleRequest.bind(this), this.handleResponse.bind(this));
+			var _arr: egret.ByteArray = new egret.ByteArray();
+			_arr.endian = egret.Endian.LITTLE_ENDIAN;
+			this._socket.readBytes(_arr);
+			var msgLength = _arr.readShort();
+			var mainId = _arr.readShort();
+			var cmdDataBA: egret.ByteArray = new egret.ByteArray();
+			_arr.readBytes(cmdDataBA);
+
+			this.onNotifyMessage(mainId, cmdDataBA);
+			Console.log("receive server message" + " size:" + _arr.length);
+			this.handleRequest.bind(this), this.handleResponse.bind(this)
+		}
+
+		//解析分发消息
+		private onNotifyMessage(mainId: number, cmdDataBA: egret.ByteArray)
+		{
+			let protoData = table.ProtoIdById[mainId];
+			let decoded = msg[protoData.Name.slice(4)].decode(cmdDataBA.bytes);
+			NotificationCenter.postNotification(protoData.Name, decoded);
 		}
 		private handleRequest(name: string, data: any, session: number, error: number)
 		{
@@ -399,7 +442,7 @@ namespace qin
 				}
 			}
 		}
-		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any): SocketInfo
+		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any): SocketInfo
 		{
 			if (this._infoList != null)
 			{
@@ -422,7 +465,7 @@ namespace qin
 				info.cmdId = cmdId;
 				info.isDiscRetry = isDiscRetry;
 				info.isSole = isSole;
-				info.args = args;
+				info.msg = msg;
 				info.onResult = onResult;
 				info.onError = onError;
 				info.thisObject = thisObject;

@@ -390,9 +390,9 @@
 		"resource/skins/component/gambling/GamblingMatchWaitComponent.exml",
 		"resource/skins/component/guide/GuidePromptComponent.exml",
 		"resource/skins/component/guide/GuideTipsComponent.exml",
+		"resource/skins/component/item/GetItemComponent.exml",
 		"resource/skins/component/laba/laBaRankTabComponentBtn4.exml",
 		"resource/skins/component/laba/laBaTabCompontBtn2.exml",
-		"resource/skins/component/item/GetItemComponent.exml",
 		"resource/skins/component/mtt/enterBlueSkin.exml",
 		"resource/skins/component/playfield/playfieldBringTSSkin.exml",
 		"resource/skins/component/playfield/playfieldButtonSkin.exml"

@@ -43,7 +43,7 @@ var qin;
         //------------------------------------------------------------------
         // 
         //------------------------------------------------------------------
-        GameSocket.prototype.initialize = function (userId, roleId, serverId, secret, session, c2s, s2c, msgType) {
+        GameSocket.prototype.initialize = function (userId, roleId, serverId, secret, session, msgType) {
             if (msgType === void 0) { msgType = egret.WebSocket.TYPE_BINARY; }
             this._userId = userId;
             this._roleId = roleId;
@@ -51,64 +51,6 @@ var qin;
             this._secret = secret;
             this._session1 = session;
             this._msgType = msgType;
-            if (c2s && s2c) {
-                var s2cSchema = this.getSchema(s2c);
-                var s2cSpRpc = void 0;
-                if (s2cSchema.length > 0) {
-                    s2cSpRpc = Sproto.createNew({ buf: s2cSchema, sz: s2cSchema.length });
-                }
-                // let obj1 = JSON.parse(JSON.stringify(s2cSpRpc.proto));
-                // let idxoper = function addIdx(target)
-                // {
-                // 	for (let i = 0; i < target.length; i++)
-                // 	{
-                // 		target[i].index = i;
-                // 	}
-                // 	console.log(JSON.stringify(target));
-                // }
-                // idxoper(obj1);
-                // let obj2 = JSON.parse(JSON.stringify(s2cSpRpc.type));
-                // idxoper(obj2);
-                var c2sSchema = this.getSchema(c2s);
-                if (c2sSchema.length > 0) {
-                    this._spRpc = Sproto.createNew({ buf: c2sSchema, sz: c2sSchema.length });
-                    // let obj3 = JSON.parse(JSON.stringify(this._spRpc.proto));
-                    // idxoper(obj3);
-                    // let obj4 = JSON.parse(JSON.stringify(this._spRpc.type));
-                    // idxoper(obj4);
-                    if (s2cSpRpc) {
-                        this._spRpc.s2cProtocol_n = s2cSpRpc.protocol_n;
-                        this._spRpc.s2cProto = s2cSpRpc.proto;
-                        this._spRpc.protocol_n += s2cSpRpc.protocol_n;
-                        this._spRpc.proto = this._spRpc.proto.concat(s2cSpRpc.proto);
-                        //移动子类型索引
-                        for (var _i = 0, _a = s2cSpRpc.type; _i < _a.length; _i++) {
-                            var tp = _a[_i];
-                            for (var _b = 0, _c = tp.f; _b < _c.length; _b++) {
-                                var obj = _c[_b];
-                                if (obj.st) {
-                                    obj.st = obj.st + this._spRpc.type_n;
-                                }
-                            }
-                        }
-                        this._spRpc.type_n += s2cSpRpc.type_n;
-                        this._spRpc.type = this._spRpc.type.concat(s2cSpRpc.type);
-                        s2cSchema = null;
-                        s2cSpRpc = null;
-                    }
-                }
-                if (!this._spRpc) {
-                    qin.Console.log("创建Sproto对象失败!");
-                }
-            }
-        };
-        GameSocket.prototype.getSchema = function (buf) {
-            var dataView = new DataView(buf);
-            var schema = new Array();
-            for (var i = 0; i < dataView.byteLength; i++) {
-                schema[i] = dataView.getUint8(i);
-            }
-            return schema;
         };
         /// <summary>
         /// 调用断线重发
@@ -125,7 +67,7 @@ var qin;
         };
         GameSocket.prototype.Handshake = function () {
             this._handshakeMsgId++;
-            this.SimpleSend(qin.BaseSocket.HandshakeName, { "session": this._session1, "userid": this._userId, "roleid": 0, "serverid": this._serverId, "token": qin.Crypt.HmacSha1(this._secret, qin.StringUtil.format("{0},{1}", this._userId, this._handshakeMsgId)) });
+            this.SimpleSend(qin.BaseSocket.HandshakeName, { "session": this._session1, "userid": this._userId, "roleid": 0, "serverid": this._serverId, "token": "" }); //move todo
         };
         GameSocket.prototype.ParseHandshake = function (result) {
             if (result.cmdId == qin.BaseSocket.HandshakeName) {

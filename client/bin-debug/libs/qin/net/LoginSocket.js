@@ -15,22 +15,9 @@ var qin;
         function LoginSocket() {
             return _super.call(this, false) || this;
         }
-        LoginSocket.prototype.initialize = function (buff, msgType) {
+        LoginSocket.prototype.initialize = function (msgType) {
             if (msgType === void 0) { msgType = egret.WebSocket.TYPE_BINARY; }
             this._msgType = msgType;
-            if (buff) {
-                var dataView = new DataView(buff);
-                var schema = new Array();
-                for (var i = 0; i < dataView.byteLength; i++) {
-                    schema[i] = dataView.getUint8(i);
-                }
-                if (schema.length > 0) {
-                    this._spRpc = Sproto.createNew({ buf: schema, sz: schema.length });
-                }
-                if (!this._spRpc) {
-                    qin.Console.log("创建Sproto对象失败!");
-                }
-            }
         };
         return LoginSocket;
     }(qin.BaseSocket));
