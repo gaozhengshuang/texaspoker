@@ -3,7 +3,7 @@
  */
 class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 {
-	// private _panelShowStateList: qin.Dictionary<string, boolean> = new qin.Dictionary<string, boolean>();
+	// private _panelShowStateList: game.Dictionary<string, boolean> = new game.Dictionary<string, boolean>();
 	private _excludePanel: Array<string> = [UIModuleName.GamblingPanel, UIModuleName.MarqueePanel, UIModuleName.AlertInfoPanel, UIModuleName.ChatPanel, UIModuleName.GuideChoosePanel, UIModuleName.GuideAnswerErrorPanel, UIModuleName.GuideQuestionPanel];
 
 	private _numContentInfo: NumContentInfo;
@@ -50,7 +50,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 		{
 			time = 0;
 		}
-		this._numContentInfo.content = qin.DateTimeUtil.countDownFormat(time, false)
+		this._numContentInfo.content = game.DateTimeUtil.countDownFormat(time, false)
 		this.target.onlineAwardBtn["numComponent"].init(this._numContentInfo);
 	}
 	public onEnable()
@@ -102,7 +102,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 	}
 	private setTimeAwardTime()
 	{
-		this._numContentInfo.content = qin.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false)
+		this._numContentInfo.content = game.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false)
 		this.target.onlineAwardBtn["numComponent"].init(this._numContentInfo);
 	}
 	private onCancelTrusteeship(event: egret.TouchEvent)
@@ -143,7 +143,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 		let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(obj.roleId);
 		if (pInfo)
 		{
-			//qin.QinLog.log("状态变更：" + pInfo.userInfo.name + PlayerInfo.getStateDes(pInfo.state) + pInfo.state);
+			//game.QinLog.log("状态变更：" + pInfo.userInfo.name + PlayerInfo.getStateDes(pInfo.state) + pInfo.state);
 			let headComponent: GamblingHeadComponent = this.target.getHeadComponent(pInfo.pos);
 			if (headComponent)
 			{
@@ -357,13 +357,13 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 			this.target.actionGroup.raiseGroup.visible = false;
 
 			this.target.actionGroup.raiseBtn.visible = false;
-			this.target.actionGroup.callBtn.label = qin.MathUtil.formatNum(GamblingManager.self.bankRoll);
+			this.target.actionGroup.callBtn.label = game.MathUtil.formatNum(GamblingManager.self.bankRoll);
 			//this.target.actionGroup.callBtn["callLabel"].text = "全下";
 		}
 		else if (GamblingUtil.callNum > 0) //需要跟注
 		{
 			this.target.actionGroup.callBtn.visible = true;
-			this.target.actionGroup.callBtn.label = qin.MathUtil.formatNum(GamblingUtil.callNum);
+			this.target.actionGroup.callBtn.label = game.MathUtil.formatNum(GamblingUtil.callNum);
 			//this.target.actionGroup.callBtn["callLabel"].text = "跟注";
 		}
 	}
@@ -663,7 +663,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 	{
 		if (GamblingManager.timeAwardHandler.round < TimeAwardDefined.GetInstance().dataList.length)
 		{
-			this._numContentInfo.content = qin.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false)
+			this._numContentInfo.content = game.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false)
 			this.target.onlineAwardBtn["numComponent"].init(this._numContentInfo);
 			GamblingManager.timeAwardHandler.startTimeFlag = true;
 			GamblingManager.timeAwardHandler.isGetTimeAward = false;
@@ -678,7 +678,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 	*/
 	private refreshTimeAwardTime()
 	{
-		this._numContentInfo.content = qin.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false)
+		this._numContentInfo.content = game.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false)
 		this.target.onlineAwardBtn["numComponent"].init(this._numContentInfo);
 	}
 	/**

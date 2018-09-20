@@ -45,10 +45,10 @@ class GameManager
     /**
      * 所有数据管理静态类初始化前都要清空
      */
-    public static InitServer(loginInfo: LoginInfo, serverInfo: ServerInfo)
+    public static InitServer()
     {
         GameManager._isInitComplete = false;
-        GameManager.initServerHandler.Invoke(loginInfo, serverInfo, GameManager.ParseInitComplete, GameManager.onInitServerError);
+        GameManager.initServerHandler.Invoke(GameManager.ParseInitComplete, GameManager.onInitServerError);
     }
     private static ParseInitComplete()
     {
@@ -66,11 +66,11 @@ class GameManager
     /**
      * 初始化完成
      */
-    public static OnInitComplete: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnInitComplete: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 初始化错误
      */
-    public static OnInitError: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnInitError: game.DelegateDispatcher = new game.DelegateDispatcher();
 
     private static _isWaitReload: boolean = false;
     /**
@@ -81,12 +81,12 @@ class GameManager
         if (!GameManager._isWaitReload)            
         {
             GameManager._isWaitReload = true;
-            SoundManager.clear(qin.Delegate.getOut(function ()
+            SoundManager.clear(game.Delegate.getOut(function ()
             {
                 GameManager._isWaitReload = false;
-                if(qin.System.isWeb)
+                if(game.System.isWeb)
                 {
-                    window.location.href = qin.UrlUtil.getCurrentPublicUrl([URLOption.DebugLoginType,URLOption.DebugToken,URLOption.State]);
+                    window.location.href = game.UrlUtil.getCurrentPublicUrl([URLOption.DebugLoginType,URLOption.DebugToken,URLOption.State]);
                 }
                 else
                 {

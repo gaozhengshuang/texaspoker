@@ -239,7 +239,7 @@ class ChatPanel extends BasePanel
                 } else
                 {
                     let reg: RegExp = /\#/g; //过滤#
-                    msg = msg.replace(reg, qin.StringConstants.Empty);
+                    msg = msg.replace(reg, game.StringConstants.Empty);
                     ChatManager.SendChatMessage(msg, ChatMessageType.InRoom);
                 }
             }
@@ -284,7 +284,7 @@ class ChatPanel extends BasePanel
     */
     private onWriteLabelClick()
     {
-        if (qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Android)
+        if (game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Android)
         {
             this.parent.y = -150;
         }
@@ -295,7 +295,7 @@ class ChatPanel extends BasePanel
     */
     private writeLabelFocueout()
     {
-        if (qin.RuntimeTypeName.getCurrentName() == qin.RuntimeTypeName.Android)
+        if (game.RuntimeTypeName.getCurrentName() == game.RuntimeTypeName.Android)
         {
             this.parent.y = 0;
         }

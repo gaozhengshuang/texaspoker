@@ -12,7 +12,7 @@ abstract class BaseGuideStepProcess extends BaseGuideProcess<GuideControllerDefi
 			this.stepDef = GuideStepDefined.GetInstance().getDefinition(definition.stepId);
 			if (!this.stepDef)
 			{
-				qin.Console.logError("未找到子步骤数据：stepId" + definition.stepId + "params" + definition.stepParams);
+				game.Console.logError("未找到子步骤数据：stepId" + definition.stepId + "params" + definition.stepParams);
 			}
 		}
 	}

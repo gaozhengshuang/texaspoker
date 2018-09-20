@@ -37,8 +37,8 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2RS_RetRegist{}, on_GW2RS_RetRegist)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UserDisconnect{}, on_GW2RS_UserDisconnect)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqEnterRoom{}, on_BT_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.BT_ReqLeaveRoom{}, on_BT_ReqLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 }
@@ -93,8 +93,8 @@ func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}
 	room.UserLoad(tmsg, session)
 }
 
-func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqEnterRoom)
+func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqEnterRoom)
 	roomid, userid  := tmsg.GetRoomid(), tmsg.GetUserid()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
@@ -116,12 +116,12 @@ func on_BT_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	room.UserEnter(user)
 }
 
-func on_BT_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_ReqLeaveRoom)
+func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqLeaveRoom)
 	roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("on_BT_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+		log.Error("on_C2GW_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
 		return
 	}
 

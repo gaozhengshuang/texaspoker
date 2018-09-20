@@ -99,7 +99,7 @@ class ReqScroller
         }
         else
         {
-            qin.Console.logError("数据源为空！");
+            game.Console.logError("数据源为空！");
         }
     }
     /**

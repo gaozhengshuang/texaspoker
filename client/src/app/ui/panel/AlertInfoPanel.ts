@@ -23,8 +23,8 @@ class AlertInfoPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		this.infoTxt.text = qin.StringConstants.Empty;
-		this.subTxt.text = qin.StringConstants.Empty;
+		this.infoTxt.text = game.StringConstants.Empty;
+		this.subTxt.text = game.StringConstants.Empty;
 		this.confirmBtn.label = "确定";
 		this.cancelBtn.label = "取消";
 		if (appendData)
@@ -35,7 +35,7 @@ class AlertInfoPanel extends BasePanel
 			}
 			if (appendData.message)
 			{
-				this.infoTxt.textFlow = qin.TextUtil.parse(appendData.message);
+				this.infoTxt.textFlow = game.TextUtil.parse(appendData.message);
 			}
 			if (appendData.confirmLabel)
 			{
@@ -80,7 +80,7 @@ class AlertInfoPanel extends BasePanel
 		this.cancelBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onCancelClick, this);
 		if (this.panelData instanceof AlertInfo)
 		{
-			qin.PoolUtil.PutObject(this.panelData);
+			game.PoolUtil.PutObject(this.panelData);
 		}
 	}
 	private onConfirmClick(event: egret.TouchEvent)
@@ -88,7 +88,7 @@ class AlertInfoPanel extends BasePanel
 		SoundManager.playEffect(MusicAction.buttonClick);
 		if (this.panelData && this.panelData.OnConfirm)
 		{
-			qin.FuncUtil.invoke(this.panelData.OnConfirm, this.panelData.thisObject, this.panelData.confirmParam);
+			game.FuncUtil.invoke(this.panelData.OnConfirm, this.panelData.thisObject, this.panelData.confirmParam);
 		}
 		super.onCloseBtnClickHandler(null);
 	}
@@ -97,34 +97,34 @@ class AlertInfoPanel extends BasePanel
 		SoundManager.playEffect(MusicAction.buttonClick);
 		if (this.panelData && this.panelData.OnCancel)
 		{
-			qin.FuncUtil.invoke(this.panelData.OnCancel, this.panelData.thisObject, this.panelData.cancelParam);
+			game.FuncUtil.invoke(this.panelData.OnCancel, this.panelData.thisObject, this.panelData.cancelParam);
 		}
 		super.onCloseBtnClickHandler(null);
 	}
 }
-class AlertInfo implements qin.IPoolObject
+class AlertInfo implements game.IPoolObject
 {
 	public thisObject: any;
 	/// <summary>
 	/// 标题
 	/// </summary>
-	public title: string = qin.StringConstants.Empty;
+	public title: string = game.StringConstants.Empty;
 	/// <summary>
 	/// 副标题
 	/// </summary>
-	public subTitle: string = qin.StringConstants.Empty;
+	public subTitle: string = game.StringConstants.Empty;
 	/// <summary>
 	/// 消息
 	/// </summary>
-	public message: string = qin.StringConstants.Empty;
+	public message: string = game.StringConstants.Empty;
 	/// <summary>
 	/// 确定按钮文本
 	/// </summary>
-	public confirmLabel: string = qin.StringConstants.Empty;
+	public confirmLabel: string = game.StringConstants.Empty;
 	/// <summary>
 	/// 取消按钮文本
 	/// </summary>
-	public cancelLabel: string = qin.StringConstants.Empty;
+	public cancelLabel: string = game.StringConstants.Empty;
 	/// <summary>
 	/// 确定回调
 	/// </summary>
@@ -157,11 +157,11 @@ class AlertInfo implements qin.IPoolObject
 	public reset()
 	{
 		this.thisObject = null;
-		this.title = qin.StringConstants.Empty;
-		this.subTitle = qin.StringConstants.Empty;
-		this.message = qin.StringConstants.Empty;
-		this.confirmLabel = qin.StringConstants.Empty;
-		this.cancelLabel = qin.StringConstants.Empty;
+		this.title = game.StringConstants.Empty;
+		this.subTitle = game.StringConstants.Empty;
+		this.message = game.StringConstants.Empty;
+		this.confirmLabel = game.StringConstants.Empty;
+		this.cancelLabel = game.StringConstants.Empty;
 		this.OnConfirm = null;
 		this.OnCancel = null;
 		this.confirmParam = null;

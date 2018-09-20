@@ -50,7 +50,7 @@ class ResCache<T>
 
     public clear()
     {
-        qin.ArrayUtil.Clear(this._keys);
-        qin.ArrayUtil.Clear(this._values);
+        game.ArrayUtil.Clear(this._keys);
+        game.ArrayUtil.Clear(this._values);
     }
 }

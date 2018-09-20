@@ -17,7 +17,7 @@ class ChampionshipRankInfo extends BaseServerValueInfo implements IBaseHead
     private _head: string;
     public set head(value: string)
     {
-        if (qin.StringUtil.isNullOrEmpty(value) == false)
+        if (game.StringUtil.isNullOrEmpty(value) == false)
         {
             value = value.split(GameSetting.HeadUploadVerifySign)[0];
         }
@@ -25,7 +25,7 @@ class ChampionshipRankInfo extends BaseServerValueInfo implements IBaseHead
     }
     public get head(): string
     {
-        if (qin.StringUtil.isNullOrEmpty(this._head))
+        if (game.StringUtil.isNullOrEmpty(this._head))
         {
             return SheetSubName.getdefaultHead(this.sex);
         }

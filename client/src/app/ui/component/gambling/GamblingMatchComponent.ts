@@ -58,7 +58,7 @@ class GamblingMatchComponent extends BaseGamblingSlotComponent
 	 */
 	public showSngCdInfo()
 	{
-		let str: string = qin.StringConstants.Empty;
+		let str: string = game.StringConstants.Empty;
 		if (GamblingManager.sngReadyCountDownTime <= 0)
 		{
 			this.sngCountDownGroup.visible = false;
@@ -67,8 +67,8 @@ class GamblingMatchComponent extends BaseGamblingSlotComponent
 		else
 		{
 			this.sngCountDownGroup.visible = true;
-			str = qin.DateTimeUtil.formatCountdown(GamblingManager.sngReadyCountDownTime);
+			str = game.DateTimeUtil.formatCountdown(GamblingManager.sngReadyCountDownTime);
 		}
-		this.sngCountDownLabel.text = qin.StringUtil.format("（{0}）", str);
+		this.sngCountDownLabel.text = game.StringUtil.format("（{0}）", str);
 	}
 }

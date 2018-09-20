@@ -47,7 +47,7 @@ class MinuteRemindPanel extends BaseBannerRemindPanel
         super.onDisable(event);
         this.enterBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.enterMacth, this);
         ChampionshipManager.OnWithdrawEvent.removeListener(this.outAnime, this);
-        qin.Tick.RemoveTimeoutInvoke(this.palyOutAnime, this);
+        game.Tick.RemoveTimeoutInvoke(this.palyOutAnime, this);
     }
 
     /**
@@ -93,17 +93,17 @@ class MinuteRemindPanel extends BaseBannerRemindPanel
     protected countDown()
     {
         this.countDownNum--;
-        this.desLabel.text = "您报名的比赛将于" + qin.DateTimeUtil.countDownFormat(this.countDownNum, false) + "秒后开始！";
+        this.desLabel.text = "您报名的比赛将于" + game.DateTimeUtil.countDownFormat(this.countDownNum, false) + "秒后开始！";
         if (this.countDownNum <= 0)
         {
             this.desLabel.text = "比赛即将开始";
-            qin.Tick.RemoveSecondsInvoke(this.countDown, this);
-            qin.Tick.AddTimeoutInvoke(this.palyOutAnime, 500, this);
+            game.Tick.RemoveSecondsInvoke(this.countDown, this);
+            game.Tick.AddTimeoutInvoke(this.palyOutAnime, 500, this);
         }
     }
     private palyOutAnime()
     {
-        qin.Tick.RemoveTimeoutInvoke(this.palyOutAnime, this);
+        game.Tick.RemoveTimeoutInvoke(this.palyOutAnime, this);
         this.outAnime();
     }
 }

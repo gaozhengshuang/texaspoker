@@ -35,7 +35,7 @@ class HundredWarNoSeatItemRenderer extends BaseItemRenderer<SimpleUserInfo>
         {
             this.userHeadCom.init(this.bindData, 80);
             this.nameLabel.text = this.bindData.name;
-            this.goldNumLabel.text = "$" + qin.MathUtil.formatNum(this.bindData.gold);
+            this.goldNumLabel.text = "$" + game.MathUtil.formatNum(this.bindData.gold);
         }
     }
 

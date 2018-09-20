@@ -94,7 +94,7 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 		{
 			return this.userInfo.head;
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 
 	public reset()
@@ -131,7 +131,7 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 			case PlayerState.WaitNext:
 				return "等待";
 			default:
-				return qin.StringConstants.Empty;
+				return game.StringConstants.Empty;
 		}
 	}
 	/**
@@ -153,8 +153,8 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 				return SheetSubName.CallState;
 			case PlayerState.Action:
 			case PlayerState.ShowCard:
-				return qin.StringConstants.Empty;
+				return game.StringConstants.Empty;
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 }

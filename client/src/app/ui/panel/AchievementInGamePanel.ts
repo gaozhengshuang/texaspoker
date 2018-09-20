@@ -59,7 +59,7 @@ class AchievementInGamePanel extends BasePanel
 
     private refreshGold()
     {
-        this.goldLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+        this.goldLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
     }
 
     private refreshList()

@@ -238,5 +238,5 @@ class PilePrizeHandler extends BaseActivitySubHandler<PilePrizeItemInfo>
     /**
 	 * 兑换奖励完成事件
 	 */
-    public takePrizeCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public takePrizeCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

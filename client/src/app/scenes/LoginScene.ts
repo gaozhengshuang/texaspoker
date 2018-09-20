@@ -25,7 +25,7 @@ class LoginScene extends BaseScene
         this.RemoveChannelEvents();
         this.RemoveGameLoginEvents();
         this.RemoveLoginBarEvents();
-        LoginManager.Dispose();
+        // LoginManager.Dispose();
     }
     protected onResourceLoadComplete(event: RES.ResourceEvent)
     {
@@ -55,12 +55,12 @@ class LoginScene extends BaseScene
     }
     private InitNetworkVersion(again?: boolean): void
     {
-        if (again && (qin.System.isWeb || qin.System.isMicro))//包括网页和微端
+        if (again && (game.System.isWeb || game.System.isMicro))//包括网页和微端
         {
             GameManager.reload();
             return;
         }
-        if (LoginScene.SkipVersion && (DEBUG || qin.System.isLocalhost))
+        if (LoginScene.SkipVersion && (DEBUG || game.System.isLocalhost))
         {
             this.onEnterLogin();
         }
@@ -75,10 +75,10 @@ class LoginScene extends BaseScene
         TalkingDataManager.enabled = (VersionManager.isServerTest == false);
         VersionManager.onServerComplete.removeListener(this.onEnterLogin, this);
         this._versionDateTime = Date.now();
-        if (qin.System.isWeb)
+        if (game.System.isWeb)
         {
             let debugLoginType: string = URLOption.getString(URLOption.DebugLoginType);
-            if (qin.StringUtil.isNullOrEmpty(debugLoginType))
+            if (game.StringUtil.isNullOrEmpty(debugLoginType))
             {
                 this.EnterLoginStart(true);
             }
@@ -159,20 +159,22 @@ class LoginScene extends BaseScene
     private GameGuestLogin()
     {
         this.AddGameLoginEvents();
-        LoginManager.GuestLogin(ChannelType.guest);//游客渠道标识是固定的
+        // LoginManager.GuestLogin(ChannelType.guest);//游客渠道标识是固定的
     }
     private AddGameLoginEvents()
     {
-        this.RemoveGameLoginEvents();
-        LoginManager.OnComplete.addListener(this.OnGameLoginComplete, this);
-        LoginManager.OnError.addListener(this.OnGameLoginError, this);
-        LoginManager.OnVersionError.addListener(this.OnGameLoginVersionError, this);
+        // this.RemoveGameLoginEvents();
+        // LoginManager.OnComplete.addListener(this.OnGameLoginComplete, this);
+        game.NotificationCenter.addObserver(this, this.OnGameLoginComplete, game.LoginManager.LOGIN_STATE);
+        // LoginManager.OnError.addListener(this.OnGameLoginError, this);
+        // LoginManager.OnVersionError.addListener(this.OnGameLoginVersionError, this);
     }
     private RemoveGameLoginEvents()
     {
-        LoginManager.OnComplete.removeListener(this.OnGameLoginComplete, this);
-        LoginManager.OnError.removeListener(this.OnGameLoginError, this);
-        LoginManager.OnVersionError.removeListener(this.OnGameLoginVersionError, this);
+        game.NotificationCenter.removeObserver(this, game.LoginManager.LOGIN_STATE);
+        // LoginManager.OnComplete.removeListener(this.OnGameLoginComplete, this);
+        // LoginManager.OnError.removeListener(this.OnGameLoginError, this);
+        // LoginManager.OnVersionError.removeListener(this.OnGameLoginVersionError, this);
     }
     private AddChannelEvents()
     {
@@ -190,21 +192,21 @@ class LoginScene extends BaseScene
         ChannelManager.OnLoginFailed.removeListener(this.OnChannelLoginFailure, this);
         ChannelManager.OnBackToApplication.removeListener(this.OnBackToApplication, this);
         this._isLoginingAcount = false;
-        qin.Tick.RemoveTimeoutInvoke(this.CallBackToLoginLaterCoroutine, this);
+        game.Tick.RemoveTimeoutInvoke(this.CallBackToLoginLaterCoroutine, this);
     }
     private GameTokenDebug(loginType: string)
     {
         ChannelManager.OnLogout.addListener(this.OnChannelLogout, this);
         ChannelManager.loginType = loginType;
         let debugToken: string = URLOption.getString(URLOption.DebugToken);
-        if (qin.StringUtil.isNullOrEmpty(debugToken))
+        if (game.StringUtil.isNullOrEmpty(debugToken))
         {
             AlertManager.showAlertByString('登录token不能为空');
         }
         else
         {
             this.AddGameLoginEvents();
-            LoginManager.TokenDebug(ChannelManager.getLoginChannel(), debugToken);
+            // LoginManager.TokenDebug(ChannelManager.getLoginChannel(), debugToken);
         }
     }
     private OnChannelLoginFailure()
@@ -215,8 +217,8 @@ class LoginScene extends BaseScene
     }
     private OnBackToApplication()
     {
-        qin.Tick.RemoveTimeoutInvoke(this.CallBackToLoginLaterCoroutine, this);
-        qin.Tick.AddTimeoutInvoke(this.CallBackToLoginLaterCoroutine, 5000, this);
+        game.Tick.RemoveTimeoutInvoke(this.CallBackToLoginLaterCoroutine, this);
+        game.Tick.AddTimeoutInvoke(this.CallBackToLoginLaterCoroutine, 5000, this);
     }
     private CallBackToLoginLaterCoroutine()
     {
@@ -252,37 +254,40 @@ class LoginScene extends BaseScene
     private GameAccountRegister(account: string, password: string)
     {
         this.AddGameLoginEvents();
-        LoginManager.AccountRegister(ChannelManager.channelType, account, password);
+        // LoginManager.AccountRegister(ChannelManager.channelType, account, password);
     }
     private GameAccountLogin(account: string, password: string)
     {
         this.AddGameLoginEvents();
-        LoginManager.AccountLogin(ChannelManager.channelType, account, password);
+        game.LoginManager.AccountLogin(account, password);
     }
     private GameTokenLogin(token: string)
     {
         this.AddGameLoginEvents();
-        LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);
+        // LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);
     }
-    private OnGameLoginComplete()
+    private OnGameLoginComplete(isSuccess: boolean)
     {
-        this.RemoveGameLoginEvents();
-        //
-        UIManager.closePanel(UIModuleName.LoginPanel);
-        UIManager.closePanel(UIModuleName.RegisterPanel);
-        //
-        let tdgaUid: string = qin.StringUtil.format("{0}_{1}_{2}", OperatePlatform.getCurrent(), ChannelManager.channelType, LoginManager.loginInfo.userid.toString());
-        TalkingDataManager.setAccount(tdgaUid);
-        TalkingDataManager.setAccountName(LoginManager.account);
-        //
-        if (DEBUG || qin.System.isLocalhost)
+        if (isSuccess)
         {
-            this.ShowLoginBar();
-        }
-        else
-        {
+            this.RemoveGameLoginEvents();
+            //
+            UIManager.closePanel(UIModuleName.LoginPanel);
+            UIManager.closePanel(UIModuleName.RegisterPanel);
             this.OnLoginBarComplete();
         }
+        //
+        // let tdgaUid: string = game.StringUtil.format("{0}_{1}_{2}", OperatePlatform.getCurrent(), ChannelManager.channelType, game.LoginManager.loginInfo.userid.toString());
+        // TalkingDataManager.setAccount(tdgaUid);
+        // TalkingDataManager.setAccountName(LoginManager.account);
+        //
+        // if (DEBUG || game.System.isLocalhost)
+        // {
+        //     this.ShowLoginBar();
+        // }
+        // else
+        // {
+        // }
     }
     private OnGameLoginError()
     {
@@ -305,15 +310,15 @@ class LoginScene extends BaseScene
     }
     private ShowLoginBar()
     {
-        this.RemoveLoginBarEvents();
-        UIManager.addEventListener(UIModuleName.LoginBar, UIModuleEvent.COMPLETE, this.OnLoginBarComplete, this);
-        UIManager.addEventListener(UIModuleName.LoginBar, UIModuleEvent.CHANGE, this.OnLoginBarChanged, this);
-        UIManager.showPanel(UIModuleName.LoginBar, LoginManager.loginInfo);
+        // this.RemoveLoginBarEvents();
+        // UIManager.addEventListener(UIModuleName.LoginBar, UIModuleEvent.COMPLETE, this.OnLoginBarComplete, this);
+        // UIManager.addEventListener(UIModuleName.LoginBar, UIModuleEvent.CHANGE, this.OnLoginBarChanged, this);
+        // UIManager.showPanel(UIModuleName.LoginBar, LoginManager.loginInfo);
     }
     private RemoveLoginBarEvents()
     {
-        UIManager.removeEventListener(UIModuleName.LoginBar, UIModuleEvent.COMPLETE, this.OnLoginBarComplete, this);
-        UIManager.removeEventListener(UIModuleName.LoginBar, UIModuleEvent.CHANGE, this.OnLoginBarChanged, this);
+        // UIManager.removeEventListener(UIModuleName.LoginBar, UIModuleEvent.COMPLETE, this.OnLoginBarComplete, this);
+        // UIManager.removeEventListener(UIModuleName.LoginBar, UIModuleEvent.CHANGE, this.OnLoginBarChanged, this);
     }
     private OnLoginBarComplete()
     {
@@ -327,18 +332,18 @@ class LoginScene extends BaseScene
         else
         {
             //进入游戏
-            let serverInfo: ServerInfo = LoginManager.loginInfo.getServerInfo();
-            if (!serverInfo)
-            {
-                UIManager.showFloatTips("服务器信息为空！");
-                return;
-            }
-            else if (serverInfo.status == 1 && LoginManager.loginInfo.isWhitelist == false)
-            {
-                AlertManager.showAlert("服务器正在维护中...", this.OnLoginBarBack.bind(this));
-                return;
-            }
-            this.InitServer(serverInfo);
+            // let serverInfo: ServerInfo = LoginManager.loginInfo.getServerInfo();
+            // if (!serverInfo)
+            // {
+            //     UIManager.showFloatTips("服务器信息为空！");
+            //     return;
+            // }
+            // else if (serverInfo.status == 1 && LoginManager.loginInfo.isWhitelist == false)
+            // {
+            //     AlertManager.showAlert("服务器正在维护中...", this.OnLoginBarBack.bind(this));
+            //     return;
+            // }
+            this.InitServer();
         }
     }
     private OnLoginBarBack(event: UIModuleEvent)
@@ -353,12 +358,12 @@ class LoginScene extends BaseScene
         this.RemoveLoginBarEvents();
         ChannelManager.logout();
     }
-    private InitServer(serverInfo: ServerInfo)
+    private InitServer()
     {
         this.RemoveInitEvents();
         GameManager.OnInitComplete.addListener(this.OnInitComplete, this);
         GameManager.OnInitError.addListener(this.OnInitError, this);
-        GameManager.InitServer(LoginManager.loginInfo, serverInfo);
+        GameManager.InitServer();
     }
     private RemoveInitEvents()
     {
@@ -409,7 +414,7 @@ class LoginScene extends BaseScene
     private enterGambling()
     {
         GamblingManager.OnGetRoomInfoEvent.addListener(this.onGetRoomInfoResult, this);
-        qin.Console.log("游戏初始化进入房间：reqGetRoomInfo");
+        game.Console.log("游戏初始化进入房间：reqGetRoomInfo");
         GamblingManager.reqEnterRoom();
     }
     private onGetRoomInfoResult()
@@ -422,7 +427,7 @@ class LoginScene extends BaseScene
     */
     private enterHundredWar()
     {
-        qin.Console.log("游戏初始化进入百人大战：reqGetHundredWarRoomInfo");
+        game.Console.log("游戏初始化进入百人大战：reqGetHundredWarRoomInfo");
         HundredWarManager.reqEnterRoom();
 
     }

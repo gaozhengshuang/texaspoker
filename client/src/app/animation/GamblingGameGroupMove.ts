@@ -12,7 +12,7 @@ class GamblingGameGroupMove extends BaseAnimation<egret.DisplayObject>
 		super.run(x);
 		if (callBack)
 		{
-			this.callBack = qin.Delegate.getOut(callBack, thisObject);
+			this.callBack = game.Delegate.getOut(callBack, thisObject);
 		}
 		let tween: egret.Tween = egret.Tween.get(this.target);
 		tween.to({ x: x }, 200, egret.Ease.sineIn).call(this.runOver, this);
@@ -25,7 +25,7 @@ class GamblingGameGroupMove extends BaseAnimation<egret.DisplayObject>
 		if (this.callBack)
 		{
 			this.callBack.invoke();
-			qin.Delegate.putIn(this.callBack);
+			game.Delegate.putIn(this.callBack);
 		}
 		this.callBack = null;
 	}

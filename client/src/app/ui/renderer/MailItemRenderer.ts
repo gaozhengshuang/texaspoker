@@ -28,8 +28,8 @@ class MailItemRenderer extends BaseItemRenderer<MailInfo>
         if (this.bindData)
         {
             this.itemTitleLabel.text = this.bindData.Title;
-            this.itemDesLabel.textFlow = qin.TextUtil.parse(this.bindData.Content);
-            this.dateLabel.text = qin.DateTimeUtil.formatDate(new Date(this.bindData.Date * 1000), qin.DateTimeUtil.Format_China_MonthDay);
+            this.itemDesLabel.textFlow = game.TextUtil.parse(this.bindData.Content);
+            this.dateLabel.text = game.DateTimeUtil.formatDate(new Date(this.bindData.Date * 1000), game.DateTimeUtil.Format_China_MonthDay);
             if (this.bindData.isHavePrize)
             {
                 this.itemComp.init(this.bindData.attaList[0].id, 88);
@@ -59,7 +59,7 @@ class MailItemRenderer extends BaseItemRenderer<MailInfo>
         PropertyManager.OpenGet();
         SocketManager.call(Command.Mail_TakePrize_3098, { "MailId": this.bindData.Id }, this.onTakePrize, null, this);
     }
-    private onTakePrize(result: qin.SpRpcResult)
+    private onTakePrize(result: game.SpRpcResult)
     {
         SoundManager.playEffect(MusicAction.buttonClick);
         this.bindData.IsGot = true;

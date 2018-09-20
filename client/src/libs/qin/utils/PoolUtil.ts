@@ -1,11 +1,11 @@
-module qin
+module game
 {
 	/**
 	 * 对象池
 	 */
 	export class PoolUtil
 	{
-		private static _map: Dictionary<string, Array<IPoolObject>> = new Dictionary<string, Array<IPoolObject>>();
+		private static _map: Map<string, Array<IPoolObject>> = new Map<string, Array<IPoolObject>>();
 
 		/**
 		 * 从对象池中获取对象

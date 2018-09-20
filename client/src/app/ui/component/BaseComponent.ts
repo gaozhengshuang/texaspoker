@@ -13,7 +13,7 @@ abstract class BaseComponent<T> extends eui.Component
 		this.skinName = skinName;
 		if (!skinName)
 		{
-			qin.Console.log("皮肤路径为空！" + egret.getQualifiedClassName(this));
+			game.Console.log("皮肤路径为空！" + egret.getQualifiedClassName(this));
 		}
 	}
 	public init(data: T)

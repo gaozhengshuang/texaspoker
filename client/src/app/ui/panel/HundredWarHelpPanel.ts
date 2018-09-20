@@ -65,7 +65,7 @@ class HundredWarHelpPanel extends BasePanel
 		{
 			if (def.isRichTxt)
 			{
-				label.textFlow = qin.TextUtil.parse(def.text);
+				label.textFlow = game.TextUtil.parse(def.text);
 			}
 			else
 			{
@@ -90,7 +90,7 @@ class HundredWarHelpPanel extends BasePanel
 		}
 		if (index == 2)
 		{
-			if (qin.StringUtil.isNullOrEmpty(this.prizeLabel.text))
+			if (game.StringUtil.isNullOrEmpty(this.prizeLabel.text))
 			{
 				this.setLabel(this.prizeLabel, TextFixedId.HundredWarPrize);
 			}

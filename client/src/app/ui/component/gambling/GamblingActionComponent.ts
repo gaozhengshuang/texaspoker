@@ -27,15 +27,15 @@ class GamblingActionComponent extends BaseComponent<PlayerState>
 
 	public centerPointComponent: eui.ToggleButton;
 
-	private _initPosMap: qin.Dictionary<egret.DisplayObject, egret.Point>;
+	private _initPosMap: game.Map<egret.DisplayObject, egret.Point>;
 	private _centerPoint: egret.Point;
 
 	protected onAwake(event: eui.UIEvent)
 	{
 		super.onAwake(event);
-		this._initPosMap = new qin.Dictionary<egret.DisplayObject, egret.Point>();
-		this._appearMap = new qin.Dictionary<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>();
-		this._disappearMap = new qin.Dictionary<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>();
+		this._initPosMap = new game.Map<egret.DisplayObject, egret.Point>();
+		this._appearMap = new game.Map<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>();
+		this._disappearMap = new game.Map<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>();
 
 		let btnSize: number = 102;
 		this.moveAnchorOffset(this.brightCardBtn, btnSize, btnSize);
@@ -229,12 +229,12 @@ class GamblingActionComponent extends BaseComponent<PlayerState>
 			} else if (GamblingUtil.isNeedAllIn) //是否需要allin
 			{
 				this.preCallBtn.visible = true;
-				this.preCallBtn.label = qin.MathUtil.formatNum(GamblingManager.self.bankRoll);
+				this.preCallBtn.label = game.MathUtil.formatNum(GamblingManager.self.bankRoll);
 			}
 			else if (GamblingUtil.callNum > 0) //需要跟注
 			{
 				this.preCallBtn.visible = true;
-				this.preCallBtn.label = qin.MathUtil.formatNum(GamblingUtil.callNum);
+				this.preCallBtn.label = game.MathUtil.formatNum(GamblingUtil.callNum);
 			}
 		}
 	}
@@ -301,8 +301,8 @@ class GamblingActionComponent extends BaseComponent<PlayerState>
 		}
 	}
 
-	private _appearMap: qin.Dictionary<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>;
-	private _disappearMap: qin.Dictionary<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>;
+	private _appearMap: game.Map<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>;
+	private _disappearMap: game.Map<egret.DisplayObject, BaseAnimation<egret.DisplayObject>>;
 	private getAnimation(target: egret.DisplayObject, flag: boolean, cls: any): BaseAnimation<egret.DisplayObject>
 	{
 		let animation: BaseAnimation<egret.DisplayObject>;

@@ -34,8 +34,8 @@ class ChatManager
                 ChatManager._emojiList[i - 1].source = i + ResSuffixName.PNG;
             }
         }
-		qin.ArrayUtil.Clear(ChatManager._marqueeList);
-		qin.ArrayUtil.Clear(ChatManager.chatList);
+		game.ArrayUtil.Clear(ChatManager._marqueeList);
+		game.ArrayUtil.Clear(ChatManager.chatList);
 		ChatManager.isHaveNewChatMsg = false;
 		RecordAudioManager.OnPlayRecordComplete.addListener(ChatManager.CheckAndPlayAudioAutoList, this);
 		SocketManager.AddCommandListener(Command.Chat_PushMessage_2014, ChatManager.pushChatMessage, this);
@@ -47,18 +47,18 @@ class ChatManager
 	}
 	private static clear()
 	{
-		qin.ArrayUtil.Clear(ChatManager.chatList);
+		game.ArrayUtil.Clear(ChatManager.chatList);
 	}
 	public static clearNewMsg()
 	{
 		ChatManager.isHaveNewChatMsg = false;
 		ChatManager.onRefreshChatRedPointEvent.dispatch();
 	}
-	private static pushChatMessage(result: qin.SpRpcResult)
+	private static pushChatMessage(result: game.SpRpcResult)
 	{
 		if (result.data)
 		{
-			let chatInfo: ChatInfo = qin.PoolUtil.GetObject<ChatInfo>(ChatInfo);
+			let chatInfo: ChatInfo = game.PoolUtil.GetObject<ChatInfo>(ChatInfo);
 			let inRoomChatInfo: ChatInfo = new ChatInfo();
 			chatInfo.roleId = result.data["roleId"];
 			chatInfo.type = result.data["type"];
@@ -94,14 +94,14 @@ class ChatManager
 	 */
 	public static SendAudioRecordMessage(type: ChatMessageType, time: number, guid: string, sign: string, path: string)
 	{
-		ChatManager.SendChatMessage(ChatSpecialStrings.AudioRecordMessage + time + qin.StringConstants.Comma + guid + qin.StringConstants.Comma + sign + qin.StringConstants.Comma + path, type);
+		ChatManager.SendChatMessage(ChatSpecialStrings.AudioRecordMessage + time + game.StringConstants.Comma + guid + game.StringConstants.Comma + sign + game.StringConstants.Comma + path, type);
 	}
 	/**
 	 * 发送聊天消息
 	 */
 	public static SendChatMessage(message: string, type: ChatMessageType)
 	{
-		let callback: Function = function (result: qin.SpRpcResult)
+		let callback: Function = function (result: game.SpRpcResult)
 		{
 			ChatManager.OnMessageSend.dispatch();
 			SoundManager.playEffect(MusicAction.sentMessage);
@@ -119,7 +119,7 @@ class ChatManager
 		{
 			let firstInfo: ChatInfo = ChatManager.chatList[0];
 			ChatManager.CheckToClearAudioData(firstInfo);
-			qin.ArrayUtil.RemoveItem(firstInfo, ChatManager.chatList);
+			game.ArrayUtil.RemoveItem(firstInfo, ChatManager.chatList);
 		}
 		ChatManager.HandleChatInfo(info);
 	}
@@ -133,7 +133,7 @@ class ChatManager
 	}
 	private static CheckAndPlayAudioAutoList()
 	{
-		if (qin.StringUtil.isNullOrEmpty(RecordAudioManager.playingGuid) && !RecordAudioManager.isDownloading && GameSetting.autoVoiceEnabled)
+		if (game.StringUtil.isNullOrEmpty(RecordAudioManager.playingGuid) && !RecordAudioManager.isDownloading && GameSetting.autoVoiceEnabled)
 		{
 			if (ChatManager._audioAutoPlayList.length > 0)
 			{
@@ -161,7 +161,7 @@ class ChatManager
 		if (data)
 		{
 			let guid: string = data["guid"];
-			let result: boolean = qin.StringUtil.toBoolean(data["has"]);
+			let result: boolean = game.StringUtil.toBoolean(data["has"]);
 			let info: ChatInfo;
 			for (info of ChatManager.chatList)
 			{
@@ -223,7 +223,7 @@ class ChatManager
 				{
 					UIManager.showPanel(UIModuleName.MarqueePanel, chatInfo.message);
 				}
-				qin.PoolUtil.PutObject<ChatInfo>(chatInfo);
+				game.PoolUtil.PutObject<ChatInfo>(chatInfo);
 			}
 		}
 	}
@@ -237,7 +237,7 @@ class ChatManager
 		if (info.message.indexOf(ChatSpecialStrings.AudioRecordMessage) == 0)
 		{
 			let content: string = info.message.substring(ChatSpecialStrings.AudioRecordMessage.length);
-			let splits: Array<string> = content.split(qin.StringConstants.Comma);
+			let splits: Array<string> = content.split(game.StringConstants.Comma);
 			if (splits.length == 4)
 			{
 				RecordAudioManager.removeAuidoData(info);
@@ -247,18 +247,18 @@ class ChatManager
 	//-------------------------------------------------------
 	// 聊天消息推送
 	//-------------------------------------------------------
-	public static onNewMessageCome: qin.DelegateDispatcher = new qin.DelegateDispatcher();
-	public static OnMessageSend: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onNewMessageCome: game.DelegateDispatcher = new game.DelegateDispatcher();
+	public static OnMessageSend: game.DelegateDispatcher = new game.DelegateDispatcher();
 
     /**
      * 聊天红点显示更新广播
     */
-	public static onRefreshChatRedPointEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static onRefreshChatRedPointEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 /**
  * 聊天信息
  */
-class ChatInfo extends BaseServerValueInfo implements qin.IPoolObject 
+class ChatInfo extends BaseServerValueInfo implements game.IPoolObject 
 {
 	/**
 	 * 角色Id
@@ -307,7 +307,7 @@ class ChatInfo extends BaseServerValueInfo implements qin.IPoolObject
 		if (this.message && this.message.indexOf(ChatSpecialStrings.AudioRecordMessage) == 0)
 		{
 			let content: string = this.message.substring(ChatSpecialStrings.AudioRecordMessage.length);
-			let splits: Array<string> = content.split(qin.StringConstants.Comma);
+			let splits: Array<string> = content.split(game.StringConstants.Comma);
 			if (splits.length == 4)//分别是time，guid,sign,path
 			{
 				this.param = splits;
@@ -317,7 +317,7 @@ class ChatInfo extends BaseServerValueInfo implements qin.IPoolObject
 		else if (this.message && this.message.indexOf(ChatSpecialStrings.Emoji) == 0)
 		{
 			let content: string = this.message.substring(ChatSpecialStrings.Emoji.length);
-			let splits: Array<string> = content.split(qin.StringConstants.Comma);
+			let splits: Array<string> = content.split(game.StringConstants.Comma);
 			if (splits.length == 1)
 			{
 				this.param = splits;

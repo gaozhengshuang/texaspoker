@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * 2D向量

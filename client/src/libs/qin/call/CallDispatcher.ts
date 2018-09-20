@@ -1,8 +1,8 @@
-module qin
+module game
 {
 	export class CallDispatcher<T>
 	{
-		private _map: Dictionary<string, Array<Delegate>> = new Dictionary<string, Array<Delegate>>();
+		private _map: Map<string, Array<Delegate>> = new Map<string, Array<Delegate>>();
 		/**
 		 * 销毁
 		 */

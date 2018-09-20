@@ -84,7 +84,7 @@ class HundredWarManager
     */
     public static reqEnterRoom(id: number = 0)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -274,7 +274,7 @@ class HundredWarManager
     */
     public static reqSeat(pos: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             HundredWarManager.onSeatEvent.dispatch(pos);
         };
@@ -285,7 +285,7 @@ class HundredWarManager
     */
     public static reqStandUp()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             HundredWarManager.onStandUpEvent.dispatch();
         };
@@ -296,7 +296,7 @@ class HundredWarManager
     */
     public static reqBet(pos: number, num: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             let addFlag: boolean = true;
             for (let betInfo of HundredWarManager.roomInfo.betList)  //更新旧的
@@ -319,7 +319,7 @@ class HundredWarManager
             }
             HundredWarManager.onBetEvent.dispatch({ pos: pos, num: num });
         };
-        let errorCallback: Function = function (result: qin.SpRpcResult)
+        let errorCallback: Function = function (result: game.SpRpcResult)
         {
             if (result.error == ErrorCode.HundredWarOverFlow)
             {
@@ -333,7 +333,7 @@ class HundredWarManager
     */
     public static reqLeave()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             HundredWarManager.leaveClear();
             HundredWarManager.onLeaveEvent.dispatch();
@@ -360,7 +360,7 @@ class HundredWarManager
     */
     public static reqNextRoundStart()
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
 
         };
@@ -373,7 +373,7 @@ class HundredWarManager
     /**
      * 位置变更
      */
-    public static onPosChange(result: qin.SpRpcResult)
+    public static onPosChange(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -382,7 +382,7 @@ class HundredWarManager
             {
                 if (result.data.pos == 0 && !result.data.roleId && HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.bankerMinGold)
                 {
-                    AlertManager.showAlert("您的当前金币低于" + qin.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerMinGold) + "金币，已从庄家列表退出。");
+                    AlertManager.showAlert("您的当前金币低于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerMinGold) + "金币，已从庄家列表退出。");
                 }
                 if (HundredWarManager.roomInfo.playerList.length > 0)
                 {
@@ -445,7 +445,7 @@ class HundredWarManager
     /**
      * 注池变更
      */
-    public static onBetChange(result: qin.SpRpcResult)
+    public static onBetChange(result: game.SpRpcResult)
     {
         if (result.data && result.data.bet)
         {
@@ -468,7 +468,7 @@ class HundredWarManager
     /**
      * 房间状态变更
      */
-    public static onRoomStateChange(result: qin.SpRpcResult)
+    public static onRoomStateChange(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -489,7 +489,7 @@ class HundredWarManager
     /**
      * 牌推送(结算)
      */
-    public static onCardPush(result: qin.SpRpcResult)
+    public static onCardPush(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -525,7 +525,7 @@ class HundredWarManager
     /**
      * 被踢出房间
     */
-    public static onOutRoomPush(result: qin.SpRpcResult)
+    public static onOutRoomPush(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -719,65 +719,65 @@ class HundredWarManager
     /**
      * 进入百人大战成功广播
     */
-    public static OnGetRoomInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnGetRoomInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 拉取坐下用户信息完成广播
     */
-    public static OnGetPlayerInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static OnGetPlayerInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 坐下成功广播
     */
-    public static onSeatEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onSeatEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 站起成功广播
     */
-    public static onStandUpEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onStandUpEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 下注成功广播
     */
-    public static onBetEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onBetEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 离开成功广播
     */
-    public static onLeaveEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onLeaveEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 注池变更推送广播
     */
-    public static onBetChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onBetChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 牌推送广播
     */
-    public static onCardPushEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onCardPushEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 房间状态变更推送广播
     */
-    public static onRoomStateChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onRoomStateChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 位置变更推送广播
     */
-    public static onPosChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onPosChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 庄家变更事件
      */
-    public static onBankerChangeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onBankerChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 发牌动画完成广播
     */
-    public static onDealCardsEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onDealCardsEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 显示牌动画完成广播
     */
-    public static onShowCardsEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onShowCardsEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 结算动画播放完成广播
     */
-    public static onShowCardsAnimOverEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onShowCardsAnimOverEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 隐藏牌广播
     */
-    public static onHideCardsEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onHideCardsEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 踢出房间广播
     */
-    public static onOutRoomEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onOutRoomEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

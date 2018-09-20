@@ -40,7 +40,7 @@ class BlindItemRenderer extends BaseItemRenderer<ChampionshipBlindDefinition>
         {
             this.rebuyImg.visible = this.addonImg.visible = false;
             this.rankLabel.text = this.bindData.level.toString();
-            this.blindLabel.text = qin.MathUtil.formatNum(this.bindData.sBlind) + "/" + qin.MathUtil.formatNum(this.bindData.bBlind);
+            this.blindLabel.text = game.MathUtil.formatNum(this.bindData.sBlind) + "/" + game.MathUtil.formatNum(this.bindData.bBlind);
             if (ChampionshipManager.nowBlindRank && this.bindData.level == ChampionshipManager.nowBlindRank)
             {
                 this.rankLabel.textColor = ColorEnum.Golden;
@@ -60,7 +60,7 @@ class BlindItemRenderer extends BaseItemRenderer<ChampionshipBlindDefinition>
                 this.anteLabel.text = "0";
             } else
             {
-                this.anteLabel.text = qin.MathUtil.formatNum(this.bindData.preBet);
+                this.anteLabel.text = game.MathUtil.formatNum(this.bindData.preBet);
             }
             this.timeLabel.text = this.bindData.upTime + "秒";
             if (this.bindData.addon)

@@ -6,7 +6,7 @@ abstract class MultiNotifyHandle extends BaseNotifyHandle
 	/**
 	 * 参数列表，列表里面的参数是对等的
 	 */
-	protected _params: qin.Dictionary<any, number> = new qin.Dictionary<any, number>();
+	protected _params: game.Map<any, number> = new game.Map<any, number>();
 
 	public constructor(type: NotifyType)
 	{

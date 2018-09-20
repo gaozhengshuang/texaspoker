@@ -33,7 +33,7 @@ class SocketManager
 	/// <param name="error"></param>
 	public static RemoveIgnoreError(error: number)
 	{
-		qin.ArrayUtil.RemoveItem(error, SocketManager._ignoreError)
+		game.ArrayUtil.RemoveItem(error, SocketManager._ignoreError)
 	}
 
 	//------------------------------------------------------------------
@@ -57,7 +57,7 @@ class SocketManager
 		}
 	}
 	//
-	private static _socket: qin.GameSocket;
+	private static _socket: game.GameSocket;
 	private static _lastTimestamp: number;//服务器最后回包时间
 	private static _heartbeatTime: number;//心跳时间
 	private static _isReconnecting: boolean = false;//是否是重连中
@@ -69,20 +69,20 @@ class SocketManager
 		SocketManager._isReconnecting = false;
 		if (!SocketManager._socket)
 		{
-			SocketManager._socket = new qin.GameSocket();
+			SocketManager._socket = new game.GameSocket();
 			SocketManager._socket.enabledErrorCode = (SocketManager._isEntering == false);
 			SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode);
 			SocketManager._socket.initialize(userId, roleId, serverId, secret, session, msgType);
 			SocketManager._socket.AddMessageListener(SocketManager.OnMessage, this);
 		}
-		qin.Tick.AddSecondsInvoke(SocketManager.tickHnadler, this);
+		game.Tick.AddSecondsInvoke(SocketManager.tickHnadler, this);
 	}
 	private static tickHnadler()
 	{
 		if (SocketManager._lastSendTime != undefined)
 		{
 			let out: number = ProjectDefined.GetInstance().getValue(ProjectDefined.onTimeOut);
-			if(out == undefined || out <= 0)
+			if (out == undefined || out <= 0)
 			{
 				out = 15000;
 			}
@@ -136,15 +136,17 @@ class SocketManager
 			SocketManager.RemoveAllListener();
 			SocketManager._socket.close(enabledSend);
 		}
+		//停止轮训 move todo
+		SocketManager._connectHandler.stop();
 	}
 	/**
 	 * 开始连接
 	 */
-	public static pollingConnect(adress: string, port: number, isShowLoading: boolean = true)
+	public static pollingConnect(adress: string, port?: number, isShowLoading: boolean = true)
 	{
 		if (!SocketManager._connectHandler)
 		{
-			SocketManager._connectHandler = new PollingSocket(2, qin.Delegate.getOut(SocketManager.Connect, this), qin.Delegate.getOut(SocketManager.OnLoadingTimeout, this));
+			SocketManager._connectHandler = new PollingSocket(2, game.Delegate.getOut(SocketManager.Connect, this), game.Delegate.getOut(SocketManager.OnLoadingTimeout, this));
 		}
 		SocketManager._connectHandler.gameConnect(adress, port, isShowLoading);
 	}
@@ -166,7 +168,14 @@ class SocketManager
 		}
 		SocketManager.AddAllListener();
 		egret.log("socket重连");
-		SocketManager._socket.Connect(SocketManager._connectHandler.port, SocketManager._connectHandler.address);
+		if (SocketManager._connectHandler.port != undefined)
+		{
+			SocketManager._socket.Connect(SocketManager._connectHandler.port, SocketManager._connectHandler.address);
+		}
+		else
+		{
+			SocketManager._socket.Connect(SocketManager._connectHandler.address);
+		}
 	}
 	/// <summary>
 	/// 重连，必须先Close才可以重连
@@ -422,7 +431,7 @@ class SocketManager
 			}
 			else
 			{
-				qin.Console.log("禁止发送:" + cmdId);
+				game.Console.log("禁止发送:" + cmdId);
 			}
 			SocketManager._lastSendTime = Date.now();
 			SocketManager._socket.InvokeSend(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject);
@@ -432,29 +441,29 @@ class SocketManager
 	/// <summary>
 	/// 服务器返回错误码事件，全局的
 	/// </summary>
-	public static OnResultError: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnResultError: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/// <summary>
 	/// 进入游戏错误
 	/// </summary>
-	public static OnEnterError: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnEnterError: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/// <summary>
 	/// socket连接成功
 	/// </summary>
-	public static OnConnect: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnConnect: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 重连同步
 	 */
-	public static OnReconnectSynchronize: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnReconnectSynchronize: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	//------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------
 
-	private static OnResult(result: qin.SpRpcResult)
+	private static OnResult(result: game.SpRpcResult)
 	{
 		SocketManager._lastTimestamp = TimeManager.GetServerUtcTimestamp();
 		SocketManager._lastSendTime = undefined;
-		if (result.op == qin.SpRpcOp.Response)
+		if (result.op == game.SpRpcOp.Response)
 		{
 			//客户端请求的返回
 			SocketManager._heartbeatTime = egret.getTimer();
@@ -481,8 +490,8 @@ class SocketManager
 						}
 					}
 					let message: string = ErrorDefined.GetInstance().getDetails(result.error);
-					let title = qin.StringUtil.format("protocol:{0} code:{1}", result.cmdId, result.error);
-					qin.Console.log(qin.StringUtil.format("{0},描述：{1}", title, message));
+					let title = game.StringUtil.format("protocol:{0} code:{1}", result.cmdId, result.error);
+					game.Console.log(game.StringUtil.format("{0},描述：{1}", title, message));
 				}
 			}
 		}
@@ -505,16 +514,16 @@ class SocketManager
 			}
 		}
 	}
-	private static OnMessage(msg: qin.SocketMessage)
+	private static OnMessage(msg: game.SocketMessage)
 	{
-		qin.Console.logSocket(msg);
+		game.Console.logSocket(msg);
 		SocketManager._lastSendTime = undefined;
 		switch (msg.type)
 		{
-			case qin.SocketMessageType.Connect:
+			case game.SocketMessageType.Connect:
 				SocketManager._connectHandler.stop();
 				UIManager.closePanel(UIModuleName.LoadingPanel);
-				qin.Console.log("游戏服务器连接成功");
+				game.Console.log("游戏服务器连接成功");
 				SocketManager._autoReconnect = true;
 				SocketManager._socket.InvokeDiscRetry();
 				if (SocketManager._isReconnecting)
@@ -527,13 +536,13 @@ class SocketManager
 				SocketManager.StartHeartbeat();
 				SocketManager.OnConnect.dispatch();
 				break;
-			case qin.SocketMessageType.Failing: //连接断开
+			case game.SocketMessageType.Failing: //连接断开
 				SocketManager._connectHandler.stop();
 				UIManager.closePanel(UIModuleName.LoadingPanel);
 				SocketManager.Close();
 				NetUtil.AlertFailing(msg.errorCode, SocketManager.OnClickReLogin);
 				break;
-			case qin.SocketMessageType.NetworkError: //网络异常
+			case game.SocketMessageType.NetworkError: //网络异常
 				UIManager.closePanel(UIModuleName.LoadingPanel);
 				if (SocketManager.VerifyReLogin())
 				{
@@ -566,12 +575,12 @@ class SocketManager
 					}
 				}
 				break;
-			case qin.SocketMessageType.HandshakeError:
+			case game.SocketMessageType.HandshakeError:
 				UIManager.closePanel(UIModuleName.LoadingPanel);
 				SocketManager.Close();
 				NetUtil.AlertNetworkErrorReLogin(msg.errorCode, SocketManager.OnClickReLogin);
 				break;
-			case qin.SocketMessageType.SendError:
+			case game.SocketMessageType.SendError:
 				UIManager.closePanel(UIModuleName.LoadingPanel);
 				//
 				let alertInfo: AlertInfo = new AlertInfo();
@@ -580,7 +589,7 @@ class SocketManager
 				alertInfo.message = msg.message;
 				AlertManager.showAlertInfo(alertInfo);
 				break;
-			case qin.SocketMessageType.NotInitialized:
+			case game.SocketMessageType.NotInitialized:
 				UIManager.closePanel(UIModuleName.LoadingPanel);
 				//
 				alertInfo = new AlertInfo();
@@ -651,11 +660,11 @@ class SocketManager
 	private static StartHeartbeat()
 	{
 		SocketManager._heartbeatTime = egret.getTimer();
-		qin.Tick.AddSecondsInvoke(SocketManager.OnTickHeartbeat, this);
+		game.Tick.AddSecondsInvoke(SocketManager.OnTickHeartbeat, this);
 	}
 	private static StopHeartbeat()
 	{
-		qin.Tick.RemoveSecondsInvoke(SocketManager.OnTickHeartbeat, this);
+		game.Tick.RemoveSecondsInvoke(SocketManager.OnTickHeartbeat, this);
 	}
 	private static OnTickHeartbeat(delta: number)
 	{
@@ -665,7 +674,7 @@ class SocketManager
 			SocketManager._socket.SimpleCall(Command.System_Heartbeat_3016, { sessionId: SocketManager._socket.requestSessionMax }, SocketManager.OnHeartbeatServer, null, this);
 		}
 	}
-	private static OnHeartbeatServer(result: qin.SpRpcResult)
+	private static OnHeartbeatServer(result: game.SpRpcResult)
 	{
 		TimeManager.SetServerTimestamp(result.data);
 	}

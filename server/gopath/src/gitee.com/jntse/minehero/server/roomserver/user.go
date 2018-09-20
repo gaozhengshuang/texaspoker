@@ -73,8 +73,8 @@ func (this *RoomUser) Account() string {
 	return this.Entity().GetAccount()
 }
 
-func (this *RoomUser) Face() string {
-	return this.Entity().GetFace()
+func (this *RoomUser) Head() string {
+	return this.Entity().GetHead()
 }
 
 func (this *RoomUser) Sex() int32 {

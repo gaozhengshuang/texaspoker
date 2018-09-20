@@ -11,7 +11,7 @@ class GuideProcess extends BaseGuideProcess<GuideDefinition>
 	{
 		let step: BaseGuideProcess<GuideControllerDefinition>;
 		this._step = 0;
-		qin.Console.log("引导步骤ID：" + this.definition.id);
+		game.Console.log("引导步骤ID：" + this.definition.id);
 		let i: number = 0;
 		let len: number = this.steps.length; //一定要这样处理，有个想不到的问题
 		for (let i: number = 0; i < len; i++)
@@ -30,7 +30,7 @@ class GuideProcess extends BaseGuideProcess<GuideDefinition>
 	}
 	public removeStep(step: BaseGuideProcess<GuideControllerDefinition>)
 	{
-		qin.ArrayUtil.RemoveItem(step, this.steps);
+		game.ArrayUtil.RemoveItem(step, this.steps);
 	}
 	private stepComplete(target: BaseGuideProcess<GuideControllerDefinition>)
 	{

@@ -289,15 +289,15 @@ class GamblingPanel extends BasePanel
 			else
 			{
 				this["pit" + createIndex.toString()] = new GamblingHeadComponent(UIComponentSkinName.GamblingHeadComponent);
-				qin.Tick.AddTimeoutInvoke(func, 100, this);
+				game.Tick.AddTimeoutInvoke(func, 100, this);
 			}
 			createIndex++;
 		};
 		this.ordinaryRoomGroup.removeChild(this.allInAnimeGroup);
-		qin.Tick.AddTimeoutInvoke(func, 100, this);
+		game.Tick.AddTimeoutInvoke(func, 100, this);
 
 		VersionManager.setComponentVisibleBySafe(this.safeBtn, this.activityBtn);
-		if (qin.System.isMicro)
+		if (game.System.isMicro)
 		{
 			this.recordBtn = new AudioRecordButton(this.audioRecordBtn, this);
 		}
@@ -486,7 +486,7 @@ class GamblingPanel extends BasePanel
 				}
 				return this._guidePlayWayState;
 			default:
-				qin.Console.logError("牌局面板状态异常！" + this._stateIndex);
+				game.Console.logError("牌局面板状态异常！" + this._stateIndex);
 				return null;
 		}
 	}
@@ -540,7 +540,7 @@ class GamblingPanel extends BasePanel
 			}
 
 			this.resetPitIndex();
-			qin.Tick.RemoveTimeoutInvoke(this.delayHideGroup, this);
+			game.Tick.RemoveTimeoutInvoke(this.delayHideGroup, this);
 			GamblingManager.NextRoundStartEvent.removeListener(this.nextRoundStartHandler, this);
 			if (this._actionGroup && this.sptCreater.funcSupport)
 			{
@@ -562,8 +562,8 @@ class GamblingPanel extends BasePanel
 	public hideSateGroup(isOneLoopOver: boolean = false)
 	{
 		this._isNextRoundStart = false;
-		qin.Tick.RemoveTimeoutInvoke(this.delayHideGroup, this);
-		qin.Tick.AddTimeoutInvoke(this.delayHideGroup, 500, this, isOneLoopOver);
+		game.Tick.RemoveTimeoutInvoke(this.delayHideGroup, this);
+		game.Tick.AddTimeoutInvoke(this.delayHideGroup, 500, this, isOneLoopOver);
 	}
 	private nextRoundStartHandler()
 	{

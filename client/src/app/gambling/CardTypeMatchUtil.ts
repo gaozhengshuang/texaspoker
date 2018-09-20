@@ -889,7 +889,7 @@ class CardTypeMatchUtil
 			case CardType.HighCard:
 				return "高牌";
 			default:
-				return qin.StringConstants.Empty;
+				return game.StringConstants.Empty;
 		}
 	}
 }

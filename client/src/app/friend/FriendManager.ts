@@ -42,13 +42,13 @@ class FriendManager
     */
     public static reset()
     {
-        qin.ArrayUtil.Clear(FriendManager.friendList);
-        qin.ArrayUtil.Clear(FriendManager.requestFriendList);
-        qin.ArrayUtil.Clear(FriendManager.giftList);
-        qin.ArrayUtil.Clear(FriendManager.searchList);
+        game.ArrayUtil.Clear(FriendManager.friendList);
+        game.ArrayUtil.Clear(FriendManager.requestFriendList);
+        game.ArrayUtil.Clear(FriendManager.giftList);
+        game.ArrayUtil.Clear(FriendManager.searchList);
         FriendManager._requestAdd = 0;
         FriendManager._addFriendsRequestInfo = null;
-        qin.ArrayUtil.Clear(FriendManager.requestNewsList);
+        game.ArrayUtil.Clear(FriendManager.requestNewsList);
     }
     public static addRecListener()
     {
@@ -63,7 +63,7 @@ class FriendManager
     /**
      * 初始化好友列表信息
      */
-    public static Initialize(result: qin.SpRpcResult)
+    public static Initialize(result: game.SpRpcResult)
     {
         FriendManager.reset();
         FriendManager.addRecListener();
@@ -101,11 +101,11 @@ class FriendManager
     {
         SocketManager.call(Command.Friend_GetList_3156, null, FriendManager.FriendListInfoResponse, null, this);
     }
-    public static FriendListInfoResponse(result: qin.SpRpcResult)
+    public static FriendListInfoResponse(result: game.SpRpcResult)
     {
         if (result.data && result.data["friendList"])
         {
-            qin.ArrayUtil.Clear(FriendManager.friendList);
+            game.ArrayUtil.Clear(FriendManager.friendList);
             for (let friendInfo of result.data["friendList"])
             {
                 let info: FriendInfo = new FriendInfo();
@@ -120,7 +120,7 @@ class FriendManager
     */
     public static reqGiveFriendGold(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             SoundManager.playEffect(MusicAction.gift_send);
             FriendManager.onGiveFriendGoldEvent.dispatch(id);
@@ -159,7 +159,7 @@ class FriendManager
     */
     public static reqReceiveGift(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (id == 0)
             {
@@ -188,11 +188,11 @@ class FriendManager
     {
         SocketManager.call(Command.Friend_RequestList_3157, null, FriendManager.FriendRequestResponse, null, this);
     }
-    public static FriendRequestResponse(result: qin.SpRpcResult)
+    public static FriendRequestResponse(result: game.SpRpcResult)
     {
         if (result.data.Array)
         {
-            qin.ArrayUtil.Clear(FriendManager.requestFriendList);
+            game.ArrayUtil.Clear(FriendManager.requestFriendList);
             if (!FriendManager.requestFriendList)
             {
                 FriendManager.requestFriendList = new Array<BaseFriendInfo>();
@@ -211,7 +211,7 @@ class FriendManager
     */
     public static reqReceiveFriendRequest(id: number, isReceive: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (isReceive)
             {
@@ -238,13 +238,13 @@ class FriendManager
     */
     public static reqSearchPlayer(text?: string)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data.Array)
             {
                 if (text)
                 {
-                    qin.ArrayUtil.Clear(FriendManager.searchList);
+                    game.ArrayUtil.Clear(FriendManager.searchList);
                     if (!FriendManager.searchList)
                     {
                         FriendManager.searchList = new Array<BaseFriendInfo>();
@@ -281,7 +281,7 @@ class FriendManager
     */
     public static reqAddPlayer(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             UIManager.showFloatTips("已向对方发送好友申请。");
             if (FriendManager.recList && FriendManager.recList.length > 0)  //将添加的好友从推荐列表中删除
@@ -313,7 +313,7 @@ class FriendManager
     */
     public static reqRemovePlayer(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             for (let i: number = 0; i < FriendManager.friendList.length; i++)
             {
@@ -332,7 +332,7 @@ class FriendManager
             SocketManager.call(Command.Friend_DelPlayer_3155, { roleId: id }, callback, null, this);
         } else
         {
-            qin.Console.log("删除的用户不是您的好友,id:" + id);
+            game.Console.log("删除的用户不是您的好友,id:" + id);
         }
     }
     /**
@@ -372,7 +372,7 @@ class FriendManager
      */
     public static reqInviteFriend(roomId: number, roleIds: Array<number>)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             FriendManager.InviteFriendEvent.dispatch();
         };
@@ -382,7 +382,7 @@ class FriendManager
     /**
      * 0点定时重置推送对应的操作
     */
-    public static onResetPush(result: qin.SpRpcResult)
+    public static onResetPush(result: game.SpRpcResult)
     {
         if (FriendManager.friendList)
         {
@@ -391,12 +391,12 @@ class FriendManager
                 friendInfo.giveGold = 0;
             }
         }
-        qin.ArrayUtil.Clear(FriendManager._givenGoldRoleIdList);
+        game.ArrayUtil.Clear(FriendManager._givenGoldRoleIdList);
     }
     /**
      * 对方同意好友添加请求的推送对应的操作
     */
-    public static onAddFriendSuccessRec(result: qin.SpRpcResult)
+    public static onAddFriendSuccessRec(result: game.SpRpcResult)
     {
         if (result.data['roleId'])
         {
@@ -406,7 +406,7 @@ class FriendManager
     /**
      * 被好友删除的推送对应的操作
     */
-    public static onDelFriendSuccessRec(result: qin.SpRpcResult)
+    public static onDelFriendSuccessRec(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -442,7 +442,7 @@ class FriendManager
     /**
      * 好友在线状态改变推送对应的操作
     */
-    public static onOnlineStateChangeRec(result: qin.SpRpcResult)
+    public static onOnlineStateChangeRec(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -460,7 +460,7 @@ class FriendManager
     /**
      * 好友赠送金币推送对应的操作
     */
-    public static onGiveGoldRec(result: qin.SpRpcResult)
+    public static onGiveGoldRec(result: game.SpRpcResult)
     {
         if (result.data["roleId"])
         {
@@ -470,7 +470,7 @@ class FriendManager
     /**
      * 好友申请推送对应的操作
     */
-    public static onRequestFriendRec(result: qin.SpRpcResult)
+    public static onRequestFriendRec(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -505,7 +505,7 @@ class FriendManager
     /**
      * 好友邀请信息推送
     */
-    private static pushInviteMsgHandler(result: qin.SpRpcResult)
+    private static pushInviteMsgHandler(result: game.SpRpcResult)
     {
         if (result.data)
         {
@@ -660,47 +660,47 @@ class FriendManager
     /**
      * 赠送好友金币成功广播
     */
-    public static onGiveFriendGoldEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGiveFriendGoldEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 领取好友赠送的礼物成功广播
     */
-    public static onReceiveGiftEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onReceiveGiftEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取好友请求列表成功广播
     */
-    public static onFriendRequestEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onFriendRequestEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 接受或拒绝好友请求成功广播
     */
-    public static onReceiveFriendRequestEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onReceiveFriendRequestEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 查询好友请求成功广播
     */
-    public static onSearchPlayerEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onSearchPlayerEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 添加好友请求成功广播
     */
-    public static onAddPlayerEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onAddPlayerEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 删除好友请求成功广播
     */
-    public static onRemovePlayerEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onRemovePlayerEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 刷新UI的推送
     */
-    public static onRefreshInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onRefreshInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 好友邀请
      */
-    public static InviteFriendEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static InviteFriendEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 获取好友列表成功广播
      */
-    public static onGetFriendListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static onGetFriendListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 接受好友跳转事件
      */
-    public static allowFriendJumpEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static allowFriendJumpEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 
 enum FriendMsgType

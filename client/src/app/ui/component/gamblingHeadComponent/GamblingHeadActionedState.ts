@@ -17,7 +17,7 @@ class GamblingHeadActionedState extends BaseGamblingHeadState
 			// }
 			this.context.refreshState();
 			this.context.showBankRoll();
-			//qin.QinLog.log(this.context.bindData.userInfo.name + "已说话" + this.context.infoLabel.text);
+			//game.QinLog.log(this.context.bindData.userInfo.name + "已说话" + this.context.infoLabel.text);
 		}
 	}
 }

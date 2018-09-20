@@ -58,9 +58,9 @@ class BuyAccessGamePanel extends BasePanel
 		{
 			this.unEnoughGoldGp.visible = false;
 			this.buyAccessGp.visible = true;
-			this.smallestLabel.text = qin.MathUtil.formatNum(appendData.minNum);
-			this.biggestLabel.text = qin.MathUtil.formatNum(appendData.maxNum);
-			this.currentProperty.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+			this.smallestLabel.text = game.MathUtil.formatNum(appendData.minNum);
+			this.biggestLabel.text = game.MathUtil.formatNum(appendData.maxNum);
+			this.currentProperty.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
 			this.buyAccessHs.minimum = appendData.minNum;
 			this.buyAccessHs.maximum = appendData.maxNum;
 			this.buyAccessHs.value = Math.min(UserManager.userInfo.gold, Math.max(appendData.minNum, Math.round(appendData.bbBuyIn / 2)));
@@ -78,7 +78,7 @@ class BuyAccessGamePanel extends BasePanel
 			}
 
 
-			this.countLable.text = "$" + qin.MathUtil.formatNum(this.buyAccessHs.value);
+			this.countLable.text = "$" + game.MathUtil.formatNum(this.buyAccessHs.value);
 
 			if (GamblingManager.roomInfo)
 			{
@@ -252,6 +252,6 @@ class BuyAccessGamePanel extends BasePanel
 	*/
 	private countBuyGold(event: egret.TouchEvent)
 	{
-		this.countLable.text = "$" + qin.MathUtil.formatNum(this.buyAccessHs.value);
+		this.countLable.text = "$" + game.MathUtil.formatNum(this.buyAccessHs.value);
 	}
 }

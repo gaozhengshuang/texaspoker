@@ -52,7 +52,7 @@ class UserAngreementPanel extends BasePanel
 		super.onDisable(event);
 		if (this.isOver == false) //未显示完毕就关掉重新开始
 		{
-			this.infoTxt.text = qin.StringConstants.Empty;
+			this.infoTxt.text = game.StringConstants.Empty;
 			this._showIndex = 0;
 		}
 		egret.clearInterval(this._timeId);

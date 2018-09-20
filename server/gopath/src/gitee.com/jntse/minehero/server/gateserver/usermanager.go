@@ -99,7 +99,7 @@ func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account,
 		return nil, "加载玩家DB数据失败"
 	}
 	//玩家自己设置不从第三方带入头像
-	//user.SetFace(face, false)
+	//user.SetHead(face, false)
 
 	if user.Online(session, "使用DB登陆") == false {
 		return nil, "Online失败"

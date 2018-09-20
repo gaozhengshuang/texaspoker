@@ -6,26 +6,26 @@ class NotifyManager
 	/**
 	 * 第一个参数类型type，第二个数字count，第三个参数附加参数params
 	 */
-	public static OnNotifyValueChanged: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnNotifyValueChanged: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 通知系统初始化完成事件
 	 */
-	public static OnInitCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnInitCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 重新登录
 	 */
-	public static OnNewInitEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnNewInitEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 通知管理
 	 */
-	private static _notifyMap: qin.Dictionary<NotifyType, BaseNotifyHandle>;
+	private static _notifyMap: game.Map<NotifyType, BaseNotifyHandle>;
 
 	/**
 	 * 初始化
 	 */
 	public static initialize()
 	{
-		NotifyManager._notifyMap = new qin.Dictionary<NotifyType, BaseNotifyHandle>();
+		NotifyManager._notifyMap = new game.Map<NotifyType, BaseNotifyHandle>();
 		NotifyManager._notifyMap.add(NotifyType.Mtt_HaveJoinedList, new MttHaveJoinedListHandler(NotifyType.Mtt_HaveJoinedList));
 		NotifyManager._notifyMap.add(NotifyType.Mail_HaveNewSystem, new NewMailNotifyHandler(NotifyType.Mail_HaveNewSystem));
 		NotifyManager._notifyMap.add(NotifyType.Mail_HaveNewPlayer, new NewMailNotifyHandler(NotifyType.Mail_HaveNewPlayer));

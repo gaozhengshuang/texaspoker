@@ -6,7 +6,7 @@ class VipManager
     /**
     * vip时间变更事件
     */
-    public static vipUpgradeEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static vipUpgradeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 计算vip类型
      */
@@ -43,7 +43,7 @@ class VipManager
         }
         return true;
     }
-    private static onGetVipTime(result: qin.SpRpcResult)
+    private static onGetVipTime(result: game.SpRpcResult)
     {
         let flag = VipManager.isOpenEverVip();
         if (result.data["vipTime"])
@@ -152,7 +152,7 @@ class VipManager
             }
             else
             {
-                qin.Console.log("月卡配置异常！");
+                game.Console.log("月卡配置异常！");
             }
 
         }
@@ -205,7 +205,7 @@ class VipManager
                 }
                 else
                 {
-                    qin.Console.log("月卡配置异常！");
+                    game.Console.log("月卡配置异常！");
                 }
             }
         }

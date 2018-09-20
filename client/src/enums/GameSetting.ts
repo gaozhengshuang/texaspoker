@@ -65,6 +65,6 @@ class GameSetting
 	}
 	public static replaceHeadSign(targetStr: string): string
 	{
-		return targetStr.replace(/#[12]{1}#/g, qin.StringConstants.Empty);
+		return targetStr.replace(/#[12]{1}#/g, game.StringConstants.Empty);
 	}
 }

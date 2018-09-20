@@ -27,7 +27,7 @@ class RankManager
     */
     public static reset()
     {
-        qin.ArrayUtil.Clear(RankManager.allRankList);
+        game.ArrayUtil.Clear(RankManager.allRankList);
     }
 
 	/**
@@ -84,7 +84,7 @@ class RankManager
                 }
             }
         }
-        qin.Console.log("排行榜表配置异常！" + " type:" + type + " param1:" + param1 + " param2:" + param2 + " param3:" + param3);
+        game.Console.log("排行榜表配置异常！" + " type:" + type + " param1:" + param1 + " param2:" + param2 + " param3:" + param3);
         return null;
     }
 
@@ -93,7 +93,7 @@ class RankManager
      */
     public static reqRankList(type: RankType, isGetMyRank: number = 1, param1?: number, param2?: number, param3?: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             if (result.data)
             {
@@ -175,7 +175,7 @@ class RankManager
      */
     public static getRankDes(rank: number, suffix?: boolean): string
     {
-        let result: string = qin.StringConstants.Empty;
+        let result: string = game.StringConstants.Empty;
         switch (rank)
         {
             case 1:
@@ -199,5 +199,5 @@ class RankManager
     /**
      * 拉取排行榜事件
      */
-    public static getRankListEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public static getRankListEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

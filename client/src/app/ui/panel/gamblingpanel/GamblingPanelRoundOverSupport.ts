@@ -26,17 +26,17 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 	public onDisable()
 	{
 		super.onDisable();
-		qin.Tick.RemoveTimeoutInvoke(this.reqNextRoundStart, this);
-		qin.Tick.RemoveTimeoutInvoke(this.delayRunNext, this);
-		qin.Tick.RemoveTimeoutInvoke(this.delayRoundOver, this);
-		qin.Tick.RemoveTimeoutInvoke(this.checkRebuyAddon, this);
+		game.Tick.RemoveTimeoutInvoke(this.reqNextRoundStart, this);
+		game.Tick.RemoveTimeoutInvoke(this.delayRunNext, this);
+		game.Tick.RemoveTimeoutInvoke(this.delayRoundOver, this);
+		game.Tick.RemoveTimeoutInvoke(this.checkRebuyAddon, this);
 		GamblingManager.NextRoundStartEvent.removeListener(this.nextRoundStartHandler, this);
 		GamblingManager.RoundOverEvent.removeListener(this.roundOverHandler, this);
 		GamblingManager.SomeBodyBrightCardEvent.removeListener(this.brightCardHandler, this);
 	}
 	private roundOverHandler()
 	{
-		qin.Tick.AddTimeoutInvoke(this.checkRebuyAddon, this._rebuyAddonTimeGap, this);
+		game.Tick.AddTimeoutInvoke(this.checkRebuyAddon, this._rebuyAddonTimeGap, this);
 		this._isClientOver = false;
 		this._isNextRoundStart = false;
 	}
@@ -51,7 +51,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 			}
 			else
 			{
-				qin.Console.log("推送玩家主动亮牌异常！未找到玩家所在的位子的头像组件，roleId:" + info.roleId + "---card:" + info.cardList);
+				game.Console.log("推送玩家主动亮牌异常！未找到玩家所在的位子的头像组件，roleId:" + info.roleId + "---card:" + info.cardList);
 			}
 		}
 	}
@@ -59,7 +59,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 	{
 		if (GamblingUtil.isMtt && this._isChecedkRebuyAddon == false)
 		{
-			qin.Console.log("超时检查重构增购");
+			game.Console.log("超时检查重构增购");
 			this._isChecedkRebuyAddon = true;
 			this.target.checkRebuyAddon();
 		}
@@ -74,7 +74,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		}
 		if (this._isClientOver == false) //如果客户端结算完成已经清理过了则不清理
 		{
-			qin.Console.log("服务器推送下一局开始，执行清理!");
+			game.Console.log("服务器推送下一局开始，执行清理!");
 			this.readyStart();
 			this._isClientOver = true;
 		}
@@ -87,7 +87,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		{
 			return;
 		}
-		qin.Console.log("开始跑结算筹码动画");
+		game.Console.log("开始跑结算筹码动画");
 		// this.target.actionGroup.hideAll(true);
 		if (GamblingManager.roundOverInfo && GamblingManager.roundOverInfo.potList)
 		{
@@ -106,11 +106,11 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		{
 			if (!GamblingManager.roundOverInfo)
 			{
-				qin.Console.log("结算异常：结算信息空");
+				game.Console.log("结算异常：结算信息空");
 			}
 			if (GamblingManager.roundOverInfo && !GamblingManager.roundOverInfo.potList)
 			{
-				qin.Console.log("结算异常：结算底池空");
+				game.Console.log("结算异常：结算底池空");
 			}
 			return;
 		}
@@ -210,7 +210,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 			}
 			chipsShowComponent1.winChipsTween(pointList, this.runOver, this);
 			chipsShowComponent2.winChipsTween(pointList, undefined, undefined);
-			// qin.QinLog.log("唯一编码：", chipsShowComponent1.hashCode, "chipsShowComponent2", chipsShowComponent2.hashCode);
+			// game.QinLog.log("唯一编码：", chipsShowComponent1.hashCode, "chipsShowComponent2", chipsShowComponent2.hashCode);
 			// }
 			// }
 		}
@@ -259,14 +259,14 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 						// headComponent.winEffectImg.visible = true;
 						if (headComponent.bindData && headComponent.bindData.bankRoll > 0)
 						{
-							// headComponent.chipsLabel.text = qin.MathUtil.formatNum(headComponent.bindData.bankRoll);
-							qin.Console.log("结算结束显示筹码" + headComponent.bindData.bankRoll + headComponent.bindData.userInfo.name);
+							// headComponent.chipsLabel.text = game.MathUtil.formatNum(headComponent.bindData.bankRoll);
+							game.Console.log("结算结束显示筹码" + headComponent.bindData.bankRoll + headComponent.bindData.userInfo.name);
 						}
 					}
 				}
 			}
 		}
-		qin.Tick.AddTimeoutInvoke(this.delayRunNext, 1500, this);
+		game.Tick.AddTimeoutInvoke(this.delayRunNext, 1500, this);
 	}
 	private delayRunNext()
 	{
@@ -280,7 +280,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 			else
 			{
 				this.target.waitNextRoundComponent.show(true);
-				qin.Tick.AddTimeoutInvoke(this.delayRoundOver, 1200, this);
+				game.Tick.AddTimeoutInvoke(this.delayRoundOver, 1200, this);
 			}
 		}
 	}
@@ -288,10 +288,10 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 	{
 		if (this._isNextRoundStart == false) //此时服务器已经推送了下一局开始，客户端的结算由于延迟才执行到这里，做个标记忽略以下代码块执行
 		{
-			qin.Console.log("客户端请求下一局!执行清理");
+			game.Console.log("客户端请求下一局!执行清理");
 			this._isClientOver = true;
 			this.readyStart();
-			qin.Tick.AddTimeoutInvoke(this.reqNextRoundStart, 1000, this);
+			game.Tick.AddTimeoutInvoke(this.reqNextRoundStart, 1000, this);
 		}
 	}
 	/**
@@ -360,7 +360,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		{
 			this.target.cardTypeComp.init(CardType.None);
 		}
-		this.target.potLabel.text = qin.MathUtil.formatNum(0); //清理底池显示
+		this.target.potLabel.text = game.MathUtil.formatNum(0); //清理底池显示
 		this.hideWinEffect();
 	}
 	/**
@@ -377,7 +377,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 			{
 				if (cardInfo.roleId == roleId)
 				{
-					qin.Console.log("显示牌型!");
+					game.Console.log("显示牌型!");
 					if (GamblingUtil.isOmaha)
 					{
 						matchResult = CardTypeMatchUtil.OmahaMatchCardInRoom(cardInfo.cardList);
@@ -535,7 +535,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 				}
 				else
 				{
-					qin.Console.log("显示牌型失败！未找到roleid：", cardInfo.roleId, "的头像组件！");
+					game.Console.log("显示牌型失败！未找到roleid：", cardInfo.roleId, "的头像组件！");
 				}
 			}
 		}
@@ -555,8 +555,8 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		{
 			this._winEffect1 = ptc;
 		});
-		qin.Tick.AddTimeoutInvoke(this.showWinEffect2, 150, this);
-		qin.Tick.AddTimeoutInvoke(this.showWinEffect3, 300, this);
+		game.Tick.AddTimeoutInvoke(this.showWinEffect2, 150, this);
+		game.Tick.AddTimeoutInvoke(this.showWinEffect3, 300, this);
 	}
 	private showWinEffect2()
 	{
@@ -604,7 +604,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		egret.Tween.get(this.target.winImg1).set({ scaleX: 0, scaleY: 0 }).to({ scaleX: 1, scaleY: 1 }, 300, egret.Ease.backOut);
 		egret.Tween.get(this.target.winImg2).set({ scaleX: 0, scaleY: 0 }).wait(150).to({ scaleX: 1, scaleY: 1 }, 300, egret.Ease.backOut);
 		egret.Tween.get(this.target.winImg3).set({ scaleX: 0, scaleY: 0 }).wait(300).to({ scaleX: 1, scaleY: 1 }, 300, egret.Ease.backOut);
-		qin.Tick.AddTimeoutInvoke(this.hideWinAnime, 2000, this);
+		game.Tick.AddTimeoutInvoke(this.hideWinAnime, 2000, this);
 	}
 	/**
 	 * 赢牌隐藏动画

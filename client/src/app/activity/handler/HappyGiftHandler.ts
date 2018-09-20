@@ -7,7 +7,7 @@ class HappyGiftHandler extends BaseActivitySubHandler<HappyGiftItemInfo>
     /**
      * 排名列表
      */
-    public rankList: qin.Dictionary<number, Array<RankInfo>> = new qin.Dictionary<number, Array<RankInfo>>();
+    public rankList: game.Map<number, Array<RankInfo>> = new game.Map<number, Array<RankInfo>>();
 
     public clear()
     {
@@ -103,5 +103,5 @@ class HappyGiftHandler extends BaseActivitySubHandler<HappyGiftItemInfo>
     /**
 	 * 兑换奖励完成事件
 	 */
-    public takePrizeCompleteEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public takePrizeCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

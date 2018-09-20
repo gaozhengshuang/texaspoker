@@ -119,7 +119,7 @@ class SafeBoxRetrievePwdPanel extends BaseRetrievePwdPanel
         super.onConfirmClick(e);
         let newPwd = this.newSafePwd.getPwd();
         let againPwd = this.confirmSafePwd.getPwd();
-        if (qin.RegexUtil.isPhoneNumber(this.telephoneLabel.text) && this.codeValidate(false) && UserUtil.checkTwoPwd(newPwd, againPwd, 6, 6, this.pwdErrorLabel))
+        if (game.RegexUtil.isPhoneNumber(this.telephoneLabel.text) && this.codeValidate(false) && UserUtil.checkTwoPwd(newPwd, againPwd, 6, 6, this.pwdErrorLabel))
         {
             SafeBoxManager.reqRetrievePwd(newPwd, this.verificationCodeLabel.text.trim());
         }

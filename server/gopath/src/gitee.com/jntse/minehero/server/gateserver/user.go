@@ -159,13 +159,13 @@ func (this *GateUser) SetName(nickname string) bool {
 	return true
 }
 
-func (this *GateUser) Face() string {
-	return this.EntityBase().GetFace()
+func (this *GateUser) Head() string {
+	return this.EntityBase().GetHead()
 }
 
-func (this *GateUser) SetFace(f string, bsync bool)  {
+func (this *GateUser) SetHead(f string, bsync bool)  {
 	log.Info("玩家[%d] 设置头像 [%s]",this.Id(), f)
-	this.EntityBase().Face = pb.String(f)
+	this.EntityBase().Head = pb.String(f)
 }
 
 func (this *GateUser) Id() int64 {

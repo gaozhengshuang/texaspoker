@@ -60,7 +60,7 @@ type RoomBase struct {
 	owner			*RoomUser	// 房主
 	ownerid			int64		// 房主
 	members			map[int64]*RoomUser		// 正式，已坐下
-	watchers		map[int64]*RoomUser		// 观战，未坐下
+	watchmembers		map[int64]*RoomUser		// 观战，未坐下
 	passwd			string		// 房间密码
 	subkind			int32		// 房间子类型
 	close_reason	string		// 关闭房间的原因
@@ -117,7 +117,7 @@ func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...int64) {
 
 func (r *RoomBase) BroadCastWatcherMsg(m pb.Message, except ...int64) {
 	memloop:
-	for id, u := range r.watchers {
+	for id, u := range r.watchmembers {
 		for _, exc := range except {
 			if id == exc { continue memloop }
 		}

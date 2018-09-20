@@ -52,7 +52,7 @@ class ShimTaeYoonRankPanel extends BasePanel
             for (let i: number = this._bottomList.length - 1; i >= 0; i--)
             {
                 arrGroup.push(this.rankGroup);
-                arrDes.push(qin.MathUtil.formatNum(this._bottomList[i]));
+                arrDes.push(game.MathUtil.formatNum(this._bottomList[i]));
             }
             this.listTypeTab.build(TabComponent.CreatData(arrDes, arrGroup, TabButtonType.SubOf4));
         }
@@ -63,7 +63,7 @@ class ShimTaeYoonRankPanel extends BasePanel
         this.currentListNum = this._bottomList[this._bottomList.length - 1];
         this.reqGetRankList();
         this._countDownTime = 300;
-        qin.Tick.AddSecondsInvoke(this.countDown, this);
+        game.Tick.AddSecondsInvoke(this.countDown, this);
     }
     protected onRender(event: egret.Event)
     {
@@ -82,7 +82,7 @@ class ShimTaeYoonRankPanel extends BasePanel
         this.rankTypeTab.tabChangeEvent.removeListener(this.onRankTypeTabTap, this);
         this.listTypeTab.tabChangeEvent.removeListener(this.onListTypeTabTap, this);
         RankManager.getRankListEvent.removeListener(this.getRankList, this);
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
         this.rankScroller.stopAnimation();
     }
 
@@ -95,7 +95,7 @@ class ShimTaeYoonRankPanel extends BasePanel
         if (this._countDownTime <= 0)
         {
             this.reqGetRankList();
-            qin.Console.log("拉取排行榜信息");
+            game.Console.log("拉取排行榜信息");
         }
     }
     private getRankList(myRank: number)
@@ -109,7 +109,7 @@ class ShimTaeYoonRankPanel extends BasePanel
                 this.noRankLabel.visible = false;
                 this.myNameLabel.text = UserManager.userInfo.name;
                 this.myRankLabel.text = selfRankInfo.rank.toString();
-                this.awardLabel.text = qin.MathUtil.formatNum(selfRankInfo.score);
+                this.awardLabel.text = game.MathUtil.formatNum(selfRankInfo.score);
             } else
             {
                 this.selfRankGroup.visible = false;

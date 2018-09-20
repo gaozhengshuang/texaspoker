@@ -1,4 +1,4 @@
-module qin {
+module game {
     export function BINDING_EXEC(source: Notification, target: any, call_back_func: Function, notify_name: string) {
         if (target) {
             if (source.addObserver(target, call_back_func, notify_name)) {

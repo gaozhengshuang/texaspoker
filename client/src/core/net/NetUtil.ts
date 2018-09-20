@@ -7,7 +7,7 @@ class NetUtil
 	public static AlertResultError(result: any, OnConfirm: Function = null)
 	{
 		let alertInfo: AlertInfo = new AlertInfo();
-		alertInfo.subTitle = qin.StringUtil.format("protocol:{0} code:{1}", result.cmdId, result.error);
+		alertInfo.subTitle = game.StringUtil.format("protocol:{0} code:{1}", result.cmdId, result.error);
 		alertInfo.message = ErrorDefined.GetInstance().getDetails(result.error);
 		alertInfo.OnConfirm = OnConfirm;
 		AlertManager.showAlertInfo(alertInfo);

@@ -267,7 +267,7 @@ class HundredWarRoomPanel extends BasePanel
         super.init(appendData);
         this.goldChange();
         this.setBetInfo();
-        qin.ArrayUtil.Clear(this._betListInfo);
+        game.ArrayUtil.Clear(this._betListInfo);
         this.showBetItem();
 
         this.initPanel();
@@ -345,9 +345,9 @@ class HundredWarRoomPanel extends BasePanel
     {
         if (UserManager.userInfo)
         {
-            this.selfInfoLabel.textFlow = qin.TextUtil.parse(
+            this.selfInfoLabel.textFlow = game.TextUtil.parse(
                 UserManager.userInfo.name + "  " +
-                '<font color="#E6C21D" size="24">' + qin.MathUtil.formatNum(UserManager.userInfo.gold) + '</font>'
+                '<font color="#E6C21D" size="24">' + game.MathUtil.formatNum(UserManager.userInfo.gold) + '</font>'
             );
         }
     }
@@ -389,7 +389,7 @@ class HundredWarRoomPanel extends BasePanel
     {
         this.betPotSupport.leaveClear();
         this.roundOverSupport.leaveClear();
-        qin.ArrayUtil.Clear(this.preBetList);
+        game.ArrayUtil.Clear(this.preBetList);
     }
     /**
      * 设置下注数据

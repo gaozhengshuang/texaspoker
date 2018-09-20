@@ -1,4 +1,4 @@
-module qin
+module game
 {
     /**
      * 二维码生成器 暂时没用到

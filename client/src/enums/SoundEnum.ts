@@ -183,6 +183,6 @@ class MusicResEnum
 			case SceneType.Game:
 				return MusicResEnum.Game;
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 }

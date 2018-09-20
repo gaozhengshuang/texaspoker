@@ -28,12 +28,12 @@ class DefinedManager
 					}
 					catch (e)
 					{
-						qin.Console.log("配置表格式有问题！" + item.name);
+						game.Console.log("配置表格式有问题！" + item.name);
 					}
 				}
 				else
 				{
-					qin.Console.log("Config有重复的:", item.name);
+					game.Console.log("Config有重复的:", item.name);
 				}
 			}
 		}
@@ -64,7 +64,7 @@ class DefinedManager
 		}
 		else
 		{
-			qin.Console.log("Config有重复的:", name);
+			game.Console.log("Config有重复的:", name);
 		}
 	}
 	/**

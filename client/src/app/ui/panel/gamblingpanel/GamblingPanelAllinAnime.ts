@@ -36,7 +36,7 @@ class GamblingPanelAllinAnime
             {
                 if (call)
                 {
-                    qin.FuncUtil.invoke(call, thisObj);
+                    game.FuncUtil.invoke(call, thisObj);
                 }
             });
     }

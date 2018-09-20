@@ -55,7 +55,7 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
     {
         HundredWarManager.roundOverClear();
         this.clearBetPot();
-        qin.ArrayUtil.Clear(this.posBetList);
+        game.ArrayUtil.Clear(this.posBetList);
     }
     /**
      * 离开清除数据
@@ -63,7 +63,7 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
     public leaveClear()
     {
         this.clearBetPot();
-        qin.ArrayUtil.Clear(this.posBetList);
+        game.ArrayUtil.Clear(this.posBetList);
     }
     /**
      * 清除注池组件信息
@@ -89,11 +89,11 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
                     let i: number = betInfo.pos - 1;
                     if (betInfo.bet)
                     {
-                        this.target.betPotList[i].allChipsLabel.text = qin.MathUtil.formatNum(betInfo.bet);
+                        this.target.betPotList[i].allChipsLabel.text = game.MathUtil.formatNum(betInfo.bet);
                     }
                     if (betInfo.myBet)
                     {
-                        this.target.betPotList[i].myChipsLabel.text = qin.MathUtil.formatNum(betInfo.myBet);
+                        this.target.betPotList[i].myChipsLabel.text = game.MathUtil.formatNum(betInfo.myBet);
                         this.target.betPotList[i].myChipsImg.visible = true;
                     }
                 }
@@ -191,7 +191,7 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
             hwPoolInfo = this.target.getPoolInfoByIndex(data.pos);
             if (hwPoolInfo)
             {
-                hwPoolInfo.betPotComponent.myChipsLabel.text = qin.MathUtil.formatNum(HundredWarManager.getSelfPoolGoldByPos(data.pos));
+                hwPoolInfo.betPotComponent.myChipsLabel.text = game.MathUtil.formatNum(HundredWarManager.getSelfPoolGoldByPos(data.pos));
                 hwPoolInfo.betPotComponent.myChipsImg.visible = true;
             }
         }

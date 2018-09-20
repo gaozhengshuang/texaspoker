@@ -24,7 +24,7 @@ class SimpleUserInfo extends BaseServerValueInfo
 	{
 		this._isHeadUnPass = false;
 		this._isHeadVerify = false;
-		if (qin.StringUtil.isNullOrEmpty(value) == false)
+		if (game.StringUtil.isNullOrEmpty(value) == false)
 		{
 			this._isHeadVerify = value.indexOf(GameSetting.HeadUploadVerifySign) != -1;
 			this._isHeadUnPass = value.indexOf(GameSetting.HeadUploadUnPassSign) != -1;
@@ -39,7 +39,7 @@ class SimpleUserInfo extends BaseServerValueInfo
 	}
 	public get head(): string
 	{
-		if (qin.StringUtil.isNullOrEmpty(this._head))
+		if (game.StringUtil.isNullOrEmpty(this._head))
 		{
 			return SheetSubName.getdefaultHead(this.sex);
 		}

@@ -13,7 +13,7 @@ class GuideOpenPanelStepProcess extends BaseGuideStepProcess
 		}
 		else
 		{
-			qin.Console.log("引导数据未找到");
+			game.Console.log("引导数据未找到");
 		}
 	}
 	private onPanelOpenHandler(name: string)

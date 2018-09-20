@@ -37,7 +37,7 @@ class GuideTriggerDefined extends BaseDefined<GuideTriggerDefinition>
 				}
 			}
 		}
-		qin.Console.logError("获取引导触发数据异常！GuideType" + type);
+		game.Console.logError("获取引导触发数据异常！GuideType" + type);
 		return def;
 	}
 }

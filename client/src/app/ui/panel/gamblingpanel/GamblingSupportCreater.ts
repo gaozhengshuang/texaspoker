@@ -161,8 +161,8 @@ class GamblingSupportCreater
 			this._sitDownAndAddCoin = new GamblingPanelSitDownAndAddCoinSupport(this._context);
 			this._roundOverSpt = new GamblingPanelRoundOverSupport(this._context);
 
-			this._oneLoopOverSpt.onLoopOverCallback = qin.Delegate.getOut(this._roundOverSpt.startRunRoundOverOper, this._roundOverSpt);
-			this._oneLoopOverSpt.onBoardCardApearComplete = qin.Delegate.getOut(this._actionSpt.setBoardCardOverFlag, this._actionSpt);
+			this._oneLoopOverSpt.onLoopOverCallback = game.Delegate.getOut(this._roundOverSpt.startRunRoundOverOper, this._roundOverSpt);
+			this._oneLoopOverSpt.onBoardCardApearComplete = game.Delegate.getOut(this._actionSpt.setBoardCardOverFlag, this._actionSpt);
 
 			this._supportNomalList = new Array<BaseGamblingPanelSupport>();
 

@@ -4,7 +4,7 @@
  */
 class PwdComponent extends BaseComponent<any>
 {
-    public pwdInput: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public pwdInput: game.DelegateDispatcher = new game.DelegateDispatcher();
     public numGroup: eui.Group;
     public inputSelectLabel: eui.Label;
     private _numComList: Array<NumComponent>
@@ -240,14 +240,14 @@ class PwdComponent extends BaseComponent<any>
     */
     public getPwd(): string
     {
-        let str: string = qin.StringConstants.Empty;
+        let str: string = game.StringConstants.Empty;
         if (!this._numComList)
         {
             return str;
         }
         for (let i: number = 0; i < this._numComList.length; i++)
         {
-            if (!qin.StringUtil.isNullOrEmpty(this._numComList[i].label1.text))
+            if (!game.StringUtil.isNullOrEmpty(this._numComList[i].label1.text))
             {
                 str += this._numComList[i].label1.text;
             }

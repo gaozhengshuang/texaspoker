@@ -24,7 +24,7 @@ class AccountManager
 		if (isAuto)
 		{
 			let account: string = AccountManager.AutoLogin();
-			if (qin.StringUtil.isNullOrEmpty(account) == false)
+			if (game.StringUtil.isNullOrEmpty(account) == false)
 			{
 				UIManager.showPanel(UIModuleName.AutoLoginPanel);
 			}
@@ -82,7 +82,7 @@ class AccountManager
 	/// </summary>
 	public static get formatMno(): string
 	{
-		if (qin.StringUtil.isNullOrEmpty(AccountManager._mno))
+		if (game.StringUtil.isNullOrEmpty(AccountManager._mno))
 		{
 			return AccountManager._startStr;
 		}
@@ -98,7 +98,7 @@ class AccountManager
 	/// </summary>
 	public static get isBindPhone(): boolean
 	{
-		return qin.StringUtil.isNullOrEmpty(AccountManager._mno) == false;
+		return game.StringUtil.isNullOrEmpty(AccountManager._mno) == false;
 	}
 	public static Logout()
 	{
@@ -167,8 +167,8 @@ class AccountManager
 	}
 	private static getRequestData(account: string, md5pw: string): string
 	{
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("appid", AccountManager._appId, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("appid", AccountManager._appId, game.StringConstants.Empty);
 		data += AccountManager.addField("account", account);
 		data += AccountManager.addField("pw", md5pw);
 		data += AccountManager.addField("did", AccountManager._deviceId);
@@ -187,7 +187,7 @@ class AccountManager
 	}
 	private static LoginCoroutine(isAuto: boolean, url: string, account: string, pw: string, isMd5: boolean, isBind: boolean = false)
 	{
-		let md5pw: string = isMd5 ? pw : qin.Crypt.hex_md5(pw);
+		let md5pw: string = isMd5 ? pw : game.Crypt.hex_md5(pw);
 		let data: string = AccountManager.getRequestData(account, md5pw);
 		URLLoader.downloadContent(url, this, (result: any) =>
 		{
@@ -234,7 +234,7 @@ class AccountManager
 	 */
 	private static RegisterCoroutine(url: string, account: string, pw: string)
 	{
-		let md5pw: string = qin.Crypt.hex_md5(pw);
+		let md5pw: string = game.Crypt.hex_md5(pw);
 		let data: string = AccountManager.getRequestData(account, md5pw);
 		URLLoader.downloadContent(url, this, (result: any) =>
 		{
@@ -267,8 +267,8 @@ class AccountManager
 	}
 	private static PhoneRegisterCoroutine(mno: string, again: boolean)
 	{
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("mno", mno, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("mno", mno, game.StringConstants.Empty);
 		data += AccountManager.addField("appid", AccountManager._appId);
 		let url: string = AccountHttpUrl.phone_register;
 		URLLoader.downloadContent(url, this, (result: any) =>
@@ -309,9 +309,9 @@ class AccountManager
 	}
 	private static PhoneRegisterVerifyCoroutine(mno: string, vcode: string, pw: string)
 	{
-		let md5pw: string = qin.Crypt.hex_md5(pw);
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("appid", AccountManager._appId, qin.StringConstants.Empty);
+		let md5pw: string = game.Crypt.hex_md5(pw);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("appid", AccountManager._appId, game.StringConstants.Empty);
 		data += AccountManager.addField("mno", mno);
 		data += AccountManager.addField("vcode", vcode);
 		data += AccountManager.addField("pw", md5pw);
@@ -353,8 +353,8 @@ class AccountManager
 	 */
 	private static PhoneBindCoroutine(account: string, mno: string, again: boolean)
 	{
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("account", account, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("account", account, game.StringConstants.Empty);
 		data += AccountManager.addField("mno", mno);
 		data += AccountManager.addField("appid", AccountManager._appId);
 		let url: string = AccountHttpUrl.phone_bind;
@@ -400,9 +400,9 @@ class AccountManager
 	 */
 	private static PhoneBindVerifyCoroutine(vcode: string, account: string, pw: string)
 	{
-		let md5pw: string = qin.Crypt.hex_md5(pw);
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("vcode", vcode, qin.StringConstants.Empty);
+		let md5pw: string = game.Crypt.hex_md5(pw);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("vcode", vcode, game.StringConstants.Empty);
 		data += AccountManager.addField("account", account);
 		data += AccountManager.addField("pw", md5pw);
 		data += AccountManager.addField("appid", AccountManager._appId);
@@ -442,8 +442,8 @@ class AccountManager
 	 */
 	private static PhoneUnbindVerifyCoroutine(vcode: string, account: string)
 	{
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("vcode", vcode, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("vcode", vcode, game.StringConstants.Empty);
 		data += AccountManager.addField("account", account);
 		data += AccountManager.addField("appid", AccountManager._appId);
 		let url: string = AccountHttpUrl.phone_unbind_verify;
@@ -483,10 +483,10 @@ class AccountManager
 	 */
 	private static ModifyPasswordCoroutine(account: string, oldpw: string, pw: string)
 	{
-		let md5pw: string = qin.Crypt.hex_md5(pw);
-		let md5oldpw: string = qin.Crypt.hex_md5(oldpw);
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("account", account, qin.StringConstants.Empty);
+		let md5pw: string = game.Crypt.hex_md5(pw);
+		let md5oldpw: string = game.Crypt.hex_md5(oldpw);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("account", account, game.StringConstants.Empty);
 		data += AccountManager.addField("pw", md5oldpw);
 		data += AccountManager.addField("pw2", md5pw);
 		data += AccountManager.addField("appid", AccountManager._appId);
@@ -525,8 +525,8 @@ class AccountManager
 	}
 	private static PhoneFindPasswordCoroutine(account: string, mno: string, again: boolean)
 	{
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("account", account, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("account", account, game.StringConstants.Empty);
 		data += AccountManager.addField("mno", mno);
 		data += AccountManager.addField("appid", AccountManager._appId);
 		let url: string = AccountHttpUrl.phone_find_password;
@@ -569,9 +569,9 @@ class AccountManager
 	}
 	private static PhoneModifyPasswordCoroutine(vcode: string, account: string, pw: string)
 	{
-		let md5pw: string = qin.Crypt.hex_md5(pw);
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("vcode", vcode, qin.StringConstants.Empty);
+		let md5pw: string = game.Crypt.hex_md5(pw);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("vcode", vcode, game.StringConstants.Empty);
 		data += AccountManager.addField("account", account);
 		data += AccountManager.addField("pw", md5pw);
 		data += AccountManager.addField("appid", AccountManager._appId);
@@ -607,8 +607,8 @@ class AccountManager
 	}
 	private static PhoneSmsLoginCoroutine(mno: string)
 	{
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("mno", mno, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("mno", mno, game.StringConstants.Empty);
 		data += AccountManager.addField("appid", AccountManager._appId);
 		let url: string = AccountHttpUrl.phone_sms_login;
 
@@ -636,8 +636,8 @@ class AccountManager
 	public static PhoneSmsLoginVerify(vcode: string, mno: string)
 	{
 		AccountManager.OnLoadingStart.dispatch();
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("mno", mno, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("mno", mno, game.StringConstants.Empty);
 		data += AccountManager.addField("vcode", vcode);
 		data += AccountManager.addField("appid", AccountManager._appId);
 		data += AccountManager.addField("did", AccountManager._deviceId);
@@ -677,8 +677,8 @@ class AccountManager
 	public static TokenLogin(app_token: string, account: string)
 	{
 		AccountManager.OnLoadingStart.dispatch();
-		let data: string = qin.StringConstants.Empty;
-		data += AccountManager.addField("account", account, qin.StringConstants.Empty);
+		let data: string = game.StringConstants.Empty;
+		data += AccountManager.addField("account", account, game.StringConstants.Empty);
 		data += AccountManager.addField("app_token", app_token);
 		data += AccountManager.addField("appid", AccountManager._appId);
 		data += AccountManager.addField("did", AccountManager._deviceId);
@@ -715,72 +715,72 @@ class AccountManager
 	// event
 	//------------------------------------------------------------------
 
-	public static OnLoadingStart: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnLoadingStart: game.DelegateDispatcher = new game.DelegateDispatcher();
 
-	public static OnLoadingFinish: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnLoadingFinish: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 选择页面
 	/// </summary>
-	public static OnSelectTab: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnSelectTab: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 重新获取验证码
 	/// </summary>
-	public static OnAgainMobileCode: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnAgainMobileCode: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 登录成功
 	/// </summary>
-	public static OnLoginSuccess: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnLoginSuccess: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 注册成功
 	/// </summary>
-	public static OnRegisterSuccess: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnRegisterSuccess: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 取消登录
 	/// </summary>
-	public static OnLoginCancel: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnLoginCancel: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 手机注册
 	/// </summary>
-	public static OnPhoneRegister: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPhoneRegister: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 绑定/解绑手机
 	/// </summary>
-	public static OnPhoneBind: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPhoneBind: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 手机绑定/解绑验证成功
 	/// </summary>
-	public static OnPhoneBindVerify: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPhoneBindVerify: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 密码修改成功
 	/// </summary>
-	public static OnModifyPassword: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnModifyPassword: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 手机找回密码
 	/// </summary>
-	public static OnPhoneFindPassword: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPhoneFindPassword: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 手机修改密码成功
 	/// </summary>
-	public static OnPhoneModifyPassword: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPhoneModifyPassword: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 手机验证码登录发送验证码成功
 	/// </summary>
-	public static OnPhoneSmsLogin: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnPhoneSmsLogin: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 	/// <summary>
 	/// 账号没有密码广播
 	/// </summary>
-	public static OnNoPw: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnNoPw: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

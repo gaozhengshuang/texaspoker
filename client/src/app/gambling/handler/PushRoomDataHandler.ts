@@ -21,11 +21,11 @@ class PushRoomDataHandler
 	/**
 	 * 推送的结果缓存
 	 */
-	public resultMap: qin.Dictionary<string, qin.SpRpcResult> = new qin.Dictionary<string, qin.SpRpcResult>();
+	public resultMap: game.Map<string, game.SpRpcResult> = new game.Map<string, game.SpRpcResult>();
 	/**
 	 * 回调函数处理
 	 */
-	public funcMap: qin.Dictionary<string, Function> = new qin.Dictionary<string, Function>();
+	public funcMap: game.Map<string, Function> = new game.Map<string, Function>();
 
 	public initialize()
 	{
@@ -47,7 +47,7 @@ class PushRoomDataHandler
 	/**
 	 * 写入缓存数据
 	 */
-	public writeResult(cmdId: string, result: qin.SpRpcResult)
+	public writeResult(cmdId: string, result: game.SpRpcResult)
 	{
 		if (this.isGetRoomData == false)
 		{
@@ -59,17 +59,17 @@ class PushRoomDataHandler
 	 */
 	public setRoomData()
 	{
-		this.resultMap.foreach((cmdId: string, result: qin.SpRpcResult) =>
+		this.resultMap.foreach((cmdId: string, result: game.SpRpcResult) =>
 		{
 			let func: Function = this.funcMap.getValue(cmdId);
 			func.call(GamblingManager, result);
-			qin.Console.log("出现了，推送先于房间数据过来：" + cmdId);
+			game.Console.log("出现了，推送先于房间数据过来：" + cmdId);
 			AlertManager.showAlert("出现了，推送先于房间数据过来：" + cmdId + result.data);
 		}, this);
 		if (this.resultMap.containsKey(Command.PlayerStateChange_Push_2104))
 		{
 			GamblingManager.ActionPosChangeEvent.dispatch();
-			qin.Console.log("重新抛送位置改变事件，触发操作按钮显示，重新算跟注数量");
+			game.Console.log("重新抛送位置改变事件，触发操作按钮显示，重新算跟注数量");
 		}
 		this.reset();
 	}

@@ -28,7 +28,7 @@ class GamblingReviewHandler
     */
     public reqReviewInfo(id: number)
     {
-        let callback: Function = function (result: qin.SpRpcResult)
+        let callback: Function = function (result: game.SpRpcResult)
         {
             this.reset();
             if (result.data)
@@ -87,9 +87,9 @@ class GamblingReviewHandler
         {
             this.pubCardList = new Array<CardInfo>();
         }
-        qin.ArrayUtil.Clear(this.reviewInfoList);
-        qin.ArrayUtil.Clear(this.dealActionRecord);
-        qin.ArrayUtil.Clear(this.pubCardList);
+        game.ArrayUtil.Clear(this.reviewInfoList);
+        game.ArrayUtil.Clear(this.dealActionRecord);
+        game.ArrayUtil.Clear(this.pubCardList);
     }
     /**
      * 根据操作种类设置信息
@@ -201,7 +201,7 @@ class GamblingReviewHandler
         }
         catch (e)
         {
-            qin.Console.log(e);
+            game.Console.log(e);
         }
         if (cards)
         {
@@ -253,7 +253,7 @@ class GamblingReviewHandler
                         }
                         catch (e)
                         {
-                            qin.Console.log(e);
+                            game.Console.log(e);
                         }
                         if (cards)
                         {
@@ -440,9 +440,9 @@ class GamblingReviewHandler
     /**
      * 请求牌局上局回顾信息成功广播
     */
-    public onReqReviewInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onReqReviewInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
      * 所有用户信息请求完成广播
     */
-    public onGetAllPlayerInfoEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public onGetAllPlayerInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

@@ -21,8 +21,8 @@ class FriendMsgPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		qin.Tick.RemoveSecondsInvoke(this.onTimeRefresf, this);
-		qin.Tick.AddSecondsInvoke(this.onTimeRefresf, this);
+		game.Tick.RemoveSecondsInvoke(this.onTimeRefresf, this);
+		game.Tick.AddSecondsInvoke(this.onTimeRefresf, this);
 		this.refreshUI(appendData);
 		this.tweenGp.y = -100;
 		egret.Tween.get(this.tweenGp).to({ y: 0 }, 600, egret.Ease.backOut)
@@ -55,7 +55,7 @@ class FriendMsgPanel extends BasePanel
 	{
 		super.onDisable(event);
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
-		qin.Tick.RemoveSecondsInvoke(this.onTimeRefresf, this);
+		game.Tick.RemoveSecondsInvoke(this.onTimeRefresf, this);
 		//FriendManager.InviteFriendEvent.removeListener(this.friendInviteHandler, this);
 	}
 	protected clickHandler(event: egret.TouchEvent)

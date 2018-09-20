@@ -15,7 +15,7 @@ class MarqueeHandler
         }
         catch (e)
         {
-            qin.Console.log(e);
+            game.Console.log(e);
         }
         if (marquee)
         {
@@ -56,7 +56,7 @@ class MarqueeHandler
             awardName = AwardDefined.GetInstance().getAwardNameById(marquee["aid"], true);
             if (awardName)
             {
-                msg = qin.StringUtil.format(msg, name, mttName, awardName);
+                msg = game.StringUtil.format(msg, name, mttName, awardName);
             }
         }
         return msg;
@@ -75,7 +75,7 @@ class MarqueeHandler
         {
             hundredWarName = hundredWarDef.name;
         }
-        msg = qin.StringUtil.format(msg, hundredWarName, marquee["gold"] + "金币");
+        msg = game.StringUtil.format(msg, hundredWarName, marquee["gold"] + "金币");
         return msg;
     }
     /**
@@ -89,7 +89,7 @@ class MarqueeHandler
             marquee = JSON.parse(marqueeMsg);
         } catch (e)
         {
-            qin.Console.log(e);
+            game.Console.log(e);
         }
         if (marquee)
         {
@@ -108,7 +108,7 @@ class MarqueeHandler
             marquee = JSON.parse(marqueeMsg);
         } catch (e)
         {
-            qin.Console.log(e);
+            game.Console.log(e);
         }
         if (marquee)
         {

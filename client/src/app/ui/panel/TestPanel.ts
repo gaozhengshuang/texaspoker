@@ -30,7 +30,7 @@ class TestPanel extends eui.Component
 	{
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this, true);
 	}
-	private callBack: qin.Delegate;
+	private callBack: game.Delegate;
 	private clickHandler(event: egret.TouchEvent)
 	{
 		let target = event.target;
@@ -71,7 +71,7 @@ class TestPanel extends eui.Component
 				// this.testTime();
 				// let reg: RegExp = /\#/g; //过滤#
 				// let msg = "###aaaa##aaa";
-				// msg = msg.replace(reg, qin.StringConstants.Empty);
+				// msg = msg.replace(reg, game.StringConstants.Empty);
 				// console.log(msg);
 				// VersionManager.gotoLoadNewVersion();
 				// console.log(300 % 100, 300 % 200, 100 % 300, 300 % 300);
@@ -88,13 +88,13 @@ class TestPanel extends eui.Component
 				// console.log(view2.getInt8(1));
 				// // expected output: 42
 				// AlertManager.showAlert("哈哈蛤");
-				// console.log("语言：" + qin.I18n.lang);
+				// console.log("语言：" + game.I18n.lang);
 				break;
 		}
 	}
 	private testTime()
 	{
-		let str: string = qin.DateTimeUtil.formatTimestamp(TimeManager.GetServerUtcTimestamp());
+		let str: string = game.DateTimeUtil.formatTimestamp(TimeManager.GetServerUtcTimestamp());
 		str = str.substring(5)
 	}
 	private _payIndex: number = 0;
@@ -119,7 +119,7 @@ class TestPanel extends eui.Component
 				console.log(i);
 			};
 			setTimeout(function () { console.log(i); }, 100 * i);
-			// qin.Tick.AddTimeoutInvoke(callBack, 10 * (i + 1), this);
+			// game.Tick.AddTimeoutInvoke(callBack, 10 * (i + 1), this);
 		}
 		for (var i = 0; i < 10; i++)
 		{
@@ -234,15 +234,15 @@ class TestPanel extends eui.Component
 	private testJing()
 	{
 		let targetStr: string = "333#1#333#2###1#111111222"
-		let str: string = targetStr.replace(/#[12]{1}#/g, qin.StringConstants.Empty);
+		let str: string = targetStr.replace(/#[12]{1}#/g, game.StringConstants.Empty);
 		console.log(str);
 	}
 	private testDelete()
 	{
-		this.callBack = qin.Delegate.getOut(this.testDelete1, this);
-		qin.Delegate.putIn(this.callBack);
+		this.callBack = game.Delegate.getOut(this.testDelete1, this);
+		game.Delegate.putIn(this.callBack);
 		this.callBack = null;
-		this.callBack = qin.Delegate.getOut(this.testDelete1, this);
+		this.callBack = game.Delegate.getOut(this.testDelete1, this);
 	}
 	private testDelete1()
 	{
@@ -285,7 +285,7 @@ class TestPanel extends eui.Component
 		{
 			if (f && f.caller && f.arguments)
 			{
-				let str: string = qin.StringConstants.Empty;
+				let str: string = game.StringConstants.Empty;
 				for (let i: number = 0; i < f.arguments.length; i++)
 				{
 					if (i == f.arguments.lenght - 1)
@@ -308,7 +308,7 @@ class TestPanel extends eui.Component
 	}
 	private testConsole()
 	{
-		qin.Console.logError("sss");
+		game.Console.logError("sss");
 	}
 	private roomId: number = 1;
 	private testEnterRoom()
@@ -328,7 +328,7 @@ class TestPanel extends eui.Component
 	}
 	private test0undefined()
 	{
-		qin.Console.log(0 == undefined);
+		game.Console.log(0 == undefined);
 	}
 	private testPringUnicode()
 	{
@@ -356,9 +356,9 @@ class TestPanel extends eui.Component
 			{
 				arr.push(i);
 			}
-			qin.Console.log(String.fromCharCode(i) + i);
+			game.Console.log(String.fromCharCode(i) + i);
 		}
-		qin.Console.log(arr);
+		game.Console.log(arr);
 	}
 	private testOs()
 	{
@@ -371,7 +371,7 @@ class TestPanel extends eui.Component
 	}
 	private testPanelName()
 	{
-		qin.Console.log(egret.getQualifiedClassName(this));
+		game.Console.log(egret.getQualifiedClassName(this));
 	}
 	private testWaitNextPanel()
 	{
@@ -395,7 +395,7 @@ class TestPanel extends eui.Component
 	}
 	private testArray()
 	{
-		qin.Console.log((Array(5).join('0') + "1").slice(-5));
+		game.Console.log((Array(5).join('0') + "1").slice(-5));
 	}
 	private testCardType()
 	{
@@ -418,6 +418,6 @@ class TestPanel extends eui.Component
 		GamblingManager.roomInfo = new RoomInfo();
 		CardTypeMatchUtil.matchCardInRoom(list);
 
-		qin.Console.log(CardTypeMatchUtil.getCardDes(CardTypeMatchUtil.cardType));
+		game.Console.log(CardTypeMatchUtil.getCardDes(CardTypeMatchUtil.cardType));
 	}
 }

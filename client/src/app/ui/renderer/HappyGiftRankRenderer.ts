@@ -27,7 +27,7 @@ class HappyGiftRankRenderer extends BaseItemRenderer<RankInfo>
             this.rankLabel.text = this.bindData.rank.toString();
             this.head.init(this.bindData, 40);
             this.userNameLabel.text = this.bindData.name;
-            this.goldLabel.text = qin.MathUtil.numAddSpace(this.bindData.score);
+            this.goldLabel.text = game.MathUtil.numAddSpace(this.bindData.score);
             this.setColor();
         }
     }

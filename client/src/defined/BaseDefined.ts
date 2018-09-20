@@ -22,7 +22,7 @@ class BaseDefined<T extends IBaseDefintion>
 				}
 			}
 		}
-		qin.Console.log("获取配置信息失败！classname：" + egret.getQualifiedClassName(this) + " ID:" + id);
+		game.Console.log("获取配置信息失败！classname：" + egret.getQualifiedClassName(this) + " ID:" + id);
 		return null;
 	}
 }

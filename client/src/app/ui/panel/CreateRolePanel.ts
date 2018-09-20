@@ -52,33 +52,33 @@ class CreateRolePanel extends BasePanel
     public init(appendData: any)
     {
         super.init(appendData);
-        if (ChannelManager.loginType == ChannelLoginType.Weixin && LoginManager.loginInfo.channeldata)
-        {
-            if (LoginManager.loginInfo.channeldata.hasOwnProperty("head"))
-            {
-                let head: string = LoginManager.loginInfo.channeldata["head"];
-                if (head) //微信登录上传微信头像
-                {
-                    UserManager.tryUpLoadWxHead(head)
-                }
-            }
-            if (LoginManager.loginInfo.channeldata.hasOwnProperty("sex"))
-            {
-                this.radioGroup.selectedValue = this.sex = parseInt(LoginManager.loginInfo.channeldata["sex"]);
-            }
-            if (LoginManager.loginInfo.channeldata.hasOwnProperty("name"))
-            {
-                this.nickNameLable.text = LoginManager.loginInfo.channeldata["name"];
-            }
-            if (qin.StringUtil.isNullOrEmpty(this.nickNameLable.text))
-            {
-                this.nickNameLable.text = NameDefined.GetInstance().getRandomNickName(this.sex);
-            }
-        }
-        else
-        {
-            this.nickNameLable.text = NameDefined.GetInstance().getRandomNickName(this.sex);
-        }
+        // if (ChannelManager.loginType == ChannelLoginType.Weixin && LoginManager.loginInfo.channeldata)
+        // {
+        //     if (LoginManager.loginInfo.channeldata.hasOwnProperty("head"))
+        //     {
+        //         let head: string = LoginManager.loginInfo.channeldata["head"];
+        //         if (head) //微信登录上传微信头像
+        //         {
+        //             UserManager.tryUpLoadWxHead(head)
+        //         }
+        //     }
+        //     if (LoginManager.loginInfo.channeldata.hasOwnProperty("sex"))
+        //     {
+        //         this.radioGroup.selectedValue = this.sex = parseInt(LoginManager.loginInfo.channeldata["sex"]);
+        //     }
+        //     if (LoginManager.loginInfo.channeldata.hasOwnProperty("name"))
+        //     {
+        //         this.nickNameLable.text = LoginManager.loginInfo.channeldata["name"];
+        //     }
+        //     if (game.StringUtil.isNullOrEmpty(this.nickNameLable.text))
+        //     {
+        //         this.nickNameLable.text = NameDefined.GetInstance().getRandomNickName(this.sex);
+        //     }
+        // }
+        // else
+        // {
+        //     this.nickNameLable.text = NameDefined.GetInstance().getRandomNickName(this.sex);
+        // }
     }
     protected onEnable(event: eui.UIEvent): void
     {
@@ -139,10 +139,10 @@ class CreateRolePanel extends BasePanel
     }
     private onCreateRoleHandler()
     {
-        if (qin.System.isWeb)  //自动绑定邀请码
+        if (game.System.isWeb)  //自动绑定邀请码
         {
             let code: string = URLOption.getString(URLOption.InviteCode);
-            if (!qin.StringUtil.isNullOrEmpty(code))
+            if (!game.StringUtil.isNullOrEmpty(code))
             {
                 InviteManager.reqBindInviteCode(code);
             }

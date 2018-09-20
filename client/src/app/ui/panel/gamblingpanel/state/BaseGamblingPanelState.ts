@@ -77,7 +77,7 @@ abstract class BaseGamblingPanelState
 						this.context.slotContainerUp.addChild(comp);
 						break;
 					default:
-						qin.Console.log("牌局面板插槽类型异常！" + comp.layerType);
+						game.Console.log("牌局面板插槽类型异常！" + comp.layerType);
 						break;
 				}
 			}
@@ -125,7 +125,7 @@ abstract class BaseGamblingPanelState
 		}
 		else
 		{
-			qin.Console.logError("牌局切换状态，添加对象显示失败：" + target);
+			game.Console.logError("牌局切换状态，添加对象显示失败：" + target);
 		}
 	}
 	/**
@@ -141,7 +141,7 @@ abstract class BaseGamblingPanelState
 		}
 		else
 		{
-			qin.Console.logError("牌局切换状态，移除对象显示失败：" + target);
+			game.Console.logError("牌局切换状态，移除对象显示失败：" + target);
 		}
 	}
 	/**

@@ -25,7 +25,7 @@ class ActivityDefined extends BaseDefined<ActivityDefintion>
         {
             for (let def of this.dataList)
             {
-                def.triggerParams = qin.StringUtil.toStringArray(def.trigger);
+                def.triggerParams = game.StringUtil.toStringArray(def.trigger);
                 if (def.startTime)
                 {
                     def.startDt = this.getDate(def, def.startTime);
@@ -48,7 +48,7 @@ class ActivityDefined extends BaseDefined<ActivityDefintion>
     public getDate(def: ActivityDefintion, timeStr: string): Date
     {
         let dataArr: Array<number>;
-        dataArr = qin.StringUtil.toIntArray(timeStr);
+        dataArr = game.StringUtil.toIntArray(timeStr);
         if (dataArr)
         {
             if (dataArr.length == 6)
@@ -57,7 +57,7 @@ class ActivityDefined extends BaseDefined<ActivityDefintion>
             }
             else
             {
-                qin.Console.log("活动时间格式不对！活动ID：" + def.id);
+                game.Console.log("活动时间格式不对！活动ID：" + def.id);
             }
         }
         return null;

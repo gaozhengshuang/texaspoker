@@ -290,11 +290,11 @@ func (this *User) CreateRoom() {
 }
 
 func (this *User) EnterRoom() {
-	this.SendGateMsg(&msg.BT_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String("12345")})
+	this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String("12345")})
 }
 
 func (this *User) LeaveRoom() {
-	this.SendGateMsg(&msg.BT_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
+	this.SendGateMsg(&msg.C2GW_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
 }
 
 //func (this *User) JumpStep() {

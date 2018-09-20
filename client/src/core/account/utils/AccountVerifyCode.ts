@@ -13,13 +13,13 @@ class AccountVerifyCode
 	public AccountVerifyCode(label: eui.Label)
 	{
 		this._label = label;
-		this._label.text = qin.StringConstants.Empty;
+		this._label.text = game.StringConstants.Empty;
 	}
 	public Reset()
 	{
 		this._vcTime = 0;
 		this._isAgain = false;
-		qin.Tick.AddSecondsInvoke(this.OnTick, this);
+		game.Tick.AddSecondsInvoke(this.OnTick, this);
 		this.OnTick(0);
 	}
 
@@ -30,7 +30,7 @@ class AccountVerifyCode
 	public OnDisable()
 	{
 		AccountManager.OnAgainMobileCode.removeListener(this.OnAgainMobileCode, this);
-		qin.Tick.RemoveSecondsInvoke(this.OnTick, this);
+		game.Tick.RemoveSecondsInvoke(this.OnTick, this);
 	}
 	private OnAgainMobileCode()
 	{
@@ -41,13 +41,13 @@ class AccountVerifyCode
 		this._vcTime += delta;
 		if (this._vcTime >= AccountConfig.MobileCodeTimeout)
 		{
-			qin.Tick.RemoveSecondsInvoke(this.OnTick, this);
+			game.Tick.RemoveSecondsInvoke(this.OnTick, this);
 			this._label.text = "获取验证码";
 			this._isAgain = true;
 		}
 		else
 		{
-			this._label.text = qin.DateTimeUtil.countDownFormat(AccountConfig.MobileCodeTimeout - this._vcTime, false) + "秒";
+			this._label.text = game.DateTimeUtil.countDownFormat(AccountConfig.MobileCodeTimeout - this._vcTime, false) + "秒";
 		}
 	}
 }

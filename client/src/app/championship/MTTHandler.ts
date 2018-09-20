@@ -45,13 +45,13 @@ class MTTRemindStartHandler
                 this.joinedMTTList.push(matchInfo);
             }
         }
-        qin.Tick.AddSecondsInvoke(this.countDown, this);
+        game.Tick.AddSecondsInvoke(this.countDown, this);
     }
     public onEnable()
     {
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
-        qin.ArrayUtil.Clear(this.joinedMTTList);
-        qin.ArrayUtil.Clear(this.waitRemindMTTList);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.ArrayUtil.Clear(this.joinedMTTList);
+        game.ArrayUtil.Clear(this.waitRemindMTTList);
         this.firstStartMTT = null;
         this.minuteOpenFlag = true;
     }
@@ -95,7 +95,7 @@ class MTTRemindStartHandler
     */
     public clearHadRemindMTT()
     {
-        qin.ArrayUtil.Clear(this.hadRemindJoinedMTT);
+        game.ArrayUtil.Clear(this.hadRemindJoinedMTT);
     }
     /**
      * 比赛3分钟开始横幅提醒推送对应的操作
@@ -220,12 +220,12 @@ class MTTRemindStartHandler
                 {
                     this.onSecondStartPush(countDownNum, joinMTTinfo.recordId);
                     this.waitRemindMTTList.splice(i, 1);
-                    qin.Tick.RemoveSecondsInvoke(this.waitCounDown, this);
+                    game.Tick.RemoveSecondsInvoke(this.waitCounDown, this);
                 }
                 if (countDownNum <= 0)
                 {
                     this.waitRemindMTTList.splice(i, 1);
-                    qin.Tick.RemoveSecondsInvoke(this.waitCounDown, this);
+                    game.Tick.RemoveSecondsInvoke(this.waitCounDown, this);
                 }
             }
         }
@@ -235,7 +235,7 @@ class MTTRemindStartHandler
     */
     public remindWaitMTT()
     {
-        qin.Tick.AddSecondsInvoke(this.waitCounDown, this);
+        game.Tick.AddSecondsInvoke(this.waitCounDown, this);
     }
     /**
      * 重置3分钟横幅提醒打开开关
@@ -247,6 +247,6 @@ class MTTRemindStartHandler
     /**
      *重置3分钟横幅提醒打开开关广播
     */
-    public ResetThreeMinFlagEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+    public ResetThreeMinFlagEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 

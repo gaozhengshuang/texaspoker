@@ -112,7 +112,7 @@ class TimeAwardPanel extends BasePanel
         if (GamblingManager.timeAwardHandler.time)
         {
             this.getBtn.enabled = false;
-            this.timeLabel.text = "距离下次领奖时间" + qin.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false);
+            this.timeLabel.text = "距离下次领奖时间" + game.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false);
         } else
         {
             this.getBtn.enabled = true;
@@ -122,10 +122,10 @@ class TimeAwardPanel extends BasePanel
         if (playInfo)
         {
             let bankRoll: number = playInfo.bankRoll;  //桌内的筹码             
-            this.goldLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold + bankRoll);
+            this.goldLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold + bankRoll);
         } else
         {
-            this.goldLabel.text = qin.MathUtil.formatNum(UserManager.userInfo.gold);
+            this.goldLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
         }
         if (GamblingManager.timeAwardHandler.round != undefined)
         {
@@ -176,6 +176,6 @@ class TimeAwardPanel extends BasePanel
     */
     private refreshTime()
     {
-        this.timeLabel.text = "距离下次领奖时间" + qin.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false);
+        this.timeLabel.text = "距离下次领奖时间" + game.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false);
     }
 }

@@ -31,7 +31,7 @@ class UploadHeadManager
 	private static startLoad(sign: string, path: string, headData: string)
 	{
 		let headPath: string = ProjectDefined.GetInstance().getHeadUpLoadUrl();
-		if (qin.StringUtil.isNullOrEmpty(headPath) == false && qin.StringUtil.isNullOrEmpty(headData) == false)
+		if (game.StringUtil.isNullOrEmpty(headPath) == false && game.StringUtil.isNullOrEmpty(headData) == false)
 		{
 			UpLoader.UpLoad(headPath, sign, headData, true, UploadHeadManager.upLoadComplete, UploadHeadManager.uploadError, this);
 			UploadHeadManager._headPath = path;
@@ -56,7 +56,7 @@ class UploadHeadManager
 	public static onSelectHead(content: any): void
 	{
 		let data: string = content.data;
-		if (!qin.StringUtil.isNullOrEmpty(data))
+		if (!game.StringUtil.isNullOrEmpty(data))
 		{
 			switch (content.type)
 			{
@@ -86,9 +86,9 @@ class UploadHeadManager
 	}
 	private static removeAppendData(data: string): string
 	{
-		if (data.indexOf(qin.StringConstants.Comma) != -1)
+		if (data.indexOf(game.StringConstants.Comma) != -1)
 		{
-			let index: number = data.indexOf(qin.StringConstants.Comma);
+			let index: number = data.indexOf(game.StringConstants.Comma);
 			let len: number = data.length - index;
 			data = data.substr(index + 1, len - 1);
 		}
@@ -103,12 +103,12 @@ class UploadHeadManager
 
 			let uploadFunc: Function = function (imgData: string)
 			{
-				if (qin.StringUtil.isNullOrEmpty(imgData))
+				if (game.StringUtil.isNullOrEmpty(imgData))
 				{
 					UIManager.showFloatTips("请先选择图片");
 					return;
 				}
-				let callBackServer: Function = function (obj: qin.SpRpcResult)
+				let callBackServer: Function = function (obj: game.SpRpcResult)
 				{
 					if (obj.data && obj.data["sign"] != null && obj.data["path"] != null)
 					{
@@ -128,7 +128,7 @@ class UploadHeadManager
 	}
 	private static getEncodeBytes(byteStr: string): ArrayBuffer
 	{
-		return qin.CodeUtil.base64ToArrayBuffer(byteStr);
+		return game.CodeUtil.base64ToArrayBuffer(byteStr);
 	}
 	public static clear(): void
 	{
@@ -151,10 +151,10 @@ class UploadHeadManager
 	/**
 	 * 选择头像完成
 	 */
-	public static OnSelectHeadUpdate: qin.DelegateDispatcher = new qin.DelegateDispatcher(); //Texture2D tex
+	public static OnSelectHeadUpdate: game.DelegateDispatcher = new game.DelegateDispatcher(); //Texture2D tex
 	/**
 	 * 上传头像完成
 	 */
-	public static OnUploadHeadUpdate: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static OnUploadHeadUpdate: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 

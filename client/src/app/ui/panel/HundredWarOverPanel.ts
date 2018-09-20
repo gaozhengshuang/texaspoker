@@ -42,11 +42,11 @@ class HundredWarOverPanel extends BasePanel
         super.init(appendData);
         this.reset();
         this.coundDown();
-        qin.Tick.AddSecondsInvoke(this.coundDown, this);
+        game.Tick.AddSecondsInvoke(this.coundDown, this);
         let overInfo: HundredWarOverInfo = HundredWarManager.hundredWarOverInfo;
         if (overInfo)
         {
-            this.numComp.init("$" + qin.MathUtil.numAddSpace(overInfo.gold));
+            this.numComp.init("$" + game.MathUtil.numAddSpace(overInfo.gold));
             if (overInfo.isWin)
             {
                 this.tipsLabel.text = "恭喜，您赢取了";
@@ -88,7 +88,7 @@ class HundredWarOverPanel extends BasePanel
         if (this._rankListClone.length > 0)
         {
             let rankInfo: any = this._rankListClone.shift();
-            this["winGold" + this._headIndex].text = qin.MathUtil.formatNum(rankInfo.num);
+            this["winGold" + this._headIndex].text = game.MathUtil.formatNum(rankInfo.num);
             if (HundredWarManager.isSysBanker(rankInfo.roleId))
             {
                 this.userGroup.getChildAt(this._headIndex).visible = true;
@@ -135,7 +135,7 @@ class HundredWarOverPanel extends BasePanel
     //                 let userInfo: SimpleUserInfo = new SimpleUserInfo(result.data);
     //                 thisObj.userGroup.getChildAt(thisObj._headIndex).visible = true;
     //                 thisObj["head" + thisObj._headIndex].init(userInfo, 80);
-    //                 thisObj["winGold" + thisObj._headIndex].text = qin.MathUtil.formatNum(rankInfo.num);
+    //                 thisObj["winGold" + thisObj._headIndex].text = game.MathUtil.formatNum(rankInfo.num);
     //                 thisObj._headIndex++;
     //             }
     //             thisObj.reqInitRank(this._rankListClone);
@@ -144,13 +144,13 @@ class HundredWarOverPanel extends BasePanel
     //         {
     //             thisObj.userGroup.getChildAt(thisObj._headIndex).visible = true;
     //             thisObj["head" + thisObj._headIndex].init(HundredWarManager.sysBanker, 80);
-    //             thisObj["winGold" + thisObj._headIndex].text = qin.MathUtil.formatNum(rankInfo.num);
+    //             thisObj["winGold" + thisObj._headIndex].text = game.MathUtil.formatNum(rankInfo.num);
     //             thisObj._headIndex++;
     //             thisObj.reqInitRank(this._rankListClone);
     //         }
     //         else
     //         {
-    //             //UserManager.reqSimpleUserInfo(rankInfo.roleId, qin.Delegate.getOut(callback, this));
+    //             //UserManager.reqSimpleUserInfo(rankInfo.roleId, game.Delegate.getOut(callback, this));
     //         }
     //     }
     //     else
@@ -172,7 +172,7 @@ class HundredWarOverPanel extends BasePanel
     {
         super.onDisable(event);
         this.confirmBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.closePanel, this);
-        qin.Tick.RemoveSecondsInvoke(this.coundDown, this);
+        game.Tick.RemoveSecondsInvoke(this.coundDown, this);
         UserManager.OnGetSimpleUserInfoEvent.removeListener(this.onReqComplete, this);
     }
     /**
@@ -186,7 +186,7 @@ class HundredWarOverPanel extends BasePanel
             this._countDownTime--;
         } else
         {
-            qin.Tick.RemoveSecondsInvoke(this.coundDown, this);
+            game.Tick.RemoveSecondsInvoke(this.coundDown, this);
             this.closePanel(null);
         }
     }

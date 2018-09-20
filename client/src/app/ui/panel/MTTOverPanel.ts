@@ -54,7 +54,7 @@ class MTTOverPanel extends BasePanel
     protected onRender(event: egret.Event)
     {
         super.onRender(event);
-        if ((qin.System.isWeChat || qin.System.isMicro) && !VersionManager.isSafe)
+        if ((game.System.isWeChat || game.System.isMicro) && !VersionManager.isSafe)
         {
             this.shareBtn.visible = true;
             this.bottomGroup.addChildAt(this.shareBtn, 0);
@@ -167,13 +167,13 @@ class MTTOverPanel extends BasePanel
     private shareBtnClick(event: egret.TouchEvent)
     {
         SoundManager.playButtonEffect(event.target);
-        if (qin.System.isMicro && ChannelManager.hasWeixin == false)
+        if (game.System.isMicro && ChannelManager.hasWeixin == false)
         {
             AlertManager.showAlert("您未安装微信，分享失败。");
         }
         else
         {
-            UIManager.showPanel(UIModuleName.ChooseShareWayPanel, { wxMsgTitle: ChannelManager.appName, wxTimeLineTitle: qin.StringUtil.format("我在{0}中获得了冠军。服吗？不服来战！", ChannelManager.appName), msg: qin.StringUtil.format("我在{0}中获得了冠军。服吗？不服来战！", ChannelManager.appName), isHasShareId: false });
+            UIManager.showPanel(UIModuleName.ChooseShareWayPanel, { wxMsgTitle: ChannelManager.appName, wxTimeLineTitle: game.StringUtil.format("我在{0}中获得了冠军。服吗？不服来战！", ChannelManager.appName), msg: game.StringUtil.format("我在{0}中获得了冠军。服吗？不服来战！", ChannelManager.appName), isHasShareId: false });
         }
     }
 }

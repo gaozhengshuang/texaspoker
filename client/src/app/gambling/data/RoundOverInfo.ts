@@ -19,6 +19,6 @@ class RoundOverInfo extends BaseServerValueInfo
 	public copyValueFrom(data: any)
 	{
 		super.copyValueFrom(data);
-		qin.CopyUtil.supCopyList(this, data, "handCardList", HandCardInfo);
+		game.CopyUtil.supCopyList(this, data, "handCardList", HandCardInfo);
 	}
 }

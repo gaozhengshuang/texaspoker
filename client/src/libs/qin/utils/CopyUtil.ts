@@ -1,4 +1,4 @@
-module qin
+module game
 {
 	/**
 	 * 拷贝工具

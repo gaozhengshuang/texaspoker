@@ -159,7 +159,7 @@ func (this *TexasPlayer) SitDown(pos int32) {
 	if this.room.AddPlayer(pos, this) {
 		this.pos = pos
 		this.room.DelWatcher(this)
-		if this.room.IsStart() {
+		if this.room.IsGameStart() {
 			this.gamestate = 0
 		}  
 	}

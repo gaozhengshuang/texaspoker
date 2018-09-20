@@ -71,14 +71,14 @@ class BaseRetrievePwdPanel extends BasePanel
     */
     protected onPhoneLabelFouseOut(e: egret.TouchEvent)
     {
-        this.phoneErrorLabel.text = qin.RegexUtil.isPhoneNumber(this.telephoneLabel.text) ? "" : "您输入的手机号错误，请重新输入！";
+        this.phoneErrorLabel.text = game.RegexUtil.isPhoneNumber(this.telephoneLabel.text) ? "" : "您输入的手机号错误，请重新输入！";
     }
     /**
      * 点击发送验证码执行的操作
     */
     protected sendCodeBtnClick(e: egret.TouchEvent)
     {
-        if (qin.RegexUtil.isPhoneNumber(this.telephoneLabel.text))
+        if (game.RegexUtil.isPhoneNumber(this.telephoneLabel.text))
         {
             SoundManager.playButtonEffect(e.target);
             this.phoneErrorLabel.text = "";

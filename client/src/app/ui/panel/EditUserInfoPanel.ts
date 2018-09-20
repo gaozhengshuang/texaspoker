@@ -64,7 +64,7 @@ class EditUserInfoPanel extends BasePanel
 
     private refreshHead()
     {
-        if (qin.StringUtil.isNullOrEmpty(UserManager.userInfo.verifyHead))
+        if (game.StringUtil.isNullOrEmpty(UserManager.userInfo.verifyHead))
         {
             this._headInfo.head = UserManager.userInfo.head;
         }
@@ -106,7 +106,7 @@ class EditUserInfoPanel extends BasePanel
         {
             userSex = this.sexButtonGroup.selectedValue;
         }
-        if (this.ageLabel.text != qin.StringConstants.Empty && parseInt(this.ageLabel.text) != UserManager.userInfo.age)
+        if (this.ageLabel.text != game.StringConstants.Empty && parseInt(this.ageLabel.text) != UserManager.userInfo.age)
         {
             userAge = parseInt(this.ageLabel.text);
         }

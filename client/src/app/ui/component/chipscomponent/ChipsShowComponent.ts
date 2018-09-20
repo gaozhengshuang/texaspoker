@@ -26,8 +26,8 @@ class ChipsShowComponent extends BaseComponent<any>
 
     private _lastPos: ChipsPosType;
 
-    private _winCallBack: qin.Delegate;
-    private _betCallback: qin.Delegate;
+    private _winCallBack: game.Delegate;
+    private _betCallback: game.Delegate;
     protected onAwake(event: eui.UIEvent)
     {
         super.onAwake(event);
@@ -44,7 +44,7 @@ class ChipsShowComponent extends BaseComponent<any>
         this._betCallback = null;
         if (data.callback && data.thisObject)
         {
-            this._betCallback = qin.Delegate.getOut(data.callback, data.thisObject);
+            this._betCallback = game.Delegate.getOut(data.callback, data.thisObject);
         }
         if (data.type != undefined)
         {
@@ -71,7 +71,7 @@ class ChipsShowComponent extends BaseComponent<any>
     protected onDisable(event: eui.UIEvent): void
     {
         super.onDisable(event);
-        qin.Tick.RemoveTimeoutInvoke(this.runWinCallBack, this);
+        game.Tick.RemoveTimeoutInvoke(this.runWinCallBack, this);
     }
     protected rendererStart(event: egret.Event)
     {
@@ -86,7 +86,7 @@ class ChipsShowComponent extends BaseComponent<any>
     */
     private chipsShow(data: number, pos: ChipsPosType)
     {
-        this.numLabel.text = qin.MathUtil.formatNum(data);
+        this.numLabel.text = game.MathUtil.formatNum(data);
         if (this.bindData.isFixedWidth)
         {
             this.numLabel.width = 180;
@@ -216,7 +216,7 @@ class ChipsShowComponent extends BaseComponent<any>
         if (this._betCallback)
         {
             this._betCallback.invoke(this);
-            qin.Delegate.putIn(this._betCallback);
+            game.Delegate.putIn(this._betCallback);
             this._betCallback = null;
         }
     }
@@ -228,7 +228,7 @@ class ChipsShowComponent extends BaseComponent<any>
         this._winCallBack = undefined;
         if (callBack && thisObj)
         {
-            this._winCallBack = qin.Delegate.getOut(callBack, thisObj);
+            this._winCallBack = game.Delegate.getOut(callBack, thisObj);
         }
 
         let pLen: number = pointList.length;
@@ -284,14 +284,14 @@ class ChipsShowComponent extends BaseComponent<any>
                 egret.Tween.get(imgList[n]).wait(waitTime).to({ x: x, y: y }, time, egret.Ease.quartInOut);
             }
         }
-        qin.Tick.AddTimeoutInvoke(this.runWinCallBack, time, this);
+        game.Tick.AddTimeoutInvoke(this.runWinCallBack, time, this);
     }
     private runWinCallBack()
     {
         if (this._winCallBack)
         {
             this._winCallBack.invoke();
-            qin.Delegate.putIn(this._winCallBack);
+            game.Delegate.putIn(this._winCallBack);
             this._winCallBack = null;
         }
     }
@@ -353,9 +353,9 @@ class ChipsShowComponent extends BaseComponent<any>
             imgList.length = 0;
         }
         egret.Tween.removeTweens(this.chipBar);
-        qin.Tick.RemoveTimeoutInvoke(this.runWinCallBack, this);
+        game.Tick.RemoveTimeoutInvoke(this.runWinCallBack, this);
         this._allImgList.length = 0;
-        qin.Delegate.putIn(this._winCallBack);
+        game.Delegate.putIn(this._winCallBack);
         this._winCallBack = null;
         this._betCallback = null;
     }

@@ -89,7 +89,7 @@ class SoundManager
 	/**
 	 * 声音加载
 	 */
-	public static soundCacheList: qin.Dictionary<string, SoundLoaderDecorator> = new qin.Dictionary<string, SoundLoaderDecorator>();
+	public static soundCacheList: game.Map<string, SoundLoaderDecorator> = new game.Map<string, SoundLoaderDecorator>();
 	/**
 	 * 播放背景音乐
 	 */
@@ -118,7 +118,7 @@ class SoundManager
 		}
 		else
 		{
-			loader = SoundLoaderDecorator.get(url, egret.Sound.MUSIC, qin.Delegate.getOut(SoundManager.switchBgSound, this), false);
+			loader = SoundLoaderDecorator.get(url, egret.Sound.MUSIC, game.Delegate.getOut(SoundManager.switchBgSound, this), false);
 			loader.load();
 		}
 	}
@@ -187,7 +187,7 @@ class SoundManager
 			SoundManager._lastBgSoundChannel.removeEventListener(egret.Event.SOUND_COMPLETE, SoundManager.onSoundPlayComplete, this);
 		}
 	}
-	private static _reload: qin.Delegate;
+	private static _reload: game.Delegate;
 	/**
 	 * 播放音效
 	 */
@@ -211,7 +211,7 @@ class SoundManager
 		let url: string = MusicDefined.GetInstance().getSexMusicDefinition(sex, action, pai);
 		if (!url)
 		{
-			qin.Console.logError("获取音效地址异常！" + "sex:" + sex + "action:" + action + "pai:" + pai);
+			game.Console.logError("获取音效地址异常！" + "sex:" + sex + "action:" + action + "pai:" + pai);
 			return;
 		}
 		url = ResPrefixPathName.Sound + url;
@@ -225,7 +225,7 @@ class SoundManager
 		}
 		else
 		{
-			loader = SoundLoaderDecorator.get(url, egret.Sound.EFFECT, qin.Delegate.getOut(SoundManager.effectLoadComplete, this), false);
+			loader = SoundLoaderDecorator.get(url, egret.Sound.EFFECT, game.Delegate.getOut(SoundManager.effectLoadComplete, this), false);
 			loader.load();
 		}
 	}
@@ -242,7 +242,7 @@ class SoundManager
 		let channel: egret.SoundChannel = event.currentTarget as egret.SoundChannel;
 		channel.stop();
 		channel.removeEventListener(egret.Event.SOUND_COMPLETE, SoundManager.onEffectPlayComplete, this);
-		qin.ArrayUtil.RemoveItem(channel, SoundManager._effectChannelList);
+		game.ArrayUtil.RemoveItem(channel, SoundManager._effectChannelList);
 		SoundManager.invokeReload();
 	}
 	/**
@@ -288,15 +288,15 @@ class SoundManager
 				break;
 		}
 	}
-	private static _tmpReload: qin.Delegate;
-	public static clear(reload: qin.Delegate)
+	private static _tmpReload: game.Delegate;
+	public static clear(reload: game.Delegate)
 	{
 		UIManager.showPanel(UIModuleName.LoadingSwitchPanel, false);
 		SoundManager._tmpReload = reload;
 		if (URLLoader.isLoading == true)
 		{
-			qin.Tick.AddSecondsInvoke(SoundManager.tryReload, this);
-			qin.Tick.AddTimeoutInvoke(() =>
+			game.Tick.AddSecondsInvoke(SoundManager.tryReload, this);
+			game.Tick.AddTimeoutInvoke(() =>
 			{
 				URLLoader.disposeLoader();
 				SoundManager.tryReload(); //网络请求超时15S自动刷新
@@ -311,12 +311,12 @@ class SoundManager
 	{
 		if (URLLoader.isLoading == false)
 		{
-			qin.Tick.RemoveSecondsInvoke(SoundManager.tryReload, this);
+			game.Tick.RemoveSecondsInvoke(SoundManager.tryReload, this);
 			SoundManager._bgEnabled = false;
 			SoundManager._effectEnabled = false;
 			SoundManager._reload = SoundManager._tmpReload;
 			SoundManager.stopBgMusic();
-			qin.Tick.AddTimeoutInvoke(() =>
+			game.Tick.AddTimeoutInvoke(() =>
 			{
 				SoundManager.invokeReload();
 			}, 1000, this); //兼容异常处理
@@ -334,7 +334,7 @@ class SoundManager
 			}
 			SoundManager._effectChannelList.length = 0;
 			SoundManager._reload.invoke();
-			qin.Delegate.putIn(SoundManager._reload);
+			game.Delegate.putIn(SoundManager._reload);
 			SoundManager._reload = null;
 		}
 	}
@@ -344,7 +344,7 @@ class SoundManager
  */
 class SoundLoaderDecorator
 {
-	public static get(url: string, type: string, completeCallBack?: qin.Delegate, isAutoPlay: boolean = true): SoundLoaderDecorator
+	public static get(url: string, type: string, completeCallBack?: game.Delegate, isAutoPlay: boolean = true): SoundLoaderDecorator
 	{
 		let loader: SoundLoaderDecorator = new SoundLoaderDecorator();
 		loader.url = url;
@@ -363,7 +363,7 @@ class SoundLoaderDecorator
 	/**
 	 * 下载完成回调
 	 */
-	private _completeCallBack: qin.Delegate;
+	private _completeCallBack: game.Delegate;
 	/**
 	 * 下载完成是否自动播放
 	 */
@@ -386,7 +386,7 @@ class SoundLoaderDecorator
 	{
 		if (!sound)
 		{
-			qin.Console.logError("音乐加载异常！" + this.url);
+			game.Console.logError("音乐加载异常！" + this.url);
 			return;
 		}
 		this.sound = sound;
@@ -400,7 +400,7 @@ class SoundLoaderDecorator
 		if (this._completeCallBack)
 		{
 			this._completeCallBack.invoke(sound);
-			qin.Delegate.putIn(this._completeCallBack);
+			game.Delegate.putIn(this._completeCallBack);
 		}
 	}
 }

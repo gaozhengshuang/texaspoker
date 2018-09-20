@@ -8,7 +8,7 @@ class BundleManager
 	{
 		if (BundleManager._definition == null)
 		{
-			if (qin.System.isWeb)
+			if (game.System.isWeb)
 			{
 				let bid: number = URLOption.getNumber(URLOption.Bid);
 				if (!bid)
@@ -26,7 +26,7 @@ class BundleManager
 				AlertManager.showAlertByString('没有配置包ID');
 				throw new Error('没有配置包ID');
 			}
-			if (qin.StringUtil.isNullOrEmpty(BundleManager._definition.bundleId) == false && qin.StringUtil.isNullOrEmpty(BundleManager._definition.url))
+			if (game.StringUtil.isNullOrEmpty(BundleManager._definition.bundleId) == false && game.StringUtil.isNullOrEmpty(BundleManager._definition.url))
 			{
 				AlertManager.showAlertByString('安装包必须要配置包url');
 				throw new Error('安装包必须要配置包url');
@@ -68,7 +68,7 @@ class BundleManager
 		{
 			return def.url;
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 	/**
 	 * 根据操作系统获取下载地址
@@ -78,13 +78,13 @@ class BundleManager
 		let def = BundleManager.getBundleDefinition();
 		if (def)
 		{
-			let os = qin.RuntimeTypeName.getOSName();
+			let os = game.RuntimeTypeName.getOSName();
 			let bundleDef: BundleDefinition;
-			if (os == qin.RuntimeTypeName.Android)
+			if (os == game.RuntimeTypeName.Android)
 			{
 				bundleDef = BundleDefined.GetInstance().getDefinition(def.android);
 			}
-			else if (os == qin.RuntimeTypeName.Ios)
+			else if (os == game.RuntimeTypeName.Ios)
 			{
 				bundleDef = BundleDefined.GetInstance().getDefinition(def.ios);
 			}
@@ -93,7 +93,7 @@ class BundleManager
 				return bundleDef.url;
 			}
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 	/**
 	 * 根据原始资源名获取包对应的资源名

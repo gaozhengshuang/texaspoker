@@ -37,8 +37,8 @@ class CardFaceComponent extends BaseComponent<CardInfo>
 
 		if (this.bindData)
 		{
-			let numRes: string = qin.StringConstants.Empty;
-			let bigRes: string = qin.StringConstants.Empty;
+			let numRes: string = game.StringConstants.Empty;
+			let bigRes: string = game.StringConstants.Empty;
 			if (this.bindData.card[0] > 2)
 			{
 				numRes = ResPrefixName.card + ResPrefixName.FlushBlack + this.bindData.card[1] + ResSuffixName.PNG;
@@ -69,10 +69,10 @@ class CardFaceComponent extends BaseComponent<CardInfo>
 		}
 		else
 		{
-			this.numImg.source = qin.StringConstants.Empty;
-			this.flushBigImg.source = qin.StringConstants.Empty;
-			this.flushBigImg1.source = qin.StringConstants.Empty;
-			this.flushSmallImg.source = qin.StringConstants.Empty;
+			this.numImg.source = game.StringConstants.Empty;
+			this.flushBigImg.source = game.StringConstants.Empty;
+			this.flushBigImg1.source = game.StringConstants.Empty;
+			this.flushSmallImg.source = game.StringConstants.Empty;
 		}
 	}
 	protected rendererStart(event: egret.Event)

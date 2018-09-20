@@ -91,11 +91,11 @@ class PrefsManager
 	public static getBoolean(key: string, defaultValue: boolean = false, isPrivate: boolean = false): boolean
 	{
 		let value: string = PrefsManager.getValue(key, isPrivate);
-		if (qin.StringUtil.isNullOrEmpty(value))
+		if (game.StringUtil.isNullOrEmpty(value))
 		{
 			return defaultValue;
 		}
-		return qin.StringUtil.toBoolean(value);
+		return game.StringUtil.toBoolean(value);
 	}
 	public static setNumber(key: string, value: number, isPrivate: boolean = false)
 	{
@@ -104,7 +104,7 @@ class PrefsManager
 	public static getNumber(key: string, defaultValue: number = 0, isPrivate: boolean = false): number
 	{
 		let value: string = PrefsManager.getValue(key, isPrivate);
-		if (qin.StringUtil.isNullOrEmpty(value))
+		if (game.StringUtil.isNullOrEmpty(value))
 		{
 			return defaultValue;
 		}
@@ -112,17 +112,17 @@ class PrefsManager
 	}
 	private static getUserId(): string
 	{
-		if (LoginManager.loginInfo)
+		if (UserManager.userInfo.roleId)
 		{
-			return LoginManager.loginInfo.userid.toString();
+			return UserManager.userInfo.roleId.toString();
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 
 	public static clearLoginInfo(): void
 	{
-		PrefsManager.setValue(PrefsManager.Login_LoginType, qin.StringConstants.Empty);
-		PrefsManager.setValue(PrefsManager.Login_Token, qin.StringConstants.Empty);
+		PrefsManager.setValue(PrefsManager.Login_LoginType, game.StringConstants.Empty);
+		PrefsManager.setValue(PrefsManager.Login_Token, game.StringConstants.Empty);
 		PrefsManager.setNumber(PrefsManager.Login_Token_Expire, 0);
 	}
 	public static getLoginToken(): string
@@ -136,7 +136,7 @@ class PrefsManager
 				return token;
 			}
 		}
-		return qin.StringConstants.Empty;
+		return game.StringConstants.Empty;
 	}
 	public static setLoginToken(token: string, expire: number = 0): void
 	{

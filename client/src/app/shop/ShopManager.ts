@@ -19,7 +19,7 @@ class ShopManager
 
 	public static initialize()
 	{
-		qin.ArrayUtil.Clear(ShopManager.shoppingList);
+		game.ArrayUtil.Clear(ShopManager.shoppingList);
 		let info: ShopInfo;
 		for (let i: number = 0; i < ShopDefined.GetInstance().dataList.length; i++)
 		{
@@ -100,7 +100,7 @@ class ShopManager
 
 	public static reqSendGift(roleId: number, id: number)
 	{
-		let callback: Function = function (result: qin.SpRpcResult)
+		let callback: Function = function (result: game.SpRpcResult)
 		{
 			ShopManager.sendGiftEvent.dispatch({ "id": id, "roleId": roleId });
 		}
@@ -111,17 +111,17 @@ class ShopManager
 	*/
 	public static clearList()
 	{
-		qin.ArrayUtil.Clear(ShopManager.diamondList);
-		qin.ArrayUtil.Clear(ShopManager.goldList);
-		qin.ArrayUtil.Clear(ShopManager.vipList);
+		game.ArrayUtil.Clear(ShopManager.diamondList);
+		game.ArrayUtil.Clear(ShopManager.goldList);
+		game.ArrayUtil.Clear(ShopManager.vipList);
 	}
 	/**
 	 * 礼物商店选中事件
 	 */
-	public static giftShopItemSelectEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static giftShopItemSelectEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 赠送礼物事件
 	 */
-	public static sendGiftEvent: qin.DelegateDispatcher = new qin.DelegateDispatcher();
+	public static sendGiftEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
 }

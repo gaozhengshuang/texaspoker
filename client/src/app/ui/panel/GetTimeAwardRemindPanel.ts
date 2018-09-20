@@ -58,7 +58,7 @@ class GetTimeAwardRemindPanel extends BasePanel
             this.awardNumLabel.text = this.panelData.num.toString() + "金币";
         }
         this.desLabel.text = "您完成了计时奖励第" + round + "轮";
-        qin.Tick.AddSecondsInvoke(this.countDown, this);
+        game.Tick.AddSecondsInvoke(this.countDown, this);
     }
     protected onEnable(event: eui.UIEvent): void
     {
@@ -70,7 +70,7 @@ class GetTimeAwardRemindPanel extends BasePanel
         super.onDisable(event);
         this.removeTweens();
         this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.getTimeAward, this);
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
     }
 
     /**
@@ -104,7 +104,7 @@ class GetTimeAwardRemindPanel extends BasePanel
     }
     private onCloseAnmComplete()
     {
-        qin.Tick.RemoveTimeoutInvoke(this.outAnime, this);
+        game.Tick.RemoveTimeoutInvoke(this.outAnime, this);
         UIManager.closePanel(UIModuleName.GetTimeAwardRemindPanel);
     }
     /**
@@ -116,7 +116,7 @@ class GetTimeAwardRemindPanel extends BasePanel
         PropertyManager.OpenGet();
         GamblingManager.timeAwardHandler.reqGetTimeAward(this.panelData.pattern);
         this.outAnime();
-        qin.Tick.RemoveSecondsInvoke(this.countDown, this);
+        game.Tick.RemoveSecondsInvoke(this.countDown, this);
     }
     /**
 	 * 倒计时
@@ -126,8 +126,8 @@ class GetTimeAwardRemindPanel extends BasePanel
         this.countDownNum--;
         if (this.countDownNum <= 0)
         {
-            qin.Tick.RemoveSecondsInvoke(this.countDown, this);
-            qin.Tick.AddTimeoutInvoke(this.outAnime, 0.5, this);
+            game.Tick.RemoveSecondsInvoke(this.countDown, this);
+            game.Tick.AddTimeoutInvoke(this.outAnime, 0.5, this);
         }
     }
 }

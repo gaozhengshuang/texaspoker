@@ -61,7 +61,7 @@ class InsideRoomManager
      */
     public static lastId: number;
 
-    public static initialize(result: qin.SpRpcResult)
+    public static initialize(result: game.SpRpcResult)
     {
         InsideRoomManager.list.length = 0;
         InsideRoomManager.lastId = undefined;
@@ -122,7 +122,7 @@ class InsideRoomManager
                 end = InsideRoomManager.ID_OMAHAPERSON_END;
                 break;
             default:
-                qin.Console.logError("根据类型获取房间列表异常！type：" + type);
+                game.Console.logError("根据类型获取房间列表异常！type：" + type);
                 return null;
         }
         let list: Array<InsideRoomInfo> = new Array<InsideRoomInfo>();
@@ -184,7 +184,7 @@ class InsideRoomManager
         }
         else
         {
-            qin.Console.logError("获取房间类型异常data：" + data);
+            game.Console.logError("获取房间类型异常data：" + data);
             return InsideRoomType.None;
         }
     }

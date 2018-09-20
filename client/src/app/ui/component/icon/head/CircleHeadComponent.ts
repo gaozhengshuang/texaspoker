@@ -37,7 +37,7 @@ class CircleHeadComponent extends HeadComponent
         super.drawHead(idDefault);
         egret.callLater(() =>
         {
-            if (qin.StringUtil.isNullOrEmpty(this.headPath))
+            if (game.StringUtil.isNullOrEmpty(this.headPath))
             {
                 return;
             }

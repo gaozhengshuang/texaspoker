@@ -48,7 +48,7 @@ class ChatItemRenderer extends BaseItemRenderer<ChatInfo>
             switch (this.bindData.subType)
             {
                 case ChatSubType.AudioRecordMessage:
-                    if (qin.System.isMicro)
+                    if (game.System.isMicro)
                     {
                         this.setShow(this.voiceGroup);
                         this.nameLabel.text = this.bindData.name + "：";

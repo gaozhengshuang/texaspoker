@@ -46,7 +46,7 @@ class GuideTipsComponent extends BaseComponent<any>
     protected onAwake(event: eui.UIEvent)
     {
         super.onAwake(event);
-        // qin.FilterUtil.setColorFilters(this.circleBg, 0xffffff);
+        // game.FilterUtil.setColorFilters(this.circleBg, 0xffffff);
     }
     public init(data: any)
     {
@@ -54,7 +54,7 @@ class GuideTipsComponent extends BaseComponent<any>
         let def: GuideStepDefinition = data.data as GuideStepDefinition;
         if (!def)
         {
-            qin.Console.log("引导组件提示初始化异常！" + data);
+            game.Console.log("引导组件提示初始化异常！" + data);
             return;
         }
 
@@ -63,7 +63,7 @@ class GuideTipsComponent extends BaseComponent<any>
 
         if (def.delay > 0)
         {
-            qin.Tick.AddTimeoutInvoke(this.show, def.delay, this);
+            game.Tick.AddTimeoutInvoke(this.show, def.delay, this);
         }
         else
         {
@@ -156,7 +156,7 @@ class GuideTipsComponent extends BaseComponent<any>
             let def: GuideStepDefinition = this.bindData.data as GuideStepDefinition;
             if (def && def.showTime > 0)
             {
-                qin.Tick.AddTimeoutInvoke(this.disappear, def.showTime, this);
+                game.Tick.AddTimeoutInvoke(this.disappear, def.showTime, this);
             }
         }, this);
     }
@@ -175,8 +175,8 @@ class GuideTipsComponent extends BaseComponent<any>
     protected onDisable(event: eui.UIEvent): void
     {
         super.onDisable(event);
-        qin.Tick.RemoveTimeoutInvoke(this.show, this);
-        qin.Tick.RemoveTimeoutInvoke(this.disappear, this);
+        game.Tick.RemoveTimeoutInvoke(this.show, this);
+        game.Tick.RemoveTimeoutInvoke(this.disappear, this);
         egret.Tween.removeTweens(this);
     }
     public destroy()

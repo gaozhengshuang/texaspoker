@@ -89,7 +89,7 @@ class BringAwardComPanel extends BasePanel
         SoundManager.playEffect(MusicAction.buttonClick);
         if (this._callback)
         {
-            qin.FuncUtil.invoke(this._callback, this._thisObj);
+            game.FuncUtil.invoke(this._callback, this._thisObj);
         }
         super.onCloseBtnClickHandler(null);
     }

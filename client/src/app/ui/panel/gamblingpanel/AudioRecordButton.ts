@@ -159,13 +159,13 @@ class AudioRecordButton
 			if (isCanel)
 			{
 				ChannelManager.recordAudio(AudioRecordActions.CancelRecord);
-				qin.Console.log("取消录音")
+				game.Console.log("取消录音")
 			}
 			else
 			{
 				SoundManager.playEffect(MusicAction.buttonClick);
 				ChannelManager.recordAudio(AudioRecordActions.StopRecord);
-				qin.Console.log("停止录音");
+				game.Console.log("停止录音");
 			}
 
 		}
@@ -174,11 +174,11 @@ class AudioRecordButton
 	{
 		if (value)
 		{
-			// qin.FilterUtil.setGray(this._recordButton);
+			// game.FilterUtil.setGray(this._recordButton);
 		}
 		else
 		{
-			// qin.FilterUtil.setDefault(this._recordButton);
+			// game.FilterUtil.setDefault(this._recordButton);
 		}
 		this._recordButton.touchEnabled = !value;
 	}
