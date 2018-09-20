@@ -93,7 +93,6 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.tm_asynsave = 0
 	u.token = token
 	u.broadcastbuffer = make([]int64, 0)
-	u.roomdata.Reset()
 	return u
 }
 
@@ -544,7 +543,7 @@ func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	this.tm_login = curtime
 	this.tm_disconnect = 0
 	this.tm_heartbeat = util.CURTIMEMS()
-	this.roomdata.Reset()
+	this.roomdata.Online(this)
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", this.Sid(), this.account, this.Id(), this.Name(), way)
 
 	// 上线任务检查
@@ -617,10 +616,10 @@ func (this *GateUser) CheckDisconnectTimeOut(now int64) {
 		return
 	}
 
-	// 等待房间关闭
-	if this.IsInRoom() && !this.IsRoomCloseTimeOut() {
-		return
-	}
+	//// 等待房间关闭
+	//if this.IsInRoom() && !this.IsRoomCloseTimeOut() {
+	//	return
+	//}
 
 	// 异步事件未处理完
 	if this.asynev.EventSize() != 0 || this.asynev.FeedBackSize() != 0 {
@@ -657,17 +656,6 @@ func (this *GateUser) SendNotify(text string) {
 	this.SendMsg(send)
 }
 
-
-// 通知RS 玩家已经断开连接了
-func (this *GateUser) SendRsUserDisconnect() {
-	if this.roomdata.tm_closing != 0 {
-		return
-	}
-	this.roomdata.tm_closing = util.CURTIMEMS()
-	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Int64(this.Id())}
-	this.SendRoomMsg(msgclose)
-	log.Info("玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
-}
 
 // 插入新异步事件
 func (this *GateUser) AsynEventInsert(event eventque.IEvent) {

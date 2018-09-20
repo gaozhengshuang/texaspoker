@@ -11,7 +11,7 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	_ "reflect"
+	"reflect"
 	_ "strconv"
 )
 
@@ -50,6 +50,7 @@ func (this *C2GWMsgHandler) Init() {
 	// 收
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
 	this.msgparser.RegistProtoMsg(msg.C2GW_HeartBeat{}, on_C2GW_HeartBeat)
+	this.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
@@ -102,6 +103,28 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 		Time: pb.Int64(curtime),
 	})
 }
+
+func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2RS_MsgTransfer)
+	msg_type := pb.MessageType(tmsg.GetName())
+	if msg_type == nil {
+		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+		return
+	}
+
+	protomsg := reflect.New(msg_type.Elem()).Interface()
+	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	if err != nil {
+		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+		return
+	}
+
+	user := UserMgr().FindById(tmsg.GetUid())
+	if user == nil { return }
+	user.SendRoomMsg(protomsg.(pb.Message))
+}
+
+
 
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
 	user := ExtractSessionUser(session)

@@ -106,7 +106,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 101, Name : "msg.GW2RS_RetRegist" 	},
 		{ Id : 102, Name : "msg.GW2RS_UserDisconnect" 	},
 		{ Id : 103, Name : "msg.RS2GW_RetUserDisconnect" 	},
-		{ Id : 104, Name : "msg.GW2RS_MsgTransfer" 	},
+		{ Id : 104, Name : "msg.C2RS_MsgTransfer" 	},
 		{ Id : 105, Name : "msg.RS2GW_MsgTransfer" 	},
 		{ Id : 106, Name : "msg.RS2MS_ReqRegist" 	},
 		{ Id : 107, Name : "msg.MS2RS_RetRegist" 	},
