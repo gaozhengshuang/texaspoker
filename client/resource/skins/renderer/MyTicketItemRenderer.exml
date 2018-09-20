@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="myTicketItemRenderer" width="720" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="bgImage" width="720" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="2,2,8,8"
+             y="0"  x="0" source="jbs_bg_png"/>
+    <e:Label id="nameLabel" text="10元话费赛门票" x="156.66" y="19.69" fontFamily="Microsoft YaHei" size="26"
+             anchorOffsetX="0"  textColor="0xf9cb55"/>
+    <e:Label id="desLabel" text="可免费参与1次10元话费赛" x="156.66" textAlign="left" fontFamily="Microsoft YaHei" size="24"
+             anchorOffsetX="0" anchorOffsetY="0"  textColor="0xffffff" verticalCenter="0"/>
+	<ns1:CommonIcon id="commonItem" x="20" skinName="CommonIconSkin" verticalCenter="-5"/>
+
+
+
+	<e:Label id="numLabel" text="3" x="265" width="100" textAlign="left" size="24" y="100" fontFamily="Microsoft YaHei"/>
+
+	<e:Label text="拥有数量:" x="156.66" y="100" size="24" fontFamily="Microsoft YaHei"/>
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

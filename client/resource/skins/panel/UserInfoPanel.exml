@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="UserInfoPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0">
+		<e:Image id="bg" y="0" anchorOffsetY="0"
+		         x="0" scaleX="1" scaleY="1"  height="900" width="666" scale9Grid="0,101,666,13" source="pub_bg2_png"/>
+		<e:Image y="15" horizontalCenter="0" source="grxx_png"/>
+		<e:Image y="120" width="598" horizontalCenter="0" source="pub_biankuang1_png" scale9Grid="27,24,13,7"/>
+		<ns1:TabComponent id="userInfoTab" skinName="TabComponentSkin"  y="120" horizontalCenter="0"/>
+		<e:Group id="dataGroup" y="192" name="资料" width="600" horizontalCenter="0" height="680">
+			<e:Group width="600" height="180" x="0" y="0">
+				<ns1:GreenShadowButton id="changeNameBtn" label="修改昵称" x="390" y="15" scaleX="1" scaleY="1" anchorOffsetX="0" skinName="commonButtonGSkin" width="150" height="50"/>
+				<e:Group id="vipGroup" height="50" x="340" y="77" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
+					<e:Image width="95" height="50" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" source="bg_pub_1_png" scale9Grid="12,13,22,19"/>
+					<e:Label id="vipLevelLabel" text="VIP9" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetY="0" border="false" textAlign="center" verticalAlign="middle" textColor="0xfad050" horizontalCenter="0" verticalCenter="0"/>
+				</e:Group>
+				<e:Group width="80" height="50" x="230" y="77">
+					<e:Image width="80" height="50" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" source="bg_pub_1_png" scale9Grid="12,13,22,19"/>
+					<e:Group width="26" height="26" x="10" verticalCenter="0">
+						<e:Image id="sexImg" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" verticalCenter="0" source="m_png" y="0" right="0"/>
+					</e:Group>
+					<e:Label id="ageLabel" text="99" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetY="0" border="false" textAlign="right" x="40" textColor="0xffffff" verticalCenter="0"/>
+				</e:Group>
+				<e:Label text="ID:" x="230" y="139" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetY="0" textColor="0xffffff"/>
+				<e:Label id="userIdLabel" text="9999999" x="270" y="139" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetY="0" textColor="0xffffff"/>
+				<e:Label id="userNameLabel" text="用户名字六字" x="230" y="15" size="25" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xffffff" height="50" verticalAlign="middle"/>
+				<ns1:CircleHeadComponent id="userHeadComp" x="40" skinName="CircleHeadComponentSkin" verticalCenter="0"/>
+				<e:Image id="changeInfoBg" source="bg_3_png" x="24" y="143"/>
+				<e:Label id="changeInfoLabel" text="编辑资料" x="60" size="20" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="center" verticalAlign="middle" bottom="13" textColor="0xffffff"/>
+			</e:Group>
+			<e:Group width="600" height="100" x="0" y="190">
+				<e:Image width="600" height="100" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+				<e:Label text="个性签名：" x="15" y="15" size="25" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xffffff"/>
+				<e:EditableText id="userDesLabel" text="这个人很懒，什么东西都没有留下！" x="150" y="15" size="25" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" height="70" width="430" textColor="0xffffff" multiline="true" maxChars="35"/>
+			</e:Group>
+			<e:Group width="600" y="300" height="241">
+				<e:Group width="600" height="53" x="0" y="0">
+					<e:Image id="goldBg" width="430" height="53" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+					<e:Image x="20" scaleX="0.9" scaleY="0.9" source="icon_jinbi_png" verticalCenter="0"/>
+					<e:Label id="goldNumLabel" text="1,234,567,890,123" x="80" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xffffff" verticalCenter="0" width="300"/>
+					<e:Button id="getGoldBtn" label="获取金币" skinName="get_buttonSkin" right="0" verticalCenter="0" x="444" y="27" scaleX="1" scaleY="1" height="60" width="150"/>
+				</e:Group>
+				<e:Group width="600" height="53" x="0" y="63">
+					<e:Image id="diamondBg" width="430" height="53" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+					<e:Image x="20" scaleX="0.9" scaleY="0.9" source="icon_zhuanshi_png" verticalCenter="0"/>
+					<e:Label id="diamondNumLabel" text="1,234,567,890" x="80" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetY="0" textColor="0xffffff" verticalCenter="0" width="300"/>
+					<e:Button id="getDiamondBtn" label="获取钻石" skinName="get_buttonSkin" right="0" verticalCenter="0" height="60" width="150"/>
+				</e:Group>
+				<e:Group width="600" height="50" x="0" y="126">
+					<e:Image width="600" height="50" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+					<e:Label text="Lv." x="15" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
+					<e:Label id="levelLabel" text="99" x="50" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
+					<e:Label id="titleLabel" text="" x="90" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
+					<e:Image scaleY="1" x="250" scaleX="1" width="340" verticalCenter="0" scale9Grid="6,5,7,4" source="jindutiao_1_png" height="14"/>
+					<e:Image id="levelProgressImg" x="250" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" fillMode="clip" width="200" source="jindutiao_2_png" scale9Grid="6,6,11,2" verticalCenter="0"/>
+					<e:Label id="expLabel" text="0/0" x="345" size="20" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xFFFFFF" width="150" textAlign="center" verticalAlign="middle"/>
+				</e:Group>
+				<e:Group x="0" y="186">
+					<e:Image width="600" height="55" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+					<e:Label id="stateLabel" text="" x="15" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xffffff" verticalCenter="0"/>
+				</e:Group>
+			</e:Group>
+			<ns1:ShadowButton id="buyUserGiftBtn" label="购买礼物" skinName="buyGiftButtonSkin" scaleY="0.9" scaleX="0.9" visible="false"/>
+			<e:Group bottom="20">
+				<ns1:ShadowButton id="buyUserItemBtn" label="购买道具" skinName="buyItemButtonSkin" scaleX="0.9" scaleY="0.9"/>
+				<ns1:ShadowButton id="buyVipBtn" label="购买VIP" skinName="buyVipButtonSkin" scaleY="0.9" scaleX="0.9"/>
+				<e:layout>
+					<e:HorizontalLayout gap="10"/>
+				</e:layout>
+			</e:Group>
+			<ns1:ShadowButton id="myPrizeBtn" label="我的奖品" skinName="myPrizeButtonSkin" right="0" bottom="20" scaleY="0.9" scaleX="0.9"/>
+			<ns1:ShadowButton id="deleteFriendBtn" label="删除好友" right="10" bottom="40" skinName="commonButtonYSkin"/>
+			<ns1:ShadowButton id="requestBtn" label="申请好友" right="10" bottom="40" skinName="commonButtonYSkin"/>
+		</e:Group>
+		<e:Group id="situationGroup" y="190" name="概况" height="680" width="600" horizontalCenter="0" visible="false">
+			<e:Group width="600" height="163" x="0" y="18">
+				<e:Image width="600" height="163" x="0" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+				<e:Label id="" text="加入游戏时间" y="12" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
+				<e:Label id="" text="最高拥有金币" y="50" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
+				<e:Label id="" text="一把最高赢取金币" y="88" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
+				<e:Label id="" text="好友" y="126" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
+				<e:Label id="joinTimeLabel" text="2017-06-05" y="12" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetX="0" width="300" anchorOffsetY="0" height="26" textAlign="right" textColor="0xffffff" right="25"/>
+				<e:Label id="maxGoldLabel" text="1,234,567,890,123" y="50" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="300" textAlign="right" anchorOffsetX="0" textColor="0xffffff" right="25"/>
+				<e:Label id="maxGoldOnetimeLabel" text="1,234,567,890,123" y="88" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="300" textAlign="right" anchorOffsetX="0" textColor="0xffffff" right="25"/>
+				<e:Label id="frindNumLabel" text="999" y="126" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="300" textAlign="right" textColor="0xffffff" right="25"/>
+			</e:Group>
+			<e:Group width="600" height="400" x="0" y="200">
+				<e:Image width="600" height="400" x="0" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
+				<e:Image id="listTabBg" width="600" height="60" horizontalCenter="0" source="ld_4_png" scale9Grid="3,8,25,52" x="0" scaleX="1" scaleY="1" top="0"/>
+				<ns1:TabComponent id="situationTab" skinName="TabComponentSkin" horizontalCenter="0" top="0"/>
+				<e:Group id="playGroup" x="0" y="60" height="330">
+					<e:Label id="" text="胜局/游戏总局数:" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" x="20" y="20"/>
+					<e:Label id="" text="胜率:" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" y="70"/>
+					<e:Label id="" text="入局率:" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" x="20" y="120"/>
+					<e:Label id="" text="摊牌率:" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" y="170"/>
+					<e:Label id="winTimeLabel" text="50000/100000" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="right" textColor="0xffffff" width="300" verticalAlign="middle" y="21" right="25"/>
+					<e:Label id="winProbabilityLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="right" textColor="0xffffff" y="70" right="25"/>
+					<e:Label id="entryRateLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="left" textColor="0xFFFFFF" y="120" right="25"/>
+					<e:Label id="showdownRateLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="left" textColor="0xFFFFFF" y="170" right="25"/>
+					<e:Group width="600" height="92" x="0" y="220" scaleX="1" scaleY="1">
+						<e:Label id="maxHandLabel" text="皇家同花顺" size="26" bold="false" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xedc80b" bottom="15" left="20"/>
+						<e:Label id="" text="最大手牌" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" top="10" left="20"/>
+						<e:Group id="maxHandGroup" height="42" x="230" y="0">
+						<ns1:CardFaceComponent id="card0" x="298" skinName="CardFaceComponentSkin" scaleX="0.9" scaleY="0.9" y="48"/>
+						<ns1:CardFaceComponent id="card1" x="234" skinName="CardFaceComponentSkin" scaleX="0.9" scaleY="0.9" y="48"/>
+						<ns1:CardFaceComponent id="card2" x="196" skinName="CardFaceComponentSkin" scaleX="0.9" scaleY="0.9" y="57"/>
+						<ns1:CardFaceComponent id="card3" x="186" skinName="CardFaceComponentSkin" scaleX="0.9" scaleY="0.9" y="47"/>
+						<ns1:CardFaceComponent id="card4" x="186" skinName="CardFaceComponentSkin" scaleX="0.9" scaleY="0.9" y="47"/>
+						<e:layout>
+							<e:HorizontalLayout verticalAlign="middle" horizontalAlign="right" gap="40"/>
+						</e:layout>
+						</e:Group>
+					</e:Group>
+				</e:Group>
+				<e:Group id="matchGroup" x="0" y="60" height="330" width="600">
+					<e:Label id="" text="参赛总局数:" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" x="20" y="20"/>
+					<e:Label id="" text="胜率:" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" y="70"/>
+					<e:Label id="" text="入局率:" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" x="20" y="120"/>
+					<e:Label id="" text="摊牌率:" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" y="170"/>
+					<e:Label id="matchTimeLabel" text="1111111" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="right" textColor="0xFFFFFF" width="300" verticalAlign="middle" y="21" right="25"/>
+					<e:Label id="matchWinProbabilityLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="right" textColor="0xFFFFFF" y="70" right="25"/>
+					<e:Label id="matchEntryRateLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="left" textColor="0xFFFFFF" y="120" right="25"/>
+					<e:Label id="matchShowdownRateLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="left" textColor="0xFFFFFF" y="170" right="25"/>
+					<e:Group y="240" horizontalCenter="0">
+						<e:Group x="0" y="0">
+							<e:Label id="" text="参赛次数" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" y="0" horizontalCenter="0"/>
+							<e:Label id="joinMatchTimes" text="999" x="0" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="150" textAlign="center" y="40" textColor="0xedc80b"/>
+						</e:Group>
+						<e:Group x="0" y="0">
+							<e:Label text="进入奖励圈" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" y="0" horizontalCenter="0"/>
+							<e:Label id="enterPrizeCircle" text="999" x="0" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="150" textAlign="center" y="40" textColor="0xedc80b"/>
+						</e:Group>
+						<e:Group x="10" y="10">
+							<e:Label id="" text="夺冠次数" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" y="0" horizontalCenter="0"/>
+							<e:Label id="championTimes" text="999" x="0" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="150" textAlign="center" y="40" textColor="0xedc80b"/>
+						</e:Group>
+						<e:layout>
+							<e:HorizontalLayout gap="50"/>
+						</e:layout>
+					</e:Group>
+				</e:Group>
+			</e:Group>
+			<e:layout>
+				<e:VerticalLayout gap="20" paddingTop="20" paddingBottom="20"/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="achievementGroup" name="成就" height="600" y="190" width="600" horizontalCenter="0" visible="false">
+			<e:Scroller id="achieveScroller" width="600" height="600" x="0" y="0"  scrollPolicyH="off"/>
+			<e:List id="achieveList" width="600" height="600" anchorOffsetX="0" anchorOffsetY="0" y="0" x="0">
+				<e:layout>
+					<e:TileLayout orientation="rows" horizontalGap="10" verticalGap="10" horizontalAlign="center" verticalAlign="top" requestedColumnCount="6"/>
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<e:Group id="giftGroup" width="600" height="680" y="190" horizontalCenter="0" visible="false">
+			<ns1:ShadowButton id="buyGiftBtn" label="购买礼物" horizontalCenter="0" skinName="commonButtonY2Skin" bottom="30" x="190" y="617" scaleX="1" scaleY="1"/>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1"
+		          anchorOffsetY="27" anchorOffsetX="27" scaleX="1"  skinName="closeButtonSkin"/>
+	</e:Group>
+</e:Skin>

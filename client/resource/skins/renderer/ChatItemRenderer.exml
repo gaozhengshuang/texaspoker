@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="chatItemRenderer" width="720" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="playVoiceAnime">
+			<tween:TweenItem target="{image}">
+				<tween:Wait duration="1500" />
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}" />
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="500"/>
+				<tween:Set/>
+				<tween:props>
+					<e:Object loop="{true}" />
+				</tween:props>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image0}">
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}" />
+					</tween:props>
+				</tween:Set>
+				<tween:props>
+					<e:Object loop="{true}" />
+				</tween:props>
+				<tween:Wait duration="500" />
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{1}" />
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="1000" />
+				<tween:Wait duration="500"/>
+				<tween:Set/>
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}" />
+					</tween:props>
+				</tween:Set>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image1}">
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}" />
+					</tween:props>
+				</tween:Set>
+				<tween:props>
+					<e:Object loop="{true}" />
+				</tween:props>
+				<tween:Wait duration="1000" />
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{1}" />
+					</tween:props>
+				</tween:Set>
+				<tween:Wait duration="500" />
+				<tween:Wait duration="500"/>
+				<tween:Set/>
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}" />
+					</tween:props>
+				</tween:Set>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Group id="voiceGroup" width="720" height="63">
+		<e:Group y="0" width="680" horizontalCenter="0">
+			<e:Label id="nameLabel" text="啊啊啊：" fontFamily="Microsoft YaHei" size="26" anchorOffsetX="0" anchorOffsetY="0"
+			         textColor="0xffffff" lineSpacing="6" verticalCenter="0" height="63" verticalAlign="middle" />
+			<e:Group id="voiceImgGroup" scaleX="1">
+				<e:Image fillMode="clip" anchorOffsetX="0" x="0" y="0" scaleX="1" scaleY="1" source="n_game_10_png"
+				         scale9Grid="37,0,30,53" />
+				<e:Image id="image" fillMode="clip" anchorOffsetX="0" scaleX="1" scaleY="1" source="yuyin_bf_1_png"
+				         verticalCenter="-5" left="22" />
+				<e:Image id="image0" fillMode="clip" anchorOffsetX="0" scaleX="1" scaleY="1" verticalCenter="-5" left="26"
+				         source="yuyin_bf_2_png" />
+				<e:Image id="image1" fillMode="clip" anchorOffsetX="0" scaleX="1" scaleY="1" verticalCenter="-5" left="32"
+				         source="yuyin_bf_3_png" />
+				<e:Label id="voiceTimeLabel" text="9&quot;" size="20" textColor="0x000000" verticalCenter="-5" left="40" width="45"
+				         textAlign="center" />
+				<e:Image id="redPointImg" fillMode="clip" anchorOffsetX="0" scaleX="1" scaleY="1" source="icon_infor_png" right="0" top="0"/>
+			</e:Group>
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" />
+			</e:layout>
+		</e:Group>
+		<e:Image source="line_png" width="680" bottom="0" horizontalCenter="0" />
+	</e:Group>
+	<e:Group id="textGroup" width="720" height="63" visible="false">
+		<e:Label id="textLabel" text="内容内容内容：" fontFamily="Microsoft YaHei" size="26" textColor="0xFFFFFF" lineSpacing="5"
+		         x="20" y="18" verticalAlign="middle" height="62" width="680" />
+		<e:Image source="line_png" width="680" x="20" y="61" />
+		<e:layout>
+			<e:VerticalLayout horizontalAlign="left" verticalAlign="top" paddingLeft="20" gap="0" />
+		</e:layout>
+	</e:Group>
+</e:Skin>

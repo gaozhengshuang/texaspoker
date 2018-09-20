@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="hundredWarItemRenderer" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="bgImage" anchorOffsetX="0" anchorOffsetY="0"  scale9Grid="18,18,100,39" source="assets/bg/xiuxian_1_png"/>
+
+	<e:Image id="titleImg" source="br_hlc_png" horizontalCenter="0" top="63"/>
+
+
+
+	<e:Group id="labelGroup" x="220" y="128">
+		<e:Label id="numLabel" text="200/600" size="24" x="0" y="0" textColor="0xffffff"/>
+		<e:Label text="进入下限：" textAlign="left" size="24" anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" verticalAlign="middle" x="100" y="0"/>
+		<e:Label id="priceLabel" text="6000" size="24" textColor="0xffffff" verticalAlign="middle" textAlign="left" x="219" y="0"/>
+	</e:Group>
+	<e:Image id="poolImg" anchorOffsetX="0" anchorOffsetY="0" source="br_jc_1_png" horizontalCenter="0" verticalCenter="6"/>
+	<ns1:HundredWarNumComponent id="numComp" height="35" verticalCenter="65" skinName="HundredWarNumComponentSkin" horizontalCenter="0"/>
+
+
+
+</e:Skin>

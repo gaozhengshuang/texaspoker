@@ -1,0 +1,50 @@
+<e:Skin class="AwardsPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" height="900" width="666">
+		<e:Image width="666" height="900" anchorOffsetY="0" x="0"  source="pub_bg2_png" scale9Grid="0,106,666,12"/>
+		<e:Image y="15" horizontalCenter="0.5" source="text_jpdh_png"/>
+		<e:Image width="598" y="120" horizontalCenter="0.5" source="pub_biankuang1_png" scale9Grid="25,23,15,8"/>
+
+
+		<ns1:TabComponent id="tabComponent" y="120"  anchorOffsetY="0" skinName="TabComponentSkin" horizontalCenter="0"/>
+		<e:Group id="awardsGroup" y="190" anchorOffsetY="0" height="640" width="666">
+			<e:Scroller id="awardsScroller" width="626" height="640" horizontalCenter="0"/>
+
+			<e:List id="awardsList" width="626" height="640" horizontalCenter="0">
+				<e:layout>
+					<e:TileLayout orientation="rows" horizontalAlign="center" verticalAlign="top" requestedColumnCount="2" paddingLeft="10" horizontalGap="10" verticalGap="10" paddingTop="10" paddingBottom="10"/>
+				</e:layout>
+			</e:List>
+
+
+		</e:Group>
+		<e:Group id="awardsRecordGroup" y="190" anchorOffsetY="0" height="640" width="666">
+			<e:Group y="0" height="60" horizontalCenter="0">
+				<e:Image id="listTabBg" width="626" height="60" source="ld_4_png" scale9Grid="3,8,25,52" y="0" horizontalCenter="0"/>
+				<e:Label text="兑换时间" verticalCenter="0" horizontalCenter="-210" textColor="0x4bc6b7"/>
+				<e:Label text="兑换内容" verticalCenter="0" horizontalCenter="0" textColor="0x4bc6b7"/>
+				<e:Label text="消耗" verticalCenter="0" horizontalCenter="210" textColor="0x4bc6b7"/>
+			</e:Group>
+			<e:Scroller id="recordScroller" width="600" height="560" scaleX="1" scaleY="1" horizontalCenter="0" x="0" y="70"/>
+			<e:List id="recordList" width="600" height="560" horizontalCenter="0" x="10" y="70">
+				<e:layout>
+				<e:VerticalLayout horizontalAlign="center" verticalAlign="top" gap="10" paddingTop="10" paddingBottom="10"/>
+				</e:layout>
+			</e:List>
+
+
+
+
+		</e:Group>
+
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+		<e:Group height="50" y="830" left="35">
+			<e:Image anchorOffsetY="0" scaleX="1" scaleY="1" verticalCenter="0" source="jindou_1_png"/>
+			<e:Label id="goldenBeanLabel" text="11111" x="18" y="23"/>
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle"/>
+			</e:layout>
+		</e:Group>
+
+	</e:Group>
+</e:Skin>

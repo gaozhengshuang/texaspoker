@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="enterBlueSkin" xmlns:e="http://ns.egret.com/eui">
+    <e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"  source="pub_button_33_png"/>
+    <e:Label id="labelDisplay" size="25" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
+             anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" text="立即进入" width="171" height="64.75" name="label"
+             verticalCenter="-1" horizontalCenter="0" />
+</e:Skin>

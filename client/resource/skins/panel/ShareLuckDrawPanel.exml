@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShareLuckDrawPanelSkin" width="666" height="920" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" width="666" height="820" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" y="100">
+		<e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" height="820" width="666"
+		         scale9Grid="0,101,666,13" source="sc_bg_png" />
+		<e:Image y="96.37" anchorOffsetY="0" scaleX="1" scaleY="1" source="share_bg_1_png" horizontalCenter="0" />
+		<e:Image y="-135" source="shou_yue_bg_png" horizontalCenter="0" />
+		<e:Image y="-27" horizontalCenter="0.5" source="text_fenxiang_png" />
+		<ns1:ShadowButton id="closeButton" label="Button" x="603" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27"
+		                  scaleX="1" skinName="closeButton4Skin" />
+		<e:Scroller id="scroller" width="262" height="225" y="248.45" horizontalCenter="0"></e:Scroller>
+		<e:Group id="scrollGroup" y="248.45" horizontalCenter="0">
+			<e:List id="list0" y="0" maxWidth="600" anchorOffsetX="0" width="262" x="0">
+				<e:layout>
+					<e:VerticalLayout gap="0" />
+				</e:layout>
+			</e:List>
+			<e:List id="list1" y="225" maxWidth="600" anchorOffsetX="0" width="262" x="0">
+				<e:layout>
+					<e:VerticalLayout gap="0" />
+				</e:layout>
+			</e:List>
+		</e:Group>
+		<ns1:ShareLuckDrawItemComponent id="item0" x="68.33" y="130.33" skinName="ShareLuckDrawItemComponentSkin" />
+		<ns1:ShareLuckDrawItemComponent x="202" y="130.33" skinName="ShareLuckDrawItemComponentSkin" id="item1" />
+		<ns1:ShareLuckDrawItemComponent x="336" y="130.33" skinName="ShareLuckDrawItemComponentSkin" id="item2" />
+		<ns1:ShareLuckDrawItemComponent y="130.33" skinName="ShareLuckDrawItemComponentSkin" id="item3" x="470" />
+		<ns1:ShareLuckDrawItemComponent id="item4" y="246" skinName="ShareLuckDrawItemComponentSkin" x="470" />
+		<ns1:ShareLuckDrawItemComponent id="item5" y="363.25" skinName="ShareLuckDrawItemComponentSkin" width="128" x="470" />
+		<ns1:ShareLuckDrawItemComponent id="item6" y="479.33" skinName="ShareLuckDrawItemComponentSkin" width="128" x="470" />
+		<ns1:ShareLuckDrawItemComponent id="item7" y="479.33" skinName="ShareLuckDrawItemComponentSkin" x="336" />
+		<ns1:ShareLuckDrawItemComponent id="item8" y="479.33" skinName="ShareLuckDrawItemComponentSkin" x="202" />
+		<ns1:ShareLuckDrawItemComponent id="item9" y="479.33" skinName="ShareLuckDrawItemComponentSkin" x="68.33" />
+		<ns1:ShareLuckDrawItemComponent id="item10" y="363.25" skinName="ShareLuckDrawItemComponentSkin" x="68.33" />
+		<ns1:ShareLuckDrawItemComponent id="item11" y="246" skinName="ShareLuckDrawItemComponentSkin" x="68.33" />
+		<e:Image y="707.94" source="sc_bg_1_png" width="640" height="100" horizontalCenter="0" />
+		<ns1:ShadowButton id="drawBtn" label="" y="715.14" skinName="shareLuckDrawBtnSkin"  horizontalCenter="0"/>
+		<e:Label id="desLabel" text="每日首次分享朋友圈，即可获得1次抽奖机会，100%中奖。抽奖次数当日有效，请尽快使用！" y="639.4" size="26" anchorOffsetX="0"
+		         width="610" horizontalCenter="0" textColor="0x3b1001" lineSpacing="5" />
+		<e:Group id="shareBtn" x="513" y="670">
+			<e:Label text="立即分享" x="0" y="0" textColor="0x0276d8" size="26" />
+			<e:Label text="_______" x="3" textColor="0x0276d8" size="26" />
+		</e:Group>
+	</e:Group>
+</e:Skin>

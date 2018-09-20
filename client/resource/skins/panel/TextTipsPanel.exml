@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TextTipsSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+        <e:Group id="tweenGroup" height="1280" horizontalCenter="0" anchorOffsetY="0" verticalCenter="0" anchorOffsetX="0" width="720">
+					<e:Image id="bgImage" width="650" height="80" horizontalCenter="0" anchorOffsetY="0" alpha="1" verticalCenter="0" source="pub_bg_ts_png" scale9Grid="35,31,582,64"/>
+                <e:Label id="label" text="提示消息" size="26" horizontalCenter="0" textAlign="center"
+                         fontFamily="Microsoft YaHei"  maxWidth="620" textColor="0xffffff" verticalCenter="-3" backgroundColor="0x000000" borderColor="0x000000" maxHeight="1000" anchorOffsetY="0" height="60" verticalAlign="middle"/>
+        </e:Group>
+</e:Skin>

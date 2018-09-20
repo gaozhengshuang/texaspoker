@@ -1,0 +1,12 @@
+{"file":"invite.png","frames":{
+"yq_a3_png":{"x":217,"y":1,"w":198,"h":49,"offX":1,"offY":3,"sourceW":200,"sourceH":52},
+"yq_bg_png":{"x":417,"y":1,"w":42,"h":40,"offX":0,"offY":0,"sourceW":42,"sourceH":40},
+"yq_biankuang_png":{"x":343,"y":52,"w":103,"h":54,"offX":0,"offY":0,"sourceW":103,"sourceH":54},
+"yq_button_png":{"x":217,"y":52,"w":124,"h":55,"offX":0,"offY":0,"sourceW":124,"sourceH":55},
+"yq_line_png":{"x":418,"y":161,"w":77,"h":1,"offX":0,"offY":0,"sourceW":77,"sourceH":1},
+"yq_sousuo_png":{"x":418,"y":108,"w":45,"h":51,"offX":0,"offY":0,"sourceW":45,"sourceH":51},
+"app_icon_png":{"x":343,"y":108,"w":73,"h":73,"offX":0,"offY":0,"sourceW":73,"sourceH":73},
+"fenxiang_wx_png":{"x":109,"y":1,"w":106,"h":106,"offX":0,"offY":0,"sourceW":106,"sourceH":106},
+"fenxiang_bg_png":{"x":448,"y":43,"w":46,"h":34,"offX":0,"offY":0,"sourceW":46,"sourceH":34},
+"fenxiang_bg_1_png":{"x":461,"y":1,"w":35,"h":35,"offX":0,"offY":0,"sourceW":35,"sourceH":35},
+"fenxiang_pyq_png":{"x":1,"y":1,"w":106,"h":106,"offX":0,"offY":0,"sourceW":106,"sourceH":106}}}

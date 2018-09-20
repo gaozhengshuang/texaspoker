@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HundredWarNoSeatPlayerPanelSkin" width="666" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="16025b05e5a"/>
+	<e:Group id="tweenGroup" width="666" height="900" anchorOffsetX="0" anchorOffsetY="0" y="0" horizontalCenter="0">
+		<e:Image id="bg" y="0" anchorOffsetY="0" x="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="900" width="666" scale9Grid="0,105,666,6"/>
+		<e:Image y="15" horizontalCenter="0" source="br_wzwj_png"/>
+
+
+
+
+
+		<e:Group id="userGroup" width="630" height="680" y="160" anchorOffsetY="0" horizontalCenter="0">
+			<e:List id="userList" y="0" horizontalCenter="0">
+				<e:layout>
+					<e:TileLayout orientation="rows" horizontalAlign="center" verticalAlign="top" requestedColumnCount="2" columnWidth="300" rowHeight="100" horizontalGap="10" verticalGap="10" paddingTop="5"/>
+				</e:layout>
+
+			</e:List>
+			<e:Scroller id="userScroller" scrollPolicyH="off" horizontalCenter="0" height="680" width="610">
+			</e:Scroller>
+			<e:Label id="playerNumLabel" text="当前无座玩家共有123人" y="-41" horizontalCenter="0" size="26" x="176" scaleX="1" scaleY="1" textColor="0xf9cb55"/>
+		</e:Group>
+		<e:Group id="noUserGroup" width="630" height="680" y="160" anchorOffsetY="0" horizontalCenter="0">
+			<e:Label id="noUserLabel" text="当前没有无座玩家" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0" size="26"/>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+	</e:Group>
+</e:Skin>

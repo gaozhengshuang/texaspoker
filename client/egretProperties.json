@@ -1,43 +1,71 @@
 {
-  "engineVersion": "5.2.5",
-  "compilerVersion": "5.2.5",
-  "template": {},
-  "target": {
-    "current": "web"
-  },
-  "eui": {
-    "exmlRoot": [
-      "resource/eui_skins"
-    ],
-    "themes": [
-      "resource/default.thm.json"
-    ],
-    "exmlPublishPolicy": "commonjs"
-  },
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "eui"
-    },
-    {
-      "name": "assetsmanager"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "dragonBones"
-    },
-    {
-      "name": "game"
-    },
-    {
-      "name": "socket"
-    },
-    {
-      "name": "promise"
-    }
-  ]
+	"native": {
+		"path_ignore": [
+			"resource/(skins|eui_skins|images)",
+			"resource/config/.*\\.json",
+			"resource/config/.*\\.bin",
+			"resource/config/files.txt"
+		]
+	},
+	"web": {
+		"path_ignore": [
+			"resource/(skins|eui_skins|images)",
+			"resource/config/.*\\.json",
+			"resource/config/.*\\.bin",
+			"resource/config/files.txt"
+		]
+	},
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"eui": {
+		"exmlRoot": "resource/skins",
+		"themes": [
+			"resource/default.thm.json"
+		],
+		"exmlPublishPolicy": "commonjs2"
+	},
+	"engineVersion": "5.2.5",
+	"compilerVersion": "5.2.5",
+	"template": {},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "dragonbones"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "bundle",
+			"path": "libs"
+		},
+		{
+			"name": "protobuf-library",
+			"path": "protobuf/library"
+		},
+		{
+			"name": "protobuf-bundles",
+			"path": "protobuf/bundles"
+		}
+	]
 }

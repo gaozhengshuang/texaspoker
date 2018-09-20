@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="commonButtonY135x55Skin" states="up,down,disabled"
+        xmlns:e="http://ns.egret.com/eui">
+	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"
+	         source.disabled="pub_button_11_1_png"  source="dh_button_png"/>
+	<e:Label id="labelDisplay" size="28" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
+	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" text="按钮" width="135" height="50" name="label" />
+</e:Skin>

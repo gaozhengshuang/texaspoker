@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="tabComponentInviteBtn4Skin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        width="150" height="52" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+    <e:Image id="btnImg" height="52" width="150"  source.upAndSelected="yq_a4_png" source.downAndSelected="yq_a4_png"/>
+    <e:Label id="labelDisplay" text="{data}" horizontalCenter.disabledAndSelected="0" horizontalCenter.disabled="0" horizontalCenter.down="0" horizontalCenter.up="0" verticalCenter.disabledAndSelected="0"
+             verticalCenter.disabled="0" verticalCenter.down="0"
+             verticalCenter.up="0" width="150" height="52" verticalAlign="middle" textAlign="center"
+             anchorOffsetY.upAndSelected="0" height.upAndSelected="46"
+             anchorOffsetX.upAndSelected="0" width.upAndSelected="150" y.upAndSelected="1.75"
+             anchorOffsetX.downAndSelected="0" width.downAndSelected="150"
+             anchorOffsetY.downAndSelected="0" height.downAndSelected="46" textColor.upAndSelected="0xffffff"
+             textColor.downAndSelected="0xffffff" textColor.disabledAndSelected="0xffffff" textColor="0xffffff"  size.disabledAndSelected="26" size.downAndSelected="26" size.disabled="26" size.down="26" size.up="26" size.upAndSelected="26" size="26" horizontalCenter.upAndSelected="0" horizontalCenter.downAndSelected="0" y.downAndSelected="1.75"/>
+</e:Skin>

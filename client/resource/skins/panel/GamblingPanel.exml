@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamblingPanelSkin" width="720" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" height="100%">
+		<e:Group id="leftGroup" width="100%" left="0" top="0" height="100%" x="0" y="0" scaleX="1" scaleY="1">
+			<e:Image source="game_bg10_png" scale9Grid="1,1,10,10" width="266" left="0" top="0" height="1280"/>
+			<e:Group id="funcGroup" height="1093" left="0" top="0">
+			<ns1:GameButton id="backToHallBtn" skinName="gambling_backtohall_btn" label="返回大厅" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" left="0" top="0"/>
+			<ns1:GameButton id="standUpBtn" skinName="gambling_standup_btn" label="站起" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" y="-487" x="38" scaleX="1" scaleY="1"/>
+			<ns1:GameButton id="chargeBtn" skinName="gambling_pay_btn" label="充值商城" anchorOffsetX="0" anchorOffsetY="0" y="-246" x="28" scaleX="1" scaleY="1" horizontalCenter="-32"/>
+			<ns1:GameButton id="safeBtn" label="保险箱" anchorOffsetX="0" anchorOffsetY="0" y="-236" x="38" scaleX="1" scaleY="1" horizontalCenter="-32" skinName="gambling_safe_btn"/>
+			<ns1:GameButton id="mailBtn" skinName="gambling_mail_btn" label="邮箱" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" y="-487" x="28" scaleX="1" scaleY="1"/>
+			<ns1:GameButton id="activityBtn" skinName="gambling_activity_btn" label="活动中心" anchorOffsetX="0" anchorOffsetY="0" y="-363" horizontalCenter="-68" x="-40" scaleX="1" scaleY="1"/>
+			<ns1:GameButton id="helpBtn" skinName="gambling_help_btn" label="帮助" anchorOffsetX="0" anchorOffsetY="0" y="-161" horizontalCenter="-98" x="-70" scaleX="1" scaleY="1"/>
+			<e:layout>
+				<e:VerticalLayout verticalAlign="top" gap="0"/>
+			</e:layout>
+			</e:Group>
+			<e:Image id="shadownImg" touchEnabled="false" scale9Grid="1,1,10,10" width="56" height="1280" source="game_bg_touying_png" left="211" top="0"/>
+		</e:Group>
+		<e:Group id="gameGroup" touchEnabled="false" anchorOffsetY="0" height="100%" width="720" x="0" y="0" scaleX="1" scaleY="1">
+			<e:Group id="dragGroup" horizontalCenter="0" bottom="0" touchEnabled="true" touchChildren="false">
+			<e:Image id="dragImg" source="assets/bg/game_bg_1_png" scale9Grid="13,14,31,36" x="0" y="0"/>
+			<e:Image id="dragImg0" source="assets/bg/game_bg_1_png" scale9Grid="13,14,31,36" x="720" y="0" scaleX="-1"/>
+				<e:layout>
+					<e:BasicLayout/>
+				</e:layout>
+			</e:Group>
+			<e:Group id="slotContainerDown" touchEnabled="false" width="100%" height="100%" horizontalCenter="0" verticalCenter="0"/>
+			<e:Group id="currencyGroup" width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+			<e:Image id="logoBg" scaleX="1" scaleY="1" anchorOffsetX="41.5" anchorOffsetY="59.5" horizontalCenter="0.5" verticalCenter="5" x="215" y="576" source="game_sy_1_png" touchEnabled="false"/>
+			<e:Group id="roomIdGroup" touchEnabled="false" touchChildren="false" anchorOffsetY="0" x="151.7" scaleX="1" scaleY="1" verticalCenter="86">
+				<e:Label text="房间ID:" textAlign="left" anchorOffsetX="0" size="26" anchorOffsetY="0" fontFamily="SourceHanSansCN-Normal" width="95" scaleX="1" scaleY="1" textColor="0xffffff" x="0" y="0"/>
+				<e:Label id="roomIdLabel" text="99999" textAlign="left" anchorOffsetX="0" size="26" anchorOffsetY="0" fontFamily="SourceHanSansCN-Normal" scaleX="1" scaleY="1" y="1" textColor="0xffffff" x="96"/>
+			</e:Group>
+			<e:Group id="usualBlindGroup" touchEnabled="false" touchChildren="false" anchorOffsetY="0" x="407.67" scaleX="1" scaleY="1" verticalCenter="86">
+				<e:Label text="盲注：" textAlign="left" anchorOffsetX="0" size="26" anchorOffsetY="0" fontFamily="SourceHanSansCN-Normal" width="95" scaleX="1" scaleY="1" textColor="0xffffff" x="0" y="0"/>
+				<e:Label id="usualblindLabel" text="25/25" size="26" anchorOffsetY="0" anchorOffsetX="0" scaleX="1" scaleY="1" fontFamily="SourceHanSansCN-Normal" height="24" textColor="0xffffff" x="71" y="0"/>
+			</e:Group>
+			<e:Group id="potGroup" touchEnabled="false" touchChildren="false" scaleX="1" scaleY="1" verticalCenter="-287" horizontalCenter="0">
+				<e:Image anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" source="dichi_bg_png" y="0"/>
+				<e:Label text="底池" textAlign="left" anchorOffsetX="0" size="22" anchorOffsetY="0" fontFamily="Microsoft YaHei" height="24" y="80" scaleX="1" scaleY="1" textColor="0xffffff" horizontalCenter="0"/>
+				<e:Label id="potLabel" text="111" size="24" anchorOffsetY="0" anchorOffsetX="0" scaleX="1" scaleY="1" fontFamily="SourceHanSansCN-Normal" height="24" textAlign="left" verticalCenter="-9" horizontalCenter="0" textColor="0xffffff"/>
+			</e:Group>
+			<e:Group id="anteGroup" touchEnabled="false" touchChildren="false" anchorOffsetY="0" x="476.36" scaleX="1" scaleY="1" verticalCenter="86">
+				<e:Label text="前注：" textAlign="left" anchorOffsetX="0" size="26" anchorOffsetY="0" fontFamily="SourceHanSansCN-Normal" x="31" y="0" scaleX="1" scaleY="1" textColor="0xffffff"/>
+				<e:Label id="anteLabel" text="123" textAlign="left" size="26" anchorOffsetY="0" anchorOffsetX="0" scaleX="1" scaleY="1" fontFamily="SourceHanSansCN-Normal" x="100" y="0" textColor="0xffffff"/>
+			</e:Group>
+				<e:Group id="potChipsGroup" touchEnabled="false" width="200" height="402" anchorOffsetY="0" horizontalCenter="0" x="260" scaleX="1" scaleY="1" verticalCenter="-290">
+					<e:Group id="chipsNumGroup" touchEnabled="false" x="0" y="0" width="200" height="402">
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="center" verticalAlign="bottom"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="chipsBgGroup" touchEnabled="false" width="200" height="402" x="0" y="0">
+					<e:layout>
+						<e:VerticalLayout horizontalAlign="center" verticalAlign="bottom"/>
+					</e:layout>
+					</e:Group>
+				</e:Group>
+			<e:Image id="buttonPosFlagImg" touchEnabled="false" x="258.5" y="1004" scaleX="1" scaleY="1" source="dongjia_png"/>
+			<e:Image id="foldPointImg" scaleX="1" scaleY="1" source="dongjia_png" bottom="646" horizontalCenter="17" visible="false"/>
+			<e:Image id="buttonPosFlagImgSpt" x="268.5" y="1014" scaleX="1" scaleY="1" source="dongjia_png" visible="false"/>
+			<e:Image id="flopCardImg1" scaleX="1" scaleY="1" source="pai_bg2_png" anchorOffsetX="41.5" anchorOffsetY="59.5" x="360.5" y="582.5"/>
+			<e:Image id="flopCardImg2" source="pai_bg2_png" scaleX="1" scaleY="1" anchorOffsetX="41.5" anchorOffsetY="59.5" x="360.5" y="582.5"/>
+				<e:Group id="cardTypeGroup" anchorOffsetY="0" horizontalCenter="0" bottom="3" x="300" y="1282" scaleX="1" scaleY="1">
+					<e:Image id="buttonPosFlagImg0" alpha="0.6" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0" source="game_hsbj_png" width="121" height="35" scale9Grid="15,15,4,5"/>
+					<e:Label id="cardDeslabel" text="123" textAlign="center" size="26" anchorOffsetY="0" anchorOffsetX="0" scaleX="1" scaleY="1" fontFamily="Microsoft YaHei" textColor="0xf9cb55" horizontalCenter="0" verticalCenter="0" x="152" y="35"/>
+				</e:Group>
+			<e:Button id="cancelTrusteeshipButton" label="我回来了" anchorOffsetX="0" scaleX="1.2" scaleY="1.2" skinName="gambling_trusteeship_btn" anchorOffsetY="0" horizontalCenter="0" bottom="59" width="120" height="37"/>
+			<e:Button id="cancelTrusteeshipButton0" label="托管中" anchorOffsetX="0" height="26" anchorOffsetY="0" horizontalCenter="0" width="84" skinName="gambling_trusteeship_btn1" bottom="205"/>
+			<e:Image id="waitNextImg" anchorOffsetY="0" source="dengdai_png" scaleX="1" scaleY="1" horizontalCenter="0" bottom="48"/>
+			</e:Group>
+			<e:Group id="slotContainerUp" touchEnabled="false" width="100%" height="100%" horizontalCenter="0" verticalCenter="0" x="10" y="10"/>
+			<e:Group id="ordinaryRoomGroup" width="100%" height="100%" verticalCenter="0" horizontalCenter="0">
+			<ns1:GameButton id="optionsBtn" label="菜单" scaleX="1" scaleY="1" skinName="gambling_menu_btn" anchorOffsetX="0" left="14" top="14"/>
+			<ns1:GameButton id="onlineAwardBtn" label="在线奖励" scaleX="1" scaleY="1" anchorOffsetX="0" skinName="gambling_onlineaward_btn" bottom="15" right="142"/>
+			<ns1:GameButton id="guessCardBtn" scaleX="1" scaleY="1" skinName="gambling_guess_btn" height="44" bottom="131" left="34"/>
+				<ns1:OmahaCardTypeBtnComponent id="cardTypeComp" skinName="OmahaCardTypeBtnComponentSkin" left="34" bottom="15"/>
+			<ns1:GameButton id="achieveBtn" skinName="gambling_achieve_btn" label="成就" scaleX="1" scaleY="1" anchorOffsetX="0" bottom="15" left="152"/>
+			<ns1:GameButton id="chatBtn" label="Button" scaleX="1" scaleY="1" skinName="gambling_chat_btn" right="30" bottom="15"/>
+			<ns1:GameButton id="buyBtn" label="购买" scaleX="1" scaleY="1" skinName="gambling_buy_btn" anchorOffsetX="0" right="14" top="14"/>
+				<ns1:GameButton id="reviewBtn" label="Button" scaleX="1" scaleY="1" skinName="gambling_review_btnSkin" bottom="13" left="32" width="60"/>
+				<ns1:GameButton id="audioRecordBtn" label="Button" bottom="131" skinName="gambling_recoedaudio_btnSkin" width="60" right="30" visible="false"/>
+			<e:Group id="guessCorrectlyGroup" x="27" bottom="173" left="20">
+				<e:Image source="game_bg_1_png"/>
+				<e:Label text="中奖啦!" x="6.67" y="4.67" anchorOffsetX="0" width="140.66" anchorOffsetY="0" height="58" verticalAlign="middle" textAlign="center" size="28" textColor="0xf9cb55"/>
+			</e:Group>
+				<e:Group id="allInAnimeGroup" anchorOffsetY="0" scaleX="1" scaleY="1" horizontalCenter="0" width="177" height="59" x="272" y="810" touchChildren="false" touchEnabled="false">
+					<e:Image id="img0" x="43" y="30" source="allin_a_png" anchorOffsetX="43" anchorOffsetY="30"/>
+					<e:Image id="img1" x="76" y="30" source="allin_l_png" anchorOffsetY="30" anchorOffsetX="33"/>
+					<e:Image id="img2" x="109" y="30" source="allin_l_png" anchorOffsetY="30" anchorOffsetX="33"/>
+					<e:Image id="img3" x="136" y="30" source="allin_i_png" anchorOffsetY="30" anchorOffsetX="22"/>
+					<e:Image id="img4" x="177" y="30" source="allin_n_png" anchorOffsetY="30" anchorOffsetX="41"/>
+				</e:Group>
+				<e:Group id="winAnimeGroup" scaleX="1" scaleY="1" horizontalCenter="0" height="100" width="320" y="770" x="200" touchChildren="false" touchEnabled="false">
+					<e:Image id="winImg1" source="text_yingla_1_png" anchorOffsetX="50" anchorOffsetY="50" x="50" y="50"/>
+					<e:Image id="winImg2" x="150" source="text_yingla_2_png" anchorOffsetX="50" anchorOffsetY="50" y="50"/>
+					<e:Image id="winImg3" x="250" source="text_yingla_3_png" anchorOffsetX="50" anchorOffsetY="50" y="50"/>
+				</e:Group>
+			</e:Group>
+		</e:Group>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,62 @@
+<e:Skin class="panelSkin13" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" height="500" width="666" horizontalCenter="-4" verticalCenter="0">
+		<e:Image width="666" height="500" anchorOffsetY="0" x="0"  source="pub_bg2_png" scale9Grid="2,106,658,7"/>
+		<e:Group id="lostRankGroup" y="-51.55" horizontalCenter="0">
+			<e:Image x="0" y="0" source="tts_di_png"/>
+			<e:Group x="29" y="0">
+			<e:Image id="rankImg0" x="29" y="0" source="tts_6_png"/>
+			<e:Image id="rankImg1" x="58" y="0" source="tts_6_png"/>
+			<e:Image id="rankImg2" x="68" y="10" source="tts_6_png"/>
+				<e:Image id="rankImg3" x="0" y="0" source="tts_6_png"/>
+			<e:layout>
+				<e:HorizontalLayout gap="0"/>
+			</e:layout>
+			</e:Group>
+			<e:Image x="10" y="10" source="tts_ming_png"/>
+			<e:layout>
+			<e:HorizontalLayout verticalAlign="bottom" gap="20"/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="winRankGroup" y="-96.96" horizontalCenter="0">
+			<e:Image y="0" source="br_ying_bg_png" horizontalCenter="0"/>
+			<e:Image y="78.85" source="guanjun_png" horizontalCenter="0"/>
+		</e:Group>
+
+
+
+
+
+		<e:Label id="noAwardDesLabel" text="没有失败就没有胜利，调整状态再来一局吧！" y="166.27"  width="547.28" size="30" lineSpacing="7" textAlign="center" anchorOffsetX="0" horizontalCenter="-0.5"/>
+		<e:Group id="hasAwardGroup" y="146.64" horizontalCenter="0">
+			<e:Label text="您获得奖励" y="19.67" horizontalCenter="0"/>
+			<e:Group y="82.42" horizontalCenter="0">
+				<e:Image anchorOffsetX="0" anchorOffsetY="0" x="0" source="mall_bg_3_png" scale9Grid="18,18,8,2" width="200" height="50"/>
+				<e:Image x="10" source="icon_jinbi_png" verticalCenter="0"/>
+				<e:Label id="goldNumLabel" text="15.22万" x="60" size="30" verticalCenter="0" textAlign="center" verticalAlign="middle" width="120"/>
+			</e:Group>
+		</e:Group>
+
+		<e:Group id="winBtnGroup" y="372.86" horizontalCenter="0">
+			<ns1:ShadowButton id="backHallBtn" label="返回大厅" x="25.17999999999995" y="-553.17" skinName="commonButtonY2Skin" scaleX="1" scaleY="1"/>
+
+
+			<ns1:ShadowButton id="againBtn" label="再来一局" x="248.17999999999995" y="0" skinName="commonButtonY2Skin"/>
+			<e:layout>
+				<e:HorizontalLayout gap="20" horizontalAlign="center" verticalAlign="middle"/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="lostBtnGroup" y="372.86" horizontalCenter="0.5">
+			<ns1:ShadowButton id="backHallBtn0" label="返回大厅" x="25.17999999999995" y="-553.17" scaleX="1" scaleY="1" skinName="shopping_ButtonSkin2"/>
+			<ns1:ShadowButton id="stayBtn" label="留下观看" x="35.17999999999995" y="-543.17" scaleX="1" scaleY="1" skinName="shopping_ButtonSkin2"/>
+			<ns1:ShadowButton id="againBtn0" label="再来一局" x="248.17999999999995" y="0" skinName="shopping_ButtonSkin2"/>
+			<e:layout>
+			<e:HorizontalLayout gap="20" horizontalAlign="center" verticalAlign="middle"/>
+			</e:layout>
+		</e:Group>
+
+
+
+
+	</e:Group>
+</e:Skin>

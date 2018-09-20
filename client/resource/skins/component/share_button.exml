@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="share_buttonSkin" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<e:Group>
+		<e:Image id="btnImg" y="0" anchorOffsetX="0" anchorOffsetY="0" x="0" source="icon_fenxiang_png"/>
+		<e:Image x="10" y="76" source="tet_fenxiang_png"/>
+		<e:layout>
+			<e:VerticalLayout gap="0" horizontalAlign="center" verticalAlign="top"/>
+		</e:layout>
+	</e:Group>
+</e:Skin>

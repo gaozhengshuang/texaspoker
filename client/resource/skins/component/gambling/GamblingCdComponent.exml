@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ActionCdComponentSkin" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="maskBg" alpha="0.6" source="touxiang_1_png" width="82" height="82" x="4" y="4"/>
+	<e:Label id="cdLabel" text="Label" horizontalCenter="0" verticalCenter="0" size="34"/>
+</e:Skin>

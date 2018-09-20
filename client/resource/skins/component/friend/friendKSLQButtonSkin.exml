@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="friendKSLQButtonSkin" states="up,down,disabled" minHeight="65" minWidth="172"
+        xmlns:e="http://ns.egret.com/eui">
+	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0" source="pub_button_77_png"
+	         source.disabled="pub_button_77_1_png" />
+	<e:Label id="labelDisplay" size="30" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
+	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" x="0" text="" width="526" height="82" />
+</e:Skin>

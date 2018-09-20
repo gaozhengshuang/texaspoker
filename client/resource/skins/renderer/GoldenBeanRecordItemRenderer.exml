@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GoldenBeanRecordItemRendererSkin" width="600" height="70" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="600" height="70" source="pub_bg_3_1_png" scale9Grid="18,16,2,2"/>
+	<e:Label id="timeLabel" text="3-28 9:00" horizontalCenter="-210" verticalCenter="0"/>
+	<e:Label id="nameLabel" text="111" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image anchorOffsetY="0" scaleX="1" scaleY="1" verticalCenter="0" y="8" source="jindou_1_png" horizontalCenter="180"/>
+	<e:Label id="goldenBeanLabel" text="111" scaleX="1" scaleY="1" verticalCenter="0" horizontalCenter="240"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

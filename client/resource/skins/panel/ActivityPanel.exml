@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ActivityPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+	<e:Group id="anmGroup1" width="720" height="1180" x="0" y="100" anchorOffsetY="0">
+		<e:Image height="1200" y="-20" anchorOffsetY="0" horizontalCenter="0" source="assets/bg/pub_bg11_png" width="720"/>
+		<e:Scroller id="activityScroller" width="720" height="1180" horizontalCenter="0">
+		</e:Scroller>
+		<e:List id="activityList" width="720" height="1180" scaleX="1" scaleY="1" horizontalCenter="0">
+		<e:layout>
+			<e:VerticalLayout gap="10" horizontalAlign="left" verticalAlign="top"/>
+		</e:layout>
+		</e:List>
+		<e:Group id="resizeGroup" horizontalCenter="0" y="-100">
+			<e:Label text="点击可查看活动详情" size="30" textAlign="center" verticalAlign="middle" scaleX="1" scaleY="1" horizontalCenter="0" bottom="0" height="70"/>
+		</e:Group>
+	</e:Group>
+	<e:Group id="anmGroup" width="720" height="100" x="0" y="0">
+		<e:Image id="bg" source="bg_biaoti_png"/>
+		<e:Group id="titleGroup" height="100" horizontalCenter="0" y="0">
+			<e:Image id="titleImg" horizontalCenter="0" x="54" scaleX="1" scaleY="1" verticalCenter="0" y="9" source="activity_hd_png"/>
+
+
+			<e:Image source="pub_bt_1_png" scaleX="-1" scaleY="1" verticalCenter="0" horizontalCenter="-113"/>
+			<e:Image scaleX="1" scaleY="1" verticalCenter="0" source="pub_bt_1_png" horizontalCenter="113"/>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="返回" x="40" y="40" anchorOffsetX="31" anchorOffsetY="32" skinName="closeButton2Skin"/>
+
+
+	</e:Group>
+
+</e:Skin>

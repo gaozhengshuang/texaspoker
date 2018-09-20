@@ -1,0 +1,28 @@
+/**
+ * 百人大战结果组件信息
+ */
+class HWResultCardsInfo extends BaseServerValueInfo 
+{
+    public cardList: Array<CardInfo>;
+    /**
+     * 牌型描述
+    */
+    public cardTypeDes: string;
+    /**
+     * 牌型
+    */
+    public cardType: CardType;
+    /**
+     * 输赢描述
+    */
+    public resultDes: string;
+    /**
+     * 位置
+    */
+    public pos: number;
+
+    public reset()
+    {
+        super.reset();
+    }
+}

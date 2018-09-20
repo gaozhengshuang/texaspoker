@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MessagePanel" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGp" width="103" height="113" anchorOffsetX="0" anchorOffsetY="0" x="604" y="0">
+		<e:Image touchEnabled="false" width="133" height="155" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.7" scaleY="0.7" right="0" x="7" source="bg_hyyq_png" scale9Grid="0,2,130,4" top="0"/>
+		<e:Image id="inviteMsg_bg" touchEnabled="false" width="79" height="87" anchorOffsetX="0" anchorOffsetY="0" scaleX="0.7" scaleY="0.7" y="7" x="29" source="icon_hyyq_png"/>
+		<e:Image id="requireMsg_bg" touchEnabled="false" width="79" height="87" anchorOffsetY="0" scaleX="0.7" scaleY="0.7" y="7" source="icon_hytj_png" scale9Grid="0,0,79,87" anchorOffsetX="0" x="29"/>
+	</e:Group>
+
+</e:Skin>

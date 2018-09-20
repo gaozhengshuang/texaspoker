@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="playfieldBringTSSkin" width="140" height="190"
+        states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" xmlns:e="http://ns.egret.com/eui">
+    <e:Image width="140" height="190" source="pub_lines_png" scale9Grid="14,10,2,7" />
+    <e:Image source.upAndSelected="game_cjsrf_png" width="140" height="190" scale9Grid="5,5,37,32" />
+    <e:Image x="97.37" y="6.69" source.upAndSelected="qd_duigou_png" />
+</e:Skin>

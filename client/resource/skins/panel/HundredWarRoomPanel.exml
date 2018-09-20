@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HWPanelSkin" width="720" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="16095fb0439" />
+	<e:Group id="tweenGroup" height="100%">
+		<e:Group id="leftGroup" width="100%" left="0" top="0" height="100%">
+			<e:Image source="game_bg10_png" scale9Grid="1,1,10,10" width="266" left="0" top="0" height="1280" />
+			<e:Group id="funcGroup" height="1093" left="0" top="0">
+				<ns1:GameButton id="backToHallBtn" skinName="gambling_backtohall_btn" label="返回大厅" anchorOffsetX="0"
+				                anchorOffsetY="0" scaleX="1" scaleY="1" left="0" top="0" />
+				<ns1:GameButton id="chargeBtn" skinName="gambling_pay_btn" label="充值商城" anchorOffsetX="0" anchorOffsetY="0" y="-246"
+				                x="28" scaleX="1" scaleY="1" horizontalCenter="-32" />
+				<ns1:GameButton id="standUpBtn" skinName="gambling_standup_btn" label="站起" anchorOffsetX="0" anchorOffsetY="0"
+				                horizontalCenter="0" y="-487" x="38" scaleX="1" scaleY="1" />
+				<e:layout>
+					<e:VerticalLayout verticalAlign="top" gap="0" />
+				</e:layout>
+			</e:Group>
+			<e:Image id="shadownImg" touchEnabled="false" scale9Grid="1,1,10,10" width="56" height="1280"
+			         source="game_bg_touying_png" left="211" top="0" />
+		</e:Group>
+		<e:Group id="gameGroup" touchEnabled="false" anchorOffsetY="0" height="100%" width="720">
+			<e:Group id="dragGroup" horizontalCenter="0" touchEnabled="true" touchChildren="false" bottom="0">
+				<e:Image id="dragImg" scale9Grid="13,14,31,36" x="0" y="0"  source="assets/bg/hundredwar_1_png"/>
+				<e:Image id="dragImg0" scale9Grid="13,14,31,36" x="720" y="0" scaleX="-1"  source="assets/bg/hundredwar_1_png"/>
+				<e:layout>
+					<e:BasicLayout/>
+				</e:layout>
+
+			</e:Group>
+			<e:Group id="currencyGroup" width="100%" height="100%" horizontalCenter="0" verticalCenter="2" bottom="-2">
+				<e:Group id="potGroup" touchEnabled="true" scaleX="1" scaleY="1" verticalCenter="-220" horizontalCenter="0"
+				         touchChildren="false">
+					<e:Image id="potBg" scale9Grid="23,21,15,6" source="tx_1_png" horizontalCenter="0" verticalCenter="0" alpha="0" />
+					<e:Image width="275" source="br_jiangchi_png" horizontalCenter="1" verticalCenter="2" scale9Grid="23,21,15,6" />
+					<e:Image scaleX="1" scaleY="1" source="br_chouma_png" verticalCenter="0" x="13.71" />
+					<e:Label text="奖池:" textAlign="left" anchorOffsetX="0" size="28" anchorOffsetY="0"
+					         fontFamily="SourceHanSansCN-Normal" height="24" x="64.37" scaleX="1" scaleY="1" textColor="0xffffff"
+					         verticalCenter="0" />
+					<e:Label id="potLabel" text="111" size="28" anchorOffsetY="0" anchorOffsetX="0" scaleX="1" scaleY="1"
+					         fontFamily="SourceHanSansCN-Normal" height="24" x="150" textColor="0xffffff" textAlign="left"
+					         verticalCenter="0" />
+				</e:Group>
+				<e:Label id="bankerNameLabel" text="庄家昵称" scaleX="1" scaleY="1" horizontalCenter="0" top="52" size="26" />
+				<ns1:HWHeadComponent id="pit1" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="619" top="122" />
+				<ns1:HWHeadComponent id="pit2" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="619" top="318" />
+				<ns1:HWHeadComponent id="pit3" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="601" bottom="252" />
+				<ns1:HWHeadComponent id="pit4" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="399" bottom="200" />
+				<ns1:HWHeadComponent id="pit5" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="230" bottom="200" />
+				<ns1:HWHeadComponent id="pit6" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="40" bottom="252" />
+				<ns1:HWHeadComponent id="pit7" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="20" top="318" />
+				<ns1:HWHeadComponent id="pit8" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" x="20" top="122" />
+				<e:Image id="bankerBg" x="310" source="br_button_guang_png" top="74.5" width="99" height="99" alpha="0" />
+				<ns1:HWHeadComponent id="pit0" skinName="HWHeadComponentSkin" scaleX="0.885" scaleY="0.885" top="64" x="320" />
+				<e:Group id="betGroup" width="720" height="190" bottom="0" anchorOffsetY="0" x="0">
+					<e:Image width="720" height="190" source="br_bg_5_png" scale9Grid="254,63,8,6" />
+					<e:Group id="chooseBetGroup" bottom="0" x="0">
+						<e:List id="betList" width="582" height="132" anchorOffsetX="0" x="0" bottom="0">
+							<e:layout>
+								<e:HorizontalLayout horizontalAlign="left" verticalAlign="middle" paddingLeft="0" gap="-15" />
+							</e:layout>
+						</e:List>
+						<e:Button id="doubleBtn" label="" x="582" skinName="hwBetToggleSwitchSkin" verticalCenter="0" />
+						<e:Button id="repetBtn" label="" x="582" skinName="hwBetToggleSwitchSkin" verticalCenter="0" />
+					</e:Group>
+					<e:Scroller id="betScroller" width="720" height="132" scaleX="1" scaleY="1" bottom="0">
+						<e:Group></e:Group>
+					</e:Scroller>
+				</e:Group>
+				<e:Group id="selfGroup" bottom="125" horizontalCenter="0">
+					<e:Image scaleX="1" scaleY="1" source="br_bg_4_png" scale9Grid="20,19,9,7" width="272" />
+					<e:Label id="selfInfoLabel" text="888.8万" size="24" y="11.52" textAlign="center" width="245" textColor="0xffffff"
+					         anchorOffsetX="0"  x="14"/>
+				</e:Group>
+				<e:Button id="outBankerBtn" label="下庄" x="430.66" top="147" skinName="HundredWarBankerBtnSkin" />
+				<e:Button id="goBankerBtn" label="我要上庄" x="430.66" top="147" skinName="HundredWarBankerBtnSkin" />
+			</e:Group>
+			<e:Group id="ordinaryRoomGroup" width="100%" height="100%" horizontalCenter="0" verticalCenter="0">
+				<ns1:GameButton id="optionsBtn" label="菜单" scaleX="1" scaleY="1" skinName="gambling_menu_btn" anchorOffsetX="0"
+				                left="14" top="14" />
+				<ns1:GameButton id="trendBtn" label="趋势" scaleX="1" scaleY="1" anchorOffsetX="0" left="583" bottom="165"
+				                skinName="hundredWar_trend_btn" />
+				<ns1:GameButton id="helpBtn" label="帮助" scaleX="1" scaleY="1" anchorOffsetX="0" bottom="165" left="650"
+				                skinName="hundredWar_help_btn" />
+				<e:Image id="playersBtnBg" x="10" scaleX="1" scaleY="1" source="tx_2_png" bottom="165" alpha="0" />
+				<ns1:GameButton id="playersBtn" scaleX="1" scaleY="1" label="未入座玩家" bottom="165" x="15"
+				                skinName="hundredWar_player_btn" height="67" />
+				<ns1:GameButton id="achieveBtn" label="成就" scaleX="1" scaleY="1" anchorOffsetX="0" top="14" left="566"
+				                skinName="hundredWar_task_btn" />
+				<ns1:GameButton id="chatBtn" label="Button" scaleX="1" scaleY="1" x="91" top="14" skinName="hundredWar_chat_btn" />
+				<ns1:GameButton id="buyBtn" label="购买" scaleX="1" scaleY="1" skinName="gambling_buy_btn" anchorOffsetX="0"
+				                right="14" x="643" y="0" top="14" />
+			</e:Group>
+			<e:Group id="coinActionGroup" width="100%" height="100%" bottom="0">
+				<ns1:HWBetPotComponent id="betPotComponent1" skinName="HWBetPotComponentSkin" verticalCenter="-18" y="545.02"
+				                       horizontalCenter="-232" />
+				<ns1:HWBetPotComponent id="betPotComponent2" skinName="HWBetPotComponentSkin" verticalCenter="-18" y="545.02"
+				                       horizontalCenter="-76" />
+				<ns1:HWBetPotComponent id="betPotComponent3" skinName="HWBetPotComponentSkin" verticalCenter="-18" y="545.02"
+				                       horizontalCenter="80" />
+				<ns1:HWBetPotComponent id="betPotComponent4" skinName="HWBetPotComponentSkin" verticalCenter="-18" y="545.02"
+				                       horizontalCenter="236" />
+			</e:Group>
+			<e:Group id="cardsComponentGroup" width="100%" height="100%" bottom="0">
+				<e:Group id="coinsGroup" width="100%" height="100%" touchEnabled="false" bottom="0"/>
+				<e:Group id="cardsGroup" width="100%" height="100%" touchEnabled="false" bottom="0">
+					<ns1:HWCardsComponent id="cardsComponent0" skinName="HWCardsComponentSkin" scaleX="1" scaleY="1" horizontalCenter="0" top="220"/>
+					<ns1:HWCardsComponent id="cardsComponent1" skinName="HWCardsComponentSkin" scaleX="1" scaleY="1" horizontalCenter="-232" verticalCenter="136.5"/>
+					<ns1:HWCardsComponent id="cardsComponent2" skinName="HWCardsComponentSkin" scaleX="1" scaleY="1" horizontalCenter="-76" verticalCenter="136.5"/>
+					<ns1:HWCardsComponent id="cardsComponent3" skinName="HWCardsComponentSkin" scaleX="1" scaleY="1" horizontalCenter="80" verticalCenter="136.5"/>
+					<ns1:HWCardsComponent id="cardsComponent4" skinName="HWCardsComponentSkin" scaleX="1" scaleY="1" horizontalCenter="236" verticalCenter="136.5"/>
+				</e:Group>
+
+
+
+
+
+				<e:Group id="dealGroup" width="50" height="50" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1"
+				         touchEnabled="false" horizontalCenter="0" verticalCenter="-103" />
+			</e:Group>
+			<e:Group id="alertGroup" width="100%" height="100%" anchorOffsetY="0" bottom="0">
+				<e:Label id="alertLabel" text="开始下注. . . 15" horizontalCenter="0" bottom="370" textColor="0xe6c21d" />
+			</e:Group>
+			<e:Group id="poolDesGroup" scaleX="1" scaleY="1" horizontalCenter="0" top="434" touchEnabled="false">
+				<e:Image id="poolShowImg" source="br_baochi_png" scaleX="1" scaleY="1" />
+			</e:Group>
+		</e:Group>
+	</e:Group>
+</e:Skin>

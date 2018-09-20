@@ -1,0 +1,24 @@
+{
+  "name": "libs",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "gulp": "3.x.x",
+    "gulp-awaitable-tasks": "1.x.x",
+    "gulp-concat": "2.x.x",
+    "gulp-file": "0.x.x",
+    "gulp-imagemin": "4.x.x",
+    "gulp-json-editor": "^2.3.0",
+    "gulp-json-minify": "1.x.x",
+    "gulp-rev": "8.x.x",
+    "gulp-uglify": "3.x.x",
+    "gulp-zip": "4.x.x",
+    "htmlmin": "0.x.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "qingame",
+  "license": "qingame"
+}

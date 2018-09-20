@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MonthCardItemRendererSkin" width="600" height="302" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="600" height="302" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" scale9Grid="13,13,4,1"
+	         source="xinrenli_bg_png" />
+	<e:Group x="5" y="28.67">
+		<e:Image id="bgImg" x="20" y="0" source="yueka_bg_png" />
+		<e:Image id="iconImg" horizontalCenter="10" source="monthCard1_png" verticalCenter="-34.5" />
+		<e:Image y="63" source="kueka_bg_1_png" x="19" />
+		<e:Label id="surplusDayLabel" text="剩余:1天" y="199.33" anchorOffsetX="0" width="200" textAlign="center"
+		         horizontalCenter="10" textColor="0xffffff" fontFamily="Microsoft YaHei" />
+	</e:Group>
+	<e:Label text="购买后可激活30天，每天上线可领取" x="273" y="26" anchorOffsetX="0" width="310" size="26" textColor="0x3b1001"
+	         alpha="0.8" lineSpacing="5" fontFamily="Microsoft YaHei" />
+	<e:Label id="goldNumDesLabel" text="25000金币" x="407" y="56.67" anchorOffsetX="0" width="170" size="26"
+	         textColor="0xfea304" fontFamily="Microsoft YaHei" />
+	<e:Group id="openGroup" x="260" y="120" width="301" height="160">
+		<e:Group y="0" horizontalCenter="0">
+			<e:Image width="178" height="40" scale9Grid="18,17,14,4" source="yueka_bg_2_png" />
+			<e:Image x="0" y="0" source="icon_jinbi_png" scaleX="0.8" scaleY="0.8" />
+			<e:Label id="goldNumLabel" text="25000" x="59.69" anchorOffsetX="0" verticalCenter="0" textColor="0x3b1001"
+			         alpha="0.8" />
+		</e:Group>
+		<ns1:ShadowButton id="bringBtn" label="" y="75" horizontalCenter="0" skinName="monthCardBringBtnSkin" />
+	</e:Group>
+	<e:Group id="closeGroup" x="260" y="120" width="301" height="180">
+		<e:Label text="立刻享受300%超值返还！" y="0" x="10" size="26" textColor="0xb74101" fontFamily="Microsoft YaHei" />
+		<ns1:ShadowButton id="buyBtn" label="" y="50" horizontalCenter="0" skinName="monthCardBuyBtnSkin" />
+		<e:Label id="costLabel" text="25元" y="141" horizontalCenter="1.5" size="30" textColor="0x3b1001" />
+	</e:Group>
+</e:Skin>

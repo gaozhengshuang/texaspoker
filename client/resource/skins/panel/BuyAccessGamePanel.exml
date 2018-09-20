@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BuyAccessGamePanelSkin" width="676" height="660" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" width="640" height="575" anchorOffsetX="0" anchorOffsetY="0" y="0" horizontalCenter="0">
+		<e:Group id="buyAccessGp" y="-1" height="575" horizontalCenter="0">
+			<e:Image id="bg" y="0" anchorOffsetY="0" x="0" source="pub_bg2_png" height="660" width="664"
+			         scale9Grid="0,101,666,13" />
+			<e:Image id="buyTitle" y="11" anchorOffsetY="0" scaleX="1" scaleY="1" source="mryx_png"  horizontalCenter="0"/>
+			<e:Image id="addCoinTitle" y="11" anchorOffsetY="0" scaleX="1" scaleY="1" source="mryx_png" horizontalCenter="0"/>
+
+			<e:Image y="200" anchorOffsetX="0"
+			         scaleX="1" scaleY="1" anchorOffsetY="0"  scale9Grid="12,11,15,10" width="601" height="120" x="32" source="pub_bg_3_1_png"/>
+			<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" scale9Grid="12,11,15,10" source="game_jiantou_png" horizontalCenter="0" verticalCenter="84.5"/>
+			<e:Label text="最小买入" x="49" y="265" size="24"  fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+			<e:Label id="biggestLabel" text="999" x="557" y="232" size="24" fontFamily="Microsoft YaHei" scaleX="1"
+			         scaleY="1"  textColor="0xffffff" rotation="0.88"/>
+			<e:Label id="" text="现有资产：" y="115" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"
+			         textColor="0xf9cb55"  horizontalCenter="-50"/>
+			<e:Label id="smallestLabel" text="999" x="76.5" y="232" size="24" fontFamily="Microsoft YaHei" scaleX="1"
+			         scaleY="1"  textColor="0xffffff" rotation="0.88"/>
+			<e:Label id="countLable" text="999" y="229.88" size="60" fontFamily="Microsoft YaHei" scaleX="1"
+			         scaleY="1" textColor="0xf9cb55"  horizontalCenter="0"/>
+			<e:Label id="currentProperty" text="9999999" y="115" size="26" fontFamily="Microsoft YaHei" scaleX="1"
+			         scaleY="1" textColor="0xf9cb55"  horizontalCenter="60.5"/>
+			<e:Label text="最大买入" x="526" y="265" size="24"  fontFamily="Microsoft YaHei" textColor="0xffffff" rotation="0.88"/>
+			<e:CheckBox id="autoBuyCheck" skinName="CheckBoxSkin1" anchorOffsetX="0" width="50" anchorOffsetY="0" height="50"
+			            x="485" y="333"  label="自动买入"/>
+
+			<e:HSlider id="buyAccessHs" width="451" height="40" x="88" y="409" skinName="HSliderSkin1" anchorOffsetX="0" />
+			<ns1:ShadowButton id="shoppingBtn" label="商城充值" x="93" y="483" anchorOffsetX="0" anchorOffsetY="0"
+			          skinName="commonButtonY2Skin" />
+			<ns1:ShadowButton id="buyAccessBtn" label="买入游戏" x="360" y="483" anchorOffsetX="0" anchorOffsetY="0"
+			          skinName="commonButtonY2Skin" />
+			<ns1:ShadowButton id="closeButton" label="Button" x="583" y="41" skinName="closeButtonSkin"/>
+
+		</e:Group>
+		<e:Group id="unEnoughGoldGp" height="574" anchorOffsetX="0" width="641" anchorOffsetY="0" y="-19" horizontalCenter="0">
+			<e:Image anchorOffsetY="0" source="pub_bg2_png" height="473" width="664" scale9Grid="0,101,666,13" y="119" x="-11"/>
+			<e:Image y="240.31" source="bg_jbbz_png" horizontalCenter="0.5"/>
+			<e:Image id="insufficientImage" anchorOffsetY="18.7" height="69" width="179" y="150.7" source="jbbz_png" anchorOffsetX="35.24" x="266.24"/>
+			<e:Image id="bankruptcyImage" anchorOffsetY="18.7" height="69" width="179" y="150.7" anchorOffsetX="35.24" source="nypc_png" x="266.24"/>
+
+
+			<e:Label id="priceLabel" text="仅需648元" y="279.54" anchorOffsetX="0" anchorOffsetY="0"
+			         textColor="0xfffdfc" size="45"  textAlign="center" horizontalCenter="0"/>
+
+
+			<e:Label id="goldLabel" text="1200万金币" y="341.66" size="66"  textAlign="center" textColor="0xffde02" horizontalCenter="0"/>
+			<ns1:ShadowButton id="backButton" label="Button" y="163" skinName="closeButtonSkin" x="582"/>
+			<ns1:ShadowButton id="buyNowBtn" label="立即购买" y="467.67" anchorOffsetX="0" anchorOffsetY="0" skinName="commonButtonY2Skin" horizontalCenter="0"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>

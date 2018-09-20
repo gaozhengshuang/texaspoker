@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="panelSkin2" width="666" height="900" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" horizontalCenter="0" verticalCenter=" 0">
+		<e:Image width="666" height="900"
+		          x="0" source="pub_bg2_png" scale9Grid="4,106,656,6"/>
+		<e:Image y="15" source="login_yhxy_png" horizontalCenter="0"/>
+		<ns1:GameButton id="closeButton" label="Button" x="572.35" y="40.19"  skinName="closeButtonSkin"/>
+		<e:Group id="txtGroup" horizontalCenter="1" anchorOffsetY="0" y="130">
+			<e:Label id="infoTxt" text="" x="0" y="0" width="600"  size="24" textColor="0xffffff" lineSpacing="7" alpha="0.8"/>
+		</e:Group>
+		<e:TextInput id="textInput" text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa//				ssssssssssssssssssss   " width="600"
+		             height="600" y="130" anchorOffsetX="0" anchorOffsetY="0" enabled="true"  horizontalCenter="0"/>
+		<ns1:ShadowButton id="agreeBtn" label="已阅读并同意用户协议" skinName="friendKSLQButtonSkin" y="761.31" horizontalCenter="0"/>
+	</e:Group>
+</e:Skin>

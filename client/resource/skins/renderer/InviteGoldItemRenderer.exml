@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="InviteGoldItemRendererSkin" width="600" height="48" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Label id="timeLabel" text="12-23" x="28" size="26" textAlign="center" verticalCenter="0"  width="75" textColor="0xb74101" fontFamily="Microsoft YaHei"/>
+    <e:Label id="nameLabel" text="用户名字六字" x="125" width="200" size="26" fontFamily="Microsoft YaHei"
+             textAlign="center"  verticalCenter="0" textColor="0xb74101"/>
+    <e:Label id="getNumLabel" text="66.66万" x="450" width="126" size="26" anchorOffsetX="0"
+             textAlign="center"  textColor="0x0276d8" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+
+    <e:Label id="payNumLabel" text="666.66万" x="304" size="26"  anchorOffsetX="0" width="120" textAlign="center" textColor="0xb74101" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+	<e:Image y="47" width="564" source="yq_line_png" horizontalCenter="0"/>
+</e:Skin>

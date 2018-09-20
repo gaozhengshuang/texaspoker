@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="NormalActivityPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:ns1="*" xmlns:tween="egret.tween.*">
+	<w:Config id="15c813d330f" />
+	<e:Group id="anmGroup1" width="720" height="1180" x="0" y="100" anchorOffsetY="0">
+		<e:Image width="720" height="1200" x="1" y="-20" anchorOffsetY="0" source="assets/bg/pub_bg11_png"/>
+		<e:Image id="activityImg" width="680" height="500" x="20" y="40" scaleX="1" scaleY="1" />
+		<e:Label id="desLabel" text="活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容" x="20" y="560" height="300" width="680" size="35" textAlign="left"/>
+		<e:Scroller id="activityScroller" width="680" height="1120" x="20" y="30"/>
+		<e:List id="activityList" width="680" x="20" y="860" scaleX="1" scaleY="1"/>
+	</e:Group>
+	<e:Group id="anmGroup" width="720" height="100" x="0" y="0">
+		<e:Image id="bg" source="bg_biaoti_png"/>
+		<e:Image id="titleImg" y="20" scaleX="1" scaleY="1" horizontalCenter="0" />
+
+		<e:Group id="titleGroup" height="100" horizontalCenter="0" y="0">
+			<e:Label id="titleLabel" text="活动标题" y="20" size="50" bold="true" textColor="0xfcd232" textAlign="center" verticalAlign="middle" horizontalCenter="0" x="-102" scaleX="1" scaleY="1"/>
+		</e:Group>
+		<ns1:ShadowButton id="closeButton" label="返回" x="40" y="40" anchorOffsetX="31" anchorOffsetY="32" skinName="closeButton2Skin"/>
+
+	</e:Group>
+
+
+
+
+
+</e:Skin>

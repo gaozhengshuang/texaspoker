@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="freeGold_buttonSkin" states="up,down,disabled" minHeight="65" minWidth="172" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+       >
+    <e:Image  id="btnImg" alpha.disabled="0.5" y="0" x="0"  source="icon_linqujinbi_png"/>
+	<e:Image id="lightBg" scaleX="1" scaleY="1" source="hall_tx_3_png" verticalCenter="0" horizontalCenter="0"/>
+	<e:Image id="getFreeGoldImg" source="txt_lqjb_png" width="100" height="30" scaleX="1" scaleY="1" y="80" horizontalCenter="0"/>
+</e:Skin>

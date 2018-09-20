@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="shimTaeYoonItemRenderer" width="172" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImg" source="laBa_quan_0_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="iconImg" horizontalCenter="0" verticalCenter="0" source="laBa_item_0_png"/>
+
+</e:Skin>

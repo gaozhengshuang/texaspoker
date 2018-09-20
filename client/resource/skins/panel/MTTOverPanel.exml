@@ -1,0 +1,57 @@
+<e:Skin class="panelSkin13" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" height="660" width="666" horizontalCenter="-4" verticalCenter="0">
+		<e:Image width="666" height="660" anchorOffsetY="0" x="0"  source="pub_bg2_png" scale9Grid="2,106,658,7"/>
+		<e:Image y="28" source="bsjs_png" horizontalCenter="0"/>
+
+		<ns1:GameButton id="closeButton" label="Button" skinName="closeButtonSkin" x="583" y="41" />
+		<e:Image id="iconImg" x="60" y="112"  source="jbs_jb_png"/>
+		<e:Label id="endRankLabel" text="第10名" x="341.11" y="155.99" size="80" bold="true"  textColor="0xfbca54"/>
+		<e:Label id="awardDesLabel" text="您没有获得任何奖励" x="325.11" y="302.63"  width="270" size="26" lineSpacing="7"/>
+
+		<e:Group id="bottomGroup" y="553.17" horizontalCenter="0">
+			<ns1:ShadowButton id="shareBtn" label="分享" x="-2.842170943040401e-14" y="0" skinName="commonButtonB2Skin"/>
+
+			<ns1:ShadowButton id="confirmBtn" label="确定" x="248.17999999999995" y="0" skinName="commonButtonY2Skin"/>
+			<e:layout>
+				<e:HorizontalLayout gap="20" horizontalAlign="center" verticalAlign="middle"/>
+			</e:layout>
+		</e:Group>
+		<e:Group width="124" height="124" x="20" y="407.54">
+			<e:Image source="jbs_bg1_png"/>
+			<e:Label text="本次比赛共" x="0" y="18.68" width="124" verticalAlign="middle" textAlign="center"
+			         border="false" scaleX="1" scaleY="1"  size="18" textColor="0xf9ca54"/>
+			<e:Label id="allJoinNumLabel" text="999" width="124" verticalAlign="middle" textAlign="center"
+			         border="false" x="0" scaleX="1" scaleY="1"  verticalCenter="0" size="32"/>
+			<e:Label text="玩家报名" y="86.65" width="124" verticalAlign="middle" textAlign="center" border="false" scaleX="1"
+			         scaleY="1"  size="18" textColor="0xf9ca54"/>
+		</e:Group>
+		<e:Group width="124" height="124" x="183" y="407.54">
+			<e:Image source="jbs_bg1_png"/>
+			<e:Label text="比赛已进行" x="0" y="18.68" width="124" verticalAlign="middle" textAlign="center"
+			         border="false" scaleX="1" scaleY="1"  size="18" textColor="0xf9ca54"/>
+			<e:Label id="processTimeLabel" text="25分钟" width="124" verticalAlign="middle" textAlign="center"
+			         border="false" x="0" scaleX="1" scaleY="1"  verticalCenter="0" size="32"/>
+			<e:Label text="分钟" y="86.65" width="124" verticalAlign="middle" textAlign="center" border="false" scaleX="1"
+			         scaleY="1"  size="18" textColor="0xf9ca54"/>
+		</e:Group>
+		<e:Group width="124" height="124" x="346" y="407.54">
+			<e:Image source="jbs_bg1_png"/>
+			<e:Label text="你淘汰了" x="0" y="18.68" width="124" verticalAlign="middle" textAlign="center"
+			         border="false" scaleX="1" scaleY="1"  size="18" textColor="0xf9ca54"/>
+			<e:Label id="outNumLabel" text="59" width="124" verticalAlign="middle" textAlign="center" border="false"
+			         x="0" scaleX="1" scaleY="1"  verticalCenter="0" size="32"/>
+			<e:Label text="玩家" y="86.65" width="124" verticalAlign="middle" textAlign="center" border="false" scaleX="1"
+			         scaleY="1"  size="18" textColor="0xf9ca54"/>
+		</e:Group>
+		<e:Group width="124" height="124" x="508.71" y="407.54">
+			<e:Image source="jbs_bg1_png"/>
+			<e:Label text="最高排名" x="0" y="18.68" width="124" verticalAlign="middle" textAlign="center"
+			         border="false" scaleX="1" scaleY="1"  size="18" textColor="0xf9ca54"/>
+			<e:Label id="highestLabel" text="59" width="124" verticalAlign="middle" textAlign="center" border="false"
+			         x="0" scaleX="1" scaleY="1"  verticalCenter="0" size="32"/>
+			<e:Label text="名" y="86.65" width="124" verticalAlign="middle" textAlign="center" border="false" scaleX="1"
+			         scaleY="1"  size="18" textColor="0xf9ca54"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>

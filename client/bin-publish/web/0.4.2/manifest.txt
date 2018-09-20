@@ -1,0 +1,3 @@
+window.web_config_scripts = ['libs/modules-4ba3520f21.min.js','libs/bundle-d80cca2fce.min.js','libs/main-92882e2484.min.js'];
+window.web_config_defaultResJson = 'resource/default-55fc9af10a.res.json';
+window.web_config_defaultThmJson = 'resource/default-e07697369c.thm.json';

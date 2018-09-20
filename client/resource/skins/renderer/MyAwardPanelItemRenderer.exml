@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="myAwardPanelItemSkin" width="602" height="112" xmlns:ns1="*" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image height="112" source="pub_lines_png" width="602" scale9Grid="12,10,6,6"/>
+	<e:Image height="112" source="assets/bg/pub_bg11_png" alpha="0" width="602"/>
+	<ns1:CommonIcon id="comItemIcon" x="20" skinName="CommonIconSkin" verticalCenter="0"/>
+
+
+
+
+	<e:Label id="itemTitleLabel" text="iPhone7" x="125.67" y="20.08" height="30" width="193.94"  anchorOffsetX="0" textColor="0xdfe5e5" size="26"/>
+	<e:Label id="itemDesLabel" text="您可获得Iphone7一台，颜色随机。" x="125.67" y="56.08" width="283.94" size="24"  anchorOffsetX="0" lineSpacing="2" textColor="0x4bc6b7"/>
+
+	<e:Label id="takeDesLabel" text="等待发货" x="436" height="40" width="134.85" textAlign="center" verticalAlign="middle"
+	          verticalCenter="0" textColor="0xebc355" size="26" anchorOffsetX="0"/>
+	<e:Label id="takeErrorLabel" text="物品已返还" x="436" height="40" width="134.85" textAlign="center" verticalAlign="middle" verticalCenter="30" textColor="0xEBC355" size="22" anchorOffsetX="0"/>
+	<ns1:ShadowButton id="takePrizeBtn" label="领取" x="421" verticalCenter="0" skinName="commonButtonYSkin" visible="false"/>
+</e:Skin>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gambling_rebuy_addon_btn" xmlns:e="http://ns.egret.com/eui" width="114" height="53">
+    <e:Image id="btnImg"  source="icon_zgcg_png" scaleX="1"/>
+    	<e:Label id="labelDisplay" size="22"
+	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  textColor="0xffffff" text="增购" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="0" alpha="0.8"/>
+</e:Skin>

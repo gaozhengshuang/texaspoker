@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShareLuckDrawItemComponentSkin" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bgImg" horizontalCenter="0" verticalCenter="-5" height="86" width="86" source="xinrenli_bg_2_png"/>
+
+	<e:Image id="itemImg" verticalCenter="-5" horizontalCenter="0" scaleX="0.7" scaleY="0.7"/>
+	<e:Image id="highLightImg" width="130" height="113" source="share_bg_2_png" scale9Grid="18,15,27,22"/>
+	<e:Label id="numLabel" text="11" horizontalCenter="0" size="18" bottom="10" textColor="0xb74101"/>
+
+</e:Skin>

@@ -1,0 +1,1 @@
+{"version":3,"file":"RequestNewsInfo.js","sourceRoot":"","sources":["../../../src/app/friend/RequestNewsInfo.ts"],"names":[],"mappings":";;;AAAA;;EAEE;AACF;IAEI,yBAAmB,IAAmB,EAAE,IAAS;QAE7C,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,IAAI,GAAG,WAAW,CAAC,qBAAqB,EAAE,CAAC;IACpD,CAAC;IAML,sBAAC;AAAD,CAAC,AAbD,IAaC;AAbK,UAAA,eAAe,8BAapB,CAAA"}

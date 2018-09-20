@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="checkBoxSkin2" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected"
+        xmlns:e="http://ns.egret.com/eui" width="100" height="100">
+	<e:Image fillMode="scale" alpha="1" alpha.disabled="0.5" alpha.down="0.7" source.upAndSelected="game_cjsrf_png" source.downAndSelected="game_cjsrf_png"  source="lb_tx_png" width="100" height="100" x="0" y="0" scale9Grid.upAndSelected="6,6,38,29" scale9Grid.downAndSelected="6,6,38,31" scale9Grid="2,2,2,2"/>
+
+</e:Skin>

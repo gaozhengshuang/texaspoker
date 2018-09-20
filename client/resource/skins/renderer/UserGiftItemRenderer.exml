@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="UserGiftItemRendererSkin" width="200" height="250" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" width="200" height="250" x="0" y="0">
+		<e:Image id="bg" width="200" height="250" source="pub_bg1_png" scale9Grid="1,1,46,45"/>
+		<ns1:CommonIcon id="giftComp" y="50" skinName="CommonIconSkin" width="130" height="130" horizontalCenter="0"/>
+		<e:Label id="giftNameLabel" text="111" y="10" fontFamily="Microsoft YaHei" textAlign="center" horizontalCenter="0" textColor="0xfad050"/>
+		<e:Label id="wearingLabel" text="佩戴中" fontFamily="Microsoft YaHei" textAlign="center" textColor="0xFAD050" left="10" bottom="10"/>
+		<e:Label id="leftTimeLabel" text="24H" fontFamily="Microsoft YaHei" textAlign="center" size="30" textColor="0xffffff" scaleX="1" scaleY="1" verticalAlign="middle" bottom="10" right="10"/>
+	</e:Group>
+</e:Skin>

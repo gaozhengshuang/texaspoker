@@ -1,0 +1,63 @@
+syntax = "proto2";
+package msg;
+import "serialize.proto";
+
+// 请求充值页面
+message C2GW_ReqRechargeMoney {
+    optional int32 amount = 1;
+    optional string token = 2;
+    optional int32 type = 3;
+}
+
+// 返回充值请求
+message GW2C_RetRechargeMoney {
+    optional string urlcheckout = 1;
+}
+
+// 红包平台充值完成通知
+message C2GW_PlatformRechargeDone {
+    optional int64 userid = 1;
+}
+
+// 同步玩家绑定微信信息
+message GW2C_SendWechatInfo {
+    optional string openid = 1;
+}
+
+// 抽奖
+message C2GW_StartLuckyDraw {
+    optional int64 userid = 1;
+}
+
+message GW2C_LuckyDrawHit {
+    optional int32 id = 1;
+}
+
+// 发送任务列表
+message GW2C_SendTaskList {
+    repeated msg.TaskData tasks = 1;
+}
+
+// 抽奖历史记录
+message GW2C_SendLuckyDrawRecord {
+    optional LuckyDrawRecord luckydraw = 1;
+}
+
+// 请求任务列表
+message C2GW_ReqTaskList {
+	
+}
+
+message GW2C_Ret7DayReward {
+    optional int32 day = 1;
+}
+
+message C2GW_Get7DayReward {
+}
+
+// 上传微信授权code
+message C2GW_SendWechatAuthCode {
+    optional string code = 1;
+}
+
+

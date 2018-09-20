@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="sitAndPlayStartRemindPanel" width="666" height="450" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*"
+        xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="tweenGroup" verticalCenter="0" horizontalCenter="0">
+		<e:Image id="bgImage" width="666" height="450" anchorOffsetX="0" anchorOffsetY="0"
+		         y="0" x="0"  source="pub_bg2_png" scale9Grid="2,106,660,6"/>
+		<e:Image scaleX="1" scaleY="1" anchorOffsetX="0" verticalCenter="-175.5" source="xtts_png" horizontalCenter="0"/>
+		<e:Label id="desLabel" text="您报名的坐满即玩5000金币场马上就要开赛，是否立即进入？（8）" size="24" verticalCenter="0" multiline="true" width="400"
+		         horizontalCenter="0" textAlign="center"  lineSpacing="5"/>
+		<e:Group id="group" horizontalCenter="0" y="320">
+			<ns1:ShadowButton id="closeButton" label="取消" anchorOffsetX="0" scaleX="1" scaleY="1" verticalCenter="0" x="300" skinName="commonButtonB2Skin"/>
+			<ns1:ShadowButton id="confirmBtn" label="确定" anchorOffsetX="0" scaleX="1" scaleY="1" skinName="commonButtonY2Skin"/>
+			<e:layout>
+			<e:HorizontalLayout gap="100" horizontalAlign="center" verticalAlign="middle"/>
+			</e:layout>
+		</e:Group>
+
+
+
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,225 @@
+<e:Skin class="OmahaCardTypePanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Group id="anmGroup" height="1280" horizontalCenter="0" width="720" bottom="0" touchEnabled="false">
+
+        <e:Image id="bgImg" anchorOffsetX="0" anchorOffsetY="0"
+                  height="906" width="560" source="paixing_bg_png" left="0" bottom="150" scale9Grid="19,17,41,36"/>
+
+			<e:Group id="scrollGroup" x="10" y="234">
+				<e:Group id="cardGroup" width="540" anchorOffsetX="0" anchorOffsetY="0" name="牌型介绍" scaleX="1" scaleY="1" height="886" x="0" y="0">
+					<e:Group scaleX="1" scaleY="1">
+					<e:Image x="41" y="56" source="pai_hong1_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="51" y="66" source="pai_hong13_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="61" y="76" source="pai_hong12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="71" y="86" source="pai_hong11_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="81" y="96" source="pai_hong10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="91" y="106" source="pai_hei10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="101" y="116" source="pai_hei9_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="111" y="126" source="pai_hei8_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="121" y="136" source="pai_hei7_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="131" y="146" source="pai_hei6_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="141" y="156" source="pai_mei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="151" y="166" source="pai_fang12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="161" y="176" source="pai_hong12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="171" y="186" source="pai_hei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="181" y="196" source="pai_hong10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="151" y="166" source="pai_mei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="161" y="176" source="pai_fang12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="171" y="186" source="pai_hong12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="191" y="206" source="pai_hong10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="101" y="116" source="pai_hei10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="181" y="196" source="pai_hei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="191" y="206" source="pai_hei10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="201" y="216" source="pai_hei8_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="211" y="226" source="pai_hei6_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="221" y="236" source="pai_hei5_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="161" y="176" source="pai_mei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="81" y="96" source="pai_hong11_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="201" y="216" source="pai_hong10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="111" y="126" source="pai_hei9_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="121" y="136" source="pai_hei8_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="171" y="186" source="pai_mei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="171" y="186" source="pai_fang12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="191" y="206" source="pai_hei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="211" y="226" source="pai_hong10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="221" y="236" source="pai_hei6_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="201" y="216" source="pai_hei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="171" y="186" source="pai_hong12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="201" y="216" source="pai_hei10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="221" y="236" source="pai_hong10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="131" y="146" source="pai_hei7_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="211" y="226" source="pai_hei10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="231" y="246" source="pai_hong10_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="181" y="196" source="pai_mei12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="231" y="246" source="pai_hei5_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="51" y="66" source="pai_hong1_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="61" y="76" source="pai_hong1_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="181" y="196" source="pai_fang12_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="91" y="106" source="pai_hong11_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="231" y="246" source="pai_hei6_png" scaleX="0.8" scaleY="0.8" height="120"/>
+					<e:Image x="241" y="256" scaleX="0.8" scaleY="0.8" height="120" source="pai_hei5_png"/>
+					<e:layout>
+						<e:TileLayout orientation="rows" requestedColumnCount="5" horizontalAlign="left" verticalAlign="top" horizontalGap="0" verticalGap="-7"/>
+					</e:layout>
+					</e:Group>
+					<e:Group horizontalCenter="0" width="170">
+					<e:Group x="0" y="0" height="96">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text="10   皇家同花顺" size="24" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="96">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 9  同花顺" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="192">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 8  四条" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="288">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 7  葫芦" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="384">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 6  同花" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="480">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 5  顺子" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="576">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 4  三条" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="672">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 3  两对" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="768">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 2  一对" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:Group x="0" y="864">
+						<e:Image anchorOffsetX="0" anchorOffsetY="0" source="paixing_bg_1_png" verticalCenter="0" left="0"/>
+						<e:Label text=" 1  高牌" x="0" size="24" y="0" scaleX="1" scaleY="1" height="96" verticalAlign="middle" textAlign="left"/>
+					</e:Group>
+					<e:layout>
+						<e:VerticalLayout paddingTop="0" horizontalAlign="left" verticalAlign="top" gap="-7"/>
+					</e:layout>
+					</e:Group>
+					<e:layout>
+					<e:HorizontalLayout horizontalAlign="center" verticalAlign="top" gap="20"/>
+					</e:layout>
+				</e:Group>
+				<e:Group id="lightGroup" width="540" height="886" x="0" y="0">
+					<e:Group id="light10" width="340" height="89" x="230" y="154">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="30" y="125" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="40" y="135" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light9" width="340" height="89" x="240" y="164">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="30" y="125" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="40" y="135" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light8" width="340" height="89" x="250" y="174">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="30" y="125" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light7" width="340" height="89" x="260" y="184">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="30" y="125" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="40" y="135" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light6" width="340" height="89" x="270" y="194">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="30" y="125" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="40" y="135" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light5" width="340" height="89" x="280" y="204">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="30" y="125" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="40" y="135" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light4" width="340" height="89" x="290" y="214">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light3" width="340" height="89" x="300" y="224">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="20" y="115" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="30" y="125" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light2" width="340" height="89" x="310" y="234">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:Image x="10" y="105" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:Group id="light1" width="340" height="89" x="320" y="244">
+					<e:Image x="0" y="95" height="89" source="game_bg_6_png" scale9Grid="11,11,2,1" width="67" scaleX="1" scaleY="1"/>
+					<e:layout>
+						<e:HorizontalLayout paddingLeft="1" paddingRight="1" gap="1"/>
+					</e:layout>
+					</e:Group>
+					<e:layout>
+					<e:VerticalLayout paddingLeft="5" paddingRight="5" gap="0"/>
+					</e:layout>
+				</e:Group>
+			</e:Group>
+			<e:Scroller id="scroller" width="540" height="886" left="10" bottom="160">
+			</e:Scroller>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </e:Group>
+</e:Skin>

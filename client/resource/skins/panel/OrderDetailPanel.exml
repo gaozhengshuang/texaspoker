@@ -1,0 +1,53 @@
+<e:Skin class="panelSkin13" width="666" height="900" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="tweenGroup" height="900" width="666">
+		<e:Image width="666" height="900" anchorOffsetY="0" x="0" source="pub_bg2_png" scale9Grid="0,106,666,12" />
+		<e:Image y="15" horizontalCenter="0.5" source="djxx_png" />
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27"
+		                  scaleX="1" skinName="closeButtonSkin" />
+		<e:Image width="648" height="156" y="112.33" source="ssxx_sk_2_png" horizontalCenter="0" />
+		<ns1:CommonIcon id="comItemIcon" skinName="CommonIconSkin" verticalCenter="-261" y="85.37" horizontalCenter="0" />
+		<e:Group x="103.34" y="297.98">
+			<e:Group x="0" y="0">
+				<e:Label text="道具名称:" x="0" y="0" width="130" textAlign="right" size="26" />
+				<e:Label id="nameLabel" text="Label" x="161.67" y="0" anchorOffsetX="0" width="300" size="26" textColor="0xf3c655"  lineSpacing="5"/>
+			</e:Group>
+			<e:Group x="0" y="50">
+				<e:Label text="道具说明:" x="0" y="0" width="130" textAlign="right" size="26" />
+				<e:Label id="desLabel" text="Label" x="163" y="0" anchorOffsetX="0" width="300" size="26"  lineSpacing="5"/>
+			</e:Group>
+			<e:Group x="0" y="125">
+				<e:Label text="获得方式:" x="0" y="0" width="130" textAlign="right" size="26" />
+				<e:Label id="getTypeLabel" text="Label" x="163" y="0" anchorOffsetX="0" width="300" size="26"  lineSpacing="5"/>
+			</e:Group>
+			<e:Group id="receivedGroup" x="-3.3400000000000034" y="177.01999999999998" scaleX="1" scaleY="1">
+				<e:Group x="3.34" y="0">
+					<e:Label text="当前状态:" x="0" y="1" width="130" textAlign="right" size="26" />
+					<e:Label id="stateLabel" text="Label" x="163" y="0" anchorOffsetX="0" width="300" size="26" />
+				</e:Group>
+				<e:Group x="3.34" y="50">
+					<e:Label text="收件人:" x="0" y="0" width="130" textAlign="right" size="26" />
+					<e:Label id="pNameLabel" text="Label" x="163" y="0" anchorOffsetX="0" width="300" size="26" />
+				</e:Group>
+				<e:Group x="0" y="100">
+					<e:Label text="手机号:" x="0" y="0" width="130" textAlign="right" size="26" />
+					<e:Label id="telLabel" text="Label" x="163" y="0" anchorOffsetX="0" width="300" size="26" />
+				</e:Group>
+				<e:Group id="addressGroup" x="2.009999999999991" y="150">
+					<e:Label text="地址:" x="0" y="0" width="130" textAlign="right" size="26" />
+					<e:Label id="addressLabel" text="Label" x="163.0000000000001" y="0" anchorOffsetX="0" width="300" size="26"  lineSpacing="5"/>
+				</e:Group>
+				<e:Group id="trackGroup" x="2.009999999999991" y="225">
+					<e:Label text="快递单号:" x="0" y="0" width="130" textAlign="right" size="26" />
+					<e:Label id="trackInfoLabel" text="Label" x="163.00000000000009" y="0" anchorOffsetX="0" width="300" size="26" />
+				</e:Group>
+				<e:layout>
+					<e:VerticalLayout gap="20" />
+				</e:layout>
+			</e:Group>
+			<e:layout>
+				<e:VerticalLayout gap="20" />
+			</e:layout>
+		</e:Group>
+	</e:Group>
+</e:Skin>
