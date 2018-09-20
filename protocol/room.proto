@@ -72,12 +72,16 @@ message RS2GW_UserLeaveRoom {
     optional msg.Serialize bin = 2;
 }
 
-// 通知玩家房间信息
-message GW2C_SendUserRoomInfo {
-    optional int64 roomid = 1;
-    optional string passwd = 2;
+// 请求自己房间列表
+message C2GW_ReqUserRoomInfo {
 }
 
+// 返回玩家房间信息
+message GW2C_SendUserRoomInfo {
+    optional int64 roomid = 1;
+    optional int32 tid  = 2;
+    optional string passwd = 3;
+}
 
 // C2GW 进入房间
 message C2GW_ReqEnterRoom {
