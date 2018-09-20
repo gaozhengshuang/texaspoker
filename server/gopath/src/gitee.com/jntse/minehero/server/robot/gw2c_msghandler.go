@@ -126,6 +126,7 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 		log.Info("玩家[%s %d] 开始游戏失败 err: %s", name, id, err)
 		return
 	}
+	client.roomid = roomid
 
 	sendmsg := &msg.BT_ReqEnterRoom{}
 	session.SendCmd(sendmsg)

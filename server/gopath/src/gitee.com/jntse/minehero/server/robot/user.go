@@ -46,6 +46,7 @@ type User struct {
 	ticker1s   	*util.GameTicker
 	ticker5s   	*util.GameTicker
 	ticker100ms *util.GameTicker
+	roomid		int64
 }
 
 func NewUser() *User {
@@ -66,6 +67,7 @@ func (this *User) Init(account string, passwd string) bool {
 	this.loginstat = kNetStatLoginDisconnect
 	this.gatestat = kNetStatGateDisConnect
 	this.ch_cmd = make(chan string, 10)
+	this.roomid = 0
 
 	//
 	this.UserBase.Init(account, passwd, "13681626939", "510722")

@@ -6,17 +6,17 @@ import "serialize.proto";
 package msg;
 
 
-// C2R 进入创建好的房间, 客户端参数留空
+// C2R 进入创建好的房间
 message BT_ReqEnterRoom {
-    optional int64 roomid = 1;
-    optional int64 userid = 2;
+    optional int64 roomid = 1;      // 房间唯一id
+    optional string passwd = 2;     // 密码
+    optional int64 userid = 3;
 }
 
 // C2R 退出游戏房间
 message BT_ReqLeaveRoom {
     optional int64 roomid = 1;
     optional int64 userid = 2;
-    optional int32 gold = 3;
 }
 
 // R2C 房间初始化
