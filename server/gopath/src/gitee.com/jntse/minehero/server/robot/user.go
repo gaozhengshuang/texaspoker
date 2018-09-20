@@ -280,11 +280,13 @@ func (this *User) HttpWetchatLogin() {
 }
 
 
-func (this *User) StartGame() {
-	this.SendGateMsg(&msg.C2GW_ReqCreateRoom{Gamekind:pb.Int32(0)})
+func (this *User) CreateRoom() {
+	send := &msg.C2GW_ReqCreateRoom{Gamekind:pb.Int32(int32(msg.RoomKind_TexasPoker))}
+	send.Texas = &msg.TexasPersonalRoom{RoomId:pb.Int32(11001), Ante:pb.Int32(100), Pwd:pb.String("12345") }
+	this.SendGateMsg(send)
 }
 
-func (this *User) LeaveGame() {
+func (this *User) LeaveRoom() {
 	this.SendGateMsg(&msg.BT_ReqLeaveRoom{})
 }
 
@@ -333,6 +335,11 @@ func (this *User) EnterEvent(uid int64) {
 	this.SendGateMsg(send)
 }
 
+func (this *User) ReqRoomList() {
+	send := &msg.C2GW_ReqTexasRoomList{Type:pb.Int32(util.RandBetween(1,3))}
+	this.SendGateMsg(send)
+}
+
 func (this *User) DoInputCmd(cmd string) {
 	switch cmd {
 	case "reg":
@@ -341,10 +348,10 @@ func (this *User) DoInputCmd(cmd string) {
 		this.HttpWetchatLogin()
 	case "login":
 		this.SendLogin()
-	case "start":
-		this.StartGame()
+	case "create":
+		this.CreateRoom()
 	case "leave":
-		this.LeaveGame()
+		this.LeaveRoom()
 	case "jump":
 		this.do_jump = !this.do_jump
 	case "buy":
@@ -365,6 +372,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.EnterEvent(5)
 		this.EnterEvent(16)
 		//this.EnterEvent(26)
+	case "list":
+		this.ReqRoomList()
 	}
 }
 

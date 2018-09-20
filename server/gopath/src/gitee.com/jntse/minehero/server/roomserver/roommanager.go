@@ -1,6 +1,7 @@
 package main
 import (
 	"fmt"
+	"time"
 	"github.com/go-redis/redis"
 	//pb"github.com/gogo/protobuf/proto"
 
@@ -19,24 +20,32 @@ import (
 type RoomManager struct {
 	rooms map[int64]IRoomBase			// 所有房间
 	texasrooms map[int32][]IRoomBase	// 德州房间
+	ticker1s *util.GameTicker
 }
 
 func (this *RoomManager) Init() bool {
 	this.rooms = make(map[int64]IRoomBase)
 	this.texasrooms = make(map[int32][]IRoomBase)
+	this.ticker1s = util.NewGameTicker(time.Second, this.Handler1sTick)
+	this.ticker1s.Start()
+
 	this.CleanCache()
 	this.InitPublicTexas()
 	return true
 }
 
+// 初始德州公共房间
 func (this *RoomManager) InitPublicTexas() bool {
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
+		if IsTexasRoomBaseType(tconf.Type) == false {
+			continue
+		}
 		roomid, errcode := def.GenerateRoomId(Redis())
 		if errcode != "" {
 			log.Error("初始化德州公共房间失败[%s]", errcode)
 			return false
 		}
-		room := NewTexasRoom(roomid, 0, tconf.Id, 0, "")
+		room := NewTexasRoom(0, roomid, tconf.Id, 0, "")
 		room.Init()
 		this.Add(room)
 	}
@@ -74,6 +83,7 @@ func (this* RoomManager) Find(id int64) IRoomBase {
 }
 
 func (this *RoomManager) Tick(now int64) {
+	this.ticker1s.Run(now)
 	for id, room := range this.rooms {
 		if room.IsEnd(now) == true {
 			room.OnEnd(now)
@@ -82,6 +92,10 @@ func (this *RoomManager) Tick(now int64) {
 		}
 		room.Tick(now)
 	}
+}
+
+func (this *RoomManager) Handler1sTick(now int64) {
+	this.TexasRoomAmountCheck()
 }
 
 func (this *RoomManager) Cache(room IRoomBase) {
@@ -106,7 +120,8 @@ func (this *RoomManager) DelCache(id int64) {
 }
 
 func (this *RoomManager) CleanCache() {
-	Redis().Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0))
+	tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
+	Redis().Del(tkey)
 	for _, v := range msg.PlayingFieldType_value {
 		Redis().Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
 	}
@@ -125,33 +140,40 @@ func (this *RoomManager) CleanCache() {
 		pipe.Del(key)
 	}
 	pipe.Exec()
+
+	//
+	Redis().Del("roomlist")
+	log.Info("[房间] 清除所有缓存房间列表")
 }
 
 // 自动增加房间
-func (this *RoomManager) RoomAmountCheck() {
+func (this *RoomManager) TexasRoomAmountCheck() {
 	for subtype, subrooms := range this.texasrooms {
-		if subtype == int32(msg.PlayingFieldType_PlayFieldPersonal) { continue }
+		if IsTexasRoomBaseType(subtype) == false { continue }
 		notfullamount := 0
 		for _, r := range subrooms {
 			if r.IsFull() == false { notfullamount += 1 }
 		}
-		if notfullamount <= 1 {
-			this.AutoIncRoomAmount(subtype)
+		if notfullamount <= 0 {
+			this.AutoIncTexasRoomAmount(subtype)
 		}
 	}
 }
 
-func (this *RoomManager) AutoIncRoomAmount(subtype int32) bool {
+func (this *RoomManager) AutoIncTexasRoomAmount(subtype int32) bool {
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
-		if tconf.Type != subtype { continue }
+		if IsTexasRoomBaseType(tconf.Type) == false {
+			continue
+		}
 		roomid, errcode := def.GenerateRoomId(Redis())
 		if errcode != "" {
 			log.Error("初始化德州公共房间失败[%s]", errcode)
 			return false
 		}
-		room := NewTexasRoom(roomid, 0, tconf.Id, 0, "")
+		room := NewTexasRoom(0, roomid, tconf.Id, 0, "")
 		room.Init()
 		this.Add(room)
+		log.Info("[房间] 自动创建德州新房间[%d] 子类型[%d]", room.Id(), subtype)
 	}
 	return true
 }
@@ -166,6 +188,7 @@ func (this *RoomManager) OnGateClose(sid int) {
 }
 
 func (this *RoomManager) Shutdown() {
+	this.ticker1s.Stop()
 	//for id, room := range this.rooms {
 	//	room.OnEnd(util.CURTIMEMS())
 	//}

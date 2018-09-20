@@ -71,6 +71,7 @@ func (this *TexasPokerRoom) Init() string {
 		return "找不到房间配置"
 	}
 	this.tconf = tconf
+	this.subkind = tconf.Type
 	this.cards = make(Cards, 0, SUITSIZE * CARDRANK)
 	for i := 0; i < SUITSIZE; i++{
 		for j := 0; j < CARDRANK; j++{
