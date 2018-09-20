@@ -7,13 +7,14 @@ message TanTanLeRoom {
     optional int32 tid = 1;
 }
 
-// 请求开始游戏(开房间)
+// 创建房间
 message C2GW_ReqCreateRoom {
     optional int32 gamekind = 1;            // 游戏类型
     optional TanTanLeRoom tantanle = 2;     // 弹弹乐
     optional TexasPersonalRoom texas = 3;   // 德州游戏
 }
 
+// 创建房间返回
 message GW2C_RetCreateRoom {
     optional string errcode = 1;
     optional int64 roomid = 2;
