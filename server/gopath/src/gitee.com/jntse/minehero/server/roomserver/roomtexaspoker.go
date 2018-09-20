@@ -6,7 +6,8 @@ import (
 	"math/rand"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
-	//"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/pbmsg"
+	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/tbl/excel"
 	//"gitee.com/jntse/gotoolkit/net"
@@ -35,6 +36,7 @@ type TexasPokerRoom struct {
 	topCardIndex int32					//当前牌顶
 	initilized bool						//是否已经初始化
 	players TexasPlayers				//参与玩家
+	watchers TexasPlayers				//观察者
 	state int32							//状态
 	winlist TexasPlayers				//赢家列表
 	dealerpos int32						//庄家位置
@@ -50,6 +52,9 @@ type TexasPokerRoom struct {
 	chips []int32						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码
 	remain	int32						// 剩余人
 	allin int32							// allin人数
+	publiccard []int32					// 公共牌
+	curactpos int32
+	starttime int32
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -241,8 +246,17 @@ func (this *TexasPokerRoom) PreFlopBet() int32{
 }
 
 func (this *TexasPokerRoom) Flop() int32{
+	card1 := this.Deal()
+	card2 := this.Deal()
+	card3 := this.Deal()
+	this.publiccard = append(this.publiccard, card1.Suit+1)
+	this.publiccard = append(this.publiccard, card1.Value+2)
+	this.publiccard = append(this.publiccard, card2.Suit+1)
+	this.publiccard = append(this.publiccard, card2.Value+2)
+	this.publiccard = append(this.publiccard, card3.Suit+1)
+	this.publiccard = append(this.publiccard, card3.Value+2)
 	this.ForEachPlayer(this.smallblinder.pos, func(p *TexasPlayer) bool {
-		p.SetFlop(this.Deal(), this.Deal(), this.Deal())
+		p.SetFlop(card1, card2, card3)
 		return true
 	})
 	this.ClearBetOver()
@@ -272,8 +286,11 @@ func (this *TexasPokerRoom) FlopBet() int32{
 }
 
 func (this *TexasPokerRoom) Turn() int32{
+	card := this.Deal()
+	this.publiccard = append(this.publiccard, card.Suit+1)
+	this.publiccard = append(this.publiccard, card.Value+2)
 	this.ForEachPlayer(this.smallblinder.pos, func(p *TexasPlayer) bool {
-		p.SetTurn(this.Deal())
+		p.SetTurn(card)
 		return true
 	})
 	this.ClearBetOver()
@@ -303,8 +320,11 @@ func (this *TexasPokerRoom) TurnBet() int32{
 }
 
 func (this *TexasPokerRoom) River() int32{
+	card := this.Deal()
+	this.publiccard = append(this.publiccard, card.Suit+1)
+	this.publiccard = append(this.publiccard, card.Value+2)
 	this.ForEachPlayer(this.smallblinder.pos, func(p *TexasPlayer) bool {
-		p.SetRiver(this.Deal())
+		p.SetRiver(card)
 		return true
 	})
 	this.ClearBetOver()
@@ -480,6 +500,95 @@ func (this *TexasPokerRoom) Handler1sTick(now int64) {
 	case TPShutDown:
 		this.ShutDown()
 	}
+}
+
+func (this *TexasPokerRoom) EnterRoom(user *RoomUser) {
+	player := this.FindPlayerByID(user.Id())
+	if player != nil {
+		this.ReEnterRoom(user)
+		return
+	}
+	player = NewTexasPlayer(user)
+	player.Init()
+	this.AddWatcher(player)
+	this.SendRoomInfo(player)
+}
+
+func (this *TexasPokerRoom) ReEnterRoom(user *RoomUser) {
+}
+
+func (this *TexasPokerRoom) FindAllByID(userid int64) *TexasPlayer {
+	for _, player := range this.players {
+		if player.owner.Id() == userid {
+			return player
+		}
+	}
+	for _, player := range this.watchers {
+		if player.owner.Id() == userid {
+			return player
+		}
+	}
+	return nil
+}
+
+func (this *TexasPokerRoom) FindPlayerByID(userid int64) *TexasPlayer {
+	for _, player := range this.players {
+		if player.owner.Id() == userid {
+			return player
+		}
+	}
+	return nil
+}
+
+func (this *TexasPokerRoom) AddPlayer(pos int32, player *TexasPlayer) bool {
+	if this.players[pos] != nil {
+		return false
+	}
+	this.players[pos] = player
+	return true
+}
+
+func (this *TexasPokerRoom) DelPlayer(pos int32) {
+	this.players[pos] = nil
+}
+
+func (this *TexasPokerRoom) AddWatcher(player *TexasPlayer ) {
+	for _, v := range this.watchers {
+		if v == player {
+			return
+		}
+	}
+	this.watchers = append(this.watchers, player)
+}
+
+func (this *TexasPokerRoom) DelWatcher(player *TexasPlayer) {
+	for k, v := range this.watchers {
+		if v == player {
+			this.watchers = append(this.watchers[:k], this.watchers[k+1:]...)
+			return
+		}
+	}
+}
+
+func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
+	send := &msg.RS2C_RetEnterRoomInfo{}
+	send.Id = pb.Int64(this.Id())
+	send.Buttonpos = pb.Int32(this.dealerpos+1)
+	send.Potchips = this.pot
+	send.Roomid = pb.Int32(this.Tid())
+	send.Ante = pb.Int32(0)
+	send.Sblind = pb.Int32(this.smallblindnum)
+	send.Bblind = pb.Int32(this.bigblindnum)
+	send.Pos = pb.Int32(this.curactpos+1)
+	send.Postime = pb.Int32(10)
+	send.Starttime = pb.Int32(this.starttime)
+	send.Publiccard = this.publiccard
+	for _, p := range this.players {
+		send.Playerlist = append(send.Playerlist, p.ToProto())
+	}
+	send.Isshowcard = pb.Bool(player.isshowcard)
+	send.Handcard = player.ToHandCard()
+	player.owner.SendClientMsg(send)
 }
 
 

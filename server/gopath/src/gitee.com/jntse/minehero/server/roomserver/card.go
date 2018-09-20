@@ -6,7 +6,7 @@ const (
 )
 
 type Card struct{
-	Suit  int32    //程序统一标准：0是黑桃、1是红桃、2是梅花、3是方片
+	Suit  int32    //程序统一标准：0是方、1是红、2是黑、3是草
 	Value int32    //0代表‘牌2’、1代表‘牌3’...etc
 
 	Showtime int32 //just for sort
