@@ -153,28 +153,28 @@ func (this *GateUser) CreateRoomRemote(tmsg *msg.C2GW_ReqCreateRoom) (errcode st
 	return
 }
 
-// 开启游戏房间成功
-func (this *GateUser) StartGameOk(servername string, roomid int64) {
-	var agent *RoomAgent = RoomSvrMgr().FindByName(servername)
-	if agent == nil {
-		log.Error("玩家[%s %d] 开房间成功，但找不到RoomServer[%s]", this.Name(), this.Id(), servername)
-		return
+// 创建房间完成
+func (this *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
+	if errmsg != "" {
+		this.roomdata.Reset(this)
+	}else {
+		var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
+		if agent == nil {
+			log.Error("玩家[%s %d] 创建房间成功，但找不到RoomServer[%s]", this.Name(), this.Id(), agentname)
+			return
+		}
+
+		this.roomdata.roomid = roomid
+		this.roomdata.roomsid = agent.Id()
+		this.roomdata.creating = false
+
+		// TODO: 将个人信息上传到Room
+		send := &msg.GW2RS_UploadUserBin{Roomid:pb.Int64(roomid), Bin:this.PackBin()}
+		agent.SendMsg(send)
+		log.Info("玩家[%s %d] 创建房间[%d]成功 向RS上传玩家个人数据 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
 	}
 
-	this.roomdata.roomid = roomid
-	this.roomdata.roomsid = agent.Id()
-	this.roomdata.creating = false
-
-	// TODO: 将个人信息上传到Room
-	send := &msg.GW2RS_UploadUserBin{Roomid:pb.Int64(roomid), Bin:this.PackBin()}
-	agent.SendMsg(send)
-
-	log.Info("玩家[%s %d] 创建房间[%d]成功 向RS上传玩家个人数据 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
-}
-
-// 开启游戏房间失败
-func (this *GateUser) StartGameFail(err string) {
-	this.roomdata.Reset(this)
+	this.CreateRoomResponse(errmsg)
 }
 
 // 房间关闭
