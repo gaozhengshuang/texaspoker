@@ -142,7 +142,7 @@ func (this *UserBag) AddItem(id int32, num int32, reason string) *Item {
 		this.names[item.Name()] = item
 	}
 
-	send := &msg.GW2C_AddPackageItem{Itemid:pb.Int32(id), Num:pb.Int32(num) }
+	send := &msg.GW2C_PushPackageItemAdd{Itemid:pb.Int32(id), Num:pb.Int32(num) }
 	this.owner.SendClientMsg(send)
 	log.Info("玩家[%d] 添加道具[%d] 数量[%d] 库存[%d] 原因[%s]", this.owner.Id(), id, num, item.Num(), reason)
 	return item

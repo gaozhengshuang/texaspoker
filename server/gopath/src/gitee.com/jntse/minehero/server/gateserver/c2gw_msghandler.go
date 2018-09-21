@@ -54,7 +54,7 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
-	this.msgparser.RegistProtoMsg(msg.C2GW_UseBagItem{}, on_C2GW_UseBagItem)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUseBagItem{}, on_C2GW_ReqUseBagItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 
@@ -210,7 +210,7 @@ func on_C2GW_ReqUserRoomInfo(session network.IBaseNetSession, message interface{
 	}
 
 	// 通知客户端房间信息
-	send := &msg.GW2C_SendUserRoomInfo{Roomid:pb.Int64(u.RoomId()), Tid:pb.Int32(u.RoomTid()), Passwd:pb.String(u.RoomPwd())}
+	send := &msg.GW2C_RetUserRoomInfo{Roomid:pb.Int64(u.RoomId()), Tid:pb.Int32(u.RoomTid()), Passwd:pb.String(u.RoomPwd())}
 	u.SendMsg(send)
 }
 
@@ -324,8 +324,8 @@ func on_C2GW_ReqDeliveryGoods(session network.IBaseNetSession, message interface
 	}
 }
 
-func on_C2GW_UseBagItem(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_UseBagItem)
+func on_C2GW_ReqUseBagItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqUseBagItem)
 
 	user := ExtractSessionUser(session)
 	if user == nil {

@@ -45,7 +45,7 @@ func (this *GateUser) GetGold() int32   { return this.gold }
 func (this *GateUser) AddGold(gold int32, reason string, syn bool) {
 	this.gold = this.GetGold() + gold
 	if syn {
-		send := &msg.GW2C_UpdateGold{Num:pb.Int32(this.GetGold())}
+		send := &msg.GW2C_PushGoldUpdate{Num:pb.Int32(this.GetGold())}
 		this.SendMsg(send)
 	}
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
@@ -54,7 +54,7 @@ func (this *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	if this.GetGold() >= gold {
 		this.gold = this.GetGold() - gold
 		if syn {
-			send := &msg.GW2C_UpdateGold{Num:pb.Int32(this.GetGold())}
+			send := &msg.GW2C_PushGoldUpdate{Num:pb.Int32(this.GetGold())}
 			this.SendMsg(send)
 		}
 		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
@@ -70,7 +70,7 @@ func (this *GateUser) GetYuanbao() int32 { return this.yuanbao }
 func (this *GateUser) AddYuanbao(yuanbao int32, reason string, syn bool) {
 	this.yuanbao = this.GetYuanbao() + yuanbao
 	if syn { 
-		send := &msg.GW2C_UpdateYuanbao{ Num : pb.Int32(this.GetYuanbao())}
+		send := &msg.GW2C_PushYuanBaoUpdate{ Num : pb.Int32(this.GetYuanbao())}
 		this.SendMsg(send)
 	}
 	RCounter().IncrByDate("item_add", int32(msg.ItemId_YuanBao), yuanbao)
@@ -80,7 +80,7 @@ func (this *GateUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool
 	if this.GetYuanbao() >= yuanbao {
 		this.yuanbao = this.GetYuanbao() - yuanbao
 		if syn { 
-			send := &msg.GW2C_UpdateYuanbao{Num:pb.Int32(this.GetYuanbao())}
+			send := &msg.GW2C_PushYuanBaoUpdate{Num:pb.Int32(this.GetYuanbao())}
 			this.SendMsg(send)
 		}
 		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", this.Id(), yuanbao, this.GetYuanbao(), reason)
@@ -98,7 +98,7 @@ func (this *GateUser) AddDiamond(num int32, reason string, syn bool) {
 	this.diamond = this.GetDiamond() + num
 	//this.SynAddMidsMoney(int64(num), reason)
 	if syn { 
-		send := &msg.GW2C_UpdateDiamond{Num:pb.Int32(this.GetDiamond())} 
+		send := &msg.GW2C_PushDiamondUpdate{Num:pb.Int32(this.GetDiamond())} 
 		this.SendMsg(send)
 	}
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)
@@ -108,7 +108,7 @@ func (this *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 		this.diamond = this.GetDiamond() - num
 		//this.SynRemoveMidsMoney(int64(num), reason)
 		if syn {
-			send := &msg.GW2C_UpdateDiamond{Num:pb.Int32(this.GetDiamond())}
+			send := &msg.GW2C_PushDiamondUpdate{Num:pb.Int32(this.GetDiamond())}
 			this.SendMsg(send)
 		}
 		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)

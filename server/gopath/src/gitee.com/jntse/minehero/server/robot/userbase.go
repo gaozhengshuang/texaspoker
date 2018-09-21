@@ -63,7 +63,7 @@ func (this *UserBase) SetSex(sex int32) {
 	this.data.GetEntity().Sex = pb.Int32(sex)
 }
 
-func (this *UserBase) LoadUserData(tmsg *msg.GW2C_SendUserInfo) {
+func (this *UserBase) LoadUserData(tmsg *msg.GW2C_PushUserInfo) {
 	//this.data = pb.Clone(db).(*msg.Serialize)
 	this.data.Entity = pb.Clone(tmsg.Entity).(*msg.EntityBase)
 	this.data.Base   = pb.Clone(tmsg.Base).(*msg.UserBase)

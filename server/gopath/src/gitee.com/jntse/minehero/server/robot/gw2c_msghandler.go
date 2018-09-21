@@ -32,16 +32,16 @@ func (this* GW2CMsgHandler) Init() {
 
 	// 收Gate消息
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetLogin{}, on_GW2C_RetLogin)
-	this.msgparser.RegistProtoMsg(msg.GW2C_SendUserInfo{}, on_GW2C_SendUserInfo)
+	this.msgparser.RegistProtoMsg(msg.GW2C_PushUserInfo{}, on_GW2C_PushUserInfo)
 	this.msgparser.RegistProtoMsg(msg.GW2C_HeartBeat{}, on_GW2C_HeartBeat)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetCreateRoom{}, on_GW2C_RetCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.GW2C_AddPackageItem{}, on_GW2C_AddPackageItem)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RemovePackageItem{}, on_GW2C_RemovePackageItem)
-	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateYuanbao{}, on_GW2C_UpdateYuanbao)
-	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateGold{}, on_GW2C_UpdateGold)
-	this.msgparser.RegistProtoMsg(msg.GW2C_UpdateDiamond{}, on_GW2C_UpdateDiamond)
+	this.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemAdd{}, on_GW2C_PushPackageItemAdd)
+	this.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemRemove{}, on_GW2C_PushPackageItemRemove)
+	this.msgparser.RegistProtoMsg(msg.GW2C_PushYuanBaoUpdate{}, on_GW2C_PushYuanBaoUpdate)
+	this.msgparser.RegistProtoMsg(msg.GW2C_PushGoldUpdate{}, on_GW2C_PushGoldUpdate)
+	this.msgparser.RegistProtoMsg(msg.GW2C_PushDiamondUpdate{}, on_GW2C_PushDiamondUpdate)
 	this.msgparser.RegistProtoMsg(msg.GW2C_Ret7DayReward{}, on_GW2C_Ret7DayReward)
 	this.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
@@ -56,32 +56,32 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
 }
 
-func on_GW2C_UpdateDiamond(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_UpdateDiamond)
+func on_GW2C_PushDiamondUpdate(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushDiamondUpdate)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_UpdateYuanbao(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_UpdateYuanbao)
+func on_GW2C_PushYuanBaoUpdate(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushYuanBaoUpdate)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_UpdateGold(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_UpdateGold)
+func on_GW2C_PushGoldUpdate(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushGoldUpdate)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_RemovePackageItem(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_RemovePackageItem)
+func on_GW2C_PushPackageItemRemove(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushPackageItemRemove)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_AddPackageItem(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_AddPackageItem)
+func on_GW2C_PushPackageItemAdd(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushPackageItemAdd)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
@@ -163,8 +163,8 @@ func on_GW2C_RetLogin(session network.IBaseNetSession, message interface{}) {
 
 
 // 构造玩家数据
-func on_GW2C_SendUserInfo(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_SendUserInfo)
+func on_GW2C_PushUserInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushUserInfo)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	client, ok := session.UserDefData().(*User)
 	if ok == false {
@@ -197,8 +197,8 @@ func on_GW2C_SendLuckyDrawRecord(session network.IBaseNetSession, message interf
 	log.Info("%#v", tmsg)
 }
 
-func on_GW2C_UpdateItemPos(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_UpdateItemPos)
+func on_GW2C_PushItemPosUpdate(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushItemPosUpdate)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }

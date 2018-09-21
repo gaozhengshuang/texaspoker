@@ -73,14 +73,10 @@ message GW2C_RetLogin
 }
 
 // 发送玩家个人数据
-message GW2C_SendUserInfo {
+message GW2C_PushUserInfo {
     optional msg.EntityBase entity  = 1;
     optional msg.UserBase   base    = 2;
     optional msg.ItemBin    item    = 3;
-}
-
-message GW2C_SendUserPlatformMoney {
-    optional int32 coins = 1;
 }
 
 // 心跳

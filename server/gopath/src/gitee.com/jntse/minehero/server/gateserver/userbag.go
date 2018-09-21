@@ -141,7 +141,7 @@ func (this *UserBag) AddItem(id int32, num int32, reason string) *Item {
 		this.names[item.Name()] = item
 	}
 
-	send := &msg.GW2C_AddPackageItem{Itemid:pb.Int32(id), Num:pb.Int32(num) }
+	send := &msg.GW2C_PushPackageItemAdd{Itemid:pb.Int32(id), Num:pb.Int32(num) }
 	this.owner.SendMsg(send)
 	log.Info("玩家[%d] 添加道具[%d] 数量[%d] 库存[%d] 原因[%s]", this.owner.Id(), id, num, item.Num(), reason)
 	return item
@@ -166,7 +166,7 @@ func (this *UserBag) RemoveItem(id int32, num int32, reason string) bool {
 		delete(this.items, id)
 		delete(this.names, item.Name())
 	}
-	send := &msg.GW2C_RemovePackageItem{Itemid:pb.Int32(id), Num:pb.Int32(num) }
+	send := &msg.GW2C_PushPackageItemRemove{Itemid:pb.Int32(id), Num:pb.Int32(num) }
 	this.owner.SendMsg(send)
 	log.Info("玩家[%d] 扣除道具[%d] 数量[%d] 库存[%d] 原因[%s]", this.owner.Id(), id, num, leftnum, reason)
 	return true

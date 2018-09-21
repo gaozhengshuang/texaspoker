@@ -270,12 +270,12 @@ func (this *RoomUser) SetGold(gold int32, reason string, syn bool) {
 }
 
 func (this *RoomUser) SendGold() {
-	send := &msg.GW2C_UpdateGold{Num:pb.Int32(this.GetGold())}
+	send := &msg.GW2C_PushGoldUpdate{Num:pb.Int32(this.GetGold())}
 	this.SendClientMsg(send)
 }
 
 func (this *RoomUser) SendDiamond() {
-	send := &msg.GW2C_UpdateDiamond{Num:pb.Int32(this.GetDiamond())}
+	send := &msg.GW2C_PushDiamondUpdate{Num:pb.Int32(this.GetDiamond())}
 	this.SendClientMsg(send)
 }
 

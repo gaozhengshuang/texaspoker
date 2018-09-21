@@ -330,7 +330,7 @@ func (this *GateUser) AddBroadCastMsg(uuid int64) {
 
 // 玩家全部数据
 func (this *GateUser) SendUserBase() {
-	send := &msg.GW2C_SendUserInfo{}
+	send := &msg.GW2C_PushUserInfo{}
 	entity, base, item := this.bin.GetEntity(), this.bin.GetBase(), this.bin.GetItem()
 	// clone类似c++的copyfrom
 	send.Entity = pb.Clone(entity).(*msg.EntityBase)

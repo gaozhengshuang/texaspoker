@@ -77,7 +77,7 @@ message C2GW_ReqUserRoomInfo {
 }
 
 // 返回玩家房间信息
-message GW2C_SendUserRoomInfo {
+message GW2C_RetUserRoomInfo {
     optional int64 roomid = 1;
     optional int32 tid  = 2;
     optional string passwd = 3;
