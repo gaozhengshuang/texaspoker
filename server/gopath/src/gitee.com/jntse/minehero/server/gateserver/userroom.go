@@ -74,7 +74,7 @@ func (this *UserRoomData) Online(u *GateUser) {
 	this.roomid  = roomid
 	this.roomsid = agent.Id()
 	this.kind 	 = int32(kind)
-	this.roomtid = util.Atoi(Redis().HGet(keybrief, "roomtid").Val())
+	this.roomtid = util.Atoi(Redis().HGet(keybrief, "tid").Val())
 	this.passwd  = Redis().HGet(keybrief, "passwd").Val()
 }
 

@@ -75,7 +75,7 @@
 		{ "Id": 71, "Name": "msg.GW2RS_UploadUserBin" },
 		{ "Id": 72, "Name": "msg.RS2GW_UserLeaveRoom" },
 		{ "Id": 73, "Name": "msg.C2GW_ReqUserRoomInfo" },
-		{ "Id": 74, "Name": "msg.GW2C_SendUserRoomInfo" },
+		{ "Id": 74, "Name": "msg.GW2C_RetUserRoomInfo" },
 		{ "Id": 75, "Name": "msg.C2GW_ReqEnterRoom" },
 		{ "Id": 76, "Name": "msg.C2GW_ReqLeaveRoom" },
 		{ "Id": 77, "Name": "msg.GW2C_RetLeaveRoom" },
