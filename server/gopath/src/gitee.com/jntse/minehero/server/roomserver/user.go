@@ -3,7 +3,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	_"gitee.com/jntse/minehero/server/tbl/excel"
-	"gitee.com/jntse/minehero/server/def"
+	_"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
@@ -190,10 +190,12 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 	bin := &msg.Serialize{}
 
 	// 基础信息
-	bin.Entity = pb.Clone(this.bin.GetEntity()).(*msg.EntityBase)
+	//bin.Entity = pb.Clone(this.bin.GetEntity()).(*msg.EntityBase)
+	bin.Entity = this.bin.GetEntity()
 
 	// 玩家信息
-	bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	//bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	bin.Base = this.bin.GetBase()
 
 	// 背包
 	this.bag.PackBin(bin)
@@ -202,14 +204,6 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 
 
 	return bin
-}
-
-// 游戏结束，将数据回传Gate
-func (this *RoomUser) OnGameEnd(now int64) {
-	this.ticker1s.Stop()
-	this.ticker10ms.Stop()
-	this.asynev.Shutdown()
-	UserMgr().DelUser(this)
 }
 
 func (this *RoomUser) SendMsg(m pb.Message) bool {
@@ -356,18 +350,6 @@ func (this *RoomUser) RemoveItem(item int32, num int32, reason string) bool{
 	return this.bag.RemoveItem(item, num, reason)
 }
 
-//func (this *RoomUser) SendBattleUser() {
-//	send := &msg.BT_SendBattleUser	{ 
-//		Ownerid:pb.Int64(this.Id()),
-//		Yuanbao:pb.Int32(this.GetYuanbao()),
-//		Level:pb.Int32(this.Level()),
-//		Freestep:pb.Int32(this.GetFreeStep()),
-//		Gold:pb.Int32(this.GetGold()),
-//	}
-//	this.SendClientMsg(send)
-//}
-
-
 func (this *RoomUser) SendNotify(text string) {
 	send := &msg.GW2C_MsgNotify{Userid:pb.Int64(this.Id()), Text:pb.String(text)}
 	this.SendMsg(send)
@@ -412,73 +394,4 @@ func (this *RoomUser) HaveRechargeOrders() bool {
 func (this *RoomUser) AsynEventInsert(event eventque.IEvent) {
 	this.asynev.Push(event)
 }
-
-
-// 获取平台金币
-func (this *RoomUser) SynMidasBalance() {
-	event := NewQueryPlatformCoinsEvent(this.DoSynMidasBalance, this.DoSynMidasBalanceResult)
-	this.AsynEventInsert(event)
-}
-
-// 同步midas余额
-func (this *RoomUser) DoSynMidasBalance() (balance, amt_save int64, errmsg string) {
-	return def.HttpWechatMiniGameGetBalance(Redis(), this.OpenId())
-}
-
-// 同步midas余额
-func (this *RoomUser) DoSynMidasBalanceResult(balance, amt_save int64, errmsg string) {
-	this.synbalance = false
-	if errmsg != "" {
-		log.Error("玩家[%s %d %s] 同步midas余额失败,errmsg:%s", this.Name(), this.Id(), this.OpenId(), errmsg)
-		return
-	}
-
-	log.Info("玩家[%s %d] 同步midas支付数据成功 当前充值[%d] 累计充值[%d]", this.Name(), this.Id(), this.TotalRecharge(), amt_save)
-
-	// 同步客户端本次充值金额,增量
-	//this.SetTotalRecharge(0)
-	if int32(amt_save) > this.TotalRecharge()  {
-		recharge := int32(amt_save) - this.TotalRecharge()
-		this.SetTotalRecharge(int32(amt_save))
-		this.AddDiamond(recharge, "充值获得", true)
-		//send := &msg.BT_SynUserRechargeMoney{ Userid:pb.Int64(this.Id()), Diamond:pb.Int32(recharge) }
-		//this.SendClientMsg(send)
-	}
-
-}
-
-// 从midas服务器扣除金币
-func (this *RoomUser) SynRemoveMidsMoney(amount int64, reason string) {
-	event := NewRemovePlatformCoinsEvent(amount, this.DoRemoveMidasMoney, this.DoRemoveMidasMoneyResult)
-	this.AsynEventInsert(event)
-	log.Info("玩家[%s %d] 同步扣除midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
-}
-
-func (this* RoomUser) DoRemoveMidasMoney(amount int64) (balance int64, errmsg string) {
-	return def.HttpWechatMiniGamePayMoney(Redis(), this.OpenId(), amount)
-}
-
-func (this* RoomUser) DoRemoveMidasMoneyResult(balance int64, errmsg string, amount int64) {
-	if errmsg != "" {
-		log.Error("玩家[%s %d] midas扣钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
-	}
-}
-
-// 从midas服务器添加金币
-func (this *RoomUser) SynAddMidsMoney(amount int64, reason string) {
-	event := NewAddPlatformCoinsEvent(amount, this.DoAddMidasMoney, this.DoAddMidasMoneyResult)
-	this.AsynEventInsert(event)
-	log.Info("玩家[%s %d] 推送同步添加midas金币 amount:%d reason:%s", this.Name(), this.Id(), amount, reason)
-}
-
-func (this *RoomUser) DoAddMidasMoney(amount int64) (balance int64, errmsg string) {
-	return def.HttpWechatMiniGamePresentMoney(Redis(), this.OpenId(), amount)
-}
-
-func (this *RoomUser) DoAddMidasMoneyResult(balance int64, errmsg string, amount int64) {
-	if errmsg != "" {
-		log.Error("玩家[%s %d] midas加钱返回失败 errmsg:%s", this.Name(), this.Id(), errmsg)
-	}
-}
-
 

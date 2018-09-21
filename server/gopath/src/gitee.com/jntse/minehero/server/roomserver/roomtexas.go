@@ -8,7 +8,7 @@ import (
 	//_"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/minehero/pbmsg"
-	pb"github.com/gogo/protobuf/proto"
+	//pb"github.com/gogo/protobuf/proto"
 	//"gitee.com/jntse/minehero/server/tbl"
 	//"gitee.com/jntse/minehero/server/tbl/excel"
 	"gitee.com/jntse/minehero/server/def"
@@ -23,8 +23,7 @@ func (this *TexasPokerRoom) OnDestory(now int64) {
 
 	// 回传玩家信息，通知网关房间销毁
 	for _, u := range this.members {
-		msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(this.Id()), Userid:pb.Int64(u.Id()), Bin:u.PackBin()}
-		u.SendMsg(msgdestory)
+		u.OnDestoryRoom()
 	}
 
 	// 等待房间信息回传网关
@@ -50,8 +49,8 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 	delete(this.members, u.Id())
 	delete(this.watchmembers, u.Id())
-	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id()), Bin:u.PackBin() }
-	u.SendMsg(msgleave)
+	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
+	u.OnLeaveRoom()
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
@@ -76,15 +75,15 @@ func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
 
 // 加载玩家
 func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
-	user := UserMgr().FindUser(tmsg.GetUserid())
-	if user != nil {
-		log.Error("[房间] 玩家[%s %d] 个人信息已经存在了", user.Name(), user.Id())
+	u := UserMgr().FindUser(tmsg.GetUserid())
+	if u != nil {
+		log.Error("[房间] 玩家[%s %d] 个人信息已经存在了", u.Name(), u.Id())
 		return
 	}
 
-	user = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
-	this.watchmembers[user.Id()]= user
-	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", user.Name(), user.Id(), this.Id())
+	u = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
+	this.watchmembers[u.Id()]= u
+	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
 func (this *TexasPokerRoom) Tick(now int64) {

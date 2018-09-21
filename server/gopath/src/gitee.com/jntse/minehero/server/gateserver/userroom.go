@@ -49,8 +49,7 @@ func (this *UserRoomData) Reset(u *GateUser) {
 }
 
 func (this *UserRoomData) Online(u *GateUser) {
-	roomid, _ 	:= Redis().HGet(fmt.Sprintf("userinroom_%d", u.Id()), "uid").Int64()
-	kind, _ 	:= Redis().HGet(fmt.Sprintf("userinroom_%d", u.Id()), "kind").Int()
+	roomid, _	:= Redis().Get(fmt.Sprintf("userinroom_%d", u.Id())).Int64()
 	if roomid == 0 {
 		this.Reset(u)
 		return
@@ -73,7 +72,7 @@ func (this *UserRoomData) Online(u *GateUser) {
 
 	this.roomid  = roomid
 	this.roomsid = agent.Id()
-	this.kind 	 = int32(kind)
+	this.kind 	 = util.Atoi(Redis().HGet(keybrief, "kind").Val())
 	this.roomtid = util.Atoi(Redis().HGet(keybrief, "tid").Val())
 	this.passwd  = Redis().HGet(keybrief, "passwd").Val()
 }

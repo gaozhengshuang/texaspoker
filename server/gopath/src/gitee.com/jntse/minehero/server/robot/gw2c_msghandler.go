@@ -36,7 +36,6 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_HeartBeat{}, on_GW2C_HeartBeat)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetCreateRoom{}, on_GW2C_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemAdd{}, on_GW2C_PushPackageItemAdd)
 	this.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemRemove{}, on_GW2C_PushPackageItemRemove)
 	this.msgparser.RegistProtoMsg(msg.GW2C_PushYuanBaoUpdate{}, on_GW2C_PushYuanBaoUpdate)
@@ -49,6 +48,7 @@ func (this* GW2CMsgHandler) Init() {
 
 
 	// 房间
+	this.msgparser.RegistProtoMsg(msg.GW2C_RetCreateRoom{}, on_GW2C_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetTexasRoomList{}, on_GW2C_RetTexasRoomList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetUserRoomInfo{}, on_GW2C_RetUserRoomInfo)
 
@@ -112,29 +112,6 @@ func on_GW2C_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	//if client.Id() == 1000001 {
 	//	log.Info("%s on_GW2C_HeartBeat", client.Name())	// for test
 	//}
-}
-
-func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_RetCreateRoom)
-	log.Info(reflect.TypeOf(tmsg).String())
-
-	client, ok := session.UserDefData().(*User)
-	if ok == false {
-		panic("没有为Session设置UserDefData")
-	}
-
-	err, roomid, passwd := tmsg.GetErrcode(), tmsg.GetRoomid(), tmsg.GetPasswd()
-	name, id := client.Name(), client.Id()
-	if err != "" {
-		log.Info("玩家[%s %d] 开始游戏失败 err: %s", name, id, err)
-		return
-	}
-	client.roomid, client.roompwd = roomid, passwd
-
-	sendmsg := &msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(roomid),Passwd:pb.String(passwd) }
-	session.SendCmd(sendmsg)
-	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
-
 }
 
 func on_GW2C_RetLogin(session network.IBaseNetSession, message interface{}) {
@@ -218,5 +195,28 @@ func on_GW2C_RetUserRoomInfo(session network.IBaseNetSession, message interface{
 	log.Info("%+v", tmsg)
 	client, _ := session.UserDefData().(*User)
 	client.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:tmsg.Roomid, Userid:pb.Int64(client.Id()), Passwd:tmsg.Passwd})
+}
+
+func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_RetCreateRoom)
+	log.Info(reflect.TypeOf(tmsg).String())
+
+	client, ok := session.UserDefData().(*User)
+	if ok == false {
+		panic("没有为Session设置UserDefData")
+	}
+
+	err, roomid, passwd := tmsg.GetErrcode(), tmsg.GetRoomid(), tmsg.GetPasswd()
+	name, id := client.Name(), client.Id()
+	if err != "" {
+		log.Info("玩家[%s %d] 开始游戏失败 err: %s", name, id, err)
+		return
+	}
+	client.roomid, client.roompwd = roomid, passwd
+
+	sendmsg := &msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(roomid),Passwd:pb.String(passwd), Userid:pb.Int64(client.Id())}
+	session.SendCmd(sendmsg)
+	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
+
 }
 

@@ -365,7 +365,7 @@ func (this *User) DoInputCmd(cmd string) {
 		this.EnterRoom()
 	case "leave":
 		this.LeaveRoom()
-	case "myroot":
+	case "myroom":
 		this.ReqUserRoom()
 	case "jump":
 		this.do_jump = !this.do_jump
