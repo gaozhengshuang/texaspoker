@@ -49,3 +49,74 @@ message RS2C_RetEnterRoomInfo
     optional int32 avgchips = 24;
     optional int32 join = 25;    
 }
+
+//请求下一轮
+message C2RS_ReqNextRound
+{    
+}
+
+message RS2C_RetNextRound
+{
+}
+
+//请求行动 （加注 放弃 让牌）
+message C2RS_ReqAction
+{
+    optional int32 state = 1;
+    optional int32 num = 2;    
+}
+
+message RS2C_RetAction
+{
+}
+
+//请求离开房间
+message C2RS_ReqLeaveRoom
+{
+}
+
+message RS2C_RetLeaveRoom
+{
+}
+
+//请求购买游戏币
+message C2RS_ReqBuyInGame
+{
+}
+
+message RS2C_RetBuyInGame
+{
+    optional int32 num = 1;
+    optional bool isAutoBuy = 2;
+    optional int32 pos = 3;
+}
+
+//请求站起
+message C2RS_ReqStandUp
+{
+}
+
+message RS2C_RetStandUp
+{
+}
+
+//请求亮牌
+message C2RS_ReqBrightCard
+{
+}
+
+message RS2C_RetBrightCard
+{
+}
+
+//请求增加金币
+message C2RS_ReqAddCoin
+{
+    optional int32 num = 1;
+}
+
+message RS2C_RetAddCoin
+{
+}
+
+
