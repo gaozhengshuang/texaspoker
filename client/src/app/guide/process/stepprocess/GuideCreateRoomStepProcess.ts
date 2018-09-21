@@ -19,7 +19,7 @@ class GuideCreateRoomStepProcess extends BaseGuideStepProcess
 				GamblingManager.roomInfo = new RoomInfo(roomDef);
 
 				let pInfo: PlayerInfo = GamblingManager.getPlayerInfoByPos(GuideGamblingProcess.self);
-				pInfo.roleId = UserManager.userInfo.roleId;
+				pInfo.roleid = UserManager.userInfo.roleId;
 				pInfo.userInfo.head = UserManager.userInfo.head;
 				pInfo.userInfo.sex = UserManager.userInfo.sex;
 				pInfo.userInfo.name = UserManager.userInfo.name;

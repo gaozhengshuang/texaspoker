@@ -204,6 +204,11 @@ module game
         return Number(val);
     }
 
+    export function longToNumber(val:number|Long):number
+    {
+        return Number(val);
+    }
+
     export let DarkRectPool: ObjectPool<eui.Rect> = new ObjectPool<eui.Rect>(eui.Rect);
 
     export function checkPointAtRect(pointX: number, pointY: number, rectX: number, rectY: number, rectWidth: number, rectHeight: number)

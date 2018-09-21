@@ -192,7 +192,7 @@ class GamblingPanelPitTurnSupport extends BaseGamblingPanelSupport
 			return;
 		}
 		let pitInfo: GamblingPitInfo = this.target.getPitInfo((obj.pInfo as PlayerInfo).pos);
-		if (obj.state == BuyInGameState.Sit && (obj.pInfo as PlayerInfo).roleId == UserManager.userInfo.roleId)
+		if (obj.state == BuyInGameState.Sit && (obj.pInfo as PlayerInfo).roleid == UserManager.userInfo.roleId)
 		{
 			this._isClockwise = pitInfo.index > GamblingPanelSetting.centerNum;
 			if (this._isClockwise)

@@ -1,0 +1,122 @@
+syntax = "proto2";
+package msg;
+
+//请求进入房间
+message C2RS_ReqEnterRoomInfo 
+{
+    optional int32 id = 1;              //房间id
+    optional string password = 2;       //密码
+}
+
+//房间成员信息
+message TexasPlayer 
+{
+    optional int64 roleid = 1;              //角色id
+    optional int32 bankroll = 2;            //携带筹码
+    optional int32 pos = 3;                 //座位位置
+    optional int32 state = 4;               //游戏状态
+    optional int32 num = 5;                 //面前筹码
+    optional int32 initbankroll = 6;        //初始化筹码    
+    optional int32 totalnum = 7;            //总下注
+}
+
+//返回房间信息
+message RS2C_RetEnterRoomInfo
+{
+    optional int64 id = 1;                  //房间id
+    optional int32 buttonpos = 2;           //庄家位置
+    repeated int32 potchips = 3;            //奖池 主池 边池
+    optional int32 roomid = 4;              //房间表id
+    optional int32 ante = 5;                //台费
+    optional int32 sblind = 6;              //小盲费
+    optional int32 bblind = 7;              //大盲费
+    optional int32 pos = 8;                 //当前说话位置
+    optional int32 postime = 9;             //当前说话剩余时间
+    optional int32 starttime = 10;          //这局开始时间
+    repeated int32 publiccard = 11;         //公共牌
+    repeated TexasPlayer playerlist = 12;   //参与玩家列表
+    optional bool isshowcard = 13;          //是否亮牌
+    repeated int32 handcard = 14;           //手牌
+    optional int32 maxante = 15;            //最大台费
+    optional int32 minraisenum = 16;        //最小加注
+    optional int32 masterid = 17;           //房主id
+    optional int32 blindlevel = 18;
+    optional int32 blindtime = 19;
+    optional int32 rebuytimes = 20;
+    optional int32 addontimes = 21;
+    optional int32 addbuy = 22;
+    optional int32 rank = 23;
+    optional int32 avgchips = 24;
+    optional int32 join = 25;    
+}
+
+//请求下一轮
+message C2RS_ReqNextRound
+{    
+}
+
+message RS2C_RetNextRound
+{
+}
+
+//请求行动 （加注 放弃 让牌）
+message C2RS_ReqAction
+{
+    optional int32 state = 1;
+    optional int32 num = 2;    
+}
+
+message RS2C_RetAction
+{
+}
+
+//请求离开房间
+message C2RS_ReqLeaveRoom
+{
+}
+
+message RS2C_RetLeaveRoom
+{
+}
+
+//请求购买游戏币
+message C2RS_ReqBuyInGame
+{
+}
+
+message RS2C_RetBuyInGame
+{
+    optional int32 num = 1;
+    optional bool isAutoBuy = 2;
+    optional int32 pos = 3;
+}
+
+//请求站起
+message C2RS_ReqStandUp
+{
+}
+
+message RS2C_RetStandUp
+{
+}
+
+//请求亮牌
+message C2RS_ReqBrightCard
+{
+}
+
+message RS2C_RetBrightCard
+{
+}
+
+//请求增加金币
+message C2RS_ReqAddCoin
+{
+    optional int32 num = 1;
+}
+
+message RS2C_RetAddCoin
+{
+}
+
+

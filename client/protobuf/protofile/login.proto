@@ -16,7 +16,7 @@ message C2L_ReqLogin {
 // 微信小游戏登陆
 message C2L_ReqLoginWechat {
     optional string openid = 1;
-    optional string face = 2;
+    optional string head = 2;
     optional string nickname = 3;
     optional string invitationcode = 4;
 }
@@ -61,7 +61,7 @@ message C2GW_ReqLogin
     optional string account = 1;        // 玩家account
     optional string verifykey = 2;      // login生成的校验key，验证玩家合法性
     optional string token = 3;          // 
-    optional string face = 4;           // 
+    optional string head = 4;           // 
 }
 
 
@@ -73,14 +73,10 @@ message GW2C_RetLogin
 }
 
 // 发送玩家个人数据
-message GW2C_SendUserInfo {
+message GW2C_PushUserInfo {
     optional msg.EntityBase entity  = 1;
     optional msg.UserBase   base    = 2;
     optional msg.ItemBin    item    = 3;
-}
-
-message GW2C_SendUserPlatformMoney {
-    optional int32 coins = 1;
 }
 
 // 心跳

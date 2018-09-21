@@ -7,13 +7,14 @@ message TanTanLeRoom {
     optional int32 tid = 1;
 }
 
-// 请求开始游戏(开房间)
+// 创建房间
 message C2GW_ReqCreateRoom {
     optional int32 gamekind = 1;            // 游戏类型
     optional TanTanLeRoom tantanle = 2;     // 弹弹乐
     optional TexasPersonalRoom texas = 3;   // 德州游戏
 }
 
+// 创建房间返回
 message GW2C_RetCreateRoom {
     optional string errcode = 1;
     optional int64 roomid = 2;
@@ -58,15 +59,44 @@ message RS2MS_DeleteRoom {
     optional int64 roomid = 1;
 }
 
-// G2R 发送个人信息到游戏房间
+// GW2RS 发送个人信息到游戏房间
 message GW2RS_UploadUserBin   {
     optional int64 roomid = 1;
-    optional msg.Serialize bin = 2;     // TODO: 玩家数据没必要全部发送
+    optional int64 userid = 2;
+    optional msg.Serialize bin = 3;     // TODO: 玩家数据没必要全部发送
 }
 
-// 通知玩家房间信息
-message GW2C_SendUserRoomInfo {
+// RS2GW 离开房间，下发玩家个人数据到网关
+message RS2GW_UserLeaveRoom {
+    optional int64 userid = 1;
+    optional msg.Serialize bin = 2;
+}
+
+// 请求自己房间列表
+message C2GW_ReqUserRoomInfo {
+}
+
+// 返回玩家房间信息
+message GW2C_RetUserRoomInfo {
     optional int64 roomid = 1;
-    optional string passwd = 2;
+    optional int32 tid  = 2;
+    optional string passwd = 3;
+}
+
+// C2GW 进入房间
+message C2GW_ReqEnterRoom {
+    optional int64 roomid = 1;      // 房间唯一id
+    optional string passwd = 2;     // 密码
+    optional int64 userid = 3;
+}
+
+// C2GW 退出游戏房间
+message C2GW_ReqLeaveRoom {
+    optional int64 roomid = 1;
+    optional int64 userid = 2;
+}
+
+// GW2C 退出游戏房间
+message GW2C_RetLeaveRoom {
 }
 

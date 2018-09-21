@@ -357,7 +357,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 			this.target.actionGroup.raiseGroup.visible = false;
 
 			this.target.actionGroup.raiseBtn.visible = false;
-			this.target.actionGroup.callBtn.label = game.MathUtil.formatNum(GamblingManager.self.bankRoll);
+			this.target.actionGroup.callBtn.label = game.MathUtil.formatNum(GamblingManager.self.bankroll);
 			//this.target.actionGroup.callBtn["callLabel"].text = "全下";
 		}
 		else if (GamblingUtil.callNum > 0) //需要跟注
@@ -374,7 +374,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 	{
 		this.target.hideDownEffect();
 		let pInfo: PlayerInfo = obj.pInfo;
-		if (pInfo.roleId == UserManager.userInfo.roleId)
+		if (pInfo.roleid == UserManager.userInfo.roleId)
 		{
 			if (obj.state == BuyInGameState.Stand)
 			{
@@ -499,11 +499,11 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 				for (let i: number = 0; i < len; i++)
 				{
 					handCardInfo = GamblingManager.roundOverInfo.handCardList[i];
-					if (GamblingManager.self.roleId == handCardInfo.roleId && handCardInfo.cardList && handCardInfo.cardList.length > 1)
+					if (GamblingManager.self.roleid == handCardInfo.roleId && handCardInfo.cardList && handCardInfo.cardList.length > 1)
 					{
 						if (GamblingManager.self.state != PlayerState.Fold)
 						{
-							if (GamblingManager.self.roleId == UserManager.userInfo.roleId)
+							if (GamblingManager.self.roleid == UserManager.userInfo.roleId)
 							{
 								isThanCard = true;
 								break; //参与了比牌，不显示点击亮牌

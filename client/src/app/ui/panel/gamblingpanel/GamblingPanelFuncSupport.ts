@@ -345,9 +345,9 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 			// GamblingManager.roomInfo.bBlind
 			// raiseNum *= GamblingManager.roomInfo.bBlind;
 			raiseNum = Math.max(GamblingManager.roomInfo.minRaiseNum, raiseNum);
-			if (raiseNum >= GamblingManager.self.bankRoll) //all in
+			if (raiseNum >= GamblingManager.self.bankroll) //all in
 			{
-				GamblingManager.reqAction(PlayerState.AllIn, GamblingManager.self.bankRoll);
+				GamblingManager.reqAction(PlayerState.AllIn, GamblingManager.self.bankroll);
 			}
 			else
 			{

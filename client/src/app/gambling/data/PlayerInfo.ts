@@ -11,19 +11,19 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 角色ID
 	 */
-	public roleId: number;
+	public roleid: number;
 	private _bankRoll: number;
 	/**
 	 * 游戏时身上的筹码数
 	 */
-	public get bankRoll(): number
+	public get bankroll(): number
 	{
 		return this._bankRoll;
 	}
 	/**
 	 * 游戏时身上的筹码数
 	 */
-	public set bankRoll(value: number)
+	public set bankroll(value: number)
 	{
 		this.lastBankRoll = this._bankRoll;
 		this._bankRoll = value;
@@ -35,7 +35,7 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 开局初始筹码数,开局时赋值,结算时请零,其他时候请勿赋值
 	 */
-	public initbankRoll: number;
+	public initbankroll: number;
 	/**
 	 * 位置
 	 */
@@ -99,13 +99,13 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 
 	public reset()
 	{
-		this.roleId = undefined;
+		this.roleid = undefined;
 		this.lastBankRoll = undefined;
-		this.bankRoll = undefined;
+		this.bankroll = undefined;
 		this.pos = undefined;
 		this.state = PlayerState.WaitNext;
 		this.isSitDown = false;
-		this.initbankRoll = undefined;
+		this.initbankroll = undefined;
 	}
 	/**
 	 * 获取状态描述

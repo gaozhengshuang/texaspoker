@@ -229,7 +229,7 @@ class GamblingActionComponent extends BaseComponent<PlayerState>
 			} else if (GamblingUtil.isNeedAllIn) //是否需要allin
 			{
 				this.preCallBtn.visible = true;
-				this.preCallBtn.label = game.MathUtil.formatNum(GamblingManager.self.bankRoll);
+				this.preCallBtn.label = game.MathUtil.formatNum(GamblingManager.self.bankroll);
 			}
 			else if (GamblingUtil.callNum > 0) //需要跟注
 			{

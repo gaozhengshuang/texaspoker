@@ -251,7 +251,7 @@ class GamblingUtil
 				// let bbNum: number = Math.ceil(offset / GamblingManager.roomInfo.bBlind);
 				// let additional: number = bbNum * GamblingManager.roomInfo.bBlind;
 				// additional += GamblingManager.roomInfo.minRaiseNum;
-				return Math.min(maxBankRoll, GamblingManager.self.bankRoll + GamblingManager.self.num);
+				return Math.min(maxBankRoll, GamblingManager.self.bankroll + GamblingManager.self.num);
 			}
 			return GamblingManager.roomInfo.minRaiseNum;
 		}
@@ -295,9 +295,9 @@ class GamblingUtil
 		let maxBankRoll: number = 0;
 		for (let pInfo of GamblingManager.roomInfo.playerList)
 		{
-			if (pInfo.roleId != UserManager.userInfo.roleId && pInfo.bankRoll + pInfo.num > maxBankRoll) 
+			if (pInfo.roleid != UserManager.userInfo.roleId && pInfo.bankroll + pInfo.num > maxBankRoll) 
 			{
-				maxBankRoll = pInfo.bankRoll + pInfo.num;
+				maxBankRoll = pInfo.bankroll + pInfo.num;
 			}
 		}
 		return maxBankRoll;
@@ -323,7 +323,7 @@ class GamblingUtil
 	{
 		if (GamblingManager.self && InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingUtil.getIsOnAction(GamblingManager.self))
 		{
-			if (GamblingManager.self.bankRoll + GamblingManager.self.num > GamblingManager.roomInfo.maxAnte)
+			if (GamblingManager.self.bankroll + GamblingManager.self.num > GamblingManager.roomInfo.maxAnte)
 			{
 				return true;
 			}
@@ -342,7 +342,7 @@ class GamblingUtil
 				let maxBankRoll: number = GamblingUtil.maxBankRoll;
 				if (GamblingManager.self && GamblingUtil.isOnProcess(GamblingManager.self))
 				{
-					if (maxBankRoll >= GamblingManager.self.bankRoll || GamblingManager.roomInfo.maxAnte <= GamblingManager.roomInfo.bBlind)
+					if (maxBankRoll >= GamblingManager.self.bankroll || GamblingManager.roomInfo.maxAnte <= GamblingManager.roomInfo.bBlind)
 					{
 						return true;
 					}
@@ -356,7 +356,7 @@ class GamblingUtil
 			{
 				if (GamblingManager.self && GamblingUtil.isOnProcess(GamblingManager.self))
 				{
-					if (GamblingManager.self.bankRoll + GamblingManager.self.num <= GamblingManager.roomInfo.maxAnte)
+					if (GamblingManager.self.bankroll + GamblingManager.self.num <= GamblingManager.roomInfo.maxAnte)
 					{
 						return true;
 					}
@@ -404,7 +404,7 @@ class GamblingUtil
 		{
 			if (role instanceof PlayerInfo)
 			{
-				return role.roleId == GamblingManager.roomInfo.masterId;
+				return role.roleid == GamblingManager.roomInfo.masterId;
 			}
 			else
 			{
@@ -502,7 +502,7 @@ class GamblingUtil
 	{
 		if (GamblingUtil.isMatch && GamblingManager.matchRoomInfo && GamblingManager.self && GamblingManager.roomInfo)
 		{
-			if (GamblingManager.self.bankRoll <= 0)
+			if (GamblingManager.self.bankroll <= 0)
 			{
 				if (GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Rebuy) == false && GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Addon) == false)
 				{

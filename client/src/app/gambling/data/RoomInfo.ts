@@ -161,7 +161,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
         }
         if (GamblingManager.self) 
         {
-            return Math.min(GamblingManager.self.bankRoll + GamblingManager.self.num, this._minRaiseNum);
+            return Math.min(GamblingManager.self.bankroll + GamblingManager.self.num, this._minRaiseNum);
         }
         return this._minRaiseNum;
     }

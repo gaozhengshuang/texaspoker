@@ -131,7 +131,7 @@ class GamblingPanelPitDataSupport extends BaseGamblingPanelSupport
 		for (let i: number = GamblingPanelSetting.MinPitIndex; i <= GamblingManager.maxSeats; i++)
 		{
 			pitInfo = this.target.pitList[i - 1];
-			if (pitInfo.headComponent.bindData && pitInfo.headComponent.bindData.roleId == playerInfo.roleId)
+			if (pitInfo.headComponent.bindData && pitInfo.headComponent.bindData.roleid == playerInfo.roleid)
 			{
 				return pitInfo;
 			}

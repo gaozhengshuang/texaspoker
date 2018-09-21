@@ -120,7 +120,7 @@ class GamblingManager
 		{
 			for (let i: number = 0; i < GamblingManager.roomInfo.playerList.length; i++)
 			{
-				if (GamblingManager.roomInfo.playerList[i].roleId == UserManager.userInfo.roleId)
+				if (GamblingManager.roomInfo.playerList[i].roleid == UserManager.userInfo.roleId)
 				{
 					return true;
 				}
@@ -361,7 +361,7 @@ class GamblingManager
 			{
 				for (let pInfo of GamblingManager.roomInfo.playerList)
 				{
-					if (pInfo.roleId == UserManager.userInfo.roleId)
+					if (pInfo.roleid == UserManager.userInfo.roleId)
 					{
 						GamblingManager._isOnSeat = true;
 					}
@@ -413,7 +413,7 @@ class GamblingManager
 			//重置初始筹码数
 			if (GamblingManager.self)
 			{
-				GamblingManager.self.initbankRoll = GamblingManager.self.bankRoll;
+				GamblingManager.self.initbankroll = GamblingManager.self.bankroll;
 				GamblingManager.roomInfo.isOnWatch = false;
 			}
 			else
@@ -439,7 +439,7 @@ class GamblingManager
 			{
 				for (let pInfo of GamblingManager.roomInfo.playerList)
 				{
-					if (pInfo.bankRoll <= 0)
+					if (pInfo.bankroll <= 0)
 					{
 						pInfo.state = PlayerState.WaitNext;
 					}
@@ -534,9 +534,9 @@ class GamblingManager
 			if (state == BuyInGameState.Sit)
 			{
 				let playerInfo: PlayerInfo = new PlayerInfo();
-				playerInfo.roleId = result.data["roleId"];
+				playerInfo.roleid = result.data["roleId"];
 				playerInfo.pos = result.data["pos"];
-				playerInfo.bankRoll = result.data["bankRoll"];
+				playerInfo.bankroll = result.data["bankRoll"];
 				playerInfo.state = PlayerState.WaitNext; //刚坐下来 处于空状态
 
 				GamblingManager.addPlayer(playerInfo);
@@ -551,7 +551,7 @@ class GamblingManager
 
 				if (playerInfo)
 				{
-					if (playerInfo.roleId == UserManager.userInfo.roleId) //站起需要清空自己的信息
+					if (playerInfo.roleid == UserManager.userInfo.roleId) //站起需要清空自己的信息
 					{
 						GamblingManager.standClear();
 					}
@@ -626,7 +626,7 @@ class GamblingManager
 
 				if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && pInfo.state == PlayerState.Raise || pInfo.state == PlayerState.AllIn)
 				{
-					let lastMaxNum: number = GamblingManager.findMaxPlayerNum(pInfo.roleId);
+					let lastMaxNum: number = GamblingManager.findMaxPlayerNum(pInfo.roleid);
 					let tmpNum: number = pInfo.num - lastMaxNum;
 
 					if (lastMaxNum == 0 || lastMaxNum == GamblingManager.roomInfo.ante) //第一次下注
@@ -668,7 +668,7 @@ class GamblingManager
 		{
 			for (let pInfo of GamblingManager.roomInfo.playerList)
 			{
-				if (pInfo.roleId != excludeRoleId && pInfo.num > num)
+				if (pInfo.roleid != excludeRoleId && pInfo.num > num)
 				{
 					num = pInfo.num;
 				}
@@ -715,8 +715,8 @@ class GamblingManager
 			let temporaryRoll: number = undefined;
 			if (GamblingManager.self)
 			{
-				temporaryRoll = GamblingManager.self.initbankRoll;
-				GamblingManager.self.initbankRoll = 0;
+				temporaryRoll = GamblingManager.self.initbankroll;
+				GamblingManager.self.initbankroll = 0;
 			}
 			GamblingManager.RoundOverEvent.dispatch({ initbankRoll: temporaryRoll, handCard: handCard });
 			GamblingManager.gamblingReviewHandler.isNewRound = true;
@@ -771,7 +771,7 @@ class GamblingManager
 			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(roleId);
 			if (pInfo)
 			{
-				pInfo.bankRoll = br;
+				pInfo.bankroll = br;
 				GamblingManager.ChipsChangeEvent.dispatch(pInfo);
 			}
 		}
@@ -1159,7 +1159,7 @@ class GamblingManager
 		}
 		for (let info of GamblingManager._getUserInfoQueue)
 		{
-			if (playerInfo.roleId == info.roleId)
+			if (playerInfo.roleid == info.roleid)
 			{
 				return; //已存在
 			}
@@ -1190,7 +1190,7 @@ class GamblingManager
 				GamblingManager._getUserInfoQueue.shift();
 				GamblingManager.getNext();
 			};
-			UserManager.sendGetUserInfo(target.roleId, callBack, errorCallBack);
+			UserManager.sendGetUserInfo(target.roleid, callBack, errorCallBack);
 		}
 	}
 	private static getNext()
@@ -1211,7 +1211,7 @@ class GamblingManager
 	{
 		if (GamblingManager.self)
 		{
-			if (UserManager.isBust && GamblingManager.self.bankRoll <= 0)
+			if (UserManager.isBust && GamblingManager.self.bankroll <= 0)
 			{
 				GamblingManager.reqStandUp();
 			}
@@ -1230,7 +1230,7 @@ class GamblingManager
 		{
 			if (GamblingManager.self)
 			{
-				GamblingManager.reqAction(PlayerState.AllIn, GamblingManager.self.bankRoll);
+				GamblingManager.reqAction(PlayerState.AllIn, GamblingManager.self.bankroll);
 			}
 		}
 		else if (GamblingUtil.callNum > 0) //需要跟注
@@ -1256,7 +1256,7 @@ class GamblingManager
 		{
 			if (GamblingManager.roomInfo.playerList)
 			{
-				if (playerInfo && GamblingUtil.isContainPlayer(playerInfo.roleId) == false)
+				if (playerInfo && GamblingUtil.isContainPlayer(playerInfo.roleid) == false)
 				{
 					GamblingManager.roomInfo.playerList.push(playerInfo);
 				}
@@ -1288,7 +1288,7 @@ class GamblingManager
 		{
 			for (let player of GamblingManager.roomInfo.playerList)
 			{
-				if (player.roleId == roleId)
+				if (player.roleid == roleId)
 				{
 					return player;
 				}

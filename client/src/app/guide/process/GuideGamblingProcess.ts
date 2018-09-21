@@ -82,7 +82,7 @@ class GuideGamblingProcess
 
 		if (pInfo.state == PlayerState.Raise || pInfo.state == PlayerState.AllIn)
 		{
-			let lastMaxNum: number = GamblingManager.findMaxPlayerNum(pInfo.roleId);
+			let lastMaxNum: number = GamblingManager.findMaxPlayerNum(pInfo.roleid);
 			let tmpNum: number = pInfo.num - lastMaxNum;
 
 			if (lastMaxNum == 0 || lastMaxNum == GamblingManager.roomInfo.ante) //第一次下注
@@ -110,7 +110,7 @@ class GuideGamblingProcess
 		{
 			GamblingManager.lastCallPos = undefined;
 		}
-		GamblingManager.PlayerStateChangeEvent.dispatch({ roleId: pInfo.roleId, state: state, num: num });
+		GamblingManager.PlayerStateChangeEvent.dispatch({ roleId: pInfo.roleid, state: state, num: num });
 	}
 	/**
 	 * 玩家身上筹码变更
@@ -124,7 +124,7 @@ class GuideGamblingProcess
 			return;
 		}
 		let br: number = definition.stepParams["bankRoll"];
-		pInfo.bankRoll = br;
+		pInfo.bankroll = br;
 
 		GamblingManager.ChipsChangeEvent.dispatch(pInfo);
 	}

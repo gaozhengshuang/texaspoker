@@ -31,7 +31,7 @@ class GamblingHeadChatSupport
 	*/
     private showOtherMsg(msg: ChatInfo)
     {
-        if (this.context.bindData && this.context.bindData.roleId == msg.roleId && msg.type == ChatMessageType.InRoom)
+        if (this.context.bindData && this.context.bindData.roleid == msg.roleId && msg.type == ChatMessageType.InRoom)
         {
             //根据message里的内容格式判断是文本还是表情             
             this.emojiOrContext(msg);

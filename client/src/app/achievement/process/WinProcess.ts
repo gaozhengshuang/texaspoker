@@ -11,7 +11,7 @@ class WinProcess extends BaseAchieveProcessInfo
     public onProcessUpdate()
     {
         super.onProcessUpdate();
-        if (GamblingUtil.isWin(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(GamblingManager.roomInfo) && PlayingFieldManager.isPatternRoom(GamblingManager.roomInfo.definition.type))
+        if (GamblingUtil.isWin(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(GamblingManager.roomInfo) && PlayingFieldManager.isPatternRoom(GamblingManager.roomInfo.definition.Type))
         {
             this.process++;
         }

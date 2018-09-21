@@ -257,10 +257,10 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 					{
 						headComponent.runWinChipsAnim(wiNum);
 						// headComponent.winEffectImg.visible = true;
-						if (headComponent.bindData && headComponent.bindData.bankRoll > 0)
+						if (headComponent.bindData && headComponent.bindData.bankroll > 0)
 						{
 							// headComponent.chipsLabel.text = game.MathUtil.formatNum(headComponent.bindData.bankRoll);
-							game.Console.log("结算结束显示筹码" + headComponent.bindData.bankRoll + headComponent.bindData.userInfo.name);
+							game.Console.log("结算结束显示筹码" + headComponent.bindData.bankroll + headComponent.bindData.userInfo.name);
 						}
 					}
 				}

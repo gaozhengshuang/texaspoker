@@ -79,7 +79,7 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 				}
 				else
 				{
-					UserManager.reqShowOtherUserInfoPanel(headComponent.bindData.roleId);
+					UserManager.reqShowOtherUserInfoPanel(headComponent.bindData.roleid);
 				}
 				break;
 			}
@@ -94,9 +94,9 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 		}
 		if (GamblingManager.self && type != GamblingType.Match) //已在座位上
 		{
-			let maxNum: number = GamblingManager.self.bankRoll + UserManager.userInfo.gold;
+			let maxNum: number = GamblingManager.self.bankroll + UserManager.userInfo.gold;
 			maxNum = Math.min(GamblingManager.roomInfo.definition.bBuyin, maxNum);
-			let minNum: number = GamblingManager.self.bankRoll;
+			let minNum: number = GamblingManager.self.bankroll;
 			let bBlind: number = GamblingManager.roomInfo.bBlind;
 			if (maxNum == 0)
 			{

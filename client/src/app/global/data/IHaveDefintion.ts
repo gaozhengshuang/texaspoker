@@ -1,4 +1,4 @@
 interface IHaveDefintionInfo
 {
-    definition: IBaseDefintion;
+    definition: any;
 }

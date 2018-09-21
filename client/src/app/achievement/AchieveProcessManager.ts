@@ -254,7 +254,7 @@ class AchieveProcessManager
     public static onWinOfPlayField(processInfo: BaseAchieveProcessInfo, type: AchieveShowPattern)
     {
         let overInfo: RoundOverInfo = GamblingManager.roundOverInfo;
-        if (overInfo && InfoUtil.checkAvailable(GamblingManager.roomInfo) && type == AchievementManager.playingFieldTypeToAchieveShowPattern(GamblingManager.roomInfo.definition.type) && AchieveProcessManager.isOnPlay())
+        if (overInfo && InfoUtil.checkAvailable(GamblingManager.roomInfo) && type == AchievementManager.playingFieldTypeToAchieveShowPattern(GamblingManager.roomInfo.definition.Type) && AchieveProcessManager.isOnPlay())
         {
             processInfo.process++;
         }
