@@ -190,7 +190,7 @@ class HundredWarPanelHandler
     {
         for (let info of HundredWarManager.panelHandler.HundredWarBankerList)
         {
-            if (info.roleId == UserManager.userInfo.roleId)
+            if (info.roleId == UserManager.userInfo.id)
             {
                 return true;
             }
@@ -204,7 +204,7 @@ class HundredWarPanelHandler
     {
         for (let info of HundredWarManager.roomInfo.playerList)
         {
-            if (info.roleId == UserManager.userInfo.roleId)
+            if (info.roleId == UserManager.userInfo.id)
             {
                 if (info.pos == 0)
                 {

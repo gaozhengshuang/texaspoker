@@ -41,7 +41,7 @@ class BindAccountPanel extends BasePanel
 
         this.userHeadCom.init(UserManager.userInfo, 110);
         this.nameLabel.text = UserManager.userInfo.name;
-        this.idLabel.text = UserManager.userInfo.roleId.toString();
+        this.idLabel.text = UserManager.userInfo.id.toString();
         VersionManager.setComponentVisibleBySafe(this.wxGroup);
 
         BindAccountManager.reqGetList();

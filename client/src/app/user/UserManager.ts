@@ -152,7 +152,7 @@ class UserManager
 				UserManager.otherUserInfo.vipSpeed = ProjectDefined.GetInstance().getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
 				UserManager.getOtherUserInfoEa.dispatch();
 			}
-			if (FriendManager.isFriend(UserManager.otherUserInfo.roleId))
+			if (FriendManager.isFriend(UserManager.otherUserInfo.id))
 			{
 				UIManager.showPanel(UIModuleName.UserInfoPanel);
 			}

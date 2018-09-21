@@ -101,7 +101,7 @@ class ChampionshipHandler
         {
             if (type == ChampionshipBuyType.Rebuy)
             {
-                let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
+                let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
                 if (pInfo && (pInfo.initbankRoll <= GamblingManager.matchRoomInfo.definition.initialChips || !pInfo.initbankRoll))
                 {
                     let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.nowBlindLevel, GamblingManager.matchRoomInfo.definition.blindType);

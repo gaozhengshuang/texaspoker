@@ -92,7 +92,7 @@ class MttLogic
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match)
 		{
-			if (info && info.roleId == UserManager.userInfo.roleId)
+			if (info && info.roleId == UserManager.userInfo.id)
 			{
 				this.onRebuyORAddonEvent();
 			}
@@ -144,7 +144,7 @@ class MttLogic
 	{
 		if (GamblingUtil.isMtt) 
 		{
-			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
+			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
 			if (pInfo && this._roundOverData && this._roundOverData.initbankRoll)
 			{
 				//这里需要判断本局是否有重购/增购 未增加的筹码
@@ -159,7 +159,7 @@ class MttLogic
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match)
 		{
-			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
+			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
 			//这里需要判断本局是否有重购/增购 未增加的筹码
 			if (pInfo && (pInfo.bankRoll <= 0 || !pInfo.bankRoll) && (!GamblingManager.roomInfo.addbuy || GamblingManager.roomInfo.addbuy <= 0))
 			{

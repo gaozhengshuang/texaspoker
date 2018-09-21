@@ -30,6 +30,7 @@ class InitServerHandler
 		this._isComplete = false;
 		this._complete = complete;
 		this._error = error;
+		this.startReqHandler();
 	}
 	/// <summary>
 	/// 当发送给服务器成功，在服务器返回之前断线，然后重连请求一样的session时候，重新拉数据
@@ -46,15 +47,16 @@ class InitServerHandler
 		// 	SocketManager.ImplCall(Command.Role_GetInfo_3000, null, this.OnRoleInfo, null, this);
 		// }
 	}
-
-	private OnRoleInfo(result: game.SpRpcResult)
+	/**
+	 * 拉去列表系统数据
+	 */
+	private startReqHandler()
 	{
 		if (!UIManager.isShowPanel(UIModuleName.LoadingSwitchPanel))
 		{
 			UIManager.showPanel(UIModuleName.LoadingSwitchPanel);
 		}
-		game.Console.roleId = UserManager.userInfo.roleId;
-		TimeManager.initialize(result.data);
+		game.Console.roleId = UserManager.userInfo.id;
 		// this.reqAwardInfo();
 		this.reqGetInsideRoomIdList();
 	}
@@ -112,7 +114,7 @@ class InitServerHandler
 	 */
 	private reqAchievementList()
 	{
-		SocketManager.ImplCall(Command.Achievement_GetList_3090, { "roleId": UserManager.userInfo.roleId }, this.OnAchievementListInfo, null, this);
+		SocketManager.ImplCall(Command.Achievement_GetList_3090, { "roleId": UserManager.userInfo.id }, this.OnAchievementListInfo, null, this);
 	}
 
 	private OnAchievementListInfo(result: game.SpRpcResult)

@@ -165,7 +165,7 @@ class GuessPanel extends BasePanel
     */
     private refreshGoldNum()
     {
-        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
+        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
         if (playInfo)
         {
             let bankRoll: number = playInfo.bankRoll;  //桌内的筹码             
