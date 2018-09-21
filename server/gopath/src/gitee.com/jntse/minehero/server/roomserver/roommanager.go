@@ -140,7 +140,9 @@ func (this *RoomManager) CleanCache() {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
 	}
-	pipe.Exec()
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[房间] 删除roombrief失败 %s", err)
+	}
 
 	//
 	Redis().Del("roomlist")

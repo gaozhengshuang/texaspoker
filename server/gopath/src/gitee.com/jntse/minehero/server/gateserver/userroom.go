@@ -56,7 +56,7 @@ func (this *UserRoomData) Online(u *GateUser) {
 	}
 
 	// 检查房间是否存在
-	keybrief := fmt.Sprintf("roombrief_%s", this.roomid)
+	keybrief := fmt.Sprintf("roombrief_%d", roomid)
 	//if Redis().Exists(keybrief).Val() == 0 {
 	//	this.Reset(u)
 	//	log.Error("[房间] 玩家[%s %d] 房间[%d]已经销毁", u.Name(), u.Id(), this.roomid)
@@ -75,6 +75,7 @@ func (this *UserRoomData) Online(u *GateUser) {
 	this.kind 	 = util.Atoi(Redis().HGet(keybrief, "kind").Val())
 	this.roomtid = util.Atoi(Redis().HGet(keybrief, "tid").Val())
 	this.passwd  = Redis().HGet(keybrief, "passwd").Val()
+	log.Info("[房间] 玩家[%s %d] 获取房间信息[%v]", u.Name(), u.Id(), *this)
 }
 
 func (this *GateUser) GameKind() int32 	{ return this.roomdata.kind }
@@ -253,6 +254,7 @@ func (this *GateUser) SendTexasRoomList(rtype int32) {
 		log.Error("[房间] 获取房间详细信息失败 %s", err)
 		return
 	}
+	pipe.Close()
 
 	send := &msg.GW2C_RetTexasRoomList{List:make([]*msg.TexasRoomSimpleInfo, 0)}
 	for _, cmd := range cmds {

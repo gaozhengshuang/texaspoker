@@ -51,6 +51,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetCreateRoom{}, on_GW2C_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetTexasRoomList{}, on_GW2C_RetTexasRoomList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetUserRoomInfo{}, on_GW2C_RetUserRoomInfo)
+	this.msgparser.RegistProtoMsg(msg.GW2C_RetLeaveRoom{}, on_GW2C_RetLeaveRoom)
 
 
 	// 收room消息
@@ -196,6 +197,16 @@ func on_GW2C_RetUserRoomInfo(session network.IBaseNetSession, message interface{
 	client, _ := session.UserDefData().(*User)
 	client.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:tmsg.Roomid, Userid:pb.Int64(client.Id()), Passwd:tmsg.Passwd})
 }
+
+func on_GW2C_RetLeaveRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_RetLeaveRoom)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
+	client, _ := session.UserDefData().(*User)
+	client.roomid = 0
+	client.roompwd = ""
+}
+
 
 func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RetCreateRoom)
