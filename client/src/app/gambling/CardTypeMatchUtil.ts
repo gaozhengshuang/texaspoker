@@ -9,8 +9,8 @@ class CardTypeMatchUtil
 	public static resultList: Array<CardInfo>;
 	public static cardType: CardType;
 	private static _matchList: Array<Function>;
-	private static readonly minIndex: number = 1;
-	public static readonly maxIndex: number = 14;
+	private static readonly minIndex: number = 14;
+	public static readonly maxIndex: number = 1;
 
 	// public static testBoardList: Array<CardInfo> = new Array<CardInfo>();
 	public static startTest()

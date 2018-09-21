@@ -55,7 +55,8 @@ class InitServerHandler
 		}
 		game.Console.roleId = UserManager.userInfo.roleId;
 		TimeManager.initialize(result.data);
-		this.reqAwardInfo();
+		// this.reqAwardInfo();
+		this.reqGetInsideRoomIdList();
 	}
 	/**
 	 * 拉取兑换信息

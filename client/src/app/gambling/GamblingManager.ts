@@ -334,7 +334,8 @@ class GamblingManager
 		GamblingManager.reset();
 		if (result.data && result.data["id"])
 		{
-			GamblingManager.roomInfo = new RoomInfo(result.data);
+			GamblingManager.roomInfo = new RoomInfo();
+			GamblingManager.roomInfo.data = result.data;
 			GamblingManager.roomInfo.isTrusteeship = undefined;
 			GamblingManager.roomInfo.isMatchOut = undefined;
 			GamblingManager.roomInfo.isFlopCardOver = true;
@@ -1052,12 +1053,12 @@ class GamblingManager
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
 		{
-			if (UserManager.userInfo.gold < GamblingManager.roomInfo.definition.sBuyin)
+			if (UserManager.userInfo.gold < GamblingManager.roomInfo.definition.SBuyin)
 			{
 				game.Console.log("快速买入失败！玩家身上金币小于最低买入金额");
 				return false;
 			}
-			let willBuyNum: number = Math.ceil(GamblingManager.roomInfo.definition.bBuyin / 2);
+			let willBuyNum: number = Math.ceil(GamblingManager.roomInfo.definition.BBuyin / 2);
 			willBuyNum = Math.min(UserManager.userInfo.gold, willBuyNum);
 			if (willBuyNum > 0)
 			{
@@ -1335,7 +1336,7 @@ class GamblingManager
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
 		{
-			return GamblingManager.roomInfo.definition.seat;
+			return GamblingManager.roomInfo.definition.Seat;
 		}
 		return 0;
 	}

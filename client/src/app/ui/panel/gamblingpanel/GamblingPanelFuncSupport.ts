@@ -112,7 +112,7 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 				{
 					return;
 				}
-				JumpUtil.JumpToAchievementInGame(AchievementManager.playingFieldTypeToAchieveShowPattern(GamblingManager.roomInfo.definition.type));
+				JumpUtil.JumpToAchievementInGame(AchievementManager.playingFieldTypeToAchieveShowPattern(GamblingManager.roomInfo.definition.Type));
 				break;
 			case this.target.guessCardBtn://手牌竞猜
 				SoundManager.playEffect(MusicAction.buttonClick);
@@ -136,7 +136,7 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 				{
 					return;
 				}
-				UIManager.showPanel(UIModuleName.TimeAwardPanel, GamblingManager.roomInfo.definition.type);
+				UIManager.showPanel(UIModuleName.TimeAwardPanel, GamblingManager.roomInfo.definition.Type);
 				break;
 			case this.target.reviewBtn://上局回顾
 				SoundManager.playEffect(MusicAction.buttonClick);

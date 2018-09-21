@@ -72,7 +72,7 @@ class MttLogic
 				}
 				if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
 				{
-					if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.seat)
+					if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.Seat)
 					{
 						this._newsLogic.showAlert(ChampionshipRoomUIAlertType.InFinals);
 					}

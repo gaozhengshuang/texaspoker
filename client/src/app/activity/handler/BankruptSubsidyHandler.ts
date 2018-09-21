@@ -92,7 +92,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
     {
         if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && obj.pInfo.roleId == UserManager.userInfo.roleId && obj.state == BuyInGameState.Stand && UserManager.isBust)
         {
-            let minNum: number = GamblingManager.roomInfo.definition.sBuyin;
+            let minNum: number = GamblingManager.roomInfo.definition.SBuyin;
             if (SceneManager.sceneType != SceneType.Hall)
             {
                 let activityInfo = ActivityManager.getOpenAchivityByType(ActivityType.BankruptSubsidy);

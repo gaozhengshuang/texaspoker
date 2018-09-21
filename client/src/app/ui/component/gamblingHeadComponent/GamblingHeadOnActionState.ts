@@ -28,7 +28,7 @@ class GamblingHeadOnActionState extends BaseGamblingHeadState
 				let index: number = this.context.playerGroup.getChildIndex(this.context.haveCard1.parent);
 				this.context.playerGroup.addChildAt(this.context.cdComponent, index);
 				
-				this.context.cdComponent.init(GamblingManager.roomInfo.definition.clientCd);
+				this.context.cdComponent.init(GamblingManager.roomInfo.definition.ClientCd);
 				this.context.cdComponent.start(GamblingManager.roomInfo.posTime, parms);
 
 				this.context.showBase();

@@ -313,7 +313,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 					}
 					else
 					{
-						if (GamblingManager.roomInfo.definition.pattern != GamblingPattern.AllIn)
+						if (GamblingManager.roomInfo.definition.Pattern != GamblingPattern.AllIn)
 						{
 							// this.target.actionGroup.raiseGroup.visible = true;
 							// this.target.actionGroup.actionGroup.visible = true;

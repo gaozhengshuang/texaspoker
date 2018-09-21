@@ -29,7 +29,7 @@ class GamblingPanelNormalState extends BaseGamblingPanelState
 		this.addChild(this.context.guessCardBtn);
 		this.addChild(this.context.guessCorrectlyGroup);
 
-		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.definition.type == PlayingFieldType.PlayFieldPersonal)
+		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.definition.Type == PlayingFieldType.PlayFieldPersonal)
 		{
 			this.removeChild(this.context.guessCardBtn);
 			this.removeChild(this.context.guessCorrectlyGroup);
@@ -43,7 +43,7 @@ class GamblingPanelNormalState extends BaseGamblingPanelState
 			this.addChild(this.context.achieveBtn);
 			this.addChild(this.context.onlineAwardBtn);
 		}
-		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.definition.type == PlayingFieldType.Primary)
+		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.definition.Type == PlayingFieldType.Primary)
 		{
 			this.removeChild(this.context.guessCardBtn);
 			this.removeChild(this.context.guessCorrectlyGroup);

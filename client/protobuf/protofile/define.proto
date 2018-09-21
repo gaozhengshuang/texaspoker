@@ -87,9 +87,10 @@ enum MapEventId {
 }
 
 enum Sex {
-    Female = 0;
-    Male = 1;
-    Neutral = 2;
+    Unknow = 0;     // 未知
+    Male = 1;       // 男
+    Female = 2;     // 女
+    Neutral = 3;    // 中性
 }
 
 enum MoneyType {

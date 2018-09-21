@@ -335,15 +335,25 @@ module game
 
 			this.onNotifyMessage(mainId, cmdDataBA);
 			Console.log("receive server message" + " size:" + _arr.length);
-			this.handleRequest.bind(this), this.handleResponse.bind(this)
+
+			// this.handleRequest.bind(this), this.handleResponse.bind(this)
 		}
 
 		//解析分发消息
 		private onNotifyMessage(mainId: number, cmdDataBA: egret.ByteArray)
 		{
 			let protoData = table.ProtoIdById[mainId];
-			let decoded = msg[protoData.Name.slice(4)].decode(cmdDataBA.bytes);
-			NotificationCenter.postNotification(protoData.Name, decoded);
+			let msgName = protoData.Name;
+			let decoded = msg[msgName.slice(4)].decode(cmdDataBA.bytes);
+			if (msgName.indexOf("push") != -1) //推送协议
+			{
+				this.handleResponse(msgName, decoded, undefined, undefined);
+			}
+			else
+			{
+				this.handleRequest(msgName, decoded, undefined, undefined);
+			}
+			NotificationCenter.postNotification(msgName, decoded);
 		}
 		private handleRequest(name: string, data: any, session: number, error: number)
 		{
@@ -389,7 +399,8 @@ module game
 				error = 0;
 			}
 			Console.log("client receive ------------> cmdId:" + name + "-> session:" + session, "-> error:" + error);
-			let info: SocketInfo = this.RemoveSocketInfo(session);
+			let info: SocketInfo = this.RemoveSocketInfo(name);
+			// let info: SocketInfo = this.RemoveSocketInfo(session);
 			let spRpcResult: SpRpcResult = new SpRpcResult();
 			spRpcResult.cmdId = name;
 			spRpcResult.data = data;
@@ -478,14 +489,14 @@ module game
 			}
 			return null;
 		}
-		private RemoveSocketInfo(session: number): SocketInfo
+		private RemoveSocketInfo(msgName: string): SocketInfo
 		{
 			if (this._infoList != null && this._infoList.length > 0)
 			{
 				for (let i: number = 0; i < this._infoList.length; i++)
 				{
 					let info: SocketInfo = this._infoList[i];
-					if (info.session == session)
+					if (info.cmdId == msgName)
 					{
 						this._infoList.splice(i, 1);
 						return info;

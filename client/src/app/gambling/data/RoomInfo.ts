@@ -3,72 +3,98 @@
  */
 class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
 {
+    private _data: msg.IRS2C_RetEnterRoomInfo;
+    public get data(): msg.IRS2C_RetEnterRoomInfo
+    {
+        return this._data;
+    }
+    public set data(value: msg.IRS2C_RetEnterRoomInfo)
+    {
+        this._data = value;
+        this._definition = table.TexasRoomById[value.roomid];
+    }
 	/**
 	 * 房间号
 	 */
-    public id: number;
+    public get id(): number
+    {
+        return game.longToNumber(this.data.id);
+    }
 	/**
 	 * 庄家位置
 	 */
-    public buttonPos: number;
+    public get buttonPos(): number
+    {
+        return this.data.buttonpos;
+    }
 	/**
 	 * 底池筹码
 	 */
-    public potChips: Array<number>;
-
+    public get potChips(): number[]
+    {
+        return this.data.potchips;
+    }
+    public set potChips(value: number[])
+    {
+        this.data.potchips = value;
+    }
     private _roomId: number;
 	/**
 	 * 房间的配置ID
 	 */
     public get roomId(): number 
     {
-        return this._roomId;
+        return this.data.roomid;
     }
     public set roomId(value: number) 
     {
-        this._roomId = value;
-        this._definition = RoomDefined.GetInstance().getDefinition(value);
+        this.data.roomid = value;
     }
 	/**
  	* 房间定义
  	*/
-    private _definition: RoomDefinition;
+    private _definition: table.ITexasRoomDefine;
 	/**
 	 * 前注
 	 */
-    public ante: number;
+    public get ante(): number
+    {
+        return this.data.ante;
+    }
+    public set ante(value: number)
+    {
+        this.data.ante = value;
+    }
 	/**
 	 * 小盲
 	 */
-    private _sBlind: number;
     public get sBlind(): number
     {
-        if (this._sBlind == undefined || this._sBlind == 0 && this._definition) 
+        if (this.data.sblind == undefined || this.data.sblind == 0 && this._definition) 
         {
-            this._sBlind = this._definition.sBlind;
+            this.data.sblind = this._definition.SBlind;
         }
-        return this._sBlind;
+        return this.data.sblind;
     }
     public set sBlind(value: number)
     {
-        this._sBlind = value;
+        this.data.sblind = value;
     }
 
-    private _bBlind: number;
 	/**
 	 * 大盲
 	 */
     public get bBlind(): number 
     {
-        if (this._bBlind == undefined || this._bBlind == 0 && this._definition) 
+        if (this.data.bblind == undefined || this.data.bblind == 0 && this._definition) 
         {
-            this._bBlind = this._definition.bBlind;
+            this.data.bblind = this._definition.BBlind;
         }
-        return this._bBlind;
+        return this.data.bblind;
     }
     public set bBlind(value: number) 
     {
-        this._bBlind = value;
+        this.data.bblind = value;
     }
 
 	/**
@@ -78,109 +104,168 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     {
         if (this._definition) 
         {
-            return GamblingType.getType(this._definition.type);
+            return GamblingType.getType(this._definition.Type);
         }
         return GamblingType.Common;
     }
 	/**
 	 * 操作(说话)位置
 	 */
-    public pos: number;
+    public get pos(): number
+    {
+        return this.data.pos;
+    }
+    public set pos(value: number)
+    {
+        this.data.pos = value;
+    }
 	/**
 	 * 操作(说话)开始时间戳
 	 */
-    public posTime: number;
+    public get posTime(): number
+    {
+        return this.data.postime;
+    }
+    public set posTime(value: number)
+    {
+        this.data.postime = value;
+    }
 	/**
 	 * 一局开始时间戳
 	 */
-    public startTime: number;
+    public get startTime(): number
+    {
+        return this.data.starttime;
+    }
+    public set startTime(value: number)
+    {
+        this.data.starttime = value;
+    }
     /**
      * 一局结算时间戳
      */
     public endTime: number;
+
 	/**
 	 * 公共牌列表
 	 */
-    public publicCard: Array<CardInfo>;
+    public get publicCard(): Array<CardInfo>
+    {
+        return GamblingUtil.cardArr2CardInfoList(this.data.publiccard);
+    }
+    public set publicCard(value: Array<CardInfo>)
+    {
+        this.data.publiccard = GamblingUtil.cardInfoList2Arr(value);
+    }
+    private _playerList: PlayerInfo[];
 	/**
 	 * 玩家列表
 	 */
-    public playerList: Array<PlayerInfo>;
-	/**
-	 * 边池
-	 */
-    public sidePot: Array<number>;
+    public get playerList(): Array<PlayerInfo>
+    {
+        if (!this._playerList)
+        {
+            this._playerList = [];
+            for (let info of this.data.playerlist)
+            {
+                let pInfo = new PlayerInfo();
+                pInfo.data = info;
+                this._playerList.push(pInfo);
+            }
+        }
+        return this._playerList;
+    }
+    public set playerList(value: PlayerInfo[])
+    {
+        this._playerList = value;
+    }
 	/**
 	 * 结束时亮牌标记
 	 */
-    public isShowCard: boolean;
+    public get isShowCard(): boolean
+    {
+        return this.data.isshowcard;
+
+    }
+    public set isShowCard(value: boolean)
+    {
+        this.data.isshowcard = value;
+    }
 	/**
 	 * 手牌列表
 	 */
-    public handCard: Array<CardInfo>;
+    public get handCard(): Array<CardInfo>
+    {
+        return GamblingUtil.cardArr2CardInfoList(this.data.handcard);
+    }
+    public set handCard(value: Array<CardInfo>)
+    {
+        this.data.handcard = GamblingUtil.cardInfoList2Arr(value);
+    }
 	/**
 	 * 是否自动买入
 	 */
     public isAutoBuy: boolean;
-    private _maxAnte: number;
 	/**
 	 * 当前圈注最大下注额度
 	 */
     public get maxAnte(): number 
     {
-        if (this._maxAnte == undefined) 
+        if (this.data.maxante == undefined) 
         {
-            this._maxAnte = 0;
+            this.data.maxante = 0;
         }
-        return this._maxAnte;
+        return this.data.maxante;
     }
     public set maxAnte(value: number) 
     {
-        this._maxAnte = value;
+        this.data.maxante = value;
     }
-    private _minRaiseNum: number;
 	/**
 	 * 最小加注额度
 	 */
     public get minRaiseNum(): number 
     {
-        if (this._minRaiseNum == undefined || this._minRaiseNum <= 0) 
+        if (this.data.minraisenum == undefined || this.data.minraisenum <= 0) 
         {
             if (GamblingManager.isOneLoopStart) 
             {
-                this._minRaiseNum = this.bBlind;
+                this.data.minraisenum = this.bBlind;
             }
             else 
             {
-                this._minRaiseNum = this.bBlind * 2;
+                this.data.minraisenum = this.bBlind * 2;
             }
         }
-        if (this._minRaiseNum < this.bBlind) 
+        if (this.data.minraisenum < this.bBlind) 
         {
-            this._minRaiseNum = this.bBlind + this._minRaiseNum;
+            this.data.minraisenum = this.bBlind + this.data.minraisenum;
         }
         if (GamblingManager.self) 
         {
-            return Math.min(GamblingManager.self.bankRoll + GamblingManager.self.num, this._minRaiseNum);
+            return Math.min(GamblingManager.self.bankRoll + GamblingManager.self.num, this.data.minraisenum);
         }
-        return this._minRaiseNum;
+        return this.data.minraisenum;
     }
 	/**
 	 * 当前最小加注额度
 	 */
     public set minRaiseNum(value: number) 
     {
-        this._minRaiseNum = value;
+        this.data.minraisenum = value;
     }
 
-    public get definition(): RoomDefinition 
+    public get definition(): table.ITexasRoomDefine 
     {
         return this._definition;
     }
 	/**
 	 * 房主roleId，私人房模式使用
 	 */
-    public masterId: number;
+    public get masterId(): number
+    {
+        return this.data.masterid;
+    }
     /**
      * 是否在托管中
      */
@@ -190,15 +275,38 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     /**
      * 已经重购的次数
      */
-    public rebuyTimes: number;
+    public get rebuyTimes(): number
+    {
+        return this.data.rebuytimes;
+    }
+    public set rebuyTimes(value: number)
+    {
+        this.data.rebuytimes = value;
+    }
     /**
      * 已经增购的次数
      */
-    public addonTimes: number;
+    public get addonTimes(): number
+    {
+        return this.data.addontimes;
+    }
+    public set addonTimes(value: number)
+    {
+        this.data.addontimes = value;
+    }
     /**
      * 当前时间盲注等级
      */
-    public blindLevel: number;
+    public get blindLevel(): number
+    {
+        return this.data.blindlevel;
+    }
+
+    public set blindLevel(value: number)
+    {
+        this.data.blindlevel = value;
+    }
+
     /**
      * 当前局盲注等级(应小于或等于)blindLevel
      */
@@ -206,11 +314,25 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     /**
      * 下一次涨盲时间
      */
-    public blindTime: number;
+    public get blindTime(): number
+    {
+        return this.data.blindtime;
+    }
+    public set blindTime(value: number)
+    {
+        this.data.blindtime = value;
+    }
     /**
      * 重购/增购的筹码(暂时未加到自己的筹码里,下局在增加)
      */
-    public addbuy: number;
+    public get addbuy(): number
+    {
+        return this.data.addbuy;
+    }
+    public set addbuy(value: number)
+    {
+        this.data.addbuy = value;
+    }
     /**
      * 已经被淘汰(锦标赛用,锦标赛结算后房间会自动解散,这时请求退出房间会有错误请求,添加该标记退出房间时不需发送请求)
      */
@@ -218,7 +340,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     /**
      * 是否在旁观
      */
-    public isOnWatch:boolean;
+    public isOnWatch: boolean;
     /**
      * 发牌是否完毕
      */
@@ -227,35 +349,13 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
 
     public reset()
     {
-        this.id = 0;
-        this.buttonPos = 0;
-        this.potChips = undefined;
-        this.roomId = 0;
-        this.ante = 0;
-        this.sBlind = 0;
-        this.bBlind = 0;
-        this.pos = 0;
-        this.posTime = 0;
-        this.startTime;
-        this.publicCard = undefined;
-        this.playerList = undefined;
-        this.sidePot = undefined;
-        this.isShowCard = undefined;
-        this.handCard = undefined;
         this.isAutoBuy = undefined;
-        this._definition = undefined;
-        this.maxAnte = 0;
-        this.minRaiseNum = 0;
-        this.masterId = 0;
-        this.rebuyTimes = 0;
-        this.blindLevel = 0;
-        this.nowBlindLevel = 0;
-        this.blindTime = 0;
-        this.addbuy = 0;
         this.isTrusteeship = undefined;
         this.isMatchOut = undefined;
         this.isFlopCardOver = undefined;
         this.isOnWatch = undefined;
+
+        this.data = undefined;
     }
     public copyValueFrom(data: any) 
     {

@@ -182,7 +182,7 @@ class GuessPanel extends BasePanel
     {
         if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
         {
-            this.totalBuyLabel.text = "$" + GamblingManager.guessHandler.totalAnte * GamblingManager.roomInfo.definition.bBlind;
+            this.totalBuyLabel.text = "$" + GamblingManager.guessHandler.totalAnte * GamblingManager.roomInfo.definition.BBlind;
         }
     }
     /**

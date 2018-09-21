@@ -346,7 +346,7 @@ class GamblingPanel extends BasePanel
 		UIUtil.addMultiNotify(this.activityBtn, NotifyType.ActivityRedPoint, UIModuleName.GamblingPanel, 0, 0);
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
 		{
-			switch (GamblingManager.roomInfo.definition.type)
+			switch (GamblingManager.roomInfo.definition.Type)
 			{
 				case PlayingFieldType.Primary:
 					UIUtil.addSingleNotify(this.achieveBtn, NotifyType.Achieve_PrimaryPattern, -7, -5);

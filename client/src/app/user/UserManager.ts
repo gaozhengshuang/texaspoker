@@ -323,7 +323,7 @@ class UserManager
 				if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
 				{
 					info.stateId = GamblingManager.roomInfo.id;
-					info.stateConfId = GamblingManager.roomInfo.definition.id;
+					info.stateConfId = GamblingManager.roomInfo.definition.Id;
 					if (GamblingManager.roomInfo.gamblingType == GamblingType.Match)
 					{
 						let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMatchRoomInfoByRoomId(GamblingManager.roomInfo.id);
