@@ -28,21 +28,21 @@ class GamblingHeadOnActionState extends BaseGamblingHeadState
 				let index: number = this.context.playerGroup.getChildIndex(this.context.haveCard1.parent);
 				this.context.playerGroup.addChildAt(this.context.cdComponent, index);
 				
-				this.context.cdComponent.init(GamblingManager.roomInfo.definition.clientCd);
+				this.context.cdComponent.init(GamblingManager.roomInfo.definition.ClientCd);
 				this.context.cdComponent.start(GamblingManager.roomInfo.posTime, parms);
 
 				this.context.showBase();
 				if (this.context.bindData)
 				{
 					// this.context.infoLabel.text = PlayerInfo.getStateDes(PlayerState.Action);
-					this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankroll);
+					this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankRoll);
 					if (this.context.bindData.userInfo)
 					{
-						game.Console.log("说话状态显示筹码：" + this.context.bindData.bankroll + this.context.bindData.userInfo.name);
+						game.Console.log("说话状态显示筹码：" + this.context.bindData.bankRoll + this.context.bindData.userInfo.name);
 					}
 				}
 			}
-			if (this.context.bindData && this.context.bindData.roleid == UserManager.userInfo.roleId)
+			if (this.context.bindData && this.context.bindData.roleId == UserManager.userInfo.roleId)
 			{
 				if (this.context.cardFace1.visible == false || this.context.cardFace2.visible == false)
 				{

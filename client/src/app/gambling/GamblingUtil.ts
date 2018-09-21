@@ -6,9 +6,13 @@ class GamblingUtil
 	/**
 	 * 卡牌数据转换 因为一开始定的数据结构，服务器存储数据库问题
 	 */
-	public static cardArr2CardInfoList(data: Array<any>, targetList: Array<CardInfo>)
+	public static cardArr2CardInfoList(data: Array<any>, targetList?: Array<CardInfo>)
 	{
-		if (data && targetList)
+		if (!targetList)
+		{
+			targetList = [];
+		}
+		if (data)
 		{
 			let cardInfo: CardInfo;
 			for (let i: number = 0; i < data.length; i++)
@@ -28,6 +32,23 @@ class GamblingUtil
 					targetList.push(cardInfo);
 				}
 			}
+		}
+		return targetList;
+	}
+	/**
+	 * 卡牌信息转原始数据
+	 */
+	public static cardInfoList2Arr(data: Array<CardInfo>)
+	{
+		if (data)
+		{
+			let arr = [];
+			for (let i: number = 0; i < data.length; i++)
+			{
+				let info = data[i];
+				arr.push(info.card[0], info.card[1]);
+			}
+			return arr;
 		}
 	}
 	/**
@@ -251,7 +272,7 @@ class GamblingUtil
 				// let bbNum: number = Math.ceil(offset / GamblingManager.roomInfo.bBlind);
 				// let additional: number = bbNum * GamblingManager.roomInfo.bBlind;
 				// additional += GamblingManager.roomInfo.minRaiseNum;
-				return Math.min(maxBankRoll, GamblingManager.self.bankroll + GamblingManager.self.num);
+				return Math.min(maxBankRoll, GamblingManager.self.bankRoll + GamblingManager.self.num);
 			}
 			return GamblingManager.roomInfo.minRaiseNum;
 		}
@@ -295,9 +316,9 @@ class GamblingUtil
 		let maxBankRoll: number = 0;
 		for (let pInfo of GamblingManager.roomInfo.playerList)
 		{
-			if (pInfo.roleid != UserManager.userInfo.roleId && pInfo.bankroll + pInfo.num > maxBankRoll) 
+			if (pInfo.roleId != UserManager.userInfo.roleId && pInfo.bankRoll + pInfo.num > maxBankRoll) 
 			{
-				maxBankRoll = pInfo.bankroll + pInfo.num;
+				maxBankRoll = pInfo.bankRoll + pInfo.num;
 			}
 		}
 		return maxBankRoll;
@@ -323,7 +344,7 @@ class GamblingUtil
 	{
 		if (GamblingManager.self && InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingUtil.getIsOnAction(GamblingManager.self))
 		{
-			if (GamblingManager.self.bankroll + GamblingManager.self.num > GamblingManager.roomInfo.maxAnte)
+			if (GamblingManager.self.bankRoll + GamblingManager.self.num > GamblingManager.roomInfo.maxAnte)
 			{
 				return true;
 			}
@@ -337,12 +358,12 @@ class GamblingUtil
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
 		{
-			if (GamblingManager.roomInfo.definition.pattern == GamblingPattern.AllIn)
+			if (GamblingManager.roomInfo.definition.Pattern == GamblingPattern.AllIn)
 			{
 				let maxBankRoll: number = GamblingUtil.maxBankRoll;
 				if (GamblingManager.self && GamblingUtil.isOnProcess(GamblingManager.self))
 				{
-					if (maxBankRoll >= GamblingManager.self.bankroll || GamblingManager.roomInfo.maxAnte <= GamblingManager.roomInfo.bBlind)
+					if (maxBankRoll >= GamblingManager.self.bankRoll || GamblingManager.roomInfo.maxAnte <= GamblingManager.roomInfo.bBlind)
 					{
 						return true;
 					}
@@ -356,7 +377,7 @@ class GamblingUtil
 			{
 				if (GamblingManager.self && GamblingUtil.isOnProcess(GamblingManager.self))
 				{
-					if (GamblingManager.self.bankroll + GamblingManager.self.num <= GamblingManager.roomInfo.maxAnte)
+					if (GamblingManager.self.bankRoll + GamblingManager.self.num <= GamblingManager.roomInfo.maxAnte)
 					{
 						return true;
 					}
@@ -404,7 +425,7 @@ class GamblingUtil
 		{
 			if (role instanceof PlayerInfo)
 			{
-				return role.roleid == GamblingManager.roomInfo.masterId;
+				return role.roleId == GamblingManager.roomInfo.masterId;
 			}
 			else
 			{
@@ -502,7 +523,7 @@ class GamblingUtil
 	{
 		if (GamblingUtil.isMatch && GamblingManager.matchRoomInfo && GamblingManager.self && GamblingManager.roomInfo)
 		{
-			if (GamblingManager.self.bankroll <= 0)
+			if (GamblingManager.self.bankRoll <= 0)
 			{
 				if (GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Rebuy) == false && GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Addon) == false)
 				{

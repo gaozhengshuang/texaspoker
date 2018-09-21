@@ -89,7 +89,7 @@ class AddChipsPanel extends BasePanel
 	{
 		this._isPosChanged = true;
 		let readChips: number = this.getRealChips();
-		if (this.addChipsVs.maximum == this.addChipsVs.value && GamblingManager.self && readChips >= GamblingManager.self.bankroll)
+		if (this.addChipsVs.maximum == this.addChipsVs.value && GamblingManager.self && readChips >= GamblingManager.self.bankRoll)
 		{
 			this.countLabel.text = "AllIn";
 		}
@@ -128,7 +128,7 @@ class AddChipsPanel extends BasePanel
 					let readChips: number = this.getRealChips();
 					if (this.panelData.guideValue == undefined && readChips > 0 && GamblingManager.self) //处理引导进行加注
 					{
-						if (GamblingManager.self.bankroll + GamblingManager.self.num > readChips)
+						if (GamblingManager.self.bankRoll + GamblingManager.self.num > readChips)
 						{
 							GamblingManager.reqAction(PlayerState.Raise, readChips - this.panelData.value);
 						}

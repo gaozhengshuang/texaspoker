@@ -72,7 +72,7 @@ class MttLogic
 				}
 				if (InfoUtil.checkAvailable(GamblingManager.roomInfo))
 				{
-					if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.seat)
+					if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.Seat)
 					{
 						this._newsLogic.showAlert(ChampionshipRoomUIAlertType.InFinals);
 					}
@@ -92,7 +92,7 @@ class MttLogic
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match)
 		{
-			if (info && info.roleid == UserManager.userInfo.roleId)
+			if (info && info.roleId == UserManager.userInfo.roleId)
 			{
 				this.onRebuyORAddonEvent();
 			}
@@ -148,7 +148,7 @@ class MttLogic
 			if (pInfo && this._roundOverData && this._roundOverData.initbankRoll)
 			{
 				//这里需要判断本局是否有重购/增购 未增加的筹码
-				if ((pInfo.bankroll <= 0 || !pInfo.bankroll) && (!GamblingManager.roomInfo.addbuy || GamblingManager.roomInfo.addbuy <= 0))
+				if ((pInfo.bankRoll <= 0 || !pInfo.bankRoll) && (!GamblingManager.roomInfo.addbuy || GamblingManager.roomInfo.addbuy <= 0))
 				{
 					this.checkRoundOver();
 				}
@@ -161,7 +161,7 @@ class MttLogic
 		{
 			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
 			//这里需要判断本局是否有重购/增购 未增加的筹码
-			if (pInfo && (pInfo.bankroll <= 0 || !pInfo.bankroll) && (!GamblingManager.roomInfo.addbuy || GamblingManager.roomInfo.addbuy <= 0))
+			if (pInfo && (pInfo.bankRoll <= 0 || !pInfo.bankRoll) && (!GamblingManager.roomInfo.addbuy || GamblingManager.roomInfo.addbuy <= 0))
 			{
 				if (GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Rebuy, false))
 				{

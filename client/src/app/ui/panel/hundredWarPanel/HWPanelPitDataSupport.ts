@@ -112,7 +112,7 @@ class HWPanelPitDataSupport extends BaseHWPanelSupport
 		for (let i: number = HWPanelSetting.MinPitIndex; i < HWPanelSetting.MaxPitNum; i++)
 		{
 			pitInfo = this.target.pitList[i];
-			if (pitInfo.headComponent.bindData && pitInfo.headComponent.bindData.roleId == playerInfo.roleid)
+			if (pitInfo.headComponent.bindData && pitInfo.headComponent.bindData.roleId == playerInfo.roleId)
 			{
 				return pitInfo;
 			}

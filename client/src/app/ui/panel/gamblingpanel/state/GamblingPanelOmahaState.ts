@@ -30,7 +30,7 @@ class GamblingPanelOmahaState extends BaseGamblingPanelState
 		this.removeChild(this.context.onlineAwardBtn);
 		this.removeChild(this.context.reviewBtn);
 
-		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.definition.type == PlayingFieldType.OmahaPersonal)
+		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.definition.Type == PlayingFieldType.OmahaPersonal)
 		{
 			this.removeChild(this.context.achieveBtn);
 		}

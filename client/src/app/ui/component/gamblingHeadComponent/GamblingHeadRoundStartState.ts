@@ -13,7 +13,7 @@ class GamblingHeadRoundStartState extends BaseGamblingHeadState
 			this.context.showMask(false);
 			this.context.chipsSingleShowComponent.visible = false;
 
-			this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankroll);
+			this.context.chipsLabel.text = game.MathUtil.formatNum(this.context.bindData.bankRoll);
 			this.context.showCardTypeBgFilter(0);
 			// if (this.context.bindData.userInfo)
 			// {

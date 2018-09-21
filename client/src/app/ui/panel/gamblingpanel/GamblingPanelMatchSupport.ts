@@ -110,7 +110,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         //换房间
         if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.matchRoomInfo)
         {
-            if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.seat && GamblingManager.matchRoomInfo.definition)
+            if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.Seat && GamblingManager.matchRoomInfo.definition)
             {
                 if (GamblingUtil.isOutOfJoin(GamblingManager.matchRoomInfo) && this.isShowAlert)
                 {
@@ -137,7 +137,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
                 }
                 if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && this.isShowAlert) //最终桌提示
                 {
-                    if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.seat && data.leftJoin > GamblingManager.roomInfo.definition.seat)
+                    if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.roomInfo.definition.Seat && data.leftJoin > GamblingManager.roomInfo.definition.Seat)
                     {
                         this._newsLogic.showAlert(ChampionshipRoomUIAlertType.InFinals);
                     }

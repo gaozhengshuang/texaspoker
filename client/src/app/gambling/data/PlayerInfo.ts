@@ -8,25 +8,33 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	 */
 	public width: number = 100;
 	public height: number = 100;
+
+	public data: msg.ITexasPlayer;
 	/**
 	 * 角色ID
 	 */
-	public roleid: number;
-	private _bankRoll: number;
-	/**
-	 * 游戏时身上的筹码数
-	 */
-	public get bankroll(): number
+	public get roleId(): number
 	{
-		return this._bankRoll;
+		return game.longToNumber(this.data.roleid);
+	}
+	public set roleId(value:number)
+	{
+		this.data.roleid = value;
 	}
 	/**
 	 * 游戏时身上的筹码数
 	 */
-	public set bankroll(value: number)
+	public get bankRoll(): number
 	{
-		this.lastBankRoll = this._bankRoll;
-		this._bankRoll = value;
+		return this.data.bankroll;
+	}
+	/**
+	 * 游戏时身上的筹码数
+	 */
+	public set bankRoll(value: number)
+	{
+		this.lastBankRoll = this.data.bankroll;
+		this.data.bankroll = value;
 	}
 	/**
 	 * 上一次的筹码
@@ -35,34 +43,61 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 开局初始筹码数,开局时赋值,结算时请零,其他时候请勿赋值
 	 */
-	public initbankroll: number;
+	public get initbankRoll(): number
+	{
+		return this.data.initbankroll;
+	}
+	public set initbankRoll(value: number)
+	{
+		this.data.initbankroll = value;
+	}
 	/**
 	 * 位置
 	 */
-	public pos: number;
-	private _state: PlayerState;
+	public get pos():number
+	{
+		return this.data.pos;
+	}
+	public set pos(value:number)
+	{
+		this.data.pos = value;
+	}
 	/**
 	 * 0.等待下一局 1.弃牌 2.过牌 3.加注 4.allin 5.跟注 6.盲注
 	 */
 	public get state(): PlayerState
 	{
-		return this._state;
+		return this.data.state;
 	}
 	public set state(value: PlayerState)
 	{
-		if (this._state != value)
+		if (this.data.state != value)
 		{
-			this._state = value;
+			this.data.state = value;
 		}
 	}
 	/**
 	 * 状态参数
 	 */
-	public num: number;
+	public get num():number
+	{
+		return this.data.num;
+	}
+	public set num(value:number)
+	{
+		this.data.num = value;
+	}
 	/**
 	 * 投入筹码的总数
 	 */
-	public totalnum:number;
+	public get totalnum():number
+	{
+		return this.data.totalnum;
+	}
+	public set totalnum(value:number)
+	{
+		this.data.totalnum =value;
+	}
 	/**
 	 * 玩家信息
 	 */
@@ -99,13 +134,9 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 
 	public reset()
 	{
-		this.roleid = undefined;
 		this.lastBankRoll = undefined;
-		this.bankroll = undefined;
-		this.pos = undefined;
-		this.state = PlayerState.WaitNext;
 		this.isSitDown = false;
-		this.initbankroll = undefined;
+		this.data = undefined;
 	}
 	/**
 	 * 获取状态描述

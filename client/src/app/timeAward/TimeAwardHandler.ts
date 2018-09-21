@@ -212,8 +212,8 @@ class TimeAwardHandler
                 if (def)
                 {
                     let num: number;
-                    num = def.awardList[GamblingManager.roomInfo.definition.type - 1];
-                    UIManager.showPanel(UIModuleName.GetTimeAwardRemindPanel, { round: this.round, num: num, pattern: GamblingManager.roomInfo.definition.type });
+                    num = def.awardList[GamblingManager.roomInfo.definition.Type - 1];
+                    UIManager.showPanel(UIModuleName.GetTimeAwardRemindPanel, { round: this.round, num: num, pattern: GamblingManager.roomInfo.definition.Type });
                 }
                 this.isGetTimeAward = true;
                 this.BringTimeAwardEvent.dispatch();

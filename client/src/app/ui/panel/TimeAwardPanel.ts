@@ -121,7 +121,7 @@ class TimeAwardPanel extends BasePanel
         let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
         if (playInfo)
         {
-            let bankRoll: number = playInfo.bankroll;  //桌内的筹码             
+            let bankRoll: number = playInfo.bankRoll;  //桌内的筹码             
             this.goldLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold + bankRoll);
         } else
         {

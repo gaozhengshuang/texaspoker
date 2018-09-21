@@ -192,7 +192,7 @@ class GamblingPanelSetting
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.definition)
 		{
-			return Math.floor(GamblingManager.roomInfo.definition.seat / 2) + 1;
+			return Math.floor(GamblingManager.roomInfo.definition.Seat / 2) + 1;
 		}
 		return 0;
 	}

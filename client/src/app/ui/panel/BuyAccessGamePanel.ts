@@ -185,9 +185,9 @@ class BuyAccessGamePanel extends BasePanel
 		{
 			if (GamblingManager.self)
 			{
-				if (this.buyAccessHs.value > GamblingManager.self.bankroll)
+				if (this.buyAccessHs.value > GamblingManager.self.bankRoll)
 				{
-					GamblingManager.reqAddCoin(this.buyAccessHs.value - GamblingManager.self.bankroll);
+					GamblingManager.reqAddCoin(this.buyAccessHs.value - GamblingManager.self.bankRoll);
 				}
 				else
 				{

@@ -61,16 +61,16 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 					{
 						let pos: number = this.target.getPlayerPos(pit);
 						let bBuy: number = 0;
-						if (GamblingManager.roomInfo.definition.bBuyin == undefined) //无上限模式处理
+						if (GamblingManager.roomInfo.definition.BBuyin == undefined) //无上限模式处理
 						{
 							bBuy = Number.MAX_VALUE;
 						}
 						else
 						{
-							bBuy = GamblingManager.roomInfo.definition.bBuyin;
+							bBuy = GamblingManager.roomInfo.definition.BBuyin;
 						}
 						let maxNum: number = Math.min(bBuy, UserManager.userInfo.gold);
-						let minNum: number = GamblingManager.roomInfo.definition.sBuyin;
+						let minNum: number = GamblingManager.roomInfo.definition.SBuyin;
 						let bBlind: number = GamblingManager.roomInfo.bBlind;
 						maxNum = Math.max(maxNum, minNum);
 						let isGoldInsufficient: boolean = UserManager.userInfo.gold < minNum;
@@ -79,7 +79,7 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 				}
 				else
 				{
-					UserManager.reqShowOtherUserInfoPanel(headComponent.bindData.roleid);
+					UserManager.reqShowOtherUserInfoPanel(headComponent.bindData.roleId);
 				}
 				break;
 			}
@@ -94,17 +94,17 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 		}
 		if (GamblingManager.self && type != GamblingType.Match) //已在座位上
 		{
-			let maxNum: number = GamblingManager.self.bankroll + UserManager.userInfo.gold;
-			maxNum = Math.min(GamblingManager.roomInfo.definition.bBuyin, maxNum);
-			let minNum: number = GamblingManager.self.bankroll;
+			let maxNum: number = GamblingManager.self.bankRoll + UserManager.userInfo.gold;
+			maxNum = Math.min(GamblingManager.roomInfo.definition.BBuyin, maxNum);
+			let minNum: number = GamblingManager.self.bankRoll;
 			let bBlind: number = GamblingManager.roomInfo.bBlind;
 			if (maxNum == 0)
 			{
-				maxNum = GamblingManager.roomInfo.definition.bBuyin;
+				maxNum = GamblingManager.roomInfo.definition.BBuyin;
 			}
 			if (minNum == 0)
 			{
-				minNum = GamblingManager.roomInfo.definition.sBuyin;
+				minNum = GamblingManager.roomInfo.definition.SBuyin;
 			}
 			if (minNum >= maxNum)
 			{
@@ -112,7 +112,7 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 				//return;
 				minNum = maxNum;
 			}
-			UIManager.showPanel(UIModuleName.BuyAccessGamePanel, { isAddCoin: true, bbBuyIn: GamblingManager.roomInfo.definition.bBuyin, maxNum: maxNum, minNum: minNum, bBlind: bBlind });
+			UIManager.showPanel(UIModuleName.BuyAccessGamePanel, { isAddCoin: true, bbBuyIn: GamblingManager.roomInfo.definition.BBuyin, maxNum: maxNum, minNum: minNum, bBlind: bBlind });
 		}
 		else
 		{
