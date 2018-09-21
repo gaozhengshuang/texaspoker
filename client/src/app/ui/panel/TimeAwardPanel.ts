@@ -118,7 +118,7 @@ class TimeAwardPanel extends BasePanel
             this.getBtn.enabled = true;
             this.timeLabel.text = "距离下次领奖时间00:00";
         }
-        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
+        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
         if (playInfo)
         {
             let bankRoll: number = playInfo.bankRoll;  //桌内的筹码             

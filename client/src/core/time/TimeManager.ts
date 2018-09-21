@@ -15,7 +15,7 @@ class TimeManager
 	 * 1970UTC
 	 */
 	public static readonly Utc1970: Date = new Date(1970, 0, 1, 0, 0, 0, 0);
-	public static initialize(data: any)
+	public static initialize(data: msg.IUserBase)
 	{
 		if (data)
 		{
@@ -25,10 +25,10 @@ class TimeManager
 				TimeManager._timeZone = data["timezone"];
 			}
 			TimeManager._loginTimestamp = 0;
-			if (data["timestamp"])
+			if (data.tmlogin > 0)
 			{
-				TimeManager._loginTimestamp = data["timestamp"];
-				TimeManager.SetServerTimestamp(data);
+				TimeManager._loginTimestamp = game.longToNumber(data.tmlogin);
+				TimeManager.SetServerTimestamp(data.tmlogin);
 			}
 		}
 		SocketManager.AddCommandListener(Command.System_Push_ResetTime0_2015, TimeManager.onResetTime, this);
@@ -39,12 +39,12 @@ class TimeManager
 		TimeManager.resetTime0Event.dispatch();
 	}
 
-	public static SetServerTimestamp(data: any)
+	public static SetServerTimestamp(time: number | Long)
 	{
 		TimeManager._serverTimestamp = 0;
-		if (data["timestamp"])
+		if (time > 0)
 		{
-			TimeManager._serverTimestamp = data["timestamp"];
+			TimeManager._serverTimestamp = game.longToNumber(time);
 		}
 		TimeManager._serverSyncTime = Math.floor(Date.now() / 1000);
 	}

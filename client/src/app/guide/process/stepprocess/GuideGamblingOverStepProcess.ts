@@ -34,7 +34,7 @@ class GuideGamblingOverStepProcess extends BaseGuideStepProcess
 				{
 					if (potInfo.roleId[i] == GuideGamblingProcess.self)
 					{
-						potInfo.roleId[i] = UserManager.userInfo.roleId; //引导奖励给自己
+						potInfo.roleId[i] = UserManager.userInfo.id; //引导奖励给自己
 						break;
 					}
 				}
@@ -43,7 +43,7 @@ class GuideGamblingOverStepProcess extends BaseGuideStepProcess
 			{
 				if (cardInfo.roleId == GuideGamblingProcess.self)
 				{
-					cardInfo.roleId = UserManager.userInfo.roleId;
+					cardInfo.roleId = UserManager.userInfo.id;
 					break;
 				}
 			}

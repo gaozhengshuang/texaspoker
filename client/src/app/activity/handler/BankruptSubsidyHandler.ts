@@ -90,7 +90,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
      */
     private onBust(obj: any)
     {
-        if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && obj.pInfo.roleId == UserManager.userInfo.roleId && obj.state == BuyInGameState.Stand && UserManager.isBust)
+        if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && obj.pInfo.roleId == UserManager.userInfo.id && obj.state == BuyInGameState.Stand && UserManager.isBust)
         {
             let minNum: number = GamblingManager.roomInfo.definition.SBuyin;
             if (SceneManager.sceneType != SceneType.Hall)

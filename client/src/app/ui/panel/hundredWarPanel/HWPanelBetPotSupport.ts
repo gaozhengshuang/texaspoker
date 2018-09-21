@@ -201,7 +201,7 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
     */
     private betPotHandler(event: egret.TouchEvent)
     {
-        if (HundredWarManager.roomInfo && this.target.stateSupport.isOnBet && HundredWarManager.roomInfo.state == HWState.Bet && !HundredWarManager.isBanker(UserManager.userInfo.roleId))
+        if (HundredWarManager.roomInfo && this.target.stateSupport.isOnBet && HundredWarManager.roomInfo.state == HWState.Bet && !HundredWarManager.isBanker(UserManager.userInfo.id))
         {
             if (!this.target.sitDownAndAddCoin.isBetByOneFifth())
             {

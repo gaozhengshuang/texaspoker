@@ -192,7 +192,7 @@ class GamblingPanelPitTurnSupport extends BaseGamblingPanelSupport
 			return;
 		}
 		let pitInfo: GamblingPitInfo = this.target.getPitInfo((obj.pInfo as PlayerInfo).pos);
-		if (obj.state == BuyInGameState.Sit && (obj.pInfo as PlayerInfo).roleId == UserManager.userInfo.roleId)
+		if (obj.state == BuyInGameState.Sit && (obj.pInfo as PlayerInfo).roleId == UserManager.userInfo.id)
 		{
 			this._isClockwise = pitInfo.index > GamblingPanelSetting.centerNum;
 			if (this._isClockwise)
@@ -225,7 +225,7 @@ class GamblingPanelPitTurnSupport extends BaseGamblingPanelSupport
 			}
 			else
 			{
-				let com: GamblingHeadComponent = this.target.getHeadComponentByRole(UserManager.userInfo.roleId);
+				let com: GamblingHeadComponent = this.target.getHeadComponentByRole(UserManager.userInfo.id);
 				if (com)
 				{
 					this.target.showDownEffect(com.playerGroup);
@@ -315,7 +315,7 @@ class GamblingPanelPitTurnSupport extends BaseGamblingPanelSupport
 				pitInfo = this.target.pitList[i - 1];
 				this.setPos(pitInfo); //旋转完毕重新设置位置属性
 			}
-			let com: GamblingHeadComponent = this.target.getHeadComponentByRole(UserManager.userInfo.roleId);
+			let com: GamblingHeadComponent = this.target.getHeadComponentByRole(UserManager.userInfo.id);
 			if (com)
 			{
 				this.target.showDownEffect(com.playerGroup);

@@ -81,7 +81,7 @@ class ChatManager
 				ChatManager.AddChatInfo(chatInfo);
 			}
 			if (!UIManager.isShowPanel(UIModuleName.ChatPanel) && chatInfo.type == ChatMessageType.InRoom
-				&& chatInfo.roleId != UserManager.userInfo.roleId && chatInfo.subType && chatInfo.subType != ChatSubType.Emoji)
+				&& chatInfo.roleId != UserManager.userInfo.id && chatInfo.subType && chatInfo.subType != ChatSubType.Emoji)
 			{
 				ChatManager.isHaveNewChatMsg = true;
 				ChatManager.onRefreshChatRedPointEvent.dispatch();
@@ -206,7 +206,7 @@ class ChatManager
 	private static CreateChatInfoByMyInfo(type: ChatMessageType, message: string): ChatInfo
 	{
 		let info: ChatInfo = new ChatInfo();
-		info.roleId = UserManager.userInfo.roleId;
+		info.roleId = UserManager.userInfo.id;
 		info.type = type;
 		info.message = message;
 		info.name = UserManager.userInfo.name;

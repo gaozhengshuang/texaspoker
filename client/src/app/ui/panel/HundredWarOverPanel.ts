@@ -199,7 +199,7 @@ class HundredWarOverPanel extends BasePanel
         {
             SoundManager.playButtonEffect(event.target);
         }
-        if (!HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && UserManager.userInfo.gold < HundredWarManager.roomInfo.definition.minBuyin)
+        if (!HundredWarManager.isBanker(UserManager.userInfo.id) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && UserManager.userInfo.gold < HundredWarManager.roomInfo.definition.minBuyin)
         {
             AlertManager.showConfirm("您的金币不足，快去商城补充点金币吧！", this.goToShopping, this.outRoom, null, null, null, "前往商城");
         }

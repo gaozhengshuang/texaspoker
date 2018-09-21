@@ -23,7 +23,20 @@ module game
             {
                 NotificationCenter.once(LoginManager, (msg: msg.GW2C_PushUserInfo) =>
                 {
-                    UserManager.userInfo = <any>msg;
+                    if (!UserManager.userInfo)
+                    {
+                        UserManager.userInfo = new UserInfo();
+                    }
+                    else
+                    {
+                        UserManager.userInfo.reset();
+                    }
+                    UserManager.userInfo.copyValueFrom(msg.base);
+                    UserManager.userInfo.copyValueFrom(msg.entity);
+
+                    TimeManager.initialize(msg.base);
+
+
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
                 }, "msg.GW2C_SendUserInfo");
                 let loginResult: msg.IGW2C_RetLogin = await LoginManager.connectLoginGate(gwResult, LoginManager.loginUserInfo.account);

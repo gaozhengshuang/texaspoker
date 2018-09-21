@@ -160,14 +160,14 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 					{
 						if (GamblingUtil.isWin(roleId))
 						{
-							if (roleId == UserManager.userInfo.roleId)
+							if (roleId == UserManager.userInfo.id)
 							{
 								SoundManager.playEffect(MusicAction.win);
 							}
 							headComponent.chipsLabel.text = "赢";
 							headComponent.showCardTypeBgFilter(2);
 							headComponent.showWinEffect();
-							if (roleId == UserManager.userInfo.roleId)
+							if (roleId == UserManager.userInfo.id)
 							{
 								this.target.winAnimeGroup.visible = true;
 								this.showWinAnime();
@@ -388,7 +388,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 					if (GamblingUtil.isWin(cardInfo.roleId))
 					{
 						headComponent.showWinEffect();
-						if (cardInfo.roleId == UserManager.userInfo.roleId)
+						if (cardInfo.roleId == UserManager.userInfo.id)
 						{
 							this.target.winAnimeGroup.visible = true;
 							this.showWinAnime();
@@ -412,7 +412,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		}
 		if (!matchResult)
 		{
-			if (GamblingUtil.isWin(UserManager.userInfo.roleId))
+			if (GamblingUtil.isWin(UserManager.userInfo.id))
 			{
 				SoundManager.playEffect(MusicAction.win);
 				headComponent.showWinEffect();
@@ -422,7 +422,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 			}
 			return;
 		}
-		if (GamblingUtil.isWin(UserManager.userInfo.roleId))
+		if (GamblingUtil.isWin(UserManager.userInfo.id))
 		{
 			SoundManager.playWinSoundEffect(CardTypeMatchUtil.cardType);
 		}
