@@ -188,31 +188,37 @@ func (this *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 		this.roomdata.roomsid = agent.Id()
 		this.roomdata.creating = false
 		this.SendUserBinToRoom(agent.Id(), roomid)
-
 		log.Info("玩家[%s %d] 创建房间[%d]成功 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
 	}
-
 	this.CreateRoomResponse(errmsg)
 }
 
-// 房间关闭
-func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
-	if this.IsOnline() { 
-		this.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(this.RoomId())}) 
-	}
-	
-	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", this.Name(), this.Id(), this.RoomId(), reason)
+// 离开房间返回
+func (this *GateUser) OnLeaveRoom(bin *msg.Serialize) {
+	log.Info("玩家[%s %d] 回传房间个人数据 房间[%d]", this.Name(), this.Id(), this.RoomId())
 	this.roomdata.Reset(this)
-
-	// 加载玩家最新数据
-	if bin != nil {
-		this.bin = pb.Clone(bin).(*msg.Serialize)
-		this.OnLoadDB("房间结束")
-		if this.IsOnline() {
-			this.SendUserBase()
-		}
+	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
+	this.OnLoadDB("离开房间")
+	if this.IsOnline() {
+		this.SendMsg(&msg.GW2C_RetLeaveRoom{})
+		this.SendUserBase()
 	}
 }
+
+//// 房间关闭
+//func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
+//	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", this.Name(), this.Id(), this.RoomId(), reason)
+//	if this.IsOnline() { 
+//		this.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(this.RoomId())}) 
+//	}
+//	this.roomdata.Reset(this)
+//	if bin != nil {
+//		this.bin = pb.Clone(bin).(*msg.Serialize)
+//		this.OnLoadDB("房间结束")
+//		if this.IsOnline() { this.SendUserBase() }
+//	}
+//}
+
 
 // 发送德州房间列表
 func (this *GateUser) SendTexasRoomList(rtype int32) {

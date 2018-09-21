@@ -103,53 +103,48 @@ func (this *TanTanLe) IsDestory(now int64) bool {
 
 // 房间销毁
 func (this *TanTanLe) OnDestory(now int64) {
-	log.Info("房间[%d] 游戏结束，模式[%d]", this.Id(), this.Kind())
+	//log.Info("房间[%d] 游戏结束，模式[%d]", this.Id(), this.Kind())
 
-	// 序列化玩家个人数据
-	if this.owner != nil { 
-		this.owner.OnGameEnd(now) 
-	}
+	//// 序列化玩家个人数据
+	//if this.owner != nil { 
+	//	this.owner.OnGameEnd(now) 
+	//}
 
-	// 通知Gate删除房间，回传个人数据
-	msgend := &msg.BT_GameEnd { Roomid:pb.Int64(this.Id()) ,Ownerid:pb.Int64(this.ownerid), Reason:pb.String(this.close_reason)}
-	if this.owner != nil { msgend.Bin = this.owner.PackBin() }
-	this.SendMsg(0, msgend)
+	//// 通知Gate删除房间，回传个人数据
+	//msgend := &msg.BT_GameEnd { Roomid:pb.Int64(this.Id()) ,Ownerid:pb.Int64(this.ownerid), Reason:pb.String(this.close_reason)}
+	//if this.owner != nil { msgend.Bin = this.owner.PackBin() }
+	//this.SendMsg(0, msgend)
 
 
-	// 更新房间数量到redis
-	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
-	Redis().SRem(loadkey, this.Id())
-	log.Info("服务器房间数量[%d]", Redis().SCard(loadkey).Val())
-
+	//// 更新房间数量到redis
+	//loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	//Redis().SRem(loadkey, this.Id())
+	//log.Info("服务器房间数量[%d]", Redis().SCard(loadkey).Val())
 }
 
 
 // 玩家进游戏，游戏开始
 func (this *TanTanLe) OnGameStart() {
-	if this.owner == nil {
-		log.Error("房间[%d] Owner[%d] OnStart 玩家不在房间中", this.id, this.ownerid)
-		return
-	}
+	//if this.owner == nil {
+	//	log.Error("房间[%d] Owner[%d] OnStart 玩家不在房间中", this.id, this.ownerid)
+	//	return
+	//}
 
-	log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetGold())
-	this.tm_start = util.CURTIME()
-
-
-	// 游戏初始化
-	msginit := &msg.BT_GameInit {
-		Roomid:pb.Int64(this.Id()), 
-		Ownerid:pb.Int64(this.ownerid),
-		Gamekind:pb.Int32(this.Kind()), 
-	}
-	this.SendClientMsg(0, msginit)
+	//log.Info("房间[%d] 游戏开始，模式[%d] 玩家金币[%d]", this.Id(), this.Kind(), this.owner.GetGold())
+	//this.tm_start = util.CURTIME()
 
 
-	// 同步玩家数据
-	//this.owner.SendBattleUser()
+	//// 游戏初始化
+	//msginit := &msg.BT_GameInit {
+	//	Roomid:pb.Int64(this.Id()), 
+	//	Ownerid:pb.Int64(this.ownerid),
+	//	Gamekind:pb.Int32(this.Kind()), 
+	//}
+	//this.SendClientMsg(0, msginit)
 
-	// 游戏开始
-	msgstart := &msg.BT_GameStart{Roomid:pb.Int64(this.Id()), Ownerid:pb.Int64(this.ownerid)}
-	this.SendClientMsg(0, msgstart)
+	//// 游戏开始
+	//msgstart := &msg.BT_GameStart{Roomid:pb.Int64(this.Id()), Ownerid:pb.Int64(this.ownerid)}
+	//this.SendClientMsg(0, msgstart)
 }
 
 // 游戏结束
