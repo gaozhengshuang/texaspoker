@@ -26,9 +26,10 @@ type IRoomBase interface {
 
 	SendUserMsg(userid int64, msg pb.Message)
 	SendGateMsg(userid int64, msg pb.Message)
-	BroadCastUserMsg(msg pb.Message, except ...int64)
-	BroadCastGateMsg(msg pb.Message, except ...int64)
+	BroadCastMemberGateMsg(msg pb.Message, except ...int64)
+	BroadCastMemberMsg(msg pb.Message, except ...int64)
 	BroadCastWatcherMsg(msg pb.Message, except ...int64)
+	BroadCastRoomMsg(msg pb.Message, except ...int64)
 
 	Destory(delay int64)
 	IsDestory(now int64) bool
@@ -95,7 +96,7 @@ func (r *RoomBase) SendUserMsg(userid int64, m pb.Message) {
 	}
 }
 
-func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...int64) {
+func (r *RoomBase) BroadCastMemberGateMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
 		for _, exc := range except {
@@ -105,7 +106,7 @@ func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...int64) {
 	}
 }
 
-func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...int64) {
+func (r *RoomBase) BroadCastMemberMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
 		for _, exc := range except {
@@ -123,6 +124,11 @@ func (r *RoomBase) BroadCastWatcherMsg(m pb.Message, except ...int64) {
 		}
 		u.SendClientMsg(m)
 	}
+}
+
+func (r *RoomBase) BroadCastRoomMsg(msg pb.Message, except ...int64) {
+	r.BroadCastMemberMsg(msg, except...)
+	r.BroadCastWatcherMsg(msg, except...)
 }
 
 func IsTexasRoomBaseType(subkind int32) bool {
