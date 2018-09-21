@@ -102,7 +102,7 @@ class RecordAudioManager
 	 */
 	private static UploadAmrRecordData()
 	{
-		let url: string = ProjectDefined.GetInstance().getVoiceUpLoadUrl();
+		let url: string = ProjectDefined.getVoiceUpLoadUrl();
 		let guid: string = RecordAudioManager._armGuid;
 		let path: string = RecordAudioManager._updatePath;
 		let armTime: number = RecordAudioManager._armTime;
@@ -144,7 +144,7 @@ class RecordAudioManager
 	 */
 	public static DownloadAmrData(path: string, guid: string, time: number)
 	{
-		let url: string = ProjectDefined.GetInstance().getStorageHost();
+		let url: string = ProjectDefined.storage_host;
 		url += path;
 		RecordAudioManager.isDownloading = true;
 		let tmpGuid: string = guid;
@@ -304,7 +304,7 @@ class RecordAudioManager
 	 */
 	public static removeAuidoData(info: ChatInfo)
 	{
-		let url: string = ProjectDefined.GetInstance().getStorageHost();
+		let url: string = ProjectDefined.storage_host;
 		url += info.param[3];
 		RES.destroyRes(url);
 	}

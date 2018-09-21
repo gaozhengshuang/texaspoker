@@ -30,11 +30,11 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		{
 			if (appendData && appendData.endTime)
 			{
-				this._starTime = ProjectDefined.GetInstance().MTTBuyTimeoutClient + appendData.endTime;
+				this._starTime = ProjectDefined.MTTBuyTimeoutClient + appendData.endTime;
 			}
 			else
 			{
-				this._starTime = ProjectDefined.GetInstance().MTTBuyTimeoutClient + GamblingManager.roomInfo.endTime;
+				this._starTime = ProjectDefined.MTTBuyTimeoutClient + GamblingManager.roomInfo.endTime;
 			}
 		}
 		this.setInfoUI();

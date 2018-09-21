@@ -31,21 +31,21 @@ module game
                     {
                         UserManager.userInfo.reset();
                     }
-                    UserManager.userInfo.copyValueFrom(msg.base);
+                    for (let key in msg.base)
+                    {
+                        UserManager.userInfo.copyValueFrom(msg.base[key]);
+                    }
                     UserManager.userInfo.copyValueFrom(msg.entity);
-
-                    TimeManager.initialize(msg.base);
-
-
+                    TimeManager.initialize(msg.base.statics);
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
-                }, "msg.GW2C_SendUserInfo");
+                }, "msg.GW2C_PushUserInfo");
                 let loginResult: msg.IGW2C_RetLogin = await LoginManager.connectLoginGate(gwResult, LoginManager.loginUserInfo.account);
                 if (loginResult.errcode == "")
                 {
 
                 } else
                 {
-                    NotificationCenter.removeObserver(LoginManager, "msg.GW2C_SendUserInfo");
+                    NotificationCenter.removeObserver(LoginManager, "msg.GW2C_PushUserInfo");
                     LoginManager.showLoginFault("errcode:" + loginResult.errcode);
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, false);
                 }
@@ -62,7 +62,6 @@ module game
         private static connectLoginGate(gwResult: msg.IL2C_RetLogin, account: string = "")
         {
             let d = defer();
-            SocketManager.Close();
             NotificationCenter.once(LoginManager, () =>
             {
                 SocketManager.pollingConnect($gameNetIp.replace("{gamePort}", `${gwResult.gatehost.port}`));
@@ -71,7 +70,7 @@ module game
                     NotificationCenter.once(LoginManager, (data: msg.IGW2C_RetLogin) =>
                     {
                         d.resolve(data);
-                    }, "msg.GW2C_RetLogin");
+                    }, "msg.C2GW_ReqLogin");
 
                     SocketManager.Send("msg.C2GW_ReqLogin", msg.C2GW_ReqLogin.encode({
                         account: account,
@@ -79,6 +78,7 @@ module game
                     }));
                 }, BaseSocket.SOCKET_CONNECT_SUCCESS);
             }, BaseSocket.SOCKET_CONNECT_CLOSE);
+            SocketManager.Close();
             return d.promise();
         }
 
@@ -92,7 +92,7 @@ module game
                 NotificationCenter.once(LoginManager, (data: msg.IL2C_RetLogin) =>
                 {
                     d.resolve(data);
-                }, "msg.L2C_RetLogin");
+                }, "msg.C2L_ReqLogin");
             }, BaseSocket.SOCKET_CONNECT_SUCCESS);
             return d.promise();
         }

@@ -76,7 +76,7 @@ class Channel_ios extends ChannelBase
 		data['type'] = type;
 		data['title'] = title;
 		data['message'] = message;
-		data['url'] = ProjectDefined.GetInstance().getShareWebUrl(GameSetting.AppId, inviteCode);
+		data['url'] = ProjectDefined.getShareWebUrl(GameSetting.AppId, inviteCode);
 		game.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
 	}
 	/**
@@ -164,7 +164,7 @@ class Channel_ios extends ChannelBase
 			orderId = ChannelUtil.GenerateOrder(payId, VersionManager.isServerTest);
 		}
 		let params: string = "orderid=" + orderId + "&receipt=" + receipt + '&bagid=' + bagId;
-		let path: string = ProjectDefined.GetInstance().getPayCallbackUrl(VersionManager.isServerTest);
+		let path: string = ProjectDefined.getPayCallbackUrl(VersionManager.isServerTest);
 		URLLoader.downloadContent(path, this, (data: any) =>
 		{
 			if (data != "21005")

@@ -14791,6 +14791,222 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a BundleBase. */
+    interface IBundleBase {
+
+        /** BundleBase Bundle */
+        Bundle?: (table.IBundleDefine[]|null);
+    }
+
+    /** Represents a BundleBase. */
+    class BundleBase implements IBundleBase {
+
+        /**
+         * Constructs a new BundleBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IBundleBase);
+
+        /** BundleBase Bundle. */
+        public Bundle: table.IBundleDefine[];
+
+        /**
+         * Creates a new BundleBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BundleBase instance
+         */
+        public static create(properties?: table.IBundleBase): table.BundleBase;
+
+        /**
+         * Encodes the specified BundleBase message. Does not implicitly {@link table.BundleBase.verify|verify} messages.
+         * @param message BundleBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IBundleBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BundleBase message, length delimited. Does not implicitly {@link table.BundleBase.verify|verify} messages.
+         * @param message BundleBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IBundleBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BundleBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BundleBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.BundleBase;
+
+        /**
+         * Decodes a BundleBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BundleBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.BundleBase;
+
+        /**
+         * Verifies a BundleBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BundleBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BundleBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.BundleBase;
+
+        /**
+         * Creates a plain object from a BundleBase message. Also converts values to other types if specified.
+         * @param message BundleBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.BundleBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BundleBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a BundleDefine. */
+    interface IBundleDefine {
+
+        /** BundleDefine Id */
+        Id?: (number|null);
+
+        /** BundleDefine BundleId */
+        BundleId?: (string|null);
+
+        /** BundleDefine Pay */
+        Pay?: (number|null);
+
+        /** BundleDefine Owenr */
+        Owenr?: (string|null);
+
+        /** BundleDefine Url */
+        Url?: (string|null);
+
+        /** BundleDefine Ios */
+        Ios?: (number|null);
+
+        /** BundleDefine Android */
+        Android?: (number|null);
+    }
+
+    /** Represents a BundleDefine. */
+    class BundleDefine implements IBundleDefine {
+
+        /**
+         * Constructs a new BundleDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IBundleDefine);
+
+        /** BundleDefine Id. */
+        public Id: number;
+
+        /** BundleDefine BundleId. */
+        public BundleId: string;
+
+        /** BundleDefine Pay. */
+        public Pay: number;
+
+        /** BundleDefine Owenr. */
+        public Owenr: string;
+
+        /** BundleDefine Url. */
+        public Url: string;
+
+        /** BundleDefine Ios. */
+        public Ios: number;
+
+        /** BundleDefine Android. */
+        public Android: number;
+
+        /**
+         * Creates a new BundleDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BundleDefine instance
+         */
+        public static create(properties?: table.IBundleDefine): table.BundleDefine;
+
+        /**
+         * Encodes the specified BundleDefine message. Does not implicitly {@link table.BundleDefine.verify|verify} messages.
+         * @param message BundleDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IBundleDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified BundleDefine message, length delimited. Does not implicitly {@link table.BundleDefine.verify|verify} messages.
+         * @param message BundleDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IBundleDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a BundleDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BundleDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.BundleDefine;
+
+        /**
+         * Decodes a BundleDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BundleDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.BundleDefine;
+
+        /**
+         * Verifies a BundleDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BundleDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BundleDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.BundleDefine;
+
+        /**
+         * Creates a plain object from a BundleDefine message. Also converts values to other types if specified.
+         * @param message BundleDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.BundleDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BundleDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GiftProBase. */
     interface IGiftProBase {
 
@@ -15410,6 +15626,192 @@ declare namespace table {
 
         /**
          * Converts this TLevelDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a LoadingTextBase. */
+    interface ILoadingTextBase {
+
+        /** LoadingTextBase LoadingText */
+        LoadingText?: (table.ILoadingTextDefine[]|null);
+    }
+
+    /** Represents a LoadingTextBase. */
+    class LoadingTextBase implements ILoadingTextBase {
+
+        /**
+         * Constructs a new LoadingTextBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ILoadingTextBase);
+
+        /** LoadingTextBase LoadingText. */
+        public LoadingText: table.ILoadingTextDefine[];
+
+        /**
+         * Creates a new LoadingTextBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LoadingTextBase instance
+         */
+        public static create(properties?: table.ILoadingTextBase): table.LoadingTextBase;
+
+        /**
+         * Encodes the specified LoadingTextBase message. Does not implicitly {@link table.LoadingTextBase.verify|verify} messages.
+         * @param message LoadingTextBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ILoadingTextBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified LoadingTextBase message, length delimited. Does not implicitly {@link table.LoadingTextBase.verify|verify} messages.
+         * @param message LoadingTextBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ILoadingTextBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a LoadingTextBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LoadingTextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.LoadingTextBase;
+
+        /**
+         * Decodes a LoadingTextBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LoadingTextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.LoadingTextBase;
+
+        /**
+         * Verifies a LoadingTextBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LoadingTextBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LoadingTextBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.LoadingTextBase;
+
+        /**
+         * Creates a plain object from a LoadingTextBase message. Also converts values to other types if specified.
+         * @param message LoadingTextBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.LoadingTextBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LoadingTextBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a LoadingTextDefine. */
+    interface ILoadingTextDefine {
+
+        /** LoadingTextDefine Id */
+        Id?: (number|null);
+
+        /** LoadingTextDefine Desc */
+        Desc?: (string|null);
+    }
+
+    /** Represents a LoadingTextDefine. */
+    class LoadingTextDefine implements ILoadingTextDefine {
+
+        /**
+         * Constructs a new LoadingTextDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ILoadingTextDefine);
+
+        /** LoadingTextDefine Id. */
+        public Id: number;
+
+        /** LoadingTextDefine Desc. */
+        public Desc: string;
+
+        /**
+         * Creates a new LoadingTextDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LoadingTextDefine instance
+         */
+        public static create(properties?: table.ILoadingTextDefine): table.LoadingTextDefine;
+
+        /**
+         * Encodes the specified LoadingTextDefine message. Does not implicitly {@link table.LoadingTextDefine.verify|verify} messages.
+         * @param message LoadingTextDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ILoadingTextDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified LoadingTextDefine message, length delimited. Does not implicitly {@link table.LoadingTextDefine.verify|verify} messages.
+         * @param message LoadingTextDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ILoadingTextDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a LoadingTextDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LoadingTextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.LoadingTextDefine;
+
+        /**
+         * Decodes a LoadingTextDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LoadingTextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.LoadingTextDefine;
+
+        /**
+         * Verifies a LoadingTextDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LoadingTextDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LoadingTextDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.LoadingTextDefine;
+
+        /**
+         * Creates a plain object from a LoadingTextDefine message. Also converts values to other types if specified.
+         * @param message LoadingTextDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.LoadingTextDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LoadingTextDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

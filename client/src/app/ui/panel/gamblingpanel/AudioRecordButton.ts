@@ -130,7 +130,7 @@ class AudioRecordButton
 	private StopRecordLater()
 	{
 		egret.clearTimeout(this._recordTimer);
-		this._recordTimer = egret.setTimeout(this.cancelOrStopRecording, this, ProjectDefined.GetInstance().getValue(ProjectDefined.chatMaxRecordTime), false);
+		this._recordTimer = egret.setTimeout(this.cancelOrStopRecording, this, ProjectDefined.chatMaxRecordTime, false);
 	}
 	/**
 	 * 录音结束的操作

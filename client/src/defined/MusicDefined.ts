@@ -4,6 +4,7 @@
 class MusicDefined extends BaseDefined<MusicDefinition>
 {
 	private static readonly musicConfig: string = "music";
+	private static _isParsed: boolean = false;
 	private static _instance: MusicDefined;
 	public static GetInstance(): MusicDefined
 	{
@@ -11,30 +12,35 @@ class MusicDefined extends BaseDefined<MusicDefinition>
 		{
 			MusicDefined._instance = new MusicDefined();
 		}
-		if (DefinedManager.IsParsed(MusicDefined.musicConfig) == false)
+
+		if (!MusicDefined._isParsed)
 		{
+			MusicDefined._isParsed = true;
 			MusicDefined._instance.initialize();
 		}
 		return MusicDefined._instance;
 	}
-
+	public getDefinition(id: number)
+	{
+		return new MusicDefinition();
+	}
 	private initialize()
 	{
-		this.dataList = DefinedManager.GetData(MusicDefined.musicConfig) as Array<MusicDefinition>;
-		if (this.dataList)
-		{
-			for (let def of this.dataList)
-			{
-				if (def.boy)
-				{
-					def.boy = def.boy.toString().split(game.StringConstants.Semicolon);
-				}
-				if (def.girl)
-				{
-					def.girl = def.girl.toString().split(game.StringConstants.Semicolon);
-				}
-			}
-		}
+		// this.dataList = DefinedManager.GetData(MusicDefined.musicConfig) as Array<MusicDefinition>;
+		// if (this.dataList)
+		// {
+		// 	for (let def of this.dataList)
+		// 	{
+		// 		if (def.boy)
+		// 		{
+		// 			def.boy = def.boy.toString().split(game.StringConstants.Semicolon);
+		// 		}
+		// 		if (def.girl)
+		// 		{
+		// 			def.girl = def.girl.toString().split(game.StringConstants.Semicolon);
+		// 		}
+		// 	}
+		// }
 	}
 	/**
 	 * 根据性别、行为、牌、获取一个音效，随机

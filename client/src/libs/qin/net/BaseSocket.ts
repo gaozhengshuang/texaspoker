@@ -277,7 +277,7 @@ module game
 			}
 			try
 			{
-				Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "params:", JSON.stringify(info.msg), "- >session:" + info.session);
+				Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "------params:", JSON.stringify(info.msg), "- >session:" + info.session);
 
 				let msgId = this.findMsgId(info.cmdId);
 				if (msgId == 0)
@@ -293,6 +293,7 @@ module game
 				sendMsg.writeShort(msgId); //消息ID
 				sendMsg.writeBytes(dataMsg);
 				this._socket.writeBytes(sendMsg);
+				this._socket.flush();
 			}
 			catch (e)
 			{
@@ -347,7 +348,7 @@ module game
 			let decoded = msg[msgName.slice(4)].decode(cmdDataBA.bytes);
 			if (msgName.indexOf("Push") != -1) //推送协议
 			{
-				this.handleResponse(msgName, decoded, undefined, undefined);
+				this.handleRequest(msgName, decoded, undefined, undefined);
 			}
 			else
 			{
@@ -361,7 +362,7 @@ module game
 						break;
 					}
 				}
-				this.handleRequest(msgName, decoded, undefined, undefined);
+				this.handleResponse(msgName, decoded, undefined, undefined);
 			}
 			NotificationCenter.postNotification(msgName, decoded);
 		}

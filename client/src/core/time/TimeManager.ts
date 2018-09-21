@@ -15,7 +15,7 @@ class TimeManager
 	 * 1970UTC
 	 */
 	public static readonly Utc1970: Date = new Date(1970, 0, 1, 0, 0, 0, 0);
-	public static initialize(data: msg.IUserBase)
+	public static initialize(data: msg.IUserStatistics)
 	{
 		if (data)
 		{

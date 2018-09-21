@@ -19,28 +19,24 @@ class HallScene extends BaseScene
 	{
 		super.initialize();
 	}
-	protected onResourceLoadComplete(event: RES.ResourceEvent)
+	protected onAllResLoadComplete()
 	{
-		super.onResourceLoadComplete(event);
-		if (this._isResLoaded)
+		SceneManager.switchClosePanels();
+		if (this.sceneInfo.extendData)
 		{
-			SceneManager.switchClosePanels();
-			if (this.sceneInfo.extendData)
+			if (this.sceneInfo.extendData.action == SceneSwitchAction.RepleacePanel)
 			{
-				if (this.sceneInfo.extendData.action == SceneSwitchAction.RepleacePanel)
-				{
-					UIManager.showPanel(this.sceneInfo.extendData.panel, this.sceneInfo.extendData.params);
-				}
-				else if (this.sceneInfo.extendData.action == SceneSwitchAction.OpenPanel)
-				{
-					UIManager.showPanel(UIModuleName.GameHallPanel, this.sceneInfo.extendData);
-				}
+				UIManager.showPanel(this.sceneInfo.extendData.panel, this.sceneInfo.extendData.params);
 			}
-			else
+			else if (this.sceneInfo.extendData.action == SceneSwitchAction.OpenPanel)
 			{
-				UIManager.showPanel(UIModuleName.GameHallPanel);
+				UIManager.showPanel(UIModuleName.GameHallPanel, this.sceneInfo.extendData);
 			}
-			this.LoadCompleteEvent.dispatch(this);
 		}
+		else
+		{
+			UIManager.showPanel(UIModuleName.GameHallPanel);
+		}
+		this.LoadCompleteEvent.dispatch(this);
 	}
 }

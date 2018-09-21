@@ -85,7 +85,7 @@ message UserStatistics {
     optional int32 totalrecharge = 5;  // 总充值
 }
 
-// 杂项数据(单条)
+// 杂项数据
 message UserMiscData {
     optional string invitationcode = 3; // 邀请码
 }
